@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <url>http://dozer.sourceforge.net</url>
   <description>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
-  <version>3.0.1</version>
+  <version>3.0</version>
   <name>dozer</name>
   <dependencies>
     <dependency>
@@ -385,9 +385,8 @@
     <url>http://sourceforge.net/tracker/?group_id=133517</url>
   </issueManagement>  
   <scm>
-    <connection>scm:pserver:anonymous@dozer.cvs.sourceforge.net:/cvsroot/dozer</connection>
-    <developerConnection>scm:ext:developername@dozer.cvs.sourceforge.net:/cvsroot/dozer</developerConnection>
+    <connection>scm:svn:https://dozer.svn.sourceforge.net/svnroot/dozer/trunk</connection>
     <tag>HEAD</tag>
-    <url>http://dozer.sourceforge.net/</url>
+    <url>http://dozer.svn.sourceforge.net/viewvc/dozer/</url>
   </scm>  
 </project>		
