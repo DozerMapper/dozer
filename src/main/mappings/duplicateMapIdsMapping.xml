@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+  
+  <mapping map-id="someMapId">
+    <class-a>net.sf.dozer.util.mapping.vo.SuperSuperSuperClass</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SuperSuperSuperClassPrime</class-b>
+  </mapping> 
+  
+
+  <mapping map-id="someMapId">
+    <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime</class-b>
+  </mapping> 
+  
+</mappings>

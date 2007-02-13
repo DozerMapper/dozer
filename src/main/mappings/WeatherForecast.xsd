@@ -1,0 +1,60 @@
+<s:schema elementFormDefault="qualified" targetNamespace="http://www.vo.mapping.util.dozer.sf.net" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.vo.mapping.util.dozer.sf.net">
+  <s:element name="GetWeatherByZipCode">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:element name="GetWeatherByZipCodeResponse">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="1" maxOccurs="1" name="GetWeatherByZipCodeResult" 
+          type="tns:WeatherForecasts" />
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:complexType name="WeatherForecasts">
+    <s:sequence>
+      <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:float" />
+      <s:element minOccurs="1" maxOccurs="1" name="Longitude" type="s:float" />
+      <s:element minOccurs="1" maxOccurs="1" name="AllocationFactor" type="s:float" />
+      <s:element minOccurs="0" maxOccurs="1" name="FipsCode" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="PlaceName" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="StateCode" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="Details" type="tns:ArrayOfWeatherData" />
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="ArrayOfWeatherData">
+    <s:sequence>
+      <s:element minOccurs="0" maxOccurs="unbounded" name="WeatherData" type="tns:WeatherData" />
+    </s:sequence>
+  </s:complexType>
+  <s:complexType name="WeatherData">
+    <s:sequence>
+      <s:element minOccurs="0" maxOccurs="1" name="Day" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="WeatherImage" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="MaxTemperatureF" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="MinTemperatureF" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="MaxTemperatureC" type="s:string" />
+      <s:element minOccurs="0" maxOccurs="1" name="MinTemperatureC" type="s:string" />
+    </s:sequence>
+  </s:complexType>
+  <s:element name="GetWeatherByPlaceName">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="0" maxOccurs="1" name="PlaceName" type="s:string" />
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:element name="GetWeatherByPlaceNameResponse">
+    <s:complexType>
+      <s:sequence>
+        <s:element minOccurs="1" maxOccurs="1" name="GetWeatherByPlaceNameResult" 
+          type="tns:WeatherForecasts" />
+      </s:sequence>
+    </s:complexType>
+  </s:element>
+  <s:element name="WeatherForecasts" type="tns:WeatherForecasts" />
+</s:schema>

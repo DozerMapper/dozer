@@ -1,0 +1,32 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Excluding Fields</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Field Exclusion">
+      <subsection name="Excluding Fields">
+         <p>Dozer supports excluding fields from a mapping using the field-exclude tag. We also
+         support field excludes going one-way as shown in the example.</p>
+         <source>
+           <![CDATA[ 
+<field-exclude> 
+  <a>fieldToExclude</a> 
+  <b>fieldToExclude</b> 
+</field-exclude>           
+
+<field-exclude type="one-way""> 
+  <a>fieldToExclude</a> 
+  <b>fieldToExclude</b> 
+</field-exclude>           
+            ]]>
+          </source>
+      </subsection>        
+    </section>
+  </body>
+</document>

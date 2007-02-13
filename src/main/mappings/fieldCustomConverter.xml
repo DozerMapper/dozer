@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime2</class-b>    
+    <field custom-converter="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter">
+      <a>field1</a>
+      <b>field1Prime</b>
+    </field>
+  </mapping>   
+
+
+</mappings>

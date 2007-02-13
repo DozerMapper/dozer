@@ -1,0 +1,27 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>dozer support</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Support">
+      <subsection name="Looking for support or want to propose an enhancement for the dozer Framework?">
+        <p>
+          For community support or dozer enhancement requests check out the <a href="http://sourceforge.net/forum/?group_id=133517" target="_blank">Support Forums</a>.
+          We value your enhancement suggestions and want to build something of value to the Java community.
+        </p>
+      </subsection>        
+      <subsection name="Think you've found a bug?">
+        <p>
+          Please enter a bug in the <a href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727368" target="_blank">bug tracker</a>.
+          We value your support there.  We can't fix bugs we don't know about!
+        </p>
+      </subsection>        
+    </section>
+  </body>
+</document>

@@ -1,0 +1,84 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>usage</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Configuration">
+      <p>
+        Dozer configuration properties can be customized via an optional Dozer properties file.  
+        By default, Dozer will look for a file named dozer.properties to load configuration properties.
+        If a properties file is not found or specified, default values will be used.
+        <br></br>
+        Dozer is distributed with an example dozer.properties file in /config that shows the various options. Just put the example file in your classpath and customize it.
+        <br></br>
+        An alternative Dozer properties file can be specified via the dozer.configuration system property.
+        <br></br>  
+        ex) -Ddozer.configuration=someDozerConfigurationFile.properties 
+      </p>
+      <p>
+        <b>Dozer Configuration Properties</b>
+      </p>
+      <table border="1">
+        <tr>
+          <th>Property Name</th>
+          <th>Description</th>
+          <th>Valid Values</th>
+          <th>Default</th>
+        </tr>
+        <tr>
+          <td>dozer.statistics.enabled</td>
+          <td>Specifies whether Dozer collects runtime mapping statistics</td>
+          <td>true|false</td>
+          <td>false</td>
+        </tr>
+        <tr>
+          <td>dozer.cache.converter.by.dest.type.maxsize</td>
+          <td>Specifies the max size for one of Dozers internal caches</td>
+          <td>0 - Long.MAX_VALUE</td>
+          <td>5000</td>
+        </tr>
+        <tr>
+          <td>dozer.cache.super.type.maxsize</td>
+          <td>Specifies the max size for one of Dozers internal caches</td>
+          <td>0 - Long.MAX_VALUE</td>
+          <td>5000</td>
+        </tr>
+      </table>
+      
+    </section>
+    <section name="Debugging Initialization">
+      <p>
+        One time Dozer initialization information can be optionally sent to System.out to help with debugging.  
+        <br></br>
+        To enable this additional debugging info, set the dozer.debug system property.
+        <br></br>
+        ex) -Ddozer.debug=true
+        <br></br>
+        Types of information that will be sent to System.out are loading of configuration file, loading of custom xml mapping files, version info, classloader info
+        <br></br>
+      </p>
+      <source>
+        <![CDATA[ 
+dozer:  Trying to find configuration file: dozer.properties
+dozer:  Using URL [file:/C:/srcforge21X/dozer/config/dozer.properties] for global property configuration
+dozer:  Reading properties from URL [file:/C:/srcforge21X/dozer/config/dozer.properties]
+dozer:  Finished configuring global properties
+dozer:  Initializing a new instance of the dozer bean mapper.  Version: 2.3, Thread Name:main
+dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [mapInterfaceMapping.xml, dozerBeanMapping.xml]
+dozer:  Trying to find xml mapping file: mapInterfaceMapping.xml
+dozer:  Using URL [file:/C:/srcforge21X/dozer/mappings/mapInterfaceMapping.xml] to load custom xml mappings
+dozer:  Successfully loaded custom xml mappings from URL: [file:/C:/srcforge21X/dozer/mappings/mapInterfaceMapping.xml]
+dozer:  Trying to find xml mapping file: dozerBeanMapping.xml
+dozer:  Using URL [file:/C:/srcforge21X/dozer/mappings/dozerBeanMapping.xml] to load custom xml mappings
+dozer:  Successfully loaded custom xml mappings from URL: [file:/C:/srcforge21X/dozer/mappings/dozerBeanMapping.xml]         
+        ]]>
+      </source>
+    </section>
+  </body>
+</document>

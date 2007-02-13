@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://jaxb.vo.mapping.util.dozer.sf.net/Employee" xmlns:tns="http://jaxb.vo.mapping.util.dozer.sf.net/Employee">
+  <complexType name="EmployeeType">
+    <sequence>
+      <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"></element>
+      <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"></element>
+      <element name="LastName" type="string" minOccurs="1" maxOccurs="1"></element>
+    </sequence>
+  </complexType>
+
+  <element name="Employee" type="tns:EmployeeType"></element>
+  <element name="EmployeeWithInnerClass">
+    <complexType>
+      <sequence>
+        <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"></element>
+        <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"></element>
+        <element name="LastName" type="string" minOccurs="1" maxOccurs="1"></element>
+        <element name="Address">
+          <complexType>
+            <sequence>
+              <element name="Street" type="string"></element>
+            </sequence>
+          </complexType>
+        </element>
+      </sequence>
+    </complexType>
+  </element>
+</schema>

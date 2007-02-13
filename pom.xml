@@ -1,0 +1,393 @@
+<?xml version="1.0"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.dozer</groupId>
+  <artifactId>dozer</artifactId>
+  <packaging>jar</packaging>
+  <url>http://dozer.sourceforge.net</url>
+  <description>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
+  <version>3.0.1</version>
+  <name>dozer</name>
+  <dependencies>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>1.2.3</version>
+      <scope>provided</scope>      
+    </dependency>
+    <dependency>
+      <groupId>xmlbeans</groupId>
+      <artifactId>xbean</artifactId>
+      <version>2.1.0</version>
+      <scope>test</scope>      
+    </dependency>
+    <dependency>
+      <groupId>xmlbeans</groupId>
+      <artifactId>xbean_xpath</artifactId>
+      <version>2.0.0</version>
+      <scope>test</scope>      
+    </dependency>
+  </dependencies>  
+  <build>
+  		<resources>
+			<resource>
+				<directory>src/site/resources/dtd</directory>
+				<includes>
+					<include>dozerbeanmapping.dtd</include>
+				</includes>				
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/main/mappings</directory>
+			</testResource>
+			<testResource>
+				<directory>src/main/config</directory>
+			</testResource>
+			<testResource>
+				<directory>src/site/resources/dtd</directory>
+			</testResource>
+		</testResources>
+    <plugins>
+       <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>              
+            <executions>
+							<execution>
+								<id>uber-test-jar</id>
+								<phase>process-resources</phase>
+								<configuration>
+									<tasks>
+										<unzip dest="target/test-classes">
+											<fileset dir="src/lib" includes="**/*.jar"/>
+										</unzip>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+            </executions>
+      </plugin>      
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly-with-dependencies</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- append to the packaging phase. -->
+						<goals>
+							<goal>attached</goal> <!-- goals == mojos -->
+						</goals>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+						</configuration>
+					</execution>
+					<execution>
+						<id>make-distrib-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- append to the packaging phase. -->
+						<goals>
+							<goal>attached</goal> <!-- goals == mojos -->
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>src/assembly/src.xml</descriptor>
+							</descriptors>
+						</configuration>
+				 </execution>
+				</executions>        
+			</plugin>    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.4</source>
+          <target>1.4</target>
+        </configuration>
+      </plugin>     
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <instrumentation>
+            <excludes>
+              <exclude>**/*Test.class</exclude>
+            </excludes>
+          </instrumentation>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>  
+    </plugins>    
+  </build>
+  <profiles>
+    <profile>
+      <id>deploy-dozer</id>
+      <build>
+        <plugins>
+					 <plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-antrun-plugin</artifactId>              
+								<configuration>
+										<tasks>
+											<property name="target.dir" value="target" /> 
+											<property name="dozer.src" value="${project.artifactId}-${project.version}-src"/>
+											<!-- FTP to SF upload directory -->
+											<ftp server="upload.sourceforge.net"
+												 remotedir="incoming"
+												 userid="anonymous"
+												 password="me@myorg.com"
+												 verbose="true">
+												<fileset dir="${target.dir}">
+													<include name="${dozer.src}.tar.gz"/>
+													<include name="${dozer.src}.zip"/>
+												</fileset>
+											</ftp>    
+											
+											<property name="host" value="shell.sourceforge.net"/>
+											<property name="dozer.docs.dir" value="/home/groups/d/do/dozer/htdocs"/>
+											<input
+												message="Please enter sf username:"
+												addproperty="username"
+											/>  
+											<input
+												message="Please enter sf password:"
+												addproperty="password"
+											/>  
+											
+											<!-- remove files -->
+											
+											<sshexec host="${host}" 
+															 username="${username}"
+															 password="${password}"
+															 trust="yes"
+															 command="cd ${dozer.docs.dir}; rm -rf *"/>  
+															 
+											<echo message="Done removing files..."/>
+											
+											<tar longfile="gnu" destfile="${target.dir}/site.tar">
+												<tarfileset dir="${target.dir}/site"/>
+											</tar>
+											 
+											<!-- copy file -->
+											<scp todir="${username}:${password}@${host}:${dozer.docs.dir}" file="${target.dir}/site.tar" trust="yes"/>
+									
+											<echo message="Done copying file..."/>
+											
+											<!-- untar and change permissions -->
+											
+											<sshexec host="${host}" 
+															 username="${username}"
+															 password="${password}"
+															 trust="yes"
+															 command="cd ${dozer.docs.dir}; tar xvf site.tar; chmod 777 -R *"/>  
+														 
+											<echo message="Done untarring files..."/>						
+					
+										</tasks>
+									</configuration>
+									<goals>
+										<goal>run</goal>
+									</goals>
+							<dependencies>
+							<dependency>
+								<groupId>commons-net</groupId>
+								<artifactId>commons-net</artifactId>
+								<version>1.4.0</version>
+							</dependency>
+							<dependency>
+								<groupId>oro</groupId>
+								<artifactId>oro</artifactId>
+								<version>2.0.8</version>
+							</dependency>
+						 <dependency>
+							 <groupId>ant</groupId>
+							 <artifactId>ant-commons-net</artifactId>
+							 <version>1.6.5</version>
+						 </dependency>          
+						 <dependency>
+							 <groupId>ant</groupId>
+							 <artifactId>ant-jsch</artifactId>
+							 <version>1.6.5</version>
+						 </dependency>          
+						</dependencies>          
+					</plugin>              
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  <developers>
+    <developer>
+      <name>Franz Garsombke</name>
+      <id>fgarsombke</id>
+      <email>fgarsombke@yahoo.com</email>
+      <url>http://www.jroller.com/page/fgarsombke</url>
+      <roles>
+        <role>Project Lead/Architect</role>
+      </roles>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <name>Matt Tierney</name>
+      <id>mhtierney</id>
+      <email>mhtierney@comcast.net</email>
+      <timezone>-7</timezone>
+      <roles>
+        <role>Project Lead/Architect</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Ben Sullins</name>
+      <id>bgsesr</id>
+      <email>bsullins@sullinscolorado.com</email>
+      <timezone>-7</timezone>
+      <roles>
+        <role>Architect</role>
+      </roles>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>David Baker</name>
+    </contributor>
+    <contributor>
+      <name>Matt Benson</name>
+      <email>gudnabrsam@yahoo.com</email>
+    </contributor>
+    <contributor>
+      <name>Soren Chittka</name>
+    </contributor>
+    <contributor>
+      <name>Peciuch Dominic</name>
+    </contributor>
+    <contributor>
+      <name>Bruno Guedes</name>
+      <email>guedes.bruno@gmail.com</email>
+      <timezone>+1</timezone>
+      <roles>
+        <role>Eclipse Plugin</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Ozzie Gurkan</name>
+    </contributor>
+    <contributor>
+      <name>Rohan Hart</name>
+    </contributor>
+    <contributor>
+      <name>Vincent Jassogne</name>
+    </contributor>
+    <contributor>
+      <name>Wing Tung Leung</name>
+    </contributor>
+    <contributor>
+      <name>Peter Monks</name>
+    </contributor>
+    <contributor>
+      <name>Luke Robinson</name>
+    </contributor>
+    <contributor>
+      <name>Alan Stewart</name>
+    </contributor>
+    <contributor>
+      <name>Gerard Toonstra</name>
+    </contributor>
+    <contributor>
+      <name>Nhat Vo</name>
+    </contributor>
+    <contributor>
+      <name>Rob Volden</name>
+    </contributor>
+    <contributor>
+      <name>Kiersztyn Wojtek</name>
+    </contributor>
+  </contributors> 
+  <organization>
+    <name>dozer</name>
+    <url>http://java.net/</url>
+  </organization>
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>  
+  <reporting>
+    <plugins>    
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-project-info-reports-plugin</artifactId>
+			<reportSets>		  
+				<reportSet>
+						<reports>
+							 <report>dependencies</report>
+							 <report>project-team</report>
+							 <report>issue-tracking</report>
+							 <report>license</report>
+							 <report>scm</report>
+						</reports>
+				 </reportSet>
+			</reportSets>		  
+		 </plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>cobertura-maven-plugin</artifactId>
+      <version>2.0</version>			
+		</plugin>		 
+		<plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-report-plugin</artifactId>
+     </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>     
+    </plugins>
+  </reporting>
+  <issueManagement>
+    <system>Sourceforge</system>
+    <url>http://sourceforge.net/tracker/?group_id=133517</url>
+  </issueManagement>  
+  <scm>
+    <connection>scm:pserver:anonymous@dozer.cvs.sourceforge.net:/cvsroot/dozer</connection>
+    <developerConnection>scm:ext:developername@dozer.cvs.sourceforge.net:/cvsroot/dozer</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://dozer.sourceforge.net/</url>
+  </scm>  
+</project>		

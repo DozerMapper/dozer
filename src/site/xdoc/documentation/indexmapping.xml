@@ -1,0 +1,51 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Indexed Property Mapping</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Indexed Property Mappings">
+      <subsection name="Indexed Property Mapping">
+         <p>Fields that need to be looked up or written to by indexed property are supported.</p>
+         <source>
+           <![CDATA[ 
+<mapping>
+  <class-a>net.sf.dozer.util.mapping.vo.Individuals</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.FlatIndividual</class-b>
+    <field>
+      <a>usernames[0]</a>
+      <b>username1</b>
+    </field>
+    <field>
+      <a>usernames[1]</a>
+      <b>username2</b>
+    </field>
+    <field>
+      <a>individual.username</a>
+      <b>username2</b>
+    </field>
+    <field>
+      <a>secondNames[1]</a>
+      <b>secondName1</b>
+    </field>
+    <field>
+      <a>secondNames[2]</a>
+      <b>secondName2</b>
+    </field>
+    <field>
+      <a>aliases.otherAliases[0]</a>
+      <b>primaryAlias</b>
+    </field>
+</mapping>
+           
+            ]]>
+          </source>
+      </subsection>            
+    </section>
+  </body>
+</document>

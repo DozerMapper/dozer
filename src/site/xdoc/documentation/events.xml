@@ -1,0 +1,68 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Event Listening</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Event Listening">
+      <p>
+        By implementing the DozerEventListener interface dozer allows you to listen to 4 different events:
+        <ul>
+          <li>mappingStarted</li>
+          <li>mappingFinished</li>
+          <li>preWritingDestinationValue</li>
+          <li>postWritingDestinationValue</li>
+        </ul>
+        A DozerEvent object is passed into these callback methods which stores information about the ClassMap, FieldMap, Source object, destination object, and destination value. This will allow you to extend dozer
+        and manipulate mapped objects at run-time. The interface is shown below:
+      </p>
+      <br></br>
+      <source>
+        <![CDATA[ 
+public interface DozerEventListener {
+  public void mappingStarted(DozerEvent event);
+  public void preWritingDestinationValue(DozerEvent event);
+  public void postWritingDestinationValue(DozerEvent event);
+  public void mappingFinished(DozerEvent event);
+}        
+        ]]>
+      </source>   
+      <br></br>
+      <p>The listeners that you create can be injected to the DozerBeanMapper using an IOC like Spring or set
+        directly on your DozerBeanMapper instance by using the setEventListeners() method. Below is an example
+        using Spring to inject an event listener:
+      </p>   
+      <source>
+        <![CDATA[ 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+ "http://www.springframework.org/dtd/spring-beans.dtd">
+          
+<beans default-lazy-init="false">
+          
+ <bean id="EventMapper" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+  <property name="mappingFiles">
+   <list>
+    <value>dozerBeanMapping.xml</value>
+   </list>
+  </property>
+  <property name="eventListeners">
+   <list>
+    <ref bean="eventTestListener"/>
+   </list>
+  </property>
+ </bean>
+          
+ <bean id="eventTestListener" class="net.sf.dozer.util.mapping.event.EventTestListener" singleton="true"/>
+            
+</beans>
+       ]]>
+      </source>   
+    </section>
+  </body>
+</document>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+ <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.index.Mccoy</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.index.MccoyPrime</class-b>
+    <field>
+      <a>stringProperty</a>
+      <b map-get-method="getValue" map-set-method="putValue" key="">fieldValueObjects[0]</b>
+      <b-hint>net.sf.dozer.util.mapping.vo.FieldValue</b-hint> 
+    </field>
+ </mapping>
+
+ <mapping map-id="usingDestHint">
+    <class-a>net.sf.dozer.util.mapping.vo.index.Mccoy</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.index.MccoyPrime</class-b>
+    <field>
+      <a>stringProperty</a>
+      <b>fieldValueObjects[0]</b>
+      <b-hint>net.sf.dozer.util.mapping.vo.FieldValue</b-hint> 
+    </field>
+ </mapping>
+
+</mappings>

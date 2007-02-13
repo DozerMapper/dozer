@@ -1,0 +1,62 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Deep Property Mapping</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Deep Property Mappings">
+      <subsection name="Deep Property Mapping">
+         <p>It is possible to map deep properties. An example would be when you have an object with a String property. Your other object has a String property but it is several levels deep within the object graph. In the example below the DestDeepObj has nested attributes within the object graph that need to be mapped.  Type hints are supported for deep field mappings.
+         The attributes copy-by-reference, type=one-way, and relationship-type can also be used.</p>
+         <source>
+           <![CDATA[ 
+<mapping>
+  <class-a>net.sf.dozer.util.mapping.vo.deep.SrcDeepObj</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.deep.DestDeepObj</class-b>
+    
+  <field>
+    <a>srcNestedObj.src1</a>
+    <b>dest1</b>
+  </field>
+
+  <field>
+    <a>srcNestedObj.src2</a>
+    <b>dest2</b>
+  </field>
+
+  <field>
+    <a>srcNestedObj.srcNestedObj2.src5</a>
+    <b>dest5</b>
+  </field>
+
+  <field><!-- java.util.List to java.util.List -->
+    <a>srcNestedObj.hintList</a>
+    <b>hintList</b>
+    <a-hint>java.lang.String</a-hint>         
+    <b-hint>java.lang.Integer</b-hint> 
+  </field>
+
+  <field>
+    <a>srcNestedObj.hintList2</a>
+    <b>hintList2</b>
+    <a-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClass</a-hint>
+    <b-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClassPrime</b-hint> 
+  </field>
+
+  <field copy-by-reference="true">
+    <a>srcNestedObj.hintList3</a>
+    <b>hintList3</b>
+  </field-deep>
+
+</mapping>  
+            ]]>
+          </source>
+      </subsection>            
+    </section>
+  </body>
+</document>

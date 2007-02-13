@@ -1,0 +1,85 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Custom get() set() Methods</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Custom get() set() Methods">
+      <subsection name="Mapping a field with no get() or set() methods">
+         <p>Use the attribute is-accessible to declare that the field can be accessed directly.  Dozer is able to access private properties that do not have getter or setter methods.</p>
+         <source>
+           <![CDATA[ 
+<field>
+  <a>fieldAccessible</a>
+  <b is-accessible="true">fieldAccessible</b>
+</field>    
+            ]]>
+          </source>
+      </subsection>      
+      <subsection name="Custom Set() and Get() methods (bi-directional)">
+         <p>For those beans that might have unorthodox getter and setter methods, Dozer support user specified setter and getter methods.  To make a bi-directional mapping in this case, look at the following example below.
+         The source field in element A specifies a custom setter method and getter method using attributes.</p>
+         <source>
+           <![CDATA[ 
+<field>
+  <a set-method="placeValue" get-method="buildValue">value</a>
+  <b>value</b>  
+</field>
+            ]]>
+          </source>
+          <p>In this case we are mapping a String to an ArrayList by calling the addIntegerToList() method. Note 
+          that this is defined as a one-way field type since we can not map an ArrayList to a String.
+          </p>
+         <source>
+           <![CDATA[ 
+<field type="one-way"> <!-- we can not map a ArrayList to a String, hence the one-way mapping -->        
+  <a>integerStr</a>
+  <b set-method="addIntegerToList">integerList</b>
+</field>       
+            ]]>
+          </source>
+      </subsection>
+      <subsection name="Overloaded Set() methods (bi-directional)">
+         <p>Sometimes set() methods can be overloaded. In order to chose the correct one you can add the class type as a parameter.</p>
+         <source>
+           <![CDATA[ 
+<field>
+  <a>overloadGetField</a>
+  <b set-method="setOverloadSetField(java.util.Date)">overloadSetField</b>
+</field>    
+            ]]>
+          </source>
+      </subsection>
+      <subsection name="Iterate Method Mapping (bi-directional)">
+         <p>Dozer also supports iterate method level mapping. In the following example the List appleComputers will be iterated through and for each object the method addComptuer will be called.
+         Any field that is denoted as type=iterate requires a hint. The get() method can return an Array, List, or Iterator.
+         </p>
+         <source>
+           <![CDATA[ 
+<field> 
+  <a>appleComputers</a> 
+  <b set-method="addComputer" type="iterate">computers</b> 
+  <b-hint>net.sf.dozer.util.mapping.vo.AppleComputer</b-hint>       
+</field>
+            ]]>
+          </source>
+         <p>Below is an example with iterate methods on both fields.</p>
+         <source>
+           <![CDATA[ 
+<field> 
+  <a set-method="addCar" get-method="myIterateCars" type="iterate">iterateCars</a> 
+  <b set-method="addIterateCar" type="iterate">iterateCars</b> 
+  <a-hint>net.sf.dozer.util.mapping.vo.Car</a-hint>       
+  <b-hint>net.sf.dozer.util.mapping.vo.Car</b-hint>       
+</field>
+            ]]>
+          </source>
+      </subsection>            
+    </section>
+  </body>
+</document>

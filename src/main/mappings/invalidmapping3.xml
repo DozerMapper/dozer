@@ -1,0 +1,17 @@
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+  "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+
+<mappings>
+  
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    
+    <field>
+      <a>one</a>
+      <b></b>
+    </field>
+
+  </mapping>  
+  
+</mappings>

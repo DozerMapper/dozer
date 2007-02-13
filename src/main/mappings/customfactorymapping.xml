@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <configuration>
+     <stop-on-errors>true</stop-on-errors>
+     <wildcard>true</wildcard>
+     <bean-factory>net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory</bean-factory>
+  </configuration>
+  
+  <!-- mapping level factory should override top level factory.  mapping level factory will get applied to both classes-->
+  <mapping bean-factory="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory">
+    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    <field>
+      <a>one</a>
+      <b>onePrime</b>
+    </field>
+    <field>
+      <a>three</a>
+      <b>threePrime</b>
+    </field>
+    <field-exclude>
+      <a>createdByFactoryName</a>
+      <b>createdByFactoryName</b>
+    </field-exclude>    
+  </mapping>
+
+  <!-- class level factory should override top level and mapping level factory. -->
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.InsideTestObject</class-a>
+    <class-b bean-factory="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2" factory-bean-id="someBeanId">net.sf.dozer.util.mapping.vo.InsideTestObjectPrime</class-b>
+    <field-exclude>
+      <a>createdByFactoryName</a>
+      <b>createdByFactoryName</b>
+    </field-exclude>    
+  </mapping>  
+  
+  <mapping>
+    <class-a bean-factory="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory3">net.sf.dozer.util.mapping.vo.MetalThingyIF</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.Van</class-b>
+  </mapping>
+  
+
+</mappings>

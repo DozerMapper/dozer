@@ -1,0 +1,43 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Global Configuration</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Global Configuration">
+      <p>
+      The configuration block is used to set the global default settings.  Also, any Custom Converters are defined in this section.  The configuration block is entirely "optional".  
+      </p>
+      <p>
+      Dozer supports the ability to have multiple mapping files. Each of these mapping files can have their own configuration block. A mapping will 
+      inherit its configuration from the mapping file that it is stored in. <b>Implicit mappings will inherit the default values for configuration.</b>
+      </p>
+      <p>
+      The following is the sample configuration block from the example mappings file:
+      </p>
+      <source>
+        <![CDATA[
+<configuration >
+  <date-format>MM/dd/yyyy HH:mm</date-format>
+  <stop-on-errors>true</stop-on-errors>
+  <wildcard>true</wildcard>
+     
+  <custom-converters> <!-- these are always bi-directional -->
+    <converter type="net.sf.dozer.util.mapping.converters.TestCustomConverter" >
+      <class-a>net.sf.dozer.util.mapping.vo.TestCustomConverterObject</class-a>
+      <class-b>another.type.to.Associate</class-b>
+    </converter>
+     
+  </custom-converters>     
+</configuration>
+       ]]>
+     </source>
+    </section>
+   
+  </body>
+</document>

@@ -1,0 +1,69 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Copying By Object Reference</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Copying By Object Reference">
+      <subsection name="Copying an Object By Reference">
+         <p>Dozer supports copying an object by reference. No conversion/transformation is done.
+         Make sure that both object types are the same or you will run into casting problems. The default value is 'false'.</p>
+         <source>
+           <![CDATA[ 
+<field copy-by-reference="true">
+  <a>copyByReference</a>
+  <b>copyByReferencePrime</b>
+</field>               
+
+            ]]>
+          </source>
+          <p>This is also supported at the class level. Just define the classes you want to be copied by reference in the configuration block.</p>
+         <source>
+  <![CDATA[ 
+<configuration>
+  ...
+   <copy-by-references>
+     <copy-by-reference>
+       net.sf.dozer.util.mapping.vo.NoExtendBaseObjectGlobalCopyByReference
+     </copy-by-reference>
+   </copy-by-references>
+</configuration>
+  ]]>
+          </source>
+      </subsection>
+      <subsection name="Referencing self (this) in a field mapping">
+         <p>Using a field mapping it is possible to map where N == 0 (self, or this). In the following example SimpleAccount is
+         mapped to Address. It is also mapped to Account. Suppose Address was an attribute on Account. How could we map the values
+         on SimpleAccount to that property? The answer is to use the keyword (this) to denote using the class being mapped as the 
+         source object.</p>
+         <source>
+           <![CDATA[ 
+<mapping>
+  <classa>net.sf.dozer.util.mapping.vo.self.SimpleAccount</classa>
+  <classb>net.sf.dozer.util.mapping.vo.self.Account</classb>
+  <field>
+    <a>this</a>
+    <b>address</b>
+  </field>    
+</mapping>
+
+<mapping>
+  <classa>net.sf.dozer.util.mapping.vo.self.SimpleAccount</classa>
+  <classb>net.sf.dozer.util.mapping.vo.self.Address</classb>
+
+  <field>
+    <a>streetName</a>
+    <b>street</b>
+  </field>
+</mapping>  
+            ]]>
+          </source>
+      </subsection>      
+    </section>
+  </body>
+</document>

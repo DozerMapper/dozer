@@ -1,0 +1,59 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Context Based Mapping</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Context Based Mapping">
+    <p>Context based mapping can be specified by using the map-id attribute.  Note that we also support nested context mapping by specifying a map-id at the field level. </p>
+         <source>
+           <![CDATA[ 
+<mapping map-id="caseA">
+   <class-a>net.sf.dozer.util.mapping.vo.context.ContextMapping</class-a>
+   <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingPrime</class-b>
+   <field-exclude>
+     <a>loanNo</a>
+     <b>loanNo</b>
+   </field-exclude>
+   <field map-id="caseC">
+     <a>contextList</a>
+     <b>contextList</b>
+     <b-hint>net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime</b-hint>
+   </field>
+</mapping>
+
+<mapping map-id="caseB">
+  <class-a>net.sf.dozer.util.mapping.vo.context.ContextMapping</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingPrime</class-b>
+</mapping>
+
+<mapping map-id="caseC">
+  <class-a>net.sf.dozer.util.mapping.vo.context.ContextMappingNested</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime</class-b>
+   <field-exclude>
+     <a>loanNo</a>
+     <b>loanNo</b>
+   </field-exclude>
+</mapping>
+
+<mapping map-id="caseD">
+  <class-a>net.sf.dozer.util.mapping.vo.context.ContextMappingNested</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime</class-b>
+</mapping>
+</mappings>
+  ]]>
+         </source>
+    <p> To use a particular context when invoking the Mapper, you simply specify the map-id in your mapping call.</p>
+             <source>
+               <![CDATA[ 
+    ContextMappingPrime cmpA = (ContextMappingPrime) mapper.map(cm, ContextMappingPrime.class, "caseA");
+                ]]>
+             </source>
+    </section>
+  </body>
+</document>

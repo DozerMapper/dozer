@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="false">
+
+  <bean id="EventMapper" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+    <property name="mappingFiles">
+      <list>
+        <value>dozerBeanMapping.xml</value>
+      </list>
+    </property>
+    <property name="eventListeners">
+      <list>
+        <ref bean="eventTestListener"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="eventTestListener" class="net.sf.dozer.util.mapping.event.EventTestListener" singleton="true"/>
+  
+</beans>

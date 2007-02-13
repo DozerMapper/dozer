@@ -1,0 +1,47 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>usage</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="JMX Integration">
+      <p>
+        Dozer can be managed via JMX. The Dozer distibution contains fully functional JMX MBeans.  
+        These MBeans can be found in the net.sf.dozer.util.mapping.jmx package.  To hook into these MBeans,
+        the system using Dozer will just need to register these MBeans with the appropriate JMX server.
+      </p>
+      <p>
+        <b>Dozer JMX MBeans</b>
+      </p>
+      <table border="1">
+        <tr>
+          <th>MBean</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>DozerStatisticsControllerMBean</td>
+          <td>Runtime mapping statistics.  The <a href="./configuration/statistics.html">Statistics</a> 
+          section contains more information on the types of statistics that are available.</td>
+        </tr>
+        <tr>
+          <td>DozerAdminControllerMBean</td>
+          <td>Admin functions</td>
+        </tr>
+      </table>
+      <br></br>
+      <br></br>        
+      <subsection name="Sample JMX Screen Shots">
+        <p>
+          Dozer JMX MBeans via JConsole.....
+        </p>
+        <p><img src="../images/jmx1.gif"/></p>
+        <p><img src="../images/jmx2.gif"/></p>
+      </subsection>
+    </section>
+  </body>
+</document>

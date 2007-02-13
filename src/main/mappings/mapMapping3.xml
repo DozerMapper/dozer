@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+ <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
+ </mapping>
+
+ <mapping>
+    <class-a>java.util.HashMap</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.NestedObjPrime</class-b>
+    <field-exclude>
+       <a>field1</a>
+       <b>field1</b>
+     </field-exclude>
+ </mapping> 
+
+</mappings>

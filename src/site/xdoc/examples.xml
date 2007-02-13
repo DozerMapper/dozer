@@ -1,0 +1,25 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>example</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Examples">
+      <p>
+        There are some sample mapping files under {dozer.home}/src/main/mappings.  These mapping files are used by the Dozer unit tests.
+      </p>
+      <!--
+      <p>
+        Another good area to look is {dozer.home}/samples. This has a classic example of mapping external facing services as well as external service dependencies.
+        The dozerBeanMapping.xml file under samples shows just how easy it is to map a lot of data intensive objects. Most of the mappings are implicit so do not need to 
+        be in the file.
+      </p>
+      -->
+    </section>
+  </body>
+</document>

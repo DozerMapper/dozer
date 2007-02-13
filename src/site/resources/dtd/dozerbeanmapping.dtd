@@ -1,0 +1,97 @@
+<!ELEMENT mappings ( configuration?, mapping* ) >
+
+
+<!ELEMENT mapping ( class-a | class-b | field | field-exclude )* >
+
+<!ATTLIST mapping date-format CDATA #IMPLIED >
+<!ATTLIST mapping stop-on-errors CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping wildcard CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping bean-factory CDATA #IMPLIED>
+<!ATTLIST mapping type (one-way | bi-directional) "bi-directional" >
+<!ATTLIST mapping map-id CDATA #IMPLIED>
+<!ATTLIST mapping is-accessible CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+
+<!ELEMENT class-a ( #PCDATA ) >
+<!ATTLIST class-a bean-factory CDATA #IMPLIED >
+<!ATTLIST class-a factory-bean-id CDATA #IMPLIED >
+<!ATTLIST class-a map-set-method CDATA #IMPLIED >
+<!ATTLIST class-a map-get-method CDATA #IMPLIED >
+<!ATTLIST class-a create-method CDATA #IMPLIED >
+<!ATTLIST class-a map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST class-a map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+
+
+
+<!ELEMENT class-b ( #PCDATA ) >
+<!ATTLIST class-b bean-factory CDATA #IMPLIED >
+<!ATTLIST class-b factory-bean-id CDATA #IMPLIED >
+<!ATTLIST class-b map-set-method CDATA #IMPLIED >
+<!ATTLIST class-b map-get-method CDATA #IMPLIED >
+<!ATTLIST class-b create-method CDATA #IMPLIED >
+<!ATTLIST class-b map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST class-b map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+
+
+<!ELEMENT field ( a, b ,a-hint?, b-hint? ) >
+<!ATTLIST field relationship-type (cumulative  | non-cumulative  ) "cumulative" >
+<!ATTLIST field type (one-way | bi-directional) "bi-directional" >
+<!ATTLIST field map-id CDATA #IMPLIED>
+<!ATTLIST field copy-by-reference CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST field custom-converter CDATA #IMPLIED>
+
+<!ELEMENT field-exclude ( a, b ) >
+<!ATTLIST field-exclude type (one-way | bi-directional) "bi-directional" >
+
+<!ELEMENT a ( #PCDATA ) >
+<!ATTLIST a date-format CDATA #IMPLIED >
+<!ATTLIST a type (iterate | generic ) "generic" >
+<!ATTLIST a set-method CDATA #IMPLIED >
+<!ATTLIST a get-method CDATA #IMPLIED >
+<!ATTLIST a key CDATA #IMPLIED >
+<!ATTLIST a map-set-method CDATA #IMPLIED >
+<!ATTLIST a map-get-method CDATA #IMPLIED >
+<!ATTLIST a is-accessible CDATA #IMPLIED >
+<!ATTLIST a create-method CDATA #IMPLIED>
+
+<!ELEMENT b ( #PCDATA ) >
+<!ATTLIST b date-format CDATA #IMPLIED >
+<!ATTLIST b type (iterate | generic ) "generic" >
+<!ATTLIST b set-method CDATA #IMPLIED >
+<!ATTLIST b get-method CDATA #IMPLIED >
+<!ATTLIST b key CDATA #IMPLIED >
+<!ATTLIST b map-set-method CDATA #IMPLIED >
+<!ATTLIST b map-get-method CDATA #IMPLIED >
+<!ATTLIST b is-accessible CDATA #IMPLIED >
+<!ATTLIST b create-method CDATA #IMPLIED>
+
+<!ELEMENT a-hint ( #PCDATA ) >
+
+<!ELEMENT b-hint ( #PCDATA ) >
+
+<!ELEMENT configuration ( is-accessible?, stop-on-errors?, date-format?, wildcard?, bean-factory?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
+
+<!ELEMENT stop-on-errors ( #PCDATA ) >
+
+<!ELEMENT date-format ( #PCDATA ) >
+
+<!ELEMENT map-null ( #PCDATA ) >
+
+<!ELEMENT map-empty-string ( #PCDATA ) >
+
+<!ELEMENT wildcard ( #PCDATA ) >
+
+<!ELEMENT bean-factory ( #PCDATA ) >
+
+<!ELEMENT custom-converters ( converter+ ) >
+
+<!ELEMENT converter ( class-a, class-b ) >
+<!ATTLIST converter type CDATA #REQUIRED >
+
+<!ELEMENT copy-by-references ( copy-by-reference+ ) >
+<!ELEMENT copy-by-reference ( #PCDATA ) >
+<!ELEMENT is-accessible ( #PCDATA ) >
+
+<!ELEMENT allowed-exceptions ( exception+ ) >
+<!ELEMENT exception ( #PCDATA ) >

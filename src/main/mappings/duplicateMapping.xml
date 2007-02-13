@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <configuration>
+     <stop-on-errors>true</stop-on-errors>
+     <date-format>MM/dd/yyyy HH:mm</date-format> <!-- default dateformat will apply to all class maps unless the class mapping explicitly overrides it -->
+     <wildcard>true</wildcard> <!-- default wildcard policy that will apply to all class maps unless the class mapping explicitly overrides it -->
+     
+  </configuration>
+  
+
+  
+
+  
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.SuperSuperSuperClass</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SuperSuperSuperClassPrime</class-b>
+    
+
+    <field>
+      <a>hydrate</a>
+      <b>dehydrate</b>
+    </field>        
+   
+        
+  </mapping> 
+  
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.SuperSuperSuperClass</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SuperSuperSuperClassPrime</class-b>
+    
+
+    <field>
+      <a>hydrate</a>
+      <b>dehydrate</b>
+    </field>        
+   
+        
+  </mapping> 
+  
+</mappings>

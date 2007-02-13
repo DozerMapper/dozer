@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+<mapping map-id="caseA">
+   <class-a>net.sf.dozer.util.mapping.vo.context.ContextMapping</class-a>
+   <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingPrime</class-b>
+   <field-exclude>
+     <a>loanNo</a>
+     <b>loanNo</b>
+   </field-exclude>
+   <field map-id="caseC">
+     <a>contextList</a>
+     <b>contextList</b>
+     <a-hint>net.sf.dozer.util.mapping.vo.context.ContextMappingNested</a-hint>
+     <b-hint>net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime</b-hint>
+   </field>
+</mapping>
+
+<mapping map-id="caseB">
+  <class-a>net.sf.dozer.util.mapping.vo.context.ContextMapping</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingPrime</class-b>
+</mapping>
+
+<mapping map-id="caseC">
+  <class-a>net.sf.dozer.util.mapping.vo.context.ContextMappingNested</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime</class-b>
+   <field-exclude>
+     <a>loanNo</a>
+     <b>loanNo</b>
+   </field-exclude>
+</mapping>
+
+<mapping map-id="caseD">
+  <class-a>net.sf.dozer.util.mapping.vo.context.ContextMappingNested</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime</class-b>
+</mapping>
+
+
+</mappings>

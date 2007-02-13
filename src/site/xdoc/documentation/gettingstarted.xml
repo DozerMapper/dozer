@@ -1,0 +1,133 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>usage</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Getting Started">
+      <p>
+        <li>Download <a href="http://sourceforge.net/project/showfiles.php?group_id=133517" target="_blank">Dozer</a> and extract the archive.</li>
+        <br></br>
+        <li>Add ${dozer.home}/dist/dozer.jar to your classpath.</li>
+        <br></br>
+        <li>Add <a href="../dependencies.html">required thirdparty runtime jars</a> to your classpath.  Alternatively, you can just use the dozer-full.jar in the {dozer.home}/dist directory. This includes all of the runtime classes needed to run Dozer.</li>
+        <br></br>
+      </p>
+      <br></br>
+      <subsection name="1st Mapping">
+        <p>
+          For your first mapping lets assume that the two data objects share all common attribute names.  
+        </p>
+        <source>
+          <![CDATA[ 
+MapperIF mapper = new DozerBeanMapper();
+DestinationObject destObject = 
+  (DestinationObject) mapper.map(sourceObject, DestinationObject.class);
+          ]]>
+        </source>
+        <p>
+          After performing the Dozer mapping, the result will be a new instance of the destination object that contains values for all fields that have the same 
+          field name as the source object.  If any of the mapped attributes are of different data types, 
+          the Dozer mapping engine will automatically perform data type conversion.  At this point you have completed your first Dozer 
+          mapping.  Later sections will go over how to specify custom mappings via custom xml files.
+          <br></br>          
+          <b>IMPORTANT:</b>  For real-world applications it is not recommended that you create a new instance of the Mapper each time you map objects.  Typically
+          a system will only have one DozerBeanMapper instance per VM.  If you are not using an IOC framework where you can define the 
+          MapperIF as singleton="true", a DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
+        </p>
+      </subsection>
+
+      <br></br>
+      <subsection name="Specifying Custom Mappings via XML">
+        <p>
+          If the two different types of data objects that you are mapping contain any fields that don't share a common property name,
+          you will need to add a class mapping entry to your custom mapping xml file.  These mappings xml files are used at runtime by the Dozer mapping engine. 
+          <br></br>
+	  Dozer automatically performs any type conversion when copying the source field data to the destination field.  The Dozer mapping engine is bi-directional, so if you wanted to map the destination object to the source object, you do not need to add another class mapping to the xml file.
+          <br></br>
+          <b>IMPORTANT:</b> Fields that are of the same name do not need to be specified in the mapping xml file. Dozer automatically maps all fields with the same property name from the source object into the destination object.
+        </p>
+        <source>
+          <![CDATA[ 
+<mapping>
+  <class-a>yourpackage.yourSourceClassName</class-a>
+  <class-b>yourpackage.yourDestinationClassName</class-b>
+    <field>
+      <A>yourSourceFieldName</A>
+      <B>yourDestinationFieldName</B>
+    </field>
+</mapping> 
+          ]]>
+        </source>
+        <p>
+          The complete Dozer mapping xml file would look like the following.  
+          The <a href="./mappings.html">Custom Mappings</a> section contains more information on mapping options that are available to you for more complex use cases.
+        </p>
+        <source>
+          <![CDATA[ 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+  <configuration>
+    <stop-on-errors>true</stop-on-errors>
+    <date-format>MM/dd/yyyy HH:mm</date-format>
+    <wildcard>true</wildcard>
+  </configuration>
+
+  <mapping>
+    <class-a>yourpackage.yourSourceClassName</class-a>
+    <class-b>yourpackage.yourDestinationClassName</class-b>
+      <field>
+        <A>yourSourceFieldName</A>
+        <B>yourDestinationFieldName</B>
+      </field>
+  </mapping> 
+</mappings>
+          ]]>
+        </source>
+      </subsection>
+
+
+      <br></br>
+      <subsection name="Spring Integration">
+        <p>
+          Add the MapperIF bean to your Spring configuration file.  The mappingFiles property is where you would specify any custom dozer mapping files that you have created.  This list can be empty if you didn't have any custom mappings.  
+        </p>
+        <source>
+          <![CDATA[ 
+<bean id="net.sf.dozer.util.mapping.MapperIF" 
+  class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+  <property name="mappingFiles">
+    <list>
+      <value>dozerBeanMapping.xml</value>
+    </list>
+  </property>
+</bean>
+          ]]>
+        </source>
+        <p>
+          <b>IMPORTANT:</b>  Notice that that the Dozer mapper bean is defined as <b>singleton="true"</b>.  You should configure the Mapper instance(s) this way so that you do not have to reload and reinitialize the mapping files for each individual mapping during the lifecycle of your app.
+          Reinitializing the mapping files for each mapping would be inefficent and unnecessary.  The DozerBeanMapper.java class is thread safe.
+        </p>
+        <br></br>
+        <p>
+          Using Spring to retrieve the Dozer Mapper......  
+        </p>
+        <source>
+          <![CDATA[ 
+MapperIF mapper = YourSpringBeanFactory.getBean(MapperIF.class);
+DestinationObject destObject = 
+  (DestinationObject) mapper.map(sourceObject, DestinationObject.class);
+          ]]>
+        </source>
+      </subsection>
+
+    </section>
+  </body>
+</document>

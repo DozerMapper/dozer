@@ -1,0 +1,76 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Dozer</title>
+  </properties>
+  <head>
+    <meta http-equiv="Description" name="Description" content="Dozer is a powerful, yet simple Java Bean to Java Bean mapper." />
+    <meta http-equiv="Keywords" name="Keywords" content="Java Bean Mapper, Java, Mapper, Complex Mapping, Dozer, bean utils" />
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/> 
+    <META HTTP-EQUIV="EXPIRES" CONTENT="-1"/>    
+  </head>  
+  <body>
+    <section name="Dozer">
+      <p>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another.  Typically, these Java Beans will be of different complex types.  </p>
+      <p>Dozer supports simple property mapping, complex type mapping, bi-directional mapping, implicit-explicit mapping, as well as recursive mapping. This includes mapping collection attributes that also need mapping at the element level.</p>
+      <p>Please read the <a href="documentation/about.html">about</a> page for detailed information on Dozer.</p>
+    </section>
+    <section name="Dozer News">
+      <p></p>
+      <h3>Release 3.0 Now available!</h3>
+      <p>This release contains infrastructure upgrades, bug fixes, feature requests, and some performance improvements.</p>
+      <p></p>
+      <p>One thing to note is Custom Converters are now invoked if the src value is null, so just make sure any Custom Converters you have created explicitly handle a null source value.</p>
+      <p></p>
+      <p>Thanks again to everyone submitted bug and feature requests, along with everyone that contributed to the release.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <p></p>
+
+      <p></p>
+      <h3>Release 2.4 Now available!</h3>
+      <p>This release contains bug fixes and feature requests.  One thing to note is that with this release RuntimeExceptions will no longer be wrapped in a MappingException.  Thanks to everyone submitted bugs/feature requests and contributed to the release.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <p></p>
+      <h3>Release 2.3 Now available!</h3>
+      <p>We are back after taking some time to enjoy the unlimited summer activities in the Rockies.  This release focuses on bug fixes, feature requests, and general cleanup/refactoring of the code base.  Thanks to everyone that contributed to the release!</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <p></p>
+      <h3>Release 2.2 Now available!</h3>
+      <p>This release includes runtime statistics support, JMX integration, event listening model, dozer configuration through a properties file, XMLBeans mapping, and a few other things. There is also a few bug fixes.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <h3>Release 2.1 Now available!</h3>
+      <p>This release includes indexed mapping support, bi-directional self mapping and much more. There is also a few bug fixes.</p>
+      <p>Thank you Kiersztyn Wojtek and Peciuch Dominic for your index based mapping code contribution!</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <h3>Release 2.0.1 Now available!</h3>
+      <p>This release had a few new features and a few bug fixes.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <h3>Release 2.0 Now available!</h3>
+      <p>This release was mainly performance based. We have seen a 400% - 800% increase in mapping performance.
+      Check here for our profiling <a href="http://sourceforge.net/forum/forum.php?thread_id=1413981&amp;forum_id=452529">notes</a>.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <h3>Release 1.5.8 Now available!</h3>
+      <p>Removed dependency on Castor. We also added a few more features.</p>
+      <p>Please check here for <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <h3>Release 1.5.7 Now available!</h3>
+      <p>Dozer now supports map-backed properties. This is extremely useful for mapping objects to/from many UI frameworks.
+      The next release of Dozer will focus purely on performance enhancements.</p>
+      <p>Please check here for <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <h3>Release 1.5.6 Now available!</h3>
+      <p>Please check here for <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <h3>Dozer in the Java Developer's Journal!</h3>
+      <p>Dozer is mentioned as a great way to map objects between application layers in the October issue of the <a href="http://jdj.sys-con.com/read/140097_p.htm">JDJ</a></p>
+    </section>
+  </body>
+</document>
