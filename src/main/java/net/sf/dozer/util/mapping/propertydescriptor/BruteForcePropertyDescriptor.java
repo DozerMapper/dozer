@@ -44,7 +44,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class BruteForcePropertyDescriptor implements DozerPropertyDescriptorIF {
 
-  //private static final Logger log = Logger.getLogger(BruteForcePropertyDescriptor.class);
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
   
 
