@@ -8,6 +8,7 @@ You can also define a new classpath variable inside eclipse: From the menu bar, 
 
 
 Run 'mvn clean test' to build and test dozer.
-Run 'mvn clean site install' to build and package dozer.
+Run 'mvn clean install' to build and package dozer.
+Run 'mvn site:site assembly:assembly' to build,package,create site, and assemble deployable
 Run 'mvn -P deploy-dozer' to deploy dozer
 

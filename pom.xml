@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <url>http://dozer.sourceforge.net</url>
   <description>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
-  <version>3.0</version>
+  <version>3.1</version>
   <name>dozer</name>
   <dependencies>
     <dependency>
@@ -98,32 +98,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>make-assembly-with-dependencies</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- append to the packaging phase. -->
-						<goals>
-							<goal>attached</goal> <!-- goals == mojos -->
-						</goals>
-						<configuration>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-						</configuration>
-					</execution>
-					<execution>
-						<id>make-distrib-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- append to the packaging phase. -->
-						<goals>
-							<goal>attached</goal> <!-- goals == mojos -->
-						</goals>
-						<configuration>
-							<descriptors>
-								<descriptor>src/assembly/src.xml</descriptor>
-							</descriptors>
-						</configuration>
-				 </execution>
-				</executions>        
+				<configuration>
+					<descriptors>
+						<descriptor>src/assembly/src.xml</descriptor>
+					</descriptors>
+				</configuration>
 			</plugin>    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

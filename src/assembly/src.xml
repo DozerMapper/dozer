@@ -25,9 +25,5 @@
       <source>target/${project.artifactId}-${project.version}.jar</source>
       <outputDirectory>dist</outputDirectory>
     </file>    
-    <file>
-      <source>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</source>
-      <outputDirectory>dist</outputDirectory>
-    </file>    
   </files> 
 </assembly>

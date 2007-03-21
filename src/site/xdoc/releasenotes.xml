@@ -10,6 +10,26 @@
   </head>  
   <body>
     <section name="Release Notes">
+      <subsection name="v 3.1">
+        <p>Patches</p> 
+        <p>
+          <ul>      
+            <li>Fixed custom converter cache  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644966 &amp;group_id=133517&amp;atid=727368">1644966</a></li>
+          </ul>
+        </p>
+        <p>Bug Fixes</p> 
+        <p>
+          <ul>      
+            <li>Fixed custom converter cache  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644966 &amp;group_id=133517&amp;atid=727368">1644966</a></li>
+          </ul>
+        </p>
+        <p>Feature Requests</p> 
+        <p>
+          <ul>      
+            <li>Upgrade build infrastructure to Maven2  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1651498&amp;group_id=133517&amp;atid=727371">1651498</a></li>
+          </ul>
+        </p>
+      </subsection>                 
       <subsection name="v 3.0">
         <p>Bug Fixes</p> 
         <p>
