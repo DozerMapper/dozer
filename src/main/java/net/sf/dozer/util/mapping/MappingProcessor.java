@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +134,7 @@ public class MappingProcessor implements MapperIF {
   private final Map mappedFields = new HashMap();
 
   private final Cache converterByDestTypeCache;
-
+  
   private final Cache superTypeCache;
 
   public MappingProcessor(Map mappings, Configuration globalConfiguration, CacheManagerIF cacheMgr,
@@ -278,7 +279,7 @@ public class MappingProcessor implements MapperIF {
     List parentFieldNames = null;
     if (parentClassMap == null) {
       // check for super classes
-      List superClasses = checkForSuperTypeMapping(sourceClass, destClass);
+      Set superClasses = checkForSuperTypeMapping(sourceClass, destClass);
       // check for interfaces
       superClasses.addAll(classMapFinder.findInterfaceMappings(this.customMappings, sourceClass, destClass));
       if (superClasses != null && superClasses.size() > 0) {
@@ -1069,19 +1070,19 @@ public class MappingProcessor implements MapperIF {
     return theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
   }
 
-  private List checkForSuperTypeMapping(Class sourceClass, Class destClass) {
+  private Set checkForSuperTypeMapping(Class sourceClass, Class destClass) {
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(new Object[] { destClass, sourceClass });
     CacheEntry cacheEntry = superTypeCache.get(cacheKey);
     if (cacheEntry != null) {
-      return (List) cacheEntry.getValue();
+      return (Set) cacheEntry.getValue();
     }
 
     // If no existing cache entry is found, determine super type mapping and
     // store in cache
     Class superSourceClass = sourceClass.getSuperclass();
     Class superDestClass = destClass.getSuperclass();
-    List superClasses = new ArrayList();
+    Set superClasses = new HashSet();
     boolean stillHasSuperClasses = true;
     while (stillHasSuperClasses) {
       if ((superSourceClass != null && !superSourceClass.getName().equals("java.lang.Object"))
@@ -1121,15 +1122,16 @@ public class MappingProcessor implements MapperIF {
 
     // multiple levels of custom mapping processed in wrong order - need to
     // reverse
-    Collections.reverse(superClasses);
+    // Do we still need to reverse? I have no idea...
+    //Collections.reverse(superClasses);
     // Add to cache
-    cacheEntry = new CacheEntry(cacheKey, (ArrayList) superClasses);
+    cacheEntry = new CacheEntry(cacheKey, (Set) superClasses);
     superTypeCache.put(cacheEntry);
 
     return superClasses;
   }
 
-  private List processSuperTypeMapping(List superClasses, Object sourceObj, Object destObj, Class sourceClass,
+  private List processSuperTypeMapping(Set superClasses, Object sourceObj, Object destObj, Class sourceClass,
       FieldMap parentFieldMap) throws NoSuchMethodException, NoSuchFieldException, ClassNotFoundException,
       IllegalAccessException, InvocationTargetException, InstantiationException {
     List fieldNamesList = new ArrayList();
