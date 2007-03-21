@@ -197,6 +197,7 @@ public class MappingUtils {
     destination.getSourceField().setMapGetMethod(source.getDestField().getMapGetMethod());
     destination.getSourceField().setMapSetMethod(source.getDestField().getMapSetMethod());
     destination.getSourceField().setAccessible(source.getDestField().isAccessible());
+    destination.getDestField().setAccessible(source.getSourceField().isAccessible());    
     if (StringUtils.isNotEmpty(destination.getMapId())) {
       destination.setMapId(source.getMapId());
     }
