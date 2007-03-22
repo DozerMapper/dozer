@@ -14,19 +14,22 @@
         <p>Patches</p> 
         <p>
           <ul>      
-            <li>Fixed custom converter cache  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644966 &amp;group_id=133517&amp;atid=727368">1644966</a></li>
+            <li>Bi-direction is-accessible <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664865&amp;group_id=133517&amp;atid=727370">1664865</a></li>
           </ul>
         </p>
         <p>Bug Fixes</p> 
         <p>
           <ul>      
-            <li>Fixed custom converter cache  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644966 &amp;group_id=133517&amp;atid=727368">1644966</a></li>
+            <li>Dramatic Performance Degradation with Interfaces <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1684237&amp;group_id=133517&amp;atid=727368">1684237</a></li>
           </ul>
         </p>
         <p>Feature Requests</p> 
         <p>
           <ul>      
-            <li>Upgrade build infrastructure to Maven2  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1651498&amp;group_id=133517&amp;atid=727371">1651498</a></li>
+            <li>Transparent Java 5 enums support <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1685083&amp;group_id=133517&amp;atid=727371">1685083</a></li>
+            <li>Move dozer to subversion <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1684934&amp;group_id=133517&amp;atid=727371">1684934</a></li>
+            <li>Maven 2 Repo <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1677946&amp;group_id=133517&amp;atid=727371">1677946</a></li>
+            <li>Resolve collection hints from Java 5 generic type information <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1677376&amp;group_id=133517&amp;atid=727371">1677376</a></li>
           </ul>
         </p>
       </subsection>                 

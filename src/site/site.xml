@@ -43,6 +43,7 @@
         <item name="Basic Property Mapping" href="/documentation/simpleproperty.html"/>
         <item name="Excluding Fields" href="/documentation/exclude.html"/>
         <item name="String To Date Mapping" href="/documentation/stringtodatemapping.html"/>
+        <item name="Enum Mapping" href="/documentation/enum.html"/>
         <item name="Collection Mapping" href="/documentation/collectionandarraymapping.html"/>
         <item name="Map Backed Properties" href="/documentation/mapbackedproperty.html"/>        
         <item name="Index Mapping" href="/documentation/indexmapping.html"/>
