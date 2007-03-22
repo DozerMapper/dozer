@@ -23,7 +23,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -499,11 +498,18 @@ public class MappingProcessor implements MapperIF {
     if (mappingUtils.isSupportedCollection(sourceFieldClass) && (mappingUtils.isSupportedCollection(destFieldType))) {
       return mapCollection(srcObj, sourceFieldValue, classMap, fieldMap, destObj);
     }
-
+    if (mappingUtils.isEnum(sourceFieldClass) && (mappingUtils.isEnum(destFieldType))) {
+      return mapEnum(sourceFieldValue, destFieldType);
+    }
     // Default: Map from one custom data object to another custom data object
     return mapCustomObject(fieldMap, destObj, destFieldType, sourceFieldValue);
   }
 
+  private Object mapEnum(Object sourceFieldValue, Class destFieldType) {
+    String name = ((Enum) sourceFieldValue).name(); 
+    return Enum.valueOf(destFieldType, name);
+  }
+  
   private Object mapClassLevelMap(Object srcObj, FieldMap fieldMap, Object sourceFieldValue, Class sourceFieldClass,
       ClassMap classMap, Class destType, Object destObj) throws InvocationTargetException, IllegalAccessException,
       NoSuchFieldException, InstantiationException, ClassNotFoundException, NoSuchMethodException {

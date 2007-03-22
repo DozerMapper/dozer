@@ -49,6 +49,7 @@ public class GenericCollectionMappingTest extends DozerTestBase {
     UserGroup userGroup = new UserGroup();
     userGroup.setName("usergroup name");
     userGroup.setUsers(users);
+    userGroup.setStatus(Status.SUCCESS);
 
     // do mapping
     UserGroupPrime userGroupPrime = (UserGroupPrime) mapper.map(userGroup, UserGroupPrime.class);
@@ -71,6 +72,7 @@ public class GenericCollectionMappingTest extends DozerTestBase {
     assertEquals(2, usersPrime.size());
     assertTrue("Expecting instance of UserPrime.", usersPrime.get(0) instanceof UserPrime);
     assertTrue("Expecting instance of UserPrime.", usersPrime.get(1) instanceof UserPrime);
+    assertEquals("SUCCESS", userGroupPrime.getStatusPrime().name());
     
     // Map the other way
     UserGroup userGroupMapBack = (UserGroup) mapper.map(userGroupPrime, UserGroup.class);

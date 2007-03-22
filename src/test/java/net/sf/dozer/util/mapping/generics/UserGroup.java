@@ -22,8 +22,15 @@ import java.util.Set;
  * @author garsombke.franz
  *
  */
+
+enum Status {
+  PROCESSING, SUCCESS, ERROR
+}
+
 public class UserGroup {
 
+  private Status status;
+  
 	private String name;
 	
 	private Set<User> users;
@@ -43,5 +50,13 @@ public class UserGroup {
 	public void setUsers(Set<User> aUsers) {
 		users = aUsers;
 	}
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
 
 }

@@ -62,6 +62,10 @@ public class MappingUtils {
     return collection;
   }
 
+  public boolean isEnum(Class aClass) {
+    return aClass.isEnum();
+  }
+
   public boolean isSupportedMap(Class aClass) {
     return Map.class.isAssignableFrom(aClass);
   }
