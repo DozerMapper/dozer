@@ -1,12 +1,3 @@
-You NEED to execute this one time only:
-
-mvn install:install-file -DgroupId=xmlbeans -DartifactId=xmlbeans-jsr173-api -Dversion=2.0-dev -Dpackaging=jar -Dfile=src/lib/jsr173-api-1.0.jar
-
-XMLBeans relies on a jar that is not in the maven remote repository.
-
-
-
-
 Run 'mvn eclipse:eclipse' to build eclipse's .project and .classpath file.
 
 Eclipse needs to know the path to the local maven repository. Therefore the classpath variable M2_REPO has to be set. Execute the following command or add it manually to Eclipse (see below)
