@@ -498,8 +498,10 @@ public class MappingProcessor implements MapperIF {
     if (mappingUtils.isSupportedCollection(sourceFieldClass) && (mappingUtils.isSupportedCollection(destFieldType))) {
       return mapCollection(srcObj, sourceFieldValue, classMap, fieldMap, destObj);
     }
-    if (mappingUtils.isEnum(sourceFieldClass) && (mappingUtils.isEnum(destFieldType))) {
-      return mapEnum(sourceFieldValue, destFieldType);
+    if(GlobalSettings.getInstance().isJava5()) {
+      if (mappingUtils.isEnum(sourceFieldClass) && (mappingUtils.isEnum(destFieldType))) {
+        return mapEnum(sourceFieldValue, destFieldType);
+      }
     }
     // Default: Map from one custom data object to another custom data object
     return mapCustomObject(fieldMap, destObj, destFieldType, sourceFieldValue);
