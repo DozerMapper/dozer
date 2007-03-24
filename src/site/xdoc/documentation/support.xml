@@ -24,13 +24,13 @@
       </subsection>        
       <subsection name="Have a feature request?">
         <p>
-          Please enter a feature request in the <a href="http://sourceforge.net/tracker/?group_id=133517&atid=727371" target="_blank">feature request tracker</a>.
+          Please enter a feature request in the <a href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371" target="_blank">feature request tracker</a>.
           It helps if you attach a patch :)
         </p>
       </subsection>        
       <subsection name="Got a patch?">
         <p>
-          Please submit a patch in the <a href="http://sourceforge.net/tracker/?group_id=133517&atid=727370" target="_blank">patch tracker</a>.
+          Please submit a patch in the <a href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370" target="_blank">patch tracker</a>.
           Along with your patch we need a unit test and any supporting objects and mapping file.
         </p>
       </subsection>        
