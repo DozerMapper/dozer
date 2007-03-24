@@ -103,7 +103,7 @@
 		</dependency>        		
   </dependencies>  
   <build>
-  		<resources>
+  		<resources> 
 			<resource>
 				<directory>src/site/resources/dtd</directory>
 				<includes>
@@ -112,6 +112,9 @@
 			</resource>
 		</resources>
 		<testResources>
+			<testResource>
+				<directory>target/xmlbeans-source</directory>
+			</testResource>
 			<testResource>
 				<directory>src/main/mappings</directory>
 			</testResource>
