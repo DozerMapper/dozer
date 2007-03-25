@@ -141,7 +141,7 @@
         <version>2.0</version>
         <executions>
            <execution>
-              <phase>generate-resources</phase>           
+              <phase>generate-test-resources</phase>           
               <goals>
                  <goal>xmlbeans</goal>
               </goals>
@@ -149,6 +149,7 @@
         </executions>
         <configuration>
            <schemaDirectory>src/main/mappings</schemaDirectory>
+           <classGenerationDirectory>${project.build.directory}/test-classes</classGenerationDirectory>
         </configuration>
       </plugin>			
       <plugin>
