@@ -1128,10 +1128,12 @@ public class MappingProcessor implements MapperIF {
       }
     }// while
 
-    // multiple levels of custom mapping processed in wrong order - need to
-    // reverse
     // Do we still need to reverse? I have no idea...
-    //Collections.reverse(superClasses);
+    // We reversed because of this bug:
+    // http://sourceforge.net/tracker/index.php?func=detail&aid=1346370&group_id=133517&atid=727368 
+    // [ 1346370 ] multiple levels of custom mapping processed in wrong order    
+    // Collections.reverse(superClasses);
+    // All the test cases pass...
     // Add to cache
     cacheEntry = new CacheEntry(cacheKey, (Set) superClasses);
     superTypeCache.put(cacheEntry);
