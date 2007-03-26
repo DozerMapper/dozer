@@ -16,17 +16,11 @@
 package net.sf.dozer.util.mapping;
 
 
-import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import net.pmonks.xml.dozer.test.ChildType;
-import net.sf.dozer.util.mapping.util.CollectionUtils;
-import net.sf.dozer.util.mapping.vo.Child;
-import net.sf.dozer.util.mapping.vo.PrimitiveArrayObj;
-import net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime;
+import net.sf.dozer.util.mapping.vo.deep2.Dest;
+import net.sf.dozer.util.mapping.vo.deep2.Src;
 import net.sf.dozer.util.mapping.vo.km.SomeVo;
 import net.sf.dozer.util.mapping.vo.km.Sub;
 import net.sf.dozer.util.mapping.vo.km.Super;
@@ -36,8 +30,6 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
 import net.sf.dozer.util.mapping.vo.set.SomeDTO;
 import net.sf.dozer.util.mapping.vo.set.SomeOtherDTO;
 import net.sf.dozer.util.mapping.vo.set.SomeVO;
-import net.sf.dozer.util.mapping.vo.deep2.Dest;
-import net.sf.dozer.util.mapping.vo.deep2.Src;
 
 
 /**

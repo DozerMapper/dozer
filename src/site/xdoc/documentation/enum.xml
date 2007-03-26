@@ -1,0 +1,71 @@
+<document>
+  <properties>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Enum Mapping</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
+  </head>  
+  <body>
+    <section name="Enum Mapping">
+      <p>Dozer can map enums.</p>
+      <subsection name="Using JDK 1.5 Enum Mapping">
+         <p>To map an enums value to another enum is shown below.</p>
+         <source>
+           <![CDATA[ 
+		<field>
+		  <!-- testing enums -->
+			<a>status</a>
+			<b>statusPrime</b>
+		</field>
+            ]]>
+          </source>
+     <p>
+         <source>
+           <![CDATA[ 
+enum Status {
+  PROCESSING, SUCCESS, ERROR
+}
+
+public class UserGroup {
+
+  private Status status;
+  
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+}
+
+enum StatusPrime {
+  PROCESSING, SUCCESS, ERROR  
+}
+
+public class UserGroupPrime {
+
+  private StatusPrime statusPrime;
+  
+  public StatusPrime getStatusPrime() {
+    return statusPrime;
+  }
+
+  public void setStatusPrime(StatusPrime statusPrime) {
+    this.statusPrime = statusPrime;
+  }
+
+}
+
+            ]]>
+          </source>
+</p>
+     </subsection>
+
+    </section>
+  </body>
+</document>

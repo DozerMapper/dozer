@@ -172,7 +172,7 @@ public class DozerBeanMapper implements MapperIF {
     synchronized (customMappings) {
       ListOrderedSet customConverterDescriptions = new ListOrderedSet();
       InitLogger.log(log,"Initializing a new instance of the dozer bean mapper.  Version: " + MapperConstants.CURRENT_VERSION
-          + ", Thread Name:" + Thread.currentThread().getName());
+          + ", Thread Name:" + Thread.currentThread().getName() + ", Is this JDK 1.5.x?:" + GlobalSettings.getInstance().isJava5());
 
       if (mappingFiles != null && mappingFiles.size() > 0) {
         InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);

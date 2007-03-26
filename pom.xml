@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <url>http://dozer.sourceforge.net</url>
   <description>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
-  <version>3.0</version>
+  <version>3.1</version>
   <name>dozer</name>
   <dependencies>
     <dependency>
@@ -53,9 +53,57 @@
       <version>2.0.0</version>
       <scope>test</scope>      
     </dependency>
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>1.0</version>
+      <scope>test</scope>      
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.stream</groupId>
+			<artifactId>jsr173_1.0_api</artifactId>
+			<version>1.0</version>
+      <scope>test</scope>      
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>1.0.5</version>
+      <scope>test</scope>      
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-libs</artifactId>
+			<version>1.0.5</version>
+      <scope>test</scope>      
+		</dependency>    
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-xjc</artifactId>
+			<version>1.0.5</version>
+      <scope>test</scope>      
+		</dependency>    
+		<dependency>
+			<groupId>relaxngDatatype</groupId>
+			<artifactId>relaxngDatatype</artifactId>
+			<version>20020414</version>
+      <scope>test</scope>      
+		</dependency>  
+		<dependency>
+			<groupId>stax</groupId>
+			<artifactId>stax</artifactId>
+			<version>1.1.1-dev</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>xmlbeans</groupId>
+					<artifactId>xmlbeans-jsr173-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>        		
   </dependencies>  
   <build>
-  		<resources>
+  		<resources> 
 			<resource>
 				<directory>src/site/resources/dtd</directory>
 				<includes>
@@ -64,6 +112,9 @@
 			</resource>
 		</resources>
 		<testResources>
+			<testResource>
+				<directory>target/xmlbeans-source</directory>
+			</testResource>
 			<testResource>
 				<directory>src/main/mappings</directory>
 			</testResource>
@@ -75,62 +126,38 @@
 			</testResource>
 		</testResources>
     <plugins>
-       <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-antrun-plugin</artifactId>              
-            <executions>
-							<execution>
-								<id>uber-test-jar</id>
-								<phase>process-resources</phase>
-								<configuration>
-									<tasks>
-										<unzip dest="target/test-classes">
-											<fileset dir="src/lib" includes="**/*.jar"/>
-										</unzip>
-									</tasks>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-            </executions>
-      </plugin>      
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>make-assembly-with-dependencies</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- append to the packaging phase. -->
-						<goals>
-							<goal>attached</goal> <!-- goals == mojos -->
-						</goals>
-						<configuration>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-						</configuration>
-					</execution>
-					<execution>
-						<id>make-distrib-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- append to the packaging phase. -->
-						<goals>
-							<goal>attached</goal> <!-- goals == mojos -->
-						</goals>
-						<configuration>
-							<descriptors>
-								<descriptor>src/assembly/src.xml</descriptor>
-							</descriptors>
-						</configuration>
-				 </execution>
-				</executions>        
+				<configuration>
+					<descriptors>
+						<descriptor>src/assembly/src.xml</descriptor>
+					</descriptors>
+				</configuration>
 			</plugin>    
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xmlbeans-maven-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+           <execution>
+              <phase>generate-test-resources</phase>           
+              <goals>
+                 <goal>xmlbeans</goal>
+              </goals>
+           </execution>
+        </executions>
+        <configuration>
+           <schemaDirectory>src/main/mappings</schemaDirectory>
+           <classGenerationDirectory>${project.build.directory}/test-classes</classGenerationDirectory>
+        </configuration>
+      </plugin>			
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.4</source>
-          <target>1.4</target>
+          <source>1.5</source>
+          <target>1.5</target>
         </configuration>
       </plugin>     
       <plugin>
@@ -270,17 +297,12 @@
         <role>Project Lead/Architect</role>
       </roles>
     </developer>
-    <developer>
-      <name>Ben Sullins</name>
-      <id>bgsesr</id>
-      <email>bsullins@sullinscolorado.com</email>
-      <timezone>-7</timezone>
-      <roles>
-        <role>Architect</role>
-      </roles>
-    </developer>
   </developers>
   <contributors>
+    <contributor>
+      <name>Ben Sullins</name>
+      <email>bsullins@sullinscolorado.com</email>
+    </contributor>
     <contributor>
       <name>David Baker</name>
     </contributor>
@@ -384,6 +406,13 @@
     <system>Sourceforge</system>
     <url>http://sourceforge.net/tracker/?group_id=133517</url>
   </issueManagement>  
+  <repositories>
+		<repository>
+			<id>java.net</id>
+			<url>https://maven-repository.dev.java.net/nonav/repository</url>
+			<layout>legacy</layout>
+		</repository>  
+  </repositories>
   <scm>
     <connection>scm:svn:https://dozer.svn.sourceforge.net/svnroot/dozer/trunk</connection>
     <tag>HEAD</tag>

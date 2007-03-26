@@ -62,6 +62,10 @@ public class MappingUtils {
     return collection;
   }
 
+  public boolean isEnum(Class aClass) {
+    return aClass.isEnum();
+  }
+
   public boolean isSupportedMap(Class aClass) {
     return Map.class.isAssignableFrom(aClass);
   }
@@ -197,6 +201,7 @@ public class MappingUtils {
     destination.getSourceField().setMapGetMethod(source.getDestField().getMapGetMethod());
     destination.getSourceField().setMapSetMethod(source.getDestField().getMapSetMethod());
     destination.getSourceField().setAccessible(source.getDestField().isAccessible());
+    destination.getDestField().setAccessible(source.getSourceField().isAccessible());    
     if (StringUtils.isNotEmpty(destination.getMapId())) {
       destination.setMapId(source.getMapId());
     }

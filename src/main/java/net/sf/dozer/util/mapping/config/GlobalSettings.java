@@ -33,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GlobalSettings {
   
+  private static final boolean isJdk5 = System.getProperty("java.vm.version", "1.4").startsWith("1.5");
   private static final Log log = LogFactory.getLog(GlobalSettings.class);
   private static GlobalSettings singleton;
 
@@ -60,6 +61,10 @@ public class GlobalSettings {
   
   protected String getLoadedByFileName() {
     return loadedByFileName;
+  }
+
+  public boolean isJava5() {
+    return isJdk5; 
   }
 
   private synchronized Settings loadSettings() {
