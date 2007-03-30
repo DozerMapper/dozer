@@ -71,10 +71,6 @@
   
         ]]>
      </source>
-
-
-
-
      <p>
      Sample custom converter implementation:
      </p>
@@ -158,6 +154,26 @@ public class TestCustomConverter implements CustomConverter {
 </beans>     
     ]]>
  </source>
+
+    <subsection name="Support for Array Types">
+      <p>
+        You can specify a custom converter for Array types.  For example, if you want to use a custom converter for mapping between an array of objects and a String you would use the following mapping notation.  
+        Dozer generically uses ClassLoader.loadClass() when parsing the mapping files. For arrays, java expects the class name in the following format.... 
+        
+        [Lnet.sf.dozer.util.mapping.vo.SimpleObj; 
+      </p>
+
+      <source>
+        <![CDATA[
+<converter type="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter" > 
+  <class-a>[Lnet.sf.dozer.util.mapping.vo.SimpleObj;</class-a> 
+  <class-b>java.lang.String</class-b> 
+</converter> 
+        ]]>
+     </source>
+
+    </subsection>
+
     </section>    
   </body>
 </document>
