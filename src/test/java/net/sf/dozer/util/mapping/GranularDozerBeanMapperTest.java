@@ -68,6 +68,8 @@ import net.sf.dozer.util.mapping.vo.index.Mccoy;
 import net.sf.dozer.util.mapping.vo.index.MccoyPrime;
 import net.sf.dozer.util.mapping.vo.isaccessible.Foo;
 import net.sf.dozer.util.mapping.vo.isaccessible.FooPrime;
+import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBean;
+import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
 
 /**
  * @author garsombke.franz
@@ -715,7 +717,6 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
   
   public void testCustomFieldMapper() throws Exception {
     CustomFieldMapperIF customFieldMapper = new TestCustomFieldMapper();
-    mapper = getNewMapper(null); 
     ((DozerBeanMapper) mapper).setCustomFieldMapper(customFieldMapper);
     
     String currentTime = String.valueOf(System.currentTimeMillis()); 
@@ -729,6 +730,16 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertNotNull("dest field6 should not be null", dest.getField6());
     assertEquals("dest field1 should have been set by custom field mapper", TestCustomFieldMapper.FIELD_VALUE, dest.getField1());
     assertEquals("dest field6 should NOT have been set by custom field mapper", src.getField6(), dest.getField6());
+  }
+  
+  public void testPrivateConstructor() throws Exception {
+	  PrivateConstructorBean src = PrivateConstructorBean.newInstance();
+	  src.setField1("someValue");
+	  
+	  PrivateConstructorBeanPrime dest = (PrivateConstructorBeanPrime) mapper.map(src, PrivateConstructorBeanPrime.class);
+	  
+	  assertNotNull("dest bean should not be null", dest);
+	  assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
   }
   
   
