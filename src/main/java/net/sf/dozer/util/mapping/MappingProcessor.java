@@ -82,59 +82,27 @@ public class MappingProcessor implements MapperIF {
 
   private static final Log log = LogFactory.getLog(MappingProcessor.class);
 
-  /*
-   * Not Accessible
-   */
   private List superListOfFieldNames = null;
-
   private final transient Map customMappings;
-
   private final Configuration globalConfiguration;
-
   private final List customConverterObjects;// actual converter object instances
-
   private final StatisticsManagerIF statsMgr;
-
   private final EventManagerIF eventMgr;
-
   private final CustomFieldMapperIF customFieldMapper;
-
   private final ClassMapFinder classMapFinder = new ClassMapFinder();
-
   private final MappingUtils mappingUtils = new MappingUtils();
-
   private final ReflectionUtils reflectionUtils = new ReflectionUtils();
-
   private final CollectionUtils collectionUtils = new CollectionUtils();
-
   private final MappingValidator mappingValidator = new MappingValidator();
-
   private final ClassMapBuilder classMapBuilder = new ClassMapBuilder();
-
   private final LogMsgFactory logMsgFactory = new LogMsgFactory();
-
-  private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);// only
-
-  // temp
-  // use
-  // the
-  // static
-  // var.
-  // the
-  // stored
-  // factories
-  // need
-  // to
-  // be
-  // relocated
-
+  private final Map mappedFields = new HashMap();
+  private final Cache converterByDestTypeCache;
+  private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
-  private final Map mappedFields = new HashMap();
-
-  private final Cache converterByDestTypeCache;
-  
-  private final Cache superTypeCache;
+  //The stored factories don't belong in MappingUtils and need to be relocated
+  private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
 
   public MappingProcessor(Map mappings, Configuration globalConfiguration, CacheManagerIF cacheMgr,
       StatisticsManagerIF statsMgr, List customConverterObjects, List eventListeners,
@@ -286,8 +254,7 @@ public class MappingProcessor implements MapperIF {
       }
     }
 
-    // Perform mappings for each field. Iterate through Fields Maps for this
-    // class mapping
+    // Perform mappings for each field. Iterate through Fields Maps for this class mapping
     List fieldMaps = classMap.getFieldMaps();
     int size = fieldMaps.size();
     for (int i = 0; i < size; i++) {
@@ -337,10 +304,8 @@ public class MappingProcessor implements MapperIF {
       }
 
       // If a custom field mapper was specified, then invoke it. If not, or the
-      // custom
-      // field mapper returns false(indicating the field was not actually mapped
-      // by
-      // the custom field mapper), proceed as normal(use Dozer to map the field)
+      // custom field mapper returns false(indicating the field was not actually mapped
+      // by the custom field mapper), proceed as normal(use Dozer to map the field)
       boolean fieldMapped = false;
       if (customFieldMapper != null) {
         fieldMapped = customFieldMapper.mapField(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
@@ -352,8 +317,7 @@ public class MappingProcessor implements MapperIF {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
         } else {
-          // either deep field map or generic map. The is the most likely
-          // scenario
+          // either deep field map or generic map. The is the most likely scenario
           mapFromFieldMap(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
         }
       }
@@ -387,8 +351,7 @@ public class MappingProcessor implements MapperIF {
       FieldMap fieldMapping) throws IllegalAccessException, InvocationTargetException, InvocationTargetException,
       InstantiationException, NoSuchMethodException, ClassNotFoundException, NoSuchFieldException, NoSuchFieldException {
     Class destFieldType = null;
-    // methodmap logic should be encapsulated and figured out at the fieldmap
-    // level
+    // methodmap logic should be encapsulated and figured out at the fieldmap level
     if (fieldMapping instanceof GenericFieldMap && ((GenericFieldMap) fieldMapping).isMethodMap()) {
       destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
     } else {
@@ -435,8 +398,7 @@ public class MappingProcessor implements MapperIF {
     Class converterClass = mappingUtils.determineCustomConverter(fieldMap, converterByDestTypeCache, customConverters,
         sourceFieldClass, destFieldType);
 
-    // 1-2007 mht: Invoke custom converter even if the src value is null.
-    // #1563795
+    // 1-2007 mht: Invoke custom converter even if the src value is null. #1563795
     if (converterClass != null) {
       return mapUsingCustomConverter(converterClass, sourceFieldClass, sourceFieldValue, destFieldType, destObj,
           fieldMap, false);
@@ -452,8 +414,7 @@ public class MappingProcessor implements MapperIF {
       return mapMapToProperty(srcObj, sourceFieldValue, null, fieldMap, destObj, destFieldType, classMap);
     }
 
-    // 1596766 - Recursive object mapping issue. Prevent recursive mapping
-    // infinite loop
+    // 1596766 - Recursive object mapping issue. Prevent recursive mapping infinite loop
     String key = mappingUtils.getMappedFieldKey(sourceFieldValue);
     Object value = mappedFields.get(key);
     if (value != null && value.getClass().equals(destFieldType)) {
@@ -466,15 +427,13 @@ public class MappingProcessor implements MapperIF {
       return sourceFieldValue;
     }
     // if the mapId is not null then it means we are mapping a Class Level Map
-    // Backed Property
-    // in the future the mapId might be used for other things...
+    // Backed Property. In the future the mapId might be used for other things...
     if (fieldMap.getMapId() != null && mappingUtils.validateMap(sourceFieldClass, destFieldType, fieldMap)) {
       return mapCustomObject(fieldMap, destObj, destFieldType, sourceFieldValue);
     }
     if (fieldMap instanceof MapFieldMap && !ignoreClassMap) {
       // we just take the source and set it on the Map - if we are mapping in
-      // reverse we need to get the value off of
-      // the map
+      // reverse we need to get the value off of the map
       return mapClassLevelMap(srcObj, fieldMap, sourceFieldValue, sourceFieldClass, classMap, destFieldType, destObj);
     }
     boolean isSourceFieldClassSupportedMap = mappingUtils.isSupportedMap(sourceFieldClass);
@@ -540,19 +499,16 @@ public class MappingProcessor implements MapperIF {
     ClassMap classMap = null;
     // if the field is not null than we don't want a new instance
     if (field == null) {
-      // first check to see if this plain old field map has hints to the actual
-      // type.
+      // first check to see if this plain old field map has hints to the actual type.
       if (fieldMap.getDestinationTypeHint() != null) {
         Class destType = fieldMap.getDestinationTypeHint().getHint();
         // if the destType is null this means that there was more than one hint.
-        // we must
-        // have already set the destType then.
+        // we must have already set the destType then.
         if (destType != null) {
           destFieldType = destType;
         }
       }
-      // Check to see if explicit map-id has been specified for the field
-      // mapping
+      // Check to see if explicit map-id has been specified for the field mapping
       String mapId = null;
       if (fieldMap != null) {
         mapId = fieldMap.getMapId();
@@ -907,8 +863,7 @@ public class MappingProcessor implements MapperIF {
 
     List result = null;
     // don't want to create the list if it already exists.
-    // these maps are special cases which do not fall under what we are
-    // looking for
+    // these maps are special cases which do not fall under what we are looking for
     Object field = fieldMap.doesFieldExist(destObj, destEntryType);
     if (field == null) {
       result = new ArrayList(sourceCollectionValue.size());
@@ -1060,8 +1015,7 @@ public class MappingProcessor implements MapperIF {
       }
     }
     // if converter object instances were not injected, then create new instance
-    // of the
-    // converter for each conversion
+    // of the converter for each conversion
     if (converterInstance == null) {
       converterInstance = customConverterClass.newInstance();
     }
