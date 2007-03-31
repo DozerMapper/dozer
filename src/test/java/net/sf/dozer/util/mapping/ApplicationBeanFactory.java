@@ -30,7 +30,7 @@ import org.springframework.context.access.ContextSingletonBeanFactoryLocator;
 public class ApplicationBeanFactory {
 
   private static BeanFactoryLocator bfl = ContextSingletonBeanFactoryLocator.getInstance();
-  private static BeanFactory beanFactory = bfl.useBeanFactory(MapperConstants.DEFAULT_BEAN_FACTORY).getFactory();
+  private static BeanFactory beanFactory = bfl.useBeanFactory("beanfactory").getFactory();
   
   private ApplicationBeanFactory() {}
 
