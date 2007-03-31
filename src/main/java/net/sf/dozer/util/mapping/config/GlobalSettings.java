@@ -77,29 +77,29 @@ public class GlobalSettings {
       propFileName = MapperConstants.DEFAULT_CONFIG_FILE;
     }
 
-    InitLogger.log(log,"Trying to find configuration file: " + propFileName);
+    InitLogger.log(log,"Trying to find Dozer configuration file: " + propFileName);
     //Load prop file.  Prop file is optional, so if it's not found just use defaults
     Loader loader = new Loader();
     URL url = loader.getResource(propFileName);
     if (url == null) {
-      InitLogger.log(log,"Configuration file not found: " + propFileName + ".  Using defaults for all global properties.");
+      InitLogger.log(log,"Dozer configuration file not found: " + propFileName + ".  Using defaults for all Dozer global properties.");
       return result;
     } else {
-      InitLogger.log(log,"Using URL [" + url + "] for global property configuration");
+      InitLogger.log(log,"Using URL [" + url + "] for Dozer global property configuration");
     }
     
     Properties props = new Properties();
     try {
-      InitLogger.log(log,"Reading properties from URL [" + url + "]");
+      InitLogger.log(log,"Reading Dozer properties from URL [" + url + "]");
       props.load(url.openStream());
     } catch (IOException e) {
-      throw new MappingException("Problem loading properties from URL [" + propFileName + "]", e);
+      throw new MappingException("Problem loading Dozer properties from URL [" + propFileName + "]", e);
     }
     
     //Populate settings from loaded properties
     SettingsHelper.populateSettingsFromProperties(result, props);
     loadedByFileName = propFileName;
-    InitLogger.log(log,"Finished configuring global properties");    
+    InitLogger.log(log,"Finished configuring Dozer global properties");    
     
     return result;
   }
