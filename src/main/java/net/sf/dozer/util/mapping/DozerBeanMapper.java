@@ -37,7 +37,9 @@ import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
 import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
 import net.sf.dozer.util.mapping.util.ClassMapBuilder;
+import net.sf.dozer.util.mapping.util.CustomMappingsLoader;
 import net.sf.dozer.util.mapping.util.InitLogger;
+import net.sf.dozer.util.mapping.util.LoadMappingsResult;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingFileReader;
 import net.sf.dozer.util.mapping.util.MappingUtils;
@@ -62,8 +64,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DozerBeanMapper implements MapperIF {
 
-  //private static final Logge log = Logger.getLogger(DozerBeanMapper.class);
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
+  
+  static {
+    DozerInitializer.init();
+  }
+  
 
   /*
    * Accessible for custom injection
@@ -76,13 +82,10 @@ public class DozerBeanMapper implements MapperIF {
   /*
    * Not accessible for injection
    */
-  private Map customMappings;
-  private Configuration globalConfiguration;
+  private LoadMappingsResult loadMappingsResult;
   //There are no global caches.  Caches are per bean mapper instance
   private final CacheManagerIF cacheManager = DozerCacheManager.createNew();
   private final MappingUtils mappingUtils = new MappingUtils();
-  private final MappingValidator mappingValidator = new MappingValidator();
-  private final ClassMapBuilder classMapBuilder = new ClassMapBuilder();
   
   /*
    * Not accessible for injection.  Global
@@ -136,6 +139,8 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   private void init() {
+    InitLogger.log(log, "Initializing a new instance of the dozer bean mapper.");
+    
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
     cacheManager.addCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE, settings.getConverterByDestTypeCacheMaxSize());
@@ -146,8 +151,10 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   protected MapperIF getMappingProcessor() {
-    MapperIF processor = new MappingProcessor(getCustomMappings(), globalConfiguration, cacheManager,
-        statsMgr, customConverters, getEventListeners(), getCustomFieldMapper());
+    LoadMappingsResult loadMappingsResult = loadCustomMappings();
+    MapperIF processor = new MappingProcessor(loadMappingsResult.getCustomMappings(), 
+        loadMappingsResult.getGlobalConfiguration(), cacheManager, statsMgr, 
+        customConverters, getEventListeners(), getCustomFieldMapper());
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
@@ -158,74 +165,14 @@ public class DozerBeanMapper implements MapperIF {
     return processor;
   }
   
-  private synchronized Map getCustomMappings() {
+  private synchronized LoadMappingsResult loadCustomMappings() {
     //loadCustomMappings() has to be called outside of init() method because the custom converters are injected.
-    if (this.customMappings == null) {
-      this.customMappings = Collections.synchronizedMap(loadCustomMappings()); 
+    if (this.loadMappingsResult == null) {
+      CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
+      this.loadMappingsResult = customMappingsLoader.load(mappingFiles);
     }
-    return this.customMappings;
+    return this.loadMappingsResult;
   }
-
-  private synchronized Map loadCustomMappings() {
-    Map customMappings = new HashMap();
-
-    synchronized (customMappings) {
-      ListOrderedSet customConverterDescriptions = new ListOrderedSet();
-      InitLogger.log(log,"Initializing a new instance of the dozer bean mapper.  Version: " + MapperConstants.CURRENT_VERSION
-          + ", Thread Name:" + Thread.currentThread().getName() + ", Is this JDK 1.5.x?:" + GlobalSettings.getInstance().isJava5());
-
-      if (mappingFiles != null && mappingFiles.size() > 0) {
-        InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
-        Iterator iter = mappingFiles.iterator();
-        while (iter.hasNext()) {
-          String mappingFileName = (String) iter.next();
-          InitLogger.log(log,"Trying to find xml mapping file: " + mappingFileName);
-          URL url = mappingValidator.validateURL(MapperConstants.DEFAULT_PATH_ROOT + mappingFileName);
-          InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
-          MappingFileReader mappingFileReader = new MappingFileReader(url);
-          Mappings mappings = mappingFileReader.read();
-          InitLogger.log(log,"Successfully loaded custom xml mappings from URL: [" + url + "]");
-
-          // the last configuration is the 'global' configuration
-          globalConfiguration = mappings.getConfiguration();
-          // build up the custom converters to make them global
-          if (mappings.getConfiguration() != null && mappings.getConfiguration().getCustomConverters() != null
-              && mappings.getConfiguration().getCustomConverters().getConverters() != null) {
-            Iterator iterator = mappings.getConfiguration().getCustomConverters().getConverters().iterator();
-            while (iterator.hasNext()) {
-              CustomConverterDescription cc = (CustomConverterDescription) iterator.next();
-              customConverterDescriptions.add(cc);
-            }
-          }
-          MappingsParser mappingsParser = new MappingsParser();
-          customMappings.putAll(mappingsParser.parseMappings(mappings));
-        }
-      }
-
-      // Add default mappings using matching property names if wildcard policy
-      // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
-      if (customMappings != null) {
-        classMapBuilder.addDefaultFieldMappings(customMappings);
-      }
-      // iterate through the classmaps and set all of the customconverters on them
-      Iterator keyIter = customMappings.keySet().iterator();
-      while (keyIter.hasNext()) {
-        String key = (String) keyIter.next();
-        ClassMap classMap = (ClassMap) customMappings.get(key);
-        if (classMap.getConfiguration() == null) {
-          classMap.setConfiguration(new Configuration());
-        }
-        if (classMap.getConfiguration().getCustomConverters() != null) {
-          classMap.getConfiguration().getCustomConverters().setConverters(customConverterDescriptions.asList());
-        } else {
-          classMap.getConfiguration().setCustomConverters(new CustomConverterContainer());
-          classMap.getConfiguration().getCustomConverters().setConverters(customConverterDescriptions.asList());
-        }
-      }
-    }
-    return customMappings;
-  }
-
 
   public List getEventListeners() {
     return eventListeners;
