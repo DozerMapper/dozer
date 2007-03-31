@@ -36,9 +36,14 @@ public class GlobalSettings {
   private static final boolean isJdk5 = System.getProperty("java.vm.version", "1.4").startsWith("1.5");
   private static final Log log = LogFactory.getLog(GlobalSettings.class);
   private static GlobalSettings singleton;
-
-  private final Settings settings;
+  
   private String loadedByFileName;
+  
+  private boolean statisticsEnabled = MapperConstants.DEFAULT_STATISTICS_ENABLED;
+  private long converterByDestTypeCacheMaxSize = MapperConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
+  private long superTypesCacheMaxSize = MapperConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
+  private boolean autoregisterJMXBeans = MapperConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
+
 
   public static synchronized GlobalSettings getInstance() {
     if (singleton == null) {
@@ -52,13 +57,9 @@ public class GlobalSettings {
   }
   
   private GlobalSettings() {
-    settings = loadSettings();
+    loadSettings();
   }
 
-  public Settings getSettings() {
-    return settings;
-  }
-  
   protected String getLoadedByFileName() {
     return loadedByFileName;
   }
@@ -66,9 +67,40 @@ public class GlobalSettings {
   public boolean isJava5() {
     return isJdk5; 
   }
+  
+  public boolean isAutoregisterJMXBeans() {
+    return autoregisterJMXBeans;
+  }
+  
+  public void setAutoregisterJMXBeans(boolean autoregisterJMXBeans) {
+    this.autoregisterJMXBeans = autoregisterJMXBeans;
+  }
+  
+  public long getConverterByDestTypeCacheMaxSize() {
+    return converterByDestTypeCacheMaxSize;
+  }
+  
+  public void setConverterByDestTypeCacheMaxSize(long converterByDestTypeCacheMaxSize) {
+    this.converterByDestTypeCacheMaxSize = converterByDestTypeCacheMaxSize;
+  }
+  
+  public boolean isStatisticsEnabled() {
+    return statisticsEnabled;
+  }
+  
+  public void setStatisticsEnabled(boolean statisticsEnabled) {
+    this.statisticsEnabled = statisticsEnabled;
+  }
+  
+  public long getSuperTypesCacheMaxSize() {
+    return superTypesCacheMaxSize;
+  }
+  
+  public void setSuperTypesCacheMaxSize(long superTypesCacheMaxSize) {
+    this.superTypesCacheMaxSize = superTypesCacheMaxSize;
+  }
 
-  private synchronized Settings loadSettings() {
-    Settings result = new Settings();
+  private synchronized void loadSettings() {
     MappingUtils utils = new MappingUtils();    
 
     //Determine prop file name
@@ -83,7 +115,7 @@ public class GlobalSettings {
     URL url = loader.getResource(propFileName);
     if (url == null) {
       InitLogger.log(log,"Dozer configuration file not found: " + propFileName + ".  Using defaults for all Dozer global properties.");
-      return result;
+      return;
     } else {
       InitLogger.log(log,"Using URL [" + url + "] for Dozer global property configuration");
     }
@@ -97,11 +129,27 @@ public class GlobalSettings {
     }
     
     //Populate settings from loaded properties
-    SettingsHelper.populateSettingsFromProperties(result, props);
+    String propValue = props.getProperty(PropertyConstants.STATISTICS_ENABLED);
+    if (propValue != null) {
+      statisticsEnabled = Boolean.valueOf(propValue).booleanValue();
+    }
+    propValue = props.getProperty(PropertyConstants.CONVERTER_CACHE_MAX_SIZE);
+    if (propValue != null) {
+      converterByDestTypeCacheMaxSize =Long.parseLong(propValue);
+    }
+    propValue = props.getProperty(PropertyConstants.SUPERTYPE_CACHE_MAX_SIZE);
+    if (propValue != null) {
+      superTypesCacheMaxSize = Long.parseLong(propValue);
+    }
+    propValue = props.getProperty(PropertyConstants.AUTOREGISTER_JMX_BEANS);
+    if (propValue != null) {
+      autoregisterJMXBeans = Boolean.valueOf(propValue).booleanValue();
+    }
+
+    
     loadedByFileName = propFileName;
     InitLogger.log(log,"Finished configuring Dozer global properties");    
     
-    return result;
   }
   
 }

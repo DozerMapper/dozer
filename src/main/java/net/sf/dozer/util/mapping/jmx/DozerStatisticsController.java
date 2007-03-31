@@ -20,7 +20,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import net.sf.dozer.util.mapping.config.GlobalSettings;
-import net.sf.dozer.util.mapping.config.Settings;
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticEntry;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
@@ -32,18 +31,17 @@ import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
  */
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
   private final StatisticsManagerIF statsMgr = GlobalStatistics.getInstance().getStatsMgr();
-  private final Settings globalSettings = GlobalSettings.getInstance().getSettings();
   
   public void clearAll() {
     statsMgr.clearAll();  
   }
   
   public boolean isStatisticsEnabled() {
-    return globalSettings.isStatisticsEnabled();
+    return GlobalSettings.getInstance().isStatisticsEnabled();
   }
   
   public void setStatisticsEnabled(boolean statisticsEnabled) {
-    globalSettings.setStatisticsEnabled(statisticsEnabled);
+    GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
   
   public long getMappingSuccessCount() {
