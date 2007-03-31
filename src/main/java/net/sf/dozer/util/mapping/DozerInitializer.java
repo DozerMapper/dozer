@@ -24,7 +24,11 @@ public class DozerInitializer {
       InitLogger.log(log, "Initializing Dozer.  Version: "
           + MapperConstants.CURRENT_VERSION + ", Thread Name:" + Thread.currentThread().getName()
           + ", Is this JDK 1.5.x?:" + GlobalSettings.getInstance().isJava5());
-      registerJMXBeans();
+      
+      if (GlobalSettings.getInstance().isAutoregisterJMXBeans()) {
+        registerJMXBeans();
+      }
+      
       isInitialized = true;
     }
   }
