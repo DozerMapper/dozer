@@ -53,9 +53,53 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * @author garsombke.franz
  */
-public class XMLParser extends MapperConstants {
+public class XMLParser {
 
   private static final Log log = LogFactory.getLog(XMLParser.class);
+  
+  // Parsing Elements
+  public static final String CONFIGURATION_ELEMENT = "configuration";
+  public static final String STOP_ON_ERRORS_ELEMENT = "stop-on-errors";
+  public static final String DATE_FORMAT_ELEMENT = "date-format";
+  public static final String WILDCARD_ELEMENT = "wildcard";
+  public static final String CUSTOM_CONVERTERS_ELEMENT = "custom-converters";
+  public static final String COPY_BY_REFERENCES_ELEMENT = "copy-by-references";
+  public static final String COPY_BY_REFERENCE_ELEMENT = "copy-by-reference";
+  public static final String CONVERTER_ELEMENT = "converter";
+  public static final String CLASS_A_ELEMENT = "class-a";
+  public static final String CLASS_B_ELEMENT = "class-b";
+  public static final String MAPPING_ELEMENT = "mapping";
+  public static final String FIELD_ELEMENT = "field";
+  public static final String FIELD_EXCLUDE_ELEMENT = "field-exclude";
+  public static final String A_ELEMENT = "a";
+  public static final String B_ELEMENT = "b";
+  public static final String SOURCE_TYPE_HINT_ELEMENT = "a-hint";
+  public static final String DESTINATION_TYPE_HINT_ELEMENT = "b-hint";
+  public static final String BEAN_FACTORY_ELEMENT = "bean-factory";
+  public static final String IS_ACCESSIBLE_ELEMENT = "is-accessible";
+  public static final String ALLOWED_EXCEPTIONS_ELEMENT = "allowed-exceptions";
+  public static final String ALLOWED_EXCEPTION_ELEMENT = "exception";
+  
+  // Parsing Attributes
+  public static final String TYPE_ATTRIBUTE = "type";
+  public static final String WILDCARD_ATTRIBUTE = "wildcard";
+  public static final String DATE_FORMAT_ATTRIBUTE = "date-format";
+  public static final String RELATIONSHIP_TYPE_ATTRIBUTE = "relationship-type";
+  public static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
+  public static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
+  public static final String THE_GET_METHOD_ATTRIBUTE = "get-method";
+  public static final String STOP_ON_ERRORS_ATTRIBUTE = "stop-on-errors";
+  public static final String MAPID_ATTRIBUTE = "map-id";
+  public static final String MAP_SET_METHOD_ATTRIBUTE = "map-set-method";
+  public static final String MAP_GET_METHOD_ATTRIBUTE = "map-get-method";
+  public static final String KEY_ATTRIBUTE = "key";
+  public static final String BEAN_FACTORY_ATTRIBUTE = "bean-factory";
+  public static final String FACTORY_BEANID_ATTRIBUTE = "factory-bean-id";
+  public static final String IS_ACCESSIBLE_ATTRIBUTE = "is-accessible";
+  public static final String CREATE_METHOD_ATTRIBUTE = "create-method";
+  public static final String MAP_NULL_ATTRIBUTE = "map-null";
+  public static final String MAP_EMPTY_STRING_ATTRIBUTE = "map-empty-string";
+  public static final String CUSTOM_CONVERTER_ATTRIBUTE = "custom-converter";
 
   private final Mappings mappings = new Mappings();
 
