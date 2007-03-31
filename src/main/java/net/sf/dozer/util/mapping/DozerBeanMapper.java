@@ -16,37 +16,22 @@
 package net.sf.dozer.util.mapping;
 
 import java.lang.reflect.Proxy;
-import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.cache.CacheManagerIF;
 import net.sf.dozer.util.mapping.cache.DozerCacheManager;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
-import net.sf.dozer.util.mapping.config.Settings;
-import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
-import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
 import net.sf.dozer.util.mapping.interceptor.StatisticsInterceptor;
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
 import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
-import net.sf.dozer.util.mapping.util.ClassMapBuilder;
 import net.sf.dozer.util.mapping.util.CustomMappingsLoader;
 import net.sf.dozer.util.mapping.util.InitLogger;
 import net.sf.dozer.util.mapping.util.LoadMappingsResult;
 import net.sf.dozer.util.mapping.util.MapperConstants;
-import net.sf.dozer.util.mapping.util.MappingFileReader;
 import net.sf.dozer.util.mapping.util.MappingUtils;
-import net.sf.dozer.util.mapping.util.MappingValidator;
-import net.sf.dozer.util.mapping.util.MappingsParser;
 
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -91,7 +76,6 @@ public class DozerBeanMapper implements MapperIF {
    * Not accessible for injection.  Global
    */
   private static final StatisticsManagerIF statsMgr = GlobalStatistics.getInstance().getStatsMgr();
-  private static final Settings settings = GlobalSettings.getInstance().getSettings();
 
   public DozerBeanMapper() {
     this(null);
@@ -143,8 +127,8 @@ public class DozerBeanMapper implements MapperIF {
     
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
-    cacheManager.addCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE, settings.getConverterByDestTypeCacheMaxSize());
-    cacheManager.addCache(MapperConstants.SUPER_TYPE_CHECK_CACHE, settings.getSuperTypesCacheMaxSize());
+    cacheManager.addCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE, GlobalSettings.getInstance().getConverterByDestTypeCacheMaxSize());
+    cacheManager.addCache(MapperConstants.SUPER_TYPE_CHECK_CACHE, GlobalSettings.getInstance().getSuperTypesCacheMaxSize());
 
     // stats
     statsMgr.increment(StatisticTypeConstants.MAPPER_INSTANCES_COUNT);
