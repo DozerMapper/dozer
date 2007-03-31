@@ -368,7 +368,7 @@ public class MappingProcessor implements MapperIF {
       Class sourceFieldClass = sourceFieldValue != null ? sourceFieldValue.getClass() : fieldMapping
           .getSourceFieldType(sourceObj.getClass());
       destFieldValue = mapUsingCustomConverter(Class.forName(fieldMapping.getCustomConverter()), sourceFieldClass,
-          sourceFieldValue, destFieldType, null, fieldMapping, false);
+          sourceFieldValue, destFieldType, destObj, fieldMapping, false);
     }
 
     writeDestinationValue(destObj, destFieldValue, classMap, fieldMapping);
