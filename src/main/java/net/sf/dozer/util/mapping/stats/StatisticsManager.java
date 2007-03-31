@@ -34,7 +34,7 @@ public final class StatisticsManager implements StatisticsManagerIF {
   private static final Log log = LogFactory.getLog(StatisticsManager.class);
   
   private final Map statisticsMap = new HashMap();
-  private boolean isStatisticsEnabled = GlobalSettings.getInstance().getSettings().isStatisticsEnabled();
+  private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
 
   public StatisticsManager() {
   }
@@ -57,7 +57,7 @@ public final class StatisticsManager implements StatisticsManagerIF {
 
   public void setStatisticsEnabled(boolean statisticsEnabled) {
     this.isStatisticsEnabled = statisticsEnabled;
-    GlobalSettings.getInstance().getSettings().setStatisticsEnabled(statisticsEnabled);
+    GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
   
   public Statistic getStatistic(String statisticType) {
