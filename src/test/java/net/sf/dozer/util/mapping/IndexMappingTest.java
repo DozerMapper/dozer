@@ -82,7 +82,8 @@ public class IndexMappingTest extends DozerTestBase {
     source.setSecondName1("secondName1");
     source.setSecondName2("secondName2");
     source.setPrimaryAlias("aqqq");
-
+    source.setThirdName("thirdName");
+    
     Individuals dest = (Individuals) mapper.map(source, Individuals.class);
 
     assertEquals(source.getUsername1(), dest.getUsernames().get(0));
@@ -92,6 +93,7 @@ public class IndexMappingTest extends DozerTestBase {
     assertEquals(source.getSimpleField(), dest.getSimpleField());
     assertEquals(source.getSecondName1(), dest.getSecondNames()[1]);
     assertEquals(source.getSecondName2(), dest.getSecondNames()[2]);
+    assertEquals(source.getThirdName(), dest.getThirdNameElement1());
   }
 
   public void testMap3() {

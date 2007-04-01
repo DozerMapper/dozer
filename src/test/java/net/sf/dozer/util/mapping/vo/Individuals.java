@@ -24,63 +24,73 @@ import java.util.Set;
  * 
  */
 public class Individuals {
-    private List usernames;
 
-    private Individual individual;
+  private List usernames;
+  private Individual individual;
+  private String simpleField;
+  private String[] secondNames;
+  private Aliases aliases;
+  private Set addressSet;
+  private String[] thirdNames;
 
-    private String simpleField;
+  public List getUsernames() {
+    return usernames;
+  }
 
-    private String[] secondNames;
+  public void setUsernames(List usernames) {
+    this.usernames = usernames;
+  }
 
-    private Aliases aliases;
-    
-    private Set addressSet;
+  public Individual getIndividual() {
+    return individual;
+  }
 
-    public List getUsernames() {
-        return usernames;
-    }
+  public void setIndividual(Individual individual) {
+    this.individual = individual;
+  }
 
-    public void setUsernames(List usernames) {
-        this.usernames = usernames;
-    }
+  public String getSimpleField() {
+    return simpleField;
+  }
 
-    public Individual getIndividual() {
-        return individual;
-    }
+  public void setSimpleField(String simpleField) {
+    this.simpleField = simpleField;
+  }
 
-    public void setIndividual(Individual individual) {
-        this.individual = individual;
-    }
+  public String[] getSecondNames() {
+    return secondNames;
+  }
 
-    public String getSimpleField() {
-        return simpleField;
-    }
+  public void setSecondNames(String[] secondNames) {
+    this.secondNames = secondNames;
+  }
 
-    public void setSimpleField(String simpleField) {
-        this.simpleField = simpleField;
-    }
+  public Aliases getAliases() {
+    return aliases;
+  }
 
-    public String[] getSecondNames() {
-        return secondNames;
-    }
+  public void setAliases(Aliases aliases) {
+    this.aliases = aliases;
+  }
 
-    public void setSecondNames(String[] secondNames) {
-        this.secondNames = secondNames;
-    }
+  public Set getAddressSet() {
+    return addressSet;
+  }
 
-    public Aliases getAliases() {
-        return aliases;
-    }
-
-    public void setAliases(Aliases aliases) {
-        this.aliases = aliases;
-    }
-
-    public Set getAddressSet() {
-      return addressSet;
-    }
-
-    public void setAddressSet(Set addressSet) {
-      this.addressSet = addressSet;
-    }
+  public void setAddressSet(Set addressSet) {
+    this.addressSet = addressSet;
+  }
+  
+  public String getThirdNameElement1() {
+    return this.thirdNames[0];
+  }
+  
+  public String[] getThirdNames() {
+    return thirdNames;
+  }
+  
+  public void setThirdNames(String[] thirdNames) {
+    this.thirdNames = thirdNames;
+  }
+  
 }

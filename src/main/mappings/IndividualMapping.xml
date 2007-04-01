@@ -41,6 +41,11 @@
 			<a>addressSet[0]</a>
 			<b>address</b>
 		</field>
+		<field>
+			<a is-accessible="true">thirdNames[0]</a>
+			<b>thirdName</b>
+		</field>
+		
 	</mapping>
 	
 	<mapping wildcard="false">
