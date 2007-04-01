@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.lang.reflect.Method;
 import net.sf.dozer.util.mapping.DozerTestBase;
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.vo.deep2.Dest;
 
 /**
@@ -26,9 +26,9 @@ import net.sf.dozer.util.mapping.vo.deep2.Dest;
 public class BruteForcePropertyDescriptorTest extends DozerTestBase {
   
   public void testGetReadMethod() throws Exception {
-    Field field = new Field("destField", "generic");
+    DozerField dozerField = new DozerField("destField", "generic");
     
-    StandardPropertyDescriptor pd = new StandardPropertyDescriptor(field);
+    StandardPropertyDescriptor pd = new StandardPropertyDescriptor(dozerField);
     Method method = pd.getReadMethod(Dest.class);
     
     assertNotNull("method should not be null", method);

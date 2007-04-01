@@ -35,8 +35,8 @@ import org.apache.commons.logging.LogFactory;
 public abstract class FieldMap implements Cloneable {
   private static final Log log = LogFactory.getLog(FieldMap.class);
 
-  private Field sourceField;
-  private Field destField;
+  private DozerField sourceField;
+  private DozerField destField;
   private Hint sourceTypeHint;
   private Hint destinationTypeHint;
   private String type;
@@ -167,19 +167,19 @@ public abstract class FieldMap implements Cloneable {
     this.sourceTypeHint = sourceHint;
   }
 
-  public Field getDestField() {
+  public DozerField getDestField() {
     return destField;
   }
 
-  public void setDestField(Field destField) {
+  public void setDestField(DozerField destField) {
     this.destField = destField;
   }
 
-  public Field getSourceField() {
+  public DozerField getSourceField() {
     return sourceField;
   }
 
-  public void setSourceField(Field sourceField) {
+  public void setSourceField(DozerField sourceField) {
     this.sourceField = sourceField;
   }
 

@@ -31,7 +31,7 @@ import net.sf.dozer.util.mapping.fieldmap.CopyByReference;
 import net.sf.dozer.util.mapping.fieldmap.CopyByReferenceContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
@@ -308,8 +308,8 @@ public class XMLParser {
     return Integer.parseInt(fieldName.replaceAll(".*\\[", "").replaceAll("\\]", ""));
   }
 
-  private Field parseField(Element ele) {
-    Field rvalue = null;
+  private DozerField parseField(Element ele) {
+    DozerField rvalue = null;
     String type = null;
     String fieldName;
     String name = (ele.getFirstChild().getNodeValue().trim());
@@ -321,7 +321,7 @@ public class XMLParser {
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
       type = ele.getAttribute(TYPE_ATTRIBUTE);
     }
-    rvalue = new Field(fieldName, type);
+    rvalue = new DozerField(fieldName, type);
     if (isIndexed(name)) {
       rvalue.setIndexed(true);
       rvalue.setIndex(getIndexOfIndexedField(name));

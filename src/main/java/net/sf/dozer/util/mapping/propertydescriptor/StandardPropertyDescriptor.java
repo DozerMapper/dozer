@@ -28,7 +28,7 @@ import java.util.Set;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
@@ -47,15 +47,15 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
   
 
-  private final Field field;
+  private final DozerField dozerField;
   private final ReflectionUtils reflectionUtils = new ReflectionUtils();
   private final CollectionUtils collectionUtils = new CollectionUtils();
   private final MappingUtils mappingUtils = new MappingUtils();
   private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);//only temp use the public static factories.  The factories data needs to be relocated to a better place
   
 
-  public StandardPropertyDescriptor(Field field) {
-    this.field = field;
+  public StandardPropertyDescriptor(DozerField dozerField) {
+    this.dozerField = dozerField;
   }
 
   public Class getPropertyType(Class clazz) {
@@ -72,7 +72,7 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
 
   public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
     try {
-      if (field.getName().indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+      if (dozerField.getName().indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
         if (getPropertyType(bean.getClass()).isPrimitive() && value == null) {
           // do nothing
         } else {
@@ -84,7 +84,7 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
           } catch (Exception e) {
             //if we failed to read the value, assume we must write, and continue...
           }  
-          if (!field.isIndexed()) {
+          if (!dozerField.isIndexed()) {
             getWriteMethod(bean.getClass()).invoke(bean, new Object[] { value });
           } else {
             writeIndexedValue(null, bean, value);
@@ -101,10 +101,10 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
   public Object getPropertyValue(Object bean) {
     Object o = null;
     try {
-      if (field.getName().indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+      if (dozerField.getName().indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
         o = getReadMethod(bean.getClass()).invoke(bean, null);
-        if (field.isIndexed()) {
-          return mappingUtils.getIndexedValue(o, field.getIndex());
+        if (dozerField.isIndexed()) {
+          return mappingUtils.getIndexedValue(o, dozerField.getIndex());
         } else {
           return o;
         }
@@ -133,8 +133,8 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
     }
     
     //If field is indexed, get actual value within the collection at the specified index
-    if (field.isIndexed()) {
-      hierarchyValue = mappingUtils.getIndexedValue(hierarchyValue, field.getIndex()); 
+    if (dozerField.isIndexed()) {
+      hierarchyValue = mappingUtils.getIndexedValue(hierarchyValue, dozerField.getIndex()); 
     }
     
     return hierarchyValue;
@@ -202,11 +202,11 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
     PropertyDescriptor pd = hierarchy[hierarchy.length - 1];
     if (pd.getReadMethod().getReturnType().isPrimitive() && destFieldValue == null) {
     } else {
-      if (!field.isIndexed()) {
+      if (!dozerField.isIndexed()) {
         Method method = pd.getWriteMethod();
-        if(method == null && field.getTheSetMethod() != null) {
+        if(method == null && dozerField.getTheSetMethod() != null) {
           // lets see if we can find a custom method
-          method = reflectionUtils.findAMethod(parentObj.getClass(), field.getTheSetMethod());
+          method = reflectionUtils.findAMethod(parentObj.getClass(), dozerField.getTheSetMethod());
         }
         method.invoke(parentObj, new Object[] { destFieldValue });
       } else {
@@ -216,7 +216,7 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
   }
 
   protected PropertyDescriptor[] getHierarchy(Object obj) {
-    return reflectionUtils.getDeepFieldHierarchy(obj.getClass(), field.getName());
+    return reflectionUtils.getDeepFieldHierarchy(obj.getClass(), dozerField.getName());
   }
 
   public String getReadMethodName(Class clazz) {
@@ -224,7 +224,7 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
     try {
       readMethod = getReadMethod(clazz);
     } catch (MappingException e) {
-      log.debug("Can't find read method for class:" + clazz + " and field:" + field.getName());
+      log.debug("Can't find read method for class:" + clazz + " and field:" + dozerField.getName());
       return "NoReadMethodFound";
     }
     return readMethod.getName();
@@ -236,11 +236,11 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
 
   public Method getReadMethod(Class bean) {
     Method readMethod;
-    if (field.getTheGetMethod() == null) {
-      readMethod = getReadMethod(bean, field.getName());
+    if (dozerField.getTheGetMethod() == null) {
+      readMethod = getReadMethod(bean, dozerField.getName());
     } else {
       try {
-        readMethod = reflectionUtils.findAMethod(bean, field.getTheGetMethod());
+        readMethod = reflectionUtils.findAMethod(bean, dozerField.getTheGetMethod());
       } catch (Exception e) {
         throw new MappingException(e);
       }
@@ -250,11 +250,11 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
 
   public Method getWriteMethod(Class clazz) {
     Method writeMethod;
-    if (field.getTheSetMethod() == null || field.getName().indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
-      writeMethod = getWriteMethod(clazz, field.getName());
+    if (dozerField.getTheSetMethod() == null || dozerField.getName().indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
+      writeMethod = getWriteMethod(clazz, dozerField.getName());
     } else {
       try {
-        writeMethod = reflectionUtils.findAMethod(clazz, field.getTheSetMethod());
+        writeMethod = reflectionUtils.findAMethod(clazz, dozerField.getTheSetMethod());
       } catch (Exception e) {
         throw new MappingException(e);
       }
@@ -265,7 +265,7 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
   protected void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue)
       throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException,
       NoSuchFieldException {
-    int index = field.getIndex();
+    int index = dozerField.getIndex();
     Object o = null;
     if (pd != null) {
       o = pd.getReadMethod().invoke(destObj, null);

@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
@@ -26,17 +26,17 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptorIF getPropertyDescriptor(Field field, Class bean) throws NoSuchFieldException {
+  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class bean) throws NoSuchFieldException {
     DozerPropertyDescriptorIF desc = null;
     // is it 'this'
-    if (field.getName().equals(MapperConstants.SELF_KEYWORD) && field.getTheGetMethod() == null
-        && field.getTheSetMethod() == null) {
+    if (dozerField.getName().equals(MapperConstants.SELF_KEYWORD) && dozerField.getTheGetMethod() == null
+        && dozerField.getTheSetMethod() == null) {
       desc = new SelfPropertyDescriptor(bean);
-    } else if (field.isAccessible()) {
-      desc = new FieldPropertyDescriptor(bean, field.getName(), field.isAccessible());
+    } else if (dozerField.isAccessible()) {
+      desc = new FieldPropertyDescriptor(bean, dozerField.getName(), dozerField.isAccessible());
     } else {
       // it must be a normal bean with normal or custom get/set methods
-      desc = new StandardPropertyDescriptor(field);
+      desc = new StandardPropertyDescriptor(dozerField);
     }
     return desc;
   }
