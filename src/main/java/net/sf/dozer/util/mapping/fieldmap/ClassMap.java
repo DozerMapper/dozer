@@ -41,8 +41,6 @@ public class ClassMap {
   private boolean stopOnErrors = MapperConstants.DEFAULT_ERROR_POLICY;
   private boolean wildcardOveridden = false;
   private boolean stopOnErrorsOveridden = false;
-  private boolean isAccessible;
-  private boolean isAccessibleOverriden;
   private Configuration configuration = new Configuration();
   private String mapId;
   
@@ -196,23 +194,6 @@ public class ClassMap {
 
   public void setMapId(String mapId) {
     this.mapId = mapId;
-  }
-
-  public boolean isAccessible() {
-    return isAccessible;
-  }
-
-  public void setAccessible(boolean isAccessible) {
-    this.isAccessible = isAccessible;
-    this.isAccessibleOverriden = true;
-  }
-
-  public boolean isAccessibleOverriden() {
-    return isAccessibleOverriden;
-  }
-
-  public void setAccessibleOverriden(boolean isAccessibleOverriden) {
-    this.isAccessibleOverriden = isAccessibleOverriden;
   }
 
   public boolean getMapNull() {
