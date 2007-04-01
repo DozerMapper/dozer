@@ -176,7 +176,7 @@ public class ClassMapBuilder {
     PropertyDescriptor[] destProperties = reflectionUtils.getPropertyDescriptors(destClass);
     for (int i = 0; i < destProperties.length; i++) {
       String destFieldName = destProperties[i].getName();
-      PropertyDescriptor sourceProperty = reflectionUtils.getPropertyDescriptor(sourceClass, destFieldName);
+      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
       // if the sourceProperty is null we know that there is not a
       // corresponding property to map to.
       if (destFieldName.equals("class") || sourceProperty == null) {

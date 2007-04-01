@@ -130,14 +130,11 @@ public class MappingUtils {
     return rootCause;
   }
 
-  public String getParentFieldNameKey(String parentSourceField, Object srcObj, String sourceClassName, String srcFieldReadMethodName,
-      String destFieldReadMethodName, String srcFieldName, String destFieldName) {
+  public String getParentFieldNameKey(String parentSourceField, Object srcObj, String sourceClassName, String srcFieldName, String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
     buf.append(parentSourceField);
     buf.append(System.identityHashCode(srcObj));
     buf.append(sourceClassName);
-    buf.append(srcFieldReadMethodName);
-    buf.append(destFieldReadMethodName);
     buf.append(srcFieldName);
     buf.append(destFieldName);
     return buf.toString();
