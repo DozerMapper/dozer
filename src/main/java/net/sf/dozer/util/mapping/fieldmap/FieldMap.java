@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
+import net.sf.dozer.util.mapping.propertydescriptor.GetterSetterPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.PropertyDescriptorFactory;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
@@ -51,16 +52,8 @@ public abstract class FieldMap implements Cloneable {
     return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass);
   }
   
-  private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) throws NoSuchFieldException {
+  private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) throws NoSuchFieldException  {
     return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass);
-  }
-
-  public String getSourceFieldReadMethodName(Class sourceClass) throws NoSuchFieldException {
-    return getSourcePropertyDescriptor(sourceClass).getReadMethodName(sourceClass);
-  }
-
-  public String getDestFieldReadMethodName(Class destClass) throws NoSuchFieldException {
-    return getDestinationPropertyDescriptor(destClass).getReadMethodName(destClass);
   }
 
   public Class getDestHintType(Class sourceClass) {
@@ -77,17 +70,28 @@ public abstract class FieldMap implements Cloneable {
 
   public Class getDestFieldType(Class destClass) throws NoSuchMethodException, ClassNotFoundException,
       NoSuchFieldException {
-    return getDestinationPropertyDescriptor(destClass).getPropertyType(destClass);
+    return getDestinationPropertyDescriptor(destClass).getPropertyType();
   }
   
   public Class getSourceFieldType(Class srcClass) throws NoSuchMethodException, ClassNotFoundException,
       NoSuchFieldException {
-    return getSourcePropertyDescriptor(srcClass).getPropertyType(srcClass);
+    return getSourcePropertyDescriptor(srcClass).getPropertyType();
   }
 
+  /**
+   * @deprecated  As of 3.2 release
+   */
   public Method getDestFieldWriteMethod(Class destClass) throws NoSuchMethodException, ClassNotFoundException,
       NoSuchFieldException {
-    return getDestinationPropertyDescriptor(destClass).getWriteMethod(destClass);
+    //4-07 mht:  The getWriteMethod was removed from the prop descriptor interface.  This was done as part of 
+    //refactoring effort to clean up the prop descriptor stuff.  The underlying write method should not be exposed.
+    //For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this context.
+    //The other types of prop descriptors would have failed.
+    //
+    //TODO: remove this method FieldMap.getDestFieldWriteMethod()
+    
+    DozerPropertyDescriptorIF dpd = getDestinationPropertyDescriptor(destClass);
+    return ((GetterSetterPropertyDescriptor) dpd).getWriteMethod();
   }
 
   public Object getSrcFieldValue(Object srcObj) throws IllegalAccessException, InvocationTargetException,
@@ -110,7 +114,7 @@ public abstract class FieldMap implements Cloneable {
     propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);
   }
 
-  public Object getDestinationObject(Object destObj) throws IllegalAccessException, InvocationTargetException,
+  public Object getDestinationObject(Object destObj) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
       InstantiationException, NoSuchFieldException {
     return getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
   }
