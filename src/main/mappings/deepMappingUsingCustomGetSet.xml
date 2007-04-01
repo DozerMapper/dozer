@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+ 
+ <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.deep2.Src</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deep2.Dest</class-b>
+    <field>
+      <a>srcField</a>
+      <b set-method="setNestedNestedDestField" get-method="getNestedNestedDestField">destField.nestedDestField.nestedNestedDestField</b>
+    </field>
+ </mapping>
+
+</mappings>
