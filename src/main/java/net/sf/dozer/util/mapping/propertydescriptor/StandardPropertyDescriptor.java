@@ -140,22 +140,6 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
     return hierarchyValue;
   }
 
-  protected Method getReadMethod(Class objectClass, String fieldName) {
-    PropertyDescriptor pd = reflectionUtils.getPropertyDescriptor(objectClass, fieldName);
-    if ((pd == null || pd.getReadMethod() == null)) {
-      throw new MappingException("Unable to determine read method for field: " + fieldName + " class: " + objectClass);
-    }
-    return pd.getReadMethod();
-  }
-
-  protected Method getWriteMethod(Class objectClass, String fieldName) {
-    PropertyDescriptor pd = reflectionUtils.getPropertyDescriptor(objectClass, fieldName);
-    if ((pd == null || pd.getWriteMethod() == null)) {
-      throw new MappingException("Unable to determine write method for field: " + fieldName + " class: " + objectClass);
-    }
-    return pd.getWriteMethod();
-  }
-
   protected void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap)
       throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException,
       NoSuchMethodException, NoSuchFieldException {
@@ -237,7 +221,7 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
   public Method getReadMethod(Class bean) {
     Method readMethod;
     if (dozerField.getTheGetMethod() == null) {
-      readMethod = getReadMethod(bean, dozerField.getName());
+      readMethod = reflectionUtils.getReadMethod(bean, dozerField.getName());
     } else {
       try {
         readMethod = reflectionUtils.findAMethod(bean, dozerField.getTheGetMethod());
@@ -251,7 +235,7 @@ public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
   public Method getWriteMethod(Class clazz) {
     Method writeMethod;
     if (dozerField.getTheSetMethod() == null || dozerField.getName().indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
-      writeMethod = getWriteMethod(clazz, dozerField.getName());
+      writeMethod = reflectionUtils.getWriteMethod(clazz, dozerField.getName());
     } else {
       try {
         writeMethod = reflectionUtils.findAMethod(clazz, dozerField.getTheSetMethod());

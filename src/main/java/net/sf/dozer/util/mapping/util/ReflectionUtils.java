@@ -158,4 +158,20 @@ public class ReflectionUtils {
     return (PropertyDescriptor[]) propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
   }
   
+  public Method getReadMethod(Class objectClass, String fieldName) {
+    PropertyDescriptor pd = getPropertyDescriptor(objectClass, fieldName);
+    if ((pd == null || pd.getReadMethod() == null)) {
+      throw new MappingException("Unable to determine read method for field: " + fieldName + " class: " + objectClass);
+    }
+    return pd.getReadMethod();
+  }
+
+  public Method getWriteMethod(Class objectClass, String fieldName) {
+    PropertyDescriptor pd = getPropertyDescriptor(objectClass, fieldName);
+    if ((pd == null || pd.getWriteMethod() == null)) {
+      throw new MappingException("Unable to determine write method for field: " + fieldName + " class: " + objectClass);
+    }
+    return pd.getWriteMethod();
+  }
+  
 }
