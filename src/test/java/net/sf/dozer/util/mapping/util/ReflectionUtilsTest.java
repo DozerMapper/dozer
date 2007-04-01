@@ -61,10 +61,10 @@ public class ReflectionUtilsTest extends DozerTestBase {
     assertEquals("3 prop descriptors should have been found", 3, pds.length);
   }
   
-  public void testGetPropertyDescriptor_InterfaceInheritance() throws Exception {
+  public void testFindPropertyDescriptor_InterfaceInheritance() throws Exception {
     //Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
     String fieldName = "parentField";
-    PropertyDescriptor pd = utils.getPropertyDescriptor(ChildChildIF.class, fieldName);
+    PropertyDescriptor pd = utils.findPropertyDescriptor(ChildChildIF.class, fieldName);
     assertNotNull("prop descriptor should not be null", pd);
     assertEquals("invalid prop descriptor name found", fieldName, pd.getName());
   }
