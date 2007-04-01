@@ -30,10 +30,6 @@ public class DozerAdminController implements DozerAdminControllerMBean {
     return MapperConstants.CURRENT_VERSION;
   }
   
-  public boolean getAutoRegisterJMXBeans() {
-    return GlobalSettings.getInstance().isAutoregisterJMXBeans();
-  }
-  
   public void clearGlobalCaches() {
     cacheMgr.clearAllEntries();
   }
