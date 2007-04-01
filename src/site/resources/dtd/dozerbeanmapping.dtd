@@ -10,8 +10,10 @@
 
     Optional Attributes: 
 
-             is-accessible   Indicates whether Dozer can automatically access private fields that don't have getter/setter methods.
-                             This will typically be set to "true".  The default value is "true"
+             is-accessible   Indicates whether Dozer bypasses getter/setter methods and accesses fields directly.  
+                             This will typically be set to "false".  The default value is "false".  If set to "true", the 
+                             getter/setter methods will NOT be invoked, which in most cases is undesireable. Typically this wont be set globally and
+                             will only be applied to specific fields that are lacking getter or setter methods.
             stop-on-errors   Indicates whether Dozer should stop mapping fields and throw the Exception if an error is encountered while performing a field mapping. 
                              It is recommended that this is set to "true".  
                              If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
@@ -50,8 +52,10 @@
                     map-id   The id that uniquely identifies this mapping definition.  This typically will not be specified.
                              You would only need to specify this for only need this for special context based mapping
                              and when mapping between Map objects and Custom Data Objects.
-             is-accessible   Indicates whether Dozer can automatically access private fields that don't have getter/setter methods.  
-                             This will typically be set to "true".  The default value is "true".
+             is-accessible   Indicates whether Dozer bypasses getter/setter methods and accesses fields directly.  
+                             This will typically be set to "false".  The default value is "false".  If set to "true", the 
+                             getter/setter methods will NOT be invoked, which in most cases is undesireable.  You would want to set this to "true" if 
+                             all of the attributes don't have corresponding getters/setter methods
 -->
 
 <!ELEMENT mapping ( class-a | class-b | field | field-exclude )* >
@@ -63,7 +67,7 @@
 <!ATTLIST mapping bean-factory CDATA #IMPLIED>
 <!ATTLIST mapping type (one-way | bi-directional) "bi-directional" >
 <!ATTLIST mapping map-id CDATA #IMPLIED>
-<!ATTLIST mapping is-accessible CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping is-accessible CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->
 
 <!--
     Specifies one of the classes in the mapping definition.  All Mapping definitions are bi-directional by default.
@@ -158,8 +162,10 @@
                              By default, the beans attribute getter is used.
                   map-null   Indicates whether null values are mapped.  The default value is "true"
           map-empty-string   Indicates whether empty string values are mapped. The default value is "true"
-             is-accessible   Indicates whether Dozer can automatically access private fields that don't have getter/setter methods.  
-                             This will typically be set to "true".  The default value is "true".
+             is-accessible   Indicates whether Dozer bypasses getter/setter methods and accesses fields directly.  
+                             This will typically be set to "false".  The default value is "false".  If set to "true", the 
+                             getter/setter methods will NOT be invoked.  You would want to set this to "true" if 
+                             the field is lacking a getter or setter method.
 -->
 <!ELEMENT a ( #PCDATA ) >
 <!ATTLIST a date-format CDATA #IMPLIED >
