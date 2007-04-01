@@ -283,10 +283,8 @@ public class MappingProcessor implements MapperIF {
         parentSourceField = parentFieldMap.getSourceField().getName();
       }
 
-      String methodName = fieldMapping.getDestFieldReadMethodName(destClass);
-      String sourceMethodName = fieldMapping.getSourceFieldReadMethodName(sourceClass);
       String key = mappingUtils.getParentFieldNameKey(parentSourceField, sourceObj, sourceClass.getName(),
-          sourceMethodName, methodName, fieldMapping.getSourceField().getName(), fieldMapping.getDestField().getName());
+          fieldMapping.getSourceField().getName(), fieldMapping.getDestField().getName());
       if (parentClassMap != null) {
         if (superListOfFieldNames.contains(key)) {
           return;
@@ -1111,14 +1109,12 @@ public class MappingProcessor implements MapperIF {
         if (!fieldMapping.isGenericFieldMap() && !(fieldMapping instanceof ExcludeFieldMap)) {
           // do nothing
         } else {
-          String methodName = fieldMapping.getDestFieldReadMethodName(destClassToMap);
-          String sourceMethodName = fieldMapping.getSourceFieldReadMethodName(srcClassToMap);
           String parentSourceField = null;
           if (parentFieldMap != null) {
             parentSourceField = parentFieldMap.getSourceField().getName();
           }
           String key = mappingUtils.getParentFieldNameKey(parentSourceField, sourceObj, sourceClass.getName(),
-              sourceMethodName, methodName, fieldMapping.getSourceField().getName(), fieldMapping.getDestField()
+              fieldMapping.getSourceField().getName(), fieldMapping.getDestField()
                   .getName());
           if (fieldNamesList.contains(key)) {
             continue;
