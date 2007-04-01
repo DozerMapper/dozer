@@ -59,6 +59,8 @@ import net.sf.dozer.util.mapping.vo.context.ContextMappingNested;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingPrime;
 import net.sf.dozer.util.mapping.vo.deep.House;
+import net.sf.dozer.util.mapping.vo.deep2.Dest;
+import net.sf.dozer.util.mapping.vo.deep2.Src;
 import net.sf.dozer.util.mapping.vo.map.MapToMap;
 import net.sf.dozer.util.mapping.vo.map.MapToMapPrime;
 import net.sf.dozer.util.mapping.vo.set.NamesArray;
@@ -767,6 +769,28 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
 	  assertNotNull("dest bean should not be null", dest);
 	  assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
   }
+  
+  
+  /*
+   * Related to feature request #1456486.  Deep mapping with custom getter/setter does not work
+   */
+  public void testDeepMapping_UsingCustomGetSetMethods() {
+    mapper = super.getNewMapper(new String[]{"deepMappingUsingCustomGetSet.xml"});
+    
+    Src src = new Src();
+    src.setSrcField("srcFieldValue");
+    
+    Dest dest = (Dest) mapper.map(src, Dest.class);
+    
+    assertNotNull(dest.getDestField().getNestedDestField().getNestedNestedDestField());
+    assertEquals(src.getSrcField(), dest.getDestField().getNestedDestField().getNestedNestedDestField());
+    
+    Src dest2 = (Src)mapper.map(dest, Src.class);
+    
+    assertNotNull(dest2.getSrcField());
+    assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());
+    
+  }  
   
   
 }

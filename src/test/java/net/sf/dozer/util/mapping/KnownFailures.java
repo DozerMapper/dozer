@@ -118,27 +118,6 @@ public class KnownFailures extends DozerTestBase {
   }
 
   /*
-   * Related to feature request #1456486.  Deep mapping with custom getter/setter does not work
-   */
-  public void testDeepMapping_UsingCustomGetSetMethods() {
-    mapper = super.getNewMapper(new String[]{"knownFailures.xml"});
-    
-    Src src = new Src();
-    src.setSrcField("srcFieldValue");
-    
-    Dest dest = (Dest) mapper.map(src, Dest.class);
-    
-    assertNotNull(dest.getDestField().getNestedDestField().getNestedNestedDestField());
-    assertEquals(src.getSrcField(), dest.getDestField().getNestedDestField().getNestedNestedDestField());
-    
-    Src dest2 = (Src)mapper.map(dest, Src.class);
-    
-    assertNotNull(dest2.getSrcField());
-    assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());
-    
-  }  
-  
-  /*
    * Related to bug #1486105.  This test is successful, but provides context for testKM2 which fails
    */
   public void testKM1() {
