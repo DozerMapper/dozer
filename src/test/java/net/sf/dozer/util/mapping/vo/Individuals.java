@@ -85,12 +85,4 @@ public class Individuals {
     return this.thirdNames[0];
   }
   
-  public String[] getThirdNames() {
-    return thirdNames;
-  }
-  
-  public void setThirdNames(String[] thirdNames) {
-    this.thirdNames = thirdNames;
-  }
-  
 }
