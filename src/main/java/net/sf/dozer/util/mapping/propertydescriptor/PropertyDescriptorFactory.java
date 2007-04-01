@@ -26,17 +26,21 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class bean) throws NoSuchFieldException {
+  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz) throws NoSuchFieldException {
     DozerPropertyDescriptorIF desc = null;
     // is it 'this'
     if (dozerField.getName().equals(MapperConstants.SELF_KEYWORD) && dozerField.getTheGetMethod() == null
         && dozerField.getTheSetMethod() == null) {
-      desc = new SelfPropertyDescriptor(bean);
+      desc = new SelfPropertyDescriptor(clazz);
     } else if (dozerField.isAccessible()) {
-      desc = new FieldPropertyDescriptor(bean, dozerField.getName(), dozerField.isAccessible());
+      // access fields directly and bypass get/set methods
+      desc = new FieldPropertyDescriptor(clazz, dozerField.getName(), dozerField.isAccessible(), 
+          dozerField.isIndexed(), dozerField.getIndex());
     } else {
       // it must be a normal bean with normal or custom get/set methods
-      desc = new StandardPropertyDescriptor(dozerField);
+      desc = new GetterSetterPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
+          dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
+
     }
     return desc;
   }
