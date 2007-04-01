@@ -28,7 +28,7 @@ public class BruteForcePropertyDescriptorTest extends DozerTestBase {
   public void testGetReadMethod() throws Exception {
     Field field = new Field("destField", "generic");
     
-    BruteForcePropertyDescriptor pd = new BruteForcePropertyDescriptor(field);
+    StandardPropertyDescriptor pd = new StandardPropertyDescriptor(field);
     Method method = pd.getReadMethod(Dest.class);
     
     assertNotNull("method should not be null", method);

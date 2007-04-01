@@ -42,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author garsombke.franz
  */
-public class BruteForcePropertyDescriptor implements DozerPropertyDescriptorIF {
+public class StandardPropertyDescriptor implements DozerPropertyDescriptorIF {
 
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
   
@@ -54,7 +54,7 @@ public class BruteForcePropertyDescriptor implements DozerPropertyDescriptorIF {
   private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);//only temp use the public static factories.  The factories data needs to be relocated to a better place
   
 
-  public BruteForcePropertyDescriptor(Field field) {
+  public StandardPropertyDescriptor(Field field) {
     this.field = field;
   }
 

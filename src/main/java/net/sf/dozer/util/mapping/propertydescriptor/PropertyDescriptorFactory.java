@@ -34,10 +34,9 @@ public class PropertyDescriptorFactory {
       desc = new SelfPropertyDescriptor(bean);
     } else if (field.isAccessible()) {
       desc = new FieldPropertyDescriptor(bean, field.getName(), field.isAccessible());
-      // is it a normal bean with normal get/set methods
     } else {
       // it must be a normal bean with normal or custom get/set methods
-      desc = new BruteForcePropertyDescriptor(field);
+      desc = new StandardPropertyDescriptor(field);
     }
     return desc;
   }
