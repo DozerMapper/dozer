@@ -52,6 +52,8 @@ import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime2;
 import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
+import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowException;
+import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowExceptionPrime;
 import net.sf.dozer.util.mapping.vo.context.ContextMapping;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingNested;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime;
@@ -513,6 +515,30 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
       fail("This should not have been thrown");
     }
   }
+  
+  public void testAllowedExceptions_Implicit() throws Exception {
+    MapperIF mapper = getNewMapper(new String[] {"implicitAllowedExceptionsMapping.xml"});
+    ThrowException to = new ThrowException();
+    to.setThrowAllowedException("throw me");
+    try {
+      ThrowExceptionPrime top = (ThrowExceptionPrime) mapper.map(to, ThrowExceptionPrime.class);
+      fail("We should have thrown DozerRuntimeException");
+    } catch (RuntimeException e) {
+      if (e instanceof DozerRuntimeException) {
+        assertTrue(true);
+      } else {
+        fail("This should be an instance of DozerRuntimeException");
+      }
+    }
+    ThrowException to2 = new ThrowException();
+    to2.setThrowNotAllowedException("do not throw me");
+    try {
+      ThrowExceptionPrime top = (ThrowExceptionPrime) mapper.map(to2, ThrowExceptionPrime.class);
+    } catch (RuntimeException e) {
+      fail("This should not have been thrown");
+    }
+  }
+  
   
   public void testPrimitiveArrayToList() throws Exception {
     mapper = getNewMapper(new String[]{"primitiveArrayToListMapping.xml"});
