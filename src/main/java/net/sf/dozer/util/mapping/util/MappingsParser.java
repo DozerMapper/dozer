@@ -76,6 +76,7 @@ public class MappingsParser {
         if (!classMap.getStopOnErrorsOveridden()) {
           classMap.setStopOnErrors(classMap.getConfiguration().getStopOnErrors());
         }
+        
         if (classMap.getAllowedExceptions().isEmpty() && classMap.getConfiguration().getAllowedExceptions() != null) {
         	classMap.setAllowedExceptions(classMap.getConfiguration().getAllowedExceptions().getExceptions());
         }

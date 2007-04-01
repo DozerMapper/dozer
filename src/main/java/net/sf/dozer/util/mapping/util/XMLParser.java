@@ -152,9 +152,6 @@ public class XMLParser {
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
       classMap.setType(ele.getAttribute(TYPE_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(IS_ACCESSIBLE_ATTRIBUTE))) {
-      classMap.setAccessible(BooleanUtils.toBoolean(ele.getAttribute(IS_ACCESSIBLE_ATTRIBUTE)));
-    }
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -371,8 +368,6 @@ public class XMLParser {
           config.setWildcard(BooleanUtils.toBoolean(element.getFirstChild().getNodeValue().trim()));
         } else if (BEAN_FACTORY_ELEMENT.equals(element.getNodeName())) {
           config.setBeanFactory(element.getFirstChild().getNodeValue().trim());
-        } else if (IS_ACCESSIBLE_ELEMENT.equals(element.getNodeName())) {
-          config.setAccessible(BooleanUtils.toBoolean(element.getFirstChild().getNodeValue().trim()));
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {
           parseCustomConverters(element, config);
         } else if (COPY_BY_REFERENCES_ELEMENT.equals(element.getNodeName())) {
