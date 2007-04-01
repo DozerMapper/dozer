@@ -57,6 +57,7 @@ public class ClassMapBuilder {
       classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
       classMap.setDateFormat(globalConfiguration.getDateFormat());
       classMap.setConfiguration(globalConfiguration);
+      classMap.setAllowedExceptions(globalConfiguration.getAllowedExceptions().getExceptions());
     }
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
