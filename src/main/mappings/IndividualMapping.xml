@@ -42,7 +42,7 @@
 			<b>address</b>
 		</field>
 		<field>
-			<a is-accessible="true">thirdNames[0]</a>
+			<a>thirdNames[0]</a>
 			<b>thirdName</b>
 		</field>
 		
