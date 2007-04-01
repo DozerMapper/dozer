@@ -23,13 +23,14 @@ import net.sf.dozer.util.mapping.vo.deep2.Dest;
 /**
  * @author tierney.matt
  */
-public class StandardPropertyDescriptorTest extends DozerTestBase {
+public class GetterSetterPropertyDescriptorTest extends DozerTestBase {
   
   public void testGetReadMethod() throws Exception {
     DozerField dozerField = new DozerField("destField", "generic");
     
-    StandardPropertyDescriptor pd = new StandardPropertyDescriptor(dozerField);
-    Method method = pd.getReadMethod(Dest.class);
+    GetterSetterPropertyDescriptor pd = new GetterSetterPropertyDescriptor(Dest.class, dozerField.getName(), 
+        dozerField.isIndexed(), dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
+    Method method = pd.getReadMethod();
     
     assertNotNull("method should not be null", method);
     assertEquals("incorrect method found", "getDestField", method.getName());
