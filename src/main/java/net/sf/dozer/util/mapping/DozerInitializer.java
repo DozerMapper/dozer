@@ -21,45 +21,44 @@ public class DozerInitializer {
 
   public static void init() {
     if (!isInitialized) {
-      InitLogger.log(log, "Initializing Dozer.  Version: "
-          + MapperConstants.CURRENT_VERSION + ", Thread Name:" + Thread.currentThread().getName()
-          + ", Is this JDK 1.5.x?:" + GlobalSettings.getInstance().isJava5());
-      
+      InitLogger.log(log, "Initializing Dozer.  Version: " + MapperConstants.CURRENT_VERSION + ", Thread Name:"
+          + Thread.currentThread().getName() + ", Is this JDK 1.5.x?:" + GlobalSettings.getInstance().isJava5());
+
       /*
-       * Auto Register Dozer JMX MBeans 
+       * Auto Register Dozer JMX MBeans
        */
       if (GlobalSettings.getInstance().isAutoregisterJMXBeans()) {
         // Check to see that 1.5 JMX mgmt classes are available prior to attempting to regiser JMX MBeans
         if (!areJMXMgmtClassesAvailable()) {
           InitLogger.log(log, "jdk1.5 management classes unavailable.  Dozer JMX MBeans will not be auto registered.");
         } else {
-          //Register JMX MBeans.  If an error occurs, don't propogate exception
+          // Register JMX MBeans. If an error occurs, don't propogate exception
           try {
-            registerJMXBeans();  
+            registerJMXBeans();
           } catch (Throwable t) {
             log.warn("Unable to register Dozer JMX MBeans with the PlatformMBeanServer", t);
           }
         }
       }
-      
+
       isInitialized = true;
     }
   }
-  
+
   private static boolean areJMXMgmtClassesAvailable() {
     boolean result = false;
-    
+
     try {
-      
+
       Class.forName("java.lang.management.ManagementFactory");
       Class.forName("javax.management.ObjectName");
       Class.forName("javax.management.MBeanServer");
-      
+
       result = true;
     } catch (Throwable t) {
       result = false;
     }
-    
+
     return result;
   }
 
