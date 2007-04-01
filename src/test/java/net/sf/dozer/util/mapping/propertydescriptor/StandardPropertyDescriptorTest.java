@@ -23,7 +23,7 @@ import net.sf.dozer.util.mapping.vo.deep2.Dest;
 /**
  * @author tierney.matt
  */
-public class BruteForcePropertyDescriptorTest extends DozerTestBase {
+public class StandardPropertyDescriptorTest extends DozerTestBase {
   
   public void testGetReadMethod() throws Exception {
     DozerField dozerField = new DozerField("destField", "generic");
