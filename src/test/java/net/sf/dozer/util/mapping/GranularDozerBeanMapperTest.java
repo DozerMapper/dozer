@@ -31,6 +31,7 @@ import java.util.TreeSet;
 import net.pmonks.xml.dozer.test.ChildType;
 import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
 import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
+import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
