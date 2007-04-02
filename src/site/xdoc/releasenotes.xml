@@ -10,6 +10,28 @@
   </head>  
   <body>
     <section name="Release Notes">
+      <subsection name="v 3.2">
+        <p>Bug Fixes</p> 
+        <p>
+          <ul>      
+            <li>3.1 Release not backwards compatible with JDK 1.3 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1692620&amp;group_id=133517&amp;atid=727368">1692620</a></li>
+            <li>Destination Value always null in CustomConverter <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1679996&amp;group_id=133517&amp;atid=727368">1679996</a></li>
+            <li>Indexed Mapping broke when is-accessible is true <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1673152&amp;group_id=133517&amp;atid=727368">1673152</a></li>
+            <li>Allowed Exceptions not working for default mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1658569&amp;group_id=133517&amp;atid=727368">1658569</a></li>
+            <li>Remove is-accessible option from configuration and mapping sections in the DTD <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1692603&amp;group_id=133517&amp;atid=727368">1692603</a></li>
+          </ul>
+        </p>
+        <p>Feature Requests</p> 
+        <p>
+          <ul>      
+            <li>Auto register Dozer JMX MBeans with the platform mbean server <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1690327&amp;group_id=133517&amp;atid=727371">1690327</a></li>
+            <li>Private constructor support when creating new instances of data objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1690298&amp;group_id=133517&amp;atid=727371">1690298</a></li>
+            <li>Create quick reference page for mapping xml options <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1657611&amp;group_id=133517&amp;atid=727371">1657611</a></li>
+            <li>Set/get method for last field in deep-chaing <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1456486&amp;group_id=133517&amp;atid=727371">1456486</a></li>
+            <li>Add documentation for existing custom converter support of Array types <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1691021&amp;group_id=133517&amp;atid=727371">1691021</a></li>
+          </ul>
+        </p>
+      </subsection>                 
       <subsection name="v 3.1">
         <p>Patches</p> 
         <p>
