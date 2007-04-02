@@ -18,6 +18,15 @@
     </section>
     <section name="Dozer News">
       <p></p>
+      <h3>1,000,000 Dozer Project Web Hits!</h3>
+      <p>We recently eclipsed the 1 million hit mark</p>
+      <p></p>
+      <h3>Release 3.2 Now available!</h3>
+      <p>This minor release contains bug fixes and feature requests.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>
+      <p>Thanks to everyone that has submitted new bug and feature requests over the last month.</p>
+      <p></p>
       <h3>Release 3.1 Now available!</h3>
       <p>This release contains support for Java 1.5 generics (you no longer need to give hints for typed collections!), enums, performance improvements, bug fixes, feature requests, and a move to subversion. This release will also be hosted in the Maven 2 Repository.</p>
       <p></p>
@@ -35,7 +44,6 @@
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
       <p></p>
-
       <p></p>
       <h3>Release 2.4 Now available!</h3>
       <p>This release contains bug fixes and feature requests.  One thing to note is that with this release RuntimeExceptions will no longer be wrapped in a MappingException.  Thanks to everyone submitted bugs/feature requests and contributed to the release.</p>
