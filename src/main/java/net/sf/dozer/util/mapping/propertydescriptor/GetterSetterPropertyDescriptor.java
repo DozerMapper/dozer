@@ -28,12 +28,13 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
- * @author garsombke.franz
  * 
  * This class is used to read and write values for fields that follow the java bean spec and have getter/setter methods
  * for the field. If the field does not have the necessary getter/setter, an exception will be thrown. This class
  * encapsulates underlying dozer specific logic such as index mapping and deep mapping for reading and writing field
  * values.
+ * 
+ * @author garsombke.franz
  * 
  */
 public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {

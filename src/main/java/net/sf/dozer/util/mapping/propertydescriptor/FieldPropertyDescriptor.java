@@ -24,10 +24,10 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
- * @author garsombke.franz
- * 
  * Directly accesses the field via reflection.  The getter/setter methods for the field are bypassed 
  * and will NOT be invoked.  Private fields are accessible by Dozer.
+ * 
+ * @author garsombke.franz
  * 
  */
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
