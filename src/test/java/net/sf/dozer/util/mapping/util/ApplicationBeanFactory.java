@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping;
+package net.sf.dozer.util.mapping.util;
 
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
