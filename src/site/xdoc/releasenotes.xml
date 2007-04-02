@@ -19,6 +19,7 @@
             <li>Indexed Mapping broke when is-accessible is true <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1673152&amp;group_id=133517&amp;atid=727368">1673152</a></li>
             <li>Allowed Exceptions not working for default mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1658569&amp;group_id=133517&amp;atid=727368">1658569</a></li>
             <li>Remove is-accessible option from configuration and mapping sections in the DTD <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1692603&amp;group_id=133517&amp;atid=727368">1692603</a></li>
+            <li>Set mapping problem when field starts in upper case in mapping xml file <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1549738&amp;group_id=133517&amp;atid=727368">1549738</a></li>
           </ul>
         </p>
         <p>Feature Requests</p> 
