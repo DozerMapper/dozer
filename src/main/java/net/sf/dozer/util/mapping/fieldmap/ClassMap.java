@@ -31,7 +31,7 @@ public class ClassMap {
   private DozerClass sourceClass;
   private DozerClass destClass;
   private List fieldMaps = new ArrayList();
-	private List allowedExceptions = new ArrayList();
+  private List allowedExceptions = new ArrayList();
   private String type;
   private String dateFormat;
   private String beanFactory;
@@ -43,7 +43,7 @@ public class ClassMap {
   private boolean stopOnErrorsOveridden = false;
   private Configuration configuration = new Configuration();
   private String mapId;
-  
+
   public List getFieldMaps() {
     return fieldMaps;
   }
@@ -55,14 +55,15 @@ public class ClassMap {
   public void setStopOnErrors(boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
     this.setStopOnErrorsOveridden(true);
-}
-	public List getAllowedExceptions() {
-		return allowedExceptions;
-	}
+  }
 
-	public void setAllowedExceptions(List allowedExceptions) {
-		this.allowedExceptions = allowedExceptions;
-	}
+  public List getAllowedExceptions() {
+    return allowedExceptions;
+  }
+
+  public void setAllowedExceptions(List allowedExceptions) {
+    this.allowedExceptions = allowedExceptions;
+  }
 
   public FieldMap getFieldMapUsingDest(String destFieldName) {
     FieldMap result = null;
@@ -72,8 +73,14 @@ public class ClassMap {
       for (int i = 0; i < size; i++) {
         FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
         String fieldName = fieldMap.getDestField().getName();
-
-        if ((fieldName != null) && fieldName.equals(destFieldName)) {
+        String alternateFieldName = fieldName.substring(0, 1).toLowerCase() + fieldName.substring(1);
+        
+        //Check for exact match on field name.  Also, check against alternate field name.  The alternate field
+        //name is used just in case the attribute was specified in the dozer xml file starting in a Capital letter.
+        //This prevents the field from getting double mapped in the case that the class attr is named "field1" but in the
+        //dozer xml is it specified as "Field1".  This should never happen, but check just in case since the use case doesnt
+        //actually error out.  It just double maps which is a problem when the data type is a Collections.
+        if ((fieldName != null && ( fieldName.equals(destFieldName) || alternateFieldName.equals(destFieldName))))  {
           result = fieldMap;
           break;
         }
@@ -98,7 +105,7 @@ public class ClassMap {
     }
     return result;
   }
-  
+
   public void setFieldMaps(List fieldMaps) {
     this.fieldMaps = fieldMaps;
   }
@@ -110,7 +117,7 @@ public class ClassMap {
   public void removeFieldMapping(FieldMap fieldMap) {
     fieldMaps.remove(fieldMap);
   }
-  
+
   public boolean isWildcard() {
     return wildcard;
   }
