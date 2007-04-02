@@ -157,36 +157,4 @@ public class KnownFailures extends DozerTestBase {
     assertEquals(request.getAge(), afterMapping.getAge());
   }
 
-  /*
-   * Bug #1549738 
-   */  
-  public void testSetMapping() throws Exception {
-    //For some reason the resulting SomeVO contains a Set with 4 objects.  2 SomeOtherDTO's and 2 SomeOtherVO's.  I believe it
-    //should only contain 2 SomeOtherVO's.  It has something to do with specifying the field name starting with cap in the mapping file.  If
-    //you change the field mapping to start with lower case it seems to map correctly.
-    MapperIF mapper = getNewMapper(new String[] { "knownFailures.xml" }); 
-    
-    SomeDTO someDto = new SomeDTO(); 
-    someDto.setField1(new Integer("1"));
-    
-    SomeOtherDTO someOtherDto = new SomeOtherDTO();
-    someOtherDto.setOtherField2(someDto);
-    someOtherDto.setOtherField3("value1"); 
-    
-    SomeDTO someDto2 = new SomeDTO(); 
-    someDto2.setField1(new Integer("2")); 
-    
-    SomeOtherDTO someOtherDto2 = new SomeOtherDTO();
-    someOtherDto2.setOtherField2(someDto2); 
-    someOtherDto2.setOtherField3("value2");
-    
-    SomeDTO src = new SomeDTO();
-    src.setField2(new SomeOtherDTO[] { someOtherDto2,someOtherDto });
-    
-    SomeVO dest = (SomeVO) mapper.map(src, SomeVO.class);
-    
-    assertEquals("incorrect resulting set size", src.getField2().length, dest.getField2().size());
-    //TODO: add more asserts
-  } 
-  
 }
