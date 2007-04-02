@@ -55,7 +55,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     try {
       this.propertyType = determinePropertyType();
     } catch (Exception e) {
-      throw new MappingException("Unable to determine property type. Field: " + fieldName + " Class: " + clazz, e);
+      throw new MappingException("Unable to determine property type for Field: " + fieldName + " in Class: " + clazz, e);
     }
   }
 
@@ -114,11 +114,14 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     if (writeMethod == null) {
       if (customSetMethod == null || fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
         PropertyDescriptor pd = reflectionUtils.findPropertyDescriptor(clazz, fieldName);
-        if ((pd == null || pd.getWriteMethod() == null)) {
-          throw new NoSuchMethodException("Unable to determine write method for field: " + fieldName + " class: "
-              + clazz);
+        if (pd == null) {
+          throw new MappingException("Property: " + fieldName + " not found in Class: " + clazz);          
         }
         writeMethod = pd.getWriteMethod();
+        if (writeMethod == null) {
+          throw new NoSuchMethodException("Unable to determine write method for Field: " + fieldName + " in Class: "
+              + clazz);
+        }
       } else {
         try {
           writeMethod = reflectionUtils.findAMethod(clazz, customSetMethod);
@@ -221,15 +224,18 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     Method result = null;
     if (customGetMethod == null) {
       PropertyDescriptor pd = reflectionUtils.findPropertyDescriptor(clazz, fieldName);
-      if ((pd == null || pd.getReadMethod() == null)) {
-        throw new NoSuchMethodException("Unable to determine read method for field: " + fieldName + " class: " + clazz);
+      if (pd == null) {
+        throw new MappingException("Property: " + fieldName + " not found in Class: " + clazz);
       }
       result = pd.getReadMethod();
+      if (result == null) {
+        throw new NoSuchMethodException("Unable to determine read method for Field: " + fieldName + " in Class: " + clazz);
+      }
     } else {
       try {
         result = reflectionUtils.findAMethod(clazz, customGetMethod);
       } catch (Exception e) {
-        throw new NoSuchMethodException("Unable to find method: " + " in class: " + clazz);
+        throw new NoSuchMethodException("Unable to find Method: " + " in Class: " + clazz);
 
       }
     }
