@@ -17,9 +17,7 @@ public abstract class AbstractPropertyDescriptor {
   protected boolean isIndexed = false;
   protected int index;
   
-  
   public AbstractPropertyDescriptor(final Class clazz, final String fieldName, boolean isIndexed, int index) {
-    super();
     this.clazz = clazz;
     this.fieldName = fieldName;
     this.isIndexed = isIndexed;

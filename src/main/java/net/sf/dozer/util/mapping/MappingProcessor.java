@@ -18,8 +18,6 @@ package net.sf.dozer.util.mapping;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -68,7 +66,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 /**
  * Dozer's Internal Mapping Engine
@@ -456,7 +453,9 @@ public class MappingProcessor implements MapperIF {
       return mapCollection(srcObj, sourceFieldValue, classMap, fieldMap, destObj);
     }
     if(GlobalSettings.getInstance().isJava5()) {
-      if (mappingUtils.isEnum(sourceFieldClass) && (mappingUtils.isEnum(destFieldType))) {
+      Boolean boolean1 = (Boolean) Class.class.getMethod("isEnum", null).invoke(sourceFieldClass, null);
+      Boolean boolean2 = (Boolean) Class.class.getMethod("isEnum", null).invoke(destFieldType, null);
+      if (boolean1.booleanValue() && boolean2.booleanValue()) {
         return mapEnum(sourceFieldValue, destFieldType);
       }
     }
@@ -464,9 +463,13 @@ public class MappingProcessor implements MapperIF {
     return mapCustomObject(fieldMap, destObj, destFieldType, sourceFieldValue);
   }
 
-  private Object mapEnum(Object sourceFieldValue, Class destFieldType) {
-    String name = ((Enum) sourceFieldValue).name(); 
-    return Enum.valueOf(destFieldType, name);
+  private Object mapEnum(Object sourceFieldValue, Class destFieldType) throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    Class enumClass = Class.forName("java.lang.Enum");
+    Method nameMethod = enumClass.getMethod("name", null);
+    Method valueOfMethod = enumClass.getMethod("valueOf", new Class[]{Class.class, String.class});
+    
+    String name = (String) nameMethod.invoke(sourceFieldValue, null);
+    return valueOfMethod.invoke(destFieldType, new Object[] {destFieldType, name});
   }
   
   private Object mapClassLevelMap(Object srcObj, FieldMap fieldMap, Object sourceFieldValue, Class sourceFieldClass,
@@ -531,17 +534,22 @@ public class MappingProcessor implements MapperIF {
     // already have the hint
     if (fieldMap.getDestinationTypeHint() == null) {
       if (GlobalSettings.getInstance().isJava5()) {
-        Type typeArgument = null;
-        Type[] parameterTypes = null;
+        Object typeArgument = null;
+        Object[] parameterTypes = null;
         try {
-          parameterTypes = fieldMap.getDestFieldWriteMethod(destObj.getClass()).getGenericParameterTypes();
+          Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
+          Method getGenericParameterTypesMethod = Method.class.getMethod("getGenericParameterTypes", null);
+          parameterTypes = (Object[]) getGenericParameterTypesMethod.invoke(method, null);
         } catch (Exception e) {
           log.info("The destObj:" + destObj + " does not have a write method");
         }
         if (parameterTypes != null) {
-          if (parameterTypes[0] instanceof ParameterizedTypeImpl) {
-            ParameterizedType parameterType = (ParameterizedType) parameterTypes[0];
-            typeArgument = parameterType.getActualTypeArguments()[0];
+          Class parameterTypesClass = Class.forName("java.lang.reflect.ParameterizedType");
+
+          if (parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
+            
+            Method actualTypeArgsMethod = parameterTypesClass.getMethod("getActualTypeArguments", null);
+            typeArgument = ((Object[])actualTypeArgsMethod.invoke(parameterTypes[0], null))[0];
             if (typeArgument != null) {
               Hint destHint = new Hint();
               Class argument = (Class) typeArgument;

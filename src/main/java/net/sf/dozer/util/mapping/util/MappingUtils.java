@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util.mapping.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -60,10 +61,6 @@ public class MappingUtils {
       collection = true;
     }
     return collection;
-  }
-
-  public boolean isEnum(Class aClass) {
-    return aClass.isEnum();
   }
 
   public boolean isSupportedMap(Class aClass) {

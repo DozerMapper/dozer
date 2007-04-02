@@ -15,43 +15,33 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
-import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.util.MappingUtils;
+import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
  * @author garsombke.franz
  * 
- * This class is used to read and write values for fields accessed directly.  
- * The getter/setter methods for the field are bypassed and will NOT be invoked.  The field is accessed directly via Reflection.  
- * Private fields are accessible by Dozer.
+ * Directly accesses the field via reflection.  The getter/setter methods for the field are bypassed 
+ * and will NOT be invoked.  Private fields are accessible by Dozer.
  * 
  */
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
 
   private final Field field;
   private MappingUtils mappingUtils = new MappingUtils();
+  private ReflectionUtils reflectionUtils = new ReflectionUtils();
 
   public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isAccessible, boolean isIndexed, int index)
       throws NoSuchFieldException {
     super(clazz, fieldName, isIndexed, index);
 
-    field = getFieldFromBean(clazz, fieldName);
-    // Allow access to private instance var's that dont have public setter. "is-accessible=true" must be explicitly
-    // specified in mapping file to allow this access. setAccessible indicates intent to bypass field protections.
+    field = reflectionUtils.getFieldFromBean(clazz, fieldName);
+    // Allow access to private instance var's that dont have public setter.
     field.setAccessible(isAccessible);
   }
 
@@ -95,17 +85,6 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
       }
     } catch (IllegalAccessException e) {
       throw new MappingException(e);
-    }
-  }
-
-  private Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {
-    try {
-      return clazz.getDeclaredField(fieldName);
-    } catch (NoSuchFieldException e) {
-      if (clazz.getSuperclass() != null) {
-        return getFieldFromBean(clazz.getSuperclass(), fieldName);
-      }
-      throw e;
     }
   }
 

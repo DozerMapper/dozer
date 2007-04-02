@@ -59,7 +59,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
   }
 
   public Class getPropertyType() {
-    return this.propertyType;
+    return propertyType;
   }
 
   public Object getPropertyValue(Object bean) {
@@ -107,8 +107,29 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
       throw new MappingException(e);
     }
   }
+  
+  public Method getWriteMethod() throws NoSuchMethodException {
+    Method writeMethod = null;
+    if (writeMethod == null) {
+      if (customSetMethod == null || fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
+        PropertyDescriptor pd = reflectionUtils.findPropertyDescriptor(clazz, fieldName);
+        if ((pd == null || pd.getWriteMethod() == null)) {
+          throw new NoSuchMethodException("Unable to determine write method for field: " + fieldName + " class: "
+              + clazz);
+        }
+        writeMethod = pd.getWriteMethod();
+      } else {
+        try {
+          writeMethod = reflectionUtils.findAMethod(clazz, customSetMethod);
+        } catch (Exception e) {
+          throw new MappingException(e);
+        }
+      }
+    }
+    return writeMethod;
+  }
 
-  protected Object getDeepSrcFieldValue(Object srcObj) throws InvocationTargetException, IllegalAccessException {
+  private Object getDeepSrcFieldValue(Object srcObj) throws InvocationTargetException, IllegalAccessException {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = null;
@@ -131,7 +152,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     return hierarchyValue;
   }
 
-  protected void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap)
+  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap)
       throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException,
       NoSuchMethodException, NoSuchFieldException {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
@@ -191,7 +212,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     }
   }
 
-  protected PropertyDescriptor[] getHierarchy(Object obj) {
+  private PropertyDescriptor[] getHierarchy(Object obj) {
     return reflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName);
   }
 
@@ -215,28 +236,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     return result;
   }
 
-  public Method getWriteMethod() throws NoSuchMethodException {
-    Method writeMethod = null;
-    if (writeMethod == null) {
-      if (customSetMethod == null || fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
-        PropertyDescriptor pd = reflectionUtils.findPropertyDescriptor(clazz, fieldName);
-        if ((pd == null || pd.getWriteMethod() == null)) {
-          throw new NoSuchMethodException("Unable to determine write method for field: " + fieldName + " class: "
-              + clazz);
-        }
-        writeMethod = pd.getWriteMethod();
-      } else {
-        try {
-          writeMethod = reflectionUtils.findAMethod(clazz, customSetMethod);
-        } catch (Exception e) {
-          throw new MappingException(e);
-        }
-      }
-    }
-    return writeMethod;
-  }
-
-  protected void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue)
+  private void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue)
       throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException,
       NoSuchFieldException {
     Object existingValue = null;

@@ -33,7 +33,7 @@ public class PropertyDescriptorFactory {
         && dozerField.getTheSetMethod() == null) {
       desc = new SelfPropertyDescriptor(clazz);
     } else if (dozerField.isAccessible()) {
-      // access fields directly and bypass get/set methods
+      // accesses fields directly and bypass get/set methods
       desc = new FieldPropertyDescriptor(clazz, dozerField.getName(), dozerField.isAccessible(), 
           dozerField.isIndexed(), dozerField.getIndex());
     } else {

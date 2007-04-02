@@ -22,6 +22,7 @@ import java.util.Map;
 import net.sf.dozer.util.mapping.cache.CacheManagerIF;
 import net.sf.dozer.util.mapping.cache.DozerCacheManager;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
+import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.interceptor.StatisticsInterceptor;
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
@@ -54,7 +55,6 @@ public class DozerBeanMapper implements MapperIF {
   static {
     DozerInitializer.init();
   }
-  
 
   /*
    * Accessible for custom injection
@@ -67,7 +67,8 @@ public class DozerBeanMapper implements MapperIF {
   /*
    * Not accessible for injection
    */
-  private LoadMappingsResult loadMappingsResult;
+  private Map customMappings;
+  private Configuration globalConfiguration;
   //There are no global caches.  Caches are per bean mapper instance
   private final CacheManagerIF cacheManager = DozerCacheManager.createNew();
   private final MappingUtils mappingUtils = new MappingUtils();
@@ -135,10 +136,11 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   protected MapperIF getMappingProcessor() {
-    LoadMappingsResult loadMappingsResult = loadCustomMappings();
-    MapperIF processor = new MappingProcessor(loadMappingsResult.getCustomMappings(), 
-        loadMappingsResult.getGlobalConfiguration(), cacheManager, statsMgr, 
-        customConverters, getEventListeners(), getCustomFieldMapper());
+    if (customMappings == null) {
+      loadCustomMappings();
+    }
+    MapperIF processor = new MappingProcessor(customMappings, globalConfiguration, 
+        cacheManager, statsMgr, customConverters, getEventListeners(), getCustomFieldMapper());
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
@@ -149,13 +151,14 @@ public class DozerBeanMapper implements MapperIF {
     return processor;
   }
   
-  private synchronized LoadMappingsResult loadCustomMappings() {
+  private synchronized void loadCustomMappings() {
     //loadCustomMappings() has to be called outside of init() method because the custom converters are injected.
-    if (this.loadMappingsResult == null) {
+    if (this.customMappings == null) {
       CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
-      this.loadMappingsResult = customMappingsLoader.load(mappingFiles);
+      LoadMappingsResult loadMappingsResult = customMappingsLoader.load(mappingFiles);
+      this.customMappings = loadMappingsResult.getCustomMappings();
+      this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
     }
-    return this.loadMappingsResult;
   }
 
   public List getEventListeners() {
