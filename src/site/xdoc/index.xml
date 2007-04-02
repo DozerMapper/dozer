@@ -18,28 +18,23 @@
     </section>
     <section name="Dozer News">
       <p></p>
-      <h3>1,000,000 Dozer Project Web Hits</h3>
-      <p><i><font size="-2" color="gray">04/07/2007</font></i></p>
+      <h3>1,000,000 Dozer Project Web Hits   <font size="-3" color="gray"><i>04/07/2007</i></font></h3>
       <p>We recently eclipsed the 1 million hit mark.  Thanks everyone!  It's been fun.</p>
       <p></p>
-      <h3>Release 3.2 Now available</h3>
-      <p><i><font size="-2" color="gray">04/07/2007</font></i></p>
+      <h3>Release 3.2 Now available   <font size="-3" color="gray"><i>04/07/2007</i></font></h3>
       <p>This minor release contains bug fixes and feature requests.</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
       <p>Thanks to everyone that has submitted new bug and feature requests over the last month.</p>
       <p></p>
-      <h3>Release 3.1 Now available</h3>
-      <p><i><font size="-2" color="gray">03/25/2007</font></i></p>
+      <h3>Release 3.1 Now available   <i><font size="-2" color="gray">03/25/2007</font></i></h3>
       <p>This release contains support for Java 1.5 generics (you no longer need to give hints for typed collections!), enums, performance improvements, bug fixes, feature requests, and a move to subversion. This release will also be hosted in the Maven 2 Repository.</p>
       <p></p>
       <p>Thanks again to everyone submitted bug and feature requests, along with everyone that contributed to the release.</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
       <p></p>
-      <p></p>
-      <h3>Release 3.0 Now available</h3>
-      <p><i><font size="-2" color="gray">02/09/2007</font></i></p>
+      <h3>Release 3.0 Now available    <i><font size="-2" color="gray">02/09/2007</font></i></h3>
       <p>This release contains infrastructure upgrades, bug fixes, feature requests, and some performance improvements.</p>
       <p></p>
       <p>One thing to note is Custom Converters are now invoked if the src value is null, so just make sure any Custom Converters you have created explicitly handle a null source value.</p>
@@ -49,57 +44,47 @@
       <p></p>
       <p></p>
       <p></p>
-      <h3>Release 2.4 Now available</h3>
-      <p><i><font size="-2" color="gray">10/16/2006</font></i></p>
+      <h3>Release 2.4 Now available   <i><font size="-2" color="gray">10/16/2006</font></i></h3>
       <p>This release contains bug fixes and feature requests.  One thing to note is that with this release RuntimeExceptions will no longer be wrapped in a MappingException.  Thanks to everyone submitted bugs/feature requests and contributed to the release.</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
       <p></p>
-      <h3>Release 2.3 Now available</h3>
-      <p><i><font size="-2" color="gray">09/01/2006</font></i></p>
+      <h3>Release 2.3 Now available   <i><font size="-2" color="gray">09/01/2006</font></i></h3>
       <p>We are back after taking some time to enjoy the unlimited summer activities in the Rockies.  This release focuses on bug fixes, feature requests, and general cleanup/refactoring of the code base.  Thanks to everyone that contributed to the release!</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
       <p></p>
-      <h3>Release 2.2 Now available</h3>
-      <p><i><font size="-2" color="gray">04/29/2006</font></i></p>
+      <h3>Release 2.2 Now available   <i><font size="-2" color="gray">04/29/2006</font></i></h3>
       <p>This release includes runtime statistics support, JMX integration, event listening model, dozer configuration through a properties file, XMLBeans mapping, and a few other things. There is also a few bug fixes.</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
-      <h3>Release 2.1 Now available</h3>
-      <p><i><font size="-2" color="gray">04/18/2006</font></i></p>
+      <h3>Release 2.1 Now available   <i><font size="-2" color="gray">04/18/2006</font></i></h3>
       <p>This release includes indexed mapping support, bi-directional self mapping and much more. There is also a few bug fixes.</p>
       <p>Thank you Kiersztyn Wojtek and Peciuch Dominic for your index based mapping code contribution!</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
-      <h3>Release 2.0.1 Now available</h3>
-      <p><i><font size="-2" color="gray">02/02/2006</font></i></p>
+      <h3>Release 2.0.1 Now available   <i><font size="-2" color="gray">02/02/2006</font></i></h3>
       <p>This release had a few new features and a few bug fixes.</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
-      <h3>Release 2.0 Now available</h3>
-      <p><i><font size="-2" color="gray">01/16/2006</font></i></p>
+      <h3>Release 2.0 Now available   <i><font size="-2" color="gray">01/16/2006</font></i></h3>
       <p>This release was mainly performance based. We have seen a 400% - 800% increase in mapping performance.
       Check here for our profiling <a href="http://sourceforge.net/forum/forum.php?thread_id=1413981&amp;forum_id=452529">notes</a>.</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>
-      <h3>Release 1.5.8 Now available</h3>
-      <p><i><font size="-2" color="gray">11/30/2005</font></i></p>
+      <h3>Release 1.5.8 Now available   <i><font size="-2" color="gray">11/30/2005</font></i></h3>
       <p>Removed dependency on Castor. We also added a few more features.</p>
       <p>Please check here for <a href="releasenotes.html">release notes</a></p>
       <p></p>
-      <h3>Release 1.5.7 Now available</h3>
-      <p><i><font size="-2" color="gray">11/15/2005</font></i></p>
+      <h3>Release 1.5.7 Now available   <i><font size="-2" color="gray">11/15/2005</font></i></h3>
       <p>Dozer now supports map-backed properties. This is extremely useful for mapping objects to/from many UI frameworks.
       The next release of Dozer will focus purely on performance enhancements.</p>
       <p>Please check here for <a href="releasenotes.html">release notes</a></p>
       <p></p>
-      <h3>Release 1.5.6 Now available</h3>
-      <p><i><font size="-2" color="gray">10/31/2005</font></i></p>
+      <h3>Release 1.5.6 Now available   <i><font size="-2" color="gray">10/31/2005</font></i></h3>
       <p>Please check here for <a href="releasenotes.html">release notes</a></p>
       <p></p>
-      <h3>Dozer in the Java Developer's Journal!</h3>
-      <p><i><font size="-2" color="gray">10/15/2005</font></i></p>
+      <h3>Dozer in the Java Developer's Journal!   <i><font size="-2" color="gray">10/15/2005</font></i></h3>
       <p>Dozer is mentioned as a great way to map objects between application layers in the October issue of the <a href="http://jdj.sys-con.com/read/140097_p.htm">JDJ</a></p>
     </section>
   </body>
