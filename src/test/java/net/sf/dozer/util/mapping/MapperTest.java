@@ -759,7 +759,7 @@ public class MapperTest extends DozerTestBase {
       fail("should have thrown mapping exception");
     } catch (MappingException e) {
       assertEquals(
-          "java.lang.NoSuchMethodException: Unable to determine read method for field: noReadMethod class: class net.sf.dozer.util.mapping.vo.NoReadMethod",
+          "java.lang.NoSuchMethodException: Unable to determine read method for Field: noReadMethod in Class: class net.sf.dozer.util.mapping.vo.NoReadMethod",
           e.getMessage());
     }
   }
@@ -770,7 +770,7 @@ public class MapperTest extends DozerTestBase {
       fail("should have thrown mapping exception");
     } catch (MappingException e) {
       assertEquals(
-          "java.lang.NoSuchMethodException: Unable to determine write method for field: noWriteMethod class: class net.sf.dozer.util.mapping.vo.NoWriteMethodPrime",
+          "java.lang.NoSuchMethodException: Unable to determine write method for Field: noWriteMethod in Class: class net.sf.dozer.util.mapping.vo.NoWriteMethodPrime",
           e.getMessage());
     }
   }
