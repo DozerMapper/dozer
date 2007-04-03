@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
