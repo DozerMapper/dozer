@@ -113,6 +113,15 @@ public class PerformanceTest extends DozerTestBase {
    * #5  7453
    * #6  42312
    * 
+   * MHT Computer - 4/2/07 - 3.2 release. 
+   *
+   * #1  24891
+   * #2  3125
+   * #3  3219
+   * #4  10609
+   * #5  7328
+   * #6  45156
+   * 
    */
 
   public void testMapping1() throws Exception {
