@@ -13,33 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.generics;
+package jdk15_tests.net.sf.dozer.util.mapping.generics;
+import java.util.List;
+
 
 /**
  * 
  * @author garsombke.franz
  *
  */
-public class User {
+enum StatusPrime {
+  PROCESSING, SUCCESS, ERROR  
+}
 
-	private String firstName;
+public class UserGroupPrime {
+
+  private StatusPrime statusPrime;
+  
+	private String name;
 	
-	private String lastName;
+	private List<UserPrime> users;
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String aFirstName) {
-		firstName = aFirstName;
+	public void setName(String aName) {
+		name = aName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public List<UserPrime> getUsers() {
+		return users;
 	}
 
-	public void setLastName(String aLastName) {
-		lastName = aLastName;
+	public void setUsers(List<UserPrime> aUsers) {
+		users = aUsers;
 	}
-	
+
+  public StatusPrime getStatusPrime() {
+    return statusPrime;
+  }
+
+  public void setStatusPrime(StatusPrime statusPrime) {
+    this.statusPrime = statusPrime;
+  }
+
 }
