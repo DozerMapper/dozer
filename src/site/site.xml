@@ -28,6 +28,7 @@
       <!-- Standalone item -->
       <item name="About" href="/documentation/about.html" />
       <item name="Why Map?" href="/documentation/whymap.html" />
+      <item name="News" href="/index.html" />
       <item name="Getting Started" href="/documentation/gettingstarted.html"/>
       <item name="Usage" href="/documentation/usage.html" collapse="true">
         <item name="Mapping Concepts" href="/documentation/advancedproperty.html"/>
