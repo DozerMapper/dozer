@@ -38,6 +38,12 @@
           <td>false</td>
         </tr>
         <tr>
+          <td>dozer.autoregister.jmx.beans</td>
+          <td>Specifies whether Dozer will auto register it's JMX beans with the PlatformMDBServer on startup</td>
+          <td>true|false</td>
+          <td>true</td>
+        </tr>
+        <tr>
           <td>dozer.cache.converter.by.dest.type.maxsize</td>
           <td>Specifies the max size for one of Dozers internal caches</td>
           <td>0 - Long.MAX_VALUE</td>

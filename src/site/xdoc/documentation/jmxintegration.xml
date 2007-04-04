@@ -12,8 +12,14 @@
     <section name="JMX Integration">
       <p>
         Dozer can be managed via JMX. The Dozer distibution contains fully functional JMX MBeans.  
-        These MBeans can be found in the net.sf.dozer.util.mapping.jmx package.  To hook into these MBeans,
-        the system using Dozer will just need to register these MBeans with the appropriate JMX server.
+        These MBeans can be found in the net.sf.dozer.util.mapping.jmx package.  
+      </p>
+      <p>
+        If JMX libraries and a JMX MBeanServer are available in your environment (they are include in JDK 1.5 and above), Dozer will auto register
+        these JMX Beans with the PlatformMDBServer.  You can suppress this behavior with the following Dozer configuration property:
+      </p>
+      <p>
+        dozer.autoregister.jmx.beans = false
       </p>
       <p>
         <b>Dozer JMX MBeans</b>
@@ -33,7 +39,6 @@
           <td>Admin functions</td>
         </tr>
       </table>
-      <br></br>
       <br></br>        
       <subsection name="Sample JMX Screen Shots">
         <p>
