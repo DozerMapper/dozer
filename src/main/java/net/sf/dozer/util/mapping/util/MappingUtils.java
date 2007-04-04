@@ -24,7 +24,7 @@ import java.util.Map;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.cache.Cache;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 
@@ -60,10 +60,6 @@ public class MappingUtils {
       collection = true;
     }
     return collection;
-  }
-
-  public boolean isEnum(Class aClass) {
-    return aClass.isEnum();
   }
 
   public boolean isSupportedMap(Class aClass) {
@@ -130,14 +126,11 @@ public class MappingUtils {
     return rootCause;
   }
 
-  public String getParentFieldNameKey(String parentSourceField, Object srcObj, String sourceClassName, String srcFieldReadMethodName,
-      String destFieldReadMethodName, String srcFieldName, String destFieldName) {
+  public String getParentFieldNameKey(String parentSourceField, Object srcObj, String sourceClassName, String srcFieldName, String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
     buf.append(parentSourceField);
     buf.append(System.identityHashCode(srcObj));
     buf.append(sourceClassName);
-    buf.append(srcFieldReadMethodName);
-    buf.append(destFieldReadMethodName);
     buf.append(srcFieldName);
     buf.append(destFieldName);
     return buf.toString();
@@ -175,11 +168,11 @@ public class MappingUtils {
   
   public void reverseFields(FieldMap source, FieldMap destination) {
     // reverse the fields
-    Field df = new Field(source.getSourceField().getName(), source.getSourceField().getType());
+    DozerField df = new DozerField(source.getSourceField().getName(), source.getSourceField().getType());
     df.setIndexed(source.getSourceField().isIndexed());
     df.setIndex(source.getSourceField().getIndex());
 
-    Field sf = new Field(source.getDestField().getName(), source.getDestField().getType());
+    DozerField sf = new DozerField(source.getDestField().getName(), source.getDestField().getType());
     sf.setIndexed(source.getDestField().isIndexed());
     sf.setIndex(source.getDestField().getIndex());
 

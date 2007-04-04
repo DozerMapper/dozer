@@ -26,7 +26,7 @@ import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
@@ -57,6 +57,9 @@ public class ClassMapBuilder {
       classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
       classMap.setDateFormat(globalConfiguration.getDateFormat());
       classMap.setConfiguration(globalConfiguration);
+      if (globalConfiguration.getAllowedExceptions() != null) {
+        classMap.setAllowedExceptions(globalConfiguration.getAllowedExceptions().getExceptions());
+      }
     }
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
@@ -103,8 +106,8 @@ public class ClassMapBuilder {
       }
       MapFieldMap map = new MapFieldMap();
       if (destIsMap) {
-        map.setSourceField(new Field(fieldName, null));
-        Field df = new Field(MapperConstants.SELF_KEYWORD, null);
+        map.setSourceField(new DozerField(fieldName, null));
+        DozerField df = new DozerField(MapperConstants.SELF_KEYWORD, null);
         if (StringUtils.isNotEmpty(classMap.getDestClass().getMapGetMethod())) {
           df.setMapGetMethod(classMap.getDestClass().getMapGetMethod());
           df.setTheGetMethod(classMap.getDestClass().getMapGetMethod());
@@ -133,8 +136,8 @@ public class ClassMapBuilder {
           continue;
         }
       } else {
-        map.setDestField(new Field(fieldName, null));
-        Field sourceField = new Field(MapperConstants.SELF_KEYWORD, null);
+        map.setDestField(new DozerField(fieldName, null));
+        DozerField sourceField = new DozerField(MapperConstants.SELF_KEYWORD, null);
         if (StringUtils.isNotEmpty(classMap.getSourceClass().getMapGetMethod())) {
           sourceField.setMapGetMethod(classMap.getSourceClass().getMapGetMethod());
           sourceField.setTheGetMethod(classMap.getSourceClass().getMapGetMethod());
@@ -173,7 +176,7 @@ public class ClassMapBuilder {
     PropertyDescriptor[] destProperties = reflectionUtils.getPropertyDescriptors(destClass);
     for (int i = 0; i < destProperties.length; i++) {
       String destFieldName = destProperties[i].getName();
-      PropertyDescriptor sourceProperty = reflectionUtils.getPropertyDescriptor(sourceClass, destFieldName);
+      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
       // if the sourceProperty is null we know that there is not a
       // corresponding property to map to.
       if (destFieldName.equals("class") || sourceProperty == null) {
@@ -184,8 +187,8 @@ public class ClassMapBuilder {
         continue;
       }
       GenericFieldMap map = new GenericFieldMap();
-      map.setSourceField(new Field(destFieldName, null));
-      map.setDestField(new Field(destFieldName, null));
+      map.setSourceField(new DozerField(destFieldName, null));
+      map.setDestField(new DozerField(destFieldName, null));
       classMap.addFieldMapping(map);
     }
   }

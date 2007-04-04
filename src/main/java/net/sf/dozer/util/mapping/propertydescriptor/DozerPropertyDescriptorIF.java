@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
@@ -26,18 +27,10 @@ import net.sf.dozer.util.mapping.fieldmap.Hint;
  */
 public interface DozerPropertyDescriptorIF {
 
-  public Class getPropertyType(Class clazz);
+  public Class getPropertyType() throws NoSuchFieldException, NoSuchMethodException;
   
-  public void setPropertyValue (Object bean, Object value, Hint hint, ClassMap classMap);
+  public void setPropertyValue (Object bean, Object value, Hint hint, ClassMap classMap) throws NoSuchFieldException, NoSuchMethodException;
   
-  public Object getPropertyValue(Object bean);
-  
-  public String getReadMethodName(Class clazz);
-
-  public String getWriteMethodName(Class clazz);
-  
-  public Method getWriteMethod(Class clazz);
-
-  public Method getReadMethod(Class clazz);
+  public Object getPropertyValue(Object bean) throws NoSuchFieldException, NoSuchMethodException, IllegalAccessException, InvocationTargetException;
   
 }

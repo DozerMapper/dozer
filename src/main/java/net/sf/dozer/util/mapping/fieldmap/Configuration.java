@@ -33,8 +33,7 @@ public class Configuration {
   private CustomConverterContainer customConverters;
   private CopyByReferenceContainer copyByReferences;
 	private AllowedExceptionContainer allowedExceptions;
-  private boolean isAccessible;
-
+  
   public AllowedExceptionContainer getAllowedExceptions() {
 		return allowedExceptions;
 	}
@@ -91,11 +90,4 @@ public class Configuration {
     this.copyByReferences = copyByReferenceContainer;
   }
 
-  public boolean isAccessible() {
-    return isAccessible;
-  }
-
-  public void setAccessible(boolean isAccessible) {
-    this.isAccessible = isAccessible;
-  }
 }

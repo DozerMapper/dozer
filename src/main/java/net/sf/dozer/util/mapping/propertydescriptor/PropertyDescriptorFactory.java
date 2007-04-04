@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
@@ -26,18 +26,21 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptorIF getPropertyDescriptor(Field field, Class bean) throws NoSuchFieldException {
+  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz) throws NoSuchFieldException {
     DozerPropertyDescriptorIF desc = null;
     // is it 'this'
-    if (field.getName().equals(MapperConstants.SELF_KEYWORD) && field.getTheGetMethod() == null
-        && field.getTheSetMethod() == null) {
-      desc = new SelfPropertyDescriptor(bean);
-    } else if (field.isAccessible()) {
-      desc = new FieldPropertyDescriptor(bean, field.getName(), field.isAccessible());
-      // is it a normal bean with normal get/set methods
+    if (dozerField.getName().equals(MapperConstants.SELF_KEYWORD) && dozerField.getTheGetMethod() == null
+        && dozerField.getTheSetMethod() == null) {
+      desc = new SelfPropertyDescriptor(clazz);
+    } else if (dozerField.isAccessible()) {
+      // accesses fields directly and bypass get/set methods
+      desc = new FieldPropertyDescriptor(clazz, dozerField.getName(), dozerField.isAccessible(), 
+          dozerField.isIndexed(), dozerField.getIndex());
     } else {
       // it must be a normal bean with normal or custom get/set methods
-      desc = new BruteForcePropertyDescriptor(field);
+      desc = new GetterSetterPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
+          dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
+
     }
     return desc;
   }

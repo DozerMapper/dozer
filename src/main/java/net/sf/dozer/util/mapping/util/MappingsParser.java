@@ -76,6 +76,7 @@ public class MappingsParser {
         if (!classMap.getStopOnErrorsOveridden()) {
           classMap.setStopOnErrors(classMap.getConfiguration().getStopOnErrors());
         }
+        
         if (classMap.getAllowedExceptions().isEmpty() && classMap.getConfiguration().getAllowedExceptions() != null) {
         	classMap.setAllowedExceptions(classMap.getConfiguration().getAllowedExceptions().getExceptions());
         }
@@ -111,8 +112,8 @@ public class MappingsParser {
 
         // add our first class map to the result map
         // initialize PropertyDescriptor Cache
-        reflectionUtils.getPropertyDescriptor(classMap.getSourceClass().getClassToMap(), "");
-        reflectionUtils.getPropertyDescriptor(classMap.getDestClass().getClassToMap(), "");
+        reflectionUtils.findPropertyDescriptor(classMap.getSourceClass().getClassToMap(), "");
+        reflectionUtils.findPropertyDescriptor(classMap.getDestClass().getClassToMap(), "");
         String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSourceClass().getClassToMap(), classMap
             .getDestClass().getClassToMap(), classMap.getMapId());
 

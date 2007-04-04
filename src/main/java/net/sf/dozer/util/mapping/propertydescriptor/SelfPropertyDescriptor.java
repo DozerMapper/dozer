@@ -15,12 +15,9 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import java.lang.reflect.Method;
-
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
-import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
  * @author garsombke.franz
@@ -33,7 +30,7 @@ public class SelfPropertyDescriptor implements DozerPropertyDescriptorIF {
     this.self = self;
   }
 
-  public Class getPropertyType(Class clazz) throws MappingException {
+  public Class getPropertyType() throws MappingException {
     return self;
   }
 
@@ -43,22 +40,6 @@ public class SelfPropertyDescriptor implements DozerPropertyDescriptorIF {
 
   public Object getPropertyValue(Object bean) throws MappingException {
     return bean;
-  }
-
-  public String getReadMethodName(Class clazz) {
-    return MapperConstants.SELF_KEYWORD;
-  }
-
-  public String getWriteMethodName(Class clazz) {
-    return MapperConstants.SELF_KEYWORD;
-  }
-
-  public Method getReadMethod(Class clazz) {
-    throw new UnsupportedOperationException();
-  }
-
-  public Method getWriteMethod(Class clazz) {
-    throw new UnsupportedOperationException();
   }
 
 }

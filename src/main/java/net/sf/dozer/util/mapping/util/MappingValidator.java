@@ -24,7 +24,7 @@ import java.util.Iterator;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.CopyByReference;
-import net.sf.dozer.util.mapping.fieldmap.Field;
+import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
@@ -79,8 +79,8 @@ public class MappingValidator {
   }
 
   public void validateFieldMapping(FieldMap fm, ClassMap classMap) {
-    Field srcField = fm.getSourceField();
-    Field destField = fm.getDestField();
+    DozerField srcField = fm.getSourceField();
+    DozerField destField = fm.getDestField();
     if (srcField == null) {
       throw new MappingException("src field must be specified");
     }

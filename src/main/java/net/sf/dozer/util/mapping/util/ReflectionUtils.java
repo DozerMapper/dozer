@@ -16,6 +16,7 @@
 package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +30,8 @@ import org.apache.commons.beanutils.PropertyUtils;
  * @author garsombke.franz
  */
 public class ReflectionUtils {
-  
-  public PropertyDescriptor getPropertyDescriptor(Class objectClass, String fieldName) {
+
+  public PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName) {
     PropertyDescriptor result = null;
 
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0) {
@@ -64,7 +65,7 @@ public class ReflectionUtils {
     int index = 0;
     while (toks.hasMoreTokens()) {
       String aFieldName = toks.nextToken();
-      PropertyDescriptor propDescriptor = getPropertyDescriptor(latestClass, aFieldName);
+      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, aFieldName);
 
       if (propDescriptor == null) {
         throw new MappingException("Exception occurred determining deep field hierarchy for Class --> "
@@ -79,7 +80,7 @@ public class ReflectionUtils {
 
     return hierarchy;
   }
-  
+
   public Method getMethod(Object obj, String methodName) {
     Method[] methods = obj.getClass().getMethods();
     Method resultMethod = null;
@@ -93,13 +94,14 @@ public class ReflectionUtils {
       throw new MappingException("No method found for class:" + obj.getClass() + " and method name:" + methodName);
     }
     return resultMethod;
-  }  
-  
-  public Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException, ClassNotFoundException {
+  }
+
+  public Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException,
+      ClassNotFoundException {
     // TODO USE HELPER from bean utils to find method w/ params
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
-    //If tokenizer has more elements, it mean that parameters may have been specified
+    // If tokenizer has more elements, it mean that parameters may have been specified
     if (tokenizer.hasMoreElements()) {
       StringTokenizer tokens = new StringTokenizer(tokenizer.nextToken(), ")");
       String params = (tokens.hasMoreTokens() ? tokens.nextToken() : null);
@@ -110,14 +112,15 @@ public class ReflectionUtils {
     for (int i = 0; i < methods.length; i++) {
       Method method = methods[i];
       if (method.getName().equals(methodName)) {
-        //Return the first method find
+        // Return the first method find
         return method;
       }
     }
     return result;
   }
 
-  private Method findMethodWithParam(Class parentDestClass, String methodName, String params) throws NoSuchMethodException, ClassNotFoundException {
+  private Method findMethodWithParam(Class parentDestClass, String methodName, String params)
+      throws NoSuchMethodException, ClassNotFoundException {
     // TODO USE HELPER from bean utils to find method w/ params
     List list = new ArrayList();
     if (params != null) {
@@ -128,26 +131,27 @@ public class ReflectionUtils {
       }
     }
     return parentDestClass.getMethod(methodName, (Class[]) list.toArray(new Class[list.size()]));
-  }  
-  
+  }
+
   protected PropertyDescriptor[] getPropertyDescriptors(Class objectClass) {
-    //If the class is an interface, use custom method to get all prop descriptors in the inheritance hierarchy.  
-    //PropertyUtils.getPropertyDescriptors() does not work correctly for interface inheritance.  It finds props in the
-    //actual interface ok, but does not find props in the inheritance hierarchy.
+    // If the class is an interface, use custom method to get all prop descriptors in the inheritance hierarchy.
+    // PropertyUtils.getPropertyDescriptors() does not work correctly for interface inheritance. It finds props in the
+    // actual interface ok, but does not find props in the inheritance hierarchy.
     if (objectClass.isInterface()) {
-      return getInterfacePropertyDescriptors(objectClass);        
+      return getInterfacePropertyDescriptors(objectClass);
     } else {
       return PropertyUtils.getPropertyDescriptors(objectClass);
     }
   }
-  
+
   private PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
     List propDescriptors = new ArrayList();
-    //Add prop descriptors for interface passed in
+    // Add prop descriptors for interface passed in
     propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
-    
-    //Look for interface inheritance.  If super interfaces are found, recurse up the hierarchy tree and add prop descriptors for each interface found.
-    //PropertyUtils.getPropertyDescriptors() does not correctly walk the inheritance hierarchy for interfaces.
+
+    // Look for interface inheritance. If super interfaces are found, recurse up the hierarchy tree and add prop
+    // descriptors for each interface found.
+    // PropertyUtils.getPropertyDescriptors() does not correctly walk the inheritance hierarchy for interfaces.
     Class[] interfaces = interfaceClass.getInterfaces();
     if (interfaces != null) {
       for (int i = 0; i < interfaces.length; i++) {
@@ -157,5 +161,16 @@ public class ReflectionUtils {
     }
     return (PropertyDescriptor[]) propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
   }
-  
+
+  public Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {
+    try {
+      return clazz.getDeclaredField(fieldName);
+    } catch (NoSuchFieldException e) {
+      if (clazz.getSuperclass() != null) {
+        return getFieldFromBean(clazz.getSuperclass(), fieldName);
+      }
+      throw e;
+    }
+  }
+
 }

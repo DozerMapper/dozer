@@ -18,6 +18,8 @@ package net.sf.dozer.util.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.util.mapping.util.MapperConstants;
+
 /**
  * @author garsombke.franz
  */
@@ -30,7 +32,7 @@ public class DozerBeanMapperSingletonWrapper {
   public static synchronized MapperIF getInstance() {
     if (instance == null) {
         List mappingFiles = new ArrayList();
-        mappingFiles.add("dozerBeanMapping.xml");
+        mappingFiles.add(MapperConstants.DEFAULT_MAPPING_FILE);
         instance = new DozerBeanMapper(mappingFiles);
     }
     return instance;

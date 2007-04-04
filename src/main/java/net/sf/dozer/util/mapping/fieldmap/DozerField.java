@@ -22,7 +22,7 @@ package net.sf.dozer.util.mapping.fieldmap;
  * @author tierney.matt
  * 
  */
-public class Field implements Cloneable {
+public class DozerField implements Cloneable {
   private final String type;
   private final String name;
   private String dateFormat;
@@ -36,7 +36,7 @@ public class Field implements Cloneable {
   private boolean isIndexed;
   private int index = -1;    
 
-  public Field(String name, String type) {
+  public DozerField(String name, String type) {
     this.type = type;
     this.name = name;
   }

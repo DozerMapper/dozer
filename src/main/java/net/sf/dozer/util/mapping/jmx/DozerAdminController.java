@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping.jmx;
 import net.sf.dozer.util.mapping.cache.CacheManagerIF;
 import net.sf.dozer.util.mapping.cache.DozerCacheManager;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
-import net.sf.dozer.util.mapping.config.Settings;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
@@ -26,7 +25,6 @@ import net.sf.dozer.util.mapping.util.MapperConstants;
  */
 public class DozerAdminController implements DozerAdminControllerMBean {
   private final CacheManagerIF cacheMgr = DozerCacheManager.getInstance(); 
-  private final Settings globalSettings = GlobalSettings.getInstance().getSettings();
 
   public String getCurrentVersion() {
     return MapperConstants.CURRENT_VERSION;
@@ -37,11 +35,11 @@ public class DozerAdminController implements DozerAdminControllerMBean {
   }
   
   public boolean isStatisticsEnabled() {
-    return globalSettings.isStatisticsEnabled();
+    return GlobalSettings.getInstance().isStatisticsEnabled();
   }
   
   public void setStatisticsEnabled(boolean statisticsEnabled) {
-    globalSettings.setStatisticsEnabled(statisticsEnabled);
+    GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
   
   public void logGlobalCaches() {
