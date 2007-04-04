@@ -21,73 +21,78 @@ package net.sf.dozer.util.mapping.vo;
  * 
  */
 public class FlatIndividual {
-    private String username1;
 
-    private String username2;
+  private String username1;
+  private String username2;
+  private String simpleField;
+  private String secondName1;
+  private String secondName2;
+  private String primaryAlias;
+  private String address;
+  private String thirdName;
 
-    private String simpleField;
+  public String getUsername1() {
+    return username1;
+  }
 
-    private String secondName1;
+  public void setUsername1(String username1) {
+    this.username1 = username1;
+  }
 
-    private String secondName2;
+  public String getUsername2() {
+    return username2;
+  }
 
-    private String primaryAlias;
-    
-    private String address;
+  public void setUsername2(String username2) {
+    this.username2 = username2;
+  }
 
-    public String getUsername1() {
-        return username1;
-    }
+  public String getSimpleField() {
+    return simpleField;
+  }
 
-    public void setUsername1(String username1) {
-        this.username1 = username1;
-    }
+  public void setSimpleField(String simpleField) {
+    this.simpleField = simpleField;
+  }
 
-    public String getUsername2() {
-        return username2;
-    }
+  public String getSecondName1() {
+    return secondName1;
+  }
 
-    public void setUsername2(String username2) {
-        this.username2 = username2;
-    }
+  public void setSecondName1(String secondName1) {
+    this.secondName1 = secondName1;
+  }
 
-    public String getSimpleField() {
-        return simpleField;
-    }
+  public String getSecondName2() {
+    return secondName2;
+  }
 
-    public void setSimpleField(String simpleField) {
-        this.simpleField = simpleField;
-    }
+  public void setSecondName2(String secondName2) {
+    this.secondName2 = secondName2;
+  }
 
-    public String getSecondName1() {
-        return secondName1;
-    }
+  public String getPrimaryAlias() {
+    return primaryAlias;
+  }
 
-    public void setSecondName1(String secondName1) {
-        this.secondName1 = secondName1;
-    }
+  public void setPrimaryAlias(String primaryAlias) {
+    this.primaryAlias = primaryAlias;
+  }
 
-    public String getSecondName2() {
-        return secondName2;
-    }
+  public String getAddress() {
+    return address;
+  }
 
-    public void setSecondName2(String secondName2) {
-        this.secondName2 = secondName2;
-    }
-
-    public String getPrimaryAlias() {
-        return primaryAlias;
-    }
-
-    public void setPrimaryAlias(String primaryAlias) {
-        this.primaryAlias = primaryAlias;
-    }
-
-    public String getAddress() {
-      return address;
-    }
-
-    public void setAddress(String address) {
-      this.address = address;
-    }
+  public void setAddress(String address) {
+    this.address = address;
+  }
+  
+  public String getThirdName() {
+    return thirdName;
+  }
+  
+  public void setThirdName(String thirdName) {
+    this.thirdName = thirdName;
+  }
+  
 }

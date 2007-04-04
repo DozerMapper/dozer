@@ -38,13 +38,17 @@ public class GlobalSettingsTest extends DozerTestBase {
     //assert all global settings equal the default values 
     assertNull("loaded by file name should be null", globalSettings.getLoadedByFileName());
     assertEquals("invalid stats enabled value", MapperConstants.DEFAULT_STATISTICS_ENABLED,
-        globalSettings.getSettings().isStatisticsEnabled());
+        globalSettings.isStatisticsEnabled());
     assertEquals("invalid converter cache max size value", 
         MapperConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE, 
-        globalSettings.getSettings().getConverterByDestTypeCacheMaxSize());
+        globalSettings.getConverterByDestTypeCacheMaxSize());
     assertEquals("invalid super type cache max size value", 
         MapperConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE, 
-        globalSettings.getSettings().getSuperTypesCacheMaxSize());
+        globalSettings.getSuperTypesCacheMaxSize());
+    assertEquals("invalid autoregister jmx beans", 
+        MapperConstants.DEFAULT_AUTOREGISTER_JMX_BEANS, 
+        globalSettings.isAutoregisterJMXBeans());
+    
   }
   
   public void testLoadPropFile_SpecifiedViaSysProp() {
@@ -55,8 +59,9 @@ public class GlobalSettingsTest extends DozerTestBase {
     
     assertNotNull("loaded by name should not be null", globalSettings.getLoadedByFileName());
     assertEquals("invalid load by file name", propFileName, globalSettings.getLoadedByFileName());
-    assertEquals("invalid stats enabled value", true, globalSettings.getSettings().isStatisticsEnabled());
-    assertEquals("invalid converter cache max size value", 25000, globalSettings.getSettings().getConverterByDestTypeCacheMaxSize());
-    assertEquals("invalid super type cache max size value", 10000, globalSettings.getSettings().getSuperTypesCacheMaxSize());
+    assertEquals("invalid stats enabled value", true, globalSettings.isStatisticsEnabled());
+    assertEquals("invalid converter cache max size value", 25000, globalSettings.getConverterByDestTypeCacheMaxSize());
+    assertEquals("invalid super type cache max size value", 10000, globalSettings.getSuperTypesCacheMaxSize());
+    assertEquals("invalid autoregister jmx beans", false, globalSettings.isAutoregisterJMXBeans());
   }
 }

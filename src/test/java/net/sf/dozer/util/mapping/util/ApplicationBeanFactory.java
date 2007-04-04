@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping;
+package net.sf.dozer.util.mapping.util;
 
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
@@ -30,7 +30,7 @@ import org.springframework.context.access.ContextSingletonBeanFactoryLocator;
 public class ApplicationBeanFactory {
 
   private static BeanFactoryLocator bfl = ContextSingletonBeanFactoryLocator.getInstance();
-  private static BeanFactory beanFactory = bfl.useBeanFactory(MapperConstants.DEFAULT_BEAN_FACTORY).getFactory();
+  private static BeanFactory beanFactory = bfl.useBeanFactory("beanfactory").getFactory();
   
   private ApplicationBeanFactory() {}
 
