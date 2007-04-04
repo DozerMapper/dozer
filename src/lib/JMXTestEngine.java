@@ -1,14 +1,11 @@
-import java.lang.management.ManagementFactory;
+package net.sf.dozer.util.mapping;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
 
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.jmx.DozerAdminController;
-import net.sf.dozer.util.mapping.jmx.DozerStatisticsController;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.TestDataFactory;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
@@ -19,15 +16,8 @@ import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 public class JMXTestEngine {
   
   public static void main(String[] args) throws Exception {
+    System.setProperty("dozer.debug","true");
     System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, "samplecustomdozer.properties");
-  	MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-    ObjectName name = new ObjectName("com.example.mbeans:type=DozerStatisticsController");
-    ObjectName name2 = new ObjectName("com.example.mbeans:type=DozerAdminController");
-    DozerStatisticsController mbean = new DozerStatisticsController();
-    DozerAdminController mbean2 = new DozerAdminController();
-
-    mbs.registerMBean(mbean, name);
-    mbs.registerMBean(mbean2, name2);
     performSomeMappings();
 
     System.out.println("Waiting forever...");
