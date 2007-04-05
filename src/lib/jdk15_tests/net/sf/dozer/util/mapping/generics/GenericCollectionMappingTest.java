@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jdk15_tests.net.sf.dozer.util.mapping.generics;
+package net.sf.dozer.util.mapping.generics;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
