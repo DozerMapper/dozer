@@ -258,6 +258,8 @@ public abstract class TestDataFactory {
     ito.setToWrapper(1);
 
     custom.setThree(ito);
+    custom.setFour(Boolean.TRUE);
+    custom.setFive(true);
 
     //testing if it will map two custom objects that are different types but same names //
     InsideTestObject ito2 = new InsideTestObject();
