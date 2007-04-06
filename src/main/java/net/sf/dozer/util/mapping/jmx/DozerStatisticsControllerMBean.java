@@ -35,6 +35,10 @@ public interface DozerStatisticsControllerMBean extends StatisticsIF {
   public long getFieldMappingSuccessCount();
   public long getFieldMappingFailureCount();
   public long getFieldMappingFailureIgnoredCount();
+  public long getCustomConverterOverallTime();
+  public long getCustomConverterSuccessCount();
+  public double getCustomConverterPercentageOfMappingTime();
+  public double getCustomConverterAverageTime();
   public String dumpStatistics();
   public void logStatistics();
 }
