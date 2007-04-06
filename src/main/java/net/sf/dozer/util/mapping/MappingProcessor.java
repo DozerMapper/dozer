@@ -1029,7 +1029,15 @@ public class MappingProcessor implements MapperIF {
       return theConverter.convert(destFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
     }
     Object field = mappingValidator.validateField(fieldMap, destFieldValue, destFieldClass);
-    return theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
+    
+    long start = System.currentTimeMillis();
+    Object result = theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
+    long stop = System.currentTimeMillis();
+    
+    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
+    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_TIME, stop - start);
+    
+    return result;
   }
 
   private Set checkForSuperTypeMapping(Class sourceClass, Class destClass) {
