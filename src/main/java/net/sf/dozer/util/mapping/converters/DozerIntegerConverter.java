@@ -26,6 +26,8 @@ public class DozerIntegerConverter implements Converter {
   private static IntegerConverter commonsIntConverter = new IntegerConverter(); 
 
   public Object convert(Class destClass, Object sourceObj) {
+    //Boolean to Int not supported in apache common's int converter and this is why this
+    //class is req'd
     if(Boolean.class.isAssignableFrom(sourceObj.getClass())) {
       boolean value = ((Boolean) sourceObj).booleanValue();
       return (value ? new Integer(1) : new Integer(0));
