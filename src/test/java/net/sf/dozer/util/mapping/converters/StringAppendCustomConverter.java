@@ -24,12 +24,6 @@ public class StringAppendCustomConverter implements CustomConverter {
   public static final String APPENDED_VALUE = "AppendedByCustomConverter:UseThisToTestThatCustomConverterWasActuallyUsed"; 
 
   public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
-    //Sleep so that JMX test gets variable stats
-    try {
-      Thread.sleep(2);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
     StringBuffer result = new StringBuffer();
     result.append(source);
     result.append("-");
