@@ -28,6 +28,8 @@ public class StatisticTypeConstants {
   public static final String FIELD_MAPPING_SUCCESS_COUNT = "Field Mapping Success Count";
   public static final String FIELD_MAPPING_FAILURE_COUNT = "Field Mapping Failure Count";
   public static final String FIELD_MAPPING_FAILURE_IGNORED_COUNT = "Field Mapping Failure Ignored Count";
+  public static final String CUSTOM_CONVERTER_SUCCESS_COUNT = "Custom Converter Success Count";
+  public static final String CUSTOM_CONVERTER_TIME = "Custom Converter Overall Time(ms)";
   public static final String CACHE_HIT_COUNT = "Cache Hit Count";
   public static final String CACHE_MISS_COUNT = "Cache Miss Count";
 }
