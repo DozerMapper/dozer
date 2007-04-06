@@ -33,6 +33,8 @@ public class TestObjectPrime extends BaseTestObject {
   private String onePrime;
   private Integer twoPrime;
   private InsideTestObjectPrime threePrime;
+  private Integer fourPrime;
+  private int fivePrime;
   private InsideTestObjectPrime insideTestObject;
   private java.util.List equalNamedList;
   private java.util.List listForArray;
@@ -405,6 +407,26 @@ public class TestObjectPrime extends BaseTestObject {
 
   public void setThrowNonAllowedExceptionOnMapPrime(String throwNonAllowedExceptionOnMapPrime) {
     throw new RuntimeException("Checking Allowed Exceptions");
+  }
+
+  
+  public int getFivePrime() {
+    return fivePrime;
+  }
+
+  
+  public void setFivePrime(int fivePrime) {
+    this.fivePrime = fivePrime;
+  }
+
+  
+  public Integer getFourPrime() {
+    return fourPrime;
+  }
+
+  
+  public void setFourPrime(Integer fourPrime) {
+    this.fourPrime = fourPrime;
   }
   
 }
