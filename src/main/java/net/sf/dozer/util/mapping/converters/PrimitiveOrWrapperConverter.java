@@ -31,7 +31,6 @@ import org.apache.commons.beanutils.converters.ByteConverter;
 import org.apache.commons.beanutils.converters.CharacterConverter;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
-import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 
@@ -53,7 +52,7 @@ public class PrimitiveOrWrapperConverter {
       PRIMITIVE_TYPE_MAP.put(primitives[i], wrappers[i]);
     }
     // Set up CONVERTER_MAP:
-    CONVERTER_MAP.put(Integer.class, new IntegerConverter());
+    CONVERTER_MAP.put(Integer.class, new DozerIntegerConverter());
     CONVERTER_MAP.put(Double.class, new DoubleConverter());
     CONVERTER_MAP.put(Short.class, new ShortConverter());
     CONVERTER_MAP.put(Character.class, new CharacterConverter());
