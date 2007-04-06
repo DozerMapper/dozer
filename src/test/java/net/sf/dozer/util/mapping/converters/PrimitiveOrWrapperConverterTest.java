@@ -53,10 +53,10 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
   public void testConvertInteger() throws Exception {
     Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17",
         String.valueOf(Integer.MAX_VALUE), new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10),
-        new Float(11.1), new Double(12.2) };
+        new Float(11.1), new Double(12.2), new Boolean(true), new Boolean(false) };
     Integer[] expected = { new Integer(Integer.MIN_VALUE), new Integer(-17), new Integer(-1), new Integer(0),
         new Integer(1), new Integer(17), new Integer(Integer.MAX_VALUE), new Integer(7), new Integer(8),
-        new Integer(9), new Integer(10), new Integer(11), new Integer(12) };
+        new Integer(9), new Integer(10), new Integer(11), new Integer(12), new Integer(1), new Integer(0) };
 
     for (int i = 0; i < expected.length; i++) {
       assertEquals(input[i].getClass().getName() + " to Integer", expected[i], converter.convert(
@@ -328,6 +328,19 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
           .convert(null, classes[i], null));
     }
   }
+  
+  public void testConvertBoolean() throws Exception {
+    Object[] input = { Integer.valueOf("0"), Integer.valueOf("1") };
+    Boolean[] expected = { Boolean.valueOf(false), Boolean.valueOf(true) };
+
+    for (int i = 0; i < expected.length; i++) {
+      assertEquals(input[i].getClass().getName() + " to Boolean", expected[i], converter.convert(
+          input[i], Boolean.class, null));
+      assertEquals(input[i].getClass().getName() + " to boolean", expected[i], converter.convert(
+          input[i], Boolean.TYPE, null));
+    }
+  }
+  
 
   public void testConvertStringPositiveScalar() {
     Object value = converter.convert("true", Boolean.TYPE, null);
