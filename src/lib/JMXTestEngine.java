@@ -16,7 +16,7 @@ public class JMXTestEngine {
 
   public static void main(String[] args) throws Exception {
     System.setProperty("dozer.debug", "true");
-    System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, "samplecustomdozer.properties");
+    System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, "jmx_test_engine.properties");
     performSomeMappings();
 
     System.out.println("Waiting forever...");
