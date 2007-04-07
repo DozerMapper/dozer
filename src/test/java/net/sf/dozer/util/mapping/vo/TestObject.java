@@ -33,8 +33,6 @@ public class TestObject extends BaseTestObject {
     private String one;
     private Integer two;
     private InsideTestObject three;
-    private Boolean four;
-    private boolean five;
     private InsideTestObject insideTestObject;
     private java.util.List equalNamedList;
     private java.util.List unequalNamedList;
@@ -548,17 +546,5 @@ public class TestObject extends BaseTestObject {
 
     public void setThrowNonAllowedExceptionOnMap(String throwNonAllowedExceptionOnMap) {
       this.throwNonAllowedExceptionOnMap = throwNonAllowedExceptionOnMap;
-    }
-    public boolean isFive() {
-      return five;
-    }
-    public void setFive(boolean five) {
-      this.five = five;
-    }
-    public Boolean getFour() {
-      return four;
-    }
-    public void setFour(Boolean four) {
-      this.four = four;
     }
 }
