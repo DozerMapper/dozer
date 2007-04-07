@@ -24,11 +24,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 
 import net.sf.dozer.util.mapping.vo.*;
 import net.sf.dozer.util.mapping.vo.deep.Address;
@@ -518,12 +516,6 @@ public abstract class TestDataFactory {
   }
   
   public static MyClassA getRandomMyClassA() { 
-    final Date today = new Date(); 
-    final Random rand = new Random(today.getTime()); 
-    Calendar cal = Calendar.getInstance(); 
-    cal.set(RandomUtils.nextInt(rand, 3000), RandomUtils.nextInt(rand, 12), 
-    RandomUtils.nextInt(rand, 31)); 
-   
     MyClassA myClassAObj = new MyClassA(); 
     myClassAObj.setAStringList(getRandomStringList(500)); 
    
