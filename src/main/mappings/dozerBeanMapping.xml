@@ -86,16 +86,6 @@
     </field>
     
     <field>
-      <a>four</a>
-      <b>fourPrime</b>
-    </field>
-    
-    <field>
-      <a>five</a>
-      <b>fivePrime</b>
-    </field>
-
-    <field>
       <a date-format="MM/dd/yyyy HH:mm:ss:SS">dateStr</a><!-- converting from String to Date using date-format.  Override class mapping date format-->
       <b>dateFromStr</b>
     </field>
