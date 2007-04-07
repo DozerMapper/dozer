@@ -16,14 +16,14 @@
 package net.sf.dozer.util.mapping.converters;
 
 import org.apache.commons.beanutils.Converter;
-import org.apache.commons.beanutils.converters.IntegerConverter;
 
 /**
  * @author tierney.matt
  */
-public class DozerIntegerConverter implements Converter {
+public class IntegerConverter implements Converter {
   
-  private static IntegerConverter commonsIntConverter = new IntegerConverter(); 
+  private static org.apache.commons.beanutils.converters.IntegerConverter commonsConverter = 
+    new org.apache.commons.beanutils.converters.IntegerConverter(); 
 
   public Object convert(Class destClass, Object sourceObj) {
     //Boolean to Int not supported in apache common's int converter and this is why this
@@ -32,7 +32,7 @@ public class DozerIntegerConverter implements Converter {
       boolean value = ((Boolean) sourceObj).booleanValue();
       return (value ? new Integer(1) : new Integer(0));
     } else {
-      return commonsIntConverter.convert(destClass, sourceObj);
+      return commonsConverter.convert(destClass, sourceObj);
     }
   }
 
