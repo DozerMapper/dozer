@@ -73,7 +73,7 @@
     </menu>
     <menu name="Release Notes">
       <!-- Standalone item -->
-      <item name="Release Notes (Latest version is 3.2)" href="/releasenotes.html" />
+      <item name="Release Notes (Latest version is 3.2.1)" href="/releasenotes.html" />
       <item name="Unit Reports" href="surefire-report.html"/>       
     </menu>
     ${reports}
