@@ -14,9 +14,9 @@
         <p>Feature Requests</p> 
         <p>
           <ul>      
-            <li>Boolean to number auto converstion <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695408&amp;group_id=133517&amp;atid=727368">1695408</a></li>
+            <li>Boolean to number auto converstion <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695408&amp;group_id=133517&amp;atid=727371">1695408</a></li>
             <li>Added statistics for custom converter mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695380&amp;group_id=133517&amp;atid=727371">1695380</a></li>
-            <li>Small performance improvement for jdk1.5 users <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1694734&amp;group_id=133517&amp;atid=727368">1694734</a></li>
+            <li>Small performance improvement for jdk1.5 users <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1694734&amp;group_id=133517&amp;atid=727371">1694734</a></li>
           </ul>
         </p>
       </subsection>                 
