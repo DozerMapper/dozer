@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.config;
 /**
  * @author tierney.matt
  */
-public class PropertyConstants {
+public abstract class PropertyConstants {
   public static final String STATISTICS_ENABLED = "dozer.statistics.enabled";
   public static final String CONVERTER_CACHE_MAX_SIZE = "dozer.cache.converter.by.dest.type.maxsize";
   public static final String SUPERTYPE_CACHE_MAX_SIZE = "dozer.cache.super.type.maxsize";

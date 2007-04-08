@@ -54,6 +54,7 @@ import net.sf.dozer.util.mapping.util.ClassMapKeyFactory;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.util.DateFormatContainer;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
+import net.sf.dozer.util.mapping.util.Jdk5Methods;
 import net.sf.dozer.util.mapping.util.LogMsgFactory;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
@@ -97,7 +98,7 @@ public class MappingProcessor implements MapperIF {
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
-
+  
   //The stored factories don't belong in MappingUtils and need to be relocated
   private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
 
@@ -453,9 +454,8 @@ public class MappingProcessor implements MapperIF {
       return mapCollection(srcObj, sourceFieldValue, classMap, fieldMap, destObj);
     }
     if(GlobalSettings.getInstance().isJava5()) {
-      Boolean boolean1 = (Boolean) Class.class.getMethod("isEnum", null).invoke(sourceFieldClass, null);
-      Boolean boolean2 = (Boolean) Class.class.getMethod("isEnum", null).invoke(destFieldType, null);
-      if (boolean1.booleanValue() && boolean2.booleanValue()) {
+      if ( ((Boolean)Jdk5Methods.getInstance().getClassIsEnumMethod().invoke(sourceFieldClass, null)).booleanValue() && 
+          ((Boolean) Jdk5Methods.getInstance().getClassIsEnumMethod().invoke(destFieldType, null)).booleanValue()) {
         return mapEnum(sourceFieldValue, destFieldType);
       }
     }
@@ -464,12 +464,8 @@ public class MappingProcessor implements MapperIF {
   }
 
   private Object mapEnum(Object sourceFieldValue, Class destFieldType) throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-    Class enumClass = Class.forName("java.lang.Enum");
-    Method nameMethod = enumClass.getMethod("name", null);
-    Method valueOfMethod = enumClass.getMethod("valueOf", new Class[]{Class.class, String.class});
-    
-    String name = (String) nameMethod.invoke(sourceFieldValue, null);
-    return valueOfMethod.invoke(destFieldType, new Object[] {destFieldType, name});
+    String name = (String) Jdk5Methods.getInstance().getEnumNameMethod().invoke(sourceFieldValue, null);
+    return Jdk5Methods.getInstance().getEnumValueOfMethod().invoke(destFieldType, new Object[] {destFieldType, name});
   }
   
   private Object mapClassLevelMap(Object srcObj, FieldMap fieldMap, Object sourceFieldValue, Class sourceFieldClass,
@@ -538,18 +534,16 @@ public class MappingProcessor implements MapperIF {
         Object[] parameterTypes = null;
         try {
           Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
-          Method getGenericParameterTypesMethod = Method.class.getMethod("getGenericParameterTypes", null);
-          parameterTypes = (Object[]) getGenericParameterTypesMethod.invoke(method, null);
+          parameterTypes = (Object[]) Jdk5Methods.getInstance().getMethodGetGenericParameterTypesMethod().invoke(method, null);
         } catch (Exception e) {
           log.info("The destObj:" + destObj + " does not have a write method");
         }
         if (parameterTypes != null) {
-          Class parameterTypesClass = Class.forName("java.lang.reflect.ParameterizedType");
+          Class parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
 
           if (parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
             
-            Method actualTypeArgsMethod = parameterTypesClass.getMethod("getActualTypeArguments", null);
-            typeArgument = ((Object[])actualTypeArgsMethod.invoke(parameterTypes[0], null))[0];
+            typeArgument = ((Object[])Jdk5Methods.getInstance().getParamaterizedTypeGetActualTypeArgsMethod().invoke(parameterTypes[0], null))[0];
             if (typeArgument != null) {
               Hint destHint = new Hint();
               Class argument = (Class) typeArgument;
@@ -1035,7 +1029,15 @@ public class MappingProcessor implements MapperIF {
       return theConverter.convert(destFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
     }
     Object field = mappingValidator.validateField(fieldMap, destFieldValue, destFieldClass);
-    return theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
+    
+    long start = System.currentTimeMillis();
+    Object result = theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
+    long stop = System.currentTimeMillis();
+    
+    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
+    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_TIME, stop - start);
+    
+    return result;
   }
 
   private Set checkForSuperTypeMapping(Class sourceClass, Class destClass) {

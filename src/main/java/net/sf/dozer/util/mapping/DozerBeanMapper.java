@@ -37,7 +37,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Mapper Implementation.  This should be used/defined as a singleton within
+ *  Mapper Implementation.  This should be used/defined as a singleton within
  * your application.  This class perfoms several one time initializations and loads
  * the custom xml mappings, so you will not want to create many instances of it for performance reasons.
  * Typically a system will only have one DozerBeanMapper instance per VM.

@@ -406,5 +406,4 @@ public class TestObjectPrime extends BaseTestObject {
   public void setThrowNonAllowedExceptionOnMapPrime(String throwNonAllowedExceptionOnMapPrime) {
     throw new RuntimeException("Checking Allowed Exceptions");
   }
-  
 }

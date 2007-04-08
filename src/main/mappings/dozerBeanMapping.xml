@@ -84,7 +84,7 @@
       <a>three</a><!-- converting by name and type InsideTestObject to InsideTestObjectPrime (actually this object is in the second <mapping> below -->
       <b>threePrime</b>
     </field>
-
+    
     <field>
       <a date-format="MM/dd/yyyy HH:mm:ss:SS">dateStr</a><!-- converting from String to Date using date-format.  Override class mapping date format-->
       <b>dateFromStr</b>

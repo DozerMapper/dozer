@@ -547,5 +547,4 @@ public class TestObject extends BaseTestObject {
     public void setThrowNonAllowedExceptionOnMap(String throwNonAllowedExceptionOnMap) {
       this.throwNonAllowedExceptionOnMap = throwNonAllowedExceptionOnMap;
     }
-
 }

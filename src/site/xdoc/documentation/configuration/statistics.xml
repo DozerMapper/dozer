@@ -87,6 +87,18 @@
             # of misses per internal Dozer cache type
           </td>
         </tr>
+        <tr>
+          <td>Custom Converter Overall Time</td>
+          <td>Overall time(ms) of successful custom converter mappings</td>
+        </tr>
+        <tr>
+          <td>Custom Converter Success Count</td>
+          <td># of successful custom converter mappings</td>
+        </tr>
+        <tr>
+          <td>Custom Converter Percentage of Overall Time</td>
+          <td>Percentage of overall time spent in custom converter mappings</td>
+        </tr>
       </table>
       
     </section>
