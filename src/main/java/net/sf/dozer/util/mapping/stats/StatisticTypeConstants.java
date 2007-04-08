@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.stats;
 /**
  * @author tierney.matt
  */
-public class StatisticTypeConstants {
+public abstract class StatisticTypeConstants {
   public static final String MAPPER_INSTANCES_COUNT = "Mapper Instances Count";
   public static final String MAPPING_SUCCESS_COUNT = "Mapping Success Count";
   public static final String MAPPING_FAILURE_COUNT = "Mapping Failure Count";
