@@ -11,3 +11,7 @@ Run 'mvn clean install' to build and package dozer.
 Run 'mvn site:site assembly:assembly' to build,package,create site, and assemble deployable
 Run 'mvn -P deploy-dozer antrun:run' to deploy dozer
 
+
+Run 'mvn source:jar javadoc:jar repository:bundle-create' to package dozer for JIRA
+
+
