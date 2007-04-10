@@ -61,7 +61,6 @@
         <item name="XMLBeans and JAXB Object Support" href="/documentation/xmlbeans.html" />        
         <item name="How to listen to dozer Events" href="/documentation/events.html" />        
       </item>
-      <item name="Examples" href="/examples.html" />
       <item name="Dozer Mapping DTD" href="/dtd/dozerbeanmapping.dtd" />
       <!-- Collapsed Submenu -->
       <item name="Support" href="/documentation/support.html" collapse="true">
