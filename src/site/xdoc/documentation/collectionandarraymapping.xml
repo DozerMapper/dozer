@@ -23,10 +23,10 @@
          <p>To convert a Collection/Array to a Collection/Array with different type objects dozer can determine parameterized types at runtime.</p>
          <source>
            <![CDATA[ 
-		<field>
-      <a>users</a>
-			<b>users</b>
-		</field>
+<field>
+  <a>users</a>
+  <b>users</b>
+</field>
             ]]>
           </source>
      <p>
@@ -34,28 +34,28 @@
            <![CDATA[ 
 public class UserGroup {
 
-	private Set<User> users;
+  private Set<User> users;
 
-	public Set<User> getUsers() {
-		return users;
-	}
+  public Set<User> getUsers() {
+    return users;
+  }
 
-	public void setUsers(Set<User> aUsers) {
-		users = aUsers;
-	}
+  public void setUsers(Set<User> aUsers) {
+    users = aUsers;
+  }
 
 }
 public class UserGroupPrime {
 
-	private List<UserPrime> users;
+  private List<UserPrime> users;
 
-	public List<UserPrime> getUsers() {
-		return users;
-	}
+  public List<UserPrime> getUsers() {
+    return users;
+  }
 
-	public void setUsers(List<UserPrime> aUsers) {
-		users = aUsers;
-	}
+  public void setUsers(List<UserPrime> aUsers) {
+    users = aUsers;
+  }
 
 }
             ]]>
