@@ -42,7 +42,6 @@
       <item name="Custom Mappings via XML" href="/documentation/mappings.html" collapse="true">
         <item name="Mapping Two Classes" href="/documentation/mappingclasses.html"/>
         <item name="Basic Property Mapping" href="/documentation/simpleproperty.html"/>
-        <item name="Global Configuration" href="/documentation/globalConfiguration.html" />        
         <item name="String To Date Mapping" href="/documentation/stringtodatemapping.html"/>
         <item name="Enum Mapping" href="/documentation/enum.html"/>
         <item name="Collection Mapping" href="/documentation/collectionandarraymapping.html"/>
@@ -52,6 +51,7 @@
         <item name="Excluding Fields" href="/documentation/exclude.html"/>
         <item name="One-Way Mapping" href="/documentation/oneway.html" />
         <item name="Context Based Mapping" href="/documentation/contextmapping.html" />
+        <item name="Global Configuration" href="/documentation/globalConfiguration.html" />        
         <item name="Custom Converters" href="/documentation/customconverter.html" />        
         <item name="Custom Bean Factories" href="/documentation/custombeanfactories.html" />        
         <item name="Custom Create Methods" href="/documentation/customCreateMethod.html" />        
