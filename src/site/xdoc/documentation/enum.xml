@@ -15,11 +15,11 @@
          <p>To map an enums value to another enum is shown below.</p>
          <source>
            <![CDATA[ 
-		<field>
-		  <!-- testing enums -->
-			<a>status</a>
-			<b>statusPrime</b>
-		</field>
+<field>
+  <!-- testing enums -->
+  <a>status</a>
+  <b>statusPrime</b>
+</field>
             ]]>
           </source>
      <p>

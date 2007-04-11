@@ -27,6 +27,71 @@
             ]]>
           </source>
       </subsection>        
+
+    <subsection name="Exclude Mapping Null Values">
+      <p>
+      You can bypass the mapping of null values.  If this is specified, the dest field mapping is bypassed at runtime and the destination value setter method will not be called if the src value is null.  This can be specified at the mapping or class level.  For example:
+      </p>
+      <source>
+        <![CDATA[ 
+<mapping map-null="false">
+  <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>    
+  <field>
+    <a>field4</a>
+    <b>to.one</b>
+  </field>
+</mapping>   
+
+OR...
+
+<mapping>
+  <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
+  <class-b map-null="false">net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>    
+  <field>
+    <a>field4</a>
+    <b>to.one</b>
+  </field>
+</mapping>   
+      ]]>
+     </source>
+     <p>
+     </p>
+    </subsection> 
+
+    <subsection name="Exclude Mapping Empty Strings">
+      <p>
+      You can bypass the mapping of empty String values.  If this is specified, the dest field mapping is bypassed at runtime and the destination value setter method will not be called if the src value is an empty String.  This can be specified at the mapping or class level.  For example:
+      </p>
+      <source>
+        <![CDATA[ 
+<mapping map-empty-string="false">
+  <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>    
+  <field>
+    <a>field4</a>
+    <b>to.one</b>
+  </field>
+</mapping>   
+
+OR...
+
+<mapping>
+  <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
+  <class-b map-empty-string="false">net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>    
+  <field>
+    <a>field4</a>
+    <b>to.one</b>
+  </field>
+</mapping>   
+      ]]>
+     </source>
+     <p>
+     </p>
+    </subsection> 
+
+
+
     </section>
   </body>
 </document>
