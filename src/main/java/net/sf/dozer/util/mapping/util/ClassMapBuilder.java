@@ -42,14 +42,15 @@ public class ClassMapBuilder {
   
   public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
     ClassMap classMap = new ClassMap();
-    classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, null, null, null, null, 
+    classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, globalConfiguration.getBeanFactory(), null, null, null, 
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
-    classMap.setDestClass(new DozerClass(destClass.getName(), destClass, null, null, null, null,
+    classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
 
       classMap.setWildcard(globalConfiguration.getWildcard());
       classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
       classMap.setDateFormat(globalConfiguration.getDateFormat());
+      classMap.setBeanFactory(globalConfiguration.getBeanFactory());
       if (globalConfiguration.getAllowedExceptions() != null) {
         classMap.setAllowedExceptions(globalConfiguration.getAllowedExceptions().getExceptions());
       }
