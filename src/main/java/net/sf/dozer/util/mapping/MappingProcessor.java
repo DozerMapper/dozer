@@ -129,7 +129,7 @@ public class MappingProcessor implements MapperIF {
 
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
-      CustomConverterContainer customConverterContainer = classMap.getConfiguration().getCustomConverters();
+      CustomConverterContainer customConverterContainer = classMap.getCustomConverters();
       Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverterContainer,
           sourceObj.getClass(), destClass);
       if (converterClass != null) {
@@ -169,7 +169,7 @@ public class MappingProcessor implements MapperIF {
 
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
-      CustomConverterContainer customConverterContainer = classMap.getConfiguration().getCustomConverters();
+      CustomConverterContainer customConverterContainer = classMap.getCustomConverters();
       Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverterContainer,
           sourceObj.getClass(), destObj.getClass());
       eventMgr
@@ -227,7 +227,7 @@ public class MappingProcessor implements MapperIF {
 
     // Check to see if custom converter has been specified for this mapping
     // combination. If so, just use it.
-    CustomConverterContainer customConverterContainer = classMap.getConfiguration().getCustomConverters();
+    CustomConverterContainer customConverterContainer = classMap.getCustomConverters();
     Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverterContainer,
         sourceObj.getClass(), destClass);
     if (converterClass != null) {
@@ -390,7 +390,7 @@ public class MappingProcessor implements MapperIF {
       NoSuchFieldException {
     Class sourceFieldClass = sourceFieldValue != null ? sourceFieldValue.getClass() : fieldMap
         .getSourceFieldType(srcObj.getClass());
-    CustomConverterContainer customConverters = classMap.getConfiguration().getCustomConverters();
+    CustomConverterContainer customConverters = classMap.getCustomConverters();
     Class converterClass = mappingUtils.determineCustomConverter(fieldMap, converterByDestTypeCache, customConverters,
         sourceFieldClass, destFieldType);
 
@@ -735,7 +735,7 @@ public class MappingProcessor implements MapperIF {
           throw new MappingException("<field type=\"iterate\"> must have a source or destination type hint");
         }
         // check for custom converters
-        CustomConverterContainer customConverters = classMap.getConfiguration().getCustomConverters();
+        CustomConverterContainer customConverters = classMap.getCustomConverters();
         Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverters, value
             .getClass(), Thread.currentThread().getContextClassLoader().loadClass(
             fieldMapping.getDestinationTypeHint().getHintName()));

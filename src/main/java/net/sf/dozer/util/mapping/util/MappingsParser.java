@@ -58,31 +58,26 @@ public class MappingsParser {
       while (iter.hasNext()) {
         classMap = (ClassMap) iter.next();
         // set the global configuration for each classmap
-        if (mappings.getConfiguration() != null) {
-          classMap.setConfiguration(mappings.getConfiguration());
-        } else {
-          classMap.setConfiguration(new Configuration());
-        }
 
         // Apply top level config attrs to ClassMap unless it has been overridden
         if (mappingUtils.isBlankOrNull(classMap.getDateFormat())) {
-          classMap.setDateFormat(classMap.getConfiguration().getDateFormat());
+          classMap.setDateFormat(mappings.getConfiguration().getDateFormat());
         }
 
         if (!classMap.getWildcardOveridden()) {
-          classMap.setWildcard(classMap.getConfiguration().getWildcard());
+          classMap.setWildcard(mappings.getConfiguration().getWildcard());
         }
 
         if (!classMap.getStopOnErrorsOveridden()) {
-          classMap.setStopOnErrors(classMap.getConfiguration().getStopOnErrors());
+          classMap.setStopOnErrors(mappings.getConfiguration().getStopOnErrors());
         }
         
-        if (classMap.getAllowedExceptions().isEmpty() && classMap.getConfiguration().getAllowedExceptions() != null) {
-        	classMap.setAllowedExceptions(classMap.getConfiguration().getAllowedExceptions().getExceptions());
+        if (classMap.getAllowedExceptions().isEmpty() && mappings.getConfiguration().getAllowedExceptions() != null) {
+        	classMap.setAllowedExceptions(mappings.getConfiguration().getAllowedExceptions().getExceptions());
         }
 
         if (mappingUtils.isBlankOrNull(classMap.getBeanFactory())) {
-          classMap.setBeanFactory(classMap.getConfiguration().getBeanFactory());
+          classMap.setBeanFactory(mappings.getConfiguration().getBeanFactory());
         }
 
         // Apply ClassMap(Mapping) attributes to Dest and Source Class obj's unless it has been overridden
@@ -152,7 +147,6 @@ public class MappingsParser {
         classMapPrime.setDateFormat(classMap.getDateFormat());
         classMapPrime.setStopOnErrors(classMap.getStopOnErrors());
         classMapPrime.setAllowedExceptions(classMap.getAllowedExceptions());//TODO *NEW*
-        classMapPrime.setConfiguration(classMap.getConfiguration());
         if (classMap.getSourceClass().getMapGetMethod() != null) {
           classMap.getSourceClass().setCustomMap(true);
         }
@@ -204,10 +198,10 @@ public class MappingsParser {
                 fieldMapPrime.setDestinationTypeHint(fieldMap.getSourceTypeHint());
                 // iterate through copyByReferences and set accordingly
                 if (!(fieldMap instanceof ExcludeFieldMap)) {
-                  mappingValidator.validateCopyByReference(fieldMap, classMap);
+                  mappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMap, classMap);
                 }
                 if (!(fieldMapPrime instanceof ExcludeFieldMap)) {
-                  mappingValidator.validateCopyByReference(fieldMapPrime, classMapPrime);
+                  mappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMapPrime, classMapPrime);
                 }
               } else { // if it is a one-way field map make the other field map excluded
                 // make a prime field map
@@ -224,7 +218,7 @@ public class MappingsParser {
               mappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
               mappingUtils.isMethodMap(oneWayFieldMap);
               mappingUtils.isCustomMap(oneWayFieldMap);
-              mappingValidator.validateCopyByReference(oneWayFieldMap, classMap);
+              mappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
               // check to see if we need to exclude the map
               if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
                 fieldMapPrime = new ExcludeFieldMap();

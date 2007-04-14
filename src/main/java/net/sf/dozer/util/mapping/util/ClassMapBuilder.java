@@ -47,20 +47,12 @@ public class ClassMapBuilder {
     classMap.setDestClass(new DozerClass(destClass.getName(), destClass, null, null, null, null,
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
 
-    if (globalConfiguration == null) {
-      // a default class map inherits the global properties
-      classMap.setWildcard(classMap.getConfiguration().getWildcard());
-      classMap.setStopOnErrors(classMap.getConfiguration().getStopOnErrors());
-      classMap.setDateFormat(classMap.getConfiguration().getDateFormat());
-    } else {
       classMap.setWildcard(globalConfiguration.getWildcard());
       classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
       classMap.setDateFormat(globalConfiguration.getDateFormat());
-      classMap.setConfiguration(globalConfiguration);
       if (globalConfiguration.getAllowedExceptions() != null) {
         classMap.setAllowedExceptions(globalConfiguration.getAllowedExceptions().getExceptions());
       }
-    }
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
       addDefaultFieldMappings(classMap);

@@ -23,6 +23,7 @@ import java.util.Iterator;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.fieldmap.CopyByReference;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -60,11 +61,11 @@ public class MappingValidator {
     }
   }
 
-  public void validateCopyByReference(FieldMap fieldMap, ClassMap classMap) throws NoSuchMethodException,
+  public void validateCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) throws NoSuchMethodException,
       ClassNotFoundException, NoSuchFieldException {
     String destFieldTypeName = null;
-    if (classMap.getConfiguration().getCopyByReferences() != null) {
-      Iterator copyIterator = classMap.getConfiguration().getCopyByReferences().getCopyByReferences().iterator();
+    if (globalConfig.getCopyByReferences() != null) {
+      Iterator copyIterator = globalConfig.getCopyByReferences().getCopyByReferences().iterator();
       Class clazz = fieldMap.getDestFieldType(classMap.getDestClass().getClassToMap());
       if (clazz != null) {
         destFieldTypeName = clazz.getName();
