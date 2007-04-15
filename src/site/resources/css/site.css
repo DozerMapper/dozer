@@ -1,13 +1,18 @@
 body {
-  padding: 0px 0px 10px 0px;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+	background-repeat: repeat-y;
+	font-size: 12px;
+	padding: 0px;
+
 }
-body, td, select, input, li{
+td, select, input, li{
   font-family: Verdana, Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
 }
 code{
-  font-family: Courier, monospace;
-  font-size: 13px;
+  font-size: 12px;
 }
 a {
   text-decoration: none;
@@ -42,8 +47,8 @@ h2 {
   border: 1px solid #999;
   color: #900;
   background-color: #ddd;
-  font-weight:900;
-  font-size: x-large;
+  font-weight:bold;
+  font-size: 21px;
 }
 h3 {
   padding: 4px 4px 4px 6px;
@@ -51,7 +56,7 @@ h3 {
   color: #900;
   background-color: #eee;
   font-weight: normal;
-  font-size: large;
+  font-size: 18px;
 }
 h4 {
   padding: 4px 4px 4px 6px;
@@ -59,16 +64,16 @@ h4 {
   color: #900;
   background-color: #fff;
   font-weight: normal;
-  font-size: large;
+  font-size: 14px;
 }
 h5 {
   padding: 4px 4px 4px 6px;
   color: #900;
-  font-size: normal;
+  font-size: 12px;
 }
 p {
   line-height: 1.3em;
-  font-size: small;
+  font-size: 12px;
 }
 #breadcrumbs {
   border-top: 1px solid #aaa;
@@ -76,15 +81,19 @@ p {
   background-color: #ccc;
 }
 #leftColumn {
-  margin: 10px 0 0 5px;
+  margin: 6px 0 0 5px;
   border: 1px solid #999;
   background-color: #eee;
+  width: auto;
 }
+
+
 #navcolumn h5 {
   font-size: smaller;
   border-bottom: 1px solid #aaaaaa;
   padding-top: 2px;
   color: #000;
+
 }
 
 table.bodyTable th {
@@ -108,6 +117,7 @@ table.bodyTable tr.b {
 
 .source {
   border: 1px solid #999;
+  overflow:auto
 }
 dl {
   padding: 4px 4px 4px 6px;
@@ -138,4 +148,6 @@ dt {
 .infomark {
   background-image: url(../images/icon_info_sml.gif);
 }
+
+
 
