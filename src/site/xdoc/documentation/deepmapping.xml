@@ -9,8 +9,7 @@
     <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
   </head>  
   <body>
-    <section name="Deep Property Mappings">
-      <subsection name="Deep Property Mapping">
+    <section name="Deep Property Mapping">
          <p>It is possible to map deep properties. An example would be when you have an object with a String property. Your other object has a String property but it is several levels deep within the object graph. In the example below the DestDeepObj has nested attributes within the object graph that need to be mapped.  Type hints are supported for deep field mappings.
          The attributes copy-by-reference, type=one-way, and relationship-type can also be used.</p>
          <source>
@@ -56,7 +55,6 @@
 </mapping>  
             ]]>
           </source>
-      </subsection>            
     </section>
   </body>
 </document>

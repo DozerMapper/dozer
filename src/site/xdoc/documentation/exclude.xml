@@ -9,8 +9,7 @@
     <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
   </head>  
   <body>
-    <section name="Field Exclusion">
-      <subsection name="Excluding Fields">
+    <section name="Excluding Fields">
          <p>Dozer supports excluding fields from a mapping using the field-exclude tag. We also
          support field excludes going one-way as shown in the example.</p>
          <source>
@@ -26,8 +25,6 @@
 </field-exclude>           
             ]]>
           </source>
-      </subsection>        
-
     <subsection name="Exclude Mapping Null Values">
       <p>
       You can bypass the mapping of null values.  If this is specified, the dest field mapping is bypassed at runtime and the destination value setter method will not be called if the src value is null.  This can be specified at the mapping or class level.  For example:

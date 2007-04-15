@@ -11,7 +11,7 @@
   <body>
     <section name="Basic Property Mapping">
       <subsection name="Implicit Property Mapping (bi-directional)">
-        <p>These fields are automatically handled by Dozer.</p>
+        <p>Matching field names are automatically handled by Dozer.</p>
         <p><b>Properties that are of the same name do not need to be specified in the mapping xml file.</b></p>
         <p></p>
       </subsection>        
@@ -25,7 +25,9 @@
 </field>
             ]]>
           </source>
-        <p>These properties can be of any data type. Data type coversion is performed automatically by the Dozer mapping engine.  Currently, Dozer supports the following types of conversions: (these are all bi-directional)</p>
+	  </subsection>	  
+      <subsection name="Data type conversion">		
+        <p>Data type coversion is performed automatically by the Dozer mapping engine.  Currently, Dozer supports the following types of conversions: (these are all bi-directional)</p>
         <ul>
           <li>Primitive to Primitive Wrapper</li>
           <li>Primitive to Custom Wrapper</li>

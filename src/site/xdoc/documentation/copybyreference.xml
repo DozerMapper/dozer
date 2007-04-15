@@ -10,7 +10,6 @@
   </head>  
   <body>
     <section name="Copying By Object Reference">
-      <subsection name="Copying an Object By Reference">
          <p>Dozer supports copying an object by reference. No conversion/transformation is done.
          Make sure that both object types are the same or you will run into casting problems. The default value is 'false'.</p>
          <source>
@@ -35,7 +34,6 @@
 </configuration>
   ]]>
           </source>
-      </subsection>
       <subsection name="Referencing self (this) in a field mapping">
          <p>Using a field mapping it is possible to map where N == 0 (self, or this). In the following example SimpleAccount is
          mapped to Address. It is also mapped to Account. Suppose Address was an attribute on Account. How could we map the values

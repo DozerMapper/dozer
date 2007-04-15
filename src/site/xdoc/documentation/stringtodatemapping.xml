@@ -10,7 +10,6 @@
   </head>  
   <body>
     <section name="String to Date Mapping">
-      <subsection name="String to Date (bi-directional)">
          <p>A date format for the String can be specified at the field level so that the necessary data type conversion can be performed.</p>
          <source>
            <![CDATA[ 
@@ -62,7 +61,6 @@
 </mappings>
             ]]>
           </source>
-      </subsection>        
     </section>
   </body>
 </document>

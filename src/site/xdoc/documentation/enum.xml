@@ -9,9 +9,7 @@
     <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
   </head>  
   <body>
-    <section name="Enum Mapping">
-      <p>Dozer can map enums.</p>
-      <subsection name="Using JDK 1.5 Enum Mapping">
+    <section name="JDK 1.5 Enum Mapping">
          <p>To map an enums value to another enum is shown below.</p>
          <source>
            <![CDATA[ 
@@ -64,7 +62,6 @@ public class UserGroupPrime {
             ]]>
           </source>
 </p>
-     </subsection>
 
     </section>
   </body>
