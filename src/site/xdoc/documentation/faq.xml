@@ -20,132 +20,132 @@
           <a href="#datatype-conversions">Will Dozer automatically perform data type conversions?</a>
         </li>
         <li>
-          <a href="#2">Does Dozer automatically map fields with matching property names?</a>
+          <a href="#auto-property-name">Does Dozer automatically map fields with matching property names?</a>
         </li>
         <li>
-          <a href="#4">Is Dozer recursive?</a>
+          <a href="#is-recursive">Is Dozer recursive?</a>
         </li>
         <li>
-          <a href="#5">Will the getter and setter methods be invoked when fields are mapped?</a>
+          <a href="#are-getset-invoked">Will the getter and setter methods be invoked when fields are mapped?</a>
         </li>
         <li>
-          <a href="#6">Are Collections and Arrays supported?</a>
+          <a href="#are-collections-supported">Are Collections and Arrays supported?</a>
         </li>
         <li>
-          <a href="#7">Are Map type objects(i.e HashMap) supported?</a>
+          <a href="#are-maps-supported">Are Map type objects(i.e HashMap) supported?</a>
         </li>
         <li>
-          <a href="#8">Is inheritance, abstract classes, and interface mapping supported?</a>
+          <a href="#is-inheritance-supported">Is inheritance, abstract classes, and interface mapping supported?</a>
         </li>
         <li>
-          <a href="#9">Can Dozer be configured via Spring?</a>
+          <a href="#is-spring-supported">Can Dozer be configured via Spring?</a>
         </li>
 		<li>
-          <a href="#10">Which types of data mappings do I need a custom xml mapping definition for?</a>
+          <a href="#what-type-custom-mapping">Which types of data mappings do I need a custom xml mapping definition for?</a>
         </li>
         <li>
-          <a href="#11">If my src and dest object have all matching attribute names, do I need to specify any xml mapping definitions at all?</a>
+          <a href="#matching-prop-names">If my src and dest object have all matching attribute names, do I need to specify any xml mapping definitions at all?</a>
         </li>
         <li>
-          <a href="#what-is-ant">For mappings that require an xml mapping definition, is the mapping definition bi-directional or do I need 2 xml definitions if I need to map the two objects both ways?</a>
+          <a href="#is-bidirectional">For mappings that require an xml mapping definition, is the mapping definition bi-directional or do I need 2 xml definitions if I need to map the two objects both ways?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How are the custom xml mapping files loaded?</a>
+          <a href="#how-xml-loaded">How are the custom xml mapping files loaded?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Can I load a mapping file that is not in the classpath?</a>
+          <a href="#how-to-load-file">Can I load a mapping file that is not in the classpath?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How can I tell if Dozer is initializing correctly and loading my xml mapping files?</a>
+          <a href="#dozer-debug">How can I tell if Dozer is initializing correctly and loading my xml mapping files?</a>
         </li>
         <li>
-          <a href="#what-is-ant">What are the advantages of using Dozer instead of hand coding mappings?</a>
+          <a href="#adv-over-manual-mapping">What are the advantages of using Dozer instead of hand coding mappings?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How does Dozer perform?</a>
+          <a href="#dozer-perf">How does Dozer perform?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Does Dozer support JDK 1.3?</a>
+          <a href="#jdk-support">Does Dozer support JDK 1.3?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Is Dozer in the maven repository?</a>
+          <a href="#maven-repo">Is Dozer in the maven repository?</a>
         </li>
 	  </ul>
     </subsection>
     <subsection name="Advanced">		  
    	  <ul>
         <li>
-          <a href="#what-is-ant">Can I implement custom mapping logic between 2 data types and have Dozer invoke this custom logic when it's performing mappings?</a>
+          <a href="#custom-converters">Can I implement custom mapping logic between 2 data types and have Dozer invoke this custom logic when it's performing mappings?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Can I map one field into another field that is nested n layers deep in the destination object?</a>
+          <a href="#deep-mapping">Can I map one field into another field that is nested n layers deep in the destination object?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How do I map multiple fields to a single field?</a>
+          <a href="#mult-fields-to-single-field">How do I map multiple fields to a single field?</a>
         </li>
         <li>
-          <a href="#what-is-ant">When mapping data objects that contain bi-directional relationships, since dozer is recursive, will it result in an infinite loop and eventual stack overflow error?</a>
+          <a href="#infinite-loop">When mapping data objects that contain bi-directional relationships, since dozer is recursive, will it result in an infinite loop and eventual stack overflow error?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How do I map an object contained in a collection to a field?</a>
+          <a href="#index-mapping">How do I map an object contained in a collection to a field?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How do I map a Complex object to a HashMap and vice versa?</a>
+          <a href="#complex-to-map">How do I map a Complex object to a HashMap and vice versa?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How do I map fields that don't have corresponding getter/setter methods?</a>
+          <a href="#is-accessible">How do I map fields that don't have corresponding getter/setter methods?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Some of my data objects don't have public constructors.  Does Dozer support this use case?</a>
+          <a href="#private-constructors">Some of my data objects don't have public constructors.  Does Dozer support this use case?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Does Dozer support JDK 1.5 enums?</a>
+          <a href="#enum-support">Does Dozer support JDK 1.5 enums?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Does Dozer support XMLBeans and JAXB generated data objects?</a>
+          <a href="#xmlbeans-jaxb">Does Dozer support XMLBeans and JAXB generated data objects?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Is there an Eclipse plugin or visual editor for Dozer?</a>
+          <a href="#eclipse-plugin">Is there an Eclipse plugin or visual editor for Dozer?</a>
         </li>
         <li>
-          <a href="#what-is-ant">When mapping collections, how do I tell Dozer what type of data objects I want in the destination collection?</a>
+          <a href="#collection-hints">When mapping collections, how do I tell Dozer what type of data objects I want in the destination collection?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How can I tell Dozer to bypass mapping null or empty string values?</a>
+          <a href="#bypass-null">How can I tell Dozer to bypass mapping null or empty string values?</a>
         </li>
         <li>
-          <a href="#what-is-ant">How do I enable Dozer to collect runtime mapping statistics?</a>
+          <a href="#runtime-stats">How do I enable Dozer to collect runtime mapping statistics?</a>
         </li>
 	  </ul>
     </subsection>
     <subsection name="Tips, Tricks, and Suggestions">		  
    	  <ul>
         <li>
-          <a href="#what-is-ant">Should I encapsulate logic that copies data between objects?</a>
+          <a href="#encapsulation">Should I encapsulate logic that copies data between objects?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Should I write unit tests for data mappings that I use Dozer to perform?</a>
+          <a href="#dozer-unit-tests">Should I write unit tests for data mappings that I use Dozer to perform?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Should the Dozer mapper be configured as a Singleton?</a>
+          <a href="#config-as-singleton">Should the Dozer mapper be configured as a Singleton?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Is it better to have 1 large xml mapping file or to have multiple smaller mapping files?</a>
+          <a href="#component-mappings">Is it better to have 1 large xml mapping file or to have multiple smaller mapping files?</a>
         </li>
         <li>
-          <a href="#what-is-ant">What is the best way to view runtime mapping statistics?</a>
+          <a href="#viewing-runtime-stats">What is the best way to view runtime mapping statistics?</a>
         </li>
         <li>
-          <a href="#what-is-ant">What are the best ways to debug Dozer?</a>
+          <a href="#debugging-dozer">What are the best ways to debug Dozer?</a>
         </li>
         <li>
-          <a href="#what-is-ant">What is the best way to setup the global configuration?</a>
+          <a href="#global-config">What is the best way to setup the global configuration?</a>
         </li>
         <li>
-          <a href="#what-is-ant">Is Dozer always the best choice for all the different possible data mapping use cases?</a>
+          <a href="#dozer-use-cases">Is Dozer always the best choice for all the different possible data mapping use cases?</a>
         </li>
         <li>
-          <a href="#what-is-ant">What is the best way to submit a bug, feature request, or patch?</a>
+          <a href="#submitting-support-request">What is the best way to submit a bug, feature request, or patch?</a>
         </li>
 
       </ul>
@@ -155,8 +155,8 @@
     <br></br>  
   </section>
   <section name="Answers">	  
+    <a name="dataobject-support"></a>
     <subsection name="What type of data objects are supported?">
-      <a name="dataobject-support"></a>
       <p>
         Dozer uses reflection to access data object properties, so it is designed to work with "dumb" data objects that have corresponding getter and setter
 		methods for it's fields.  For example, a data object that has a field named "message" should have a getMessage and setMessage method. Data objects 
@@ -164,14 +164,263 @@
 		For these unorthodox data objects, you can tell Dozer to directly access fields(including private) and/or explicitly specify which get/set methods to use.
       </p>
     </subsection>
-    <subsection name="Will Dozer automatically perform data type conversions?">
-      <a name="datatype-conversions"></a>
+
+    <a name="datatype-conversions"></a>
+	  <subsection name="Will Dozer automatically perform data type conversions?">
       <p>
         Yes.  Most scenarios are supported out of box.  These include primitives, Java Wrapper Objects, Number subclasses, Dates, Calendar, Collections,
 		Arrays, Maps, and Complex types
       </p>
     </subsection>
+
+    <a name="auto-property-name"></a>	  
+    <subsection name="Does Dozer automatically map fields with matching property names?">
+      <p>
+        Yes.  All fields with matching property names are implicitly mapped.  Although it wouldn't be typical usage, you could supress this behavior by setting wilcard="false".
+      </p>
+    </subsection>
+
+	<a name="is-recursive"></a>  
+    <subsection name="Is Dozer recursive?">
+      <p>
+        Yes.  Dozer recursively maps the entire object graph for all fields.
+      </p>
+    </subsection>
+	
+	<a name="are-getset-invoked"></a>    
+    <subsection name="Will the getter and setter methods be invoked when fields are mapped?">
+      <p>
+        Yes.  You can bypass this default behavior by explicitly specifying is-accessible="true" for any of your mappings.  If is-accessible is specified, the field(including private fields) is accessed directly and the getter/setter methods are bypassed.
+		It is not recommended that you set is-accessible="true" unless you are dealing with an unorthodox data object that does not contain any getter or setter methods.
+      </p>
+    </subsection>
+	
+	<a name="are-collections-supported"></a>    
+    <subsection name="Are Collections and Arrays supported?">
+      <p>
+        Yes.  Dozer automatically maps between collection types and automatically performs any type conversion.
+      </p>
+    </subsection>
+
+	<a name="are-maps-supported"></a>
+    <subsection name="Are Map type objects(i.e HashMap) supported?">
+      <p>
+        Yes.  All Java Map data types are supported in addition to any Custom map data types.
+      </p>
+    </subsection>
+
+    <a name="is-inheritance-supported"></a>	  
+    <subsection name="Is inheritance, abstract classes, and interface mapping supported?">
+      <p>
+        Yes.  
+      </p>
+    </subsection>
+	  	  	  
+    <a name="is-spring-supported"></a>	  
+    <subsection name="Can Dozer be configured via Spring?">
+      <p>
+        Yes.  This is the recommended way to configure a Dozer mapper interface.  Be sure to set the singleton property = "true".  
+
+         <source>
+           <![CDATA[ 
+<bean id="net.sf.dozer.util.mapping.MapperIF" 
+  class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+  <property name="mappingFiles">
+    <list>
+      <value>dozer-global-configuration.xml</value>			   
+      <value>dozer-bean-mappings.xml</value>
+      <value>more-dozer-bean-mappings.xml</value>
+    </list>
+  </property>
+</bean>
+          ]]>
+        </source>
+		  		  
+      </p>
+    </subsection>
 	  
+    <a name="what-type-custom-mapping"></a>	  
+    <subsection name="Which types of data mappings do I need a custom xml mapping definition for?">
+      <p>
+        Only fields that can't be implicitly mapping by matching on field name need a custom xml mapping definition.  Ideally, a large majority of your field mappings
+        can be performed automatically and only the few exceptional cases will need an explicit field mapping in the xml mapping file.
+      </p>
+    </subsection>
+    
+    <a name="matching-prop-names"></a>	  
+    <subsection name="If my src and dest object have all matching attribute names, do I need to specify any xml mapping definitions at all?">
+      <p>
+        Nope.  Just invoke the mapper.  You don't need any explicit xml mapping entries for this combination of source and destination object.
+      </p>
+    </subsection>
+    
+    <a name="is-bidirectional"></a>	  
+    <subsection name="For mappings that require an xml mapping definition, is the mapping definition bi-directional or do I need 2 xml definitions if I need to map the two objects both ways?">
+      <p>
+        All mapping definitions are bi-directional, so you only need one mapping definition.  You can map a --> b and b--> a using this 1 mapping def.
+      </p>
+    </subsection>
+    
+    <a name="how-xml-loaded"></a>	  
+    <subsection name="How are the custom xml mapping files loaded?">
+      <p>
+        Dozer will search the entire classpath looking for the specified file(s). 
+         
+      </p>
+    </subsection>
+    
+    <a name="how-to-load-file"></a>	  
+    <subsection name="Can I load a mapping file that is not in the classpath?">
+      <p>
+        Yes, you can load files from outside the classpath by prepending "file:" to the resouce name. Ex) "file:c:\somedozermapping.xml" 
+      </p>
+    </subsection>
+
+    <a name="dozer-debug"></a>	  
+    <subsection name="How can I tell if Dozer is initializing correctly and loading my xml mapping files?">
+      <p>
+        Set the -Ddozer.debug system property.  If this is set, Dozer initialization information is also sent to System.out.  If you are familiar with log4j, this is similar to the -Dlog4j.debug sys property
+      </p>
+    </subsection>
+
+    <a name="adv-over-manual-mapping"></a>	  
+    <subsection name="What are the advantages of using Dozer instead of hand coding mappings?">
+      <p>
+      </p>
+    </subsection>
+    <a name="dozer-perf"></a>	  
+    <subsection name="How does Dozer perform?">
+      <p>
+      </p>
+    </subsection>
+    <a name="jdk-support"></a>	  
+    <subsection name="Does Dozer support JDK 1.3?">
+      <p>
+      </p>
+    </subsection>
+    <a name="maven-repo"></a>	  
+    <subsection name="Is Dozer in the maven repository?">
+      <p>
+      </p>
+    </subsection>
+    <a name="custom-converters"></a>	  
+    <subsection name="Can I implement custom mapping logic between 2 data types and have Dozer invoke this custom logic when it's performing mappings?">
+      <p>
+      </p>
+    </subsection>
+    <a name="deep-mapping"></a>	  
+    <subsection name="Can I map one field into another field that is nested n layers deep in the destination object?">
+      <p>
+      </p>
+    </subsection>
+    <a name="mult-fields-to-single-field"></a>	  
+    <subsection name="How do I map multiple fields to a single field?">
+      <p>
+      </p>
+    </subsection>
+    <a name="infinite-loop"></a>	  
+    <subsection name="When mapping data objects that contain bi-directional relationships, since dozer is recursive, will it result in an infinite loop and eventual stack overflow error?">
+      <p>
+      </p>
+    </subsection>
+    <a name="index-mapping"></a>	  
+    <subsection name="How do I map an object contained in a collection to a field?">
+      <p>
+      </p>
+    </subsection>
+    <a name="complex-to-map"></a>	  
+    <subsection name="How do I map a Complex object to a HashMap and vice versa?">
+      <p>
+      </p>
+    </subsection>
+    <a name="is-accessible"></a>	  
+    <subsection name="How do I map fields that don't have corresponding getter/setter methods?">
+      <p>
+      </p>
+    </subsection>
+    <a name="private-constructors"></a>	  
+    <subsection name="Some of my data objects don't have public constructors.  Does Dozer support this use case?">
+      <p>
+      </p>
+    </subsection>
+    <a name="enum-support"></a>	  
+    <subsection name="Does Dozer support JDK 1.5 enums?">
+      <p>
+      </p>
+    </subsection>
+    <a name="xmlbeans-jaxb"></a>	  
+    <subsection name="Does Dozer support XMLBeans and JAXB generated data objects?">
+      <p>
+      </p>
+    </subsection>
+    <a name="eclipse-plugin"></a>	  
+    <subsection name="Is there an Eclipse plugin or visual editor for Dozer?">
+      <p>
+      </p>
+    </subsection>
+    <a name="collection-hints"></a>	  
+    <subsection name="When mapping collections, how do I tell Dozer what type of data objects I want in the destination collection?">
+      <p>
+      </p>
+    </subsection>
+    <a name="bypass-null"></a>	  
+    <subsection name="How can I tell Dozer to bypass mapping null or empty string values?">
+      <p>
+      </p>
+    </subsection>
+    <a name="runtime-stats"></a>	  
+    <subsection name="How do I enable Dozer to collect runtime mapping statistics?">
+      <p>
+      </p>
+    </subsection>
+    <a name="encapsulation"></a>	  
+    <subsection name="Should I encapsulate logic that copies data between objects?">
+      <p>
+      </p>
+    </subsection>
+    <a name="dozer-unit-tests"></a>	  
+    <subsection name="Should I write unit tests for data mappings that I use Dozer to perform?">
+      <p>
+      </p>
+    </subsection>
+    <a name="config-as-singleton"></a>	  
+    <subsection name="Should the Dozer mapper be configured as a Singleton?">
+      <p>
+      </p>
+    </subsection>
+    <a name="component-mappings"></a>	  
+    <subsection name="Is it better to have 1 large xml mapping file or to have multiple smaller mapping files?">
+      <p>
+      </p>
+    </subsection>
+    
+    <a name="viewing-runtime-stats"></a>	  
+    <subsection name="What is the best way to view runtime mapping statistics?">
+      <p>
+      </p>
+    </subsection>
+    
+    <a name="debugging-dozer"></a>	  
+    <subsection name="What are the best ways to debug Dozer?">
+      <p>
+      </p>
+    </subsection>
+    <a name="global-config"></a>	  
+    <subsection name="What is the best way to setup the global configuration?">
+      <p>
+      </p>
+    </subsection>
+    <a name="dozer-use-cases"></a>	  
+    <subsection name="Is Dozer always the best choice for all the different possible data mapping use cases?">
+      <p>
+      </p>
+    </subsection>
+    <a name="submitting-support-request"></a>	  
+    <subsection name="What is the best way to submit a bug, feature request, or patch?">
+      <p>
+      </p>
+    </subsection>
+    
   </section>
   </body>
 </document>

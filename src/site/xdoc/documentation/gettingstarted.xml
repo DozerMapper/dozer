@@ -105,7 +105,8 @@ DestinationObject destObject =
   class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
   <property name="mappingFiles">
     <list>
-      <value>dozerBeanMapping.xml</value>
+      <value>dozer-global-configuration.xml</value>			  
+      <value>dozer-bean-mappings.xml</value>
     </list>
   </property>
 </bean>
