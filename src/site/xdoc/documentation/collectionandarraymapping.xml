@@ -20,7 +20,7 @@
           <li>Set to List</li>
         </ul>
       <subsection name="Using Hints for Collection Mapping">
-         <p>Hints are not required if you are using JDK 1.5 Generics because the types can be autodetected by Dozer.  But if you are not using generics, to convert a Collection/Array to a Collection/Array with different type objects you can specify a Hint to Dozer know what type of objects you want created in the 
+         <p>Hints are not required if you are using JDK 1.5 Generics because the types can be autodetected by Dozer.  But if you are not using generics, to convert a Collection/Array to a Collection/Array with different type objects you can specify a Hint to let Dozer know what type of objects you want created in the 
 			destination list. If a Hint is not specified for the destination field, then the destination Collection will be populated with objects that are the same type 
 			as the elements in the src Collection.
 		 </p>

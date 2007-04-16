@@ -57,7 +57,7 @@
       Dozer will search the entire classpath looking for the specified file.
       </p>
       <p>
-      Alternatively, you can load files from outside the classpath by prepending "file:" to the resouce name.  Ex) "file:c:\somedozermapping.xml"
+      Alternatively, you can load files from outside the classpath by prepending "file:" to the resource name.  Ex) "file:c:\somedozermapping.xml"
       </p>
     </section>
 
