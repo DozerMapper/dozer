@@ -300,13 +300,13 @@
       <br></br>   
       <p>
         Performance is going to depend on the complexity of the use case and the number of fields mapped.  In our performance tests
-        for "average" mapping scenarios, the mapping times vary from 1/8 of a millisecond to 2 milliseconds.  This roughly equates to 50 - 350 field mappings per millisecond.  
+        for "average" mapping scenarios, the class mapping times vary from 1/8 of a millisecond to 2 milliseconds.  This roughly equates to 50 - 350 field mappings per millisecond.  
         However, the number of variables in any decent benchmark makes it almost impossible to transfer these results into reasonable conclusions about 
         the performance of your own application. Your application is different and you will have unique use cases.  
       </p>
       <br></br>   
       <p>      
-        Dozer has been successfully implemented on large, high transactional enterprise systems without any performance issues.  But we always recommend that you run 
+        Dozer has been successfully implemented on large, very high transactional enterprise systems without any resulting performance issues.  But we always recommend that you run 
         performance tests on your application to determine the actual performance costs within your system.  You can decide for yourself whether those costs 
         are acceptable in the context of the entire system.
       </p>        
@@ -334,7 +334,7 @@
     <a name="maven-repo"></a>	  
     <subsection name="Is Dozer in the maven repository?">
       <p>
-        Yes.  Finally:)  We will continue to do our best to get new release of Dozer uploaded into the repository.
+        Yes, version 3.2.1 has been uploaded.  Finally:)  We will continue to do our best to get future releases of Dozer uploaded into the repository.
       </p>
     </subsection>
     
@@ -547,7 +547,7 @@
         promotes reuse, encapsulates the underlying implementation, and makes the code unit testable in isolation.  These "Assembler" interfaces encapsulate the logic that is responsible for taking a src
         object and mapping the data into a dest object.  Using assembler type of classes gives you the flexibility
         of being able to modify the underlying mapping implementation without impacting clients or the contract.  One other important benefit of using Assemblers is that it makes writing unit tests
-        specific to the mapping a lot easier and more focused. If you ever need to determine if a particular bug is due to mapping of objects, it is simple to write an Assembler 
+        specific for the mapping a lot easier and more focused. If you ever need to determine if a particular bug is due to mapping of objects, it is simple to write an Assembler 
         unit test that reproduces the use case. If you encapsulate your data mapping logic, you could use Dozer for most of mappings and if you have a real corner case, 
         you have the flexibility to hand code mappings for any objects or fields. For example, you could run your mapping through Dozer to map 99% of your fields and then have a manual mapping 
         for some odd ball field. This would happen all within the Assembler without the client having any knowledge of the underlying implementation.
@@ -585,11 +585,16 @@ public class SomeAssemblerImpl implements SomeAssembler {
         Absolutely.  And of course, we strongly recommend writing the unit test(s) first.  Even if you don't use Dozer to perform the data mapping between two objects,
         this logic still needs isolated unit tests.  Data mapping logic(especially hand coded) is error prone and having a unit test is invaluable.  Typically mapping between two 
         objects is required in multiple areas of a system, so a focused unit test of the central mapping logic enables you to test the data mapping logic in isolation.  
-        The great thing about encapsulating data mapping logic and having unit tests for the logic is that you can easily switch out the underlying implementation.  
-        For existing systems that are looking to use Dozer, we recommend first encapsulating the existing hand coded data mapping into an assembler type of class 
-        and write unit tests for it.  Then switch out the hand coded mapping logic with Dozer and the unit tests will be your safety net.
+        The great thing about encapsulating data mapping logic and having unit tests for the logic is that you can easily 
+        switch out the underlying implementation.  
       </p>
-      <br></br>
+      <p></p>      
+      <p>
+        For existing systems that are wanting to use Dozer, we recommend first encapsulating the existing hand coded data mapping into an 
+        assembler type of class and write unit tests for it.  Then switch out the hand coded mapping logic with Dozer and the unit tests 
+        will be your safety net.  The migration to Dozer can be incremental and this is probably the best strategy for exisiting systems.
+      </p>
+      <p></p>
       <p>
         Regardless of whether or not you use Dozer, unit testing data mapping logic is tedious and a necessary evil, but there is a trick that may help.  
         If you have an assembler that supports mapping 2 objects bi-directionally, in your unit test you can do something similar to the following example.
@@ -612,7 +617,6 @@ public void testAssembleSomeObject() throws Exception {
 }
 ]]>
          </source>
-
       <br></br>
       <p>
         It is also good practice to verify that your assembler handles null values properly.  In the following test case none of the source fields 
@@ -638,7 +642,7 @@ public void testAssembleSomeObject_NullValues() throws Exception {
     <subsection name="Should the Dozer mapper be configured as a Singleton?">
       <p>
         Yes.  Mapper instance(s) should be setup as a Singleton. For every instance of the DozerBeanMapper, the mapping files are loaded and parsed.  You should configure the Mapper as a singleton 
-        so that you only incur the cost of loading and initializing the mapping files 1 time.  The DozerBeanMapper.java class is thread safe.
+        so that you only incur the cost of loading and initializing the mapping files 1 time.  The DozerBeanMapper class is thread safe.
       </p>
     </subsection>
     
