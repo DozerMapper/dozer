@@ -24,7 +24,7 @@ a:visited  {
   color:#47a;
 }
 a:active, a:hover {
-  color:#69c;
+  color:#990000;
 }
 #legend li.externalLink {
   background: url(../images/external.png) left top no-repeat;
