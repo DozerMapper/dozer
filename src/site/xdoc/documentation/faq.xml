@@ -306,7 +306,7 @@
       </p>
       <br></br>   
       <p>      
-        Dozer has been successfully implemented on large, very high transactional enterprise systems without any resulting performance issues.  But we always recommend that you run 
+        Dozer has been successfully implemented on large, very high transactional enterprise systems, without any resulting performance issues.  But we always recommend that you run 
         performance tests on your application to determine the actual performance costs within your system.  You can decide for yourself whether those costs 
         are acceptable in the context of the entire system.
       </p>        
