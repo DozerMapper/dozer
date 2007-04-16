@@ -70,6 +70,7 @@
         <item name="Feature Request" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371"/>
         <item name="Patches" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370"/>
       </item>
+      <item name="FAQ" href="/documentation/faq.html" />      
     </menu>
     <menu name="Release Notes">
       <!-- Standalone item -->
