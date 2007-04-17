@@ -413,9 +413,17 @@ public class MappingProcessor implements MapperIF {
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping infinite loop
     String key = mappingUtils.getMappedFieldKey(sourceFieldValue);
     Object value = mappedFields.get(key);
-    if (value != null && value.getClass().equals(destFieldType)) {
-      // Source value has already been mapped to the required destFieldType.
-      return value;
+    if (value != null) {
+      if (value.getClass().equals(destFieldType)) {
+        // Source value has already been mapped to the required destFieldType.
+        return value;
+      }
+      
+      // 1658168 - Recursive mapping issue for interfaces 
+      if (destFieldType.isInterface() && destFieldType.isAssignableFrom(value.getClass())) {
+        // Source value has already been mapped to the required destFieldType.
+        return value;
+      } 
     }
 
     if (fieldMap.getCopyByReference()) {
