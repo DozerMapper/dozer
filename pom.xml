@@ -317,12 +317,12 @@
       <name>Peciuch Dominic</name>
     </contributor>
     <contributor>
+      <name>Christoph Goldner</name>
+    </contributor>
+    <contributor>
       <name>Bruno Guedes</name>
       <email>guedes.bruno@gmail.com</email>
       <timezone>+1</timezone>
-      <roles>
-        <role>Eclipse Plugin</role>
-      </roles>
     </contributor>
     <contributor>
       <name>Ozzie Gurkan</name>
