@@ -35,7 +35,7 @@
           <a href="#are-maps-supported">Are Map type objects(i.e HashMap) supported?</a>
         </li>
         <li>
-          <a href="#is-inheritance-supported">Is inheritance, abstract classes, and interface mapping supported?</a>
+          <a href="#is-inheritance-supported">Are abstract classes, inheritance, and interface mapping supported?</a>
         </li>
         <li>
           <a href="#is-spring-supported">Can Dozer be configured via Spring?</a>
@@ -163,7 +163,7 @@
     <a name="datatype-conversions"></a>
 	  <subsection name="Will Dozer automatically perform data type conversions?">
       <p>
-        Yes.  Most scenarios are supported out of box.  These include primitives, Java Wrapper Objects, Number subclasses, Dates, Calendar, Collections,
+        Yes.  Most scenarios are supported out of the box.  These include primitives, Java Wrapper Objects, Number subclasses, Dates, Calendar, Collections,
 		Arrays, Maps, and Complex types
       </p>
     </subsection>
@@ -210,7 +210,7 @@
 
     <br></br>        
     <a name="is-inheritance-supported"></a>	  
-    <subsection name="Is inheritance, abstract classes, and interface mapping supported?">
+    <subsection name="Are abstract classes, inheritance, and interface mapping supported?">
       <p>
         Yes.  
       </p>
@@ -590,7 +590,7 @@ public class SomeAssemblerImpl implements SomeAssembler {
       </p>
       <p></p>      
       <p>
-        For existing systems that are wanting to use Dozer, we recommend first encapsulating the existing hand coded data mapping into an 
+        For existing systems that are wanting to migrate to Dozer, we recommend first encapsulating any existing hand coded data mapping into an 
         assembler type of class and write unit tests for it.  Then switch out the hand coded mapping logic with Dozer and the unit tests 
         will be your safety net.  The migration to Dozer can be incremental and this is probably the best strategy for exisiting systems.
       </p>
