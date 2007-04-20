@@ -140,6 +140,24 @@ public class PerformanceTest extends DozerTestBase {
    * #5  7125
    * #6  41797
    * 
+   * MHT Computer - 4/19/07 - 3.2.1 release. Rebaseline test #6.  Unused and Uneccessary test data setup logic was skewing prior results.
+   *
+   * jdk1.4
+   * #1  25391
+   * #2  3094
+   * #3  3156
+   * #4  10516
+   * #5  7406
+   * #6  31687
+   * 
+   * jdk1.5
+   * #1  24016
+   * #2  2797
+   * #3  2890
+   * #4  10031
+   * #5  7125
+   * #6  26265
+   * 
    */
 
   public void testMapping1() throws Exception {
