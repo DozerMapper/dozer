@@ -284,7 +284,7 @@ public class MapperTest extends DozerTestBase {
     assertEquals("excludeMe", prime.getExcludeMe());
     assertEquals("excludeMeOneWay", prime.getExcludeMeOneWay());
     // map back
-    TestObject to = (TestObject) mapper.map( prime, TestObject.class);
+    TestObject to = (TestObject) mapper.map(prime, TestObject.class);
     assertNull(to.getExcludeMe());
     assertEquals("excludeMeOneWay", to.getExcludeMeOneWay());
   }
@@ -753,7 +753,7 @@ public class MapperTest extends DozerTestBase {
     }
   }
 
-  public void testNoGetReadMethod() throws Exception {
+  public void testNoReadMethod() throws Exception {
     try {
       mapper.map(new NoReadMethod(), NoReadMethodPrime.class);
       fail("should have thrown mapping exception");
@@ -764,7 +764,17 @@ public class MapperTest extends DozerTestBase {
     }
   }
 
-  public void testNoGetWriteMethod() throws Exception {
+  public void testNoReadMethodSameClassTypes() throws Exception {
+    //When mapping between identical types, if the field doesnt have a getter/setter, dont
+    //add it is a default field to be mapped.
+    NoReadMethod src = new NoReadMethod();
+    src.setNoReadMethod("somevalue");
+    
+    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
+    assertNull("field should be null because no read method exists for field", dest.getXXXXX());
+  }
+  
+  public void testNoWriteMethod() throws Exception {
     try {
       mapper.map(new NoWriteMethod(), NoWriteMethodPrime.class);
       fail("should have thrown mapping exception");
@@ -774,6 +784,19 @@ public class MapperTest extends DozerTestBase {
           e.getMessage());
     }
   }
+  
+  public void testNoWriteMethodSameClassTypes() throws Exception {
+    //When mapping between identical types, if the field doesnt have a getter/setter, dont
+    //add it is a default field to be mapped.
+    NoWriteMethod src = new NoWriteMethod();
+    src.setXXXXXX("someValue");
+    
+    mapper.map(new NoReadMethod(), NoReadMethod.class);
+    
+    NoWriteMethod dest =  (NoWriteMethod) mapper.map(src, NoWriteMethod.class);
+    assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
+  }
+  
 
   public void testOneWayMapping() throws Exception {
     // Map
@@ -914,7 +937,8 @@ public class MapperTest extends DozerTestBase {
     hint.setStr(hintStr);
     source.addHint(hint);
 
-    CustomConverterWrapperPrime dest = (CustomConverterWrapperPrime) mapper.map(source, CustomConverterWrapperPrime.class);
+    CustomConverterWrapperPrime dest = (CustomConverterWrapperPrime) mapper.map(source,
+        CustomConverterWrapperPrime.class);
     String destHintStr = (String) dest.getNeedsHint().iterator().next();
     assertNotNull(destHintStr);
     assertEquals(hintStr, destHintStr);
@@ -1184,16 +1208,17 @@ public class MapperTest extends DozerTestBase {
     assertTrue(toDest.getSetToListWithValues().contains(orange3));
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
   }
-  
+
   public void testInfiniteLoop() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "infiniteLoopMapping.xml" });
     LoopObjectParent loopObjectParent = new LoopObjectParent();
     LoopObjectChild loopObjectChild = new LoopObjectChild();
     loopObjectChild.setParent(loopObjectParent);
     loopObjectParent.setChild(loopObjectChild);
-    
-    LoopObjectParentPrime loopObjectParentPrime = (LoopObjectParentPrime)mapper.map(loopObjectParent, LoopObjectParentPrime.class);
+
+    LoopObjectParentPrime loopObjectParentPrime = (LoopObjectParentPrime) mapper.map(loopObjectParent,
+        LoopObjectParentPrime.class);
     assertNotNull(loopObjectParentPrime);
     assertNotNull(loopObjectParentPrime.getChildPrime());
-  }    
+  }
 }
