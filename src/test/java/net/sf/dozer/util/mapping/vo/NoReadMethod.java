@@ -27,4 +27,9 @@ public class NoReadMethod extends BaseTestObject {
   public void setNoReadMethod(String noReadMethod) {
     this.noReadMethod = noReadMethod;
   }
+  
+  //Need this from unit test to access noReadMethod.
+  public String getXXXXX() {
+    return this.noReadMethod;
+  }
 }
