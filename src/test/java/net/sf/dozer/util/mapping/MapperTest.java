@@ -771,6 +771,15 @@ public class MapperTest extends DozerTestBase {
     assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
   
+  public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
+    //Dont use getter methods that have a param when discovering default fields to be mapped.
+    NoReadMethod src = new NoReadMethod();
+    src.setOtherNoReadMethod("someValue");
+    
+    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
+    assertNull("field should be null because no read method exists for field", dest.getOtherNoReadMethod(-1));
+  }
+  
   public void testNoWriteMethod() throws Exception {
     NoWriteMethod src = new NoWriteMethod();
     src.setXXXXXX("someValue");
