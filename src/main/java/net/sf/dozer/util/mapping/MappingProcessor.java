@@ -845,9 +845,8 @@ public class MappingProcessor implements MapperIF {
             Object obj = result.get(index);
             // make sure it is not a String
             if (!obj.getClass().isAssignableFrom(String.class)) {
-              map(null, obj, destValue, null, fieldMap);
+              map(null, sourceValue, obj, null, fieldMap);
             }
-            result.add(destValue);
           } else {
             result.add(destValue);
           }
@@ -913,9 +912,8 @@ public class MappingProcessor implements MapperIF {
             Object obj = result.get(index);
             // make sure it is not a String
             if (!obj.getClass().isAssignableFrom(String.class)) {
-              map(null, obj, destValue, null, fieldMap);
+              map(null, sourceValue, obj, null, fieldMap);
             }
-            result.set(index, destValue);
           } else {
             result.add(destValue);
           }
