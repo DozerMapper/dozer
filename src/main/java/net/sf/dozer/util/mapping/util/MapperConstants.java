@@ -42,6 +42,7 @@ public abstract class MapperConstants {
   public static final String ONE_WAY = "one-way";
   public static final String DEEP_FIELD_DELIMITOR = ".";
   public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
+  public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
   public static final String SELF_KEYWORD = "this";
   
   //DozerBeanMapper instance caches
