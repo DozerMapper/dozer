@@ -215,13 +215,6 @@ public class MappingProcessor implements MapperIF {
       classMap = getClassMap(sourceObj, destObj.getClass(), mapId, true);
     }
 
-    // What is this and why here?
-    if (parentClassMap != null) {
-      if (superListOfFieldNames == null) {
-        superListOfFieldNames = new ArrayList();
-      }
-    }
-
     Class sourceClass = sourceObj.getClass();
     Class destClass = destObj.getClass();
 
@@ -248,7 +241,9 @@ public class MappingProcessor implements MapperIF {
       // check for interfaces
       superClasses.addAll(classMapFinder.findInterfaceMappings(this.customMappings, sourceClass, destClass));
       if (superClasses != null && superClasses.size() > 0) {
+        superListOfFieldNames = new ArrayList();
         parentFieldNames = processSuperTypeMapping(superClasses, sourceObj, destObj, sourceClass, parentFieldMap);
+        superListOfFieldNames = null;
       }
     }
 
@@ -591,10 +586,6 @@ public class MappingProcessor implements MapperIF {
     } else if (collectionUtils.isList(sourceFieldType) && (collectionUtils.isList(destCollectionType))) {
       result = mapListToList(srcObj, (List) sourceCollectionValue, classMap, fieldMap, destObj);
     }
-    // Set to Set
-    else if (collectionUtils.isSet(sourceFieldType) && collectionUtils.isSet(destCollectionType)) {
-      result = mapSetToSet(srcObj, (Set) sourceCollectionValue, classMap, fieldMap, destObj, destCollectionType);
-    }
     // Set to Array
     else if (collectionUtils.isSet(sourceFieldType) && collectionUtils.isArray(destCollectionType)) {
       result = mapSetToArray(srcObj, (Set) sourceCollectionValue, classMap, fieldMap, destObj);
@@ -607,9 +598,9 @@ public class MappingProcessor implements MapperIF {
     else if (collectionUtils.isSet(sourceFieldType) && collectionUtils.isList(destCollectionType)) {
       result = mapListToList(srcObj, (Set) sourceCollectionValue, classMap, fieldMap, destObj);
     }
-    // List to Set
-    else if (collectionUtils.isList(sourceFieldType) && collectionUtils.isSet(destCollectionType)) {
-      result = addToSet(srcObj, fieldMap, (List) sourceCollectionValue, classMap, destObj);
+    // Collection to Set
+    else if (collectionUtils.isCollection(sourceFieldType) && collectionUtils.isSet(destCollectionType)) {
+      result = addToSet(srcObj, fieldMap, (Collection) sourceCollectionValue, classMap, destObj);
     }
     return result;
   }
@@ -633,7 +624,16 @@ public class MappingProcessor implements MapperIF {
       Object sourceEntryValue = sourceEntry.getValue();
       Object destEntryValue = mapOrRecurseObject(srcObj, sourceEntryValue, sourceEntryValue.getClass(), classMap,
           fieldMap, destObj);
-      result.put(sourceEntry.getKey(), destEntryValue);
+      Object obj = result.get(sourceEntry.getKey());
+      if (obj != null && obj.equals(destEntryValue) && fieldMap.isGenericFieldMap()
+          && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(((GenericFieldMap) fieldMap).getRelationshipType())) {
+        if (!(obj instanceof String)) {
+          map(null, sourceEntryValue, obj, null, fieldMap);
+        }
+      } else {
+        result.put(sourceEntry.getKey(), destEntryValue);
+      }
+
     }
     return result;
   }
@@ -929,30 +929,6 @@ public class MappingProcessor implements MapperIF {
       Object destObj) throws IllegalAccessException, InstantiationException, InvocationTargetException,
       NoSuchMethodException, ClassNotFoundException, NoSuchFieldException {
     return addOrUpdateToList(srcObj, fieldMap, sourceCollectionValue, classMap, destObj, null);
-  }
-
-  private Set mapSetToSet(Object srcObj, Set sourceCollectionValue, ClassMap classMap, FieldMap fieldMap,
-      Object destObj, Class destClass) throws IllegalAccessException, InstantiationException,
-      InvocationTargetException, NoSuchMethodException, ClassNotFoundException, NoSuchFieldException {
-
-    Object field = fieldMap.doesFieldExist(destObj, destClass);
-    Set result = null;
-    // Sets can not contain the same equals() object - by definition as you
-    // add you might be updating at the same time
-    if (field == null) {
-      Class destFieldType = fieldMap.getDestFieldType(destObj.getClass());
-      result = collectionUtils.createNewSet(destFieldType);
-    } else {
-      result = (Set) field;
-    }
-    Iterator iter = sourceCollectionValue.iterator();
-    while (iter.hasNext()) {
-      Object obj = iter.next();
-      Class destEntryType = fieldMap.getDestHintType(obj.getClass());
-      Object destValue = mapOrRecurseObject(srcObj, obj, destEntryType, classMap, fieldMap, destObj);
-      result.add(destValue);
-    }
-    return result;
   }
 
   private Object mapSetToArray(Object srcObj, Collection sourceCollectionValue, ClassMap classMap, FieldMap fieldMap,
