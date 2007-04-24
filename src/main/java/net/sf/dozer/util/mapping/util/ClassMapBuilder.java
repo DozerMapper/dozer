@@ -170,19 +170,25 @@ public class ClassMapBuilder {
     for (int i = 0; i < destProperties.length; i++) {
       PropertyDescriptor destPropertyDescriptor = destProperties[i]; 
       String destFieldName = destPropertyDescriptor.getName();
-      if (destFieldName.equals("class") || (destClass.equals(sourceClass)&& destPropertyDescriptor.getWriteMethod() == null)) {
-        continue;
-      }
-      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
-      // if the sourceProperty is null we know that there is not a
-      // corresponding property to map to.
-      if (sourceProperty == null || (sourceClass.equals(destClass) && sourceProperty.getReadMethod() == null)) { 
-        continue;
-      }
 
+      //If field has already been accounted for, then skip
       if (classMap.getFieldMapUsingDest(destFieldName) != null) {
         continue;
       }
+      
+      //If destination field does not have a write method, then skip
+      if (destFieldName.equals("class") || destPropertyDescriptor.getWriteMethod() == null) {
+        continue;
+      }
+      
+      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
+
+      // If the sourceProperty is null we know that there is not a corresponding property to map to.  
+      // If source property does not have a read method, then skip
+      if (sourceProperty == null || sourceProperty.getReadMethod() == null) { 
+        continue;
+      }
+
       GenericFieldMap map = new GenericFieldMap();
       map.setSourceField(new DozerField(destFieldName, null));
       map.setDestField(new DozerField(destFieldName, null));
