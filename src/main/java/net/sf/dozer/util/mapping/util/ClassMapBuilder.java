@@ -172,12 +172,12 @@ public class ClassMapBuilder {
       String destFieldName = destPropertyDescriptor.getName();
 
       //If field has already been accounted for, then skip
-      if (classMap.getFieldMapUsingDest(destFieldName) != null) {
+      if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
         continue;
       }
       
       //If destination field does not have a write method, then skip
-      if (destFieldName.equals("class") || destPropertyDescriptor.getWriteMethod() == null) {
+      if (destPropertyDescriptor.getWriteMethod() == null) {
         continue;
       }
       
