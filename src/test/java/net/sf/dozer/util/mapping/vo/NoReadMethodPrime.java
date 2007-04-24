@@ -27,4 +27,8 @@ public class NoReadMethodPrime extends BaseTestObject {
   public void setNoReadMethod(String noReadMethod) {
     this.noReadMethod = noReadMethod;
   }
+  
+  public String getXXXXX() {
+    return this.noReadMethod;
+  }
 }
