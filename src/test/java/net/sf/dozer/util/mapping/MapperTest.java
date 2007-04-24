@@ -754,19 +754,16 @@ public class MapperTest extends DozerTestBase {
   }
 
   public void testNoReadMethod() throws Exception {
-    try {
-      mapper.map(new NoReadMethod(), NoReadMethodPrime.class);
-      fail("should have thrown mapping exception");
-    } catch (MappingException e) {
-      assertEquals(
-          "java.lang.NoSuchMethodException: Unable to determine read method for Field: noReadMethod in Class: class net.sf.dozer.util.mapping.vo.NoReadMethod",
-          e.getMessage());
-    }
+    //If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
+    NoReadMethod src = new NoReadMethod();
+    src.setNoReadMethod("somevalue");
+    
+    NoReadMethodPrime dest = (NoReadMethodPrime) mapper.map(src, NoReadMethodPrime.class);
+    assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
 
   public void testNoReadMethodSameClassTypes() throws Exception {
-    //When mapping between identical types, if the field doesnt have a getter/setter, dont
-    //add it is a default field to be mapped.
+    //If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
     NoReadMethod src = new NoReadMethod();
     src.setNoReadMethod("somevalue");
     
@@ -775,14 +772,12 @@ public class MapperTest extends DozerTestBase {
   }
   
   public void testNoWriteMethod() throws Exception {
-    try {
-      mapper.map(new NoWriteMethod(), NoWriteMethodPrime.class);
-      fail("should have thrown mapping exception");
-    } catch (MappingException e) {
-      assertEquals(
-          "java.lang.NoSuchMethodException: Unable to determine write method for Field: noWriteMethod in Class: class net.sf.dozer.util.mapping.vo.NoWriteMethodPrime",
-          e.getMessage());
-    }
+    NoWriteMethod src = new NoWriteMethod();
+    src.setXXXXXX("someValue");
+    
+    NoWriteMethodPrime dest = (NoWriteMethodPrime) mapper.map(src, NoWriteMethodPrime.class);
+    assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
+    
   }
   
   public void testNoWriteMethodSameClassTypes() throws Exception {
