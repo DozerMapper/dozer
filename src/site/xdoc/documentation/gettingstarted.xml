@@ -15,7 +15,7 @@
         <br></br>
         <li>Add ${dozer.home}/dist/dozer.jar to your classpath.</li>
         <br></br>
-        <li>Add <a href="../dependencies.html">required thirdparty runtime jars</a> to your classpath.  Alternatively, you can just use the dozer-full.jar in the {dozer.home}/dist directory. This includes all of the runtime classes needed to run Dozer.</li>
+        <li>Add <a href="../dependencies.html">required thirdparty runtime jars</a> to your classpath.</li>
         <br></br>
       </p>
       <br></br>
