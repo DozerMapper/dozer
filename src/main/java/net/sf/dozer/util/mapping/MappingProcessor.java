@@ -1121,12 +1121,15 @@ public class MappingProcessor implements MapperIF {
 
   private ClassMap getClassMap(Object sourceObj, Class destClass, String mapId, boolean isInstance) {
     ClassMap mapping = classMapFinder.findClassMap(this.customMappings, sourceObj, destClass, mapId, isInstance);
-
-    // If mapping not found in exsting custom mapping collection, create default
-    // as an explicit mapping must not exist.
-    // The create default class map method will also add all default mappings
-    // that it can determine.
+    
     if (mapping == null) {
+      //If mapId was specified and mapping was not found, then throw an exception
+      if (!mappingUtils.isBlankOrNull(mapId)) {
+        throw new MappingException("Class mapping not found for map-id: " + mapId);
+      }
+
+      // If mapping not found in exsting custom mapping collection, create default as an explicit mapping must not exist.
+      // The create default class map method will also add all default mappings that it can determine.
       mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
       customMappings.put(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass), mapping);
     }
