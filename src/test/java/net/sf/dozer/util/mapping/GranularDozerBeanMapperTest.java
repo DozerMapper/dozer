@@ -835,4 +835,13 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertEquals("", "net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
   }  
   
+  public void testMapIdDoesNotExist() {
+    try {
+      mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
+      fail("should have thrown exception");
+    } catch (Exception e) {
+      //expected
+    }
+  }
+  
 }
