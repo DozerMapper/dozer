@@ -300,7 +300,7 @@
       <br></br>   
       <p>
         Performance is going to depend on the complexity of the use case and the number of fields mapped.  In our performance tests
-        for "average" mapping scenarios, the class mapping times vary from 1/8 of a millisecond to 2 milliseconds.  This roughly equates to 50 - 350 field mappings per millisecond.  
+        for "average" mapping scenarios, the class mapping times vary from 1/8 of a millisecond to 2 milliseconds.  This roughly equates to 50 - 450 field mappings per millisecond.  
         However, the number of variables in any decent benchmark makes it almost impossible to transfer these results into reasonable conclusions about 
         the performance of your own application. Your application is different and you will have unique use cases.  
       </p>
