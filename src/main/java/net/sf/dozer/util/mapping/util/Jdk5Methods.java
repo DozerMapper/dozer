@@ -24,7 +24,7 @@ import net.sf.dozer.util.mapping.MappingException;
  * that are discovered via reflection.  Use single instances of these objects for 
  * performance reasons.  Since Dozer must support older jdks, these
  * jdk1.5 objects must be instantiated via reflection so that the code base can be
- * build with older jdks such as 1.4. 
+ * built with older jdks such as 1.4. 
  * 
  */
 public class Jdk5Methods {
