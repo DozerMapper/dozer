@@ -13,15 +13,15 @@
         <p>
           A mapping framework is useful in a layered architecture where you are creating layers 
           of abstraction by encapsulating changes to particular data objects vs. propagating 
-          these objects to other layers (i.e. external service data objects, data transfer objects, 
-          or internal service data objects).  A mapping framework is ideal for using within Assembler 
+          these objects to other layers (i.e. external service data objects, domain objects, data transfer objects, 
+          internal service data objects).  A mapping framework is ideal for using within Assembler 
           type classes that are responsible for mapping from one data object to another.
           <br></br>
-          A side effect of an SOA/ESB is the passing of domain objects between different systems. Typically, you won't want 
+          For SOA/ESB systems, a side effect is the passing of domain objects between different systems. Typically, you won't want 
           internal domain objects exposed externally and won't allow for external domain objects to bleed 
           into your system.
           <br></br>
-          This problem has been traditionally addressed by hand coding value object assemblers (or converters) that copy data between objects.  
+          Mapping between data objects has been traditionally addressed by hand coding value object assemblers (or converters) that copy data between the objects.  
           Most programmers will develop some sort of custom mapping framework and spend countless hours and thousands of lines of code mapping to and from their many transfer objects.
           <br></br>
           A generic mapping framework solves these problems.  Dozer is an open source mapping framework that 

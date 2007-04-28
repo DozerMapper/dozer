@@ -12,11 +12,11 @@
     <section name="About">
       <p>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another.  Typically, these Java Beans will be of different complex types.  </p>
       <p>Dozer supports simple property mapping, complex type mapping, bi-directional mapping, implicit-explicit mapping, as well as recursive mapping. This includes mapping collection attributes that also need mapping at the element level.</p>
-      <p>Dozer not only supports mapping between attribute names, but also converting between types.  Many conversion scenarios are supported out of the box, but Dozer also allows you to specify custom conversions via XML.</p>
+      <p>Dozer not only supports mapping between attribute names, but also automatically converting between types.  Most conversion scenarios are supported out of the box, but Dozer also allows you to specify custom conversions via XML.</p>
       <p></p>
       <p>The mapper is used any time you need to take one type of Java Bean and map it to another type of Java Bean. Most field mapping can be done automatically by Dozer using reflection, but any custom mapping can be predescribed in XML format. Mapping is bi-directional so only one relationship between classes needs defining. If any property names on both objects are the same you do not even need to do any explicit property mapping for these fields.</p>
         <p>The picture below depicts some of the common areas for Dozer to be inserted into an architecture. Notice that it typically is utilized at the boundaries (entry/exit). Dozer 
-        will make sure that your data transfer objects from the database do not bleed into the presentation or into external consumers. It can also help map your domain objects to external APIs calls and vice-versa.
+        will make sure that your internal domain objects from the database do not bleed into the presentation layer or to external consumers. It can also help map your domain objects to external APIs calls and vice-versa.
         </p>
         <p><img src="../images/architecture.gif"/></p>
         <p>The bean mapper is written in Java and relies heavily on the Jakarta Commons Bean Utils package for Java Bean utility methods.</p>
@@ -24,5 +24,9 @@
     <section name="Why Map?">
       <p>Please read the <a href="whymap.html">Why Map?</a> page.</p>
     </section>
+    <section name="Frequently Asked Questions">
+      <p>Please read the <a href="faq.html">FAQ</a> page.</p>
+    </section>
+	  
   </body>
 </document>

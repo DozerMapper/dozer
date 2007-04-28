@@ -38,6 +38,67 @@
        ]]>
      </source>
     </section>
+
+    <subsection name="Overriding Wildcards">
+      <p>
+      Each individual mapping section can set its own wildcard policy even if there is a global wildcard policy defined using the configuration block. For example, the following mapping does not allow wildcards:
+      </p>
+      <source>
+        <![CDATA[ 
+<mapping wildcard="false">
+  <class-a>net.sf.dozer.util.mapping.vo.SpringBean</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.SpringBeanPrime</class-b>
+    
+  <field>
+    <a>anAttributeToMap</a>
+    <b>anAttributeToMapPrime</b>
+  </field>
+</mapping> 
+        ]]>
+     </source>
+     <p>
+     </p>
+    </subsection>    
+    <subsection name="Overriding Date Format">
+      <p>
+      The same is true for date format values.  Each individual mapping section can set its own date format rules.  For example:
+      </p>
+      <source>
+        <![CDATA[ 
+<mapping date-format="MM-dd-yyyy HH:mm:ss"> <!-- Override top level date format default  -->
+  <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    
+  <field>
+    <a>one</a> 
+    <b>onePrime</b>
+  </field>
+</mapping>      
+      ]]>
+     </source>
+     <p>
+     </p>
+    </subsection>       
+    <subsection name="Overriding Error Handling">
+      <p>
+      You can override the error handling policy for a particular mapping.  For example:
+      </p>
+      <source>
+        <![CDATA[ 
+<mapping stop-on-errors="false" date-format="MM-dd-yyyy HH:mm:ss"> <!-- Override top level defaults -->
+  <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    
+  <field>
+    <a>one</a>
+    <b>onePrime</b>
+  </field>
+</mapping>      
+      ]]>
+     </source>
+     <p>
+     </p>
+    </subsection> 
    
   </body>
 </document>

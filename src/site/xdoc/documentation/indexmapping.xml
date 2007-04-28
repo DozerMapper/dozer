@@ -9,8 +9,7 @@
     <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
   </head>  
   <body>
-    <section name="Indexed Property Mappings">
-      <subsection name="Indexed Property Mapping">
+    <section name="Indexed Property Mapping">
          <p>Fields that need to be looked up or written to by indexed property are supported.</p>
          <source>
            <![CDATA[ 
@@ -45,7 +44,6 @@
            
             ]]>
           </source>
-      </subsection>            
     </section>
   </body>
 </document>

@@ -16,7 +16,6 @@
         <li>Dozer needs a few thirdparty runtime jars.</li>
         <li>All of the <a href="../dependencies.html">required runtime jars</a> are in the {dozer.home}/repository directory and need to be in your Classpath</li>
         <li>The dozer.jar file in the {dozer.home}/dist directory needs to be in your Classpath</li>
-        <li>Alternatively, you can just use the dozer-full.jar in the {dozer.home}/dist directory. This includes all of the runtime classes needed to run Dozer</li>
       </p>
       <subsection name="Dozer Bean Mapper">
       <p>
@@ -81,8 +80,9 @@ DestinationObject destObject = (DestinationObject) mapper.map(sourceObject, Dest
   class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
   <property name="mappingFiles">
     <list>
-      <value>dozerBeanMapping.xml</value>
-      <value>someOtherDozerBeanMappings.xml</value>
+      <value>dozer-global-configuration.xml</value>			   
+      <value>dozer-bean-mappings.xml</value>
+      <value>more-dozer-bean-mappings.xml</value>
     </list>
   </property>
 </bean>

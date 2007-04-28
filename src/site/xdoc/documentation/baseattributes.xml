@@ -1,7 +1,7 @@
 <document>
   <properties>
     <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
-    <title>Super Class Mapping</title>
+    <title>Inheritance Mapping</title>
   </properties>
   <head>
     <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
@@ -9,7 +9,7 @@
     <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
   </head>  
   <body>
-    <section name="Super Class Mapping">
+    <section name="Inheritance Mapping">
       <subsection name="Reducing Mapping XML when using base class attributes">
         <p><b>Properties that are of the same name do not need to be specified in the mapping xml file unless hints are needed.</b></p>
         
