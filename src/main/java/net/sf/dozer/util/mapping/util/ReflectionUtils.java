@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 import net.sf.dozer.util.mapping.MappingException;
 
@@ -142,14 +142,14 @@ public class ReflectionUtils {
     if (objectClass.isInterface()) {
       return getInterfacePropertyDescriptors(objectClass);
     } else {
-      return BeanUtils.getPropertyDescriptors(objectClass);
+      return PropertyUtils.getPropertyDescriptors(objectClass);
     }
   }
 
   private PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
     List propDescriptors = new ArrayList();
     // Add prop descriptors for interface passed in
-    propDescriptors.addAll(Arrays.asList(BeanUtils.getPropertyDescriptors(interfaceClass)));
+    propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
 
     // Look for interface inheritance. If super interfaces are found, recurse up the hierarchy tree and add prop
     // descriptors for each interface found.

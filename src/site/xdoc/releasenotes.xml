@@ -10,6 +10,14 @@
   </head>  
   <body>
     <section name="Release Notes">
+      <h3>3.3.1  <font size="-3" color="gray"><i>04/28/2007</i></font></h3>
+        <p>Bug Fixes</p> 
+        <p>
+          <ul>      
+            <li>Remove Spring runtime dependency.  Revert back to using Apache Commons to get Property Descriptors <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1709117&amp;group_id=133517&amp;atid=727368">1709117</a></li>
+          </ul>
+        </p>
+      
       <h3>3.3  <font size="-3" color="gray"><i>04/26/2007</i></font></h3>
         <p>Bug Fixes</p> 
         <p>
