@@ -22,7 +22,7 @@ package net.sf.dozer.util.mapping.vo;
  *
  */
 public class NoWriteMethodPrime extends BaseTestObject {
-  private String noWriteMethod = "noWriteMethodPrime";
+  private String noWriteMethod;
 
   public String getNoWriteMethod() {
     return noWriteMethod;

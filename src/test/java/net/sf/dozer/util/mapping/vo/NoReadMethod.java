@@ -23,8 +23,24 @@ package net.sf.dozer.util.mapping.vo;
  */
 public class NoReadMethod extends BaseTestObject {
   private String noReadMethod;
+  private String otherNoReadMethod;
 
   public void setNoReadMethod(String noReadMethod) {
     this.noReadMethod = noReadMethod;
+  }
+  
+  //Dozer should not use a get method w/ param when discovering 
+  //default field mappings
+  public String getOtherNoReadMethod(long value) {
+    return otherNoReadMethod;
+  }
+
+  public void setOtherNoReadMethod(String otherNoReadMethod) {
+    this.otherNoReadMethod = otherNoReadMethod;
+  }
+
+  //Need this from unit test to access noReadMethod.
+  public String getXXXXX() {
+    return this.noReadMethod;
   }
 }

@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping.fieldmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
@@ -41,7 +42,7 @@ public class ClassMap {
   private boolean stopOnErrors = MapperConstants.DEFAULT_ERROR_POLICY;
   private boolean wildcardOveridden = false;
   private boolean stopOnErrorsOveridden = false;
-  private Configuration configuration = new Configuration();
+  private CustomConverterContainer customConverters;
   private String mapId;
 
   public List getFieldMaps() {
@@ -163,12 +164,12 @@ public class ClassMap {
     this.wildcardOveridden = wildcardOveridden;
   }
 
-  public Configuration getConfiguration() {
-    return configuration;
+  public CustomConverterContainer getCustomConverters() {
+    return customConverters;
   }
 
-  public void setConfiguration(Configuration configuration) {
-    this.configuration = configuration;
+  public void setCustomConverters(CustomConverterContainer customConverters) {
+    this.customConverters = customConverters;
   }
 
   public DozerClass getSourceClass() {

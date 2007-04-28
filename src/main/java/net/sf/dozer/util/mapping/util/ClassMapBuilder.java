@@ -42,25 +42,18 @@ public class ClassMapBuilder {
   
   public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
     ClassMap classMap = new ClassMap();
-    classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, null, null, null, null, 
+    classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, globalConfiguration.getBeanFactory(), null, null, null, 
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
-    classMap.setDestClass(new DozerClass(destClass.getName(), destClass, null, null, null, null,
+    classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
 
-    if (globalConfiguration == null) {
-      // a default class map inherits the global properties
-      classMap.setWildcard(classMap.getConfiguration().getWildcard());
-      classMap.setStopOnErrors(classMap.getConfiguration().getStopOnErrors());
-      classMap.setDateFormat(classMap.getConfiguration().getDateFormat());
-    } else {
       classMap.setWildcard(globalConfiguration.getWildcard());
       classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
       classMap.setDateFormat(globalConfiguration.getDateFormat());
-      classMap.setConfiguration(globalConfiguration);
+      classMap.setBeanFactory(globalConfiguration.getBeanFactory());
       if (globalConfiguration.getAllowedExceptions() != null) {
         classMap.setAllowedExceptions(globalConfiguration.getAllowedExceptions().getExceptions());
       }
-    }
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
       addDefaultFieldMappings(classMap);
@@ -175,17 +168,27 @@ public class ClassMapBuilder {
     Class destClass = classMap.getDestClass().getClassToMap();
     PropertyDescriptor[] destProperties = reflectionUtils.getPropertyDescriptors(destClass);
     for (int i = 0; i < destProperties.length; i++) {
-      String destFieldName = destProperties[i].getName();
+      PropertyDescriptor destPropertyDescriptor = destProperties[i]; 
+      String destFieldName = destPropertyDescriptor.getName();
+
+      //If field has already been accounted for, then skip
+      if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
+        continue;
+      }
+      
+      //If destination field does not have a write method, then skip
+      if (destPropertyDescriptor.getWriteMethod() == null) {
+        continue;
+      }
+      
       PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
-      // if the sourceProperty is null we know that there is not a
-      // corresponding property to map to.
-      if (destFieldName.equals("class") || sourceProperty == null) {
+
+      // If the sourceProperty is null we know that there is not a corresponding property to map to.  
+      // If source property does not have a read method, then skip
+      if (sourceProperty == null || sourceProperty.getReadMethod() == null) { 
         continue;
       }
 
-      if (classMap.getFieldMapUsingDest(destFieldName) != null) {
-        continue;
-      }
       GenericFieldMap map = new GenericFieldMap();
       map.setSourceField(new DozerField(destFieldName, null));
       map.setDestField(new DozerField(destFieldName, null));

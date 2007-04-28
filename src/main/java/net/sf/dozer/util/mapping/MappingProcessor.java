@@ -129,7 +129,7 @@ public class MappingProcessor implements MapperIF {
 
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
-      CustomConverterContainer customConverterContainer = classMap.getConfiguration().getCustomConverters();
+      CustomConverterContainer customConverterContainer = classMap.getCustomConverters();
       Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverterContainer,
           sourceObj.getClass(), destClass);
       if (converterClass != null) {
@@ -169,7 +169,7 @@ public class MappingProcessor implements MapperIF {
 
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
-      CustomConverterContainer customConverterContainer = classMap.getConfiguration().getCustomConverters();
+      CustomConverterContainer customConverterContainer = classMap.getCustomConverters();
       Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverterContainer,
           sourceObj.getClass(), destObj.getClass());
       eventMgr
@@ -215,19 +215,12 @@ public class MappingProcessor implements MapperIF {
       classMap = getClassMap(sourceObj, destObj.getClass(), mapId, true);
     }
 
-    // What is this and why here?
-    if (parentClassMap != null) {
-      if (superListOfFieldNames == null) {
-        superListOfFieldNames = new ArrayList();
-      }
-    }
-
     Class sourceClass = sourceObj.getClass();
     Class destClass = destObj.getClass();
 
     // Check to see if custom converter has been specified for this mapping
     // combination. If so, just use it.
-    CustomConverterContainer customConverterContainer = classMap.getConfiguration().getCustomConverters();
+    CustomConverterContainer customConverterContainer = classMap.getCustomConverters();
     Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverterContainer,
         sourceObj.getClass(), destClass);
     if (converterClass != null) {
@@ -248,7 +241,9 @@ public class MappingProcessor implements MapperIF {
       // check for interfaces
       superClasses.addAll(classMapFinder.findInterfaceMappings(this.customMappings, sourceClass, destClass));
       if (superClasses != null && superClasses.size() > 0) {
+        superListOfFieldNames = new ArrayList();
         parentFieldNames = processSuperTypeMapping(superClasses, sourceObj, destObj, sourceClass, parentFieldMap);
+        superListOfFieldNames = null;
       }
     }
 
@@ -390,7 +385,7 @@ public class MappingProcessor implements MapperIF {
       NoSuchFieldException {
     Class sourceFieldClass = sourceFieldValue != null ? sourceFieldValue.getClass() : fieldMap
         .getSourceFieldType(srcObj.getClass());
-    CustomConverterContainer customConverters = classMap.getConfiguration().getCustomConverters();
+    CustomConverterContainer customConverters = classMap.getCustomConverters();
     Class converterClass = mappingUtils.determineCustomConverter(fieldMap, converterByDestTypeCache, customConverters,
         sourceFieldClass, destFieldType);
 
@@ -413,9 +408,17 @@ public class MappingProcessor implements MapperIF {
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping infinite loop
     String key = mappingUtils.getMappedFieldKey(sourceFieldValue);
     Object value = mappedFields.get(key);
-    if (value != null && value.getClass().equals(destFieldType)) {
-      // Source value has already been mapped to the required destFieldType.
-      return value;
+    if (value != null) {
+      if (value.getClass().equals(destFieldType)) {
+        // Source value has already been mapped to the required destFieldType.
+        return value;
+      }
+      
+      // 1658168 - Recursive mapping issue for interfaces 
+      if (destFieldType.isInterface() && destFieldType.isAssignableFrom(value.getClass())) {
+        // Source value has already been mapped to the required destFieldType.
+        return value;
+      } 
     }
 
     if (fieldMap.getCopyByReference()) {
@@ -583,10 +586,6 @@ public class MappingProcessor implements MapperIF {
     } else if (collectionUtils.isList(sourceFieldType) && (collectionUtils.isList(destCollectionType))) {
       result = mapListToList(srcObj, (List) sourceCollectionValue, classMap, fieldMap, destObj);
     }
-    // Set to Set
-    else if (collectionUtils.isSet(sourceFieldType) && collectionUtils.isSet(destCollectionType)) {
-      result = mapSetToSet(srcObj, (Set) sourceCollectionValue, classMap, fieldMap, destObj, destCollectionType);
-    }
     // Set to Array
     else if (collectionUtils.isSet(sourceFieldType) && collectionUtils.isArray(destCollectionType)) {
       result = mapSetToArray(srcObj, (Set) sourceCollectionValue, classMap, fieldMap, destObj);
@@ -599,9 +598,9 @@ public class MappingProcessor implements MapperIF {
     else if (collectionUtils.isSet(sourceFieldType) && collectionUtils.isList(destCollectionType)) {
       result = mapListToList(srcObj, (Set) sourceCollectionValue, classMap, fieldMap, destObj);
     }
-    // List to Set
-    else if (collectionUtils.isList(sourceFieldType) && collectionUtils.isSet(destCollectionType)) {
-      result = addToSet(srcObj, fieldMap, (List) sourceCollectionValue, classMap, destObj);
+    // Collection to Set
+    else if (collectionUtils.isCollection(sourceFieldType) && collectionUtils.isSet(destCollectionType)) {
+      result = addToSet(srcObj, fieldMap, (Collection) sourceCollectionValue, classMap, destObj);
     }
     return result;
   }
@@ -625,7 +624,16 @@ public class MappingProcessor implements MapperIF {
       Object sourceEntryValue = sourceEntry.getValue();
       Object destEntryValue = mapOrRecurseObject(srcObj, sourceEntryValue, sourceEntryValue.getClass(), classMap,
           fieldMap, destObj);
-      result.put(sourceEntry.getKey(), destEntryValue);
+      Object obj = result.get(sourceEntry.getKey());
+      if (obj != null && obj.equals(destEntryValue) && fieldMap.isGenericFieldMap()
+          && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(((GenericFieldMap) fieldMap).getRelationshipType())) {
+        if (!(obj instanceof String)) {
+          map(null, sourceEntryValue, obj, null, fieldMap);
+        }
+      } else {
+        result.put(sourceEntry.getKey(), destEntryValue);
+      }
+
     }
     return result;
   }
@@ -735,7 +743,7 @@ public class MappingProcessor implements MapperIF {
           throw new MappingException("<field type=\"iterate\"> must have a source or destination type hint");
         }
         // check for custom converters
-        CustomConverterContainer customConverters = classMap.getConfiguration().getCustomConverters();
+        CustomConverterContainer customConverters = classMap.getCustomConverters();
         Class converterClass = mappingUtils.findCustomConverter(converterByDestTypeCache, customConverters, value
             .getClass(), Thread.currentThread().getContextClassLoader().loadClass(
             fieldMapping.getDestinationTypeHint().getHintName()));
@@ -837,9 +845,8 @@ public class MappingProcessor implements MapperIF {
             Object obj = result.get(index);
             // make sure it is not a String
             if (!obj.getClass().isAssignableFrom(String.class)) {
-              map(null, obj, destValue, null, fieldMap);
+              map(null, sourceValue, obj, null, fieldMap);
             }
-            result.add(destValue);
           } else {
             result.add(destValue);
           }
@@ -905,9 +912,8 @@ public class MappingProcessor implements MapperIF {
             Object obj = result.get(index);
             // make sure it is not a String
             if (!obj.getClass().isAssignableFrom(String.class)) {
-              map(null, obj, destValue, null, fieldMap);
+              map(null, sourceValue, obj, null, fieldMap);
             }
-            result.set(index, destValue);
           } else {
             result.add(destValue);
           }
@@ -923,30 +929,6 @@ public class MappingProcessor implements MapperIF {
       Object destObj) throws IllegalAccessException, InstantiationException, InvocationTargetException,
       NoSuchMethodException, ClassNotFoundException, NoSuchFieldException {
     return addOrUpdateToList(srcObj, fieldMap, sourceCollectionValue, classMap, destObj, null);
-  }
-
-  private Set mapSetToSet(Object srcObj, Set sourceCollectionValue, ClassMap classMap, FieldMap fieldMap,
-      Object destObj, Class destClass) throws IllegalAccessException, InstantiationException,
-      InvocationTargetException, NoSuchMethodException, ClassNotFoundException, NoSuchFieldException {
-
-    Object field = fieldMap.doesFieldExist(destObj, destClass);
-    Set result = null;
-    // Sets can not contain the same equals() object - by definition as you
-    // add you might be updating at the same time
-    if (field == null) {
-      Class destFieldType = fieldMap.getDestFieldType(destObj.getClass());
-      result = collectionUtils.createNewSet(destFieldType);
-    } else {
-      result = (Set) field;
-    }
-    Iterator iter = sourceCollectionValue.iterator();
-    while (iter.hasNext()) {
-      Object obj = iter.next();
-      Class destEntryType = fieldMap.getDestHintType(obj.getClass());
-      Object destValue = mapOrRecurseObject(srcObj, obj, destEntryType, classMap, fieldMap, destObj);
-      result.add(destValue);
-    }
-    return result;
   }
 
   private Object mapSetToArray(Object srcObj, Collection sourceCollectionValue, ClassMap classMap, FieldMap fieldMap,
@@ -1139,12 +1121,15 @@ public class MappingProcessor implements MapperIF {
 
   private ClassMap getClassMap(Object sourceObj, Class destClass, String mapId, boolean isInstance) {
     ClassMap mapping = classMapFinder.findClassMap(this.customMappings, sourceObj, destClass, mapId, isInstance);
-
-    // If mapping not found in exsting custom mapping collection, create default
-    // as an explicit mapping must not exist.
-    // The create default class map method will also add all default mappings
-    // that it can determine.
+    
     if (mapping == null) {
+      //If mapId was specified and mapping was not found, then throw an exception
+      if (!mappingUtils.isBlankOrNull(mapId)) {
+        throw new MappingException("Class mapping not found for map-id: " + mapId);
+      }
+
+      // If mapping not found in exsting custom mapping collection, create default as an explicit mapping must not exist.
+      // The create default class map method will also add all default mappings that it can determine.
       mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
       customMappings.put(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass), mapping);
     }

@@ -23,7 +23,7 @@ package net.sf.dozer.util.mapping.util;
  */
 public abstract class MapperConstants {
 
-  public static final String CURRENT_VERSION = "3.2.1";
+  public static final String CURRENT_VERSION = "3.3";
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_ERROR_POLICY = true;
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
@@ -42,6 +42,7 @@ public abstract class MapperConstants {
   public static final String ONE_WAY = "one-way";
   public static final String DEEP_FIELD_DELIMITOR = ".";
   public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
+  public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
   public static final String SELF_KEYWORD = "this";
   
   //DozerBeanMapper instance caches

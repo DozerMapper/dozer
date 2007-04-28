@@ -827,6 +827,21 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     //TODO: add more asserts
   } 
   
+  public void testGlobalBeanFactoryAppliedToDefaultMappings() throws Exception {
+    MapperIF mapper = getNewMapper(new String[] { "global-configuration.xml" });
+    TestObjectPrime dest = (TestObjectPrime) mapper.map(new TestObject(), TestObjectPrime.class);
+    
+    assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
+    assertEquals("", "net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
+  }  
   
+  public void testMapIdDoesNotExist() {
+    try {
+      mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
+      fail("should have thrown exception");
+    } catch (Exception e) {
+      //expected
+    }
+  }
   
 }

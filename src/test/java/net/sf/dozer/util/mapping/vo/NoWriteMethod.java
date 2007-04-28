@@ -22,9 +22,13 @@ package net.sf.dozer.util.mapping.vo;
  *
  */
 public class NoWriteMethod extends BaseTestObject {
-  private String noWriteMethod = "noWriteMethod";
+  private String noWriteMethod;
 
   public String getNoWriteMethod() {
     return noWriteMethod;
+  }
+  
+  public void setXXXXXX(String x) {
+    this.noWriteMethod = x;
   }
 }

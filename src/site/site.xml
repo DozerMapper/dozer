@@ -4,9 +4,9 @@
 
   <!-- Page Title -->
   <bannerLeft>
-    <name>dozer</name>
-    <src>/images/javanet_button_90.gif</src>
-    <href>http://java.net/</href>
+    <name>Dozer</name>
+    <src>http://sflogo.sourceforge.net/sflogo.php?group_id=133517&amp;type=2</src>
+    <href>http://www.sourceforge.net</href>
   </bannerLeft>
   <bannerRight>
     <src>images/dozer.jpeg</src>
@@ -24,6 +24,7 @@
       <item name="Downloading" href="/downloading.html" />
       <item name="License" href="/license.html" />
     </menu>
+
     <menu name="User's Guide">
       <!-- Standalone item -->
       <item name="About" href="/documentation/about.html" />
@@ -42,26 +43,25 @@
       <item name="Custom Mappings via XML" href="/documentation/mappings.html" collapse="true">
         <item name="Mapping Two Classes" href="/documentation/mappingclasses.html"/>
         <item name="Basic Property Mapping" href="/documentation/simpleproperty.html"/>
-        <item name="Excluding Fields" href="/documentation/exclude.html"/>
         <item name="String To Date Mapping" href="/documentation/stringtodatemapping.html"/>
         <item name="Enum Mapping" href="/documentation/enum.html"/>
         <item name="Collection Mapping" href="/documentation/collectionandarraymapping.html"/>
         <item name="Map Backed Properties" href="/documentation/mapbackedproperty.html"/>        
         <item name="Index Mapping" href="/documentation/indexmapping.html"/>
         <item name="Deep Mapping" href="/documentation/deepmapping.html" />
+        <item name="Excluding Fields" href="/documentation/exclude.html"/>
+        <item name="One-Way Mapping" href="/documentation/oneway.html" />
         <item name="Context Based Mapping" href="/documentation/contextmapping.html" />
         <item name="Global Configuration" href="/documentation/globalConfiguration.html" />        
-        <item name="Mapping Configuration" href="/documentation/mapLevelConfiguration.html" />        
         <item name="Custom Converters" href="/documentation/customconverter.html" />        
         <item name="Custom Bean Factories" href="/documentation/custombeanfactories.html" />        
         <item name="Custom Create Methods" href="/documentation/customCreateMethod.html" />        
-        <item name="Custom get() set() Methods" href="/documentation/custommethods.html" />
-        <item name="Copy By Reference Mapping" href="/documentation/copybyreference.html" />
-        <item name="Super Class Mapping" href="/documentation/baseattributes.html" />                
-        <item name="XMLBeans and JAXB Object Support" href="/documentation/xmlbeans.html" />        
-        <item name="How to listen to dozer Events" href="/documentation/events.html" />        
+        <item name="Custom Get/Set Methods" href="/documentation/custommethods.html" />
+        <item name="Copy By Ref Mapping" href="/documentation/copybyreference.html" />
+        <item name="Inheritance Mapping" href="/documentation/baseattributes.html" />                
+        <item name="XMLBeans and JAXB" href="/documentation/xmlbeans.html" />        
+        <item name="Dozer Events" href="/documentation/events.html" />        
       </item>
-      <item name="Examples" href="/examples.html" />
       <item name="Dozer Mapping DTD" href="/dtd/dozerbeanmapping.dtd" />
       <!-- Collapsed Submenu -->
       <item name="Support" href="/documentation/support.html" collapse="true">
@@ -70,13 +70,14 @@
         <item name="Feature Request" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371"/>
         <item name="Patches" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370"/>
       </item>
+      <item name="FAQ" href="/documentation/faq.html" />      
     </menu>
     <menu name="Release Notes">
       <!-- Standalone item -->
-      <item name="Release Notes (Latest version is 3.2.1)" href="/releasenotes.html" />
+      <item name="Release Notes" href="/releasenotes.html" />
       <item name="Unit Reports" href="surefire-report.html"/>       
     </menu>
     ${reports}
-    
+
   </body>
 </project>

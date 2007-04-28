@@ -30,7 +30,6 @@ public abstract class BaseSampleBeanFactory implements BeanFactoryIF {
       method.invoke(target, new Object[]{name});
     } catch (Exception e) {
       //this object is only used for unit testing so do a catch all for ease of use
-      throw new RuntimeException(e);
     }
   }
 }

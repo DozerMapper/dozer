@@ -27,7 +27,7 @@ public class CustomMappingsLoader {
     Map customMappings = new HashMap();
     ClassMapBuilder classMapBuilder = new ClassMapBuilder();
     ListOrderedSet customConverterDescriptions = new ListOrderedSet();
-    Configuration globalConfiguration = null;
+    Configuration globalConfiguration = new Configuration();
 
     if (mappingFiles != null && mappingFiles.size() > 0) {
       MappingValidator mappingValidator = new MappingValidator();
@@ -69,14 +69,11 @@ public class CustomMappingsLoader {
     while (keyIter.hasNext()) {
       String key = (String) keyIter.next();
       ClassMap classMap = (ClassMap) customMappings.get(key);
-      if (classMap.getConfiguration() == null) {
-        classMap.setConfiguration(new Configuration());
-      }
-      if (classMap.getConfiguration().getCustomConverters() != null) {
-        classMap.getConfiguration().getCustomConverters().setConverters(customConverterDescriptions.asList());
+      if (classMap.getCustomConverters() != null) {
+        classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       } else {
-        classMap.getConfiguration().setCustomConverters(new CustomConverterContainer());
-        classMap.getConfiguration().getCustomConverters().setConverters(customConverterDescriptions.asList());
+        classMap.setCustomConverters(new CustomConverterContainer());
+        classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       }
     }
     return new LoadMappingsResult(Collections.synchronizedMap(customMappings), globalConfiguration);

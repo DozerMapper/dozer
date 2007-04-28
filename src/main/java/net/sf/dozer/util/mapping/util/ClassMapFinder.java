@@ -65,7 +65,7 @@ public class ClassMapFinder {
           return classMap;
         }
       }
-      log.warn("No ClassMap found for mapId:" + mapId);
+      log.info("No ClassMap found for mapId:" + mapId);
     }
 
     return mapping;

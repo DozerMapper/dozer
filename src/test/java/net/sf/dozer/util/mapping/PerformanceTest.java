@@ -42,7 +42,7 @@ public class PerformanceTest extends DozerTestBase {
 
   private static Log log = LogFactory.getLog(PerformanceTest.class);
 
-  private int numIters = 10;
+  private int numIters = 1;
   
   private static MapperIF mapper;
 
@@ -140,57 +140,89 @@ public class PerformanceTest extends DozerTestBase {
    * #5  7125
    * #6  41797
    * 
+   * MHT Computer - 4/19/07 - 3.2.1 release. Rebaseline test #6.  Unused and Uneccessary test data setup logic was skewing prior results.
+   *
+   * jdk1.4
+   * #1  25391
+   * #2  3094
+   * #3  3156
+   * #4  10516
+   * #5  7406
+   * #6  31687
+   * 
+   * jdk1.5
+   * #1  24016
+   * #2  2797
+   * #3  2890
+   * #4  10031
+   * #5  7125
+   * #6  26265
+   * 
+   * MHT Computer - 4/24/07 - 3.3 release
+   *
+   * jdk1.4
+   * #1  25485
+   * #2  2907
+   * #3  3219
+   * #4  10375
+   * #5  7312
+   * #6  33703
+   * 
+   * jdk1.5
+   * #1  23172
+   * #2  2406
+   * #3  2750
+   * #4  9817
+   * #5  6771
+   * #6  26718
+   * 
    */
 
   public void testMapping1() throws Exception {
     // TestObject --> TestObjectPrime
-    log.debug("Begin timings...");
     TestObject src = TestDataFactory.getInputGeneralMappingTestObject();
-    runGeneric(src, TestObjectPrime.class, 35000);
+    runGeneric("testMapping1", src, TestObjectPrime.class, 35000);
   }
 
   
   public void testMapping2() throws Exception {
     // SimpleObject --> SimpleObjectPrime
-    log.debug("Begin timings...");
     SimpleObj src = (SimpleObj) TestDataFactory.getSimpleObj();
-    runGeneric(src, SimpleObjPrime.class, 3600);
+    runGeneric("testMapping2", src, SimpleObjPrime.class, 3600);
   }
 
   public void testMapping3() throws Exception {
     // SimpleObject --> SimpleObjectPrime2
-    log.debug("Begin timings...");
     SimpleObj src = (SimpleObj) TestDataFactory.getSimpleObj();
-    runGeneric(src, SimpleObjPrime2.class, 3700);
+    runGeneric("testMapping3", src, SimpleObjPrime2.class, 3700);
   }
 
   public void testMapping4() throws Exception {
     // AnotherSubClass --> AnotherSubClassPrime (Inheritance)
-    log.debug("Begin timings...");
     AnotherSubClass src = TestDataFactory.getAnotherSubClass();
-    runGeneric(src, AnotherSubClassPrime.class, 12000);
+    runGeneric("testMapping4", src, AnotherSubClassPrime.class, 12000);
   }
 
   public void testMapping5() throws Exception {
     // SrcDeepObj --> DestDeepObj (Field Deep)
-    log.debug("Begin timings...");
     SrcDeepObj src = TestDataFactory.getSrcDeepObj();
-    runGeneric(src, DestDeepObj.class, 9000);
+    runGeneric("testMapping5", src, DestDeepObj.class, 9000);
   }
   
   //1-2007: Test Case submitted by Dave B.
   public void testMapping6() throws Exception {
     // MyClassA --> MyClassB.  Src object contains List with 500 String elements.
     MyClassA src = TestDataFactory.getRandomMyClassA();
-    runGeneric(src, MyClassB.class, 50000);
+    runGeneric("testMapping6", src, MyClassB.class, 50000);
   }
   
 
-  private void runGeneric(Object src, Class destClass, long maxTimeAllowed) throws Exception {
+  private void runGeneric(String testName, Object src, Class destClass, long maxTimeAllowed) throws Exception {
     // warm up the mapper
     mapper.map(src, destClass);
 
     // perform x number of additional mappings
+    log.debug("Begin timings for " + testName);
     StopWatch timer = new StopWatch();
     timer.start();
     for (int i = 0; i < numIters; i++) {

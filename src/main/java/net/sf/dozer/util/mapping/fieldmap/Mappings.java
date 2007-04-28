@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Mappings {
   private List mapping = new ArrayList();
-  private Configuration configuration;
+  private Configuration configuration = new Configuration();
 
   public List getMapping() {
     return mapping;
