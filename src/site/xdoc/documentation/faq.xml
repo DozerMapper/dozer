@@ -685,7 +685,8 @@ dozer:  Successfully loaded custom xml mappings from URL: [file:/C:/subversion/d
       </source>
       <br></br>
       <p>
-        To debug individual field mappings between classes, set the logging level "net.sf.dozer.util.mapping.MappingProcessor=DEBUG".  
+        To debug individual field mappings between classes, set the logging level "net.sf.dozer.util.mapping.MappingProcessor=DEBUG".  For example, if you are using log4j you would add the following entry to your
+        log4j configuration file "log4j.category.net.sf.dozer.util.mapping.MappingProcessor=DEBUG"  
         This will show you every field mapping that Dozer performs along with the actual source and destination values.  You will see output similar to the following....    
       </p>
       <source>
