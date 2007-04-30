@@ -13,7 +13,9 @@
       <subsection name="Looking for support or want to propose an enhancement for the dozer Framework?">
         <p>
           For community support or dozer enhancement requests check out the <a href="http://sourceforge.net/forum/?group_id=133517" target="_blank">Support Forums</a>.
-          We value your enhancement suggestions and want to build something of value to the Java community.
+          We value your enhancement suggestions and want to build something of value to the Java community.  When submitting bug and feature requests, it is really helpful if
+          you are able to submit a simplified unit test case(s) that reproduce the issue.  We understand this is not possible for every request, but if you are able to submit
+          a unit test it usually results in the request being implemented sooner.
         </p>
       </subsection>        
       <subsection name="Think you've found a bug?">
