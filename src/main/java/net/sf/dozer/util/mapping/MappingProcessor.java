@@ -982,7 +982,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   private Object mapUsingCustomConverter(Class customConverterClass, Class srcFieldClass, Object srcFieldValue,
-      Class destFieldClass, Object destFieldValue, FieldMap fieldMap, boolean topLevel) throws IllegalAccessException,
+      Class destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) throws IllegalAccessException,
       InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException,
       NoSuchFieldException {
     Object converterInstance = null;
@@ -1008,9 +1008,9 @@ public class MappingProcessor implements MapperIF {
     // if this is a top level mapping the destObj is the highest level
     // mapping...not a recursive mapping
     if (topLevel) {
-      return theConverter.convert(destFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
+      return theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
     }
-    Object field = mappingValidator.validateField(fieldMap, destFieldValue, destFieldClass);
+    Object field = mappingValidator.validateField(fieldMap, existingDestFieldValue, destFieldClass);
     
     long start = System.currentTimeMillis();
     Object result = theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);

@@ -19,5 +19,5 @@ package net.sf.dozer.util.mapping.converters;
  * @author sullins.ben
  */
 public interface CustomConverter {
-    public Object convert( Object destination, Object source , Class destClass, Class sourceClass);
+    public Object convert( Object existingDestinationFieldValue, Object sourceFieldValue , Class destClass, Class sourceClass);
 }
