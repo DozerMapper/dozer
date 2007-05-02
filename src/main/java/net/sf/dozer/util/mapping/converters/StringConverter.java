@@ -24,20 +24,19 @@ import net.sf.dozer.util.mapping.util.DateFormatContainer;
  * @author tierney.matt
  */
 public class StringConverter implements Converter {
-  private DateFormatContainer dateFormat;
+  private DateFormatContainer dateFormatContainer;
 
-  public StringConverter(DateFormatContainer dateFormat) {
-    this.dateFormat = dateFormat;
+  public StringConverter(DateFormatContainer dateFormatContainer) {
+    this.dateFormatContainer = dateFormatContainer;
   }
 
   public Object convert(Class destClass, Object sourceObj) {
     String result = null;
-
     Class sourceClass = sourceObj.getClass();
-    if (dateFormat != null && java.util.Date.class.isAssignableFrom(sourceClass)) {
-      result = dateFormat.getDateFormat().format((java.util.Date) sourceObj);
-    } else if (dateFormat != null && java.util.Calendar.class.isAssignableFrom(sourceClass)) {
-      result = dateFormat.getDateFormat().format(((java.util.Calendar)sourceObj).getTime());
+    if (dateFormatContainer != null && dateFormatContainer.getDateFormat() != null && java.util.Date.class.isAssignableFrom(sourceClass)) {
+      result = dateFormatContainer.getDateFormat().format((java.util.Date) sourceObj);
+    } else if (dateFormatContainer != null && dateFormatContainer.getDateFormat() != null && java.util.Calendar.class.isAssignableFrom(sourceClass)) {
+      result = dateFormatContainer.getDateFormat().format(((java.util.Calendar)sourceObj).getTime());
     } else {
       result = sourceObj.toString();
     }
@@ -45,11 +44,11 @@ public class StringConverter implements Converter {
     return result;
   }
 
-  public DateFormatContainer getDateFormat() {
-    return dateFormat;
+  public DateFormatContainer getDateFormatContainer() {
+    return dateFormatContainer;
   }
 
-  public void setDateFormat(DateFormatContainer dateFormat) {
-    this.dateFormat = dateFormat;
+  public void setDateFormatContainer(DateFormatContainer dateFormat) {
+    this.dateFormatContainer = dateFormat;
   }
 }
