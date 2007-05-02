@@ -178,6 +178,13 @@ public abstract class TestDataFactory {
   public static NoCustomMappingsObject getInputTestNoClassMappingsNoCustomMappingsObject() {
     NoCustomMappingsObject custom = new NoCustomMappingsObject();
     custom.setStringDataType("stringDataType");
+    custom.setDate(new Date());
+    custom.setFive(55);
+    custom.setFour(44);
+    custom.setSeven(77);
+    custom.setSix(Double.valueOf(87.62));
+    custom.setThree(Integer.valueOf(9876));
+    
     return custom;
   }
 
