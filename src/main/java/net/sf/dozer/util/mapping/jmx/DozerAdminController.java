@@ -24,14 +24,9 @@ import net.sf.dozer.util.mapping.util.MapperConstants;
  * @author tierney.matt
  */
 public class DozerAdminController implements DozerAdminControllerMBean {
-  private final CacheManagerIF cacheMgr = DozerCacheManager.getInstance(); 
 
   public String getCurrentVersion() {
     return MapperConstants.CURRENT_VERSION;
-  }
-  
-  public void clearGlobalCaches() {
-    cacheMgr.clearAllEntries();
   }
   
   public boolean isStatisticsEnabled() {
@@ -42,7 +37,4 @@ public class DozerAdminController implements DozerAdminControllerMBean {
     GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
   
-  public void logGlobalCaches() {
-    cacheMgr.logCaches();
-  }
 }

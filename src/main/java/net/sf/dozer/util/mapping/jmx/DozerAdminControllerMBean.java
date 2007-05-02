@@ -20,8 +20,6 @@ package net.sf.dozer.util.mapping.jmx;
  */
 public interface DozerAdminControllerMBean {
   public String getCurrentVersion();
-  public void clearGlobalCaches();
-  public void logGlobalCaches();
   public boolean isStatisticsEnabled();  
   public void setStatisticsEnabled(boolean statisticsEnabled);
 }
