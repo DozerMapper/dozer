@@ -30,22 +30,14 @@ public class DozerCacheManagerTest extends DozerTestBase {
   
   protected void setUp() throws Exception {
     super.setUp();
-    cacheMgr = DozerCacheManager.createNew();
+    cacheMgr = new DozerCacheManager();
   }
   
   public void testCreateNew() throws Exception {
-    DozerCacheManager cacheMgr2 = DozerCacheManager.createNew();
+    DozerCacheManager cacheMgr2 = new DozerCacheManager();
     
     assertFalse("cache mgrs should not be equal", cacheMgr.equals(cacheMgr2));
     assertNotSame("cache mgrs should not be same instance", cacheMgr, cacheMgr2);
-  }
-  
-  public void testGetInstance() throws Exception {
-    DozerCacheManager cacheMgr = DozerCacheManager.getInstance();
-    DozerCacheManager cacheMgr2 = DozerCacheManager.getInstance();
-    
-    assertEquals("cache mgrs should be equal", cacheMgr, cacheMgr2);
-    assertSame("cache mgrs should be the same instance", cacheMgr, cacheMgr2);
   }
   
   public void testAddGetExistsCache() throws Exception {
@@ -89,7 +81,7 @@ public class DozerCacheManagerTest extends DozerTestBase {
     //You should be able to add caches with the same name to non singleton instances
     //of the cache manager because they each have their own copies of caches to manage.
     //The caches are uniquely identified by the cache managers by using the instance id.
-    DozerCacheManager cacheMgr2 = DozerCacheManager.createNew();
+    DozerCacheManager cacheMgr2 = new DozerCacheManager();
 
     //add cache to each cache mgr instance
     String cacheName = getRandomString();
