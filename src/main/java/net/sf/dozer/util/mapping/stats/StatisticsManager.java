@@ -36,9 +36,6 @@ public final class StatisticsManager implements StatisticsManagerIF {
   private final Map statisticsMap = new HashMap();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
 
-  public StatisticsManager() {
-  }
-  
   public void clearAll() {
     statisticsMap.clear();
   }
