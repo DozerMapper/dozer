@@ -38,7 +38,6 @@ public class GlobalSettings {
   private static GlobalSettings singleton;
   
   private String loadedByFileName;
-  
   private boolean statisticsEnabled = MapperConstants.DEFAULT_STATISTICS_ENABLED;
   private long converterByDestTypeCacheMaxSize = MapperConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
   private long superTypesCacheMaxSize = MapperConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
