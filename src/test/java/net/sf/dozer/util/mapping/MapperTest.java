@@ -183,6 +183,7 @@ public class MapperTest extends DozerTestBase {
   }
 
   public void testNoClassMappings() throws Exception {
+    MapperIF mapper = new DozerBeanMapper();
     // Should attempt mapping even though it is not in the beanmapping.xml file
     NoCustomMappingsObjectPrime dest1 = (NoCustomMappingsObjectPrime) mapper.map(TestDataFactory
         .getInputTestNoClassMappingsNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
@@ -190,7 +191,9 @@ public class MapperTest extends DozerTestBase {
     NoCustomMappingsObjectPrime dest3 = (NoCustomMappingsObjectPrime) mapper.map(source,
         NoCustomMappingsObjectPrime.class);
     assertEquals(dest1, dest3);
-
+  }  
+   
+  public void testImplicitInnerObject() {
     // This tests that we implicitly map an inner object to an inner object without defining it in the mapping file
     TestObject to = new TestObject();
     to.setNoMappingsObj(TestDataFactory.getInputTestNoClassMappingsNoCustomMappingsObject());
