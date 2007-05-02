@@ -32,27 +32,7 @@ import org.apache.commons.logging.LogFactory;
 */
 public final class DozerCacheManager implements CacheManagerIF {
   private static final Log log = LogFactory.getLog(DozerCacheManager.class);
-  private static DozerCacheManager singleton = createNew();
   private final Map cachesMap = new HashMap();
-
-  /*
-   * The createNew() factory method does not act as a singleton. Callers must maintain their own reference to it. 
-   * NOTE: that if the getInstance() method is called, the singleton instance will be created/returned, 
-   * separate from any instances created in this method
-   */
-  public static DozerCacheManager createNew() {
-    return new DozerCacheManager();
-  }
-  
-  /*
-   * Use singleton cache manager for cache(s) that can be shared by all processes within a VM
-   */
-  public static DozerCacheManager getInstance() {
-    return singleton;
-  }
-  
-  private DozerCacheManager() {
-  }
 
   public Set getCaches() {
     return new HashSet(cachesMap.values());
