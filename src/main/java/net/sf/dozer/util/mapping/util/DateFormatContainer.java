@@ -27,13 +27,17 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
  * @author tierney.matt
  */
 public class DateFormatContainer {
-  private final ClassMap classMap;
-  private final FieldMap fieldMap;
+  private ClassMap classMap;
+  private FieldMap fieldMap;
   private DateFormat dateFormat;
   
   public DateFormatContainer(ClassMap classMap, FieldMap fieldMap) {
     this.classMap = classMap;
     this.fieldMap = fieldMap;
+  }
+  
+  public DateFormatContainer(DateFormat dateFormat) {
+    this.dateFormat = dateFormat;
   }
 
   public DateFormat getDateFormat() {
