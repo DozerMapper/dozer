@@ -18,6 +18,9 @@ package net.sf.dozer.util.mapping.cache;
 import java.util.Set;
 
 /**
+ * Internal interface for managing caches.
+ * Only intended for internal use. 
+ * 
  * @author tierney.matt
  */
 public interface CacheManagerIF {

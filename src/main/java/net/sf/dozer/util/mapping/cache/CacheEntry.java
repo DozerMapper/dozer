@@ -20,6 +20,9 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
+ * Internal class that represents one entry in the cache.  Holds the cache value, unique key for lookup, and creation time.
+ * Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class CacheEntry {

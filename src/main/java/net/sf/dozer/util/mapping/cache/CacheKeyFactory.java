@@ -19,6 +19,9 @@ import java.util.Arrays;
 
 
 /**
+ * Internal class that is responsible for producing cache keys.
+ * Only intended for internal use. 
+ * 
  * @author tierney.matt
  */
 public class CacheKeyFactory {
