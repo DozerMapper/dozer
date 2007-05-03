@@ -30,13 +30,8 @@ public class ConverterTest extends DozerTestBase {
   public void testAccessors() throws Exception {
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
-    CalendarConverter cc = new CalendarConverter(null);
-    cc.setDateFormat(dateFormat);
+    CalendarConverter cc = new CalendarConverter(dateFormat);
     assertEquals(dateFormat, cc.getDateFormat());
-
-    DateConverter dc = new DateConverter(null);
-    dc.setDateFormat(dateFormat);
-    assertEquals(dateFormat, dc.getDateFormat());
 
     StringConverter sc = new StringConverter(null);
     DateFormatContainer dfc = new DateFormatContainer(null, null);

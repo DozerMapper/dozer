@@ -182,8 +182,8 @@ public abstract class TestDataFactory {
     custom.setFive(55);
     custom.setFour(44);
     custom.setSeven(77);
-    custom.setSix(Double.valueOf(87.62));
-    custom.setThree(Integer.valueOf(9876));
+    custom.setSix(new Double(87.62));
+    custom.setThree(new Integer(9876));
     
     return custom;
   }
