@@ -17,6 +17,8 @@ package net.sf.dozer.util.mapping;
 
 
 /**
+ * The root Dozer interface for performing Dozer mappings from application code
+ *  
  * @author tierney.matt
  */
 public interface MapperIF {

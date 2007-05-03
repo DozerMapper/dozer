@@ -29,7 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Performs one time Dozer initializations
+ * Internal class that performs one time Dozer initializations.  Only intended for internal use.
  * 
  * @author tierney.matt
  */

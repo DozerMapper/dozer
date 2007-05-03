@@ -69,7 +69,8 @@ import org.apache.commons.logging.LogFactory;
 
 
 /**
- * Dozer's Internal Mapping Engine
+ * Dozer's Internal Mapping Engine.  Not intended for direct use by Application code.
+ * This does most of the heavy lifting and is very recursive in nature.
  * 
  * @author garsombke.franz
  * @author sullins.ben
@@ -102,10 +103,10 @@ public class MappingProcessor implements MapperIF {
   //The stored factories don't belong in MappingUtils and need to be relocated
   private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
 
-  public MappingProcessor(Map mappings, Configuration globalConfiguration, CacheManagerIF cacheMgr,
+  protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManagerIF cacheMgr,
       StatisticsManagerIF statsMgr, List customConverterObjects, List eventListeners,
       CustomFieldMapperIF customFieldMapper) {
-    this.customMappings = mappings;
+    this.customMappings = customMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
     this.customConverterObjects = customConverterObjects;
