@@ -26,6 +26,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
+ * Internal class that contains various Collection utilities specific to Dozer requirements.  Not intended for direct use by application code.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

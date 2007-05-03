@@ -18,6 +18,8 @@ package net.sf.dozer.util.mapping.util;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Internal class that generates a unique class mapping key.  Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

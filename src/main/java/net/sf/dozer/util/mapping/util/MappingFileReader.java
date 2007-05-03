@@ -25,6 +25,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Internal class that reads and parses a single custom mapping xml file into raw ClassMap objects.  Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

@@ -29,6 +29,9 @@ import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
+ * Internal class used to perform various validations.  Validates mapping requests, field mappings, URL's, etc.  
+ * Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

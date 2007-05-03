@@ -33,6 +33,9 @@ import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
 
 /**
+ * Internal class for adding implicit field mappings to a ClassMap.  Also, builds implicit ClassMap for class mappings that dont
+ * have an explicit custom xml mapping.  Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

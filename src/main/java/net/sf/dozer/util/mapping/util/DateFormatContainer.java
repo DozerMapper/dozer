@@ -24,6 +24,8 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 
 /**
+ * Internal class used as a container to determine the date format to use for a particular field mapping.  Only intended for internal use. 
+ * 
  * @author tierney.matt
  */
 public class DateFormatContainer {

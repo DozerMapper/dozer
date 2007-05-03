@@ -22,6 +22,10 @@ import java.net.URL;
 import net.sf.dozer.util.mapping.MappingException;
 
 /**
+ * Internal class that loads resources from the classpath.  Also supports loading resources outside of the classpath
+ * if it is prepended with "file:".  Only intended for internal use.
+ * 
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

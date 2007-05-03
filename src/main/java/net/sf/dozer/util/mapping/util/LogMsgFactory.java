@@ -26,6 +26,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Internal class used to build various types of log messages.  Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

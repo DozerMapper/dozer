@@ -19,17 +19,12 @@ package net.sf.dozer.util.mapping;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.dozer.util.mapping.vo.deep2.Dest;
-import net.sf.dozer.util.mapping.vo.deep2.Src;
 import net.sf.dozer.util.mapping.vo.km.SomeVo;
 import net.sf.dozer.util.mapping.vo.km.Sub;
 import net.sf.dozer.util.mapping.vo.km.Super;
 import net.sf.dozer.util.mapping.vo.map.NestedObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
-import net.sf.dozer.util.mapping.vo.set.SomeDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeOtherDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeVO;
 
 
 /**

@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -32,6 +31,11 @@ import net.sf.dozer.util.mapping.fieldmap.Mappings;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Internal class that decorates raw ClassMap objects and performs various validations on the field mappings.
+ * It applies global configuration and class level attributes to raw class mappings.  
+ * It also creates the ClassMap "prime" instance for bi-directional mappings.  The ClassMap prime is created by copying the 
+ * original ClassMap and reversing the attributes.  Only intended for internal use.
+ * 
  * @author garsombke.franz
  */
 public class MappingsParser {
@@ -130,7 +134,6 @@ public class MappingsParser {
           mapIds.add(classMap.getMapId());
         }
         
-
         result.put(theClassMapKey, classMap);
         // now create class map prime
         classMapPrime = new ClassMap();

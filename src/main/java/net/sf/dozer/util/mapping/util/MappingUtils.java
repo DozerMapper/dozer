@@ -31,6 +31,8 @@ import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Internal class that provides various mapping utilities used throughout the code base.  Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

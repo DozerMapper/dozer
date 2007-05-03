@@ -28,6 +28,9 @@ import org.apache.commons.beanutils.PropertyUtils;
 import net.sf.dozer.util.mapping.MappingException;
 
 /**
+ * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code base.  Not intended for direct use by 
+ * application code.
+ *  
  * @author tierney.matt
  * @author garsombke.franz
  */

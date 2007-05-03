@@ -16,6 +16,8 @@
 package net.sf.dozer.util.mapping.util;
 
 /**
+ * Internal constants file containing a variety of constants used throughout the code base.  Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

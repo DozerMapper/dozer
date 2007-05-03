@@ -28,6 +28,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Internal class that determines the appropriate class mapping to be used for the source and destination object being mapped.  Only intended for internal use. 
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2005-2007 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.sf.dozer.util.mapping.util;
 
 import java.net.URL;
@@ -7,8 +22,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
@@ -19,6 +32,13 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Internal class that loads and parses custom xml mapping files into ClassMap objects.  The ClassMap objects returned from the load method
+ * are fully decorated and ready to be used by the internal mapping engine.  Only intended for internal use.  
+ * 
+ * @author tierney.matt
+ * @author garsombke.franz
+ */
 public class CustomMappingsLoader {
   
   private static final Log log = LogFactory.getLog(CustomMappingsLoader.class);
@@ -55,6 +75,7 @@ public class CustomMappingsLoader {
             customConverterDescriptions.add(cc);
           }
         }
+        //Decorate the raw ClassMap objects and create ClassMap "prime" instances
         MappingsParser mappingsParser = new MappingsParser();
         customMappings.putAll(mappingsParser.parseMappings(mappings));
       }

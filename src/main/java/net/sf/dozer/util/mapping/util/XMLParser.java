@@ -51,6 +51,8 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
+ * Internal class that parses a raw custom xml mapping file into raw ClassMap objects.  Only intended for internal use.
+ *  
  * @author garsombke.franz
  */
 public class XMLParser {

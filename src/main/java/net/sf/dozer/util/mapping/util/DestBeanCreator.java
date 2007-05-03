@@ -30,6 +30,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Internal class that contains the logic used to create a new instance of the destination object being mapped.  Performs
+ * various checks to determine how the destination object instance is created.  Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
