@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

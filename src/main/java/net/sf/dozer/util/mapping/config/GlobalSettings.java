@@ -29,11 +29,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Singleton that holds the global settings used by Dozer.  Most of these settings 
+ * are configurable via an optional Dozer properties file. By default, Dozer will look for a file named dozer.properties 
+ * to load these configuration properties. If a properties file is not found or specified, default values will be used. 
+ * 
+ * An alternative Dozer properties file can be specified via the dozer.configuration system property. 
+ *
+ * ex) -Ddozer.configuration=someDozerConfigurationFile.properties 
+ * 
  * @author tierney.matt
  */
 public class GlobalSettings {
   
-  private static final boolean isJdk5 = System.getProperty("java.vm.version", "1.4").startsWith("1.5");
   private static final Log log = LogFactory.getLog(GlobalSettings.class);
   private static GlobalSettings singleton;
   
@@ -42,6 +49,7 @@ public class GlobalSettings {
   private long converterByDestTypeCacheMaxSize = MapperConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
   private long superTypesCacheMaxSize = MapperConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
   private boolean autoregisterJMXBeans = MapperConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
+  private final boolean isJdk5 = System.getProperty("java.vm.version", "1.4").startsWith("1.5");
 
 
   public static synchronized GlobalSettings getInstance() {
@@ -56,7 +64,7 @@ public class GlobalSettings {
   }
   
   private GlobalSettings() {
-    loadSettings();
+    loadGlobalSettings();
   }
 
   protected String getLoadedByFileName() {
@@ -71,16 +79,8 @@ public class GlobalSettings {
     return autoregisterJMXBeans;
   }
   
-  public void setAutoregisterJMXBeans(boolean autoregisterJMXBeans) {
-    this.autoregisterJMXBeans = autoregisterJMXBeans;
-  }
-  
   public long getConverterByDestTypeCacheMaxSize() {
     return converterByDestTypeCacheMaxSize;
-  }
-  
-  public void setConverterByDestTypeCacheMaxSize(long converterByDestTypeCacheMaxSize) {
-    this.converterByDestTypeCacheMaxSize = converterByDestTypeCacheMaxSize;
   }
   
   public boolean isStatisticsEnabled() {
@@ -95,11 +95,7 @@ public class GlobalSettings {
     return superTypesCacheMaxSize;
   }
   
-  public void setSuperTypesCacheMaxSize(long superTypesCacheMaxSize) {
-    this.superTypesCacheMaxSize = superTypesCacheMaxSize;
-  }
-
-  private synchronized void loadSettings() {
+  private synchronized void loadGlobalSettings() {
     MappingUtils utils = new MappingUtils();    
 
     //Determine prop file name
@@ -145,10 +141,8 @@ public class GlobalSettings {
       autoregisterJMXBeans = Boolean.valueOf(propValue).booleanValue();
     }
 
-    
     loadedByFileName = propFileName;
     InitLogger.log(log,"Finished configuring Dozer global properties");    
-    
   }
   
 }

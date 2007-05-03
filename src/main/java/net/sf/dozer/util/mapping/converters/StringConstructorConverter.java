@@ -21,6 +21,9 @@ import java.lang.reflect.Constructor;
 
 
 /**
+ * Internal class for converting from String --> Complex Data Types with a String constructor
+ * Only intended for internal use. 
+
  * @author tierney.matt
  */
 public class StringConstructorConverter implements Converter {

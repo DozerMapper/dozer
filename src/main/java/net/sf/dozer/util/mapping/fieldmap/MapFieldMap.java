@@ -25,6 +25,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

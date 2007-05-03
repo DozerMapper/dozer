@@ -16,6 +16,8 @@
 package net.sf.dozer.util.mapping.fieldmap;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

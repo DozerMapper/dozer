@@ -24,6 +24,10 @@ import java.util.GregorianCalendar;
 import org.apache.commons.beanutils.Converter;
 
 /**
+ * Internal class for converting from Supported Data Types --> Calendar.
+ * Supported source data types include Date, Calendar, String, Objects that return a long from their toString()
+ * Only intended for internal use. 
+ * 
  * @author tierney.matt
  */
 public class CalendarConverter implements Converter {
@@ -67,9 +71,5 @@ public class CalendarConverter implements Converter {
 
   public DateFormat getDateFormat() {
     return dateFormat;
-  }
-
-  public void setDateFormat(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
   }
 }

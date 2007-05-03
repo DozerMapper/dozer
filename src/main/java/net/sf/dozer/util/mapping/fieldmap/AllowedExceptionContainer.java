@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Internal class used to hold any "allowed exceptions" that may have been specified in the mapping xml.  Only intended for internal use.
+ * 
  * @author garsombke.franz
  */
 public class AllowedExceptionContainer {

@@ -19,7 +19,10 @@ import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
 import net.sf.dozer.util.mapping.MappingException;
+
 /**
+ * A provided custom bean factory that can be used by applition code to handle XMLBean data objects
+ *  
  * @author garsombke.franz
  */
 public class XMLBeanFactory implements BeanFactoryIF {

@@ -23,6 +23,8 @@ import net.sf.dozer.util.mapping.cache.CacheEntry;
 import net.sf.dozer.util.mapping.cache.CacheKeyFactory;
 
 /**
+ * Internal class for holding custom converters.  Only intended for internal use.
+ * 
  * @author sullins.ben
  */
 public class CustomConverterContainer {

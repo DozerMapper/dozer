@@ -19,6 +19,9 @@ import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
+ * Internal class that represents the configuration block specified in the mapping xml file(s).
+ * Only intended for internal use. 
+ *  
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

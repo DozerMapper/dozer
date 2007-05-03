@@ -22,6 +22,9 @@ import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
+ * Internal class that represents a class mapping definition.  Holds all of the information about a single class mapping.
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

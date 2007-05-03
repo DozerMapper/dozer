@@ -22,6 +22,8 @@ import java.util.StringTokenizer;
 import net.sf.dozer.util.mapping.MappingException;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

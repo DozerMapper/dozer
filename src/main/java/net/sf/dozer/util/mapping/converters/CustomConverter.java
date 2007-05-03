@@ -16,6 +16,12 @@
 package net.sf.dozer.util.mapping.converters;
 
 /**
+ * Interface for performing custom mapping between two objects.  
+ * 
+ * In the Dozer mapping file(s), you can add some XML to tell Dozer to use a custom converter for certain 
+ * class A and class B types. When a custom converter is specified for a class A and class B combination, 
+ * Dozer will invoke the custom converter to perform the data mapping instead of the standard mapping logic. 
+ * 
  * @author sullins.ben
  */
 public interface CustomConverter {

@@ -16,6 +16,8 @@
 package net.sf.dozer.util.mapping.config;
 
 /**
+ * A constants file that holds all the keys to configurable properties in the dozer.properties file
+ * 
  * @author tierney.matt
  */
 public abstract class PropertyConstants {

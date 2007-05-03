@@ -18,6 +18,8 @@ package net.sf.dozer.util.mapping.converters;
 import org.apache.commons.beanutils.Converter;
 
 /**
+ * Internal class for converting from Supported Data Types --> Integer.
+ * Only intended for internal use. 
  * @author tierney.matt
  */
 public class LongConverter implements Converter {
