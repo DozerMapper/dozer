@@ -82,6 +82,10 @@ public class DozerInitializer {
 
     return result;
   }
+  
+  protected static boolean isInitialized() {
+    return isInitialized;
+  }
 
   /*
    * Auto register Dozer JMX mbeans for jdk 1.5 users
