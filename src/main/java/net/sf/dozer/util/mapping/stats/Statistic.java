@@ -27,6 +27,9 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
+ * Internal class that provides an interface to a single statistic.  Holds all of the statistic entries for the statistic. 
+ * Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class Statistic implements Serializable {

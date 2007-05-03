@@ -23,6 +23,9 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
+ * Internal class that represents one entry in the statistic.  Holds the statistic value and unique key for lookup.
+ * Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class StatisticEntry implements Serializable {

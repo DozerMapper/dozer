@@ -16,6 +16,8 @@
 package net.sf.dozer.util.mapping.stats;
 
 /**
+ * Internal constants file that defines the types of supported statistic keys.  Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public abstract class StatisticTypeConstants {

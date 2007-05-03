@@ -28,6 +28,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Internal class that manages the Dozer statistics.  Only intended for internal use.
+ *    
  * @author tierney.matt
 */
 public final class StatisticsManager implements StatisticsManagerIF {
