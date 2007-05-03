@@ -25,6 +25,8 @@ import java.util.Set;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public abstract class AbstractPropertyDescriptor {

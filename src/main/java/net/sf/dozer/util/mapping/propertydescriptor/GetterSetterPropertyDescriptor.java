@@ -29,10 +29,10 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
  * 
- * This class is used to read and write values for fields that follow the java bean spec and have getter/setter methods
+ * Internal class used to read and write values for fields that follow the java bean spec and have getter/setter methods
  * for the field. If the field does not have the necessary getter/setter, an exception will be thrown. This class
  * encapsulates underlying dozer specific logic such as index mapping and deep mapping for reading and writing field
- * values.
+ * values. Only intended for internal use.
  * 
  * @author garsombke.franz
  * 

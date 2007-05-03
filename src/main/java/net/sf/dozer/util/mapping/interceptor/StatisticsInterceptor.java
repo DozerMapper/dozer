@@ -23,8 +23,10 @@ import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
 import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
- /* 
- * @author tierney.matt
+ /*
+  * Internal dynamic proxy used for gathering mapping statisics.  Only intended for internal use.
+  *  
+  * @author tierney.matt
  */
 public class StatisticsInterceptor implements InvocationHandler {
   private final Object delegate;

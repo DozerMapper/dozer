@@ -15,8 +15,6 @@
  */
 package net.sf.dozer.util.mapping.jmx;
 
-import net.sf.dozer.util.mapping.cache.CacheManagerIF;
-import net.sf.dozer.util.mapping.cache.DozerCacheManager;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 

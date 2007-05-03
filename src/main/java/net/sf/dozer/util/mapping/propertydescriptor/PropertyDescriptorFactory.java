@@ -19,6 +19,9 @@ import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
+ * Internal factory responsible for determining which property descriptor should be used.
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  */
 public class PropertyDescriptorFactory {

@@ -16,13 +16,14 @@
 package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  */
 public interface DozerPropertyDescriptorIF {
