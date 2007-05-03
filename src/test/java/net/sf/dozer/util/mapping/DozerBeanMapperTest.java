@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.util.mapping.event.EventTestListener;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2;
 import net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory;
@@ -122,9 +123,7 @@ public class DozerBeanMapperTest extends DozerTestBase {
     // custom bean factory
     // -----------------------------------------------------------
 
-    List mappingFiles = new ArrayList();
-    mappingFiles.add("customfactorymapping.xml");
-    MapperIF mapper = getNewMapper((String[]) mappingFiles.toArray(new String[0]));
+    MapperIF mapper = getNewMapper(new String[] {"customfactorymapping.xml"});
 
     TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
         TestObjectPrime.class);
@@ -167,6 +166,15 @@ public class DozerBeanMapperTest extends DozerTestBase {
     }
   }
   
+  public void testEventListeners() throws Exception {
+    DozerBeanMapper eventMapper = (DozerBeanMapper) ApplicationBeanFactory.getBean("EventMapper");
+    assertNotNull("event listenter list should not be null", eventMapper.getEventListeners());
+    assertEquals("event listenter list should contain 1 element", 1, eventMapper.getEventListeners().size());
+    assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0).getClass());
+    House src = TestDataFactory.getHouse();
+    HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
+  }
+  
   private void assertCommon(MapperIF mapper) throws Exception {
     TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
         TestObjectPrime.class);
@@ -176,13 +184,6 @@ public class DozerBeanMapperTest extends DozerTestBase {
     assertEquals(prime2, prime);
   }
 
-  public void testEventListeners() throws Exception {
-    //TestObjectPrime top = (TestObjectPrime) eventMapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
-    //    TestObjectPrime.class);
-    MapperIF eventMapper = (MapperIF) ApplicationBeanFactory.getBean("EventMapper");
-    House src = TestDataFactory.getHouse();
-    HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
-    
-  }
+  
 
 }

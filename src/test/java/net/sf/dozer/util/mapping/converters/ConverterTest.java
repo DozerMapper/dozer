@@ -40,8 +40,8 @@ public class ConverterTest extends DozerTestBase {
 
     StringConverter sc = new StringConverter(null);
     DateFormatContainer dfc = new DateFormatContainer(null, null);
-    sc.setDateFormat(dfc);
-    assertEquals(dfc, sc.getDateFormat());
+    sc.setDateFormatContainer(dfc);
+    assertEquals(dfc, sc.getDateFormatContainer());
   }
 
   public void testInvalidDateInput() throws Exception {
