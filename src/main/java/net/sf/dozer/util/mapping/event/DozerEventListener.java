@@ -16,7 +16,16 @@
 package net.sf.dozer.util.mapping.event;
 
 /**
- * Public event listener interface.
+ * Public event listener interface. By implementing the DozerEventListener interface Dozer allows you to
+ * listen to 4 different events: mappingStarted, mappingFinished, preWritingDestinationValue, postWritingDestinationValue.
+ * 
+ * <p>
+ * A DozerEvent object is passed into these callback methods which stores information about the ClassMap, 
+ * FieldMap, Source object, destination object, and destination value. This will allow you to extend dozer and manipulate 
+ * mapped objects at run-time. 
+ * 
+ * <p>
+ * <a href="http://dozer.sourceforge.net/documentation/events.html">http://dozer.sourceforge.net/documentation/events.html</a>
  * 
  * @author garsombke.franz
  * 

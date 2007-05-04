@@ -28,7 +28,10 @@ package net.sf.dozer.util.mapping;
  * Your custom bean factory must implement the net.sf.dozer.util.mapping.BeanFactoryIF interface.
  * 
  * <p> 
- * NOTE:  By default the Dozer mapping engine will use the destination object class name for the bean id when invoking the factory.
+ * Note:  By default the Dozer mapping engine will use the destination object class name for the bean id when invoking the factory.
+ * 
+ * <p>
+ * <a href="http://dozer.sourceforge.net/documentation/custombeanfactories.html">http://dozer.sourceforge.net/documentation/custombeanfactories.html</a>
  * 
  * @author tierney.matt
  */

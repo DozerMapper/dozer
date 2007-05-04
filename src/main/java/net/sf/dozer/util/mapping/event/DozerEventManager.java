@@ -21,10 +21,9 @@ import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
- * Only intended for internal use.
+ * Internal class that handles dozer events and invokes any public event listeners.  Only intended for internal use.
  * 
  * @author garsombke.franz
- * @author tierney.matt
 */
 public class DozerEventManager implements EventManagerIF {
   private final List eventListeners;

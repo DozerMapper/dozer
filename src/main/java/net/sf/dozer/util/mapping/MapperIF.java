@@ -20,6 +20,7 @@ package net.sf.dozer.util.mapping;
  * Public root interface for performing Dozer mappings from application code.
  *  
  * @author tierney.matt
+ * @author garsombke.franz
  */
 public interface MapperIF {
 

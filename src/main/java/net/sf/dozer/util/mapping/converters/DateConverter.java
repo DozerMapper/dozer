@@ -24,7 +24,7 @@ import org.apache.commons.beanutils.Converter;
 
 /**
  * Internal class for converting Supported Data Types --> Date.
- * Supported source data types include Date, Calendar, String, Objects that return a long from their toString()
+ * Supported source data types include Date, Calendar, String, Objects that return a long from their toString().
  * Only intended for internal use. 
  * 
  * @author tierney.matt

@@ -47,6 +47,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * 
  * @author tierney.matt
+ * @author garsombke.franz
  */
 public class DozerBeanMapper implements MapperIF {
 

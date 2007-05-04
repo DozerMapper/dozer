@@ -16,10 +16,9 @@
 package net.sf.dozer.util.mapping.event;
 
 /**
- * Only intended for internal use.
+ * Internal event manager interface.  Only intended for internal use.
  * 
  * @author garsombke.franz
- * @author tierney.matt
 */
 public interface EventManagerIF {
   
