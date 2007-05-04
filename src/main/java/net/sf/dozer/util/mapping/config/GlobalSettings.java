@@ -33,8 +33,10 @@ import org.apache.commons.logging.LogFactory;
  * are configurable via an optional Dozer properties file. By default, Dozer will look for a file named dozer.properties 
  * to load these configuration properties. If a properties file is not found or specified, default values will be used. 
  * 
+ * <p>
  * An alternative Dozer properties file can be specified via the dozer.configuration system property. 
  *
+ * <p>
  * ex) -Ddozer.configuration=someDozerConfigurationFile.properties 
  * 
  * @author tierney.matt

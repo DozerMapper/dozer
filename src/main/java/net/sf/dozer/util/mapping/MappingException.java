@@ -18,6 +18,8 @@ package net.sf.dozer.util.mapping;
 import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
 
 /**
+ * Public runtime exception thrown by Dozer
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt

@@ -25,7 +25,7 @@ import java.util.Set;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 
 /**
- * Only intended for internal use.
+ * Internal abstract property descriptor containing common property descriptor logic.  Only intended for internal use.
  * 
  * @author tierney.matt
  */

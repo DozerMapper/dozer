@@ -22,7 +22,7 @@ import net.sf.dozer.util.mapping.fieldmap.Hint;
 
 
 /**
- * Only intended for internal use.
+ * Internal property descriptor interface.  Only intended for internal use.
  * 
  * @author garsombke.franz
  */

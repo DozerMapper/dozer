@@ -20,7 +20,7 @@ import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 
 /**
- * Only intended for internal use.
+ * Internal class used for copy by reference mappings.  Only intended for internal use.
  * 
  * @author garsombke.franz
  */

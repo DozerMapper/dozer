@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
 /**
  * Internal EntityResolver implementation for the dozer mappings DTD, to load the DTD from the dozer classpath resp. JAR file.
  * 
+ * <p>
  * Fetches "dozerbeanmapping.dtd" from the classpath resource "/dozerbeanmapping.dtd", no matter if specified as some
  * local URL or as "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd".
  * 

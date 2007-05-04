@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.stats;
 import java.util.Set;
 
 /**
- * Internal JMX interface for managing statistics.
+ * Internal interface for managing statistics.
  * Only intended for internal use.
  *  
  * @author tierney.matt

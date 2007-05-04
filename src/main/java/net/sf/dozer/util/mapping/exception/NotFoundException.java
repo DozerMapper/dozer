@@ -16,7 +16,8 @@
 package net.sf.dozer.util.mapping.exception;
 
 /**
- * Internal exception used by the cache and statistic managers.  Thrown when something expected was not found.  Only intended for internal use.
+ * Internal runtime exception used by the cache and statistic managers.  
+ * Thrown when something expected was not found.  Only intended for internal use.
  * 
  * @author garsombke.franz
  * @author sullins.ben

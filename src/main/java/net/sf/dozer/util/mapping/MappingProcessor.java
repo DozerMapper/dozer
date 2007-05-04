@@ -68,8 +68,8 @@ import org.apache.commons.logging.LogFactory;
 
 
 /**
- * Dozer's Internal Mapping Engine.  Not intended for direct use by Application code.
- * This does most of the heavy lifting and is very recursive in nature.
+ * Internal Mapping Engine.  Not intended for direct use by Application code.
+ * This class does most of the heavy lifting and is very recursive in nature.
  * 
  * @author garsombke.franz
  * @author sullins.ben
