@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping;
 import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
 
 /**
- * Public runtime exception thrown by Dozer.  RuntimeExceptions thrown from custom code called by
+ * Runtime exception thrown by Dozer.  RuntimeExceptions thrown from custom code called by
  * Dozer during mapping (eg. custom converters) are not wrapped with MappingException.
  * 
  * @author garsombke.franz

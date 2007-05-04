@@ -22,8 +22,8 @@ import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
  * Public Singleton wrapper for the DozerBeanMapper.  Only supports a single mapping file named dozerBeanMapping.xml, so 
- * configuration is limited. Instead, it is recommended that the MapperIF is configured via an IOC framework, 
- * such as Spring, with singleton property set to "true"
+ * configuration is very limited. Instead of using the DozerBeanMapperSingletonWrapper, it is recommended that the DozerBeanMapper(MapperIF) 
+ * instance is configured via an IOC framework, such as Spring, with singleton property set to "true"
  * 
  * @author garsombke.franz
  */

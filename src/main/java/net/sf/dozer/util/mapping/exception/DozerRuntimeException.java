@@ -16,7 +16,6 @@
 package net.sf.dozer.util.mapping.exception;
 
 /**
- * Internal runtime exception.
  * 
  * @author garsombke.franz
  * @author sullins.ben
