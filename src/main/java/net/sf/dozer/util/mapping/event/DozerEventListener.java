@@ -16,6 +16,8 @@
 package net.sf.dozer.util.mapping.event;
 
 /**
+ * Public event listener interface.
+ * 
  * @author garsombke.franz
  * 
  */

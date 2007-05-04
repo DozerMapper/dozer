@@ -29,7 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Singleton that holds the global settings used by Dozer.  Most of these settings 
+ * Internal singleton class that holds the global settings used by Dozer.  Most of these settings 
  * are configurable via an optional Dozer properties file. By default, Dozer will look for a file named dozer.properties 
  * to load these configuration properties. If a properties file is not found or specified, default values will be used. 
  * 

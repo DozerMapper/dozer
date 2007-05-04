@@ -16,6 +16,8 @@
 package net.sf.dozer.util.mapping.jmx;
 
 /**
+ * Public Dozer JMX Bean interface
+ * 
  * @author tierney.matt
  */
 public interface DozerAdminControllerMBean {

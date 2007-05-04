@@ -20,6 +20,8 @@ import java.util.Set;
 import net.sf.dozer.util.mapping.stats.StatisticsIF;
 
 /**
+ * Public Dozer JMX Bean interface
+ * 
  * @author tierney.matt
  */
 public interface DozerStatisticsControllerMBean extends StatisticsIF {

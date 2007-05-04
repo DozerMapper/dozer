@@ -16,6 +16,8 @@
 package net.sf.dozer.util.mapping.event;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author tierney.matt
 */

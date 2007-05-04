@@ -24,7 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * A provided custom bean factory that can be used by applition code to handle JAXB data objects 
+ * Public custom bean factory that can be used by applition code when mapping JAXB data objects 
  * 
  * @author Vincent Jassogne
  */

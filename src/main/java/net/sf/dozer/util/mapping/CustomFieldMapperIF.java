@@ -20,6 +20,8 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 
 /**
+ * Public custom field mapper interface.
+ * 
  * @author Gerard Toonstra
  */
 public interface CustomFieldMapperIF {

@@ -23,7 +23,7 @@ import java.util.Calendar;
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting from Supported Data Types --> Date.
+ * Internal class for converting Supported Data Types --> Date.
  * Supported source data types include Date, Calendar, String, Objects that return a long from their toString()
  * Only intended for internal use. 
  * 

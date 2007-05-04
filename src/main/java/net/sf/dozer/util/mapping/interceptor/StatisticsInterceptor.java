@@ -23,7 +23,7 @@ import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
 import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
- /*
+ /**
   * Internal dynamic proxy used for gathering mapping statisics.  Only intended for internal use.
   *  
   * @author tierney.matt

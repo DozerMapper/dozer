@@ -21,7 +21,7 @@ import net.sf.dozer.util.mapping.util.DateFormatContainer;
 
 
 /**
- * Internal class for converting from Supported Data Types --> String.  Uses date formatter for Date and Calendar source objects.
+ * Internal class for converting Supported Data Types --> String.  Uses date formatter for Date and Calendar source objects.
  * Calls toString() on the source object for all other types.
  * Only intended for internal use. 
 

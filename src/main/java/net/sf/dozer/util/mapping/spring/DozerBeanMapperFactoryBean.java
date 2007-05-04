@@ -28,7 +28,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 
 /**
- * A provided Spring FactoryBean and InitializingBean that can be used by applition code
+ * Public Spring FactoryBean and InitializingBean that can be used by applition code
  *  
  * @author Sören Chittka
  */

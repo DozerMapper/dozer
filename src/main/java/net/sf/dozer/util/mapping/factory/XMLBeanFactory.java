@@ -21,7 +21,7 @@ import net.sf.dozer.util.mapping.BeanFactoryIF;
 import net.sf.dozer.util.mapping.MappingException;
 
 /**
- * A provided custom bean factory that can be used by applition code to handle XMLBean data objects
+ * Public custom bean factory that can be used by applition code when mapping XMLBean data objects
  *  
  * @author garsombke.franz
  */

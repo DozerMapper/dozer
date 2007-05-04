@@ -17,15 +17,18 @@ package net.sf.dozer.util.mapping;
 
 
 /**
- * Interface for a custom bean factory.
+ * Public custom bean factory interface.
  * 
  * You can configure Dozer to use custom bean factories to create new instances of destination data objects during the 
  * mapping process. By default Dozer just creates a new instance of any destination objects using a default constructor. 
  * This is sufficient for most use cases, but if you need more flexibility you can specify your own bean factories to instantiate 
  * the data objects. 
  * 
- * Your custom bean factory must implement the net.sf.dozer.util.mapping.BeanFactoryIF interface. 
- * By default the Dozer mapping engine will use the destination object class name for the bean id when calling the factory.
+ * <p>
+ * Your custom bean factory must implement the net.sf.dozer.util.mapping.BeanFactoryIF interface.
+ * 
+ * <p> 
+ * NOTE:  By default the Dozer mapping engine will use the destination object class name for the bean id when invoking the factory.
  * 
  * @author tierney.matt
  */

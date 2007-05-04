@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.stats;
 
 
 /**
- * An internal singleton class that holds global statistics.  Only intended for internal use.
+ * Internal singleton class that holds global statistics.  Only intended for internal use.
  * 
  * @author tierney.matt
 */

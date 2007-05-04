@@ -24,7 +24,7 @@ import java.util.GregorianCalendar;
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting from Supported Data Types --> Calendar.
+ * Internal class for converting Supported Data Types --> Calendar.
  * Supported source data types include Date, Calendar, String, Objects that return a long from their toString()
  * Only intended for internal use. 
  * 

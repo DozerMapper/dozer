@@ -19,6 +19,8 @@ import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
+ * Public Dozer JMX Bean
+ * 
  * @author tierney.matt
  */
 public class DozerAdminController implements DozerAdminControllerMBean {

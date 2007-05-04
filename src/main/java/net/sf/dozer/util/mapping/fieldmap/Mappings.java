@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Holder for class mapping definitions along with the global configuration.
+ * Internal class that contains all of the custom mapping definitions, along with the global configuration instance.
  * Only intended for internal use.
  * 
  * @author garsombke.franz

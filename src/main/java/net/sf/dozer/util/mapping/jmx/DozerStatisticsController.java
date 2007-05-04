@@ -27,6 +27,8 @@ import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
 
 
 /**
+ * Public Dozer JMX Bean
+ *  
  * @author tierney.matt
  */
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {

@@ -19,6 +19,8 @@ import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * 
  */

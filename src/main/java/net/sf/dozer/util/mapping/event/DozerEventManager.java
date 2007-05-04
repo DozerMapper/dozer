@@ -21,6 +21,8 @@ import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author tierney.matt
 */

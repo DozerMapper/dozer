@@ -34,9 +34,8 @@ import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 
 /**
- * Internal class for converting between wrapper types, in addition to primitives
- * Only intended for internal use. 
-
+ * Internal class for converting between wrapper types(including primitives).  Only intended for internal use.
+ *  
  * @author tierney.matt
  * @author garsombke.franz
  * @author benson.matt

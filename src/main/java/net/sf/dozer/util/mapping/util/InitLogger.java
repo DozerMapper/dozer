@@ -19,7 +19,7 @@ import org.apache.commons.logging.Log;
 
 
 /**
- * This internal class is a thin wrapper for logging one time dozer initialization messages.  These messages will be written
+ * Internal class that is just a thin wrapper for logging one time dozer initialization messages.  These messages will be written
  * to system.out as well as log.info.  To enable dual writes to System.out:  -Ddozer.debug=true
  * Only intended for internal use.
  * 
