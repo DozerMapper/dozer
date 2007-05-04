@@ -94,8 +94,6 @@ public interface BeanFactoryIF {
     </property>    
   </bean>
 
-  <bean id="NoExplicitMappingsMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true"/>
-  
   <bean id="sampleCustomBeanFactory" class="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory" singleton="true"/>
 
 </beans>
