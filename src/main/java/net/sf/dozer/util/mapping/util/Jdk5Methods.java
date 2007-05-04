@@ -63,10 +63,6 @@ public class Jdk5Methods {
     }
   }
   
-  public static Jdk5Methods getSingleton() {
-    return singleton;
-  }
-  
   public Method getClassIsEnumMethod() {
     return classIsEnumMethod;
   }

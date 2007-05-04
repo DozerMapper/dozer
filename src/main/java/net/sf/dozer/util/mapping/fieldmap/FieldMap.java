@@ -223,10 +223,6 @@ public abstract class FieldMap implements Cloneable {
     return copyByReferenceOveridden;
   }
 
-  public void setCopyByReferenceOveridden(boolean copyByReferenceOveridden) {
-    this.copyByReferenceOveridden = copyByReferenceOveridden;
-  }
-
   public String getMapId() {
     return mapId;
   }

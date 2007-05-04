@@ -33,9 +33,5 @@ public class CopyByReferenceContainer {
   public List getCopyByReferences() {
     return copyByReferences;
   }
-
-  public void setCopyByReferences(List copyByReferences) {
-    this.copyByReferences = copyByReferences;
-  }
   
 }

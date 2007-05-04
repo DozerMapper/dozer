@@ -116,10 +116,6 @@ public class DozerBeanMapper implements MapperIF {
     this.customConverters = customConverters;
   }
 
-  public List getCustomConverters() {
-    return customConverters;
-  }
-
   private void init() {
     InitLogger.log(log, "Initializing a new instance of the dozer bean mapper.");
     

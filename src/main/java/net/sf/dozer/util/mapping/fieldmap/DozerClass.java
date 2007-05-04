@@ -62,10 +62,6 @@ public class DozerClass implements Cloneable {
     return classToMap;
   }
 
-  public void setClassToMap(Class classToMap) {
-    this.classToMap = classToMap;
-  }
-
   public String getName() {
     return name;
   }

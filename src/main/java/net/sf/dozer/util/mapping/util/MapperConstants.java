@@ -38,8 +38,6 @@ public abstract class MapperConstants {
   public static final boolean DEFAULT_STATISTICS_ENABLED = false;
   public static final String CONFIG_FILE_SYS_PROP = "dozer.configuration"; //i.e)-Ddozer.configuration=somefile.properties
   public static final String DEBUG_SYS_PROP="dozer.debug";//i.e)-Ddozer.debug=true
-  public static final String WILDCARD_POLICY_TRUE = "true";
-  public static final String WILDCARD_POLICY_FALSE = "false";
   public static final String ITERATE = "iterate";  
   public static final String ONE_WAY = "one-way";
   public static final String DEEP_FIELD_DELIMITOR = ".";

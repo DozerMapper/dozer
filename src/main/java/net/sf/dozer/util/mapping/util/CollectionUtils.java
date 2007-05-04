@@ -41,10 +41,6 @@ public class CollectionUtils {
     return Collection.class.isAssignableFrom(aClass);
   }
 
-  public boolean isIterator(Class aClass) {
-    return Iterator.class.isAssignableFrom(aClass);
-  }
-  
   public boolean isList(Class aClass) {
     return List.class.isAssignableFrom(aClass);
   }

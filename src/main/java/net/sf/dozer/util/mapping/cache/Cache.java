@@ -93,10 +93,6 @@ public class Cache {
     return maximumSize;
   }
   
-  public void setMaxSize(long maximumSize) {
-    this.maximumSize = maximumSize;
-  }
-  
   public long getHitCount() {
     return hitCount;
   }

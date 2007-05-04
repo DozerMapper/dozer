@@ -78,7 +78,6 @@ public class XMLParser {
   public static final String SOURCE_TYPE_HINT_ELEMENT = "a-hint";
   public static final String DESTINATION_TYPE_HINT_ELEMENT = "b-hint";
   public static final String BEAN_FACTORY_ELEMENT = "bean-factory";
-  public static final String IS_ACCESSIBLE_ELEMENT = "is-accessible";
   public static final String ALLOWED_EXCEPTIONS_ELEMENT = "allowed-exceptions";
   public static final String ALLOWED_EXCEPTION_ELEMENT = "exception";
   

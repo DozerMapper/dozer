@@ -77,12 +77,4 @@ public class DateConverter implements Converter {
     return result;
 
   }
-
-  public DateFormat getDateFormat() {
-    return dateFormat;
-  }
-
-  public void setDateFormat(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
-  }
 }

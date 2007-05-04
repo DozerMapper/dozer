@@ -35,10 +35,6 @@ public class Mappings {
     return mapping;
   }
 
-  public void setMapping(List mapping) {
-    this.mapping = mapping;
-  }
-
   public void setConfiguration( Configuration config ) {
       this.configuration = config;
   }
