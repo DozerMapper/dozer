@@ -24,6 +24,7 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  */
 public class MccoyPrime extends BaseTestObject {
   private Set fieldValueObjects;
+  private String field2;
 
   public Set getFieldValueObjects() {
     return fieldValueObjects;
@@ -32,4 +33,13 @@ public class MccoyPrime extends BaseTestObject {
   public void setFieldValueObjects(Set fieldValueObjects) {
     this.fieldValueObjects = fieldValueObjects;
   }
+
+  public String getField2() {
+    return field2;
+  }
+
+  public void setField2(String field2) {
+    this.field2 = field2;
+  }
+  
 }
