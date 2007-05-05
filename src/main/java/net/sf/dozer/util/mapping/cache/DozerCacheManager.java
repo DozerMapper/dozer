@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.exception.NotFoundException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +42,7 @@ public final class DozerCacheManager implements CacheManagerIF {
   public Cache getCache(String name) {
     Cache cache = (Cache)cachesMap.get(name);
     if (cache == null) {
-      throw new NotFoundException("Unable to find cache with name: " + name);
+      throw new MappingException("Unable to find cache with name: " + name);
     }
     return cache;
   }

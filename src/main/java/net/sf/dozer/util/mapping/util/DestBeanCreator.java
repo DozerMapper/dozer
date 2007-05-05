@@ -21,7 +21,6 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
 import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -132,7 +131,7 @@ public class DestBeanCreator {
       // Look for private constructor to use
       Constructor constructor = clazz.getDeclaredConstructor(null);
       if (constructor == null) {
-        throw new DozerRuntimeException("Could not create a new instance of the dest object: " + clazz
+        throw new MappingException("Could not create a new instance of the dest object: " + clazz
             + ".  Could not find a no-arg constructor for this class.");
       }
 
