@@ -87,10 +87,6 @@ public class MappingProcessor implements MapperIF {
   private final StatisticsManagerIF statsMgr;
   private final EventManagerIF eventMgr;
   private final CustomFieldMapperIF customFieldMapper;
-  private final ClassMapFinder classMapFinder = new ClassMapFinder();
-  private final MappingValidator mappingValidator = new MappingValidator();
-  private final ClassMapBuilder classMapBuilder = new ClassMapBuilder();
-  private final LogMsgFactory logMsgFactory = new LogMsgFactory();
   private final Map mappedFields = new HashMap();
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
@@ -117,7 +113,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   public Object map(Object sourceObj, Class destClass, String mapId) {
-    mappingValidator.validateMappingRequest(sourceObj, destClass);
+    MappingValidator.validateMappingRequest(sourceObj, destClass);
     
     Object destObj = null;
     ClassMap classMap = null;
@@ -152,7 +148,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   public void map(Object sourceObj, Object destObj, String mapId) {
-    mappingValidator.validateMappingRequest(sourceObj, destObj);
+    MappingValidator.validateMappingRequest(sourceObj, destObj);
     
     ClassMap classMap = null;
     try {
@@ -183,7 +179,7 @@ public class MappingProcessor implements MapperIF {
   private void map(ClassMap classMap, Object sourceObj, Object destObj, ClassMap parentClassMap, FieldMap parentFieldMap)
       throws NoSuchMethodException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException,
       InvocationTargetException, InstantiationException {
-    mappingValidator.validateMappingRequest(sourceObj, destObj);
+    MappingValidator.validateMappingRequest(sourceObj, destObj);
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop
@@ -228,7 +224,7 @@ public class MappingProcessor implements MapperIF {
       // check for super classes
       Set superClasses = checkForSuperTypeMapping(sourceClass, destClass);
       // check for interfaces
-      superClasses.addAll(classMapFinder.findInterfaceMappings(this.customMappings, sourceClass, destClass));
+      superClasses.addAll(ClassMapFinder.findInterfaceMappings(this.customMappings, sourceClass, destClass));
       if (superClasses != null && superClasses.size() > 0) {
         superListOfFieldNames = new ArrayList();
         parentFieldNames = processSuperTypeMapping(superClasses, sourceObj, destObj, sourceClass, parentFieldMap);
@@ -305,7 +301,7 @@ public class MappingProcessor implements MapperIF {
       statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_SUCCESS_COUNT);
 
     } catch (Throwable e) {
-      log.error(logMsgFactory.createFieldMappingErrorMsg(sourceObj, fieldMapping, sourceFieldValue, destObj, e), e);
+      log.error(LogMsgFactory.createFieldMappingErrorMsg(sourceObj, fieldMapping, sourceFieldValue, destObj, e), e);
       statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
@@ -354,7 +350,7 @@ public class MappingProcessor implements MapperIF {
     writeDestinationValue(destObj, destFieldValue, classMap, fieldMapping);
 
     if (log.isDebugEnabled()) {
-      log.debug(logMsgFactory.createFieldMappingSuccessMsg(sourceObj.getClass(), destObj.getClass(), fieldMapping
+      log.debug(LogMsgFactory.createFieldMappingSuccessMsg(sourceObj.getClass(), destObj.getClass(), fieldMapping
           .getSourceField().getName(), fieldMapping.getDestField().getName(), sourceFieldValue, destFieldValue));
     }
   }
@@ -483,7 +479,7 @@ public class MappingProcessor implements MapperIF {
       ClassNotFoundException, NoSuchFieldException {
     // Custom java bean. Need to make sure that the destination object is not
     // already instantiated.
-    Object field = mappingValidator.validateField(fieldMap, destObj, destFieldType);
+    Object field = MappingValidator.validateField(fieldMap, destObj, destFieldType);
     ClassMap classMap = null;
     // if the field is not null than we don't want a new instance
     if (field == null) {
@@ -749,7 +745,7 @@ public class MappingProcessor implements MapperIF {
       }
     }
     if (log.isDebugEnabled()) {
-      log.debug(logMsgFactory.createFieldMappingSuccessMsg(sourceObj.getClass(), destObj.getClass(), fieldMapping
+      log.debug(LogMsgFactory.createFieldMappingSuccessMsg(sourceObj.getClass(), destObj.getClass(), fieldMapping
           .getSourceField().getName(), fieldMapping.getDestField().getName(), sourceFieldValue, null));
     }
   }
@@ -997,7 +993,7 @@ public class MappingProcessor implements MapperIF {
     if (topLevel) {
       return theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
     }
-    Object field = mappingValidator.validateField(fieldMap, existingDestFieldValue, destFieldClass);
+    Object field = MappingValidator.validateField(fieldMap, existingDestFieldValue, destFieldClass);
     
     long start = System.currentTimeMillis();
     Object result = theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
@@ -1107,7 +1103,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   private ClassMap getClassMap(Object sourceObj, Class destClass, String mapId, boolean isInstance) {
-    ClassMap mapping = classMapFinder.findClassMap(this.customMappings, sourceObj, destClass, mapId, isInstance);
+    ClassMap mapping = ClassMapFinder.findClassMap(this.customMappings, sourceObj, destClass, mapId, isInstance);
     
     if (mapping == null) {
       //If mapId was specified and mapping was not found, then throw an exception
@@ -1117,7 +1113,7 @@ public class MappingProcessor implements MapperIF {
 
       // If mapping not found in exsting custom mapping collection, create default as an explicit mapping must not exist.
       // The create default class map method will also add all default mappings that it can determine.
-      mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
+      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
       customMappings.put(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass), mapping);
     }
 
@@ -1126,7 +1122,7 @@ public class MappingProcessor implements MapperIF {
     // We get a couple test failures if i add the map to the custom mappings. don't have time
     // to research why. Need a way to cache this and not add fields every time...
     if(mapping.getSourceClass().getClassToMap() != sourceObj.getClass() || mapping.getDestClass().getClassToMap() != destClass) {
-    	ClassMap newmapping = classMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
+    	ClassMap newmapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
     	mapping.getFieldMaps().addAll(newmapping.getFieldMaps());
     }
     

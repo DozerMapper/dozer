@@ -39,9 +39,9 @@ import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ClassMapBuilder {
+public abstract class ClassMapBuilder {
   
-  public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
+  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
     ClassMap classMap = new ClassMap();
     classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, globalConfiguration.getBeanFactory(), null, null, null, 
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
@@ -63,7 +63,7 @@ public class ClassMapBuilder {
     return classMap;
   }
   
-  public void addDefaultFieldMappings(Map customMappings) {
+  public static void addDefaultFieldMappings(Map customMappings) {
     Set entries = customMappings.entrySet();
     Iterator iter = entries.iterator();
     while (iter.hasNext()) {
@@ -76,7 +76,7 @@ public class ClassMapBuilder {
     }
   }
   
-  public void addDefaultFieldMappings(ClassMap classMap) {
+  public static void addDefaultFieldMappings(ClassMap classMap) {
     Class sourceClass = classMap.getSourceClass().getClassToMap();
     Class destClass = classMap.getDestClass().getClassToMap();
 
@@ -115,7 +115,7 @@ public class ClassMapBuilder {
     }
   }  
 
-  private void addMapDefaultFieldMappings(ClassMap classMap) {
+  private static void addMapDefaultFieldMappings(ClassMap classMap) {
     Class sourceClass = classMap.getSourceClass().getClassToMap();
     Class destClass = classMap.getDestClass().getClassToMap();
     PropertyDescriptor[] properties = null;

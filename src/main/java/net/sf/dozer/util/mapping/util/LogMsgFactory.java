@@ -31,10 +31,10 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class LogMsgFactory {
+public abstract class LogMsgFactory {
   private static final Log log = LogFactory.getLog(LogMsgFactory.class);
   
-  public String createFieldMappingErrorMsg(Object sourceObj, FieldMap fieldMapping, 
+  public static String createFieldMappingErrorMsg(Object sourceObj, FieldMap fieldMapping, 
       Object sourceFieldValue, Object destObj, Throwable t) {
     String sourceClassName = null;
     if (sourceObj != null) {
@@ -68,7 +68,7 @@ public class LogMsgFactory {
         + destFieldTypeName;
   }
   
-  public String createFieldMappingSuccessMsg(Class sourceClass, Class destClass, String sourceFieldName, String destFieldName,
+  public static String createFieldMappingSuccessMsg(Class sourceClass, Class destClass, String sourceFieldName, String destFieldName,
     Object sourceFieldValue, Object destFieldValue) {
     String sourceClassStr = MappingUtils.getClassNameWithoutPackage(sourceClass);
     String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);

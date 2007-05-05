@@ -45,20 +45,17 @@ public class CustomMappingsLoader {
 
   public LoadMappingsResult load(List mappingFiles) {
     Map customMappings = new HashMap();
-    ClassMapBuilder classMapBuilder = new ClassMapBuilder();
     ListOrderedSet customConverterDescriptions = new ListOrderedSet();
     Configuration globalConfiguration = new Configuration();
 
     if (mappingFiles != null && mappingFiles.size() > 0) {
-      MappingValidator mappingValidator = new MappingValidator();
-      
       InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: "
           + mappingFiles);
       Iterator iter = mappingFiles.iterator();
       while (iter.hasNext()) {
         String mappingFileName = (String) iter.next();
         InitLogger.log(log, "Trying to find xml mapping file: " + mappingFileName);
-        URL url = mappingValidator.validateURL(MapperConstants.DEFAULT_PATH_ROOT + mappingFileName);
+        URL url = MappingValidator.validateURL(MapperConstants.DEFAULT_PATH_ROOT + mappingFileName);
         InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
         MappingFileReader mappingFileReader = new MappingFileReader(url);
         Mappings mappings = mappingFileReader.read();
@@ -83,7 +80,7 @@ public class CustomMappingsLoader {
 
     // Add default mappings using matching property names if wildcard policy
     // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
-    classMapBuilder.addDefaultFieldMappings(customMappings);
+    ClassMapBuilder.addDefaultFieldMappings(customMappings);
  
     // iterate through the classmaps and set all of the customconverters on them
     Iterator keyIter = customMappings.keySet().iterator();

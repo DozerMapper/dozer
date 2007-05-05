@@ -35,15 +35,15 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class MappingValidator {
+public abstract class MappingValidator {
 
-  public void validateMappingRequest(Object srcObj) {
+  public static void validateMappingRequest(Object srcObj) {
     if (srcObj == null) {
       throw new MappingException("source object must not be null");
     }
   }
 
-  public void validateMappingRequest(Object srcObj, Object destObj) {
+  public static void validateMappingRequest(Object srcObj, Object destObj) {
     if (srcObj == null) {
       throw new MappingException("source object must not be null");
     }
@@ -52,7 +52,7 @@ public class MappingValidator {
     }
   }
 
-  public void validateMappingRequest(Object srcObj, Class destClass) {
+  public static void validateMappingRequest(Object srcObj, Class destClass) {
     if (srcObj == null) {
       throw new MappingException("source object must not be null");
     }
@@ -61,7 +61,7 @@ public class MappingValidator {
     }
   }
 
-  public void validateCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) throws NoSuchMethodException,
+  public static void validateCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) throws NoSuchMethodException,
       ClassNotFoundException, NoSuchFieldException {
     String destFieldTypeName = null;
     if (globalConfig.getCopyByReferences() != null) {
@@ -79,7 +79,7 @@ public class MappingValidator {
     }
   }
 
-  public void validateFieldMapping(FieldMap fm, ClassMap classMap) {
+  public static void validateFieldMapping(FieldMap fm, ClassMap classMap) {
     DozerField srcField = fm.getSourceField();
     DozerField destField = fm.getDestField();
     if (srcField == null) {
@@ -90,7 +90,7 @@ public class MappingValidator {
     }
   }
 
-  public Object validateField(FieldMap fieldMap, Object destObj, Class destFieldType) throws InvocationTargetException,
+  public static Object validateField(FieldMap fieldMap, Object destObj, Class destFieldType) throws InvocationTargetException,
       IllegalAccessException, InstantiationException, NoSuchMethodException, ClassNotFoundException,
       NoSuchFieldException {
     Object field = null;
@@ -124,7 +124,7 @@ public class MappingValidator {
     return field;
   }
 
-  public URL validateURL(String fileName) {
+  public static URL validateURL(String fileName) {
     Loader loader = new Loader();
     URL url = loader.getResource(fileName);
     if (url == null) {

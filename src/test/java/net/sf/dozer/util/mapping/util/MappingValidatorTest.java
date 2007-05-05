@@ -23,11 +23,10 @@ import net.sf.dozer.util.mapping.vo.SimpleObj;
  * @author tierney.matt
  */
 public class MappingValidatorTest extends DozerTestBase {
-  private MappingValidator validator = new MappingValidator();
 
   public void testValidateMappingRequest_NullSrcObj() throws Exception {
     try {
-      validator.validateMappingRequest(null);
+      MappingValidator.validateMappingRequest(null);
       fail("Should have thrown exception");
     } catch (MappingException e) {
     }

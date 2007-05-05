@@ -40,9 +40,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MappingsParser {
 
-  private final MappingValidator mappingValidator = new MappingValidator();
-  private final ClassMapBuilder classMapBuilder = new ClassMapBuilder();
-
   public Map parseMappings(Mappings mappings) throws IllegalArgumentException {
     Iterator iterator = null;
     Map result = new HashMap();
@@ -169,7 +166,7 @@ public class MappingsParser {
           if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
             while (iterator.hasNext()) {
               FieldMap fieldMap = (FieldMap) iterator.next();
-              mappingValidator.validateFieldMapping(fieldMap, classMap);
+              MappingValidator.validateFieldMapping(fieldMap, classMap);
               MappingUtils.isMethodMap(fieldMap);
               MappingUtils.isCustomMap(fieldMap);
               if (!(StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
@@ -196,10 +193,10 @@ public class MappingsParser {
                 fieldMapPrime.setDestinationTypeHint(fieldMap.getSourceTypeHint());
                 // iterate through copyByReferences and set accordingly
                 if (!(fieldMap instanceof ExcludeFieldMap)) {
-                  mappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMap, classMap);
+                  MappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMap, classMap);
                 }
                 if (!(fieldMapPrime instanceof ExcludeFieldMap)) {
-                  mappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMapPrime, classMapPrime);
+                  MappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMapPrime, classMapPrime);
                 }
               } else { // if it is a one-way field map make the other field map excluded
                 // make a prime field map
@@ -213,10 +210,10 @@ public class MappingsParser {
             // field maps
             while (iterator.hasNext()) {
               FieldMap oneWayFieldMap = (FieldMap) iterator.next();
-              mappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
+              MappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
               MappingUtils.isMethodMap(oneWayFieldMap);
               MappingUtils.isCustomMap(oneWayFieldMap);
-              mappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
+              MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
               // check to see if we need to exclude the map
               if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
                 fieldMapPrime = new ExcludeFieldMap();

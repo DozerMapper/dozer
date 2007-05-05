@@ -33,11 +33,11 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ClassMapFinder {
+public abstract class ClassMapFinder {
 
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
-  public ClassMap findClassMap(Map customMappings, Object sourceObj, Class destClass, String mapId, boolean isInstance) {
+  public static ClassMap findClassMap(Map customMappings, Object sourceObj, Class destClass, String mapId, boolean isInstance) {
     ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass,
         mapId));
 
@@ -73,7 +73,7 @@ public class ClassMapFinder {
     return mapping;
   }
 
-  public List findInterfaceMappings(Map customMappings, Class sourceClass, Class destClass) {
+  public static List findInterfaceMappings(Map customMappings, Class sourceClass, Class destClass) {
     // If no existing cache entry is found, determine super type mapping and
     // store in cache
     // Get interfaces
@@ -111,7 +111,7 @@ public class ClassMapFinder {
   // these methods seem to be trying to accomplish the same thing with a
   // different implementation. Also, one takes a map-id
   // and the other doesnt ?? somewhat confusing
-  public ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object sourceObj, String mapId) {
+  public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object sourceObj, String mapId) {
     ClassMap newClassMap = null;
     Class newClass = null;
     // Use object array for keys to avoid any rare thread synchronization
