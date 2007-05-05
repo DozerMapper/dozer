@@ -1124,6 +1124,15 @@ public class MappingProcessor implements MapperIF {
       customMappings.put(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass), mapping);
     }
 
+    // Fix for bug # [ 1486105 ] Inheritance mapping not working correctly
+    // We were not creating a default configuration if we found a parent level class map
+    // We get a couple test failures if i add the map to the custom mappings. don't have time
+    // to research why.
+    if(mapping.getSourceClass().getClassToMap() != sourceObj.getClass() || mapping.getDestClass().getClassToMap() != destClass) {
+    	ClassMap newmapping = classMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
+    	mapping.getFieldMaps().addAll(newmapping.getFieldMaps());
+    }
+    
     return mapping;
   }
 
