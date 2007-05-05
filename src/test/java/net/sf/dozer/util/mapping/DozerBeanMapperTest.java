@@ -55,46 +55,6 @@ public class DozerBeanMapperTest extends DozerTestBase {
     }
   }
 
-  /*
-   * Related to bug #1486105.  This test is successful, but provides context for testKM2 which fails
-   */
-  public void testKM1() {
-    SomeVo request = new SomeVo();
-    request.setUserName("yo");
-    request.setAge("2");
-    request.setColor("blue");
-    
-    MapperIF mapper = getNewMapper(new String[]{"kmmapping.xml"});
-    
-    Super afterMapping = (Super) mapper.map(request,Super.class);
-    
-    assertNotNull("login name should not be null", afterMapping.getLoginName());
-    assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getUserName(),afterMapping.getLoginName());
-    assertEquals(request.getAge(), afterMapping.getAge());
-  }
-  
-  /*
-   * Bug #1486105 
-   */  
-  public void testKM2() {
-    Sub request = new Sub();
-    request.setAge("2");
-    request.setColor("blue");
-    request.setLoginName("fred");
-        
-    MapperIF mapper = getNewMapper(new String[] {"kmmapping.xml"});
-      
-    SomeVo afterMapping = (SomeVo) mapper.map(request,SomeVo.class);
-       
-    assertNotNull("un should not be null", afterMapping.getUserName());
-    assertNotNull("color should not be null",afterMapping.getColor());
-    assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getLoginName(),afterMapping.getUserName());
-    assertEquals(request.getColor(),afterMapping.getColor());
-    assertEquals(request.getAge(), afterMapping.getAge());
-  }
-  
   public void testNoSourceObject() throws Exception {
     try {
       mapper.map(null, TestObjectPrime.class);
@@ -112,7 +72,16 @@ public class DozerBeanMapperTest extends DozerTestBase {
       assertEquals("destination class must not be null", e.getMessage());
     }
   }
-
+  
+  public void testMapIdDoesNotExist() {
+    try {
+      mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
+      fail("should have thrown exception");
+    } catch (Exception e) {
+      //expected
+    }
+  }
+  
   public void testGeneralMapping() throws Exception {
     assertCommon(mapper);
   }
