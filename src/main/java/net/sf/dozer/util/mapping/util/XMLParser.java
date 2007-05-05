@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
 import net.sf.dozer.util.mapping.fieldmap.AllowedExceptionContainer;
@@ -429,7 +430,7 @@ public class XMLParser {
       }
     }
   }
-  private void parseAllowedExceptions(Element ele, Configuration config) {
+  private void parseAllowedExceptions(Element ele, Configuration config) throws ClassNotFoundException {
 	    AllowedExceptionContainer container = new AllowedExceptionContainer();
 	    config.setAllowedExceptions(container);
 	    NodeList nl = ele.getChildNodes();
@@ -440,15 +441,11 @@ public class XMLParser {
 	        log.info("config name: " + element.getNodeName());
 	        log.info("  value: " + element.getFirstChild().getNodeValue());
 	        if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
-	        	try {
-	        		Class ex = Class.forName(element.getFirstChild().getNodeValue());
-	        		if (!RuntimeException.class.isAssignableFrom(ex)) {
-	        			throw new ClassNotFoundException();
-	        		}
-	        		container.getExceptions().add(ex);
-	        	} catch (ClassNotFoundException e) {
-	        		log.error("Class not found or does not extend RuntimeException: " + element.getFirstChild().getNodeValue());
-	        	}
+            Class ex = Class.forName(element.getFirstChild().getNodeValue());
+            if (!RuntimeException.class.isAssignableFrom(ex)) {
+              throw new MappingException("allowed-exception Class must extend RuntimeException: " + element.getFirstChild().getNodeValue());
+            }
+            container.getExceptions().add(ex);
 	        }
 	      }
 	    }
