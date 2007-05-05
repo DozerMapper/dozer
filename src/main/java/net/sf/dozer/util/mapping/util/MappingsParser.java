@@ -31,7 +31,7 @@ import net.sf.dozer.util.mapping.fieldmap.Mappings;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Internal class that decorates raw ClassMap objects and performs various validations on the field mappings.
+ * Internal class that decorates raw ClassMap objects and performs various validations on the explicit field mappings.
  * It applies global configuration and class level attributes to raw class mappings.  
  * It also creates the ClassMap "prime" instance for bi-directional mappings.  The ClassMap prime is created by copying the 
  * original ClassMap and reversing the attributes.  Only intended for internal use.
@@ -163,10 +163,7 @@ public class MappingsParser {
         if (StringUtils.isNotEmpty(classMap.getMapId())) {
           classMapPrime.setMapId(classMap.getMapId());
         }
-        // if it is mapping map backed object need to create fieldmaps
-        if (StringUtils.isNotEmpty(classMap.getMapId())) {
-          classMapBuilder.addMapDefaultFieldMappings(classMap);
-        }
+
         if (classMap.getFieldMaps() != null) {
           iterator = classMap.getFieldMaps().iterator();
           // iterate through the fields and see wether or not they should be mapped
