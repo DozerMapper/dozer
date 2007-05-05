@@ -487,6 +487,7 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     mapper = getNewMapper(new String[] { "indexMapping.xml" });
     Mccoy src = new Mccoy();
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
+    src.setField2("someValue");
 
     MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class, "usingDestHint");
     Set destSet = dest.getFieldValueObjects();
