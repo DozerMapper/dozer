@@ -77,8 +77,47 @@ public class ClassMapBuilder {
       }
     }
   }
+  
+  public void addDefaultFieldMappings(ClassMap classMap) {
+    Class sourceClass = classMap.getSourceClass().getClassToMap();
+    Class destClass = classMap.getDestClass().getClassToMap();
 
-  public void addMapDefaultFieldMappings(ClassMap classMap) {
+    if (mappingUtils.isSupportedMap(sourceClass) || classMap.getSourceClass().getMapGetMethod() != null || 
+        mappingUtils.isSupportedMap(destClass) || classMap.getDestClass().getMapGetMethod() != null) {
+      addMapDefaultFieldMappings(classMap);
+    }
+    
+    PropertyDescriptor[] destProperties = reflectionUtils.getPropertyDescriptors(destClass);
+    for (int i = 0; i < destProperties.length; i++) {
+      PropertyDescriptor destPropertyDescriptor = destProperties[i]; 
+      String destFieldName = destPropertyDescriptor.getName();
+
+      //If field has already been accounted for, then skip
+      if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
+        continue;
+      }
+      
+      //If destination field does not have a write method, then skip
+      if (destPropertyDescriptor.getWriteMethod() == null) {
+        continue;
+      }
+      
+      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
+
+      // If the sourceProperty is null we know that there is not a corresponding property to map to.  
+      // If source property does not have a read method, then skip
+      if (sourceProperty == null || sourceProperty.getReadMethod() == null) { 
+        continue;
+      }
+
+      GenericFieldMap map = new GenericFieldMap();
+      map.setSourceField(new DozerField(destFieldName, null));
+      map.setDestField(new DozerField(destFieldName, null));
+      classMap.addFieldMapping(map);
+    }
+  }  
+
+  private void addMapDefaultFieldMappings(ClassMap classMap) {
     Class sourceClass = classMap.getSourceClass().getClassToMap();
     Class destClass = classMap.getDestClass().getClassToMap();
     PropertyDescriptor[] properties = null;
@@ -166,36 +205,5 @@ public class ClassMapBuilder {
     }
   }
 
-  private void addDefaultFieldMappings(ClassMap classMap) {
-    Class sourceClass = classMap.getSourceClass().getClassToMap();
-    Class destClass = classMap.getDestClass().getClassToMap();
-    PropertyDescriptor[] destProperties = reflectionUtils.getPropertyDescriptors(destClass);
-    for (int i = 0; i < destProperties.length; i++) {
-      PropertyDescriptor destPropertyDescriptor = destProperties[i]; 
-      String destFieldName = destPropertyDescriptor.getName();
 
-      //If field has already been accounted for, then skip
-      if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
-        continue;
-      }
-      
-      //If destination field does not have a write method, then skip
-      if (destPropertyDescriptor.getWriteMethod() == null) {
-        continue;
-      }
-      
-      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
-
-      // If the sourceProperty is null we know that there is not a corresponding property to map to.  
-      // If source property does not have a read method, then skip
-      if (sourceProperty == null || sourceProperty.getReadMethod() == null) { 
-        continue;
-      }
-
-      GenericFieldMap map = new GenericFieldMap();
-      map.setSourceField(new DozerField(destFieldName, null));
-      map.setDestField(new DozerField(destFieldName, null));
-      classMap.addFieldMapping(map);
-    }
-  }
 }
