@@ -20,7 +20,6 @@ import java.util.Set;
 
 import net.sf.dozer.util.mapping.DozerTestBase;
 import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.exception.NotFoundException;
 
 /**
  * @author tierney.matt
@@ -61,7 +60,7 @@ public class DozerCacheManagerTest extends DozerTestBase {
     try {
       cacheMgr.getCache(cacheName);
       fail("trying to get an unknown cache should have thrown a MappingException");
-    } catch (NotFoundException e) {
+    } catch (MappingException e) {
     }
   }
   

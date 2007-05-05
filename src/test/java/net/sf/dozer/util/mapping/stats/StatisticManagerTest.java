@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.DozerTestBase;
-import net.sf.dozer.util.mapping.exception.NotFoundException;
+import net.sf.dozer.util.mapping.MappingException;
 
 /**
  * @author tierney.matt
@@ -65,7 +65,7 @@ public class StatisticManagerTest extends DozerTestBase {
     try {
       statMgr.getStatistic(getRandomString());
       fail("should have thrown not found exception");
-    } catch(NotFoundException e) {
+    } catch(MappingException e) {
     }
   }
   

@@ -30,7 +30,6 @@ import java.util.TreeSet;
 
 import net.pmonks.xml.dozer.test.ChildType;
 import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
 import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
@@ -53,6 +52,7 @@ import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime2;
 import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
+import net.sf.dozer.util.mapping.vo.allowedexceptions.TestException;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowException;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowExceptionPrime;
 import net.sf.dozer.util.mapping.vo.context.ContextMapping;
@@ -505,12 +505,12 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     to.setThrowAllowedExceptionOnMap("throw me");
     try {
       TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
-      fail("We should have thrown DozerRuntimeException");
+      fail("We should have thrown TestException");
     } catch (RuntimeException e) {
-      if (e instanceof DozerRuntimeException) {
+      if (e instanceof TestException) {
         assertTrue(true);
       } else {
-        fail("This should be an instance of DozerRuntimeException");
+        fail("This should be an instance of TestException");
       }
     }
     TestObject to2 = new TestObject();
@@ -528,12 +528,12 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     to.setThrowAllowedException("throw me");
     try {
       ThrowExceptionPrime top = (ThrowExceptionPrime) mapper.map(to, ThrowExceptionPrime.class);
-      fail("We should have thrown DozerRuntimeException");
+      fail("We should have thrown TestException");
     } catch (RuntimeException e) {
-      if (e instanceof DozerRuntimeException) {
+      if (e instanceof TestException) {
         assertTrue(true);
       } else {
-        fail("This should be an instance of DozerRuntimeException");
+        fail("This should be an instance of TestException");
       }
     }
     ThrowException to2 = new ThrowException();

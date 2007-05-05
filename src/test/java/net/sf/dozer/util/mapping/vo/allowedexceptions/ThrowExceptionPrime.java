@@ -1,7 +1,6 @@
 package net.sf.dozer.util.mapping.vo.allowedexceptions;
 
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
-
+import net.sf.dozer.util.mapping.MappingException;
 
 public class ThrowExceptionPrime {
   private String throwAllowedException;
@@ -12,7 +11,7 @@ public class ThrowExceptionPrime {
   }
   
   public void setThrowAllowedException(String throwAllowedException) {
-    throw new DozerRuntimeException("Checking Allowed Exceptions");
+    throw new TestException("Checking Allowed Exceptions");
   }
   
   public String getThrowNotAllowedException() {

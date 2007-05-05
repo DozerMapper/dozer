@@ -21,7 +21,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
+import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.vo.allowedexceptions.TestException;
+
 
 /**
  * @author garsombke.franz
@@ -396,7 +398,7 @@ public class TestObjectPrime extends BaseTestObject {
   }
 
   public void setThrowAllowedExceptionOnMapPrime(String throwAllowedExceptionOnMapPrime) {
-    throw new DozerRuntimeException("Checking Allowed Exceptions");
+    throw new TestException("Checking Allowed Exceptions");
   }
 
   public String getThrowNonAllowedExceptionOnMapPrime() {
