@@ -73,8 +73,6 @@ public class DozerBeanMapper implements MapperIF {
   private Configuration globalConfiguration;
   //There are no global caches.  Caches are per bean mapper instance
   private final CacheManagerIF cacheManager = new DozerCacheManager();
-  private final MappingUtils mappingUtils = new MappingUtils();
-  
 
   public DozerBeanMapper() {
     this(null);
@@ -110,7 +108,7 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   public void setFactories(Map factories) {
-    mappingUtils.addFactories(factories);
+    MappingUtils.addFactories(factories);
   }
 
   public void setCustomConverters(List customConverters) {

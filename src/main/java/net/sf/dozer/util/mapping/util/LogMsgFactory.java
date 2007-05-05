@@ -34,8 +34,6 @@ import org.apache.commons.logging.LogFactory;
 public class LogMsgFactory {
   private static final Log log = LogFactory.getLog(LogMsgFactory.class);
   
-  private final MappingUtils mappingUtils = new MappingUtils();
-  
   public String createFieldMappingErrorMsg(Object sourceObj, FieldMap fieldMapping, 
       Object sourceFieldValue, Object destObj, Throwable t) {
     String sourceClassName = null;
@@ -72,8 +70,8 @@ public class LogMsgFactory {
   
   public String createFieldMappingSuccessMsg(Class sourceClass, Class destClass, String sourceFieldName, String destFieldName,
     Object sourceFieldValue, Object destFieldValue) {
-    String sourceClassStr = mappingUtils.getClassNameWithoutPackage(sourceClass);
-    String destClassStr = mappingUtils.getClassNameWithoutPackage(destClass);
+    String sourceClassStr = MappingUtils.getClassNameWithoutPackage(sourceClass);
+    String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);
       
     return "MAPPED: " + sourceClassStr + "." + sourceFieldName + " --> " + destClassStr + "." + destFieldName
         + "  VALUES: " + getLogOutput(sourceFieldValue) + " --> "  + getLogOutput(destFieldValue);

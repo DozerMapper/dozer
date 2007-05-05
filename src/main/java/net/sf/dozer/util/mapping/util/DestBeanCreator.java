@@ -40,7 +40,6 @@ public class DestBeanCreator {
   private static final Log log = LogFactory.getLog(DestBeanCreator.class);
 
   private final Map factories;
-  private final MappingUtils mappingUtils = new MappingUtils();
 
   public DestBeanCreator(Map factories) {
     this.factories = factories;
@@ -69,7 +68,7 @@ public class DestBeanCreator {
     }
     // If factory name wasn't specified, just create new instance. Otherwise
     // use the specified custom bean factory
-    if (mappingUtils.isBlankOrNull(factoryName)) {
+    if (MappingUtils.isBlankOrNull(factoryName)) {
       try {
         rvalue = createNewInstance(destClassObj.getClassToMap());
       } catch (InstantiationException e) {
@@ -103,7 +102,7 @@ public class DestBeanCreator {
       NoSuchMethodException, InvocationTargetException {
     
     // By default, use dest object class name for factory bean id
-    String beanId = !mappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
+    String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
 
     BeanFactoryIF factory = (BeanFactoryIF) factories.get(factoryName);
 

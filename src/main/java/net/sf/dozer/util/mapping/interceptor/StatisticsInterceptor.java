@@ -31,7 +31,6 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
 public class StatisticsInterceptor implements InvocationHandler {
   private final Object delegate;
   private final StatisticsManagerIF statsMgr;
-  private final MappingUtils mappingUtils = new MappingUtils();
 
   public StatisticsInterceptor(Object delegate, StatisticsManagerIF statsMgr) {
     this.delegate = delegate;
@@ -53,7 +52,7 @@ public class StatisticsInterceptor implements InvocationHandler {
       Throwable ex = e.getTargetException();
 
       statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_COUNT);
-      Throwable rootCause = mappingUtils.getRootCause(ex);
+      Throwable rootCause = MappingUtils.getRootCause(ex);
       statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_EX_TYPE_COUNT, rootCause.getClass());
       incrementClassMappingFailureTypeStat(args);
       throw ex;

@@ -42,7 +42,7 @@ public class PerformanceTest extends DozerTestBase {
 
   private static Log log = LogFactory.getLog(PerformanceTest.class);
 
-  private int numIters = 1;
+  private int numIters = 25000;
   
   private static MapperIF mapper;
 

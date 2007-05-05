@@ -38,14 +38,12 @@ import org.apache.commons.lang.StringUtils;
  * @author tierney.matt
  * 
  */
-public class MappingUtils {
+public abstract class MappingUtils {
 
   //only making public temporarily while refactoring.  This static data should be relocated
   public static Map storedFactories = Collections.synchronizedMap(new HashMap());
   
-  private final CollectionUtils collectionUtils = new CollectionUtils();
-  
-  public String getClassNameWithoutPackage(Class clazz) {
+  public static String getClassNameWithoutPackage(Class clazz) {
     Package pckage = clazz.getPackage();
     int pckageIndex = 0;
     if (pckage != null) {
@@ -54,31 +52,31 @@ public class MappingUtils {
     return clazz.getName().substring(pckageIndex);
   }
 
-  public boolean isSupportedCollection(Class aClass) {
+  public static boolean isSupportedCollection(Class aClass) {
     boolean collection = false;
-    if (collectionUtils.isCollection(aClass)) {
+    if (CollectionUtils.isCollection(aClass)) {
       collection = true;
-    } else if (collectionUtils.isArray(aClass)) {
+    } else if (CollectionUtils.isArray(aClass)) {
       collection = true;
     }
     return collection;
   }
 
-  public boolean isSupportedMap(Class aClass) {
+  public static boolean isSupportedMap(Class aClass) {
     return Map.class.isAssignableFrom(aClass);
   }
 
-  public boolean isCustomMapMethod(FieldMap fieldMap) {
+  public static boolean isCustomMapMethod(FieldMap fieldMap) {
     return (fieldMap instanceof GenericFieldMap && ((GenericFieldMap) fieldMap).isCustomMap()) ? true : false;
   }
 
-  public boolean isPrimitiveOrWrapper(Class aClass) {
+  public static  boolean isPrimitiveOrWrapper(Class aClass) {
     return (aClass.isPrimitive() || Number.class.isAssignableFrom(aClass) || aClass.equals(String.class)
         || aClass.equals(Character.class) || aClass.equals(Boolean.class)
         || java.util.Date.class.isAssignableFrom(aClass) || java.util.Calendar.class.isAssignableFrom(aClass));
   }
 
-  public void throwMappingException(Throwable e) throws MappingException {
+  public static void throwMappingException(Throwable e) throws MappingException {
     if (e instanceof MappingException) {
       // in this case we do not want to re-wrap an existing mapping exception
       throw (MappingException) e;
@@ -90,15 +88,15 @@ public class MappingUtils {
     }
   }
 
-  public boolean isBlankOrNull(String value) {
+  public static boolean isBlankOrNull(String value) {
     return value == null || value.trim().length() < 1 ? true : false;
   }
 
-  public void addFactories(Map factories) {
+  public static void addFactories(Map factories) {
     storedFactories.putAll(factories);
   }
 
-  public void isMethodMap(FieldMap fieldMap) {
+  public static void isMethodMap(FieldMap fieldMap) {
     boolean methodMap = false;
     if (fieldMap.getSourceField().getTheGetMethod() != null || fieldMap.getSourceField().getTheSetMethod() != null
         || fieldMap.getDestField().getTheGetMethod() != null || fieldMap.getDestField().getTheSetMethod() != null) {
@@ -109,7 +107,7 @@ public class MappingUtils {
     }
   }
 
-  public void isCustomMap(FieldMap fieldMap) {
+  public static void isCustomMap(FieldMap fieldMap) {
     boolean customMap = false;
     if (fieldMap.getSourceField().getMapGetMethod() != null || fieldMap.getSourceField().getMapSetMethod() != null
         || fieldMap.getDestField().getMapGetMethod() != null || fieldMap.getDestField().getMapSetMethod() != null) {
@@ -120,7 +118,7 @@ public class MappingUtils {
     }
   }
 
-  public Throwable getRootCause(Throwable ex) {
+  public static Throwable getRootCause(Throwable ex) {
     Throwable rootCause = ex;
     while (rootCause.getCause() != null) {
       rootCause = rootCause.getCause();
@@ -128,7 +126,7 @@ public class MappingUtils {
     return rootCause;
   }
 
-  public String getParentFieldNameKey(String parentSourceField, Object srcObj, String sourceClassName, String srcFieldName, String destFieldName) {
+  public static String getParentFieldNameKey(String parentSourceField, Object srcObj, String sourceClassName, String srcFieldName, String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
     buf.append(parentSourceField);
     buf.append(System.identityHashCode(srcObj));
@@ -138,7 +136,7 @@ public class MappingUtils {
     return buf.toString();
   }
   
-  public Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, Class sourceClass, Class destClass) throws ClassNotFoundException {
+  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, Class sourceClass, Class destClass) throws ClassNotFoundException {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
       return null;
     }
@@ -146,7 +144,7 @@ public class MappingUtils {
     return customConverterContainer.getCustomConverter(sourceClass, destClass, converterByDestTypeCache);
   }
  
-  public Class determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, 
+  public static Class determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, 
       Class sourceClass, Class destClass) throws ClassNotFoundException {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
       return null;
@@ -168,7 +166,7 @@ public class MappingUtils {
     return findCustomConverter(converterByDestTypeCache, customConverterContainer, sourceClass, destClass);
   }
   
-  public void reverseFields(FieldMap source, FieldMap destination) {
+  public static void reverseFields(FieldMap source, FieldMap destination) {
     // reverse the fields
     DozerField df = new DozerField(source.getSourceField().getName(), source.getSourceField().getType());
     df.setIndexed(source.getSourceField().isIndexed());
@@ -204,7 +202,7 @@ public class MappingUtils {
     destination.getSourceField().setCreateMethod(source.getDestField().getCreateMethod());
   }
   
-  public boolean validateMap(Class sourceClass, Class destClass, FieldMap fieldMap) {
+  public static boolean validateMap(Class sourceClass, Class destClass, FieldMap fieldMap) {
     if (Map.class.isAssignableFrom(sourceClass) || fieldMap.getSourceField().getMapGetMethod() != null ||
         Map.class.isAssignableFrom(destClass) || fieldMap.getDestField().getMapGetMethod() != null) {
       return true;
@@ -213,12 +211,12 @@ public class MappingUtils {
     }
   }
   
-  public String getMappedFieldKey(Object srcObj) {
+  public static String getMappedFieldKey(Object srcObj) {
     // Returns a string equivalent to the returned value of Object.toString()
     return srcObj.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(srcObj));
   }  
 
-  public Object getIndexedValue(Object collection, int index) {
+  public static Object getIndexedValue(Object collection, int index) {
     Object r = null;
     if (collection instanceof Object[]) {
       Object[] x = (Object[]) collection;

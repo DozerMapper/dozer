@@ -63,8 +63,7 @@ public class DateFormatContainer {
 
     // if field level date format is not specified, try using class mapping
     // default date format
-    MappingUtils mappingUtils = new MappingUtils();
-    if (mappingUtils.isBlankOrNull(dfStr)) {
+    if (MappingUtils.isBlankOrNull(dfStr)) {
       dfStr = classMap.getDateFormat();
     }
 

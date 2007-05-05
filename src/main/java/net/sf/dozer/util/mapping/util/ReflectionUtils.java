@@ -34,9 +34,9 @@ import net.sf.dozer.util.mapping.MappingException;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ReflectionUtils {
+public abstract class ReflectionUtils {
 
-  public PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName) {
+  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName) {
     PropertyDescriptor result = null;
 
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0) {
@@ -59,7 +59,7 @@ public class ReflectionUtils {
     return result;
   }
 
-  public PropertyDescriptor[] getDeepFieldHierarchy(Class parentClass, String field) {
+  public static PropertyDescriptor[] getDeepFieldHierarchy(Class parentClass, String field) {
     if (field.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       throw new MappingException("Field does not contain deep field delimitor");
     }
@@ -86,7 +86,7 @@ public class ReflectionUtils {
     return hierarchy;
   }
 
-  public Method getMethod(Object obj, String methodName) {
+  public static  Method getMethod(Object obj, String methodName) {
     Method[] methods = obj.getClass().getMethods();
     Method resultMethod = null;
     for (int i = 0; i < methods.length; i++) {
@@ -101,7 +101,7 @@ public class ReflectionUtils {
     return resultMethod;
   }
 
-  public Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException,
+  public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException,
       ClassNotFoundException {
     // TODO USE HELPER from bean utils to find method w/ params
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
@@ -124,7 +124,7 @@ public class ReflectionUtils {
     return result;
   }
 
-  private Method findMethodWithParam(Class parentDestClass, String methodName, String params)
+  private static Method findMethodWithParam(Class parentDestClass, String methodName, String params)
       throws NoSuchMethodException, ClassNotFoundException {
     // TODO USE HELPER from bean utils to find method w/ params
     List list = new ArrayList();
@@ -138,7 +138,7 @@ public class ReflectionUtils {
     return parentDestClass.getMethod(methodName, (Class[]) list.toArray(new Class[list.size()]));
   }
 
-  protected PropertyDescriptor[] getPropertyDescriptors(Class objectClass) {
+  protected static PropertyDescriptor[] getPropertyDescriptors(Class objectClass) {
     // If the class is an interface, use custom method to get all prop descriptors in the inheritance hierarchy.
     // PropertyUtils.getPropertyDescriptors() does not work correctly for interface inheritance. It finds props in the
     // actual interface ok, but does not find props in the inheritance hierarchy.
@@ -149,7 +149,7 @@ public class ReflectionUtils {
     }
   }
 
-  private PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
+  private static PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
     List propDescriptors = new ArrayList();
     // Add prop descriptors for interface passed in
     propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
@@ -167,7 +167,7 @@ public class ReflectionUtils {
     return (PropertyDescriptor[]) propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
   }
 
-  public Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {
+  public static Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {
     try {
       return clazz.getDeclaredField(fieldName);
     } catch (NoSuchFieldException e) {

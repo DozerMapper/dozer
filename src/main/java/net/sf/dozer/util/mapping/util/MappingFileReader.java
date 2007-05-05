@@ -34,7 +34,6 @@ public class MappingFileReader {
   private static final Log log = LogFactory.getLog(MappingFileReader.class);
   
   private final URL url;
-  private final MappingUtils mappingUtils = new MappingUtils();
   
   public MappingFileReader(URL url) {
     this.url = url;
@@ -54,14 +53,14 @@ public class MappingFileReader {
       result = parser.parse(stream);
     } catch (Throwable e) {
       log.error("Error in loading dozer mapping file url: [" + url + "] : " + e);
-      mappingUtils.throwMappingException(e);
+      MappingUtils.throwMappingException(e);
     } finally {
       try {
         if (stream != null) {
           stream.close();
         }
       } catch (IOException e) {
-        mappingUtils.throwMappingException(e);
+        MappingUtils.throwMappingException(e);
       }
     }
     return result;

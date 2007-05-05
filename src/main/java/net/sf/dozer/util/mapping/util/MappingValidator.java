@@ -37,9 +37,6 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
  */
 public class MappingValidator {
 
-  private final MappingUtils mappingUtils = new MappingUtils();
-  private final CollectionUtils collectionUtils = new CollectionUtils();
-
   public void validateMappingRequest(Object srcObj) {
     if (srcObj == null) {
       throw new MappingException("source object must not be null");
@@ -111,10 +108,10 @@ public class MappingValidator {
     // that we are not in the list
     // by checking the destFieldType
     if (field != null) {
-      if (collectionUtils.isList(field.getClass()) || collectionUtils.isArray(field.getClass())
-          || collectionUtils.isSet(field.getClass()) || mappingUtils.isSupportedMap(field.getClass())) {
-        if (collectionUtils.isList(destFieldType) || collectionUtils.isArray(destFieldType)
-            || collectionUtils.isSet(destFieldType) || mappingUtils.isSupportedMap(destFieldType)) {
+      if (CollectionUtils.isList(field.getClass()) || CollectionUtils.isArray(field.getClass())
+          || CollectionUtils.isSet(field.getClass()) || MappingUtils.isSupportedMap(field.getClass())) {
+        if (CollectionUtils.isList(destFieldType) || CollectionUtils.isArray(destFieldType)
+            || CollectionUtils.isSet(destFieldType) || MappingUtils.isSupportedMap(destFieldType)) {
           // do nothing
         } else {
           // this means the getXX field is a List but we

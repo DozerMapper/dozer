@@ -35,8 +35,6 @@ import org.apache.commons.logging.LogFactory;
 public class MapFieldMap extends FieldMap {
   private static final Log log = LogFactory.getLog(MapFieldMap.class);
 
-  private final MappingUtils mappingUtils = new MappingUtils();
-
   public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap)
       throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException,
       NoSuchMethodException, NoSuchFieldException {
@@ -51,7 +49,7 @@ public class MapFieldMap extends FieldMap {
 
       if (log.isDebugEnabled()) {
         log.debug("Getting ready to invoke write method on the destination object: "
-            + mappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Write Method: "
+            + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Write Method: "
             + destFieldWriteMethod.getName() + ", Dest value: " + destFieldValue);
       }
       destFieldWriteMethod.invoke(destObj, new Object[] { key, destFieldValue });

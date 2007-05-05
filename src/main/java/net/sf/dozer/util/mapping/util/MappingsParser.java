@@ -40,8 +40,6 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MappingsParser {
 
-  private final MappingUtils mappingUtils = new MappingUtils();
-  private final ReflectionUtils reflectionUtils = new ReflectionUtils();
   private final MappingValidator mappingValidator = new MappingValidator();
   private final ClassMapBuilder classMapBuilder = new ClassMapBuilder();
 
@@ -64,7 +62,7 @@ public class MappingsParser {
         // set the global configuration for each classmap
 
         // Apply top level config attrs to ClassMap unless it has been overridden
-        if (mappingUtils.isBlankOrNull(classMap.getDateFormat())) {
+        if (MappingUtils.isBlankOrNull(classMap.getDateFormat())) {
           classMap.setDateFormat(mappings.getConfiguration().getDateFormat());
         }
 
@@ -80,16 +78,16 @@ public class MappingsParser {
         	classMap.setAllowedExceptions(mappings.getConfiguration().getAllowedExceptions().getExceptions());
         }
 
-        if (mappingUtils.isBlankOrNull(classMap.getBeanFactory())) {
+        if (MappingUtils.isBlankOrNull(classMap.getBeanFactory())) {
           classMap.setBeanFactory(mappings.getConfiguration().getBeanFactory());
         }
 
         // Apply ClassMap(Mapping) attributes to Dest and Source Class obj's unless it has been overridden
-        if (mappingUtils.isBlankOrNull(classMap.getSourceClass().getBeanFactory())) {
+        if (MappingUtils.isBlankOrNull(classMap.getSourceClass().getBeanFactory())) {
           classMap.getSourceClass().setBeanFactory(classMap.getBeanFactory());
         }
 
-        if (mappingUtils.isBlankOrNull(classMap.getDestClass().getBeanFactory())) {
+        if (MappingUtils.isBlankOrNull(classMap.getDestClass().getBeanFactory())) {
           classMap.getDestClass().setBeanFactory(classMap.getBeanFactory());
         }
 
@@ -111,8 +109,8 @@ public class MappingsParser {
 
         // add our first class map to the result map
         // initialize PropertyDescriptor Cache
-        reflectionUtils.findPropertyDescriptor(classMap.getSourceClass().getClassToMap(), "");
-        reflectionUtils.findPropertyDescriptor(classMap.getDestClass().getClassToMap(), "");
+        ReflectionUtils.findPropertyDescriptor(classMap.getSourceClass().getClassToMap(), "");
+        ReflectionUtils.findPropertyDescriptor(classMap.getDestClass().getClassToMap(), "");
         String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSourceClass().getClassToMap(), classMap
             .getDestClass().getClassToMap(), classMap.getMapId());
 
@@ -127,7 +125,7 @@ public class MappingsParser {
         
         //Check to see if this is a duplicate map id, irregardless of src and dest class names.  Duplicate map-ids are
         //not allowed
-        if (!mappingUtils.isBlankOrNull(classMap.getMapId())) {
+        if (!MappingUtils.isBlankOrNull(classMap.getMapId())) {
           if (mapIds.contains(classMap.getMapId())) {
             throw new IllegalArgumentException("Duplicate Map Id's Found. Map Id: " + classMap.getMapId());
           }
@@ -172,8 +170,8 @@ public class MappingsParser {
             while (iterator.hasNext()) {
               FieldMap fieldMap = (FieldMap) iterator.next();
               mappingValidator.validateFieldMapping(fieldMap, classMap);
-              mappingUtils.isMethodMap(fieldMap);
-              mappingUtils.isCustomMap(fieldMap);
+              MappingUtils.isMethodMap(fieldMap);
+              MappingUtils.isCustomMap(fieldMap);
               if (!(StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
                 // make a prime field map
                 fieldMapPrime = (FieldMap) fieldMap.clone();
@@ -184,10 +182,10 @@ public class MappingsParser {
                   fieldMapPrime = new GenericFieldMap();
                 }
                 // reverse the fields
-                mappingUtils.reverseFields(fieldMap, fieldMapPrime);
+                MappingUtils.reverseFields(fieldMap, fieldMapPrime);
                 // determine if we have method mapping
-                mappingUtils.isMethodMap(fieldMapPrime);
-                mappingUtils.isCustomMap(fieldMapPrime);
+                MappingUtils.isMethodMap(fieldMapPrime);
+                MappingUtils.isCustomMap(fieldMapPrime);
 
                 if (fieldMapPrime instanceof GenericFieldMap && !(fieldMap instanceof ExcludeFieldMap)) {
                   ((GenericFieldMap) fieldMapPrime).setRelationshipType(((GenericFieldMap) fieldMap)
@@ -206,7 +204,7 @@ public class MappingsParser {
               } else { // if it is a one-way field map make the other field map excluded
                 // make a prime field map
                 fieldMapPrime = new ExcludeFieldMap();
-                mappingUtils.reverseFields(fieldMap, fieldMapPrime);
+                MappingUtils.reverseFields(fieldMap, fieldMapPrime);
               }
               classMapPrime.addFieldMapping((FieldMap) fieldMapPrime);
             }
@@ -216,13 +214,13 @@ public class MappingsParser {
             while (iterator.hasNext()) {
               FieldMap oneWayFieldMap = (FieldMap) iterator.next();
               mappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
-              mappingUtils.isMethodMap(oneWayFieldMap);
-              mappingUtils.isCustomMap(oneWayFieldMap);
+              MappingUtils.isMethodMap(oneWayFieldMap);
+              MappingUtils.isCustomMap(oneWayFieldMap);
               mappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
               // check to see if we need to exclude the map
               if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
                 fieldMapPrime = new ExcludeFieldMap();
-                mappingUtils.reverseFields(oneWayFieldMap, fieldMapPrime);
+                MappingUtils.reverseFields(oneWayFieldMap, fieldMapPrime);
                 classMapPrime.addFieldMapping(fieldMapPrime);
               }
             }
@@ -236,7 +234,7 @@ public class MappingsParser {
         }
       }
     } catch (Throwable t) {
-      mappingUtils.throwMappingException(t);
+      MappingUtils.throwMappingException(t);
     }
     return result;
   }

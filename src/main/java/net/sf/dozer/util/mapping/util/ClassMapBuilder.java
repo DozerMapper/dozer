@@ -40,8 +40,6 @@ import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
  * @author garsombke.franz
  */
 public class ClassMapBuilder {
-  private final ReflectionUtils reflectionUtils = new ReflectionUtils();
-  private final MappingUtils mappingUtils = new MappingUtils();
   
   public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
     ClassMap classMap = new ClassMap();
@@ -82,12 +80,12 @@ public class ClassMapBuilder {
     Class sourceClass = classMap.getSourceClass().getClassToMap();
     Class destClass = classMap.getDestClass().getClassToMap();
 
-    if (mappingUtils.isSupportedMap(sourceClass) || classMap.getSourceClass().getMapGetMethod() != null || 
-        mappingUtils.isSupportedMap(destClass) || classMap.getDestClass().getMapGetMethod() != null) {
+    if (MappingUtils.isSupportedMap(sourceClass) || classMap.getSourceClass().getMapGetMethod() != null || 
+        MappingUtils.isSupportedMap(destClass) || classMap.getDestClass().getMapGetMethod() != null) {
       addMapDefaultFieldMappings(classMap);
     }
     
-    PropertyDescriptor[] destProperties = reflectionUtils.getPropertyDescriptors(destClass);
+    PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(destClass);
     for (int i = 0; i < destProperties.length; i++) {
       PropertyDescriptor destPropertyDescriptor = destProperties[i]; 
       String destFieldName = destPropertyDescriptor.getName();
@@ -102,7 +100,7 @@ public class ClassMapBuilder {
         continue;
       }
       
-      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
+      PropertyDescriptor sourceProperty = ReflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
 
       // If the sourceProperty is null we know that there is not a corresponding property to map to.  
       // If source property does not have a read method, then skip
@@ -123,11 +121,11 @@ public class ClassMapBuilder {
     PropertyDescriptor[] properties = null;
     boolean destIsMap = false;
     // determine which is the map
-    if (mappingUtils.isSupportedMap(sourceClass) || classMap.getSourceClass().getMapGetMethod() != null) {
-      properties = reflectionUtils.getPropertyDescriptors(destClass);
+    if (MappingUtils.isSupportedMap(sourceClass) || classMap.getSourceClass().getMapGetMethod() != null) {
+      properties = ReflectionUtils.getPropertyDescriptors(destClass);
       destIsMap = false;
-    } else if (mappingUtils.isSupportedMap(destClass) || classMap.getDestClass().getMapGetMethod() != null) {
-      properties = reflectionUtils.getPropertyDescriptors(sourceClass);
+    } else if (MappingUtils.isSupportedMap(destClass) || classMap.getDestClass().getMapGetMethod() != null) {
+      properties = ReflectionUtils.getPropertyDescriptors(sourceClass);
       destIsMap = true;
     } else {
       return;

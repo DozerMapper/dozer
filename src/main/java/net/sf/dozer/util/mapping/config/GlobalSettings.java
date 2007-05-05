@@ -98,11 +98,9 @@ public class GlobalSettings {
   }
   
   private synchronized void loadGlobalSettings() {
-    MappingUtils utils = new MappingUtils();    
-
     //Determine prop file name
     String propFileName = System.getProperty(MapperConstants.CONFIG_FILE_SYS_PROP);
-    if (utils.isBlankOrNull(propFileName)) {
+    if (MappingUtils.isBlankOrNull(propFileName)) {
       propFileName = MapperConstants.DEFAULT_CONFIG_FILE;
     }
 

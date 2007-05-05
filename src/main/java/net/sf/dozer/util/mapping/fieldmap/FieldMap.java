@@ -49,8 +49,6 @@ public abstract class FieldMap implements Cloneable {
   private String mapId;
   private String customConverter;
 
-  private final MappingUtils mappingUtils = new MappingUtils();
-  
   private DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) throws NoSuchFieldException {
     return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass);
   }
@@ -111,7 +109,7 @@ public abstract class FieldMap implements Cloneable {
       ClassNotFoundException, NoSuchFieldException {
     if (log.isDebugEnabled()) {
       log.debug("Getting ready to invoke write method on the destination object.  Dest Obj: "
-          + mappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Dest value: " + destFieldValue);
+          + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Dest value: " + destFieldValue);
     }
     DozerPropertyDescriptorIF propDescriptor = getDestinationPropertyDescriptor(destObj.getClass()); 
     propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);

@@ -31,12 +31,10 @@ import net.sf.dozer.util.mapping.util.MappingsParser;
  */
 public class MappingUtilsTest extends DozerTestBase {
 
-  MappingUtils mappingUtils = new MappingUtils();
-
   public void testIsBlankOrNull() throws Exception {
-    assertTrue(mappingUtils.isBlankOrNull(null));
-    assertTrue(mappingUtils.isBlankOrNull(""));
-    assertTrue(mappingUtils.isBlankOrNull(" "));
+    assertTrue(MappingUtils.isBlankOrNull(null));
+    assertTrue(MappingUtils.isBlankOrNull(""));
+    assertTrue(MappingUtils.isBlankOrNull(" "));
   }
 
   public void testOverridenFields() throws Exception {
@@ -61,7 +59,7 @@ public class MappingUtilsTest extends DozerTestBase {
   }
 
   public void testGetClassWithoutPackage() throws Exception {
-    String result = mappingUtils.getClassNameWithoutPackage(String.class);
+    String result = MappingUtils.getClassNameWithoutPackage(String.class);
     assertNotNull("result should not be null", result);
     assertEquals("invalid result value", "String", result);
   }
@@ -69,7 +67,7 @@ public class MappingUtilsTest extends DozerTestBase {
   public void testThrowMappingException_MappingException() {
     MappingException ex = new MappingException(String.valueOf(System.currentTimeMillis()));
     try {
-      mappingUtils.throwMappingException(ex);
+      MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
     } catch (MappingException e) {
       assertEquals("invalid ex", ex, e);
@@ -80,7 +78,7 @@ public class MappingUtilsTest extends DozerTestBase {
     //Runtime ex should not get wrapped in MappingException
     NullPointerException ex = new NullPointerException(String.valueOf(System.currentTimeMillis()));
     try {
-      mappingUtils.throwMappingException(ex);
+      MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
     } catch (NullPointerException e) {
       assertEquals("invalid ex", ex, e);
@@ -93,7 +91,7 @@ public class MappingUtilsTest extends DozerTestBase {
     //Checked exception should get wrapped in MappingException
     NoSuchFieldException ex = new NoSuchFieldException(String.valueOf(System.currentTimeMillis()));
     try {
-      mappingUtils.throwMappingException(ex);
+      MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
     } catch (MappingException e) {
       assertEquals("invalid nested ex", ex, e.getCause());

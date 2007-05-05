@@ -50,10 +50,9 @@ public abstract class AbstractPropertyDescriptor {
     if (existingFieldValue == null) {
       Class returnType = getPropertyType();
 
-      CollectionUtils collectionUtils = new CollectionUtils();
       if (returnType.isArray()) {
         existingFieldValue = Array.newInstance(returnType.getComponentType(), 0);
-      } else if (collectionUtils.isSet(returnType)) {
+      } else if (CollectionUtils.isSet(returnType)) {
         existingFieldValue = new HashSet();
       } else { // default
         existingFieldValue = new ArrayList();

@@ -43,9 +43,6 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
   private final String customGetMethod;
   private final Class propertyType;
 
-  private final ReflectionUtils reflectionUtils = new ReflectionUtils();
-  private final MappingUtils mappingUtils = new MappingUtils();
-
   public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
       String customSetMethod, String customGetMethod) {
     super(clazz, fieldName, isIndexed, index);
@@ -69,7 +66,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
       if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
         o = getReadMethod().invoke(bean, null);
         if (isIndexed) {
-          return mappingUtils.getIndexedValue(o, index);
+          return MappingUtils.getIndexedValue(o, index);
         } else {
           return o;
         }
@@ -113,7 +110,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     Method writeMethod = null;
     if (writeMethod == null) {
       if (customSetMethod == null || fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
-        PropertyDescriptor pd = reflectionUtils.findPropertyDescriptor(clazz, fieldName);
+        PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName);
         if (pd == null) {
           throw new MappingException("Property: " + fieldName + " not found in Class: " + clazz);          
         }
@@ -124,7 +121,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
         }
       } else {
         try {
-          writeMethod = reflectionUtils.findAMethod(clazz, customSetMethod);
+          writeMethod = ReflectionUtils.findAMethod(clazz, customSetMethod);
         } catch (Exception e) {
           throw new MappingException(e);
         }
@@ -150,7 +147,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
 
     // If field is indexed, get actual value within the collection at the specified index
     if (isIndexed) {
-      hierarchyValue = mappingUtils.getIndexedValue(hierarchyValue, index);
+      hierarchyValue = MappingUtils.getIndexedValue(hierarchyValue, index);
     }
 
     return hierarchyValue;
@@ -207,7 +204,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
         Method method = pd.getWriteMethod();
         if (method == null && customSetMethod != null) {
           // lets see if we can find a custom method
-          method = reflectionUtils.findAMethod(parentObj.getClass(), customSetMethod);
+          method = ReflectionUtils.findAMethod(parentObj.getClass(), customSetMethod);
         }
         method.invoke(parentObj, new Object[] { destFieldValue });
       } else {
@@ -217,13 +214,13 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
   }
 
   private PropertyDescriptor[] getHierarchy(Object obj) {
-    return reflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName);
+    return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName);
   }
 
   protected Method getReadMethod() throws NoSuchMethodException {
     Method result = null;
     if (customGetMethod == null) {
-      PropertyDescriptor pd = reflectionUtils.findPropertyDescriptor(clazz, fieldName);
+      PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName);
       if (pd == null) {
         throw new MappingException("Property: " + fieldName + " not found in Class: " + clazz);
       }
@@ -233,7 +230,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
       }
     } else {
       try {
-        result = reflectionUtils.findAMethod(clazz, customGetMethod);
+        result = ReflectionUtils.findAMethod(clazz, customGetMethod);
       } catch (Exception e) {
         throw new NoSuchMethodException("Unable to find Method: " + " in Class: " + clazz);
 

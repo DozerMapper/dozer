@@ -562,8 +562,7 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", i.length, dest.getField1().size());
 
-    CollectionUtils collUtils = new CollectionUtils();
-    List srcObjectList = collUtils.convertPrimitiveArrayToList(i);
+    List srcObjectList = CollectionUtils.convertPrimitiveArrayToList(i);
     assertEquals("invalid dest field value", srcObjectList, dest.getField1());
   }
   
