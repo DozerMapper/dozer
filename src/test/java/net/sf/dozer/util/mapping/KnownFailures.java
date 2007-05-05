@@ -23,6 +23,7 @@ import net.sf.dozer.util.mapping.vo.km.SomeVo;
 import net.sf.dozer.util.mapping.vo.km.Sub;
 import net.sf.dozer.util.mapping.vo.km.Super;
 import net.sf.dozer.util.mapping.vo.map.NestedObj;
+import net.sf.dozer.util.mapping.vo.map.NestedObjPrime;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
 
@@ -36,21 +37,7 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
 public class KnownFailures extends DozerTestBase {
   
   //Failure discovered during development of an unrelated map type feature request
-  public void testMapType_MapToVo_NoCustomMappings() throws Exception {
-    //Test simple Map --> Vo without any custom mappings defined.
-    NestedObj nestedObj = new NestedObj();
-    nestedObj.setField1("nestedfield1value");
-    Map src = new HashMap();
-    src.put("field1", "mapnestedfield1value");
-    src.put("nested", nestedObj);
-    
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
-    assertEquals(src.get("field1"), result.getField1());
-    assertEquals(nestedObj.getField1(), result.getNested().getField1());
-    
-    SimpleObj result2 = (SimpleObj) mapper.map(result, Map.class);
-    assertEquals(src, result2);
-  }
+  
   
   //Failure discovered during development of an unrelated map type feature request  
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
@@ -70,45 +57,24 @@ public class KnownFailures extends DozerTestBase {
     assertEquals(src, result2);
   }
   
-  //Failure discovered during development of an unrelated map type feature request
-  public void testMapType_NestedMapToVoUsingMapId() {
-    //Test nested Map --> Vo using <field map-id=....>
-    mapper = super.getNewMapper(new String[]{"mapMapping.xml"});
-    NestedObj nested = new NestedObj();
-    nested.setField1("nestedfield1");
-    Map nested2 = new HashMap();
-    nested2.put("field1", "field1MapValue");
-    
-    SimpleObj src = new SimpleObj();
-    src.setField1("field1");
-    src.setNested(nested);
-    src.setNested2(nested2);
-    
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
-    
-    assertEquals(src.getField1(), result.getField1());
-    assertEquals(src.getNested().getField1(), result.getNested().getField1());
-    assertEquals(src.getNested2().get("field1"), result.getNested2().getField1());
-    
-    SimpleObj result2 = (SimpleObj) mapper.map(result, SimpleObj.class, "caseA");   
-    
-    assertEquals(src, result2);
-  }
-  
   public void testMapType_MapToVo_CustomMapping_NoMapId() {
     //Test nested Map --> Vo using custom mappings without map-id
     mapper = getNewMapper(new String[]{"mapMapping3.xml"});
+
+    NestedObj nested = new NestedObj();
+    nested.setField1("field1Value");
     
     Map nested2 = new HashMap();
     nested2.put("field1", "mapnestedfield1value");
     nested2.put("field2", "mapnestedfield2value");
     
     SimpleObj src = new SimpleObj();
+    //src.setField1("field1value");
+    //src.setNested(nested);
     src.setNested2(nested2);
-    src.setField1("field1value");
     
     SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
-    assertNull(result.getNested().getField1());//field exclude in mappings file
+    assertNull(result.getNested2().getField1());//field exclude in mappings file
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
 
