@@ -37,9 +37,9 @@ public class StringConverter implements Converter {
   public Object convert(Class destClass, Object sourceObj) {
     String result = null;
     Class sourceClass = sourceObj.getClass();
-    if (dateFormatContainer != null && dateFormatContainer.getDateFormat() != null && java.util.Date.class.isAssignableFrom(sourceClass)) {
+    if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(sourceClass) && dateFormatContainer.getDateFormat() != null) {
       result = dateFormatContainer.getDateFormat().format((java.util.Date) sourceObj);
-    } else if (dateFormatContainer != null && dateFormatContainer.getDateFormat() != null && java.util.Calendar.class.isAssignableFrom(sourceClass)) {
+    } else if (dateFormatContainer != null && java.util.Calendar.class.isAssignableFrom(sourceClass) && dateFormatContainer.getDateFormat() != null) {
       result = dateFormatContainer.getDateFormat().format(((java.util.Calendar)sourceObj).getTime());
     } else {
       result = sourceObj.toString();
