@@ -26,7 +26,6 @@ public abstract class AbstractB extends BaseTestObject {
     return abstractBField;
   }
   public void setAbstractBField(String abstractBField) {
-    System.out.println("yo");
     this.abstractBField = abstractBField;
   }
   public String getAbstractField1() {
@@ -34,7 +33,6 @@ public abstract class AbstractB extends BaseTestObject {
     return abstractField1;
   }
   public void setAbstractField1(String abstractField1) {
-    System.out.println("yo");
     this.abstractField1 = abstractField1;
   }
 }
