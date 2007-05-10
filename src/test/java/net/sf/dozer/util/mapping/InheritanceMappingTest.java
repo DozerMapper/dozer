@@ -180,47 +180,7 @@ public class InheritanceMappingTest extends DozerTestBase {
     assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
   }
   
-  /*
-   * Related to bug #1486105
-   */
-  public void testKM1() {
-    SomeVo request = new SomeVo();
-    request.setUserName("yo");
-    request.setAge("2");
-    request.setColor("blue");
-    
-    MapperIF mapper = getNewMapper(new String[]{"kmmapping.xml"});
-    
-    Super afterMapping = (Super) mapper.map(request,Super.class);
-    
-    assertNotNull("login name should not be null", afterMapping.getLoginName());
-    assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getUserName(),afterMapping.getLoginName());
-    assertEquals(request.getAge(), afterMapping.getAge());
-  }
-  
-  /*
-   * Bug #1486105 
-   */  
-  public void testKM2() {
-    Sub request = new Sub();
-    request.setAge("2");
-    request.setColor("blue");
-    request.setLoginName("fred");
-        
-    MapperIF mapper = getNewMapper(new String[] {"kmmapping.xml"});
-      
-    SomeVo afterMapping = (SomeVo) mapper.map(request,SomeVo.class);
-       
-    assertNotNull("un should not be null", afterMapping.getUserName());
-    assertNotNull("color should not be null",afterMapping.getColor());
-    assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getLoginName(),afterMapping.getUserName());
-    assertEquals(request.getColor(),afterMapping.getColor());
-    assertEquals(request.getAge(), afterMapping.getAge());
-  }
-  
-  public void testInheritance() throws Exception {
+  public void testGeneralInheritance() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     // first test mapping of sub and base class to a single class
     net.sf.dozer.util.mapping.vo.inheritance.SubClass sub = new net.sf.dozer.util.mapping.vo.inheritance.SubClass();
@@ -234,7 +194,7 @@ public class InheritanceMappingTest extends DozerTestBase {
     assertEquals(sub.getBaseAttribute(), combined.getBaseAttribute2());
   }
 
-  public void testInheritance2() throws Exception {
+  public void testGeneralInheritance2() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     // test base to base and sub to sub mapping with an intermediate on the destination
     AnotherSubClass asub = new AnotherSubClass();
@@ -341,7 +301,7 @@ public class InheritanceMappingTest extends DozerTestBase {
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr2());
   }
   
-  public void testSuperClassMapping() throws Exception {
+  public void testComplexSuperClassMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     SubClass obj = TestDataFactory.getSubClass();
     SubClassPrime objPrime = (SubClassPrime) mapper.map(obj, SubClassPrime.class);
@@ -352,9 +312,6 @@ public class InheritanceMappingTest extends DozerTestBase {
         .getTheDouble()
         + "");
 
-    // what is this doing??
-    objPrime.setCustomConvert(null);
-    objPrime2.setCustomConvert(null);
     // one-way mapping
     objPrime.setSuperFieldToExcludePrime(null);
     assertEquals(objPrime, objPrime2);
@@ -400,7 +357,7 @@ public class InheritanceMappingTest extends DozerTestBase {
     assertEquals(subClassClone, obj);
   }
 
-  public void testSuperClassMapping2() throws Exception {
+  public void testSuperClassMapping() throws Exception {
     // source object does not extend a base custom data object, but destination object extends a custom data object.
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     NoSuperClass src = new NoSuperClass();
@@ -414,7 +371,47 @@ public class InheritanceMappingTest extends DozerTestBase {
     assertEquals(src, src1);
     assertEquals(dest, dest2);
   }
-
+  
+  /*
+   * Related to bug #1486105
+   */
+  public void testKM1() {
+    SomeVo request = new SomeVo();
+    request.setUserName("yo");
+    request.setAge("2");
+    request.setColor("blue");
+    
+    MapperIF mapper = getNewMapper(new String[]{"kmmapping.xml"});
+    
+    Super afterMapping = (Super) mapper.map(request,Super.class);
+    
+    assertNotNull("login name should not be null", afterMapping.getLoginName());
+    assertNotNull("age should not be null", afterMapping.getAge());
+    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getUserName(),afterMapping.getLoginName());
+    assertEquals(request.getAge(), afterMapping.getAge());
+  }
+  
+  /*
+   * Bug #1486105 
+   */  
+  public void testKM2() {
+    Sub request = new Sub();
+    request.setAge("2");
+    request.setColor("blue");
+    request.setLoginName("fred");
+        
+    MapperIF mapper = getNewMapper(new String[] {"kmmapping.xml"});
+      
+    SomeVo afterMapping = (SomeVo) mapper.map(request,SomeVo.class);
+       
+    assertNotNull("un should not be null", afterMapping.getUserName());
+    assertNotNull("color should not be null",afterMapping.getColor());
+    assertNotNull("age should not be null", afterMapping.getAge());
+    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getLoginName(),afterMapping.getUserName());
+    assertEquals(request.getColor(),afterMapping.getColor());
+    assertEquals(request.getAge(), afterMapping.getAge());
+  }
+  
   private A getA() {
     A result = new A();
     result.setField1("field1value");

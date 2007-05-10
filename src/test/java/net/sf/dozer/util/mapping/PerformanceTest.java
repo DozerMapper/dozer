@@ -34,7 +34,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * @author garsombke.franz
- * @author sullins.ben
  * @author tierney.matt
  * 
  */
