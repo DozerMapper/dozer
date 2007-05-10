@@ -254,7 +254,6 @@ public class MappingProcessor implements MapperIF {
     Class destClass = destObj.getClass();
     Object sourceFieldValue = null;
     try {
-      sourceFieldValue = fieldMapping.getSrcFieldValue(sourceObj);
       // check for super class names
       String parentSourceField = null;
       if (parentFieldMap != null) {
@@ -282,6 +281,7 @@ public class MappingProcessor implements MapperIF {
       // If a custom field mapper was specified, then invoke it. If not, or the
       // custom field mapper returns false(indicating the field was not actually mapped
       // by the custom field mapper), proceed as normal(use Dozer to map the field)
+      sourceFieldValue = fieldMapping.getSrcFieldValue(sourceObj);
       boolean fieldMapped = false;
       if (customFieldMapper != null) {
         fieldMapped = customFieldMapper.mapField(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
