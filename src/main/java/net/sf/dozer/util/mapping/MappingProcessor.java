@@ -222,7 +222,7 @@ public class MappingProcessor implements MapperIF {
     List parentFieldNames = null;
     if (parentClassMap == null) {
       // check for super classes
-      Set superClasses = checkForSuperTypeMapping(sourceClass, destClass);
+      Set superClasses = checkForSuperTypeMapping(sourceClass, destClass, classMap);
       // check for interfaces
       superClasses.addAll(ClassMapFinder.findInterfaceMappings(this.customMappings, sourceClass, destClass));
       if (superClasses != null && superClasses.size() > 0) {
@@ -1005,7 +1005,7 @@ public class MappingProcessor implements MapperIF {
     return result;
   }
 
-  private Set checkForSuperTypeMapping(Class sourceClass, Class destClass) {
+  private Set checkForSuperTypeMapping(Class sourceClass, Class destClass, ClassMap mapping) {
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(new Object[] { destClass, sourceClass });
     CacheEntry cacheEntry = superTypeCache.get(cacheKey);
@@ -1013,11 +1013,21 @@ public class MappingProcessor implements MapperIF {
       return (Set) cacheEntry.getValue();
     }
 
+    Set superClasses = new HashSet();
+    
+    // Fix for bug # [ 1486105 ] Inheritance mapping not working correctly
+    // We were not creating a default configuration if we found a parent level class map
+    if(mapping.getSourceClass().getClassToMap() != sourceClass
+       || mapping.getDestClass().getClassToMap() != destClass) {
+    	// there are fields from the source object to dest class we might be missing. create a default mapping between the two.
+    	mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceClass, destClass);
+        superClasses.add(mapping);
+    }
+        
     // If no existing cache entry is found, determine super type mapping and
     // store in cache
     Class superSourceClass = sourceClass.getSuperclass();
     Class superDestClass = destClass.getSuperclass();
-    Set superClasses = new HashSet();
     boolean stillHasSuperClasses = true;
     while (stillHasSuperClasses) {
       if ((superSourceClass != null && !superSourceClass.getName().equals("java.lang.Object"))
@@ -1117,15 +1127,6 @@ public class MappingProcessor implements MapperIF {
       customMappings.put(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass), mapping);
     }
 
-    // Fix for bug # [ 1486105 ] Inheritance mapping not working correctly
-    // We were not creating a default configuration if we found a parent level class map
-    // We get a couple test failures if i add the map to the custom mappings. don't have time
-    // to research why. Need a way to cache this and not add fields every time...
-    if(mapping.getSourceClass().getClassToMap() != sourceObj.getClass() || mapping.getDestClass().getClassToMap() != destClass) {
-    	ClassMap newmapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
-    	mapping.getFieldMaps().addAll(newmapping.getFieldMaps());
-    }
-    
     return mapping;
   }
 
