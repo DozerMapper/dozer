@@ -21,6 +21,7 @@ import net.sf.dozer.util.mapping.vo.abstractinheritance.B;
 
 /**
  * @author tierney.matt
+ * @author garsombke.franz
  */
 public class AbstractMappingTest extends DozerTestBase {
 

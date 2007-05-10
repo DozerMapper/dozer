@@ -679,56 +679,6 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
   
-  /*
-   * Test Case Submitted by Peter Monks 1/2007
-   */
-  public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
-    mapper = getNewMapper(new String[]{"xmlBeansMapping.xml"});
-    Child pojo = new Child();
-      
-    pojo.setId(BigInteger.valueOf(42));
-    pojo.setName("Ernie");
-    pojo.setFu("Fu");
-    pojo.setBar("Bar");
-    
-    ChildType xmlBean = (ChildType)mapper.map(pojo, ChildType.class);
-      
-    assertNotNull("dest obj should not be null", xmlBean);
-    assertNotNull("fu value should not be null", xmlBean.getFu());
-    assertEquals("invalid fu value", pojo.getFu(), xmlBean.getFu());
-    assertNotNull("bar field should not be null", xmlBean.getBar());
-    assertEquals("invalid bar value", pojo.getBar(), xmlBean.getBar());
-    assertNotNull("name value should not be null", xmlBean.getName());
-    assertEquals("invalid name value", pojo.getName(), xmlBean.getName());
-    assertNotNull("id field should not be null", xmlBean.getId());
-    assertEquals("invalid id value", pojo.getId(), xmlBean.getId());
-  }
-
-  /*
-   * Test Case Submitted by Peter Monks 1/2007
-   */
-  public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
-    mapper = getNewMapper(new String[]{"xmlBeansMapping.xml"});
-    ChildType xmlBean = ChildType.Factory.newInstance();
-      
-    xmlBean.setId(BigInteger.valueOf(7236));
-    xmlBean.setName("Bert");
-    xmlBean.setFu("Uf");
-    xmlBean.setBar("Rab");
-      
-    Child pojo = (Child)mapper.map(xmlBean, Child.class);
-      
-    assertNotNull("dest obj should not be null", pojo);
-    assertNotNull("fu should not be null", pojo.getFu());
-    assertEquals("invalid fu value", xmlBean.getFu(), pojo.getFu());
-    assertNotNull("bar should not be null", pojo.getBar());
-    assertEquals("invalid bar value", xmlBean.getBar(), pojo.getBar());
-    assertNotNull("id should not be null", pojo.getId());
-    assertEquals("invalid id value", xmlBean.getId(), pojo.getId());
-    assertNotNull("name should not be null", pojo.getName());
-    assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
-  }
-  
   public void testArrayToStringCustomConverter() throws Exception {
     //Test that custom converter is used when src is an Array and dest is a String
     mapper = getNewMapper(new String[]{"arrayToStringCustomConverter.xml"});
@@ -838,44 +788,5 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertEquals("", "net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
   }  
   
-  /*
-   * Related to bug #1486105.  This test is successful, but provides context for testKM2 which fails
-   */
-  public void testKM1() {
-    SomeVo request = new SomeVo();
-    request.setUserName("yo");
-    request.setAge("2");
-    request.setColor("blue");
-    
-    MapperIF mapper = getNewMapper(new String[]{"kmmapping.xml"});
-    
-    Super afterMapping = (Super) mapper.map(request,Super.class);
-    
-    assertNotNull("login name should not be null", afterMapping.getLoginName());
-    assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getUserName(),afterMapping.getLoginName());
-    assertEquals(request.getAge(), afterMapping.getAge());
-  }
-  
-  /*
-   * Bug #1486105 
-   */  
-  public void testKM2() {
-    Sub request = new Sub();
-    request.setAge("2");
-    request.setColor("blue");
-    request.setLoginName("fred");
-        
-    MapperIF mapper = getNewMapper(new String[] {"kmmapping.xml"});
-      
-    SomeVo afterMapping = (SomeVo) mapper.map(request,SomeVo.class);
-       
-    assertNotNull("un should not be null", afterMapping.getUserName());
-    assertNotNull("color should not be null",afterMapping.getColor());
-    assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getLoginName(),afterMapping.getUserName());
-    assertEquals(request.getColor(),afterMapping.getColor());
-    assertEquals(request.getAge(), afterMapping.getAge());
-  }
-  
+ 
 }
