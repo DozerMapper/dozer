@@ -90,7 +90,7 @@ public class KnownFailures extends DozerTestBase {
       a.getList()[i] = new C(i);
     }
 
-    MapperIF mapper = DozerBeanMapperSingletonWrapper.getInstance();
+    MapperIF mapper = new DozerBeanMapper();
     mapper.map(a, b);
 
     // Check if C object nr i holds value i after the mapping
