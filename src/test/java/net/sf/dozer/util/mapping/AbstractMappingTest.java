@@ -16,6 +16,7 @@
 package net.sf.dozer.util.mapping;
 
 import net.sf.dozer.util.mapping.vo.abstractinheritance.A;
+import net.sf.dozer.util.mapping.vo.abstractinheritance.AbstractB;
 import net.sf.dozer.util.mapping.vo.abstractinheritance.B;
 
 /**
@@ -69,6 +70,15 @@ public class AbstractMappingTest extends DozerTestBase {
     B mappedDest = (B) mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
+  }
+  
+  public void testAbstractDestClassThrowsException() throws Exception {
+    try {
+      mapper.map(new A(), AbstractB.class);
+      fail("should have thrown exception");
+    } catch (MappingException e) {
+      //expected
+    }
   }
 
 }
