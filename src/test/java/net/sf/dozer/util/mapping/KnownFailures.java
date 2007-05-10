@@ -84,7 +84,7 @@ public class KnownFailures extends DozerTestBase {
   public void testBiDirectionalIdentifyHashCode() {
     A a = new A();
     B b = new B();
-    a.setList(new C[2000]);
+    a.setList(new C[10000]);
     // Fill the list with C objects numbered from 0 to SIZE-1
     for (int i = 0; i < a.getList().length; i++) {
       a.getList()[i] = new C(i);

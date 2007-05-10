@@ -87,57 +87,6 @@ import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
  */
 public class GranularDozerBeanMapperTest extends DozerTestBase {
 
-  public void testMapToMap() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
-    TestObject to = new TestObject();
-    to.setOne("one");
-    TestObject to2 = new TestObject();
-    to2.setTwo(new Integer(2));
-    Map map = new HashMap();
-    map.put("to", to);
-    map.put("to2", to2);
-    MapToMap mtm = new MapToMap();
-    mtm.setStandardMap(map);
-
-    Map map2 = new HashMap();
-    map2.put("to", to);
-    map2.put("to2", to2);
-
-    mtm.setStandardMapWithHint(map2);
-
-    MapToMapPrime mtmp = (MapToMapPrime) mapper.map(mtm, MapToMapPrime.class);
-    assertEquals("one", ((TestObject) mtmp.getStandardMap().get("to")).getOne());
-    assertEquals(2, ((TestObject) mtmp.getStandardMap().get("to2")).getTwo().intValue());
-    // verify that we transformed from object to object prime
-    assertEquals("one", ((TestObjectPrime) mtmp.getStandardMapWithHint().get("to")).getOnePrime());
-    assertEquals(2, ((TestObjectPrime) mtmp.getStandardMapWithHint().get("to2")).getTwoPrime().intValue());
-  }
-
-  public void testMapToMapExistingDestination() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
-    TestObject to = new TestObject();
-    to.setOne("one");
-    TestObject to2 = new TestObject();
-    to2.setTwo(new Integer(2));
-    Map map = new HashMap();
-    map.put("to", to);
-    map.put("to2", to2);
-    MapToMap mtm = new MapToMap();
-    mtm.setStandardMap(map);
-
-    // create an existing map and set a value so we can test if it exists after
-    // mapping
-    MapToMapPrime mtmp = new MapToMapPrime();
-    Map map2 = new Hashtable();
-    map2.put("toDest", to);
-    mtmp.setStandardMap(map2);
-
-    mapper.map(mtm, mtmp);
-    assertEquals("one", ((TestObject) mtmp.getStandardMap().get("to")).getOne());
-    assertEquals(2, ((TestObject) mtmp.getStandardMap().get("to2")).getTwo().intValue());
-    assertEquals("one", ((TestObject) mtmp.getStandardMap().get("toDest")).getOne());
-  }
-
   public void testFieldAccessible() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = new TestObject();

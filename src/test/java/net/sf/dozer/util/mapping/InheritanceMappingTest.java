@@ -19,8 +19,15 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.SerializationUtils;
+
 import net.pmonks.xml.dozer.test.ChildType;
+import net.sf.dozer.util.mapping.util.TestDataFactory;
 import net.sf.dozer.util.mapping.vo.Child;
+import net.sf.dozer.util.mapping.vo.NoSuperClass;
+import net.sf.dozer.util.mapping.vo.SubClass;
+import net.sf.dozer.util.mapping.vo.SubClassPrime;
+import net.sf.dozer.util.mapping.vo.TheFirstSubClass;
 import net.sf.dozer.util.mapping.vo.inheritance.A;
 import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClass;
 import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClassPrime;
@@ -332,6 +339,80 @@ public class InheritanceMappingTest extends DozerTestBase {
     assertTrue(wsp.getSpecificObjectPrime() instanceof Specific3);
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr3());
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr2());
+  }
+  
+  public void testSuperClassMapping() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    SubClass obj = TestDataFactory.getSubClass();
+    SubClassPrime objPrime = (SubClassPrime) mapper.map(obj, SubClassPrime.class);
+    SubClass obj2 = (SubClass) mapper.map(objPrime, SubClass.class);
+    SubClassPrime objPrime2 = (SubClassPrime) mapper.map(obj2, SubClassPrime.class);
+
+    assertEquals("" + obj.getCustomConvert().getAttribute().getTheDouble(), obj2.getCustomConvert().getAttribute()
+        .getTheDouble()
+        + "");
+
+    // what is this doing??
+    objPrime.setCustomConvert(null);
+    objPrime2.setCustomConvert(null);
+    // one-way mapping
+    objPrime.setSuperFieldToExcludePrime(null);
+    assertEquals(objPrime, objPrime2);
+
+    // Pass by reference
+    obj = TestDataFactory.getSubClass();
+    SubClass subClassClone = (SubClass) SerializationUtils.clone(obj);
+    objPrime = (SubClassPrime) mapper.map(obj, SubClassPrime.class);
+    mapper.map(objPrime, obj);
+    obj.setCustomConvert(null);
+    subClassClone.setCustomConvert(null);
+    // more objects should be added to the clone from the ArrayList
+    TheFirstSubClass fsc = new TheFirstSubClass();
+    fsc.setS("s");
+    subClassClone.getTestObject().getHintList().add(fsc);
+    subClassClone.getTestObject().getHintList().add(fsc);
+    subClassClone.getTestObject().getEqualNamedList().add("1value");
+    subClassClone.getTestObject().getEqualNamedList().add("2value");
+    int[] pa = { 0, 1, 2, 3, 4, 0, 1, 2, 3, 4 };
+    int[] intArray = { 1, 1, 1, 1 };
+    Integer[] integerArray = { new Integer(1), new Integer(1), new Integer(1), new Integer(1) };
+    subClassClone.getTestObject().setAnArray(intArray);
+    subClassClone.getTestObject().setArrayForLists(integerArray);
+    subClassClone.getTestObject().setPrimArray(pa);
+    subClassClone.getTestObject().setBlankDate(null);
+    subClassClone.getTestObject().setBlankStringToLong(null);
+    subClassClone.getSuperList().add("one");
+    subClassClone.getSuperList().add("two");
+    subClassClone.getSuperList().add("three");
+    // since we copy by reference the attribute copyByReference we need to null it out. The clone method above creates
+    // two versions of it...
+    // which is incorrect
+    obj.getTestObject().setCopyByReference(null);
+    subClassClone.getTestObject().setCopyByReference(null);
+    obj.getTestObject().setCopyByReferenceDeep(null);
+    subClassClone.getTestObject().setCopyByReferenceDeep(null);
+    obj.getTestObject().setGlobalCopyByReference(null);
+    subClassClone.getTestObject().setGlobalCopyByReference(null);
+    // null out string array because we get NPE since a NULL value in the String []
+    obj.getTestObject().setStringArrayWithNullValue(null);
+    subClassClone.getTestObject().setStringArrayWithNullValue(null);
+    subClassClone.getTestObject().setExcludeMeOneWay("excludeMeOneWay");
+    assertEquals(subClassClone, obj);
+  }
+
+  public void testSuperClassMapping2() throws Exception {
+    // source object does not extend a base custom data object, but destination object extends a custom data object.
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    NoSuperClass src = new NoSuperClass();
+    src.setAttribute("somefieldvalue");
+    src.setSuperAttribute("someotherfieldvalue");
+
+    SubClass dest = (SubClass) mapper.map(src, SubClass.class);
+    NoSuperClass src1 = (NoSuperClass) mapper.map(dest, NoSuperClass.class);
+    SubClass dest2 = (SubClass) mapper.map(src1, SubClass.class);
+
+    assertEquals(src, src1);
+    assertEquals(dest, dest2);
   }
 
   private A getA() {
