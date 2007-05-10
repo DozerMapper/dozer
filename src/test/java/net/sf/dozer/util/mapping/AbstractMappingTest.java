@@ -28,12 +28,7 @@ public class AbstractMappingTest extends DozerTestBase {
     // Test that the explicit abstract custom mapping definition is used when mapping sub classes
     mapper = getNewMapper(new String[] { "abstractMapping.xml" });
 
-    A src = new A();
-    src.setField1("field1value");
-    src.setFieldA("fieldAValue");
-    src.setAbstractAField("abstractAFieldValue");
-    src.setAbstractField1("abstractField1Value");
-
+    A src = getA();
     B dest = (B) mapper.map(src, B.class);
 
     assertNull("abstractField1 should have been excluded", dest.getAbstractField1());
@@ -52,12 +47,7 @@ public class AbstractMappingTest extends DozerTestBase {
     // Test that wildcard fields in abstract classes are mapped when there is no explicit abstract custom mapping definition
     mapper = new DozerBeanMapper();
 
-    A src = new A();
-    src.setField1("field1value");
-    src.setFieldA("fieldAValue");
-    src.setAbstractAField("abstractAFieldValue");
-    src.setAbstractField1("abstractField1Value");
-
+    A src = getA();
     B dest = (B) mapper.map(src, B.class);
 
     assertEquals("abstractField1 not mapped correctly", src.getAbstractField1(), dest.getAbstractField1());
@@ -80,5 +70,53 @@ public class AbstractMappingTest extends DozerTestBase {
       //expected
     }
   }
+  
+  public void testNoCustomMappingForAbstractClasses_SubclassAttrsAppliedToAbstractClasses() throws Exception {
+    // Test that when there isnt an explicit abstract custom mapping definition the subclass mapping def attrs are 
+    // applied to the abstract class mapping.  In this use case, wildcard="false" for the A --> B mapping definition
+    mapper = getNewMapper(new String[] { "abstractMapping2.xml" });
+
+    A src = getA();
+    B dest = (B) mapper.map(src, B.class);
+
+    assertNull("fieldB should not have been mapped", dest.getAbstractField1());
+    assertNull("abstractBField should have not been mapped", dest.getAbstractBField());
+
+    // Remap to each other to test bi-directional mapping
+    A mappedSrc = (A) mapper.map(dest, A.class);
+    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+
+    assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
+  }
+  
+  public void testNoCustomMappingForSubclasses_CustomMappingForAbstractClasses() throws Exception {
+    //Tests that custom mappings for abstract classes are used when there are no custom mappings
+    //for subclasses.  Also tests that a default class map is properly created and used for the subclass
+    //field mappings
+    mapper = getNewMapper(new String[] { "abstractMapping3.xml" });
+
+    A src = getA();
+    B dest = (B) mapper.map(src, B.class);
+
+    assertNull("abstractField1 should have been excluded", dest.getAbstractField1());
+    assertEquals("abstractBField not mapped correctly", src.getAbstractAField(), dest.getAbstractBField());
+    assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
+
+    // Remap to each other to test bi-directional mapping
+    A mappedSrc = (A) mapper.map(dest, A.class);
+    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+
+    assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
+  }
+  
+  private A getA() {
+    A result = new A();
+    result.setField1("field1value");
+    result.setFieldA("fieldAValue");
+    result.setAbstractAField("abstractAFieldValue");
+    result.setAbstractField1("abstractField1Value");
+    return result;
+  }
+  
 
 }
