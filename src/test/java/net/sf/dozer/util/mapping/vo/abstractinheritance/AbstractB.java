@@ -29,7 +29,6 @@ public abstract class AbstractB extends BaseTestObject {
     this.abstractBField = abstractBField;
   }
   public String getAbstractField1() {
-    
     return abstractField1;
   }
   public void setAbstractField1(String abstractField1) {
