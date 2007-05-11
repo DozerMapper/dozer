@@ -18,11 +18,8 @@ package net.sf.dozer.util.mapping;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.util.TestDataFactory;
@@ -32,16 +29,11 @@ import net.sf.dozer.util.mapping.vo.Apple;
 import net.sf.dozer.util.mapping.vo.Car;
 import net.sf.dozer.util.mapping.vo.CustomConverterWrapper;
 import net.sf.dozer.util.mapping.vo.CustomConverterWrapperPrime;
-import net.sf.dozer.util.mapping.vo.CustomDoubleObject;
-import net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF;
 import net.sf.dozer.util.mapping.vo.DehydrateTestObject;
 import net.sf.dozer.util.mapping.vo.FurtherTestObject;
 import net.sf.dozer.util.mapping.vo.FurtherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.HintedOnly;
 import net.sf.dozer.util.mapping.vo.HydrateTestObject;
-import net.sf.dozer.util.mapping.vo.LoopObjectChild;
-import net.sf.dozer.util.mapping.vo.LoopObjectParent;
-import net.sf.dozer.util.mapping.vo.LoopObjectParentPrime;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject2;
 import net.sf.dozer.util.mapping.vo.NoCustomMappingsObject;
@@ -49,18 +41,11 @@ import net.sf.dozer.util.mapping.vo.NoCustomMappingsObjectPrime;
 import net.sf.dozer.util.mapping.vo.NoDefaultConstructor;
 import net.sf.dozer.util.mapping.vo.NoReadMethod;
 import net.sf.dozer.util.mapping.vo.NoReadMethodPrime;
-import net.sf.dozer.util.mapping.vo.NoSuperClass;
 import net.sf.dozer.util.mapping.vo.NoWriteMethod;
 import net.sf.dozer.util.mapping.vo.NoWriteMethodPrime;
 import net.sf.dozer.util.mapping.vo.OneWayObject;
 import net.sf.dozer.util.mapping.vo.OneWayObjectPrime;
 import net.sf.dozer.util.mapping.vo.Orange;
-import net.sf.dozer.util.mapping.vo.SubClass;
-import net.sf.dozer.util.mapping.vo.SubClassPrime;
-import net.sf.dozer.util.mapping.vo.TestCustomConverterHashMapObject;
-import net.sf.dozer.util.mapping.vo.TestCustomConverterHashMapPrimeObject;
-import net.sf.dozer.util.mapping.vo.TestCustomConverterObject;
-import net.sf.dozer.util.mapping.vo.TestCustomConverterObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestReferenceFoo;
@@ -81,25 +66,6 @@ import net.sf.dozer.util.mapping.vo.deep.Person;
 import net.sf.dozer.util.mapping.vo.deep.Room;
 import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj;
-import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClass;
-import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClassPrime;
-import net.sf.dozer.util.mapping.vo.inheritance.BaseSubClassCombined;
-import net.sf.dozer.util.mapping.vo.inheritance.GenericAbstractSuper;
-import net.sf.dozer.util.mapping.vo.inheritance.GenericIF;
-import net.sf.dozer.util.mapping.vo.inheritance.S2Class;
-import net.sf.dozer.util.mapping.vo.inheritance.S2ClassPrime;
-import net.sf.dozer.util.mapping.vo.inheritance.SClass;
-import net.sf.dozer.util.mapping.vo.inheritance.SClassPrime;
-import net.sf.dozer.util.mapping.vo.inheritance.Specific3;
-import net.sf.dozer.util.mapping.vo.inheritance.SpecificObject;
-import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecific;
-import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecificPrime;
-import net.sf.dozer.util.mapping.vo.map.CustomMap;
-import net.sf.dozer.util.mapping.vo.map.CustomMapIF;
-import net.sf.dozer.util.mapping.vo.map.MapTestObject;
-import net.sf.dozer.util.mapping.vo.map.MapTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.map.MapToProperty;
-import net.sf.dozer.util.mapping.vo.map.PropertyToMap;
 import net.sf.dozer.util.mapping.vo.self.Account;
 import net.sf.dozer.util.mapping.vo.self.SimpleAccount;
 
@@ -109,8 +75,6 @@ import org.apache.commons.lang.SerializationUtils;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
- * Having good unit tests is very important for the bean mapper since there are so many mapping combinations.
  */
 public class MapperTest extends AbstractDozerTest {
   private static MapperIF mapper;
@@ -421,17 +385,6 @@ public class MapperTest extends AbstractDozerTest {
     assertEquals(houseClone, src);
   }
 
-  public void testDeepMapping() throws Exception {
-    SrcDeepObj src = TestDataFactory.getSrcDeepObj();
-    DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
-    SrcDeepObj src2 = (SrcDeepObj) mapper.map(dest, SrcDeepObj.class);
-    DestDeepObj dest2 = (DestDeepObj) mapper.map(src2, DestDeepObj.class);
-
-    assertEquals(src, src2);
-    assertEquals(dest, dest2);
-
-  }
-
   public void testMethodMapping() throws Exception {
     MethodFieldTestObject sourceObj = new MethodFieldTestObject();
     sourceObj.setIntegerStr("1500");
@@ -677,18 +630,6 @@ public class MapperTest extends AbstractDozerTest {
     String sourcePrimeHintStr = ((HintedOnly) sourcePrime.getNeedsHint().iterator().next()).getStr();
     assertNotNull(sourcePrimeHintStr);
     assertEquals(hintStr, sourcePrimeHintStr);
-  }
-
-  public void testDeepPropertyOneWay() throws Exception {
-    House house = new House();
-    Person owner = new Person();
-    owner.setYourName("myName");
-    house.setOwner(owner);
-    HomeDescription desc = (HomeDescription) mapper.map(house, HomeDescription.class);
-    assertEquals(desc.getDescription().getMyName(), "myName");
-    // make sure we don't map back
-    House house2 = (House) mapper.map(desc, House.class);
-    assertNull(house2.getOwner().getYourName());
   }
 
   public void testSelfMapping() throws Exception {
