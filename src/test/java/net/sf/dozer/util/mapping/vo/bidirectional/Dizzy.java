@@ -1,13 +1,13 @@
 package net.sf.dozer.util.mapping.vo.bidirectional;
 
-public class B {
-	private A field1;
+public class Dizzy {
+	private Fly field1;
 
-  public A getField1() {
+  public Fly getField1() {
     return field1;
   }
 
-  public void setField1(A field1) {
+  public void setField1(Fly field1) {
     this.field1 = field1;
   }
   
