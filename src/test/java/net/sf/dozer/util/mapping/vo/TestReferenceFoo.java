@@ -22,6 +22,11 @@ public class TestReferenceFoo extends BaseTestObject {
   private String c;
 
   public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (getClass() != obj.getClass())
+      return false;
+    
     TestReferenceFoo foo = (TestReferenceFoo) obj;
     if (foo.getA().equals(this.a)) {
       return true;
