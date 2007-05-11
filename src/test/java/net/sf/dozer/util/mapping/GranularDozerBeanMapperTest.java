@@ -15,29 +15,19 @@
  */
 package net.sf.dozer.util.mapping;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
 
-import net.pmonks.xml.dozer.test.ChildType;
-import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
 import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.ArrayCustConverterObj;
-import net.sf.dozer.util.mapping.vo.ArrayCustConverterObjPrime;
 import net.sf.dozer.util.mapping.vo.Car;
-import net.sf.dozer.util.mapping.vo.Child;
 import net.sf.dozer.util.mapping.vo.FieldValue;
 import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
@@ -47,7 +37,6 @@ import net.sf.dozer.util.mapping.vo.PrimitiveArrayObj;
 import net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 import net.sf.dozer.util.mapping.vo.SimpleObjPrime;
-import net.sf.dozer.util.mapping.vo.SimpleObjPrime2;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime2;
@@ -62,17 +51,6 @@ import net.sf.dozer.util.mapping.vo.context.ContextMappingPrime;
 import net.sf.dozer.util.mapping.vo.deep.House;
 import net.sf.dozer.util.mapping.vo.deep2.Dest;
 import net.sf.dozer.util.mapping.vo.deep2.Src;
-import net.sf.dozer.util.mapping.vo.km.SomeVo;
-import net.sf.dozer.util.mapping.vo.km.Sub;
-import net.sf.dozer.util.mapping.vo.km.Super;
-import net.sf.dozer.util.mapping.vo.map.MapToMap;
-import net.sf.dozer.util.mapping.vo.map.MapToMapPrime;
-import net.sf.dozer.util.mapping.vo.set.NamesArray;
-import net.sf.dozer.util.mapping.vo.set.NamesSet;
-import net.sf.dozer.util.mapping.vo.set.NamesSortedSet;
-import net.sf.dozer.util.mapping.vo.set.SomeDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeOtherDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeVO;
 import net.sf.dozer.util.mapping.vo.iface.ApplicationUser;
 import net.sf.dozer.util.mapping.vo.iface.UpdateMember;
 import net.sf.dozer.util.mapping.vo.index.Mccoy;
@@ -81,6 +59,12 @@ import net.sf.dozer.util.mapping.vo.isaccessible.Foo;
 import net.sf.dozer.util.mapping.vo.isaccessible.FooPrime;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBean;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
+import net.sf.dozer.util.mapping.vo.set.NamesArray;
+import net.sf.dozer.util.mapping.vo.set.NamesSet;
+import net.sf.dozer.util.mapping.vo.set.NamesSortedSet;
+import net.sf.dozer.util.mapping.vo.set.SomeDTO;
+import net.sf.dozer.util.mapping.vo.set.SomeOtherDTO;
+import net.sf.dozer.util.mapping.vo.set.SomeVO;
 
 /**
  * @author garsombke.franz

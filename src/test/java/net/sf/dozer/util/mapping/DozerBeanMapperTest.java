@@ -200,7 +200,4 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     assertEquals(prime2, prime);
   }
-
-  
-
 }

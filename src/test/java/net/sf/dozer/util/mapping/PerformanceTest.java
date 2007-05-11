@@ -33,9 +33,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author garsombke.franz
  * @author tierney.matt
- * 
+ * @author garsombke.franz
  */
 public class PerformanceTest extends AbstractDozerTest {
 
