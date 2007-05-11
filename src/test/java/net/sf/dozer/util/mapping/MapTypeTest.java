@@ -39,7 +39,7 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class MapTypeTest extends DozerTestBase {
+public class MapTypeTest extends AbstractDozerTest {
   
   public void testMapToVo() throws Exception {
     //Test simple Map --> Vo with custom mappings defined.

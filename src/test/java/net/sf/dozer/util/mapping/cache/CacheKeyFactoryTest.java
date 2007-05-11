@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
-public class CacheKeyFactoryTest extends DozerTestBase {
+public class CacheKeyFactoryTest extends AbstractDozerTest {
 
   public void testCreateKey() throws Exception {
     List args = new ArrayList();

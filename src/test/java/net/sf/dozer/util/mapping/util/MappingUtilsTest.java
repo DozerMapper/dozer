@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.util;
 
 import java.util.Iterator;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -29,7 +29,7 @@ import net.sf.dozer.util.mapping.util.MappingsParser;
 /**
  * @author tierney.matt
  */
-public class MappingUtilsTest extends DozerTestBase {
+public class MappingUtilsTest extends AbstractDozerTest {
 
   public void testIsBlankOrNull() throws Exception {
     assertTrue(MappingUtils.isBlankOrNull(null));

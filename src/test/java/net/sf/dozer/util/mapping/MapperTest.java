@@ -112,7 +112,7 @@ import org.apache.commons.lang.SerializationUtils;
  * 
  * Having good unit tests is very important for the bean mapper since there are so many mapping combinations.
  */
-public class MapperTest extends DozerTestBase {
+public class MapperTest extends AbstractDozerTest {
   private static MapperIF mapper;
 
   protected void setUp() throws Exception {

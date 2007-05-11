@@ -20,12 +20,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
-public class LoaderTest extends DozerTestBase {
+public class LoaderTest extends AbstractDozerTest {
   private Loader loader = new Loader();
 
   public void testResourceNotFound() throws Exception {

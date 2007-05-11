@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 import net.sf.dozer.util.mapping.vo.inheritance.ChildChildIF;
@@ -25,7 +25,7 @@ import net.sf.dozer.util.mapping.vo.inheritance.ChildChildIF;
 /**
  * @author tierney.matt
  */
-public class ReflectionUtilsTest extends DozerTestBase {
+public class ReflectionUtilsTest extends AbstractDozerTest {
 
   public void testGetMethod_NotFound() throws Exception {
     SimpleObj src = new SimpleObj();

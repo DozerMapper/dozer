@@ -16,12 +16,12 @@
 package net.sf.dozer.util.mapping.stats;
 
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
-public class StatisticTest extends DozerTestBase {
+public class StatisticTest extends AbstractDozerTest {
   
   public void testConstructor() throws Exception {
     String type = getRandomString();

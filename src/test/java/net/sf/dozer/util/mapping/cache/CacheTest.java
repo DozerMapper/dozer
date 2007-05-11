@@ -15,12 +15,12 @@
  */
 package net.sf.dozer.util.mapping.cache;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
-public class CacheTest extends DozerTestBase {
+public class CacheTest extends AbstractDozerTest {
 
   public void testPutGetFromCache() throws Exception {
     Cache cache = new Cache(getRandomString(), 50);

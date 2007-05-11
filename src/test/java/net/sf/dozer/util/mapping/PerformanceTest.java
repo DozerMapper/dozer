@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * 
  */
-public class PerformanceTest extends DozerTestBase {
+public class PerformanceTest extends AbstractDozerTest {
 
   private static Log log = LogFactory.getLog(PerformanceTest.class);
 

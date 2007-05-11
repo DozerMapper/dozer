@@ -18,12 +18,12 @@ package net.sf.dozer.util.mapping.fieldmap;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
-public class ClassMapTest extends DozerTestBase {
+public class ClassMapTest extends AbstractDozerTest {
 
   public void testAddFieldMappings() throws Exception {
     ClassMap cm = new ClassMap();

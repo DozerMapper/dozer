@@ -17,12 +17,12 @@ package net.sf.dozer.util.mapping.util;
 
 import java.util.Map;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.fieldmap.Mappings;
 /**
  * @author tierney.matt
  */
-public class MappingsParserTest extends DozerTestBase {
+public class MappingsParserTest extends AbstractDozerTest {
   
   private MappingsParser parser;
   

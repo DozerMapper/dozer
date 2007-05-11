@@ -18,13 +18,13 @@ package net.sf.dozer.util.mapping.cache;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
 
 /**
  * @author tierney.matt
  */
-public class DozerCacheManagerTest extends DozerTestBase {
+public class DozerCacheManagerTest extends AbstractDozerTest {
   private DozerCacheManager cacheMgr;
   
   protected void setUp() throws Exception {

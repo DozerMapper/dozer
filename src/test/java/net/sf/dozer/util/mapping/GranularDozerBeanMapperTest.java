@@ -85,7 +85,7 @@ import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
 /**
  * @author garsombke.franz
  */
-public class GranularDozerBeanMapperTest extends DozerTestBase {
+public class GranularDozerBeanMapperTest extends AbstractDozerTest {
 
   public void testFieldAccessible() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });

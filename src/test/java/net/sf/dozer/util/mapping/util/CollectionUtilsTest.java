@@ -26,14 +26,14 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import junit.framework.Assert;
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 
 /**
  * @author tierney.matt
  */
-public class CollectionUtilsTest extends DozerTestBase {
+public class CollectionUtilsTest extends AbstractDozerTest {
   
   public void testIsList() throws Exception {
     Object[] values = new Object[] { new ArrayList(), new Vector(), new LinkedList() };

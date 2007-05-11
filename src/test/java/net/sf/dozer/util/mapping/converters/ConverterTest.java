@@ -17,13 +17,13 @@ package net.sf.dozer.util.mapping.converters;
 
 import java.text.DateFormat;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.util.DateFormatContainer;
 
 /**
  * @author tierney.matt
  */
-public class ConverterTest extends DozerTestBase {
+public class ConverterTest extends AbstractDozerTest {
   /*
   * See DataConvertionTest for more thorough data conversion unit tests
   */

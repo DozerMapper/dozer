@@ -15,14 +15,14 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 
 /**
  * @author tierney.matt
  */
-public class MappingValidatorTest extends DozerTestBase {
+public class MappingValidatorTest extends AbstractDozerTest {
 
   public void testValidateMappingRequest_NullSrcObj() throws Exception {
     try {

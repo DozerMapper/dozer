@@ -34,7 +34,7 @@ import net.sf.dozer.util.mapping.vo.Individuals;
  * @author dominic.peciuch
  * 
  */
-public class IndexMappingTest extends DozerTestBase {
+public class IndexMappingTest extends AbstractDozerTest {
 
   private static DozerBeanMapper mapper;
 

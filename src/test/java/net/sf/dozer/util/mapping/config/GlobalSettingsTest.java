@@ -15,13 +15,13 @@
  */
 package net.sf.dozer.util.mapping.config;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
  * @author tierney.matt
  */
-public class GlobalSettingsTest extends DozerTestBase {
+public class GlobalSettingsTest extends AbstractDozerTest {
   
   public void testLoadDefaultPropFile_Default() {
     GlobalSettings globalSettings = GlobalSettings.createNew();

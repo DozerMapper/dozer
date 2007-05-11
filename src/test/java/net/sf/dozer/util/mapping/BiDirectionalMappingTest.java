@@ -25,7 +25,7 @@ import net.sf.dozer.util.mapping.vo.bidirectional.B;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class BiDirectionalMappingTest extends DozerTestBase {
+public class BiDirectionalMappingTest extends AbstractDozerTest {
 
   public void testSimpleBidirectional() {
     // A contains B and B contains A.

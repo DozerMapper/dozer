@@ -15,13 +15,13 @@
  */
 package net.sf.dozer.util.mapping.jmx;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
  * @author tierney.matt
  */
-public class DozerAdminControllerTest extends DozerTestBase {
+public class DozerAdminControllerTest extends AbstractDozerTest {
   
   private DozerAdminController controller;
   

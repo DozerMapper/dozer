@@ -16,14 +16,14 @@
 package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.lang.reflect.Method;
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.vo.deep2.Dest;
 
 /**
  * @author tierney.matt
  */
-public class GetterSetterPropertyDescriptorTest extends DozerTestBase {
+public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
   
   public void testGetReadMethod() throws Exception {
     DozerField dozerField = new DozerField("destField", "generic");

@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
 import net.sf.dozer.util.mapping.vo.TestObject;
@@ -24,7 +24,7 @@ import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 /**
  * @author tierney.matt
  */
-public class DestBeanCreatorTest extends DozerTestBase {
+public class DestBeanCreatorTest extends AbstractDozerTest {
   private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
   
   public void testCreatDestBeanNoFactory() throws Exception {

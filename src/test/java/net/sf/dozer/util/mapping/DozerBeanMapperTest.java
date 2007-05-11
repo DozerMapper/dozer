@@ -45,7 +45,7 @@ import net.sf.dozer.util.mapping.vo.km.Super;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DozerBeanMapperTest extends DozerTestBase {
+public class DozerBeanMapperTest extends AbstractDozerTest {
   private static MapperIF mapper;
 
   protected void setUp() throws Exception {

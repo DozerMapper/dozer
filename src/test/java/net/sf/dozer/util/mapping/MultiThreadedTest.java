@@ -12,7 +12,7 @@ import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClassPrime;
  * @author tierney.matt
  * @author Ozzie Gurkan
  */
-public class MultiThreadedTest extends DozerTestBase {
+public class MultiThreadedTest extends AbstractDozerTest {
   private MapperIF mapper;
 
   public MultiThreadedTest() {

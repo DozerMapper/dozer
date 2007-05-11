@@ -18,13 +18,13 @@ package net.sf.dozer.util.mapping.stats;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
 
 /**
  * @author tierney.matt
  */
-public class StatisticManagerTest extends DozerTestBase {
+public class StatisticManagerTest extends AbstractDozerTest {
   private StatisticsManager statMgr;
   
   protected void setUp() throws Exception {

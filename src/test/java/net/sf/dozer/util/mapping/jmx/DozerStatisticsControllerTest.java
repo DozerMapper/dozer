@@ -17,14 +17,14 @@ package net.sf.dozer.util.mapping.jmx;
 
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
 
 
 /**
  * @author tierney.matt
  */
-public class DozerStatisticsControllerTest extends DozerTestBase {
+public class DozerStatisticsControllerTest extends AbstractDozerTest {
   
   private DozerStatisticsController controller;
   

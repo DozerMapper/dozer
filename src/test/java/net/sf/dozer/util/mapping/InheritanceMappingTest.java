@@ -51,7 +51,7 @@ import net.sf.dozer.util.mapping.vo.km.Super;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class InheritanceMappingTest extends DozerTestBase {
+public class InheritanceMappingTest extends AbstractDozerTest {
 
   public void testCustomMappingForSuperClasses() throws Exception {
     // Test that the explicit super custom mapping definition is used when mapping sub classes

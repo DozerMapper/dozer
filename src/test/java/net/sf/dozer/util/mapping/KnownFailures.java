@@ -28,7 +28,7 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
  * 
  * @author tierney.matt
  */
-public class KnownFailures extends DozerTestBase {
+public class KnownFailures extends AbstractDozerTest {
 
   // Failure discovered during development of an unrelated map type feature request
 

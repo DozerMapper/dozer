@@ -23,13 +23,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import junit.framework.Assert;
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.util.DateFormatContainer;
 
 /**
  * @author tierney.matt
  */
-public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
+public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
   private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter(); 
 

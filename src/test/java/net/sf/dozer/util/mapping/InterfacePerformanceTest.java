@@ -7,7 +7,7 @@ import net.sf.dozer.util.mapping.vo.iface.UpdateMember;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class InterfacePerformanceTest extends DozerTestBase {
+public class InterfacePerformanceTest extends AbstractDozerTest {
   private static Log log = LogFactory.getLog(InterfacePerformanceTest.class);
 
   public void testInterface() throws Exception {
