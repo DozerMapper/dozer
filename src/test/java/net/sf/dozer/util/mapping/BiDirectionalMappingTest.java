@@ -35,6 +35,7 @@ public class BiDirectionalMappingTest extends DozerTestBase {
     src.setField1(field1);
 
     B dest = (B) mapper.map(src, B.class);
+    assertNotNull("field1 should have been mapped", dest.getField1());
   }
 
   public void testBidirectionalWithCustomMapping() throws Exception {
