@@ -182,13 +182,10 @@ public class MappingProcessor implements MapperIF {
     MappingValidator.validateMappingRequest(sourceObj, destObj);
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
-    // infinite loop
-    // Keep a record of mapped fields by storing the id of the sourceObj and the
-    // destObj to be mapped
-    // This can be referred to later to avoid recursive mapping loops
-    String key = MappingUtils.getMappedFieldKey(sourceObj);
-    mappedFields.put(key, destObj);
-
+    // infinite loop. Keep a record of mapped fields by storing the id of the sourceObj and the
+    // destObj to be mapped. This can be referred to later to avoid recursive mapping loops
+    mappedFields.put(sourceObj, destObj);
+    
     // see if we need to pull a referenced mapId
     String mapId = null;
     if (parentFieldMap != null) {
@@ -390,18 +387,20 @@ public class MappingProcessor implements MapperIF {
     }
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping infinite loop
-    String key = MappingUtils.getMappedFieldKey(sourceFieldValue);
-    Object value = mappedFields.get(key);
-    if (value != null) {
-      if (value.getClass().equals(destFieldType)) {
+    Object alreadyMappedValue = null;
+    if (sourceFieldValue != null) { 
+    alreadyMappedValue = mappedFields.get(sourceFieldValue); 
+    } 
+    if (alreadyMappedValue != null) {
+      if (alreadyMappedValue.getClass().equals(destFieldType)) {
         // Source value has already been mapped to the required destFieldType.
-        return value;
+        return alreadyMappedValue;
       }
       
       // 1658168 - Recursive mapping issue for interfaces 
-      if (destFieldType.isInterface() && destFieldType.isAssignableFrom(value.getClass())) {
+      if (destFieldType.isInterface() && destFieldType.isAssignableFrom(alreadyMappedValue.getClass())) {
         // Source value has already been mapped to the required destFieldType.
-        return value;
+        return alreadyMappedValue;
       } 
     }
 
