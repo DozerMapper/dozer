@@ -18,23 +18,23 @@ package net.sf.dozer.util.mapping;
 import net.sf.dozer.util.mapping.vo.LoopObjectChild;
 import net.sf.dozer.util.mapping.vo.LoopObjectParent;
 import net.sf.dozer.util.mapping.vo.LoopObjectParentPrime;
-import net.sf.dozer.util.mapping.vo.bidirectional.Dizzy;
-import net.sf.dozer.util.mapping.vo.bidirectional.Fly;
+import net.sf.dozer.util.mapping.vo.bidirectional.A;
+import net.sf.dozer.util.mapping.vo.bidirectional.B;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class BiDirectionalMappingTest extends AbstractDozerTest {
-
+  
   public void testSimpleBidirectional() {
     // A contains B and B contains A.
-    Dizzy src = new Dizzy();
-    Fly field1 = new Fly();
+    A src = new A();
+    B field1 = new B();
     field1.setField1(src);
     src.setField1(field1);
 
-    Fly dest = (Fly) mapper.map(src, Fly.class);
+    B dest = (B) mapper.map(src, B.class);
     assertNotNull("field1 should have been mapped", dest.getField1());
   }
 
