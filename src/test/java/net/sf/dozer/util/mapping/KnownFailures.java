@@ -18,14 +18,7 @@ package net.sf.dozer.util.mapping;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.dozer.util.mapping.vo.bidirectional.A;
-import net.sf.dozer.util.mapping.vo.bidirectional.B;
-import net.sf.dozer.util.mapping.vo.bidirectional.C;
-import net.sf.dozer.util.mapping.vo.km.SomeVo;
-import net.sf.dozer.util.mapping.vo.km.Sub;
-import net.sf.dozer.util.mapping.vo.km.Super;
 import net.sf.dozer.util.mapping.vo.map.NestedObj;
-import net.sf.dozer.util.mapping.vo.map.NestedObjPrime;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
 
@@ -78,32 +71,4 @@ public class KnownFailures extends DozerTestBase {
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
   
-  /* 
-   * This test checks the fix of bug #1715496 - Lost and Duplicated Objects
-   * 
-   * @author korittky.joachim
-   */
-  public void testBiDirectionalIdentifyHashCode() {
-    A a = new A();
-    B b = new B();
-    a.setList(new C[20000]);
-    // Fill the list with C objects numbered from 0 to SIZE-1
-    for (int i = 0; i < a.getList().length; i++) {
-      a.getList()[i] = new C(i);
-    }
-
-    MapperIF mapper = new DozerBeanMapper();
-    mapper.map(a, b);
-
-    // Check if C object nr i holds value i after the mapping
-    for (int i = 0; i < b.getList().length; i++) {
-      if (b.getList()[i].getI() != i) {
-        int j = b.getList()[i].getI();
-        fail("Object nr " + i + " owns same identityHashCode " + System.identityHashCode(b.getList()[i])
-            + " as Object nr " + j + ", " + System.identityHashCode(b.getList()[j]) + " => Object nr " + i
-            + " is not mapped!");
-      }
-    }
-  }
-
 }
