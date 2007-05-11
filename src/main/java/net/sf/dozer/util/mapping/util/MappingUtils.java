@@ -211,11 +211,6 @@ public abstract class MappingUtils {
     }
   }
   
-  public static String getMappedFieldKey(Object srcObj) {
-    // Returns a string equivalent to the returned value of Object.toString()
-    return srcObj.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(srcObj));
-  }  
-
   public static Object getIndexedValue(Object collection, int index) {
     Object r = null;
     if (collection instanceof Object[]) {
