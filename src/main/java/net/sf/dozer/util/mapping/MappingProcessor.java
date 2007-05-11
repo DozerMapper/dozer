@@ -248,7 +248,6 @@ public class MappingProcessor implements MapperIF {
     }
 
     Class sourceClass = sourceObj.getClass();
-    Class destClass = destObj.getClass();
     Object sourceFieldValue = null;
     try {
       // check for super class names
@@ -1086,8 +1085,6 @@ public class MappingProcessor implements MapperIF {
       ClassMap map = (ClassMap) superClassArray[a];
       map(map, sourceObj, destObj, map, parentFieldMap);
       List fieldMaps = map.getFieldMaps();
-      Class destClassToMap = destObj.getClass();
-      Class srcClassToMap = sourceObj.getClass();
       for (int i = 0; i < fieldMaps.size(); i++) {
         FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
         if (!fieldMapping.isGenericFieldMap() && !(fieldMapping instanceof ExcludeFieldMap)) {
