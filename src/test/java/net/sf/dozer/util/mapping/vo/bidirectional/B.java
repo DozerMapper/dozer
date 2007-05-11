@@ -1,7 +1,14 @@
 package net.sf.dozer.util.mapping.vo.bidirectional;
 
 public class B {
-	private C[] bList = null;
-	public C[] getList() { return bList; }
-	public void setList(C[] list) { bList = list; }
+	private A field1;
+
+  public A getField1() {
+    return field1;
+  }
+
+  public void setField1(A field1) {
+    this.field1 = field1;
+  }
+  
 }
