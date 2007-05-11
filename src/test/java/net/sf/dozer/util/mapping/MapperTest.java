@@ -874,16 +874,4 @@ public class MapperTest extends DozerTestBase {
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
   }
 
-  public void testInfiniteLoop() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "infiniteLoopMapping.xml" });
-    LoopObjectParent loopObjectParent = new LoopObjectParent();
-    LoopObjectChild loopObjectChild = new LoopObjectChild();
-    loopObjectChild.setParent(loopObjectParent);
-    loopObjectParent.setChild(loopObjectChild);
-
-    LoopObjectParentPrime loopObjectParentPrime = (LoopObjectParentPrime) mapper.map(loopObjectParent,
-        LoopObjectParentPrime.class);
-    assertNotNull(loopObjectParentPrime);
-    assertNotNull(loopObjectParentPrime.getChildPrime());
-  }
 }
