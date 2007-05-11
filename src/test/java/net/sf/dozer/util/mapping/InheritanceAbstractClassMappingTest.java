@@ -25,7 +25,7 @@ import net.sf.dozer.util.mapping.vo.abstractinheritance.B;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class AbstractClassMappingTest extends DozerTestBase {
+public class InheritanceAbstractClassMappingTest extends DozerTestBase {
 
   public void testCustomMappingForAbstractClasses() throws Exception {
     // Test that the explicit abstract custom mapping definition is used when mapping sub classes
