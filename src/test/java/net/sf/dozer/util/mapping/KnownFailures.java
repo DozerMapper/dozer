@@ -77,14 +77,16 @@ public class KnownFailures extends DozerTestBase {
     assertNull(result.getNested2().getField1());// field exclude in mappings file
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
-
-  /*
-   * Bug #1715496
+  
+  /* 
+   * This test checks the fix of bug #1715496 - Lost and Duplicated Objects
+   * 
+   * @author korittky.joachim
    */
   public void testBiDirectionalIdentifyHashCode() {
     A a = new A();
     B b = new B();
-    a.setList(new C[10000]);
+    a.setList(new C[20000]);
     // Fill the list with C objects numbered from 0 to SIZE-1
     for (int i = 0; i < a.getList().length; i++) {
       a.getList()[i] = new C(i);
