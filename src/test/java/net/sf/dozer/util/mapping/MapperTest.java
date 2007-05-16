@@ -15,16 +15,12 @@
  */
 package net.sf.dozer.util.mapping;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.util.TestDataFactory;
-import net.sf.dozer.util.mapping.vo.AnotherTestObject;
-import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.Apple;
 import net.sf.dozer.util.mapping.vo.Car;
 import net.sf.dozer.util.mapping.vo.CustomConverterWrapper;
@@ -34,15 +30,8 @@ import net.sf.dozer.util.mapping.vo.FurtherTestObject;
 import net.sf.dozer.util.mapping.vo.FurtherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.HintedOnly;
 import net.sf.dozer.util.mapping.vo.HydrateTestObject;
-import net.sf.dozer.util.mapping.vo.MethodFieldTestObject;
-import net.sf.dozer.util.mapping.vo.MethodFieldTestObject2;
 import net.sf.dozer.util.mapping.vo.NoCustomMappingsObject;
 import net.sf.dozer.util.mapping.vo.NoCustomMappingsObjectPrime;
-import net.sf.dozer.util.mapping.vo.NoDefaultConstructor;
-import net.sf.dozer.util.mapping.vo.NoReadMethod;
-import net.sf.dozer.util.mapping.vo.NoReadMethodPrime;
-import net.sf.dozer.util.mapping.vo.NoWriteMethod;
-import net.sf.dozer.util.mapping.vo.NoWriteMethodPrime;
 import net.sf.dozer.util.mapping.vo.OneWayObject;
 import net.sf.dozer.util.mapping.vo.OneWayObjectPrime;
 import net.sf.dozer.util.mapping.vo.Orange;
@@ -54,7 +43,6 @@ import net.sf.dozer.util.mapping.vo.TestReferenceObject;
 import net.sf.dozer.util.mapping.vo.TestReferencePrimeObject;
 import net.sf.dozer.util.mapping.vo.TheFirstSubClass;
 import net.sf.dozer.util.mapping.vo.Van;
-import net.sf.dozer.util.mapping.vo.Vehicle;
 import net.sf.dozer.util.mapping.vo.WeirdGetter;
 import net.sf.dozer.util.mapping.vo.WeirdGetter2;
 import net.sf.dozer.util.mapping.vo.WeirdGetterPrime;
@@ -80,33 +68,6 @@ public class MapperTest extends AbstractDozerTest {
     super.setUp();
     if (mapper == null) {
       mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
-    }
-  }
-
-  public void testNoSourceObject() throws Exception {
-    try {
-      mapper.map(null, TestObjectPrime.class);
-    } catch (MappingException e) {
-      assertEquals("source object must not be null", e.getMessage());
-    }
-  }
-
-  public void testNoDestinationClass() throws Exception {
-    try {
-      mapper.map(new TestObjectPrime(), null);
-    } catch (MappingException e) {
-      assertEquals("destination class must not be null", e.getMessage());
-    }
-  }
-
-  public void testNoDefaultConstructor() throws Exception {
-    try {
-      mapper.map("test", NoDefaultConstructor.class);
-    } catch (MappingException e) {
-
-      assertEquals("java.lang.InstantiationException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor", e
-          .getMessage());
-
     }
   }
 
@@ -136,11 +97,6 @@ public class MapperTest extends AbstractDozerTest {
     inputDto2 = (WeirdGetterPrime2) mapper.map(prime2, WeirdGetterPrime2.class);
     assertEquals(inputDto2.buildValue(), prime2.getValue());
 
-  }
-
-  public void testIncompatibleMapping() throws Exception {
-    mapper.map(new Vehicle(), TestObject.class);
-    // can not assert anything...no exception should be thrown and we should have a log statement
   }
 
   public void testNoClassMappings() throws Exception {
@@ -382,102 +338,6 @@ public class MapperTest extends AbstractDozerTest {
     assertEquals(houseClone, src);
   }
 
-  public void testMethodMapping() throws Exception {
-    MethodFieldTestObject sourceObj = new MethodFieldTestObject();
-    sourceObj.setIntegerStr("1500");
-    sourceObj.setPriceItem("3500");
-    sourceObj.setFieldOne("fieldOne");
-    MethodFieldTestObject2 result = (MethodFieldTestObject2) mapper.map(sourceObj, MethodFieldTestObject2.class);
-    assertEquals("invalid result object size", 1, result.getIntegerList().size());
-    assertEquals("invalid result object value", 3500, result.getTotalPrice());
-    assertEquals("invalid result object value", "fieldOne", result.getFieldOne());
-    // map back
-    MethodFieldTestObject result2 = (MethodFieldTestObject) mapper.map(result, MethodFieldTestObject.class);
-    // if no exceptions we thrown we are good. stopOnErrors = true. both values will be null
-    // since this is a one-way mapping we shouldn't have a value
-    assertNull(result2.getFieldOne());
-  }
-
-  public void testStringToDateMapping() throws Exception {
-    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS");
-    String dateStr = "01/29/1975 10:45:13:25";
-    TestObject sourceObj = new TestObject();
-    sourceObj.setDateStr(dateStr);
-    TestObjectPrime result = (TestObjectPrime) mapper.map(sourceObj, TestObjectPrime.class);
-    assertEquals(df.parse(dateStr), result.getDateFromStr());
-    assertEquals(dateStr, df.format(result.getDateFromStr()));
-
-    TestObject result2 = (TestObject) mapper.map(result, TestObject.class);
-    assertEquals(df.format(result.getDateFromStr()), result2.getDateStr());
-    assertEquals(result.getDateFromStr(), df.parse(result2.getDateStr()));
-  }
-
-  public void testNullDestClass() throws Exception {
-    try {
-      mapper.map(new TestObject(), null);
-      fail("should have thrown mapping exception");
-    } catch (MappingException e) {
-    }
-  }
-
-  public void testNullDestObj() throws Exception {
-    try {
-      Object destObj = null;
-      mapper.map(new TestObject(), destObj);
-      fail("should have thrown mapping exception");
-    } catch (MappingException e) {
-    }
-  }
-
-  public void testNoReadMethod() throws Exception {
-    //If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    NoReadMethod src = new NoReadMethod();
-    src.setNoReadMethod("somevalue");
-    
-    NoReadMethodPrime dest = (NoReadMethodPrime) mapper.map(src, NoReadMethodPrime.class);
-    assertNull("field should be null because no read method exists for field", dest.getXXXXX());
-  }
-
-  public void testNoReadMethodSameClassTypes() throws Exception {
-    //If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    NoReadMethod src = new NoReadMethod();
-    src.setNoReadMethod("somevalue");
-    
-    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
-    assertNull("field should be null because no read method exists for field", dest.getXXXXX());
-  }
-  
-  public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
-    //Dont use getter methods that have a param when discovering default fields to be mapped.
-    NoReadMethod src = new NoReadMethod();
-    src.setOtherNoReadMethod("someValue");
-    
-    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
-    assertNull("field should be null because no read method exists for field", dest.getOtherNoReadMethod(-1));
-  }
-  
-  public void testNoWriteMethod() throws Exception {
-    NoWriteMethod src = new NoWriteMethod();
-    src.setXXXXXX("someValue");
-    
-    NoWriteMethodPrime dest = (NoWriteMethodPrime) mapper.map(src, NoWriteMethodPrime.class);
-    assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
-    
-  }
-  
-  public void testNoWriteMethodSameClassTypes() throws Exception {
-    //When mapping between identical types, if the field doesnt have a getter/setter, dont
-    //add it is a default field to be mapped.
-    NoWriteMethod src = new NoWriteMethod();
-    src.setXXXXXX("someValue");
-    
-    mapper.map(new NoReadMethod(), NoReadMethod.class);
-    
-    NoWriteMethod dest =  (NoWriteMethod) mapper.map(src, NoWriteMethod.class);
-    assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
-  }
-  
-
   public void testOneWayMapping() throws Exception {
     // Map
     OneWayObject owo = new OneWayObject();
@@ -500,41 +360,6 @@ public class MapperTest extends AbstractDozerTest {
     OneWayObject source = (OneWayObject) mapper.map(prime, OneWayObject.class);
     // should have not mapped this way
     assertEquals(null, source.getOneWayField());
-  }
-
-  public void testNullField() throws Exception {
-    AnotherTestObject src = new AnotherTestObject();
-    src.setField2(null);
-    AnotherTestObjectPrime dest = new AnotherTestObjectPrime();
-    dest.setField2(Integer.valueOf("555"));
-    // check that null overrides an existing value
-    mapper.map(src, dest);
-    assertNull("dest field should be null", dest.getField2());
-  }
-
-  public void testNullField2() throws Exception {
-    // Test that String --> String with an empty String input value results
-    // in the destination field being an empty String and not null.
-    String input = "";
-    TestObject src = new TestObject();
-    src.setOne(input);
-
-    TestObjectPrime dest = (TestObjectPrime) mapper.map(src, TestObjectPrime.class);
-    assertNotNull("dest field should not be null", dest.getOnePrime());
-    assertEquals("invalid dest field value", input, dest.getOnePrime());
-  }
-
-  public void testNullToPrimitive() throws Exception {
-    AnotherTestObject src = new AnotherTestObject();
-    AnotherTestObjectPrime prime = new AnotherTestObjectPrime();
-    TestObject to = new TestObject();
-    to.setThePrimitive(AnotherTestObjectPrime.DEFAULT_FIELD1);
-    prime.setTo(to);
-    mapper.map(src, prime);
-    // check primitive on deep field
-    // primitive should still be default
-    assertEquals("invalid field value", AnotherTestObjectPrime.DEFAULT_FIELD1, prime.getField1());
-    assertEquals("invalid field value", AnotherTestObjectPrime.DEFAULT_FIELD1, prime.getTo().getThePrimitive());
   }
 
   public void testMapByReference() throws Exception {

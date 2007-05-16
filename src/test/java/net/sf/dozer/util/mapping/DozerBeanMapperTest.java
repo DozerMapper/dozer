@@ -73,6 +73,15 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
   }
   
+  public void testNullDestObj() throws Exception {
+    try {
+      Object destObj = null;
+      mapper.map(new TestObject(), destObj);
+      fail("should have thrown mapping exception");
+    } catch (MappingException e) {
+    }
+  }
+  
   public void testMapIdDoesNotExist() {
     try {
       mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
