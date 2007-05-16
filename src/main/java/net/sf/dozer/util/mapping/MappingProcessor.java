@@ -259,10 +259,16 @@ public class MappingProcessor implements MapperIF {
       String key = MappingUtils.getParentFieldNameKey(parentSourceField, sourceObj, sourceClass.getName(),
           fieldMapping.getSourceField().getName(), fieldMapping.getDestField().getName());
       if (parentClassMap != null) {
-        if (superListOfFieldNames.contains(key)) {
-          return;
-        } else {
-          superListOfFieldNames.add(key);
+        if(superListOfFieldNames != null) {
+          if (superListOfFieldNames.contains(key)) {
+            return;
+          } else {
+            superListOfFieldNames.add(key);
+          }
+        }
+        else {
+          superListOfFieldNames = new ArrayList();
+          superListOfFieldNames.add(key);        	  
         }
       }
       // check for parent field names
