@@ -67,6 +67,9 @@
         <li>
           <a href="#maven-repo">Is Dozer in the maven repository?</a>
         </li>
+        <li>
+          <a href="#good-environment">Is Dozer good for the environment?</a>
+        </li>
 	  </ul>
     </subsection>
     <subsection name="Advanced">		  
@@ -346,6 +349,14 @@
       </p>
             ]]>
          </source>
+    </subsection>
+
+    <br></br>        
+    <a name="good-environment"></a>	  
+    <subsection name="Is Dozer good for the environment?">
+      <p>
+        Yes, dozer does not burn any fossil fuels and is within the EPA's recommended emissions.
+      </p>
     </subsection>
     
     <br></br>        
