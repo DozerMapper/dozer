@@ -174,6 +174,24 @@ public class PerformanceTest extends AbstractDozerTest {
    * #5  6771
    * #6  26718
    * 
+   * MHT Computer - 5/16/07 - 3.4 release
+   *
+   * jdk1.4
+   * #1  27854
+   * #2  2945
+   * #3  3123
+   * #4  11844
+   * #5  8437
+   * #6  19567
+   * 
+   * jdk1.5
+   * #1  27485
+   * #2  2532
+   * #3  2906
+   * #4  11297
+   * #5  8157
+   * #6  16797
+   * 
    */
 
   public void testMapping1() throws Exception {
