@@ -334,8 +334,18 @@
     <a name="maven-repo"></a>	  
     <subsection name="Is Dozer in the maven repository?">
       <p>
-        Yes, version 3.2.1 has been uploaded.  Finally:)  We will continue to do our best to get future releases of Dozer uploaded into the repository.
+        Yes, version 3.3.1 has been uploaded.  Finally:)  We will continue to do our best to get future releases of Dozer uploaded into the repository.
       </p>
+         <source>
+           <![CDATA[ 
+    <dependency>
+      <groupId>net.sf.dozer<groupId>
+      <artifactId>dozer</artifactId>
+      <version>3.3.1</version>
+    </dependency>
+      </p>
+            ]]>
+         </source>
     </subsection>
     
     <br></br>        
