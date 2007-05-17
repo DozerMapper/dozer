@@ -22,14 +22,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MapperIF;
 
 /**
  * @author garsombke.franz
  */
-public class GenericCollectionMappingTest extends DozerTestBase {
+public class GenericCollectionMappingTest extends AbstractDozerTest {
 
   public void testGenericCollectionMapping() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
