@@ -22,8 +22,8 @@
             <li>Propagate exceptions while parsing allowed-exceptions xml <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713242&amp;group_id=133517&amp;atid=727368">1713242</a></li>
             <li>NPE when Date String when no date format specified <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1711580&amp;group_id=133517&amp;atid=727368">1711580</a></li>
             <li>inappropriate subclass mappings applied <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1674199&amp;group_id=133517&amp;atid=727368">1674199</a></li>
-            <li>Inheritance mapping not working correctl <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1486105&amp;group_id=133517&amp;atid=727368">1486105</a></li>
-            <li>bi-directionnal mapping with sets & subclasse <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664984&amp;group_id=133517&amp;atid=727368">1664984</a></li>
+            <li>Inheritance mapping not working correctly <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1486105&amp;group_id=133517&amp;atid=727368">1486105</a></li>
+            <li>bidirectionnal mapping with sets subclasses <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664984&amp;group_id=133517&amp;atid=727368">1664984</a></li>
           </ul>
         </p>
         <p>Feature Requests</p> 
