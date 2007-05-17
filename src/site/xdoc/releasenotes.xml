@@ -18,9 +18,9 @@
             <li>Null pointer on MappingProcessor at Line 282 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1717318&amp;group_id=133517&amp;atid=727368">1717318</a></li>
             <li>Change the way we determine JDK Version <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1715819&amp;group_id=133517&amp;atid=727368">1715819</a></li>
             <li>Lost and Duplicated Objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1715496&amp;group_id=133517&amp;atid=727368">1715496</a></li>
-            <li>Fix Map <--> VO with no custom mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713550&amp;group_id=133517&amp;atid=727368">1713550</a></li>
+            <li>Fix Map VO with no custom mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713550&amp;group_id=133517&amp;atid=727368">1713550</a></li>
             <li>Propagate exceptions while parsing allowed-exceptions xml <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713242&amp;group_id=133517&amp;atid=727368">1713242</a></li>
-            <li>NPE - Date --> String when no date format specified <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1711580&amp;group_id=133517&amp;atid=727368">1711580</a></li>
+            <li>NPE when Date String when no date format specified <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1711580&amp;group_id=133517&amp;atid=727368">1711580</a></li>
             <li>inappropriate subclass mappings applied <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1674199&amp;group_id=133517&amp;atid=727368">1674199</a></li>
             <li>Inheritance mapping not working correctl <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1486105&amp;group_id=133517&amp;atid=727368">1486105</a></li>
             <li>bi-directionnal mapping with sets & subclasse <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664984&amp;group_id=133517&amp;atid=727368">1664984</a></li>
