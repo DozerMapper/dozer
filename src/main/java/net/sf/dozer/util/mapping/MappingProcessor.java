@@ -81,7 +81,7 @@ public class MappingProcessor implements MapperIF {
   private static final Log log = LogFactory.getLog(MappingProcessor.class);
 
   private List superListOfFieldNames = null;
-  private final transient Map customMappings;
+  private final Map customMappings;
   private final Configuration globalConfiguration;
   private final List customConverterObjects;// actual converter object instances
   private final StatisticsManagerIF statsMgr;
