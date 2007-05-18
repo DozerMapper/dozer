@@ -84,7 +84,7 @@ public class ClassMap {
         //This prevents the field from getting double mapped in the case that the class attr is named "field1" but in the
         //dozer xml is it specified as "Field1".  This should never happen, but check just in case since the use case doesnt
         //actually error out.  It just double maps which is a problem when the data type is a Collections.
-        if ((fieldName != null && ( fieldName.equals(destFieldName) || alternateFieldName.equals(destFieldName))))  {
+        if (fieldName.equals(destFieldName) || alternateFieldName.equals(destFieldName)) {
           result = fieldMap;
           break;
         }
