@@ -128,9 +128,6 @@ public abstract class FieldMap implements Cloneable {
     } else {
       // call the getXX method to see if the field is already instantiated
       // for deep mapping need the 'real' destination class.
-      if (destClass == null) {
-        destClass = destObj.getClass();
-      }
       field = getDestinationObject(destObj);
     }
     return field;
