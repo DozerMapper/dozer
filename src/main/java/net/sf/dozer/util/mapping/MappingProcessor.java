@@ -397,7 +397,8 @@ public class MappingProcessor implements MapperIF {
     alreadyMappedValue = mappedFields.get(sourceFieldValue); 
     } 
     if (alreadyMappedValue != null) {
-      if (alreadyMappedValue.getClass().equals(destFieldType)) {
+      // 1664984 - bi-directionnal mapping with sets & subclasses
+      if (destFieldType.isAssignableFrom(alreadyMappedValue.getClass())) {
         // Source value has already been mapped to the required destFieldType.
         return alreadyMappedValue;
       }
