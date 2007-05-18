@@ -29,7 +29,7 @@ import net.sf.dozer.util.mapping.MappingException;
  * @author tierney.matt
  * 
  */
-public class Hint implements Cloneable {
+public class Hint {
 
   private String hintName;
   private List hints;

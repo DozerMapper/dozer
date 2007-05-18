@@ -24,7 +24,7 @@ package net.sf.dozer.util.mapping.fieldmap;
  * @author tierney.matt
  * 
  */
-public class DozerField implements Cloneable {
+public class DozerField {
   private final String type;
   private final String name;
   private String dateFormat;
