@@ -1,0 +1,33 @@
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+  "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+	<mapping wildcard="true">
+		<class-a>net.sf.dozer.util.mapping.recursive.TestClassA</class-a>
+		<class-b>net.sf.dozer.util.mapping.recursive.TestClassAPrime</class-b>
+		<field>
+			<a>subs</a>
+			<b>subs</b>
+			<a-hint>net.sf.dozer.util.mapping.recursive.TestClassB</a-hint>
+			<b-hint>net.sf.dozer.util.mapping.recursive.TestClassBPrime</b-hint>
+		</field>
+	</mapping>
+	
+	<mapping wildcard="true">
+		<class-a>net.sf.dozer.util.mapping.recursive.TestClassAA</class-a>
+		<class-b>net.sf.dozer.util.mapping.recursive.TestClassAAPrime</class-b>
+	</mapping>
+	<mapping wildcard="false" map-id="minimal">
+		<class-a>net.sf.dozer.util.mapping.recursive.TestClassA</class-a>
+		<class-b>net.sf.dozer.util.mapping.recursive.TestClassAPrime</class-b>
+		<field>
+			<a>nom</a>
+			<b>nom</b>
+		</field>
+		<field map-id="minimal">
+			<a>subs</a>
+			<b>subs</b>
+			<a-hint>net.sf.dozer.util.mapping.recursive.TestClassB</a-hint>
+			<b-hint>net.sf.dozer.util.mapping.recursive.TestClassBPrime</b-hint>
+		</field>
+	</mapping>
+</mappings>
