@@ -41,7 +41,7 @@ import org.apache.commons.lang.StringUtils;
 public abstract class MappingUtils {
 
   //only making public temporarily while refactoring.  This static data should be relocated
-  public static Map storedFactories = Collections.synchronizedMap(new HashMap());
+  public static final Map storedFactories = Collections.synchronizedMap(new HashMap());
   
   public static String getClassNameWithoutPackage(Class clazz) {
     Package pckage = clazz.getPackage();
