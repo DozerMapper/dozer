@@ -123,9 +123,7 @@ public abstract class FieldMap implements Cloneable {
   public Object doesFieldExist(Object destObj, Class destClass) throws IllegalAccessException,
       InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException, NoSuchFieldException {
     Object field = null;
-    if (!isGenericFieldMap()) {
-      //then do no validation
-    } else {
+    if (isGenericFieldMap()) {
       // call the getXX method to see if the field is already instantiated
       // for deep mapping need the 'real' destination class.
       field = getDestinationObject(destObj);

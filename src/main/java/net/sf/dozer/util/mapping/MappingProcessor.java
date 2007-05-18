@@ -222,7 +222,7 @@ public class MappingProcessor implements MapperIF {
       Set superClasses = checkForSuperTypeMapping(sourceClass, destClass, classMap);
       // check for interfaces
       superClasses.addAll(ClassMapFinder.findInterfaceMappings(this.customMappings, sourceClass, destClass));
-      if (superClasses != null && superClasses.size() > 0) {
+      if (superClasses.size() > 0) {
         superListOfFieldNames = new ArrayList();
         parentFieldNames = processSuperTypeMapping(superClasses, sourceObj, destObj, sourceClass, parentFieldMap);
         superListOfFieldNames = null;
@@ -499,9 +499,7 @@ public class MappingProcessor implements MapperIF {
       }
       // Check to see if explicit map-id has been specified for the field mapping
       String mapId = null;
-      if (fieldMap != null) {
-        mapId = fieldMap.getMapId();
-      }
+      mapId = fieldMap.getMapId();
       classMap = getClassMap(sourceFieldValue, destFieldType, mapId, false);
       field = destBeanCreator.create(sourceFieldValue, classMap, fieldMap, null);
     }
@@ -527,7 +525,7 @@ public class MappingProcessor implements MapperIF {
         try {
           Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
           parameterTypes = (Object[]) Jdk5Methods.getInstance().getMethodGetGenericParameterTypesMethod().invoke(method, null);
-        } catch (Exception e) {
+        } catch (Throwable e) {
           log.info("The destObj:" + destObj + " does not have a write method");
         }
         if (parameterTypes != null) {
@@ -737,8 +735,7 @@ public class MappingProcessor implements MapperIF {
             fieldMapping.getDestinationTypeHint().getHintName()));
 
         if (converterClass != null) {
-          Class sourceFieldClass = sourceFieldValue != null ? sourceFieldValue.getClass() : fieldMapping
-              .getSourceFieldType(sourceObj.getClass());
+          Class sourceFieldClass = sourceFieldValue.getClass();
           value = mapUsingCustomConverter(converterClass, sourceFieldClass, value, fieldMapping
               .getDestinationTypeHint().getHint(), null, fieldMapping, false);
         } else {
