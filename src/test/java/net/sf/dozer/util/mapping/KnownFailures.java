@@ -31,8 +31,6 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
 public class KnownFailures extends AbstractDozerTest {
 
   // Failure discovered during development of an unrelated map type feature request
-
-  // Failure discovered during development of an unrelated map type feature request
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
     // Simple test checking that Maps get mapped to a VO without any custom mappings or map-id.
     // Should behave like Vo --> Vo, matching on common attr(key) names.
