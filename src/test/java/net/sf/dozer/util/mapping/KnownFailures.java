@@ -37,19 +37,20 @@ public class KnownFailures extends AbstractDozerTest {
   //Defect #1728385
   public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
     mapper = getNewMapper(new String[]{"simpleCustomConverter.xml"});
+    
     AnotherTestObject src = new AnotherTestObject();
     src.setField3(String.valueOf(System.currentTimeMillis()));
     
     AnotherTestObjectPrime dest = (AnotherTestObjectPrime) mapper.map(src, AnotherTestObjectPrime.class);
 
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
-    assertNotNull("dest field3 should not be null", dest.getField3());
+    //Custom converter specified for the field mapping, so verify custom converter was actually used
+    assertNotNull("dest field should not be null", dest.getField3());
     StringTokenizer st = new StringTokenizer(dest.getField3(), "-");
-    assertEquals("dest field3 value should contain a hyphon", 2, st.countTokens());
+    assertEquals("dest field value should contain a hyphon", 2, st.countTokens());
     String token1 = st.nextToken();
-    assertEquals("1st portion of dest field3 value should equal src field value", src.getField3(), token1);
+    assertEquals("1st portion of dest field value should equal src field value", src.getField3(), token1);
     String token2 = st.nextToken();
-    assertEquals("dest field3 value should have been appended to by the cust converter", 
+    assertEquals("dest field value should have been appended to by the cust converter", 
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
 
