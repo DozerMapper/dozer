@@ -17,7 +17,11 @@ package net.sf.dozer.util.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
+import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
+import net.sf.dozer.util.mapping.vo.AnotherTestObject;
+import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.map.NestedObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
@@ -29,6 +33,25 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
  * @author tierney.matt
  */
 public class KnownFailures extends AbstractDozerTest {
+  
+  //Defect #1728385
+  public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
+    mapper = getNewMapper(new String[]{"simpleCustomConverter.xml"});
+    AnotherTestObject src = new AnotherTestObject();
+    src.setField3(String.valueOf(System.currentTimeMillis()));
+    
+    AnotherTestObjectPrime dest = (AnotherTestObjectPrime) mapper.map(src, AnotherTestObjectPrime.class);
+
+    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
+    assertNotNull("dest field3 should not be null", dest.getField3());
+    StringTokenizer st = new StringTokenizer(dest.getField3(), "-");
+    assertEquals("dest field3 value should contain a hyphon", 2, st.countTokens());
+    String token1 = st.nextToken();
+    assertEquals("1st portion of dest field3 value should equal src field value", src.getField3(), token1);
+    String token2 = st.nextToken();
+    assertEquals("dest field3 value should have been appended to by the cust converter", 
+        StringAppendCustomConverter.APPENDED_VALUE, token2);
+  }
 
   // Failure discovered during development of an unrelated map type feature request
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
