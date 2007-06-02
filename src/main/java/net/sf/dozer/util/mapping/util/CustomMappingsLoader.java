@@ -94,7 +94,7 @@ public class CustomMappingsLoader {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       }
     }
-    return new LoadMappingsResult(Collections.synchronizedMap(customMappings), globalConfiguration);
+    return new LoadMappingsResult(Collections.synchronizedMap(customMappings), globalConfiguration, customConverterDescriptions.asList());
   }
 
 }

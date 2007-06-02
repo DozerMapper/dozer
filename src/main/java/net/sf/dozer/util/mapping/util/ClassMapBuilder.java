@@ -17,19 +17,21 @@ package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
-
+import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
-import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
+import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
+
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -41,7 +43,7 @@ import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
  */
 public abstract class ClassMapBuilder {
   
-  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
+  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass, List customConverterObjects) {
     ClassMap classMap = new ClassMap();
     classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, globalConfiguration.getBeanFactory(), null, null, null, 
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
@@ -59,7 +61,9 @@ public abstract class ClassMapBuilder {
     if (classMap.isWildcard()) {
       addDefaultFieldMappings(classMap);
     }
-
+    // add global custom converters per defect #1728385
+	classMap.setCustomConverters(new CustomConverterContainer());
+	classMap.getCustomConverters().setConverters(customConverterObjects);    	
     return classMap;
   }
   

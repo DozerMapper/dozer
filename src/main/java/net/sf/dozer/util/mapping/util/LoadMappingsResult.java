@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util.mapping.util;
 
+import java.util.List;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.fieldmap.Configuration;
@@ -30,10 +31,12 @@ public class LoadMappingsResult {
   
   private Map customMappings;
   private Configuration globalConfiguration;
+  private List customConverters;
 
-  public LoadMappingsResult(Map customMappings, Configuration globalConfiguration) {
+  public LoadMappingsResult(Map customMappings, Configuration globalConfiguration, List customConverters) {
     this.customMappings = customMappings;
     this.globalConfiguration = globalConfiguration;
+    this.customConverters = customConverters;
   }
 
   public Map getCustomMappings() {
@@ -43,5 +46,9 @@ public class LoadMappingsResult {
   public Configuration getGlobalConfiguration() {
     return globalConfiguration;
   }
+
+public List getCustomConverters() {
+	return customConverters;
+}
 
 }

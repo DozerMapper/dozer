@@ -16,6 +16,7 @@
 package net.sf.dozer.util.mapping;
 
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class DozerBeanMapper implements MapperIF {
    * Accessible for custom injection
    */
   private List mappingFiles; // String file names
-  private List customConverters;
+  private List customConverters = new ArrayList();
   private List eventListeners;
   private CustomFieldMapperIF customFieldMapper;
 
@@ -112,7 +113,7 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   public void setCustomConverters(List customConverters) {
-    this.customConverters = customConverters;
+    this.customConverters.addAll(customConverters);
   }
 
   private void init() {
@@ -144,12 +145,12 @@ public class DozerBeanMapper implements MapperIF {
   }
   
   private synchronized void loadCustomMappings() {
-    //loadCustomMappings() has to be called outside of init() method because the custom converters are injected.
     if (this.customMappings == null) {
       CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
       LoadMappingsResult loadMappingsResult = customMappingsLoader.load(mappingFiles);
       this.customMappings = loadMappingsResult.getCustomMappings();
       this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
+      setCustomConverters(loadMappingsResult.getCustomConverters());
     }
   }
 

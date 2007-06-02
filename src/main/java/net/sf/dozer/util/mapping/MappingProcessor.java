@@ -34,6 +34,7 @@ import net.sf.dozer.util.mapping.cache.CacheKeyFactory;
 import net.sf.dozer.util.mapping.cache.CacheManagerIF;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.converters.CustomConverter;
+import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.PrimitiveOrWrapperConverter;
 import net.sf.dozer.util.mapping.event.DozerEvent;
 import net.sf.dozer.util.mapping.event.DozerEventManager;
@@ -1022,7 +1023,7 @@ public class MappingProcessor implements MapperIF {
     if(mapping.getSourceClass().getClassToMap() != sourceClass
        || mapping.getDestClass().getClassToMap() != destClass) {
     	// there are fields from the source object to dest class we might be missing. create a default mapping between the two.
-    	mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceClass, destClass);
+    	mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceClass, destClass, customConverterObjects);
         superClasses.add(mapping);
     }
         
@@ -1123,7 +1124,7 @@ public class MappingProcessor implements MapperIF {
 
       // If mapping not found in exsting custom mapping collection, create default as an explicit mapping must not exist.
       // The create default class map method will also add all default mappings that it can determine.
-      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
+      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass, customConverterObjects);
       customMappings.put(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass), mapping);
     }
 
