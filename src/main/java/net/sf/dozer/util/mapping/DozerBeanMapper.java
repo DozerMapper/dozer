@@ -63,7 +63,7 @@ public class DozerBeanMapper implements MapperIF {
    * Accessible for custom injection
    */
   private List mappingFiles; // String file names
-  private List customConverters = new ArrayList();
+  private List customConverters;
   private List eventListeners;
   private CustomFieldMapperIF customFieldMapper;
 
@@ -113,7 +113,7 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   public void setCustomConverters(List customConverters) {
-    this.customConverters.addAll(customConverters);
+    this.customConverters = customConverters;
   }
 
   private void init() {
@@ -150,7 +150,6 @@ public class DozerBeanMapper implements MapperIF {
       LoadMappingsResult loadMappingsResult = customMappingsLoader.load(mappingFiles);
       this.customMappings = loadMappingsResult.getCustomMappings();
       this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
-      setCustomConverters(loadMappingsResult.getCustomConverters());
     }
   }
 

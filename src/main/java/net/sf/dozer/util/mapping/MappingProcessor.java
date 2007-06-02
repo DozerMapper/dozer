@@ -1023,7 +1023,7 @@ public class MappingProcessor implements MapperIF {
     if(mapping.getSourceClass().getClassToMap() != sourceClass
        || mapping.getDestClass().getClassToMap() != destClass) {
     	// there are fields from the source object to dest class we might be missing. create a default mapping between the two.
-    	mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceClass, destClass, customConverterObjects);
+    	mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceClass, destClass);
         superClasses.add(mapping);
     }
         
@@ -1124,7 +1124,7 @@ public class MappingProcessor implements MapperIF {
 
       // If mapping not found in exsting custom mapping collection, create default as an explicit mapping must not exist.
       // The create default class map method will also add all default mappings that it can determine.
-      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass, customConverterObjects);
+      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceObj.getClass(), destClass);
       customMappings.put(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass), mapping);
     }
 

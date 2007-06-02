@@ -43,7 +43,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class ClassMapBuilder {
   
-  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass, List customConverterObjects) {
+  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
     ClassMap classMap = new ClassMap();
     classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, globalConfiguration.getBeanFactory(), null, null, null, 
         Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
@@ -62,8 +62,10 @@ public abstract class ClassMapBuilder {
       addDefaultFieldMappings(classMap);
     }
     // add global custom converters per defect #1728385
-	classMap.setCustomConverters(new CustomConverterContainer());
-	classMap.getCustomConverters().setConverters(customConverterObjects);    	
+    if(globalConfiguration.getCustomConverters() != null) {
+      classMap.setCustomConverters(new CustomConverterContainer());
+	  classMap.getCustomConverters().setConverters(globalConfiguration.getCustomConverters().getConverters());
+    }
     return classMap;
   }
   

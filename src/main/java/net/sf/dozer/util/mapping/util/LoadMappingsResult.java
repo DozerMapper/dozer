@@ -31,12 +31,10 @@ public class LoadMappingsResult {
   
   private Map customMappings;
   private Configuration globalConfiguration;
-  private List customConverters;
 
-  public LoadMappingsResult(Map customMappings, Configuration globalConfiguration, List customConverters) {
+  public LoadMappingsResult(Map customMappings, Configuration globalConfiguration) {
     this.customMappings = customMappings;
     this.globalConfiguration = globalConfiguration;
-    this.customConverters = customConverters;
   }
 
   public Map getCustomMappings() {
@@ -46,9 +44,5 @@ public class LoadMappingsResult {
   public Configuration getGlobalConfiguration() {
     return globalConfiguration;
   }
-
-public List getCustomConverters() {
-	return customConverters;
-}
 
 }
