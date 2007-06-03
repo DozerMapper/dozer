@@ -22,53 +22,9 @@ import junit.framework.TestCase;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
 
-public class GlobalReferenceTest extends TestCase {
-	MapperIF mapper;
-	TestA testA;
-	TestB testB;
-	
-	public void setUp() {
-		mapper = new DozerBeanMapper(Arrays.asList(new String[] {getMappingFile()}));
-		testA = new TestA();
-		testA.setOne("one");
-		testA.setOneA("oneA");
-		testB = null;
-	}
-
+public class GlobalReferenceTest extends SubclassReferenceTest {
 	protected String getMappingFile() {
 		return "global-mapping.xml";
 	}
 	
-	public void testBase() {
-		testB = (TestB) mapper.map(testA, TestB.class);
-		assertEquals(testA.getOne(), testB.getOne());
-		assertEquals(testA.getOneA(), testB.getOneB());
-	}
-	
-	public void testSubclassSource() {
-		TestA testA = new TestA() {}; // anonymous subclass
-		testA.setOne("one");
-		testA.setOneA("oneA");
-		testB = (TestB) mapper.map(testA, TestB.class);
-		assertEquals(testA.getOne(), testB.getOne());
-		assertEquals(testA.getOneA(), testB.getOneB());
-	}
-	
-	public void testReference() {
-		testA.setTestReference(Reference.FOO);
-		testB = (TestB) mapper.map(testA, TestB.class);
-		assertEquals(testA.getOne(), testB.getOne());
-		assertEquals(testA.getOneA(), testB.getOneB());
-		assertEquals(testA.getTestReference(), testB.getTestReference());
-	}
-
-	public void testReferenceSubclassSource() {
-		TestA testASubclass = new TestA() {}; // anonymous subclass
-		testASubclass.setTestReference(Reference.FOO);
-		testB = (TestB) mapper.map(testASubclass, TestB.class);
-		assertEquals(testASubclass.getOne(), testB.getOne());
-		assertEquals(testASubclass.getOneA(), testB.getOneB());
-		assertEquals(testASubclass.getTestReference(), testB.getTestReference());
-	}
-
 }
