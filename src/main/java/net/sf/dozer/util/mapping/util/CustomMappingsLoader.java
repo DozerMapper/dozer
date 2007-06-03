@@ -80,7 +80,7 @@ public class CustomMappingsLoader {
 
     // Add default mappings using matching property names if wildcard policy
     // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
-    ClassMapBuilder.addDefaultFieldMappings(customMappings);
+    ClassMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
  
     // iterate through the classmaps and set all of the customconverters on them
     Iterator keyIter = customMappings.keySet().iterator();

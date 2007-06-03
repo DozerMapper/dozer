@@ -17,7 +17,6 @@ package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -59,7 +58,7 @@ public abstract class ClassMapBuilder {
     }
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
-      addDefaultFieldMappings(classMap);
+      addDefaultFieldMappings(classMap, globalConfiguration);
     }
     // add global custom converters per defect #1728385
     if(globalConfiguration.getCustomConverters() != null) {
@@ -69,7 +68,7 @@ public abstract class ClassMapBuilder {
     return classMap;
   }
   
-  public static void addDefaultFieldMappings(Map customMappings) {
+  public static void addDefaultFieldMappings(Map customMappings, Configuration globalConfiguration) {
     Set entries = customMappings.entrySet();
     Iterator iter = entries.iterator();
     while (iter.hasNext()) {
@@ -77,12 +76,12 @@ public abstract class ClassMapBuilder {
       ClassMap classMap = (ClassMap) entry.getValue();
 
       if (classMap.isWildcard()) {
-        addDefaultFieldMappings(classMap);
+        addDefaultFieldMappings(classMap, globalConfiguration);
       }
     }
   }
   
-  public static void addDefaultFieldMappings(ClassMap classMap) {
+  public static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
     Class sourceClass = classMap.getSourceClass().getClassToMap();
     Class destClass = classMap.getDestClass().getClassToMap();
 
@@ -113,10 +112,15 @@ public abstract class ClassMapBuilder {
       if (sourceProperty == null || sourceProperty.getReadMethod() == null) { 
         continue;
       }
-
       GenericFieldMap map = new GenericFieldMap();
       map.setSourceField(new DozerField(destFieldName, null));
       map.setDestField(new DozerField(destFieldName, null));
+      // add CopyByReferences per defect #1728159
+      try {
+		MappingValidator.validateCopyByReference(globalConfiguration, map, classMap);
+	  } catch (Throwable e) {
+	    MappingUtils.throwMappingException(e);
+	  }
       classMap.addFieldMapping(map);
     }
   }  
