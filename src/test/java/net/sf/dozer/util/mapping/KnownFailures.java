@@ -15,9 +15,14 @@
  */
 package net.sf.dozer.util.mapping;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import net.sf.dozer.util.mapping.vo.MessageHeaderDTO;
+import net.sf.dozer.util.mapping.vo.MessageHeaderVO;
+import net.sf.dozer.util.mapping.vo.MessageIdVO;
 import net.sf.dozer.util.mapping.vo.map.NestedObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
@@ -29,6 +34,27 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
  * @author tierney.matt
  */
 public class KnownFailures extends AbstractDozerTest {
+  
+  /*
+   * Feature Request #1731158.  Need a way to explicitly specify a mapping between a custom data object 
+   * and String.  Not sure the best way to do this.  Copy by reference doesnt seem like a good fit. 
+   */
+  public void testListOfCustomObjectsToStringArray() {
+    List mappingFiles = new ArrayList();
+    mappingFiles.add("knownFailures.xml");
+    MapperIF mapper = new DozerBeanMapper(mappingFiles);
+
+    MessageHeaderVO vo = new MessageHeaderVO();
+    List ids = new ArrayList();
+    ids.add(new MessageIdVO("1"));
+    ids.add(new MessageIdVO("2"));
+    vo.setMsgIds(ids);
+    MessageHeaderDTO result = null;
+
+    result = (MessageHeaderDTO) mapper.map(vo, MessageHeaderDTO.class);
+    assertEquals("1", result.getIdList().getMsgIdsArray()[0]);
+    assertEquals("2", result.getIdList().getMsgIdsArray()[1]);
+  }
   
   // Failure discovered during development of an unrelated map type feature request
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
