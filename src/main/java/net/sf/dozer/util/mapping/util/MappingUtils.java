@@ -96,26 +96,22 @@ public abstract class MappingUtils {
     storedFactories.putAll(factories);
   }
 
-  public static void isMethodMap(FieldMap fieldMap) {
-    boolean methodMap = false;
+  public static boolean isMethodMap(FieldMap fieldMap) {
+    boolean result = false;
     if (fieldMap.getSourceField().getTheGetMethod() != null || fieldMap.getSourceField().getTheSetMethod() != null
         || fieldMap.getDestField().getTheGetMethod() != null || fieldMap.getDestField().getTheSetMethod() != null) {
-      methodMap = true;
+      result = true;
     }
-    if (methodMap && fieldMap instanceof GenericFieldMap) {
-      ((GenericFieldMap) fieldMap).setMethodMap(true);
-    }
+    return result;
   }
 
-  public static void isCustomMap(FieldMap fieldMap) {
-    boolean customMap = false;
+  public static boolean isCustomMap(FieldMap fieldMap) {
+    boolean result = false;
     if (fieldMap.getSourceField().getMapGetMethod() != null || fieldMap.getSourceField().getMapSetMethod() != null
         || fieldMap.getDestField().getMapGetMethod() != null || fieldMap.getDestField().getMapSetMethod() != null) {
-      customMap = true;
+      result = true;
     }
-    if (customMap && fieldMap instanceof GenericFieldMap) {
-      ((GenericFieldMap) fieldMap).setCustomMap(true);
-    }
+    return result;
   }
 
   public static Throwable getRootCause(Throwable ex) {
