@@ -17,13 +17,12 @@ package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import net.sf.dozer.util.mapping.MappingException;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
@@ -181,7 +180,11 @@ public abstract class ReflectionUtils {
     Object result = null;
     try {
       result = method.invoke(obj, args);
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (InvocationTargetException e) {
       MappingUtils.throwMappingException(e);
     }
     return result;
@@ -191,22 +194,16 @@ public abstract class ReflectionUtils {
     Object result = null;
     try {
       result = clazz.newInstance();
-    } catch (Exception e) {
-      throw new MappingException(e);
+    } catch (InstantiationException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
     }
     return result;
   }
   
   public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
-    Method result = null;
-    try {
-      result = clazz.getMethod(name, parameterTypes);
-    } catch (NoSuchMethodException e) {
-      throw e;
-    } catch (Exception e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
+    return clazz.getMethod(name, parameterTypes);
   }
   
 }

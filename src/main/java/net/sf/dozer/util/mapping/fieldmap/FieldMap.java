@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
@@ -72,7 +73,9 @@ public abstract class FieldMap implements Cloneable {
     Class result = null;
     try {
       result = getDestinationPropertyDescriptor(destClass).getPropertyType();
-    } catch (Exception e) {
+    } catch (NoSuchFieldException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
     return result;
@@ -82,7 +85,9 @@ public abstract class FieldMap implements Cloneable {
     Class result = null;
     try {
       result = getSourcePropertyDescriptor(srcClass).getPropertyType();
-    } catch (Exception e) {
+    } catch (NoSuchFieldException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
     return result;
@@ -117,7 +122,13 @@ public abstract class FieldMap implements Cloneable {
     Object result = null;
     try {
       result = getSourcePropertyDescriptor(srcObj.getClass()).getPropertyValue(srcObj);
-    } catch (Exception e) {
+    } catch (NoSuchFieldException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (InvocationTargetException e) {
       MappingUtils.throwMappingException(e);
     }
     return result;
@@ -131,7 +142,9 @@ public abstract class FieldMap implements Cloneable {
     DozerPropertyDescriptorIF propDescriptor = getDestinationPropertyDescriptor(destObj.getClass()); 
     try {
       propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);
-    } catch (Exception e) {
+    } catch (NoSuchFieldException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
   }
@@ -140,7 +153,13 @@ public abstract class FieldMap implements Cloneable {
     Object result = null;
     try {
       result = getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
-    } catch (Exception e) {
+    } catch (NoSuchFieldException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (InvocationTargetException e) {
       MappingUtils.throwMappingException(e);
     }
     return result;

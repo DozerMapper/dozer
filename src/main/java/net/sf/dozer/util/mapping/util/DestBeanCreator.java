@@ -16,11 +16,11 @@
 package net.sf.dozer.util.mapping.util;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -129,12 +129,15 @@ public class DestBeanCreator {
   }
 
   private Object createNewInstance(Class clazz) {
-    Constructor constructor;
+    Constructor constructor = null;
     try {
       constructor = clazz.getDeclaredConstructor(null);
-    } catch (Exception e) {
-      throw new MappingException(e);
+    } catch (SecurityException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
     }
+    
     if (constructor == null) {
       MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
           + ".  Could not find a no-arg constructor for this class.");
@@ -148,8 +151,14 @@ public class DestBeanCreator {
     Object result = null;
     try {
       result = constructor.newInstance(null);
-    } catch (Exception e) {
-      MappingUtils.throwMappingException(e);
+    } catch (IllegalArgumentException e) {
+      MappingUtils.throwMappingException(e);      
+    } catch (InstantiationException e) {
+      MappingUtils.throwMappingException(e);      
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);      
+    } catch (InvocationTargetException e) {
+      MappingUtils.throwMappingException(e);      
     }
     return result;
   }

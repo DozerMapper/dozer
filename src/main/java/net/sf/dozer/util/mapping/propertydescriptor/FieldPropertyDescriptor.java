@@ -55,7 +55,9 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
       Object o = null;
       try {
         o = field.get(bean);
-      } catch (Exception e) {
+      } catch (IllegalArgumentException e) {
+        MappingUtils.throwMappingException(e);
+      } catch (IllegalAccessException e) {
         MappingUtils.throwMappingException(e);
       }
       if (isIndexed) {
