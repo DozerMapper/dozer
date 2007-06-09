@@ -87,6 +87,14 @@ public abstract class MappingUtils {
       throw new MappingException(e);
     }
   }
+  
+  public static void throwMappingException(String msg) throws MappingException {
+    throw new MappingException(msg);
+  }
+  
+  public static void throwMappingException(String msg, Throwable cause) throws MappingException {
+    throw new MappingException(msg, cause);
+  }
 
   public static boolean isBlankOrNull(String value) {
     return value == null || value.trim().length() < 1 ? true : false;
@@ -132,7 +140,7 @@ public abstract class MappingUtils {
     return buf.toString();
   }
   
-  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, Class sourceClass, Class destClass) throws ClassNotFoundException {
+  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, Class sourceClass, Class destClass) {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
       return null;
     }
@@ -141,7 +149,7 @@ public abstract class MappingUtils {
   }
  
   public static Class determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, 
-      Class sourceClass, Class destClass) throws ClassNotFoundException {
+      Class sourceClass, Class destClass) {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
       return null;
     }
@@ -154,7 +162,7 @@ public abstract class MappingUtils {
       } else if (destClass.isAssignableFrom(Collection.class)) {
         //use hint when trying to find a custom converter
         if (fieldMap.getDestinationTypeHint() != null && fieldMap.getDestinationTypeHint().getHints().size() < 2) {
-          destClass = Thread.currentThread().getContextClassLoader().loadClass(fieldMap.getDestinationTypeHint().getHintName());
+          destClass = MappingUtils.loadClass(fieldMap.getDestinationTypeHint().getHintName());
         }
       }
     }
@@ -225,6 +233,16 @@ public abstract class MappingUtils {
       }
     }
     return r;
+  }
+  
+  public static Class loadClass(String name) {
+    Class result = null;
+    try {
+      result = Thread.currentThread().getContextClassLoader().loadClass(name);
+    } catch (ClassNotFoundException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
   
 }

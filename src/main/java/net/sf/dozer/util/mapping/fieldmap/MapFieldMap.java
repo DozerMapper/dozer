@@ -15,10 +15,10 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.util.MappingUtils;
+import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -35,9 +35,7 @@ import org.apache.commons.logging.LogFactory;
 public class MapFieldMap extends FieldMap {
   private static final Log log = LogFactory.getLog(MapFieldMap.class);
 
-  public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap)
-      throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException,
-      NoSuchMethodException, NoSuchFieldException {
+  public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap) {
     Method destFieldWriteMethod = getDestFieldWriteMethod(destObj.getClass());
     if (destFieldWriteMethod.getParameterTypes().length == 2) { // this is a 'put'
       String key = null;
@@ -52,7 +50,7 @@ public class MapFieldMap extends FieldMap {
             + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Write Method: "
             + destFieldWriteMethod.getName() + ", Dest value: " + destFieldValue);
       }
-      destFieldWriteMethod.invoke(destObj, new Object[] { key, destFieldValue });
+      ReflectionUtils.invoke(destFieldWriteMethod, destObj, new Object[] { key, destFieldValue });
     } else { // this is a 'get'
       super.writeDestinationValue(destObj, destFieldValue, classMap);
     }

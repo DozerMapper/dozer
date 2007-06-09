@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
@@ -49,11 +48,11 @@ public abstract class FieldMap implements Cloneable {
   private String mapId;
   private String customConverter;
 
-  private DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) throws NoSuchFieldException {
+  private DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
     return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass);
   }
   
-  private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) throws NoSuchFieldException  {
+  private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) {
     return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass);
   }
 
@@ -69,21 +68,30 @@ public abstract class FieldMap implements Cloneable {
     }
   }
 
-  public Class getDestFieldType(Class destClass) throws NoSuchMethodException, ClassNotFoundException,
-      NoSuchFieldException {
-    return getDestinationPropertyDescriptor(destClass).getPropertyType();
+  public Class getDestFieldType(Class destClass) {
+    Class result = null;
+    try {
+      result = getDestinationPropertyDescriptor(destClass).getPropertyType();
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
   
-  public Class getSourceFieldType(Class srcClass) throws NoSuchMethodException, ClassNotFoundException,
-      NoSuchFieldException {
-    return getSourcePropertyDescriptor(srcClass).getPropertyType();
+  public Class getSourceFieldType(Class srcClass) {
+    Class result = null;
+    try {
+      result = getSourcePropertyDescriptor(srcClass).getPropertyType();
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
 
   /**
    * @deprecated  As of 3.2 release
    */
-  public Method getDestFieldWriteMethod(Class destClass) throws NoSuchMethodException, ClassNotFoundException,
-      NoSuchFieldException {
+  public Method getDestFieldWriteMethod(Class destClass) {
     //4-07 mht:  The getWriteMethod was removed from the prop descriptor interface.  This was done as part of 
     //refactoring effort to clean up the prop descriptor stuff.  The underlying write method should not be exposed.
     //For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this context.
@@ -92,36 +100,53 @@ public abstract class FieldMap implements Cloneable {
     //TODO: remove this method FieldMap.getDestFieldWriteMethod()
     
     DozerPropertyDescriptorIF dpd = getDestinationPropertyDescriptor(destClass);
-    return ((GetterSetterPropertyDescriptor) dpd).getWriteMethod();
+    Method result = null;
+    try {
+      result = ((GetterSetterPropertyDescriptor) dpd).getWriteMethod();
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
 
-  public Object getSrcFieldValue(Object srcObj) throws IllegalAccessException, InvocationTargetException,
-      NoSuchMethodException, ClassNotFoundException, NoSuchFieldException {
+  public Object getSrcFieldValue(Object srcObj) {
     // this is mainly for Maps...we cant use the selfdescriptor...so we have to cheat and use this
     if (isSourceSelfReferencing()) {
       return srcObj;
     }
-    return getSourcePropertyDescriptor(srcObj.getClass()).getPropertyValue(srcObj);
+    Object result = null;
+    try {
+      result = getSourcePropertyDescriptor(srcObj.getClass()).getPropertyValue(srcObj);
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
 
-  public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap)
-      throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException,
-      ClassNotFoundException, NoSuchFieldException {
+  public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap) {
     if (log.isDebugEnabled()) {
       log.debug("Getting ready to invoke write method on the destination object.  Dest Obj: "
           + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Dest value: " + destFieldValue);
     }
     DozerPropertyDescriptorIF propDescriptor = getDestinationPropertyDescriptor(destObj.getClass()); 
-    propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);
+    try {
+      propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
   }
 
-  public Object getDestinationObject(Object destObj) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-      InstantiationException, NoSuchFieldException {
-    return getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
+  public Object getDestinationObject(Object destObj) {
+    Object result = null;
+    try {
+      result = getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
   
-  public Object doesFieldExist(Object destObj, Class destClass) throws IllegalAccessException,
-      InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException, NoSuchFieldException {
+  public Object doesFieldExist(Object destObj, Class destClass) {
     Object field = null;
     if (isGenericFieldMap()) {
       // call the getXX method to see if the field is already instantiated
@@ -183,8 +208,14 @@ public abstract class FieldMap implements Cloneable {
     this.sourceField = sourceField;
   }
 
-  public Object clone() throws CloneNotSupportedException {
-    return super.clone();
+  public Object clone() {
+    Object result = null;
+    try {
+      result = super.clone();
+    } catch (CloneNotSupportedException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
 
   public String getType() {

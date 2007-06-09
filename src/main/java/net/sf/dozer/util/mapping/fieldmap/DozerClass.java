@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import net.sf.dozer.util.mapping.util.MappingUtils;
+
 /**
  * Only intended for internal use.
  * 
@@ -66,9 +68,9 @@ public class DozerClass implements Cloneable {
     return name;
   }
 
-  public void setName(String name) throws ClassNotFoundException {
+  public void setName(String name) {
     this.name = name;
-    classToMap = Thread.currentThread().getContextClassLoader().loadClass(name);
+    classToMap = MappingUtils.loadClass(name);
   }
 
   public String getFactoryBeanId() {

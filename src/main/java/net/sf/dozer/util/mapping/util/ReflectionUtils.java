@@ -23,9 +23,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.beanutils.PropertyUtils;
-
 import net.sf.dozer.util.mapping.MappingException;
+
+import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code base.  Not intended for direct use by 
@@ -61,7 +61,7 @@ public abstract class ReflectionUtils {
 
   public static PropertyDescriptor[] getDeepFieldHierarchy(Class parentClass, String field) {
     if (field.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
-      throw new MappingException("Field does not contain deep field delimitor");
+      MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
 
     StringTokenizer toks = new StringTokenizer(field, MapperConstants.DEEP_FIELD_DELIMITOR);
@@ -73,7 +73,7 @@ public abstract class ReflectionUtils {
       PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, aFieldName);
 
       if (propDescriptor == null) {
-        throw new MappingException("Exception occurred determining deep field hierarchy for Class --> "
+        MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "
             + parentClass.getName() + ", Field --> " + field
             + ".  Unable to determine property descriptor for Class --> " + latestClass.getName() + ", Field Name: "
             + aFieldName);
@@ -96,13 +96,12 @@ public abstract class ReflectionUtils {
       }
     }
     if (resultMethod == null) {
-      throw new MappingException("No method found for class:" + obj.getClass() + " and method name:" + methodName);
+      MappingUtils.throwMappingException("No method found for class:" + obj.getClass() + " and method name:" + methodName);
     }
     return resultMethod;
   }
-
-  public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException,
-      ClassNotFoundException {
+  
+  public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException {
     // TODO USE HELPER from bean utils to find method w/ params
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
@@ -125,17 +124,17 @@ public abstract class ReflectionUtils {
   }
 
   private static Method findMethodWithParam(Class parentDestClass, String methodName, String params)
-      throws NoSuchMethodException, ClassNotFoundException {
+      throws NoSuchMethodException {
     // TODO USE HELPER from bean utils to find method w/ params
     List list = new ArrayList();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken();
-        list.add(Class.forName(token));
+        list.add(MappingUtils.loadClass(token));
       }
     }
-    return parentDestClass.getMethod(methodName, (Class[]) list.toArray(new Class[list.size()]));
+    return getMethod(parentDestClass, methodName, (Class[]) list.toArray(new Class[list.size()]));
   }
 
   protected static PropertyDescriptor[] getPropertyDescriptors(Class objectClass) {
@@ -177,5 +176,37 @@ public abstract class ReflectionUtils {
       throw e;
     }
   }
-
+  
+  public static Object invoke(Method method, Object obj, Object[] args) {
+    Object result = null;
+    try {
+      result = method.invoke(obj, args);
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
+  }
+  
+  public static Object newInstance(Class clazz) {
+    Object result = null;
+    try {
+      result = clazz.newInstance();
+    } catch (Exception e) {
+      throw new MappingException(e);
+    }
+    return result;
+  }
+  
+  public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
+    Method result = null;
+    try {
+      result = clazz.getMethod(name, parameterTypes);
+    } catch (NoSuchMethodException e) {
+      throw e;
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
+  }
+  
 }

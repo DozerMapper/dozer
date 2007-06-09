@@ -22,7 +22,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
 import net.sf.dozer.util.mapping.fieldmap.AllowedExceptionContainer;
@@ -31,8 +30,8 @@ import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.fieldmap.CopyByReference;
 import net.sf.dozer.util.mapping.fieldmap.CopyByReferenceContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerClass;
-import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
+import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
@@ -127,7 +126,7 @@ public class XMLParser {
     return mappings;
   }
 
-  private void parseMapping(Element ele) throws ClassNotFoundException {
+  private void parseMapping(Element ele) {
     ClassMap classMap = new ClassMap();
     mappings.getMapping().add(classMap);
     if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT_ATTRIBUTE))) {
@@ -352,7 +351,7 @@ public class XMLParser {
     return rvalue;
   }
 
-  private void parseConfiguration(Element ele) throws ClassNotFoundException {
+  private void parseConfiguration(Element ele) {
     Configuration config = new Configuration();
     mappings.setConfiguration(config);
     NodeList nl = ele.getChildNodes();
@@ -381,7 +380,7 @@ public class XMLParser {
     }
   }
 
-  private void parseCustomConverters(Element ele, Configuration config) throws ClassNotFoundException {
+  private void parseCustomConverters(Element ele, Configuration config) {
     CustomConverterContainer container = new CustomConverterContainer();
     config.setCustomConverters(container);
     NodeList nl = ele.getChildNodes();
@@ -394,16 +393,16 @@ public class XMLParser {
         if (CONVERTER_ELEMENT.equals(element.getNodeName())) {
           CustomConverterDescription customConverter = new CustomConverterDescription();
           container.addConverter(customConverter);
-          customConverter.setType(Thread.currentThread().getContextClassLoader().loadClass(element.getAttribute(TYPE_ATTRIBUTE)));
+          customConverter.setType(MappingUtils.loadClass(element.getAttribute(TYPE_ATTRIBUTE)));
           NodeList list = element.getChildNodes();
           for (int x = 0; x < list.getLength(); x++) {
             Node node1 = list.item(x);
             if (node1 instanceof Element) {
               Element element1 = (Element) node1;
               if (CLASS_A_ELEMENT.equals(element1.getNodeName())) {
-                customConverter.setClassA(Thread.currentThread().getContextClassLoader().loadClass(element1.getFirstChild().getNodeValue().trim()));
+                customConverter.setClassA(MappingUtils.loadClass(element1.getFirstChild().getNodeValue().trim()));
               } else if (CLASS_B_ELEMENT.equals(element1.getNodeName())) {
-                customConverter.setClassB(Thread.currentThread().getContextClassLoader().loadClass(element1.getFirstChild().getNodeValue().trim()));
+                customConverter.setClassB(MappingUtils.loadClass(element1.getFirstChild().getNodeValue().trim()));
               }
             }
           }
@@ -430,7 +429,7 @@ public class XMLParser {
       }
     }
   }
-  private void parseAllowedExceptions(Element ele, Configuration config) throws ClassNotFoundException {
+  private void parseAllowedExceptions(Element ele, Configuration config) {
 	    AllowedExceptionContainer container = new AllowedExceptionContainer();
 	    config.setAllowedExceptions(container);
 	    NodeList nl = ele.getChildNodes();
@@ -441,9 +440,9 @@ public class XMLParser {
 	        log.info("config name: " + element.getNodeName());
 	        log.info("  value: " + element.getFirstChild().getNodeValue());
 	        if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
-            Class ex = Class.forName(element.getFirstChild().getNodeValue());
+            Class ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
             if (!RuntimeException.class.isAssignableFrom(ex)) {
-              throw new MappingException("allowed-exception Class must extend RuntimeException: " + element.getFirstChild().getNodeValue());
+              MappingUtils.throwMappingException("allowed-exception Class must extend RuntimeException: " + element.getFirstChild().getNodeValue());
             }
             container.getExceptions().add(ex);
 	        }
@@ -459,7 +458,7 @@ public class XMLParser {
    * @throws ParserConfigurationException
    *           if thrown by JAXP methods
    */
-  protected DocumentBuilderFactory createDocumentBuilderFactory() throws ParserConfigurationException {
+  protected DocumentBuilderFactory createDocumentBuilderFactory() {
 
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setValidating(true);

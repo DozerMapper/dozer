@@ -23,6 +23,7 @@ import java.util.Set;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -62,7 +63,7 @@ public final class StatisticsManager implements StatisticsManagerIF {
   public Statistic getStatistic(String statisticType) {
     Statistic result = (Statistic) statisticsMap.get(statisticType);
     if (result == null) {
-      throw new MappingException("Unable to find statistic for type: " + statisticType);
+      MappingUtils.throwMappingException("Unable to find statistic for type: " + statisticType);
     }
     return result;
   }

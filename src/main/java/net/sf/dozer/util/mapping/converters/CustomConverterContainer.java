@@ -43,8 +43,7 @@ public class CustomConverterContainer {
     getConverters().add(converter);
   }
 
-  public Class getCustomConverter(Class pSourceClass, Class pDestinationClass, Cache converterByDestTypeCache)
-      throws ClassNotFoundException {
+  public Class getCustomConverter(Class pSourceClass, Class pDestinationClass, Cache converterByDestTypeCache) {
     //If no converters have been specified, no point in continuing.  Just return.
     if (converters == null || converters.size() < 1) {
       return null;

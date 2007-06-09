@@ -19,8 +19,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import net.sf.dozer.util.mapping.MappingException;
-
 /**
  * Internal class that loads resources from the classpath.  Also supports loading resources outside of the classpath
  * if it is prepended with "file:".  Only intended for internal use.
@@ -52,7 +50,7 @@ public class Loader {
       try {
         return new File(resource.substring(MapperConstants.FILE_PREFIX.length())).toURL();
       } catch (MalformedURLException e) {
-        throw new MappingException(e);
+        MappingUtils.throwMappingException(e);
       }
     }
     

@@ -31,12 +31,9 @@ import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.Car;
 import net.sf.dozer.util.mapping.vo.FieldValue;
 import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
-import net.sf.dozer.util.mapping.vo.InsideTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.MetalThingyIF;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject2;
 import net.sf.dozer.util.mapping.vo.NoDefaultConstructor;
@@ -59,9 +56,6 @@ import net.sf.dozer.util.mapping.vo.context.ContextMapping;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingNested;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingPrime;
-import net.sf.dozer.util.mapping.vo.deep.House;
-import net.sf.dozer.util.mapping.vo.deep2.Dest;
-import net.sf.dozer.util.mapping.vo.deep2.Src;
 import net.sf.dozer.util.mapping.vo.iface.ApplicationUser;
 import net.sf.dozer.util.mapping.vo.iface.UpdateMember;
 import net.sf.dozer.util.mapping.vo.index.Mccoy;
@@ -87,7 +81,7 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
       mapper.map("test", NoDefaultConstructor.class);
       fail("should have thrown exception");
     } catch (MappingException e) {
-      assertEquals("java.lang.InstantiationException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor", e
+      assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor.<init>()", e
           .getMessage());
     }
   }

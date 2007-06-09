@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
  * Only intended for internal use.
@@ -50,7 +50,7 @@ public class Hint {
     }
     // validate sizes
     if (clazHints.size() != hintsSize) {
-      throw new MappingException(
+      MappingUtils.throwMappingException(
           "When using multiple source and destination hints there must be exactly the same number of hints on the source and the destination.");
     }
     int count = 0;
@@ -82,7 +82,7 @@ public class Hint {
           list.add(clazz);
         }
       } catch (ClassNotFoundException e) {
-        throw new MappingException(e);
+        MappingUtils.throwMappingException(e);
       }
       hints = list;
     }

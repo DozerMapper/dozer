@@ -16,10 +16,8 @@
 package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
@@ -48,12 +46,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     super(clazz, fieldName, isIndexed, index);
     this.customSetMethod = customSetMethod;
     this.customGetMethod = customGetMethod;
-
-    try {
-      this.propertyType = determinePropertyType();
-    } catch (Exception e) {
-      throw new MappingException("Unable to determine property type for Field: " + fieldName + " in Class: " + clazz, e);
-    }
+    this.propertyType = determinePropertyType();
   }
 
   public Class getPropertyType() {
@@ -61,76 +54,75 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
   }
 
   public Object getPropertyValue(Object bean) {
-    Object o = null;
-    try {
-      if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
-        o = getReadMethod().invoke(bean, null);
-        if (isIndexed) {
-          return MappingUtils.getIndexedValue(o, index);
-        } else {
-          return o;
-        }
-      } else {
-        return getDeepSrcFieldValue(bean);
+    Object result = null;
+    if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+      Object o = null;
+      try {
+        o = ReflectionUtils.invoke(getReadMethod(), bean, null);
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
       }
-    } catch (Exception e) {
-      throw new MappingException(e);
+      if (isIndexed) {
+        result = MappingUtils.getIndexedValue(o, index);
+      } else {
+        result = o;
+      }
+    } else {
+      result = getDeepSrcFieldValue(bean);
     }
+    return result;
   }
 
   public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
-    try {
-      if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
-        if (getPropertyType().isPrimitive() && value == null) {
-          // do nothing
-        } else {
-          // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
-          try {
-            if (getPropertyValue(bean) == value) {
-              return;
-            }
-          } catch (Exception e) {
-            // if we failed to read the value, assume we must write, and continue...
-          }
-          if (!isIndexed) {
-            getWriteMethod().invoke(bean, new Object[] { value });
-          } else {
-            writeIndexedValue(null, bean, value);
-          }
-        }
+    if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+      if (getPropertyType().isPrimitive() && value == null) {
+        // do nothing
       } else {
-        writeDeepDestinationValue(bean, value, hint, classMap);
+        // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
+        try {
+          if (getPropertyValue(bean) == value) {
+            return;
+          }
+        } catch (Exception e) {
+          // if we failed to read the value, assume we must write, and continue...
+        }
+        if (!isIndexed) {
+          try {
+            ReflectionUtils.invoke(getWriteMethod(), bean, new Object[] { value });
+          } catch (NoSuchMethodException e) {
+            MappingUtils.throwMappingException(e);
+          }
+        } else {
+          writeIndexedValue(null, bean, value);
+        }
       }
-    } catch (Exception e) {
-      throw new MappingException(e);
+    } else {
+      writeDeepDestinationValue(bean, value, hint, classMap);
     }
-  }
-  
+  }  
   public Method getWriteMethod() throws NoSuchMethodException {
     Method writeMethod = null;
-    if (writeMethod == null) {
-      if (customSetMethod == null || fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
-        PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName);
-        if (pd == null) {
-          throw new MappingException("Property: " + fieldName + " not found in Class: " + clazz);          
-        }
-        writeMethod = pd.getWriteMethod();
-        if (writeMethod == null) {
-          throw new NoSuchMethodException("Unable to determine write method for Field: " + fieldName + " in Class: "
-              + clazz);
-        }
-      } else {
-        try {
-          writeMethod = ReflectionUtils.findAMethod(clazz, customSetMethod);
-        } catch (Exception e) {
-          throw new MappingException(e);
-        }
+    if (customSetMethod == null || fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0) {
+      writeMethod = getPropertyDescriptor().getWriteMethod();
+      if (writeMethod == null) {
+        throw new NoSuchMethodException("Unable to determine write method for Field: " + fieldName + " in Class: "
+            + clazz);
       }
+    } else {
+      writeMethod = ReflectionUtils.findAMethod(clazz, customSetMethod);
     }
     return writeMethod;
   }
+  
+  private PropertyDescriptor getPropertyDescriptor() {
+    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName);
+    if (pd == null) {
+      MappingUtils.throwMappingException("Property: " + fieldName + " not found in Class: " + clazz);          
+    }
+    return pd;
+  }
 
-  private Object getDeepSrcFieldValue(Object srcObj) throws InvocationTargetException, IllegalAccessException {
+  private Object getDeepSrcFieldValue(Object srcObj) {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = null;
@@ -138,7 +130,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     int size = hierarchy.length;
     for (int i = 0; i < size; i++) {
       PropertyDescriptor pd = hierarchy[i];
-      hierarchyValue = pd.getReadMethod().invoke(parentObj, null);
+      hierarchyValue = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       parentObj = hierarchyValue;
       if (hierarchyValue == null) {
         break;
@@ -153,9 +145,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     return hierarchyValue;
   }
 
-  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap)
-      throws IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException,
-      NoSuchMethodException, NoSuchFieldException {
+  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap) {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
     PropertyDescriptor[] hierarchy = getHierarchy(destObj);
     // first, iteratate through hierarchy and instantiate any objects that are null
@@ -163,7 +153,7 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
     int hierarchyLength = hierarchy.length - 1;
     for (int i = 0; i < hierarchyLength; i++) {
       PropertyDescriptor pd = hierarchy[i];
-      Object value = pd.getReadMethod().invoke(parentObj, null);
+      Object value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       Class clazz = null;
       if (value == null) {
         clazz = pd.getPropertyType();
@@ -179,20 +169,20 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
         }
         Object o;
         try {
-          o = clazz.newInstance();
-          pd.getWriteMethod().invoke(parentObj, new Object[] { o });
-        } catch (InstantiationException e) {
+          o = ReflectionUtils.newInstance(clazz);
+          ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
+        } catch (Exception e) {
           // lets see if they have a factory we can try. If not...throw the exception:
           if (classMap.getDestClass().getBeanFactory() != null) {
             DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
             o = destBeanCreator.createFromFactory(null, classMap.getSourceClass().getClassToMap(), classMap
                 .getDestClass().getBeanFactory(), classMap.getDestClass().getFactoryBeanId(), clazz);
-            pd.getWriteMethod().invoke(parentObj, new Object[] { o });
+            ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
           } else {
-            throw e;
+            MappingUtils.throwMappingException(e);
           }
         }
-        value = pd.getReadMethod().invoke(parentObj, null);
+        value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       }
       parentObj = value;
     }
@@ -204,9 +194,13 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
         Method method = pd.getWriteMethod();
         if (method == null && customSetMethod != null) {
           // lets see if we can find a custom method
-          method = ReflectionUtils.findAMethod(parentObj.getClass(), customSetMethod);
+          try {
+            method = ReflectionUtils.findAMethod(parentObj.getClass(), customSetMethod);
+          } catch (NoSuchMethodException e) {
+            MappingUtils.throwMappingException(e);
+          }
         }
-        method.invoke(parentObj, new Object[] { destFieldValue });
+        ReflectionUtils.invoke(method, parentObj, new Object[] { destFieldValue });
       } else {
         writeIndexedValue(pd, parentObj, destFieldValue);
       }
@@ -220,53 +214,53 @@ public class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor i
   protected Method getReadMethod() throws NoSuchMethodException {
     Method result = null;
     if (customGetMethod == null) {
-      PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName);
-      if (pd == null) {
-        throw new MappingException("Property: " + fieldName + " not found in Class: " + clazz);
-      }
-      result = pd.getReadMethod();
+      result = getPropertyDescriptor().getReadMethod();
       if (result == null) {
         throw new NoSuchMethodException("Unable to determine read method for Field: " + fieldName + " in Class: " + clazz);
       }
     } else {
-      try {
         result = ReflectionUtils.findAMethod(clazz, customGetMethod);
-      } catch (Exception e) {
-        throw new NoSuchMethodException("Unable to find Method: " + " in Class: " + clazz);
-
-      }
     }
 
     return result;
   }
 
-  private void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue)
-      throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException,
-      NoSuchFieldException {
+  private void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue) {
     Object existingValue = null;
     if (pd != null) {
-      existingValue = pd.getReadMethod().invoke(destObj, null);
+      existingValue = ReflectionUtils.invoke(pd.getReadMethod(), destObj, null);
     } else {
-      existingValue = getReadMethod().invoke(destObj, null);
+      try {
+        existingValue = ReflectionUtils.invoke(getReadMethod(), destObj, null);
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
+      }
     }
 
     Object indexedValue = getIndexedValue(existingValue, destFieldValue);
 
     if (pd != null) {
-      pd.getWriteMethod().invoke(destObj, new Object[] { indexedValue });
+      ReflectionUtils.invoke(pd.getWriteMethod(), destObj, new Object[] { indexedValue });
     } else {
-      getWriteMethod().invoke(destObj, new Object[] { indexedValue });
+      try {
+        ReflectionUtils.invoke(getWriteMethod(), destObj, new Object[] { indexedValue });
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
+      }
     }
 
   }
 
-  private Class determinePropertyType() throws NoSuchMethodException {
-    Class returnType;
+  private Class determinePropertyType() {
+    Class returnType = null;
     try {
       returnType = getReadMethod().getReturnType();
     } catch (Exception e) {
       // let us try the set method - the field might not have a 'get' method
-      returnType = getWriteMethod().getParameterTypes()[0];
+      try {
+        returnType = getWriteMethod().getParameterTypes()[0];
+      } catch (NoSuchMethodException e1) {
+        MappingUtils.throwMappingException(e);      }
     }
     return returnType;
   }

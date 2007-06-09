@@ -17,8 +17,8 @@ package net.sf.dozer.util.mapping.event;
 
 import java.util.List;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.util.MapperConstants;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
  * Internal class that handles dozer events and invokes any public event listeners.  Only intended for internal use.
@@ -50,7 +50,7 @@ public class DozerEventManager implements EventManagerIF {
       } else if (eventType.equals(MapperConstants.MAPPING_FINISHED_EVENT)) {
         listener.mappingFinished(event);
       } else {
-        throw new MappingException("Unsupported event type: " + eventType);
+        MappingUtils.throwMappingException("Unsupported event type: " + eventType);
       }
     }
   }

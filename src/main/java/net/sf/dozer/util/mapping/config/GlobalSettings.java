@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.util.InitLogger;
 import net.sf.dozer.util.mapping.util.Loader;
 import net.sf.dozer.util.mapping.util.MapperConstants;
@@ -119,7 +118,7 @@ public class GlobalSettings {
       InitLogger.log(log,"Reading Dozer properties from URL [" + url + "]");
       props.load(url.openStream());
     } catch (IOException e) {
-      throw new MappingException("Problem loading Dozer properties from URL [" + propFileName + "]", e);
+      MappingUtils.throwMappingException("Problem loading Dozer properties from URL [" + propFileName + "]", e);
     }
     
     //Populate settings from loaded properties

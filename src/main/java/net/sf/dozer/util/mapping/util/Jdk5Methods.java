@@ -17,8 +17,6 @@ package net.sf.dozer.util.mapping.util;
 
 import java.lang.reflect.Method;
 
-import net.sf.dozer.util.mapping.MappingException;
-
 /**
  * Internal class containing single instances of thread safe jdk1.5 specific Method objects
  * that are discovered via reflection.  Use single instances of these objects for 
@@ -59,7 +57,7 @@ public class Jdk5Methods {
       parameterizedTypeClass = Class.forName("java.lang.reflect.ParameterizedType");
       paramaterizedTypeGetActualTypeArgsMethod = parameterizedTypeClass.getMethod("getActualTypeArguments", null);
     } catch (Exception e) {
-      throw new MappingException("Unable to load jdk 1.5 classes via relection", e);
+      MappingUtils.throwMappingException("Unable to load jdk 1.5 classes via relection", e);
     }
   }
   

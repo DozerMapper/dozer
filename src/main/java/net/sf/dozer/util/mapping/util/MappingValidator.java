@@ -17,11 +17,9 @@ package net.sf.dozer.util.mapping.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Iterator;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.fieldmap.CopyByReference;
@@ -39,30 +37,29 @@ public abstract class MappingValidator {
 
   public static void validateMappingRequest(Object srcObj) {
     if (srcObj == null) {
-      throw new MappingException("source object must not be null");
+      MappingUtils.throwMappingException("source object must not be null");
     }
   }
 
   public static void validateMappingRequest(Object srcObj, Object destObj) {
     if (srcObj == null) {
-      throw new MappingException("source object must not be null");
+      MappingUtils.throwMappingException("source object must not be null");
     }
     if (destObj == null) {
-      throw new MappingException("destination object must not be null");
+      MappingUtils.throwMappingException("destination object must not be null");
     }
   }
 
   public static void validateMappingRequest(Object srcObj, Class destClass) {
     if (srcObj == null) {
-      throw new MappingException("source object must not be null");
+      MappingUtils.throwMappingException("source object must not be null");
     }
     if (destClass == null) {
-      throw new MappingException("destination class must not be null");
+      MappingUtils.throwMappingException("destination class must not be null");
     }
   }
 
-  public static void validateCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) throws NoSuchMethodException,
-      ClassNotFoundException, NoSuchFieldException {
+  public static void validateCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
     String destFieldTypeName = null;
     if (globalConfig.getCopyByReferences() != null) {
       Iterator copyIterator = globalConfig.getCopyByReferences().getCopyByReferences().iterator();
@@ -83,16 +80,14 @@ public abstract class MappingValidator {
     DozerField srcField = fm.getSourceField();
     DozerField destField = fm.getDestField();
     if (srcField == null) {
-      throw new MappingException("src field must be specified");
+      MappingUtils.throwMappingException("src field must be specified");
     }
     if (destField == null) {
-      throw new MappingException("dest field must be specified");
+      MappingUtils.throwMappingException("dest field must be specified");
     }
   }
 
-  public static Object validateField(FieldMap fieldMap, Object destObj, Class destFieldType) throws InvocationTargetException,
-      IllegalAccessException, InstantiationException, NoSuchMethodException, ClassNotFoundException,
-      NoSuchFieldException {
+  public static Object validateField(FieldMap fieldMap, Object destObj, Class destFieldType) {
     Object field = null;
     // verify that the dest obj is not null
     if (destObj == null) {
@@ -128,20 +123,20 @@ public abstract class MappingValidator {
     Loader loader = new Loader();
     URL url = loader.getResource(fileName);
     if (url == null) {
-      throw new MappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!!!");
+      MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!!!");
     }
     
     InputStream stream = null;
     try {
       stream = url.openStream();
     } catch (IOException e) {
-      throw new MappingException("Unable to open URL input stream for dozer mapping file [" + url + "]");
+      MappingUtils.throwMappingException("Unable to open URL input stream for dozer mapping file [" + url + "]");
     } finally {
       if (stream != null) {
         try {
           stream.close();
         } catch (IOException e) {
-          throw new MappingException("Unable to close input stream for dozer mapping file [" + url + "]");
+          MappingUtils.throwMappingException("Unable to close input stream for dozer mapping file [" + url + "]");
         }
       }
     }

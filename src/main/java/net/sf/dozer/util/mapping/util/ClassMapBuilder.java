@@ -116,11 +116,7 @@ public abstract class ClassMapBuilder {
       map.setSourceField(new DozerField(destFieldName, null));
       map.setDestField(new DozerField(destFieldName, null));
       // add CopyByReferences per defect #1728159
-      try {
-		MappingValidator.validateCopyByReference(globalConfiguration, map, classMap);
-	  } catch (Throwable e) {
-	    MappingUtils.throwMappingException(e);
-	  }
+      MappingValidator.validateCopyByReference(globalConfiguration, map, classMap);
       classMap.addFieldMapping(map);
     }
   }  

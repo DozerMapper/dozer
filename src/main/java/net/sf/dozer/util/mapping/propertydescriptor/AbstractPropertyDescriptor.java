@@ -45,7 +45,7 @@ public abstract class AbstractPropertyDescriptor {
 
   abstract Class getPropertyType();
   
-  protected Object getIndexedValue(Object existingFieldValue, Object newFieldValue) throws IllegalAccessException {
+  protected Object getIndexedValue(Object existingFieldValue, Object newFieldValue) {
     Object result = null;
     if (existingFieldValue == null) {
       Class returnType = getPropertyType();

@@ -29,7 +29,7 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz) throws NoSuchFieldException {
+  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz) {
     DozerPropertyDescriptorIF desc = null;
     // is it 'this'
     if (dozerField.getName().equals(MapperConstants.SELF_KEYWORD) && dozerField.getTheGetMethod() == null

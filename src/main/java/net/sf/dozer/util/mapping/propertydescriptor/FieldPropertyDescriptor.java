@@ -17,7 +17,6 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.lang.reflect.Field;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.MappingUtils;
@@ -33,13 +32,16 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
 
-  private final Field field;
+  private Field field;
 
-  public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isAccessible, boolean isIndexed, int index)
-      throws NoSuchFieldException {
+  public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isAccessible, boolean isIndexed, int index) {
     super(clazz, fieldName, isIndexed, index);
 
-    field = ReflectionUtils.getFieldFromBean(clazz, fieldName);
+    try {
+      field = ReflectionUtils.getFieldFromBean(clazz, fieldName);
+    } catch (NoSuchFieldException e) {
+      MappingUtils.throwMappingException(e);
+    }
     // Allow access to private instance var's that dont have public setter.
     field.setAccessible(isAccessible);
   }
@@ -49,16 +51,19 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
   }
 
   public Object getPropertyValue(Object bean) {
-    try {
-      Object o = field.get(bean);
-      if (isIndexed) {
-        return MappingUtils.getIndexedValue(o, index);
-      } else {
-        return o;
+    Object result = null;
+      Object o = null;
+      try {
+        o = field.get(bean);
+      } catch (Exception e) {
+        MappingUtils.throwMappingException(e);
       }
-    } catch (Exception e) {
-      throw new MappingException(e);
-    }
+      if (isIndexed) {
+        result = MappingUtils.getIndexedValue(o, index);
+      } else {
+        result = o;
+      }
+    return result;
   }
 
   public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
@@ -83,15 +88,17 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
         field.set(bean, value);
       }
     } catch (IllegalAccessException e) {
-      throw new MappingException(e);
+      MappingUtils.throwMappingException(e);
     }
   }
 
-  protected void writeIndexedValue(Object destObj, Object destFieldValue) throws IllegalAccessException {
-    Object existingValue = field.get(destObj);
-    Object indexedValue = getIndexedValue(existingValue, destFieldValue);
-    
-    field.set(destObj, indexedValue);
+  protected void writeIndexedValue(Object destObj, Object destFieldValue) {
+    try {
+      Object existingValue = field.get(destObj);
+      field.set(destObj, getIndexedValue(existingValue, destFieldValue));
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    } 
   }
 
 }

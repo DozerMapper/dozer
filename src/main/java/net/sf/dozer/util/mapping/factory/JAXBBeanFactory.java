@@ -19,6 +19,8 @@ import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
 import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.util.MappingUtils;
+import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,22 +56,23 @@ public class JAXBBeanFactory implements BeanFactoryIF {
         log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  ["+ beanId + "]");
       }
     }
-    try {
-      Class objectFactory = Class.forName(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
-      Object factory = objectFactory.newInstance();
-      Method method = objectFactory.getMethod("create" + beanId.substring(beanId.lastIndexOf(".") + 1), new Class[] {});
-      Object returnObject = method.invoke(factory, new Object[] {});
+    Object result = null;
+    
+      Class objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
+      Object factory = ReflectionUtils.newInstance(objectFactory);
+      Method method = null;
+      try {
+        method = ReflectionUtils.getMethod(objectFactory, "create" + beanId.substring(beanId.lastIndexOf(".") + 1), new Class[] {});
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
+      }
+      Object returnObject = ReflectionUtils.invoke(method, factory, new Object[] {});
       if (log.isDebugEnabled()) {
         log.debug("createBean(Object, Class, String) - end ["
             + returnObject.getClass().getName() + "]");
       }
-      return returnObject;
-    } catch (ClassNotFoundException e) {
-      log.error("createBean(Object, Class, String)", e);
-        throw new MappingException("Bean of type " + beanId + " not found.", e);
-    } catch (Exception e) {
-      log.error("createBean(Object, Class, String)", e);
-      throw new MappingException(e);
-    }
+      result = returnObject;
+    
+    return result;
   }
 }

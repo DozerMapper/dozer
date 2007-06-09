@@ -32,230 +32,226 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Internal class that decorates raw ClassMap objects and performs various validations on the explicit field mappings.
- * It applies global configuration and class level attributes to raw class mappings.  
- * It also creates the ClassMap "prime" instance for bi-directional mappings.  The ClassMap prime is created by copying the 
- * original ClassMap and reversing the attributes.  Only intended for internal use.
+ * It applies global configuration and class level attributes to raw class mappings. It also creates the ClassMap
+ * "prime" instance for bi-directional mappings. The ClassMap prime is created by copying the original ClassMap and
+ * reversing the attributes. Only intended for internal use.
  * 
  * @author garsombke.franz
  */
 public class MappingsParser {
 
-  public Map parseMappings(Mappings mappings) throws IllegalArgumentException {
+  public Map parseMappings(Mappings mappings) {
     Iterator iterator = null;
     Map result = new HashMap();
     FieldMap fieldMapPrime = null;
-    try {
-      // verify that we even have any mappings
-      if (mappings.getMapping() == null || mappings.getMapping().size() == 0) {
-        return result;
+    // verify that we even have any mappings
+    if (mappings.getMapping() == null || mappings.getMapping().size() == 0) {
+      return result;
+    }
+    Iterator iter = mappings.getMapping().iterator();
+    // need to create bi-directional mappings now.
+    ClassMap classMap = null;
+    ClassMap classMapPrime = null;
+    Set mapIds = new HashSet();
+    while (iter.hasNext()) {
+      classMap = (ClassMap) iter.next();
+      // set the global configuration for each classmap
+
+      // Apply top level config attrs to ClassMap unless it has been overridden
+      if (MappingUtils.isBlankOrNull(classMap.getDateFormat())) {
+        classMap.setDateFormat(mappings.getConfiguration().getDateFormat());
       }
-      Iterator iter = mappings.getMapping().iterator();
-      // need to create bi-directional mappings now.
-      ClassMap classMap = null;
-      ClassMap classMapPrime = null;
-      Set mapIds = new HashSet();
-      while (iter.hasNext()) {
-        classMap = (ClassMap) iter.next();
-        // set the global configuration for each classmap
 
-        // Apply top level config attrs to ClassMap unless it has been overridden
-        if (MappingUtils.isBlankOrNull(classMap.getDateFormat())) {
-          classMap.setDateFormat(mappings.getConfiguration().getDateFormat());
-        }
+      if (!classMap.getWildcardOveridden()) {
+        classMap.setWildcard(mappings.getConfiguration().getWildcard());
+      }
 
-        if (!classMap.getWildcardOveridden()) {
-          classMap.setWildcard(mappings.getConfiguration().getWildcard());
-        }
+      if (!classMap.getStopOnErrorsOveridden()) {
+        classMap.setStopOnErrors(mappings.getConfiguration().getStopOnErrors());
+      }
 
-        if (!classMap.getStopOnErrorsOveridden()) {
-          classMap.setStopOnErrors(mappings.getConfiguration().getStopOnErrors());
-        }
-        
-        if (classMap.getAllowedExceptions().isEmpty() && mappings.getConfiguration().getAllowedExceptions() != null) {
-        	classMap.setAllowedExceptions(mappings.getConfiguration().getAllowedExceptions().getExceptions());
-        }
+      if (classMap.getAllowedExceptions().isEmpty() && mappings.getConfiguration().getAllowedExceptions() != null) {
+        classMap.setAllowedExceptions(mappings.getConfiguration().getAllowedExceptions().getExceptions());
+      }
 
-        if (MappingUtils.isBlankOrNull(classMap.getBeanFactory())) {
-          classMap.setBeanFactory(mappings.getConfiguration().getBeanFactory());
-        }
+      if (MappingUtils.isBlankOrNull(classMap.getBeanFactory())) {
+        classMap.setBeanFactory(mappings.getConfiguration().getBeanFactory());
+      }
 
-        // Apply ClassMap(Mapping) attributes to Dest and Source Class obj's unless it has been overridden
-        if (MappingUtils.isBlankOrNull(classMap.getSourceClass().getBeanFactory())) {
-          classMap.getSourceClass().setBeanFactory(classMap.getBeanFactory());
-        }
+      // Apply ClassMap(Mapping) attributes to Dest and Source Class obj's unless it has been overridden
+      if (MappingUtils.isBlankOrNull(classMap.getSourceClass().getBeanFactory())) {
+        classMap.getSourceClass().setBeanFactory(classMap.getBeanFactory());
+      }
 
-        if (MappingUtils.isBlankOrNull(classMap.getDestClass().getBeanFactory())) {
-          classMap.getDestClass().setBeanFactory(classMap.getBeanFactory());
-        }
+      if (MappingUtils.isBlankOrNull(classMap.getDestClass().getBeanFactory())) {
+        classMap.getDestClass().setBeanFactory(classMap.getBeanFactory());
+      }
 
-        if (classMap.getSourceClass().getMapNull() == null) {
-          classMap.getSourceClass().setMapNull(Boolean.valueOf(classMap.getMapNull()));
-        }
+      if (classMap.getSourceClass().getMapNull() == null) {
+        classMap.getSourceClass().setMapNull(Boolean.valueOf(classMap.getMapNull()));
+      }
 
-        if (classMap.getSourceClass().getMapEmptyString() == null) {
-          classMap.getSourceClass().setMapEmptyString(Boolean.valueOf(classMap.getMapEmptyString()));
-        }
+      if (classMap.getSourceClass().getMapEmptyString() == null) {
+        classMap.getSourceClass().setMapEmptyString(Boolean.valueOf(classMap.getMapEmptyString()));
+      }
 
-        if (classMap.getDestClass().getMapNull() == null) {
-          classMap.getDestClass().setMapNull(Boolean.valueOf(classMap.getMapNull()));
-        }
+      if (classMap.getDestClass().getMapNull() == null) {
+        classMap.getDestClass().setMapNull(Boolean.valueOf(classMap.getMapNull()));
+      }
 
-        if (classMap.getDestClass().getMapEmptyString() == null) {
-          classMap.getDestClass().setMapEmptyString(Boolean.valueOf(classMap.getMapEmptyString()));
-        }
+      if (classMap.getDestClass().getMapEmptyString() == null) {
+        classMap.getDestClass().setMapEmptyString(Boolean.valueOf(classMap.getMapEmptyString()));
+      }
 
-        // add our first class map to the result map
-        // initialize PropertyDescriptor Cache
-        ReflectionUtils.findPropertyDescriptor(classMap.getSourceClass().getClassToMap(), "");
-        ReflectionUtils.findPropertyDescriptor(classMap.getDestClass().getClassToMap(), "");
-        String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSourceClass().getClassToMap(), classMap
-            .getDestClass().getClassToMap(), classMap.getMapId());
+      // add our first class map to the result map
+      // initialize PropertyDescriptor Cache
+      ReflectionUtils.findPropertyDescriptor(classMap.getSourceClass().getClassToMap(), "");
+      ReflectionUtils.findPropertyDescriptor(classMap.getDestClass().getClassToMap(), "");
+      String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSourceClass().getClassToMap(), classMap
+          .getDestClass().getClassToMap(), classMap.getMapId());
 
-        /*
-         * Check to see if this is a duplicate mapping. If so, throw an Exception
-         */
-        if (result.containsKey(theClassMapKey)) {
-          throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: "
-              + classMap.getSourceClass().getClassToMap().getName() + " Destination: "
-              + classMap.getDestClass().getClassToMap().getName());
-        }
-        
-        //Check to see if this is a duplicate map id, irregardless of src and dest class names.  Duplicate map-ids are
-        //not allowed
-        if (!MappingUtils.isBlankOrNull(classMap.getMapId())) {
-          if (mapIds.contains(classMap.getMapId())) {
-            throw new IllegalArgumentException("Duplicate Map Id's Found. Map Id: " + classMap.getMapId());
-          }
-          mapIds.add(classMap.getMapId());
-        }
-        
-        result.put(theClassMapKey, classMap);
-        // now create class map prime
-        classMapPrime = new ClassMap();
-        DozerClass destClass = classMap.getDestClass();
-        DozerClass srcClass = classMap.getSourceClass();
-        classMapPrime.setSourceClass(new DozerClass(destClass.getName(), destClass.getClassToMap(), destClass
-            .getBeanFactory(), destClass.getFactoryBeanId(), destClass.getMapGetMethod(), destClass.getMapSetMethod(),
-            destClass.getMapNull(), destClass.getMapEmptyString()));
-        classMapPrime.setDestClass(new DozerClass(srcClass.getName(), srcClass.getClassToMap(), srcClass
-            .getBeanFactory(), srcClass.getFactoryBeanId(), srcClass.getMapGetMethod(), srcClass.getMapSetMethod(),
-            srcClass.getMapNull(), srcClass.getMapEmptyString()));
-        classMapPrime.setType(classMap.getType());
-        classMapPrime.setWildcard(classMap.isWildcard());
-        classMapPrime.setDateFormat(classMap.getDateFormat());
-        classMapPrime.setStopOnErrors(classMap.getStopOnErrors());
-        classMapPrime.setAllowedExceptions(classMap.getAllowedExceptions());//TODO *NEW*
-        if (classMap.getSourceClass().getMapGetMethod() != null) {
-          classMap.getSourceClass().setCustomMap(true);
-        }
-        if (classMap.getDestClass().getMapGetMethod() != null) {
-          classMap.getDestClass().setCustomMap(true);
-        }
-        classMapPrime.getSourceClass().setCustomMap(classMap.getDestClass().isCustomMap());
-        classMapPrime.getDestClass().setCustomMap(classMap.getSourceClass().isCustomMap());
-        classMapPrime.getSourceClass().setCreateMethod(classMap.getDestClass().getCreateMethod());
-        classMapPrime.getDestClass().setCreateMethod(classMap.getSourceClass().getCreateMethod());
-        if (StringUtils.isNotEmpty(classMap.getMapId())) {
-          classMapPrime.setMapId(classMap.getMapId());
-        }
+      /*
+       * Check to see if this is a duplicate mapping. If so, throw an Exception
+       */
+      if (result.containsKey(theClassMapKey)) {
+        throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: "
+            + classMap.getSourceClass().getClassToMap().getName() + " Destination: "
+            + classMap.getDestClass().getClassToMap().getName());
+      }
 
-        if (classMap.getFieldMaps() != null) {
-          iterator = classMap.getFieldMaps().iterator();
-          // iterate through the fields and see wether or not they should be mapped
-          // one way class mappings we do not need to add any fields
-          if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
-            while (iterator.hasNext()) {
-              FieldMap fieldMap = (FieldMap) iterator.next();
-              MappingValidator.validateFieldMapping(fieldMap, classMap);
-
-              boolean isMethodMap = MappingUtils.isMethodMap(fieldMap);
-              if (isMethodMap && fieldMap instanceof GenericFieldMap) {
-                ((GenericFieldMap) fieldMap).setMethodMap(true);
-              }
-              
-              boolean isCustomMap = MappingUtils.isCustomMap(fieldMap);
-              if (isCustomMap && fieldMap instanceof GenericFieldMap) {
-                ((GenericFieldMap) fieldMap).setCustomMap(true);
-              }
-
-              if (!(StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
-                // make a prime field map
-                fieldMapPrime = (FieldMap) fieldMap.clone();
-                // check to see if it is only an exclude one way
-                if (fieldMapPrime instanceof ExcludeFieldMap
-                    && StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY)) {
-                  // need to make a generic field map for the other direction
-                  fieldMapPrime = new GenericFieldMap();
-                }
-                // reverse the fields
-                MappingUtils.reverseFields(fieldMap, fieldMapPrime);
-                // determine if we have method mapping
-                isMethodMap = MappingUtils.isMethodMap(fieldMapPrime);
-                if (isMethodMap && fieldMapPrime instanceof GenericFieldMap) {
-                  ((GenericFieldMap) fieldMapPrime).setMethodMap(true);
-                }
-                
-                isCustomMap = MappingUtils.isCustomMap(fieldMapPrime);
-                if (isCustomMap && fieldMapPrime instanceof GenericFieldMap) {
-                  ((GenericFieldMap) fieldMapPrime).setCustomMap(true);
-                }
-
-                if (fieldMapPrime instanceof GenericFieldMap && !(fieldMap instanceof ExcludeFieldMap)) {
-                  ((GenericFieldMap) fieldMapPrime).setRelationshipType(((GenericFieldMap) fieldMap)
-                      .getRelationshipType());
-                }
-                // reverse the hints
-                fieldMapPrime.setSourceTypeHint(fieldMap.getDestinationTypeHint());
-                fieldMapPrime.setDestinationTypeHint(fieldMap.getSourceTypeHint());
-                // iterate through copyByReferences and set accordingly
-                if (!(fieldMap instanceof ExcludeFieldMap)) {
-                  MappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMap, classMap);
-                }
-                if (!(fieldMapPrime instanceof ExcludeFieldMap)) {
-                  MappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMapPrime, classMapPrime);
-                }
-              } else { // if it is a one-way field map make the other field map excluded
-                // make a prime field map
-                fieldMapPrime = new ExcludeFieldMap();
-                MappingUtils.reverseFields(fieldMap, fieldMapPrime);
-              }
-              classMapPrime.addFieldMapping((FieldMap) fieldMapPrime);
-            }
-          } else {
-            // since it is one-way...we still need to validate if it has some type of method mapping and validate the
-            // field maps
-            while (iterator.hasNext()) {
-              FieldMap oneWayFieldMap = (FieldMap) iterator.next();
-              MappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
-              boolean isMethodMap = MappingUtils.isMethodMap(oneWayFieldMap);
-              if (isMethodMap && oneWayFieldMap instanceof GenericFieldMap) {
-                ((GenericFieldMap) oneWayFieldMap).setMethodMap(true);
-              }
-
-              boolean isCustomMap = MappingUtils.isCustomMap(oneWayFieldMap);
-              if (isCustomMap && oneWayFieldMap instanceof GenericFieldMap) {
-                ((GenericFieldMap) oneWayFieldMap).setCustomMap(true);
-              }
-              
-              MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
-              // check to see if we need to exclude the map
-              if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
-                fieldMapPrime = new ExcludeFieldMap();
-                MappingUtils.reverseFields(oneWayFieldMap, fieldMapPrime);
-                classMapPrime.addFieldMapping(fieldMapPrime);
-              }
-            }
-          }
+      // Check to see if this is a duplicate map id, irregardless of src and dest class names. Duplicate map-ids are
+      // not allowed
+      if (!MappingUtils.isBlankOrNull(classMap.getMapId())) {
+        if (mapIds.contains(classMap.getMapId())) {
+          throw new IllegalArgumentException("Duplicate Map Id's Found. Map Id: " + classMap.getMapId());
         }
-        // if it is a one way mapping or a method/iterate method mapping we can not bi-directionally map
-        // Map Prime could actually be empty
+        mapIds.add(classMap.getMapId());
+      }
+
+      result.put(theClassMapKey, classMap);
+      // now create class map prime
+      classMapPrime = new ClassMap();
+      DozerClass destClass = classMap.getDestClass();
+      DozerClass srcClass = classMap.getSourceClass();
+      classMapPrime.setSourceClass(new DozerClass(destClass.getName(), destClass.getClassToMap(), destClass
+          .getBeanFactory(), destClass.getFactoryBeanId(), destClass.getMapGetMethod(), destClass.getMapSetMethod(),
+          destClass.getMapNull(), destClass.getMapEmptyString()));
+      classMapPrime.setDestClass(new DozerClass(srcClass.getName(), srcClass.getClassToMap(),
+          srcClass.getBeanFactory(), srcClass.getFactoryBeanId(), srcClass.getMapGetMethod(), srcClass
+              .getMapSetMethod(), srcClass.getMapNull(), srcClass.getMapEmptyString()));
+      classMapPrime.setType(classMap.getType());
+      classMapPrime.setWildcard(classMap.isWildcard());
+      classMapPrime.setDateFormat(classMap.getDateFormat());
+      classMapPrime.setStopOnErrors(classMap.getStopOnErrors());
+      classMapPrime.setAllowedExceptions(classMap.getAllowedExceptions());// TODO *NEW*
+      if (classMap.getSourceClass().getMapGetMethod() != null) {
+        classMap.getSourceClass().setCustomMap(true);
+      }
+      if (classMap.getDestClass().getMapGetMethod() != null) {
+        classMap.getDestClass().setCustomMap(true);
+      }
+      classMapPrime.getSourceClass().setCustomMap(classMap.getDestClass().isCustomMap());
+      classMapPrime.getDestClass().setCustomMap(classMap.getSourceClass().isCustomMap());
+      classMapPrime.getSourceClass().setCreateMethod(classMap.getDestClass().getCreateMethod());
+      classMapPrime.getDestClass().setCreateMethod(classMap.getSourceClass().getCreateMethod());
+      if (StringUtils.isNotEmpty(classMap.getMapId())) {
+        classMapPrime.setMapId(classMap.getMapId());
+      }
+
+      if (classMap.getFieldMaps() != null) {
+        iterator = classMap.getFieldMaps().iterator();
+        // iterate through the fields and see wether or not they should be mapped
+        // one way class mappings we do not need to add any fields
         if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
-          result.put(ClassMapKeyFactory.createKey(classMap.getDestClass().getClassToMap(), classMap.getSourceClass()
-              .getClassToMap(), classMap.getMapId()), classMapPrime);
+          while (iterator.hasNext()) {
+            FieldMap fieldMap = (FieldMap) iterator.next();
+            MappingValidator.validateFieldMapping(fieldMap, classMap);
+
+            boolean isMethodMap = MappingUtils.isMethodMap(fieldMap);
+            if (isMethodMap && fieldMap instanceof GenericFieldMap) {
+              ((GenericFieldMap) fieldMap).setMethodMap(true);
+            }
+
+            boolean isCustomMap = MappingUtils.isCustomMap(fieldMap);
+            if (isCustomMap && fieldMap instanceof GenericFieldMap) {
+              ((GenericFieldMap) fieldMap).setCustomMap(true);
+            }
+
+            if (!(StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
+              // make a prime field map
+              fieldMapPrime = (FieldMap) fieldMap.clone();
+              // check to see if it is only an exclude one way
+              if (fieldMapPrime instanceof ExcludeFieldMap
+                  && StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY)) {
+                // need to make a generic field map for the other direction
+                fieldMapPrime = new GenericFieldMap();
+              }
+              // reverse the fields
+              MappingUtils.reverseFields(fieldMap, fieldMapPrime);
+              // determine if we have method mapping
+              isMethodMap = MappingUtils.isMethodMap(fieldMapPrime);
+              if (isMethodMap && fieldMapPrime instanceof GenericFieldMap) {
+                ((GenericFieldMap) fieldMapPrime).setMethodMap(true);
+              }
+
+              isCustomMap = MappingUtils.isCustomMap(fieldMapPrime);
+              if (isCustomMap && fieldMapPrime instanceof GenericFieldMap) {
+                ((GenericFieldMap) fieldMapPrime).setCustomMap(true);
+              }
+
+              if (fieldMapPrime instanceof GenericFieldMap && !(fieldMap instanceof ExcludeFieldMap)) {
+                ((GenericFieldMap) fieldMapPrime).setRelationshipType(((GenericFieldMap) fieldMap)
+                    .getRelationshipType());
+              }
+              // reverse the hints
+              fieldMapPrime.setSourceTypeHint(fieldMap.getDestinationTypeHint());
+              fieldMapPrime.setDestinationTypeHint(fieldMap.getSourceTypeHint());
+              // iterate through copyByReferences and set accordingly
+              if (!(fieldMap instanceof ExcludeFieldMap)) {
+                MappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMap, classMap);
+              }
+              if (!(fieldMapPrime instanceof ExcludeFieldMap)) {
+                MappingValidator.validateCopyByReference(mappings.getConfiguration(), fieldMapPrime, classMapPrime);
+              }
+            } else { // if it is a one-way field map make the other field map excluded
+              // make a prime field map
+              fieldMapPrime = new ExcludeFieldMap();
+              MappingUtils.reverseFields(fieldMap, fieldMapPrime);
+            }
+            classMapPrime.addFieldMapping((FieldMap) fieldMapPrime);
+          }
+        } else {
+          // since it is one-way...we still need to validate if it has some type of method mapping and validate the
+          // field maps
+          while (iterator.hasNext()) {
+            FieldMap oneWayFieldMap = (FieldMap) iterator.next();
+            MappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
+            boolean isMethodMap = MappingUtils.isMethodMap(oneWayFieldMap);
+            if (isMethodMap && oneWayFieldMap instanceof GenericFieldMap) {
+              ((GenericFieldMap) oneWayFieldMap).setMethodMap(true);
+            }
+
+            boolean isCustomMap = MappingUtils.isCustomMap(oneWayFieldMap);
+            if (isCustomMap && oneWayFieldMap instanceof GenericFieldMap) {
+              ((GenericFieldMap) oneWayFieldMap).setCustomMap(true);
+            }
+
+            MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
+            // check to see if we need to exclude the map
+            if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
+              fieldMapPrime = new ExcludeFieldMap();
+              MappingUtils.reverseFields(oneWayFieldMap, fieldMapPrime);
+              classMapPrime.addFieldMapping(fieldMapPrime);
+            }
+          }
         }
       }
-    } catch (Throwable t) {
-      MappingUtils.throwMappingException(t);
+      // if it is a one way mapping or a method/iterate method mapping we can not bi-directionally map
+      // Map Prime could actually be empty
+      if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
+        result.put(ClassMapKeyFactory.createKey(classMap.getDestClass().getClassToMap(), classMap.getSourceClass()
+            .getClassToMap(), classMap.getMapId()), classMapPrime);
+      }
     }
     return result;
   }

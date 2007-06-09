@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,7 +42,7 @@ public final class DozerCacheManager implements CacheManagerIF {
   public Cache getCache(String name) {
     Cache cache = (Cache)cachesMap.get(name);
     if (cache == null) {
-      throw new MappingException("Unable to find cache with name: " + name);
+      MappingUtils.throwMappingException("Unable to find cache with name: " + name);
     }
     return cache;
   }
@@ -55,7 +55,7 @@ public final class DozerCacheManager implements CacheManagerIF {
     synchronized(cachesMap) {
       String name = cache.getName();
       if (cacheExists(name)) {
-        throw new MappingException("Cache already exists with name: " + name);
+        MappingUtils.throwMappingException("Cache already exists with name: " + name);
       }
       cachesMap.put(name, cache);
     }
