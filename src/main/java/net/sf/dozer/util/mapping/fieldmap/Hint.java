@@ -30,7 +30,6 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
  * 
  */
 public class Hint {
-
   private String hintName;
   private List hints;
 
