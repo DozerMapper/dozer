@@ -288,7 +288,7 @@ public class MappingProcessor implements MapperIF {
       }
 
       if (!fieldMapped) {
-        if (fieldMapping instanceof GenericFieldMap && ((GenericFieldMap) fieldMapping).isMethodMap()
+        if (fieldMapping instanceof GenericFieldMap && ((GenericFieldMap) fieldMapping).isCustomGetterSetter()
             && fieldMapping.getDestField().getType().equals(MapperConstants.ITERATE)) {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
@@ -326,7 +326,7 @@ public class MappingProcessor implements MapperIF {
   private void mapFromFieldMap(Object sourceObj, Object destObj, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) {
     Class destFieldType = null;
     // methodmap logic should be encapsulated and figured out at the fieldmap level
-    if (fieldMapping instanceof GenericFieldMap && ((GenericFieldMap) fieldMapping).isMethodMap()) {
+    if (fieldMapping instanceof GenericFieldMap && ((GenericFieldMap) fieldMapping).isCustomGetterSetter()) {
       destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
     } else {
       destFieldType = fieldMapping.getDestFieldType(destObj.getClass());

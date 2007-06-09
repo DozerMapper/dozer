@@ -24,8 +24,8 @@ package net.sf.dozer.util.mapping.fieldmap;
  * 
  */
 public class GenericFieldMap extends AbstractFieldMap {
-  protected boolean isMethodMap = false;
-  protected boolean isCustomMap = false;
+  protected boolean isCustomGetterSetter = false;
+  protected boolean isMapTypeCustomGetterSetter = false;
   private String relationshipType;
   
   public String getRelationshipType() {
@@ -36,20 +36,20 @@ public class GenericFieldMap extends AbstractFieldMap {
     this.relationshipType = relationshipType;
   }
 
-  public boolean isMethodMap() {
-    return isMethodMap;
+  public boolean isCustomGetterSetter() {
+    return isCustomGetterSetter;
   }
 
-  public void setMethodMap(boolean isMethodMap) {
-    this.isMethodMap = isMethodMap;
+  public void setCustomGetterSetter(boolean isMethodMap) {
+    this.isCustomGetterSetter = isMethodMap;
   }
 
-  public boolean isCustomMap() {
-    return isCustomMap;
+  public boolean isMapTypeCustomGetterSetter() {
+    return isMapTypeCustomGetterSetter;
   }
 
-  public void setCustomMap(boolean isCustomMap) {
-    this.isCustomMap = isCustomMap;
+  public void setMapTypeCustomGetterSetter(boolean isMapTypeCustomGetterSetter) {
+    this.isMapTypeCustomGetterSetter = isMapTypeCustomGetterSetter;
   }
 
 }

@@ -67,7 +67,7 @@ public abstract class MappingUtils {
   }
 
   public static boolean isCustomMapMethod(FieldMap fieldMap) {
-    return (fieldMap instanceof GenericFieldMap && ((GenericFieldMap) fieldMap).isCustomMap()) ? true : false;
+    return (fieldMap instanceof GenericFieldMap && ((GenericFieldMap) fieldMap).isMapTypeCustomGetterSetter()) ? true : false;
   }
 
   public static  boolean isPrimitiveOrWrapper(Class aClass) {
@@ -104,7 +104,7 @@ public abstract class MappingUtils {
     storedFactories.putAll(factories);
   }
 
-  public static boolean isMethodMap(FieldMap fieldMap) {
+  public static boolean isCustomGetterSetterFieldMap(FieldMap fieldMap) {
     boolean result = false;
     if (fieldMap.getSourceField().getTheGetMethod() != null || fieldMap.getSourceField().getTheSetMethod() != null
         || fieldMap.getDestField().getTheGetMethod() != null || fieldMap.getDestField().getTheSetMethod() != null) {
@@ -113,7 +113,7 @@ public abstract class MappingUtils {
     return result;
   }
 
-  public static boolean isCustomMap(FieldMap fieldMap) {
+  public static boolean isMapTypeCustomGetterSetterFieldMap(FieldMap fieldMap) {
     boolean result = false;
     if (fieldMap.getSourceField().getMapGetMethod() != null || fieldMap.getSourceField().getMapSetMethod() != null
         || fieldMap.getDestField().getMapGetMethod() != null || fieldMap.getDestField().getMapSetMethod() != null) {

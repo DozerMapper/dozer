@@ -167,14 +167,14 @@ public class MappingsParser {
             FieldMap fieldMap = (FieldMap) iterator.next();
             MappingValidator.validateFieldMapping(fieldMap, classMap);
 
-            boolean isMethodMap = MappingUtils.isMethodMap(fieldMap);
+            boolean isMethodMap = MappingUtils.isCustomGetterSetterFieldMap(fieldMap);
             if (isMethodMap && fieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) fieldMap).setMethodMap(true);
+              ((GenericFieldMap) fieldMap).setCustomGetterSetter(true);
             }
 
-            boolean isCustomMap = MappingUtils.isCustomMap(fieldMap);
+            boolean isCustomMap = MappingUtils.isMapTypeCustomGetterSetterFieldMap(fieldMap);
             if (isCustomMap && fieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) fieldMap).setCustomMap(true);
+              ((GenericFieldMap) fieldMap).setMapTypeCustomGetterSetter(true);
             }
 
             if (!(StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
@@ -189,14 +189,14 @@ public class MappingsParser {
               // reverse the fields
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
               // determine if we have method mapping
-              isMethodMap = MappingUtils.isMethodMap(fieldMapPrime);
+              isMethodMap = MappingUtils.isCustomGetterSetterFieldMap(fieldMapPrime);
               if (isMethodMap && fieldMapPrime instanceof GenericFieldMap) {
-                ((GenericFieldMap) fieldMapPrime).setMethodMap(true);
+                ((GenericFieldMap) fieldMapPrime).setCustomGetterSetter(true);
               }
 
-              isCustomMap = MappingUtils.isCustomMap(fieldMapPrime);
+              isCustomMap = MappingUtils.isMapTypeCustomGetterSetterFieldMap(fieldMapPrime);
               if (isCustomMap && fieldMapPrime instanceof GenericFieldMap) {
-                ((GenericFieldMap) fieldMapPrime).setCustomMap(true);
+                ((GenericFieldMap) fieldMapPrime).setMapTypeCustomGetterSetter(true);
               }
 
               if (fieldMapPrime instanceof GenericFieldMap && !(fieldMap instanceof ExcludeFieldMap)) {
@@ -226,14 +226,14 @@ public class MappingsParser {
           while (iterator.hasNext()) {
             FieldMap oneWayFieldMap = (FieldMap) iterator.next();
             MappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
-            boolean isMethodMap = MappingUtils.isMethodMap(oneWayFieldMap);
+            boolean isMethodMap = MappingUtils.isCustomGetterSetterFieldMap(oneWayFieldMap);
             if (isMethodMap && oneWayFieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) oneWayFieldMap).setMethodMap(true);
+              ((GenericFieldMap) oneWayFieldMap).setCustomGetterSetter(true);
             }
 
-            boolean isCustomMap = MappingUtils.isCustomMap(oneWayFieldMap);
+            boolean isCustomMap = MappingUtils.isMapTypeCustomGetterSetterFieldMap(oneWayFieldMap);
             if (isCustomMap && oneWayFieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) oneWayFieldMap).setCustomMap(true);
+              ((GenericFieldMap) oneWayFieldMap).setMapTypeCustomGetterSetter(true);
             }
 
             MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
