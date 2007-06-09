@@ -21,8 +21,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.DozerClass;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 import org.apache.commons.logging.Log;

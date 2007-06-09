@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.lang.reflect.Field;
 
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;

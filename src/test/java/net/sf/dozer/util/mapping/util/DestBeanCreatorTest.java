@@ -16,8 +16,8 @@
 package net.sf.dozer.util.mapping.util;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.DozerClass;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 

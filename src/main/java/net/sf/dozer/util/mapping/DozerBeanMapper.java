@@ -22,8 +22,8 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.cache.CacheManagerIF;
 import net.sf.dozer.util.mapping.cache.DozerCacheManager;
+import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.interceptor.StatisticsInterceptor;
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;

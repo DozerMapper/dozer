@@ -25,11 +25,12 @@ package net.sf.dozer.util.mapping;
 public interface MapperIF {
 
   public Object map(Object sourceObj, Class destClass) throws MappingException;
+  
+  public void map(Object sourceObj, Object destObj) throws MappingException;
 
   public Object map(Object sourceObj, Class destClass, String mapId) throws MappingException;
   
   public void map(Object sourceObj, Object destObj, String mapId) throws MappingException;  
   
-  public void map(Object sourceObj, Object destObj) throws MappingException;
   
 }

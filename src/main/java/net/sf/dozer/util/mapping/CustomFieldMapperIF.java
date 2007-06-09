@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.util.mapping;
 
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 

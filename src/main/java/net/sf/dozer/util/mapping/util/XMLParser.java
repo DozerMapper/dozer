@@ -22,20 +22,20 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import net.sf.dozer.util.mapping.classmap.AllowedExceptionContainer;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.CopyByReference;
+import net.sf.dozer.util.mapping.classmap.CopyByReferenceContainer;
+import net.sf.dozer.util.mapping.classmap.DozerClass;
+import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
-import net.sf.dozer.util.mapping.fieldmap.AllowedExceptionContainer;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
-import net.sf.dozer.util.mapping.fieldmap.CopyByReference;
-import net.sf.dozer.util.mapping.fieldmap.CopyByReferenceContainer;
-import net.sf.dozer.util.mapping.fieldmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;

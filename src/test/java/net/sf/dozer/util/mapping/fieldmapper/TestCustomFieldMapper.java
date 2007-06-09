@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.fieldmapper;
 
 import net.sf.dozer.util.mapping.CustomFieldMapperIF;
 import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.vo.CustomDoubleObject;
 import net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF;

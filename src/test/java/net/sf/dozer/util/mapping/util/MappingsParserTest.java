@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.util;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.Mappings;
 /**
  * @author tierney.matt
  */

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.fieldmap;
-
-import java.util.ArrayList;
-import java.util.List;
+package net.sf.dozer.util.mapping.classmap;
 
 /**
- * Internal class that contains all of the custom mapping definitions, along with the global configuration instance.
  * Only intended for internal use.
  * 
  * @author garsombke.franz
@@ -27,19 +23,15 @@ import java.util.List;
  * @author tierney.matt
  *
  */
-public class Mappings {
-  private List mapping = new ArrayList();
-  private Configuration configuration = new Configuration();
+public class CopyByReference {
 
-  public List getMapping() {
-    return mapping;
+  private String referenceName;
+
+  public String getReferenceName() {
+    return referenceName;
   }
 
-  public void setConfiguration( Configuration config ) {
-      this.configuration = config;
-  }
-
-  public Configuration getConfiguration() {
-      return this.configuration;
+  public void setReferenceName(String referenceName) {
+    this.referenceName = referenceName;
   }
 }

@@ -20,9 +20,9 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Iterator;
 
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
-import net.sf.dozer.util.mapping.fieldmap.CopyByReference;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.CopyByReference;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 

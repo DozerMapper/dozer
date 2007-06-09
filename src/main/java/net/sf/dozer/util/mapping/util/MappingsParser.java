@@ -21,12 +21,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.DozerClass;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.DozerClass;
+import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
 
 import org.apache.commons.lang.StringUtils;
 

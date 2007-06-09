@@ -22,11 +22,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
 
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;

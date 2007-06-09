@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.Mappings;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

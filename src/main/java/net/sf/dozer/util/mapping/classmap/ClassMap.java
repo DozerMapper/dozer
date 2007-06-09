@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.fieldmap;
+package net.sf.dozer.util.mapping.classmap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**

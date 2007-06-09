@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.fieldmap;
+package net.sf.dozer.util.mapping.classmap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Internal class used to hold any "allowed exceptions" that may have been specified in the mapping xml. Only intended
- * for internal use.
+ * Only intended for internal use.
  * 
  * @author garsombke.franz
+ * @author sullins.ben
+ * @author tierney.matt
+ *
  */
-public class AllowedExceptionContainer {
+public class CopyByReferenceContainer {
 
-  private List exceptions = new ArrayList();
+  private List copyByReferences = new ArrayList();
 
-  public List getExceptions() {
-    return exceptions;
+  public List getCopyByReferences() {
+    return copyByReferences;
   }
+  
 }

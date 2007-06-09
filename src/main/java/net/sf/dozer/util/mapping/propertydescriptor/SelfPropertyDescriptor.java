@@ -16,7 +16,7 @@
 package net.sf.dozer.util.mapping.propertydescriptor;
 
 import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 
 /**
