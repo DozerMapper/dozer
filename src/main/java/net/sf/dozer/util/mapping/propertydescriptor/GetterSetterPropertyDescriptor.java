@@ -43,7 +43,11 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   }
   
   public abstract Method getWriteMethod() throws NoSuchMethodException;
+  protected abstract void invokeWriteMethod(Object target, Object value) throws NoSuchMethodException;
+
   protected abstract Method getReadMethod() throws NoSuchMethodException;
+  protected abstract Object invokeReadMethod(Object target) throws NoSuchMethodException;
+  
   protected abstract String getSetMethodName() throws NoSuchMethodException;
 
   public Class getPropertyType() {
@@ -53,12 +57,12 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return propertyType;
   }
 
-  public Object getPropertyValue(Object bean) {
+  public Object getPropertyValue(Object bean) throws NoSuchMethodException {
     Object result = null;
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       Object o = null;
       try {
-        o = ReflectionUtils.invoke(getReadMethod(), bean, null);
+        o = invokeReadMethod(bean);
       } catch (NoSuchMethodException e) {
         MappingUtils.throwMappingException(e);
       }
@@ -73,7 +77,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return result;
   }
 
-  public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
+  public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) throws NoSuchMethodException {
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       if (getPropertyType().isPrimitive() && value == null) {
         // do nothing
@@ -88,7 +92,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         }
         if (!isIndexed) {
           try {
-            ReflectionUtils.invoke(getWriteMethod(), bean, new Object[] { value });
+            invokeWriteMethod(bean, value);
           } catch (NoSuchMethodException e) {
             MappingUtils.throwMappingException(e);
           }
@@ -102,7 +106,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   }  
   
   
-  private Object getDeepSrcFieldValue(Object srcObj) {
+  private Object getDeepSrcFieldValue(Object srcObj) throws NoSuchMethodException {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = null;
@@ -125,7 +129,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return hierarchyValue;
   }
 
-  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap) {
+  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap) throws NoSuchMethodException {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
     PropertyDescriptor[] hierarchy = getHierarchy(destObj);
     // first, iteratate through hierarchy and instantiate any objects that are null

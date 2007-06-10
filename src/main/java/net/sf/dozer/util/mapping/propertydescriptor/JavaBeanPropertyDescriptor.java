@@ -45,6 +45,10 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return writeMethod;
   }
   
+  protected void invokeWriteMethod(Object target, Object value) throws NoSuchMethodException {
+    ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { value });
+  }
+  
   protected String getSetMethodName() throws NoSuchMethodException {
     return getWriteMethod().getName();
   }
@@ -55,6 +59,10 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
       throw new NoSuchMethodException("Unable to determine read method for Field: " + fieldName + " in Class: " + clazz);
     }
     return result;
+  }
+  
+  protected Object invokeReadMethod(Object target) throws NoSuchMethodException {
+    return ReflectionUtils.invoke(getReadMethod(), target, null);
   }
   
   private PropertyDescriptor getPropertyDescriptor() {

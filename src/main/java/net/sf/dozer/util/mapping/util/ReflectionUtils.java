@@ -86,16 +86,25 @@ public abstract class ReflectionUtils {
   }
 
   public static  Method getMethod(Object obj, String methodName) {
-    Method[] methods = obj.getClass().getMethods();
+    return getMethod(obj.getClass(), methodName);
+  }
+  
+  public static Method getMethod(Class clazz, String methodName) {
+    Method result = findMethod(clazz, methodName);
+    if (result == null) {
+      MappingUtils.throwMappingException("No method found for class:" + clazz + " and method name:" + methodName);
+    }
+    return result;
+  }
+  
+  private static Method findMethod(Class clazz, String methodName) {
+    Method[] methods = clazz.getMethods();
     Method resultMethod = null;
     for (int i = 0; i < methods.length; i++) {
       Method method = methods[i];
       if (method.getName().equals(methodName)) {
         resultMethod = method;
       }
-    }
-    if (resultMethod == null) {
-      MappingUtils.throwMappingException("No method found for class:" + obj.getClass() + " and method name:" + methodName);
     }
     return resultMethod;
   }
@@ -110,16 +119,7 @@ public abstract class ReflectionUtils {
       String params = (tokens.hasMoreTokens() ? tokens.nextToken() : null);
       return findMethodWithParam(parentDestClass, m, params);
     }
-    Method[] methods = parentDestClass.getMethods();
-    Method result = null;
-    for (int i = 0; i < methods.length; i++) {
-      Method method = methods[i];
-      if (method.getName().equals(methodName)) {
-        // Return the first method find
-        return method;
-      }
-    }
-    return result;
+    return findMethod(parentDestClass, methodName);
   }
 
   private static Method findMethodWithParam(Class parentDestClass, String methodName, String params)

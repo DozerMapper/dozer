@@ -31,21 +31,31 @@ public class PropertyDescriptorFactory {
 
   public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz, boolean isSourceSelfReferencing) {
     DozerPropertyDescriptorIF desc = null;
-    // is it 'this'
+    // basic 'this'
     if (isSourceSelfReferencing && dozerField.getTheGetMethod() == null && dozerField.getTheSetMethod() == null) {
       desc = new SelfPropertyDescriptor(clazz);
+
+    // bypass getter/setters and access field directly  
     } else if (dozerField.isAccessible()) {
       // accesses fields directly and bypass get/set methods
       desc = new FieldPropertyDescriptor(clazz, dozerField.getName(), dozerField.isAccessible(), 
           dozerField.isIndexed(), dozerField.getIndex());
+
+    // custom get-method/set specified  
     } else if (dozerField.getTheSetMethod() != null || dozerField.getTheGetMethod() != null) {
       desc = new CustomGetSetPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
           dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
+
+    // custom map-get-method/set spefied  
+    } else if (dozerField.getName().equals(MapperConstants.SELF_KEYWORD) &&
+        (dozerField.getMapSetMethod() != null || dozerField.getMapGetMethod() != null)) {
+      desc = new MapPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
+          dozerField.getIndex(), dozerField.getMapSetMethod(), dozerField.getMapGetMethod(), dozerField.getKey());
+
+    // everything else. it must be a normal bean with normal or custom get/set methods   
     } else {
-      // it must be a normal bean with normal or custom get/set methods
       desc = new JavaBeanPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
           dozerField.getIndex());
-
     }
     return desc;
   }
