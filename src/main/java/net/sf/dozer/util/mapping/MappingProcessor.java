@@ -459,7 +459,7 @@ public class MappingProcessor implements MapperIF {
   private Object mapClassLevelMap(Object srcObj, FieldMap fieldMap, Object sourceFieldValue, Class sourceFieldClass,
       ClassMap classMap, Class destType, Object destObj) {
     // TODO This should be encapsulated in MapFieldMap?
-    if (!MappingUtils.isSupportedMap(sourceFieldClass) && !classMap.getSourceClass().isCustomMap()) {
+    if (!MappingUtils.isSupportedMap(sourceFieldClass) && fieldMap.getSourceField().getMapGetMethod() == null) {
       return sourceFieldValue;
     } else {
       String key = null;

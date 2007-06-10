@@ -32,7 +32,6 @@ public class DozerClass implements Cloneable {
   private String factoryBeanId;
   private String mapGetMethod;
   private String mapSetMethod;
-  private boolean isCustomMap;
   private String createMethod;
   private Boolean mapNull;
   private Boolean mapEmptyString;
@@ -99,14 +98,6 @@ public class DozerClass implements Cloneable {
 
   public void setMapSetMethod(String mapSetMethod) {
     this.mapSetMethod = mapSetMethod;
-  }
-
-  public boolean isCustomMap() {
-    return isCustomMap;
-  }
-
-  public void setCustomMap(boolean isCustomMap) {
-    this.isCustomMap = isCustomMap;
   }
 
   public String getCreateMethod() {

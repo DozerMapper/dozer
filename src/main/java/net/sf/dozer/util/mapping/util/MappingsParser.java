@@ -144,14 +144,6 @@ public class MappingsParser {
       classMapPrime.setDateFormat(classMap.getDateFormat());
       classMapPrime.setStopOnErrors(classMap.getStopOnErrors());
       classMapPrime.setAllowedExceptions(classMap.getAllowedExceptions());// TODO *NEW*
-      if (classMap.getSourceClass().getMapGetMethod() != null) {
-        classMap.getSourceClass().setCustomMap(true);
-      }
-      if (classMap.getDestClass().getMapGetMethod() != null) {
-        classMap.getDestClass().setCustomMap(true);
-      }
-      classMapPrime.getSourceClass().setCustomMap(classMap.getDestClass().isCustomMap());
-      classMapPrime.getDestClass().setCustomMap(classMap.getSourceClass().isCustomMap());
       classMapPrime.getSourceClass().setCreateMethod(classMap.getDestClass().getCreateMethod());
       classMapPrime.getDestClass().setCreateMethod(classMap.getSourceClass().getCreateMethod());
       if (StringUtils.isNotEmpty(classMap.getMapId())) {
