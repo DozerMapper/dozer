@@ -290,8 +290,7 @@ public class MappingProcessor implements MapperIF {
       }
 
       if (!fieldMapped) {
-        if (fieldMapping instanceof CustomGetSetMethodFieldMap 
-            && fieldMapping.getDestField().getType().equals(MapperConstants.ITERATE)) {
+        if (fieldMapping.getDestField().getType() != null && fieldMapping.getDestField().getType().equals(MapperConstants.ITERATE)) {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
         } else {
