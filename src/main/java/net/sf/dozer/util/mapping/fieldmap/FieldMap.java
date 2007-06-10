@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
 import net.sf.dozer.util.mapping.propertydescriptor.GetterSetterPropertyDescriptor;
+import net.sf.dozer.util.mapping.propertydescriptor.JavaBeanPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.PropertyDescriptorFactory;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;

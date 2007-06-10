@@ -28,8 +28,8 @@ public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
   public void testGetReadMethod() throws Exception {
     DozerField dozerField = new DozerField("destField", "generic");
     
-    GetterSetterPropertyDescriptor pd = new GetterSetterPropertyDescriptor(Dest.class, dozerField.getName(), 
-        dozerField.isIndexed(), dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
+    JavaBeanPropertyDescriptor pd = new JavaBeanPropertyDescriptor(Dest.class, dozerField.getName(), 
+        dozerField.isIndexed(), dozerField.getIndex());
     Method method = pd.getReadMethod();
     
     assertNotNull("method should not be null", method);

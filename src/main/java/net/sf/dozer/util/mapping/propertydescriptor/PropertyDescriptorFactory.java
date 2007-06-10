@@ -39,10 +39,13 @@ public class PropertyDescriptorFactory {
       // accesses fields directly and bypass get/set methods
       desc = new FieldPropertyDescriptor(clazz, dozerField.getName(), dozerField.isAccessible(), 
           dozerField.isIndexed(), dozerField.getIndex());
+    } else if (dozerField.getTheSetMethod() != null || dozerField.getTheGetMethod() != null) {
+      desc = new CustomGetSetPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
+          dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
     } else {
       // it must be a normal bean with normal or custom get/set methods
-      desc = new GetterSetterPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
-          dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
+      desc = new JavaBeanPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
+          dozerField.getIndex());
 
     }
     return desc;

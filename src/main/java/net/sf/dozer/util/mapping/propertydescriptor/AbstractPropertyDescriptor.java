@@ -28,8 +28,9 @@ import net.sf.dozer.util.mapping.util.CollectionUtils;
  * Internal abstract property descriptor containing common property descriptor logic.  Only intended for internal use.
  * 
  * @author tierney.matt
+ * @author garsombke.franz
  */
-public abstract class AbstractPropertyDescriptor {
+public abstract class AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
   
   protected final Class clazz;
   protected final String fieldName;
@@ -43,7 +44,7 @@ public abstract class AbstractPropertyDescriptor {
     this.index = index;
   }
 
-  abstract Class getPropertyType();
+  public abstract Class getPropertyType();
   
   protected Object getIndexedValue(Object existingFieldValue, Object newFieldValue) {
     Object result = null;
