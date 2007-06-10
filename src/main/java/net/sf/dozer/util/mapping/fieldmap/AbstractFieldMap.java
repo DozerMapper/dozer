@@ -269,7 +269,7 @@ public abstract class AbstractFieldMap implements FieldMap, Cloneable {
   }
   
   public boolean isGenericFieldMap() {
-    return this instanceof GenericFieldMap || this instanceof CustomGetterSetterFieldMap || this instanceof CustomMapGetterSetterFieldMap ? true : false;
+    return this instanceof GenericFieldMap || this instanceof CustomGetSetMethodFieldMap || this instanceof CustomMapGetSetMethodFieldMap ? true : false;
   }
 
   public String getCustomConverter() {

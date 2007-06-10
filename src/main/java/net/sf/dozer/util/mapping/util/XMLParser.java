@@ -31,8 +31,8 @@ import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
-import net.sf.dozer.util.mapping.fieldmap.CustomGetterSetterFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.CustomMapGetterSetterFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.CustomMapGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -290,9 +290,9 @@ public class XMLParser {
     
     FieldMap result;
     if (MappingUtils.isCustomGetterSetterField(srcField) || MappingUtils.isCustomGetterSetterField(destField)) {
-      result = new CustomGetterSetterFieldMap(); 
+      result = new CustomGetSetMethodFieldMap(); 
     } else if (MappingUtils.isMapTypeCustomGetterSetterField(srcField) || MappingUtils.isMapTypeCustomGetterSetterField(destField)) {
-      result = new CustomMapGetterSetterFieldMap();
+      result = new CustomMapGetSetMethodFieldMap();
     } else {
       result = new GenericFieldMap();
     }

@@ -24,7 +24,7 @@ import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
-import net.sf.dozer.util.mapping.fieldmap.CustomGetterSetterFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -117,7 +117,7 @@ public abstract class ClassMapBuilder {
       DozerField field = new DozerField(destFieldName, null);
       FieldMap map;
       if (MappingUtils.isCustomGetterSetterField(field)) {
-        map = new CustomGetterSetterFieldMap();
+        map = new CustomGetSetMethodFieldMap();
       } else {
         map = new GenericFieldMap();
       }

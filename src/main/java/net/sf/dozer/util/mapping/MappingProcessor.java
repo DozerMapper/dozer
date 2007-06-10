@@ -40,8 +40,8 @@ import net.sf.dozer.util.mapping.converters.PrimitiveOrWrapperConverter;
 import net.sf.dozer.util.mapping.event.DozerEvent;
 import net.sf.dozer.util.mapping.event.DozerEventManager;
 import net.sf.dozer.util.mapping.event.EventManagerIF;
-import net.sf.dozer.util.mapping.fieldmap.CustomGetterSetterFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.CustomMapGetterSetterFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.CustomMapGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
@@ -290,7 +290,7 @@ public class MappingProcessor implements MapperIF {
       }
 
       if (!fieldMapped) {
-        if (fieldMapping instanceof CustomGetterSetterFieldMap 
+        if (fieldMapping instanceof CustomGetSetMethodFieldMap 
             && fieldMapping.getDestField().getType().equals(MapperConstants.ITERATE)) {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
@@ -328,7 +328,7 @@ public class MappingProcessor implements MapperIF {
   private void mapFromFieldMap(Object sourceObj, Object destObj, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) {
     Class destFieldType = null;
     // methodmap logic should be encapsulated and figured out at the fieldmap level
-    if (fieldMapping instanceof CustomGetterSetterFieldMap) {
+    if (fieldMapping instanceof CustomGetSetMethodFieldMap) {
       destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
     } else {
       destFieldType = fieldMapping.getDestFieldType(destObj.getClass());
@@ -426,7 +426,7 @@ public class MappingProcessor implements MapperIF {
     if (isSourceFieldClassSupportedMap || isDestFieldTypeSupportedMap) {
       return mapMapToProperty(srcObj, sourceFieldValue, sourceFieldClass, fieldMap, destObj, destFieldType, classMap);
     }
-    if (fieldMap instanceof CustomMapGetterSetterFieldMap) {
+    if (fieldMap instanceof CustomMapGetSetMethodFieldMap) {
       return mapCustomMapToProperty(sourceFieldValue, sourceFieldClass, fieldMap, destObj, destFieldType);
     }
     if (MappingUtils.isPrimitiveOrWrapper(sourceFieldClass) || MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
