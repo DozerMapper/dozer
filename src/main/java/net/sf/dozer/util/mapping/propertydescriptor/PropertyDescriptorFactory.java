@@ -29,11 +29,10 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz) {
+  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz, boolean isSourceSelfReferencing) {
     DozerPropertyDescriptorIF desc = null;
     // is it 'this'
-    if (dozerField.getName().equals(MapperConstants.SELF_KEYWORD) && dozerField.getTheGetMethod() == null
-        && dozerField.getTheSetMethod() == null) {
+    if (isSourceSelfReferencing && dozerField.getTheGetMethod() == null && dozerField.getTheSetMethod() == null) {
       desc = new SelfPropertyDescriptor(clazz);
     } else if (dozerField.isAccessible()) {
       // accesses fields directly and bypass get/set methods

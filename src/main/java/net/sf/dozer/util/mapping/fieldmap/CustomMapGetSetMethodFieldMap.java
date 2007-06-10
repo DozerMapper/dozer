@@ -23,9 +23,16 @@ package net.sf.dozer.util.mapping.fieldmap;
  * @author tierney.matt
  * 
  */
-public class CustomMapGetSetMethodFieldMap extends GenericFieldMap {
+public class CustomMapGetSetMethodFieldMap extends FieldMap {
   
+  /*
+   * 'this' is overloaded when using custom-map-get/set option.  
+   */
   public boolean isSourceSelfReferencing() {
+    return false;
+  }
+  
+  public boolean isDestSelfReferencing() {
     return false;
   }
 

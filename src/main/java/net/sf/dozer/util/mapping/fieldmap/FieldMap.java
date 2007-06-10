@@ -254,6 +254,10 @@ public abstract class FieldMap implements Cloneable {
   protected boolean isSourceSelfReferencing() {
     return sourceField.getName().equals(MapperConstants.SELF_KEYWORD);
   }
+  
+  protected boolean isDestSelfReferencing() {
+    return destField.getName().equals(MapperConstants.SELF_KEYWORD);
+  }
 
   public boolean getCopyByReferenceOveridden() {
     return copyByReferenceOveridden;
@@ -284,11 +288,11 @@ public abstract class FieldMap implements Cloneable {
   }
   
   private DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass);
+    return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass, isSourceSelfReferencing());
   }
   
   private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass);
+    return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass, isDestSelfReferencing());
   }
   
 }

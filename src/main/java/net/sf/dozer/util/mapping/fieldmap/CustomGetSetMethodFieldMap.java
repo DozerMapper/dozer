@@ -23,6 +23,6 @@ package net.sf.dozer.util.mapping.fieldmap;
  * @author tierney.matt
  * 
  */
-public class CustomGetSetMethodFieldMap extends GenericFieldMap {
+public class CustomGetSetMethodFieldMap extends FieldMap {
 
 }
