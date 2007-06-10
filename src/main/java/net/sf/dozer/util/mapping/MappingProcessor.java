@@ -601,7 +601,7 @@ public class MappingProcessor implements MapperIF {
       Object destEntryValue = mapOrRecurseObject(srcObj, sourceEntryValue, sourceEntryValue.getClass(), classMap,
           fieldMap, destObj);
       Object obj = result.get(sourceEntry.getKey());
-      if (obj != null && obj.equals(destEntryValue) && fieldMap.isGenericFieldMap()
+      if (obj != null && obj.equals(destEntryValue) && !(fieldMap instanceof MapFieldMap)
           && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(fieldMap.getRelationshipType())) {
         if (!(obj instanceof String)) {
           map(null, sourceEntryValue, obj, null, fieldMap);
@@ -794,7 +794,7 @@ public class MappingProcessor implements MapperIF {
         destEntryType = fieldMap.getDestHintType(sourceValue.getClass());
       }
       destValue = mapOrRecurseObject(srcObj, sourceValue, destEntryType, classMap, fieldMap, destObj);
-      if (fieldMap.isGenericFieldMap()) {
+      if (!(fieldMap instanceof MapFieldMap)) {
         GenericFieldMap gfm = (GenericFieldMap) fieldMap;
         if (gfm.getRelationshipType() == null
             || gfm.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
@@ -860,7 +860,7 @@ public class MappingProcessor implements MapperIF {
       }
       destValue = mapOrRecurseObject(srcObj, sourceValue, destEntryType, classMap, fieldMap, destObj);
       prevDestEntryType = destEntryType;
-      if (fieldMap.isGenericFieldMap()) {
+      if (!(fieldMap instanceof MapFieldMap)) {
         if (fieldMap.getRelationshipType() == null
             || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
           result.add(destValue);
@@ -1053,7 +1053,7 @@ public class MappingProcessor implements MapperIF {
       List fieldMaps = map.getFieldMaps();
       for (int i = 0; i < fieldMaps.size(); i++) {
         FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
-        if (!fieldMapping.isGenericFieldMap() && !(fieldMapping instanceof ExcludeFieldMap)) {
+        if (fieldMapping instanceof MapFieldMap) {
           // do nothing
         } else {
           String parentSourceField = null;

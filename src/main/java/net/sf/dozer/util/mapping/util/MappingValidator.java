@@ -25,6 +25,7 @@ import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.classmap.CopyByReference;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
+import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
 /**
  * Internal class used to perform various validations.  Validates mapping requests, field mappings, URL's, etc.  
@@ -93,7 +94,7 @@ public abstract class MappingValidator {
     if (destObj == null) {
       return null;
     }
-    if (!fieldMap.isGenericFieldMap()) {
+    if (fieldMap instanceof MapFieldMap) {
     } else {
       // call the getXX method to see if the field is already
       // instantiated

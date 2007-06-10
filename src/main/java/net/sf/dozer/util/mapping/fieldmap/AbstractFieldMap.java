@@ -161,11 +161,9 @@ public abstract class AbstractFieldMap implements FieldMap, Cloneable {
   
   public Object doesFieldExist(Object destObj, Class destClass) {
     Object field = null;
-    if (isGenericFieldMap()) {
-      // call the getXX method to see if the field is already instantiated
-      // for deep mapping need the 'real' destination class.
-      field = getDestinationObject(destObj);
-    }
+    // call the getXX method to see if the field is already instantiated
+    // for deep mapping need the 'real' destination class.
+    field = getDestinationObject(destObj);
     return field;
   }  
   
@@ -268,10 +266,6 @@ public abstract class AbstractFieldMap implements FieldMap, Cloneable {
     this.mapId = mapId;
   }
   
-  public boolean isGenericFieldMap() {
-    return this instanceof GenericFieldMap || this instanceof CustomGetSetMethodFieldMap || this instanceof CustomMapGetSetMethodFieldMap ? true : false;
-  }
-
   public String getCustomConverter() {
     return customConverter;
   }
