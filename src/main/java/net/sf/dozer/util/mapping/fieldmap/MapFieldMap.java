@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * 
  */
-public class MapFieldMap extends AbstractFieldMap {
+public class MapFieldMap extends FieldMap {
   private static final Log log = LogFactory.getLog(MapFieldMap.class);
 
   public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap) {

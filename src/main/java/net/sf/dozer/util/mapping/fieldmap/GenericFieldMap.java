@@ -23,7 +23,7 @@ package net.sf.dozer.util.mapping.fieldmap;
  * @author tierney.matt
  * 
  */
-public class GenericFieldMap extends AbstractFieldMap {
+public class GenericFieldMap extends FieldMap {
   private String relationshipType;
   
   public String getRelationshipType() {

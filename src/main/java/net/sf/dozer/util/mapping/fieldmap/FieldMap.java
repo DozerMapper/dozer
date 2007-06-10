@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * 
  */
-public abstract class AbstractFieldMap implements FieldMap, Cloneable {
+public abstract class FieldMap implements Cloneable {
   private static final Log log = LogFactory.getLog(FieldMap.class);
 
   private DozerField sourceField;

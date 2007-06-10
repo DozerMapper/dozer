@@ -23,6 +23,6 @@ package net.sf.dozer.util.mapping.fieldmap;
  * @author tierney.matt
  *
  */
-public class ExcludeFieldMap extends AbstractFieldMap {
+public class ExcludeFieldMap extends FieldMap {
 
 }
