@@ -36,7 +36,7 @@ public class MappingsParserTest extends AbstractDozerTest {
     Mappings mappings = fileReader.read();
     
     try {
-      parser.parseMappings(mappings);
+      parser.processMappings(mappings);
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception thrown", e.getMessage().indexOf("Duplicate Map Id") != -1);
@@ -47,7 +47,7 @@ public class MappingsParserTest extends AbstractDozerTest {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapping.xml");
     Mappings mappings = fileReader.read();
     try {
-      parser.parseMappings(mappings);
+      parser.processMappings(mappings);
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
@@ -56,7 +56,7 @@ public class MappingsParserTest extends AbstractDozerTest {
   
   public void testEmptyMappings() throws Exception {
     Mappings mappings = new Mappings();
-    Map result = parser.parseMappings(mappings);
+    Map result = parser.processMappings(mappings);
     assertNotNull("result should not be null", result);
     assertEquals("result should be empty", 0, result.size());
   }

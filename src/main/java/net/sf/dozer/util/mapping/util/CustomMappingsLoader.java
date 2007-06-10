@@ -74,7 +74,7 @@ public class CustomMappingsLoader {
         }
         //Decorate the raw ClassMap objects and create ClassMap "prime" instances
         MappingsParser mappingsParser = new MappingsParser();
-        customMappings.putAll(mappingsParser.parseMappings(mappings));
+        customMappings.putAll(mappingsParser.processMappings(mappings));
       }
     }
 

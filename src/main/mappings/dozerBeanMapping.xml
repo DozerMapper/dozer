@@ -742,7 +742,7 @@
 
     <field>
       <a>stringProperty5</a>
-      <b map-get-method="getValue" map-set-method="putValue" set-method="setMyCustomMapWithDiffSetMethod">customMapWithDiffSetMethod</b>
+      <b map-get-method="getValue" map-set-method="putValue">customMapWithDiffSetMethod</b>
     </field>
 
     <field>

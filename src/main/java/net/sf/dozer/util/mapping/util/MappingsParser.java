@@ -40,7 +40,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MappingsParser {
 
-  public Map parseMappings(Mappings mappings) {
+  public Map processMappings(Mappings mappings) {
     Iterator iterator = null;
     Map result = new HashMap();
     FieldMap fieldMapPrime = null;
@@ -167,16 +167,6 @@ public class MappingsParser {
             FieldMap fieldMap = (FieldMap) iterator.next();
             MappingValidator.validateFieldMapping(fieldMap, classMap);
 
-            boolean isMethodMap = MappingUtils.isCustomGetterSetterFieldMap(fieldMap);
-            if (isMethodMap && fieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) fieldMap).setCustomGetterSetter(true);
-            }
-
-            boolean isCustomMap = MappingUtils.isMapTypeCustomGetterSetterFieldMap(fieldMap);
-            if (isCustomMap && fieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) fieldMap).setMapTypeCustomGetterSetter(true);
-            }
-
             if (!(StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
               // make a prime field map
               fieldMapPrime = (FieldMap) fieldMap.clone();
@@ -188,20 +178,9 @@ public class MappingsParser {
               }
               // reverse the fields
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
-              // determine if we have method mapping
-              isMethodMap = MappingUtils.isCustomGetterSetterFieldMap(fieldMapPrime);
-              if (isMethodMap && fieldMapPrime instanceof GenericFieldMap) {
-                ((GenericFieldMap) fieldMapPrime).setCustomGetterSetter(true);
-              }
 
-              isCustomMap = MappingUtils.isMapTypeCustomGetterSetterFieldMap(fieldMapPrime);
-              if (isCustomMap && fieldMapPrime instanceof GenericFieldMap) {
-                ((GenericFieldMap) fieldMapPrime).setMapTypeCustomGetterSetter(true);
-              }
-
-              if (fieldMapPrime instanceof GenericFieldMap && !(fieldMap instanceof ExcludeFieldMap)) {
-                ((GenericFieldMap) fieldMapPrime).setRelationshipType(((GenericFieldMap) fieldMap)
-                    .getRelationshipType());
+              if (!(fieldMap instanceof ExcludeFieldMap)) {
+                fieldMapPrime.setRelationshipType(fieldMap.getRelationshipType());
               }
               // reverse the hints
               fieldMapPrime.setSourceTypeHint(fieldMap.getDestinationTypeHint());
@@ -226,15 +205,6 @@ public class MappingsParser {
           while (iterator.hasNext()) {
             FieldMap oneWayFieldMap = (FieldMap) iterator.next();
             MappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
-            boolean isMethodMap = MappingUtils.isCustomGetterSetterFieldMap(oneWayFieldMap);
-            if (isMethodMap && oneWayFieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) oneWayFieldMap).setCustomGetterSetter(true);
-            }
-
-            boolean isCustomMap = MappingUtils.isMapTypeCustomGetterSetterFieldMap(oneWayFieldMap);
-            if (isCustomMap && oneWayFieldMap instanceof GenericFieldMap) {
-              ((GenericFieldMap) oneWayFieldMap).setMapTypeCustomGetterSetter(true);
-            }
 
             MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
             // check to see if we need to exclude the map

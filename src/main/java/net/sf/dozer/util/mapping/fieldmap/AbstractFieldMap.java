@@ -49,15 +49,8 @@ public abstract class AbstractFieldMap implements FieldMap, Cloneable {
   private boolean copyByReferenceOveridden;
   private String mapId;
   private String customConverter;
-
-  private DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass);
-  }
+  private String relationshipType;
   
-  private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass);
-  }
-
   public Class getDestHintType(Class sourceClass) {
     if (getDestinationTypeHint() != null) {
       if (getSourceTypeHint() != null) {
@@ -276,7 +269,7 @@ public abstract class AbstractFieldMap implements FieldMap, Cloneable {
   }
   
   public boolean isGenericFieldMap() {
-    return this instanceof GenericFieldMap ? true : false;
+    return this instanceof GenericFieldMap || this instanceof CustomGetterSetterFieldMap || this instanceof CustomMapGetterSetterFieldMap ? true : false;
   }
 
   public String getCustomConverter() {
@@ -286,4 +279,21 @@ public abstract class AbstractFieldMap implements FieldMap, Cloneable {
   public void setCustomConverter(String customConverter) {
     this.customConverter = customConverter;
   }
+  
+  public String getRelationshipType() {
+    return relationshipType;
+  }
+
+  public void setRelationshipType(String relationshipType) {
+    this.relationshipType = relationshipType;
+  }
+  
+  private DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
+    return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass);
+  }
+  
+  private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) {
+    return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass);
+  }
+  
 }

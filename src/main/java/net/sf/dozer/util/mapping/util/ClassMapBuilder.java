@@ -24,6 +24,7 @@ import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
+import net.sf.dozer.util.mapping.fieldmap.CustomGetterSetterFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -112,7 +113,14 @@ public abstract class ClassMapBuilder {
       if (sourceProperty == null || sourceProperty.getReadMethod() == null) { 
         continue;
       }
-      GenericFieldMap map = new GenericFieldMap();
+      
+      DozerField field = new DozerField(destFieldName, null);
+      FieldMap map;
+      if (MappingUtils.isCustomGetterSetterField(field)) {
+        map = new CustomGetterSetterFieldMap();
+      } else {
+        map = new GenericFieldMap();
+      }
       map.setSourceField(new DozerField(destFieldName, null));
       map.setDestField(new DozerField(destFieldName, null));
       // add CopyByReferences per defect #1728159
@@ -143,7 +151,7 @@ public abstract class ClassMapBuilder {
       if (fieldName.equals("class")) {
         continue;
       }
-      MapFieldMap map = new MapFieldMap();
+      FieldMap map = new MapFieldMap();
       if (destIsMap) {
         map.setSourceField(new DozerField(fieldName, null));
         DozerField df = new DozerField(MapperConstants.SELF_KEYWORD, null);

@@ -41,7 +41,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     MappingFileReader fileReader = new MappingFileReader("overridemapping.xml");
     Mappings mappings = fileReader.read();
     MappingsParser mappingsParser = new MappingsParser();
-    mappingsParser.parseMappings(mappings);
+    mappingsParser.processMappings(mappings);
     // validate class mappings
     Iterator iter = mappings.getMapping().iterator();
     while (iter.hasNext()) {

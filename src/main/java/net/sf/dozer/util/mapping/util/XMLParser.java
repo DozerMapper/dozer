@@ -31,11 +31,14 @@ import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
+import net.sf.dozer.util.mapping.fieldmap.CustomGetterSetterFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.CustomMapGetterSetterFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -249,26 +252,55 @@ public class XMLParser {
   }
 
   private void parseGenericFieldMap(Element ele, ClassMap classMap) {
-    GenericFieldMap gfm = new GenericFieldMap();
-    classMap.addFieldMapping(gfm);
+    FieldMap fm = determineFieldMap(ele);
+    classMap.addFieldMapping(fm);
     if (StringUtils.isNotEmpty(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE))) {
-      gfm.setCopyByReference(BooleanUtils.toBoolean(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE)));
+      fm.setCopyByReference(BooleanUtils.toBoolean(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE)));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(MAPID_ATTRIBUTE))) {
-      gfm.setMapId(ele.getAttribute(MAPID_ATTRIBUTE));
+      fm.setMapId(ele.getAttribute(MAPID_ATTRIBUTE));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      gfm.setType(ele.getAttribute(TYPE_ATTRIBUTE));
+      fm.setType(ele.getAttribute(TYPE_ATTRIBUTE));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE))) {
-      gfm.setCustomConverter(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE));
+      fm.setCustomConverter(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE));
     }
     
+    parseFieldMap(ele, fm);
+  }
+  
+  private FieldMap determineFieldMap(Element ele) {
+    DozerField srcField = null;
+    DozerField destField = null;
+    NodeList nl = ele.getChildNodes();
+    for (int i = 0; i < nl.getLength(); i++) {
+      Node node = nl.item(i);
+      if (node instanceof Element) {
+        Element element = (Element) node;
+
+        if (A_ELEMENT.equals(element.getNodeName())) {
+          srcField = parseField(element);
+        }
+        if (B_ELEMENT.equals(element.getNodeName())) {
+          destField = parseField(element);
+        }
+      }
+    }
     
-    parseFieldMap(ele, gfm);
+    FieldMap result;
+    if (MappingUtils.isCustomGetterSetterField(srcField) || MappingUtils.isCustomGetterSetterField(destField)) {
+      result = new CustomGetterSetterFieldMap(); 
+    } else if (MappingUtils.isMapTypeCustomGetterSetterField(srcField) || MappingUtils.isMapTypeCustomGetterSetterField(destField)) {
+      result = new CustomMapGetterSetterFieldMap();
+    } else {
+      result = new GenericFieldMap();
+    }
+    
+    return result;
   }
 
-  private void parseFieldMap(Element ele, GenericFieldMap fieldMap) {
+  private void parseFieldMap(Element ele, FieldMap fieldMap) {
     if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE_ATTRIBUTE))) {
       fieldMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE_ATTRIBUTE));
     }

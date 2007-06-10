@@ -40,6 +40,8 @@ import net.sf.dozer.util.mapping.converters.PrimitiveOrWrapperConverter;
 import net.sf.dozer.util.mapping.event.DozerEvent;
 import net.sf.dozer.util.mapping.event.DozerEventManager;
 import net.sf.dozer.util.mapping.event.EventManagerIF;
+import net.sf.dozer.util.mapping.fieldmap.CustomGetterSetterFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.CustomMapGetterSetterFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
@@ -288,7 +290,7 @@ public class MappingProcessor implements MapperIF {
       }
 
       if (!fieldMapped) {
-        if (fieldMapping instanceof GenericFieldMap && ((GenericFieldMap) fieldMapping).isCustomGetterSetter()
+        if (fieldMapping instanceof CustomGetterSetterFieldMap 
             && fieldMapping.getDestField().getType().equals(MapperConstants.ITERATE)) {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(sourceObj, destObj, sourceFieldValue, classMap, fieldMapping);
@@ -326,7 +328,7 @@ public class MappingProcessor implements MapperIF {
   private void mapFromFieldMap(Object sourceObj, Object destObj, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) {
     Class destFieldType = null;
     // methodmap logic should be encapsulated and figured out at the fieldmap level
-    if (fieldMapping instanceof GenericFieldMap && ((GenericFieldMap) fieldMapping).isCustomGetterSetter()) {
+    if (fieldMapping instanceof CustomGetterSetterFieldMap) {
       destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
     } else {
       destFieldType = fieldMapping.getDestFieldType(destObj.getClass());
@@ -424,7 +426,7 @@ public class MappingProcessor implements MapperIF {
     if (isSourceFieldClassSupportedMap || isDestFieldTypeSupportedMap) {
       return mapMapToProperty(srcObj, sourceFieldValue, sourceFieldClass, fieldMap, destObj, destFieldType, classMap);
     }
-    if (MappingUtils.isCustomMapMethod(fieldMap)) {
+    if (fieldMap instanceof CustomMapGetterSetterFieldMap) {
       return mapCustomMapToProperty(sourceFieldValue, sourceFieldClass, fieldMap, destObj, destFieldType);
     }
     if (MappingUtils.isPrimitiveOrWrapper(sourceFieldClass) || MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
@@ -600,7 +602,7 @@ public class MappingProcessor implements MapperIF {
           fieldMap, destObj);
       Object obj = result.get(sourceEntry.getKey());
       if (obj != null && obj.equals(destEntryValue) && fieldMap.isGenericFieldMap()
-          && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(((GenericFieldMap) fieldMap).getRelationshipType())) {
+          && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(fieldMap.getRelationshipType())) {
         if (!(obj instanceof String)) {
           map(null, sourceEntryValue, obj, null, fieldMap);
         }
@@ -859,9 +861,8 @@ public class MappingProcessor implements MapperIF {
       destValue = mapOrRecurseObject(srcObj, sourceValue, destEntryType, classMap, fieldMap, destObj);
       prevDestEntryType = destEntryType;
       if (fieldMap.isGenericFieldMap()) {
-        GenericFieldMap gfm = (GenericFieldMap) fieldMap;
-        if (gfm.getRelationshipType() == null
-            || gfm.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
+        if (fieldMap.getRelationshipType() == null
+            || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
           result.add(destValue);
         } else {
           if (result.contains(destValue)) {

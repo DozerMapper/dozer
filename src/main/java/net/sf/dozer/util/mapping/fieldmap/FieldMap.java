@@ -70,4 +70,6 @@ public interface FieldMap {
   public boolean isGenericFieldMap();
   public String getCustomConverter();
   public void setCustomConverter(String customConverter);
+  public void setRelationshipType(String relationshipType);
+  public String getRelationshipType();
 }
