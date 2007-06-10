@@ -23,6 +23,7 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.cache.Cache;
+import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -107,7 +108,7 @@ public abstract class MappingUtils {
     }
     return result;
   }
-
+  
   public static boolean isMapTypeCustomGetterSetterField(DozerField field) {
     boolean result = false;
     if (field.getMapGetMethod() != null || field.getMapSetMethod() != null) {
@@ -115,7 +116,15 @@ public abstract class MappingUtils {
     }
     return result;
   }
-
+  
+  public static boolean isMapTypeCustomGetterSetterClass(DozerClass dozerClass) {
+    boolean result = false;
+    if (dozerClass.getMapGetMethod() != null || dozerClass.getMapSetMethod() != null) {
+      result = true;
+    }
+    return result;
+  }
+  
   public static Throwable getRootCause(Throwable ex) {
     Throwable rootCause = ex;
     while (rootCause.getCause() != null) {

@@ -251,7 +251,7 @@ public class XMLParser {
   }
 
   private void parseGenericFieldMap(Element ele, ClassMap classMap) {
-    FieldMap fm = determineFieldMap(ele);
+    FieldMap fm = determineFieldMap(classMap, ele);
     classMap.addFieldMapping(fm);
     if (StringUtils.isNotEmpty(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE))) {
       fm.setCopyByReference(BooleanUtils.toBoolean(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE)));
@@ -269,7 +269,7 @@ public class XMLParser {
     parseFieldMap(ele, fm);
   }
   
-  private FieldMap determineFieldMap(Element ele) {
+  private FieldMap determineFieldMap(ClassMap classMap, Element ele) {
     DozerField srcField = null;
     DozerField destField = null;
     NodeList nl = ele.getChildNodes();
@@ -290,7 +290,8 @@ public class XMLParser {
     FieldMap result;
     if (MappingUtils.isCustomGetterSetterField(srcField) || MappingUtils.isCustomGetterSetterField(destField)) {
       result = new CustomGetSetMethodFieldMap(); 
-    } else if (MappingUtils.isMapTypeCustomGetterSetterField(srcField) || MappingUtils.isMapTypeCustomGetterSetterField(destField)) {
+    } else if (MappingUtils.isMapTypeCustomGetterSetterField(srcField) || MappingUtils.isMapTypeCustomGetterSetterField(destField) ||
+        MappingUtils.isMapTypeCustomGetterSetterClass(classMap.getSourceClass()) || MappingUtils.isMapTypeCustomGetterSetterClass(classMap.getDestClass())) {
       result = new CustomMapGetSetMethodFieldMap();
     } else {
       result = new GenericFieldMap();
