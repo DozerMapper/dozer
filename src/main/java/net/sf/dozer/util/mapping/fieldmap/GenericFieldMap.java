@@ -24,14 +24,4 @@ package net.sf.dozer.util.mapping.fieldmap;
  * 
  */
 public class GenericFieldMap extends FieldMap {
-  private String relationshipType;
-  
-  public String getRelationshipType() {
-    return relationshipType;
-  }
-
-  public void setRelationshipType(String relationshipType) {
-    this.relationshipType = relationshipType;
-  }
-
 }

@@ -794,9 +794,8 @@ public class MappingProcessor implements MapperIF {
       }
       destValue = mapOrRecurseObject(srcObj, sourceValue, destEntryType, classMap, fieldMap, destObj);
       if (!(fieldMap instanceof MapFieldMap)) {
-        GenericFieldMap gfm = (GenericFieldMap) fieldMap;
-        if (gfm.getRelationshipType() == null
-            || gfm.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
+        if (fieldMap.getRelationshipType() == null
+            || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
           result.add(destValue);
         } else {
           if (result.contains(destValue)) {
