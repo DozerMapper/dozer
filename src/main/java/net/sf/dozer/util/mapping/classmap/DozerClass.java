@@ -123,5 +123,9 @@ public class DozerClass implements Cloneable {
   public void setMapEmptyString(Boolean mapEmptyString) {
     this.mapEmptyString = mapEmptyString;
   }
+  
+  public boolean isMapTypeCustomGetterSetterClass() {
+    return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
+  }
 
 }

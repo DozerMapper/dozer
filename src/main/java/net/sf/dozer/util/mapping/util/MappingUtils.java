@@ -100,30 +100,6 @@ public abstract class MappingUtils {
     storedFactories.putAll(factories);
   }
 
-  public static boolean isCustomGetterSetterField(DozerField field) {
-    boolean result = false;
-    if (field.getTheGetMethod() != null || field.getTheSetMethod() != null) {
-      result = true;
-    }
-    return result;
-  }
-  
-  public static boolean isMapTypeCustomGetterSetterField(DozerField field) {
-    boolean result = false;
-    if (field.getMapGetMethod() != null || field.getMapSetMethod() != null) {
-      result = true;
-    }
-    return result;
-  }
-  
-  public static boolean isMapTypeCustomGetterSetterClass(DozerClass dozerClass) {
-    boolean result = false;
-    if (dozerClass.getMapGetMethod() != null || dozerClass.getMapSetMethod() != null) {
-      result = true;
-    }
-    return result;
-  }
-  
   public static Throwable getRootCause(Throwable ex) {
     Throwable rootCause = ex;
     while (rootCause.getCause() != null) {

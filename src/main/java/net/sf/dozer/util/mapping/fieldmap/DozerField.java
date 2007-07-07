@@ -138,4 +138,13 @@ public class DozerField {
   public void setName(String name) {
     this.name = name;
   }
+  
+  public boolean isCustomGetterSetterField() {
+    return getTheGetMethod() != null || getTheSetMethod() != null ? true : false;
+  }
+  
+  public boolean isMapTypeCustomGetterSetterField() {
+    return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
+  }
+  
 }

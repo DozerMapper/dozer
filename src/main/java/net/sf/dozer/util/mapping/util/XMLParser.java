@@ -288,11 +288,11 @@ public class XMLParser {
     }
     
     FieldMap result;
-    if (MappingUtils.isMapTypeCustomGetterSetterField(srcField) || MappingUtils.isMapTypeCustomGetterSetterField(destField) ||
-        MappingUtils.isMapTypeCustomGetterSetterClass(classMap.getSourceClass()) || MappingUtils.isMapTypeCustomGetterSetterClass(classMap.getDestClass())) {
+    if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField() ||
+        classMap.getSourceClass().isMapTypeCustomGetterSetterClass() || classMap.getDestClass().isMapTypeCustomGetterSetterClass()) {
       result = new MapFieldMap();
     }
-    else if (MappingUtils.isCustomGetterSetterField(srcField) || MappingUtils.isCustomGetterSetterField(destField)) {
+    else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
       result = new CustomGetSetMethodFieldMap(); 
     } else {
       result = new GenericFieldMap();
