@@ -54,7 +54,7 @@ public class MapFieldMap extends FieldMap {
     setType(fieldMap.getType());
   }
 
-  public void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
+  public void writeDestinationValue(Object destObj, Object destFieldValue) {
     DozerPropertyDescriptorIF propDescriptor;
     Object targetObject = destObj;
 
@@ -68,7 +68,7 @@ public class MapFieldMap extends FieldMap {
           || MappingUtils.isSupportedMap(determineActualPropertyType(getDestField(), destObj))) {
         // Need to dig out actual destination Map object and use map property descriptor to set the value on that target
         // object....
-        PrepareTargetObjectResult result = prepareTargetObject(destObj, fieldMap);
+        PrepareTargetObjectResult result = prepareTargetObject(destObj);
         targetObject = result.targetObject;
         propDescriptor = result.propDescriptor;
       } else {
@@ -76,7 +76,7 @@ public class MapFieldMap extends FieldMap {
       }
     }
 
-    propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestinationTypeHint(), fieldMap);
+    propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestinationTypeHint(), this);
   }
 
   public Object getSrcFieldValue(Object srcObj) {
@@ -90,10 +90,7 @@ public class MapFieldMap extends FieldMap {
       if ((getSourceField().getMapGetMethod() != null)
           || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSourceTypeHint() == null)) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
-        DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(srcObj.getClass(), getSourceField().getName(),
-            getSourceField().isIndexed(), getSourceField().getIndex());
-
-        targetObject = d.getPropertyValue(srcObj);
+        targetObject = super.getSrcFieldValue(srcObj);
 
         propDescriptor = new MapPropertyDescriptor(ac, getSourceField().getName(), getSourceField().isIndexed(),
             getDestField().getIndex(), MappingUtils.isSupportedMap(ac) ? "put" : getSourceField().getMapSetMethod(),
@@ -113,7 +110,7 @@ public class MapFieldMap extends FieldMap {
 
   }
 
-  private PrepareTargetObjectResult prepareTargetObject(Object destObj, FieldMap fieldMap) {
+  private PrepareTargetObjectResult prepareTargetObject(Object destObj) {
     Object targetObject = destObj;
     DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestField().getName(),
         getDestField().isIndexed(), getDestField().getIndex());
@@ -137,7 +134,7 @@ public class MapFieldMap extends FieldMap {
       } else {
         targetObject = ReflectionUtils.newInstance(c);
       }
-      d.setPropertyValue(destObj, targetObject, null, fieldMap);
+      d.setPropertyValue(destObj, targetObject, null, this);
     }
 
     return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestField().getName(),

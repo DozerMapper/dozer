@@ -350,9 +350,6 @@ public class MappingProcessor implements MapperIF {
     }
   }
 
-  // TODO there has to be a much better way then ignoreClassMap flag
-  // this is related to testPropertyClassLevelMapBack unit test. transforming
-  // String to Integer from HashMap
   private Object mapOrRecurseObject(Object srcObj, Object sourceFieldValue, Class destFieldType, 
       FieldMap fieldMap, Object destObj) {
     Class sourceFieldClass = sourceFieldValue != null ? sourceFieldValue.getClass() : fieldMap
@@ -431,7 +428,7 @@ public class MappingProcessor implements MapperIF {
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class destFieldType, Object sourceFieldValue) {
     // Custom java bean. Need to make sure that the destination object is not
     // already instantiated.
-    Object field = MappingValidator.validateField(fieldMap, destObj, destFieldType);
+    Object field = MappingValidator.getExistingValue(fieldMap, destObj, destFieldType);
     ClassMap classMap = null;
     // if the field is not null than we don't want a new instance
     if (field == null) {
@@ -538,7 +535,7 @@ public class MappingProcessor implements MapperIF {
 
   private Object mapMap(Object srcObj, Object sourceMapValue, FieldMap fieldMap, Object destObj, Class destFieldType) {
     Map result = null;
-    Object field = fieldMap.doesFieldExist(destObj, destFieldType);
+    Object field = fieldMap.getDestinationValue(destObj);
     if (field == null) {
       // no destination map exists
       result = (Map) ReflectionUtils.newInstance(sourceMapValue.getClass());
@@ -624,7 +621,7 @@ public class MappingProcessor implements MapperIF {
       Object destObj, Class destEntryType) {
 
     Object result = null;
-    Object field = fieldMap.doesFieldExist(destObj, destEntryType);
+    Object field = fieldMap.getDestinationValue(destObj);
     int arraySize = 0;
     if (field == null) {
       result = Array.newInstance(destEntryType, size);
@@ -664,7 +661,7 @@ public class MappingProcessor implements MapperIF {
     Class destEntryType = null;
     ListOrderedSet result = new ListOrderedSet();
     // don't want to create the set if it already exists.
-    Object field = fieldMap.doesFieldExist(destObj, null);
+    Object field = fieldMap.getDestinationValue(destObj);
     if (field != null) {
       result.addAll((Collection) field);
     }
@@ -714,7 +711,7 @@ public class MappingProcessor implements MapperIF {
     List result = null;
     // don't want to create the list if it already exists.
     // these maps are special cases which do not fall under what we are looking for
-    Object field = fieldMap.doesFieldExist(destObj, destEntryType);
+    Object field = fieldMap.getDestinationValue(destObj);
     if (field == null) {
       result = new ArrayList(sourceCollectionValue.size());
     } else {
@@ -808,7 +805,7 @@ public class MappingProcessor implements MapperIF {
       eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, null,
           destObj, destFieldValue));
 
-      fieldMap.writeDestinationValue(destObj, destFieldValue, fieldMap);
+      fieldMap.writeDestinationValue(destObj, destFieldValue);
 
       eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_POST_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, null,
           destObj, destFieldValue));
@@ -843,7 +840,7 @@ public class MappingProcessor implements MapperIF {
     if (topLevel) {
       return theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
     }
-    Object field = MappingValidator.validateField(fieldMap, existingDestFieldValue, destFieldClass);
+    Object field = MappingValidator.getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
     
     long start = System.currentTimeMillis();
     Object result = theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);

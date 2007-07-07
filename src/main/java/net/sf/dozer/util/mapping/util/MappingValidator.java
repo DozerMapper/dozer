@@ -88,7 +88,8 @@ public abstract class MappingValidator {
     }
   }
 
-  public static Object validateField(FieldMap fieldMap, Object destObj, Class destFieldType) {
+  //TODO: relocate this logic to a better place
+  public static Object getExistingValue(FieldMap fieldMap, Object destObj, Class destFieldType) {
     Object field = null;
     // verify that the dest obj is not null
     if (destObj == null) {
@@ -97,7 +98,7 @@ public abstract class MappingValidator {
     if (!(fieldMap instanceof MapFieldMap)) {
       // call the getXX method to see if the field is already
       // instantiated
-      field = fieldMap.getDestinationObject(destObj);
+      field = fieldMap.getDestinationValue(destObj);
     }
     // When we are recursing through a list we need to make sure
     // that we are not in the list

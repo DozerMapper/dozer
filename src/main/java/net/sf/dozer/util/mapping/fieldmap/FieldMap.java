@@ -111,26 +111,18 @@ public abstract class FieldMap implements Cloneable {
     return getSourcePropertyDescriptor(srcObj.getClass()).getPropertyValue(srcObj);
   }
 
-  public void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
+  public void writeDestinationValue(Object destObj, Object destFieldValue) {
     if (log.isDebugEnabled()) {
       log.debug("Getting ready to invoke write method on the destination object.  Dest Obj: "
           + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Dest value: " + destFieldValue);
     }
     DozerPropertyDescriptorIF propDescriptor = getDestinationPropertyDescriptor(destObj.getClass()); 
-    propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), fieldMap);
+    propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), this);
   }
 
-  public Object getDestinationObject(Object destObj) {
+  public Object getDestinationValue(Object destObj) {
     return getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
   }
-  
-  public Object doesFieldExist(Object destObj, Class destClass) {
-    Object field = null;
-    // call the getXX method to see if the field is already instantiated
-    // for deep mapping need the 'real' destination class.
-    field = getDestinationObject(destObj);
-    return field;
-  }  
   
   public Hint getDestinationTypeHint() {
     return destinationTypeHint;
