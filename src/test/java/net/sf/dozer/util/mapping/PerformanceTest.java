@@ -192,6 +192,25 @@ public class PerformanceTest extends AbstractDozerTest {
    * #5  8157
    * #6  16797
    * 
+   * MHT Computer - 7/06/07 - 3.5 release after map backed property refactor
+   *
+   * jdk1.4
+   * #1  27047
+   * #2  3140
+   * #3  3172
+   * #4  12328
+   * #5  8359
+   * #6  33281
+   * 
+   * jdk1.5
+   * #1  26484
+   * #2  3016
+   * #3  3062
+   * #4  11781
+   * #5  7906
+   * #6  30594
+ 
+   * 
    */
 
   public void testMapping1() throws Exception {
