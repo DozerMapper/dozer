@@ -208,15 +208,6 @@ public abstract class MappingUtils {
     destination.getSourceField().setCreateMethod(source.getDestField().getCreateMethod());
   }
   
-  public static boolean validateMap(Class sourceClass, Class destClass, FieldMap fieldMap) {
-    if (Map.class.isAssignableFrom(sourceClass) || fieldMap.getSourceField().getMapGetMethod() != null ||
-        Map.class.isAssignableFrom(destClass) || fieldMap.getDestField().getMapGetMethod() != null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  
   public static Object getIndexedValue(Object collection, int index) {
     Object r = null;
     if (collection instanceof Object[]) {

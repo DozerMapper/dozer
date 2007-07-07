@@ -130,26 +130,6 @@ public abstract class FieldMap implements Cloneable {
     return field;
   }  
   
-  public String getDestKey() {
-    String key;
-    if (getDestField().getKey() != null) {
-      key = getDestField().getKey();
-    } else {
-      key = getSourceField().getName();
-    }
-    return key;
-  }
-
-  public String getSourceKey() {
-    String key;
-    if (getSourceField().getKey() != null) {
-      key = getSourceField().getKey();
-    } else {
-      key = getDestField().getName();
-    }
-    return key;
-  }
-  
   public Hint getDestinationTypeHint() {
     return destinationTypeHint;
   }
