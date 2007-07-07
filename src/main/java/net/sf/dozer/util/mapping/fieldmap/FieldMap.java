@@ -65,31 +65,18 @@ public abstract class FieldMap implements Cloneable {
 
   public Class getDestFieldType(Class destClass) {
     Class result = null;
-    try {
-      if (destField.isIndexed()) {
-        result = destinationTypeHint != null ? destinationTypeHint.getHint() : null;
-      } 
-      if (result == null) {
-        result = getDestinationPropertyDescriptor(destClass).getPropertyType();
-      }
-    } catch (NoSuchFieldException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
+    if (destField.isIndexed()) {
+      result = destinationTypeHint != null ? destinationTypeHint.getHint() : null;
+    } 
+    if (result == null) {
+      result = getDestinationPropertyDescriptor(destClass).getPropertyType();
     }
     return result;
   }
   
   public Class getSourceFieldType(Class srcClass) {
     Class result = null;
-    try {
-      result = getSourcePropertyDescriptor(srcClass).getPropertyType();
-    } catch (NoSuchFieldException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
+    return getSourcePropertyDescriptor(srcClass).getPropertyType();
   }
 
   /**
@@ -118,19 +105,7 @@ public abstract class FieldMap implements Cloneable {
     if (isSourceSelfReferencing()) {
       return srcObj;
     }
-    Object result = null;
-    try {
-      result = getSourcePropertyDescriptor(srcObj.getClass()).getPropertyValue(srcObj);
-    } catch (NoSuchFieldException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (IllegalAccessException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (InvocationTargetException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
+    return getSourcePropertyDescriptor(srcObj.getClass()).getPropertyValue(srcObj);
   }
 
   public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap) {
@@ -139,29 +114,12 @@ public abstract class FieldMap implements Cloneable {
           + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Dest value: " + destFieldValue);
     }
     DozerPropertyDescriptorIF propDescriptor = getDestinationPropertyDescriptor(destObj.getClass()); 
-    try {
-      propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);
-    } catch (NoSuchFieldException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
+    propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);
   }
 
   public Object getDestinationObject(Object destObj) {
     Object result = null;
-    try {
-      result = getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
-    } catch (NoSuchFieldException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (IllegalAccessException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (InvocationTargetException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
+    return getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
   }
   
   public Object doesFieldExist(Object destObj, Class destClass) {

@@ -28,10 +28,10 @@ import net.sf.dozer.util.mapping.fieldmap.Hint;
  */
 public interface DozerPropertyDescriptorIF {
 
-  public Class getPropertyType() throws NoSuchFieldException, NoSuchMethodException;
+  public Class getPropertyType();
   
-  public void setPropertyValue (Object bean, Object value, Hint hint, ClassMap classMap) throws NoSuchFieldException, NoSuchMethodException;
+  public void setPropertyValue (Object bean, Object value, Hint hint, ClassMap classMap);
   
-  public Object getPropertyValue(Object bean) throws NoSuchFieldException, NoSuchMethodException, IllegalAccessException, InvocationTargetException;
+  public Object getPropertyValue(Object bean);
   
 }

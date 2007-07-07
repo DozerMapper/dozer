@@ -57,7 +57,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return propertyType;
   }
 
-  public Object getPropertyValue(Object bean) throws NoSuchMethodException {
+  public Object getPropertyValue(Object bean) {
     Object result = null;
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       Object o = null;
@@ -77,7 +77,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return result;
   }
 
-  public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) throws NoSuchMethodException {
+  public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       if (getPropertyType().isPrimitive() && value == null) {
         // do nothing
@@ -106,7 +106,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   }  
   
   
-  private Object getDeepSrcFieldValue(Object srcObj) throws NoSuchMethodException {
+  private Object getDeepSrcFieldValue(Object srcObj) {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = null;
@@ -129,7 +129,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return hierarchyValue;
   }
 
-  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap) throws NoSuchMethodException {
+  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap) {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
     PropertyDescriptor[] hierarchy = getHierarchy(destObj);
     // first, iteratate through hierarchy and instantiate any objects that are null
