@@ -195,7 +195,7 @@ public class MappingsParser {
               if (fieldMapPrime instanceof ExcludeFieldMap
                   && StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY)) {
                 // need to make a generic field map for the other direction
-                fieldMapPrime = new GenericFieldMap();
+                fieldMapPrime = new GenericFieldMap(classMapPrime);
               }
               // reverse the fields
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
@@ -215,7 +215,7 @@ public class MappingsParser {
               }
             } else { // if it is a one-way field map make the other field map excluded
               // make a prime field map
-              fieldMapPrime = new ExcludeFieldMap();
+              fieldMapPrime = new ExcludeFieldMap(classMapPrime);
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
             }
             classMapPrime.addFieldMapping((FieldMap) fieldMapPrime);
@@ -230,7 +230,7 @@ public class MappingsParser {
             MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
             // check to see if we need to exclude the map
             if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
-              fieldMapPrime = new ExcludeFieldMap();
+              fieldMapPrime = new ExcludeFieldMap(classMapPrime);
               MappingUtils.reverseFields(oneWayFieldMap, fieldMapPrime);
               classMapPrime.addFieldMapping(fieldMapPrime);
             }

@@ -224,7 +224,7 @@ public class XMLParser {
   }
 
   private void parseFieldExcludeMap(Element ele, ClassMap classMap) {
-    ExcludeFieldMap efm = new ExcludeFieldMap();
+    ExcludeFieldMap efm = new ExcludeFieldMap(classMap);
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
       efm.setType(ele.getAttribute(TYPE_ATTRIBUTE));
     }
@@ -290,12 +290,12 @@ public class XMLParser {
     FieldMap result;
     if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField() ||
         classMap.getSourceClass().isMapTypeCustomGetterSetterClass() || classMap.getDestClass().isMapTypeCustomGetterSetterClass()) {
-      result = new MapFieldMap();
+      result = new MapFieldMap(classMap);
     }
     else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
-      result = new CustomGetSetMethodFieldMap(); 
+      result = new CustomGetSetMethodFieldMap(classMap); 
     } else {
-      result = new GenericFieldMap();
+      result = new GenericFieldMap(classMap);
     }
     
     return result;

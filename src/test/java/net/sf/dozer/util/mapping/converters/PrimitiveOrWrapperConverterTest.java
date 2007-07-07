@@ -188,7 +188,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     Object result = null;
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(null);
       result = converter.convert(input[i], java.util.Date.class, dfc);
       assertTrue("result should be instance of java.util.Date", result instanceof java.util.Date);
@@ -197,7 +197,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.util.Date.class, dfc);
       assertEquals("String to java.util.Date for input: " + dateStr,dateFormats[i].parse(dateStr), result);
@@ -210,7 +210,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     expected = new java.sql.Date(time);
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(null);
       result = converter.convert(input[i], java.sql.Date.class, dfc);
       assertTrue("result should be instance of java.sql.Date", result instanceof java.sql.Date);
@@ -219,7 +219,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.sql.Date.class, dfc);
       assertEquals("String to java.sql.Date for input: " + dateStr, dateFormats[i].parse(dateStr), result);
@@ -232,7 +232,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     expected = new java.sql.Time(time);
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(null);
       result = converter.convert(input[i], java.sql.Time.class, dfc);
       assertTrue("result should be instance of java.sql.Time", result instanceof java.sql.Time);
@@ -241,7 +241,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.sql.Time.class, dfc);
       assertEquals("String to java.sql.Time for input: " + dateStr, dateFormats[i].parse(dateStr), result);
@@ -253,7 +253,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
         String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(null);
       result = converter.convert(input[i], java.sql.Timestamp.class, dfc);
       assertTrue("result should be instance of java.sql.Timestamp", result instanceof java.sql.Timestamp);
@@ -263,7 +263,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.sql.Timestamp.class, dfc);
       assertEquals("String to java.sql.Timestamp for input: " + dateStr, dateFormats[i].parse(dateStr), result);
@@ -275,7 +275,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
         new java.sql.Timestamp(time), gregCal, String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(null);
       result = converter.convert(input[i], java.util.Calendar.class, dfc);
       assertTrue("result should be instance of java.util.Calendar", result instanceof java.util.Calendar);
@@ -285,7 +285,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.util.Calendar.class, dfc);
       assertEquals("String to java.util.Calendar for input: " + dateStr, dateFormats[i].parse(dateStr), ((Calendar)result).getTime());
@@ -296,7 +296,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
         new java.sql.Timestamp(time), cal, String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(null);
       result = converter.convert(input[i], java.util.GregorianCalendar.class, dfc);
       assertTrue("result should be instance of java.util.GregorianCalendar",
@@ -307,7 +307,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.util.GregorianCalendar.class, dfc);
       assertEquals("String to java.util.GregorianCalendar for input: " + dateStr, dateFormats[i].parse(dateStr), ((GregorianCalendar)result).getTime());

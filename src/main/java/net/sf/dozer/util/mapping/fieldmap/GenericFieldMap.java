@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+
 /**
  * Only intended for internal use.
  * 
@@ -24,4 +26,7 @@ package net.sf.dozer.util.mapping.fieldmap;
  * 
  */
 public class GenericFieldMap extends FieldMap {
+  public GenericFieldMap(ClassMap classMap) {
+    super(classMap);
+  }
 }

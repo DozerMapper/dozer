@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 
 
@@ -28,7 +28,7 @@ public interface DozerPropertyDescriptorIF {
 
   public Class getPropertyType();
   
-  public void setPropertyValue (Object bean, Object value, Hint hint, ClassMap classMap);
+  public void setPropertyValue (Object bean, Object value, Hint hint, FieldMap fieldMap);
   
   public Object getPropertyValue(Object bean);
   

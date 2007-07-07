@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.lang.reflect.Field;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
@@ -68,7 +69,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
     return result;
   }
 
-  public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
+  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap) {
     try {
       if (getPropertyType().isPrimitive() && value == null) {
         // do nothing

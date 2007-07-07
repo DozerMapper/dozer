@@ -34,7 +34,7 @@ public class ConverterTest extends AbstractDozerTest {
     assertEquals(dateFormat, cc.getDateFormat());
 
     StringConverter sc = new StringConverter(null);
-    DateFormatContainer dfc = new DateFormatContainer(null, null);
+    DateFormatContainer dfc = new DateFormatContainer(null);
     sc.setDateFormatContainer(dfc);
     assertEquals(dfc, sc.getDateFormatContainer());
   }

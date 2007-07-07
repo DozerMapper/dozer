@@ -17,6 +17,7 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 
 /**
@@ -36,7 +37,7 @@ public class SelfPropertyDescriptor implements DozerPropertyDescriptorIF {
     return self;
   }
 
-  public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) throws MappingException {
+  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap) throws MappingException {
     // do nothing
   }
 

@@ -39,6 +39,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class FieldMap implements Cloneable {
   private static final Log log = LogFactory.getLog(FieldMap.class);
 
+  private ClassMap classMap;
   private DozerField sourceField;
   private DozerField destField;
   private Hint sourceTypeHint;
@@ -49,6 +50,10 @@ public abstract class FieldMap implements Cloneable {
   private String mapId;
   private String customConverter;
   private String relationshipType;
+  
+  public FieldMap(ClassMap classMap) {
+    this.classMap = classMap;
+  }
   
   public Class getDestHintType(Class sourceClass) {
     if (getDestinationTypeHint() != null) {
@@ -106,13 +111,13 @@ public abstract class FieldMap implements Cloneable {
     return getSourcePropertyDescriptor(srcObj.getClass()).getPropertyValue(srcObj);
   }
 
-  public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap) {
+  public void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
     if (log.isDebugEnabled()) {
       log.debug("Getting ready to invoke write method on the destination object.  Dest Obj: "
           + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Dest value: " + destFieldValue);
     }
     DozerPropertyDescriptorIF propDescriptor = getDestinationPropertyDescriptor(destObj.getClass()); 
-    propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), classMap);
+    propDescriptor.setPropertyValue(destObj, destFieldValue, getDestinationTypeHint(), fieldMap);
   }
 
   public Object getDestinationObject(Object destObj) {
@@ -226,6 +231,10 @@ public abstract class FieldMap implements Cloneable {
     this.relationshipType = relationshipType;
   }
   
+  public ClassMap getClassMap() {
+    return classMap;
+  }
+
   protected DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
     return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass, isSourceSelfReferencing(), destField.getName());
   }

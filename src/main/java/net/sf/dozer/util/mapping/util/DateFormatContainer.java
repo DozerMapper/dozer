@@ -29,19 +29,13 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
  * @author tierney.matt
  */
 public class DateFormatContainer {
-  private ClassMap classMap;
   private FieldMap fieldMap;
   private DateFormat dateFormat;
   
-  public DateFormatContainer(ClassMap classMap, FieldMap fieldMap) {
-    this.classMap = classMap;
+  public DateFormatContainer(FieldMap fieldMap) {
     this.fieldMap = fieldMap;
   }
   
-  public DateFormatContainer(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
-  }
-
   public DateFormat getDateFormat() {
     if (dateFormat == null) {
       dateFormat = determineDateFormat();
@@ -54,7 +48,7 @@ public class DateFormatContainer {
   }
 
   private DateFormat determineDateFormat() {
-    if (classMap == null || fieldMap == null) {
+    if (fieldMap == null || fieldMap.getClassMap() == null) {
       return null;
     }
     // try to use field mapping date format
@@ -64,7 +58,7 @@ public class DateFormatContainer {
     // if field level date format is not specified, try using class mapping
     // default date format
     if (MappingUtils.isBlankOrNull(dfStr)) {
-      dfStr = classMap.getDateFormat();
+      dfStr = fieldMap.getClassMap().getDateFormat();
     }
 
     return dfStr == null ? null : new SimpleDateFormat(dfStr, Locale.getDefault());

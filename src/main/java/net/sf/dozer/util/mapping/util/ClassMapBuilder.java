@@ -118,9 +118,9 @@ public abstract class ClassMapBuilder {
       FieldMap map;
       //TODO: remove the if and always create Generic
       if (field.isCustomGetterSetterField()) {
-        map = new CustomGetSetMethodFieldMap();
+        map = new CustomGetSetMethodFieldMap(classMap);
       } else {
-        map = new GenericFieldMap();
+        map = new GenericFieldMap(classMap);
       }
       map.setSourceField(new DozerField(destFieldName, null));
       map.setDestField(new DozerField(destFieldName, null));
@@ -158,7 +158,7 @@ public abstract class ClassMapBuilder {
         continue;
       }
     
-      FieldMap map = new MapFieldMap();
+      FieldMap map = new MapFieldMap(classMap);
       DozerField srcField = new DozerField(MappingUtils.isSupportedMap(sourceClass) ? MapperConstants.SELF_KEYWORD : fieldName, null);
       srcField.setKey(fieldName);
       

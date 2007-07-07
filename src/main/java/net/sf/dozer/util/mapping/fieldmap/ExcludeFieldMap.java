@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+
 /**
  * Only intended for internal use.
  * 
@@ -24,5 +26,9 @@ package net.sf.dozer.util.mapping.fieldmap;
  *
  */
 public class ExcludeFieldMap extends FieldMap {
+  
+  public ExcludeFieldMap(ClassMap classMap) {
+    super(classMap);
+  }
 
 }

@@ -19,6 +19,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
 import net.sf.dozer.util.mapping.util.MapperConstants;
@@ -77,7 +78,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return result;
   }
 
-  public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
+  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap) {
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       if (!getPropertyType().isPrimitive() || value != null) {
         // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
@@ -99,7 +100,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         }
       }
     } else {
-      writeDeepDestinationValue(bean, value, hint, classMap);
+      writeDeepDestinationValue(bean, value, hint, fieldMap);
     }
   }  
   
@@ -127,7 +128,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return hierarchyValue;
   }
 
-  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, ClassMap classMap) {
+  private void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, FieldMap fieldMap) {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
     PropertyDescriptor[] hierarchy = getHierarchy(destObj);
     // first, iteratate through hierarchy and instantiate any objects that are null
@@ -151,10 +152,10 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
         } catch (Exception e) {
           // lets see if they have a factory we can try. If not...throw the exception:
-          if (classMap.getDestClass().getBeanFactory() != null) {
+          if (fieldMap.getClassMap().getDestClass().getBeanFactory() != null) {
             DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
-            o = destBeanCreator.createFromFactory(null, classMap.getSourceClass().getClassToMap(), classMap
-                .getDestClass().getBeanFactory(), classMap.getDestClass().getFactoryBeanId(), clazz);
+            o = destBeanCreator.createFromFactory(null, fieldMap.getClassMap().getSourceClass().getClassToMap(), fieldMap.getClassMap()
+                .getDestClass().getBeanFactory(), fieldMap.getClassMap().getDestClass().getFactoryBeanId(), clazz);
             ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
           } else {
             MappingUtils.throwMappingException(e);

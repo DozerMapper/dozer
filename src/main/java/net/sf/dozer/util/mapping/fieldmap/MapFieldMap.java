@@ -37,10 +37,12 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public class MapFieldMap extends FieldMap {
 
-  public MapFieldMap() {
+  public MapFieldMap(ClassMap classMap) {
+    super(classMap);
   }
 
   public MapFieldMap(FieldMap fieldMap) {
+    super(fieldMap.getClassMap());
     setCopyByReference(fieldMap.getCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
     setDestField(fieldMap.getDestField());
@@ -52,7 +54,7 @@ public class MapFieldMap extends FieldMap {
     setType(fieldMap.getType());
   }
 
-  public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap) {
+  public void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
     DozerPropertyDescriptorIF propDescriptor;
     Object targetObject = destObj;
 
@@ -66,7 +68,7 @@ public class MapFieldMap extends FieldMap {
           || MappingUtils.isSupportedMap(determineActualPropertyType(getDestField(), destObj))) {
         // Need to dig out actual destination Map object and use map property descriptor to set the value on that target
         // object....
-        PrepareTargetObjectResult result = prepareTargetObject(destObj, classMap);
+        PrepareTargetObjectResult result = prepareTargetObject(destObj, fieldMap);
         targetObject = result.targetObject;
         propDescriptor = result.propDescriptor;
       } else {
@@ -74,7 +76,7 @@ public class MapFieldMap extends FieldMap {
       }
     }
 
-    propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestinationTypeHint(), classMap);
+    propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestinationTypeHint(), fieldMap);
   }
 
   public Object getSrcFieldValue(Object srcObj) {
@@ -111,7 +113,7 @@ public class MapFieldMap extends FieldMap {
 
   }
 
-  private PrepareTargetObjectResult prepareTargetObject(Object destObj, ClassMap classMap) {
+  private PrepareTargetObjectResult prepareTargetObject(Object destObj, FieldMap fieldMap) {
     Object targetObject = destObj;
     DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestField().getName(),
         getDestField().isIndexed(), getDestField().getIndex());
@@ -135,7 +137,7 @@ public class MapFieldMap extends FieldMap {
       } else {
         targetObject = ReflectionUtils.newInstance(c);
       }
-      d.setPropertyValue(destObj, targetObject, null, classMap);
+      d.setPropertyValue(destObj, targetObject, null, fieldMap);
     }
 
     return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestField().getName(),
