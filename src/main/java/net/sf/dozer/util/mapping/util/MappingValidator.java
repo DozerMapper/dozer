@@ -18,14 +18,8 @@ package net.sf.dozer.util.mapping.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Iterator;
 
-import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.classmap.Configuration;
-import net.sf.dozer.util.mapping.classmap.CopyByReference;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
-import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
 /**
  * Internal class used to perform various validations.  Validates mapping requests, field mappings, URL's, etc.  
@@ -60,62 +54,13 @@ public abstract class MappingValidator {
     }
   }
 
-  public static void validateCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
-    String destFieldTypeName = null;
-    if (globalConfig.getCopyByReferences() != null) {
-      Iterator copyIterator = globalConfig.getCopyByReferences().getCopyByReferences().iterator();
-      Class clazz = fieldMap.getDestFieldType(classMap.getDestClass().getClassToMap());
-      if (clazz != null) {
-        destFieldTypeName = clazz.getName();
-      }
-      while (copyIterator.hasNext()) {
-        CopyByReference copyByReference = (CopyByReference) copyIterator.next();
-        if (copyByReference.getReferenceName().equals(destFieldTypeName) && !fieldMap.getCopyByReferenceOveridden()) {
-          fieldMap.setCopyByReference(true);
-        }
-      }
-    }
-  }
-
-  public static void validateFieldMapping(FieldMap fm) {
-    DozerField srcField = fm.getSourceField();
-    DozerField destField = fm.getDestField();
+  public static void validateFieldMapping(DozerField srcField, DozerField destField) {
     if (srcField == null) {
       MappingUtils.throwMappingException("src field must be specified");
     }
     if (destField == null) {
       MappingUtils.throwMappingException("dest field must be specified");
     }
-  }
-
-  //TODO: relocate this logic to a better place
-  public static Object getExistingValue(FieldMap fieldMap, Object destObj, Class destFieldType) {
-    Object field = null;
-    // verify that the dest obj is not null
-    if (destObj == null) {
-      return null;
-    }
-    if (!(fieldMap instanceof MapFieldMap)) {
-      // call the getXX method to see if the field is already
-      // instantiated
-      field = fieldMap.getDestinationValue(destObj);
-    }
-    // When we are recursing through a list we need to make sure
-    // that we are not in the list
-    // by checking the destFieldType
-    if (field != null) {
-      if (CollectionUtils.isList(field.getClass()) || CollectionUtils.isArray(field.getClass())
-          || CollectionUtils.isSet(field.getClass()) || MappingUtils.isSupportedMap(field.getClass())) {
-        if (!CollectionUtils.isList(destFieldType) && !CollectionUtils.isArray(destFieldType)
-            && !CollectionUtils.isSet(destFieldType) && !MappingUtils.isSupportedMap(destFieldType)) {
-          // this means the getXX field is a List but we
-          // are actually trying to map one of its
-          // elements
-          field = null;
-        }
-      }
-    }
-    return field;
   }
 
   public static URL validateURL(String fileName) {

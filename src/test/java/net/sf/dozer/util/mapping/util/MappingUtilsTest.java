@@ -46,13 +46,13 @@ public class MappingUtilsTest extends AbstractDozerTest {
     Iterator iter = mappings.getMapping().iterator();
     while (iter.hasNext()) {
       ClassMap classMap = (ClassMap) iter.next();
-      if (classMap.getSourceClass().getName().equals("net.sf.dozer.util.mapping.vo.FurtherTestObject")) {
+      if (classMap.getSrcClassToMap().getName().equals("net.sf.dozer.util.mapping.vo.FurtherTestObject")) {
         assertTrue(classMap.getStopOnErrors());
       }
-      if (classMap.getSourceClass().getName().equals("net.sf.dozer.util.mapping.vo.SuperSuperSuperClass")) {
-        assertTrue(classMap.getWildcard());
+      if (classMap.getSrcClassToMap().getName().equals("net.sf.dozer.util.mapping.vo.SuperSuperSuperClass")) {
+        assertTrue(classMap.isWildcard());
       }
-      if (classMap.getSourceClass().getName().equals("net.sf.dozer.util.mapping.vo.TestObject")) {
+      if (classMap.getSrcClassToMap().getName().equals("net.sf.dozer.util.mapping.vo.TestObject")) {
         assertTrue(!((FieldMap) classMap.getFieldMaps().get(0)).getCopyByReference());
       }
     }

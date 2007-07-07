@@ -251,11 +251,11 @@ public class MappingProcessor implements MapperIF {
       // check for super class names
       String parentSourceField = null;
       if (parentFieldMap != null) {
-        parentSourceField = parentFieldMap.getSourceField().getName();
+        parentSourceField = parentFieldMap.getSrcFieldName();
       }
 
       String key = MappingUtils.getParentFieldNameKey(parentSourceField, sourceObj, sourceClass.getName(), fieldMapping
-          .getSourceField().getName(), fieldMapping.getDestField().getName());
+          .getSrcFieldName(), fieldMapping.getDestFieldName());
       if (parentClassMap != null) {
         if (superListOfFieldNames != null) {
           if (superListOfFieldNames.contains(key)) {
@@ -288,8 +288,8 @@ public class MappingProcessor implements MapperIF {
       }
 
       if (!fieldMapped) {
-        if (fieldMapping.getDestField().getType() != null
-            && fieldMapping.getDestField().getType().equals(MapperConstants.ITERATE)) {
+        if (fieldMapping.getDestFieldType() != null
+            && fieldMapping.getDestFieldType().equals(MapperConstants.ITERATE)) {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(sourceObj, destObj, sourceFieldValue, fieldMapping);
         } else {
@@ -348,7 +348,7 @@ public class MappingProcessor implements MapperIF {
 
     if (log.isDebugEnabled()) {
       log.debug(LogMsgFactory.createFieldMappingSuccessMsg(sourceObj.getClass(), destObj.getClass(), fieldMapping
-          .getSourceField().getName(), fieldMapping.getDestField().getName(), sourceFieldValue, destFieldValue));
+          .getSrcFieldName(), fieldMapping.getDestFieldName(), sourceFieldValue, destFieldValue));
     }
   }
 
@@ -435,7 +435,7 @@ public class MappingProcessor implements MapperIF {
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class destFieldType, Object sourceFieldValue) {
     // Custom java bean. Need to make sure that the destination object is not
     // already instantiated.
-    Object field = MappingValidator.getExistingValue(fieldMap, destObj, destFieldType);
+    Object field = determineExistingValue(fieldMap, destObj, destFieldType);
     ClassMap classMap = null;
     // if the field is not null than we don't want a new instance
     if (field == null) {
@@ -624,7 +624,7 @@ public class MappingProcessor implements MapperIF {
     }
     if (log.isDebugEnabled()) {
       log.debug(LogMsgFactory.createFieldMappingSuccessMsg(sourceObj.getClass(), destObj.getClass(), fieldMapping
-          .getSourceField().getName(), fieldMapping.getDestField().getName(), sourceFieldValue, null));
+          .getSrcFieldName(), fieldMapping.getDestFieldName(), sourceFieldValue, null));
     }
   }
 
@@ -802,14 +802,14 @@ public class MappingProcessor implements MapperIF {
   private void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
     boolean bypass = false;
     // don't map null to dest field if map-null="false"
-    if (destFieldValue == null && !fieldMap.getClassMap().getDestClass().getMapNull().booleanValue()) {
+    if (destFieldValue == null && !fieldMap.getClassMap().getDestClassMapNull()) {
       bypass = true;
     }
 
     // don't map "" to dest field if map-empty-string="false"
     if (destFieldValue != null && destFieldValue.getClass().equals(String.class)
         && StringUtils.isEmpty((String) destFieldValue)
-        && !fieldMap.getClassMap().getDestClass().getMapEmptyString().booleanValue()) {
+        && !fieldMap.getClassMap().getDestClassMapEmptyString()) {
       bypass = true;
     }
 
@@ -852,7 +852,7 @@ public class MappingProcessor implements MapperIF {
     if (topLevel) {
       return theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
     }
-    Object field = MappingValidator.getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+    Object field = determineExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
 
     long start = System.currentTimeMillis();
     Object result = theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
@@ -876,7 +876,7 @@ public class MappingProcessor implements MapperIF {
 
     // Fix for bug # [ 1486105 ] Inheritance mapping not working correctly
     // We were not creating a default configuration if we found a parent level class map
-    if (mapping.getSourceClass().getClassToMap() != sourceClass || mapping.getDestClass().getClassToMap() != destClass) {
+    if (mapping.getSrcClassToMap() != sourceClass || mapping.getDestClassToMap() != destClass) {
       // there are fields from the source object to dest class we might be missing. create a default mapping between the
       // two.
       mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, sourceClass, destClass);
@@ -950,10 +950,10 @@ public class MappingProcessor implements MapperIF {
         if (!(fieldMapping instanceof MapFieldMap)) {
           String parentSourceField = null;
           if (parentFieldMap != null) {
-            parentSourceField = parentFieldMap.getSourceField().getName();
+            parentSourceField = parentFieldMap.getSrcFieldName();
           }
           String key = MappingUtils.getParentFieldNameKey(parentSourceField, sourceObj, sourceClass.getName(),
-              fieldMapping.getSourceField().getName(), fieldMapping.getDestField().getName());
+              fieldMapping.getSrcFieldName(), fieldMapping.getDestFieldName());
           if (fieldNamesList.contains(key)) {
             continue;
           } else {
@@ -963,6 +963,35 @@ public class MappingProcessor implements MapperIF {
       }
     }
     return fieldNamesList;
+  }
+  
+  public static Object determineExistingValue(FieldMap fieldMap, Object destObj, Class destFieldType) {
+    Object field = null;
+    // verify that the dest obj is not null
+    if (destObj == null) {
+      return null;
+    }
+    if (!(fieldMap instanceof MapFieldMap)) {
+      // call the getXX method to see if the field is already
+      // instantiated
+      field = fieldMap.getDestinationValue(destObj);
+    }
+    // When we are recursing through a list we need to make sure
+    // that we are not in the list
+    // by checking the destFieldType
+    if (field != null) {
+      if (CollectionUtils.isList(field.getClass()) || CollectionUtils.isArray(field.getClass())
+          || CollectionUtils.isSet(field.getClass()) || MappingUtils.isSupportedMap(field.getClass())) {
+        if (!CollectionUtils.isList(destFieldType) && !CollectionUtils.isArray(destFieldType)
+            && !CollectionUtils.isSet(destFieldType) && !MappingUtils.isSupportedMap(destFieldType)) {
+          // this means the getXX field is a List but we
+          // are actually trying to map one of its
+          // elements
+          field = null;
+        }
+      }
+    }
+    return field;
   }
 
   private ClassMap getClassMap(Object sourceObj, Class destClass, String mapId, boolean isInstance) {
@@ -983,5 +1012,7 @@ public class MappingProcessor implements MapperIF {
 
     return mapping;
   }
+  
+  
 
 }

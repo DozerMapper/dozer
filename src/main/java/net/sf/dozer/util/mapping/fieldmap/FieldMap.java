@@ -55,6 +55,14 @@ public abstract class FieldMap implements Cloneable {
     this.classMap = classMap;
   }
   
+  public ClassMap getClassMap() {
+    return classMap;
+  }
+  
+  public void setClassMap(ClassMap classMap) {
+    this.classMap = classMap;
+  }
+  
   public Class getDestHintType(Class sourceClass) {
     if (getDestinationTypeHint() != null) {
       if (getSourceTypeHint() != null) {
@@ -69,7 +77,7 @@ public abstract class FieldMap implements Cloneable {
 
   public Class getDestFieldType(Class destClass) {
     Class result = null;
-    if (destField.isIndexed()) {
+    if (isDestFieldIndexed()) {
       result = destinationTypeHint != null ? destinationTypeHint.getHint() : null;
     } 
     if (result == null) {
@@ -139,21 +147,184 @@ public abstract class FieldMap implements Cloneable {
   public void setSourceTypeHint(Hint sourceHint) {
     this.sourceTypeHint = sourceHint;
   }
-
-  public DozerField getDestField() {
-    return destField;
+  
+  public String getSrcFieldMapGetMethod() {
+    return !MappingUtils.isBlankOrNull(sourceField.getMapGetMethod()) ? sourceField.getMapGetMethod() : classMap.getSrcClassMapGetMethod(); 
+  }
+  
+  public String getSrcFieldMapSetMethod() {
+    return !MappingUtils.isBlankOrNull(sourceField.getMapSetMethod()) ? sourceField.getMapSetMethod() : classMap.getSrcClassMapSetMethod(); 
+  }
+  
+  public String getDestFieldMapGetMethod() {
+    return !MappingUtils.isBlankOrNull(destField.getMapGetMethod()) ? destField.getMapGetMethod() : classMap.getDestClassMapGetMethod(); 
+  }
+  
+  public String getDestFieldMapSetMethod() {
+    return !MappingUtils.isBlankOrNull(destField.getMapSetMethod()) ? destField.getMapSetMethod() : classMap.getDestClassMapSetMethod(); 
+  }
+  
+  public String getSrcFieldName() {
+    return sourceField.getName();
+  }
+  
+  public String getDestFieldName() {
+    return destField.getName();
+  }
+  
+  public String getDestFieldType() {
+    return destField.getType();
+  }
+  
+  public String getSrcFieldType() {
+    return sourceField.getType();
+  }
+  
+  
+  public String getSrcFieldDateFormat() {
+    return getDateFormat();
+  }
+  
+  public String getDestFieldDateFormat() {
+    return getDateFormat();
+  }
+  
+  public String getDateFormat() {
+    if (!MappingUtils.isBlankOrNull(destField.getDateFormat())) {
+      return destField.getDateFormat();
+    } else if (!MappingUtils.isBlankOrNull(sourceField.getDateFormat())) {
+      return sourceField.getDateFormat();
+    } else {
+      return classMap.getDateFormat();
+    }
+  }
+  
+  public String getDestFieldCreateMethod() {
+    return destField.getCreateMethod();
+  }
+  
+  public String getSrcFieldCreateMethod() {
+    return sourceField.getCreateMethod();
+  }
+  
+  public boolean isDestFieldIndexed() {
+    return destField.isIndexed();
+  }
+  
+  public boolean isSrcFieldIndexed() {
+    return sourceField.isIndexed();
+  }
+  
+  public int getSrcFieldIndex() {
+    return sourceField.getIndex();
+  }
+  
+  public int getDestFieldIndex() {
+    return destField.getIndex();
+  }
+  
+  public void setDestFieldDateFormat(String dateFormat) {
+    destField.setDateFormat(dateFormat);
+  }
+  
+  public void setSrcFieldDateFormat(String dateFormat) {
+    sourceField.setDateFormat(dateFormat);
+  }
+  
+  public void setDestFieldTheGetMethod(String theGetMethod) {
+    destField.setTheGetMethod(theGetMethod);
+  }
+  
+  public void setSrcFieldTheGetMethod(String theGetMethod) {
+    sourceField.setTheGetMethod(theGetMethod);
+  }
+  
+  public void setDestFieldTheSetMethod(String theSetMethod) {
+    destField.setTheSetMethod(theSetMethod);
+  }
+  
+  public void setSrcFieldTheSetMethod(String theSetMethod) {
+    sourceField.setTheSetMethod(theSetMethod);
+  }
+  
+  public void setDestFieldMapSetMethod(String mapSetMethod) {
+    destField.setMapSetMethod(mapSetMethod);
+  }
+  
+  public void setSrcFieldMapSetMethod(String mapSetMethod) {
+    sourceField.setMapSetMethod(mapSetMethod);
   }
 
-  public void setDestField(DozerField destField) {
-    this.destField = destField;
+  public void setDestFieldMapGetMethod(String mapGetMethod) {
+    destField.setMapGetMethod(mapGetMethod);
+  }
+  
+  public void setSrcFieldMapGetMethod(String mapGetMethod) {
+    sourceField.setMapGetMethod(mapGetMethod);
   }
 
-  public DozerField getSourceField() {
-    return sourceField;
+  public void setDestFieldCreateMethod(String createMethod) {
+    destField.setCreateMethod(createMethod);
   }
-
+  
+  public void setSrcFieldCreateMethod(String createMethod) {
+    sourceField.setCreateMethod(createMethod);
+  }
+  
+  public void setDestFieldKey(String key) {
+    destField.setKey(key);
+  }
+  
+  public void setSrcFieldKey(String key) {
+    sourceField.setKey(key);
+  }
+  
+  public String getSrcFieldTheGetMethod() {
+    return sourceField.getTheGetMethod();
+  }
+  
+  public String getDestFieldTheGetMethod() {
+    return destField.getTheGetMethod();
+  }
+  
+  public String getSrcFieldTheSetMethod() {
+    return sourceField.getTheSetMethod();
+  }
+  
+  public String getDestFieldTheSetMethod() {
+    return destField.getTheSetMethod();
+  }
+  
+  public String getSrcFieldKey() {
+    return sourceField.getKey();
+  }
+  
+  public String getDestFieldKey() {
+    return destField.getKey();
+  }
+  
+  public boolean isDestFieldAccessible() {
+    return destField.isAccessible();
+  }
+  
+  public boolean isSrcFieldAccessible() {
+    return sourceField.isAccessible();
+  }
+  
+  public void setSrcFieldAccessible(boolean isAccessible) {
+    sourceField.setAccessible(isAccessible);
+  }
+  
+  public void setDestFieldAccessible(boolean isAccessible) {
+    destField.setAccessible(isAccessible);
+  }
+  
   public void setSourceField(DozerField sourceField) {
     this.sourceField = sourceField;
+  }
+  
+  public void setDestField(DozerField destField) {
+    this.destField = destField;
   }
 
   public Object clone() {
@@ -188,11 +359,11 @@ public abstract class FieldMap implements Cloneable {
    * source properties or #CDATA in the xml def.
    */
   protected boolean isSourceSelfReferencing() {
-    return sourceField.getName().equals(MapperConstants.SELF_KEYWORD);
+    return getSrcFieldName().equals(MapperConstants.SELF_KEYWORD);
   }
   
   protected boolean isDestSelfReferencing() {
-    return destField.getName().equals(MapperConstants.SELF_KEYWORD);
+    return getDestFieldName().equals(MapperConstants.SELF_KEYWORD);
   }
 
   public boolean getCopyByReferenceOveridden() {
@@ -223,16 +394,33 @@ public abstract class FieldMap implements Cloneable {
     this.relationshipType = relationshipType;
   }
   
-  public ClassMap getClassMap() {
-    return classMap;
+  public void validate() {
+    if (sourceField == null) {
+      MappingUtils.throwMappingException("src field must be specified");
+    }
+    if (destField == null) {
+      MappingUtils.throwMappingException("dest field must be specified");
+    }
   }
-
+  
   protected DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass, isSourceSelfReferencing(), destField.getName());
+    return PropertyDescriptorFactory.getPropertyDescriptor(sourceClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(), getSrcFieldMapGetMethod(),
+        getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(), getSrcFieldName(), 
+        getSrcFieldKey(), isSourceSelfReferencing(), getDestFieldName());
   }
   
   protected DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass, isDestSelfReferencing(), sourceField.getName());
+    return PropertyDescriptorFactory.getPropertyDescriptor(destClass, getDestFieldTheGetMethod(), getDestFieldTheSetMethod(), getDestFieldMapGetMethod(),
+        getDestFieldMapSetMethod(), isDestFieldAccessible(), isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), 
+        getDestFieldKey(), isDestSelfReferencing(), getSrcFieldName());
+  }
+  
+  protected DozerField getSourceField() {
+    return sourceField;
+  }
+
+  protected DozerField getDestField() {
+    return destField;
   }
   
 }

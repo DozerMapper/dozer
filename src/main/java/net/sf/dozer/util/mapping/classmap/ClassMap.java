@@ -21,6 +21,7 @@ import java.util.List;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.util.MapperConstants;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
  * Internal class that represents a class mapping definition.  Holds all of the information about a single class mapping.
@@ -33,6 +34,7 @@ import net.sf.dozer.util.mapping.util.MapperConstants;
  */
 public class ClassMap {
 
+  private Configuration globalConfiguration;
   private DozerClass sourceClass;
   private DozerClass destClass;
   private List fieldMaps = new ArrayList();
@@ -48,13 +50,17 @@ public class ClassMap {
   private boolean stopOnErrorsOveridden = false;
   private CustomConverterContainer customConverters;
   private String mapId;
+  
+  public ClassMap(Configuration globalConfiguration) {
+    this.globalConfiguration = globalConfiguration;
+  }
 
   public List getFieldMaps() {
     return fieldMaps;
   }
 
   public boolean getStopOnErrors() {
-    return stopOnErrors;
+    return stopOnErrorsOveridden ? stopOnErrors : globalConfiguration.getStopOnErrors();
   }
 
   public void setStopOnErrors(boolean stopOnErrors) {
@@ -63,7 +69,11 @@ public class ClassMap {
   }
 
   public List getAllowedExceptions() {
-    return allowedExceptions;
+    if (!allowedExceptions.isEmpty()) {
+      return allowedExceptions;
+    } else {
+      return globalConfiguration.getAllowedExceptions() != null ? globalConfiguration.getAllowedExceptions().getExceptions() : allowedExceptions;
+    }
   }
 
   public void setAllowedExceptions(List allowedExceptions) {
@@ -77,7 +87,7 @@ public class ClassMap {
       int size = fieldMaps.size();
       for (int i = 0; i < size; i++) {
         FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
-        String fieldName = fieldMap.getDestField().getName();
+        String fieldName = fieldMap.getDestFieldName();
         String alternateFieldName = fieldName.substring(0, 1).toLowerCase() + fieldName.substring(1);
         
         //Check for exact match on field name.  Also, check against alternate field name.  The alternate field
@@ -100,7 +110,7 @@ public class ClassMap {
     if (fieldMaps != null) {
       for (int i = 0; i < fieldMaps.size(); i++) {
         FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
-        String fieldName = fieldMap.getSourceField().getName();
+        String fieldName = fieldMap.getSrcFieldName();
 
         if ((fieldName != null) && fieldName.equals(sourceFieldName)) {
           result = fieldMap;
@@ -124,11 +134,7 @@ public class ClassMap {
   }
 
   public boolean isWildcard() {
-    return wildcard;
-  }
-
-  public boolean getWildcard() {
-    return wildcard;
+    return wildcardOveridden ? wildcard : globalConfiguration.getWildcard();
   }
 
   public void setWildcard(boolean wildcardPolicy) {
@@ -145,7 +151,7 @@ public class ClassMap {
   }
 
   public String getDateFormat() {
-    return dateFormat;
+    return !MappingUtils.isBlankOrNull(dateFormat) ? dateFormat : globalConfiguration.getDateFormat(); 
   }
 
   public void setDateFormat(String dateFormat) {
@@ -175,25 +181,109 @@ public class ClassMap {
   public void setCustomConverters(CustomConverterContainer customConverters) {
     this.customConverters = customConverters;
   }
-
-  public DozerClass getSourceClass() {
-    return sourceClass;
+  
+  public Class getSrcClassToMap() {
+    return sourceClass.getClassToMap();
+  }
+  
+  public Class getDestClassToMap() {
+    return destClass.getClassToMap();
+  }
+  
+  public boolean getDestClassMapNull() {
+    return destClass.getMapNull() != null ? destClass.getMapNull().booleanValue() : mapNull;
+  }
+  
+  public boolean getSrcClassMapNull() {
+    return sourceClass.getMapNull() != null ? sourceClass.getMapNull().booleanValue() : mapNull;
+  }
+  
+  
+  public boolean getDestClassMapEmptyString() {
+    return destClass.getMapEmptyString() != null ? destClass.getMapEmptyString().booleanValue() : mapEmptyString;
+  }
+  
+  public boolean getSrcClassMapEmptyString() {
+    return sourceClass.getMapEmptyString() != null ? sourceClass.getMapEmptyString().booleanValue() : mapEmptyString;
+  }
+  
+  
+  public String getDestClassBeanFactory() {
+    return !MappingUtils.isBlankOrNull(destClass.getBeanFactory()) ? destClass.getBeanFactory() : getBeanFactory();
+  }
+  
+  public String getSrcClassBeanFactory() {
+    return !MappingUtils.isBlankOrNull(sourceClass.getBeanFactory()) ? sourceClass.getBeanFactory() : getBeanFactory();
+  }
+  
+  
+  public String getDestClassBeanFactoryId() {
+    return destClass.getFactoryBeanId();
+  }
+  
+  public String getSrcClassBeanFactoryId() {
+    return sourceClass.getFactoryBeanId();
+  }
+  
+  public String getSrcClassMapGetMethod() {
+    return sourceClass.getMapGetMethod();
+  }
+  
+  public String getSrcClassMapSetMethod() {
+    return sourceClass.getMapSetMethod();
+  }
+  
+  public String getDestClassMapGetMethod() {
+    return destClass.getMapGetMethod();
+  }
+  
+  public String getDestClassMapSetMethod() {
+    return destClass.getMapSetMethod();
+  }
+  
+  public String getDestClassCreateMethod() {
+    return destClass.getCreateMethod();
+  }
+  
+  public String getSrcClassCreateMethod() {
+    return sourceClass.getCreateMethod();
+  }
+  
+  public void setSrcClassCreateMethod(String createMethod) {
+    sourceClass.setCreateMethod(createMethod);
+  }
+  
+  public void setDestClassCreateMethod(String createMethod) {
+    destClass.setCreateMethod(createMethod);
+  }
+  
+  public boolean isDestClassMapTypeCustomGetterSetter() {
+    return destClass.isMapTypeCustomGetterSetterClass();
+  }
+  
+  public boolean isSrcClassMapTypeCustomGetterSetter() {
+    return sourceClass.isMapTypeCustomGetterSetterClass();
   }
 
   public void setSourceClass(DozerClass sourceClass) {
     this.sourceClass = sourceClass;
   }
 
-  public DozerClass getDestClass() {
-    return destClass;
-  }
-
   public void setDestClass(DozerClass destClass) {
     this.destClass = destClass;
   }
+  
+  public String getDestClassName() {
+    return destClass.getName();
+  }
+  
+  public String getSrcClassName() {
+    return sourceClass.getName();
+  }
+  
 
   public String getBeanFactory() {
-    return beanFactory;
+    return !MappingUtils.isBlankOrNull(beanFactory) ? beanFactory : globalConfiguration.getBeanFactory();
   }
 
   public void setBeanFactory(String beanFactory) {

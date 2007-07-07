@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 
@@ -51,16 +50,7 @@ public class DateFormatContainer {
     if (fieldMap == null || fieldMap.getClassMap() == null) {
       return null;
     }
-    // try to use field mapping date format
-    String dfStr = fieldMap.getSourceField().getDateFormat() == null ? fieldMap.getDestField().getDateFormat()
-        : fieldMap.getSourceField().getDateFormat();
-
-    // if field level date format is not specified, try using class mapping
-    // default date format
-    if (MappingUtils.isBlankOrNull(dfStr)) {
-      dfStr = fieldMap.getClassMap().getDateFormat();
-    }
-
+    String dfStr = fieldMap.getDateFormat();
     return dfStr == null ? null : new SimpleDateFormat(dfStr, Locale.getDefault());
   }
 }

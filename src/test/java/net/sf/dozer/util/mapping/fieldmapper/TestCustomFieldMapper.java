@@ -41,7 +41,7 @@ public class TestCustomFieldMapper implements CustomFieldMapperIF {
       throw new MappingException("Unsupported dest object type.  Should be of type: SimpleObjPrime"); 
     }
     
-    if (fieldMapping.getSourceField().getName().equals("field1")) {
+    if (fieldMapping.getSrcFieldName().equals("field1")) {
       ((SimpleObjPrime) destObj).setField1(FIELD_VALUE);
       result = true;
     }

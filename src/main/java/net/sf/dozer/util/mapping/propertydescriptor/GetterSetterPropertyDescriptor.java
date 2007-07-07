@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
-import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
@@ -152,10 +151,10 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
         } catch (Exception e) {
           // lets see if they have a factory we can try. If not...throw the exception:
-          if (fieldMap.getClassMap().getDestClass().getBeanFactory() != null) {
+          if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
             DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
-            o = destBeanCreator.createFromFactory(null, fieldMap.getClassMap().getSourceClass().getClassToMap(), fieldMap.getClassMap()
-                .getDestClass().getBeanFactory(), fieldMap.getClassMap().getDestClass().getFactoryBeanId(), clazz);
+            o = destBeanCreator.createFromFactory(null, fieldMap.getClassMap().getSrcClassToMap(), fieldMap.getClassMap()
+                .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), clazz);
             ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
           } else {
             MappingUtils.throwMappingException(e);

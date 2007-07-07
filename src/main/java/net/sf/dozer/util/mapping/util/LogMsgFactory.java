@@ -45,7 +45,7 @@ public abstract class LogMsgFactory {
     if (sourceFieldValue != null) {
       sourceValueType = sourceFieldValue.getClass().toString();
     } else {
-      sourceValueType = fieldMapping.getSourceField().getType();
+      sourceValueType = fieldMapping.getSrcFieldType();
     }
 
     String destClassName = null;
@@ -62,9 +62,9 @@ public abstract class LogMsgFactory {
 
     return "Field mapping error -->" + "\n  MapId: " + fieldMapping.getMapId() + "\n  Type: " + fieldMapping.getType()
         + "\n  Source parent class: " + sourceClassName + "\n  Source field name: "
-        + fieldMapping.getSourceField().getName() + "\n  Source field type: " + sourceValueType
+        + fieldMapping.getSrcFieldName() + "\n  Source field type: " + sourceValueType
         + "\n  Source field value: " + sourceFieldValue + "\n  Dest parent class: " + destClassName
-        + "\n  Dest field name: " + fieldMapping.getDestField().getName() + "\n  Dest field type: "
+        + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: "
         + destFieldTypeName;
   }
   

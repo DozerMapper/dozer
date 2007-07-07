@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
@@ -125,7 +124,7 @@ public abstract class ClassMapFinder {
     Object[] keys = customMappings.keySet().toArray();
     for (int i = 0; i < keys.length; i++) {
       ClassMap map = (ClassMap) customMappings.get(keys[i]);
-      Class dest = map.getDestClass().getClassToMap();
+      Class dest = map.getDestClassToMap();
 
       // is Assignable?
       // now that we have the a sub class for the abstract class or
@@ -133,8 +132,7 @@ public abstract class ClassMapFinder {
       // verify that the source class in the map IS a super class of the
       // source object...or the source object itself. .
       if ((destClass.isAssignableFrom(dest) || (dest.isInterface() && dest.isAssignableFrom(destClass)))
-          && (map.getSourceClass().getClassToMap().isAssignableFrom(sourceObj.getClass()) || map.getSourceClass()
-              .getClassToMap().isInstance(sourceObj))
+          && (map.getSrcClassToMap().isAssignableFrom(sourceObj.getClass()) || map.getSrcClassToMap().isInstance(sourceObj))
           // look for most specific mapping
           && (newClass == null || newClass.isAssignableFrom(dest))
           && (mapId == null || ((String) keys[i]).endsWith(mapId))) {

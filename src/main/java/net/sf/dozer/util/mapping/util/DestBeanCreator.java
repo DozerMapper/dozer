@@ -23,7 +23,6 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 import org.apache.commons.logging.Log;
@@ -52,22 +51,21 @@ public class DestBeanCreator {
 
   public Object create(Object srcObject, ClassMap classMap, FieldMap fieldMap, Class destClass) {
     Object rvalue = null;
-    DozerClass destClassObj = classMap.getDestClass();
-    String factoryName = destClassObj.getBeanFactory();
+    String factoryName = classMap.getDestClassBeanFactory();
     // see if there are any static createMethods
-    if (fieldMap != null && fieldMap.getDestField().getCreateMethod() != null) {
+    if (fieldMap != null && fieldMap.getDestFieldCreateMethod() != null) {
       Method method = null;
       try {
-        method = ReflectionUtils.getMethod(destClassObj.getClassToMap(), fieldMap.getDestField().getCreateMethod(), null);
+        method = ReflectionUtils.getMethod(classMap.getDestClassToMap(), fieldMap.getDestFieldCreateMethod(), null);
       } catch (NoSuchMethodException e) {
         MappingUtils.throwMappingException(e);
       }
       return ReflectionUtils.invoke(method, null, null);
     }
-    if (classMap.getDestClass().getCreateMethod() != null) {
+    if (classMap.getDestClassCreateMethod() != null) {
       Method method = null;
       try {
-        method = ReflectionUtils.getMethod(destClassObj.getClassToMap(), classMap.getDestClass().getCreateMethod(), null);
+        method = ReflectionUtils.getMethod(classMap.getDestClassToMap(), classMap.getDestClassCreateMethod(), null);
       } catch (NoSuchMethodException e) {
         MappingUtils.throwMappingException(e);
       }
@@ -78,10 +76,10 @@ public class DestBeanCreator {
     if (MappingUtils.isBlankOrNull(factoryName)) {
       try {
         //TODO: IS this correct assumption for Map's
-        if (MappingUtils.isSupportedMap(destClassObj.getClassToMap())) {
+        if (MappingUtils.isSupportedMap(classMap.getDestClassToMap())) {
           rvalue = new HashMap();
         } else {
-          rvalue = createNewInstance(destClassObj.getClassToMap());
+          rvalue = createNewInstance(classMap.getDestClassToMap());
         }
       } catch (Exception e) {
         if (destClass != null) {
@@ -97,13 +95,12 @@ public class DestBeanCreator {
         }
       }
     } else {
-      rvalue = createFromFactory(srcObject, classMap.getSourceClass().getClassToMap(), factoryName, destClassObj
-          .getFactoryBeanId(), destClassObj.getClassToMap());
+      rvalue = createFromFactory(srcObject, classMap.getSrcClassToMap(), factoryName, classMap.getDestClassBeanFactoryId(), classMap.getDestClassToMap());
       // verify factory returned expected dest object type
-      if (!classMap.getDestClass().getClassToMap().isAssignableFrom(rvalue.getClass())) {
+      if (!classMap.getDestClassToMap().isAssignableFrom(rvalue.getClass())) {
         MappingUtils.throwMappingException(
             "Custom bean factory did not return correct type of destination data object.  Expected: "
-                + classMap.getDestClass().getClassToMap() + ", Actual: " + rvalue.getClass());
+                + classMap.getDestClassToMap() + ", Actual: " + rvalue.getClass());
       }
     }
     return rvalue;

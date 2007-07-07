@@ -15,13 +15,12 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
- * Internal factory responsible for determining which property descriptor should be used.
- * Only intended for internal use.
+ * Internal factory responsible for determining which property descriptor should be used. Only intended for internal
+ * use.
  * 
  * @author garsombke.franz
  */
@@ -30,34 +29,34 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptorIF getPropertyDescriptor(DozerField dozerField, Class clazz, boolean isSelfReferencing, String oppositeFieldName) {
+  public static DozerPropertyDescriptorIF getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
+      String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name,
+      String key, boolean isSelfReferencing, String oppositeFieldName) {
     DozerPropertyDescriptorIF desc = null;
     // basic 'this'
-    if (isSelfReferencing && dozerField.getTheGetMethod() == null && dozerField.getTheSetMethod() == null && dozerField.getMapGetMethod() == null && dozerField.getMapSetMethod() == null && !MappingUtils.isSupportedMap(clazz)) {
+    if (isSelfReferencing && theGetMethod == null && theSetMethod == null && mapGetMethod == null
+        && mapSetMethod == null && !MappingUtils.isSupportedMap(clazz)) {
       desc = new SelfPropertyDescriptor(clazz);
 
-    // bypass getter/setters and access field directly  
-    } else if (dozerField.isAccessible()) {
+      // bypass getter/setters and access field directly
+    } else if (isAccessible) {
       // accesses fields directly and bypass get/set methods
-      desc = new FieldPropertyDescriptor(clazz, dozerField.getName(), dozerField.isAccessible(), 
-          dozerField.isIndexed(), dozerField.getIndex());
+      desc = new FieldPropertyDescriptor(clazz, name, isAccessible, isIndexed, index);
 
-    // custom get-method/set specified  
-    } else if (!MappingUtils.isSupportedMap(clazz) && (dozerField.getTheSetMethod() != null || dozerField.getTheGetMethod() != null)) {
-      desc = new CustomGetSetPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
-          dozerField.getIndex(), dozerField.getTheSetMethod(), dozerField.getTheGetMethod());
+      // custom get-method/set specified
+    } else if (!MappingUtils.isSupportedMap(clazz) && (theSetMethod != null || theGetMethod != null)) {
+      desc = new CustomGetSetPropertyDescriptor(clazz, name, isIndexed, index, theSetMethod, theGetMethod);
 
-    // custom map-get-method/set spefied  
-    } else if (dozerField.getName().equals(MapperConstants.SELF_KEYWORD) &&
-        (dozerField.getMapSetMethod() != null || dozerField.getMapGetMethod() != null || MappingUtils.isSupportedMap(clazz))) {
-        desc = new MapPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
-          dozerField.getIndex(), MappingUtils.isSupportedMap(clazz) ? "put" : dozerField.getMapSetMethod(), 
-              MappingUtils.isSupportedMap(clazz) ? "get" : dozerField.getMapGetMethod(), dozerField.getKey() != null ? dozerField.getKey() : oppositeFieldName);
+      // custom map-get-method/set spefied
+    } else if (name.equals(MapperConstants.SELF_KEYWORD)
+        && (mapSetMethod != null || mapGetMethod != null || MappingUtils.isSupportedMap(clazz))) {
+      desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, MappingUtils.isSupportedMap(clazz) ? "put"
+          : mapSetMethod, MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key
+          : oppositeFieldName);
 
-    // everything else. it must be a normal bean with normal or custom get/set methods   
+      // everything else. it must be a normal bean with normal or custom get/set methods
     } else {
-      desc = new JavaBeanPropertyDescriptor(clazz, dozerField.getName(), dozerField.isIndexed(),
-          dozerField.getIndex());
+      desc = new JavaBeanPropertyDescriptor(clazz, name, isIndexed, index);
     }
     return desc;
   }

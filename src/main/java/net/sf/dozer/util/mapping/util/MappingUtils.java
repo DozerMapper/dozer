@@ -23,6 +23,9 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.cache.Cache;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.CopyByReference;
 import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
@@ -134,7 +137,7 @@ public abstract class MappingUtils {
     
     //This method is messy.  Just trying to isolate the junk into this one method instead of spread across the mapping processor until a better solution can be put into place
     //For indexed mapping, need to use the actual class at index to determine the custom converter.
-    if (fieldMap != null && fieldMap.getDestField().isIndexed()) {
+    if (fieldMap != null && fieldMap.isDestFieldIndexed()) {
       if (destClass.isArray()) {
         destClass = destClass.getComponentType();
       } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestinationTypeHint() != null && 
@@ -149,38 +152,63 @@ public abstract class MappingUtils {
   
   public static void reverseFields(FieldMap source, FieldMap destination) {
     // reverse the fields
-    DozerField df = new DozerField(source.getSourceField().getName(), source.getSourceField().getType());
-    df.setIndexed(source.getSourceField().isIndexed());
-    df.setIndex(source.getSourceField().getIndex());
+    DozerField df = new DozerField(source.getSrcFieldName(), source.getSrcFieldType());
+    df.setIndexed(source.isSrcFieldIndexed());
+    df.setIndex(source.getSrcFieldIndex());
 
-    DozerField sf = new DozerField(source.getDestField().getName(), source.getDestField().getType());
-    sf.setIndexed(source.getDestField().isIndexed());
-    sf.setIndex(source.getDestField().getIndex());
+    DozerField sf = new DozerField(source.getDestFieldName(), source.getDestFieldType());
+    sf.setIndexed(source.isDestFieldIndexed());
+    sf.setIndex(source.getDestFieldIndex());
 
     destination.setDestField(df);
     destination.setSourceField(sf);
     destination.setCustomConverter(source.getCustomConverter());
 
-    destination.getDestField().setDateFormat(source.getSourceField().getDateFormat());
-    destination.getSourceField().setDateFormat(source.getDestField().getDateFormat());
+    destination.setDestFieldDateFormat(source.getSrcFieldDateFormat());
+    destination.setSrcFieldDateFormat(source.getDestFieldDateFormat());
 
-    destination.getDestField().setTheGetMethod(source.getSourceField().getTheGetMethod());
-    destination.getDestField().setTheSetMethod(source.getSourceField().getTheSetMethod());
-    destination.getSourceField().setTheGetMethod(source.getDestField().getTheGetMethod());
-    destination.getSourceField().setTheSetMethod(source.getDestField().getTheSetMethod());
-    destination.getDestField().setKey(source.getSourceField().getKey());
-    destination.getSourceField().setKey(source.getDestField().getKey());
-    destination.getDestField().setMapGetMethod(source.getSourceField().getMapGetMethod());
-    destination.getDestField().setMapSetMethod(source.getSourceField().getMapSetMethod());
-    destination.getSourceField().setMapGetMethod(source.getDestField().getMapGetMethod());
-    destination.getSourceField().setMapSetMethod(source.getDestField().getMapSetMethod());
-    destination.getSourceField().setAccessible(source.getDestField().isAccessible());
-    destination.getDestField().setAccessible(source.getSourceField().isAccessible());    
+    destination.setDestFieldTheGetMethod(source.getSrcFieldTheGetMethod());
+    destination.setDestFieldTheSetMethod(source.getSrcFieldTheSetMethod());
+    destination.setSrcFieldTheGetMethod(source.getDestFieldTheGetMethod());
+    destination.setSrcFieldTheSetMethod(source.getDestFieldTheSetMethod());
+    destination.setDestFieldKey(source.getSrcFieldKey());
+    destination.setSrcFieldKey(source.getDestFieldKey());
+    destination.setDestFieldMapGetMethod(source.getSrcFieldMapGetMethod());
+    destination.setDestFieldMapSetMethod(source.getSrcFieldMapSetMethod());
+    destination.setSrcFieldMapGetMethod(source.getDestFieldMapGetMethod());
+    destination.setSrcFieldMapSetMethod(source.getDestFieldMapSetMethod());
+    destination.setSrcFieldAccessible(source.isDestFieldAccessible());
+    destination.setDestFieldAccessible(source.isSrcFieldAccessible());    
     if (StringUtils.isNotEmpty(destination.getMapId())) {
       destination.setMapId(source.getMapId());
     }
-    destination.getDestField().setCreateMethod(source.getSourceField().getCreateMethod());
-    destination.getSourceField().setCreateMethod(source.getDestField().getCreateMethod());
+    destination.setDestFieldCreateMethod(source.getSrcFieldCreateMethod());
+    destination.setSrcFieldCreateMethod(source.getDestFieldCreateMethod());
+    
+    destination.setRelationshipType(source.getRelationshipType());
+    
+    destination.setSourceTypeHint(source.getDestinationTypeHint());
+    destination.setDestinationTypeHint(source.getSourceTypeHint());
+  }
+  
+  public static void reverseFields(ClassMap source, ClassMap destination) {
+    // reverse the fields
+    destination.setSourceClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
+        source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
+        source.getDestClassMapNull(), source.getDestClassMapEmptyString()));
+    destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(),
+        source.getSrcClassBeanFactory(), source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
+        source.getSrcClassMapNull(), source.getSrcClassMapEmptyString()));
+    destination.setType(source.getType());
+    destination.setWildcard(source.isWildcard());
+    destination.setDateFormat(source.getDateFormat());
+    destination.setStopOnErrors(source.getStopOnErrors());
+    destination.setAllowedExceptions(source.getAllowedExceptions());
+    destination.setSrcClassCreateMethod(source.getDestClassCreateMethod());
+    destination.setDestClassCreateMethod(source.getSrcClassCreateMethod());
+    if (StringUtils.isNotEmpty(source.getMapId())) {
+      destination.setMapId(source.getMapId());
+    }
   }
   
   public static Object getIndexedValue(Object collection, int index) {
@@ -201,6 +229,23 @@ public abstract class MappingUtils {
       }
     }
     return r;
+  }
+  
+  public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
+    String destFieldTypeName = null;
+    if (globalConfig.getCopyByReferences() != null) {
+      Iterator copyIterator = globalConfig.getCopyByReferences().getCopyByReferences().iterator();
+      Class clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
+      if (clazz != null) {
+        destFieldTypeName = clazz.getName();
+      }
+      while (copyIterator.hasNext()) {
+        CopyByReference copyByReference = (CopyByReference) copyIterator.next();
+        if (copyByReference.getReferenceName().equals(destFieldTypeName) && !fieldMap.getCopyByReferenceOveridden()) {
+          fieldMap.setCopyByReference(true);
+        }
+      }
+    }
   }
   
   public static Class loadClass(String name) {

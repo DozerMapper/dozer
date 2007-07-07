@@ -17,6 +17,7 @@ package net.sf.dozer.util.mapping.util;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
@@ -28,7 +29,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
   private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
   
   public void testCreatDestBeanNoFactory() throws Exception {
-    ClassMap classMap = new ClassMap();
+    ClassMap classMap = new ClassMap(new Configuration());
     DozerClass destClass = new DozerClass();
     destClass.setName(TestObject.class.getName());
     classMap.setDestClass(destClass);
@@ -49,7 +50,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
     srcClass.setName(TestObjectPrime.class.getName());
     srcClass.setBeanFactory(factoryName);
 
-    ClassMap classMap = new ClassMap();
+    ClassMap classMap = new ClassMap(null);
     classMap.setDestClass(destClass);
     classMap.setSourceClass(srcClass);
 

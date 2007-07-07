@@ -129,7 +129,7 @@ public class XMLParser {
   }
 
   private void parseMapping(Element ele) {
-    ClassMap classMap = new ClassMap();
+    ClassMap classMap = new ClassMap(mappings.getConfiguration());
     mappings.getMapping().add(classMap);
     if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT_ATTRIBUTE))) {
       classMap.setDateFormat(ele.getAttribute(DATE_FORMAT_ATTRIBUTE));
@@ -246,7 +246,7 @@ public class XMLParser {
       fieldMap.setSourceField(parseField(element));
     }
     if (B_ELEMENT.equals(element.getNodeName())) {
-      fieldMap.setDestField(parseField(element));
+     fieldMap.setDestField(parseField(element));
     }
   }
 
@@ -272,6 +272,7 @@ public class XMLParser {
   private FieldMap determineFieldMap(ClassMap classMap, Element ele) {
     DozerField srcField = null;
     DozerField destField = null;
+    FieldMap result = null;
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -287,9 +288,8 @@ public class XMLParser {
       }
     }
     
-    FieldMap result;
     if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField() ||
-        classMap.getSourceClass().isMapTypeCustomGetterSetterClass() || classMap.getDestClass().isMapTypeCustomGetterSetterClass()) {
+        classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
       result = new MapFieldMap(classMap);
     }
     else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
