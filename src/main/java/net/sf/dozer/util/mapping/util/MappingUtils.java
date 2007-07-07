@@ -161,11 +161,10 @@ public abstract class MappingUtils {
     if (fieldMap != null && fieldMap.getDestField().isIndexed()) {
       if (destClass.isArray()) {
         destClass = destClass.getComponentType();
-      } else if (destClass.isAssignableFrom(Collection.class)) {
+      } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestinationTypeHint() != null && 
+          fieldMap.getDestinationTypeHint().getHints().size() < 2) {
         //use hint when trying to find a custom converter
-        if (fieldMap.getDestinationTypeHint() != null && fieldMap.getDestinationTypeHint().getHints().size() < 2) {
-          destClass = MappingUtils.loadClass(fieldMap.getDestinationTypeHint().getHintName());
-        }
+        destClass = MappingUtils.loadClass(fieldMap.getDestinationTypeHint().getHintName());
       }
     }
 

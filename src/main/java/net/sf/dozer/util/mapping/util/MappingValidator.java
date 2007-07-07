@@ -94,8 +94,7 @@ public abstract class MappingValidator {
     if (destObj == null) {
       return null;
     }
-    if (fieldMap instanceof MapFieldMap) {
-    } else {
+    if (!(fieldMap instanceof MapFieldMap)) {
       // call the getXX method to see if the field is already
       // instantiated
       field = fieldMap.getDestinationObject(destObj);
@@ -106,10 +105,8 @@ public abstract class MappingValidator {
     if (field != null) {
       if (CollectionUtils.isList(field.getClass()) || CollectionUtils.isArray(field.getClass())
           || CollectionUtils.isSet(field.getClass()) || MappingUtils.isSupportedMap(field.getClass())) {
-        if (CollectionUtils.isList(destFieldType) || CollectionUtils.isArray(destFieldType)
-            || CollectionUtils.isSet(destFieldType) || MappingUtils.isSupportedMap(destFieldType)) {
-          // do nothing
-        } else {
+        if (!CollectionUtils.isList(destFieldType) && !CollectionUtils.isArray(destFieldType)
+            && !CollectionUtils.isSet(destFieldType) && !MappingUtils.isSupportedMap(destFieldType)) {
           // this means the getXX field is a List but we
           // are actually trying to map one of its
           // elements

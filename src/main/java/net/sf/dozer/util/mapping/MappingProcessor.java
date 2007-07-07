@@ -308,13 +308,11 @@ public class MappingProcessor implements MapperIF {
         MappingUtils.throwMappingException(e);
       } else {
         // check if any Exceptions should be allowed to be thrown
-        if (!classMap.getAllowedExceptions().isEmpty()) {
-          if (e.getCause() instanceof InvocationTargetException) {
-            Throwable thrownType = ((InvocationTargetException) e.getCause()).getTargetException();
-            Class exceptionClass = thrownType.getClass();
-            if (classMap.getAllowedExceptions().contains(exceptionClass)) {
-              throw (RuntimeException) thrownType;
-            }
+        if (!classMap.getAllowedExceptions().isEmpty() && e.getCause() instanceof InvocationTargetException) {
+          Throwable thrownType = ((InvocationTargetException) e.getCause()).getTargetException();
+          Class exceptionClass = thrownType.getClass();
+          if (classMap.getAllowedExceptions().contains(exceptionClass)) {
+            throw (RuntimeException) thrownType;
           }
         }
         statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
@@ -357,11 +355,6 @@ public class MappingProcessor implements MapperIF {
   // String to Integer from HashMap
   private Object mapOrRecurseObject(Object srcObj, Object sourceFieldValue, Class destFieldType, ClassMap classMap,
       FieldMap fieldMap, Object destObj) {
-    return mapOrRecurseObject(srcObj, sourceFieldValue, destFieldType, classMap, fieldMap, destObj, false);
-  }
-
-  private Object mapOrRecurseObject(Object srcObj, Object sourceFieldValue, Class destFieldType, ClassMap classMap,
-      FieldMap fieldMap, Object destObj, boolean ignoreClassMap) {
     Class sourceFieldClass = sourceFieldValue != null ? sourceFieldValue.getClass() : fieldMap
         .getSourceFieldType(srcObj.getClass());
     Class converterClass = MappingUtils.determineCustomConverter(fieldMap, converterByDestTypeCache, classMap.getCustomConverters(),
@@ -421,12 +414,12 @@ public class MappingProcessor implements MapperIF {
     if (MappingUtils.isSupportedCollection(sourceFieldClass) && (MappingUtils.isSupportedCollection(destFieldType))) {
       return mapCollection(srcObj, sourceFieldValue, classMap, fieldMap, destObj);
     }
-    if(GlobalSettings.getInstance().isJava5()) {
-      if ( ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), sourceFieldClass, null)).booleanValue() && 
-          ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null)).booleanValue()) {
+    if (GlobalSettings.getInstance().isJava5() && 
+        ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), sourceFieldClass, null)).booleanValue() && 
+        ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null)).booleanValue()) {
         return mapEnum(sourceFieldValue, destFieldType);
-      }
     }
+    
     // Default: Map from one custom data object to another custom data object
     return mapCustomObject(fieldMap, destObj, destFieldType, sourceFieldValue);
   }
@@ -471,32 +464,31 @@ public class MappingProcessor implements MapperIF {
     // generics to determine the mapping type
     // this will only happen once on the dest hint. the next mapping will
     // already have the hint
-    if (fieldMap.getDestinationTypeHint() == null) {
-      if (GlobalSettings.getInstance().isJava5()) {
-        Object typeArgument = null;
-        Object[] parameterTypes = null;
-        try {
-          Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
-          parameterTypes = (Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance().getMethodGetGenericParameterTypesMethod(), method, null);
-        } catch (Throwable e) {
-          log.info("The destObj:" + destObj + " does not have a write method");
-        }
-        if (parameterTypes != null) {
-          Class parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
+    if (fieldMap.getDestinationTypeHint() == null && GlobalSettings.getInstance().isJava5()) {
+      Object typeArgument = null;
+      Object[] parameterTypes = null;
+      try {
+        Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
+        parameterTypes = (Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance().getMethodGetGenericParameterTypesMethod(), method, null);
+      } catch (Throwable e) {
+        log.info("The destObj:" + destObj + " does not have a write method");
+      }
+      if (parameterTypes != null) {
+        Class parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
 
-          if (parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
+        if (parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
             
-            typeArgument = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance().getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
-            if (typeArgument != null) {
-              Hint destHint = new Hint();
-              Class argument = (Class) typeArgument;
-              destHint.setHintName(argument.getName());
-              fieldMap.setDestinationTypeHint(destHint);
-            }
+          typeArgument = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance().getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
+          if (typeArgument != null) {
+            Hint destHint = new Hint();
+            Class argument = (Class) typeArgument;
+            destHint.setHintName(argument.getName());
+            fieldMap.setDestinationTypeHint(destHint);
           }
         }
       }
     }
+    
 
     // if it is an iterator object turn it into a List
     if (sourceCollectionValue instanceof Iterator) {
@@ -949,9 +941,7 @@ public class MappingProcessor implements MapperIF {
       List fieldMaps = map.getFieldMaps();
       for (int i = 0; i < fieldMaps.size(); i++) {
         FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
-        if (fieldMapping instanceof MapFieldMap) {
-          // do nothing
-        } else {
+        if (!(fieldMapping instanceof MapFieldMap)) {
           String parentSourceField = null;
           if (parentFieldMap != null) {
             parentSourceField = parentFieldMap.getSourceField().getName();

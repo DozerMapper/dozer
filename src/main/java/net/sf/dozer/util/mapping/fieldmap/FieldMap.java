@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
@@ -75,7 +74,6 @@ public abstract class FieldMap implements Cloneable {
   }
   
   public Class getSourceFieldType(Class srcClass) {
-    Class result = null;
     return getSourcePropertyDescriptor(srcClass).getPropertyType();
   }
 
@@ -118,7 +116,6 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public Object getDestinationObject(Object destObj) {
-    Object result = null;
     return getDestinationPropertyDescriptor(destObj.getClass()).getPropertyValue(destObj);
   }
   

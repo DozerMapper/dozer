@@ -79,9 +79,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
   public void setPropertyValue(Object bean, Object value, Hint hint, ClassMap classMap) {
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
-      if (getPropertyType().isPrimitive() && value == null) {
-        // do nothing
-      } else {
+      if (!getPropertyType().isPrimitive() || value != null) {
         // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
         try {
           if (getPropertyValue(bean) == value) {
@@ -141,15 +139,11 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       Class clazz = null;
       if (value == null) {
         clazz = pd.getPropertyType();
-        if (clazz.isInterface()) {
+        if (clazz.isInterface() && (i + 1) == hierarchyLength && destHint != null) {
           // before setting the property on the destination object we should check for a destination hint. need to know
           // that we are at the end of the line
-          if ((i + 1) == hierarchyLength) {
-            // determine the property type
-            if (destHint != null) {
-              clazz = destHint.getHint();
-            }
-          }
+          // determine the property type
+          clazz = destHint.getHint();
         }
         Object o;
         try {
@@ -172,8 +166,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
     // second, set deep field value
     PropertyDescriptor pd = hierarchy[hierarchy.length - 1];
-    if (pd.getReadMethod().getReturnType().isPrimitive() && destFieldValue == null) {
-    } else {
+    if (!pd.getReadMethod().getReturnType().isPrimitive() || destFieldValue != null) {
       if (!isIndexed) {
         Method method = pd.getWriteMethod();
         try {

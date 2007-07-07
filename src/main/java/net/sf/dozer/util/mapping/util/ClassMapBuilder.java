@@ -140,6 +140,8 @@ public abstract class ClassMapBuilder {
     } else if (MappingUtils.isSupportedMap(destClass) || classMap.getDestClass().getMapGetMethod() != null) {
       properties = ReflectionUtils.getPropertyDescriptors(sourceClass);
       destIsMap = true;
+    } else {
+      return;
     }
     
     for (int i = 0; i < properties.length; i++) {

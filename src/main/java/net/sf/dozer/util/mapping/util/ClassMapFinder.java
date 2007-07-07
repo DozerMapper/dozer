@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 
@@ -60,11 +62,11 @@ public abstract class ClassMapFinder {
     // if the mapId is not null looking up a map is easy
     if (mapId != null && mapping == null) {
       // probably a more efficient way to do this...
-      Iterator iter = customMappings.keySet().iterator();
+      Iterator iter = customMappings.entrySet().iterator();
       ClassMap classMap = null;
       while (iter.hasNext()) {
-        String key = (String) iter.next();
-        classMap = (ClassMap) customMappings.get(key);
+        Map.Entry entry = (Entry) iter.next();
+        classMap = (ClassMap) entry.getValue();
         if (StringUtils.equals(classMap.getMapId(), mapId)) {
           return classMap;
         }

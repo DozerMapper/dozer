@@ -83,10 +83,10 @@ public class CustomMappingsLoader {
     ClassMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
  
     // iterate through the classmaps and set all of the customconverters on them
-    Iterator keyIter = customMappings.keySet().iterator();
-    while (keyIter.hasNext()) {
-      String key = (String) keyIter.next();
-      ClassMap classMap = (ClassMap) customMappings.get(key);
+    Iterator entries = customMappings.entrySet().iterator();
+    while (entries.hasNext()) {
+      Map.Entry entry = (Map.Entry) entries.next();
+      ClassMap classMap = (ClassMap) entry.getValue();
       if (classMap.getCustomConverters() != null) {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       } else {

@@ -55,16 +55,14 @@ public class DestBeanCreator {
     DozerClass destClassObj = classMap.getDestClass();
     String factoryName = destClassObj.getBeanFactory();
     // see if there are any static createMethods
-    if (fieldMap != null) {
-      if (fieldMap.getDestField().getCreateMethod() != null) {
-        Method method = null;
-        try {
-          method = ReflectionUtils.getMethod(destClassObj.getClassToMap(), fieldMap.getDestField().getCreateMethod(), null);
-        } catch (NoSuchMethodException e) {
-          MappingUtils.throwMappingException(e);
-        }
-        return ReflectionUtils.invoke(method, null, null);
+    if (fieldMap != null && fieldMap.getDestField().getCreateMethod() != null) {
+      Method method = null;
+      try {
+        method = ReflectionUtils.getMethod(destClassObj.getClassToMap(), fieldMap.getDestField().getCreateMethod(), null);
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
       }
+      return ReflectionUtils.invoke(method, null, null);
     }
     if (classMap.getDestClass().getCreateMethod() != null) {
       Method method = null;
