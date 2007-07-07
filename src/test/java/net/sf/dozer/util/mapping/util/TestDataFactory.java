@@ -372,7 +372,6 @@ public abstract class TestDataFactory {
     iterateCarList.add(car);
     custom.setIterateCars(iterateCarList);
 
-    Car iterateMoreCar = new Car();
     iterateCar.setName("name");
     List iterateMoreCarList = new ArrayList();
     iterateMoreCarList.add(car);

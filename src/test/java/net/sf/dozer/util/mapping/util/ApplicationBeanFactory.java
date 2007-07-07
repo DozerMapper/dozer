@@ -15,8 +15,6 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import net.sf.dozer.util.mapping.util.MapperConstants;
-
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.access.BeanFactoryLocator;
 import org.springframework.context.access.ContextSingletonBeanFactoryLocator;

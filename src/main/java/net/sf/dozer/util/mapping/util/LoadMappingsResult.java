@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import java.util.List;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.classmap.Configuration;

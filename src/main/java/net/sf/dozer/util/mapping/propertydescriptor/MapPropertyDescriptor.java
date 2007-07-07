@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**

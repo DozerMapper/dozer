@@ -444,7 +444,7 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     TestObject to = new TestObject();
     to.setThrowAllowedExceptionOnMap("throw me");
     try {
-      TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
+      mapper.map(to, TestObjectPrime.class);
       fail("We should have thrown TestException");
     } catch (RuntimeException e) {
       if (e instanceof TestException) {
@@ -456,7 +456,7 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     TestObject to2 = new TestObject();
     to2.setThrowNonAllowedExceptionOnMap("do not throw me");
     try {
-      TestObjectPrime top = (TestObjectPrime) mapper.map(to2, TestObjectPrime.class);
+      mapper.map(to2, TestObjectPrime.class);
     } catch (RuntimeException e) {
       fail("This should not have been thrown");
     }
@@ -467,7 +467,7 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     ThrowException to = new ThrowException();
     to.setThrowAllowedException("throw me");
     try {
-      ThrowExceptionPrime top = (ThrowExceptionPrime) mapper.map(to, ThrowExceptionPrime.class);
+      mapper.map(to, ThrowExceptionPrime.class);
       fail("We should have thrown TestException");
     } catch (RuntimeException e) {
       if (e instanceof TestException) {
@@ -479,7 +479,7 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     ThrowException to2 = new ThrowException();
     to2.setThrowNotAllowedException("do not throw me");
     try {
-      ThrowExceptionPrime top = (ThrowExceptionPrime) mapper.map(to2, ThrowExceptionPrime.class);
+      mapper.map(to2, ThrowExceptionPrime.class);
     } catch (RuntimeException e) {
       fail("This should not have been thrown");
     }

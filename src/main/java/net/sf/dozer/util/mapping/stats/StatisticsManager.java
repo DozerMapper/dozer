@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 

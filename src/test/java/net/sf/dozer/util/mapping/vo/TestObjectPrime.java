@@ -21,7 +21,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.TestException;
 
 

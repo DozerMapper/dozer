@@ -15,10 +15,6 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-
-import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 /**
  * @author garsombke.franz

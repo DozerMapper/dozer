@@ -1,6 +1,5 @@
 package net.sf.dozer.util.mapping.vo.allowedexceptions;
 
-import net.sf.dozer.util.mapping.MappingException;
 
 public class ThrowExceptionPrime {
   private String throwAllowedException;

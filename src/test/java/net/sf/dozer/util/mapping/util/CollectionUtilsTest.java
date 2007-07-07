@@ -25,7 +25,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import junit.framework.Assert;
 import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
 import net.sf.dozer.util.mapping.vo.SimpleObj;

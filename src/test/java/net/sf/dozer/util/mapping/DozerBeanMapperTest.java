@@ -33,9 +33,6 @@ import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.Van;
 import net.sf.dozer.util.mapping.vo.deep.HomeDescription;
 import net.sf.dozer.util.mapping.vo.deep.House;
-import net.sf.dozer.util.mapping.vo.km.SomeVo;
-import net.sf.dozer.util.mapping.vo.km.Sub;
-import net.sf.dozer.util.mapping.vo.km.Super;
 
 /**
  * Very high level tests of the DozerBeanMapper.  This test class is not intended to provide in-depth testing of all the 

@@ -93,7 +93,7 @@ public class CustomConverterMappingTest extends AbstractDozerTest {
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
     StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
     assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
-    String token1 = st.nextToken();
+    st.nextToken();
     String token2 = st.nextToken();
     assertEquals("dest field1 value should have been appended to by the cust converter", 
         StringAppendCustomConverter.APPENDED_VALUE, token2);

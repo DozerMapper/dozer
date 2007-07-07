@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.vo.map;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;

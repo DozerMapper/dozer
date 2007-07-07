@@ -1,6 +1,5 @@
 package net.sf.dozer.util.mapping.vo.set;
 
-import java.util.Date;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;

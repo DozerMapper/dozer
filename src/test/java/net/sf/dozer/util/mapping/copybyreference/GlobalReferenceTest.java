@@ -15,12 +15,6 @@
  */
 package net.sf.dozer.util.mapping.copybyreference;
 
-import java.util.Arrays;
-
-import junit.framework.TestCase;
-
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-import net.sf.dozer.util.mapping.MapperIF;
 
 public class GlobalReferenceTest extends SubclassReferenceTest {
 	protected String getMappingFile() {
