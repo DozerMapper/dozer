@@ -30,13 +30,13 @@ public class ClassMapKeyFactory {
 
   public static String createKey(Class sourceClass, Class destClass, String mapId) {
     StringBuffer result = new StringBuffer(150);
+    result.append("SOURCE CLASS-->");
+    result.append(sourceClass.getName());
+    result.append(" DEST CLASS-->");
+    result.append(destClass.getName());
     if (StringUtils.isNotEmpty(mapId)) {
-      result.append(sourceClass.getName());
-      result.append(destClass.getName());
+      result.append(" MAP ID-->");
       result.append(mapId);
-    } else {
-      result.append(sourceClass.getName());
-      result.append(destClass.getName());
     }
     return result.toString();
   }

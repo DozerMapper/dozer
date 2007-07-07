@@ -27,7 +27,6 @@ import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 
 import org.apache.commons.lang.StringUtils;
 

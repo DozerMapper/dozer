@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.util.mapping.vo.map;
 
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
@@ -29,6 +29,9 @@ public class SimpleObj extends BaseTestObject {
   private String field1;
   private String field2;
   private String simpleobjfield;
+  private Integer field3;
+  private Integer field4;
+  private Calendar field5;
   private NestedObj nested;
   private Map nested2;
 
@@ -71,4 +74,30 @@ public class SimpleObj extends BaseTestObject {
   public void setField2(String field2) {
     this.field2 = field2;
   }
+
+  public Integer getField3() {
+    return field3;
+  }
+
+  public void setField3(Integer field3) {
+    this.field3 = field3;
+  }
+
+  public Integer getField4() {
+    return field4;
+  }
+
+  public void setField4(Integer field4) {
+    this.field4 = field4;
+  }
+
+  public Calendar getField5() {
+    return field5;
+  }
+
+  public void setField5(Calendar field5) {
+    this.field5 = field5;
+  }
+  
+ 
 }

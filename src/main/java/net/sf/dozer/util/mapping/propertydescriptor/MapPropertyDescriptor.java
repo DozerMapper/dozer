@@ -17,6 +17,8 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.lang.reflect.Method;
 
+import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
@@ -45,6 +47,9 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   }
 
   protected void invokeWriteMethod(Object target, Object value) throws NoSuchMethodException {
+    if (key == null) {
+      throw new MappingException("key must be specified");
+    }
     ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { key, value });
   }
   
@@ -53,6 +58,9 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   }
   
   protected Object invokeReadMethod(Object target) throws NoSuchMethodException {
+    if (key == null) {
+      throw new MappingException("key must be specified");
+    }
     return ReflectionUtils.invoke(getReadMethod(), target, new Object[] { key });
   }
   

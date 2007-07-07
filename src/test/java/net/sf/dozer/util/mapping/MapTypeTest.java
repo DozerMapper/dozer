@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util.mapping;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -33,6 +34,8 @@ import net.sf.dozer.util.mapping.vo.map.NestedObjPrime;
 import net.sf.dozer.util.mapping.vo.map.PropertyToMap;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
 
 
 /**
@@ -224,6 +227,17 @@ public class MapTypeTest extends AbstractDozerTest {
     assertEquals("stringPropertyValue", custom.getValue("stringProperty"));
     assertEquals("myValue", custom.getValue("myKey"));
   }
+  
+  public void testPropertyClassLevelMap2() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    PropertyToMap ptm = new PropertyToMap();
+    ptm.setStringProperty("stringPropertyValue");
+    ptm.addStringProperty2("stringProperty2Value");
+
+    CustomMapIF customMap = (CustomMapIF) mapper.map(ptm, CustomMap.class, "myCustomTestMapping");
+    assertEquals("stringPropertyValue", customMap.getValue("stringProperty"));
+    assertEquals("stringProperty2Value", customMap.getValue("myStringProperty"));
+  }
 
   public void testPropertyClassLevelMapBack() throws Exception {
     // Map Back
@@ -249,6 +263,7 @@ public class MapTypeTest extends AbstractDozerTest {
     PropertyToMap ptm = new PropertyToMap();
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
+    ptm.setStringProperty6("string6Value");
     Map hashMap = new HashMap();
     hashMap.put("reverseMapString", "reverseMapStringValue");
     hashMap.put("reverseMapInteger", new Integer("567"));
@@ -259,7 +274,7 @@ public class MapTypeTest extends AbstractDozerTest {
     assertTrue(mtp.getHashMap().containsKey("myStringProperty"));
     assertTrue(mtp.getHashMap().containsValue("stringProperty2Value"));
     assertFalse(mtp.getHashMap().containsValue("nullStringProperty"));
-    assertTrue(mtp.getNullHashMap().containsValue("stringPropertyValue"));
+    assertTrue(mtp.getNullHashMap().containsValue("string6Value"));
     assertEquals("reverseMapStringValue", mtp.getReverseMapString());
     assertEquals(((Integer) hashMap.get("reverseMapInteger")).toString(), mtp.getReverseMapInteger());
 
@@ -313,7 +328,7 @@ public class MapTypeTest extends AbstractDozerTest {
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty3"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty4"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty5"));
-    assertTrue(mtop.getPropertyToMapMap().containsKey("nullStringProperty"));
+    assertFalse(mtop.getPropertyToMapMap().containsKey("nullStringProperty"));
     assertTrue(mtop.getPropertyToMapMap().containsValue("stringPropertyValue"));
     assertTrue(mtop.getPropertyToMapMap().containsValue("stringProperty2Value"));
     assertTrue(mtop.getPropertyToMapMap().containsValue("stringProperty3Value"));
@@ -342,7 +357,7 @@ public class MapTypeTest extends AbstractDozerTest {
     MapTestObject mto = new MapTestObject();
     PropertyToMap ptm = new PropertyToMap();
     ptm.setStringProperty("stringPropertyValue");
-    ptm.addStringProperty2("stringProperty2Value");
+    ptm.setStringProperty2("stringProperty2Value");
     mto.setPropertyToCustomMap(ptm);
     CustomMapIF customMap = new CustomMap();
     customMap.putValue("stringProperty", "stringPropertyValue");
@@ -359,7 +374,40 @@ public class MapTypeTest extends AbstractDozerTest {
     assertEquals("stringProperty2Value", mto2.getPropertyToCustomMap().getStringProperty2());
     assertNull(mto2.getPropertyToCustomMap().getExcludeMe());
     assertEquals("stringPropertyValue", mto2.getPropertyToCustomMapMapWithInterface().getValue("stringProperty"));
-
   }
+  
+  public void testMapGetSetMethod_ClassLevel() throws Exception {
+    runMapGetSetMethodTest("useCase1");  }
+  
+  public void testMapGetSetMethod_FieldLevel() throws Exception {
+    runMapGetSetMethodTest("useCase2");
+  }
+  
+  private void runMapGetSetMethodTest(String mapId) throws Exception {
+    //Test that custom field converter works for Custom Map Types
+    mapper = getNewMapper(new String[]{"mapGetSetMethodMapping.xml"});
+    CustomMap src = new CustomMap();
+    src.putValue("fieldA", "someStringValue");
+    src.putValue("field2", "someOtherStringValue");
+    src.putValue("fieldC", "1");
+    src.putValue("fieldD", "2");
+    src.putValue("fieldE", "10-15-2005");
+      
+    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class, mapId);
+    assertEquals("wrong value for field1", src.getValue("fieldA"), dest.getField1());
+    assertEquals("wrong value for field2", src.getValue("field2"), dest.getField2());
+    assertEquals("wrong value for field3", Integer.valueOf("1"), dest.getField3());
+    assertEquals("wrong value for field4", Integer.valueOf("2"), dest.getField4());
+    Calendar expected = Calendar.getInstance();
+    expected.set(2005, 10, 15);
+    assertEquals(expected.get(Calendar.YEAR), dest.getField5().get(Calendar.YEAR));
+    assertEquals(Calendar.OCTOBER, dest.getField5().get(Calendar.MONTH));
+    assertEquals(expected.get(Calendar.DATE), dest.getField5().get(Calendar.DATE));
+    
+    //Remap to test bi-directional mapping
+    CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class, mapId);
+    assertTrue("remapped src should equal original src", EqualsBuilder.reflectionEquals(src.getMap(), remappedSrc.getMap()));
+  }
+  
 
 }

@@ -37,5 +37,9 @@ public class CustomMap extends BaseTestObject implements CustomMapIF {
   public void putValue(Object key, Object value) {
     hashMap.put(key, value);
   }
+  
+  public Map getMap() {
+    return hashMap;
+  }
 
 }

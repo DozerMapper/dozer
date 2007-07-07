@@ -422,21 +422,6 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     assertNotNull(dest);
   }
 
-  public void testStringToIndexedSet_UsingMapSetMethod() {
-    mapper = getNewMapper(new String[] { "indexMapping.xml" });
-    Mccoy src = new Mccoy();
-    src.setStringProperty(String.valueOf(System.currentTimeMillis()));
-
-    MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class);
-    Set destSet = dest.getFieldValueObjects();
-    assertNotNull("dest set should not be null", destSet);
-    assertEquals("dest set should contain 1 entry", 1, destSet.size());
-    Object entry = destSet.iterator().next();
-    assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
-    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue());
-    assertEquals("invalid key for dest object", "stringProperty", ((FieldValue) entry).getKey());
-  }
-
   public void testStringToIndexedSet_UsingHint() {
     mapper = getNewMapper(new String[] { "indexMapping.xml" });
     Mccoy src = new Mccoy();

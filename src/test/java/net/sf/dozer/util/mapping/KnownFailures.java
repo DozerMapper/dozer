@@ -19,10 +19,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import net.sf.dozer.util.mapping.vo.FieldValue;
 import net.sf.dozer.util.mapping.vo.MessageHeaderDTO;
 import net.sf.dozer.util.mapping.vo.MessageHeaderVO;
 import net.sf.dozer.util.mapping.vo.MessageIdVO;
+import net.sf.dozer.util.mapping.vo.index.Mccoy;
+import net.sf.dozer.util.mapping.vo.index.MccoyPrime;
 import net.sf.dozer.util.mapping.vo.map.NestedObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
@@ -34,6 +38,26 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
  * @author tierney.matt
  */
 public class KnownFailures extends AbstractDozerTest {
+
+  /*
+   * 7-06-07 This test started failing as a result of the Mapped backed property refactoring.  Need to resolve prior to releasing 3.5
+   */
+  public void testStringToIndexedSet_UsingMapSetMethod() {
+    mapper = getNewMapper(new String[] { "indexMapping.xml" });
+    Mccoy src = new Mccoy();
+    src.setStringProperty(String.valueOf(System.currentTimeMillis()));
+
+    MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class);
+    Set destSet = dest.getFieldValueObjects();
+    assertNotNull("dest set should not be null", destSet);
+    assertEquals("dest set should contain 1 entry", 1, destSet.size());
+    Object entry = destSet.iterator().next();
+    assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
+    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue());
+    assertEquals("invalid key for dest object", "stringProperty", ((FieldValue) entry).getKey());
+  }
+
+  
   
   /*
    * Feature Request #1731158.  Need a way to explicitly specify a mapping between a custom data object 

@@ -67,7 +67,12 @@ public abstract class FieldMap implements Cloneable {
   public Class getDestFieldType(Class destClass) {
     Class result = null;
     try {
-      result = getDestinationPropertyDescriptor(destClass).getPropertyType();
+      if (destField.isIndexed()) {
+        result = destinationTypeHint != null ? destinationTypeHint.getHint() : null;
+      } 
+      if (result == null) {
+        result = getDestinationPropertyDescriptor(destClass).getPropertyType();
+      }
     } catch (NoSuchFieldException e) {
       MappingUtils.throwMappingException(e);
     } catch (NoSuchMethodException e) {
@@ -287,12 +292,12 @@ public abstract class FieldMap implements Cloneable {
     this.relationshipType = relationshipType;
   }
   
-  private DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass, isSourceSelfReferencing());
+  protected DozerPropertyDescriptorIF getSourcePropertyDescriptor(Class sourceClass) {
+    return PropertyDescriptorFactory.getPropertyDescriptor(sourceField, sourceClass, isSourceSelfReferencing(), destField.getName());
   }
   
-  private DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass, isDestSelfReferencing());
+  protected DozerPropertyDescriptorIF getDestinationPropertyDescriptor(Class destClass) {
+    return PropertyDescriptorFactory.getPropertyDescriptor(destField, destClass, isDestSelfReferencing(), sourceField.getName());
   }
   
 }

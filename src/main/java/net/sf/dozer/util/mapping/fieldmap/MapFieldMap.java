@@ -15,18 +15,19 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
-import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
+import net.sf.dozer.util.mapping.propertydescriptor.JavaBeanPropertyDescriptor;
+import net.sf.dozer.util.mapping.propertydescriptor.MapPropertyDescriptor;
+import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
- * Only intended for internal use.
+ * Only intended for internal use.  Handles field mapping involving Map Backed properties.  Map backed property support
+ * includes top level class Map data type, field level Map data type, and custom Map backed objects that provide custom map-get/set methods.
  * 
  * @author garsombke.franz
  * @author sullins.ben
@@ -34,26 +35,153 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public class MapFieldMap extends FieldMap {
-  private static final Log log = LogFactory.getLog(MapFieldMap.class);
+
+  public MapFieldMap() {
+  }
+
+  public MapFieldMap(FieldMap fieldMap) {
+    setCopyByReference(fieldMap.getCopyByReference());
+    setCustomConverter(fieldMap.getCustomConverter());
+    setDestField(fieldMap.getDestField());
+    setDestinationTypeHint(fieldMap.getDestinationTypeHint());
+    setMapId(fieldMap.getMapId());
+    setRelationshipType(fieldMap.getRelationshipType());
+    setSourceField(fieldMap.getSourceField());
+    setSourceTypeHint(fieldMap.getSourceTypeHint());
+    setType(fieldMap.getType());
+  }
 
   public void writeDestinationValue(Object destObj, Object destFieldValue, ClassMap classMap) {
-    Method destFieldWriteMethod = getDestFieldWriteMethod(destObj.getClass());
-    if (destFieldWriteMethod.getParameterTypes().length == 2) { // this is a 'put'
-      String key = null;
-      if (StringUtils.isEmpty(getSourceField().getKey())) {
-        key = getSourceField().getName();
+    DozerPropertyDescriptorIF propDescriptor;
+    Object targetObject = destObj;
+
+    if (getDestField().getName().equals(MapperConstants.SELF_KEYWORD) || (destFieldValue != null && MappingUtils.isSupportedMap(destFieldValue.getClass()))) {
+      // Destination value is already a Map, so just use normal
+      propDescriptor = super.getDestinationPropertyDescriptor(destObj.getClass());
+    } else {
+
+      if (getDestField().getMapGetMethod() != null || MappingUtils.isSupportedMap(determineActualPropertyType(getDestField(), destObj))) {
+        // Need to dig out actual destination Map object and use map property descriptor to set the value on that target object....
+        PrepareTargetObjectResult result = prepareTargetObject(destObj, classMap);
+        targetObject = result.targetObject;
+        propDescriptor = result.propDescriptor;
       } else {
-        key = getSourceField().getKey();
+        propDescriptor = super.getDestinationPropertyDescriptor(destObj.getClass());
+      }
+    }
+
+    try {
+      propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestinationTypeHint(), classMap);
+    } catch (NoSuchFieldException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+
+  }
+
+  public Object getSrcFieldValue(Object srcObj) {
+    DozerPropertyDescriptorIF propDescriptor;
+    Object targetObject = srcObj;
+
+    if (getSourceField().getName().equals(MapperConstants.SELF_KEYWORD)) {
+      propDescriptor = super.getSourcePropertyDescriptor(srcObj.getClass());
+    } else {
+      Class ac = determineActualPropertyType(getSourceField(), srcObj);
+      if ((getSourceField().getMapGetMethod() != null)
+          || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSourceTypeHint() == null)) {
+        //Need to dig out actual map object by using getter on the field.  Use actual map object to get the field value
+        DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(srcObj.getClass(), getSourceField().getName(),
+            getSourceField().isIndexed(), getSourceField().getIndex());
+
+        try {
+          targetObject = d.getPropertyValue(srcObj);
+        } catch (Exception e) {
+          MappingUtils.throwMappingException(e);
+        }
+
+        propDescriptor = new MapPropertyDescriptor(ac, getSourceField().getName(), getSourceField().isIndexed(),
+            getDestField().getIndex(), MappingUtils.isSupportedMap(ac) ? "put" : getSourceField().getMapSetMethod(),
+            MappingUtils.isSupportedMap(ac) ? "get" : getSourceField().getMapGetMethod(),
+            getSourceField().getKey() != null ? getSourceField().getKey() : getDestField().getName());
+      } else {
+        propDescriptor = super.getSourcePropertyDescriptor(srcObj.getClass());
+      }
+    }
+
+    Object result = null;
+    try {
+      if (targetObject != null) {
+        result = propDescriptor.getPropertyValue(targetObject);
+      }
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+
+    return result;
+
+  }
+
+  private PrepareTargetObjectResult prepareTargetObject(Object destObj,
+      ClassMap classMap) {
+    Object targetObject = destObj;
+    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestField().getName(),
+        getDestField().isIndexed(), getDestField().getIndex());
+
+    Class c = null;
+    try {
+      c = d.getPropertyType();
+      targetObject = d.getPropertyValue(destObj);
+      if (targetObject == null) {
+        if (getDestinationTypeHint() != null) {
+          if (MappingUtils.isSupportedMap(c)) {
+            if (MappingUtils.isSupportedMap(getDestinationTypeHint().getHint())) {
+              c = getDestinationTypeHint().getHint();
+            }
+          } else {
+            c = getDestinationTypeHint().getHint();
+          }
+
+        }
+        // TODO - call destbeancreator
+        if (MappingUtils.isSupportedMap(c)) {
+          targetObject = new HashMap();
+        } else {
+          targetObject = ReflectionUtils.newInstance(c);
+        }
+        d.setPropertyValue(destObj, targetObject, null, classMap);
       }
 
-      if (log.isDebugEnabled()) {
-        log.debug("Getting ready to invoke write method on the destination object: "
-            + MappingUtils.getClassNameWithoutPackage(destObj.getClass()) + ", Write Method: "
-            + destFieldWriteMethod.getName() + ", Dest value: " + destFieldValue);
-      }
-      ReflectionUtils.invoke(destFieldWriteMethod, destObj, new Object[] { key, destFieldValue });
-    } else { // this is a 'get'
-      super.writeDestinationValue(destObj, destFieldValue, classMap);
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+    }
+
+    return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestField().getName(),
+        getDestField().isIndexed(), getDestField().getIndex(), MappingUtils.isSupportedMap(c) ? "put" : getDestField()
+            .getMapSetMethod(), MappingUtils.isSupportedMap(c) ? "get" : getDestField().getMapGetMethod(),
+        getDestField().getKey() != null ? getDestField().getKey() : getSourceField().getName()));
+
+  }
+  
+  private Class determineActualPropertyType(DozerField field, Object targetObj) {
+    // Dig out actual Map object by calling getter on top level object
+    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(targetObj.getClass(), field.getName(), field
+        .isIndexed(), field.getIndex());
+    Class ac = null;
+    try {
+      ac = d.getPropertyType();
+    } catch (Throwable e1) {
+      MappingUtils.throwMappingException(e1);
+    }
+    return ac;
+  }
+
+  private class PrepareTargetObjectResult {
+    private Object targetObject;
+    private MapPropertyDescriptor propDescriptor;
+    public PrepareTargetObjectResult(Object targetObject, MapPropertyDescriptor propDescriptor) {
+      this.targetObject = targetObject;
+      this.propDescriptor = propDescriptor;
     }
   }
 

@@ -28,7 +28,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class that determines the appropriate class mapping to be used for the source and destination object being mapped.  Only intended for internal use. 
+ * Internal class that determines the appropriate class mapping to be used for the source and destination object being
+ * mapped. Only intended for internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
@@ -37,7 +38,8 @@ public abstract class ClassMapFinder {
 
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
-  public static ClassMap findClassMap(Map customMappings, Object sourceObj, Class destClass, String mapId, boolean isInstance) {
+  public static ClassMap findClassMap(Map customMappings, Object sourceObj, Class destClass, String mapId,
+      boolean isInstance) {
     ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass,
         mapId));
 
@@ -111,7 +113,8 @@ public abstract class ClassMapFinder {
   // these methods seem to be trying to accomplish the same thing with a
   // different implementation. Also, one takes a map-id
   // and the other doesnt ?? somewhat confusing
-  public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object sourceObj, String mapId) {
+  public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object sourceObj,
+      String mapId) {
     ClassMap newClassMap = null;
     Class newClass = null;
     // Use object array for keys to avoid any rare thread synchronization
@@ -127,7 +130,7 @@ public abstract class ClassMapFinder {
       // interface we need to
       // verify that the source class in the map IS a super class of the
       // source object...or the source object itself. .
-      if (destClass.isAssignableFrom(dest)
+      if ((destClass.isAssignableFrom(dest) || (dest.isInterface() && dest.isAssignableFrom(destClass)))
           && (map.getSourceClass().getClassToMap().isAssignableFrom(sourceObj.getClass()) || map.getSourceClass()
               .getClassToMap().isInstance(sourceObj))
           // look for most specific mapping

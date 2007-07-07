@@ -41,10 +41,8 @@ import net.sf.dozer.util.mapping.event.DozerEvent;
 import net.sf.dozer.util.mapping.event.DozerEventManager;
 import net.sf.dozer.util.mapping.event.EventManagerIF;
 import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.CustomMapGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
@@ -375,14 +373,8 @@ public class MappingProcessor implements MapperIF {
           fieldMap, false);
     }
 
-    boolean isDestFieldTypeSupportedMap = MappingUtils.isSupportedMap(destFieldType);
-    if (sourceFieldValue == null && !isDestFieldTypeSupportedMap) {
+    if (sourceFieldValue == null) {
       return null;
-    }
-
-    // this is so we don't null out the entire Map with a null source value
-    if (sourceFieldValue == null && isDestFieldTypeSupportedMap) {
-      return mapMapToProperty(srcObj, sourceFieldValue, null, fieldMap, destObj, destFieldType, classMap);
     }
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping infinite loop
@@ -408,25 +400,15 @@ public class MappingProcessor implements MapperIF {
       // just get the src and return it, no transformation.
       return sourceFieldValue;
     }
-    // if the mapId is not null then it means we are mapping a Class Level Map
-    // Backed Property. In the future the mapId might be used for other things...
-    if (fieldMap.getMapId() != null && MappingUtils.validateMap(sourceFieldClass, destFieldType, fieldMap)) {
-      return mapCustomObject(fieldMap, destObj, destFieldType, sourceFieldValue);
-    }
-    if (fieldMap instanceof MapFieldMap && !ignoreClassMap) {
-      // we just take the source and set it on the Map - if we are mapping in
-      // reverse we need to get the value off of the map
-      return mapClassLevelMap(srcObj, fieldMap, sourceFieldValue, sourceFieldClass, classMap, destFieldType, destObj);
-    }
+    
     boolean isSourceFieldClassSupportedMap = MappingUtils.isSupportedMap(sourceFieldClass);
+    boolean isDestFieldTypeSupportedMap = MappingUtils.isSupportedMap(destFieldType);
     if (isSourceFieldClassSupportedMap && isDestFieldTypeSupportedMap) {
       return mapMap(srcObj, sourceFieldValue, classMap, fieldMap, destObj, destFieldType);
     }
-    if (isSourceFieldClassSupportedMap || isDestFieldTypeSupportedMap) {
-      return mapMapToProperty(srcObj, sourceFieldValue, sourceFieldClass, fieldMap, destObj, destFieldType, classMap);
-    }
-    if (fieldMap instanceof CustomMapGetSetMethodFieldMap) {
-      return mapCustomMapToProperty(sourceFieldValue, sourceFieldClass, fieldMap, destObj, destFieldType);
+    if (fieldMap instanceof MapFieldMap && destFieldType.equals(Object.class)) {
+      //TODO: find better place for this logic. try to encapsulate in FieldMap?
+      destFieldType = fieldMap.getDestinationTypeHint() != null ? fieldMap.getDestinationTypeHint().getHint() : sourceFieldClass;
     }
     if (MappingUtils.isPrimitiveOrWrapper(sourceFieldClass) || MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
       // Primitive or Wrapper conversion
@@ -440,7 +422,6 @@ public class MappingProcessor implements MapperIF {
       return mapCollection(srcObj, sourceFieldValue, classMap, fieldMap, destObj);
     }
     if(GlobalSettings.getInstance().isJava5()) {
-      
       if ( ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), sourceFieldClass, null)).booleanValue() && 
           ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null)).booleanValue()) {
         return mapEnum(sourceFieldValue, destFieldType);
@@ -455,24 +436,6 @@ public class MappingProcessor implements MapperIF {
     return ReflectionUtils.invoke(Jdk5Methods.getInstance().getEnumValueOfMethod(), destFieldType, new Object[] {destFieldType, name});
   }
   
-  private Object mapClassLevelMap(Object srcObj, FieldMap fieldMap, Object sourceFieldValue, Class sourceFieldClass,
-      ClassMap classMap, Class destType, Object destObj) {
-    // TODO This should be encapsulated in MapFieldMap?
-    if (!MappingUtils.isSupportedMap(sourceFieldClass) && fieldMap.getSourceField().getMapGetMethod() == null) {
-      return sourceFieldValue;
-    } else {
-      String key = null;
-      if (StringUtils.isEmpty(fieldMap.getDestField().getKey())) {
-        key = fieldMap.getDestField().getName();
-      } else {
-        key = fieldMap.getDestField().getKey();
-      }
-      Method resultMethod = ReflectionUtils.getMethod(sourceFieldValue, fieldMap.getSourceField().getMapGetMethod());
-      Object result = ReflectionUtils.invoke(resultMethod, sourceFieldValue, new Object[] { key });
-      return mapOrRecurseObject(srcObj, result, destType, classMap, fieldMap, destObj, true);
-    }
-  }
-
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class destFieldType, Object sourceFieldValue) {
     // Custom java bean. Need to make sure that the destination object is not
     // already instantiated.
@@ -609,71 +572,6 @@ public class MappingProcessor implements MapperIF {
         result.put(sourceEntry.getKey(), destEntryValue);
       }
 
-    }
-    return result;
-  }
-
-  private Object mapMapToProperty(Object srcObj, Object sourceValue, Class sourceFieldClass, FieldMap fieldMap,
-      Object destObj, Class destType, ClassMap classMap) {
-    Object srcFieldValue = null;
-    String key = null;
-
-    // determine which field is the Map
-    if (MappingUtils.isSupportedMap(destType)) {
-      Object field = fieldMap.doesFieldExist(destObj, destType);
-      // make sure we don't null out the whole Map
-      if (sourceFieldClass == null) {
-        return field;
-      }
-      if (field == null) {
-        if (fieldMap.getDestinationTypeHint() != null) {
-          // if we have a hint we can instantiate correct object
-          destType = fieldMap.getDestinationTypeHint().getHint();
-        } else if (destType.isInterface()) {
-          // if there is no hint we assume it is a HashMap
-          destType = HashMap.class;
-        }
-        // destType could also be a concrete implementation
-        srcFieldValue = ReflectionUtils.newInstance(destType);
-      } else {
-        srcFieldValue = field;
-      }
-      key = fieldMap.getDestKey();
-      ((Map) srcFieldValue).put(key, sourceValue);
-    } else {
-      key = fieldMap.getSourceKey();
-      srcFieldValue = ((Map) sourceValue).get(key);
-    }
-    return mapOrRecurseObject(srcObj, srcFieldValue, destType, classMap, fieldMap, destObj);
-  }
-
-  private Object mapCustomMapToProperty(Object sourceValue, Class sourceFieldClass, FieldMap fieldMap, Object destObj,
-      Class destType) {
-    Object result = null;
-    // determine which field is the Map
-    if (fieldMap.getDestField().getMapGetMethod() != null && fieldMap.getDestField().getMapSetMethod() != null) {
-      Object field = fieldMap.doesFieldExist(destObj, destType);
-      // make sure we don't null out the whole Map
-      if (sourceFieldClass == null) {
-        return field;
-      }
-      if (field == null) {
-        if (fieldMap.getDestinationTypeHint() != null) {
-          // if we have a hint we can instantiate correct object
-          destType = fieldMap.getDestinationTypeHint().getHint();
-        }
-        // destType could also be a concrete implementation
-        result = ReflectionUtils.newInstance(destType);
-      } else {
-        result = field;
-      }
-      String key = fieldMap.getDestKey();
-      Method resultMethod = ReflectionUtils.getMethod(result, fieldMap.getDestField().getMapSetMethod());
-      ReflectionUtils.invoke(resultMethod, result, new Object[] { key, sourceValue });
-    } else {
-      String key = fieldMap.getSourceKey();
-      Method resultMethod = ReflectionUtils.getMethod(sourceValue, fieldMap.getSourceField().getMapGetMethod());
-      result = ReflectionUtils.invoke(resultMethod, sourceValue, new Object[] { key });
     }
     return result;
   }

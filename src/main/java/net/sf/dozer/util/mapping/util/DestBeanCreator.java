@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping.util;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
@@ -78,7 +79,12 @@ public class DestBeanCreator {
     // use the specified custom bean factory
     if (MappingUtils.isBlankOrNull(factoryName)) {
       try {
-        rvalue = createNewInstance(destClassObj.getClassToMap());
+        //TODO: IS this correct assumption for Map's
+        if (MappingUtils.isSupportedMap(destClassObj.getClassToMap())) {
+          rvalue = new HashMap();
+        } else {
+          rvalue = createNewInstance(destClassObj.getClassToMap());
+        }
       } catch (Exception e) {
         if (destClass != null) {
           return createNewInstance(destClass);

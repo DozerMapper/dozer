@@ -32,12 +32,12 @@ import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
 import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.CustomMapGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -288,11 +288,12 @@ public class XMLParser {
     }
     
     FieldMap result;
-    if (MappingUtils.isCustomGetterSetterField(srcField) || MappingUtils.isCustomGetterSetterField(destField)) {
-      result = new CustomGetSetMethodFieldMap(); 
-    } else if (MappingUtils.isMapTypeCustomGetterSetterField(srcField) || MappingUtils.isMapTypeCustomGetterSetterField(destField) ||
+    if (MappingUtils.isMapTypeCustomGetterSetterField(srcField) || MappingUtils.isMapTypeCustomGetterSetterField(destField) ||
         MappingUtils.isMapTypeCustomGetterSetterClass(classMap.getSourceClass()) || MappingUtils.isMapTypeCustomGetterSetterClass(classMap.getDestClass())) {
-      result = new CustomMapGetSetMethodFieldMap();
+      result = new MapFieldMap();
+    }
+    else if (MappingUtils.isCustomGetterSetterField(srcField) || MappingUtils.isCustomGetterSetterField(destField)) {
+      result = new CustomGetSetMethodFieldMap(); 
     } else {
       result = new GenericFieldMap();
     }

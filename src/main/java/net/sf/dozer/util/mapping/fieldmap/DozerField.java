@@ -26,7 +26,7 @@ package net.sf.dozer.util.mapping.fieldmap;
  */
 public class DozerField {
   private final String type;
-  private final String name;
+  private String name;
   private String dateFormat;
   private String theGetMethod;
   private String theSetMethod;
@@ -135,4 +135,7 @@ public class DozerField {
     this.isIndexed = isIndexed;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
 }

@@ -27,6 +27,7 @@ import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
+import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -41,7 +42,6 @@ import org.apache.commons.lang.StringUtils;
 public class MappingsParser {
 
   public Map processMappings(Mappings mappings) {
-    Iterator iterator = null;
     Map result = new HashMap();
     FieldMap fieldMapPrime = null;
     // verify that we even have any mappings
@@ -151,13 +151,42 @@ public class MappingsParser {
       }
 
       if (classMap.getFieldMaps() != null) {
-        iterator = classMap.getFieldMaps().iterator();
+        Object[] fms = classMap.getFieldMaps().toArray();
         // iterate through the fields and see wether or not they should be mapped
         // one way class mappings we do not need to add any fields
         if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
-          while (iterator.hasNext()) {
-            FieldMap fieldMap = (FieldMap) iterator.next();
+          for (int i = 0; i < fms.length; i++) {
+            FieldMap fieldMap = (FieldMap) fms[i];
             MappingValidator.validateFieldMapping(fieldMap, classMap);
+
+            /*
+             * Apply class level map-get/set-method attributes to each of the field maps
+             */
+            if (classMap.getSourceClass().getMapGetMethod() != null) {
+              fieldMap.getSourceField().setMapGetMethod(classMap.getSourceClass().getMapGetMethod());
+            }
+            if (classMap.getSourceClass().getMapSetMethod() != null) {
+              fieldMap.getSourceField().setMapSetMethod(classMap.getSourceClass().getMapSetMethod());
+            }
+            if (classMap.getDestClass().getMapGetMethod() != null) {
+              fieldMap.getDestField().setMapGetMethod(classMap.getDestClass().getMapGetMethod());
+            }
+            if (classMap.getDestClass().getMapSetMethod() != null) {
+              fieldMap.getDestField().setMapSetMethod(classMap.getDestClass().getMapSetMethod());
+            }
+
+            //If we are dealing with a Map data type, transform the field map into a MapFieldMap type
+            if (!(fieldMap instanceof ExcludeFieldMap)) {
+              if (MappingUtils.isSupportedMap(classMap.getDestClass().getClassToMap())
+                  || MappingUtils.isSupportedMap(classMap.getSourceClass().getClassToMap())
+                  || MappingUtils.isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClass().getClassToMap()))
+                  || MappingUtils.isSupportedMap(fieldMap.getSourceFieldType(classMap.getSourceClass().getClassToMap()))) {
+                FieldMap fm = new MapFieldMap(fieldMap);
+                classMap.removeFieldMapping(fieldMap);
+                classMap.addFieldMapping(fm);
+                fieldMap = fm;
+              }
+            }
 
             if (!(StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
               // make a prime field map
@@ -194,8 +223,8 @@ public class MappingsParser {
         } else {
           // since it is one-way...we still need to validate if it has some type of method mapping and validate the
           // field maps
-          while (iterator.hasNext()) {
-            FieldMap oneWayFieldMap = (FieldMap) iterator.next();
+          for (int i = 0; i < fms.length; i++) {
+            FieldMap oneWayFieldMap = (FieldMap) fms[i];
             MappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
 
             MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);

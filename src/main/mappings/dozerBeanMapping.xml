@@ -735,7 +735,7 @@
     </field>
 
     <field>
-      <a>stringProperty</a>
+      <a>stringProperty6</a>
       <b>nullHashMap</b>
       <b-hint>java.util.HashMap</b-hint>
     </field>
@@ -762,7 +762,7 @@
     <class-a>net.sf.dozer.util.mapping.vo.map.PropertyToMap</class-a>
     <class-b>java.util.HashMap</class-b>
     <field>
-      <a set-method="addStringProperty2">stringProperty2</a>
+      <a>stringProperty2</a>
       <b key="myStringProperty">this</b>
     </field>  
     <!-- Add deep property functionality
@@ -778,7 +778,6 @@
     
   </mapping>   
 
-  <!-- testing mapping properties to a Custom Class Level Map -->
   <mapping map-id="myCustomTestMapping">
     <class-a>net.sf.dozer.util.mapping.vo.map.PropertyToMap</class-a>
     <class-b map-set-method="putValue" map-get-method="getValue">net.sf.dozer.util.mapping.vo.map.CustomMap</class-b>
