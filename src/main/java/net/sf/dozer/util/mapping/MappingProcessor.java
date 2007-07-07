@@ -820,6 +820,7 @@ public class MappingProcessor implements MapperIF {
     }
   }
 
+  //TODO: possibly extract this to a seperate class
   private Object mapUsingCustomConverter(Class customConverterClass, Class srcFieldClass, Object srcFieldValue,
       Class destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
     Object converterInstance = null;
