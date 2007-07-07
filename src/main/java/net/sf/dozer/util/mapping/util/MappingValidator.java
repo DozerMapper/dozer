@@ -77,7 +77,7 @@ public abstract class MappingValidator {
     }
   }
 
-  public static void validateFieldMapping(FieldMap fm, ClassMap classMap) {
+  public static void validateFieldMapping(FieldMap fm) {
     DozerField srcField = fm.getSourceField();
     DozerField destField = fm.getDestField();
     if (srcField == null) {

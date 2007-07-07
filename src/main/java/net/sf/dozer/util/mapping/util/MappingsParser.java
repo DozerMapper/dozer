@@ -157,7 +157,7 @@ public class MappingsParser {
         if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
           for (int i = 0; i < fms.length; i++) {
             FieldMap fieldMap = (FieldMap) fms[i];
-            MappingValidator.validateFieldMapping(fieldMap, classMap);
+            MappingValidator.validateFieldMapping(fieldMap);
 
             /*
              * Apply class level map-get/set-method attributes to each of the field maps
@@ -225,7 +225,7 @@ public class MappingsParser {
           // field maps
           for (int i = 0; i < fms.length; i++) {
             FieldMap oneWayFieldMap = (FieldMap) fms[i];
-            MappingValidator.validateFieldMapping(oneWayFieldMap, classMap);
+            MappingValidator.validateFieldMapping(oneWayFieldMap);
 
             MappingValidator.validateCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
             // check to see if we need to exclude the map
