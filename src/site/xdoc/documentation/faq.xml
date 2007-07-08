@@ -697,7 +697,6 @@ dozer:  Finished configuring Dozer global properties
 dozer:  Initializing Dozer.  Version: 3.2.1, Thread Name:main, Is this JDK 1.5.x?:false
 dozer:  jdk1.5 management classes unavailable.  Dozer JMX MBeans will not be auto registered.
 dozer:  Initializing a new instance of the dozer bean mapper.
-dozer:  Initializing a new instance of the dozer bean mapper.
 dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [dozerBeanMapping.xml]
 dozer:  Trying to find xml mapping file: dozerBeanMapping.xml
 dozer:  Using URL [file:/C:/subversion/dozer/branches/3.x/bin/dozerBeanMapping.xml] to load custom xml mappings

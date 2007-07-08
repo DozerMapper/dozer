@@ -179,8 +179,6 @@
          </source>
          <p>The Class Level map backed mappings can also be used as a standard mapping. For this dozer has a new API. 
          In addition to the source and destination classes you can now pass in the map reference Id.
-         Note when mapping in the opposite direction you need to add the word PRIME to your class mapping reference Id.
-         This is dozer's way to uniquely identify the bi-directional mapping.
          </p>
          <source>
            <![CDATA[ 
@@ -202,7 +200,7 @@ Mapper.map(ptm, custom, "myCustomTestMapping");
 // Example 4 - Map Back
 Map map = new HashMap();
 map.put("stringProperty", "stringPropertyValue");
-PropertyToMap property = (PropertyToMap) Mapper.map(map, PropertyToMap.class, "myTestMappingPRIME");
+PropertyToMap property = (PropertyToMap) Mapper.map(map, PropertyToMap.class, "myTestMapping");
 assertEquals("stringPropertyValue", property.getStringProperty());
 
             ]]>
