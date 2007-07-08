@@ -80,10 +80,6 @@ public class DozerClass implements Cloneable {
     this.factoryBeanId = factoryBeanId;
   }
 
-  public Object clone() throws CloneNotSupportedException {
-    return super.clone();
-  }
-
   public String getMapGetMethod() {
     return mapGetMethod;
   }

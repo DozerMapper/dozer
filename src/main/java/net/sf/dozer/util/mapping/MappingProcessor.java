@@ -373,7 +373,7 @@ public class MappingProcessor implements MapperIF {
     boolean isSrcFieldClassSupportedMap = MappingUtils.isSupportedMap(srcFieldClass);
     boolean isDestFieldTypeSupportedMap = MappingUtils.isSupportedMap(destFieldType);
     if (isSrcFieldClassSupportedMap && isDestFieldTypeSupportedMap) {
-      return mapMap(srcObj, srcFieldValue, fieldMap, destObj, destFieldType);
+      return mapMap(srcObj, srcFieldValue, fieldMap, destObj);
     }
     if (fieldMap instanceof MapFieldMap && destFieldType.equals(Object.class)) {
       // TODO: find better place for this logic. try to encapsulate in FieldMap?
@@ -518,7 +518,7 @@ public class MappingProcessor implements MapperIF {
     return result;
   }
 
-  private Object mapMap(Object srcObj, Object srcMapValue, FieldMap fieldMap, Object destObj, Class destFieldType) {
+  private Object mapMap(Object srcObj, Object srcMapValue, FieldMap fieldMap, Object destObj) {
     Map result = null;
     Object field = fieldMap.getDestValue(destObj);
     if (field == null) {
