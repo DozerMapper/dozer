@@ -72,7 +72,7 @@ public final class StatisticsManager implements StatisticsManagerIF {
     Iterator iter = statisticsMap.entrySet().iterator();
     while (iter.hasNext()) {
       Map.Entry entry = (Map.Entry) iter.next();
-      results.add((String) entry.getKey());
+      results.add(entry.getKey());
     }
     return results;
   }

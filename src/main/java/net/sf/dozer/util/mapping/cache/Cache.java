@@ -106,6 +106,8 @@ public class Cache {
   }
 
   private class CacheLinkedHashMap extends LinkedMap {
+    private static final long serialVersionUID = 1L;
+
     // Order the map by which its entries were last accessed, from least-recently accessed to most-recently
     // (access-order)
     public CacheLinkedHashMap() {

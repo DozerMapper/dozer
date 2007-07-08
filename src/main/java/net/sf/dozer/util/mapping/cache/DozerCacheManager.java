@@ -66,7 +66,7 @@ public final class DozerCacheManager implements CacheManagerIF {
     Iterator iter = cachesMap.entrySet().iterator();
     while (iter.hasNext()) {
       Map.Entry entry = (Map.Entry) iter.next();
-      results.add((String) entry.getKey());
+      results.add(entry.getKey());
     }
     return results;
   }

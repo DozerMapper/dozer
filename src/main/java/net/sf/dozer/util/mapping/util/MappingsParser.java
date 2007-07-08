@@ -130,7 +130,7 @@ public class MappingsParser {
               fieldMapPrime = new ExcludeFieldMap(classMapPrime);
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
             }
-            classMapPrime.addFieldMapping((FieldMap) fieldMapPrime);
+            classMapPrime.addFieldMapping(fieldMapPrime);
           }
         } else {
           // since it is one-way...we still need to validate if it has some type of method mapping and validate the

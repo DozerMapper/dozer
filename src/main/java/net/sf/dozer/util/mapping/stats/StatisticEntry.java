@@ -29,6 +29,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  */
 public class StatisticEntry implements Serializable {
+  private static final long serialVersionUID = 1L;
   private final Object key;
   private long value = 0;
 

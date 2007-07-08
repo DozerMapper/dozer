@@ -33,6 +33,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  */
 public class Statistic implements Serializable {
+  private static final long serialVersionUID = 1L;
   private final String type;
   private final Map entriesMap = new HashMap();
 

@@ -807,7 +807,7 @@ public class MappingProcessor implements MapperIF {
     // search our injected customconverters for a match
     if (customConverterObjects != null) {
       for (int i = 0; i < customConverterObjects.size(); i++) {
-        Object customConverter = (Object) customConverterObjects.get(i);
+        Object customConverter = customConverterObjects.get(i);
         if (customConverter.getClass().isAssignableFrom(customConverterClass)) {
           // we have a match
           converterInstance = customConverter;
@@ -904,7 +904,7 @@ public class MappingProcessor implements MapperIF {
     // Collections.reverse(superClasses);
     // All the test cases pass...
     // Add to cache
-    cacheEntry = new CacheEntry(cacheKey, (Set) superClasses);
+    cacheEntry = new CacheEntry(cacheKey, superClasses);
     superTypeCache.put(cacheEntry);
 
     return superClasses;

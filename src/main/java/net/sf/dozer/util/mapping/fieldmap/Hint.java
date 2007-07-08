@@ -75,7 +75,7 @@ public class Hint {
       try {
         StringTokenizer st = new StringTokenizer(this.hintName, ",");
         while (st.hasMoreElements()) {
-          String theHintName = (String) st.nextToken().trim();
+          String theHintName = st.nextToken().trim();
 
           Class clazz = Thread.currentThread().getContextClassLoader().loadClass(theHintName);
           list.add(clazz);

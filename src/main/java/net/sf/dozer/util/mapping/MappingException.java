@@ -26,6 +26,7 @@ package net.sf.dozer.util.mapping;
  */
 public class MappingException extends RuntimeException {
 
+  private static final long serialVersionUID = 1L;
   private Throwable cause;
 
   public MappingException(String arg0) {
