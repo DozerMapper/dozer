@@ -46,6 +46,9 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   }
 
   public Method getWriteMethod() throws NoSuchMethodException {
+    if (MappingUtils.isBlankOrNull(setMethod)) {
+      throw new MappingException("Custom Map set method not specified for field mapping to class: " + clazz + ".  Perhaps the map-set-method wasn't specified in the dozer mapping file?");
+    }
     return ReflectionUtils.getMethod(clazz, setMethod);
   }
 
@@ -61,6 +64,9 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   }
 
   protected Method getReadMethod() throws NoSuchMethodException {
+    if (MappingUtils.isBlankOrNull(getMethod)) {
+      throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
+    }
     return ReflectionUtils.getMethod(clazz, getMethod);
   }
 
