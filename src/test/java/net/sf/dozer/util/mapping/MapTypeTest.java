@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util.mapping;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -382,6 +384,23 @@ public class MapTypeTest extends AbstractDozerTest {
   public void testMapGetSetMethod_FieldLevel() throws Exception {
     runMapGetSetMethodTest("useCase2");
   }
+  
+  public void testDateFormat_CustomMapType() throws Exception {
+    // Test that date format works for mapping between String and Custom Map Type
+    mapper = getNewMapper(new String[] { "mapMapping3.xml" });
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+    String dateStr = "10/15/2005";
+    CustomMap src = new CustomMap();
+    src.putValue("fieldA", dateStr);
+
+    net.sf.dozer.util.mapping.vo.SimpleObj dest = (net.sf.dozer.util.mapping.vo.SimpleObj) mapper.map(src, net.sf.dozer.util.mapping.vo.SimpleObj.class);
+    assertNotNull("dest field should not be null", dest.getField5());
+    assertEquals("dest field contains wrong date value", df.parse(dateStr), dest.getField5().getTime());
+    
+    CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class);
+    assertEquals("remapped src field contains wrong date string", dateStr, remappedSrc.getValue("fieldA"));
+  }
+  
 
   private void runMapGetSetMethodTest(String mapId) throws Exception {
     // Test that custom field converter works for Custom Map Types
