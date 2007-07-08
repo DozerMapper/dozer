@@ -79,8 +79,9 @@ public class ValidatingUnmarshaller extends ForkContentHandler implements SAXUnm
       String aLocal = atts.getLocalName(i);
       if (aUri.equals("http://www.w3.org/2001/XMLSchema-instance")
           && (aLocal.equals("schemaLocation") || aLocal.equals("noNamespaceSchemaLocation") // ||
-          /* aLocal.equals("type") */))
+          /* aLocal.equals("type") */)) {
         continue;
+      }
 
       // we do handle xsi:nil.
       xsiLessAtts.addAttribute(aUri, aLocal, atts.getQName(i), atts.getType(i), atts.getValue(i));

@@ -114,7 +114,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     assertEquals("invalid result size", srcArray.length, result.size());
 
     for (int i = 0; i < srcArray.length; i++) {
-      Integer srcValue = new Integer((int) srcArray[i]);
+      Integer srcValue = new Integer(srcArray[i]);
       Integer resultValue = (Integer) result.get(i);
       assertEquals("invalid result entry value", srcValue, resultValue);
     }

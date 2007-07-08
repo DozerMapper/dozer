@@ -65,10 +65,11 @@ public abstract class AbstractUnmarshallingEventHandlerImpl implements Unmarshal
       if (tokens.countTokens() == 1) {
         handleText(text);
       } else {
-        while (tokens.hasMoreTokens())
+        while (tokens.hasMoreTokens()) {
           // the handler can be switched during the text processing,
           // so the current handler has to be obtained inside the loop
           context.getCurrentHandler().text(tokens.nextToken());
+        }
       }
     } else {
       // otherwise process this token
@@ -159,8 +160,9 @@ public abstract class AbstractUnmarshallingEventHandlerImpl implements Unmarshal
    * This method is called by the generated derived class when a datatype parse method throws an exception.
    */
   protected void handleParseConversionException(Exception e) throws SAXException {
-    if (e instanceof RuntimeException)
+    if (e instanceof RuntimeException) {
       throw (RuntimeException) e; // don't catch the runtime exception. just let it go.
+    }
 
     // wrap it into a ParseConversionEvent and report it
     ParseConversionEvent pce = new ParseConversionEventImpl(ValidationEvent.ERROR, e.getMessage(), new ValidationEventLocatorImpl(

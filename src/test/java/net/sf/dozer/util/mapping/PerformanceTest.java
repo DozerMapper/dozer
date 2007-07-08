@@ -126,13 +126,13 @@ public class PerformanceTest extends AbstractDozerTest {
 
   public void testMapping2() throws Exception {
     // SimpleObject --> SimpleObjectPrime
-    SimpleObj src = (SimpleObj) TestDataFactory.getSimpleObj();
+    SimpleObj src = TestDataFactory.getSimpleObj();
     runGeneric("testMapping2", src, SimpleObjPrime.class, 3600);
   }
 
   public void testMapping3() throws Exception {
     // SimpleObject --> SimpleObjectPrime2
-    SimpleObj src = (SimpleObj) TestDataFactory.getSimpleObj();
+    SimpleObj src = TestDataFactory.getSimpleObj();
     runGeneric("testMapping3", src, SimpleObjPrime2.class, 3700);
   }
 

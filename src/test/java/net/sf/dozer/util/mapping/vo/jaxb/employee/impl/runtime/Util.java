@@ -28,11 +28,12 @@ public class Util {
    */
   public static void handlePrintConversionException(Object caller, Exception e, XMLSerializer serializer) throws SAXException {
 
-    if (e instanceof SAXException)
+    if (e instanceof SAXException) {
       // assume this exception is not from application.
       // (e.g., when a marshaller aborts the processing, this exception
       // will be thrown)
       throw (SAXException) e;
+    }
 
     String message = e.getMessage();
     if (message == null) {
@@ -57,9 +58,10 @@ public class Util {
   }
 
   private static String getUserFriendlyTypeName(Object o) {
-    if (o instanceof ValidatableObject)
+    if (o instanceof ValidatableObject) {
       return ((ValidatableObject) o).getPrimaryInterface().getName();
-    else
+    } else {
       return o.getClass().getName();
+    }
   }
 }

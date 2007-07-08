@@ -92,13 +92,15 @@ public class UnmarshallingEventHandlerAdaptor implements UnmarshallingEventHandl
   }
 
   private void declarePrefixes(String[] prefixes) throws SAXException {
-    for (int i = prefixes.length - 1; i >= 0; i--)
+    for (int i = prefixes.length - 1; i >= 0; i--) {
       handler.startPrefixMapping(prefixes[i], context.getNamespaceURI(prefixes[i]));
+    }
   }
 
   private void undeclarePrefixes(String[] prefixes) throws SAXException {
-    for (int i = prefixes.length - 1; i >= 0; i--)
+    for (int i = prefixes.length - 1; i >= 0; i--) {
       handler.endPrefixMapping(prefixes[i]);
+    }
   }
 
   public void text(String s) throws SAXException {

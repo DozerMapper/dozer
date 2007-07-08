@@ -85,12 +85,15 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
   public void startElement(String uri, String local, String qname, Attributes atts) throws SAXException {
 
     // work gracefully with misconfigured parsers that don't support namespaces
-    if (uri == null)
+    if (uri == null) {
       uri = "";
-    if (local == null || local.length() == 0)
+    }
+    if (local == null || local.length() == 0) {
       local = qname;
-    if (qname == null || qname.length() == 0)
+    }
+    if (qname == null || qname.length() == 0) {
       qname = local;
+    }
 
     if (result == null) {
       // this is the root element.
@@ -119,12 +122,15 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
   public final void endElement(String uri, String local, String qname) throws SAXException {
 
     // work gracefully with misconfigured parsers that don't support namespaces
-    if (uri == null)
+    if (uri == null) {
       uri = "";
-    if (local == null || local.length() == 0)
+    }
+    if (local == null || local.length() == 0) {
       local = qname;
-    if (qname == null || qname.length() == 0)
+    }
+    if (qname == null || qname.length() == 0) {
       qname = local;
+    }
 
     processText(false);
     getCurrentHandler().leaveElement(uri, local, qname);
@@ -133,11 +139,13 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
   /** Root object that is being unmarshalled. */
   private Object result;
   public Object getResult() throws UnmarshalException {
-    if (isUnmarshalInProgress)
+    if (isUnmarshalInProgress) {
       throw new IllegalStateException();
+    }
 
-    if (!aborted)
+    if (!aborted) {
       return result;
+    }
 
     // there was an error.
     throw new UnmarshalException((String) null);
@@ -185,29 +193,33 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
   private StringBuffer buffer = new StringBuffer();
 
   protected void consumeText(String str, boolean ignorable) throws SAXException {
-    if (ignorable && str.trim().length() == 0)
+    if (ignorable && str.trim().length() == 0) {
       // if we are allowed to ignore text and
       // the text is ignorable, ignore.
       return;
+    }
 
     // otherwise perform a transition by this token.
     getCurrentHandler().text(str);
   }
   private void processText(boolean ignorable) throws SAXException {
-    if (shouldCollectText())
+    if (shouldCollectText()) {
       consumeText(buffer.toString(), ignorable);
+    }
 
     // avoid excessive object allocation, but also avoid
     // keeping a huge array inside StringBuffer.
-    if (buffer.length() < 1024)
+    if (buffer.length() < 1024) {
       buffer.setLength(0);
-    else
+    } else {
       buffer = new StringBuffer();
+    }
   }
 
   public final void characters(char[] buf, int start, int len) {
-    if (shouldCollectText())
+    if (shouldCollectText()) {
       buffer.append(buf, start, len);
+    }
   }
 
   public final void ignorableWhitespace(char[] buf, int start, int len) {
@@ -241,12 +253,14 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
     nsLen -= 2;
   }
   public String resolveNamespacePrefix(String prefix) {
-    if (prefix.equals("xml"))
+    if (prefix.equals("xml")) {
       return "http://www.w3.org/XML/1998/namespace";
+    }
 
     for (int i = idxStack[stackTop] - 2; i >= 0; i -= 2) {
-      if (prefix.equals(nsBind[i]))
+      if (prefix.equals(nsBind[i])) {
         return nsBind[i + 1];
+      }
     }
     return null;
   }
@@ -261,8 +275,9 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
   private String[] getPrefixList(int startIndex) {
     int size = (idxStack[stackTop] - startIndex) / 2;
     String[] r = new String[size];
-    for (int i = 0; i < r.length; i++)
+    for (int i = 0; i < r.length; i++) {
       r[i] = nsBind[startIndex + i * 2];
+    }
     return r;
   }
 
@@ -286,40 +301,52 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
       a.add(XMLConstants.XMLNS_ATTRIBUTE);
       return a;
     }
-    if (uri == null)
+    if (uri == null) {
       throw new IllegalArgumentException();
+    }
 
-    for (int i = nsLen - 2; i >= 0; i -= 2)
-      if (uri.equals(nsBind[i + 1]))
-        if (getNamespaceURI(nsBind[i]).equals(nsBind[i + 1]))
+    for (int i = nsLen - 2; i >= 0; i -= 2) {
+      if (uri.equals(nsBind[i + 1])) {
+        if (getNamespaceURI(nsBind[i]).equals(nsBind[i + 1])) {
           // make sure that this prefix is still effective.
           a.add(nsBind[i]);
+        }
+      }
+    }
 
     return a;
   }
 
   public String getPrefix(String uri) {
-    if (uri.equals(XMLConstants.XML_NS_URI))
+    if (uri.equals(XMLConstants.XML_NS_URI)) {
       return XMLConstants.XML_NS_PREFIX;
-    if (uri.equals(XMLConstants.XMLNS_ATTRIBUTE_NS_URI))
+    }
+    if (uri.equals(XMLConstants.XMLNS_ATTRIBUTE_NS_URI)) {
       return XMLConstants.XMLNS_ATTRIBUTE;
-    if (uri == null)
+    }
+    if (uri == null) {
       throw new IllegalArgumentException();
+    }
 
-    for (int i = idxStack[stackTop] - 2; i >= 0; i -= 2)
-      if (uri.equals(nsBind[i + 1]))
-        if (getNamespaceURI(nsBind[i]).equals(nsBind[i + 1]))
+    for (int i = idxStack[stackTop] - 2; i >= 0; i -= 2) {
+      if (uri.equals(nsBind[i + 1])) {
+        if (getNamespaceURI(nsBind[i]).equals(nsBind[i + 1])) {
           // make sure that this prefix is still effective.
           return nsBind[i];
+        }
+      }
+    }
 
     return null;
   }
 
   public String getNamespaceURI(String prefix) {
-    if (prefix.equals(XMLConstants.XMLNS_ATTRIBUTE))
+    if (prefix.equals(XMLConstants.XMLNS_ATTRIBUTE)) {
       return XMLConstants.XMLNS_ATTRIBUTE_NS_URI;
-    if (prefix == null)
+    }
+    if (prefix == null) {
       throw new IllegalArgumentException();
+    }
 
     return resolveNamespacePrefix(prefix);
   }
@@ -371,10 +398,11 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
 
     // push the stack
     AttributesImpl a = attStack[stackTop];
-    if (a == null)
+    if (a == null) {
       attStack[stackTop] = a = new AttributesImpl();
-    else
+    } else {
       a.clear();
+    }
 
     // since Attributes object is mutable, it is criticall important
     // to make a copy.
@@ -386,12 +414,15 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
       String aqname = atts.getQName(i);
 
       // work gracefully with misconfigured parsers that don't support namespaces
-      if (auri == null)
+      if (auri == null) {
         auri = "";
-      if (alocal == null || alocal.length() == 0)
+      }
+      if (alocal == null || alocal.length() == 0) {
         alocal = aqname;
-      if (aqname == null || aqname.length() == 0)
+      }
+      if (aqname == null || aqname.length() == 0) {
         aqname = alocal;
+      }
 
       // <foo xsi:nil="false">some value</foo> is a valid fragment, however
       // we need a look ahead to correctly handle this case.
@@ -401,8 +432,9 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
       // as a quick workaround, we remove @xsi:nil if the value is false.
       if (auri == "http://www.w3.org/2001/XMLSchema-instance" && alocal == "nil") {
         String v = avalue.trim();
-        if (v.equals("false") || v.equals("0"))
+        if (v.equals("false") || v.equals("0")) {
           continue; // skip this attribute
+        }
       }
 
       // otherwise just add it.
@@ -470,8 +502,9 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
 
   public void addPatcher(Runnable job) {
     // re-allocate buffer if necessary
-    if (patchers == null)
+    if (patchers == null) {
       patchers = new Runnable[32];
+    }
     if (patchers.length == patchersLen) {
       Runnable[] buf = new Runnable[patchersLen * 2];
       System.arraycopy(patchers, 0, buf, 0, patchersLen);
@@ -483,8 +516,9 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
   /** Executes all the patchers. */
   private void runPatchers() {
     if (patchers != null) {
-      for (int i = 0; i < patchersLen; i++)
+      for (int i = 0; i < patchersLen; i++) {
         patchers[i].run();
+      }
     }
   }
 
@@ -492,15 +526,17 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
   private Hashtable idmap = null;
 
   public String addToIdTable(String id) {
-    if (idmap == null)
+    if (idmap == null) {
       idmap = new Hashtable();
+    }
     idmap.put(id, getCurrentHandler().owner());
     return id;
   }
 
   public Object getObjectFromId(String id) {
-    if (idmap == null)
+    if (idmap == null) {
       return null;
+    }
     return idmap.get(id);
   }
 
@@ -544,11 +580,13 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
 
     // if the handler says "abort", we will not return the object
     // from the unmarshaller.getResult()
-    if (!recover)
+    if (!recover) {
       aborted = true;
+    }
 
-    if (!canRecover || !recover)
+    if (!canRecover || !recover) {
       throw new SAXException(new UnmarshalException(event.getMessage(), event.getLinkedException()));
+    }
   }
 
   //
@@ -576,8 +614,9 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
     this.tracer = t;
   }
   public Tracer getTracer() {
-    if (tracer == null)
+    if (tracer == null) {
       tracer = new Tracer.Standard();
+    }
     return tracer;
   }
 
@@ -590,8 +629,9 @@ public class SAXUnmarshallerHandlerImpl implements SAXUnmarshallerHandler, Unmar
     String[] probePoints = grammarInfo.getProbePoints();
     for (int i = 0; i < probePoints.length; i += 2) {
       if (grammarInfo.recognize(probePoints[i], probePoints[i + 1])) {
-        if (r.length() != 0)
+        if (r.length() != 0) {
           r += ',';
+        }
         r += "<{" + probePoints[i] + "}" + probePoints[i + 1] + ">";
       }
     }

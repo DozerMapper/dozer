@@ -55,10 +55,11 @@ public class UnmarshallerImpl extends AbstractUnmarshallerImpl {
 
   public void setValidating(boolean validating) throws JAXBException {
     super.setValidating(validating);
-    if (validating == true)
+    if (validating == true) {
       // make sure that we can actually load the grammar.
       // this could be a lengthy operation if your schema is big.
       context.getGrammar();
+    }
   }
 
   public UnmarshallerHandler getUnmarshallerHandler() {
@@ -146,13 +147,14 @@ public class UnmarshallerImpl extends AbstractUnmarshallerImpl {
       DOMScanner scanner = new DOMScanner();
       UnmarshallerHandler handler = new InterningUnmarshallerHandler(createUnmarshallerHandler(new DOMLocator(scanner)));
 
-      if (node instanceof Element)
+      if (node instanceof Element) {
         scanner.parse((Element) node, handler);
-      else if (node instanceof Document)
+      } else if (node instanceof Document) {
         scanner.parse(((Document) node).getDocumentElement(), handler);
-      else
+      } else {
         // no other type of input is supported
         throw new IllegalArgumentException();
+      }
 
       return handler.getResult();
     } catch (SAXException e) {

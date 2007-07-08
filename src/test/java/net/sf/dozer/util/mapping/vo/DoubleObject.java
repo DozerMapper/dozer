@@ -42,15 +42,18 @@ public class DoubleObject implements Serializable {
   }
 
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
-    if (!(o instanceof DoubleObject))
+    }
+    if (!(o instanceof DoubleObject)) {
       return false;
+    }
 
     final DoubleObject doubleObject = (DoubleObject) o;
 
-    if (value != doubleObject.value)
+    if (value != doubleObject.value) {
       return false;
+    }
 
     return true;
   }

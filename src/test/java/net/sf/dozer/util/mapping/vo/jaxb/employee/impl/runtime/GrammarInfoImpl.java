@@ -65,12 +65,14 @@ public class GrammarInfoImpl implements GrammarInfo {
     QName qn;
 
     qn = new QName(nsUri, localName);
-    if (rootTagMap.containsKey(qn))
+    if (rootTagMap.containsKey(qn)) {
       return (Class) rootTagMap.get(qn);
+    }
 
     qn = new QName(nsUri, "*");
-    if (rootTagMap.containsKey(qn))
+    if (rootTagMap.containsKey(qn)) {
       return (Class) rootTagMap.get(qn);
+    }
 
     qn = new QName("*", "*");
     return (Class) rootTagMap.get(qn);
@@ -78,17 +80,19 @@ public class GrammarInfoImpl implements GrammarInfo {
 
   public final Class getRootElement(String namespaceUri, String localName) {
     Class intfCls = lookupRootMap(namespaceUri, localName);
-    if (intfCls == null)
+    if (intfCls == null) {
       return null;
-    else
+    } else {
       return getDefaultImplementation(intfCls);
+    }
   }
 
   public final UnmarshallingEventHandler createUnmarshaller(String namespaceUri, String localName, UnmarshallingContext context) {
 
     Class impl = getRootElement(namespaceUri, localName);
-    if (impl == null)
+    if (impl == null) {
       return null;
+    }
 
     try {
       return ((UnmarshallableObject) impl.newInstance()).createUnmarshaller(context);

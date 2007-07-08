@@ -402,8 +402,8 @@ public class MapperTest extends AbstractDozerTest {
     tro.setVehicles(vehicles);
     TestReferenceObject toClone = (TestReferenceObject) SerializationUtils.clone(tro);
     TestReferencePrimeObject trop = (TestReferencePrimeObject) mapper.map(tro, TestReferencePrimeObject.class);
-    assertEquals("myName", ((Van) trop.getVans()[0]).getName());
-    assertEquals("myName", ((Van) trop.getMoreVans()[0]).getName());
+    assertEquals("myName", (trop.getVans()[0]).getName());
+    assertEquals("myName", (trop.getMoreVans()[0]).getName());
 
     TestReferenceFooPrime fooPrime = (TestReferenceFooPrime) trop.getListAPrime().get(0);
     fooPrime.setB("b");
@@ -504,8 +504,8 @@ public class MapperTest extends AbstractDozerTest {
     mapper.map(top, toDest);
     assertTrue(toDest.getSetToArray().contains(top.getArrayToSet()[0]));
     assertTrue(toDest.getSetToArray().contains(top.getArrayToSet()[1]));
-    assertTrue(toDest.getSetToObjectArray().contains((Apple) top.getObjectArrayToSet()[0]));
-    assertTrue(toDest.getSetToObjectArray().contains((Apple) top.getObjectArrayToSet()[1]));
+    assertTrue(toDest.getSetToObjectArray().contains(top.getObjectArrayToSet()[0]));
+    assertTrue(toDest.getSetToObjectArray().contains(top.getObjectArrayToSet()[1]));
     assertTrue(toDest.getSetToArrayWithValues().contains(apple));
     assertTrue(toDest.getSetToArrayWithValues().contains(apple2));
     assertTrue(toDest.getSetToArrayWithValues() instanceof HashSet);

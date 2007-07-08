@@ -108,8 +108,9 @@ public class ValidatorImpl implements Validator {
       // ValidatableObject vo = Util.toValidatableObject(o);
       ValidatableObject vo = jaxbContext.getGrammarInfo().castToValidatableObject(o);
 
-      if (vo == null)
+      if (vo == null) {
         throw new ValidationException(Messages.format(Messages.NOT_VALIDATABLE));
+      }
 
       EventInterceptor ei = new EventInterceptor(eventHandler);
       ValidationContext context = new ValidationContext(jaxbContext, ei, validateId);

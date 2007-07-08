@@ -98,8 +98,9 @@ class ValidationContext {
 
   public String onID(XMLSerializable owner, String value) throws SAXException {
 
-    if (!validateID)
+    if (!validateID) {
       return value;
+    }
 
     if (!IDs.add(value)) {
       // this ID value has already been used.
@@ -111,11 +112,13 @@ class ValidationContext {
     return value;
   }
   public String onIDREF(XMLSerializable referer, String value) throws SAXException {
-    if (!validateID)
+    if (!validateID) {
       return value;
+    }
 
-    if (IDs.contains(value))
+    if (IDs.contains(value)) {
       return value; // this IDREF has the corresponding ID.
+    }
 
     // remember the value to check the value later.
     IDREFs.put(value, referer);
@@ -124,14 +127,16 @@ class ValidationContext {
   }
   /** Tests if all IDREFs have corresponding IDs. */
   protected void reconcileIDs() throws SAXException {
-    if (!validateID)
+    if (!validateID) {
       return;
+    }
 
     for (Iterator itr = IDREFs.entrySet().iterator(); itr.hasNext();) {
       Map.Entry e = (Map.Entry) itr.next();
 
-      if (IDs.contains(e.getKey()))
+      if (IDs.contains(e.getKey())) {
         continue; // OK.
+      }
 
       // ID was not found.
       ValidatableObject source = (ValidatableObject) e.getValue();

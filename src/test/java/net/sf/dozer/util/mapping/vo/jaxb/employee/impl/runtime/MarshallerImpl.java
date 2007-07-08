@@ -84,8 +84,9 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
     // XMLSerializable so = Util.toXMLSerializable(obj);
     XMLSerializable so = context.getGrammarInfo().castToXMLSerializable(obj);
 
-    if (so == null)
+    if (so == null) {
       throw new MarshalException(Messages.format(Messages.NOT_MARSHALLABLE));
+    }
 
     if (result instanceof SAXResult) {
       write(so, ((SAXResult) result).getHandler());
@@ -115,18 +116,19 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
       StreamResult sr = (StreamResult) result;
       XMLWriter w = null;
 
-      if (sr.getWriter() != null)
+      if (sr.getWriter() != null) {
         w = createWriter(sr.getWriter());
-      else if (sr.getOutputStream() != null)
+      } else if (sr.getOutputStream() != null) {
         w = createWriter(sr.getOutputStream());
-      else if (sr.getSystemId() != null) {
+      } else if (sr.getSystemId() != null) {
         String fileURL = sr.getSystemId();
 
         if (fileURL.startsWith("file:///")) {
-          if (fileURL.substring(8).indexOf(":") > 0)
+          if (fileURL.substring(8).indexOf(":") > 0) {
             fileURL = fileURL.substring(8);
-          else
+          } else {
             fileURL = fileURL.substring(7);
+          }
         } // otherwise assume that it's a file name
 
         try {
@@ -136,8 +138,9 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
         }
       }
 
-      if (w == null)
+      if (w == null) {
         throw new IllegalArgumentException();
+      }
 
       write(so, w);
       return;
@@ -177,14 +180,16 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
   //
 
   protected CharacterEscapeHandler createEscapeHandler(String encoding) {
-    if (escapeHandler != null)
+    if (escapeHandler != null) {
       // user-specified one takes precedence.
       return escapeHandler;
+    }
 
-    if (encoding.startsWith("UTF"))
+    if (encoding.startsWith("UTF")) {
       // no need for character reference. Use the handler
       // optimized for that pattern.
       return MinimumEscapeHandler.theInstance;
+    }
 
     // otherwise try to find one from the encoding
     try {
@@ -208,8 +213,9 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
       DataWriter d = new DataWriter(w, encoding, ceh);
       d.setIndentStep(indent);
       xw = d;
-    } else
+    } else {
       xw = new XMLWriter(w, encoding, ceh);
+    }
 
     xw.setXmlDecl(printXmlDeclaration);
     xw.setHeader(header);
@@ -233,16 +239,21 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
   }
 
   public Object getProperty(String name) throws PropertyException {
-    if (INDENT_STRING.equals(name))
+    if (INDENT_STRING.equals(name)) {
       return indent;
-    if (ENCODING_HANDLER.equals(name))
+    }
+    if (ENCODING_HANDLER.equals(name)) {
       return escapeHandler;
-    if (PREFIX_MAPPER.equals(name))
+    }
+    if (PREFIX_MAPPER.equals(name)) {
       return prefixMapper;
-    if (XMLDECLARATION.equals(name))
+    }
+    if (XMLDECLARATION.equals(name)) {
       return printXmlDeclaration ? Boolean.TRUE : Boolean.FALSE;
-    if (XML_HEADERS.equals(name))
+    }
+    if (XML_HEADERS.equals(name)) {
       return header;
+    }
 
     return super.getProperty(name);
   }

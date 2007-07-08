@@ -57,7 +57,7 @@ public class EmployeeTypeImpl implements net.sf.dozer.util.mapping.vo.jaxb.emplo
     context.endNamespaceDecls();
     context.endAttributes();
     try {
-      context.text(((java.lang.String) _FirstName), "FirstName");
+      context.text((_FirstName), "FirstName");
     } catch (java.lang.Exception e) {
       net.sf.dozer.util.mapping.vo.jaxb.employee.impl.runtime.Util.handlePrintConversionException(this, e, context);
     }
@@ -67,7 +67,7 @@ public class EmployeeTypeImpl implements net.sf.dozer.util.mapping.vo.jaxb.emplo
       context.endNamespaceDecls();
       context.endAttributes();
       try {
-        context.text(javax.xml.bind.DatatypeConverter.printDate(((java.util.Calendar) _BirthDate)), "BirthDate");
+        context.text(javax.xml.bind.DatatypeConverter.printDate((_BirthDate)), "BirthDate");
       } catch (java.lang.Exception e) {
         net.sf.dozer.util.mapping.vo.jaxb.employee.impl.runtime.Util.handlePrintConversionException(this, e, context);
       }
@@ -77,7 +77,7 @@ public class EmployeeTypeImpl implements net.sf.dozer.util.mapping.vo.jaxb.emplo
     context.endNamespaceDecls();
     context.endAttributes();
     try {
-      context.text(((java.lang.String) _LastName), "LastName");
+      context.text((_LastName), "LastName");
     } catch (java.lang.Exception e) {
       net.sf.dozer.util.mapping.vo.jaxb.employee.impl.runtime.Util.handlePrintConversionException(this, e, context);
     }

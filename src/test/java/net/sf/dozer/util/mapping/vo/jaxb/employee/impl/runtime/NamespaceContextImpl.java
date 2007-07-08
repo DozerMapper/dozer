@@ -82,20 +82,23 @@ public class NamespaceContextImpl implements NamespaceContext2 {
    */
   public String declareNamespace(String namespaceUri, String preferedPrefix, boolean requirePrefix) {
     if (!inCollectingMode) {
-      if (!requirePrefix && nss.getURI("").equals(namespaceUri))
+      if (!requirePrefix && nss.getURI("").equals(namespaceUri)) {
         return ""; // can use the default prefix. use it whenever we can
+      }
 
       // find a valid prefix for this namespace URI
       // ASSERTION: the result is always non-null,
       // since we require all the namespace URIs to be declared while
       // this object is in collection mode.
-      if (requirePrefix)
+      if (requirePrefix) {
         return nss.getPrefix2(namespaceUri);
-      else
+      } else {
         return nss.getPrefix(namespaceUri);
+      }
     } else {
-      if (requirePrefix && namespaceUri.length() == 0)
+      if (requirePrefix && namespaceUri.length() == 0) {
         return "";
+      }
 
       // collect this new namespace URI
       String prefix = (String) reverseDecls.get(namespaceUri);
@@ -120,8 +123,9 @@ public class NamespaceContextImpl implements NamespaceContext2 {
       } else {
         // see if this namespace URI is already in-scope
         prefix = nss.getPrefix(namespaceUri);
-        if (prefix == null)
+        if (prefix == null) {
           prefix = (String) reverseDecls.get(namespaceUri);
+        }
 
         if (prefix == null) {
           // if not, try to allocate a new one.
@@ -129,22 +133,25 @@ public class NamespaceContextImpl implements NamespaceContext2 {
           // use prefixMapper if specified. If so, just let the
           // prefixMapper decide if it wants to use the suggested prefix.
           // otherwise our best bet is the suggested prefix.
-          if (prefixMapper != null)
+          if (prefixMapper != null) {
             prefix = prefixMapper.getPreferredPrefix(namespaceUri, preferedPrefix, requirePrefix);
-          else
+          } else {
             prefix = preferedPrefix;
+          }
 
-          if (prefix == null)
+          if (prefix == null) {
             // if the user don't care, generate one
             prefix = "ns" + (iota++);
+          }
         }
       }
 
       // ASSERT: prefix!=null
 
-      if (requirePrefix && prefix.length() == 0)
+      if (requirePrefix && prefix.length() == 0) {
         // we can't map it to the default prefix. generate one.
         prefix = "ns" + (iota++);
+      }
 
       while (true) {
         String existingUri = (String) decls.get(prefix);
@@ -198,8 +205,9 @@ public class NamespaceContextImpl implements NamespaceContext2 {
    */
   public String getNamespaceURI(String prefix) {
     String uri = (String) decls.get(prefix);
-    if (uri != null)
+    if (uri != null) {
       return uri;
+    }
 
     return nss.getURI(prefix);
   }
@@ -209,14 +217,17 @@ public class NamespaceContextImpl implements NamespaceContext2 {
     Set s = new HashSet();
 
     String prefix = (String) reverseDecls.get(namespaceUri);
-    if (prefix != null)
+    if (prefix != null) {
       s.add(prefix);
+    }
 
-    if (nss.getURI("").equals(namespaceUri))
+    if (nss.getURI("").equals(namespaceUri)) {
       s.add("");
+    }
 
-    for (Enumeration e = nss.getPrefixes(namespaceUri); e.hasMoreElements();)
+    for (Enumeration e = nss.getPrefixes(namespaceUri); e.hasMoreElements();) {
       s.add(e.nextElement());
+    }
 
     return s.iterator();
   }
@@ -245,8 +256,9 @@ public class NamespaceContextImpl implements NamespaceContext2 {
         Map.Entry e = (Map.Entry) itr.next();
         String prefix = (String) e.getKey();
         String uri = (String) e.getValue();
-        if (!uri.equals(nss.getURI(prefix))) // avoid redundant decls.
+        if (!uri.equals(nss.getURI(prefix))) {
           nss.declarePrefix(prefix, uri);
+        }
       }
       decls.clear();
       reverseDecls.clear();

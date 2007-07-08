@@ -67,13 +67,14 @@ public class DefaultJAXBContextImpl extends JAXBContext {
    * Loads a grammar object for the unmarshal-time validation.
    */
   public com.sun.msv.grammar.Grammar getGrammar() throws JAXBException {
-    if (grammar == null)
+    if (grammar == null) {
       // since JAXBContext needs to be thread-safe,
       // this check might allow more than one thread to
       // load a grammar, but that's fine; it's just a loss of
       // time, but by itself it doesn't cause any problem.
       // by not synchronizing method, we can avoid its overhead.
       grammar = gi.getGrammar();
+    }
     return grammar;
   }
 
@@ -126,8 +127,9 @@ public class DefaultJAXBContextImpl extends JAXBContext {
 
     try {
       Class c = gi.getDefaultImplementation(javaContentInterface);
-      if (c == null)
+      if (c == null) {
         throw new JAXBException(Messages.format(Messages.MISSING_INTERFACE, javaContentInterface));
+      }
 
       return c.newInstance();
     } catch (Exception e) {

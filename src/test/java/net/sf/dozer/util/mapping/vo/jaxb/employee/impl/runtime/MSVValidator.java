@@ -137,8 +137,9 @@ public class MSVValidator implements XMLSerializer, IDContextProvider2 {
       return;
     }
 
-    if (buf.length() != 0)
+    if (buf.length() != 0) {
       buf.append(' ');
+    }
     buf.append(text);
   }
 
@@ -188,10 +189,11 @@ public class MSVValidator implements XMLSerializer, IDContextProvider2 {
       context.reportEvent(target, ref.str);
     }
 
-    if (buf.length() > 1024)
+    if (buf.length() > 1024) {
       buf = new StringBuffer();
-    else
+    } else {
       buf.setLength(0);
+    }
   }
 
   private String currentElementUri;
@@ -280,10 +282,11 @@ public class MSVValidator implements XMLSerializer, IDContextProvider2 {
       return;
     }
 
-    if (insideAttribute)
+    if (insideAttribute) {
       childAsAttributeBody(vo, fieldName);
-    else
+    } else {
       childAsElementBody(o, vo);
+    }
   }
 
   private void childAsElementBody(Object o, ValidatableObject vo) throws SAXException {
@@ -327,11 +330,11 @@ public class MSVValidator implements XMLSerializer, IDContextProvider2 {
     if (o instanceof RIElement) {
       RIElement rie = (RIElement) o;
       if (!child.onAttribute2(rie.____jaxb_ri____getNamespaceURI(), rie.____jaxb_ri____getLocalName(), rie
-          .____jaxb_ri____getLocalName(), "", null, null, null))
-
+          .____jaxb_ri____getLocalName(), "", null, null, null)) {
         // this object is not a valid member of the wildcard
         context.reportEvent(target, Messages.format(Messages.INCORRECT_CHILD_FOR_WILDCARD, rie.____jaxb_ri____getNamespaceURI(),
             rie.____jaxb_ri____getLocalName()));
+      }
     }
 
     child.onEndAttributes(sti, null);

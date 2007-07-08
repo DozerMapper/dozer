@@ -131,8 +131,9 @@ public class SAXMarshaller implements XMLSerializer {
       String[] uris = nsContext.getNamespacePrefixMapper().getPreDeclaredNamespaceUris();
       if (uris != null) {
         for (int i = 0; i < uris.length; i++) {
-          if (uris[i] != null)
+          if (uris[i] != null) {
             nsContext.declareNamespace(uris[i], null, false);
+          }
         }
       }
     }
@@ -165,10 +166,11 @@ public class SAXMarshaller implements XMLSerializer {
     _assert(prefix != null); // since we've declared it, it should be available
 
     String qname;
-    if (prefix.length() != 0)
+    if (prefix.length() != 0) {
       qname = prefix + ':' + local;
-    else
+    } else {
       qname = local;
+    }
 
     // fire startPrefixMapping events
     nsContext.iterateDeclaredPrefixes(startPrefixCallback);
@@ -196,10 +198,11 @@ public class SAXMarshaller implements XMLSerializer {
     _assert(prefix != null); // we've declared it earlier.
 
     String qname;
-    if (prefix.length() != 0)
+    if (prefix.length() != 0) {
       qname = prefix + ':' + local;
-    else
+    } else {
       qname = local;
+    }
 
     writer.endElement(uri, local, qname);
 
@@ -261,8 +264,9 @@ public class SAXMarshaller implements XMLSerializer {
       return;
     }
 
-    if (textBuf.length() != 0)
+    if (textBuf.length() != 0) {
       textBuf.append(' ');
+    }
     textBuf.append(text);
   }
 
@@ -274,8 +278,9 @@ public class SAXMarshaller implements XMLSerializer {
     // assert(textBuf!=null);
     int len = textBuf.length();
 
-    if (len != 0)
+    if (len != 0) {
       writer.characters(textBuf.toString().toCharArray(), 0, len);
+    }
   }
 
   /**
@@ -412,10 +417,11 @@ public class SAXMarshaller implements XMLSerializer {
     }
 
     if (!handler.handleEvent(ve)) {
-      if (ve.getLinkedException() instanceof Exception)
+      if (ve.getLinkedException() instanceof Exception) {
         throw new AbortSerializationException((Exception) ve.getLinkedException());
-      else
+      } else {
         throw new AbortSerializationException(ve.getMessage());
+      }
     }
   }
 
@@ -424,8 +430,9 @@ public class SAXMarshaller implements XMLSerializer {
   }
 
   private static void _assert(boolean b) {
-    if (!b)
+    if (!b) {
       throw new JAXBAssertionError();
+    }
   }
 
   /**
@@ -433,8 +440,9 @@ public class SAXMarshaller implements XMLSerializer {
    */
   private static NamespacePrefixMapper defaultNamespacePrefixMapper = new NamespacePrefixMapper() {
     public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
-      if (namespaceUri.equals("http://www.w3.org/2001/XMLSchema-instance"))
+      if (namespaceUri.equals("http://www.w3.org/2001/XMLSchema-instance")) {
         return "xsi";
+      }
       return suggestion;
     }
   };

@@ -38,8 +38,9 @@ class Discarder implements UnmarshallingEventHandler {
 
   public void leaveElement(String uri, String local, String qname) throws SAXException {
     depth--;
-    if (depth == 0)
+    if (depth == 0) {
       context.popContentHandler();
+    }
   }
 
   public Object owner() {

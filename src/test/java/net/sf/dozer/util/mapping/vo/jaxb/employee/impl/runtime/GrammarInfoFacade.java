@@ -64,9 +64,11 @@ class GrammarInfoFacade implements GrammarInfo {
   }
 
   public boolean recognize(String nsUri, String localName) {
-    for (int i = 0; i < grammarInfos.length; i++)
-      if (grammarInfos[i].recognize(nsUri, localName))
+    for (int i = 0; i < grammarInfos.length; i++) {
+      if (grammarInfos[i].recognize(nsUri, localName)) {
         return true;
+      }
+    }
     return false;
   }
 
@@ -133,11 +135,12 @@ class GrammarInfoFacade implements GrammarInfo {
         JAXBContext c = (JAXBContext) Class.forName(objectFactoryName, true, classLoader).newInstance();
 
         // check version
-        if (version == null)
+        if (version == null) {
           version = getVersion(c);
-        else if (!version.equals(getVersion(c)))
+        } else if (!version.equals(getVersion(c))) {
           throw new JAXBException(Messages.format(Messages.INCOMPATIBLE_VERSION, new Object[] { version, c.getClass().getName(),
               getVersion(c) }));
+        }
 
         // use reflection to get GrammarInfo
         Object grammarInfo = c.getClass().getField("grammarInfo").get(null);
@@ -155,9 +158,10 @@ class GrammarInfoFacade implements GrammarInfo {
       }
     }
 
-    if (gis.size() == 1)
+    if (gis.size() == 1) {
       // if there's only one path, no need to use a facade.
       return (GrammarInfo) gis.get(0);
+    }
 
     return new GrammarInfoFacade((GrammarInfo[]) (gis.toArray(new GrammarInfo[gis.size()])));
   }
@@ -182,8 +186,9 @@ class GrammarInfoFacade implements GrammarInfo {
   public Class getDefaultImplementation(Class javaContentInterface) {
     for (int i = 0; i < grammarInfos.length; i++) {
       Class c = grammarInfos[i].getDefaultImplementation(javaContentInterface);
-      if (c != null)
+      if (c != null) {
         return c;
+      }
     }
     return null;
   }
@@ -195,21 +200,25 @@ class GrammarInfoFacade implements GrammarInfo {
       com.sun.msv.grammar.Grammar[] grammars = new com.sun.msv.grammar.Grammar[grammarInfos.length];
 
       // load al the grammars individually
-      for (int i = 0; i < grammarInfos.length; i++)
+      for (int i = 0; i < grammarInfos.length; i++) {
         grammars[i] = grammarInfos[i].getGrammar();
+      }
 
       // connect them to each other
-      for (int i = 0; i < grammarInfos.length; i++)
-        if (grammars[i] instanceof GrammarImpl)
+      for (int i = 0; i < grammarInfos.length; i++) {
+        if (grammars[i] instanceof GrammarImpl) {
           ((GrammarImpl) grammars[i]).connect(grammars);
+        }
+      }
 
       // take union of them
       for (int i = 0; i < grammarInfos.length; i++) {
         com.sun.msv.grammar.Grammar n = grammars[i];
-        if (bgm == null)
+        if (bgm == null) {
           bgm = n;
-        else
+        } else {
           bgm = union(bgm, n);
+        }
       }
     }
     return bgm;
