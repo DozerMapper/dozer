@@ -64,7 +64,7 @@ public abstract class MappingValidator {
   }
 
   public static URL validateURL(String fileName) {
-    Loader loader = new Loader();
+    ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource(fileName);
     if (url == null) {
       MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!!!");

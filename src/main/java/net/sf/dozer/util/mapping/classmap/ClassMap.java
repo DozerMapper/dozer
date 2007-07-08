@@ -35,7 +35,7 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
 public class ClassMap {
 
   private Configuration globalConfiguration;
-  private DozerClass sourceClass;
+  private DozerClass srcClass;
   private DozerClass destClass;
   private List fieldMaps = new ArrayList();
   private List allowedExceptions = new ArrayList();
@@ -104,7 +104,7 @@ public class ClassMap {
     return result;
   }
 
-  public FieldMap getFieldMapUsingSource(String sourceFieldName) {
+  public FieldMap getFieldMapUsingSrc(String srcFieldName) {
     FieldMap result = null;
 
     if (fieldMaps != null) {
@@ -112,7 +112,7 @@ public class ClassMap {
         FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
         String fieldName = fieldMap.getSrcFieldName();
 
-        if ((fieldName != null) && fieldName.equals(sourceFieldName)) {
+        if ((fieldName != null) && fieldName.equals(srcFieldName)) {
           result = fieldMap;
           break;
         }
@@ -158,16 +158,8 @@ public class ClassMap {
     this.dateFormat = dateFormat;
   }
 
-  public boolean getStopOnErrorsOveridden() {
-    return stopOnErrorsOveridden;
-  }
-
   public void setStopOnErrorsOveridden(boolean stopOnErrorsOveridden) {
     this.stopOnErrorsOveridden = stopOnErrorsOveridden;
-  }
-
-  public boolean getWildcardOveridden() {
-    return wildcardOveridden;
   }
 
   public void setWildcardOveridden(boolean wildcardOveridden) {
@@ -183,28 +175,28 @@ public class ClassMap {
   }
   
   public Class getSrcClassToMap() {
-    return sourceClass.getClassToMap();
+    return srcClass.getClassToMap();
   }
   
   public Class getDestClassToMap() {
     return destClass.getClassToMap();
   }
   
-  public boolean getDestClassMapNull() {
+  public boolean isDestClassMapNull() {
     return destClass.getMapNull() != null ? destClass.getMapNull().booleanValue() : mapNull;
   }
   
-  public boolean getSrcClassMapNull() {
-    return sourceClass.getMapNull() != null ? sourceClass.getMapNull().booleanValue() : mapNull;
+  public boolean isSrcClassMapNull() {
+    return srcClass.getMapNull() != null ? srcClass.getMapNull().booleanValue() : mapNull;
   }
   
   
-  public boolean getDestClassMapEmptyString() {
+  public boolean isDestClassMapEmptyString() {
     return destClass.getMapEmptyString() != null ? destClass.getMapEmptyString().booleanValue() : mapEmptyString;
   }
   
-  public boolean getSrcClassMapEmptyString() {
-    return sourceClass.getMapEmptyString() != null ? sourceClass.getMapEmptyString().booleanValue() : mapEmptyString;
+  public boolean isSrcClassMapEmptyString() {
+    return srcClass.getMapEmptyString() != null ? srcClass.getMapEmptyString().booleanValue() : mapEmptyString;
   }
   
   
@@ -213,7 +205,7 @@ public class ClassMap {
   }
   
   public String getSrcClassBeanFactory() {
-    return !MappingUtils.isBlankOrNull(sourceClass.getBeanFactory()) ? sourceClass.getBeanFactory() : getBeanFactory();
+    return !MappingUtils.isBlankOrNull(srcClass.getBeanFactory()) ? srcClass.getBeanFactory() : getBeanFactory();
   }
   
   
@@ -222,15 +214,15 @@ public class ClassMap {
   }
   
   public String getSrcClassBeanFactoryId() {
-    return sourceClass.getFactoryBeanId();
+    return srcClass.getFactoryBeanId();
   }
   
   public String getSrcClassMapGetMethod() {
-    return sourceClass.getMapGetMethod();
+    return srcClass.getMapGetMethod();
   }
   
   public String getSrcClassMapSetMethod() {
-    return sourceClass.getMapSetMethod();
+    return srcClass.getMapSetMethod();
   }
   
   public String getDestClassMapGetMethod() {
@@ -246,11 +238,11 @@ public class ClassMap {
   }
   
   public String getSrcClassCreateMethod() {
-    return sourceClass.getCreateMethod();
+    return srcClass.getCreateMethod();
   }
   
   public void setSrcClassCreateMethod(String createMethod) {
-    sourceClass.setCreateMethod(createMethod);
+    srcClass.setCreateMethod(createMethod);
   }
   
   public void setDestClassCreateMethod(String createMethod) {
@@ -262,11 +254,11 @@ public class ClassMap {
   }
   
   public boolean isSrcClassMapTypeCustomGetterSetter() {
-    return sourceClass.isMapTypeCustomGetterSetterClass();
+    return srcClass.isMapTypeCustomGetterSetterClass();
   }
 
-  public void setSourceClass(DozerClass sourceClass) {
-    this.sourceClass = sourceClass;
+  public void setSrcClass(DozerClass srcClass) {
+    this.srcClass = srcClass;
   }
 
   public void setDestClass(DozerClass destClass) {
@@ -278,7 +270,7 @@ public class ClassMap {
   }
   
   public String getSrcClassName() {
-    return sourceClass.getName();
+    return srcClass.getName();
   }
   
 
@@ -298,16 +290,8 @@ public class ClassMap {
     this.mapId = mapId;
   }
 
-  public boolean getMapNull() {
-    return mapNull;
-  }
-
   public void setMapNull(boolean mapNull) {
     this.mapNull = mapNull;
-  }
-
-  public boolean getMapEmptyString() {
-    return mapEmptyString;
   }
 
   public void setMapEmptyString(boolean mapEmptyString) {

@@ -83,20 +83,20 @@ public class DozerBeanMapper implements MapperIF {
     init();
   }
 
-  public void map(Object sourceObj, Object destObj, String mapId) throws MappingException {
-    getMappingProcessor().map(sourceObj, destObj, mapId);
+  public void map(Object source, Object destination, String mapId) throws MappingException {
+    getMappingProcessor().map(source, destination, mapId);
   }
 
-  public Object map(Object sourceObj, Class destClass, String mapId) throws MappingException {
-    return getMappingProcessor().map(sourceObj, destClass, mapId);
+  public Object map(Object source, Class destinationClass, String mapId) throws MappingException {
+    return getMappingProcessor().map(source, destinationClass, mapId);
   }
 
-  public Object map(Object sourceObj, Class destClass) throws MappingException {
-    return getMappingProcessor().map(sourceObj, destClass);
+  public Object map(Object source, Class destinationClass) throws MappingException {
+    return getMappingProcessor().map(source, destinationClass);
   }
 
-  public void map(Object sourceObj, Object destObj) throws MappingException {
-    getMappingProcessor().map(sourceObj, destObj);
+  public void map(Object source, Object destination) throws MappingException {
+    getMappingProcessor().map(source, destination);
   }
 
   public List getMappingFiles() {

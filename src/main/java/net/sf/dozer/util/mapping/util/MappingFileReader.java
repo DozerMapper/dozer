@@ -40,7 +40,7 @@ public class MappingFileReader {
   }
   
   public MappingFileReader(String fileName) {
-    Loader loader = new Loader();
+    ResourceLoader loader = new ResourceLoader();
     url = loader.getResource(fileName);
   }
   

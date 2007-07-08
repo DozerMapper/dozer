@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import net.sf.dozer.util.mapping.util.InitLogger;
-import net.sf.dozer.util.mapping.util.Loader;
+import net.sf.dozer.util.mapping.util.ResourceLoader;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
@@ -104,7 +104,7 @@ public class GlobalSettings {
 
     InitLogger.log(log,"Trying to find Dozer configuration file: " + propFileName);
     //Load prop file.  Prop file is optional, so if it's not found just use defaults
-    Loader loader = new Loader();
+    ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource(propFileName);
     if (url == null) {
       InitLogger.log(log,"Dozer configuration file not found: " + propFileName + ".  Using defaults for all Dozer global properties.");

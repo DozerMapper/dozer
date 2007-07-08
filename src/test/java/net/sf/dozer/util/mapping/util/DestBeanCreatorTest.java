@@ -52,7 +52,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
 
     ClassMap classMap = new ClassMap(null);
     classMap.setDestClass(destClass);
-    classMap.setSourceClass(srcClass);
+    classMap.setSrcClass(srcClass);
 
     TestObject bean = (TestObject) destBeanCreator.create(new TestObjectPrime(), classMap, null);
 

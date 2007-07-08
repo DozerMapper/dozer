@@ -38,29 +38,29 @@ public class CalendarConverter implements Converter {
     this.dateFormat = dateFormat;
   }
 
-  public Object convert(Class destClass, Object sourceObj) {
+  public Object convert(Class destClass, Object srcObj) {
     Calendar result = new GregorianCalendar();
-    Class sourceFieldClass = sourceObj.getClass();
+    Class srcFieldClass = srcObj.getClass();
     //Convert from Date to Calendar
-    if (java.util.Date.class.isAssignableFrom(sourceFieldClass)) {
-      result.setTime( (java.util.Date) sourceObj);
+    if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
+      result.setTime( (java.util.Date) srcObj);
     }
     //Convert from Calendar to Calendar
-    else if (Calendar.class.isAssignableFrom(sourceFieldClass)) {
-      Calendar c = (Calendar) sourceObj;
+    else if (Calendar.class.isAssignableFrom(srcFieldClass)) {
+      Calendar c = (Calendar) srcObj;
       result.setTime(c.getTime());
     }
     //String to Calendar
-    else if (dateFormat != null && String.class.isAssignableFrom(sourceFieldClass)) {
+    else if (dateFormat != null && String.class.isAssignableFrom(srcFieldClass)) {
       try {
-        result.setTime(new Date(dateFormat.parse( (String) sourceObj).getTime()));
+        result.setTime(new Date(dateFormat.parse( (String) srcObj).getTime()));
       } catch (ParseException e) {
         throw new ConversionException("Unable to parse source object using specified date format", e);
       }
     //Default conversion
     } else {
         try {
-          result.setTime(new Date(Long.parseLong(sourceObj.toString())));
+          result.setTime(new Date(Long.parseLong(srcObj.toString())));
         }
         catch (NumberFormatException e) {
           throw new ConversionException("Unable to determine time in millis of source object", e);

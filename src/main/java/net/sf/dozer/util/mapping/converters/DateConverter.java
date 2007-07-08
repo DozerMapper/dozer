@@ -36,32 +36,32 @@ public class DateConverter implements Converter {
     this.dateFormat = dateFormat;
   }
 
-  public Object convert(Class destClass, Object sourceObj) {
+  public Object convert(Class destClass, Object srcObj) {
     Object result = null;
 
-    Class sourceFieldClass = sourceObj.getClass();
+    Class srcFieldClass = srcObj.getClass();
     long time = -1;
     //Calendar to Date
-    if (Calendar.class.isAssignableFrom(sourceFieldClass)) {
-      Calendar inVal = (Calendar) sourceObj;
+    if (Calendar.class.isAssignableFrom(srcFieldClass)) {
+      Calendar inVal = (Calendar) srcObj;
       time = inVal.getTime().getTime();
     //Date to Date
-    } else if (java.util.Date.class.isAssignableFrom(sourceFieldClass)) {
-        time = ( (java.util.Date) sourceObj).getTime();
+    } else if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
+        time = ( (java.util.Date) srcObj).getTime();
     //String to Date
-    } else if (dateFormat != null && String.class.isAssignableFrom(sourceObj.getClass())) {
+    } else if (dateFormat != null && String.class.isAssignableFrom(srcObj.getClass())) {
         try {
-          if("".equals(sourceObj)){
+          if("".equals(srcObj)){
             return null;
           }
-          time = dateFormat.parse( (String) sourceObj).getTime();
+          time = dateFormat.parse( (String) srcObj).getTime();
         } catch (ParseException e) {
           throw new ConversionException("Unable to parse source object using specified date format", e);
         }
     //Default conversion
     } else {
       try {
-        time = Long.parseLong(sourceObj.toString());
+        time = Long.parseLong(srcObj.toString());
       } catch (NumberFormatException e) {
         throw new ConversionException("Unable to determine time in millis of source object",e);
       }

@@ -99,7 +99,7 @@ public class MappingsParser {
               if (MappingUtils.isSupportedMap(classMap.getDestClassToMap())
                   || MappingUtils.isSupportedMap(classMap.getSrcClassToMap())
                   || MappingUtils.isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))
-                  || MappingUtils.isSupportedMap(fieldMap.getSourceFieldType(classMap.getSrcClassToMap()))) {
+                  || MappingUtils.isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap()))) {
                 FieldMap fm = new MapFieldMap(classMap, fieldMap);
                 classMap.removeFieldMapping(fieldMap);
                 classMap.addFieldMapping(fm);

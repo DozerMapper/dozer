@@ -46,22 +46,22 @@ public class MapFieldMap extends FieldMap {
     setCopyByReference(fieldMap.getCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
     setDestField(fieldMap.getDestField());
-    setDestinationTypeHint(fieldMap.getDestinationTypeHint());
+    setDestTypeHint(fieldMap.getDestTypeHint());
     setMapId(fieldMap.getMapId());
     setRelationshipType(fieldMap.getRelationshipType());
-    setSourceField(fieldMap.getSourceField());
-    setSourceTypeHint(fieldMap.getSourceTypeHint());
+    setSrcField(fieldMap.getSrcField());
+    setSrcTypeHint(fieldMap.getSrcTypeHint());
     setType(fieldMap.getType());
   }
 
-  public void writeDestinationValue(Object destObj, Object destFieldValue) {
+  public void writeDestValue(Object destObj, Object destFieldValue) {
     DozerPropertyDescriptorIF propDescriptor;
     Object targetObject = destObj;
 
     if (getDestFieldName().equals(MapperConstants.SELF_KEYWORD)
         || (destFieldValue != null && MappingUtils.isSupportedMap(destFieldValue.getClass()))) {
       // Destination value is already a Map, so just use normal
-      propDescriptor = super.getDestinationPropertyDescriptor(destObj.getClass());
+      propDescriptor = super.getDestPropertyDescriptor(destObj.getClass());
     } else {
 
       if (getDestFieldMapGetMethod() != null
@@ -72,11 +72,11 @@ public class MapFieldMap extends FieldMap {
         targetObject = result.targetObject;
         propDescriptor = result.propDescriptor;
       } else {
-        propDescriptor = super.getDestinationPropertyDescriptor(destObj.getClass());
+        propDescriptor = super.getDestPropertyDescriptor(destObj.getClass());
       }
     }
 
-    propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestinationTypeHint(), this);
+    propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestTypeHint(), this);
   }
 
   public Object getSrcFieldValue(Object srcObj) {
@@ -84,11 +84,11 @@ public class MapFieldMap extends FieldMap {
     Object targetObject = srcObj;
 
     if (getSrcFieldName().equals(MapperConstants.SELF_KEYWORD)) {
-      propDescriptor = super.getSourcePropertyDescriptor(srcObj.getClass());
+      propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
     } else {
       Class ac = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj);
       if ((getSrcFieldMapGetMethod() != null)
-          || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSourceTypeHint() == null)) {
+          || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSrcTypeHint() == null)) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
         targetObject = super.getSrcFieldValue(srcObj);
 
@@ -97,7 +97,7 @@ public class MapFieldMap extends FieldMap {
             MappingUtils.isSupportedMap(ac) ? "get" : getSrcFieldMapGetMethod(),
             getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName());
       } else {
-        propDescriptor = super.getSourcePropertyDescriptor(srcObj.getClass());
+        propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
       }
     }
 
@@ -118,13 +118,13 @@ public class MapFieldMap extends FieldMap {
     Class c = d.getPropertyType();
     targetObject = d.getPropertyValue(destObj);
     if (targetObject == null) {
-      if (getDestinationTypeHint() != null) {
+      if (getDestTypeHint() != null) {
         if (MappingUtils.isSupportedMap(c)) {
-          if (MappingUtils.isSupportedMap(getDestinationTypeHint().getHint())) {
-            c = getDestinationTypeHint().getHint();
+          if (MappingUtils.isSupportedMap(getDestTypeHint().getHint())) {
+            c = getDestTypeHint().getHint();
           }
         } else {
-          c = getDestinationTypeHint().getHint();
+          c = getDestTypeHint().getHint();
         }
 
       }

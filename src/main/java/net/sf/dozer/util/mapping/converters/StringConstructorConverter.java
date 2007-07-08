@@ -27,13 +27,13 @@ import java.lang.reflect.Constructor;
  */
 public class StringConstructorConverter implements Converter {
 
-  public Object convert(Class destClass, Object sourceObj) {
+  public Object convert(Class destClass, Object srcObj) {
     try {
       Constructor constructor = destClass.getConstructor(new Class[] {String.class});
-      return constructor.newInstance(new Object[] {sourceObj.toString()});
+      return constructor.newInstance(new Object[] {srcObj.toString()});
     } catch (NoSuchMethodException e) {
       // just return the string
-      return sourceObj.toString();
+      return srcObj.toString();
     } catch (Exception e) {
       throw new ConversionException(e);
     }

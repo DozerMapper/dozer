@@ -28,10 +28,10 @@ public class ClassMapKeyFactory {
   private ClassMapKeyFactory() {
   }
 
-  public static String createKey(Class sourceClass, Class destClass, String mapId) {
+  public static String createKey(Class srcClass, Class destClass, String mapId) {
     StringBuffer result = new StringBuffer(150);
     result.append("SOURCE CLASS-->");
-    result.append(sourceClass.getName());
+    result.append(srcClass.getName());
     result.append(" DEST CLASS-->");
     result.append(destClass.getName());
     if (StringUtils.isNotEmpty(mapId)) {
@@ -41,8 +41,8 @@ public class ClassMapKeyFactory {
     return result.toString();
   }
 
-  public static String createKey(Class sourceClass, Class destClass) {
-    return createKey(sourceClass, destClass, null);
+  public static String createKey(Class srcClass, Class destClass) {
+    return createKey(srcClass, destClass, null);
   }
   
   

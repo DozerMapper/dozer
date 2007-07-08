@@ -88,8 +88,8 @@ public class DestBeanCreator {
         // we could be dealing with an Interface or Abstract Class which
         // was mapped using a Class Level mapId
         // try to see if the parentFieldMap dest field has a hint...
-        if (fieldMap != null && fieldMap.getDestinationTypeHint() != null) {
-          return createNewInstance(fieldMap.getDestinationTypeHint().getHint());
+        if (fieldMap != null && fieldMap.getDestTypeHint() != null) {
+          return createNewInstance(fieldMap.getDestTypeHint().getHint());
         } else {
           MappingUtils.throwMappingException(e);
         }

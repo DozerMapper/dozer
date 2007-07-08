@@ -31,7 +31,6 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
  */
 public interface CustomFieldMapperIF {
   
-  public boolean mapField(Object sourceObj, Object destObj, 
-    Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping);
+  public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping);
   
 }

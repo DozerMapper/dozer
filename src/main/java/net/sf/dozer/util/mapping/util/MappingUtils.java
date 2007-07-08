@@ -111,26 +111,26 @@ public abstract class MappingUtils {
     return rootCause;
   }
 
-  public static String getParentFieldNameKey(String parentSourceField, Object srcObj, String sourceClassName, String srcFieldName, String destFieldName) {
+  public static String getParentFieldNameKey(String parentSrcField, Object srcObj, String srcClassName, String srcFieldName, String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
-    buf.append(parentSourceField);
+    buf.append(parentSrcField);
     buf.append(System.identityHashCode(srcObj));
-    buf.append(sourceClassName);
+    buf.append(srcClassName);
     buf.append(srcFieldName);
     buf.append(destFieldName);
     return buf.toString();
   }
   
-  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, Class sourceClass, Class destClass) {
+  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, Class srcClass, Class destClass) {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
       return null;
     }
 
-    return customConverterContainer.getCustomConverter(sourceClass, destClass, converterByDestTypeCache);
+    return customConverterContainer.getCustomConverter(srcClass, destClass, converterByDestTypeCache);
   }
  
   public static Class determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, 
-      Class sourceClass, Class destClass) {
+      Class srcClass, Class destClass) {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
       return null;
     }
@@ -140,14 +140,14 @@ public abstract class MappingUtils {
     if (fieldMap != null && fieldMap.isDestFieldIndexed()) {
       if (destClass.isArray()) {
         destClass = destClass.getComponentType();
-      } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestinationTypeHint() != null && 
-          fieldMap.getDestinationTypeHint().getHints().size() < 2) {
+      } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestTypeHint() != null && 
+          fieldMap.getDestTypeHint().getHints().size() < 2) {
         //use hint when trying to find a custom converter
-        destClass = MappingUtils.loadClass(fieldMap.getDestinationTypeHint().getHintName());
+        destClass = MappingUtils.loadClass(fieldMap.getDestTypeHint().getHintName());
       }
     }
 
-    return findCustomConverter(converterByDestTypeCache, customConverterContainer, sourceClass, destClass);
+    return findCustomConverter(converterByDestTypeCache, customConverterContainer, srcClass, destClass);
   }
   
   public static void reverseFields(FieldMap source, FieldMap destination) {
@@ -161,12 +161,11 @@ public abstract class MappingUtils {
     sf.setIndex(source.getDestFieldIndex());
 
     destination.setDestField(df);
-    destination.setSourceField(sf);
+    destination.setSrcField(sf);
     destination.setCustomConverter(source.getCustomConverter());
 
     destination.setDestFieldDateFormat(source.getSrcFieldDateFormat());
     destination.setSrcFieldDateFormat(source.getDestFieldDateFormat());
-
     destination.setDestFieldTheGetMethod(source.getSrcFieldTheGetMethod());
     destination.setDestFieldTheSetMethod(source.getSrcFieldTheSetMethod());
     destination.setSrcFieldTheGetMethod(source.getDestFieldTheGetMethod());
@@ -179,26 +178,22 @@ public abstract class MappingUtils {
     destination.setSrcFieldMapSetMethod(source.getDestFieldMapSetMethod());
     destination.setSrcFieldAccessible(source.isDestFieldAccessible());
     destination.setDestFieldAccessible(source.isSrcFieldAccessible());    
-    if (StringUtils.isNotEmpty(destination.getMapId())) {
-      destination.setMapId(source.getMapId());
-    }
+    destination.setMapId(source.getMapId());
     destination.setDestFieldCreateMethod(source.getSrcFieldCreateMethod());
     destination.setSrcFieldCreateMethod(source.getDestFieldCreateMethod());
-    
     destination.setRelationshipType(source.getRelationshipType());
-    
-    destination.setSourceTypeHint(source.getDestinationTypeHint());
-    destination.setDestinationTypeHint(source.getSourceTypeHint());
+    destination.setSrcTypeHint(source.getDestTypeHint());
+    destination.setDestTypeHint(source.getSrcTypeHint());
   }
   
   public static void reverseFields(ClassMap source, ClassMap destination) {
     // reverse the fields
-    destination.setSourceClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
+    destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
         source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
-        source.getDestClassMapNull(), source.getDestClassMapEmptyString()));
+        source.isDestClassMapNull(), source.isDestClassMapEmptyString()));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(),
         source.getSrcClassBeanFactory(), source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
-        source.getSrcClassMapNull(), source.getSrcClassMapEmptyString()));
+        source.isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
     destination.setDateFormat(source.getDateFormat());

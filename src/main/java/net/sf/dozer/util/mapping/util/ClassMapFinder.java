@@ -39,9 +39,9 @@ public abstract class ClassMapFinder {
 
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
-  public static ClassMap findClassMap(Map customMappings, Object sourceObj, Class destClass, String mapId,
+  public static ClassMap findClassMap(Map customMappings, Object srcObj, Class destClass, String mapId,
       boolean isInstance) {
-    ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(sourceObj.getClass(), destClass,
+    ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcObj.getClass(), destClass,
         mapId));
 
     // determine if it is an Interface or Abstract Class
@@ -50,7 +50,7 @@ public abstract class ClassMapFinder {
     // any of the source classes super classes
     // if we find a mapping don't even bother walking the tree
     if (mapping == null) {
-      mapping = findInterfaceOrAbstractMapping(customMappings, destClass, sourceObj, mapId);
+      mapping = findInterfaceOrAbstractMapping(customMappings, destClass, srcObj, mapId);
     }
 
     if (mapping != null) {
@@ -76,26 +76,26 @@ public abstract class ClassMapFinder {
     return mapping;
   }
 
-  public static List findInterfaceMappings(Map customMappings, Class sourceClass, Class destClass) {
+  public static List findInterfaceMappings(Map customMappings, Class srcClass, Class destClass) {
     // If no existing cache entry is found, determine super type mapping and
     // store in cache
     // Get interfaces
-    Class[] sourceInterfaces = sourceClass.getInterfaces();
+    Class[] srcInterfaces = srcClass.getInterfaces();
     Class[] destInterfaces = destClass.getInterfaces();
     List interfaceMaps = new ArrayList();
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(sourceClass,
+      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass,
           destInterfaces[i]));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
     }
 
-    for (int i = 0; i < sourceInterfaces.length; i++) {
+    for (int i = 0; i < srcInterfaces.length; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(sourceInterfaces[i],
+      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i],
           destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
@@ -114,7 +114,7 @@ public abstract class ClassMapFinder {
   // these methods seem to be trying to accomplish the same thing with a
   // different implementation. Also, one takes a map-id
   // and the other doesnt ?? somewhat confusing
-  public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object sourceObj,
+  public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object srcObj,
       String mapId) {
     ClassMap newClassMap = null;
     Class newClass = null;
@@ -132,7 +132,7 @@ public abstract class ClassMapFinder {
       // verify that the source class in the map IS a super class of the
       // source object...or the source object itself. .
       if ((destClass.isAssignableFrom(dest) || (dest.isInterface() && dest.isAssignableFrom(destClass)))
-          && (map.getSrcClassToMap().isAssignableFrom(sourceObj.getClass()) || map.getSrcClassToMap().isInstance(sourceObj))
+          && (map.getSrcClassToMap().isAssignableFrom(srcObj.getClass()) || map.getSrcClassToMap().isInstance(srcObj))
           // look for most specific mapping
           && (newClass == null || newClass.isAssignableFrom(dest))
           && (mapId == null || ((String) keys[i]).endsWith(mapId))) {

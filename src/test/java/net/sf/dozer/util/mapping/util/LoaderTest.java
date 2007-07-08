@@ -26,7 +26,7 @@ import net.sf.dozer.util.mapping.AbstractDozerTest;
  * @author tierney.matt
  */
 public class LoaderTest extends AbstractDozerTest {
-  private Loader loader = new Loader();
+  private ResourceLoader loader = new ResourceLoader();
 
   public void testResourceNotFound() throws Exception {
     assertNull("file URL should not have been found", loader.getResource(String.valueOf(System.currentTimeMillis())));

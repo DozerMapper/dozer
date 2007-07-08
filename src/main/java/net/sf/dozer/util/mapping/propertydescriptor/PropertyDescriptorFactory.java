@@ -33,7 +33,7 @@ public class PropertyDescriptorFactory {
       String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name,
       String key, boolean isSelfReferencing, String oppositeFieldName) {
     DozerPropertyDescriptorIF desc = null;
-    // basic 'this'
+    // basic 'this' (Not mapped backed properties which also use 'this' identifier
     if (isSelfReferencing && theGetMethod == null && theSetMethod == null && mapGetMethod == null
         && mapSetMethod == null && !MappingUtils.isSupportedMap(clazz)) {
       desc = new SelfPropertyDescriptor(clazz);

@@ -41,28 +41,28 @@ public class Hint {
     }
   }
 
-  public Class getHint(Class myClaz, List clazHints) {
+  public Class getHint(Class clazz, List clazzHints) {
     List hints = getHints();
     int hintsSize = hints.size();
     if (hintsSize == 1) {
       return getHint();
     }
     // validate sizes
-    if (clazHints.size() != hintsSize) {
+    if (clazzHints.size() != hintsSize) {
       MappingUtils.throwMappingException(
           "When using multiple source and destination hints there must be exactly the same number of hints on the source and the destination.");
     }
     int count = 0;
-    String myClazName = myClaz.getName();
-    int size = clazHints.size();
+    String myClazName = clazz.getName();
+    int size = clazzHints.size();
     for (int i = 0; i < size; i++) {
-      Class element = (Class) clazHints.get(i);
+      Class element = (Class) clazzHints.get(i);
       if (element.getName().equals(myClazName)) {
         return (Class) hints.get(count++);
       }
       count++;
     }
-    return myClaz;
+    return clazz;
   }
 
   public boolean hasMoreThanOneHint() {
@@ -92,8 +92,8 @@ public class Hint {
     return hintName;
   }
 
-  public void setHintName(String sourceHintName) {
-    this.hintName = sourceHintName;
+  public void setHintName(String hintName) {
+    this.hintName = hintName;
   }
  
 }

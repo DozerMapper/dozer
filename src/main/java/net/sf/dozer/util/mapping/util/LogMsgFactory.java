@@ -34,18 +34,18 @@ import org.apache.commons.logging.LogFactory;
 public abstract class LogMsgFactory {
   private static final Log log = LogFactory.getLog(LogMsgFactory.class);
   
-  public static String createFieldMappingErrorMsg(Object sourceObj, FieldMap fieldMapping, 
-      Object sourceFieldValue, Object destObj, Throwable t) {
-    String sourceClassName = null;
-    if (sourceObj != null) {
-      sourceClassName = sourceObj.getClass().getName();
+  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, 
+      Object destFieldValue, Object destObj, Throwable t) {
+    String srcClassName = null;
+    if (srcObj != null) {
+      srcClassName = srcObj.getClass().getName();
     }
 
-    String sourceValueType = null;
-    if (sourceFieldValue != null) {
-      sourceValueType = sourceFieldValue.getClass().toString();
+    String srcValueType = null;
+    if (destFieldValue != null) {
+      srcValueType = destFieldValue.getClass().toString();
     } else {
-      sourceValueType = fieldMapping.getSrcFieldType();
+      srcValueType = fieldMapping.getSrcFieldType();
     }
 
     String destClassName = null;
@@ -61,20 +61,20 @@ public abstract class LogMsgFactory {
     }
 
     return "Field mapping error -->" + "\n  MapId: " + fieldMapping.getMapId() + "\n  Type: " + fieldMapping.getType()
-        + "\n  Source parent class: " + sourceClassName + "\n  Source field name: "
-        + fieldMapping.getSrcFieldName() + "\n  Source field type: " + sourceValueType
-        + "\n  Source field value: " + sourceFieldValue + "\n  Dest parent class: " + destClassName
+        + "\n  Source parent class: " + srcClassName + "\n  Source field name: "
+        + fieldMapping.getSrcFieldName() + "\n  Source field type: " + srcValueType
+        + "\n  Source field value: " + destFieldValue + "\n  Dest parent class: " + destClassName
         + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: "
         + destFieldTypeName;
   }
   
-  public static String createFieldMappingSuccessMsg(Class sourceClass, Class destClass, String sourceFieldName, String destFieldName,
-    Object sourceFieldValue, Object destFieldValue) {
-    String sourceClassStr = MappingUtils.getClassNameWithoutPackage(sourceClass);
+  public static String createFieldMappingSuccessMsg(Class srcClass, Class destClass, String srcFieldName, String destFieldName,
+    Object srcFieldValue, Object destFieldValue) {
+    String srcClassStr = MappingUtils.getClassNameWithoutPackage(srcClass);
     String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);
       
-    return "MAPPED: " + sourceClassStr + "." + sourceFieldName + " --> " + destClassStr + "." + destFieldName
-        + "  VALUES: " + getLogOutput(sourceFieldValue) + " --> "  + getLogOutput(destFieldValue);
+    return "MAPPED: " + srcClassStr + "." + srcFieldName + " --> " + destClassStr + "." + destFieldName
+        + "  VALUES: " + getLogOutput(srcFieldValue) + " --> "  + getLogOutput(destFieldValue);
   }
   
   private static String getLogOutput(Object object) {

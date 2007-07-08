@@ -29,7 +29,7 @@ public class XMLParserTest extends AbstractDozerTest {
    */
   public void testParse() throws Exception {
     XMLParser parser = new XMLParser();
-    Loader loader = new Loader();
+    ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");
     
     Mappings mappings = parser.parse(url.openStream());

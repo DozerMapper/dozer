@@ -65,14 +65,14 @@ public class PrimitiveOrWrapperConverter {
     CONVERTER_MAP.put(BigInteger.class, new BigIntegerConverter());
   }  
   
-  public Object convert(Object sourceFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
-    if (sourceFieldValue == null || destFieldClass == null
-        || (sourceFieldValue.equals("") && !destFieldClass.equals(String.class))) {
+  public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
+    if (srcFieldValue == null || destFieldClass == null
+        || (srcFieldValue.equals("") && !destFieldClass.equals(String.class))) {
       return null;
     }
     Converter converter = getPrimitiveOrWrapperConverter(destFieldClass, dateFormatContainer);
     try {
-      return converter.convert(destFieldClass, sourceFieldValue);
+      return converter.convert(destFieldClass, srcFieldValue);
     } catch (org.apache.commons.beanutils.ConversionException e) {
       throw new net.sf.dozer.util.mapping.converters.ConversionException(e);
     }

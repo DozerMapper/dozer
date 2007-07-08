@@ -27,14 +27,14 @@ import java.net.URL;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class Loader {
+public class ResourceLoader {
   
   public URL getResource(String resource) {
     URL result = Thread.currentThread().getContextClassLoader().getResource(resource);
     
     // Could not find resource. Try with the classloader that loaded this class.
     if (result == null) {
-      ClassLoader classLoader = Loader.class.getClassLoader(); 
+      ClassLoader classLoader = ResourceLoader.class.getClassLoader(); 
       if(classLoader != null) {
         result = classLoader.getResource(resource);
       }

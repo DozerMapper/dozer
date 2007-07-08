@@ -32,5 +32,5 @@ package net.sf.dozer.util.mapping.converters;
  * 
  */
 public interface CustomConverter {
-    public Object convert( Object existingDestinationFieldValue, Object sourceFieldValue , Class destClass, Class sourceClass);
+    public Object convert( Object existingDestinationFieldValue, Object sourceFieldValue , Class destinationClass, Class sourceClass);
 }

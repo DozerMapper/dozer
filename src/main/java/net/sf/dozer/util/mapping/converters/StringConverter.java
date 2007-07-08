@@ -34,15 +34,15 @@ public class StringConverter implements Converter {
     this.dateFormatContainer = dateFormatContainer;
   }
 
-  public Object convert(Class destClass, Object sourceObj) {
+  public Object convert(Class destClass, Object srcObj) {
     String result = null;
-    Class sourceClass = sourceObj.getClass();
-    if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(sourceClass) && dateFormatContainer.getDateFormat() != null) {
-      result = dateFormatContainer.getDateFormat().format((java.util.Date) sourceObj);
-    } else if (dateFormatContainer != null && java.util.Calendar.class.isAssignableFrom(sourceClass) && dateFormatContainer.getDateFormat() != null) {
-      result = dateFormatContainer.getDateFormat().format(((java.util.Calendar)sourceObj).getTime());
+    Class srcClass = srcObj.getClass();
+    if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(srcClass) && dateFormatContainer.getDateFormat() != null) {
+      result = dateFormatContainer.getDateFormat().format((java.util.Date) srcObj);
+    } else if (dateFormatContainer != null && java.util.Calendar.class.isAssignableFrom(srcClass) && dateFormatContainer.getDateFormat() != null) {
+      result = dateFormatContainer.getDateFormat().format(((java.util.Calendar)srcObj).getTime());
     } else {
-      result = sourceObj.toString();
+      result = srcObj.toString();
     }
 
     return result;

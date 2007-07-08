@@ -38,6 +38,6 @@ package net.sf.dozer.util.mapping;
 public interface BeanFactoryIF {
 
   //Need sourceObjClass in case sourceObj is null
-  public Object createBean(Object srcObj, Class srcObjClass, String beanId);
+  public Object createBean(Object source, Class sourceClass, String targetBeanId);
 
 }

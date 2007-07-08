@@ -186,7 +186,7 @@ public class XMLParser {
           if (StringUtils.isNotEmpty(element.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE))) {
             source.setMapEmptyString(Boolean.valueOf(element.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE)));
           }
-          classMap.setSourceClass(source);
+          classMap.setSrcClass(source);
         }
         if (CLASS_B_ELEMENT.equals(element.getNodeName())) {
           DozerClass dest = new DozerClass();
@@ -243,7 +243,7 @@ public class XMLParser {
 
   private void parseFieldElements(Element element, FieldMap fieldMap) {
     if (A_ELEMENT.equals(element.getNodeName())) {
-      fieldMap.setSourceField(parseField(element));
+      fieldMap.setSrcField(parseField(element));
     }
     if (B_ELEMENT.equals(element.getNodeName())) {
      fieldMap.setDestField(parseField(element));
@@ -316,12 +316,12 @@ public class XMLParser {
         if (SOURCE_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
           Hint sourceHint = new Hint();
           sourceHint.setHintName(element.getFirstChild().getNodeValue().trim());
-          fieldMap.setSourceTypeHint(sourceHint);
+          fieldMap.setSrcTypeHint(sourceHint);
         }
         if (DESTINATION_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
           Hint destHint = new Hint();
           destHint.setHintName(element.getFirstChild().getNodeValue().trim());
-          fieldMap.setDestinationTypeHint(destHint);
+          fieldMap.setDestTypeHint(destHint);
         }
       }
     }

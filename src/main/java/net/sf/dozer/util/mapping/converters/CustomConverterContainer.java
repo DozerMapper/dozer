@@ -43,21 +43,21 @@ public class CustomConverterContainer {
     getConverters().add(converter);
   }
 
-  public Class getCustomConverter(Class pSourceClass, Class pDestinationClass, Cache converterByDestTypeCache) {
+  public Class getCustomConverter(Class srcClass, Class destClass, Cache converterByDestTypeCache) {
     //If no converters have been specified, no point in continuing.  Just return.
     if (converters == null || converters.size() < 1) {
       return null;
     }
 
     // Let's see if the incoming class is a primitive:
-    Class src = pSourceClass;
-    Class c = getWrapper(pSourceClass);
+    Class src = srcClass;
+    Class c = getWrapper(srcClass);
     if (c != null) {
       src = c;
     }
     
-    Class dest = pDestinationClass;
-    c = getWrapper(pDestinationClass);
+    Class dest = destClass;
+    c = getWrapper(destClass);
     if (c != null) {
       dest = c;
     }    
