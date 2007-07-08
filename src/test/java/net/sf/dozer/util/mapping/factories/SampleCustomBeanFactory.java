@@ -24,13 +24,12 @@ public class SampleCustomBeanFactory extends BaseSampleBeanFactory {
   public Object createBean(Object srcObj, Class srcObjClass, String id) {
     try {
       Object rvalue = Class.forName(id).newInstance();
-      //just for unit testing.  need something to indicate that it was created by the factory method
+      // just for unit testing. need something to indicate that it was created by the factory method
       setCreatedByFactoryName(rvalue, SampleCustomBeanFactory.class.getName());
       return rvalue;
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
-
 
 }

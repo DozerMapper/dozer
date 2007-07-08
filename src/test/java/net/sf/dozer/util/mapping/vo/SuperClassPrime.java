@@ -14,39 +14,39 @@
  * limitations under the License.
  */
 package net.sf.dozer.util.mapping.vo;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
-public class SuperClassPrime extends SuperSuperClassPrime{
-    private String superAttr;
-    private String[] superArray;
-    private String superFieldToExcludePrime;    
+public class SuperClassPrime extends SuperSuperClassPrime {
+  private String superAttr;
+  private String[] superArray;
+  private String superFieldToExcludePrime;
 
-    public String[] getSuperArray() {
-        return superArray;
-    }
+  public String[] getSuperArray() {
+    return superArray;
+  }
 
-    public void setSuperArray(String[] superArray) {
-        this.superArray = superArray;
-    }
-    
-    public String getSuperAttr() {
-        return superAttr;
-    }
-    
+  public void setSuperArray(String[] superArray) {
+    this.superArray = superArray;
+  }
 
-    public void setSuperAttr(String superAttr) {
-        this.superAttr = superAttr;
-    }
+  public String getSuperAttr() {
+    return superAttr;
+  }
 
-    public String getSuperFieldToExcludePrime() {
-      return superFieldToExcludePrime;
-    }
+  public void setSuperAttr(String superAttr) {
+    this.superAttr = superAttr;
+  }
 
-    public void setSuperFieldToExcludePrime(String superFieldToExcludePrime) {
-      this.superFieldToExcludePrime = superFieldToExcludePrime;
-    }
+  public String getSuperFieldToExcludePrime() {
+    return superFieldToExcludePrime;
+  }
+
+  public void setSuperFieldToExcludePrime(String superFieldToExcludePrime) {
+    this.superFieldToExcludePrime = superFieldToExcludePrime;
+  }
 }

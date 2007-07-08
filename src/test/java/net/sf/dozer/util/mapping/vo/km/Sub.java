@@ -12,18 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 package net.sf.dozer.util.mapping.vo.km;
 
 public class Sub extends Super {
-    private String color;
-    
-    public String getColor() {
-        return color;
-    }
-    public void setColor(String color) {
-        this.color = color;
-    }
+  private String color;
+
+  public String getColor() {
+    return color;
+  }
+  public void setColor(String color) {
+    this.color = color;
+  }
 
 }

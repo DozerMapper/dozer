@@ -41,5 +41,5 @@ public class MccoyPrime extends BaseTestObject {
   public void setField2(String field2) {
     this.field2 = field2;
   }
-  
+
 }

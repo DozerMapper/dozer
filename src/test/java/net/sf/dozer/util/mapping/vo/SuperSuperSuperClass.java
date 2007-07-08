@@ -14,38 +14,39 @@
  * limitations under the License.
  */
 package net.sf.dozer.util.mapping.vo;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class SuperSuperSuperClass extends BaseTestObject {
-    private String superSuperSuperAttr;
-    private HydrateTestObject2 hydrate;
-    private TestCustomConverterObject customConvert;
+  private String superSuperSuperAttr;
+  private HydrateTestObject2 hydrate;
+  private TestCustomConverterObject customConvert;
 
-    public TestCustomConverterObject getCustomConvert() {
-        return customConvert;
-    }
+  public TestCustomConverterObject getCustomConvert() {
+    return customConvert;
+  }
 
-    public void setCustomConvert(TestCustomConverterObject customConver) {
-        this.customConvert = customConver;
-    }
+  public void setCustomConvert(TestCustomConverterObject customConver) {
+    this.customConvert = customConver;
+  }
 
-    public HydrateTestObject2 getHydrate() {
-        return hydrate;
-    }
+  public HydrateTestObject2 getHydrate() {
+    return hydrate;
+  }
 
-    public void setHydrate(HydrateTestObject2 hydrate) {
-        this.hydrate = hydrate;
-    }
+  public void setHydrate(HydrateTestObject2 hydrate) {
+    this.hydrate = hydrate;
+  }
 
-    public String getSuperSuperSuperAttr() {
-        return superSuperSuperAttr;
-    }
+  public String getSuperSuperSuperAttr() {
+    return superSuperSuperAttr;
+  }
 
-    public void setSuperSuperSuperAttr(String superSuperSuperAttr) {
-        this.superSuperSuperAttr = superSuperSuperAttr;
-    }
+  public void setSuperSuperSuperAttr(String superSuperSuperAttr) {
+    this.superSuperSuperAttr = superSuperSuperAttr;
+  }
 }

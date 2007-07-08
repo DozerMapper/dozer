@@ -17,19 +17,18 @@ package net.sf.dozer.util.mapping.copybyreference;
 
 public class Reference {
 
-	public static final Reference FOO = new Reference("foo");
-	public static final Reference BAR = new Reference("bar");
-	
-	private final String one;
-	
-	protected Reference(String one) {
-		super();
-		this.one = one;
-	}
+  public static final Reference FOO = new Reference("foo");
+  public static final Reference BAR = new Reference("bar");
 
-	public String getOne() {
-		return one;
-	}
-	
-	
+  private final String one;
+
+  protected Reference(String one) {
+    super();
+    this.one = one;
+  }
+
+  public String getOne() {
+    return one;
+  }
+
 }

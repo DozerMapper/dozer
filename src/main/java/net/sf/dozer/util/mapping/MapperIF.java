@@ -15,22 +15,20 @@
  */
 package net.sf.dozer.util.mapping;
 
-
 /**
  * Public root interface for performing Dozer mappings from application code.
- *  
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public interface MapperIF {
 
   public Object map(Object source, Class destinationClass) throws MappingException;
-  
+
   public void map(Object source, Object destination) throws MappingException;
 
   public Object map(Object source, Class destinationClass, String mapId) throws MappingException;
-  
-  public void map(Object source, Object destination, String mapId) throws MappingException;  
-  
-  
+
+  public void map(Object source, Object destination, String mapId) throws MappingException;
+
 }

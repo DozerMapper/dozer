@@ -12,25 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.cache;
 
 import java.util.Arrays;
 
-
 /**
- * Internal class that is responsible for producing cache keys.
- * Only intended for internal use. 
+ * Internal class that is responsible for producing cache keys. Only intended for internal use.
  * 
  * @author tierney.matt
  */
 public class CacheKeyFactory {
-  
+
   private CacheKeyFactory() {
   }
 
   public static Object createKey(Object[] args) {
     return Arrays.asList(args);
   }
-  
+
 }

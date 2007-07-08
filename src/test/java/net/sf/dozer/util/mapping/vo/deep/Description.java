@@ -28,71 +28,68 @@ import net.sf.dozer.util.mapping.vo.Van;
  */
 public class Description extends BaseTestObject {
 
-    private Room[] rooms;
-    private String ownerName;
-    private String street;
-    private String city;
-    private String myName;
-    private List someOwners;
-    private List customSetGetMethod = new ArrayList();
-    
-    public String getCity() {
-        return city;
-    }
+  private Room[] rooms;
+  private String ownerName;
+  private String street;
+  private String city;
+  private String myName;
+  private List someOwners;
+  private List customSetGetMethod = new ArrayList();
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public String getOwnerName() {
-        return ownerName;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
+  public String getOwnerName() {
+    return ownerName;
+  }
 
-    public Room[] getRooms() {
-        return rooms;
-    }
+  public void setOwnerName(String ownerName) {
+    this.ownerName = ownerName;
+  }
 
-    public void setRooms(Room[] rooms) {
-        this.rooms = rooms;
-    }
+  public Room[] getRooms() {
+    return rooms;
+  }
 
-    public String getStreet() {
-        return street;
-    }
+  public void setRooms(Room[] rooms) {
+    this.rooms = rooms;
+  }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+  public String getStreet() {
+    return street;
+  }
 
-    public String getMyName() {
-      return myName;
-    }
+  public void setStreet(String street) {
+    this.street = street;
+  }
 
-    public void setMyName(String myName) {
-      this.myName = myName;
-    }
+  public String getMyName() {
+    return myName;
+  }
 
-    public List getSomeOwners() {
-      return someOwners;
-    }
+  public void setMyName(String myName) {
+    this.myName = myName;
+  }
 
-    public void setSomeOwners(List someOwners) {
-      this.someOwners = someOwners;
-    }
+  public List getSomeOwners() {
+    return someOwners;
+  }
 
-    public List getCustomSetGetMethod() {
-      return customSetGetMethod;
-    }
+  public void setSomeOwners(List someOwners) {
+    this.someOwners = someOwners;
+  }
 
-    public void setCustom(Van van) {
-      this.customSetGetMethod.add(van);
-    }
+  public List getCustomSetGetMethod() {
+    return customSetGetMethod;
+  }
 
-
-
+  public void setCustom(Van van) {
+    this.customSetGetMethod.add(van);
+  }
 
 }

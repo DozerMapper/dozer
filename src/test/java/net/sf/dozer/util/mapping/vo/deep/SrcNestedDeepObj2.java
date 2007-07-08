@@ -31,5 +31,4 @@ public class SrcNestedDeepObj2 extends BaseTestObject {
     this.src5 = src5;
   }
 
-
 }

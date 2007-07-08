@@ -27,8 +27,8 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * Internal class that provides an interface to a single statistic.  Holds all of the statistic entries for the statistic. 
- * Only intended for internal use.
+ * Internal class that provides an interface to a single statistic. Holds all of the statistic entries for the
+ * statistic. Only intended for internal use.
  * 
  * @author tierney.matt
  */
@@ -39,37 +39,41 @@ public class Statistic implements Serializable {
   public Statistic(String type) {
     this.type = type;
   }
-  
+
   public String getType() {
     return type;
   }
-  
+
   public void clear() {
     entriesMap.clear();
   }
-  
+
   public Set getEntries() {
     return new HashSet(entriesMap.values());
   }
-  
+
   public void addEntry(StatisticEntry statEntry) {
     if (statEntry == null) {
       throw new IllegalArgumentException("Statistic Entry cannot be null");
     }
     entriesMap.put(statEntry.getKey(), statEntry);
   }
-  
+
   public StatisticEntry getEntry() {
     return getEntry(type);
   }
-  
+
   public StatisticEntry getEntry(Object entryKey) {
     return (StatisticEntry) entriesMap.get(entryKey);
   }
-  
+
   public boolean equals(Object object) {
-    if ( (this == object ) ) { return true; }
-    if ( !(object instanceof Statistic) ) { return false; }
+    if ((this == object)) {
+      return true;
+    }
+    if (!(object instanceof Statistic)) {
+      return false;
+    }
     Statistic entry = (Statistic) object;
     return new EqualsBuilder().append(this.getType(), entry.getType()).isEquals();
   }
@@ -77,7 +81,7 @@ public class Statistic implements Serializable {
   public int hashCode() {
     return new HashCodeBuilder().append(getType()).toHashCode();
   }
-  
+
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

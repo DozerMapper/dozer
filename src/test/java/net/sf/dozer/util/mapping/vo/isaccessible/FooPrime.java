@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.vo.isaccessible;
 
 import java.util.ArrayList;
@@ -22,10 +22,9 @@ public class FooPrime {
   private List categories = null;
 
   public List getCategories() {
-  if (categories == null) {
-  categories = new ArrayList();
-  }
-  return this.categories;
+    if (categories == null) {
+      categories = new ArrayList();
+    }
+    return this.categories;
   }
 }
-

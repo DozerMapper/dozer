@@ -21,25 +21,25 @@ package net.sf.dozer.util.mapping.vo;
  * @author tierney.matt
  */
 public class LoopObjectChild extends BaseTestObject {
-    private LoopObjectParent parent;
+  private LoopObjectParent parent;
 
-    public LoopObjectParent getParent() {
-        return parent;
-    }
+  public LoopObjectParent getParent() {
+    return parent;
+  }
 
-    public void setParent(LoopObjectParent parent) {
-        this.parent = parent;
-    }
-    
-    public int hashCode() {
-    	return System.identityHashCode(this);
-    }
-    
-    public String toString() {
-    	return this.getClass().getName() + "@" + Integer.toHexString(hashCode());
-    }
-    
-    public boolean equals(Object obj) {
-    	return hashCode() == obj.hashCode();
-    }
+  public void setParent(LoopObjectParent parent) {
+    this.parent = parent;
+  }
+
+  public int hashCode() {
+    return System.identityHashCode(this);
+  }
+
+  public String toString() {
+    return this.getClass().getName() + "@" + Integer.toHexString(hashCode());
+  }
+
+  public boolean equals(Object obj) {
+    return hashCode() == obj.hashCode();
+  }
 }

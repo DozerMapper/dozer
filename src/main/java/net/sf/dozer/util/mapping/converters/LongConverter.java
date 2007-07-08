@@ -18,19 +18,18 @@ package net.sf.dozer.util.mapping.converters;
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting Supported Data Types --> Long.
- * Only intended for internal use. 
+ * Internal class for converting Supported Data Types --> Long. Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class LongConverter implements Converter {
-  
-  private static org.apache.commons.beanutils.converters.LongConverter commonsConverter =
-    new org.apache.commons.beanutils.converters.LongConverter(); 
+
+  private static org.apache.commons.beanutils.converters.LongConverter commonsConverter = new org.apache.commons.beanutils.converters.LongConverter();
 
   public Object convert(Class destClass, Object srcObj) {
-    //Boolean to Int not supported in apache common's int converter and this is why this
-    //class is req'd
-    if(Boolean.class.isAssignableFrom(srcObj.getClass())) {
+    // Boolean to Int not supported in apache common's int converter and this is why this
+    // class is req'd
+    if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
       boolean value = ((Boolean) srcObj).booleanValue();
       return (value ? new Long(1) : new Long(0));
     } else {

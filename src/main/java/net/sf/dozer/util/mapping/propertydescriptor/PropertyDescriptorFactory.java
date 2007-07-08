@@ -30,12 +30,12 @@ public class PropertyDescriptorFactory {
   }
 
   public static DozerPropertyDescriptorIF getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
-      String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name,
-      String key, boolean isSelfReferencing, String oppositeFieldName) {
+      String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name, String key,
+      boolean isSelfReferencing, String oppositeFieldName) {
     DozerPropertyDescriptorIF desc = null;
     // basic 'this' (Not mapped backed properties which also use 'this' identifier
-    if (isSelfReferencing && theGetMethod == null && theSetMethod == null && mapGetMethod == null
-        && mapSetMethod == null && !MappingUtils.isSupportedMap(clazz)) {
+    if (isSelfReferencing && theGetMethod == null && theSetMethod == null && mapGetMethod == null && mapSetMethod == null
+        && !MappingUtils.isSupportedMap(clazz)) {
       desc = new SelfPropertyDescriptor(clazz);
 
       // bypass getter/setters and access field directly
@@ -50,9 +50,8 @@ public class PropertyDescriptorFactory {
       // custom map-get-method/set spefied
     } else if (name.equals(MapperConstants.SELF_KEYWORD)
         && (mapSetMethod != null || mapGetMethod != null || MappingUtils.isSupportedMap(clazz))) {
-      desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, MappingUtils.isSupportedMap(clazz) ? "put"
-          : mapSetMethod, MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key
-          : oppositeFieldName);
+      desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, MappingUtils.isSupportedMap(clazz) ? "put" : mapSetMethod,
+          MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key : oppositeFieldName);
 
       // everything else. it must be a normal bean with normal or custom get/set methods
     } else {

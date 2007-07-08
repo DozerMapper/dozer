@@ -20,12 +20,11 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 /**
  * @author tierney.matt
  */
 public class SimpleObj extends BaseTestObject {
-  
+
   private String field1;
   private String field2;
   private String simpleobjfield;
@@ -98,6 +97,5 @@ public class SimpleObj extends BaseTestObject {
   public void setField5(Calendar field5) {
     this.field5 = field5;
   }
-  
- 
+
 }

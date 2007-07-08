@@ -19,7 +19,7 @@ package net.sf.dozer.util.mapping.vo.context;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class ContextMappingNestedPrime {
 

@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
-
 /**
  * Only intended for internal use.
  * 
@@ -36,7 +35,7 @@ public class DozerField {
   private boolean isAccessible;
   private String createMethod;
   private boolean isIndexed;
-  private int index = -1;    
+  private int index = -1;
 
   public DozerField(String name, String type) {
     this.type = type;
@@ -138,13 +137,13 @@ public class DozerField {
   public void setName(String name) {
     this.name = name;
   }
-  
+
   public boolean isCustomGetterSetterField() {
     return getTheGetMethod() != null || getTheSetMethod() != null ? true : false;
   }
-  
+
   public boolean isMapTypeCustomGetterSetterField() {
     return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
   }
-  
+
 }

@@ -17,11 +17,10 @@ package net.sf.dozer.util.mapping.vo.inheritance;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 public abstract class SuperB extends BaseTestObject {
   private String superField1;
   private String superBField;
-  
+
   public String getSuperBField() {
     return superBField;
   }

@@ -17,20 +17,21 @@ package net.sf.dozer.util.mapping.vo.iface;
 
 public class SubscriberKey {
 
-    private String subscriberNumber;
+  private String subscriberNumber;
 
-    /**
-     * @return Returns the subscriberNumber.
-     */
-    public String getSubscriberNumber() {
-        return subscriberNumber;
-    }
+  /**
+   * @return Returns the subscriberNumber.
+   */
+  public String getSubscriberNumber() {
+    return subscriberNumber;
+  }
 
-    /**
-     * @param subscriberNumber The subscriberNumber to set.
-     */
-    public void setSubscriberNumber(String subscriberNumber) {
-        this.subscriberNumber = subscriberNumber;
-    }
+  /**
+   * @param subscriberNumber
+   *          The subscriberNumber to set.
+   */
+  public void setSubscriberNumber(String subscriberNumber) {
+    this.subscriberNumber = subscriberNumber;
+  }
 
 }

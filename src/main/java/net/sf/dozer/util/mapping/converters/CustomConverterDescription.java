@@ -16,7 +16,7 @@
 package net.sf.dozer.util.mapping.converters;
 
 /**
- * Internal class that contains the custom converter definition information.  Only intended for internal use.
+ * Internal class that contains the custom converter definition information. Only intended for internal use.
  * 
  * @author sullins.ben
  */

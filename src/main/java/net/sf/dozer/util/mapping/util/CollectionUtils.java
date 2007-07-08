@@ -25,13 +25,14 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * Internal class that contains various Collection utilities specific to Dozer requirements.  Not intended for direct use by application code.
+ * Internal class that contains various Collection utilities specific to Dozer requirements. Not intended for direct use
+ * by application code.
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public abstract class CollectionUtils {
-  
+
   public static boolean isArray(Class aClass) {
     return aClass.isArray();
   }
@@ -47,7 +48,7 @@ public abstract class CollectionUtils {
   public static boolean isSet(Class aClass) {
     return Set.class.isAssignableFrom(aClass);
   }
-  
+
   public static boolean isPrimitiveArray(Class aClass) {
     return aClass.isArray() && aClass.getComponentType().isPrimitive();
   }
@@ -71,7 +72,7 @@ public abstract class CollectionUtils {
       return collectionTo.toArray()[index];
     }
   }
-  
+
   public static Set createNewSet(Class destType) {
     return createNewSet(destType, null);
   }
@@ -88,7 +89,7 @@ public abstract class CollectionUtils {
     }
     return result;
   }
-  
+
   public static Object convertListToArray(List list, Class destEntryType) {
     Object outArray = Array.newInstance(destEntryType, list.size());
     int count = 0;
@@ -100,16 +101,16 @@ public abstract class CollectionUtils {
     }
     return outArray;
   }
-  
+
   public static List convertPrimitiveArrayToList(Object primitiveArray) {
     int length = Array.getLength(primitiveArray);
     List result = new ArrayList(length);
 
     // wrap and copy elements
     for (int i = 0; i < length; i++) {
-        result.add(Array.get(primitiveArray, i));
+      result.add(Array.get(primitiveArray, i));
     }
     return result;
   }
-  
+
 }

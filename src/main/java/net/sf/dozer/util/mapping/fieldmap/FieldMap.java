@@ -28,8 +28,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class that represents a field mapping definition.  Holds all of the information about a single field mapping definition.
- * Only intended for internal use.
+ * Internal class that represents a field mapping definition. Holds all of the information about a single field mapping
+ * definition. Only intended for internal use.
  * 
  * @author garsombke.franz
  * @author sullins.ben
@@ -50,19 +50,19 @@ public abstract class FieldMap implements Cloneable {
   private String mapId;
   private String customConverter;
   private String relationshipType;
-  
+
   public FieldMap(ClassMap classMap) {
     this.classMap = classMap;
   }
-  
+
   public ClassMap getClassMap() {
     return classMap;
   }
-  
+
   public void setClassMap(ClassMap classMap) {
     this.classMap = classMap;
   }
-  
+
   public Object getSrcFieldValue(Object runtimeSrcObj) {
     return getSrcPropertyDescriptor(runtimeSrcObj.getClass()).getPropertyValue(runtimeSrcObj);
   }
@@ -72,10 +72,10 @@ public abstract class FieldMap implements Cloneable {
       log.debug("Getting ready to invoke write method on the destination object.  Dest Obj: "
           + MappingUtils.getClassNameWithoutPackage(runtimeDestObj.getClass()) + ", Dest value: " + destFieldValue);
     }
-    DozerPropertyDescriptorIF propDescriptor = getDestPropertyDescriptor(runtimeDestObj.getClass()); 
+    DozerPropertyDescriptorIF propDescriptor = getDestPropertyDescriptor(runtimeDestObj.getClass());
     propDescriptor.setPropertyValue(runtimeDestObj, destFieldValue, getDestTypeHint(), this);
   }
-  
+
   public Class getDestHintType(Class runtimeSrcClass) {
     if (getDestTypeHint() != null) {
       if (getSrcTypeHint() != null) {
@@ -92,28 +92,29 @@ public abstract class FieldMap implements Cloneable {
     Class result = null;
     if (isDestFieldIndexed()) {
       result = destTypeHint != null ? destTypeHint.getHint() : null;
-    } 
+    }
     if (result == null) {
       result = getDestPropertyDescriptor(runtimeDestClass).getPropertyType();
     }
     return result;
   }
-  
+
   public Class getSrcFieldType(Class runtimeSrcClass) {
     return getSrcPropertyDescriptor(runtimeSrcClass).getPropertyType();
   }
 
   /**
-   * @deprecated  As of 3.2 release
+   * @deprecated As of 3.2 release
    */
   public Method getDestFieldWriteMethod(Class runtimeDestClass) {
-    //4-07 mht:  The getWriteMethod was removed from the prop descriptor interface.  This was done as part of 
-    //refactoring effort to clean up the prop descriptor stuff.  The underlying write method should not be exposed.
-    //For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this context.
-    //The other types of prop descriptors would have failed.
+    // 4-07 mht: The getWriteMethod was removed from the prop descriptor interface. This was done as part of
+    // refactoring effort to clean up the prop descriptor stuff. The underlying write method should not be exposed.
+    // For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this
+    // context.
+    // The other types of prop descriptors would have failed.
     //
-    //TODO: remove this method FieldMap.getDestFieldWriteMethod()
-    
+    // TODO: remove this method FieldMap.getDestFieldWriteMethod()
+
     DozerPropertyDescriptorIF dpd = getDestPropertyDescriptor(runtimeDestClass);
     Method result = null;
     try {
@@ -127,7 +128,7 @@ public abstract class FieldMap implements Cloneable {
   public Object getDestValue(Object runtimeDestObj) {
     return getDestPropertyDescriptor(runtimeDestObj.getClass()).getPropertyValue(runtimeDestObj);
   }
-  
+
   public Hint getDestTypeHint() {
     return destTypeHint;
   }
@@ -143,48 +144,51 @@ public abstract class FieldMap implements Cloneable {
   public void setSrcTypeHint(Hint sourceHint) {
     this.srcTypeHint = sourceHint;
   }
-  
+
   public String getSrcFieldMapGetMethod() {
-    return !MappingUtils.isBlankOrNull(srcField.getMapGetMethod()) ? srcField.getMapGetMethod() : classMap.getSrcClassMapGetMethod(); 
+    return !MappingUtils.isBlankOrNull(srcField.getMapGetMethod()) ? srcField.getMapGetMethod() : classMap
+        .getSrcClassMapGetMethod();
   }
-  
+
   public String getSrcFieldMapSetMethod() {
-    return !MappingUtils.isBlankOrNull(srcField.getMapSetMethod()) ? srcField.getMapSetMethod() : classMap.getSrcClassMapSetMethod(); 
+    return !MappingUtils.isBlankOrNull(srcField.getMapSetMethod()) ? srcField.getMapSetMethod() : classMap
+        .getSrcClassMapSetMethod();
   }
-  
+
   public String getDestFieldMapGetMethod() {
-    return !MappingUtils.isBlankOrNull(destField.getMapGetMethod()) ? destField.getMapGetMethod() : classMap.getDestClassMapGetMethod(); 
+    return !MappingUtils.isBlankOrNull(destField.getMapGetMethod()) ? destField.getMapGetMethod() : classMap
+        .getDestClassMapGetMethod();
   }
-  
+
   public String getDestFieldMapSetMethod() {
-    return !MappingUtils.isBlankOrNull(destField.getMapSetMethod()) ? destField.getMapSetMethod() : classMap.getDestClassMapSetMethod(); 
+    return !MappingUtils.isBlankOrNull(destField.getMapSetMethod()) ? destField.getMapSetMethod() : classMap
+        .getDestClassMapSetMethod();
   }
-  
+
   public String getSrcFieldName() {
     return srcField.getName();
   }
-  
+
   public String getDestFieldName() {
     return destField.getName();
   }
-  
+
   public String getDestFieldType() {
     return destField.getType();
   }
-  
+
   public String getSrcFieldType() {
     return srcField.getType();
   }
-  
-  
+
   public String getSrcFieldDateFormat() {
     return getDateFormat();
   }
-  
+
   public String getDestFieldDateFormat() {
     return getDateFormat();
   }
-  
+
   public String getDateFormat() {
     if (!MappingUtils.isBlankOrNull(destField.getDateFormat())) {
       return destField.getDateFormat();
@@ -194,59 +198,59 @@ public abstract class FieldMap implements Cloneable {
       return classMap.getDateFormat();
     }
   }
-  
+
   public String getDestFieldCreateMethod() {
     return destField.getCreateMethod();
   }
-  
+
   public String getSrcFieldCreateMethod() {
     return srcField.getCreateMethod();
   }
-  
+
   public boolean isDestFieldIndexed() {
     return destField.isIndexed();
   }
-  
+
   public boolean isSrcFieldIndexed() {
     return srcField.isIndexed();
   }
-  
+
   public int getSrcFieldIndex() {
     return srcField.getIndex();
   }
-  
+
   public int getDestFieldIndex() {
     return destField.getIndex();
   }
-  
+
   public void setDestFieldDateFormat(String dateFormat) {
     destField.setDateFormat(dateFormat);
   }
-  
+
   public void setSrcFieldDateFormat(String dateFormat) {
     srcField.setDateFormat(dateFormat);
   }
-  
+
   public void setDestFieldTheGetMethod(String theGetMethod) {
     destField.setTheGetMethod(theGetMethod);
   }
-  
+
   public void setSrcFieldTheGetMethod(String theGetMethod) {
     srcField.setTheGetMethod(theGetMethod);
   }
-  
+
   public void setDestFieldTheSetMethod(String theSetMethod) {
     destField.setTheSetMethod(theSetMethod);
   }
-  
+
   public void setSrcFieldTheSetMethod(String theSetMethod) {
     srcField.setTheSetMethod(theSetMethod);
   }
-  
+
   public void setDestFieldMapSetMethod(String mapSetMethod) {
     destField.setMapSetMethod(mapSetMethod);
   }
-  
+
   public void setSrcFieldMapSetMethod(String mapSetMethod) {
     srcField.setMapSetMethod(mapSetMethod);
   }
@@ -254,7 +258,7 @@ public abstract class FieldMap implements Cloneable {
   public void setDestFieldMapGetMethod(String mapGetMethod) {
     destField.setMapGetMethod(mapGetMethod);
   }
-  
+
   public void setSrcFieldMapGetMethod(String mapGetMethod) {
     srcField.setMapGetMethod(mapGetMethod);
   }
@@ -262,63 +266,63 @@ public abstract class FieldMap implements Cloneable {
   public void setDestFieldCreateMethod(String createMethod) {
     destField.setCreateMethod(createMethod);
   }
-  
+
   public void setSrcFieldCreateMethod(String createMethod) {
     srcField.setCreateMethod(createMethod);
   }
-  
+
   public void setDestFieldKey(String key) {
     destField.setKey(key);
   }
-  
+
   public void setSrcFieldKey(String key) {
     srcField.setKey(key);
   }
-  
+
   public String getSrcFieldTheGetMethod() {
     return srcField.getTheGetMethod();
   }
-  
+
   public String getDestFieldTheGetMethod() {
     return destField.getTheGetMethod();
   }
-  
+
   public String getSrcFieldTheSetMethod() {
     return srcField.getTheSetMethod();
   }
-  
+
   public String getDestFieldTheSetMethod() {
     return destField.getTheSetMethod();
   }
-  
+
   public String getSrcFieldKey() {
     return srcField.getKey();
   }
-  
+
   public String getDestFieldKey() {
     return destField.getKey();
   }
-  
+
   public boolean isDestFieldAccessible() {
     return destField.isAccessible();
   }
-  
+
   public boolean isSrcFieldAccessible() {
     return srcField.isAccessible();
   }
-  
+
   public void setSrcFieldAccessible(boolean isAccessible) {
     srcField.setAccessible(isAccessible);
   }
-  
+
   public void setDestFieldAccessible(boolean isAccessible) {
     destField.setAccessible(isAccessible);
   }
-  
+
   public void setSrcField(DozerField sourceField) {
     this.srcField = sourceField;
   }
-  
+
   public void setDestField(DozerField destField) {
     this.destField = destField;
   }
@@ -357,7 +361,7 @@ public abstract class FieldMap implements Cloneable {
   protected boolean isSrcSelfReferencing() {
     return getSrcFieldName().equals(MapperConstants.SELF_KEYWORD);
   }
-  
+
   protected boolean isDestSelfReferencing() {
     return getDestFieldName().equals(MapperConstants.SELF_KEYWORD);
   }
@@ -373,7 +377,7 @@ public abstract class FieldMap implements Cloneable {
   public void setMapId(String mapId) {
     this.mapId = mapId;
   }
-  
+
   public String getCustomConverter() {
     return customConverter;
   }
@@ -381,7 +385,7 @@ public abstract class FieldMap implements Cloneable {
   public void setCustomConverter(String customConverter) {
     this.customConverter = customConverter;
   }
-  
+
   public String getRelationshipType() {
     return relationshipType;
   }
@@ -389,7 +393,7 @@ public abstract class FieldMap implements Cloneable {
   public void setRelationshipType(String relationshipType) {
     this.relationshipType = relationshipType;
   }
-  
+
   public void validate() {
     if (srcField == null) {
       MappingUtils.throwMappingException("src field must be specified");
@@ -398,19 +402,20 @@ public abstract class FieldMap implements Cloneable {
       MappingUtils.throwMappingException("dest field must be specified");
     }
   }
-  
+
   protected DozerPropertyDescriptorIF getSrcPropertyDescriptor(Class runtimeSrcClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(), getSrcFieldMapGetMethod(),
-        getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(), getSrcFieldName(), 
-        getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName());
+    return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
+        getSrcFieldMapGetMethod(), getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
+        getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName());
   }
-  
+
   protected DozerPropertyDescriptorIF getDestPropertyDescriptor(Class runtimeDestClass) {
-    return PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass, getDestFieldTheGetMethod(), getDestFieldTheSetMethod(), getDestFieldMapGetMethod(),
-        getDestFieldMapSetMethod(), isDestFieldAccessible(), isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), 
-        getDestFieldKey(), isDestSelfReferencing(), getSrcFieldName());
+    return PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass, getDestFieldTheGetMethod(),
+        getDestFieldTheSetMethod(), getDestFieldMapGetMethod(), getDestFieldMapSetMethod(), isDestFieldAccessible(),
+        isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(),
+        getSrcFieldName());
   }
-  
+
   protected DozerField getSrcField() {
     return srcField;
   }
@@ -418,5 +423,5 @@ public abstract class FieldMap implements Cloneable {
   protected DozerField getDestField() {
     return destField;
   }
-  
+
 }

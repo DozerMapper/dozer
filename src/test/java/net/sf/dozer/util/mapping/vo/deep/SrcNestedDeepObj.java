@@ -15,10 +15,10 @@
  */
 package net.sf.dozer.util.mapping.vo.deep;
 
+import java.util.List;
+
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 import net.sf.dozer.util.mapping.vo.FurtherTestObjectPrime;
-
-import java.util.List;
 
 /**
  * @author garsombke.franz

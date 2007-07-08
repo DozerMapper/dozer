@@ -15,19 +15,16 @@
  */
 package net.sf.dozer.util.mapping.vo.inheritance;
 
-
 public class S2ClassPrime extends BaseSubClassPrime {
 
-    private String sub2Attribute2;
+  private String sub2Attribute2;
 
-    public String getSub2Attribute2() {
-        return sub2Attribute2;
-    }
-    
+  public String getSub2Attribute2() {
+    return sub2Attribute2;
+  }
 
-    public void setSub2Attribute2(String attribute) {
-        sub2Attribute2 = attribute;
-    }
-    
-    
+  public void setSub2Attribute2(String attribute) {
+    sub2Attribute2 = attribute;
+  }
+
 }

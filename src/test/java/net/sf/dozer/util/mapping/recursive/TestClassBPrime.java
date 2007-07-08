@@ -15,78 +15,77 @@
  */
 package net.sf.dozer.util.mapping.recursive;
 
-
 /**
  */
 public class TestClassBPrime {
-    /** */
-    private String rue;
+  /** */
+  private String rue;
 
-    /** */
-    private String ville;
+  /** */
+  private String ville;
 
-    /** */
-    private TestClassAPrime parent;
+  /** */
+  private TestClassAPrime parent;
 
-    /** */
-    private int prime = 31;
+  /** */
+  private int prime = 31;
 
-    /** {@inheritDoc} */
-    public TestClassAPrime getParent() {
-        return this.parent;
+  /** {@inheritDoc} */
+  public TestClassAPrime getParent() {
+    return this.parent;
+  }
+
+  /** {@inheritDoc} */
+  public void setParent(final TestClassAPrime parent) {
+    this.parent = parent;
+  }
+
+  /** {@inheritDoc} */
+  public String getRue() {
+    return this.rue;
+  }
+
+  /** {@inheritDoc} */
+  public void setRue(final String rue) {
+    this.rue = rue;
+  }
+
+  /** {@inheritDoc} */
+  public String getVille() {
+    return this.ville;
+  }
+
+  /** {@inheritDoc} */
+  public void setVille(final String ville) {
+    this.ville = ville;
+  }
+
+  /** {@inheritDoc} */
+  public int hashCode() {
+    int result = 1;
+    result = prime * result + ((this.rue == null) ? 0 : this.rue.hashCode());
+    return result;
+  }
+
+  /** {@inheritDoc} */
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
     }
-
-    /** {@inheritDoc} */
-    public void setParent(final TestClassAPrime parent) {
-        this.parent = parent;
+    if (obj == null) {
+      return false;
     }
-
-    /** {@inheritDoc} */
-    public String getRue() {
-        return this.rue;
+    if (this.getClass() != obj.getClass()) {
+      return false;
     }
-
-    /** {@inheritDoc} */
-    public void setRue(final String rue) {
-        this.rue = rue;
+    final TestClassBPrime other = (TestClassBPrime) obj;
+    if (this.rue == null) {
+      if (other.rue != null) {
+        return false;
+      }
+    } else if (!this.rue.equals(other.rue)) {
+      return false;
     }
-
-    /** {@inheritDoc} */
-    public String getVille() {
-        return this.ville;
-    }
-
-    /** {@inheritDoc} */
-    public void setVille(final String ville) {
-        this.ville = ville;
-    }
-
-    /** {@inheritDoc} */
-    public int hashCode() {
-        int result = 1;
-        result = prime * result + ((this.rue == null) ? 0 : this.rue.hashCode());
-        return result;
-    }
-
-    /** {@inheritDoc} */
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestClassBPrime other = (TestClassBPrime) obj;
-        if (this.rue == null) {
-            if (other.rue != null) {
-                return false;
-            }
-        } else if (!this.rue.equals(other.rue)) {
-            return false;
-        }
-        return true;
-    }
+    return true;
+  }
 }

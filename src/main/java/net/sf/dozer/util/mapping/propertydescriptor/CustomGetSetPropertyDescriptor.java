@@ -32,8 +32,8 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   private final String customSetMethod;
   private final String customGetMethod;
 
-  public CustomGetSetPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
-      String customSetMethod, String customGetMethod) {
+  public CustomGetSetPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String customSetMethod,
+      String customGetMethod) {
     super(clazz, fieldName, isIndexed, index);
     this.customSetMethod = customSetMethod;
     this.customGetMethod = customGetMethod;
@@ -46,11 +46,11 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
       return super.getWriteMethod();
     }
   }
-  
+
   protected Method getReadMethod() throws NoSuchMethodException {
     return customGetMethod != null ? ReflectionUtils.findAMethod(clazz, customGetMethod) : super.getReadMethod();
   }
-  
+
   protected String getSetMethodName() throws NoSuchMethodException {
     return customSetMethod != null ? customSetMethod : super.getSetMethodName();
   }

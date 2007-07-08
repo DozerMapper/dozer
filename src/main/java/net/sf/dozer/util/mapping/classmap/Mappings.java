@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping.classmap;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Internal class that contains all of the custom mapping definitions, along with the global configuration instance.
  * Only intended for internal use.
@@ -26,7 +25,7 @@ import java.util.List;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class Mappings {
   private List mapping = new ArrayList();
@@ -36,11 +35,11 @@ public class Mappings {
     return mapping;
   }
 
-  public void setConfiguration( Configuration config ) {
-      this.configuration = config;
+  public void setConfiguration(Configuration config) {
+    this.configuration = config;
   }
 
   public Configuration getConfiguration() {
-      return this.configuration;
+    return this.configuration;
   }
 }

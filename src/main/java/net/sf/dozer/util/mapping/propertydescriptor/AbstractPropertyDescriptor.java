@@ -25,18 +25,18 @@ import java.util.Set;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 
 /**
- * Internal abstract property descriptor containing common property descriptor logic.  Only intended for internal use.
+ * Internal abstract property descriptor containing common property descriptor logic. Only intended for internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public abstract class AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
-  
+
   protected final Class clazz;
   protected final String fieldName;
   protected boolean isIndexed = false;
   protected int index;
-  
+
   public AbstractPropertyDescriptor(final Class clazz, final String fieldName, boolean isIndexed, int index) {
     this.clazz = clazz;
     this.fieldName = fieldName;
@@ -45,7 +45,7 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
   }
 
   public abstract Class getPropertyType();
-  
+
   protected Object getIndexedValue(Object existingFieldValue, Object newFieldValue) {
     Object result = null;
     if (existingFieldValue == null) {
@@ -87,8 +87,8 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
       result = newCollection;
     } else if (existingFieldValue.getClass().isArray()) {
       Object[] objs = (Object[]) existingFieldValue;
-      Object[] x = (Object[]) Array.newInstance(objs.getClass().getComponentType(),
-          objs.length > index ? objs.length + 1 : index + 1);
+      Object[] x = (Object[]) Array.newInstance(objs.getClass().getComponentType(), objs.length > index ? objs.length + 1
+          : index + 1);
       for (int i = 0; i < objs.length; i++) {
         x[i] = objs[i];
       }
@@ -97,6 +97,5 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
     }
     return result;
   }
-  
 
 }

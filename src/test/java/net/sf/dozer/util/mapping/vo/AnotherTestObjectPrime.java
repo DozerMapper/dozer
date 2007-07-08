@@ -15,12 +15,11 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class AnotherTestObjectPrime extends BaseTestObject {
   public final static int DEFAULT_FIELD1 = Integer.MAX_VALUE;
@@ -29,7 +28,7 @@ public class AnotherTestObjectPrime extends BaseTestObject {
   private Integer field2;
   private String field3;
   private TestObject to;
-  
+
   public int getField1() {
     return field1;
   }

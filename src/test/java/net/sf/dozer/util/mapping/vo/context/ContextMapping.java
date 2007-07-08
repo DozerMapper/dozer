@@ -21,13 +21,13 @@ import java.util.List;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class ContextMapping {
 
   private String loanNo;
   private List contextList;
-  
+
   public List getContextList() {
     return contextList;
   }

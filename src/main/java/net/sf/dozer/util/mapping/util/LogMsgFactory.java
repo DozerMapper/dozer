@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-
 import java.util.Collection;
 
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -26,16 +25,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class used to build various types of log messages.  Only intended for internal use.
+ * Internal class used to build various types of log messages. Only intended for internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public abstract class LogMsgFactory {
   private static final Log log = LogFactory.getLog(LogMsgFactory.class);
-  
-  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, 
-      Object destFieldValue, Object destObj, Throwable t) {
+
+  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object destFieldValue, Object destObj,
+      Throwable t) {
     String srcClassName = null;
     if (srcObj != null) {
       srcClassName = srcObj.getClass().getName();
@@ -61,22 +60,20 @@ public abstract class LogMsgFactory {
     }
 
     return "Field mapping error -->" + "\n  MapId: " + fieldMapping.getMapId() + "\n  Type: " + fieldMapping.getType()
-        + "\n  Source parent class: " + srcClassName + "\n  Source field name: "
-        + fieldMapping.getSrcFieldName() + "\n  Source field type: " + srcValueType
-        + "\n  Source field value: " + destFieldValue + "\n  Dest parent class: " + destClassName
-        + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: "
-        + destFieldTypeName;
+        + "\n  Source parent class: " + srcClassName + "\n  Source field name: " + fieldMapping.getSrcFieldName()
+        + "\n  Source field type: " + srcValueType + "\n  Source field value: " + destFieldValue + "\n  Dest parent class: "
+        + destClassName + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: " + destFieldTypeName;
   }
-  
+
   public static String createFieldMappingSuccessMsg(Class srcClass, Class destClass, String srcFieldName, String destFieldName,
-    Object srcFieldValue, Object destFieldValue) {
+      Object srcFieldValue, Object destFieldValue) {
     String srcClassStr = MappingUtils.getClassNameWithoutPackage(srcClass);
     String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);
-      
-    return "MAPPED: " + srcClassStr + "." + srcFieldName + " --> " + destClassStr + "." + destFieldName
-        + "  VALUES: " + getLogOutput(srcFieldValue) + " --> "  + getLogOutput(destFieldValue);
+
+    return "MAPPED: " + srcClassStr + "." + srcFieldName + " --> " + destClassStr + "." + destFieldName + "  VALUES: "
+        + getLogOutput(srcFieldValue) + " --> " + getLogOutput(destFieldValue);
   }
-  
+
   private static String getLogOutput(Object object) {
     String output = "NULL";
     if (object == null) {

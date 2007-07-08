@@ -15,28 +15,27 @@
  */
 package net.sf.dozer.util.mapping.copybyreference;
 
-public class TestA  {
-	private String one;
-	private String oneA;
-	private Reference testC;
-	public String getOne() {
-		return one;
-	}
-	public void setOne(String one) {
-		this.one = one;
-	}
-	public String getOneA() {
-		return oneA;
-	}
-	public void setOneA(String oneA) {
-		this.oneA = oneA;
-	}
-	public Reference getTestReference() {
-		return testC;
-	}
-	public void setTestReference(Reference testC) {
-		this.testC = testC;
-	}
-	
-	
+public class TestA {
+  private String one;
+  private String oneA;
+  private Reference testC;
+  public String getOne() {
+    return one;
+  }
+  public void setOne(String one) {
+    this.one = one;
+  }
+  public String getOneA() {
+    return oneA;
+  }
+  public void setOneA(String oneA) {
+    this.oneA = oneA;
+  }
+  public Reference getTestReference() {
+    return testC;
+  }
+  public void setTestReference(Reference testC) {
+    this.testC = testC;
+  }
+
 }

@@ -23,9 +23,8 @@ import java.util.Calendar;
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting Supported Data Types --> Date.
- * Supported source data types include Date, Calendar, String, Objects that return a long from their toString().
- * Only intended for internal use. 
+ * Internal class for converting Supported Data Types --> Date. Supported source data types include Date, Calendar,
+ * String, Objects that return a long from their toString(). Only intended for internal use.
  * 
  * @author tierney.matt
  */
@@ -41,35 +40,35 @@ public class DateConverter implements Converter {
 
     Class srcFieldClass = srcObj.getClass();
     long time = -1;
-    //Calendar to Date
+    // Calendar to Date
     if (Calendar.class.isAssignableFrom(srcFieldClass)) {
       Calendar inVal = (Calendar) srcObj;
       time = inVal.getTime().getTime();
-    //Date to Date
+      // Date to Date
     } else if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
-        time = ( (java.util.Date) srcObj).getTime();
-    //String to Date
+      time = ((java.util.Date) srcObj).getTime();
+      // String to Date
     } else if (dateFormat != null && String.class.isAssignableFrom(srcObj.getClass())) {
-        try {
-          if("".equals(srcObj)){
-            return null;
-          }
-          time = dateFormat.parse( (String) srcObj).getTime();
-        } catch (ParseException e) {
-          throw new ConversionException("Unable to parse source object using specified date format", e);
+      try {
+        if ("".equals(srcObj)) {
+          return null;
         }
-    //Default conversion
+        time = dateFormat.parse((String) srcObj).getTime();
+      } catch (ParseException e) {
+        throw new ConversionException("Unable to parse source object using specified date format", e);
+      }
+      // Default conversion
     } else {
       try {
         time = Long.parseLong(srcObj.toString());
       } catch (NumberFormatException e) {
-        throw new ConversionException("Unable to determine time in millis of source object",e);
+        throw new ConversionException("Unable to determine time in millis of source object", e);
       }
     }
 
     try {
-      Constructor constructor = destClass.getConstructor(new Class[] {Long.TYPE});
-      result = constructor.newInstance(new Object[] {new Long(time)});
+      Constructor constructor = destClass.getConstructor(new Class[] { Long.TYPE });
+      result = constructor.newInstance(new Object[] { new Long(time) });
     } catch (Exception e) {
       throw new ConversionException(e);
     }

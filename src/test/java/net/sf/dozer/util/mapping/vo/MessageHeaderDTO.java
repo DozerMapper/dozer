@@ -17,17 +17,17 @@
 package net.sf.dozer.util.mapping.vo;
 
 /**
- * @author Wahid Bashirazad 
+ * @author Wahid Bashirazad
  */
 public class MessageHeaderDTO {
 
-	private MessageIdList idList;
+  private MessageIdList idList;
 
-	public MessageIdList getIdList() {
-		return idList;
-	}
+  public MessageIdList getIdList() {
+    return idList;
+  }
 
-	public void setIdList(MessageIdList idList) {
-		this.idList = idList;
-	}
+  public void setIdList(MessageIdList idList) {
+    this.idList = idList;
+  }
 }

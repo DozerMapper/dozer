@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 /**
  * @author garsombke.franz
@@ -23,7 +22,7 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  * @author tierney.matt
  */
 public class ArrayCustConverterObj extends BaseTestObject {
-  
+
   private SimpleObj[] field1;
 
   public SimpleObj[] getField1() {
@@ -33,6 +32,5 @@ public class ArrayCustConverterObj extends BaseTestObject {
   public void setField1(SimpleObj[] field1) {
     this.field1 = field1;
   }
-  
-  
+
 }

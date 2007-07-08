@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.vo.inheritance;
 public class B extends SuperB {
   private String field1;
   private String fieldB;
-  
+
   public String getField1() {
     return field1;
   }
@@ -31,5 +31,5 @@ public class B extends SuperB {
   public void setFieldB(String fieldB) {
     this.fieldB = fieldB;
   }
-  
+
 }

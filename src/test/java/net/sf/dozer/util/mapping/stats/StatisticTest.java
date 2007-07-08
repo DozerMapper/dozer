@@ -15,30 +15,29 @@
  */
 package net.sf.dozer.util.mapping.stats;
 
-
 import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
 public class StatisticTest extends AbstractDozerTest {
-  
+
   public void testConstructor() throws Exception {
     String type = getRandomString();
     Statistic stat = new Statistic(type);
-    
+
     assertEquals("invalid type", type, stat.getType());
   }
-  
+
   public void testEquals() throws Exception {
     String type = getRandomString();
     Statistic stat = new Statistic(type);
     Statistic stat2 = new Statistic(type);
-    
+
     assertEquals("objects should be equal", stat, stat2);
     assertEquals("objects hashcode should be equal", stat.hashCode(), stat2.hashCode());
   }
-  
+
   public void testAddGetEntries() throws Exception {
     Statistic stat = new Statistic(getRandomString());
     int numEntriesToAdd = 5;
@@ -46,9 +45,9 @@ public class StatisticTest extends AbstractDozerTest {
       String key = "testkey" + String.valueOf(i);
       StatisticEntry entry = new StatisticEntry(key);
       stat.addEntry(entry);
-      
+
       assertEquals("invalid entry size", i + 1, stat.getEntries().size());
-      
+
       StatisticEntry entry2 = stat.getEntry(key);
       assertNotNull("stat entry should not be null", entry2);
       assertEquals("stat entries should be equal", entry, entry2);
@@ -56,34 +55,34 @@ public class StatisticTest extends AbstractDozerTest {
     }
     assertEquals("invlid stat size", numEntriesToAdd, stat.getEntries().size());
   }
-  
+
   public void testClear() throws Exception {
     Statistic stat = new Statistic(getRandomString());
     StatisticEntry entry = new StatisticEntry(getRandomString());
     stat.addEntry(entry);
-    
+
     assertEquals("stat should contain entry", 1, stat.getEntries().size());
     stat.clear();
     assertEquals("stat entries should have been cleared", 0, stat.getEntries().size());
   }
-  
+
   public void testGetEntryWithDefaultKey() throws Exception {
     String type = getRandomString();
     Statistic stat = new Statistic(type);
     StatisticEntry entry = new StatisticEntry(type);
     stat.addEntry(entry);
-    
+
     assertEquals("invalid entry found", entry, stat.getEntry());
   }
-  
+
   public void testGetEntryWithDefaultKeyNotFound() throws Exception {
     Statistic stat = new Statistic(getRandomString());
     StatisticEntry entry = new StatisticEntry(getRandomString());
     stat.addEntry(entry);
-    
+
     assertNull("entry should not have been found", stat.getEntry());
   }
-  
+
   public void testAddNull() {
     Statistic stat = new Statistic(getRandomString());
     try {

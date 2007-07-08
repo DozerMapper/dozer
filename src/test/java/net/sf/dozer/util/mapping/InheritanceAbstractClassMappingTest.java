@@ -20,7 +20,7 @@ import net.sf.dozer.util.mapping.vo.abstractinheritance.AbstractB;
 import net.sf.dozer.util.mapping.vo.abstractinheritance.B;
 
 /**
- * Unit tests for data objects that have Abstract Class(s) in their object hierarchy 
+ * Unit tests for data objects that have Abstract Class(s) in their object hierarchy
  * 
  * @author tierney.matt
  * @author garsombke.franz
@@ -47,7 +47,8 @@ public class InheritanceAbstractClassMappingTest extends AbstractDozerTest {
   }
 
   public void testNoCustomMappingForAbstractClasses() throws Exception {
-    // Test that wildcard fields in abstract classes are mapped when there is no explicit abstract custom mapping definition
+    // Test that wildcard fields in abstract classes are mapped when there is no explicit abstract custom mapping
+    // definition
     mapper = new DozerBeanMapper();
 
     A src = getA();
@@ -64,19 +65,19 @@ public class InheritanceAbstractClassMappingTest extends AbstractDozerTest {
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-  
+
   public void testAbstractDestClassThrowsException() throws Exception {
     try {
       mapper.map(new A(), AbstractB.class);
       fail("should have thrown exception");
     } catch (MappingException e) {
-      //expected
+      // expected
     }
   }
-  
+
   public void testNoCustomMappingForAbstractClasses_SubclassAttrsAppliedToAbstractClasses() throws Exception {
-    // Test that when there isnt an explicit abstract custom mapping definition the subclass mapping def attrs are 
-    // applied to the abstract class mapping.  In this use case, wildcard="false" for the A --> B mapping definition
+    // Test that when there isnt an explicit abstract custom mapping definition the subclass mapping def attrs are
+    // applied to the abstract class mapping. In this use case, wildcard="false" for the A --> B mapping definition
     mapper = getNewMapper(new String[] { "abstractMapping2.xml" });
 
     A src = getA();
@@ -91,11 +92,11 @@ public class InheritanceAbstractClassMappingTest extends AbstractDozerTest {
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-  
+
   public void testNoCustomMappingForSubclasses_CustomMappingForAbstractClasses() throws Exception {
-    //Tests that custom mappings for abstract classes are used when there are no custom mappings
-    //for subclasses.  Also tests that a default class map is properly created and used for the subclass
-    //field mappings
+    // Tests that custom mappings for abstract classes are used when there are no custom mappings
+    // for subclasses. Also tests that a default class map is properly created and used for the subclass
+    // field mappings
     mapper = getNewMapper(new String[] { "abstractMapping3.xml" });
 
     A src = getA();
@@ -111,7 +112,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractDozerTest {
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-  
+
   private A getA() {
     A result = new A();
     result.setField1("field1value");

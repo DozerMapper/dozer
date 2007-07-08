@@ -19,13 +19,14 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.classmap.Mappings;
+
 /**
  * @author tierney.matt
  */
 public class MappingsParserTest extends AbstractDozerTest {
-  
+
   private MappingsParser parser;
-  
+
   protected void setUp() throws Exception {
     super.setUp();
     parser = new MappingsParser();
@@ -34,7 +35,7 @@ public class MappingsParserTest extends AbstractDozerTest {
   public void testDuplicateMapIds() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapIdsMapping.xml");
     Mappings mappings = fileReader.read();
-    
+
     try {
       parser.processMappings(mappings);
       fail("should have thrown exception");
@@ -42,7 +43,7 @@ public class MappingsParserTest extends AbstractDozerTest {
       assertTrue("invalid exception thrown", e.getMessage().indexOf("Duplicate Map Id") != -1);
     }
   }
-  
+
   public void testDetectDuplicateMapping() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapping.xml");
     Mappings mappings = fileReader.read();
@@ -53,7 +54,7 @@ public class MappingsParserTest extends AbstractDozerTest {
       assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
     }
   }
-  
+
   public void testEmptyMappings() throws Exception {
     Mappings mappings = new Mappings();
     Map result = parser.processMappings(mappings);

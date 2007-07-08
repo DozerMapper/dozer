@@ -29,7 +29,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * Public Spring FactoryBean and InitializingBean that can be used by applition code
- *  
+ * 
  * @author Sören Chittka
  */
 public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean {
@@ -38,15 +38,15 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   private List customConverters;
   private List eventListeners;
   private Map factories;
-  
+
   public final void setMappingFiles(final Resource[] mappingFiles) {
     this.mappingFiles = mappingFiles;
   }
-    
+
   public final void setCustomConverters(final List customConverters) {
     this.customConverters = customConverters;
   }
-    
+
   public final void setEventListeners(final List eventListeners) {
     this.eventListeners = eventListeners;
   }
@@ -54,10 +54,10 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   public final void setFactories(final Map factories) {
     this.factories = factories;
   }
-    
-  //==================================================================================================================================
-  //interface 'FactoryBean'
-  //==================================================================================================================================    
+
+  // ==================================================================================================================================
+  // interface 'FactoryBean'
+  // ==================================================================================================================================
   public final Object getObject() throws Exception {
     return this.beanMapper;
   }
@@ -67,13 +67,13 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   public final boolean isSingleton() {
     return true;
   }
-    
-  //==================================================================================================================================
-  //interface 'InitializingBean'
-  //==================================================================================================================================
+
+  // ==================================================================================================================================
+  // interface 'InitializingBean'
+  // ==================================================================================================================================
   public final void afterPropertiesSet() throws Exception {
     this.beanMapper = new DozerBeanMapper();
-        
+
     if (this.mappingFiles != null) {
       final List mappings = new ArrayList(this.mappingFiles.length);
       for (int i = 0; i < this.mappingFiles.length; i++) {
@@ -91,7 +91,5 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
       this.beanMapper.setFactories(this.factories);
     }
   }
-  
-}
 
- 	  	 
+}

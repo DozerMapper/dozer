@@ -28,7 +28,6 @@ import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
 import net.sf.dozer.util.mapping.vo.deep2.Dest;
 import net.sf.dozer.util.mapping.vo.deep2.Src;
 
-
 /**
  * Unit tests specific to "deep field mapping" using dot notation in custom mapping definitions
  * 
@@ -36,7 +35,7 @@ import net.sf.dozer.util.mapping.vo.deep2.Src;
  * @author garsombke.franz
  */
 public class DeepMappingTest extends AbstractDozerTest {
-  
+
   public void testDeepMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     SrcDeepObj src = TestDataFactory.getSrcDeepObj();
@@ -47,7 +46,7 @@ public class DeepMappingTest extends AbstractDozerTest {
     assertEquals(src, src2);
     assertEquals(dest, dest2);
   }
-  
+
   public void testDeepPropertyOneWay() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     House house = new House();
@@ -60,7 +59,7 @@ public class DeepMappingTest extends AbstractDozerTest {
     House house2 = (House) mapper.map(desc, House.class);
     assertNull(house2.getOwner().getYourName());
   }
-  
+
   public void testDeepInterfaceWithHint() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
     InsideTestObject ito = new InsideTestObject();
@@ -76,25 +75,25 @@ public class DeepMappingTest extends AbstractDozerTest {
     InsideTestObject dest = (InsideTestObject) mapper.map(itop, InsideTestObject.class);
     assertEquals("name", ito.getHouse().getThingy().getName());
   }
-  
+
   /*
-   * Related to feature request #1456486.  Deep mapping with custom getter/setter does not work
+   * Related to feature request #1456486. Deep mapping with custom getter/setter does not work
    */
   public void testDeepMapping_UsingCustomGetSetMethods() {
-    mapper = super.getNewMapper(new String[]{"deepMappingUsingCustomGetSet.xml"});
-    
+    mapper = super.getNewMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
+
     Src src = new Src();
     src.setSrcField("srcFieldValue");
-    
+
     Dest dest = (Dest) mapper.map(src, Dest.class);
-    
+
     assertNotNull(dest.getDestField().getNestedDestField().getNestedNestedDestField());
     assertEquals(src.getSrcField(), dest.getDestField().getNestedDestField().getNestedNestedDestField());
-    
-    Src dest2 = (Src)mapper.map(dest, Src.class);
-    
+
+    Src dest2 = (Src) mapper.map(dest, Src.class);
+
     assertNotNull(dest2.getSrcField());
     assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());
-  }  
-  
+  }
+
 }

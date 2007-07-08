@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 package net.sf.dozer.util.mapping.vo.isaccessible;
 
@@ -22,11 +22,10 @@ public class Foo {
   private List categories = null;
 
   public List getCategories() {
-  return this.categories;
+    return this.categories;
   }
 
   public void setCategories(List list) {
     this.categories = list;
   }
 }
-

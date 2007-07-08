@@ -27,6 +27,5 @@ public class NestedDest extends BaseTestObject {
   public void setNestedDestField(NestedNestedDest nestedDestField) {
     this.nestedDestField = nestedDestField;
   }
-  
-  
+
 }

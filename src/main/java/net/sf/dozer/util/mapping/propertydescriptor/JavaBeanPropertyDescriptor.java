@@ -23,8 +23,9 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
  * 
- * Internal class used to read and write values for fields that follow the java bean spec and have corresponding getter/setter methods
- * for the field that are name accordingly. If the field does not have the necessary getter/setter, an exception will be thrown. Only intended for internal use.
+ * Internal class used to read and write values for fields that follow the java bean spec and have corresponding
+ * getter/setter methods for the field that are name accordingly. If the field does not have the necessary
+ * getter/setter, an exception will be thrown. Only intended for internal use.
  * 
  * @author garsombke.franz
  * @author tierney.matt
@@ -37,18 +38,17 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   public Method getWriteMethod() throws NoSuchMethodException {
     Method writeMethod = getPropertyDescriptor().getWriteMethod();
-      if (writeMethod == null) {
-        throw new NoSuchMethodException("Unable to determine write method for Field: " + fieldName + " in Class: "
-            + clazz);
-      }
-    
+    if (writeMethod == null) {
+      throw new NoSuchMethodException("Unable to determine write method for Field: " + fieldName + " in Class: " + clazz);
+    }
+
     return writeMethod;
   }
-  
+
   protected void invokeWriteMethod(Object target, Object value) throws NoSuchMethodException {
     ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { value });
   }
-  
+
   protected String getSetMethodName() throws NoSuchMethodException {
     return getWriteMethod().getName();
   }
@@ -60,15 +60,15 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
     return result;
   }
-  
+
   protected Object invokeReadMethod(Object target) throws NoSuchMethodException {
     return ReflectionUtils.invoke(getReadMethod(), target, null);
   }
-  
+
   private PropertyDescriptor getPropertyDescriptor() {
     PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName);
     if (pd == null) {
-      MappingUtils.throwMappingException("Property: " + fieldName + " not found in Class: " + clazz);          
+      MappingUtils.throwMappingException("Property: " + fieldName + " not found in Class: " + clazz);
     }
     return pd;
   }

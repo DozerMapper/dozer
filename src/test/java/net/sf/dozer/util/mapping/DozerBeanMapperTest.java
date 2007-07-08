@@ -35,9 +35,9 @@ import net.sf.dozer.util.mapping.vo.deep.HomeDescription;
 import net.sf.dozer.util.mapping.vo.deep.House;
 
 /**
- * Very high level tests of the DozerBeanMapper.  This test class is not intended to provide in-depth testing of all the 
- * possible mapping use cases.  The more in-depth unit tests of the DozerBeanMapper and MappingProcessor can be found
- * in other test classes within this same package.  i.e) GranularDozerBeanMapperTest, MapperTest, IndexMappingTest, etc
+ * Very high level tests of the DozerBeanMapper. This test class is not intended to provide in-depth testing of all the
+ * possible mapping use cases. The more in-depth unit tests of the DozerBeanMapper and MappingProcessor can be found in
+ * other test classes within this same package. i.e) GranularDozerBeanMapperTest, MapperTest, IndexMappingTest, etc
  * 
  * @author tierney.matt
  * @author garsombke.franz
@@ -69,7 +69,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
       assertEquals("destination class must not be null", e.getMessage());
     }
   }
-  
+
   public void testNullDestObj() throws Exception {
     try {
       Object destObj = null;
@@ -78,16 +78,16 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     } catch (MappingException e) {
     }
   }
-  
+
   public void testMapIdDoesNotExist() {
     try {
       mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
       fail("should have thrown exception");
     } catch (Exception e) {
-      //expected
+      // expected
     }
   }
-  
+
   public void testGeneralMapping() throws Exception {
     assertCommon(mapper);
   }
@@ -139,7 +139,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     assertCommon(mapper);
   }
-  
+
   public void testDetectDuplicateMapping() throws Exception {
     MapperIF myMapper = null;
     try {
@@ -155,17 +155,16 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
       assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
     }
   }
-  
+
   public void testCustomBeanFactory() throws Exception {
     // -----------------------------------------------------------
     // Test that java beans get created with explicitly specified
     // custom bean factory
     // -----------------------------------------------------------
 
-    MapperIF mapper = getNewMapper(new String[] {"customfactorymapping.xml"});
+    MapperIF mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
 
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
-        TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
 
     // The following asserts will verify that the ClassMap beanFactory attr gets applied to both classes
@@ -193,14 +192,14 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     DozerBeanMapper eventMapper = (DozerBeanMapper) ApplicationBeanFactory.getBean("EventMapper");
     assertNotNull("event listenter list should not be null", eventMapper.getEventListeners());
     assertEquals("event listenter list should contain 1 element", 1, eventMapper.getEventListeners().size());
-    assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0).getClass());
+    assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0)
+        .getClass());
     House src = TestDataFactory.getHouse();
     HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
   }
-  
+
   private void assertCommon(MapperIF mapper) throws Exception {
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
-        TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
     TestObjectPrime prime2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
 

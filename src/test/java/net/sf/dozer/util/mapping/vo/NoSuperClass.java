@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 package net.sf.dozer.util.mapping.vo;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class NoSuperClass extends BaseTestObject {
   private String attribute;

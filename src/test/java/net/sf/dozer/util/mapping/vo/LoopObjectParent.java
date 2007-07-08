@@ -21,34 +21,34 @@ package net.sf.dozer.util.mapping.vo;
  * @author tierney.matt
  */
 public class LoopObjectParent extends BaseTestObject {
-    private String attribute;
-    private LoopObjectChild child;
+  private String attribute;
+  private LoopObjectChild child;
 
-    public String getAttribute() {
-        return attribute;
-    }
+  public String getAttribute() {
+    return attribute;
+  }
 
-    public void setAttribute(String attribute) {
-        this.attribute = attribute;
-    }
+  public void setAttribute(String attribute) {
+    this.attribute = attribute;
+  }
 
-    public LoopObjectChild getChild() {
-        return child;
-    }
+  public LoopObjectChild getChild() {
+    return child;
+  }
 
-    public void setChild(LoopObjectChild childObject) {
-        this.child = childObject;
-    }
-    
-    public int hashCode() {
-    	return System.identityHashCode(this);
-    }
-    
-    public String toString() {
-    	return this.getClass().getName() + "@" + Integer.toHexString(hashCode());
-    }
-    
-    public boolean equals(Object obj) {
-    	return hashCode() == obj.hashCode();
-    }
+  public void setChild(LoopObjectChild childObject) {
+    this.child = childObject;
+  }
+
+  public int hashCode() {
+    return System.identityHashCode(this);
+  }
+
+  public String toString() {
+    return this.getClass().getName() + "@" + Integer.toHexString(hashCode());
+  }
+
+  public boolean equals(Object obj) {
+    return hashCode() == obj.hashCode();
+  }
 }

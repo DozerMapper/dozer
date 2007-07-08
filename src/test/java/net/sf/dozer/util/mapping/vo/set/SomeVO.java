@@ -41,8 +41,7 @@ public class SomeVO extends BaseTestObject {
   public int hashCode() {
     final int PRIME = 31;
     int result = super.hashCode();
-    result = PRIME * result
-        + ((field2 == null) ? 0 : field2.hashCode());
+    result = PRIME * result + ((field2 == null) ? 0 : field2.hashCode());
     return result;
   }
 }

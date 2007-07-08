@@ -21,7 +21,7 @@ package net.sf.dozer.util.mapping.vo;
  * @author tierney.matt
  */
 public class ArrayCustConverterObjPrime extends BaseTestObject {
-  
+
   private String field1Prime;
 
   public String getField1Prime() {
@@ -31,5 +31,5 @@ public class ArrayCustConverterObjPrime extends BaseTestObject {
   public void setField1Prime(String field1Prime) {
     this.field1Prime = field1Prime;
   }
-  
+
 }

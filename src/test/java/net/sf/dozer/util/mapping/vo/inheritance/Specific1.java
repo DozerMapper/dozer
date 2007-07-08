@@ -25,6 +25,6 @@ public class Specific1 extends GenericAbstractSuper {
 
   public void setSuperAttr2(String superAttr2) {
     this.superAttr2 = superAttr2;
-  }  
+  }
 
 }

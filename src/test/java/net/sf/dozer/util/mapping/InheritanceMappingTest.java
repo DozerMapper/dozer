@@ -19,8 +19,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.SerializationUtils;
-
 import net.pmonks.xml.dozer.test.ChildType;
 import net.sf.dozer.util.mapping.util.TestDataFactory;
 import net.sf.dozer.util.mapping.vo.Child;
@@ -46,6 +44,8 @@ import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecificPrime;
 import net.sf.dozer.util.mapping.vo.km.SomeVo;
 import net.sf.dozer.util.mapping.vo.km.Sub;
 import net.sf.dozer.util.mapping.vo.km.Super;
+
+import org.apache.commons.lang.SerializationUtils;
 
 /**
  * @author tierney.matt
@@ -90,11 +90,10 @@ public class InheritanceMappingTest extends AbstractDozerTest {
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-  
-  
+
   public void testNoCustomMappingForSuperClasses_SubclassAttrsAppliedToSuperClasses() throws Exception {
-    // Test that when there isnt an explicit super custom mapping definition the subclass mapping def attrs are 
-    // applied to the super class mapping.  In this use case, wildcard="false" for the A --> B mapping definition
+    // Test that when there isnt an explicit super custom mapping definition the subclass mapping def attrs are
+    // applied to the super class mapping. In this use case, wildcard="false" for the A --> B mapping definition
     mapper = getNewMapper(new String[] { "inheritanceMapping2.xml" });
 
     A src = getA();
@@ -109,11 +108,11 @@ public class InheritanceMappingTest extends AbstractDozerTest {
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-  
+
   public void testNoCustomMappingForSubclasses_CustomMappingForSuperClasses() throws Exception {
-    //Tests that custom mappings for super classes are used when there are no custom mappings
-    //for subclasses.  Also tests that a default class map is properly created and used for the subclass
-    //field mappings
+    // Tests that custom mappings for super classes are used when there are no custom mappings
+    // for subclasses. Also tests that a default class map is properly created and used for the subclass
+    // field mappings
     mapper = getNewMapper(new String[] { "inheritanceMapping3.xml" });
 
     A src = getA();
@@ -129,21 +128,21 @@ public class InheritanceMappingTest extends AbstractDozerTest {
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-  
+
   /*
    * Test Case Submitted by Peter Monks 1/2007
    */
   public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
-    mapper = getNewMapper(new String[]{"xmlBeansMapping.xml"});
+    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
     Child pojo = new Child();
-      
+
     pojo.setId(BigInteger.valueOf(42));
     pojo.setName("Ernie");
     pojo.setFu("Fu");
     pojo.setBar("Bar");
-    
-    ChildType xmlBean = (ChildType)mapper.map(pojo, ChildType.class);
-      
+
+    ChildType xmlBean = (ChildType) mapper.map(pojo, ChildType.class);
+
     assertNotNull("dest obj should not be null", xmlBean);
     assertNotNull("fu value should not be null", xmlBean.getFu());
     assertEquals("invalid fu value", pojo.getFu(), xmlBean.getFu());
@@ -159,16 +158,16 @@ public class InheritanceMappingTest extends AbstractDozerTest {
    * Test Case Submitted by Peter Monks 1/2007
    */
   public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
-    mapper = getNewMapper(new String[]{"xmlBeansMapping.xml"});
+    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
     ChildType xmlBean = ChildType.Factory.newInstance();
-      
+
     xmlBean.setId(BigInteger.valueOf(7236));
     xmlBean.setName("Bert");
     xmlBean.setFu("Uf");
     xmlBean.setBar("Rab");
-      
-    Child pojo = (Child)mapper.map(xmlBean, Child.class);
-      
+
+    Child pojo = (Child) mapper.map(xmlBean, Child.class);
+
     assertNotNull("dest obj should not be null", pojo);
     assertNotNull("fu should not be null", pojo.getFu());
     assertEquals("invalid fu value", xmlBean.getFu(), pojo.getFu());
@@ -179,7 +178,7 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     assertNotNull("name should not be null", pojo.getName());
     assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
   }
-  
+
   public void testGeneralInheritance() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     // first test mapping of sub and base class to a single class
@@ -241,13 +240,10 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     assertEquals(asub.getBaseAttribute(), subPrime.getBaseAttribute2());
     assertTrue(subPrime.getTheListOfSubClassPrime().get(0) instanceof S2ClassPrime);
     assertTrue(subPrime.getTheListOfSubClassPrime().get(1) instanceof SClassPrime);
-    assertEquals(s2.getSub2Attribute(), ((S2ClassPrime) subPrime.getTheListOfSubClassPrime().get(0))
-        .getSub2Attribute2());
-    assertEquals(s2.getBaseSubAttribute(), ((S2ClassPrime) subPrime.getTheListOfSubClassPrime().get(0))
-        .getBaseSubAttribute2());
+    assertEquals(s2.getSub2Attribute(), ((S2ClassPrime) subPrime.getTheListOfSubClassPrime().get(0)).getSub2Attribute2());
+    assertEquals(s2.getBaseSubAttribute(), ((S2ClassPrime) subPrime.getTheListOfSubClassPrime().get(0)).getBaseSubAttribute2());
     assertEquals(s.getSubAttribute(), ((SClassPrime) subPrime.getTheListOfSubClassPrime().get(1)).getSubAttribute2());
-    assertEquals(s.getBaseSubAttribute(), ((SClassPrime) subPrime.getTheListOfSubClassPrime().get(1))
-        .getBaseSubAttribute2());
+    assertEquals(s.getBaseSubAttribute(), ((SClassPrime) subPrime.getTheListOfSubClassPrime().get(1)).getBaseSubAttribute2());
     assertTrue(subPrime.getArrayToList()[0] instanceof S2ClassPrime);
     assertTrue(subPrime.getArrayToList()[1] instanceof SClassPrime);
     assertTrue(subPrime.getArrayToList()[2] instanceof SClassPrime);
@@ -271,7 +267,7 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     assertEquals(s.getSubAttribute(), ((SClass) sub.getSubList().get(1)).getSubAttribute());
     assertEquals(s.getBaseSubAttribute(), ((SClass) sub.getSubList().get(1)).getBaseSubAttribute());
   }
-  
+
   public void testInheritanceWithAbstractClassOrInterfaceAsDestination() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     SpecificObject so = new SpecificObject();
@@ -300,7 +296,7 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr3());
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr2());
   }
-  
+
   public void testComplexSuperClassMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     SubClass obj = TestDataFactory.getSubClass();
@@ -308,8 +304,7 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     SubClass obj2 = (SubClass) mapper.map(objPrime, SubClass.class);
     SubClassPrime objPrime2 = (SubClassPrime) mapper.map(obj2, SubClassPrime.class);
 
-    assertEquals("" + obj.getCustomConvert().getAttribute().getTheDouble(), obj2.getCustomConvert().getAttribute()
-        .getTheDouble()
+    assertEquals("" + obj.getCustomConvert().getAttribute().getTheDouble(), obj2.getCustomConvert().getAttribute().getTheDouble()
         + "");
 
     // one-way mapping
@@ -371,7 +366,7 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     assertEquals(src, src1);
     assertEquals(dest, dest2);
   }
-  
+
   /*
    * Related to bug #1486105
    */
@@ -380,38 +375,38 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     request.setUserName("yo");
     request.setAge("2");
     request.setColor("blue");
-    
-    MapperIF mapper = getNewMapper(new String[]{"kmmapping.xml"});
-    
-    Super afterMapping = (Super) mapper.map(request,Super.class);
-    
+
+    MapperIF mapper = getNewMapper(new String[] { "kmmapping.xml" });
+
+    Super afterMapping = (Super) mapper.map(request, Super.class);
+
     assertNotNull("login name should not be null", afterMapping.getLoginName());
     assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getUserName(),afterMapping.getLoginName());
+    assertEquals("should map SuperClass.name to SubClassPrime userName.", request.getUserName(), afterMapping.getLoginName());
     assertEquals(request.getAge(), afterMapping.getAge());
   }
-  
+
   /*
-   * Bug #1486105 
-   */  
+   * Bug #1486105
+   */
   public void testKM2() {
     Sub request = new Sub();
     request.setAge("2");
     request.setColor("blue");
     request.setLoginName("fred");
-        
-    MapperIF mapper = getNewMapper(new String[] {"kmmapping.xml"});
-      
-    SomeVo afterMapping = (SomeVo) mapper.map(request,SomeVo.class);
-       
+
+    MapperIF mapper = getNewMapper(new String[] { "kmmapping.xml" });
+
+    SomeVo afterMapping = (SomeVo) mapper.map(request, SomeVo.class);
+
     assertNotNull("un should not be null", afterMapping.getUserName());
-    assertNotNull("color should not be null",afterMapping.getColor());
+    assertNotNull("color should not be null", afterMapping.getColor());
     assertNotNull("age should not be null", afterMapping.getAge());
-    assertEquals("should map SuperClass.name to SubClassPrime userName.",request.getLoginName(),afterMapping.getUserName());
-    assertEquals(request.getColor(),afterMapping.getColor());
+    assertEquals("should map SuperClass.name to SubClassPrime userName.", request.getLoginName(), afterMapping.getUserName());
+    assertEquals(request.getColor(), afterMapping.getColor());
     assertEquals(request.getAge(), afterMapping.getAge());
   }
-  
+
   private A getA() {
     A result = new A();
     result.setField1("field1value");

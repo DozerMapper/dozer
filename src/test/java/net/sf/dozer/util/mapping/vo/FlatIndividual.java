@@ -86,13 +86,13 @@ public class FlatIndividual {
   public void setAddress(String address) {
     this.address = address;
   }
-  
+
   public String getThirdName() {
     return thirdName;
   }
-  
+
   public void setThirdName(String thirdName) {
     this.thirdName = thirdName;
   }
-  
+
 }

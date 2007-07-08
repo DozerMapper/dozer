@@ -32,7 +32,6 @@ public class MapTestObject extends BaseTestObject {
   private PropertyToMap propertyToMapToNullMap;
   private PropertyToMap propertyToCustomMap;
   private CustomMapIF propertyToCustomMapMapWithInterface;
-  
 
   public PropertyToMap getPropertyToMap() {
     return propertyToMap;

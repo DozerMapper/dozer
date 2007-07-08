@@ -19,20 +19,19 @@ import java.util.List;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 /**
  * @author Dave B. (dsbuk)
  */
-public class MyClassA extends BaseTestObject { 
- 
-  private List aStringList; 
- 
-  public final List getAStringList() { 
-    return aStringList; 
-  } 
- 
-  public final void setAStringList(List pStringList) { 
-    aStringList = pStringList; 
-  } 
- 
-} 
+public class MyClassA extends BaseTestObject {
+
+  private List aStringList;
+
+  public final List getAStringList() {
+    return aStringList;
+  }
+
+  public final void setAStringList(List pStringList) {
+    aStringList = pStringList;
+  }
+
+}

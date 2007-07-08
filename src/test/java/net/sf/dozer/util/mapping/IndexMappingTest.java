@@ -59,10 +59,10 @@ public class IndexMappingTest extends AbstractDozerTest {
     source.setUsernames(userNames);
     source.setSimpleField("a very simple field");
     source.setSecondNames(secondNames);
-    
+
     Set mySet = new HashSet();
     mySet.add("myString");
-    
+
     source.setAddressSet(mySet);
 
     FlatIndividual dest = (FlatIndividual) mapper.map(source, FlatIndividual.class);
@@ -83,7 +83,7 @@ public class IndexMappingTest extends AbstractDozerTest {
     source.setSecondName2("secondName2");
     source.setPrimaryAlias("aqqq");
     source.setThirdName("thirdName");
-    
+
     Individuals dest = (Individuals) mapper.map(source, Individuals.class);
 
     assertEquals(source.getUsername1(), dest.getUsernames().get(0));
@@ -138,7 +138,7 @@ public class IndexMappingTest extends AbstractDozerTest {
     assertEquals(source.getSimpleField(), dest.getSimpleField());
   }
 
- public void testNestedArray() {
+  public void testNestedArray() {
     Individuals source = new Individuals();
     Aliases aliases = new Aliases();
     aliases.setOtherAliases(new String[] { "other alias 1", "other alias 2" });

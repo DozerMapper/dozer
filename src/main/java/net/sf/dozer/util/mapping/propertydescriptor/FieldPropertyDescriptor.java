@@ -17,16 +17,14 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.lang.reflect.Field;
 
-import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
- * Internal class that directly accesses the field via reflection.  The getter/setter methods for the field are bypassed 
- * and will NOT be invoked.  Private fields are accessible by Dozer.
- * Only intended for internal use.
+ * Internal class that directly accesses the field via reflection. The getter/setter methods for the field are bypassed
+ * and will NOT be invoked. Private fields are accessible by Dozer. Only intended for internal use.
  * 
  * @author garsombke.franz
  * 
@@ -53,19 +51,19 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
 
   public Object getPropertyValue(Object bean) {
     Object result = null;
-      Object o = null;
-      try {
-        o = field.get(bean);
-      } catch (IllegalArgumentException e) {
-        MappingUtils.throwMappingException(e);
-      } catch (IllegalAccessException e) {
-        MappingUtils.throwMappingException(e);
-      }
-      if (isIndexed) {
-        result = MappingUtils.getIndexedValue(o, index);
-      } else {
-        result = o;
-      }
+    Object o = null;
+    try {
+      o = field.get(bean);
+    } catch (IllegalArgumentException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    if (isIndexed) {
+      result = MappingUtils.getIndexedValue(o, index);
+    } else {
+      result = o;
+    }
     return result;
   }
 
@@ -75,15 +73,15 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
         // do nothing
         return;
       }
-      
-      //Check if dest value is already set and is equal to src value.  If true, no need to rewrite the dest value
+
+      // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
       try {
         if (getPropertyValue(bean) == value) {
           return;
         }
       } catch (Exception e) {
-        //if we failed to read the value, assume we must write, and continue...
-      }  
+        // if we failed to read the value, assume we must write, and continue...
+      }
 
       if (isIndexed) {
         writeIndexedValue(bean, value);
@@ -101,7 +99,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
       field.set(destObj, getIndexedValue(existingValue, destFieldValue));
     } catch (IllegalAccessException e) {
       MappingUtils.throwMappingException(e);
-    } 
+    }
   }
 
 }

@@ -27,9 +27,9 @@ import java.util.StringTokenizer;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code base.  Not intended for direct use by 
- * application code.
- *  
+ * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
+ * base. Not intended for direct use by application code.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
@@ -73,9 +73,8 @@ public abstract class ReflectionUtils {
 
       if (propDescriptor == null) {
         MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "
-            + parentClass.getName() + ", Field --> " + field
-            + ".  Unable to determine property descriptor for Class --> " + latestClass.getName() + ", Field Name: "
-            + aFieldName);
+            + parentClass.getName() + ", Field --> " + field + ".  Unable to determine property descriptor for Class --> "
+            + latestClass.getName() + ", Field Name: " + aFieldName);
       }
 
       latestClass = propDescriptor.getPropertyType();
@@ -85,10 +84,10 @@ public abstract class ReflectionUtils {
     return hierarchy;
   }
 
-  public static  Method getMethod(Object obj, String methodName) {
+  public static Method getMethod(Object obj, String methodName) {
     return getMethod(obj.getClass(), methodName);
   }
-  
+
   public static Method getMethod(Class clazz, String methodName) {
     Method result = findMethod(clazz, methodName);
     if (result == null) {
@@ -96,7 +95,7 @@ public abstract class ReflectionUtils {
     }
     return result;
   }
-  
+
   private static Method findMethod(Class clazz, String methodName) {
     Method[] methods = clazz.getMethods();
     Method resultMethod = null;
@@ -108,7 +107,7 @@ public abstract class ReflectionUtils {
     }
     return resultMethod;
   }
-  
+
   public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException {
     // TODO USE HELPER from bean utils to find method w/ params
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
@@ -122,8 +121,7 @@ public abstract class ReflectionUtils {
     return findMethod(parentDestClass, methodName);
   }
 
-  private static Method findMethodWithParam(Class parentDestClass, String methodName, String params)
-      throws NoSuchMethodException {
+  private static Method findMethodWithParam(Class parentDestClass, String methodName, String params) throws NoSuchMethodException {
     // TODO USE HELPER from bean utils to find method w/ params
     List list = new ArrayList();
     if (params != null) {
@@ -175,7 +173,7 @@ public abstract class ReflectionUtils {
       throw e;
     }
   }
-  
+
   public static Object invoke(Method method, Object obj, Object[] args) {
     Object result = null;
     try {
@@ -189,7 +187,7 @@ public abstract class ReflectionUtils {
     }
     return result;
   }
-  
+
   public static Object newInstance(Class clazz) {
     Object result = null;
     try {
@@ -201,9 +199,9 @@ public abstract class ReflectionUtils {
     }
     return result;
   }
-  
+
   public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
     return clazz.getMethod(name, parameterTypes);
   }
-  
+
 }

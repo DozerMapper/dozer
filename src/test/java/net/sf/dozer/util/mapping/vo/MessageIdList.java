@@ -16,16 +16,16 @@
 package net.sf.dozer.util.mapping.vo;
 
 /**
- * @author Wahid Bashirazad 
+ * @author Wahid Bashirazad
  */
 public class MessageIdList {
-	private String[] msgIdsArray;
+  private String[] msgIdsArray;
 
-	public String[] getMsgIdsArray() {
-		return msgIdsArray;
-	}
+  public String[] getMsgIdsArray() {
+    return msgIdsArray;
+  }
 
-	public void setMsgIdsArray(String[] msgIdsArray) {
-		this.msgIdsArray = msgIdsArray;
-	}
+  public void setMsgIdsArray(String[] msgIdsArray) {
+    this.msgIdsArray = msgIdsArray;
+  }
 }

@@ -26,35 +26,35 @@ public class Child {
   private String name;
   private String fu;
   private String bar;
-    
+
   public String getBar() {
     return bar;
   }
-    
+
   public void setBar(String bar) {
     this.bar = bar;
   }
-    
+
   public String getFu() {
     return fu;
   }
-    
+
   public void setFu(String fu) {
     this.fu = fu;
   }
-    
+
   public BigInteger getId() {
     return id;
   }
-    
+
   public void setId(BigInteger id) {
     this.id = id;
   }
-    
+
   public String getName() {
     return name;
   }
-    
+
   public void setName(String name) {
     this.name = name;
   }

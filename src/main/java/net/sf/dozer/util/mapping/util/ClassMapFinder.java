@@ -39,10 +39,8 @@ public abstract class ClassMapFinder {
 
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
-  public static ClassMap findClassMap(Map customMappings, Object srcObj, Class destClass, String mapId,
-      boolean isInstance) {
-    ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcObj.getClass(), destClass,
-        mapId));
+  public static ClassMap findClassMap(Map customMappings, Object srcObj, Class destClass, String mapId, boolean isInstance) {
+    ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcObj.getClass(), destClass, mapId));
 
     // determine if it is an Interface or Abstract Class
     // iterate through the class maps and see if this class has any sub classes
@@ -86,8 +84,7 @@ public abstract class ClassMapFinder {
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass,
-          destInterfaces[i]));
+      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, destInterfaces[i]));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -95,8 +92,7 @@ public abstract class ClassMapFinder {
 
     for (int i = 0; i < srcInterfaces.length; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i],
-          destClass));
+      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i], destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -114,8 +110,7 @@ public abstract class ClassMapFinder {
   // these methods seem to be trying to accomplish the same thing with a
   // different implementation. Also, one takes a map-id
   // and the other doesnt ?? somewhat confusing
-  public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object srcObj,
-      String mapId) {
+  public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object srcObj, String mapId) {
     ClassMap newClassMap = null;
     Class newClass = null;
     // Use object array for keys to avoid any rare thread synchronization
@@ -134,8 +129,7 @@ public abstract class ClassMapFinder {
       if ((destClass.isAssignableFrom(dest) || (dest.isInterface() && dest.isAssignableFrom(destClass)))
           && (map.getSrcClassToMap().isAssignableFrom(srcObj.getClass()) || map.getSrcClassToMap().isInstance(srcObj))
           // look for most specific mapping
-          && (newClass == null || newClass.isAssignableFrom(dest))
-          && (mapId == null || ((String) keys[i]).endsWith(mapId))) {
+          && (newClass == null || newClass.isAssignableFrom(dest)) && (mapId == null || ((String) keys[i]).endsWith(mapId))) {
         newClassMap = map;
         newClass = dest;
       }

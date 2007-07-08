@@ -18,18 +18,17 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
 
-
 /**
- * Internal property descriptor interface.  Only intended for internal use.
+ * Internal property descriptor interface. Only intended for internal use.
  * 
  * @author garsombke.franz
  */
 public interface DozerPropertyDescriptorIF {
 
   public Class getPropertyType();
-  
-  public void setPropertyValue (Object bean, Object value, Hint hint, FieldMap fieldMap);
-  
+
+  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap);
+
   public Object getPropertyValue(Object bean);
-  
+
 }

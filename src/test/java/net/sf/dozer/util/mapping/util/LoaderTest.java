@@ -31,36 +31,36 @@ public class LoaderTest extends AbstractDozerTest {
   public void testResourceNotFound() throws Exception {
     assertNull("file URL should not have been found", loader.getResource(String.valueOf(System.currentTimeMillis())));
   }
-  
+
   public void testGetResource_FileOutsideOfClasspath() throws Exception {
     // Create temp file.
     File temp = File.createTempFile("dozerfiletest", ".txt");
-  
+
     // Delete temp file when program exits.
     temp.deleteOnExit();
 
     String resourceName = "file:" + temp.getAbsolutePath();
     URL url = loader.getResource(resourceName);
     assertNotNull("URL should not be null", url);
-    
+
     InputStream is = url.openStream();
     assertNotNull("input stream should not be null", is);
   }
-  
+
   public void testGetResource_FileOutsideOfClasspath_NotFound() throws Exception {
     URL url = loader.getResource("file:" + System.currentTimeMillis());
     assertNotNull("URL should not be null", url);
-    
+
     try {
       url.openStream();
       fail("should have thrown a file not found exception");
     } catch (IOException e) {
-      //expected
+      // expected
     }
   }
-  
+
   public void testGetResource_FileOutsideOfClasspath_InvalidFormat() throws Exception {
-    //when using a file outside of classpath the file name must be prepended with "file:"
+    // when using a file outside of classpath the file name must be prepended with "file:"
     URL url = loader.getResource(String.valueOf(System.currentTimeMillis()));
     assertNull("URL should be null", url);
   }

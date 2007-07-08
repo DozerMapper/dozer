@@ -26,18 +26,18 @@ import org.apache.commons.logging.LogFactory;
  * @author sullins.ben
  */
 public class TestCustomConverter implements CustomConverter {
-  
-  private static final Log log = LogFactory.getLog(TestCustomConverter.class);  
+
+  private static final Log log = LogFactory.getLog(TestCustomConverter.class);
 
   public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
     // show me the destClass and sourceClass
     log.debug("Source Class is:" + sourceClass.getName());
     log.debug("Dest Class is:" + destClass.getName());
-    
+
     if (source == null) {
       return null;
     }
-    
+
     CustomDoubleObjectIF dest = null;
     if (source instanceof Double) {
       // check to see if the object already exists
@@ -52,8 +52,8 @@ public class TestCustomConverter implements CustomConverter {
       double sourceObj = ((CustomDoubleObjectIF) source).getTheDouble();
       return new Double(sourceObj);
     } else {
-      throw new MappingException("Converter TestCustomConverter used incorrectly. Arguments passed in were:"
-          + destination + " and " + source);
+      throw new MappingException("Converter TestCustomConverter used incorrectly. Arguments passed in were:" + destination
+          + " and " + source);
     }
   }
 }

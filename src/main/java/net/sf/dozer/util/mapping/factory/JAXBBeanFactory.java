@@ -25,7 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Public custom bean factory that can be used by applition code when mapping JAXB data objects 
+ * Public custom bean factory that can be used by applition code when mapping JAXB data objects
  * 
  * @author Vincent Jassogne
  */
@@ -45,33 +45,32 @@ public class JAXBBeanFactory implements BeanFactoryIF {
    */
   public Object createBean(Object srcObj, Class srcObjClass, String beanId) {
     if (log.isDebugEnabled()) {
-      log.debug("createBean(Object, Class, String) - start [" + beanId +"]");
+      log.debug("createBean(Object, Class, String) - start [" + beanId + "]");
     }
 
     int indexOf = beanId.indexOf('$');
     if (indexOf > 0) {
       beanId = beanId.substring(0, indexOf) + beanId.substring(indexOf + 1);
       if (log.isDebugEnabled()) {
-        log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  ["+ beanId + "]");
+        log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  [" + beanId + "]");
       }
     }
     Object result = null;
-    
-      Class objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
-      Object factory = ReflectionUtils.newInstance(objectFactory);
-      Method method = null;
-      try {
-        method = ReflectionUtils.getMethod(objectFactory, "create" + beanId.substring(beanId.lastIndexOf(".") + 1), new Class[] {});
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
-      Object returnObject = ReflectionUtils.invoke(method, factory, new Object[] {});
-      if (log.isDebugEnabled()) {
-        log.debug("createBean(Object, Class, String) - end ["
-            + returnObject.getClass().getName() + "]");
-      }
-      result = returnObject;
-    
+
+    Class objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
+    Object factory = ReflectionUtils.newInstance(objectFactory);
+    Method method = null;
+    try {
+      method = ReflectionUtils.getMethod(objectFactory, "create" + beanId.substring(beanId.lastIndexOf(".") + 1), new Class[] {});
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    Object returnObject = ReflectionUtils.invoke(method, factory, new Object[] {});
+    if (log.isDebugEnabled()) {
+      log.debug("createBean(Object, Class, String) - end [" + returnObject.getClass().getName() + "]");
+    }
+    result = returnObject;
+
     return result;
   }
 }

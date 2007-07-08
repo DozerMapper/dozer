@@ -15,80 +15,80 @@
  */
 package net.sf.dozer.util.mapping.recursive;
 
-
 import java.util.TreeSet;
+
 /**  */
 public class TestClassAPrime {
-    /**  */
-    private String nom;
-    /**  */
-    private String prenom;
-    /** */
-    private TreeSet subs;
-    /**  */
-    private final int prime = 31;
-    /** {@inheritDoc} */
-    public final void addSubs(final TestClassBPrime value) {
-        if (value == null) {
-            return;
-        }
-        if (this.getSubs() == null) {
-            this.setSubs(new TreeSet());
-        }
-        this.getSubs().add(value);
-        if (value.getParent() != this) {
-            value.setParent(this);
-        }
+  /**  */
+  private String nom;
+  /**  */
+  private String prenom;
+  /** */
+  private TreeSet subs;
+  /**  */
+  private final int prime = 31;
+  /** {@inheritDoc} */
+  public final void addSubs(final TestClassBPrime value) {
+    if (value == null) {
+      return;
     }
-    /** {@inheritDoc} */
-    public String getNom() {
-        return this.nom;
+    if (this.getSubs() == null) {
+      this.setSubs(new TreeSet());
     }
-    /** {@inheritDoc} */
-    public void setNom(final String nom) {
-        this.nom = nom;
+    this.getSubs().add(value);
+    if (value.getParent() != this) {
+      value.setParent(this);
     }
-    /** {@inheritDoc} */
-    public String getPrenom() {
-        return this.prenom;
+  }
+  /** {@inheritDoc} */
+  public String getNom() {
+    return this.nom;
+  }
+  /** {@inheritDoc} */
+  public void setNom(final String nom) {
+    this.nom = nom;
+  }
+  /** {@inheritDoc} */
+  public String getPrenom() {
+    return this.prenom;
+  }
+  /** {@inheritDoc} */
+  public void setPrenom(final String prenom) {
+    this.prenom = prenom;
+  }
+  /** {@inheritDoc} */
+  public TreeSet getSubs() {
+    return this.subs;
+  }
+  /** {@inheritDoc} */
+  public void setSubs(final TreeSet subs) {
+    this.subs = subs;
+  }
+  /** {@inheritDoc} */
+  public int hashCode() {
+    int result = 1;
+    result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
+    return result;
+  }
+  /** {@inheritDoc} */
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
     }
-    /** {@inheritDoc} */
-    public void setPrenom(final String prenom) {
-        this.prenom = prenom;
+    if (obj == null) {
+      return false;
     }
-    /** {@inheritDoc} */
-    public TreeSet getSubs() {
-        return this.subs;
+    if (this.getClass() != obj.getClass()) {
+      return false;
     }
-    /** {@inheritDoc} */
-    public void setSubs(final TreeSet subs) {
-        this.subs = subs;
+    final TestClassAPrime other = (TestClassAPrime) obj;
+    if (this.nom == null) {
+      if (other.nom != null) {
+        return false;
+      }
+    } else if (!this.nom.equals(other.nom)) {
+      return false;
     }
-    /** {@inheritDoc} */
-    public int hashCode() {
-        int result = 1;
-        result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
-        return result;
-    }
-    /** {@inheritDoc} */
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestClassAPrime other = (TestClassAPrime) obj;
-        if (this.nom == null) {
-            if (other.nom != null) {
-                return false;
-            }
-        } else if (!this.nom.equals(other.nom)) {
-            return false;
-        }
-        return true;
-    }
+    return true;
+  }
 }

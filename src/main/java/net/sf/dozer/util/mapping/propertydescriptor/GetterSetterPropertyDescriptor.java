@@ -27,9 +27,9 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
  * 
- * Internal class used to read and write values for fields that have a getter and setter.  This class
- * encapsulates underlying dozer specific logic such as index mapping and deep mapping for reading and writing field
- * values. Only intended for internal use.
+ * Internal class used to read and write values for fields that have a getter and setter. This class encapsulates
+ * underlying dozer specific logic such as index mapping and deep mapping for reading and writing field values. Only
+ * intended for internal use.
  * 
  * @author garsombke.franz
  * @author tierney.matt
@@ -41,13 +41,13 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index) {
     super(clazz, fieldName, isIndexed, index);
   }
-  
+
   public abstract Method getWriteMethod() throws NoSuchMethodException;
   protected abstract void invokeWriteMethod(Object target, Object value) throws NoSuchMethodException;
 
   protected abstract Method getReadMethod() throws NoSuchMethodException;
   protected abstract Object invokeReadMethod(Object target) throws NoSuchMethodException;
-  
+
   protected abstract String getSetMethodName() throws NoSuchMethodException;
 
   public Class getPropertyType() {
@@ -101,9 +101,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     } else {
       writeDeepDestinationValue(bean, value, hint, fieldMap);
     }
-  }  
-  
-  
+  }
+
   private Object getDeepSrcFieldValue(Object srcObj) {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
@@ -171,14 +170,14 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         Method method = pd.getWriteMethod();
         try {
 
-        if (method == null && getSetMethodName() != null) {
-          // lets see if we can find a custom method
+          if (method == null && getSetMethodName() != null) {
+            // lets see if we can find a custom method
             method = ReflectionUtils.findAMethod(parentObj.getClass(), getSetMethodName());
-        }
+          }
         } catch (NoSuchMethodException e) {
           MappingUtils.throwMappingException(e);
         }
-        
+
         ReflectionUtils.invoke(method, parentObj, new Object[] { destFieldValue });
       } else {
         writeIndexedValue(pd, parentObj, destFieldValue);
@@ -225,7 +224,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       try {
         returnType = getWriteMethod().getParameterTypes()[0];
       } catch (NoSuchMethodException e1) {
-        MappingUtils.throwMappingException(e);      }
+        MappingUtils.throwMappingException(e);
+      }
     }
     return returnType;
   }

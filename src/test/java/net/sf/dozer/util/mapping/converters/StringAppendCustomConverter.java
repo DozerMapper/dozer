@@ -20,15 +20,15 @@ package net.sf.dozer.util.mapping.converters;
  * 
  */
 public class StringAppendCustomConverter implements CustomConverter {
-  
-  public static final String APPENDED_VALUE = "AppendedByCustomConverter:UseThisToTestThatCustomConverterWasActuallyUsed"; 
+
+  public static final String APPENDED_VALUE = "AppendedByCustomConverter:UseThisToTestThatCustomConverterWasActuallyUsed";
 
   public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
     StringBuffer result = new StringBuffer();
     result.append(source);
     result.append("-");
     result.append(APPENDED_VALUE);
-    return result.toString();    
+    return result.toString();
   }
 
 }

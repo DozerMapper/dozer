@@ -33,7 +33,7 @@ import net.sf.dozer.util.mapping.vo.SimpleObj;
  * @author tierney.matt
  */
 public class CollectionUtilsTest extends AbstractDozerTest {
-  
+
   public void testIsList() throws Exception {
     Object[] values = new Object[] { new ArrayList(), new Vector(), new LinkedList() };
 
@@ -57,7 +57,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
       assertTrue(CollectionUtils.isArray(values[i].getClass()));
     }
   }
-  
+
   public void testIsPrimitiveArray() throws Exception {
     Object[] values = new Object[] { new int[3], new long[2], new boolean[3] };
 
@@ -65,7 +65,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
       assertTrue(CollectionUtils.isPrimitiveArray(values[i].getClass()));
     }
   }
-  
+
   public void testIsPrimitiveArray_False() throws Exception {
     Object[] values = new Object[] { new String[3], new Date[2], new SimpleObj[3] };
 
@@ -86,18 +86,18 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     String[] input = new String[] { "zer", "one", "two", "three", "four" };
     assertEquals("invalid array size", input.length, CollectionUtils.getLengthOfCollection(input));
   }
-  
+
   public void testCreateNewSet_Default() throws Exception {
     Set result = CollectionUtils.createNewSet(Set.class);
     assertNotNull("new set should not be null", result);
   }
-  
+
   public void testCreateNewSet_SortedSetDefault() throws Exception {
     Set result = CollectionUtils.createNewSet(SortedSet.class);
     assertNotNull("new set should not be null", result);
     assertTrue("new set should be instance of SortedSet", result instanceof SortedSet);
   }
-  
+
   public void testCreateNewSet_FromExistingSet() throws Exception {
     Set src = new HashSet();
     src.add("test1");
@@ -106,18 +106,18 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     assertNotNull("new set should not be null", result);
     assertEquals("new set should equal src set", src, result);
   }
-  
+
   public void testConvertPrimitiveArrayToList() throws Exception {
-    int[] srcArray = new int[] {5, 10, 15};
-    
+    int[] srcArray = new int[] { 5, 10, 15 };
+
     List result = CollectionUtils.convertPrimitiveArrayToList(srcArray);
     assertEquals("invalid result size", srcArray.length, result.size());
-    
-    for(int i = 0; i < srcArray.length; i++) {
-      Integer srcValue = new Integer((int)srcArray[i]);
+
+    for (int i = 0; i < srcArray.length; i++) {
+      Integer srcValue = new Integer((int) srcArray[i]);
       Integer resultValue = (Integer) result.get(i);
       assertEquals("invalid result entry value", srcValue, resultValue);
     }
   }
-  
+
 }

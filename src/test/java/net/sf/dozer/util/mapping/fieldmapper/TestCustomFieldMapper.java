@@ -26,27 +26,26 @@ import net.sf.dozer.util.mapping.vo.SimpleObjPrime;
  * @author tierney.matt
  */
 public class TestCustomFieldMapper implements CustomFieldMapperIF {
-  
+
   public static String FIELD_VALUE = "This field was set on the dest object by the TestCustomFieldMapper";
-  
-  public boolean mapField(Object sourceObj, Object destObj, Object sourceFieldValue, 
-      ClassMap classMap, FieldMap fieldMapping) {
+
+  public boolean mapField(Object sourceObj, Object destObj, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) {
     boolean result = false;
-    
+
     if (!(sourceObj instanceof SimpleObj)) {
-      throw new MappingException("Unsupported source object type.  Should be of type: SimpleObj"); 
+      throw new MappingException("Unsupported source object type.  Should be of type: SimpleObj");
     }
 
     if (!(destObj instanceof SimpleObjPrime)) {
-      throw new MappingException("Unsupported dest object type.  Should be of type: SimpleObjPrime"); 
+      throw new MappingException("Unsupported dest object type.  Should be of type: SimpleObjPrime");
     }
-    
+
     if (fieldMapping.getSrcFieldName().equals("field1")) {
       ((SimpleObjPrime) destObj).setField1(FIELD_VALUE);
       result = true;
     }
-    
+
     return result;
   }
-  
+
 }

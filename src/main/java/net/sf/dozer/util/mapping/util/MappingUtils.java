@@ -34,7 +34,7 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Internal class that provides various mapping utilities used throughout the code base.  Only intended for internal use.
+ * Internal class that provides various mapping utilities used throughout the code base. Only intended for internal use.
  * 
  * @author garsombke.franz
  * @author sullins.ben
@@ -43,9 +43,9 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class MappingUtils {
 
-  //only making public temporarily while refactoring.  This static data should be relocated
+  // only making public temporarily while refactoring. This static data should be relocated
   public static final Map storedFactories = Collections.synchronizedMap(new HashMap());
-  
+
   public static String getClassNameWithoutPackage(Class clazz) {
     Package pckage = clazz.getPackage();
     int pckageIndex = 0;
@@ -69,28 +69,28 @@ public abstract class MappingUtils {
     return Map.class.isAssignableFrom(aClass);
   }
 
-  public static  boolean isPrimitiveOrWrapper(Class aClass) {
+  public static boolean isPrimitiveOrWrapper(Class aClass) {
     return (aClass.isPrimitive() || Number.class.isAssignableFrom(aClass) || aClass.equals(String.class)
-        || aClass.equals(Character.class) || aClass.equals(Boolean.class)
-        || java.util.Date.class.isAssignableFrom(aClass) || java.util.Calendar.class.isAssignableFrom(aClass));
+        || aClass.equals(Character.class) || aClass.equals(Boolean.class) || java.util.Date.class.isAssignableFrom(aClass) || java.util.Calendar.class
+        .isAssignableFrom(aClass));
   }
 
   public static void throwMappingException(Throwable e) throws MappingException {
     if (e instanceof MappingException) {
       // in this case we do not want to re-wrap an existing mapping exception
       throw (MappingException) e;
-    } else if (e instanceof RuntimeException){
-      //feature request 1561837.  Dont wrap any runtime exceptions in a MappingException
+    } else if (e instanceof RuntimeException) {
+      // feature request 1561837. Dont wrap any runtime exceptions in a MappingException
       throw (RuntimeException) e;
     } else {
       throw new MappingException(e);
     }
   }
-  
+
   public static void throwMappingException(String msg) throws MappingException {
     throw new MappingException(msg);
   }
-  
+
   public static void throwMappingException(String msg, Throwable cause) throws MappingException {
     throw new MappingException(msg, cause);
   }
@@ -111,7 +111,8 @@ public abstract class MappingUtils {
     return rootCause;
   }
 
-  public static String getParentFieldNameKey(String parentSrcField, Object srcObj, String srcClassName, String srcFieldName, String destFieldName) {
+  public static String getParentFieldNameKey(String parentSrcField, Object srcObj, String srcClassName, String srcFieldName,
+      String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
     buf.append(parentSrcField);
     buf.append(System.identityHashCode(srcObj));
@@ -120,36 +121,40 @@ public abstract class MappingUtils {
     buf.append(destFieldName);
     return buf.toString();
   }
-  
-  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, Class srcClass, Class destClass) {
-    if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
+
+  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer,
+      Class srcClass, Class destClass) {
+    if (customConverterContainer == null || customConverterContainer.getConverters() == null
+        || customConverterContainer.getConverters().size() < 1) {
       return null;
     }
 
     return customConverterContainer.getCustomConverter(srcClass, destClass, converterByDestTypeCache);
   }
- 
-  public static Class determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer, 
-      Class srcClass, Class destClass) {
-    if (customConverterContainer == null || customConverterContainer.getConverters() == null || customConverterContainer.getConverters().size() < 1) {
+
+  public static Class determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache,
+      CustomConverterContainer customConverterContainer, Class srcClass, Class destClass) {
+    if (customConverterContainer == null || customConverterContainer.getConverters() == null
+        || customConverterContainer.getConverters().size() < 1) {
       return null;
     }
-    
-    //This method is messy.  Just trying to isolate the junk into this one method instead of spread across the mapping processor until a better solution can be put into place
-    //For indexed mapping, need to use the actual class at index to determine the custom converter.
+
+    // This method is messy. Just trying to isolate the junk into this one method instead of spread across the mapping
+    // processor until a better solution can be put into place
+    // For indexed mapping, need to use the actual class at index to determine the custom converter.
     if (fieldMap != null && fieldMap.isDestFieldIndexed()) {
       if (destClass.isArray()) {
         destClass = destClass.getComponentType();
-      } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestTypeHint() != null && 
-          fieldMap.getDestTypeHint().getHints().size() < 2) {
-        //use hint when trying to find a custom converter
+      } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestTypeHint() != null
+          && fieldMap.getDestTypeHint().getHints().size() < 2) {
+        // use hint when trying to find a custom converter
         destClass = MappingUtils.loadClass(fieldMap.getDestTypeHint().getHintName());
       }
     }
 
     return findCustomConverter(converterByDestTypeCache, customConverterContainer, srcClass, destClass);
   }
-  
+
   public static void reverseFields(FieldMap source, FieldMap destination) {
     // reverse the fields
     DozerField df = new DozerField(source.getSrcFieldName(), source.getSrcFieldType());
@@ -177,7 +182,7 @@ public abstract class MappingUtils {
     destination.setSrcFieldMapGetMethod(source.getDestFieldMapGetMethod());
     destination.setSrcFieldMapSetMethod(source.getDestFieldMapSetMethod());
     destination.setSrcFieldAccessible(source.isDestFieldAccessible());
-    destination.setDestFieldAccessible(source.isSrcFieldAccessible());    
+    destination.setDestFieldAccessible(source.isSrcFieldAccessible());
     destination.setMapId(source.getMapId());
     destination.setDestFieldCreateMethod(source.getSrcFieldCreateMethod());
     destination.setSrcFieldCreateMethod(source.getDestFieldCreateMethod());
@@ -185,15 +190,15 @@ public abstract class MappingUtils {
     destination.setSrcTypeHint(source.getDestTypeHint());
     destination.setDestTypeHint(source.getSrcTypeHint());
   }
-  
+
   public static void reverseFields(ClassMap source, ClassMap destination) {
     // reverse the fields
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
-        source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
-        source.isDestClassMapNull(), source.isDestClassMapEmptyString()));
-    destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(),
-        source.getSrcClassBeanFactory(), source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
-        source.isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
+        source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(), source
+            .isDestClassMapNull(), source.isDestClassMapEmptyString()));
+    destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
+        source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(), source
+            .isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
     destination.setDateFormat(source.getDateFormat());
@@ -205,7 +210,7 @@ public abstract class MappingUtils {
       destination.setMapId(source.getMapId());
     }
   }
-  
+
   public static Object getIndexedValue(Object collection, int index) {
     Object r = null;
     if (collection instanceof Object[]) {
@@ -225,7 +230,7 @@ public abstract class MappingUtils {
     }
     return r;
   }
-  
+
   public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
     String destFieldTypeName = null;
     if (globalConfig.getCopyByReferences() != null) {
@@ -242,7 +247,7 @@ public abstract class MappingUtils {
       }
     }
   }
-  
+
   public static Class loadClass(String name) {
     Class result = null;
     try {
@@ -252,5 +257,5 @@ public abstract class MappingUtils {
     }
     return result;
   }
-  
+
 }

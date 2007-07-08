@@ -16,15 +16,16 @@
 package net.sf.dozer.util.mapping.converters;
 
 /**
- * Public custom converter interface.  
+ * Public custom converter interface.
  * 
- * In the Dozer mapping file(s), you can add some XML to tell Dozer to use a custom converter for certain 
- * class A and class B types. When a custom converter is specified for a class A and class B combination, 
- * Dozer will invoke the custom converter to perform the data mapping instead of the standard mapping logic.
+ * In the Dozer mapping file(s), you can add some XML to tell Dozer to use a custom converter for certain class A and
+ * class B types. When a custom converter is specified for a class A and class B combination, Dozer will invoke the
+ * custom converter to perform the data mapping instead of the standard mapping logic.
  * 
  * <p>
- * <a href="http://dozer.sourceforge.net/documentation/customconverter.html">http://dozer.sourceforge.net/documentation/customconverter.html</a>
-
+ * <a
+ * href="http://dozer.sourceforge.net/documentation/customconverter.html">http://dozer.sourceforge.net/documentation/customconverter.html</a>
+ * 
  * 
  * @author sullins.ben
  * @author garsombke.franz
@@ -32,5 +33,5 @@ package net.sf.dozer.util.mapping.converters;
  * 
  */
 public interface CustomConverter {
-    public Object convert( Object existingDestinationFieldValue, Object sourceFieldValue , Class destinationClass, Class sourceClass);
+  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class destinationClass, Class sourceClass);
 }

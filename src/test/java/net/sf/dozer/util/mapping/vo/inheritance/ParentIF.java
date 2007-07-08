@@ -16,8 +16,8 @@
 package net.sf.dozer.util.mapping.vo.inheritance;
 
 public interface ParentIF {
- 
+
   public String getParentField();
   public void setParentField(String parentField);
-  
+
 }

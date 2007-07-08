@@ -29,7 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class that performs one time Dozer initializations.  Only intended for internal use.
+ * Internal class that performs one time Dozer initializations. Only intended for internal use.
  * 
  * @author tierney.matt
  */
@@ -59,8 +59,8 @@ public class DozerInitializer {
         try {
           registerJMXBeans();
         } catch (Throwable t) {
-          log.warn("Unable to register Dozer JMX MBeans with the PlatformMBeanServer.  Dozer will still function " +
-              "normally, but management via JMX may not be available", t);
+          log.warn("Unable to register Dozer JMX MBeans with the PlatformMBeanServer.  Dozer will still function "
+              + "normally, but management via JMX may not be available", t);
         }
       }
     }
@@ -82,7 +82,7 @@ public class DozerInitializer {
 
     return result;
   }
-  
+
   protected static boolean isInitialized() {
     return isInitialized;
   }
@@ -90,8 +90,8 @@ public class DozerInitializer {
   /*
    * Auto register Dozer JMX mbeans for jdk 1.5 users
    */
-  private static void registerJMXBeans() throws ClassNotFoundException, InvocationTargetException,
-      NoSuchMethodException, IllegalAccessException, InstantiationException {
+  private static void registerJMXBeans() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException,
+      IllegalAccessException, InstantiationException {
     registerJMXBean("net.sf.dozer.util.mapping.jmx:type=DozerStatisticsController", new DozerStatisticsController());
     registerJMXBean("net.sf.dozer.util.mapping.jmx:type=DozerAdminController", new DozerAdminController());
   }
@@ -110,7 +110,8 @@ public class DozerInitializer {
     Object mbeanObjectName = objectNameConstructor.newInstance(new Object[] { mbeanName });
     Object mbs = mgmtFactoryClass.getMethod("getPlatformMBeanServer", null).invoke(null, null);
 
-    //Check if MBean is already registered.  If so, unregister it.  This is primarily to handle app redeployment use cases.
+    // Check if MBean is already registered. If so, unregister it. This is primarily to handle app redeployment use
+    // cases.
     Method isMBeanRegisteredMethod = mbsClass.getMethod("isRegistered", new Class[] { objectNameClass });
     Boolean isMBeanRegistered = (Boolean) isMBeanRegisteredMethod.invoke(mbs, new Object[] { mbeanObjectName });
     if (isMBeanRegistered.booleanValue()) {
@@ -118,8 +119,8 @@ public class DozerInitializer {
       Method unregisterMBeanMethod = mbsClass.getMethod("unregisterMBean", new Class[] { objectNameClass });
       unregisterMBeanMethod.invoke(mbs, new Object[] { mbeanObjectName });
     }
-    
-    //Register mbean
+
+    // Register mbean
     Method registerMBeanMethod = mbsClass.getMethod("registerMBean", new Class[] { Object.class, objectNameClass });
     registerMBeanMethod.invoke(mbs, new Object[] { mbean, mbeanObjectName });
     InitLogger.log(log, "Dozer JMX MBean [" + mbeanName + "] auto registered with the Platform MBean Server");

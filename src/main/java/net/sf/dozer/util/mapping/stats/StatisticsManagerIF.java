@@ -12,15 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.stats;
 
 import java.util.Set;
 
 /**
- * Internal interface for managing statistics.
- * Only intended for internal use.
- *  
+ * Internal interface for managing statistics. Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public interface StatisticsManagerIF extends StatisticsIF {
@@ -28,7 +27,7 @@ public interface StatisticsManagerIF extends StatisticsIF {
   public Statistic getStatistic(String statisticType);
   public long getStatisticValue(String statisticType);
   public boolean statisticExists(String statisticType);
-  
+
   public void increment(String statisticType);
   public void increment(String statisticType, long value);
   public void increment(String statisticType, Object statisticEntryKey);

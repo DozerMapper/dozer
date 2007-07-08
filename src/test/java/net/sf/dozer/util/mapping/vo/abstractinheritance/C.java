@@ -17,7 +17,6 @@ package net.sf.dozer.util.mapping.vo.abstractinheritance;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 public class C extends BaseTestObject {
 
 }

@@ -19,7 +19,7 @@ package net.sf.dozer.util.mapping.vo;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class InsideTestObjectPrime extends BaseTestObject {
 
@@ -28,7 +28,7 @@ public class InsideTestObjectPrime extends BaseTestObject {
   private MyPrimitiveWrapper anotherWrapper;
   private String createdByFactoryName;
   private NoExtendBaseObject copyByReference;
-  private String deepInterfaceString;  
+  private String deepInterfaceString;
   private String myField;
 
   public InsideTestObjectPrime() {
@@ -43,7 +43,8 @@ public class InsideTestObjectPrime extends BaseTestObject {
   }
 
   /**
-   * @param wrapper The wrapper to set.
+   * @param wrapper
+   *          The wrapper to set.
    */
   public void setWrapper(MyPrimitiveWrapper wrapper) {
     this.wrapper = wrapper;
@@ -57,7 +58,8 @@ public class InsideTestObjectPrime extends BaseTestObject {
   }
 
   /**
-   * @param labelPrime The labelPrime to set.
+   * @param labelPrime
+   *          The labelPrime to set.
    */
   public void setLabelPrime(String labelPrime) {
     this.labelPrime = labelPrime;
@@ -71,7 +73,8 @@ public class InsideTestObjectPrime extends BaseTestObject {
   }
 
   /**
-   * @param anotherWrapper The anotherWrapper to set.
+   * @param anotherWrapper
+   *          The anotherWrapper to set.
    */
   public void setAnotherWrapper(MyPrimitiveWrapper anotherWrapper) {
     this.anotherWrapper = anotherWrapper;
@@ -92,9 +95,9 @@ public class InsideTestObjectPrime extends BaseTestObject {
   public void setCopyByReference(NoExtendBaseObject copyByReference) {
     this.copyByReference = copyByReference;
   }
-  
+
   public static InsideTestObjectPrime createMethod() {
-    InsideTestObjectPrime itop = new InsideTestObjectPrime ();
+    InsideTestObjectPrime itop = new InsideTestObjectPrime();
     itop.setMyField("myField");
     return itop;
   }

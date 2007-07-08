@@ -27,67 +27,67 @@ import net.sf.dozer.util.mapping.vo.Van;
  * @author tierney.matt
  */
 public class House extends BaseTestObject {
-    private List rooms;
-    private Person owner;
-    private int price;
-    private Van van;
-    private Address address;
-    private MetalThingyIF thingy;
-    private List customSetGetMethod;
+  private List rooms;
+  private Person owner;
+  private int price;
+  private Van van;
+  private Address address;
+  private MetalThingyIF thingy;
+  private List customSetGetMethod;
 
-    public Address getAddress() {
-        return address;
-    }
+  public Address getAddress() {
+    return address;
+  }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+  public void setAddress(Address address) {
+    this.address = address;
+  }
 
-    public Person getOwner() {
-        return owner;
-    }
+  public Person getOwner() {
+    return owner;
+  }
 
-    public void setOwner(Person owner) {
-        this.owner = owner;
-    }
+  public void setOwner(Person owner) {
+    this.owner = owner;
+  }
 
-    public int getPrice() {
-        return price;
-    }
+  public int getPrice() {
+    return price;
+  }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
+  public void setPrice(int price) {
+    this.price = price;
+  }
 
-    public List getRooms() {
-        return rooms;
-    }
+  public List getRooms() {
+    return rooms;
+  }
 
-    public void setRooms(List rooms) {
-        this.rooms = rooms;
-    }
+  public void setRooms(List rooms) {
+    this.rooms = rooms;
+  }
 
-    public Van getVan() {
-      return van;
-    }
+  public Van getVan() {
+    return van;
+  }
 
-    public void setVan(Van van) {
-      this.van = van;
-    }
+  public void setVan(Van van) {
+    this.van = van;
+  }
 
-    public MetalThingyIF getThingy() {
-      return thingy;
-    }
+  public MetalThingyIF getThingy() {
+    return thingy;
+  }
 
-    public void setThingy(MetalThingyIF thingy) {
-      this.thingy = thingy;
-    }
+  public void setThingy(MetalThingyIF thingy) {
+    this.thingy = thingy;
+  }
 
-    public List getCustomSetGetMethod() {
-      return customSetGetMethod;
-    }
+  public List getCustomSetGetMethod() {
+    return customSetGetMethod;
+  }
 
-    public void setCustomSetGetMethod(List customSetMethod) {
-      this.customSetGetMethod = customSetMethod;
-    }
+  public void setCustomSetGetMethod(List customSetMethod) {
+    this.customSetGetMethod = customSetMethod;
+  }
 }

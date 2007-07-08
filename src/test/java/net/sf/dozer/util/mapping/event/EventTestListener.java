@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
 public class EventTestListener implements DozerEventListener {
 
   private static final Log log = LogFactory.getLog(EventTestListener.class);
-  
+
   public void mappingStarted(DozerEvent event) {
     log.debug("mappingStarted Called with:" + event.getClassMap().getDestClassToMap());
   }

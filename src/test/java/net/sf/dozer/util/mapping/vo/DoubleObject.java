@@ -21,7 +21,7 @@ import java.io.Serializable;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class DoubleObject implements Serializable {
   private double value;

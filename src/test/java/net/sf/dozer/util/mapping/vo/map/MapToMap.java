@@ -21,10 +21,10 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 /**
  * @author garsombke.franz
- *
+ * 
  */
 public class MapToMap extends BaseTestObject {
-  
+
   private Map standardMap;
   private Map standardMapWithHint;
 

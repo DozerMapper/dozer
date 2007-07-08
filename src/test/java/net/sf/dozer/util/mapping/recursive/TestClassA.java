@@ -15,85 +15,86 @@
  */
 package net.sf.dozer.util.mapping.recursive;
 
-
 import java.util.TreeSet;
+
 /**
  * .
+ * 
  * @author ADE
- *
+ * 
  */
 public class TestClassA {
-    /**  */
-    private String nom;
-    /** */
-    private String prenom;
-    /**  */
-    private TreeSet subs;
-    /** {@inheritDoc} */
-    private final int prime = 31;
-    /** {@inheritDoc} */
-    public final void addSubs(final TestClassB value) {
-        if (value == null) {
-            return;
-        }
-        if (this.getSubs() == null) {
-            this.setSubs(new TreeSet ());
-        }
-        this.getSubs().add(value);
-        if (value.getParent() != this) {
-            value.setParent(this);
-        }
+  /**  */
+  private String nom;
+  /** */
+  private String prenom;
+  /**  */
+  private TreeSet subs;
+  /** {@inheritDoc} */
+  private final int prime = 31;
+  /** {@inheritDoc} */
+  public final void addSubs(final TestClassB value) {
+    if (value == null) {
+      return;
     }
-    /** {@inheritDoc} */
-    public int hashCode() {
-        int result = 1;
-        result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
-        return result;
+    if (this.getSubs() == null) {
+      this.setSubs(new TreeSet());
     }
-    /** {@inheritDoc} */
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        final TestClassA other = (TestClassA) obj;
-        if (this.nom == null) {
-            if (other.nom != null) {
-                return false;
-            }
-        } else if (!this.nom.equals(other.nom)) {
-            return false;
-        }
-        return true;
+    this.getSubs().add(value);
+    if (value.getParent() != this) {
+      value.setParent(this);
     }
+  }
+  /** {@inheritDoc} */
+  public int hashCode() {
+    int result = 1;
+    result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
+    return result;
+  }
+  /** {@inheritDoc} */
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+    final TestClassA other = (TestClassA) obj;
+    if (this.nom == null) {
+      if (other.nom != null) {
+        return false;
+      }
+    } else if (!this.nom.equals(other.nom)) {
+      return false;
+    }
+    return true;
+  }
 
-    /** {@inheritDoc} */
-    public String getNom() {
-        return this.nom;
-    }
-    /** {@inheritDoc} */
-    public void setNom(final String nom) {
-        this.nom = nom;
-    }
-    /** {@inheritDoc} */
-    public String getPrenom() {
-        return this.prenom;
-    }
-    /** {@inheritDoc} */
-    public void setPrenom(final String prenom) {
-        this.prenom = prenom;
-    }
-    /** {@inheritDoc} */
-    public TreeSet getSubs() {
-        return this.subs;
-    }
-    /** {@inheritDoc} */
-    public void setSubs(final TreeSet subs) {
-        this.subs = subs;
-    }
+  /** {@inheritDoc} */
+  public String getNom() {
+    return this.nom;
+  }
+  /** {@inheritDoc} */
+  public void setNom(final String nom) {
+    this.nom = nom;
+  }
+  /** {@inheritDoc} */
+  public String getPrenom() {
+    return this.prenom;
+  }
+  /** {@inheritDoc} */
+  public void setPrenom(final String prenom) {
+    this.prenom = prenom;
+  }
+  /** {@inheritDoc} */
+  public TreeSet getSubs() {
+    return this.subs;
+  }
+  /** {@inheritDoc} */
+  public void setSubs(final TreeSet subs) {
+    this.subs = subs;
+  }
 }

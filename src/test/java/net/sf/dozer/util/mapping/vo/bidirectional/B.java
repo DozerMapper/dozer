@@ -1,7 +1,7 @@
 package net.sf.dozer.util.mapping.vo.bidirectional;
 
 public class B {
-	private A field1;
+  private A field1;
 
   public A getField1() {
     return field1;
@@ -10,5 +10,5 @@ public class B {
   public void setField1(A field1) {
     this.field1 = field1;
   }
-  
+
 }

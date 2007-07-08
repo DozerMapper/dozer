@@ -19,29 +19,23 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 public class BaseSubClassCombined extends BaseTestObject {
 
-    private String subAttribute2;
-    private String baseAttribute2;
+  private String subAttribute2;
+  private String baseAttribute2;
 
-    public String getBaseAttribute2() {
-        return baseAttribute2;
-    }
-    
+  public String getBaseAttribute2() {
+    return baseAttribute2;
+  }
 
+  public void setBaseAttribute2(String baseAttribute) {
+    this.baseAttribute2 = baseAttribute;
+  }
 
-    public void setBaseAttribute2(String baseAttribute) {
-        this.baseAttribute2 = baseAttribute;
-    }
-    
+  public String getSubAttribute2() {
+    return subAttribute2;
+  }
 
+  public void setSubAttribute2(String subAttribute) {
+    this.subAttribute2 = subAttribute;
+  }
 
-    public String getSubAttribute2() {
-        return subAttribute2;
-    }
-    
-
-    public void setSubAttribute2(String subAttribute) {
-        this.subAttribute2 = subAttribute;
-    }
-    
-    
 }

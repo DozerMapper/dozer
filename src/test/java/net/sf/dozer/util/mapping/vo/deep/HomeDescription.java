@@ -24,40 +24,40 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  * @author tierney.matt
  */
 public class HomeDescription extends BaseTestObject {
-    private Description description;
-    private long[] prim;
-    private double price;
-    private Apple van;
+  private Description description;
+  private long[] prim;
+  private double price;
+  private Apple van;
 
-    public double getPrice() {
-        return price;
-    }
+  public double getPrice() {
+    return price;
+  }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+  public void setPrice(double price) {
+    this.price = price;
+  }
 
-    public Description getDescription() {
-        return description;
-    }
+  public Description getDescription() {
+    return description;
+  }
 
-    public void setDescription(Description description) {
-        this.description = description;
-    }
+  public void setDescription(Description description) {
+    this.description = description;
+  }
 
-    public long[] getPrim() {
-        return prim;
-    }
+  public long[] getPrim() {
+    return prim;
+  }
 
-    public void setPrim(long[] prim) {
-        this.prim = prim;
-    }
+  public void setPrim(long[] prim) {
+    this.prim = prim;
+  }
 
-    public Apple getVan() {
-      return van;
-    }
+  public Apple getVan() {
+    return van;
+  }
 
-    public void setVan(Apple van) {
-      this.van = van;
-    }
+  public void setVan(Apple van) {
+    this.van = van;
+  }
 }

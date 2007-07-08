@@ -22,9 +22,6 @@ import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.util.MappingFileReader;
-import net.sf.dozer.util.mapping.util.MappingUtils;
-import net.sf.dozer.util.mapping.util.MappingsParser;
 
 /**
  * @author tierney.matt
@@ -63,7 +60,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertNotNull("result should not be null", result);
     assertEquals("invalid result value", "String", result);
   }
-  
+
   public void testThrowMappingException_MappingException() {
     MappingException ex = new MappingException(String.valueOf(System.currentTimeMillis()));
     try {
@@ -73,9 +70,9 @@ public class MappingUtilsTest extends AbstractDozerTest {
       assertEquals("invalid ex", ex, e);
     }
   }
-  
+
   public void testThrowMappingException_RuntimeException() {
-    //Runtime ex should not get wrapped in MappingException
+    // Runtime ex should not get wrapped in MappingException
     NullPointerException ex = new NullPointerException(String.valueOf(System.currentTimeMillis()));
     try {
       MappingUtils.throwMappingException(ex);
@@ -86,9 +83,9 @@ public class MappingUtilsTest extends AbstractDozerTest {
       fail("NullPointerException should have been thrown");
     }
   }
-  
+
   public void testThrowMappingException_CheckedException() {
-    //Checked exception should get wrapped in MappingException
+    // Checked exception should get wrapped in MappingException
     NoSuchFieldException ex = new NoSuchFieldException(String.valueOf(System.currentTimeMillis()));
     try {
       MappingUtils.throwMappingException(ex);
@@ -99,5 +96,5 @@ public class MappingUtilsTest extends AbstractDozerTest {
       fail("MappingException should have been thrown");
     }
   }
-  
+
 }

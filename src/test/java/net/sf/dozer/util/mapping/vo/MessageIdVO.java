@@ -16,22 +16,22 @@
 package net.sf.dozer.util.mapping.vo;
 
 /**
- * @author Wahid Bashirazad 
+ * @author Wahid Bashirazad
  */
 public class MessageIdVO {
 
-	private String id;
+  private String id;
 
-	public MessageIdVO(String id) {
-		this.id = id;
-	}
+  public MessageIdVO(String id) {
+    this.id = id;
+  }
 
-	public String getId() {
-		return id;
-	}
+  public String getId() {
+    return id;
+  }
 
-	public void setId(String id) {
-		this.id = id;
-	}
-  
+  public void setId(String id) {
+    this.id = id;
+  }
+
 }

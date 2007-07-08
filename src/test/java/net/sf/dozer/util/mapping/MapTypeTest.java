@@ -37,126 +37,125 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 
-
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class MapTypeTest extends AbstractDozerTest {
-  
+
   public void testMapToVo() throws Exception {
-    //Test simple Map --> Vo with custom mappings defined.
-    mapper = getNewMapper(new String[] {"mapMapping2.xml"});
+    // Test simple Map --> Vo with custom mappings defined.
+    mapper = getNewMapper(new String[] { "mapMapping2.xml" });
 
     NestedObj nestedObj = new NestedObj();
     nestedObj.setField1("nestedfield1value");
     Map src = new HashMap();
     src.put("field1", "mapnestedfield1value");
     src.put("nested", nestedObj);
-    
+
     SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class, "caseA");
     assertEquals(src.get("field1"), result.getField1());
     assertEquals(nestedObj.getField1(), result.getNested().getField1());
   }
-  
+
   public void testMapToVo_CustomMappings() throws Exception {
-    //Test simple Map --> Vo with custom mappings defined.
-    mapper = getNewMapper(new String[] {"mapMapping2.xml"});
+    // Test simple Map --> Vo with custom mappings defined.
+    mapper = getNewMapper(new String[] { "mapMapping2.xml" });
     Map src = new HashMap();
     src.put("field1", "field1value");
     src.put("field2", "field2value");
-    
+
     SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class, "caseB");
     assertNull(result.getField1());
     assertEquals(src.get("field2"), result.getField2());
   }
-  
+
   public void testMapToVoUsingMapId() {
-    //Simple map --> vo using a map-id
-    mapper = super.getNewMapper(new String[]{"mapMapping.xml"});
+    // Simple map --> vo using a map-id
+    mapper = super.getNewMapper(new String[] { "mapMapping.xml" });
     Map src = new HashMap();
     src.put("field1", "field1value");
     src.put("field2", "field2value");
-    
+
     NestedObjPrime dest = (NestedObjPrime) mapper.map(src, NestedObjPrime.class, "caseB");
     assertEquals(src.get("field1"), dest.getField1());
     assertEquals(src.get("field2"), dest.getField2());
   }
-  
+
   public void testMapToVoUsingMapId_FieldExclude() {
-    //Simple map --> vo using a map-id
-    mapper = super.getNewMapper(new String[]{"mapMapping.xml"});
+    // Simple map --> vo using a map-id
+    mapper = super.getNewMapper(new String[] { "mapMapping.xml" });
     Map src = new HashMap();
     src.put("field1", "field1value");
     src.put("field2", "field2value");
-    
+
     NestedObjPrime dest = (NestedObjPrime) mapper.map(src, NestedObjPrime.class, "caseC");
     assertNull("field was excluded and should be null", dest.getField1());
     assertEquals(src.get("field2"), dest.getField2());
   }
-  
+
   public void testNestedMapToVoUsingMapId() {
-    //Another test for nested Map --> Vo using <field map-id=....>
-    mapper = super.getNewMapper(new String[]{"mapMapping.xml"});
+    // Another test for nested Map --> Vo using <field map-id=....>
+    mapper = super.getNewMapper(new String[] { "mapMapping.xml" });
 
     SimpleObj src = new SimpleObj();
 
     src.setField1("field1");
-    
+
     NestedObj nested = new NestedObj();
     nested.setField1("nestedfield1");
     src.setNested(nested);
-    
+
     Map nested2 = new HashMap();
     nested2.put("field1", "field1MapValue");
     src.setNested2(nested2);
 
     SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class, "caseA2");
-    
-    assertNull(result.getNested2().getField1());//field was excluded
+
+    assertNull(result.getNested2().getField1());// field was excluded
     assertEquals(src.getField1(), result.getField1());
     assertEquals(src.getNested().getField1(), result.getNested().getField1());
   }
-  
+
   public void testMapToVo_NoCustomMappings() throws Exception {
-    //Test simple Map --> Vo without any custom mappings defined.
+    // Test simple Map --> Vo without any custom mappings defined.
     NestedObj nestedObj = new NestedObj();
     nestedObj.setField1("nestedfield1value");
     Map src = new HashMap();
     src.put("field1", "mapnestedfield1value");
     src.put("nested", nestedObj);
-    
+
     SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
     assertEquals(src.get("field1"), result.getField1());
     assertEquals(nestedObj.getField1(), result.getNested().getField1());
   }
-  
+
   public void testVoToMap_NoCustomMappings() throws Exception {
-    //Test simple Vo --> Map without any custom mappings defined.
+    // Test simple Vo --> Map without any custom mappings defined.
     SimpleObjPrime src = new SimpleObjPrime();
     src.setField1("someValueField1");
     src.setField2("someValueField2");
     src.setSimpleobjprimefield("someOtherValue");
-    
+
     NestedObjPrime nested = new NestedObjPrime();
     nested.setField1("field1Value");
     nested.setField2("field2Value");
     src.setNested(nested);
-    
+
     NestedObjPrime nested2 = new NestedObjPrime();
     src.setNested2(nested2);
-    
-    //Map complex object to HashMap
+
+    // Map complex object to HashMap
     Map destMap = new HashMap();
     mapper.map(src, destMap);
-    
-    //Map HashMap back to new instance of the complex object
+
+    // Map HashMap back to new instance of the complex object
     SimpleObjPrime mappedSrc = (SimpleObjPrime) mapper.map(destMap, SimpleObjPrime.class);
-    
-    //Remapped complex type should equal original src if all fields were mapped both ways.
+
+    // Remapped complex type should equal original src if all fields were mapped both ways.
     assertEquals(src, mappedSrc);
   }
-  
+
   public void testMapToMap() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
     TestObject to = new TestObject();
@@ -207,7 +206,7 @@ public class MapTypeTest extends AbstractDozerTest {
     assertEquals(2, ((TestObject) mtmp.getStandardMap().get("to2")).getTwo().intValue());
     assertEquals("one", ((TestObject) mtmp.getStandardMap().get("toDest")).getOne());
   }
-  
+
   public void testPropertyClassLevelMap() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     PropertyToMap ptm = new PropertyToMap();
@@ -227,7 +226,7 @@ public class MapTypeTest extends AbstractDozerTest {
     assertEquals("stringPropertyValue", custom.getValue("stringProperty"));
     assertEquals("myValue", custom.getValue("myKey"));
   }
-  
+
   public void testPropertyClassLevelMap2() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     PropertyToMap ptm = new PropertyToMap();
@@ -257,7 +256,7 @@ public class MapTypeTest extends AbstractDozerTest {
     mapper.map(map, property, "myTestMapping");
     assertEquals("myValue", property.getStringProperty3());
   }
-  
+
   public void testPropertyToMap() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     PropertyToMap ptm = new PropertyToMap();
@@ -375,24 +374,25 @@ public class MapTypeTest extends AbstractDozerTest {
     assertNull(mto2.getPropertyToCustomMap().getExcludeMe());
     assertEquals("stringPropertyValue", mto2.getPropertyToCustomMapMapWithInterface().getValue("stringProperty"));
   }
-  
+
   public void testMapGetSetMethod_ClassLevel() throws Exception {
-    runMapGetSetMethodTest("useCase1");  }
-  
+    runMapGetSetMethodTest("useCase1");
+  }
+
   public void testMapGetSetMethod_FieldLevel() throws Exception {
     runMapGetSetMethodTest("useCase2");
   }
-  
+
   private void runMapGetSetMethodTest(String mapId) throws Exception {
-    //Test that custom field converter works for Custom Map Types
-    mapper = getNewMapper(new String[]{"mapGetSetMethodMapping.xml"});
+    // Test that custom field converter works for Custom Map Types
+    mapper = getNewMapper(new String[] { "mapGetSetMethodMapping.xml" });
     CustomMap src = new CustomMap();
     src.putValue("fieldA", "someStringValue");
     src.putValue("field2", "someOtherStringValue");
     src.putValue("fieldC", "1");
     src.putValue("fieldD", "2");
     src.putValue("fieldE", "10-15-2005");
-      
+
     SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class, mapId);
     assertEquals("wrong value for field1", src.getValue("fieldA"), dest.getField1());
     assertEquals("wrong value for field2", src.getValue("field2"), dest.getField2());
@@ -403,11 +403,10 @@ public class MapTypeTest extends AbstractDozerTest {
     assertEquals(expected.get(Calendar.YEAR), dest.getField5().get(Calendar.YEAR));
     assertEquals(Calendar.OCTOBER, dest.getField5().get(Calendar.MONTH));
     assertEquals(expected.get(Calendar.DATE), dest.getField5().get(Calendar.DATE));
-    
-    //Remap to test bi-directional mapping
+
+    // Remap to test bi-directional mapping
     CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class, mapId);
     assertTrue("remapped src should equal original src", EqualsBuilder.reflectionEquals(src.getMap(), remappedSrc.getMap()));
   }
-  
 
 }

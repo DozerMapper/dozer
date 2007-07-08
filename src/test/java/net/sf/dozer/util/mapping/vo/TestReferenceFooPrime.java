@@ -28,10 +28,10 @@ public class TestReferenceFooPrime extends BaseTestObject {
     }
   }
 
-  public int hashCode (){
+  public int hashCode() {
     return 'x';
   }
-  
+
   public String getA() {
     return a;
   }

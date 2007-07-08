@@ -40,7 +40,8 @@ import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
 public class KnownFailures extends AbstractDozerTest {
 
   /*
-   * 7-06-07 This test started failing as a result of the Mapped backed property refactoring.  Need to resolve prior to releasing 3.5
+   * 7-06-07 This test started failing as a result of the Mapped backed property refactoring. Need to resolve prior to
+   * releasing 3.5
    */
   public void testStringToIndexedSet_UsingMapSetMethod() {
     mapper = getNewMapper(new String[] { "indexMapping.xml" });
@@ -57,11 +58,9 @@ public class KnownFailures extends AbstractDozerTest {
     assertEquals("invalid key for dest object", "stringProperty", ((FieldValue) entry).getKey());
   }
 
-  
-  
   /*
-   * Feature Request #1731158.  Need a way to explicitly specify a mapping between a custom data object 
-   * and String.  Not sure the best way to do this.  Copy by reference doesnt seem like a good fit. 
+   * Feature Request #1731158. Need a way to explicitly specify a mapping between a custom data object and String. Not
+   * sure the best way to do this. Copy by reference doesnt seem like a good fit.
    */
   public void testListOfCustomObjectsToStringArray() {
     List mappingFiles = new ArrayList();
@@ -79,7 +78,7 @@ public class KnownFailures extends AbstractDozerTest {
     assertEquals("1", result.getIdList().getMsgIdsArray()[0]);
     assertEquals("2", result.getIdList().getMsgIdsArray()[1]);
   }
-  
+
   // Failure discovered during development of an unrelated map type feature request
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
     // Simple test checking that Maps get mapped to a VO without any custom mappings or map-id.
@@ -118,5 +117,5 @@ public class KnownFailures extends AbstractDozerTest {
     assertNull(result.getNested2().getField1());// field exclude in mappings file
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
-  
+
 }

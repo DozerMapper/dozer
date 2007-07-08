@@ -66,7 +66,7 @@ public class MapToProperty extends BaseTestObject {
   public void setNullCustomMap(CustomMapIF nullCustomMap) {
     this.nullCustomMap = nullCustomMap;
   }
-  
+
   public CustomMapIF getCustomMapWithDiffSetMethod() {
     return customMapWithDiffSetMethod;
   }

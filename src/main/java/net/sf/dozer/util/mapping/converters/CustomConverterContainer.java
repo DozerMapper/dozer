@@ -23,7 +23,7 @@ import net.sf.dozer.util.mapping.cache.CacheEntry;
 import net.sf.dozer.util.mapping.cache.CacheKeyFactory;
 
 /**
- * Internal class for holding custom converter definitions.  Only intended for internal use.
+ * Internal class for holding custom converter definitions. Only intended for internal use.
  * 
  * @author sullins.ben
  */
@@ -44,7 +44,7 @@ public class CustomConverterContainer {
   }
 
   public Class getCustomConverter(Class srcClass, Class destClass, Cache converterByDestTypeCache) {
-    //If no converters have been specified, no point in continuing.  Just return.
+    // If no converters have been specified, no point in continuing. Just return.
     if (converters == null || converters.size() < 1) {
       return null;
     }
@@ -55,13 +55,13 @@ public class CustomConverterContainer {
     if (c != null) {
       src = c;
     }
-    
+
     Class dest = destClass;
     c = getWrapper(destClass);
     if (c != null) {
       dest = c;
-    }    
-    
+    }
+
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(new Object[] { dest, src });
     CacheEntry cacheEntry = converterByDestTypeCache.get(cacheKey);
@@ -69,7 +69,7 @@ public class CustomConverterContainer {
       return (Class) cacheEntry.getValue();
     }
 
-    // Otherwise, loop through custom converters and look for a match.  Also, store the result in the cache
+    // Otherwise, loop through custom converters and look for a match. Also, store the result in the cache
     Class result = null;
     long size = converters.size();
     for (int i = 0; i < size; i++) {

@@ -75,37 +75,36 @@ import net.sf.dozer.util.mapping.vo.set.SomeVO;
  * @author garsombke.franz
  */
 public class GranularDozerBeanMapperTest extends AbstractDozerTest {
-  
+
   public void testNoDefaultConstructor() throws Exception {
     try {
       mapper.map("test", NoDefaultConstructor.class);
       fail("should have thrown exception");
     } catch (MappingException e) {
-      assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor.<init>()", e
-          .getMessage());
+      assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor.<init>()", e.getMessage());
     }
   }
 
-  //Defect #1728385
+  // Defect #1728385
   public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
-    mapper = getNewMapper(new String[]{"simpleCustomConverter.xml"});
-    
+    mapper = getNewMapper(new String[] { "simpleCustomConverter.xml" });
+
     AnotherTestObject src = new AnotherTestObject();
     src.setField3(String.valueOf(System.currentTimeMillis()));
-    
+
     AnotherTestObjectPrime dest = (AnotherTestObjectPrime) mapper.map(src, AnotherTestObjectPrime.class);
 
-    //Custom converter specified for the field mapping, so verify custom converter was actually used
+    // Custom converter specified for the field mapping, so verify custom converter was actually used
     assertNotNull("dest field should not be null", dest.getField3());
     StringTokenizer st = new StringTokenizer(dest.getField3(), "-");
     assertEquals("dest field value should contain a hyphon", 2, st.countTokens());
     String token1 = st.nextToken();
     assertEquals("1st portion of dest field value should equal src field value", src.getField3(), token1);
     String token2 = st.nextToken();
-    assertEquals("dest field value should have been appended to by the cust converter", 
-        StringAppendCustomConverter.APPENDED_VALUE, token2);
+    assertEquals("dest field value should have been appended to by the cust converter", StringAppendCustomConverter.APPENDED_VALUE,
+        token2);
   }
-  
+
   public void testFieldAccessible() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = new TestObject();
@@ -461,9 +460,9 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
       fail("This should not have been thrown");
     }
   }
-  
+
   public void testAllowedExceptions_Implicit() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] {"implicitAllowedExceptionsMapping.xml"});
+    MapperIF mapper = getNewMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
     ThrowException to = new ThrowException();
     to.setThrowAllowedException("throw me");
     try {
@@ -484,37 +483,37 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
       fail("This should not have been thrown");
     }
   }
-  
-  
-  public void testPrimitiveArrayToList() throws Exception {
-    mapper = getNewMapper(new String[]{"primitiveArrayToListMapping.xml"});
 
-    int[] i = new int[] {1,2,3};
+  public void testPrimitiveArrayToList() throws Exception {
+    mapper = getNewMapper(new String[] { "primitiveArrayToListMapping.xml" });
+
+    int[] i = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = new PrimitiveArrayObj();
     src.setField1(i);
-    
+
     PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class);
-    
+
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", i.length, dest.getField1().size());
 
     List srcObjectList = CollectionUtils.convertPrimitiveArrayToList(i);
     assertEquals("invalid dest field value", srcObjectList, dest.getField1());
   }
-  
-  public void testPrimitiveArrayToList_UsingHint() throws Exception {
-    mapper = getNewMapper(new String[]{"primitiveArrayToListMapping.xml"});
 
-    int[] srcArray = new int[] {1,2,3};
+  public void testPrimitiveArrayToList_UsingHint() throws Exception {
+    mapper = getNewMapper(new String[] { "primitiveArrayToListMapping.xml" });
+
+    int[] srcArray = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = new PrimitiveArrayObj();
     src.setField1(srcArray);
-    
-    PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class, "primitiveToArrayUsingHint");
-    
+
+    PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class,
+        "primitiveToArrayUsingHint");
+
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", srcArray.length, dest.getField1().size());
 
-    for(int i = 0; i < srcArray.length; i++) {
+    for (int i = 0; i < srcArray.length; i++) {
       String srcValue = String.valueOf(srcArray[i]);
       String resultValue = (String) dest.getField1().get(i);
       assertEquals("invalid result entry value", srcValue, resultValue);
@@ -522,94 +521,94 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
   }
 
   public void testInterface() throws Exception {
-    mapper = getNewMapper(new String[]{"interfaceMapping.xml"});
+    mapper = getNewMapper(new String[] { "interfaceMapping.xml" });
     ApplicationUser user = new ApplicationUser();
     user.setSubscriberNumber("123");
-  
-    //Mapping works
+
+    // Mapping works
     UpdateMember destObject = (UpdateMember) mapper.map(user, UpdateMember.class);
-    
+
     assertEquals("invalid value for subsriber #", user.getSubscriberNumber(), destObject.getSubscriberKey().getSubscriberNumber());
-  
-    //Clear value
+
+    // Clear value
     destObject = new UpdateMember();
-  
-    //Mapping doesn't work
+
+    // Mapping doesn't work
     mapper.map(user, destObject);
-    
+
     assertNotNull("dest field should not be null", destObject.getSubscriberKey());
     assertEquals("invalid value for subsriber #", user.getSubscriberNumber(), destObject.getSubscriberKey().getSubscriberNumber());
   }
-  
-  
+
   public void testCustomFieldMapper() throws Exception {
     CustomFieldMapperIF customFieldMapper = new TestCustomFieldMapper();
     ((DozerBeanMapper) mapper).setCustomFieldMapper(customFieldMapper);
-    
-    String currentTime = String.valueOf(System.currentTimeMillis()); 
+
+    String currentTime = String.valueOf(System.currentTimeMillis());
     SimpleObj src = new SimpleObj();
     src.setField1(currentTime);
     src.setField6("field6Value" + currentTime);
-    
+
     SimpleObjPrime dest = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
-    
+
     assertNotNull("dest field1 should not be null", dest.getField1());
     assertNotNull("dest field6 should not be null", dest.getField6());
     assertEquals("dest field1 should have been set by custom field mapper", TestCustomFieldMapper.FIELD_VALUE, dest.getField1());
     assertEquals("dest field6 should NOT have been set by custom field mapper", src.getField6(), dest.getField6());
   }
-  
+
   public void testPrivateConstructor() throws Exception {
-	  PrivateConstructorBean src = PrivateConstructorBean.newInstance();
-	  src.setField1("someValue");
-	  
-	  PrivateConstructorBeanPrime dest = (PrivateConstructorBeanPrime) mapper.map(src, PrivateConstructorBeanPrime.class);
-	  
-	  assertNotNull("dest bean should not be null", dest);
-	  assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
+    PrivateConstructorBean src = PrivateConstructorBean.newInstance();
+    src.setField1("someValue");
+
+    PrivateConstructorBeanPrime dest = (PrivateConstructorBeanPrime) mapper.map(src, PrivateConstructorBeanPrime.class);
+
+    assertNotNull("dest bean should not be null", dest);
+    assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
   }
-  
-  
+
   /*
-   * Bug #1549738 
-   */  
+   * Bug #1549738
+   */
   public void testSetMapping_UppercaseFieldNameInXML() throws Exception {
-    //For some reason the resulting SomeVO contains a Set with 4 objects.  2 SomeOtherDTO's and 2 SomeOtherVO's.  I believe it
-    //should only contain 2 SomeOtherVO's.  It has something to do with specifying the field name starting with cap in the mapping file.  If
-    //you change the field mapping to start with lower case it seems to map correctly.
-    MapperIF mapper = getNewMapper(new String[] { "setMappingWithUpperCaseFieldName.xml" }); 
-    
-    SomeDTO someDto = new SomeDTO(); 
+    // For some reason the resulting SomeVO contains a Set with 4 objects. 2 SomeOtherDTO's and 2 SomeOtherVO's. I
+    // believe it
+    // should only contain 2 SomeOtherVO's. It has something to do with specifying the field name starting with cap in
+    // the mapping file. If
+    // you change the field mapping to start with lower case it seems to map correctly.
+    MapperIF mapper = getNewMapper(new String[] { "setMappingWithUpperCaseFieldName.xml" });
+
+    SomeDTO someDto = new SomeDTO();
     someDto.setField1(new Integer("1"));
-    
+
     SomeOtherDTO someOtherDto = new SomeOtherDTO();
     someOtherDto.setOtherField2(someDto);
-    someOtherDto.setOtherField3("value1"); 
-    
-    SomeDTO someDto2 = new SomeDTO(); 
-    someDto2.setField1(new Integer("2")); 
-    
+    someOtherDto.setOtherField3("value1");
+
+    SomeDTO someDto2 = new SomeDTO();
+    someDto2.setField1(new Integer("2"));
+
     SomeOtherDTO someOtherDto2 = new SomeOtherDTO();
-    someOtherDto2.setOtherField2(someDto2); 
+    someOtherDto2.setOtherField2(someDto2);
     someOtherDto2.setOtherField3("value2");
-    
+
     SomeDTO src = new SomeDTO();
-    src.setField2(new SomeOtherDTO[] { someOtherDto2,someOtherDto });
-    
+    src.setField2(new SomeOtherDTO[] { someOtherDto2, someOtherDto });
+
     SomeVO dest = (SomeVO) mapper.map(src, SomeVO.class);
-    
+
     assertEquals("incorrect resulting set size", src.getField2().length, dest.getField2().size());
-    //TODO: add more asserts
-  } 
-  
+    // TODO: add more asserts
+  }
+
   public void testGlobalBeanFactoryAppliedToDefaultMappings() throws Exception {
     mapper = getNewMapper(new String[] { "global-configuration.xml" });
     TestObjectPrime dest = (TestObjectPrime) mapper.map(new TestObject(), TestObjectPrime.class);
-    
+
     assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
     assertEquals("", "net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
-  }  
-  
+  }
+
   public void testStringToDateMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS");
@@ -624,7 +623,7 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     assertEquals(df.format(result.getDateFromStr()), result2.getDateStr());
     assertEquals(result.getDateFromStr(), df.parse(result2.getDateStr()));
   }
-  
+
   public void testMethodMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     MethodFieldTestObject sourceObj = new MethodFieldTestObject();
@@ -643,58 +642,58 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
   }
 
   public void testNoReadMethod() throws Exception {
-    //If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
+    // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     NoReadMethod src = new NoReadMethod();
     src.setNoReadMethod("somevalue");
-    
+
     NoReadMethodPrime dest = (NoReadMethodPrime) mapper.map(src, NoReadMethodPrime.class);
     assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
 
   public void testNoReadMethodSameClassTypes() throws Exception {
-    //If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
+    // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     NoReadMethod src = new NoReadMethod();
     src.setNoReadMethod("somevalue");
-    
+
     NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
     assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
-  
+
   public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
-    //Dont use getter methods that have a param when discovering default fields to be mapped.
+    // Dont use getter methods that have a param when discovering default fields to be mapped.
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     NoReadMethod src = new NoReadMethod();
     src.setOtherNoReadMethod("someValue");
-    
+
     NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
     assertNull("field should be null because no read method exists for field", dest.getOtherNoReadMethod(-1));
   }
-  
+
   public void testNoWriteMethod() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     NoWriteMethod src = new NoWriteMethod();
     src.setXXXXXX("someValue");
-    
+
     NoWriteMethodPrime dest = (NoWriteMethodPrime) mapper.map(src, NoWriteMethodPrime.class);
     assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
-    
+
   }
-  
+
   public void testNoWriteMethodSameClassTypes() throws Exception {
-    //When mapping between identical types, if the field doesnt have a getter/setter, dont
-    //add it is a default field to be mapped.
+    // When mapping between identical types, if the field doesnt have a getter/setter, dont
+    // add it is a default field to be mapped.
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     NoWriteMethod src = new NoWriteMethod();
     src.setXXXXXX("someValue");
-    
+
     mapper.map(new NoReadMethod(), NoReadMethod.class);
-    
-    NoWriteMethod dest =  (NoWriteMethod) mapper.map(src, NoWriteMethod.class);
+
+    NoWriteMethod dest = (NoWriteMethod) mapper.map(src, NoWriteMethod.class);
     assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
   }
-  
+
   public void testNullField() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     AnotherTestObject src = new AnotherTestObject();

@@ -21,7 +21,7 @@ import java.util.List;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class ContextMappingPrime {
 

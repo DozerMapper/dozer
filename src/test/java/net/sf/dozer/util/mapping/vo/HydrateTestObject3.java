@@ -15,14 +15,14 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class HydrateTestObject3 extends BaseTestObject {
   List listB = new ArrayList();

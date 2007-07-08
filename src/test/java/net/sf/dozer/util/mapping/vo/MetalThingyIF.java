@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.vo;
 
 /**
  * @author garsombke.franz
- *
+ * 
  */
 public interface MetalThingyIF {
   public String getName();

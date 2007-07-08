@@ -29,5 +29,5 @@ public class UpdateMember {
   public void setSubscriberKey(SubscriberKey subscriberKey) {
     this.subscriberKey = subscriberKey;
   }
-    
+
 }

@@ -19,9 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.sf.dozer.util.mapping.util.MapperConstants;
-
 import junit.framework.TestCase;
+import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
  * @author tierney.matt
@@ -29,13 +28,13 @@ import junit.framework.TestCase;
 public abstract class AbstractDozerTest extends TestCase {
   private static Random rand = new Random(System.currentTimeMillis());
   protected MapperIF mapper = null;
-  
+
   protected void setUp() throws Exception {
-    System.setProperty("log4j.debug","true");
-    System.setProperty(MapperConstants.DEBUG_SYS_PROP,"true");
+    System.setProperty("log4j.debug", "true");
+    System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");
     mapper = new DozerBeanMapper();
   }
-  
+
   protected MapperIF getNewMapper(String[] mappingFiles) {
     List list = new ArrayList();
     if (mappingFiles != null) {
@@ -47,10 +46,9 @@ public abstract class AbstractDozerTest extends TestCase {
     ((DozerBeanMapper) mapper).setMappingFiles(list);
     return mapper;
   }
-  
+
   protected String getRandomString() {
     return String.valueOf(rand.nextInt());
   }
-  
 
 }

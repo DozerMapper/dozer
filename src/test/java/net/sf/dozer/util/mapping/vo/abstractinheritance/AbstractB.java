@@ -17,11 +17,10 @@ package net.sf.dozer.util.mapping.vo.abstractinheritance;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 public abstract class AbstractB extends BaseTestObject {
   private String abstractField1;
   private String abstractBField;
-  
+
   public String getAbstractBField() {
     return abstractBField;
   }

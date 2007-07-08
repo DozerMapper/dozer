@@ -25,25 +25,26 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class that reads and parses a single custom mapping xml file into raw ClassMap objects.  Only intended for internal use.
+ * Internal class that reads and parses a single custom mapping xml file into raw ClassMap objects. Only intended for
+ * internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class MappingFileReader {
   private static final Log log = LogFactory.getLog(MappingFileReader.class);
-  
+
   private final URL url;
-  
+
   public MappingFileReader(URL url) {
     this.url = url;
   }
-  
+
   public MappingFileReader(String fileName) {
     ResourceLoader loader = new ResourceLoader();
     url = loader.getResource(fileName);
   }
-  
+
   public Mappings read() {
     Mappings result = null;
     InputStream stream = null;
@@ -65,5 +66,5 @@ public class MappingFileReader {
     }
     return result;
   }
-  
+
 }

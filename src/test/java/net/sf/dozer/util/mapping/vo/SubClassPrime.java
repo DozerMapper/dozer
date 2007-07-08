@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 package net.sf.dozer.util.mapping.vo;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class SubClassPrime extends SuperClassPrime {
-    private String attributePrime;
+  private String attributePrime;
 
-    public String getAttributePrime() {
-        return attributePrime;
-    }
+  public String getAttributePrime() {
+    return attributePrime;
+  }
 
-    public void setAttributePrime(String attribute) {
-        this.attributePrime = attribute;
-    }
+  public void setAttributePrime(String attribute) {
+    this.attributePrime = attribute;
+  }
 }

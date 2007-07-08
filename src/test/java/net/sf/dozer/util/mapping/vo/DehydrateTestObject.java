@@ -15,13 +15,14 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class DehydrateTestObject extends BaseTestObject {
   private List cars = new ArrayList();
@@ -76,7 +77,7 @@ public class DehydrateTestObject extends BaseTestObject {
   public void setIterateCars(List iterateCars) {
     this.iterateCars = iterateCars;
   }
-  
+
   public void addCar(Car car) {
     this.iterateCars.add(car);
   }
@@ -88,9 +89,9 @@ public class DehydrateTestObject extends BaseTestObject {
   public void setIterateMoreCars(List iterateMoreCars) {
     this.iterateMoreCars = iterateMoreCars;
   }
-  
+
   public void addMoreCar(Car car) {
     this.iterateMoreCars.add(car);
   }
-  
+
 }

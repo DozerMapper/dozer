@@ -21,14 +21,14 @@ package net.sf.dozer.util.mapping.vo;
  * @author tierney.matt
  */
 public class SimpleObjPrime extends BaseTestObject {
-  
+
   private String field1;
   private String field2;
   private String field3;
   private String field4;
   private String field5;
   private String field6;
-  
+
   public String getField1() {
     return field1;
   }
@@ -66,6 +66,4 @@ public class SimpleObjPrime extends BaseTestObject {
     this.field6 = field6;
   }
 
-  
-  
 }

@@ -16,19 +16,18 @@
 package net.sf.dozer.util.mapping.vo;
 
 
-import net.sf.dozer.util.mapping.vo.BaseTestObject;
-
 /**
  * @author tierney.matt
  */
 public class FieldValue extends BaseTestObject {
   private String key;
   private Object value;
-  public FieldValue() {}
+  public FieldValue() {
+  }
   public FieldValue(String value) {
     this.value = value;
   }
-  
+
   public String getKey() {
     return key;
   }

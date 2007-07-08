@@ -56,8 +56,8 @@ public class TestCustomHashMapConverter implements CustomConverter {
       dest.setTestObjectPrime((TestObjectPrime) testCustomConverterHashMapPrimeObject.getTestObjects().get("object2"));
       return dest;
     } else {
-      throw new MappingException("Converter TestCustomHashMapConverter used incorrectly. Arguments passed in were:"
-          + destination + " and " + source);
+      throw new MappingException("Converter TestCustomHashMapConverter used incorrectly. Arguments passed in were:" + destination
+          + " and " + source);
     }
   }
 

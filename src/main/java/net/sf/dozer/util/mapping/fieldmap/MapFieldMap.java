@@ -65,7 +65,8 @@ public class MapFieldMap extends FieldMap {
     } else {
 
       if (getDestFieldMapGetMethod() != null
-          || MappingUtils.isSupportedMap(determineActualPropertyType(getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(), destObj))) {
+          || MappingUtils.isSupportedMap(determineActualPropertyType(getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
+              destObj))) {
         // Need to dig out actual destination Map object and use map property descriptor to set the value on that target
         // object....
         PrepareTargetObjectResult result = prepareTargetObject(destObj);
@@ -92,10 +93,9 @@ public class MapFieldMap extends FieldMap {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
         targetObject = super.getSrcFieldValue(srcObj);
 
-        propDescriptor = new MapPropertyDescriptor(ac, getSrcFieldName(), isSrcFieldIndexed(),
-            getDestFieldIndex(), MappingUtils.isSupportedMap(ac) ? "put" : getSrcFieldMapSetMethod(),
-            MappingUtils.isSupportedMap(ac) ? "get" : getSrcFieldMapGetMethod(),
-            getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName());
+        propDescriptor = new MapPropertyDescriptor(ac, getSrcFieldName(), isSrcFieldIndexed(), getDestFieldIndex(), MappingUtils
+            .isSupportedMap(ac) ? "put" : getSrcFieldMapSetMethod(), MappingUtils.isSupportedMap(ac) ? "get"
+            : getSrcFieldMapGetMethod(), getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName());
       } else {
         propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
       }
@@ -112,8 +112,8 @@ public class MapFieldMap extends FieldMap {
 
   private PrepareTargetObjectResult prepareTargetObject(Object destObj) {
     Object targetObject = destObj;
-    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(),
-        isDestFieldIndexed(), getDestFieldIndex());
+    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
+        getDestFieldIndex());
 
     Class c = d.getPropertyType();
     targetObject = d.getPropertyValue(destObj);
@@ -137,10 +137,10 @@ public class MapFieldMap extends FieldMap {
       d.setPropertyValue(destObj, targetObject, null, this);
     }
 
-    return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestFieldName(),
-        isDestFieldIndexed(), getDestFieldIndex(), MappingUtils.isSupportedMap(c) ? "put" : getDestFieldMapSetMethod(), 
-            MappingUtils.isSupportedMap(c) ? "get" : getDestFieldMapGetMethod(),
-        getDestFieldKey() != null ? getDestFieldKey() : getSrcFieldName()));
+    return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestFieldName(), isDestFieldIndexed(),
+        getDestFieldIndex(), MappingUtils.isSupportedMap(c) ? "put" : getDestFieldMapSetMethod(),
+        MappingUtils.isSupportedMap(c) ? "get" : getDestFieldMapGetMethod(), getDestFieldKey() != null ? getDestFieldKey()
+            : getSrcFieldName()));
 
   }
 

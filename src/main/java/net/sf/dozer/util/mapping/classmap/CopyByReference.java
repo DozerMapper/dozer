@@ -21,7 +21,7 @@ package net.sf.dozer.util.mapping.classmap;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class CopyByReference {
 

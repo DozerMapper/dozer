@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.cache;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -20,8 +20,8 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * Internal class that represents one entry in the cache.  Holds the cache value, unique key for lookup, and creation time.
- * Only intended for internal use.
+ * Internal class that represents one entry in the cache. Holds the cache value, unique key for lookup, and creation
+ * time. Only intended for internal use.
  * 
  * @author tierney.matt
  */
@@ -51,14 +51,18 @@ public class CacheEntry {
   public int hashCode() {
     return key.hashCode();
   }
-  
+
   public boolean equals(Object object) {
-    if ( (this == object ) ) { return true; }
-    if ( !(object instanceof CacheEntry) ) { return false; }
+    if ((this == object)) {
+      return true;
+    }
+    if (!(object instanceof CacheEntry)) {
+      return false;
+    }
     CacheEntry entry = (CacheEntry) object;
     return new EqualsBuilder().append(this.getKey(), entry.getKey()).isEquals();
   }
-  
+
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

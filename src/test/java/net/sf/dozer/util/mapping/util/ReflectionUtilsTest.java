@@ -35,7 +35,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     } catch (MappingException e) {
     }
   }
-  
+
   public void testGetDeepFieldHierarchy_NonDeepField() throws Exception {
     try {
       ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, "test");
@@ -44,24 +44,25 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
       assertEquals("invalid exception thrown", "Field does not contain deep field delimitor", e.getMessage());
     }
   }
-  
+
   public void testGetDeepFieldHierarchy_NotExists() throws Exception {
     try {
-      ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "." + String.valueOf(System.currentTimeMillis()));
+      ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "."
+          + String.valueOf(System.currentTimeMillis()));
       fail("Should have thrown exception");
     } catch (MappingException e) {
     }
   }
-  
+
   public void testGetPropertyDescriptors_InterfaceInheritance() throws Exception {
-    //Should walk the inheritance hierarchy all the way up to the super interface and find all properties along the way
+    // Should walk the inheritance hierarchy all the way up to the super interface and find all properties along the way
     PropertyDescriptor[] pds = ReflectionUtils.getPropertyDescriptors(ChildChildIF.class);
     assertNotNull("prop descriptors should not be null", pds);
     assertEquals("3 prop descriptors should have been found", 3, pds.length);
   }
-  
+
   public void testFindPropertyDescriptor_InterfaceInheritance() throws Exception {
-    //Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
+    // Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
     String fieldName = "parentField";
     PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(ChildChildIF.class, fieldName);
     assertNotNull("prop descriptor should not be null", pd);

@@ -49,8 +49,8 @@ public class Hint {
     }
     // validate sizes
     if (clazzHints.size() != hintsSize) {
-      MappingUtils.throwMappingException(
-          "When using multiple source and destination hints there must be exactly the same number of hints on the source and the destination.");
+      MappingUtils
+          .throwMappingException("When using multiple source and destination hints there must be exactly the same number of hints on the source and the destination.");
     }
     int count = 0;
     String myClazName = clazz.getName();
@@ -95,5 +95,5 @@ public class Hint {
   public void setHintName(String hintName) {
     this.hintName = hintName;
   }
- 
+
 }

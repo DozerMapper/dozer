@@ -22,7 +22,7 @@ import java.util.Date;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class TestObjectPrime2 extends BaseTestObject {
   private String one;

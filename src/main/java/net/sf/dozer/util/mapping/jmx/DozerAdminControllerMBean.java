@@ -22,6 +22,6 @@ package net.sf.dozer.util.mapping.jmx;
  */
 public interface DozerAdminControllerMBean {
   public String getCurrentVersion();
-  public boolean isStatisticsEnabled();  
+  public boolean isStatisticsEnabled();
   public void setStatisticsEnabled(boolean statisticsEnabled);
 }

@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.factories;
 
-
 /**
  * @author tierney.matt
  */
@@ -25,7 +24,7 @@ public class SampleDefaultBeanFactory extends BaseSampleBeanFactory {
     try {
       Class destClass = Class.forName(id);
       Object rvalue = destClass.newInstance();
-      //just for unit testing.  need something to indicate that it was created by the factory method
+      // just for unit testing. need something to indicate that it was created by the factory method
       setCreatedByFactoryName(rvalue, SampleDefaultBeanFactory.class.getName());
       return rvalue;
     } catch (Exception e) {

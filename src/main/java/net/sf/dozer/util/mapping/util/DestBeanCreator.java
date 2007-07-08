@@ -29,8 +29,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class that contains the logic used to create a new instance of the destination object being mapped.  Performs
- * various checks to determine how the destination object instance is created.  Only intended for internal use.
+ * Internal class that contains the logic used to create a new instance of the destination object being mapped. Performs
+ * various checks to determine how the destination object instance is created. Only intended for internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
@@ -75,7 +75,7 @@ public class DestBeanCreator {
     // use the specified custom bean factory
     if (MappingUtils.isBlankOrNull(factoryName)) {
       try {
-        //TODO: IS this correct assumption for Map's
+        // TODO: IS this correct assumption for Map's
         if (MappingUtils.isSupportedMap(classMap.getDestClassToMap())) {
           rvalue = new HashMap();
         } else {
@@ -95,11 +95,12 @@ public class DestBeanCreator {
         }
       }
     } else {
-      rvalue = createFromFactory(srcObject, classMap.getSrcClassToMap(), factoryName, classMap.getDestClassBeanFactoryId(), classMap.getDestClassToMap());
+      rvalue = createFromFactory(srcObject, classMap.getSrcClassToMap(), factoryName, classMap.getDestClassBeanFactoryId(),
+          classMap.getDestClassToMap());
       // verify factory returned expected dest object type
       if (!classMap.getDestClassToMap().isAssignableFrom(rvalue.getClass())) {
-        MappingUtils.throwMappingException(
-            "Custom bean factory did not return correct type of destination data object.  Expected: "
+        MappingUtils
+            .throwMappingException("Custom bean factory did not return correct type of destination data object.  Expected: "
                 + classMap.getDestClassToMap() + ", Actual: " + rvalue.getClass());
       }
     }
@@ -107,7 +108,7 @@ public class DestBeanCreator {
   }
 
   public Object createFromFactory(Object srcObject, Class srcObjectClass, String factoryName, String factoryBeanId, Class destClass) {
-    
+
     // By default, use dest object class name for factory bean id
     String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
 
@@ -138,28 +139,28 @@ public class DestBeanCreator {
     } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
-    
+
     if (constructor == null) {
       MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
           + ".  Could not find a no-arg constructor for this class.");
     }
-    
+
     // If private, make it accessible
     if (!constructor.isAccessible()) {
       constructor.setAccessible(true);
     }
-    
+
     Object result = null;
     try {
       result = constructor.newInstance(null);
     } catch (IllegalArgumentException e) {
-      MappingUtils.throwMappingException(e);      
+      MappingUtils.throwMappingException(e);
     } catch (InstantiationException e) {
-      MappingUtils.throwMappingException(e);      
+      MappingUtils.throwMappingException(e);
     } catch (IllegalAccessException e) {
-      MappingUtils.throwMappingException(e);      
+      MappingUtils.throwMappingException(e);
     } catch (InvocationTargetException e) {
-      MappingUtils.throwMappingException(e);      
+      MappingUtils.throwMappingException(e);
     }
     return result;
   }

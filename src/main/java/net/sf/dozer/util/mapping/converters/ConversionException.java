@@ -32,4 +32,3 @@ public class ConversionException extends MappingException {
     super(throwable);
   }
 }
-

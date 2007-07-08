@@ -54,21 +54,20 @@ public class MappingsParser {
     Set mapIds = new HashSet();
     while (iter.hasNext()) {
       classMap = (ClassMap) iter.next();
-      
+
       // add our first class map to the result map
       // initialize PropertyDescriptor Cache
       ReflectionUtils.findPropertyDescriptor(classMap.getSrcClassToMap(), "");
       ReflectionUtils.findPropertyDescriptor(classMap.getDestClassToMap(), "");
-      String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSrcClassToMap(), classMap
-          .getDestClassToMap(), classMap.getMapId());
+      String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap
+          .getMapId());
 
       /*
        * Check to see if this is a duplicate mapping. If so, throw an Exception
        */
       if (result.containsKey(theClassMapKey)) {
-        throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: "
-            + classMap.getSrcClassToMap().getName() + " Destination: "
-            + classMap.getDestClassToMap().getName());
+        throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: " + classMap.getSrcClassToMap().getName()
+            + " Destination: " + classMap.getDestClassToMap().getName());
       }
 
       // Check to see if this is a duplicate map id, irregardless of src and dest class names. Duplicate map-ids are
@@ -84,7 +83,7 @@ public class MappingsParser {
       // now create class map prime
       classMapPrime = new ClassMap(mappings.getConfiguration());
       MappingUtils.reverseFields(classMap, classMapPrime);
-      
+
       if (classMap.getFieldMaps() != null) {
         Object[] fms = classMap.getFieldMaps().toArray();
         // iterate through the fields and see wether or not they should be mapped
@@ -94,7 +93,7 @@ public class MappingsParser {
             FieldMap fieldMap = (FieldMap) fms[i];
             fieldMap.validate();
 
-            //If we are dealing with a Map data type, transform the field map into a MapFieldMap type
+            // If we are dealing with a Map data type, transform the field map into a MapFieldMap type
             if (!(fieldMap instanceof ExcludeFieldMap)) {
               if (MappingUtils.isSupportedMap(classMap.getDestClassToMap())
                   || MappingUtils.isSupportedMap(classMap.getSrcClassToMap())
@@ -112,8 +111,7 @@ public class MappingsParser {
               fieldMapPrime = (FieldMap) fieldMap.clone();
               fieldMapPrime.setClassMap(classMapPrime);
               // check to see if it is only an exclude one way
-              if (fieldMapPrime instanceof ExcludeFieldMap
-                  && StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY)) {
+              if (fieldMapPrime instanceof ExcludeFieldMap && StringUtils.equals(fieldMap.getType(), MapperConstants.ONE_WAY)) {
                 // need to make a generic field map for the other direction
                 fieldMapPrime = new GenericFieldMap(classMapPrime);
               }
@@ -140,7 +138,7 @@ public class MappingsParser {
           for (int i = 0; i < fms.length; i++) {
             FieldMap oneWayFieldMap = (FieldMap) fms[i];
             oneWayFieldMap.validate();
-            
+
             MappingUtils.applyGlobalCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
             // check to see if we need to exclude the map
             if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
@@ -154,11 +152,11 @@ public class MappingsParser {
       // if it is a one way mapping or a method/iterate method mapping we can not bi-directionally map
       // Map Prime could actually be empty
       if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
-        result.put(ClassMapKeyFactory.createKey(classMap.getDestClassToMap(), classMap.getSrcClassToMap(), classMap.getMapId()), classMapPrime);
+        result.put(ClassMapKeyFactory.createKey(classMap.getDestClassToMap(), classMap.getSrcClassToMap(), classMap.getMapId()),
+            classMapPrime);
       }
     }
     return result;
   }
-  
 
 }

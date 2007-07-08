@@ -55,7 +55,7 @@ public class PropertyToMap extends BaseTestObject {
   public void setStringProperty2(String stringProperty2) {
     this.stringProperty2 = stringProperty2;
   }
-  
+
   public void addStringProperty2(String stringProperty2) {
     this.stringProperty2 = stringProperty2;
   }
@@ -140,5 +140,4 @@ public class PropertyToMap extends BaseTestObject {
     this.stringProperty6 = stringProperty6;
   }
 
-  
 }

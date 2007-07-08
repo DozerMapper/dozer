@@ -20,14 +20,14 @@ import java.util.Map;
 import net.sf.dozer.util.mapping.classmap.Configuration;
 
 /**
- * Internal class that contains the results of the loadMappings operation.  Only intended for internal use. 
+ * Internal class that contains the results of the loadMappings operation. Only intended for internal use.
  * 
  * @author garsombke.franz
  * @author tierney.matt
- *
+ * 
  */
 public class LoadMappingsResult {
-  
+
   private Map customMappings;
   private Configuration globalConfiguration;
 
@@ -39,7 +39,7 @@ public class LoadMappingsResult {
   public Map getCustomMappings() {
     return customMappings;
   }
-  
+
   public Configuration getGlobalConfiguration() {
     return globalConfiguration;
   }

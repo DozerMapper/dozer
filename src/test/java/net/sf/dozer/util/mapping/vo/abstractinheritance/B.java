@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.vo.abstractinheritance;
 public class B extends AbstractB {
   private String field1;
   private String fieldB;
-  
+
   public String getField1() {
     return field1;
   }
@@ -31,5 +31,5 @@ public class B extends AbstractB {
   public void setFieldB(String fieldB) {
     this.fieldB = fieldB;
   }
-  
+
 }

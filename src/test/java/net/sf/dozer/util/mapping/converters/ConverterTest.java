@@ -25,8 +25,8 @@ import net.sf.dozer.util.mapping.util.DateFormatContainer;
  */
 public class ConverterTest extends AbstractDozerTest {
   /*
-  * See DataConvertionTest for more thorough data conversion unit tests
-  */
+   * See DataConvertionTest for more thorough data conversion unit tests
+   */
   public void testAccessors() throws Exception {
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
@@ -48,7 +48,7 @@ public class ConverterTest extends AbstractDozerTest {
     }
 
     try {
-      //no long constructor
+      // no long constructor
       dc = new DateConverter(null);
       dc.convert(String.class, "123");
       fail("should have thrown ConversionException");

@@ -29,7 +29,7 @@ public class SampleCustomBeanFactory3 implements BeanFactoryIF {
   public Object createBean(Object srcObj, Class srcObjClass, String id) {
     try {
       Object rvalue = Car.class.newInstance();
-      // return the interface 
+      // return the interface
       return rvalue;
     } catch (Exception e) {
       throw new RuntimeException(e);

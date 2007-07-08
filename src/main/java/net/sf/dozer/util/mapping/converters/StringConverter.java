@@ -15,16 +15,14 @@
  */
 package net.sf.dozer.util.mapping.converters;
 
-import org.apache.commons.beanutils.Converter;
-
 import net.sf.dozer.util.mapping.util.DateFormatContainer;
 
+import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting Supported Data Types --> String.  Uses date formatter for Date and Calendar source objects.
- * Calls toString() on the source object for all other types.
- * Only intended for internal use. 
-
+ * Internal class for converting Supported Data Types --> String. Uses date formatter for Date and Calendar source
+ * objects. Calls toString() on the source object for all other types. Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class StringConverter implements Converter {
@@ -37,10 +35,12 @@ public class StringConverter implements Converter {
   public Object convert(Class destClass, Object srcObj) {
     String result = null;
     Class srcClass = srcObj.getClass();
-    if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(srcClass) && dateFormatContainer.getDateFormat() != null) {
+    if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(srcClass)
+        && dateFormatContainer.getDateFormat() != null) {
       result = dateFormatContainer.getDateFormat().format((java.util.Date) srcObj);
-    } else if (dateFormatContainer != null && java.util.Calendar.class.isAssignableFrom(srcClass) && dateFormatContainer.getDateFormat() != null) {
-      result = dateFormatContainer.getDateFormat().format(((java.util.Calendar)srcObj).getTime());
+    } else if (dateFormatContainer != null && java.util.Calendar.class.isAssignableFrom(srcClass)
+        && dateFormatContainer.getDateFormat() != null) {
+      result = dateFormatContainer.getDateFormat().format(((java.util.Calendar) srcObj).getTime());
     } else {
       result = srcObj.toString();
     }

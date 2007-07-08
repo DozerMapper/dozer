@@ -26,7 +26,7 @@ import net.sf.dozer.util.mapping.vo.bidirectional.B;
  * @author garsombke.franz
  */
 public class BiDirectionalMappingTest extends AbstractDozerTest {
-  
+
   public void testSimpleBidirectional() {
     // A contains B and B contains A.
     A src = new A();
@@ -45,8 +45,7 @@ public class BiDirectionalMappingTest extends AbstractDozerTest {
     loopObjectChild.setParent(loopObjectParent);
     loopObjectParent.setChild(loopObjectChild);
 
-    LoopObjectParentPrime loopObjectParentPrime = (LoopObjectParentPrime) mapper.map(loopObjectParent,
-        LoopObjectParentPrime.class);
+    LoopObjectParentPrime loopObjectParentPrime = (LoopObjectParentPrime) mapper.map(loopObjectParent, LoopObjectParentPrime.class);
     assertNotNull(loopObjectParentPrime);
     assertNotNull(loopObjectParentPrime.getChildPrime());
   }

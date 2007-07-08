@@ -24,7 +24,7 @@ import net.sf.dozer.util.mapping.vo.Vehicle;
 public class InjectedCustomConverter implements CustomConverter {
 
   private String injectedName;
-  
+
   public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
     Vehicle rvalue = null;
     try {
@@ -35,7 +35,7 @@ public class InjectedCustomConverter implements CustomConverter {
       e.printStackTrace();
     }
     rvalue.setName(getInjectedName());
-    return rvalue;    
+    return rvalue;
   }
 
   public String getInjectedName() {

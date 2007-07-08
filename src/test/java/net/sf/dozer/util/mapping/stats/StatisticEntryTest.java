@@ -25,31 +25,29 @@ public class StatisticEntryTest extends AbstractDozerTest {
   public void testConstructor() throws Exception {
     String key = "testkey";
     StatisticEntry entry = new StatisticEntry(key);
-    
+
     assertEquals("invalid key", key, entry.getKey());
     assertEquals("invalid initial value", 0, entry.getValue());
   }
-  
+
   public void testEquals() throws Exception {
     String key = "testkey";
     StatisticEntry entry = new StatisticEntry(key);
     StatisticEntry entry2 = new StatisticEntry(key);
-    
+
     assertEquals("objects should be equal", entry, entry2);
     assertEquals("objects hashcode should be equal", entry.hashCode(), entry2.hashCode());
   }
-  
+
   public void testIncrement() throws Exception {
     String key = "testkey";
     StatisticEntry entry = new StatisticEntry(key);
-    
+
     entry.increment();
     assertEquals("invalid value after 1st increment", 1, entry.getValue());
-    
+
     entry.increment(100);
     assertEquals("invalid value after 2nd increment", 101, entry.getValue());
   }
-  
-  
-  
+
 }

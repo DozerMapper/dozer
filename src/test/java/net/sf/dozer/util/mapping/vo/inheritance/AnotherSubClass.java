@@ -15,54 +15,43 @@
  */
 package net.sf.dozer.util.mapping.vo.inheritance;
 
-
 public class AnotherSubClass extends AnotherBaseClass {
 
-    private String subAttribute;
-    private java.util.List subList;    
-    private SClass sClass;
-    private SClass sClass2;
+  private String subAttribute;
+  private java.util.List subList;
+  private SClass sClass;
+  private SClass sClass2;
 
-    public String getSubAttribute() {
-        return subAttribute;
-    }
-    
+  public String getSubAttribute() {
+    return subAttribute;
+  }
 
-    public void setSubAttribute(String subAttribute) {
-        this.subAttribute = subAttribute;
-    }
+  public void setSubAttribute(String subAttribute) {
+    this.subAttribute = subAttribute;
+  }
 
+  public java.util.List getSubList() {
+    return subList;
+  }
 
-    public java.util.List getSubList() {
-        return subList;
-    }
-    
+  public void setSubList(java.util.List subList) {
+    this.subList = subList;
+  }
 
+  public SClass getSClass() {
+    return sClass;
+  }
 
-    public void setSubList(java.util.List subList) {
-        this.subList = subList;
-    }
+  public void setSClass(SClass class1) {
+    sClass = class1;
+  }
 
+  public SClass getSClass2() {
+    return sClass2;
+  }
 
-    public SClass getSClass() {
-      return sClass;
-    }
+  public void setSClass2(SClass class2) {
+    sClass2 = class2;
+  }
 
-
-    public void setSClass(SClass class1) {
-      sClass = class1;
-    }
-
-
-    public SClass getSClass2() {
-      return sClass2;
-    }
-
-
-    public void setSClass2(SClass class2) {
-      sClass2 = class2;
-    }
-    
-    
-    
 }

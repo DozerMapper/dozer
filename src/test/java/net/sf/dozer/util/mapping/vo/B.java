@@ -21,13 +21,13 @@ package net.sf.dozer.util.mapping.vo;
  * 
  */
 public class B {
-    private C[] cs;
+  private C[] cs;
 
-    public C[] getCs() {
-        return cs;
-    }
+  public C[] getCs() {
+    return cs;
+  }
 
-    public void setCs(C[] c) {
-        this.cs = c;
-    }
+  public void setCs(C[] c) {
+    this.cs = c;
+  }
 }

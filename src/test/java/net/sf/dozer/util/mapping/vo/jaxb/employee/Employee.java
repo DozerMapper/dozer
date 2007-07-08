@@ -5,22 +5,20 @@
 // Generated on: 2006.10.05 at 10:03:40 CEST 
 //
 
-
 package net.sf.dozer.util.mapping.vo.jaxb.employee;
-
 
 /**
  * Java content class for Employee element declaration.
- * <p>The following schema fragment specifies the expected content contained within this java content object. (defined at file:/C:/Tools/dozer-2.3-src/dozer/dozer-src/etc/Employee.xsd line 11)
  * <p>
+ * The following schema fragment specifies the expected content contained within this java content object. (defined at
+ * file:/C:/Tools/dozer-2.3-src/dozer/dozer-src/etc/Employee.xsd line 11)
+ * <p>
+ * 
  * <pre>
- * &lt;element name="Employee" type="{http://jaxb.vo.mapping.util.dozer.sf.net/Employee}EmployeeType"/>
+ * &lt;element name=&quot;Employee&quot; type=&quot;{http://jaxb.vo.mapping.util.dozer.sf.net/Employee}EmployeeType&quot;/&gt;
  * </pre>
  * 
  */
-public interface Employee
-    extends javax.xml.bind.Element, net.sf.dozer.util.mapping.vo.jaxb.employee.EmployeeType
-{
-
+public interface Employee extends javax.xml.bind.Element, net.sf.dozer.util.mapping.vo.jaxb.employee.EmployeeType {
 
 }

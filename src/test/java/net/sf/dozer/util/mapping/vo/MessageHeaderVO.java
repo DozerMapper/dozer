@@ -18,16 +18,16 @@ package net.sf.dozer.util.mapping.vo;
 import java.util.List;
 
 /**
- * @author Wahid Bashirazad 
+ * @author Wahid Bashirazad
  */
 public class MessageHeaderVO {
-	private List msgIds;
+  private List msgIds;
 
-	public List getMsgIds() {
-		return msgIds;
-	}
+  public List getMsgIds() {
+    return msgIds;
+  }
 
-	public void setMsgIds(List msgIds) {
-		this.msgIds = msgIds;
-	}
+  public void setMsgIds(List msgIds) {
+    this.msgIds = msgIds;
+  }
 }

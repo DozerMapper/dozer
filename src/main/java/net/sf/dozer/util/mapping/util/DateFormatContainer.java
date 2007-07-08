@@ -21,27 +21,27 @@ import java.util.Locale;
 
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
-
 /**
- * Internal class used as a container to determine the date format to use for a particular field mapping.  Only intended for internal use. 
+ * Internal class used as a container to determine the date format to use for a particular field mapping. Only intended
+ * for internal use.
  * 
  * @author tierney.matt
  */
 public class DateFormatContainer {
   private FieldMap fieldMap;
   private DateFormat dateFormat;
-  
+
   public DateFormatContainer(FieldMap fieldMap) {
     this.fieldMap = fieldMap;
   }
-  
+
   public DateFormat getDateFormat() {
     if (dateFormat == null) {
       dateFormat = determineDateFormat();
     }
     return dateFormat;
   }
-  
+
   public void setDateFormat(DateFormat dateFormat) {
     this.dateFormat = dateFormat;
   }

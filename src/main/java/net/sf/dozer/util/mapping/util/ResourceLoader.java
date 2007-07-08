@@ -20,32 +20,32 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Internal class that loads resources from the classpath.  Also supports loading resources outside of the classpath
- * if it is prepended with "file:".  Only intended for internal use.
+ * Internal class that loads resources from the classpath. Also supports loading resources outside of the classpath if
+ * it is prepended with "file:". Only intended for internal use.
  * 
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class ResourceLoader {
-  
+
   public URL getResource(String resource) {
     URL result = Thread.currentThread().getContextClassLoader().getResource(resource);
-    
+
     // Could not find resource. Try with the classloader that loaded this class.
     if (result == null) {
-      ClassLoader classLoader = ResourceLoader.class.getClassLoader(); 
-      if(classLoader != null) {
+      ClassLoader classLoader = ResourceLoader.class.getClassLoader();
+      if (classLoader != null) {
         result = classLoader.getResource(resource);
       }
     }
-    
+
     // Last ditch attempt searching classpath
     if (result == null) {
       result = ClassLoader.getSystemResource(resource);
     }
-    
-    //Patch to load mapping file from outside of classpath.
+
+    // Patch to load mapping file from outside of classpath.
     if (resource.startsWith(MapperConstants.FILE_PREFIX)) {
       try {
         return new File(resource.substring(MapperConstants.FILE_PREFIX.length())).toURL();
@@ -53,8 +53,8 @@ public class ResourceLoader {
         MappingUtils.throwMappingException(e);
       }
     }
-    
+
     return result;
   }
-  
+
 }

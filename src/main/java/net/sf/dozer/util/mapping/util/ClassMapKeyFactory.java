@@ -12,19 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.util;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Internal class that generates a unique class mapping key.  Only intended for internal use.
+ * Internal class that generates a unique class mapping key. Only intended for internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class ClassMapKeyFactory {
-  
+
   private ClassMapKeyFactory() {
   }
 
@@ -44,6 +44,5 @@ public class ClassMapKeyFactory {
   public static String createKey(Class srcClass, Class destClass) {
     return createKey(srcClass, destClass, null);
   }
-  
-  
+
 }

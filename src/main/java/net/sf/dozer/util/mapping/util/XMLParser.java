@@ -53,14 +53,14 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * Internal class that parses a raw custom xml mapping file into raw ClassMap objects.  Only intended for internal use.
- *  
+ * Internal class that parses a raw custom xml mapping file into raw ClassMap objects. Only intended for internal use.
+ * 
  * @author garsombke.franz
  */
 public class XMLParser {
 
   private static final Log log = LogFactory.getLog(XMLParser.class);
-  
+
   // Parsing Elements
   public static final String CONFIGURATION_ELEMENT = "configuration";
   public static final String STOP_ON_ERRORS_ELEMENT = "stop-on-errors";
@@ -82,7 +82,7 @@ public class XMLParser {
   public static final String BEAN_FACTORY_ELEMENT = "bean-factory";
   public static final String ALLOWED_EXCEPTIONS_ELEMENT = "allowed-exceptions";
   public static final String ALLOWED_EXCEPTION_ELEMENT = "exception";
-  
+
   // Parsing Attributes
   public static final String TYPE_ATTRIBUTE = "type";
   public static final String WILDCARD_ATTRIBUTE = "wildcard";
@@ -246,7 +246,7 @@ public class XMLParser {
       fieldMap.setSrcField(parseField(element));
     }
     if (B_ELEMENT.equals(element.getNodeName())) {
-     fieldMap.setDestField(parseField(element));
+      fieldMap.setDestField(parseField(element));
     }
   }
 
@@ -265,10 +265,10 @@ public class XMLParser {
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE))) {
       fm.setCustomConverter(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE));
     }
-    
+
     parseFieldMap(ele, fm);
   }
-  
+
   private FieldMap determineFieldMap(ClassMap classMap, Element ele) {
     DozerField srcField = null;
     DozerField destField = null;
@@ -287,17 +287,16 @@ public class XMLParser {
         }
       }
     }
-    
-    if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField() ||
-        classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
+
+    if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField()
+        || classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
       result = new MapFieldMap(classMap);
-    }
-    else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
-      result = new CustomGetSetMethodFieldMap(classMap); 
+    } else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
+      result = new CustomGetSetMethodFieldMap(classMap);
     } else {
       result = new GenericFieldMap(classMap);
     }
-    
+
     return result;
   }
 
@@ -463,25 +462,26 @@ public class XMLParser {
     }
   }
   private void parseAllowedExceptions(Element ele, Configuration config) {
-	    AllowedExceptionContainer container = new AllowedExceptionContainer();
-	    config.setAllowedExceptions(container);
-	    NodeList nl = ele.getChildNodes();
-	    for (int i = 0; i < nl.getLength(); i++) {
-	      Node node = nl.item(i);
-	      if (node instanceof Element) {
-	        Element element = (Element) node;
-	        log.info("config name: " + element.getNodeName());
-	        log.info("  value: " + element.getFirstChild().getNodeValue());
-	        if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
-            Class ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
-            if (!RuntimeException.class.isAssignableFrom(ex)) {
-              MappingUtils.throwMappingException("allowed-exception Class must extend RuntimeException: " + element.getFirstChild().getNodeValue());
-            }
-            container.getExceptions().add(ex);
-	        }
-	      }
-	    }
-	  }
+    AllowedExceptionContainer container = new AllowedExceptionContainer();
+    config.setAllowedExceptions(container);
+    NodeList nl = ele.getChildNodes();
+    for (int i = 0; i < nl.getLength(); i++) {
+      Node node = nl.item(i);
+      if (node instanceof Element) {
+        Element element = (Element) node;
+        log.info("config name: " + element.getNodeName());
+        log.info("  value: " + element.getFirstChild().getNodeValue());
+        if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
+          Class ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
+          if (!RuntimeException.class.isAssignableFrom(ex)) {
+            MappingUtils.throwMappingException("allowed-exception Class must extend RuntimeException: "
+                + element.getFirstChild().getNodeValue());
+          }
+          container.getExceptions().add(ex);
+        }
+      }
+    }
+  }
 
   /**
    * Create a JAXP DocumentBuilderFactory that this bean definition reader will use for parsing XML documents. Can be
@@ -519,7 +519,7 @@ public class XMLParser {
   }
 
   class DozerDefaultHandler extends DefaultHandler {
-	private final Log log = LogFactory.getLog(DozerDefaultHandler.class);
+    private final Log log = LogFactory.getLog(DozerDefaultHandler.class);
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
       log.info("tag: " + qName);

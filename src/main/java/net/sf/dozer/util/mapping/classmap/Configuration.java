@@ -19,9 +19,9 @@ import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
- * Internal class that represents the configuration block specified in the mapping xml file(s).
- * Only intended for internal use. 
- *  
+ * Internal class that represents the configuration block specified in the mapping xml file(s). Only intended for
+ * internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
@@ -35,15 +35,15 @@ public class Configuration {
   private String beanFactory;
   private CustomConverterContainer customConverters;
   private CopyByReferenceContainer copyByReferences;
-	private AllowedExceptionContainer allowedExceptions;
-  
-  public AllowedExceptionContainer getAllowedExceptions() {
-		return allowedExceptions;
-	}
+  private AllowedExceptionContainer allowedExceptions;
 
-	public void setAllowedExceptions(AllowedExceptionContainer allowedExceptions) {
-		this.allowedExceptions = allowedExceptions;
-	}
+  public AllowedExceptionContainer getAllowedExceptions() {
+    return allowedExceptions;
+  }
+
+  public void setAllowedExceptions(AllowedExceptionContainer allowedExceptions) {
+    this.allowedExceptions = allowedExceptions;
+  }
 
   public CustomConverterContainer getCustomConverters() {
     return customConverters;

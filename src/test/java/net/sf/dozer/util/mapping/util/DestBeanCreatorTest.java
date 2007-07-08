@@ -27,7 +27,7 @@ import net.sf.dozer.util.mapping.vo.TestObjectPrime;
  */
 public class DestBeanCreatorTest extends AbstractDozerTest {
   private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
-  
+
   public void testCreatDestBeanNoFactory() throws Exception {
     ClassMap classMap = new ClassMap(new Configuration());
     DozerClass destClass = new DozerClass();
@@ -59,5 +59,5 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
     assertNotNull(bean);
     assertEquals(factoryName, bean.getCreatedByFactoryName());
   }
-    
+
 }

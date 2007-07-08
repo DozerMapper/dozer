@@ -34,71 +34,70 @@ import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.map.CustomMap;
 
-
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class CustomConverterMappingTest extends AbstractDozerTest {
-  
+
   public void testSimpleCustomConverter() throws Exception {
-    mapper = getNewMapper(new String[]{"simpleCustomConverter.xml"});
+    mapper = getNewMapper(new String[] { "simpleCustomConverter.xml" });
     SimpleObj src = new SimpleObj();
     src.setField1(String.valueOf(System.currentTimeMillis()));
-    
+
     SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
 
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
+    // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
     StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
     assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
     String token1 = st.nextToken();
     assertEquals("1st portion of dest field1 value should equal src field value", src.getField1(), token1);
     String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
+    assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
 
   public void testSimpleCustomConverter_NullSrcValue() throws Exception {
-    //Test that custom converter gets invoked even if the src field value is NULL
-    mapper = getNewMapper(new String[]{"simpleCustomConverter.xml"});
+    // Test that custom converter gets invoked even if the src field value is NULL
+    mapper = getNewMapper(new String[] { "simpleCustomConverter.xml" });
     SimpleObj src = new SimpleObj();
     src.setField1(null);
-    
+
     SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
 
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
+    // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
     StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
     assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
     String token1 = st.nextToken();
     assertEquals("dest field1 value should contain the explicit null string", "null", token1);
     String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
+    assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
+
   public void testArrayToStringCustomConverter() throws Exception {
-    //Test that custom converter is used when src is an Array and dest is a String
-    mapper = getNewMapper(new String[]{"arrayToStringCustomConverter.xml"});
+    // Test that custom converter is used when src is an Array and dest is a String
+    mapper = getNewMapper(new String[] { "arrayToStringCustomConverter.xml" });
     SimpleObj simple = new SimpleObj();
     simple.setField1(String.valueOf(System.currentTimeMillis()));
-    
+
     ArrayCustConverterObj src = new ArrayCustConverterObj();
-    src.setField1(new SimpleObj[] {simple});
-    
+    src.setField1(new SimpleObj[] { simple });
+
     ArrayCustConverterObjPrime dest = (ArrayCustConverterObjPrime) mapper.map(src, ArrayCustConverterObjPrime.class);
 
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
+    // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
     StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
     assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
     st.nextToken();
     String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
+    assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
+
   public void testCustomConverterMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     TestCustomConverterObject obj = new TestCustomConverterObject();
@@ -113,8 +112,7 @@ public class CustomConverterMappingTest extends AbstractDozerTest {
 
     obj.setNames(list);
 
-    TestCustomConverterObjectPrime dest = (TestCustomConverterObjectPrime) mapper.map(obj,
-        TestCustomConverterObjectPrime.class);
+    TestCustomConverterObjectPrime dest = (TestCustomConverterObjectPrime) mapper.map(obj, TestCustomConverterObjectPrime.class);
 
     assertEquals("Custom Converter failed", dest.getDoubleAttribute().doubleValue() + "", "15.0");
     assertEquals("Custom Converter failed", ((Double) dest.getNames().iterator().next()).doubleValue() + "", "15.0");
@@ -130,8 +128,7 @@ public class CustomConverterMappingTest extends AbstractDozerTest {
     TestCustomConverterObject destp = (TestCustomConverterObject) mapper.map(objp, TestCustomConverterObject.class);
 
     assertEquals("Custom Converter failed", destp.getAttribute().getTheDouble() + "", "15.0");
-    assertEquals("Custom Converter failed", ((CustomDoubleObjectIF) destp.getNames().iterator().next()).getTheDouble()
-        + "", "10.0");
+    assertEquals("Custom Converter failed", ((CustomDoubleObjectIF) destp.getNames().iterator().next()).getTheDouble() + "", "10.0");
 
     destp.getAttribute().setName("testName");
 
@@ -189,60 +186,59 @@ public class CustomConverterMappingTest extends AbstractDozerTest {
   }
 
   public void testFieldCustomConverter() throws Exception {
-    mapper = getNewMapper(new String[]{"fieldCustomConverter.xml"});
+    mapper = getNewMapper(new String[] { "fieldCustomConverter.xml" });
     SimpleObj src = new SimpleObj();
     src.setField1(String.valueOf(System.currentTimeMillis()));
-    
+
     SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
 
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
+    // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
     StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
     assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
     String token1 = st.nextToken();
     assertEquals("1st portion of dest field1 value should equal src field value", src.getField1(), token1);
     String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
+    assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
+
   public void testFieldCustomConverter_NullSrcValue() throws Exception {
-    //Test that custom converter gets invoked even if the src field value is NULL
-    mapper = getNewMapper(new String[]{"fieldCustomConverter.xml"});
+    // Test that custom converter gets invoked even if the src field value is NULL
+    mapper = getNewMapper(new String[] { "fieldCustomConverter.xml" });
     SimpleObj src = new SimpleObj();
     src.setField1(null);
-    
+
     SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
 
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
+    // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
     StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
     assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
     String token1 = st.nextToken();
     assertEquals("dest field1 value should contain the explicit null string", "null", token1);
     String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
+    assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
+
   public void testFieldCustomConverter_CustomMapType() throws Exception {
-    //Test that custom field converter works for Custom Map Types
-    mapper = getNewMapper(new String[]{"fieldCustomConverter.xml"});
+    // Test that custom field converter works for Custom Map Types
+    mapper = getNewMapper(new String[] { "fieldCustomConverter.xml" });
     CustomMap src = new CustomMap();
     src.putValue("fieldA", "someStringValue");
-    
+
     SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class);
-    
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
+
+    // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1());
     StringTokenizer st = new StringTokenizer(dest.getField1(), "-");
     assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
     String token1 = st.nextToken();
     assertEquals("1st portion of dest field1 value should equal src field value", src.getValue("fieldA"), token1);
     String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
+    assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
-  
+
 }

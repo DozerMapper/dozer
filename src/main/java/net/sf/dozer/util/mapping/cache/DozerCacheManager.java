@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.cache;
 
 import java.util.HashMap;
@@ -27,10 +27,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class that manages the Dozer caches.  Only intended for internal use.   
+ * Internal class that manages the Dozer caches. Only intended for internal use.
  * 
  * @author tierney.matt
-*/
+ */
 public final class DozerCacheManager implements CacheManagerIF {
   private static final Log log = LogFactory.getLog(DozerCacheManager.class);
   private final Map cachesMap = new HashMap();
@@ -38,21 +38,21 @@ public final class DozerCacheManager implements CacheManagerIF {
   public Set getCaches() {
     return new HashSet(cachesMap.values());
   }
-  
+
   public Cache getCache(String name) {
-    Cache cache = (Cache)cachesMap.get(name);
+    Cache cache = (Cache) cachesMap.get(name);
     if (cache == null) {
       MappingUtils.throwMappingException("Unable to find cache with name: " + name);
     }
     return cache;
   }
-  
+
   public void addCache(String name, long maxElementsInMemory) {
     addCache(new Cache(name, maxElementsInMemory));
   }
-  
+
   public void addCache(Cache cache) {
-    synchronized(cachesMap) {
+    synchronized (cachesMap) {
       String name = cache.getName();
       if (cacheExists(name)) {
         MappingUtils.throwMappingException("Cache already exists with name: " + name);
@@ -60,33 +60,33 @@ public final class DozerCacheManager implements CacheManagerIF {
       cachesMap.put(name, cache);
     }
   }
-  
+
   public Set getCacheNames() {
     Set results = new HashSet();
     Iterator iter = cachesMap.entrySet().iterator();
     while (iter.hasNext()) {
-      Map.Entry entry = (Map.Entry)iter.next();
-      results.add((String)entry.getKey());
+      Map.Entry entry = (Map.Entry) iter.next();
+      results.add((String) entry.getKey());
     }
     return results;
   }
-  
+
   /*
-   * Dont clear keys in caches map because these are only added 1 time at startup.
-   * Only clear cache entries for each cache 
+   * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each
+   * cache
    */
   public void clearAllEntries() {
     Iterator iter = cachesMap.values().iterator();
-    while (iter.hasNext()){
+    while (iter.hasNext()) {
       Cache cache = (Cache) iter.next();
       cache.clear();
     }
   }
-  
+
   public boolean cacheExists(String name) {
     return cachesMap.containsKey(name);
   }
-  
+
   public void logCaches() {
     log.info(getCaches());
   }

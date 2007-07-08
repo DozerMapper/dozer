@@ -38,9 +38,9 @@ public class DozerClass implements Cloneable {
 
   public DozerClass() {
   }
-  
-  public DozerClass(String name, Class classToMap, String beanFactory, String factoryBeanId,
-                    String mapGetMethod, String mapSetMethod, boolean mapNull, boolean mapEmptyString) {
+
+  public DozerClass(String name, Class classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
+      String mapSetMethod, boolean mapNull, boolean mapEmptyString) {
     this.name = name;
     this.classToMap = classToMap;
     this.beanFactory = beanFactory;
@@ -123,7 +123,7 @@ public class DozerClass implements Cloneable {
   public void setMapEmptyString(Boolean mapEmptyString) {
     this.mapEmptyString = mapEmptyString;
   }
-  
+
   public boolean isMapTypeCustomGetterSetterClass() {
     return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
   }

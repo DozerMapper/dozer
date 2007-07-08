@@ -13,45 +13,43 @@ import org.xml.sax.SAXException;
 /**
  * UnmarshallingEventHandler implementation that discards the whole sub-tree.
  * 
- * @author
- *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
+ * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 class Discarder implements UnmarshallingEventHandler {
-    
-    private final UnmarshallingContext context;
 
-    // nest level of elements.
-    private int depth = 0;
-    
-    
-    public Discarder(UnmarshallingContext _ctxt) {
-        this.context = _ctxt;
-    }
+  private final UnmarshallingContext context;
 
-    public void enterAttribute(String uri, String local, String qname) throws SAXException {
-    }
+  // nest level of elements.
+  private int depth = 0;
 
-    public void enterElement(String uri, String local, String qname, Attributes atts) throws SAXException {
-        depth++;
-    }
+  public Discarder(UnmarshallingContext _ctxt) {
+    this.context = _ctxt;
+  }
 
-    public void leaveAttribute(String uri, String local, String qname) throws SAXException {
-    }
+  public void enterAttribute(String uri, String local, String qname) throws SAXException {
+  }
 
-    public void leaveElement(String uri, String local, String qname) throws SAXException {
-        depth--;
-        if(depth==0)
-            context.popContentHandler();
-    }
+  public void enterElement(String uri, String local, String qname, Attributes atts) throws SAXException {
+    depth++;
+  }
 
-    public Object owner() {
-        return null;
-    }
+  public void leaveAttribute(String uri, String local, String qname) throws SAXException {
+  }
 
-    public void text(String s) throws SAXException {
-    }
+  public void leaveElement(String uri, String local, String qname) throws SAXException {
+    depth--;
+    if (depth == 0)
+      context.popContentHandler();
+  }
 
-    public void leaveChild(int nextState) throws SAXException {
-    }
+  public Object owner() {
+    return null;
+  }
+
+  public void text(String s) throws SAXException {
+  }
+
+  public void leaveChild(int nextState) throws SAXException {
+  }
 
 }

@@ -33,14 +33,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Internal class that loads and parses custom xml mapping files into ClassMap objects.  The ClassMap objects returned from the load method
- * are fully decorated and ready to be used by the internal mapping engine.  Only intended for internal use.  
+ * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned
+ * from the load method are fully decorated and ready to be used by the internal mapping engine. Only intended for
+ * internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class CustomMappingsLoader {
-  
+
   private static final Log log = LogFactory.getLog(CustomMappingsLoader.class);
 
   public LoadMappingsResult load(List mappingFiles) {
@@ -49,8 +50,7 @@ public class CustomMappingsLoader {
     Configuration globalConfiguration = new Configuration();
 
     if (mappingFiles != null && mappingFiles.size() > 0) {
-      InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: "
-          + mappingFiles);
+      InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
       Iterator iter = mappingFiles.iterator();
       while (iter.hasNext()) {
         String mappingFileName = (String) iter.next();
@@ -72,7 +72,7 @@ public class CustomMappingsLoader {
             customConverterDescriptions.add(cc);
           }
         }
-        //Decorate the raw ClassMap objects and create ClassMap "prime" instances
+        // Decorate the raw ClassMap objects and create ClassMap "prime" instances
         MappingsParser mappingsParser = new MappingsParser();
         customMappings.putAll(mappingsParser.processMappings(mappings));
       }
@@ -81,7 +81,7 @@ public class CustomMappingsLoader {
     // Add default mappings using matching property names if wildcard policy
     // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
     ClassMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
- 
+
     // iterate through the classmaps and set all of the customconverters on them
     Iterator entries = customMappings.entrySet().iterator();
     while (entries.hasNext()) {

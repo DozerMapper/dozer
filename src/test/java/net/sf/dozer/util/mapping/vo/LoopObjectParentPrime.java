@@ -20,36 +20,35 @@ package net.sf.dozer.util.mapping.vo;
  * @author sullins.ben
  * @author tierney.matt
  */
-public class LoopObjectParentPrime extends BaseTestObject
-{
-    private String attributePrime;
-    private LoopObjectChildPrime childPrime;
+public class LoopObjectParentPrime extends BaseTestObject {
+  private String attributePrime;
+  private LoopObjectChildPrime childPrime;
 
-    public String getAttributePrime() {
-        return attributePrime;
-    }
+  public String getAttributePrime() {
+    return attributePrime;
+  }
 
-    public void setAttributePrime(String attributePrime) {
-        this.attributePrime = attributePrime;
-    }
+  public void setAttributePrime(String attributePrime) {
+    this.attributePrime = attributePrime;
+  }
 
-    public LoopObjectChildPrime getChildPrime() {
-        return childPrime;
-    }
+  public LoopObjectChildPrime getChildPrime() {
+    return childPrime;
+  }
 
-    public void setChildPrime(LoopObjectChildPrime childPrime) {
-        this.childPrime = childPrime;
-    }
-    
-    public int hashCode() {
-    	return System.identityHashCode(this);
-    }
-    
-    public String toString() {
-    	return this.getClass().getName() + "@" + Integer.toHexString(hashCode());
-    }
-    
-    public boolean equals(Object obj) {
-    	return hashCode() == obj.hashCode();
-    }
+  public void setChildPrime(LoopObjectChildPrime childPrime) {
+    this.childPrime = childPrime;
+  }
+
+  public int hashCode() {
+    return System.identityHashCode(this);
+  }
+
+  public String toString() {
+    return this.getClass().getName() + "@" + Integer.toHexString(hashCode());
+  }
+
+  public boolean equals(Object obj) {
+    return hashCode() == obj.hashCode();
+  }
 }

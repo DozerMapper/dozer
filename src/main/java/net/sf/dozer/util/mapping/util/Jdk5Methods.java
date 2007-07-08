@@ -18,11 +18,10 @@ package net.sf.dozer.util.mapping.util;
 import java.lang.reflect.Method;
 
 /**
- * Internal class containing single instances of thread safe jdk1.5 specific Method objects
- * that are discovered via reflection.  Use single instances of these objects for 
- * performance reasons.  Since Dozer must support older jdks, these
- * jdk1.5 objects must be instantiated via reflection so that the code base can be
- * built with older jdks such as 1.4.  Only intended for internal use. 
+ * Internal class containing single instances of thread safe jdk1.5 specific Method objects that are discovered via
+ * reflection. Use single instances of these objects for performance reasons. Since Dozer must support older jdks, these
+ * jdk1.5 objects must be instantiated via reflection so that the code base can be built with older jdks such as 1.4.
+ * Only intended for internal use.
  * 
  */
 public class Jdk5Methods {
@@ -60,27 +59,27 @@ public class Jdk5Methods {
       MappingUtils.throwMappingException("Unable to load jdk 1.5 classes via relection", e);
     }
   }
-  
+
   public Method getClassIsEnumMethod() {
     return classIsEnumMethod;
   }
-  
+
   public Method getEnumNameMethod() {
     return enumNameMethod;
   }
- 
+
   public Method getEnumValueOfMethod() {
     return enumValueOfMethod;
   }
-  
+
   public Method getMethodGetGenericParameterTypesMethod() {
     return methodGetGenericParameterTypesMethod;
   }
-  
+
   public Method getParamaterizedTypeGetActualTypeArgsMethod() {
     return paramaterizedTypeGetActualTypeArgsMethod;
   }
-  
+
   public Class getParameterizedTypeClass() {
     return parameterizedTypeClass;
   }

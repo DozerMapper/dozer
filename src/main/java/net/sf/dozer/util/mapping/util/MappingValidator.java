@@ -22,8 +22,8 @@ import java.net.URL;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 
 /**
- * Internal class used to perform various validations.  Validates mapping requests, field mappings, URL's, etc.  
- * Only intended for internal use.
+ * Internal class used to perform various validations. Validates mapping requests, field mappings, URL's, etc. Only
+ * intended for internal use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
@@ -69,7 +69,7 @@ public abstract class MappingValidator {
     if (url == null) {
       MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!!!");
     }
-    
+
     InputStream stream = null;
     try {
       stream = url.openStream();
@@ -84,7 +84,7 @@ public abstract class MappingValidator {
         }
       }
     }
-    
+
     return url;
   }
 }

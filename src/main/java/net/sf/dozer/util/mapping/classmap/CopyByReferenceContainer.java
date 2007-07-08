@@ -24,7 +24,7 @@ import java.util.List;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class CopyByReferenceContainer {
 
@@ -33,5 +33,5 @@ public class CopyByReferenceContainer {
   public List getCopyByReferences() {
     return copyByReferences;
   }
-  
+
 }

@@ -28,13 +28,13 @@ public class DozerAdminController implements DozerAdminControllerMBean {
   public String getCurrentVersion() {
     return MapperConstants.CURRENT_VERSION;
   }
-  
+
   public boolean isStatisticsEnabled() {
     return GlobalSettings.getInstance().isStatisticsEnabled();
   }
-  
+
   public void setStatisticsEnabled(boolean statisticsEnabled) {
     GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
-  
+
 }

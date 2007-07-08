@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 package net.sf.dozer.util.mapping.vo;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class SubClass extends SuperClass {
-    private String attribute;
+  private String attribute;
 
-    public String getAttribute() {
-        return attribute;
-    }
-    
+  public String getAttribute() {
+    return attribute;
+  }
 
-    public void setAttribute(String attribute) {
-        this.attribute = attribute;
-    }
+  public void setAttribute(String attribute) {
+    this.attribute = attribute;
+  }
 }
