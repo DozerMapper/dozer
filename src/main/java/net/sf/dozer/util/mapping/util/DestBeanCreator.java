@@ -71,8 +71,7 @@ public class DestBeanCreator {
       }
       return ReflectionUtils.invoke(method, null, null);
     }
-    // If factory name wasn't specified, just create new instance. Otherwise
-    // use the specified custom bean factory
+    // If factory name wasn't specified, just create new instance. Otherwise use the specified custom bean factory
     if (MappingUtils.isBlankOrNull(factoryName)) {
       try {
         // TODO: IS this correct assumption for Map's
@@ -85,8 +84,7 @@ public class DestBeanCreator {
         if (destClass != null) {
           return createNewInstance(destClass);
         }
-        // we could be dealing with an Interface or Abstract Class which
-        // was mapped using a Class Level mapId
+        // we could be dealing with an Interface or Abstract Class which was mapped using a Class Level mapId
         // try to see if the parentFieldMap dest field has a hint...
         if (fieldMap != null && fieldMap.getDestTypeHint() != null) {
           return createNewInstance(fieldMap.getDestTypeHint().getHint());

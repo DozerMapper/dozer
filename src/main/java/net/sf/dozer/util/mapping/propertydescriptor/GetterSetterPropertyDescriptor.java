@@ -145,8 +145,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         clazz = pd.getPropertyType();
         if (clazz.isInterface() && (i + 1) == hierarchyLength && destHint != null) {
           // before setting the property on the destination object we should check for a destination hint. need to know
-          // that we are at the end of the line
-          // determine the property type
+          // that we are at the end of the line determine the property type
           clazz = destHint.getHint();
         }
         Object o;

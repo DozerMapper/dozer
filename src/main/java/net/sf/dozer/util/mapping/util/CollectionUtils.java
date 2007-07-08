@@ -64,12 +64,8 @@ public abstract class CollectionUtils {
   public static Object getValueFromCollection(Object collection, int index) {
     if (isArray(collection.getClass())) {
       return Array.get(collection, index);
-    } else
-    // is collection
-    {
-      Collection collectionTo = (Collection) collection;
-
-      return collectionTo.toArray()[index];
+    } else {
+      return ((Collection) collection).toArray()[index];
     }
   }
 

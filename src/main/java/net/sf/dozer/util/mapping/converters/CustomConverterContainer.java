@@ -79,8 +79,7 @@ public class CustomConverterContainer {
 
       // we check to see if the destination class is the same as classA defined in the converter mapping xml.
       // we next check if the source class is the same as classA defined in the converter mapping xml.
-      // we also to check to see if it is assignable to either. We then perform these checks in the other direction for
-      // classB
+      // we also to check to see if it is assignable to either. We then perform these checks in the other direction for classB
       if ((classA.isAssignableFrom(dest) && classB.isAssignableFrom(src))
           || (classA.isAssignableFrom(src) && classB.isAssignableFrom(dest))) {
         result = customConverter.getType();

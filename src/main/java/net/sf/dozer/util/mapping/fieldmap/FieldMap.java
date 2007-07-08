@@ -110,11 +110,7 @@ public abstract class FieldMap implements Cloneable {
     // 4-07 mht: The getWriteMethod was removed from the prop descriptor interface. This was done as part of
     // refactoring effort to clean up the prop descriptor stuff. The underlying write method should not be exposed.
     // For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this
-    // context.
-    // The other types of prop descriptors would have failed.
-    //
-    // TODO: remove this method FieldMap.getDestFieldWriteMethod()
-
+    // context. The other types of prop descriptors would have failed.
     DozerPropertyDescriptorIF dpd = getDestPropertyDescriptor(runtimeDestClass);
     Method result = null;
     try {

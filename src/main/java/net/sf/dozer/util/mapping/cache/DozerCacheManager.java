@@ -72,8 +72,7 @@ public final class DozerCacheManager implements CacheManagerIF {
   }
 
   /*
-   * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each
-   * cache
+   * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each cache
    */
   public void clearAllEntries() {
     Iterator iter = cachesMap.values().iterator();

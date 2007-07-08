@@ -55,7 +55,7 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
         existingFieldValue = Array.newInstance(returnType.getComponentType(), 0);
       } else if (CollectionUtils.isSet(returnType)) {
         existingFieldValue = new HashSet();
-      } else { // default
+      } else {
         existingFieldValue = new ArrayList();
       }
     }

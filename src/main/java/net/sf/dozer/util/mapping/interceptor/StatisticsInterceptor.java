@@ -60,8 +60,7 @@ public class StatisticsInterceptor implements InvocationHandler {
   }
 
   private void incrementClassMappingFailureTypeStat(Object[] args) {
-    // Determine src and dest class name. The combination of src and dest
-    // class name will be used for the statistic entry key.
+    // Determine src and dest class name. The combination of src and dest class name will be used for the statistic entry key.
     String srcClassName = null;
     if (args[0] != null) {
       srcClassName = args[0].getClass().getName();

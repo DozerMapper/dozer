@@ -27,8 +27,7 @@ public class LongConverter implements Converter {
   private static org.apache.commons.beanutils.converters.LongConverter commonsConverter = new org.apache.commons.beanutils.converters.LongConverter();
 
   public Object convert(Class destClass, Object srcObj) {
-    // Boolean to Int not supported in apache common's int converter and this is why this
-    // class is req'd
+    // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
     if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
       boolean value = ((Boolean) srcObj).booleanValue();
       return (value ? new Long(1) : new Long(0));
