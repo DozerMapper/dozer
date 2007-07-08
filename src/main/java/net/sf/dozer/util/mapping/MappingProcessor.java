@@ -535,15 +535,12 @@ public class MappingProcessor implements MapperIF {
       Object srcEntryValue = srcEntry.getValue();
       Object destEntryValue = mapOrRecurseObject(srcObj, srcEntryValue, srcEntryValue.getClass(), fieldMap, destObj);
       Object obj = result.get(srcEntry.getKey());
-      if (obj != null && obj.equals(destEntryValue) && !(fieldMap instanceof MapFieldMap)
+      if (obj != null && obj.equals(destEntryValue)
           && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(fieldMap.getRelationshipType())) {
-        if (!(obj instanceof String)) {
-          map(null, srcEntryValue, obj, null, fieldMap);
-        }
+        map(null, srcEntryValue, obj, null, fieldMap);
       } else {
         result.put(srcEntry.getKey(), destEntryValue);
       }
-
     }
     return result;
   }
@@ -657,25 +654,20 @@ public class MappingProcessor implements MapperIF {
         destEntryType = fieldMap.getDestHintType(srcValue.getClass());
       }
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
-      if (!(fieldMap instanceof MapFieldMap)) {
-        if (fieldMap.getRelationshipType() == null
-            || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
-          result.add(destValue);
-        } else {
-          if (result.contains(destValue)) {
-            int index = result.indexOf(destValue);
-            // perform an update if complex type - can't map strings
-            Object obj = result.get(index);
-            // make sure it is not a String
-            if (!obj.getClass().isAssignableFrom(String.class)) {
-              map(null, srcValue, obj, null, fieldMap);
-            }
-          } else {
-            result.add(destValue);
-          }
-        }
-      } else {
+      if (fieldMap.getRelationshipType() == null || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
         result.add(destValue);
+      } else {
+        if (result.contains(destValue)) {
+          int index = result.indexOf(destValue);
+          // perform an update if complex type - can't map strings
+          Object obj = result.get(index);
+          // make sure it is not a String
+          if (!obj.getClass().isAssignableFrom(String.class)) {
+            map(null, srcValue, obj, null, fieldMap);
+          }
+        } else {
+          result.add(destValue);
+        }
       }
     }
     if (field == null) {
@@ -721,25 +713,20 @@ public class MappingProcessor implements MapperIF {
       }
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
       prevDestEntryType = destEntryType;
-      if (!(fieldMap instanceof MapFieldMap)) {
-        if (fieldMap.getRelationshipType() == null
-            || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
-          result.add(destValue);
-        } else {
-          if (result.contains(destValue)) {
-            int index = result.indexOf(destValue);
-            // perform an update if complex type - can't map strings
-            Object obj = result.get(index);
-            // make sure it is not a String
-            if (!obj.getClass().isAssignableFrom(String.class)) {
-              map(null, srcValue, obj, null, fieldMap);
-            }
-          } else {
-            result.add(destValue);
-          }
-        }
-      } else {
+      if (fieldMap.getRelationshipType() == null || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
         result.add(destValue);
+      } else {
+        if (result.contains(destValue)) {
+          int index = result.indexOf(destValue);
+          // perform an update if complex type - can't map strings
+          Object obj = result.get(index);
+          // make sure it is not a String
+          if (!obj.getClass().isAssignableFrom(String.class)) {
+            map(null, srcValue, obj, null, fieldMap);
+          }
+        } else {
+          result.add(destValue);
+        }
       }
     }
     return result;
@@ -906,18 +893,16 @@ public class MappingProcessor implements MapperIF {
       List fieldMaps = map.getFieldMaps();
       for (int i = 0; i < fieldMaps.size(); i++) {
         FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
-        if (!(fieldMapping instanceof MapFieldMap)) {
-          String parentSrcField = null;
-          if (parentFieldMap != null) {
-            parentSrcField = parentFieldMap.getSrcFieldName();
-          }
-          String key = MappingUtils.getParentFieldNameKey(parentSrcField, srcObj, srcObj.getClass().getName(), fieldMapping
-              .getSrcFieldName(), fieldMapping.getDestFieldName());
-          if (fieldNamesList.contains(key)) {
-            continue;
-          } else {
-            fieldNamesList.add(key);
-          }
+        String parentSrcField = null;
+        if (parentFieldMap != null) {
+          parentSrcField = parentFieldMap.getSrcFieldName();
+        }
+        String key = MappingUtils.getParentFieldNameKey(parentSrcField, srcObj, srcObj.getClass().getName(), fieldMapping
+            .getSrcFieldName(), fieldMapping.getDestFieldName());
+        if (fieldNamesList.contains(key)) {
+          continue;
+        } else {
+          fieldNamesList.add(key);
         }
       }
     }
@@ -930,10 +915,9 @@ public class MappingProcessor implements MapperIF {
     if (destObj == null) {
       return null;
     }
-    if (!(fieldMap instanceof MapFieldMap)) {
-      // call the getXX method to see if the field is already instantiated
-      field = fieldMap.getDestValue(destObj);
-    }
+    // call the getXX method to see if the field is already instantiated
+    field = fieldMap.getDestValue(destObj);
+
     // When we are recursing through a list we need to make sure that we are not in the list
     // by checking the destFieldType
     if (field != null) {
