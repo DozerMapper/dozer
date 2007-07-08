@@ -18,6 +18,10 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
+import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.util.MapperConstants;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
@@ -45,25 +49,54 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return ReflectionUtils.getMethod(clazz, setMethod);
   }
 
-  protected void invokeWriteMethod(Object target, Object value) throws NoSuchMethodException {
+  protected void invokeWriteMethod(Object target, Object value) {
     if (key == null) {
       throw new MappingException("key must be specified");
     }
-    ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { key, value });
+    try {
+      ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { key, value });
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
   }
 
   protected Method getReadMethod() throws NoSuchMethodException {
     return ReflectionUtils.getMethod(clazz, getMethod);
   }
 
-  protected Object invokeReadMethod(Object target) throws NoSuchMethodException {
+  protected Object invokeReadMethod(Object target) {
     if (key == null) {
       throw new MappingException("key must be specified");
     }
-    return ReflectionUtils.invoke(getReadMethod(), target, new Object[] { key });
+    Object result = null;
+    try {
+      result = ReflectionUtils.invoke(getReadMethod(), target, new Object[] { key });
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
 
   protected String getSetMethodName() throws NoSuchMethodException {
     return setMethod;
   }
+  
+  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap) {
+    if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+      if (!getPropertyType().isPrimitive() || value != null) {
+        // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
+        try {
+          if (getPropertyValue(bean) == value) {
+            return;
+          }
+        } catch (Exception e) {
+          // if we failed to read the value, assume we must write, and continue...
+        }
+        invokeWriteMethod(bean, value);
+      }
+    } else {
+      writeDeepDestinationValue(bean, value, hint, fieldMap);
+    }
+  }
+  
 }

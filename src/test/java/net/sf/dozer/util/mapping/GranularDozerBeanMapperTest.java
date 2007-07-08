@@ -23,10 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
 
-import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
 import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
@@ -83,26 +81,6 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     } catch (MappingException e) {
       assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor.<init>()", e.getMessage());
     }
-  }
-
-  // Defect #1728385
-  public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
-    mapper = getNewMapper(new String[] { "simpleCustomConverter.xml" });
-
-    AnotherTestObject src = new AnotherTestObject();
-    src.setField3(String.valueOf(System.currentTimeMillis()));
-
-    AnotherTestObjectPrime dest = (AnotherTestObjectPrime) mapper.map(src, AnotherTestObjectPrime.class);
-
-    // Custom converter specified for the field mapping, so verify custom converter was actually used
-    assertNotNull("dest field should not be null", dest.getField3());
-    StringTokenizer st = new StringTokenizer(dest.getField3(), "-");
-    assertEquals("dest field value should contain a hyphon", 2, st.countTokens());
-    String token1 = st.nextToken();
-    assertEquals("1st portion of dest field value should equal src field value", src.getField3(), token1);
-    String token2 = st.nextToken();
-    assertEquals("dest field value should have been appended to by the cust converter", StringAppendCustomConverter.APPENDED_VALUE,
-        token2);
   }
 
   public void testFieldAccessible() throws Exception {
@@ -165,11 +143,6 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     to.setArrayForLists(array);
     TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
     assertEquals("1", top.getListForArray().get(0));
-    // Map Back
-    // InsideTestObject dest = (InsideTestObject) mapper.map(itop,
-    // InsideTestObject.class);
-    // assertEquals("name", ito.getHouse().getThingy().getName());
-
   }
 
   public void testMapNull_MappingLevel() throws Exception {

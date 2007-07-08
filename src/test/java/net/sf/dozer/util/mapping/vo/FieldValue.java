@@ -22,10 +22,12 @@ package net.sf.dozer.util.mapping.vo;
 public class FieldValue extends BaseTestObject {
   private String key;
   private Object value;
-  public FieldValue() {
-  }
+  
   public FieldValue(String value) {
     this.value = value;
+  }
+  
+  public FieldValue() {
   }
 
   public String getKey() {
