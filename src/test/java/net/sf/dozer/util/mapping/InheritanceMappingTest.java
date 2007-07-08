@@ -15,13 +15,10 @@
  */
 package net.sf.dozer.util.mapping;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.pmonks.xml.dozer.test.ChildType;
 import net.sf.dozer.util.mapping.util.TestDataFactory;
-import net.sf.dozer.util.mapping.vo.Child;
 import net.sf.dozer.util.mapping.vo.NoSuperClass;
 import net.sf.dozer.util.mapping.vo.SubClass;
 import net.sf.dozer.util.mapping.vo.SubClassPrime;
@@ -127,56 +124,6 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     B mappedDest = (B) mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
-  }
-
-  /*
-   * Test Case Submitted by Peter Monks 1/2007
-   */
-  public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
-    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
-    Child pojo = new Child();
-
-    pojo.setId(BigInteger.valueOf(42));
-    pojo.setName("Ernie");
-    pojo.setFu("Fu");
-    pojo.setBar("Bar");
-
-    ChildType xmlBean = (ChildType) mapper.map(pojo, ChildType.class);
-
-    assertNotNull("dest obj should not be null", xmlBean);
-    assertNotNull("fu value should not be null", xmlBean.getFu());
-    assertEquals("invalid fu value", pojo.getFu(), xmlBean.getFu());
-    assertNotNull("bar field should not be null", xmlBean.getBar());
-    assertEquals("invalid bar value", pojo.getBar(), xmlBean.getBar());
-    assertNotNull("name value should not be null", xmlBean.getName());
-    assertEquals("invalid name value", pojo.getName(), xmlBean.getName());
-    assertNotNull("id field should not be null", xmlBean.getId());
-    assertEquals("invalid id value", pojo.getId(), xmlBean.getId());
-  }
-
-  /*
-   * Test Case Submitted by Peter Monks 1/2007
-   */
-  public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
-    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
-    ChildType xmlBean = ChildType.Factory.newInstance();
-
-    xmlBean.setId(BigInteger.valueOf(7236));
-    xmlBean.setName("Bert");
-    xmlBean.setFu("Uf");
-    xmlBean.setBar("Rab");
-
-    Child pojo = (Child) mapper.map(xmlBean, Child.class);
-
-    assertNotNull("dest obj should not be null", pojo);
-    assertNotNull("fu should not be null", pojo.getFu());
-    assertEquals("invalid fu value", xmlBean.getFu(), pojo.getFu());
-    assertNotNull("bar should not be null", pojo.getBar());
-    assertEquals("invalid bar value", xmlBean.getBar(), pojo.getBar());
-    assertNotNull("id should not be null", pojo.getId());
-    assertEquals("invalid id value", xmlBean.getId(), pojo.getId());
-    assertNotNull("name should not be null", pojo.getName());
-    assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
   }
 
   public void testGeneralInheritance() throws Exception {

@@ -30,7 +30,6 @@ import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.FieldValue;
-import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject2;
@@ -46,7 +45,6 @@ import net.sf.dozer.util.mapping.vo.SimpleObjPrime;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime2;
-import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.TestException;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowException;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowExceptionPrime;
@@ -299,22 +297,6 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     ContextMapping cmpBDest = (ContextMapping) mapper.map(prime, ContextMapping.class, "caseB");
     assertEquals("loanNo", cmpBDest.getLoanNo());
     assertEquals("loanNoNested", ((ContextMappingNestedPrime) cmpBDest.getContextList().get(0)).getLoanNo());
-  }
-
-  public void testXmlBeans() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
-    // Map from TestObject to XMLBeans
-    TestObject to = new TestObject();
-    to.setOne("one");
-    GetWeatherByZipCodeDocument doc = (GetWeatherByZipCodeDocument) mapper.map(to, GetWeatherByZipCodeDocument.class);
-    assertEquals(to.getOne(), doc.getGetWeatherByZipCode().getZipCode());
-
-    // Map from XMLBeans to TestObject
-    GetWeatherByZipCodeDocument res = GetWeatherByZipCodeDocument.Factory.newInstance();
-    GetWeatherByZipCode zipCode = res.addNewGetWeatherByZipCode();
-    zipCode.setZipCode("one");
-    TestObject to2 = (TestObject) mapper.map(res, TestObject.class);
-    assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
   }
 
   public void testArrayToSortedSet() {
