@@ -23,7 +23,6 @@ import net.sf.dozer.util.mapping.MappingException;
  * @author tierney.matt
  */
 public class ConversionException extends MappingException {
-  private static final long serialVersionUID = 1L;
 
   public ConversionException(String string, Throwable throwable) {
     super(string, throwable);

@@ -15,8 +15,6 @@
  */
 package net.sf.dozer.util.mapping.stats;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -28,8 +26,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * 
  * @author tierney.matt
  */
-public class StatisticEntry implements Serializable {
-  private static final long serialVersionUID = 1L;
+public class StatisticEntry {
   private final Object key;
   private long value = 0;
 

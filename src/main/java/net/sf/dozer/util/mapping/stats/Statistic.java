@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.stats;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -32,8 +31,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * 
  * @author tierney.matt
  */
-public class Statistic implements Serializable {
-  private static final long serialVersionUID = 1L;
+public class Statistic {
   private final String type;
   private final Map entriesMap = new HashMap();
 

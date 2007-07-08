@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import net.sf.dozer.util.mapping.fieldmap.DozerField;
-
 /**
  * Internal class used to perform various validations. Validates mapping requests, field mappings, URL's, etc. Only
  * intended for internal use.
@@ -51,15 +49,6 @@ public abstract class MappingValidator {
     }
     if (destClass == null) {
       MappingUtils.throwMappingException("destination class must not be null");
-    }
-  }
-
-  public static void validateFieldMapping(DozerField srcField, DozerField destField) {
-    if (srcField == null) {
-      MappingUtils.throwMappingException("src field must be specified");
-    }
-    if (destField == null) {
-      MappingUtils.throwMappingException("dest field must be specified");
     }
   }
 
