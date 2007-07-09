@@ -16,7 +16,6 @@
     </custom-converters>
   </configuration>
 
-
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime2</class-b>    

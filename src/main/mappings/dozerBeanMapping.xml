@@ -10,7 +10,6 @@
      
      <custom-converters>  <!-- these are always considered bi-directional -->
      
-      <!-- this mapping takes place on the TestCustomConverterObject and TestCustomConverterObjectPrime -->
       <converter type="net.sf.dozer.util.mapping.converters.TestCustomConverter" >
         <class-a>net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF</class-a>
         <class-b>java.lang.Double</class-b>
@@ -39,7 +38,7 @@
      
   </configuration>
   
-  <mapping  wildcard="true" date-format="MM-dd-yyyy HH:mm:ss"> <!-- Override top level date format default.  Defaults to wildcard = true. this means that any properties the same name between classes it will implicitly copy -->
+  <mapping wildcard="true" date-format="MM-dd-yyyy HH:mm:ss"> <!-- Override top level date format default.  Defaults to wildcard = true. this means that any properties the same name between classes it will implicitly copy -->
     <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
 
@@ -155,20 +154,15 @@
     </field>    
 
   </mapping>
-  
-
 
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.SuperSuperSuperClass</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.SuperSuperSuperClassPrime</class-b>
-    
 
     <field>
       <a>hydrate</a>
       <b>dehydrate</b>
     </field>        
-   
-        
   </mapping> 
   
   <mapping>
@@ -270,15 +264,6 @@
     <class-a>net.sf.dozer.util.mapping.vo.DehydrateTestObject</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.HydrateTestObject</class-b>
     
-    <!-- this always assumes non-cumulative since the getMethod() returns a Car and not a List. We have no way of adding to the list since we can not access it -->
-    <!-- Problem - Destination Field is array of 'cars' - but getMethod() is buildCar() which returns a Car. MapCollection method can not handle this...
-    DestinationType is a Car and it should be an array.
-    <field>
-      <a get-method="buildCar">cars</a> 
-      <b set-method="addCar">vehicles</b>  maps to the type of the argument, assumes only one method name
-    </field>   
-    -->
-
     <!-- Iterate Method Mapping -->
     <field> 
       <a>appleComputers</a> 
@@ -429,7 +414,6 @@
     
   </mapping>  
 
-  <!-- this mapping is here so that it will pick up the custom converters -->
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.TestCustomConverterObject</class-a> 
     <class-b>net.sf.dozer.util.mapping.vo.TestCustomConverterObjectPrime</class-b>
@@ -645,13 +629,6 @@
     
   </mapping>   
 
-
-  <!-- custom converters -->
-  <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.TestCustomConverterHashMapObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestCustomConverterHashMapPrimeObject</class-b>
-  </mapping>   
-  
   <mapping>     
     <class-a>net.sf.dozer.util.mapping.vo.CustomConverterWrapper</class-a>    
     <class-b>net.sf.dozer.util.mapping.vo.CustomConverterWrapperPrime</class-b>
