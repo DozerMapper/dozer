@@ -17,6 +17,8 @@ package net.sf.dozer.util.mapping;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
@@ -35,6 +37,7 @@ import net.sf.dozer.util.mapping.vo.TestCustomConverterObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.map.CustomMap;
+import net.sf.dozer.util.mapping.vo.map.MapToProperty;
 
 /**
  * @author tierney.matt
@@ -262,5 +265,27 @@ public class CustomConverterMappingTest extends AbstractDozerTest {
     assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
+  
+  public void testFieldCustomConverter_HashMapField() throws Exception {
+    // Test that custom field converter works for Map type fields
+    mapper = getNewMapper(new String[] { "fieldCustomConverter.xml" });
+    MapToProperty src = new MapToProperty();
+    Map hashMap = new HashMap();
+    hashMap.put("fieldA", "someStringValue");
+    src.setHashMap(hashMap);
+
+    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class);
+
+    // Custom converter specified for the field1 mapping, so verify custom converter was actually used
+    assertNotNull("dest field1 should not be null", dest.getField1());
+    StringTokenizer st = new StringTokenizer(dest.getField1(), "-");
+    assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
+    String token1 = st.nextToken();
+    assertEquals("1st portion of dest field1 value should equal src field value", src.getHashMap().get("fieldA"), token1);
+    String token2 = st.nextToken();
+    assertEquals("dest field1 value should have been appended to by the cust converter",
+        StringAppendCustomConverter.APPENDED_VALUE, token2);
+  }
+  
 
 }

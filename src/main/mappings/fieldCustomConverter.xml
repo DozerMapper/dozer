@@ -21,5 +21,14 @@
     </field>
   </mapping>   
 
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.map.MapToProperty</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SimpleObj</class-b>    
+    <field custom-converter="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter">
+      <a key="fieldA">hashMap</a>
+      <b>field1</b>
+    </field>
+  </mapping>   
+  
 
 </mappings>
