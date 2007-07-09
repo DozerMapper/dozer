@@ -18,6 +18,9 @@ package net.sf.dozer.util.mapping.classmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * Internal class used to hold any "allowed exceptions" that may have been specified in the mapping xml. Only intended
  * for internal use.
@@ -30,5 +33,9 @@ public class AllowedExceptionContainer {
 
   public List getExceptions() {
     return exceptions;
+  }
+  
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 }

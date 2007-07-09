@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.util.mapping.classmap;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
@@ -92,5 +95,8 @@ public class Configuration {
   public void setCopyByReferences(CopyByReferenceContainer copyByReferenceContainer) {
     this.copyByReferences = copyByReferenceContainer;
   }
-
+  
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 }

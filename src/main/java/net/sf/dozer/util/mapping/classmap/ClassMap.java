@@ -23,6 +23,9 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * Internal class that represents a class mapping definition. Holds all of the information about a single class mapping.
  * Only intended for internal use.
@@ -293,5 +296,13 @@ public class ClassMap {
 
   public void setMapEmptyString(boolean mapEmptyString) {
     this.mapEmptyString = mapEmptyString;
+  }
+  
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
+    append("source class", getSrcClassName()).
+    append("destination class", getDestClassName()).
+    append("map-id", mapId).
+    toString();
   }
 }

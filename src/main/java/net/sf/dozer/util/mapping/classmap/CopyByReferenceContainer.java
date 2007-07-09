@@ -18,6 +18,9 @@ package net.sf.dozer.util.mapping.classmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * Only intended for internal use.
  * 
@@ -32,6 +35,10 @@ public class CopyByReferenceContainer {
 
   public List getCopyByReferences() {
     return copyByReferences;
+  }
+  
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 
 }

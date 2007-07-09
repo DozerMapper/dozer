@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.util.mapping.classmap;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
@@ -123,5 +126,8 @@ public class DozerClass implements Cloneable {
   public boolean isMapTypeCustomGetterSetterClass() {
     return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
   }
-
+  
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 }

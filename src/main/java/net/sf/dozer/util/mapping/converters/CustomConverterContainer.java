@@ -18,6 +18,9 @@ package net.sf.dozer.util.mapping.converters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import net.sf.dozer.util.mapping.cache.Cache;
 import net.sf.dozer.util.mapping.cache.CacheEntry;
 import net.sf.dozer.util.mapping.cache.CacheKeyFactory;
@@ -106,5 +109,9 @@ public class CustomConverterContainer {
       clazz = Float.class;
     }
     return clazz;
+  }
+  
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 }

@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * Only intended for internal use.
  * 
@@ -56,10 +59,6 @@ public class DozerField {
 
   public void setDateFormat(String dateFormat) {
     this.dateFormat = dateFormat;
-  }
-
-  public String toString() {
-    return getName() + " : " + getType();
   }
 
   public String getTheGetMethod() {
@@ -145,5 +144,8 @@ public class DozerField {
   public boolean isMapTypeCustomGetterSetterField() {
     return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
   }
-
+  
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 }

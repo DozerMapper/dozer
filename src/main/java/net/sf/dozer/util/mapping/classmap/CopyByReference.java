@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.util.mapping.classmap;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * Only intended for internal use.
  * 
@@ -33,5 +36,9 @@ public class CopyByReference {
 
   public void setReferenceName(String referenceName) {
     this.referenceName = referenceName;
+  }
+  
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 }

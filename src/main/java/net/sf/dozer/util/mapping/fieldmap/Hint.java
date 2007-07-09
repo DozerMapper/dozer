@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
@@ -96,4 +99,7 @@ public class Hint {
     this.hintName = hintName;
   }
 
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 }

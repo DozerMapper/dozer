@@ -24,6 +24,9 @@ import net.sf.dozer.util.mapping.propertydescriptor.PropertyDescriptorFactory;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -418,6 +421,21 @@ public abstract class FieldMap implements Cloneable {
 
   protected DozerField getDestField() {
     return destField;
+  }
+  
+  public String toString() {
+      return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
+      append("source field", srcField).
+      append("destination field", destField).
+      append("type", type).
+      append("customConverter", customConverter).
+      append("relationshipType", relationshipType).
+      append("mapId", mapId).
+      append("copyByReference", copyByReference).
+      append("copyByReferenceOveridden", copyByReferenceOveridden).
+      append("srcTypeHint", srcTypeHint).
+      append("destTypeHint", destTypeHint).
+      toString();
   }
 
 }
