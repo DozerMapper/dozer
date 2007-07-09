@@ -34,7 +34,7 @@ public class InjectedCustomConverter implements CustomConverter {
     } catch (IllegalAccessException e) {
       e.printStackTrace();
     }
-    rvalue.setName(getInjectedName());
+    rvalue.setName(getInjectedName() != null ? getInjectedName() : "defaultValueSetByCustomConverter");
     return rvalue;
   }
 

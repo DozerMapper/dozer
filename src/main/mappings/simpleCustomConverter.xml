@@ -9,6 +9,10 @@
         <class-a>java.lang.String</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
+      <converter type="net.sf.dozer.util.mapping.converters.InjectedCustomConverter" >
+        <class-a>net.sf.dozer.util.mapping.vo.Vehicle</class-a>
+        <class-b>net.sf.dozer.util.mapping.vo.Vehicle</class-b>
+      </converter>
     </custom-converters>
   </configuration>
 
@@ -21,6 +25,5 @@
       <b>field1Prime</b>
     </field>
   </mapping>   
-
-
+  
 </mappings>

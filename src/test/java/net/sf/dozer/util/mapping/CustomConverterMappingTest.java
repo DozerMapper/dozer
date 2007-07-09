@@ -22,12 +22,16 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
+import net.sf.dozer.util.mapping.util.ApplicationBeanFactory;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.ArrayCustConverterObj;
 import net.sf.dozer.util.mapping.vo.ArrayCustConverterObjPrime;
+import net.sf.dozer.util.mapping.vo.Bus;
+import net.sf.dozer.util.mapping.vo.Car;
 import net.sf.dozer.util.mapping.vo.CustomDoubleObject;
 import net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF;
+import net.sf.dozer.util.mapping.vo.Moped;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 import net.sf.dozer.util.mapping.vo.SimpleObjPrime2;
 import net.sf.dozer.util.mapping.vo.TestCustomConverterHashMapObject;
@@ -36,6 +40,7 @@ import net.sf.dozer.util.mapping.vo.TestCustomConverterObject;
 import net.sf.dozer.util.mapping.vo.TestCustomConverterObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
+import net.sf.dozer.util.mapping.vo.Van;
 import net.sf.dozer.util.mapping.vo.map.CustomMap;
 import net.sf.dozer.util.mapping.vo.map.MapToProperty;
 
@@ -82,6 +87,27 @@ public class CustomConverterMappingTest extends AbstractDozerTest {
     assertEquals("dest field value should have been appended to by the cust converter", StringAppendCustomConverter.APPENDED_VALUE,
         token2);
   }
+  
+  public void testSimpleCustomConverter_ImplicitMappingWithInheritance() throws Exception {
+    mapper = getNewMapper(new String[] { "simpleCustomConverter.xml" });
+    
+    Car car = new Car();
+    Van van = (Van) mapper.map(car, Van.class);
+    assertEquals("defaultValueSetByCustomConverter", van.getName());
+    // map back
+    Car carDest = (Car) mapper.map(van, Car.class);
+    assertEquals("defaultValueSetByCustomConverter", carDest.getName());
+
+    // test that we get customconverter even though it wasn't defined in the mapping file
+    Moped moped = new Moped();
+    Bus bus = (Bus) mapper.map(moped, Bus.class);
+    assertEquals("defaultValueSetByCustomConverter", bus.getName());
+
+    // map back
+    Moped mopedDest = (Moped) mapper.map(bus, Moped.class);
+    assertEquals("defaultValueSetByCustomConverter", mopedDest.getName());
+  }
+  
 
   public void testSimpleCustomConverter_NullSrcValue() throws Exception {
     // Test that custom converter gets invoked even if the src field value is NULL

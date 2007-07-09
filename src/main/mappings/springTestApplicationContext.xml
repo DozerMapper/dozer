@@ -27,8 +27,8 @@
   <bean id="cleanMapper" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
     <property name="mappingFiles">
       <list>
-        <value>injectedCustomConverter.xml</value>
         <value>useCustomConverter.xml</value>
+        <value>injectedCustomConverter.xml</value>
       </list>
     </property>  
     <property name="customConverters">
