@@ -35,9 +35,9 @@ public class DozerField {
   private String key;
   private String mapSetMethod;
   private String mapGetMethod;
-  private boolean isAccessible;
+  private boolean accessible;
   private String createMethod;
-  private boolean isIndexed;
+  private boolean indexed;
   private int index = -1;
 
   public DozerField(String name, String type) {
@@ -102,11 +102,11 @@ public class DozerField {
   }
 
   public boolean isAccessible() {
-    return isAccessible;
+    return accessible;
   }
 
   public void setAccessible(boolean isAccessible) {
-    this.isAccessible = isAccessible;
+    this.accessible = isAccessible;
   }
 
   public String getCreateMethod() {
@@ -126,11 +126,11 @@ public class DozerField {
   }
 
   public boolean isIndexed() {
-    return isIndexed;
+    return indexed;
   }
 
   public void setIndexed(boolean isIndexed) {
-    this.isIndexed = isIndexed;
+    this.indexed = isIndexed;
   }
 
   public void setName(String name) {

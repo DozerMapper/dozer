@@ -344,7 +344,7 @@ public abstract class FieldMap implements Cloneable {
     this.type = type;
   }
 
-  public boolean getCopyByReference() {
+  public boolean isCopyByReference() {
     return copyByReference;
   }
 
@@ -365,7 +365,7 @@ public abstract class FieldMap implements Cloneable {
     return getDestFieldName().equals(MapperConstants.SELF_KEYWORD);
   }
 
-  public boolean getCopyByReferenceOveridden() {
+  public boolean isCopyByReferenceOveridden() {
     return copyByReferenceOveridden;
   }
 

@@ -65,7 +65,7 @@ public class Configuration {
     dateFormat = format;
   }
 
-  public boolean getWildcard() {
+  public boolean isWildcard() {
     return wildcard;
   }
 
@@ -73,7 +73,7 @@ public class Configuration {
     wildcard = globalWildcardPolicy;
   }
 
-  public boolean getStopOnErrors() {
+  public boolean isStopOnErrors() {
     return stopOnErrors;
   }
 

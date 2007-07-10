@@ -64,8 +64,8 @@ public class ClassMap {
     return fieldMaps;
   }
 
-  public boolean getStopOnErrors() {
-    return stopOnErrorsOveridden ? stopOnErrors : globalConfiguration.getStopOnErrors();
+  public boolean isStopOnErrors() {
+    return stopOnErrorsOveridden ? stopOnErrors : globalConfiguration.isStopOnErrors();
   }
 
   public void setStopOnErrors(boolean stopOnErrors) {
@@ -73,7 +73,7 @@ public class ClassMap {
     this.setStopOnErrorsOveridden(true);
   }
   
-  public boolean getTrimStrings() {
+  public boolean isTrimStrings() {
     return trimStringsOveridden ? trimStrings : globalConfiguration.isTrimStrings();
   }
 
@@ -149,7 +149,7 @@ public class ClassMap {
   }
 
   public boolean isWildcard() {
-    return wildcardOveridden ? wildcard : globalConfiguration.getWildcard();
+    return wildcardOveridden ? wildcard : globalConfiguration.isWildcard();
   }
 
   public void setWildcard(boolean wildcardPolicy) {

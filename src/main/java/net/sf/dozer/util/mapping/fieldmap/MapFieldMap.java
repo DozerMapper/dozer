@@ -43,7 +43,7 @@ public class MapFieldMap extends FieldMap {
 
   public MapFieldMap(ClassMap classMap, FieldMap fieldMap) {
     super(classMap);
-    setCopyByReference(fieldMap.getCopyByReference());
+    setCopyByReference(fieldMap.isCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
     setDestField(fieldMap.getDestField());
     setDestTypeHint(fieldMap.getDestTypeHint());

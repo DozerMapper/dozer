@@ -288,7 +288,7 @@ public class MappingProcessor implements MapperIF {
       statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
-      if (fieldMapping.getClassMap().getStopOnErrors()) {
+      if (fieldMapping.getClassMap().isStopOnErrors()) {
         MappingUtils.throwMappingException(e);
       } else {
         // check if any Exceptions should be allowed to be thrown
@@ -365,7 +365,7 @@ public class MappingProcessor implements MapperIF {
       }
     }
 
-    if (fieldMap.getCopyByReference()) {
+    if (fieldMap.isCopyByReference()) {
       // just get the src and return it, no transformation.
       return srcFieldValue;
     }
@@ -770,7 +770,7 @@ public class MappingProcessor implements MapperIF {
     }
     
     // trim string value if trim-strings="true"
-    if (destFieldValue != null && fieldMap.getClassMap().getTrimStrings() && destFieldValue.getClass().equals(String.class)) {
+    if (destFieldValue != null && fieldMap.getClassMap().isTrimStrings() && destFieldValue.getClass().equals(String.class)) {
       destFieldValue = ((String)destFieldValue).trim();
     }
 

@@ -201,9 +201,9 @@ public abstract class MappingUtils {
             .isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
-    destination.setTrimStrings(source.getTrimStrings());
+    destination.setTrimStrings(source.isTrimStrings());
     destination.setDateFormat(source.getDateFormat());
-    destination.setStopOnErrors(source.getStopOnErrors());
+    destination.setStopOnErrors(source.isStopOnErrors());
     destination.setAllowedExceptions(source.getAllowedExceptions());
     destination.setSrcClassCreateMethod(source.getDestClassCreateMethod());
     destination.setDestClassCreateMethod(source.getSrcClassCreateMethod());
@@ -242,7 +242,7 @@ public abstract class MappingUtils {
       }
       while (copyIterator.hasNext()) {
         CopyByReference copyByReference = (CopyByReference) copyIterator.next();
-        if (copyByReference.getReferenceName().equals(destFieldTypeName) && !fieldMap.getCopyByReferenceOveridden()) {
+        if (copyByReference.getReferenceName().equals(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
           fieldMap.setCopyByReference(true);
         }
       }

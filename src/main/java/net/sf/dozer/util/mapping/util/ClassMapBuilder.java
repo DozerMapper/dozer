@@ -48,9 +48,9 @@ public abstract class ClassMapBuilder {
     classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
         MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
 
-    classMap.setWildcard(globalConfiguration.getWildcard());
+    classMap.setWildcard(globalConfiguration.isWildcard());
     classMap.setTrimStrings(globalConfiguration.isTrimStrings());
-    classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
+    classMap.setStopOnErrors(globalConfiguration.isStopOnErrors());
     classMap.setDateFormat(globalConfiguration.getDateFormat());
     classMap.setBeanFactory(globalConfiguration.getBeanFactory());
     if (globalConfiguration.getAllowedExceptions() != null) {
