@@ -48,23 +48,11 @@ public abstract class ClassMapBuilder {
     classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
         MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
 
-    classMap.setWildcard(globalConfiguration.isWildcard());
-    classMap.setTrimStrings(globalConfiguration.isTrimStrings());
-    classMap.setStopOnErrors(globalConfiguration.isStopOnErrors());
-    classMap.setDateFormat(globalConfiguration.getDateFormat());
-    classMap.setBeanFactory(globalConfiguration.getBeanFactory());
-    if (globalConfiguration.getAllowedExceptions() != null) {
-      classMap.setAllowedExceptions(globalConfiguration.getAllowedExceptions().getExceptions());
-    }
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
       addDefaultFieldMappings(classMap, globalConfiguration);
     }
-    // add global custom converters per defect #1728385
-    if (globalConfiguration.getCustomConverters() != null) {
-      classMap.setCustomConverters(new CustomConverterContainer());
-      classMap.getCustomConverters().setConverters(globalConfiguration.getCustomConverters().getConverters());
-    }
+    
     return classMap;
   }
 

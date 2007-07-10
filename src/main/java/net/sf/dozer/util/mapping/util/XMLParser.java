@@ -146,13 +146,13 @@ public class XMLParser {
       classMap.setBeanFactory(ele.getAttribute(BEAN_FACTORY_ATTRIBUTE));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD_ATTRIBUTE))) {
-      classMap.setWildcard(BooleanUtils.toBoolean(ele.getAttribute(WILDCARD_ATTRIBUTE)));
+      classMap.setWildcard(Boolean.valueOf(ele.getAttribute(WILDCARD_ATTRIBUTE)));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(TRIM_STRINGS_ATTRIBUTE))) {
-      classMap.setTrimStrings(BooleanUtils.toBoolean(ele.getAttribute(TRIM_STRINGS_ATTRIBUTE)));
+      classMap.setTrimStrings(Boolean.valueOf(ele.getAttribute(TRIM_STRINGS_ATTRIBUTE)));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE))) {
-      classMap.setStopOnErrors(BooleanUtils.toBoolean(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE)));
+      classMap.setStopOnErrors(Boolean.valueOf(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE)));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(MAPID_ATTRIBUTE))) {
       classMap.setMapId(ele.getAttribute(MAPID_ATTRIBUTE));
@@ -399,13 +399,13 @@ public class XMLParser {
         log.info("config name: " + element.getNodeName());
         log.info("  value: " + element.getFirstChild().getNodeValue());
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
-          config.setStopOnErrors(BooleanUtils.toBoolean(element.getFirstChild().getNodeValue().trim()));
+          config.setStopOnErrors(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (DATE_FORMAT_ELEMENT.equals(element.getNodeName())) {
           config.setDateFormat(element.getFirstChild().getNodeValue().trim());
         } else if (WILDCARD_ELEMENT.equals(element.getNodeName())) {
-          config.setWildcard(BooleanUtils.toBoolean(element.getFirstChild().getNodeValue().trim()));
+          config.setWildcard(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (TRIM_STRINGS_ELEMENT.equals(element.getNodeName())) {
-          config.setTrimStrings(BooleanUtils.toBoolean(element.getFirstChild().getNodeValue().trim()));
+          config.setTrimStrings(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (BEAN_FACTORY_ELEMENT.equals(element.getNodeName())) {
           config.setBeanFactory(element.getFirstChild().getNodeValue().trim());
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {

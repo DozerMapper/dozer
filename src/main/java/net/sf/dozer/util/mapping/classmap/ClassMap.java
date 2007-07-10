@@ -47,12 +47,9 @@ public class ClassMap {
   private String beanFactory;
   private boolean mapNull = MapperConstants.DEFAULT_MAP_NULL_POLICY;
   private boolean mapEmptyString = MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY;
-  private boolean wildcard = MapperConstants.DEFAULT_WILDCARD_POLICY;
-  private boolean stopOnErrors = MapperConstants.DEFAULT_ERROR_POLICY;
-  private boolean trimStrings = MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
-  private boolean wildcardOveridden = false;
-  private boolean stopOnErrorsOveridden = false;
-  private boolean trimStringsOveridden = false;
+  private Boolean wildcard;
+  private Boolean stopOnErrors;
+  private Boolean trimStrings;
   private CustomConverterContainer customConverters;
   private String mapId;
 
@@ -65,21 +62,27 @@ public class ClassMap {
   }
 
   public boolean isStopOnErrors() {
-    return stopOnErrorsOveridden ? stopOnErrors : globalConfiguration.isStopOnErrors();
+    if (stopOnErrors != null) {
+      return stopOnErrors.booleanValue();
+    } else {
+      return globalConfiguration.getStopOnErrors() != null ? globalConfiguration.getStopOnErrors().booleanValue() : MapperConstants.DEFAULT_ERROR_POLICY;
+    }
   }
 
-  public void setStopOnErrors(boolean stopOnErrors) {
+  public void setStopOnErrors(Boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
-    this.setStopOnErrorsOveridden(true);
   }
   
   public boolean isTrimStrings() {
-    return trimStringsOveridden ? trimStrings : globalConfiguration.isTrimStrings();
+    if (trimStrings != null) {
+      return trimStrings.booleanValue();
+    } else {
+      return globalConfiguration.getTrimStrings() != null ? globalConfiguration.getTrimStrings().booleanValue() : MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
+    }
   }
 
-  public void setTrimStrings(boolean trimStrings) {
+  public void setTrimStrings(Boolean trimStrings) {
     this.trimStrings = trimStrings;
-    this.setTrimStringsOveridden(true);
   }
 
   public List getAllowedExceptions() {
@@ -149,12 +152,15 @@ public class ClassMap {
   }
 
   public boolean isWildcard() {
-    return wildcardOveridden ? wildcard : globalConfiguration.isWildcard();
+    if (wildcard != null) {
+      return wildcard.booleanValue();
+    } else {
+      return globalConfiguration.getWildcard() != null ? globalConfiguration.getWildcard().booleanValue() : MapperConstants.DEFAULT_WILDCARD_POLICY;
+    }
   }
 
-  public void setWildcard(boolean wildcardPolicy) {
+  public void setWildcard(Boolean wildcardPolicy) {
     this.wildcard = wildcardPolicy;
-    this.setWildcardOveridden(true);
   }
 
   public String getType() {
@@ -173,20 +179,8 @@ public class ClassMap {
     this.dateFormat = dateFormat;
   }
 
-  public void setStopOnErrorsOveridden(boolean stopOnErrorsOveridden) {
-    this.stopOnErrorsOveridden = stopOnErrorsOveridden;
-  }
-  
-  public void setTrimStringsOveridden(boolean trimStringsOveridden) {
-    this.trimStringsOveridden = trimStringsOveridden;
-  }
-
-  public void setWildcardOveridden(boolean wildcardOveridden) {
-    this.wildcardOveridden = wildcardOveridden;
-  }
-
   public CustomConverterContainer getCustomConverters() {
-    return customConverters;
+    return customConverters != null ? customConverters : globalConfiguration.getCustomConverters();
   }
 
   public void setCustomConverters(CustomConverterContainer customConverters) {

@@ -222,62 +222,6 @@ public abstract class FieldMap implements Cloneable {
     return destField.getIndex();
   }
 
-  public void setDestFieldDateFormat(String dateFormat) {
-    destField.setDateFormat(dateFormat);
-  }
-
-  public void setSrcFieldDateFormat(String dateFormat) {
-    srcField.setDateFormat(dateFormat);
-  }
-
-  public void setDestFieldTheGetMethod(String theGetMethod) {
-    destField.setTheGetMethod(theGetMethod);
-  }
-
-  public void setSrcFieldTheGetMethod(String theGetMethod) {
-    srcField.setTheGetMethod(theGetMethod);
-  }
-
-  public void setDestFieldTheSetMethod(String theSetMethod) {
-    destField.setTheSetMethod(theSetMethod);
-  }
-
-  public void setSrcFieldTheSetMethod(String theSetMethod) {
-    srcField.setTheSetMethod(theSetMethod);
-  }
-
-  public void setDestFieldMapSetMethod(String mapSetMethod) {
-    destField.setMapSetMethod(mapSetMethod);
-  }
-
-  public void setSrcFieldMapSetMethod(String mapSetMethod) {
-    srcField.setMapSetMethod(mapSetMethod);
-  }
-
-  public void setDestFieldMapGetMethod(String mapGetMethod) {
-    destField.setMapGetMethod(mapGetMethod);
-  }
-
-  public void setSrcFieldMapGetMethod(String mapGetMethod) {
-    srcField.setMapGetMethod(mapGetMethod);
-  }
-
-  public void setDestFieldCreateMethod(String createMethod) {
-    destField.setCreateMethod(createMethod);
-  }
-
-  public void setSrcFieldCreateMethod(String createMethod) {
-    srcField.setCreateMethod(createMethod);
-  }
-
-  public void setDestFieldKey(String key) {
-    destField.setKey(key);
-  }
-
-  public void setSrcFieldKey(String key) {
-    srcField.setKey(key);
-  }
-
   public String getSrcFieldTheGetMethod() {
     return srcField.getTheGetMethod();
   }
@@ -308,14 +252,6 @@ public abstract class FieldMap implements Cloneable {
 
   public boolean isSrcFieldAccessible() {
     return srcField.isAccessible();
-  }
-
-  public void setSrcFieldAccessible(boolean isAccessible) {
-    srcField.setAccessible(isAccessible);
-  }
-
-  public void setDestFieldAccessible(boolean isAccessible) {
-    destField.setAccessible(isAccessible);
   }
 
   public void setSrcField(DozerField sourceField) {

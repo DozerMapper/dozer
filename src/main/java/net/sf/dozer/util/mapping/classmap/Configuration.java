@@ -32,9 +32,9 @@ import net.sf.dozer.util.mapping.util.MapperConstants;
  */
 public class Configuration {
 
-  private boolean wildcard = MapperConstants.DEFAULT_WILDCARD_POLICY;
-  private boolean stopOnErrors = MapperConstants.DEFAULT_ERROR_POLICY;
-  private boolean trimStrings = MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
+  private Boolean wildcard;
+  private Boolean stopOnErrors;
+  private Boolean trimStrings;
   private String dateFormat;
   private String beanFactory;
   private CustomConverterContainer customConverters;
@@ -65,19 +65,19 @@ public class Configuration {
     dateFormat = format;
   }
 
-  public boolean isWildcard() {
+  public Boolean getWildcard() {
     return wildcard;
   }
 
-  public void setWildcard(boolean globalWildcardPolicy) {
+  public void setWildcard(Boolean globalWildcardPolicy) {
     wildcard = globalWildcardPolicy;
   }
 
-  public boolean isStopOnErrors() {
+  public Boolean getStopOnErrors() {
     return stopOnErrors;
   }
 
-  public void setStopOnErrors(boolean stopOnErrors) {
+  public void setStopOnErrors(Boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
   }
 
@@ -97,11 +97,11 @@ public class Configuration {
     this.copyByReferences = copyByReferenceContainer;
   }
   
-  public boolean isTrimStrings() {
+  public Boolean getTrimStrings() {
     return trimStrings;
   }
 
-  public void setTrimStrings(boolean trimStrings) {
+  public void setTrimStrings(Boolean trimStrings) {
     this.trimStrings = trimStrings;
   }
 

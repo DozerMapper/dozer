@@ -160,32 +160,31 @@ public abstract class MappingUtils {
     DozerField df = new DozerField(source.getSrcFieldName(), source.getSrcFieldType());
     df.setIndexed(source.isSrcFieldIndexed());
     df.setIndex(source.getSrcFieldIndex());
+    df.setDateFormat(source.getSrcFieldDateFormat());
+    df.setTheGetMethod(source.getSrcFieldTheGetMethod());
+    df.setTheSetMethod(source.getSrcFieldTheSetMethod());
+    df.setKey(source.getSrcFieldKey());
+    df.setMapGetMethod(source.getSrcFieldMapGetMethod());
+    df.setMapSetMethod(source.getSrcFieldMapSetMethod());
+    df.setCreateMethod(source.getSrcFieldCreateMethod());
+    df.setAccessible(source.isSrcFieldAccessible());
 
     DozerField sf = new DozerField(source.getDestFieldName(), source.getDestFieldType());
     sf.setIndexed(source.isDestFieldIndexed());
     sf.setIndex(source.getDestFieldIndex());
-
+    sf.setDateFormat(source.getDestFieldDateFormat());
+    sf.setTheGetMethod(source.getDestFieldTheGetMethod());
+    sf.setTheSetMethod(source.getDestFieldTheSetMethod());
+    sf.setKey(source.getDestFieldKey());
+    sf.setMapGetMethod(source.getDestFieldMapGetMethod());
+    sf.setMapSetMethod(source.getDestFieldMapSetMethod());
+    sf.setCreateMethod(source.getDestFieldCreateMethod());
+    sf.setAccessible(source.isDestFieldAccessible());
+    
     destination.setDestField(df);
     destination.setSrcField(sf);
     destination.setCustomConverter(source.getCustomConverter());
-
-    destination.setDestFieldDateFormat(source.getSrcFieldDateFormat());
-    destination.setSrcFieldDateFormat(source.getDestFieldDateFormat());
-    destination.setDestFieldTheGetMethod(source.getSrcFieldTheGetMethod());
-    destination.setDestFieldTheSetMethod(source.getSrcFieldTheSetMethod());
-    destination.setSrcFieldTheGetMethod(source.getDestFieldTheGetMethod());
-    destination.setSrcFieldTheSetMethod(source.getDestFieldTheSetMethod());
-    destination.setDestFieldKey(source.getSrcFieldKey());
-    destination.setSrcFieldKey(source.getDestFieldKey());
-    destination.setDestFieldMapGetMethod(source.getSrcFieldMapGetMethod());
-    destination.setDestFieldMapSetMethod(source.getSrcFieldMapSetMethod());
-    destination.setSrcFieldMapGetMethod(source.getDestFieldMapGetMethod());
-    destination.setSrcFieldMapSetMethod(source.getDestFieldMapSetMethod());
-    destination.setSrcFieldAccessible(source.isDestFieldAccessible());
-    destination.setDestFieldAccessible(source.isSrcFieldAccessible());
     destination.setMapId(source.getMapId());
-    destination.setDestFieldCreateMethod(source.getSrcFieldCreateMethod());
-    destination.setSrcFieldCreateMethod(source.getDestFieldCreateMethod());
     destination.setRelationshipType(source.getRelationshipType());
     destination.setSrcTypeHint(source.getDestTypeHint());
     destination.setDestTypeHint(source.getSrcTypeHint());
@@ -200,10 +199,10 @@ public abstract class MappingUtils {
         source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(), source
             .isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
     destination.setType(source.getType());
-    destination.setWildcard(source.isWildcard());
-    destination.setTrimStrings(source.isTrimStrings());
+    destination.setWildcard(Boolean.valueOf(source.isWildcard()));
+    destination.setTrimStrings(Boolean.valueOf(source.isTrimStrings()));
     destination.setDateFormat(source.getDateFormat());
-    destination.setStopOnErrors(source.isStopOnErrors());
+    destination.setStopOnErrors(Boolean.valueOf(source.isStopOnErrors()));
     destination.setAllowedExceptions(source.getAllowedExceptions());
     destination.setSrcClassCreateMethod(source.getDestClassCreateMethod());
     destination.setDestClassCreateMethod(source.getSrcClassCreateMethod());
