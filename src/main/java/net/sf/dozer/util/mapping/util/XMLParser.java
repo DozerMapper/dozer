@@ -60,16 +60,19 @@ import org.xml.sax.helpers.DefaultHandler;
 public class XMLParser {
 
   private static final Log log = LogFactory.getLog(XMLParser.class);
+  
+  // Common Elements/Attributes
+  public static final String WILDCARD = "wildcard";
+  public static final String TRIM_STRINGS = "trim-strings";
+  public static final String BEAN_FACTORY = "bean-factory";
+  public static final String DATE_FORMAT = "date-format";
 
   // Parsing Elements
   public static final String CONFIGURATION_ELEMENT = "configuration";
   public static final String STOP_ON_ERRORS_ELEMENT = "stop-on-errors";
-  public static final String DATE_FORMAT_ELEMENT = "date-format";
-  public static final String WILDCARD_ELEMENT = "wildcard";
-  public static final String TRIM_STRINGS_ELEMENT = "trim-strings";
   public static final String CUSTOM_CONVERTERS_ELEMENT = "custom-converters";
   public static final String COPY_BY_REFERENCES_ELEMENT = "copy-by-references";
-  public static final String COPY_BY_REFERENCE_ELEMENT = "copy-by-reference";
+  public static final String COPY_BY_REFERENCE = "copy-by-reference";
   public static final String CONVERTER_ELEMENT = "converter";
   public static final String CLASS_A_ELEMENT = "class-a";
   public static final String CLASS_B_ELEMENT = "class-b";
@@ -80,15 +83,11 @@ public class XMLParser {
   public static final String B_ELEMENT = "b";
   public static final String SOURCE_TYPE_HINT_ELEMENT = "a-hint";
   public static final String DESTINATION_TYPE_HINT_ELEMENT = "b-hint";
-  public static final String BEAN_FACTORY_ELEMENT = "bean-factory";
   public static final String ALLOWED_EXCEPTIONS_ELEMENT = "allowed-exceptions";
   public static final String ALLOWED_EXCEPTION_ELEMENT = "exception";
 
   // Parsing Attributes
   public static final String TYPE_ATTRIBUTE = "type";
-  public static final String WILDCARD_ATTRIBUTE = "wildcard";
-  public static final String TRIM_STRINGS_ATTRIBUTE = "trim-strings";
-  public static final String DATE_FORMAT_ATTRIBUTE = "date-format";
   public static final String RELATIONSHIP_TYPE_ATTRIBUTE = "relationship-type";
   public static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
   public static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
@@ -98,7 +97,6 @@ public class XMLParser {
   public static final String MAP_SET_METHOD_ATTRIBUTE = "map-set-method";
   public static final String MAP_GET_METHOD_ATTRIBUTE = "map-get-method";
   public static final String KEY_ATTRIBUTE = "key";
-  public static final String BEAN_FACTORY_ATTRIBUTE = "bean-factory";
   public static final String FACTORY_BEANID_ATTRIBUTE = "factory-bean-id";
   public static final String IS_ACCESSIBLE_ATTRIBUTE = "is-accessible";
   public static final String CREATE_METHOD_ATTRIBUTE = "create-method";
@@ -133,8 +131,8 @@ public class XMLParser {
   private void parseMapping(Element ele) {
     ClassMap classMap = new ClassMap(mappings.getConfiguration());
     mappings.getMapping().add(classMap);
-    if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT_ATTRIBUTE))) {
-      classMap.setDateFormat(ele.getAttribute(DATE_FORMAT_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT))) {
+      classMap.setDateFormat(ele.getAttribute(DATE_FORMAT));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(MAP_NULL_ATTRIBUTE))) {
       classMap.setMapNull(BooleanUtils.toBoolean(ele.getAttribute(MAP_NULL_ATTRIBUTE)));
@@ -142,14 +140,14 @@ public class XMLParser {
     if (StringUtils.isNotEmpty(ele.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE))) {
       classMap.setMapEmptyString(BooleanUtils.toBoolean(ele.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(BEAN_FACTORY_ATTRIBUTE))) {
-      classMap.setBeanFactory(ele.getAttribute(BEAN_FACTORY_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(ele.getAttribute(BEAN_FACTORY))) {
+      classMap.setBeanFactory(ele.getAttribute(BEAN_FACTORY));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD_ATTRIBUTE))) {
-      classMap.setWildcard(Boolean.valueOf(ele.getAttribute(WILDCARD_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD))) {
+      classMap.setWildcard(Boolean.valueOf(ele.getAttribute(WILDCARD)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(TRIM_STRINGS_ATTRIBUTE))) {
-      classMap.setTrimStrings(Boolean.valueOf(ele.getAttribute(TRIM_STRINGS_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(ele.getAttribute(TRIM_STRINGS))) {
+      classMap.setTrimStrings(Boolean.valueOf(ele.getAttribute(TRIM_STRINGS)));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE))) {
       classMap.setStopOnErrors(Boolean.valueOf(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE)));
@@ -176,8 +174,8 @@ public class XMLParser {
           if (StringUtils.isNotEmpty(element.getAttribute(MAP_SET_METHOD_ATTRIBUTE))) {
             source.setMapSetMethod(element.getAttribute(MAP_SET_METHOD_ATTRIBUTE));
           }
-          if (StringUtils.isNotEmpty(element.getAttribute(BEAN_FACTORY_ATTRIBUTE))) {
-            source.setBeanFactory(element.getAttribute(BEAN_FACTORY_ATTRIBUTE));
+          if (StringUtils.isNotEmpty(element.getAttribute(BEAN_FACTORY))) {
+            source.setBeanFactory(element.getAttribute(BEAN_FACTORY));
           }
           if (StringUtils.isNotEmpty(element.getAttribute(FACTORY_BEANID_ATTRIBUTE))) {
             source.setFactoryBeanId(element.getAttribute(FACTORY_BEANID_ATTRIBUTE));
@@ -202,8 +200,8 @@ public class XMLParser {
           if (StringUtils.isNotEmpty(element.getAttribute(MAP_SET_METHOD_ATTRIBUTE))) {
             dest.setMapSetMethod(element.getAttribute(MAP_SET_METHOD_ATTRIBUTE));
           }
-          if (StringUtils.isNotEmpty(element.getAttribute(BEAN_FACTORY_ATTRIBUTE))) {
-            dest.setBeanFactory(element.getAttribute(BEAN_FACTORY_ATTRIBUTE));
+          if (StringUtils.isNotEmpty(element.getAttribute(BEAN_FACTORY))) {
+            dest.setBeanFactory(element.getAttribute(BEAN_FACTORY));
           }
           if (StringUtils.isNotEmpty(element.getAttribute(FACTORY_BEANID_ATTRIBUTE))) {
             dest.setFactoryBeanId(element.getAttribute(FACTORY_BEANID_ATTRIBUTE));
@@ -361,8 +359,8 @@ public class XMLParser {
       rvalue.setIndexed(true);
       rvalue.setIndex(getIndexOfIndexedField(name));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT_ATTRIBUTE))) {
-      rvalue.setDateFormat(ele.getAttribute(DATE_FORMAT_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT))) {
+      rvalue.setDateFormat(ele.getAttribute(DATE_FORMAT));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(THE_GET_METHOD_ATTRIBUTE))) {
       rvalue.setTheGetMethod(ele.getAttribute(THE_GET_METHOD_ATTRIBUTE));
@@ -400,13 +398,13 @@ public class XMLParser {
         log.info("  value: " + element.getFirstChild().getNodeValue());
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
           config.setStopOnErrors(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
-        } else if (DATE_FORMAT_ELEMENT.equals(element.getNodeName())) {
+        } else if (DATE_FORMAT.equals(element.getNodeName())) {
           config.setDateFormat(element.getFirstChild().getNodeValue().trim());
-        } else if (WILDCARD_ELEMENT.equals(element.getNodeName())) {
+        } else if (WILDCARD.equals(element.getNodeName())) {
           config.setWildcard(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
-        } else if (TRIM_STRINGS_ELEMENT.equals(element.getNodeName())) {
+        } else if (TRIM_STRINGS.equals(element.getNodeName())) {
           config.setTrimStrings(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
-        } else if (BEAN_FACTORY_ELEMENT.equals(element.getNodeName())) {
+        } else if (BEAN_FACTORY.equals(element.getNodeName())) {
           config.setBeanFactory(element.getFirstChild().getNodeValue().trim());
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {
           parseCustomConverters(element, config);
@@ -460,7 +458,7 @@ public class XMLParser {
         Element element = (Element) node;
         log.info("config name: " + element.getNodeName());
         log.info("  value: " + element.getFirstChild().getNodeValue());
-        if (COPY_BY_REFERENCE_ELEMENT.equals(element.getNodeName())) {
+        if (COPY_BY_REFERENCE.equals(element.getNodeName())) {
           CopyByReference cbr = new CopyByReference();
           container.getCopyByReferences().add(cbr);
           cbr.setReferenceName(element.getFirstChild().getNodeValue().trim());
