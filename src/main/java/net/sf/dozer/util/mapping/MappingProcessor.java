@@ -768,6 +768,11 @@ public class MappingProcessor implements MapperIF {
         && !fieldMap.getClassMap().isDestClassMapEmptyString()) {
       bypass = true;
     }
+    
+    // trim string value if trim-strings="true"
+    if (destFieldValue != null && fieldMap.getClassMap().getTrimStrings() && destFieldValue.getClass().equals(String.class)) {
+      destFieldValue = ((String)destFieldValue).trim();
+    }
 
     if (!bypass) {
       eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, null,

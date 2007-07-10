@@ -201,6 +201,7 @@ public abstract class MappingUtils {
             .isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
+    destination.setTrimStrings(source.getTrimStrings());
     destination.setDateFormat(source.getDateFormat());
     destination.setStopOnErrors(source.getStopOnErrors());
     destination.setAllowedExceptions(source.getAllowedExceptions());

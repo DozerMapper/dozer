@@ -49,6 +49,7 @@ public abstract class ClassMapBuilder {
         MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
 
     classMap.setWildcard(globalConfiguration.getWildcard());
+    classMap.setTrimStrings(globalConfiguration.isTrimStrings());
     classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
     classMap.setDateFormat(globalConfiguration.getDateFormat());
     classMap.setBeanFactory(globalConfiguration.getBeanFactory());

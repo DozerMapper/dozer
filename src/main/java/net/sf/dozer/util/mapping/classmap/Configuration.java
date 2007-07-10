@@ -34,6 +34,7 @@ public class Configuration {
 
   private boolean wildcard = MapperConstants.DEFAULT_WILDCARD_POLICY;
   private boolean stopOnErrors = MapperConstants.DEFAULT_ERROR_POLICY;
+  private boolean trimStrings = MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
   private String dateFormat;
   private String beanFactory;
   private CustomConverterContainer customConverters;
@@ -96,6 +97,14 @@ public class Configuration {
     this.copyByReferences = copyByReferenceContainer;
   }
   
+  public boolean isTrimStrings() {
+    return trimStrings;
+  }
+
+  public void setTrimStrings(boolean trimStrings) {
+    this.trimStrings = trimStrings;
+  }
+
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

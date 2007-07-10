@@ -49,8 +49,10 @@ public class ClassMap {
   private boolean mapEmptyString = MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY;
   private boolean wildcard = MapperConstants.DEFAULT_WILDCARD_POLICY;
   private boolean stopOnErrors = MapperConstants.DEFAULT_ERROR_POLICY;
+  private boolean trimStrings = MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
   private boolean wildcardOveridden = false;
   private boolean stopOnErrorsOveridden = false;
+  private boolean trimStringsOveridden = false;
   private CustomConverterContainer customConverters;
   private String mapId;
 
@@ -69,6 +71,15 @@ public class ClassMap {
   public void setStopOnErrors(boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
     this.setStopOnErrorsOveridden(true);
+  }
+  
+  public boolean getTrimStrings() {
+    return trimStringsOveridden ? trimStrings : globalConfiguration.isTrimStrings();
+  }
+
+  public void setTrimStrings(boolean trimStrings) {
+    this.trimStrings = trimStrings;
+    this.setTrimStringsOveridden(true);
   }
 
   public List getAllowedExceptions() {
@@ -164,6 +175,10 @@ public class ClassMap {
 
   public void setStopOnErrorsOveridden(boolean stopOnErrorsOveridden) {
     this.stopOnErrorsOveridden = stopOnErrorsOveridden;
+  }
+  
+  public void setTrimStringsOveridden(boolean trimStringsOveridden) {
+    this.trimStringsOveridden = trimStringsOveridden;
   }
 
   public void setWildcardOveridden(boolean wildcardOveridden) {

@@ -31,6 +31,7 @@ public abstract class MapperConstants {
   public static final boolean DEFAULT_ERROR_POLICY = true;
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
   public static final boolean DEFAULT_MAP_EMPTY_STRING_POLICY = true;
+  public static final boolean DEFAULT_TRIM_STRINGS_POLICY = false;
   public static final String DTD_NAME = "dozerbeanmapping.dtd";
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";

@@ -66,6 +66,7 @@ public class XMLParser {
   public static final String STOP_ON_ERRORS_ELEMENT = "stop-on-errors";
   public static final String DATE_FORMAT_ELEMENT = "date-format";
   public static final String WILDCARD_ELEMENT = "wildcard";
+  public static final String TRIM_STRINGS_ELEMENT = "trim-strings";
   public static final String CUSTOM_CONVERTERS_ELEMENT = "custom-converters";
   public static final String COPY_BY_REFERENCES_ELEMENT = "copy-by-references";
   public static final String COPY_BY_REFERENCE_ELEMENT = "copy-by-reference";
@@ -86,6 +87,7 @@ public class XMLParser {
   // Parsing Attributes
   public static final String TYPE_ATTRIBUTE = "type";
   public static final String WILDCARD_ATTRIBUTE = "wildcard";
+  public static final String TRIM_STRINGS_ATTRIBUTE = "trim-strings";
   public static final String DATE_FORMAT_ATTRIBUTE = "date-format";
   public static final String RELATIONSHIP_TYPE_ATTRIBUTE = "relationship-type";
   public static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
@@ -145,6 +147,9 @@ public class XMLParser {
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD_ATTRIBUTE))) {
       classMap.setWildcard(BooleanUtils.toBoolean(ele.getAttribute(WILDCARD_ATTRIBUTE)));
+    }
+    if (StringUtils.isNotEmpty(ele.getAttribute(TRIM_STRINGS_ATTRIBUTE))) {
+      classMap.setTrimStrings(BooleanUtils.toBoolean(ele.getAttribute(TRIM_STRINGS_ATTRIBUTE)));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE))) {
       classMap.setStopOnErrors(BooleanUtils.toBoolean(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE)));
@@ -399,6 +404,8 @@ public class XMLParser {
           config.setDateFormat(element.getFirstChild().getNodeValue().trim());
         } else if (WILDCARD_ELEMENT.equals(element.getNodeName())) {
           config.setWildcard(BooleanUtils.toBoolean(element.getFirstChild().getNodeValue().trim()));
+        } else if (TRIM_STRINGS_ELEMENT.equals(element.getNodeName())) {
+          config.setTrimStrings(BooleanUtils.toBoolean(element.getFirstChild().getNodeValue().trim()));
         } else if (BEAN_FACTORY_ELEMENT.equals(element.getNodeName())) {
           config.setBeanFactory(element.getFirstChild().getNodeValue().trim());
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {
