@@ -328,7 +328,7 @@ public class MappingProcessor implements MapperIF {
 
     if (log.isDebugEnabled()) {
       log.debug(LogMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
-          fieldMapping.getDestFieldName(), srcFieldValue, destFieldValue));
+          fieldMapping.getDestFieldName(), srcFieldValue, destFieldValue, fieldMapping.getClassMap().getMapId()));
     }
   }
 
@@ -593,7 +593,7 @@ public class MappingProcessor implements MapperIF {
     }
     if (log.isDebugEnabled()) {
       log.debug(LogMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
-          fieldMapping.getDestFieldName(), srcFieldValue, null));
+          fieldMapping.getDestFieldName(), srcFieldValue, null, fieldMapping.getClassMap().getMapId()));
     }
   }
 

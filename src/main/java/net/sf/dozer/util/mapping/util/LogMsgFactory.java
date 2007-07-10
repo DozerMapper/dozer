@@ -66,12 +66,12 @@ public abstract class LogMsgFactory {
   }
 
   public static String createFieldMappingSuccessMsg(Class srcClass, Class destClass, String srcFieldName, String destFieldName,
-      Object srcFieldValue, Object destFieldValue) {
+      Object srcFieldValue, Object destFieldValue, String classMapId) {
     String srcClassStr = MappingUtils.getClassNameWithoutPackage(srcClass);
     String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);
 
-    return "MAPPED: " + srcClassStr + "." + srcFieldName + " --> " + destClassStr + "." + destFieldName + "  VALUES: "
-        + getLogOutput(srcFieldValue) + " --> " + getLogOutput(destFieldValue);
+    return "MAPPED: " + srcClassStr + "." + srcFieldName + " --> " + destClassStr + "." + destFieldName + "    VALUES: "
+        + getLogOutput(srcFieldValue) + " --> " + getLogOutput(destFieldValue) + "    MAPID: " + (classMapId != null ? classMapId : "") ;
   }
 
   private static String getLogOutput(Object object) {
