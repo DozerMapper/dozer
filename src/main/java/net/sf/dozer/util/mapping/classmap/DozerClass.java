@@ -15,10 +15,10 @@
  */
 package net.sf.dozer.util.mapping.classmap;
 
+import net.sf.dozer.util.mapping.util.MappingUtils;
+
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
-import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
  * Only intended for internal use.

@@ -15,11 +15,10 @@
  */
 package net.sf.dozer.util.mapping.classmap;
 
+import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
+
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
-import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
-import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
  * Internal class that represents the configuration block specified in the mapping xml file(s). Only intended for
