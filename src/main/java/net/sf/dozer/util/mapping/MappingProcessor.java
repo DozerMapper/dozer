@@ -764,8 +764,8 @@ public class MappingProcessor implements MapperIF {
     }
 
     // don't map "" to dest field if map-empty-string="false"
-    if (destFieldValue != null && destFieldValue.getClass().equals(String.class) && StringUtils.isEmpty((String) destFieldValue)
-        && !fieldMap.getClassMap().isDestClassMapEmptyString()) {
+    if (destFieldValue != null && !fieldMap.getClassMap().isDestClassMapEmptyString() &&
+        destFieldValue.getClass().equals(String.class) && StringUtils.isEmpty((String) destFieldValue)) {
       bypass = true;
     }
     
