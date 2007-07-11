@@ -60,59 +60,59 @@ public class PerformanceTest extends AbstractDozerTest {
    * 
    * testMapping1 19562 testMapping2 2859 testMapping3 2782 testMapping4 8391 testMapping5 4985
    * 
-   * MHT Computer - 8/12/06 #1 17015 #2 1954 #3 1890 #4 5985 #5 4062
    * 
-   * MHT Computer - 9/26/06 - After 2.3 release #1 19578 #2 1937 #3 1953 #4 6734 #5 4641
+   * MHT Computer - 8/12/06 
+   * #1 17015 #2 1954 #3 1890 #4 5985 #5 4062
    * 
-   * MHT Computer - 10/1/06 - 2.4 release. After removing Reflection caching to resolve general CGLIB/Proxy issues #1
-   * 29313 #2 2985 #3 3130 #4 9891 #5 7656
+   * 
+   * MHT Computer - 9/26/06 - After 2.3 release 
+   * #1 19578 #2 1937 #3 1953 #4 6734 #5 4641
+   * 
+   * 
+   * MHT Computer - 10/1/06 - 2.4 release. After removing Reflection caching to resolve general CGLIB/Proxy issues 
+   * #1 29313 #2 2985 #3 3130 #4 9891 #5 7656
+   * 
    * 
    * MHT Computer - 12/20/06 - 2.5 release. After adding code submitted for fixing recursive mapping infinite loop
    * problem. Due to maintaining mappedFields variable in MappingProcessor. Is this ok or better way to do it? Not sure
-   * 
    * #1 31422 #2 3485 #3 3547 #4 11656 #5 8281
    * 
-   * MHT Computer - 1/26/07 - 2.5 release. After making misc perf improvements to improve test case #6
    * 
+   * MHT Computer - 1/26/07 - 2.5 release. After making misc perf improvements to improve test case #6
    * #1 26047 #2 3375 #3 3469 #4 11672 #5 7516 #6 45850
    * 
-   * MHT Computer - 2/1/07 - 2.5 release. Just prior to release of 2.5
    * 
+   * MHT Computer - 2/1/07 - 2.5 release. Just prior to release of 2.5
    * #1 26266 #2 3094 #3 3203 #4 11297 #5 7453 #6 42312
    * 
-   * MHT Computer - 4/2/07 - 3.2 release.
    * 
+   * MHT Computer - 4/2/07 - 3.2 release.
    * #1 24891 #2 3125 #3 3219 #4 10609 #5 7328 #6 45156
    * 
+   * 
    * MHT Computer - 4/7/07 - 3.2.1 release.
-   * 
    * jdk1.4 #1 25391 #2 3094 #3 3156 #4 10516 #5 7406 #6 44922
-   * 
    * jdk1.5 #1 24016 #2 2797 #3 2890 #4 10031 #5 7125 #6 41797
+   * 
    * 
    * MHT Computer - 4/19/07 - 3.2.1 release. Rebaseline test #6. Unused and Uneccessary test data setup logic was
    * skewing prior results.
-   * 
    * jdk1.4 #1 25391 #2 3094 #3 3156 #4 10516 #5 7406 #6 31687
-   * 
    * jdk1.5 #1 24016 #2 2797 #3 2890 #4 10031 #5 7125 #6 26265
    * 
+   * 
    * MHT Computer - 4/24/07 - 3.3 release
-   * 
    * jdk1.4 #1 25485 #2 2907 #3 3219 #4 10375 #5 7312 #6 33703
-   * 
    * jdk1.5 #1 23172 #2 2406 #3 2750 #4 9817 #5 6771 #6 26718
    * 
+   * 
    * MHT Computer - 5/16/07 - 3.4 release
-   * 
    * jdk1.4 #1 27854 #2 2945 #3 3123 #4 11844 #5 8437 #6 19567
-   * 
    * jdk1.5 #1 27485 #2 2532 #3 2906 #4 11297 #5 8157 #6 16797
    * 
+   * 
    * MHT Computer - 7/06/07 - 3.5 release after map backed property refactor
-   * 
    * jdk1.4 #1 27047 #2 3140 #3 3172 #4 12328 #5 8359 #6 33281
-   * 
    * jdk1.5 #1 26484 #2 3016 #3 3062 #4 11781 #5 7906 #6 30594
    * 
    * 
