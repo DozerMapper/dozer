@@ -15,8 +15,6 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
-import java.util.HashMap;
-
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
 import net.sf.dozer.util.mapping.propertydescriptor.JavaBeanPropertyDescriptor;
@@ -24,7 +22,6 @@ import net.sf.dozer.util.mapping.propertydescriptor.MapPropertyDescriptor;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
-import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
  * Only intended for internal use. Handles field mapping involving Map Backed properties. Map backed property support
@@ -42,8 +39,9 @@ public class MapFieldMap extends FieldMap {
     super(classMap);
   }
 
-  public MapFieldMap(ClassMap classMap, FieldMap fieldMap) {
-    super(classMap);
+  public MapFieldMap(FieldMap fieldMap) {
+    //Create from existing field map
+    super(fieldMap.getClassMap());
     setCopyByReference(fieldMap.isCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
     setDestField(fieldMap.getDestField());
@@ -64,12 +62,10 @@ public class MapFieldMap extends FieldMap {
       // Destination value is already a Map, so just use normal
       propDescriptor = super.getDestPropertyDescriptor(destObj.getClass());
     } else {
-
       if (getDestFieldMapGetMethod() != null
           || MappingUtils.isSupportedMap(determineActualPropertyType(getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
               destObj))) {
-        // Need to dig out actual destination Map object and use map property descriptor to set the value on that target
-        // object....
+        // Need to dig out actual destination Map object and use map property descriptor to set the value on that target object....
         PrepareTargetObjectResult result = prepareTargetObject(destObj);
         targetObject = result.targetObject;
         propDescriptor = result.propDescriptor;
@@ -93,7 +89,6 @@ public class MapFieldMap extends FieldMap {
           || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSrcTypeHint() == null)) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
         targetObject = super.getSrcFieldValue(srcObj);
-
         propDescriptor = new MapPropertyDescriptor(ac, getSrcFieldName(), isSrcFieldIndexed(), getDestFieldIndex(), MappingUtils
             .isSupportedMap(ac) ? "put" : getSrcFieldMapSetMethod(), MappingUtils.isSupportedMap(ac) ? "get"
             : getSrcFieldMapGetMethod(), getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName());
@@ -119,6 +114,7 @@ public class MapFieldMap extends FieldMap {
     Class c = d.getPropertyType();
     targetObject = d.getPropertyValue(destObj);
     if (targetObject == null) {
+      // Create new instance of target object that will be populated.
       if (getDestTypeHint() != null) {
         if (MappingUtils.isSupportedMap(c)) {
           if (MappingUtils.isSupportedMap(getDestTypeHint().getHint())) {
@@ -129,6 +125,7 @@ public class MapFieldMap extends FieldMap {
         }
 
       }
+      
       //TODO: add support for custom factory/create method in conjunction with Map backed properties
       targetObject = DestBeanCreator.create(null, null, c, destObj.getClass(), null, null, null);
       d.setPropertyValue(destObj, targetObject, null, this);

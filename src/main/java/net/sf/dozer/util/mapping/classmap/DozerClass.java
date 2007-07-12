@@ -28,7 +28,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  * 
  */
-public class DozerClass implements Cloneable {
+public class DozerClass {
   private String name;
   private Class classToMap;
   private String beanFactory;
