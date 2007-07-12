@@ -60,7 +60,6 @@ public abstract class DestBeanCreator {
       }
     } else {
       try {
-        // TODO: IS this correct assumption for Map's
         if (MappingUtils.isSupportedMap(destClassToMap)) {
           rvalue = new HashMap();
         } else {
