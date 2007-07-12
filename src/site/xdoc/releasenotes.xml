@@ -10,6 +10,34 @@
   </head>  
   <body>
     <section name="Release Notes">
+      <h3>4.0  <font size="-3" color="gray"><i>07/15/2007</i></font></h3>
+        <p>Bug Fixes</p> 
+        <p>
+          <ul>      
+            <li>Field custom converter bug with Map data types <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749982&amp;group_id=133517&amp;atid=727368">1749982</a></li>
+            <li>Prob w/ map-get-method and date-format <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1733793&amp;group_id=133517&amp;atid=727368">1733793</a></li>
+            <li>Global custom converters missing in default ClassMap <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1728385&amp;group_id=133517&amp;atid=727368">1728385</a></li>
+            <li>Copy Reference mapping instructions ignored for subclasses <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1728159&amp;group_id=133517&amp;atid=727368">1728159</a></li>
+            <li>mvn eclipse:eclipse does not get all dependencies <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1727717&amp;group_id=133517&amp;atid=727368">1727717</a></li>
+            <li>Prob w/ map-get-method and CustomConverter <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1724104&amp;group_id=133517&amp;atid=727368">1724104</a></li>
+          </ul>
+        </p>
+        <p>Feature Requests</p> 
+        <p>
+          <ul>      
+            <li>Add map-id to field mapping debug output <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750157&amp;group_id=133517&amp;atid=727371">1750157</a></li>
+            <li>Push mapping value hierarchy down to ClassMap and FieldMap <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749805&amp;group_id=133517&amp;atid=727371">1749805</a></li>
+            <li>Add bidirectional relationship between FieldMap and ClassMap   <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749804&amp;group_id=133517&amp;atid=727371">1749804</a></li>
+            <li>Don't expose DozerField and DozerClass objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749802&amp;group_id=133517&amp;atid=727371">1749802</a></li>
+            <li>Remove *PRIME* feature from the docs <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1736864&amp;group_id=133517&amp;atid=727371">1736864</a></li>            
+            <li>Major refactor of map backed property feature <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734665&amp;group_id=133517&amp;atid=727371">1734665</a></li>
+            <li>Repackage ClassMap.java <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734228&amp;group_id=133517&amp;atid=727371">1734228</a></li>
+            <li>Load classes consistently <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734163&amp;group_id=133517&amp;atid=727371">1734163</a></li>
+            <li>Cleanup of internal exception handling <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734161&amp;group_id=133517&amp;atid=727371">1734161</a></li>
+            <li>Add config support for auto trimming of strings  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1707034&amp;group_id=133517&amp;atid=727371">1707034</a></li>
+          </ul>
+        </p>
+      
       <h3>3.4  <font size="-3" color="gray"><i>05/19/2007</i></font></h3>
         <p>Bug Fixes</p> 
         <p>

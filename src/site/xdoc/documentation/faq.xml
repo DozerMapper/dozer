@@ -694,7 +694,7 @@ dozer:  Trying to find Dozer configuration file: dozer.properties
 dozer:  Using URL [file:/C:/subversion/dozer/branches/3.x/bin/dozer.properties] for Dozer global property configuration
 dozer:  Reading Dozer properties from URL [file:/C:/subversion/dozer/branches/3.x/bin/dozer.properties]
 dozer:  Finished configuring Dozer global properties
-dozer:  Initializing Dozer.  Version: 3.2.1, Thread Name:main, Is this JDK 1.5.x?:false
+dozer:  Initializing Dozer.  Version: 4.0, Thread Name:main, Is this JDK 1.5.x?:false
 dozer:  jdk1.5 management classes unavailable.  Dozer JMX MBeans will not be auto registered.
 dozer:  Initializing a new instance of the dozer bean mapper.
 dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [dozerBeanMapping.xml]
@@ -709,12 +709,12 @@ dozer:  Successfully loaded custom xml mappings from URL: [file:/C:/subversion/d
         This will show you every field mapping that Dozer performs along with the actual source and destination values.  You will see output similar to the following....    
       </p>
       <source>
-MAPPED: SimpleObj.field1 --> SimpleObjPrime.field1  VALUES: one --> one
-MAPPED: SimpleObj.field2 --> SimpleObjPrime.field2  VALUES: 2 --> 2
-MAPPED: SimpleObj.field3 --> SimpleObjPrime.field3  VALUES: 3 --> 3
-MAPPED: SimpleObj.field4 --> SimpleObjPrime.field4  VALUES: 44.44 --> 44.44
-MAPPED: SimpleObj.field5 --> SimpleObjPrime.field5  VALUES: java.util.GregorianCalendar[time=1176686852984,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Denver",offset=-25200000,dstSavings=3600000,useDaylight=true,transitions=157,lastRule=java.util.SimpleTimeZone[id=America/Denver,offset=-25200000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=1,YEAR=2007,MONTH=3,WEEK_OF_YEAR=16,WEEK_OF_MONTH=3,DAY_OF_MONTH=15,DAY_OF_YEAR=105,DAY_OF_WEEK=1,DAY_OF_WEEK_IN_MONTH=3,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=27,SECOND=32,MILLISECOND=984,ZONE_OFFSET=-25200000,DST_OFFSET=3600000] --> 04/15/2007 19:27
-MAPPED: SimpleObj.field6 --> SimpleObjPrime.field6  VALUES: 66 --> 66
+MAPPED: SimpleObj.field1 --> SimpleObjPrime.field1    VALUES: one --> one    MAPID: someMapId
+MAPPED: SimpleObj.field2 --> SimpleObjPrime.field2    VALUES: 2 --> 2    MAPID: someMapId
+MAPPED: SimpleObj.field3 --> SimpleObjPrime.field3    VALUES: 3 --> 3    MAPID: someMapId
+MAPPED: SimpleObj.field4 --> SimpleObjPrime.field4    VALUES: 44.44 --> 44.44    MAPID: someMapId
+MAPPED: SimpleObj.field5 --> SimpleObjPrime.field5    VALUES: java.util.GregorianCalendar[time=1176686852984,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Denver",offset=-25200000,dstSavings=3600000,useDaylight=true,transitions=157,lastRule=java.util.SimpleTimeZone[id=America/Denver,offset=-25200000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=1,YEAR=2007,MONTH=3,WEEK_OF_YEAR=16,WEEK_OF_MONTH=3,DAY_OF_MONTH=15,DAY_OF_YEAR=105,DAY_OF_WEEK=1,DAY_OF_WEEK_IN_MONTH=3,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=27,SECOND=32,MILLISECOND=984,ZONE_OFFSET=-25200000,DST_OFFSET=3600000] --> 04/15/2007 19:27    MAPID: someMapId
+MAPPED: SimpleObj.field6 --> SimpleObjPrime.field6    VALUES: 66 --> 66    MAPID: someMapId
       </source>
       
     </subsection>
