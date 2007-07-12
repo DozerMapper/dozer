@@ -128,7 +128,7 @@ public class MapFieldMap extends FieldMap {
         }
 
       }
-      // TODO - call destbeancreator ??
+      // TODO - call destbeancreator. dest bean creator needs to be refactored 1st.
       if (MappingUtils.isSupportedMap(c)) {
         targetObject = new HashMap();
       } else {
