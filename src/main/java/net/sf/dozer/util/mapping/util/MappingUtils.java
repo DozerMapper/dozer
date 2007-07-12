@@ -43,7 +43,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class MappingUtils {
 
-  // only making public temporarily while refactoring. This static data should be relocated
+  // only making public temporarily while refactoring. This static data should be relocated.
+  // The stored factories don't belong in MappingUtils and need to be relocated
   public static final Map storedFactories = Collections.synchronizedMap(new HashMap());
 
   public static String getClassNameWithoutPackage(Class clazz) {
@@ -180,7 +181,7 @@ public abstract class MappingUtils {
     sf.setMapSetMethod(source.getDestFieldMapSetMethod());
     sf.setCreateMethod(source.getDestFieldCreateMethod());
     sf.setAccessible(source.isDestFieldAccessible());
-    
+
     destination.setDestField(df);
     destination.setSrcField(sf);
     destination.setCustomConverter(source.getCustomConverter());

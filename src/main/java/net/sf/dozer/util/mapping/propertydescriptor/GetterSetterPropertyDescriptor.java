@@ -45,7 +45,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   public abstract Method getWriteMethod() throws NoSuchMethodException;
   protected abstract Method getReadMethod() throws NoSuchMethodException;
   protected abstract String getSetMethodName() throws NoSuchMethodException;
-  
+
   protected Object invokeReadMethod(Object target) {
     Object result = null;
     try {
@@ -55,7 +55,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
     return result;
   }
-  
+
   protected void invokeWriteMethod(Object target, Object value) {
     try {
       ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { value });
@@ -155,9 +155,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         } catch (Exception e) {
           // lets see if they have a factory we can try. If not...throw the exception:
           if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
-            DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
-            o = destBeanCreator.createFromFactory(null, fieldMap.getClassMap().getSrcClassToMap(), fieldMap.getClassMap()
-                .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), clazz);
+            o = DestBeanCreator.createFromFactory(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, fieldMap.getClassMap()
+                .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId());
             ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
           } else {
             MappingUtils.throwMappingException(e);

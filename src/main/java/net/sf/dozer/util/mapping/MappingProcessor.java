@@ -91,9 +91,6 @@ public class MappingProcessor implements MapperIF {
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
-  // The stored factories don't belong in MappingUtils and need to be relocated
-  private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
-
   protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManagerIF cacheMgr,
       StatisticsManagerIF statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapperIF customFieldMapper) {
     this.customMappings = customMappings;
@@ -128,7 +125,8 @@ public class MappingProcessor implements MapperIF {
       }
 
       // Create destination object. It will be populated in the call to map()
-      destObj = destBeanCreator.create(srcObj, classMap, destClass);
+      destObj = DestBeanCreator.create(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destClass, classMap
+          .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
 
       // Map src values to dest object
       map(classMap, srcObj, destObj, null, null);
@@ -433,7 +431,11 @@ public class MappingProcessor implements MapperIF {
       String mapId = null;
       mapId = fieldMap.getMapId();
       classMap = getClassMap(srcFieldValue, destFieldType, mapId, false);
-      field = destBeanCreator.create(srcFieldValue, classMap, fieldMap, null);
+
+      field = DestBeanCreator.create(srcFieldValue, classMap.getSrcClassToMap(), fieldMap.getDestTypeHint() != null ? fieldMap
+          .getDestTypeHint().getHint() : classMap.getDestClassToMap(), destFieldType, classMap.getDestClassBeanFactory(), classMap
+          .getDestClassBeanFactoryId(), fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod()
+          : classMap.getDestClassCreateMethod());
     }
 
     map(classMap, srcFieldValue, field, null, fieldMap);
@@ -764,14 +766,14 @@ public class MappingProcessor implements MapperIF {
     }
 
     // don't map "" to dest field if map-empty-string="false"
-    if (destFieldValue != null && !fieldMap.getClassMap().isDestClassMapEmptyString() &&
-        destFieldValue.getClass().equals(String.class) && StringUtils.isEmpty((String) destFieldValue)) {
+    if (destFieldValue != null && !fieldMap.getClassMap().isDestClassMapEmptyString()
+        && destFieldValue.getClass().equals(String.class) && StringUtils.isEmpty((String) destFieldValue)) {
       bypass = true;
     }
-    
+
     // trim string value if trim-strings="true"
     if (destFieldValue != null && fieldMap.getClassMap().isTrimStrings() && destFieldValue.getClass().equals(String.class)) {
-      destFieldValue = ((String)destFieldValue).trim();
+      destFieldValue = ((String) destFieldValue).trim();
     }
 
     if (!bypass) {

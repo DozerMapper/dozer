@@ -19,11 +19,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.Map;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
-import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,82 +32,54 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DestBeanCreator {
+public abstract class DestBeanCreator {
 
   private static final Log log = LogFactory.getLog(DestBeanCreator.class);
 
-  private final Map factories;
-
-  public DestBeanCreator(Map factories) {
-    this.factories = factories;
-  }
-
-  public Object create(Object srcObject, ClassMap classMap, Class destClass) {
-    return create(srcObject, classMap, null, destClass);
-  }
-
-  public Object create(Object srcObject, ClassMap classMap, FieldMap fieldMap, Class destClass) {
+  public static Object create(Object srcObject, Class srcClass, Class destClassToMap, Class runtimeDestClass, String factoryName,
+      String factoryId, String createMethod) {
+    // If custom create method was specified, see if there are any static createMethods
+    if (createMethod != null) {
+      Method method = null;
+      try {
+        method = ReflectionUtils.getMethod(destClassToMap, createMethod, null);
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
+      }
+      return ReflectionUtils.invoke(method, null, null);
+    }
     Object rvalue = null;
-    String factoryName = classMap.getDestClassBeanFactory();
-    // see if there are any static createMethods
-    if (fieldMap != null && fieldMap.getDestFieldCreateMethod() != null) {
-      Method method = null;
-      try {
-        method = ReflectionUtils.getMethod(classMap.getDestClassToMap(), fieldMap.getDestFieldCreateMethod(), null);
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
-      return ReflectionUtils.invoke(method, null, null);
-    }
-    if (classMap.getDestClassCreateMethod() != null) {
-      Method method = null;
-      try {
-        method = ReflectionUtils.getMethod(classMap.getDestClassToMap(), classMap.getDestClassCreateMethod(), null);
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
-      return ReflectionUtils.invoke(method, null, null);
-    }
-    // If factory name wasn't specified, just create new instance. Otherwise use the specified custom bean factory
-    if (MappingUtils.isBlankOrNull(factoryName)) {
-      try {
-        // TODO: IS this correct assumption for Map's
-        if (MappingUtils.isSupportedMap(classMap.getDestClassToMap())) {
-          rvalue = new HashMap();
-        } else {
-          rvalue = createNewInstance(classMap.getDestClassToMap());
-        }
-      } catch (Exception e) {
-        if (destClass != null) {
-          return createNewInstance(destClass);
-        }
-        // we could be dealing with an Interface or Abstract Class which was mapped using a Class Level mapId
-        // try to see if the parentFieldMap dest field has a hint...
-        if (fieldMap != null && fieldMap.getDestTypeHint() != null) {
-          return createNewInstance(fieldMap.getDestTypeHint().getHint());
-        } else {
-          MappingUtils.throwMappingException(e);
-        }
-      }
-    } else {
-      rvalue = createFromFactory(srcObject, classMap.getSrcClassToMap(), factoryName, classMap.getDestClassBeanFactoryId(),
-          classMap.getDestClassToMap());
+    // If factory name was specified, create using factory.  Otherwise just create a new instance
+    if (!MappingUtils.isBlankOrNull(factoryName)) {
+      rvalue = createFromFactory(srcObject, srcClass, destClassToMap, factoryName, factoryId);
       // verify factory returned expected dest object type
-      if (!classMap.getDestClassToMap().isAssignableFrom(rvalue.getClass())) {
+      if (!destClassToMap.isAssignableFrom(rvalue.getClass())) {
         MappingUtils
             .throwMappingException("Custom bean factory did not return correct type of destination data object.  Expected: "
-                + classMap.getDestClassToMap() + ", Actual: " + rvalue.getClass());
+                + destClassToMap + ", Actual: " + rvalue.getClass());
+      }
+    } else {
+      try {
+        // TODO: IS this correct assumption for Map's
+        if (MappingUtils.isSupportedMap(destClassToMap)) {
+          rvalue = new HashMap();
+        } else {
+          rvalue = createNewInstance(destClassToMap);
+        }
+      } catch (Exception e) {
+        return createNewInstance(runtimeDestClass);
       }
     }
     return rvalue;
   }
 
-  public Object createFromFactory(Object srcObject, Class srcObjectClass, String factoryName, String factoryBeanId, Class destClass) {
+  public static Object createFromFactory(Object srcObject, Class srcObjectClass, Class destClass, String factoryName,
+      String factoryBeanId) {
 
     // By default, use dest object class name for factory bean id
     String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
 
-    BeanFactoryIF factory = (BeanFactoryIF) factories.get(factoryName);
+    BeanFactoryIF factory = (BeanFactoryIF) MappingUtils.storedFactories.get(factoryName);
 
     if (factory == null) {
       Class factoryClass = MappingUtils.loadClass(factoryName);
@@ -119,7 +88,7 @@ public class DestBeanCreator {
       }
       factory = (BeanFactoryIF) createNewInstance(factoryClass);
       // put the created factory in our factory map
-      factories.put(factoryName, factory);
+      MappingUtils.storedFactories.put(factoryName, factory);
     }
     Object rvalue = factory.createBean(srcObject, srcObjectClass, beanId);
 
@@ -128,7 +97,7 @@ public class DestBeanCreator {
     return rvalue;
   }
 
-  private Object createNewInstance(Class clazz) {
+  private static Object createNewInstance(Class clazz) {
     Constructor constructor = null;
     try {
       constructor = clazz.getDeclaredConstructor(null);

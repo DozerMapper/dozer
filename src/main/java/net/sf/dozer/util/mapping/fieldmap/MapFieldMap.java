@@ -21,6 +21,7 @@ import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
 import net.sf.dozer.util.mapping.propertydescriptor.JavaBeanPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.MapPropertyDescriptor;
+import net.sf.dozer.util.mapping.util.DestBeanCreator;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
@@ -128,12 +129,8 @@ public class MapFieldMap extends FieldMap {
         }
 
       }
-      // TODO - call destbeancreator. dest bean creator needs to be refactored 1st.
-      if (MappingUtils.isSupportedMap(c)) {
-        targetObject = new HashMap();
-      } else {
-        targetObject = ReflectionUtils.newInstance(c);
-      }
+      //TODO: add support for custom factory/create method in conjunction with Map backed properties
+      targetObject = DestBeanCreator.create(null, null, c, destObj.getClass(), null, null, null);
       d.setPropertyValue(destObj, targetObject, null, this);
     }
 
