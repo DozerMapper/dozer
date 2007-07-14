@@ -72,9 +72,12 @@ public class DeepMappingWithIndexTest extends AbstractDozerTest {
   public void testDeepMappingWithIndexOnDestField() {
     DestDeepObj src = new DestDeepObj();
     src.setDest2(new Integer(857557));
+    src.setDest5("789777");
 
     SrcDeepObj dest = (SrcDeepObj) mapper.map(src, SrcDeepObj.class);
     assertEquals("857557", dest.getSrcNestedObj().getSrcNestedObj2().getSimpleObjects()[0].getField1());
+    TestObject destTestObj = (TestObject)dest.getSomeList().get(1); 
+    assertEquals("789777", ((AnotherTestObject)destTestObj.getEqualNamedList().get(0)).getField3());
   }
 
   public void testDeepMapIndexed() throws Exception {
