@@ -50,6 +50,26 @@ public class HintContainer {
     return (Class) getHints().get(index);
   }
 
+  public boolean hasMoreThanOneHint() {
+    return getHints().size() > 1 ? true : false;
+  }
+
+  public List getHints() {
+    if (hints == null) {
+      List list = new ArrayList();
+      StringTokenizer st = new StringTokenizer(this.hintName, ",");
+      while (st.hasMoreElements()) {
+        String theHintName = st.nextToken().trim();
+
+        Class clazz = MappingUtils.loadClass(theHintName);
+        list.add(clazz);
+      }
+      hints = list;
+    }
+    return hints;
+  }
+  
+  //TODO: Refactor/Relocate.  This method doesn't seem to belong in this class
   public Class getHint(Class clazz, List clazzHints) {
     List hints = getHints();
     int hintsSize = hints.size();
@@ -72,29 +92,6 @@ public class HintContainer {
       count++;
     }
     return clazz;
-  }
-
-  public boolean hasMoreThanOneHint() {
-    return getHints().size() > 1 ? true : false;
-  }
-
-  public List getHints() {
-    if (hints == null) {
-      List list = new ArrayList();
-      StringTokenizer st = new StringTokenizer(this.hintName, ",");
-      while (st.hasMoreElements()) {
-        String theHintName = st.nextToken().trim();
-
-        Class clazz = MappingUtils.loadClass(theHintName);
-        list.add(clazz);
-      }
-      hints = list;
-    }
-    return hints;
-  }
-
-  public String getHintName() {
-    return hintName;
   }
 
   public void setHintName(String hintName) {

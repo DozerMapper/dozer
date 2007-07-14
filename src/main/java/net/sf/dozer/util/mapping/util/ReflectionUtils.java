@@ -16,6 +16,7 @@
 package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -214,12 +215,36 @@ public abstract class ReflectionUtils {
   }
 
   public static Object newInstance(Class clazz) {
+    //Create using public or private no-arg constructor
+    Constructor constructor = null;
+    try {
+      constructor = clazz.getDeclaredConstructor(null);
+    } catch (SecurityException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+
+    if (constructor == null) {
+      MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
+          + ".  Could not find a no-arg constructor for this class.");
+    }
+
+    // If private, make it accessible
+    if (!constructor.isAccessible()) {
+      constructor.setAccessible(true);
+    }
+
     Object result = null;
     try {
-      result = clazz.newInstance();
+      result = constructor.newInstance(null);
+    } catch (IllegalArgumentException e) {
+      MappingUtils.throwMappingException(e);
     } catch (InstantiationException e) {
       MappingUtils.throwMappingException(e);
     } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (InvocationTargetException e) {
       MappingUtils.throwMappingException(e);
     }
     return result;

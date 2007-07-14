@@ -579,7 +579,7 @@ public class MappingProcessor implements MapperIF {
         }
         // check for custom converters
         Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, fieldMapping.getClassMap()
-            .getCustomConverters(), value.getClass(), MappingUtils.loadClass(fieldMapping.getDestHintContainer().getHintName()));
+            .getCustomConverters(), value.getClass(), fieldMapping.getDestHintContainer().getHint());
 
         if (converterClass != null) {
           Class srcFieldClass = srcFieldValue.getClass();

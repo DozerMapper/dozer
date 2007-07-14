@@ -15,8 +15,6 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
@@ -63,10 +61,10 @@ public abstract class DestBeanCreator {
         if (MappingUtils.isSupportedMap(destClassToMap)) {
           rvalue = new HashMap();
         } else {
-          rvalue = createNewInstance(destClassToMap);
+          rvalue = ReflectionUtils.newInstance(destClassToMap);
         }
       } catch (Exception e) {
-        return createNewInstance(runtimeDestClass);
+        return ReflectionUtils.newInstance(runtimeDestClass);
       }
     }
     return rvalue;
@@ -85,7 +83,7 @@ public abstract class DestBeanCreator {
       if (!BeanFactoryIF.class.isAssignableFrom(factoryClass)) {
         MappingUtils.throwMappingException("Custom bean factory must implement the BeanFactoryIF interface.");
       }
-      factory = (BeanFactoryIF) createNewInstance(factoryClass);
+      factory = (BeanFactoryIF) ReflectionUtils.newInstance(factoryClass);
       // put the created factory in our factory map
       MappingUtils.storedFactories.put(factoryName, factory);
     }
@@ -96,39 +94,5 @@ public abstract class DestBeanCreator {
     return rvalue;
   }
 
-  private static Object createNewInstance(Class clazz) {
-    Constructor constructor = null;
-    try {
-      constructor = clazz.getDeclaredConstructor(null);
-    } catch (SecurityException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
-
-    if (constructor == null) {
-      MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
-          + ".  Could not find a no-arg constructor for this class.");
-    }
-
-    // If private, make it accessible
-    if (!constructor.isAccessible()) {
-      constructor.setAccessible(true);
-    }
-
-    Object result = null;
-    try {
-      result = constructor.newInstance(null);
-    } catch (IllegalArgumentException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (InstantiationException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (IllegalAccessException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (InvocationTargetException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
-  }
 
 }
