@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
@@ -38,7 +38,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private final String key;
 
   public MapPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
-      String key, Hint srcDeepIndexHint, Hint destDeepIndexHint) {
+      String key, HintContainer srcDeepIndexHint, HintContainer destDeepIndexHint) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHint, destDeepIndexHint);
     this.setMethod = setMethod;
     this.getMethod = getMethod;

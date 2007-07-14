@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
@@ -32,7 +32,7 @@ public class PropertyDescriptorFactory {
 
   public static DozerPropertyDescriptorIF getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
       String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name, String key,
-      boolean isSelfReferencing, String oppositeFieldName, Hint srcDeepIndexHint, Hint destDeepIndexHint) {
+      boolean isSelfReferencing, String oppositeFieldName, HintContainer srcDeepIndexHint, HintContainer destDeepIndexHint) {
     DozerPropertyDescriptorIF desc = null;
     // basic 'this' (Not mapped backed properties which also use 'this' identifier
     if (isSelfReferencing && theGetMethod == null && theSetMethod == null && mapGetMethod == null && mapSetMethod == null

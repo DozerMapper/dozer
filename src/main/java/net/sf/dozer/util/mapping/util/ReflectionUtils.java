@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
@@ -38,7 +38,7 @@ import org.apache.commons.beanutils.PropertyUtils;
  */
 public abstract class ReflectionUtils {
 
-  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, Hint deepIndexHint) {
+  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, HintContainer deepIndexHint) {
     PropertyDescriptor result = null;
 
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0) {
@@ -61,7 +61,7 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, Hint deepIndexHint) {
+  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, HintContainer deepIndexHint) {
     if (field.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }

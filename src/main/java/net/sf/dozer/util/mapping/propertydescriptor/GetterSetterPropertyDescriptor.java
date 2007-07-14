@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.util.DeepHierarchyElement;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
 import net.sf.dozer.util.mapping.util.MapperConstants;
@@ -40,11 +40,11 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
   private Class propertyType;
-  protected Hint srcDeepIndexHint;
-  protected Hint destDeepIndexHint;
+  protected HintContainer srcDeepIndexHint;
+  protected HintContainer destDeepIndexHint;
 
-  public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, Hint srcDeepIndexHint,
-      Hint destDeepIndexHint) {
+  public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHint,
+      HintContainer destDeepIndexHint) {
     super(clazz, fieldName, isIndexed, index);
     this.srcDeepIndexHint = srcDeepIndexHint;
     this.destDeepIndexHint = destDeepIndexHint;
@@ -217,7 +217,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
   }
 
-  private DeepHierarchyElement[] getHierarchy(Object obj, Hint deepIndexHint) {
+  private DeepHierarchyElement[] getHierarchy(Object obj, HintContainer deepIndexHint) {
     return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName, deepIndexHint);
   }
 

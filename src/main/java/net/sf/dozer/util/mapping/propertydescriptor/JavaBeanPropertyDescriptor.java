@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
-import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
@@ -33,8 +33,8 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
-  public JavaBeanPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, Hint srcDeepIndexHint,
-      Hint destDeepIndexHint) {
+  public JavaBeanPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHint,
+      HintContainer destDeepIndexHint) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHint, destDeepIndexHint);
   }
 

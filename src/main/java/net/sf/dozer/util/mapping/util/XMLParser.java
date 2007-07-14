@@ -36,7 +36,7 @@ import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -318,22 +318,22 @@ public class XMLParser {
         log.info("  value: " + element.getFirstChild().getNodeValue());
         parseFieldElements(element, fieldMap);
         if (SRC_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
-          Hint sourceHint = new Hint();
+          HintContainer sourceHint = new HintContainer();
           sourceHint.setHintName(element.getFirstChild().getNodeValue().trim());
           fieldMap.setSrcTypeHint(sourceHint);
         }
         if (DEST_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
-          Hint destHint = new Hint();
+          HintContainer destHint = new HintContainer();
           destHint.setHintName(element.getFirstChild().getNodeValue().trim());
           fieldMap.setDestTypeHint(destHint);
         }
         if (SRC_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
-          Hint sourceHint = new Hint();
+          HintContainer sourceHint = new HintContainer();
           sourceHint.setHintName(element.getFirstChild().getNodeValue().trim());
           fieldMap.setSrcDeepIndexHint(sourceHint);
         }
         if (DEST_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
-          Hint destHint = new Hint();
+          HintContainer destHint = new HintContainer();
           destHint.setHintName(element.getFirstChild().getNodeValue().trim());
           fieldMap.setDestDeepIndexHint(destHint);
         }

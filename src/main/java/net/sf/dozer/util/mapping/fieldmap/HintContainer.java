@@ -32,7 +32,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  * 
  */
-public class Hint {
+public class HintContainer {
   private String hintName;
   private List hints;
 
@@ -75,16 +75,12 @@ public class Hint {
   public List getHints() {
     if (hints == null) {
       List list = new ArrayList();
-      try {
-        StringTokenizer st = new StringTokenizer(this.hintName, ",");
-        while (st.hasMoreElements()) {
-          String theHintName = st.nextToken().trim();
+      StringTokenizer st = new StringTokenizer(this.hintName, ",");
+      while (st.hasMoreElements()) {
+        String theHintName = st.nextToken().trim();
 
-          Class clazz = Thread.currentThread().getContextClassLoader().loadClass(theHintName);
-          list.add(clazz);
-        }
-      } catch (ClassNotFoundException e) {
-        MappingUtils.throwMappingException(e);
+        Class clazz = MappingUtils.loadClass(theHintName);
+        list.add(clazz);
       }
       hints = list;
     }

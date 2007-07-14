@@ -43,7 +43,7 @@ import net.sf.dozer.util.mapping.event.EventManagerIF;
 import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
 import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
@@ -465,7 +465,7 @@ public class MappingProcessor implements MapperIF {
           typeArgument = ((Object[]) ReflectionUtils.invoke(
               Jdk5Methods.getInstance().getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
           if (typeArgument != null) {
-            Hint destHint = new Hint();
+            HintContainer destHint = new HintContainer();
             Class argument = (Class) typeArgument;
             destHint.setHintName(argument.getName());
             fieldMap.setDestTypeHint(destHint);

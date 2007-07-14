@@ -44,10 +44,10 @@ public abstract class FieldMap implements Cloneable {
   private ClassMap classMap;
   private DozerField srcField;
   private DozerField destField;
-  private Hint srcTypeHint;
-  private Hint destTypeHint;
-  private Hint srcDeepIndexHint;
-  private Hint destDeepIndexHint;
+  private HintContainer srcTypeHint;
+  private HintContainer destTypeHint;
+  private HintContainer srcDeepIndexHint;
+  private HintContainer destDeepIndexHint;
   private String type;
   private boolean copyByReference;
   private boolean copyByReferenceOveridden;
@@ -129,19 +129,19 @@ public abstract class FieldMap implements Cloneable {
     return getDestPropertyDescriptor(runtimeDestObj.getClass()).getPropertyValue(runtimeDestObj);
   }
 
-  public Hint getDestTypeHint() {
+  public HintContainer getDestTypeHint() {
     return destTypeHint;
   }
 
-  public void setDestTypeHint(Hint destHint) {
+  public void setDestTypeHint(HintContainer destHint) {
     this.destTypeHint = destHint;
   }
 
-  public Hint getSrcTypeHint() {
+  public HintContainer getSrcTypeHint() {
     return srcTypeHint;
   }
 
-  public void setSrcTypeHint(Hint sourceHint) {
+  public void setSrcTypeHint(HintContainer sourceHint) {
     this.srcTypeHint = sourceHint;
   }
 
@@ -263,19 +263,19 @@ public abstract class FieldMap implements Cloneable {
     this.destField = destField;
   }
 
-  public Hint getDestDeepIndexHint() {
+  public HintContainer getDestDeepIndexHint() {
     return destDeepIndexHint;
   }
 
-  public void setDestDeepIndexHint(Hint destDeepIndexHintHint) {
+  public void setDestDeepIndexHint(HintContainer destDeepIndexHintHint) {
     this.destDeepIndexHint = destDeepIndexHintHint;
   }
 
-  public Hint getSrcDeepIndexHint() {
+  public HintContainer getSrcDeepIndexHint() {
     return srcDeepIndexHint;
   }
 
-  public void setSrcDeepIndexHint(Hint srcDeepIndexHint) {
+  public void setSrcDeepIndexHint(HintContainer srcDeepIndexHint) {
     this.srcDeepIndexHint = srcDeepIndexHint;
   }
 
