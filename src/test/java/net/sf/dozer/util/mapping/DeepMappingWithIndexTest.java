@@ -18,10 +18,6 @@ package net.sf.dozer.util.mapping;
 import java.util.Arrays;
 
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
-import net.sf.dozer.util.mapping.vo.Family;
-import net.sf.dozer.util.mapping.vo.HeadOfHouseHold;
-import net.sf.dozer.util.mapping.vo.PersonalDetails;
-import net.sf.dozer.util.mapping.vo.Pet;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
@@ -29,6 +25,10 @@ import net.sf.dozer.util.mapping.vo.deep.DestDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj2;
+import net.sf.dozer.util.mapping.vo.deepindex.Family;
+import net.sf.dozer.util.mapping.vo.deepindex.HeadOfHouseHold;
+import net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails;
+import net.sf.dozer.util.mapping.vo.deepindex.Pet;
 
 /**
  * @author tierney.matt

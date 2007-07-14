@@ -24,22 +24,22 @@
  </mapping>
 
  <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.HeadOfHouseHold</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.Family</class-b>
+    <class-a>net.sf.dozer.util.mapping.vo.deepindex.HeadOfHouseHold</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deepindex.Family</class-b>
     <field>
       <a>firstName</a>
       <b>familyMembers[0].firstName</b>
-      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.PersonalDetails</b-deep-index-hint>
+      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails</b-deep-index-hint>
     </field>
     <field>
       <a>lastName</a>
       <b>familyMembers[0].lastName</b>
-      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.PersonalDetails</b-deep-index-hint>
+      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails</b-deep-index-hint>
     </field>
     <field>
       <a>salary</a>
       <b>familyMembers[0].salary</b>
-      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.PersonalDetails</b-deep-index-hint>
+      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails</b-deep-index-hint>
     </field>
  
     <field>

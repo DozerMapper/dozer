@@ -1,4 +1,4 @@
-package net.sf.dozer.util.mapping.vo;
+package net.sf.dozer.util.mapping.vo.deepindex;
 
 import java.util.List;
 import java.util.ArrayList;
