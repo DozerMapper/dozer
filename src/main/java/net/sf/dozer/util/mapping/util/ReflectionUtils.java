@@ -16,7 +16,6 @@
 package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,6 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -71,7 +71,7 @@ public abstract class ReflectionUtils {
     Class latestClass = parentClass;
     DeepHierarchyElement[] hierarchy = new DeepHierarchyElement[toks.countTokens()];
     int index = 0;
-    int hintIndex = 0;    
+    int hintIndex = 0;
     while (toks.hasMoreTokens()) {
       String aFieldName = toks.nextToken();
       String theFieldName = aFieldName;
@@ -96,12 +96,23 @@ public abstract class ReflectionUtils {
         if (latestClass.isArray()) {
           latestClass = latestClass.getComponentType();
         } else if (Collection.class.isAssignableFrom(latestClass)) {
-          if (deepIndexHintContainer == null) {
+          Class genericType = determineGenericsType(propDescriptor);
+
+          if (genericType == null && deepIndexHintContainer == null) {
             MappingUtils
-                .throwMappingException("Hint(s) not specified.  Hint(s) must be specified for deep mapping with indexed field(s)");
+                .throwMappingException("Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). Exception occurred determining deep field hierarchy for Class --> "
+                    + parentClass.getName()
+                    + ", Field --> "
+                    + field
+                    + ".  Unable to determine property descriptor for Class --> "
+                    + latestClass.getName() + ", Field Name: " + aFieldName);
           }
-          latestClass = (Class) deepIndexHintContainer.getHint(hintIndex);
-          hintIndex += 1;
+          if (genericType != null) {
+            latestClass = genericType;
+          } else {
+            latestClass = (Class) deepIndexHintContainer.getHint(hintIndex);
+            hintIndex += 1;
+          }
         }
       }
       hierarchy[index++] = r;
@@ -213,7 +224,7 @@ public abstract class ReflectionUtils {
     }
     return result;
   }
-  
+
   public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
     return clazz.getMethod(name, parameterTypes);
   }
@@ -227,6 +238,57 @@ public abstract class ReflectionUtils {
     } catch (IllegalAccessException e) {
       MappingUtils.throwMappingException(e);
     }
+    return result;
+  }
+
+  public static Class determineGenericsType(PropertyDescriptor propDescriptor) {
+    if (!GlobalSettings.getInstance().isJava5()) {
+      return null;
+    }
+
+    Class result = null;
+    //Try getter and setter to determine the Generics type in case one does not exist
+    if (propDescriptor.getWriteMethod() != null) {
+      result = determineGenericsType(propDescriptor.getWriteMethod(), false);
+    }
+
+    if (result == null && propDescriptor.getReadMethod() != null) {
+      result = determineGenericsType(propDescriptor.getReadMethod(), true);
+    }
+
+    return result;
+  }
+
+  public static Class determineGenericsType(Method method, boolean isReadMethod) {
+    if (!GlobalSettings.getInstance().isJava5()) {
+      return null;
+    }
+
+    Class result = null;
+    Class parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
+    if (isReadMethod) {
+      Object parameterType = ReflectionUtils.invoke(Jdk5Methods.getInstance().getMethodGetGenericReturnTypeMethod(), method, null);
+
+      if (parameterType != null && parameterTypesClass.isAssignableFrom(parameterType.getClass())) {
+        Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
+            .getParamaterizedTypeGetActualTypeArgsMethod(), parameterType, null))[0];
+        if (genericType != null) {
+          result = (Class) genericType;
+        }
+      }
+    } else {
+      Object[] parameterTypes = (Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
+          .getMethodGetGenericParameterTypesMethod(), method, null);
+
+      if (parameterTypes != null && parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
+        Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
+            .getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
+        if (genericType != null) {
+          result = (Class) genericType;
+        }
+      }
+    }
+
     return result;
   }
 

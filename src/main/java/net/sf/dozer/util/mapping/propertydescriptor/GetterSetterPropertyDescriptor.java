@@ -170,10 +170,17 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(clazz.getComponentType()),
               hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
-          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(fieldMap
-              .getDestDeepIndexHintContainer().getHint(hintIndex)), hierarchyElement.getIndex());
-          //hint index is used to handle multiple hints
-          hintIndex += 1;
+          Class collectionEntryType = null;
+          Class genericType = ReflectionUtils.determineGenericsType(pd);
+          if (genericType != null) {
+            collectionEntryType = genericType;
+          } else {
+            collectionEntryType = fieldMap.getDestDeepIndexHintContainer().getHint(hintIndex);
+            //hint index is used to handle multiple hints
+            hintIndex += 1;
+          }
+          
+          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
         } else {
           try {
             o = DestBeanCreator.create(clazz);

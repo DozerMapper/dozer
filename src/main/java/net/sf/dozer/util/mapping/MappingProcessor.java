@@ -450,29 +450,17 @@ public class MappingProcessor implements MapperIF {
     // if no hint is provided then we will check to see if we can use JDK 1.5 generics to determine the mapping type
     // this will only happen once on the dest hint. the next mapping will already have the hint
     if (fieldMap.getDestHintContainer() == null && GlobalSettings.getInstance().isJava5()) {
-      Object typeArgument = null;
-      Object[] parameterTypes = null;
+      Class genericType = null;
       try {
         Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
-        parameterTypes = (Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance().getMethodGetGenericParameterTypesMethod(),
-            method, null);
+        genericType = ReflectionUtils.determineGenericsType(method, false);
       } catch (Throwable e) {
         log.info("The destObj:" + destObj + " does not have a write method");
       }
-      if (parameterTypes != null) {
-        Class parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
-
-        if (parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
-
-          typeArgument = ((Object[]) ReflectionUtils.invoke(
-              Jdk5Methods.getInstance().getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
-          if (typeArgument != null) {
-            HintContainer destHintContainer = new HintContainer();
-            Class argument = (Class) typeArgument;
-            destHintContainer.setHintName(argument.getName());
-            fieldMap.setDestHintContainer(destHintContainer);
-          }
-        }
+      if (genericType != null) {
+        HintContainer destHintContainer = new HintContainer();
+        destHintContainer.setHintName(genericType.getName());
+        fieldMap.setDestHintContainer(destHintContainer);
       }
     }
 
