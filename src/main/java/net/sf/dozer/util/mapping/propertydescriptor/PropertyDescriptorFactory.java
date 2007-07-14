@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
+import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
@@ -31,7 +32,7 @@ public class PropertyDescriptorFactory {
 
   public static DozerPropertyDescriptorIF getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
       String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name, String key,
-      boolean isSelfReferencing, String oppositeFieldName) {
+      boolean isSelfReferencing, String oppositeFieldName, Hint srcDeepIndexHint, Hint destDeepIndexHint) {
     DozerPropertyDescriptorIF desc = null;
     // basic 'this' (Not mapped backed properties which also use 'this' identifier
     if (isSelfReferencing && theGetMethod == null && theSetMethod == null && mapGetMethod == null && mapSetMethod == null
@@ -45,17 +46,19 @@ public class PropertyDescriptorFactory {
 
       // custom get-method/set specified
     } else if (!MappingUtils.isSupportedMap(clazz) && (theSetMethod != null || theGetMethod != null)) {
-      desc = new CustomGetSetPropertyDescriptor(clazz, name, isIndexed, index, theSetMethod, theGetMethod);
+      desc = new CustomGetSetPropertyDescriptor(clazz, name, isIndexed, index, theSetMethod, theGetMethod, srcDeepIndexHint,
+          destDeepIndexHint);
 
       // custom map-get-method/set spefied
     } else if (name.equals(MapperConstants.SELF_KEYWORD)
         && (mapSetMethod != null || mapGetMethod != null || MappingUtils.isSupportedMap(clazz))) {
       desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, MappingUtils.isSupportedMap(clazz) ? "put" : mapSetMethod,
-          MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key : oppositeFieldName);
+          MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key : oppositeFieldName, srcDeepIndexHint,
+          destDeepIndexHint);
 
       // everything else. it must be a normal bean with normal or custom get/set methods
     } else {
-      desc = new JavaBeanPropertyDescriptor(clazz, name, isIndexed, index);
+      desc = new JavaBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHint, destDeepIndexHint);
     }
     return desc;
   }

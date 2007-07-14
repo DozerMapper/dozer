@@ -56,8 +56,8 @@ public class MappingsParser {
       classMap = (ClassMap) iter.next();
 
       // add our first class map to the result map and initialize PropertyDescriptor Cache
-      ReflectionUtils.findPropertyDescriptor(classMap.getSrcClassToMap(), "");
-      ReflectionUtils.findPropertyDescriptor(classMap.getDestClassToMap(), "");
+      ReflectionUtils.findPropertyDescriptor(classMap.getSrcClassToMap(), "", null);
+      ReflectionUtils.findPropertyDescriptor(classMap.getDestClassToMap(), "", null);
       String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap
           .getMapId());
 

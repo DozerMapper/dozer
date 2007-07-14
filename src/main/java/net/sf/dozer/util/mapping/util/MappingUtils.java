@@ -15,11 +15,15 @@
  */
 package net.sf.dozer.util.mapping.util;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.cache.Cache;
@@ -189,6 +193,9 @@ public abstract class MappingUtils {
     destination.setRelationshipType(source.getRelationshipType());
     destination.setSrcTypeHint(source.getDestTypeHint());
     destination.setDestTypeHint(source.getSrcTypeHint());
+    destination.setSrcDeepIndexHint(source.getDestDeepIndexHint());
+    destination.setDestDeepIndexHint(source.getSrcDeepIndexHint());
+    
   }
 
   public static void reverseFields(ClassMap source, ClassMap destination) {
@@ -255,6 +262,57 @@ public abstract class MappingUtils {
       result = Thread.currentThread().getContextClassLoader().loadClass(name);
     } catch (ClassNotFoundException e) {
       MappingUtils.throwMappingException(e);
+    }
+    return result;
+  }
+  
+  public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
+    Object result = null;
+    if (existingCollection == null) {
+
+      if (collectionType.isArray()) {
+        existingCollection = Array.newInstance(collectionType.getComponentType(), 0);
+      } else if (CollectionUtils.isSet(collectionType)) {
+        existingCollection = new HashSet();
+      } else {
+        existingCollection = new ArrayList();
+      }
+    }
+    if (existingCollection instanceof Collection) {
+      Collection newCollection;
+      if (existingCollection instanceof Set) {
+        newCollection = new HashSet();
+      } else {
+        newCollection = new ArrayList();
+      }
+
+      Collection c = (Collection) existingCollection;
+      Iterator i = c.iterator();
+      int x = 0;
+      while (i.hasNext()) {
+        if (x != index) {
+          newCollection.add(i.next());
+        } else {
+          newCollection.add(collectionEntry);
+        }
+        x++;
+      }
+      if (newCollection.size() <= index) {
+        while (newCollection.size() < index) {
+          newCollection.add(null);
+        }
+        newCollection.add(collectionEntry);
+      }
+      result = newCollection;
+    } else if (existingCollection.getClass().isArray()) {
+      Object[] objs = (Object[]) existingCollection;
+      Object[] x = (Object[]) Array.newInstance(objs.getClass().getComponentType(), objs.length > index ? objs.length + 1
+          : index + 1);
+      for (int i = 0; i < objs.length; i++) {
+        x[i] = objs[i];
+      }
+      x[index] = collectionEntry;
+      result = x;
     }
     return result;
   }

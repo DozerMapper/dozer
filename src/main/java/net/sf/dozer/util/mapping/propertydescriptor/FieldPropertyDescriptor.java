@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.lang.reflect.Field;
 
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Hint;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
@@ -67,7 +66,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
     return result;
   }
 
-  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap) {
+  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
     try {
       if (getPropertyType().isPrimitive() && value == null) {
         // do nothing
@@ -96,7 +95,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
   protected void writeIndexedValue(Object destObj, Object destFieldValue) {
     try {
       Object existingValue = field.get(destObj);
-      field.set(destObj, getIndexedValue(existingValue, destFieldValue));
+      field.set(destObj, prepareIndexedCollection(existingValue, destFieldValue));
     } catch (IllegalAccessException e) {
       MappingUtils.throwMappingException(e);
     }

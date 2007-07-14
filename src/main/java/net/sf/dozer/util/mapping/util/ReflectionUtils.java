@@ -21,8 +21,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import net.sf.dozer.util.mapping.fieldmap.Hint;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
@@ -35,12 +38,12 @@ import org.apache.commons.beanutils.PropertyUtils;
  */
 public abstract class ReflectionUtils {
 
-  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName) {
+  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, Hint deepIndexHint) {
     PropertyDescriptor result = null;
 
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0) {
-      PropertyDescriptor[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName);
-      result = hierarchy[hierarchy.length - 1];
+      DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHint);
+      result = hierarchy[hierarchy.length - 1].getPropDescriptor();
     } else {
       PropertyDescriptor[] descriptors = getPropertyDescriptors(objectClass);
 
@@ -58,18 +61,27 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static PropertyDescriptor[] getDeepFieldHierarchy(Class parentClass, String field) {
+  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, Hint deepIndexHint) {
     if (field.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
 
     StringTokenizer toks = new StringTokenizer(field, MapperConstants.DEEP_FIELD_DELIMITOR);
     Class latestClass = parentClass;
-    PropertyDescriptor[] hierarchy = new PropertyDescriptor[toks.countTokens()];
+    DeepHierarchyElement[] hierarchy = new DeepHierarchyElement[toks.countTokens()];
     int index = 0;
     while (toks.hasMoreTokens()) {
       String aFieldName = toks.nextToken();
-      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, aFieldName);
+      String theFieldName = aFieldName;
+      int collectionIndex = -1;
+
+      if (aFieldName.indexOf("[") > 0) {
+        theFieldName = aFieldName.substring(0, aFieldName.indexOf("["));
+        collectionIndex = Integer.parseInt(aFieldName.substring(aFieldName.indexOf("[") + 1, aFieldName.indexOf("]")));
+      }
+
+      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, theFieldName, deepIndexHint);
+      DeepHierarchyElement r = new DeepHierarchyElement(propDescriptor, collectionIndex);
 
       if (propDescriptor == null) {
         MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "
@@ -78,7 +90,19 @@ public abstract class ReflectionUtils {
       }
 
       latestClass = propDescriptor.getPropertyType();
-      hierarchy[index++] = propDescriptor;
+      int hintIndex = 0;
+      if (toks.hasMoreTokens()) {
+        if (latestClass.isArray()) {
+          latestClass = latestClass.getComponentType();
+        } else if (Collection.class.isAssignableFrom(latestClass)) {
+          if (deepIndexHint == null) {
+            MappingUtils.throwMappingException("Hint(s) not specified.  Hint(s) must be specified for deep mapping with indexed field(s)");
+          }
+          latestClass = (Class) deepIndexHint.getHints().get(hintIndex);
+          hintIndex += 1;
+        }
+      }
+      hierarchy[index++] = r;
     }
 
     return hierarchy;

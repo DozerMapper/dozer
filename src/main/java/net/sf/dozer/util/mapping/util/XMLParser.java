@@ -60,49 +60,51 @@ import org.xml.sax.helpers.DefaultHandler;
 public class XMLParser {
 
   private static final Log log = LogFactory.getLog(XMLParser.class);
-  
+
   // Common Elements/Attributes
-  public static final String WILDCARD = "wildcard";
-  public static final String TRIM_STRINGS = "trim-strings";
-  public static final String BEAN_FACTORY = "bean-factory";
-  public static final String DATE_FORMAT = "date-format";
+  private static final String WILDCARD = "wildcard";
+  private static final String TRIM_STRINGS = "trim-strings";
+  private static final String BEAN_FACTORY = "bean-factory";
+  private static final String DATE_FORMAT = "date-format";
 
   // Parsing Elements
-  public static final String CONFIGURATION_ELEMENT = "configuration";
-  public static final String STOP_ON_ERRORS_ELEMENT = "stop-on-errors";
-  public static final String CUSTOM_CONVERTERS_ELEMENT = "custom-converters";
-  public static final String COPY_BY_REFERENCES_ELEMENT = "copy-by-references";
-  public static final String COPY_BY_REFERENCE = "copy-by-reference";
-  public static final String CONVERTER_ELEMENT = "converter";
-  public static final String CLASS_A_ELEMENT = "class-a";
-  public static final String CLASS_B_ELEMENT = "class-b";
-  public static final String MAPPING_ELEMENT = "mapping";
-  public static final String FIELD_ELEMENT = "field";
-  public static final String FIELD_EXCLUDE_ELEMENT = "field-exclude";
-  public static final String A_ELEMENT = "a";
-  public static final String B_ELEMENT = "b";
-  public static final String SOURCE_TYPE_HINT_ELEMENT = "a-hint";
-  public static final String DESTINATION_TYPE_HINT_ELEMENT = "b-hint";
-  public static final String ALLOWED_EXCEPTIONS_ELEMENT = "allowed-exceptions";
-  public static final String ALLOWED_EXCEPTION_ELEMENT = "exception";
+  private static final String CONFIGURATION_ELEMENT = "configuration";
+  private static final String STOP_ON_ERRORS_ELEMENT = "stop-on-errors";
+  private static final String CUSTOM_CONVERTERS_ELEMENT = "custom-converters";
+  private static final String COPY_BY_REFERENCES_ELEMENT = "copy-by-references";
+  private static final String COPY_BY_REFERENCE = "copy-by-reference";
+  private static final String CONVERTER_ELEMENT = "converter";
+  private static final String CLASS_A_ELEMENT = "class-a";
+  private static final String CLASS_B_ELEMENT = "class-b";
+  private static final String MAPPING_ELEMENT = "mapping";
+  private static final String FIELD_ELEMENT = "field";
+  private static final String FIELD_EXCLUDE_ELEMENT = "field-exclude";
+  private static final String A_ELEMENT = "a";
+  private static final String B_ELEMENT = "b";
+  private static final String SRC_TYPE_HINT_ELEMENT = "a-hint";
+  private static final String DEST_TYPE_HINT_ELEMENT = "b-hint";
+  private static final String SRC_TYPE_DEEP_INDEX_HINT_ELEMENT = "a-deep-index-hint";
+  private static final String DEST_TYPE_DEEP_INDEX_HINT_ELEMENT = "b-deep-index-hint";
+  private static final String ALLOWED_EXCEPTIONS_ELEMENT = "allowed-exceptions";
+  private static final String ALLOWED_EXCEPTION_ELEMENT = "exception";
 
   // Parsing Attributes
-  public static final String TYPE_ATTRIBUTE = "type";
-  public static final String RELATIONSHIP_TYPE_ATTRIBUTE = "relationship-type";
-  public static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
-  public static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
-  public static final String THE_GET_METHOD_ATTRIBUTE = "get-method";
-  public static final String STOP_ON_ERRORS_ATTRIBUTE = "stop-on-errors";
-  public static final String MAPID_ATTRIBUTE = "map-id";
-  public static final String MAP_SET_METHOD_ATTRIBUTE = "map-set-method";
-  public static final String MAP_GET_METHOD_ATTRIBUTE = "map-get-method";
-  public static final String KEY_ATTRIBUTE = "key";
-  public static final String FACTORY_BEANID_ATTRIBUTE = "factory-bean-id";
-  public static final String IS_ACCESSIBLE_ATTRIBUTE = "is-accessible";
-  public static final String CREATE_METHOD_ATTRIBUTE = "create-method";
-  public static final String MAP_NULL_ATTRIBUTE = "map-null";
-  public static final String MAP_EMPTY_STRING_ATTRIBUTE = "map-empty-string";
-  public static final String CUSTOM_CONVERTER_ATTRIBUTE = "custom-converter";
+  private static final String TYPE_ATTRIBUTE = "type";
+  private static final String RELATIONSHIP_TYPE_ATTRIBUTE = "relationship-type";
+  private static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
+  private static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
+  private static final String THE_GET_METHOD_ATTRIBUTE = "get-method";
+  private static final String STOP_ON_ERRORS_ATTRIBUTE = "stop-on-errors";
+  private static final String MAPID_ATTRIBUTE = "map-id";
+  private static final String MAP_SET_METHOD_ATTRIBUTE = "map-set-method";
+  private static final String MAP_GET_METHOD_ATTRIBUTE = "map-get-method";
+  private static final String KEY_ATTRIBUTE = "key";
+  private static final String FACTORY_BEANID_ATTRIBUTE = "factory-bean-id";
+  private static final String IS_ACCESSIBLE_ATTRIBUTE = "is-accessible";
+  private static final String CREATE_METHOD_ATTRIBUTE = "create-method";
+  private static final String MAP_NULL_ATTRIBUTE = "map-null";
+  private static final String MAP_EMPTY_STRING_ATTRIBUTE = "map-empty-string";
+  private static final String CUSTOM_CONVERTER_ATTRIBUTE = "custom-converter";
 
   private final Mappings mappings = new Mappings();
 
@@ -315,15 +317,25 @@ public class XMLParser {
         log.info("config name: " + element.getNodeName());
         log.info("  value: " + element.getFirstChild().getNodeValue());
         parseFieldElements(element, fieldMap);
-        if (SOURCE_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
+        if (SRC_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
           Hint sourceHint = new Hint();
           sourceHint.setHintName(element.getFirstChild().getNodeValue().trim());
           fieldMap.setSrcTypeHint(sourceHint);
         }
-        if (DESTINATION_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
+        if (DEST_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
           Hint destHint = new Hint();
           destHint.setHintName(element.getFirstChild().getNodeValue().trim());
           fieldMap.setDestTypeHint(destHint);
+        }
+        if (SRC_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
+          Hint sourceHint = new Hint();
+          sourceHint.setHintName(element.getFirstChild().getNodeValue().trim());
+          fieldMap.setSrcDeepIndexHint(sourceHint);
+        }
+        if (DEST_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
+          Hint destHint = new Hint();
+          destHint.setHintName(element.getFirstChild().getNodeValue().trim());
+          fieldMap.setDestDeepIndexHint(destHint);
         }
       }
     }

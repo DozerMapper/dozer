@@ -129,7 +129,7 @@
                              The default value is "false"
           custom-converter   Indicates that a specific custom converter should be used for mapping this field.  Typically this will not be specified.
 -->
-<!ELEMENT field ( a, b ,a-hint?, b-hint? ) >
+<!ELEMENT field ( a, b ,a-hint?, b-hint?, a-deep-index-hint?, b-deep-index-hint? ) >
 <!ATTLIST field relationship-type (cumulative  | non-cumulative  ) "cumulative" >
 <!ATTLIST field type (one-way | bi-directional) "bi-directional" >
 <!ATTLIST field map-id CDATA #IMPLIED>
@@ -193,6 +193,8 @@
 -->
 <!ELEMENT a-hint ( #PCDATA ) >
 <!ELEMENT b-hint ( #PCDATA ) >
+<!ELEMENT a-deep-index-hint ( #PCDATA ) >
+<!ELEMENT b-deep-index-hint ( #PCDATA ) >
 <!ELEMENT stop-on-errors ( #PCDATA ) >
 <!ELEMENT date-format ( #PCDATA ) >
 <!ELEMENT map-null ( #PCDATA ) >

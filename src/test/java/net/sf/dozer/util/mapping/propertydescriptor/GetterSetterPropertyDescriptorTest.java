@@ -30,7 +30,7 @@ public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
     DozerField dozerField = new DozerField("destField", "generic");
 
     JavaBeanPropertyDescriptor pd = new JavaBeanPropertyDescriptor(Dest.class, dozerField.getName(), dozerField.isIndexed(),
-        dozerField.getIndex());
+        dozerField.getIndex(), null, null);
     Method method = pd.getReadMethod();
 
     assertNotNull("method should not be null", method);

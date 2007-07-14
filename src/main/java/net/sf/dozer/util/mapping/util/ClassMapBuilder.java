@@ -51,7 +51,7 @@ public abstract class ClassMapBuilder {
     if (classMap.isWildcard()) {
       addDefaultFieldMappings(classMap, globalConfiguration);
     }
-    
+
     return classMap;
   }
 
@@ -93,7 +93,7 @@ public abstract class ClassMapBuilder {
         continue;
       }
 
-      PropertyDescriptor srcProperty = ReflectionUtils.findPropertyDescriptor(srcClass, destFieldName);
+      PropertyDescriptor srcProperty = ReflectionUtils.findPropertyDescriptor(srcClass, destFieldName, null);
 
       // If the sourceProperty is null we know that there is not a corresponding property to map to.
       // If source property does not have a read method, then skip

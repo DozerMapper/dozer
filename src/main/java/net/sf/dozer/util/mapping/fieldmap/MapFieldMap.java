@@ -74,7 +74,7 @@ public class MapFieldMap extends FieldMap {
       }
     }
 
-    propDescriptor.setPropertyValue(targetObject, destFieldValue, getDestTypeHint(), this);
+    propDescriptor.setPropertyValue(targetObject, destFieldValue, this);
   }
 
   public Object getSrcFieldValue(Object srcObj) {
@@ -91,7 +91,8 @@ public class MapFieldMap extends FieldMap {
         targetObject = super.getSrcFieldValue(srcObj);
         propDescriptor = new MapPropertyDescriptor(ac, getSrcFieldName(), isSrcFieldIndexed(), getDestFieldIndex(), MappingUtils
             .isSupportedMap(ac) ? "put" : getSrcFieldMapSetMethod(), MappingUtils.isSupportedMap(ac) ? "get"
-            : getSrcFieldMapGetMethod(), getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName());
+            : getSrcFieldMapGetMethod(), getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName(), getSrcDeepIndexHint(),
+            getDestDeepIndexHint());
       } else {
         propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
       }
@@ -109,7 +110,7 @@ public class MapFieldMap extends FieldMap {
   private PrepareTargetObjectResult prepareTargetObject(Object destObj) {
     Object targetObject = destObj;
     DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
-        getDestFieldIndex());
+        getDestFieldIndex(), getSrcDeepIndexHint(), getDestDeepIndexHint());
 
     Class c = d.getPropertyType();
     targetObject = d.getPropertyValue(destObj);
@@ -125,22 +126,23 @@ public class MapFieldMap extends FieldMap {
         }
 
       }
-      
+
       //TODO: add support for custom factory/create method in conjunction with Map backed properties
       targetObject = DestBeanCreator.create(null, null, c, destObj.getClass(), null, null, null);
-      d.setPropertyValue(destObj, targetObject, null, this);
+      d.setPropertyValue(destObj, targetObject, this);
     }
 
     return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestFieldName(), isDestFieldIndexed(),
         getDestFieldIndex(), MappingUtils.isSupportedMap(c) ? "put" : getDestFieldMapSetMethod(),
         MappingUtils.isSupportedMap(c) ? "get" : getDestFieldMapGetMethod(), getDestFieldKey() != null ? getDestFieldKey()
-            : getSrcFieldName()));
+            : getSrcFieldName(), getSrcDeepIndexHint(), getDestDeepIndexHint()));
 
   }
 
   private Class determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj) {
     // Dig out actual Map object by calling getter on top level object
-    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index);
+    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
+        getSrcDeepIndexHint(), getDestDeepIndexHint());
     return d.getPropertyType();
   }
 

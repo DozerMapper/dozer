@@ -38,8 +38,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private final String key;
 
   public MapPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
-      String key) {
-    super(clazz, fieldName, isIndexed, index);
+      String key, Hint srcDeepIndexHint, Hint destDeepIndexHint) {
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHint, destDeepIndexHint);
     this.setMethod = setMethod;
     this.getMethod = getMethod;
     this.key = key;
@@ -47,7 +47,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   public Method getWriteMethod() throws NoSuchMethodException {
     if (MappingUtils.isBlankOrNull(setMethod)) {
-      throw new MappingException("Custom Map set method not specified for field mapping to class: " + clazz + ".  Perhaps the map-set-method wasn't specified in the dozer mapping file?");
+      throw new MappingException("Custom Map set method not specified for field mapping to class: " + clazz
+          + ".  Perhaps the map-set-method wasn't specified in the dozer mapping file?");
     }
     return ReflectionUtils.getMethod(clazz, setMethod);
   }
@@ -65,7 +66,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   protected Method getReadMethod() throws NoSuchMethodException {
     if (MappingUtils.isBlankOrNull(getMethod)) {
-      throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
+      throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz
+          + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
     }
     return ReflectionUtils.getMethod(clazz, getMethod);
   }
@@ -86,8 +88,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   protected String getSetMethodName() throws NoSuchMethodException {
     return setMethod;
   }
-  
-  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap) {
+
+  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       if (!getPropertyType().isPrimitive() || value != null) {
         // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
@@ -101,8 +103,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
         invokeWriteMethod(bean, value);
       }
     } else {
-      writeDeepDestinationValue(bean, value, hint, fieldMap);
+      writeDeepDestinationValue(bean, value, fieldMap);
     }
   }
-  
+
 }

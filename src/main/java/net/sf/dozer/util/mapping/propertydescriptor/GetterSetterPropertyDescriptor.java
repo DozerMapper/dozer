@@ -16,10 +16,13 @@
 package net.sf.dozer.util.mapping.propertydescriptor;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.Hint;
+import net.sf.dozer.util.mapping.util.DeepHierarchyElement;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
@@ -37,9 +40,14 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
   private Class propertyType;
+  protected Hint srcDeepIndexHint;
+  protected Hint destDeepIndexHint;
 
-  public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index) {
+  public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, Hint srcDeepIndexHint,
+      Hint destDeepIndexHint) {
     super(clazz, fieldName, isIndexed, index);
+    this.srcDeepIndexHint = srcDeepIndexHint;
+    this.destDeepIndexHint = destDeepIndexHint;
   }
 
   public abstract Method getWriteMethod() throws NoSuchMethodException;
@@ -86,7 +94,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return result;
   }
 
-  public void setPropertyValue(Object bean, Object value, Hint hint, FieldMap fieldMap) {
+  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       if (!getPropertyType().isPrimitive() || value != null) {
         // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
@@ -104,53 +112,69 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         }
       }
     } else {
-      writeDeepDestinationValue(bean, value, hint, fieldMap);
+      writeDeepDestinationValue(bean, value, fieldMap);
     }
   }
 
   private Object getDeepSrcFieldValue(Object srcObj) {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
-    Object hierarchyValue = null;
-    PropertyDescriptor[] hierarchy = getHierarchy(srcObj);
+    Object hierarchyValue = parentObj;
+    DeepHierarchyElement[] hierarchy = getHierarchy(srcObj, srcDeepIndexHint);
     int size = hierarchy.length;
     for (int i = 0; i < size; i++) {
-      PropertyDescriptor pd = hierarchy[i];
-      hierarchyValue = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
+      DeepHierarchyElement hierarchyElement = hierarchy[i];
+      PropertyDescriptor pd = hierarchyElement.getPropDescriptor();
+      // If any fields in the deep hierarchy are indexed, get actual value within the collection at the specified index
+      if (hierarchyElement.getIndex() > -1) {
+        hierarchyValue = MappingUtils.getIndexedValue(ReflectionUtils.invoke(pd.getReadMethod(), hierarchyValue, null),
+            hierarchyElement.getIndex());
+      } else {
+        hierarchyValue = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
+      }
       parentObj = hierarchyValue;
       if (hierarchyValue == null) {
         break;
       }
-    }
 
-    // If field is indexed, get actual value within the collection at the specified index
-    if (isIndexed) {
-      hierarchyValue = MappingUtils.getIndexedValue(hierarchyValue, index);
+      // If dest field is indexed, get actual value within the collection at the specified index
+      if (isIndexed) {
+        hierarchyValue = MappingUtils.getIndexedValue(hierarchyValue, index);
+      }
     }
 
     return hierarchyValue;
   }
 
-  protected void writeDeepDestinationValue(Object destObj, Object destFieldValue, Hint destHint, FieldMap fieldMap) {
+  protected void writeDeepDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
-    PropertyDescriptor[] hierarchy = getHierarchy(destObj);
+    DeepHierarchyElement[] hierarchy = getHierarchy(destObj, fieldMap.getDestDeepIndexHint());
     // first, iteratate through hierarchy and instantiate any objects that are null
     Object parentObj = destObj;
     int hierarchyLength = hierarchy.length - 1;
     for (int i = 0; i < hierarchyLength; i++) {
-      PropertyDescriptor pd = hierarchy[i];
+      DeepHierarchyElement hierarchyElement = hierarchy[i];
+      PropertyDescriptor pd = hierarchyElement.getPropDescriptor();
       Object value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       Class clazz = null;
       if (value == null) {
         clazz = pd.getPropertyType();
-        if (clazz.isInterface() && (i + 1) == hierarchyLength && destHint != null) {
+        if (clazz.isInterface() && (i + 1) == hierarchyLength && fieldMap.getDestTypeHint() != null) {
           // before setting the property on the destination object we should check for a destination hint. need to know
           // that we are at the end of the line determine the property type
-          clazz = destHint.getHint();
+          clazz = fieldMap.getDestTypeHint().getHint();
         }
         Object o;
         try {
-          o = ReflectionUtils.newInstance(clazz);
+          if (clazz.isArray()) {
+            o = MappingUtils.prepareIndexedCollection(clazz, value, ReflectionUtils.newInstance(clazz.getComponentType()),
+                hierarchyElement.getIndex());
+          } else if (Collection.class.isAssignableFrom(clazz)) {
+            o = MappingUtils.prepareIndexedCollection(clazz, value, ReflectionUtils.newInstance(fieldMap.getDestDeepIndexHint()
+                .getHint()), hierarchyElement.getIndex());
+          } else {
+            o = ReflectionUtils.newInstance(clazz);
+          }
           ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
         } catch (Exception e) {
           // lets see if they have a factory we can try. If not...throw the exception:
@@ -164,15 +188,20 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         }
         value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       }
-      parentObj = value;
+      if (value != null && value.getClass().isArray()) {
+        parentObj = Array.get(value, hierarchyElement.getIndex());
+      } else if (Collection.class.isAssignableFrom(value.getClass())) {
+        parentObj = MappingUtils.getIndexedValue(value, hierarchyElement.getIndex());
+      } else {
+        parentObj = value;
+      }
     }
-    // second, set deep field value
-    PropertyDescriptor pd = hierarchy[hierarchy.length - 1];
+    // second, set the very last field in the deep hierarchy
+    PropertyDescriptor pd = hierarchy[hierarchy.length - 1].getPropDescriptor();
     if (!pd.getReadMethod().getReturnType().isPrimitive() || destFieldValue != null) {
       if (!isIndexed) {
         Method method = pd.getWriteMethod();
         try {
-
           if (method == null && getSetMethodName() != null) {
             // lets see if we can find a custom method
             method = ReflectionUtils.findAMethod(parentObj.getClass(), getSetMethodName());
@@ -188,8 +217,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
   }
 
-  private PropertyDescriptor[] getHierarchy(Object obj) {
-    return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName);
+  private DeepHierarchyElement[] getHierarchy(Object obj, Hint deepIndexHint) {
+    return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName, deepIndexHint);
   }
 
   private void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue) {
@@ -204,7 +233,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       }
     }
 
-    Object indexedValue = getIndexedValue(existingValue, destFieldValue);
+    Object indexedValue = prepareIndexedCollection(existingValue, destFieldValue);
 
     if (pd != null) {
       ReflectionUtils.invoke(pd.getWriteMethod(), destObj, new Object[] { indexedValue });

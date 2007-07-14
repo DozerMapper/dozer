@@ -38,7 +38,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
   public void testGetDeepFieldHierarchy_NonDeepField() throws Exception {
     try {
-      ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, "test");
+      ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, "test", null);
       fail("Should have thrown exception");
     } catch (MappingException e) {
       assertEquals("invalid exception thrown", "Field does not contain deep field delimitor", e.getMessage());
@@ -48,7 +48,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   public void testGetDeepFieldHierarchy_NotExists() throws Exception {
     try {
       ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "."
-          + String.valueOf(System.currentTimeMillis()));
+          + String.valueOf(System.currentTimeMillis()), null);
       fail("Should have thrown exception");
     } catch (MappingException e) {
     }
@@ -64,7 +64,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   public void testFindPropertyDescriptor_InterfaceInheritance() throws Exception {
     // Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
     String fieldName = "parentField";
-    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(ChildChildIF.class, fieldName);
+    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(ChildChildIF.class, fieldName, null);
     assertNotNull("prop descriptor should not be null", pd);
     assertEquals("invalid prop descriptor name found", fieldName, pd.getName());
   }

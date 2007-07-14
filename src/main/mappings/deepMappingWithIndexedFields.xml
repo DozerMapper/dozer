@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+ 
+ <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.deep.SrcDeepObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deep.DestDeepObj</class-b>
+    <field>
+      <a>srcNestedObj.srcNestedObj2.simpleObjects[0].field1</a>
+      <b>dest2</b>
+    </field>
+ </mapping>
+
+ <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.HeadOfHouseHold</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.Family</class-b>
+    <field>
+      <a>firstName</a>
+      <b>familyMembers[0].firstName</b>
+      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.PersonalDetails</b-deep-index-hint>
+    </field>
+    <field>
+      <a>lastName</a>
+      <b>familyMembers[0].lastName</b>
+      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.PersonalDetails</b-deep-index-hint>
+    </field>
+    <field>
+      <a>salary</a>
+      <b>familyMembers[0].salary</b>
+      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.PersonalDetails</b-deep-index-hint>
+    </field>
+ 
+    <field>
+      <a>petName</a>
+      <b>pets[1].petName</b>
+    </field>
+    <field>
+      <a>petAge</a>
+      <b>pets[1].petAge</b>
+    </field>
+    <field>
+      <a>offSpringName</a>
+      <b>pets[1].offSpring[2].petName</b>
+    </field>
+   
+   
+   
+ </mapping>
+
+</mappings>
