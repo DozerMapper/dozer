@@ -128,7 +128,7 @@ public class MapFieldMap extends FieldMap {
       }
 
       //TODO: add support for custom factory/create method in conjunction with Map backed properties
-      targetObject = DestBeanCreator.create(null, null, c, destObj.getClass(), null, null, null);
+      targetObject = DestBeanCreator.create(c, destObj.getClass());
       d.setPropertyValue(destObj, targetObject, this);
     }
 

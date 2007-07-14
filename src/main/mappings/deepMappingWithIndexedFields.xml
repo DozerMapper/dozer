@@ -10,6 +10,17 @@
       <a>srcNestedObj.srcNestedObj2.simpleObjects[0].field1</a>
       <b>dest2</b>
     </field>
+    <field>
+      <a>someList[1].equalNamedList[0].field3</a>
+      <b>dest5</b>
+      <a-deep-index-hint>net.sf.dozer.util.mapping.vo.TestObject, net.sf.dozer.util.mapping.vo.AnotherTestObject</a-deep-index-hint>
+    </field>
+    <field>
+      <a>someList[1].equalNamedList[0].field4</a>
+      <b>hintList[0].twoPrime</b>
+      <a-deep-index-hint>net.sf.dozer.util.mapping.vo.TestObject, net.sf.dozer.util.mapping.vo.AnotherTestObject</a-deep-index-hint>
+      <b-deep-index-hint>net.sf.dozer.util.mapping.vo.TestObjectPrime</b-deep-index-hint>      
+    </field>
  </mapping>
 
  <mapping>
@@ -43,9 +54,6 @@
       <a>offSpringName</a>
       <b>pets[1].offSpring[2].petName</b>
     </field>
-   
-   
-   
  </mapping>
 
 </mappings>

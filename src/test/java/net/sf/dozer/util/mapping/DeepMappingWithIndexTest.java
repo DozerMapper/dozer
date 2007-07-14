@@ -15,11 +15,16 @@
  */
 package net.sf.dozer.util.mapping;
 
+import java.util.Arrays;
+
+import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.Family;
 import net.sf.dozer.util.mapping.vo.HeadOfHouseHold;
 import net.sf.dozer.util.mapping.vo.PersonalDetails;
 import net.sf.dozer.util.mapping.vo.Pet;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
+import net.sf.dozer.util.mapping.vo.TestObject;
+import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.deep.DestDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj;
@@ -37,17 +42,31 @@ public class DeepMappingWithIndexTest extends AbstractDozerTest {
   }
 
   public void testDeepMappingWithIndexOnSrcField() {
-    SrcDeepObj src = new SrcDeepObj();
-    SrcNestedDeepObj srcNestedObj = new SrcNestedDeepObj();
-    SrcNestedDeepObj2 srcNestedObj2 = new SrcNestedDeepObj2();
     SimpleObj simpleObj = new SimpleObj();
     simpleObj.setField1("985756");
+
+    SrcNestedDeepObj2 srcNestedObj2 = new SrcNestedDeepObj2();
     srcNestedObj2.setSimpleObjects(new SimpleObj[] { simpleObj, new SimpleObj() });
+    
+    SrcNestedDeepObj srcNestedObj = new SrcNestedDeepObj();
     srcNestedObj.setSrcNestedObj2(srcNestedObj2);
+    
+    AnotherTestObject anotherTestObject = new AnotherTestObject();
+    anotherTestObject.setField3("another test object field 3 value");
+    anotherTestObject.setField4("6453");
+
+    TestObject testObject1 = new TestObject();
+    TestObject testObject2 = new TestObject();
+    testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[]{anotherTestObject}));
+    
+    SrcDeepObj src = new SrcDeepObj();
+    src.setSomeList(Arrays.asList(new TestObject[] {testObject1, testObject2}));
     src.setSrcNestedObj(srcNestedObj);
 
     DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
     assertEquals(Integer.valueOf("985756"), dest.getDest2());
+    assertEquals("another test object field 3 value", dest.getDest5());
+    assertEquals(Integer.valueOf("6453"), ((TestObjectPrime)dest.getHintList().get(0)).getTwoPrime());
   }
 
   public void testDeepMappingWithIndexOnDestField() {

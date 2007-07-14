@@ -71,6 +71,7 @@ public abstract class ReflectionUtils {
     Class latestClass = parentClass;
     DeepHierarchyElement[] hierarchy = new DeepHierarchyElement[toks.countTokens()];
     int index = 0;
+    int hintIndex = 0;    
     while (toks.hasMoreTokens()) {
       String aFieldName = toks.nextToken();
       String theFieldName = aFieldName;
@@ -91,7 +92,6 @@ public abstract class ReflectionUtils {
       }
 
       latestClass = propDescriptor.getPropertyType();
-      int hintIndex = 0;
       if (toks.hasMoreTokens()) {
         if (latestClass.isArray()) {
           latestClass = latestClass.getComponentType();
@@ -213,45 +213,21 @@ public abstract class ReflectionUtils {
     }
     return result;
   }
+  
+  public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
+    return clazz.getMethod(name, parameterTypes);
+  }
 
   public static Object newInstance(Class clazz) {
-    //Create using public or private no-arg constructor
-    Constructor constructor = null;
-    try {
-      constructor = clazz.getDeclaredConstructor(null);
-    } catch (SecurityException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
-
-    if (constructor == null) {
-      MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
-          + ".  Could not find a no-arg constructor for this class.");
-    }
-
-    // If private, make it accessible
-    if (!constructor.isAccessible()) {
-      constructor.setAccessible(true);
-    }
-
     Object result = null;
     try {
-      result = constructor.newInstance(null);
-    } catch (IllegalArgumentException e) {
-      MappingUtils.throwMappingException(e);
+      result = clazz.newInstance();
     } catch (InstantiationException e) {
       MappingUtils.throwMappingException(e);
     } catch (IllegalAccessException e) {
       MappingUtils.throwMappingException(e);
-    } catch (InvocationTargetException e) {
-      MappingUtils.throwMappingException(e);
     }
     return result;
-  }
-
-  public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
-    return clazz.getMethod(name, parameterTypes);
   }
 
 }

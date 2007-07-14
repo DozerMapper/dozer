@@ -180,7 +180,6 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
-      dfc.setDateFormat(null);
       result = converter.convert(input[i], java.util.Date.class, dfc);
       assertTrue("result should be instance of java.util.Date", result instanceof java.util.Date);
       assertEquals(input[i].getClass().getName() + " to java.util.Date", expected, result);
@@ -202,7 +201,6 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
-      dfc.setDateFormat(null);
       result = converter.convert(input[i], java.sql.Date.class, dfc);
       assertTrue("result should be instance of java.sql.Date", result instanceof java.sql.Date);
       assertEquals(input[i].getClass().getName() + " to java.sql.Date", expected, result);
@@ -224,7 +222,6 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
-      dfc.setDateFormat(null);
       result = converter.convert(input[i], java.sql.Time.class, dfc);
       assertTrue("result should be instance of java.sql.Time", result instanceof java.sql.Time);
       assertEquals(input[i].getClass().getName() + " to java.sql.Time", expected, result);
@@ -245,7 +242,6 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
-      dfc.setDateFormat(null);
       result = converter.convert(input[i], java.sql.Timestamp.class, dfc);
       assertTrue("result should be instance of java.sql.Timestamp", result instanceof java.sql.Timestamp);
       assertEquals(input[i].getClass().getName() + " to java.sql.Timestamp", time, ((java.sql.Timestamp) result).getTime());
@@ -266,7 +262,6 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
-      dfc.setDateFormat(null);
       result = converter.convert(input[i], java.util.Calendar.class, dfc);
       assertTrue("result should be instance of java.util.Calendar", result instanceof java.util.Calendar);
       assertEquals(input[i].getClass().getName() + " to java.util.Calendar", time, ((java.util.Calendar) result).getTimeInMillis());
@@ -287,7 +282,6 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
-      dfc.setDateFormat(null);
       result = converter.convert(input[i], java.util.GregorianCalendar.class, dfc);
       assertTrue("result should be instance of java.util.GregorianCalendar", result instanceof java.util.GregorianCalendar);
       assertEquals(input[i].getClass().getName() + " to java.util.GregorianCalendar", time, ((java.util.GregorianCalendar) result)

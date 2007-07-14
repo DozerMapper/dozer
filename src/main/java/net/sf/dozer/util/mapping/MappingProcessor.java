@@ -383,6 +383,7 @@ public class MappingProcessor implements MapperIF {
       if (fieldMap.getDestHintContainer() != null) {
         destFieldType = fieldMap.getDestHintContainer().getHint();
       }
+      DateFormatContainer dfContainer = new DateFormatContainer(fieldMap.getDateFormat());
       if (fieldMap instanceof MapFieldMap && !MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
         // This handles a very special/rare use case(see indexMapping.xml + unit test
         // testStringToIndexedSet_UsingMapSetMethod). If the destFieldType is a custom object AND has a String param
@@ -390,9 +391,10 @@ public class MappingProcessor implements MapperIF {
         // logic at lower layers handles setting the value on the custom object. Without this special logic, the
         // destination map backed custom object would contain a value that is the custom object dest type instead of the
         // desired src value.
-        return primitiveOrWrapperConverter.convert(srcFieldValue, srcFieldValue.getClass(), new DateFormatContainer(fieldMap));
+        return primitiveOrWrapperConverter.convert(srcFieldValue, srcFieldValue.getClass(), dfContainer);
+      } else {
+        return primitiveOrWrapperConverter.convert(srcFieldValue, destFieldType, dfContainer);
       }
-      return primitiveOrWrapperConverter.convert(srcFieldValue, destFieldType, new DateFormatContainer(fieldMap));
     }
     if (MappingUtils.isSupportedCollection(srcFieldClass) && (MappingUtils.isSupportedCollection(destFieldType))) {
       return mapCollection(srcObj, srcFieldValue, fieldMap, destObj);
@@ -525,7 +527,7 @@ public class MappingProcessor implements MapperIF {
     Object field = fieldMap.getDestValue(destObj);
     if (field == null) {
       // no destination map exists
-      result = (Map) ReflectionUtils.newInstance(srcMapValue.getClass());
+      result = (Map) DestBeanCreator.create(srcMapValue.getClass());
     } else {
       result = (Map) field;
     }

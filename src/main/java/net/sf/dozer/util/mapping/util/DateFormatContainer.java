@@ -19,20 +19,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-
 /**
  * Internal class used as a container to determine the date format to use for a particular field mapping. Only intended
- * for internal use.
+ * for internal use.  
  * 
  * @author tierney.matt
  */
 public class DateFormatContainer {
-  private FieldMap fieldMap;
+  private String dfStr;
   private DateFormat dateFormat;
 
-  public DateFormatContainer(FieldMap fieldMap) {
-    this.fieldMap = fieldMap;
+  public DateFormatContainer(String dfStr) {
+    this.dfStr = dfStr;
   }
 
   public DateFormat getDateFormat() {
@@ -47,10 +45,6 @@ public class DateFormatContainer {
   }
 
   private DateFormat determineDateFormat() {
-    if (fieldMap == null || fieldMap.getClassMap() == null) {
-      return null;
-    }
-    String dfStr = fieldMap.getDateFormat();
     return dfStr == null ? null : new SimpleDateFormat(dfStr, Locale.getDefault());
   }
 }

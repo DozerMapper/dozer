@@ -152,6 +152,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     // first, iteratate through hierarchy and instantiate any objects that are null
     Object parentObj = destObj;
     int hierarchyLength = hierarchy.length - 1;
+    int hintIndex = 0;
     for (int i = 0; i < hierarchyLength; i++) {
       DeepHierarchyElement hierarchyElement = hierarchy[i];
       PropertyDescriptor pd = hierarchyElement.getPropDescriptor();
@@ -164,28 +165,30 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           // that we are at the end of the line determine the property type
           clazz = fieldMap.getDestHintContainer().getHint();
         }
-        Object o;
-        try {
-          if (clazz.isArray()) {
-            o = MappingUtils.prepareIndexedCollection(clazz, value, ReflectionUtils.newInstance(clazz.getComponentType()),
-                hierarchyElement.getIndex());
-          } else if (Collection.class.isAssignableFrom(clazz)) {
-            o = MappingUtils.prepareIndexedCollection(clazz, value, ReflectionUtils.newInstance(fieldMap
-                .getDestDeepIndexHintContainer().getHint()), hierarchyElement.getIndex());
-          } else {
-            o = ReflectionUtils.newInstance(clazz);
-          }
-          ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
-        } catch (Exception e) {
-          // lets see if they have a factory we can try. If not...throw the exception:
-          if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
-            o = DestBeanCreator.createFromFactory(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, fieldMap.getClassMap()
-                .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId());
-            ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
-          } else {
-            MappingUtils.throwMappingException(e);
+        Object o = null;
+        if (clazz.isArray()) {
+          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(clazz.getComponentType()),
+              hierarchyElement.getIndex());
+        } else if (Collection.class.isAssignableFrom(clazz)) {
+          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(fieldMap
+              .getDestDeepIndexHintContainer().getHint(hintIndex)), hierarchyElement.getIndex());
+          //hint index is used to handle multiple hints
+          hintIndex += 1;
+        } else {
+          try {
+            o = DestBeanCreator.create(clazz);
+          } catch (Exception e) {
+            //lets see if they have a factory we can try as a last ditch. If not...throw the exception:
+            if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
+              o = DestBeanCreator.create(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, clazz, fieldMap.getClassMap()
+                  .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null);
+            } else {
+              MappingUtils.throwMappingException(e);
+            }
           }
         }
+
+        ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
         value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       }
       if (value != null && value.getClass().isArray()) {
@@ -255,7 +258,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       // let us try the set method - the field might not have a 'get' method
       try {
         returnType = getWriteMethod().getParameterTypes()[0];
-      } catch (NoSuchMethodException e1) {
+      } catch (Exception e1) {
         MappingUtils.throwMappingException(e);
       }
     }
