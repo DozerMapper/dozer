@@ -36,7 +36,7 @@ public class CopyByReferenceContainer {
   public List getCopyByReferences() {
     return copyByReferences;
   }
-  
+
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

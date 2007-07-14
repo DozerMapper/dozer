@@ -33,9 +33,9 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
-  public JavaBeanPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHint,
-      HintContainer destDeepIndexHint) {
-    super(clazz, fieldName, isIndexed, index, srcDeepIndexHint, destDeepIndexHint);
+  public JavaBeanPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
+      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
   public Method getWriteMethod() throws NoSuchMethodException {
@@ -60,7 +60,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   }
 
   private PropertyDescriptor getPropertyDescriptor() {
-    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName, destDeepIndexHint);
+    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName, destDeepIndexHintContainer);
     if (pd == null) {
       MappingUtils.throwMappingException("Property: " + fieldName + " not found in Class: " + clazz);
     }

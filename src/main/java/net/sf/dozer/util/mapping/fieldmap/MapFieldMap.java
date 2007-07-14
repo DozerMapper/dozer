@@ -45,11 +45,11 @@ public class MapFieldMap extends FieldMap {
     setCopyByReference(fieldMap.isCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
     setDestField(fieldMap.getDestField());
-    setDestTypeHint(fieldMap.getDestTypeHint());
+    setDestHintContainer(fieldMap.getDestHintContainer());
     setMapId(fieldMap.getMapId());
     setRelationshipType(fieldMap.getRelationshipType());
     setSrcField(fieldMap.getSrcField());
-    setSrcTypeHint(fieldMap.getSrcTypeHint());
+    setSrcHintContainer(fieldMap.getSrcHintContainer());
     setType(fieldMap.getType());
   }
 
@@ -86,13 +86,13 @@ public class MapFieldMap extends FieldMap {
     } else {
       Class ac = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj);
       if ((getSrcFieldMapGetMethod() != null)
-          || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSrcTypeHint() == null)) {
+          || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSrcHintContainer() == null)) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
         targetObject = super.getSrcFieldValue(srcObj);
         propDescriptor = new MapPropertyDescriptor(ac, getSrcFieldName(), isSrcFieldIndexed(), getDestFieldIndex(), MappingUtils
             .isSupportedMap(ac) ? "put" : getSrcFieldMapSetMethod(), MappingUtils.isSupportedMap(ac) ? "get"
-            : getSrcFieldMapGetMethod(), getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName(), getSrcDeepIndexHint(),
-            getDestDeepIndexHint());
+            : getSrcFieldMapGetMethod(), getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName(),
+            getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
       } else {
         propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
       }
@@ -110,19 +110,19 @@ public class MapFieldMap extends FieldMap {
   private PrepareTargetObjectResult prepareTargetObject(Object destObj) {
     Object targetObject = destObj;
     DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
-        getDestFieldIndex(), getSrcDeepIndexHint(), getDestDeepIndexHint());
+        getDestFieldIndex(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
 
     Class c = d.getPropertyType();
     targetObject = d.getPropertyValue(destObj);
     if (targetObject == null) {
       // Create new instance of target object that will be populated.
-      if (getDestTypeHint() != null) {
+      if (getDestHintContainer() != null) {
         if (MappingUtils.isSupportedMap(c)) {
-          if (MappingUtils.isSupportedMap(getDestTypeHint().getHint())) {
-            c = getDestTypeHint().getHint();
+          if (MappingUtils.isSupportedMap(getDestHintContainer().getHint())) {
+            c = getDestHintContainer().getHint();
           }
         } else {
-          c = getDestTypeHint().getHint();
+          c = getDestHintContainer().getHint();
         }
 
       }
@@ -135,14 +135,14 @@ public class MapFieldMap extends FieldMap {
     return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestFieldName(), isDestFieldIndexed(),
         getDestFieldIndex(), MappingUtils.isSupportedMap(c) ? "put" : getDestFieldMapSetMethod(),
         MappingUtils.isSupportedMap(c) ? "get" : getDestFieldMapGetMethod(), getDestFieldKey() != null ? getDestFieldKey()
-            : getSrcFieldName(), getSrcDeepIndexHint(), getDestDeepIndexHint()));
+            : getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer()));
 
   }
 
   private Class determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj) {
     // Dig out actual Map object by calling getter on top level object
     DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
-        getSrcDeepIndexHint(), getDestDeepIndexHint());
+        getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
     return d.getPropertyType();
   }
 

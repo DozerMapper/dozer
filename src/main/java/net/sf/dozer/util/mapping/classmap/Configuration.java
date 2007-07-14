@@ -95,7 +95,7 @@ public class Configuration {
   public void setCopyByReferences(CopyByReferenceContainer copyByReferenceContainer) {
     this.copyByReferences = copyByReferenceContainer;
   }
-  
+
   public Boolean getTrimStrings() {
     return trimStrings;
   }

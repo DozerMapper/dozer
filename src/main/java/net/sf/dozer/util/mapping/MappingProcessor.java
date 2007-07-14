@@ -375,13 +375,13 @@ public class MappingProcessor implements MapperIF {
     }
     if (fieldMap instanceof MapFieldMap && destFieldType.equals(Object.class)) {
       // TODO: find better place for this logic. try to encapsulate in FieldMap?
-      destFieldType = fieldMap.getDestTypeHint() != null ? fieldMap.getDestTypeHint().getHint() : srcFieldClass;
+      destFieldType = fieldMap.getDestHintContainer() != null ? fieldMap.getDestHintContainer().getHint() : srcFieldClass;
     }
 
     if (MappingUtils.isPrimitiveOrWrapper(srcFieldClass) || MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
       // Primitive or Wrapper conversion
-      if (fieldMap.getDestTypeHint() != null) {
-        destFieldType = fieldMap.getDestTypeHint().getHint();
+      if (fieldMap.getDestHintContainer() != null) {
+        destFieldType = fieldMap.getDestHintContainer().getHint();
       }
       if (fieldMap instanceof MapFieldMap && !MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
         // This handles a very special/rare use case(see indexMapping.xml + unit test
@@ -420,8 +420,8 @@ public class MappingProcessor implements MapperIF {
     // if the field is not null than we don't want a new instance
     if (field == null) {
       // first check to see if this plain old field map has hints to the actual type.
-      if (fieldMap.getDestTypeHint() != null) {
-        Class destType = fieldMap.getDestTypeHint().getHint();
+      if (fieldMap.getDestHintContainer() != null) {
+        Class destType = fieldMap.getDestHintContainer().getHint();
         // if the destType is null this means that there was more than one hint. we must have already set the destType then.
         if (destType != null) {
           destFieldType = destType;
@@ -432,10 +432,10 @@ public class MappingProcessor implements MapperIF {
       mapId = fieldMap.getMapId();
       classMap = getClassMap(srcFieldValue, destFieldType, mapId, false);
 
-      field = DestBeanCreator.create(srcFieldValue, classMap.getSrcClassToMap(), fieldMap.getDestTypeHint() != null ? fieldMap
-          .getDestTypeHint().getHint() : classMap.getDestClassToMap(), destFieldType, classMap.getDestClassBeanFactory(), classMap
-          .getDestClassBeanFactoryId(), fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod()
-          : classMap.getDestClassCreateMethod());
+      field = DestBeanCreator.create(srcFieldValue, classMap.getSrcClassToMap(), fieldMap.getDestHintContainer() != null ? fieldMap
+          .getDestHintContainer().getHint() : classMap.getDestClassToMap(), destFieldType, classMap.getDestClassBeanFactory(),
+          classMap.getDestClassBeanFactoryId(), fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod()
+              : classMap.getDestClassCreateMethod());
     }
 
     map(classMap, srcFieldValue, field, null, fieldMap);
@@ -447,7 +447,7 @@ public class MappingProcessor implements MapperIF {
     // since we are mapping some sort of collection now is a good time to decide if they provided hints
     // if no hint is provided then we will check to see if we can use JDK 1.5 generics to determine the mapping type
     // this will only happen once on the dest hint. the next mapping will already have the hint
-    if (fieldMap.getDestTypeHint() == null && GlobalSettings.getInstance().isJava5()) {
+    if (fieldMap.getDestHintContainer() == null && GlobalSettings.getInstance().isJava5()) {
       Object typeArgument = null;
       Object[] parameterTypes = null;
       try {
@@ -465,10 +465,10 @@ public class MappingProcessor implements MapperIF {
           typeArgument = ((Object[]) ReflectionUtils.invoke(
               Jdk5Methods.getInstance().getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
           if (typeArgument != null) {
-            HintContainer destHint = new HintContainer();
+            HintContainer destHintContainer = new HintContainer();
             Class argument = (Class) typeArgument;
-            destHint.setHintName(argument.getName());
-            fieldMap.setDestTypeHint(destHint);
+            destHintContainer.setHintName(argument.getName());
+            fieldMap.setDestHintContainer(destHintContainer);
           }
         }
       }
@@ -574,19 +574,19 @@ public class MappingProcessor implements MapperIF {
       for (int i = 0; i < CollectionUtils.getLengthOfCollection(srcFieldValue); i++) {
         Object value = CollectionUtils.getValueFromCollection(srcFieldValue, i);
         // map this value
-        if (fieldMapping.getDestTypeHint() == null) {
+        if (fieldMapping.getDestHintContainer() == null) {
           MappingUtils.throwMappingException("<field type=\"iterate\"> must have a source or destination type hint");
         }
         // check for custom converters
         Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, fieldMapping.getClassMap()
-            .getCustomConverters(), value.getClass(), MappingUtils.loadClass(fieldMapping.getDestTypeHint().getHintName()));
+            .getCustomConverters(), value.getClass(), MappingUtils.loadClass(fieldMapping.getDestHintContainer().getHintName()));
 
         if (converterClass != null) {
           Class srcFieldClass = srcFieldValue.getClass();
-          value = mapUsingCustomConverter(converterClass, srcFieldClass, value, fieldMapping.getDestTypeHint().getHint(), null,
-              fieldMapping, false);
+          value = mapUsingCustomConverter(converterClass, srcFieldClass, value, fieldMapping.getDestHintContainer().getHint(),
+              null, fieldMapping, false);
         } else {
-          value = map(value, fieldMapping.getDestTypeHint().getHint());
+          value = map(value, fieldMapping.getDestHintContainer().getHint());
         }
         if (value != null) {
           writeDestinationValue(destObj, value, fieldMapping);
@@ -652,7 +652,8 @@ public class MappingProcessor implements MapperIF {
     Object srcValue = null;
     while (iter.hasNext()) {
       srcValue = iter.next();
-      if (destEntryType == null || (fieldMap.getDestTypeHint() != null && fieldMap.getDestTypeHint().hasMoreThanOneHint())) {
+      if (destEntryType == null
+          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         destEntryType = fieldMap.getDestHintType(srcValue.getClass());
       }
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
@@ -706,7 +707,8 @@ public class MappingProcessor implements MapperIF {
     Class prevDestEntryType = null;
     while (iter.hasNext()) {
       srcValue = iter.next();
-      if (destEntryType == null || (fieldMap.getDestTypeHint() != null && fieldMap.getDestTypeHint().hasMoreThanOneHint())) {
+      if (destEntryType == null
+          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         if (srcValue == null) {
           destEntryType = prevDestEntryType;
         } else {
@@ -744,8 +746,8 @@ public class MappingProcessor implements MapperIF {
 
   private List mapArrayToList(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
     Class destEntryType = null;
-    if (fieldMap.getDestTypeHint() != null) {
-      destEntryType = fieldMap.getDestTypeHint().getHint();
+    if (fieldMap.getDestHintContainer() != null) {
+      destEntryType = fieldMap.getDestHintContainer().getHint();
     } else {
       destEntryType = srcCollectionValue.getClass().getComponentType();
     }

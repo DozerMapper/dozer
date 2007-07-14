@@ -34,7 +34,7 @@ public class AllowedExceptionContainer {
   public List getExceptions() {
     return exceptions;
   }
-  
+
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

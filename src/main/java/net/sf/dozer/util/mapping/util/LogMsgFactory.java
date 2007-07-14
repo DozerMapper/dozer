@@ -71,7 +71,8 @@ public abstract class LogMsgFactory {
     String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);
 
     return "MAPPED: " + srcClassStr + "." + srcFieldName + " --> " + destClassStr + "." + destFieldName + "    VALUES: "
-        + getLogOutput(srcFieldValue) + " --> " + getLogOutput(destFieldValue) + "    MAPID: " + (classMapId != null ? classMapId : "") ;
+        + getLogOutput(srcFieldValue) + " --> " + getLogOutput(destFieldValue) + "    MAPID: "
+        + (classMapId != null ? classMapId : "");
   }
 
   private static String getLogOutput(Object object) {

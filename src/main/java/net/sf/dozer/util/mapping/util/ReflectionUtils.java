@@ -38,11 +38,11 @@ import org.apache.commons.beanutils.PropertyUtils;
  */
 public abstract class ReflectionUtils {
 
-  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, HintContainer deepIndexHint) {
+  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, HintContainer deepIndexHintContainer) {
     PropertyDescriptor result = null;
 
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0) {
-      DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHint);
+      DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
       result = hierarchy[hierarchy.length - 1].getPropDescriptor();
     } else {
       PropertyDescriptor[] descriptors = getPropertyDescriptors(objectClass);
@@ -61,7 +61,7 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, HintContainer deepIndexHint) {
+  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, HintContainer deepIndexHintContainer) {
     if (field.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
@@ -80,7 +80,7 @@ public abstract class ReflectionUtils {
         collectionIndex = Integer.parseInt(aFieldName.substring(aFieldName.indexOf("[") + 1, aFieldName.indexOf("]")));
       }
 
-      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, theFieldName, deepIndexHint);
+      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, theFieldName, deepIndexHintContainer);
       DeepHierarchyElement r = new DeepHierarchyElement(propDescriptor, collectionIndex);
 
       if (propDescriptor == null) {
@@ -95,10 +95,11 @@ public abstract class ReflectionUtils {
         if (latestClass.isArray()) {
           latestClass = latestClass.getComponentType();
         } else if (Collection.class.isAssignableFrom(latestClass)) {
-          if (deepIndexHint == null) {
-            MappingUtils.throwMappingException("Hint(s) not specified.  Hint(s) must be specified for deep mapping with indexed field(s)");
+          if (deepIndexHintContainer == null) {
+            MappingUtils
+                .throwMappingException("Hint(s) not specified.  Hint(s) must be specified for deep mapping with indexed field(s)");
           }
-          latestClass = (Class) deepIndexHint.getHints().get(hintIndex);
+          latestClass = (Class) deepIndexHintContainer.getHint(hintIndex);
           hintIndex += 1;
         }
       }

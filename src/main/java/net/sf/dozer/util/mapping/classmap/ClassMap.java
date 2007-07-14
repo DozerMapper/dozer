@@ -65,19 +65,21 @@ public class ClassMap {
     if (stopOnErrors != null) {
       return stopOnErrors.booleanValue();
     } else {
-      return globalConfiguration.getStopOnErrors() != null ? globalConfiguration.getStopOnErrors().booleanValue() : MapperConstants.DEFAULT_ERROR_POLICY;
+      return globalConfiguration.getStopOnErrors() != null ? globalConfiguration.getStopOnErrors().booleanValue()
+          : MapperConstants.DEFAULT_ERROR_POLICY;
     }
   }
 
   public void setStopOnErrors(Boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
   }
-  
+
   public boolean isTrimStrings() {
     if (trimStrings != null) {
       return trimStrings.booleanValue();
     } else {
-      return globalConfiguration.getTrimStrings() != null ? globalConfiguration.getTrimStrings().booleanValue() : MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
+      return globalConfiguration.getTrimStrings() != null ? globalConfiguration.getTrimStrings().booleanValue()
+          : MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
     }
   }
 
@@ -155,7 +157,8 @@ public class ClassMap {
     if (wildcard != null) {
       return wildcard.booleanValue();
     } else {
-      return globalConfiguration.getWildcard() != null ? globalConfiguration.getWildcard().booleanValue() : MapperConstants.DEFAULT_WILDCARD_POLICY;
+      return globalConfiguration.getWildcard() != null ? globalConfiguration.getWildcard().booleanValue()
+          : MapperConstants.DEFAULT_WILDCARD_POLICY;
     }
   }
 
@@ -306,12 +309,9 @@ public class ClassMap {
   public void setMapEmptyString(boolean mapEmptyString) {
     this.mapEmptyString = mapEmptyString;
   }
-  
+
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
-    append("source class", getSrcClassName()).
-    append("destination class", getDestClassName()).
-    append("map-id", mapId).
-    toString();
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source class", getSrcClassName()).append(
+        "destination class", getDestClassName()).append("map-id", mapId).toString();
   }
 }

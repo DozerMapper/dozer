@@ -150,10 +150,10 @@ public abstract class MappingUtils {
     if (fieldMap != null && fieldMap.isDestFieldIndexed()) {
       if (destClass.isArray()) {
         destClass = destClass.getComponentType();
-      } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestTypeHint() != null
-          && fieldMap.getDestTypeHint().getHints().size() < 2) {
+      } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestHintContainer() != null
+          && !fieldMap.getDestHintContainer().hasMoreThanOneHint()) {
         // use hint when trying to find a custom converter
-        destClass = MappingUtils.loadClass(fieldMap.getDestTypeHint().getHintName());
+        destClass = fieldMap.getDestHintContainer().getHint();
       }
     }
 
@@ -191,11 +191,11 @@ public abstract class MappingUtils {
     destination.setCustomConverter(source.getCustomConverter());
     destination.setMapId(source.getMapId());
     destination.setRelationshipType(source.getRelationshipType());
-    destination.setSrcTypeHint(source.getDestTypeHint());
-    destination.setDestTypeHint(source.getSrcTypeHint());
-    destination.setSrcDeepIndexHint(source.getDestDeepIndexHint());
-    destination.setDestDeepIndexHint(source.getSrcDeepIndexHint());
-    
+    destination.setSrcHintContainer(source.getDestHintContainer());
+    destination.setDestHintContainer(source.getSrcHintContainer());
+    destination.setSrcDeepIndexHintContainer(source.getDestDeepIndexHintContainer());
+    destination.setDestDeepIndexHintContainer(source.getSrcDeepIndexHintContainer());
+
   }
 
   public static void reverseFields(ClassMap source, ClassMap destination) {
@@ -265,7 +265,7 @@ public abstract class MappingUtils {
     }
     return result;
   }
-  
+
   public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
     Object result = null;
     if (existingCollection == null) {

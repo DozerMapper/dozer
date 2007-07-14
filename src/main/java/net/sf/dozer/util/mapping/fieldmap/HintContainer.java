@@ -37,11 +37,17 @@ public class HintContainer {
   private List hints;
 
   public Class getHint() {
-    if (getHints().size() > 1) {
+    Class result = null;
+    if (hasMoreThanOneHint()) {
       return null;
     } else {
-      return (Class) getHints().get(0);
+      result = (Class) getHints().get(0);
     }
+    return result;
+  }
+
+  public Class getHint(int index) {
+    return (Class) getHints().get(index);
   }
 
   public Class getHint(Class clazz, List clazzHints) {

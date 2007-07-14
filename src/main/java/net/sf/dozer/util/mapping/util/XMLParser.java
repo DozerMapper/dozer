@@ -318,24 +318,24 @@ public class XMLParser {
         log.info("  value: " + element.getFirstChild().getNodeValue());
         parseFieldElements(element, fieldMap);
         if (SRC_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
-          HintContainer sourceHint = new HintContainer();
-          sourceHint.setHintName(element.getFirstChild().getNodeValue().trim());
-          fieldMap.setSrcTypeHint(sourceHint);
+          HintContainer hintContainer = new HintContainer();
+          hintContainer.setHintName(element.getFirstChild().getNodeValue().trim());
+          fieldMap.setSrcHintContainer(hintContainer);
         }
         if (DEST_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
-          HintContainer destHint = new HintContainer();
-          destHint.setHintName(element.getFirstChild().getNodeValue().trim());
-          fieldMap.setDestTypeHint(destHint);
+          HintContainer hintContainer = new HintContainer();
+          hintContainer.setHintName(element.getFirstChild().getNodeValue().trim());
+          fieldMap.setDestHintContainer(hintContainer);
         }
         if (SRC_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
-          HintContainer sourceHint = new HintContainer();
-          sourceHint.setHintName(element.getFirstChild().getNodeValue().trim());
-          fieldMap.setSrcDeepIndexHint(sourceHint);
+          HintContainer hintContainer = new HintContainer();
+          hintContainer.setHintName(element.getFirstChild().getNodeValue().trim());
+          fieldMap.setSrcDeepIndexHintContainer(hintContainer);
         }
         if (DEST_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
-          HintContainer destHint = new HintContainer();
-          destHint.setHintName(element.getFirstChild().getNodeValue().trim());
-          fieldMap.setDestDeepIndexHint(destHint);
+          HintContainer hintContainer = new HintContainer();
+          hintContainer.setHintName(element.getFirstChild().getNodeValue().trim());
+          fieldMap.setDestDeepIndexHintContainer(hintContainer);
         }
       }
     }

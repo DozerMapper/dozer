@@ -40,14 +40,14 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
   private Class propertyType;
-  protected HintContainer srcDeepIndexHint;
-  protected HintContainer destDeepIndexHint;
+  protected HintContainer srcDeepIndexHintContainer;
+  protected HintContainer destDeepIndexHintContainer;
 
-  public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHint,
-      HintContainer destDeepIndexHint) {
+  public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
+      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index);
-    this.srcDeepIndexHint = srcDeepIndexHint;
-    this.destDeepIndexHint = destDeepIndexHint;
+    this.srcDeepIndexHintContainer = srcDeepIndexHintContainer;
+    this.destDeepIndexHintContainer = destDeepIndexHintContainer;
   }
 
   public abstract Method getWriteMethod() throws NoSuchMethodException;
@@ -120,7 +120,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = parentObj;
-    DeepHierarchyElement[] hierarchy = getHierarchy(srcObj, srcDeepIndexHint);
+    DeepHierarchyElement[] hierarchy = getHierarchy(srcObj, srcDeepIndexHintContainer);
     int size = hierarchy.length;
     for (int i = 0; i < size; i++) {
       DeepHierarchyElement hierarchyElement = hierarchy[i];
@@ -148,7 +148,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
   protected void writeDeepDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
-    DeepHierarchyElement[] hierarchy = getHierarchy(destObj, fieldMap.getDestDeepIndexHint());
+    DeepHierarchyElement[] hierarchy = getHierarchy(destObj, fieldMap.getDestDeepIndexHintContainer());
     // first, iteratate through hierarchy and instantiate any objects that are null
     Object parentObj = destObj;
     int hierarchyLength = hierarchy.length - 1;
@@ -159,10 +159,10 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       Class clazz = null;
       if (value == null) {
         clazz = pd.getPropertyType();
-        if (clazz.isInterface() && (i + 1) == hierarchyLength && fieldMap.getDestTypeHint() != null) {
+        if (clazz.isInterface() && (i + 1) == hierarchyLength && fieldMap.getDestHintContainer() != null) {
           // before setting the property on the destination object we should check for a destination hint. need to know
           // that we are at the end of the line determine the property type
-          clazz = fieldMap.getDestTypeHint().getHint();
+          clazz = fieldMap.getDestHintContainer().getHint();
         }
         Object o;
         try {
@@ -170,8 +170,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
             o = MappingUtils.prepareIndexedCollection(clazz, value, ReflectionUtils.newInstance(clazz.getComponentType()),
                 hierarchyElement.getIndex());
           } else if (Collection.class.isAssignableFrom(clazz)) {
-            o = MappingUtils.prepareIndexedCollection(clazz, value, ReflectionUtils.newInstance(fieldMap.getDestDeepIndexHint()
-                .getHint()), hierarchyElement.getIndex());
+            o = MappingUtils.prepareIndexedCollection(clazz, value, ReflectionUtils.newInstance(fieldMap
+                .getDestDeepIndexHintContainer().getHint()), hierarchyElement.getIndex());
           } else {
             o = ReflectionUtils.newInstance(clazz);
           }
@@ -217,8 +217,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
   }
 
-  private DeepHierarchyElement[] getHierarchy(Object obj, HintContainer deepIndexHint) {
-    return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName, deepIndexHint);
+  private DeepHierarchyElement[] getHierarchy(Object obj, HintContainer deepIndexHintContainer) {
+    return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName, deepIndexHintContainer);
   }
 
   private void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue) {

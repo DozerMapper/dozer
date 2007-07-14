@@ -38,8 +38,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private final String key;
 
   public MapPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
-      String key, HintContainer srcDeepIndexHint, HintContainer destDeepIndexHint) {
-    super(clazz, fieldName, isIndexed, index, srcDeepIndexHint, destDeepIndexHint);
+      String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     this.setMethod = setMethod;
     this.getMethod = getMethod;
     this.key = key;
