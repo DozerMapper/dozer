@@ -427,5 +427,44 @@ public class MapTypeTest extends AbstractDozerTest {
     CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class, mapId);
     assertTrue("remapped src should equal original src", EqualsBuilder.reflectionEquals(src.getMap(), remappedSrc.getMap()));
   }
+  
+  public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
+    // Simple test checking that Maps get mapped to a VO without any custom mappings or map-id.
+    // Should behave like Vo --> Vo, matching on common attr(key) names.
+    Map nested2 = new HashMap();
+    nested2.put("field1", "mapnestedfield1");
+
+    SimpleObj src = new SimpleObj();
+    src.setNested2(nested2);
+
+    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
+    assertNotNull(result.getNested2());
+    assertEquals(nested2.get("field1"), result.getNested2().getField1());
+
+    SimpleObj result2 = (SimpleObj) mapper.map(result, SimpleObj.class);
+    assertEquals(src, result2);
+  }
+
+  public void testMapType_MapToVo_CustomMapping_NoMapId() {
+    // Test nested Map --> Vo using custom mappings without map-id
+    mapper = getNewMapper(new String[] { "mapMapping3.xml" });
+
+    NestedObj nested = new NestedObj();
+    nested.setField1("field1Value");
+
+    Map nested2 = new HashMap();
+    nested2.put("field1", "mapnestedfield1value");
+    nested2.put("field2", "mapnestedfield2value");
+
+    SimpleObj src = new SimpleObj();
+    // src.setField1("field1value");
+    // src.setNested(nested);
+    src.setNested2(nested2);
+
+    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
+    assertNull(result.getNested2().getField1());// field exclude in mappings file
+    assertEquals(nested2.get("field2"), result.getNested2().getField2());
+  }
+  
 
 }
