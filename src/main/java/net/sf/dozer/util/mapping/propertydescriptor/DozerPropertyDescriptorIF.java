@@ -18,7 +18,8 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
- * Internal property descriptor interface. Only intended for internal use.
+ * Internal property descriptor interface. Only intended for internal use.  Dozer property descriptors are used
+ * to read and write the actual field mapping values on the target objects.
  * 
  * @author garsombke.franz
  */

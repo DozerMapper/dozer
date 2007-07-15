@@ -167,14 +167,12 @@ public class MapTypeTest extends AbstractDozerTest {
     Map map = new HashMap();
     map.put("to", to);
     map.put("to2", to2);
-    MapToMap mtm = new MapToMap();
-    mtm.setStandardMap(map);
-
+    
     Map map2 = new HashMap();
     map2.put("to", to);
     map2.put("to2", to2);
 
-    mtm.setStandardMapWithHint(map2);
+    MapToMap mtm = new MapToMap(map, map2);
 
     MapToMapPrime mtmp = (MapToMapPrime) mapper.map(mtm, MapToMapPrime.class);
     assertEquals("one", ((TestObject) mtmp.getStandardMap().get("to")).getOne());

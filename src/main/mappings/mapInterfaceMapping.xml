@@ -8,8 +8,8 @@
     <class-b>net.sf.dozer.util.mapping.vo.map.MapToMapPrime</class-b>
 
     <field>
-      <a>standardMapWithHint</a>
-      <b>standardMapWithHint</b>
+      <a is-accessible="true">standardMapWithHint</a>
+      <b is-accessible="true">standardMapWithHint</b>
       <a-hint>net.sf.dozer.util.mapping.vo.TestObject</a-hint>
       <b-hint>net.sf.dozer.util.mapping.vo.TestObjectPrime</b-hint> 
     </field>    

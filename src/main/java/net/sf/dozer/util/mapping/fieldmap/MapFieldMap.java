@@ -17,6 +17,7 @@ package net.sf.dozer.util.mapping.fieldmap;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
+import net.sf.dozer.util.mapping.propertydescriptor.FieldPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.JavaBeanPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.MapPropertyDescriptor;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
@@ -46,10 +47,12 @@ public class MapFieldMap extends FieldMap {
     setCustomConverter(fieldMap.getCustomConverter());
     setDestField(fieldMap.getDestField());
     setDestHintContainer(fieldMap.getDestHintContainer());
+    setDestDeepIndexHintContainer(fieldMap.getDestDeepIndexHintContainer());
     setMapId(fieldMap.getMapId());
     setRelationshipType(fieldMap.getRelationshipType());
     setSrcField(fieldMap.getSrcField());
     setSrcHintContainer(fieldMap.getSrcHintContainer());
+    setSrcDeepIndexHintContainer(fieldMap.getSrcDeepIndexHintContainer());
     setType(fieldMap.getType());
   }
 
@@ -108,12 +111,18 @@ public class MapFieldMap extends FieldMap {
   }
 
   private PrepareTargetObjectResult prepareTargetObject(Object destObj) {
-    Object targetObject = destObj;
-    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
+    //  Need to dig out actual destination Map object and use map property descriptor to set the value on that target object....
+    DozerPropertyDescriptorIF pd;
+    if (isDestFieldAccessible()) {
+      pd = new FieldPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
+          getDestFieldIndex(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+    } else {
+      pd = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
         getDestFieldIndex(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+    }
 
-    Class c = d.getPropertyType();
-    targetObject = d.getPropertyValue(destObj);
+    Class c = pd.getPropertyType();
+    Object targetObject = pd.getPropertyValue(destObj);
     if (targetObject == null) {
       // Create new instance of target object that will be populated.
       if (getDestHintContainer() != null) {
@@ -129,7 +138,7 @@ public class MapFieldMap extends FieldMap {
 
       //TODO: add support for custom factory/create method in conjunction with Map backed properties
       targetObject = DestBeanCreator.create(c, destObj.getClass());
-      d.setPropertyValue(destObj, targetObject, this);
+      pd.setPropertyValue(destObj, targetObject, this);
     }
 
     return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestFieldName(), isDestFieldIndexed(),
@@ -140,10 +149,17 @@ public class MapFieldMap extends FieldMap {
   }
 
   private Class determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj) {
-    // Dig out actual Map object by calling getter on top level object
-    DozerPropertyDescriptorIF d = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
-        getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
-    return d.getPropertyType();
+    // Dig out actual Map object by calling getter on top level object    
+    DozerPropertyDescriptorIF pd;
+    if (isDestFieldAccessible()) {
+      pd = new FieldPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+    } else {
+      pd = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+    }
+    
+    return pd.getPropertyType();
   }
 
   private class PrepareTargetObjectResult {

@@ -32,7 +32,7 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
   private Field field;
 
-  public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isAccessible, boolean isIndexed, int index,
+  public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
@@ -42,7 +42,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
       MappingUtils.throwMappingException(e);
     }
     // Allow access to private instance var's that dont have public setter.
-    field.setAccessible(isAccessible);
+    field.setAccessible(true);
   }
 
   public Class getPropertyType() {

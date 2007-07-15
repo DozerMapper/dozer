@@ -39,9 +39,4 @@ public class MapToMapPrime extends BaseTestObject {
   public Map getStandardMapWithHint() {
     return standardMapWithHint;
   }
-
-  public void setStandardMapWithHint(Map standardMapWithDestHint) {
-    this.standardMapWithHint = standardMapWithDestHint;
-  }
-
 }
