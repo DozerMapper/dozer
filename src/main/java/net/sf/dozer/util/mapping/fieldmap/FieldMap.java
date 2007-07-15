@@ -356,6 +356,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   protected DozerPropertyDescriptorIF getSrcPropertyDescriptor(Class runtimeSrcClass) {
+    //This could possibly be a good place to add caching on prop descriptor for runtime class.
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
         getSrcFieldMapGetMethod(), getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
         getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
@@ -363,6 +364,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   protected DozerPropertyDescriptorIF getDestPropertyDescriptor(Class runtimeDestClass) {
+    //This could possibly be a good place to add caching on prop descriptor for runtime class.
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass, getDestFieldTheGetMethod(),
         getDestFieldTheSetMethod(), getDestFieldMapGetMethod(), getDestFieldMapSetMethod(), isDestFieldAccessible(),
         isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(),
