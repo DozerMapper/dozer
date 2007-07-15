@@ -320,7 +320,6 @@
       <name>Franz Garsombke</name>
       <id>fgarsombke</id>
       <email>fgarsombke@yahoo.com</email>
-      <url>http://www.jroller.com/page/fgarsombke</url>
       <roles>
         <role>Project Lead/Architect</role>
       </roles>
@@ -366,6 +365,9 @@
     </contributor>
     <contributor>
       <name>Vincent Jassogne</name>
+    </contributor>
+    <contributor>
+      <name>Sachin Katakdound</name>
     </contributor>
     <contributor>
       <name>Joachim Korittky</name>
