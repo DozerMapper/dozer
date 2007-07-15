@@ -54,7 +54,7 @@ public class PerformanceTest extends AbstractDozerTest {
   /*
    * Baseline Performance Numbers. Established with Release 2.0 - Jan 2006
    * 
-   * All performance results based on 25000 numIters and jdk 1.4.2
+   * All performance results based on 25000 numIters and jdk 1.4.2(unless otherwise specified)
    * 
    * TEST TOTAL TIME(ms) - 1/1/06
    * 
@@ -111,11 +111,15 @@ public class PerformanceTest extends AbstractDozerTest {
    * jdk1.5 #1 27485 #2 2532 #3 2906 #4 11297 #5 8157 #6 16797
    * 
    * 
-   * MHT Computer - 7/06/07 - 3.5 release after map backed property refactor
+   * MHT Computer - 7/06/07 - 4.0 release after map backed property refactor
    * jdk1.4 #1 27047 #2 3140 #3 3172 #4 12328 #5 8359 #6 33281
    * jdk1.5 #1 26484 #2 3016 #3 3062 #4 11781 #5 7906 #6 30594
    * 
-   * 
+   *
+   * MHT Computer - 7/15/07 - 4.0 release
+   * jdk1.4 #1 24078 #2 2844 #3 2891 #4 11656 #5 7797 #6 36156
+   * jdk1.5 #1 24625 #2 2656 #3 2688 #4 11515 #5 7781 #6 31797
+
    */
 
   public void testMapping1() throws Exception {
