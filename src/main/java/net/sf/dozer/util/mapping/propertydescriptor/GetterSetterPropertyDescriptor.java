@@ -85,7 +85,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           // if we failed to read the value, assume we must write, and continue...
         }
         if (isIndexed) {
-          writeIndexedValue(null, bean, value);
+          writeIndexedValue(bean, value);
         } else {
           invokeWriteMethod(bean, value);
         }
@@ -178,7 +178,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       }
       if (value != null && value.getClass().isArray()) {
         parentObj = Array.get(value, hierarchyElement.getIndex());
-      } else if (Collection.class.isAssignableFrom(value.getClass())) {
+      } else if (value != null && Collection.class.isAssignableFrom(value.getClass())) {
         parentObj = MappingUtils.getIndexedValue(value, hierarchyElement.getIndex());
       } else {
         parentObj = value;
@@ -200,7 +200,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
         ReflectionUtils.invoke(method, parentObj, new Object[] { destFieldValue });
       } else {
-        writeIndexedValue(pd, parentObj, destFieldValue);
+        writeIndexedValue(parentObj, destFieldValue);
       }
     }
   }
@@ -227,7 +227,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName, deepIndexHintContainer);
   }
 
-  private void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue) {
+  private void writeIndexedValue(Object destObj, Object destFieldValue) {
     Object existingValue = invokeReadMethod(destObj);
     Object indexedValue = prepareIndexedCollection(existingValue, destFieldValue);
     invokeWriteMethod(destObj, indexedValue);

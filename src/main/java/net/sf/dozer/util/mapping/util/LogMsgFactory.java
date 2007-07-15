@@ -54,7 +54,9 @@ public abstract class LogMsgFactory {
 
     String destFieldTypeName = null;
     try {
-      destFieldTypeName = fieldMapping.getDestFieldType(destObj.getClass()).getName();
+      if (destObj != null) {
+        destFieldTypeName = fieldMapping.getDestFieldType(destObj.getClass()).getName();
+      }
     } catch (Exception e) {
       log.warn("unable to determine dest field type when build log.error message");
     }

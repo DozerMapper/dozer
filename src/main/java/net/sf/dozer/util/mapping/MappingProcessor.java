@@ -191,10 +191,7 @@ public class MappingProcessor implements MapperIF {
     Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
         .getClass(), destClass);
     if (converterClass != null) {
-      Object rvalue = mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destClass, destObj, null, true);
-      if (rvalue != null) {
-        destObj = rvalue;
-      }
+      mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destClass, destObj, null, true);
       return;
     }
 
