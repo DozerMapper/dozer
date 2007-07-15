@@ -106,7 +106,7 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   public void setFactories(Map factories) {
-    MappingUtils.addFactories(factories);
+    MappingUtils.storedFactories.putAll(factories);
   }
 
   public void setCustomConverters(List customConverters) {

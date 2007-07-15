@@ -38,8 +38,8 @@ public class CustomConverterContainer {
     return converters;
   }
 
-  public void setConverters(List in) {
-    this.converters = in;
+  public void setConverters(List converters) {
+    this.converters = converters;
   }
 
   public void addConverter(CustomConverterDescription converter) {

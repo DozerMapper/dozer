@@ -22,7 +22,6 @@ public class DeepHierarchyElement {
   private int index;
 
   public DeepHierarchyElement(PropertyDescriptor propDescriptor, int index) {
-    super();
     this.propDescriptor = propDescriptor;
     this.index = index;
   }

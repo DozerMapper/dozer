@@ -61,13 +61,13 @@ public abstract class MappingUtils {
   }
 
   public static boolean isSupportedCollection(Class aClass) {
-    boolean collection = false;
+    boolean result = false;
     if (CollectionUtils.isCollection(aClass)) {
-      collection = true;
+      result = true;
     } else if (CollectionUtils.isArray(aClass)) {
-      collection = true;
+      result = true;
     }
-    return collection;
+    return result;
   }
 
   public static boolean isSupportedMap(Class aClass) {
@@ -102,10 +102,6 @@ public abstract class MappingUtils {
 
   public static boolean isBlankOrNull(String value) {
     return value == null || value.trim().length() < 1 ? true : false;
-  }
-
-  public static void addFactories(Map factories) {
-    storedFactories.putAll(factories);
   }
 
   public static Throwable getRootCause(Throwable ex) {
@@ -220,7 +216,7 @@ public abstract class MappingUtils {
   }
 
   public static Object getIndexedValue(Object collection, int index) {
-    Object r = null;
+    Object result = null;
     if (collection instanceof Object[]) {
       Object[] x = (Object[]) collection;
       if (index < x.length) {
@@ -233,10 +229,10 @@ public abstract class MappingUtils {
         for (int i = 0; i < index; i++) {
           iter.next();
         }
-        r = iter.next();
+        result = iter.next();
       }
     }
-    return r;
+    return result;
   }
 
   public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {

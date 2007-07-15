@@ -101,10 +101,7 @@ public abstract class ReflectionUtils {
           if (genericType == null && deepIndexHintContainer == null) {
             MappingUtils
                 .throwMappingException("Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). Exception occurred determining deep field hierarchy for Class --> "
-                    + parentClass.getName()
-                    + ", Field --> "
-                    + field
-                    + ".  Unable to determine property descriptor for Class --> "
+                    + parentClass.getName() + ", Field --> " + field  + ".  Unable to determine property descriptor for Class --> "
                     + latestClass.getName() + ", Field Name: " + aFieldName);
           }
           if (genericType != null) {
@@ -135,14 +132,14 @@ public abstract class ReflectionUtils {
 
   private static Method findMethod(Class clazz, String methodName) {
     Method[] methods = clazz.getMethods();
-    Method resultMethod = null;
+    Method result = null;
     for (int i = 0; i < methods.length; i++) {
       Method method = methods[i];
       if (method.getName().equals(methodName)) {
-        resultMethod = method;
+        result = method;
       }
     }
-    return resultMethod;
+    return result;
   }
 
   public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException {
