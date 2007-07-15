@@ -25,17 +25,20 @@
         <p>Feature Requests</p> 
         <p>
           <ul>      
+            <li>Misc code cleanup and refactoring <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1754179&amp;group_id=133517&amp;atid=727371">1754179</a></li>                                    
             <li>Refactor/Clean Up Dest Bean Creator <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1752379&amp;group_id=133517&amp;atid=727371">1752379</a></li>            
+            <li>Mapping deep level field in Indexed structure <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1752329&amp;group_id=133517&amp;atid=727371">1752329</a></li>            
             <li>Add map-id to field mapping debug output <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750157&amp;group_id=133517&amp;atid=727371">1750157</a></li>
             <li>Push mapping value hierarchy down to ClassMap and FieldMap <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749805&amp;group_id=133517&amp;atid=727371">1749805</a></li>
             <li>Add bidirectional relationship between FieldMap and ClassMap   <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749804&amp;group_id=133517&amp;atid=727371">1749804</a></li>
             <li>Don't expose DozerField and DozerClass objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749802&amp;group_id=133517&amp;atid=727371">1749802</a></li>
             <li>Remove *PRIME* feature from the docs <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1736864&amp;group_id=133517&amp;atid=727371">1736864</a></li>            
-            <li>Major refactor of map backed property feature <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734665&amp;group_id=133517&amp;atid=727371">1734665</a></li>
+            <li>Major refactor of Map backed properties <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734665&amp;group_id=133517&amp;atid=727371">1734665</a></li>
             <li>Repackage ClassMap.java <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734228&amp;group_id=133517&amp;atid=727371">1734228</a></li>
             <li>Load classes consistently <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734163&amp;group_id=133517&amp;atid=727371">1734163</a></li>
             <li>Cleanup of internal exception handling <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734161&amp;group_id=133517&amp;atid=727371">1734161</a></li>
             <li>Add config support for auto trimming of strings  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1707034&amp;group_id=133517&amp;atid=727371">1707034</a></li>
+            <li>Mapping deep level field in Indexed structure <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1473800&amp;group_id=133517&amp;atid=727371">1473800</a></li>                                    
           </ul>
         </p>
       

@@ -56,5 +56,32 @@
             ]]>
           </source>
     </section>
+    
+    <section name="Deep Indexed Mapping">
+         <p>Indexed mapping within deep mapping is supported.</p>
+         <source>
+           <![CDATA[ 
+<field>
+  <a>offSpringName</a>
+  <b>pets[1].offSpring[2].petName</b>
+</field>
+            ]]>
+          </source>
+          <p>Destination Hints are NOT required if the indexed collection is an Array or if you are using jdk 1.5 Generics.  Dozer is able to automatically determine the property type for these use cases.
+            But you will need to provide hints if the data types are not Arrays or if you are not using Generics.  This is required so that Dozer knows what types of dest objects to create while it
+            traverses the deep field mapping.
+          </p>
+          <p>The following is an example of using hints.....</p>
+          <source>
+           <![CDATA[ 
+<field>
+  <a>someField</a>
+  <b>someList[1].someOtherList[0].someOtherField</b>
+  <b-deep-index-hint>net.sf.dozer.util.mapping.vo.TestObject, net.sf.dozer.util.mapping.vo.AnotherTestObject</b-deep-index-hint>      
+</field>
+             ]]>
+          </source>
+    </section>
+    
   </body>
 </document>

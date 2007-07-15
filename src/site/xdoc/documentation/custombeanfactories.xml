@@ -20,7 +20,7 @@
         <source>
            <![CDATA[ 
 public interface BeanFactoryIF {
-  public Object createBean(Object srcObj, Class srcObjClass, String beanId);
+  public Object createBean(Object source, Class sourceClass, String targetBeanId);
 }         
            ]]>
         </source>

@@ -16,7 +16,6 @@
       </p>
       <p>
         Your custom converter must implement the net.sf.dozer.util.mapping.converters.CustomConverter interface in order for Dozer to accept it. Otherwise an exception will be thrown.
-        Please look in {dozer.home}/src/test for the classes TestCustomConverter.java and TestCustomHashMapConverter.java for examples.
       </p>
       <p>
       Custom converters are shared across mapping files. This means that you can define them once in a mapping file and it will be applied to all

@@ -42,6 +42,7 @@
           <li>Collection to Array</li>
           <li>Map to Complex Type</li>
           <li>Map to Custom Map Type</li>
+          <li>Enum to Enum</li>
           <li>Each of these can be mapped to one another: java.util.Date, java.sql.Date, java.sql.Time, java.sql.Timestamp, java.util.Calendar, java.util.GregorianCalendar</li>
           <li>String to any of the supported Date/Calendar Objects.</li>
           <li>Objects containing a toString() method that produces a long representing time in (ms) to any supported Date/Calendar object. </li>

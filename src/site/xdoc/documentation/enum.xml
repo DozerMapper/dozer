@@ -14,7 +14,6 @@
          <source>
            <![CDATA[ 
 <field>
-  <!-- testing enums -->
   <a>status</a>
   <b>statusPrime</b>
 </field>
