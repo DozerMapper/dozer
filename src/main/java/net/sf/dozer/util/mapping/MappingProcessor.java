@@ -188,10 +188,9 @@ public class MappingProcessor implements MapperIF {
     Class destClass = destObj.getClass();
 
     // Check to see if custom converter has been specified for this mapping combination. If so, just use it.
-    Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
-        .getClass(), destClass);
+    Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcClass, destClass);
     if (converterClass != null) {
-      mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destClass, destObj, null, true);
+      mapUsingCustomConverter(converterClass, srcClass, srcObj, destClass, destObj, null, true);
       return;
     }
 
@@ -301,7 +300,6 @@ public class MappingProcessor implements MapperIF {
 
   private void mapFromFieldMap(Object srcObj, Object destObj, Object srcFieldValue, FieldMap fieldMapping) {
     Class destFieldType = null;
-    // methodmap logic should be encapsulated and figured out at the fieldmap level
     if (fieldMapping instanceof CustomGetSetMethodFieldMap) {
       destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
     } else {
@@ -414,16 +412,16 @@ public class MappingProcessor implements MapperIF {
 
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class destFieldType, Object srcFieldValue) {
     // Custom java bean. Need to make sure that the destination object is not already instantiated.
-    Object field = determineExistingValue(fieldMap, destObj, destFieldType);
+    Object existingValue = getExistingValue(fieldMap, destObj, destFieldType);
     ClassMap classMap = null;
     // if the field is not null than we don't want a new instance
-    if (field == null) {
+    if (existingValue == null) {
       // first check to see if this plain old field map has hints to the actual type.
       if (fieldMap.getDestHintContainer() != null) {
-        Class destType = fieldMap.getDestHintContainer().getHint();
+        Class destHintType = fieldMap.getDestHintContainer().getHint();
         // if the destType is null this means that there was more than one hint. we must have already set the destType then.
-        if (destType != null) {
-          destFieldType = destType;
+        if (destHintType != null) {
+          destFieldType = destHintType;
         }
       }
       // Check to see if explicit map-id has been specified for the field mapping
@@ -431,15 +429,15 @@ public class MappingProcessor implements MapperIF {
       mapId = fieldMap.getMapId();
       classMap = getClassMap(srcFieldValue, destFieldType, mapId, false);
 
-      field = DestBeanCreator.create(srcFieldValue, classMap.getSrcClassToMap(), fieldMap.getDestHintContainer() != null ? fieldMap
+      existingValue = DestBeanCreator.create(srcFieldValue, classMap.getSrcClassToMap(), fieldMap.getDestHintContainer() != null ? fieldMap
           .getDestHintContainer().getHint() : classMap.getDestClassToMap(), destFieldType, classMap.getDestClassBeanFactory(),
           classMap.getDestClassBeanFactoryId(), fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod()
               : classMap.getDestClassCreateMethod());
     }
 
-    map(classMap, srcFieldValue, field, null, fieldMap);
+    map(classMap, srcFieldValue, existingValue, null, fieldMap);
 
-    return field;
+    return existingValue;
   }
 
   private Object mapCollection(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
@@ -802,10 +800,10 @@ public class MappingProcessor implements MapperIF {
     if (topLevel) {
       return theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
     }
-    Object field = determineExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+    Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
 
     long start = System.currentTimeMillis();
-    Object result = theConverter.convert(field, srcFieldValue, destFieldClass, srcFieldClass);
+    Object result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
     long stop = System.currentTimeMillis();
 
     statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
@@ -905,28 +903,28 @@ public class MappingProcessor implements MapperIF {
     return fieldNamesList;
   }
 
-  public static Object determineExistingValue(FieldMap fieldMap, Object destObj, Class destFieldType) {
-    Object field = null;
+  private static Object getExistingValue(FieldMap fieldMap, Object destObj, Class destFieldType) {
+    Object result = null;
     // verify that the dest obj is not null
     if (destObj == null) {
       return null;
     }
     // call the getXX method to see if the field is already instantiated
-    field = fieldMap.getDestValue(destObj);
+    result = fieldMap.getDestValue(destObj);
 
     // When we are recursing through a list we need to make sure that we are not in the list
     // by checking the destFieldType
-    if (field != null) {
-      if (CollectionUtils.isList(field.getClass()) || CollectionUtils.isArray(field.getClass())
-          || CollectionUtils.isSet(field.getClass()) || MappingUtils.isSupportedMap(field.getClass())) {
+    if (result != null) {
+      if (CollectionUtils.isList(result.getClass()) || CollectionUtils.isArray(result.getClass())
+          || CollectionUtils.isSet(result.getClass()) || MappingUtils.isSupportedMap(result.getClass())) {
         if (!CollectionUtils.isList(destFieldType) && !CollectionUtils.isArray(destFieldType)
             && !CollectionUtils.isSet(destFieldType) && !MappingUtils.isSupportedMap(destFieldType)) {
           // this means the getXX field is a List but we are actually trying to map one of its elements
-          field = null;
+          result = null;
         }
       }
     }
-    return field;
+    return result;
   }
 
   private ClassMap getClassMap(Object srcObj, Class destClass, String mapId, boolean isInstance) {
