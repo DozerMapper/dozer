@@ -54,15 +54,19 @@ public class CustomConverterContainer {
 
     // Let's see if the incoming class is a primitive:
     Class src = srcClass;
-    Class c = getWrapper(srcClass);
-    if (c != null) {
-      src = c;
+    if (srcClass.isPrimitive()) {
+      Class c = getWrapper(srcClass);
+      if (c != null) {
+        src = c;
+      }
     }
 
     Class dest = destClass;
-    c = getWrapper(destClass);
-    if (c != null) {
-      dest = c;
+    if (dest.isPrimitive()) {
+      Class c = getWrapper(destClass);
+      if (c != null) {
+        dest = c;
+      }
     }
 
     // Check cache first
