@@ -97,7 +97,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = parentObj;
-    DeepHierarchyElement[] hierarchy = getHierarchy(srcObj, srcDeepIndexHintContainer);
+    DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(srcObj, srcDeepIndexHintContainer);
     int size = hierarchy.length;
     for (int i = 0; i < size; i++) {
       DeepHierarchyElement hierarchyElement = hierarchy[i];
@@ -125,7 +125,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
   protected void writeDeepDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
-    DeepHierarchyElement[] hierarchy = getHierarchy(destObj, fieldMap.getDestDeepIndexHintContainer());
+    DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(destObj, fieldMap.getDestDeepIndexHintContainer());
     // first, iteratate through hierarchy and instantiate any objects that are null
     Object parentObj = destObj;
     int hierarchyLength = hierarchy.length - 1;
@@ -223,7 +223,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
   }
 
-  private DeepHierarchyElement[] getHierarchy(Object obj, HintContainer deepIndexHintContainer) {
+  private DeepHierarchyElement[] getDeepFieldHierarchy(Object obj, HintContainer deepIndexHintContainer) {
     return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName, deepIndexHintContainer);
   }
 
