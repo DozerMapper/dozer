@@ -388,9 +388,7 @@ public class GranularDozerBeanMapperTest extends AbstractDozerTest {
     assertEquals("dest set should contain 1 entry", 1, destSet.size());
     Object entry = destSet.iterator().next();
     assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
-    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue());
-    assertNull("FieldValue key field should be null", ((FieldValue) entry).getKey());
-
+    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("theKey"));
   }
 
   public void testAllowedExceptions() throws Exception {

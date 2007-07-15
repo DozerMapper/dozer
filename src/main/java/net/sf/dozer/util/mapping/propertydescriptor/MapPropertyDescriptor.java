@@ -57,7 +57,6 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return writeMethod;
   }
   
-  //TODO: Remove this method all together and just use the impl from the super class.  We shouldnt need to implement it here as it's duplicated logic.
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
     if(isDeepField()) {
       writeDeepDestinationValue(bean, value, fieldMap);

@@ -195,7 +195,6 @@ public class IndexMappingTest extends AbstractDozerTest {
     assertEquals("dest set should contain 1 entry", 1, destSet.size());
     Object entry = destSet.iterator().next();
     assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
-    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue());
-    assertEquals("invalid key for dest object", "stringProperty", ((FieldValue) entry).getKey());
+    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("stringProperty"));
   }
 }
