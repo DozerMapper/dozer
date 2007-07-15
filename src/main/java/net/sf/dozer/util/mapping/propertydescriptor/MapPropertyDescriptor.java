@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
-import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
@@ -36,6 +35,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private final String setMethod;
   private final String getMethod;
   private final String key;
+  private Method writeMethod;
+  private Method readMethod;
 
   public MapPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
       String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
@@ -50,9 +51,46 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
       throw new MappingException("Custom Map set method not specified for field mapping to class: " + clazz
           + ".  Perhaps the map-set-method wasn't specified in the dozer mapping file?");
     }
-    return ReflectionUtils.getMethod(clazz, setMethod);
+    if (writeMethod == null) {
+      writeMethod = ReflectionUtils.getMethod(clazz, setMethod);
+    }
+    return writeMethod;
   }
-
+  
+  //TODO: Remove this method all together and just use the impl from the super class.  We shouldnt need to implement it here as it's duplicated logic.
+  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
+    if(isDeepField()) {
+      writeDeepDestinationValue(bean, value, fieldMap);
+    } else {
+      if (!getPropertyType().isPrimitive() || value != null) {
+        // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
+        try {
+          if (getPropertyValue(bean) == value) {
+            return;
+          }
+        } catch (Exception e) {
+          // if we failed to read the value, assume we must write, and continue...
+        }
+        invokeWriteMethod(bean, value);
+      }
+    }
+  }
+  
+  protected Method getReadMethod() throws NoSuchMethodException {
+    if (MappingUtils.isBlankOrNull(getMethod)) {
+      throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz
+          + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
+    }
+    if (readMethod == null) {
+      readMethod= ReflectionUtils.getMethod(clazz, getMethod);  
+    }
+    return readMethod;
+  }
+  
+  protected String getSetMethodName() throws NoSuchMethodException {
+    return setMethod;
+  }
+  
   protected void invokeWriteMethod(Object target, Object value) {
     if (key == null) {
       throw new MappingException("key must be specified");
@@ -62,14 +100,6 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
-  }
-
-  protected Method getReadMethod() throws NoSuchMethodException {
-    if (MappingUtils.isBlankOrNull(getMethod)) {
-      throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz
-          + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
-    }
-    return ReflectionUtils.getMethod(clazz, getMethod);
   }
 
   protected Object invokeReadMethod(Object target) {
@@ -84,27 +114,4 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
     return result;
   }
-
-  protected String getSetMethodName() throws NoSuchMethodException {
-    return setMethod;
-  }
-
-  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
-    if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
-      if (!getPropertyType().isPrimitive() || value != null) {
-        // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
-        try {
-          if (getPropertyValue(bean) == value) {
-            return;
-          }
-        } catch (Exception e) {
-          // if we failed to read the value, assume we must write, and continue...
-        }
-        invokeWriteMethod(bean, value);
-      }
-    } else {
-      writeDeepDestinationValue(bean, value, fieldMap);
-    }
-  }
-
 }

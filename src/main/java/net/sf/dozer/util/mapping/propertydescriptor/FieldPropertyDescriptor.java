@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.lang.reflect.Field;
 
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
@@ -29,11 +30,11 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  * 
  */
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
-
   private Field field;
 
-  public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isAccessible, boolean isIndexed, int index) {
-    super(clazz, fieldName, isIndexed, index);
+  public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isAccessible, boolean isIndexed, int index,
+      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
     try {
       field = ReflectionUtils.getFieldFromBean(clazz, fieldName);
@@ -67,35 +68,27 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
   }
 
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
+    if (getPropertyType().isPrimitive() && value == null) {
+      // do nothing
+      return;
+    }
+
+    // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
     try {
-      if (getPropertyType().isPrimitive() && value == null) {
-        // do nothing
+      if (getPropertyValue(bean) == value) {
         return;
       }
+    } catch (Exception e) {
+      // if we failed to read the value, assume we must write, and continue...
+    }
 
-      // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
-      try {
-        if (getPropertyValue(bean) == value) {
-          return;
-        }
-      } catch (Exception e) {
-        // if we failed to read the value, assume we must write, and continue...
-      }
-
+    try {
       if (isIndexed) {
-        writeIndexedValue(bean, value);
+        Object existingValue = field.get(bean);
+        field.set(bean, prepareIndexedCollection(existingValue, value));
       } else {
         field.set(bean, value);
       }
-    } catch (IllegalAccessException e) {
-      MappingUtils.throwMappingException(e);
-    }
-  }
-
-  protected void writeIndexedValue(Object destObj, Object destFieldValue) {
-    try {
-      Object existingValue = field.get(destObj);
-      field.set(destObj, prepareIndexedCollection(existingValue, destFieldValue));
     } catch (IllegalAccessException e) {
       MappingUtils.throwMappingException(e);
     }

@@ -32,6 +32,7 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  * @author tierney.matt
  */
 public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
+  private PropertyDescriptor pd;
 
   public JavaBeanPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
@@ -60,9 +61,11 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   }
 
   private PropertyDescriptor getPropertyDescriptor(HintContainer deepIndexHintContainer) {
-    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName, deepIndexHintContainer);
     if (pd == null) {
-      MappingUtils.throwMappingException("Property: " + fieldName + " not found in Class: " + clazz);
+      pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName, deepIndexHintContainer);
+      if (pd == null) {
+        MappingUtils.throwMappingException("Property: " + fieldName + " not found in Class: " + clazz);
+      }
     }
     return pd;
   }

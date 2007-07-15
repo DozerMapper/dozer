@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
-import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
@@ -32,6 +31,8 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
 public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   private final String customSetMethod;
   private final String customGetMethod;
+  private Method writeMethod;
+  private Method readMethod;
 
   public CustomGetSetPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String customSetMethod,
       String customGetMethod, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
@@ -41,15 +42,21 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   }
 
   public Method getWriteMethod() throws NoSuchMethodException {
-    if (customSetMethod != null && !(fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0)) {
-      return ReflectionUtils.findAMethod(clazz, customSetMethod);
-    } else {
-      return super.getWriteMethod();
+    if (writeMethod == null) {
+      if (customSetMethod != null && !isDeepField()) {
+        writeMethod = ReflectionUtils.findAMethod(clazz, customSetMethod);
+      } else {
+        writeMethod = super.getWriteMethod();
+      }
     }
+    return writeMethod;
   }
 
   protected Method getReadMethod() throws NoSuchMethodException {
-    return customGetMethod != null ? ReflectionUtils.findAMethod(clazz, customGetMethod) : super.getReadMethod();
+    if (readMethod == null) {
+      readMethod = customGetMethod != null ? ReflectionUtils.findAMethod(clazz, customGetMethod) : super.getReadMethod();
+    }
+    return readMethod;
   }
 
   protected String getSetMethodName() throws NoSuchMethodException {

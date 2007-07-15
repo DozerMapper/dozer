@@ -24,13 +24,12 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.util.DeepHierarchyElement;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
-import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 /**
  * 
- * Internal class used to read and write values for fields that have a getter and setter. This class encapsulates
+ * Internal class used to read and write values for fields that have a getter and setter method. This class encapsulates
  * underlying dozer specific logic such as index mapping and deep mapping for reading and writing field values. Only
  * intended for internal use.
  * 
@@ -40,37 +39,15 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
   private Class propertyType;
-  protected HintContainer srcDeepIndexHintContainer;
-  protected HintContainer destDeepIndexHintContainer;
 
   public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    super(clazz, fieldName, isIndexed, index);
-    this.srcDeepIndexHintContainer = srcDeepIndexHintContainer;
-    this.destDeepIndexHintContainer = destDeepIndexHintContainer;
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
   public abstract Method getWriteMethod() throws NoSuchMethodException;
   protected abstract Method getReadMethod() throws NoSuchMethodException;
   protected abstract String getSetMethodName() throws NoSuchMethodException;
-
-  protected Object invokeReadMethod(Object target) {
-    Object result = null;
-    try {
-      result = ReflectionUtils.invoke(getReadMethod(), target, null);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
-  }
-
-  protected void invokeWriteMethod(Object target, Object value) {
-    try {
-      ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { value });
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
-  }
 
   public Class getPropertyType() {
     if (propertyType == null) {
@@ -81,21 +58,23 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
   public Object getPropertyValue(Object bean) {
     Object result = null;
-    if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+    if (isDeepField()) {
+      result = getDeepSrcFieldValue(bean);
+    } else {
       Object o = invokeReadMethod(bean);
       if (isIndexed) {
         result = MappingUtils.getIndexedValue(o, index);
       } else {
         result = o;
-      }
-    } else {
-      result = getDeepSrcFieldValue(bean);
+      }      
     }
     return result;
   }
 
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
-    if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+    if (isDeepField()) {
+      writeDeepDestinationValue(bean, value, fieldMap);
+    } else {
       if (!getPropertyType().isPrimitive() || value != null) {
         // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
         try {
@@ -105,14 +84,12 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         } catch (Exception e) {
           // if we failed to read the value, assume we must write, and continue...
         }
-        if (!isIndexed) {
-          invokeWriteMethod(bean, value);
-        } else {
+        if (isIndexed) {
           writeIndexedValue(null, bean, value);
+        } else {
+          invokeWriteMethod(bean, value);
         }
-      }
-    } else {
-      writeDeepDestinationValue(bean, value, fieldMap);
+      }      
     }
   }
 
@@ -179,8 +156,9 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
             //hint index is used to handle multiple hints
             hintIndex += 1;
           }
-          
-          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
+
+          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(collectionEntryType), hierarchyElement
+              .getIndex());
         } else {
           try {
             o = DestBeanCreator.create(clazz);
@@ -227,34 +205,32 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
   }
 
+  protected Object invokeReadMethod(Object target) {
+    Object result = null;
+    try {
+      result = ReflectionUtils.invoke(getReadMethod(), target, null);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
+  }
+
+  protected void invokeWriteMethod(Object target, Object value) {
+    try {
+      ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { value });
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+  }
+
   private DeepHierarchyElement[] getHierarchy(Object obj, HintContainer deepIndexHintContainer) {
     return ReflectionUtils.getDeepFieldHierarchy(obj.getClass(), fieldName, deepIndexHintContainer);
   }
 
   private void writeIndexedValue(PropertyDescriptor pd, Object destObj, Object destFieldValue) {
-    Object existingValue = null;
-    if (pd != null) {
-      existingValue = ReflectionUtils.invoke(pd.getReadMethod(), destObj, null);
-    } else {
-      try {
-        existingValue = ReflectionUtils.invoke(getReadMethod(), destObj, null);
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
-    }
-
+    Object existingValue = invokeReadMethod(destObj);
     Object indexedValue = prepareIndexedCollection(existingValue, destFieldValue);
-
-    if (pd != null) {
-      ReflectionUtils.invoke(pd.getWriteMethod(), destObj, new Object[] { indexedValue });
-    } else {
-      try {
-        ReflectionUtils.invoke(getWriteMethod(), destObj, new Object[] { indexedValue });
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
-    }
-
+    invokeWriteMethod(destObj, indexedValue);
   }
 
   private Class determinePropertyType() {

@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
+import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
@@ -24,23 +26,30 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
  * @author garsombke.franz
  */
 public abstract class AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
-
   protected final Class clazz;
   protected final String fieldName;
   protected boolean isIndexed = false;
   protected int index;
+  protected HintContainer srcDeepIndexHintContainer;
+  protected HintContainer destDeepIndexHintContainer;
 
-  public AbstractPropertyDescriptor(final Class clazz, final String fieldName, boolean isIndexed, int index) {
+  public AbstractPropertyDescriptor(final Class clazz, final String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     this.clazz = clazz;
     this.fieldName = fieldName;
     this.isIndexed = isIndexed;
     this.index = index;
+    this.srcDeepIndexHintContainer = srcDeepIndexHintContainer;
+    this.destDeepIndexHintContainer = destDeepIndexHintContainer;
   }
 
   public abstract Class getPropertyType();
 
   protected Object prepareIndexedCollection(Object existingCollection, Object collectionEntry) {
     return MappingUtils.prepareIndexedCollection(getPropertyType(), existingCollection, collectionEntry, index);
+  }
+  
+  protected boolean isDeepField() {
+    return fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0;
   }
 
 }

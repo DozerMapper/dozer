@@ -43,7 +43,8 @@ public class PropertyDescriptorFactory {
       // bypass getter/setters and access field directly
     } else if (isAccessible) {
       // accesses fields directly and bypass get/set methods
-      desc = new FieldPropertyDescriptor(clazz, name, isAccessible, isIndexed, index);
+      desc = new FieldPropertyDescriptor(clazz, name, isAccessible, isIndexed, index, srcDeepIndexHintContainer,
+          destDeepIndexHintContainer);
 
       // custom get-method/set specified
     } else if (!MappingUtils.isSupportedMap(clazz) && (theSetMethod != null || theGetMethod != null)) {
