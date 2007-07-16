@@ -18,22 +18,20 @@ package net.sf.dozer.util.mapping.vo;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import net.sf.dozer.util.mapping.vo.BaseTestObject;
-
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
  */
 public class SimpleObj extends BaseTestObject {
-  
+
   private String field1;
   private Integer field2;
   private BigDecimal field3;
   private Double field4;
   private Calendar field5;
   private String field6;
-  
+
   public String getField1() {
     return field1;
   }

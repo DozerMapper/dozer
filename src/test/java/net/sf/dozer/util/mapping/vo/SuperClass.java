@@ -19,34 +19,34 @@ package net.sf.dozer.util.mapping.vo;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class SuperClass extends SuperSuperClass {
-    private String superAttribute;
-    private java.util.List superList;
-    private String superFieldToExclude;
+  private String superAttribute;
+  private java.util.List superList;
+  private String superFieldToExclude;
 
-    public java.util.List getSuperList() {
-        return superList;
-    }
+  public java.util.List getSuperList() {
+    return superList;
+  }
 
-    public void setSuperList(java.util.List superList) {
-        this.superList = superList;
-    }
+  public void setSuperList(java.util.List superList) {
+    this.superList = superList;
+  }
 
-    public String getSuperAttribute() {
-        return superAttribute;
-    }
+  public String getSuperAttribute() {
+    return superAttribute;
+  }
 
-    public void setSuperAttribute(String superAttribute) {
-        this.superAttribute = superAttribute;
-    }
+  public void setSuperAttribute(String superAttribute) {
+    this.superAttribute = superAttribute;
+  }
 
-    public String getSuperFieldToExclude() {
-      return superFieldToExclude;
-    }
+  public String getSuperFieldToExclude() {
+    return superFieldToExclude;
+  }
 
-    public void setSuperFieldToExclude(String superFieldToExclude) {
-      this.superFieldToExclude = superFieldToExclude;
-    }
+  public void setSuperFieldToExclude(String superFieldToExclude) {
+    this.superFieldToExclude = superFieldToExclude;
+  }
 }

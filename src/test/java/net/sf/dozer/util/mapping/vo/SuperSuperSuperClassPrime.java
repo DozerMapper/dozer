@@ -14,38 +14,39 @@
  * limitations under the License.
  */
 package net.sf.dozer.util.mapping.vo;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class SuperSuperSuperClassPrime extends BaseTestObject {
-    private String superSuperSuperAttr;
-    private HydrateTestObject3 dehydrate;
-    private TestCustomConverterObjectPrime customConvert;
-    
-    public TestCustomConverterObjectPrime getCustomConvert() {
-        return customConvert;
-    }
+  private String superSuperSuperAttr;
+  private HydrateTestObject3 dehydrate;
+  private TestCustomConverterObjectPrime customConvert;
 
-    public void setCustomConvert(TestCustomConverterObjectPrime customConvert) {
-        this.customConvert = customConvert;
-    }
+  public TestCustomConverterObjectPrime getCustomConvert() {
+    return customConvert;
+  }
 
-    public String getSuperSuperSuperAttr() {
-        return superSuperSuperAttr;
-    }
+  public void setCustomConvert(TestCustomConverterObjectPrime customConvert) {
+    this.customConvert = customConvert;
+  }
 
-    public void setSuperSuperSuperAttr(String superSuperSuperAttr) {
-        this.superSuperSuperAttr = superSuperSuperAttr;
-    }
+  public String getSuperSuperSuperAttr() {
+    return superSuperSuperAttr;
+  }
 
-    public HydrateTestObject3 getDehydrate() {
-        return dehydrate;
-    }
+  public void setSuperSuperSuperAttr(String superSuperSuperAttr) {
+    this.superSuperSuperAttr = superSuperSuperAttr;
+  }
 
-    public void setDehydrate(HydrateTestObject3 dehydrate) {
-        this.dehydrate = dehydrate;
-    }
+  public HydrateTestObject3 getDehydrate() {
+    return dehydrate;
+  }
+
+  public void setDehydrate(HydrateTestObject3 dehydrate) {
+    this.dehydrate = dehydrate;
+  }
 }

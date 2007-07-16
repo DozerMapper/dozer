@@ -33,5 +33,4 @@ public class PrimitiveArrayObjPrime extends BaseTestObject {
     this.field1 = field1;
   }
 
-
 }

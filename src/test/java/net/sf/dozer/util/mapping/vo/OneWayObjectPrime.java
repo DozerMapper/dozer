@@ -38,8 +38,8 @@ public class OneWayObjectPrime extends BaseTestObject {
   public void setStringList(List stringList) {
     this.stringList = stringList;
   }
-  
-  public void addValue(String value){
+
+  public void addValue(String value) {
     this.stringList.add(value);
   }
 

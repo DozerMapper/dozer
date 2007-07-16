@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 package net.sf.dozer.util.mapping.vo;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class SuperSuperClassPrime extends SuperSuperSuperClassPrime {
-    private String superSuperAttr;
-    private TestObjectPrime testObject;
+  private String superSuperAttr;
+  private TestObjectPrime testObject;
 
-    public TestObjectPrime getTestObject() {
-        return testObject;
-    }
+  public TestObjectPrime getTestObject() {
+    return testObject;
+  }
 
-    public void setTestObject(TestObjectPrime testObject) {
-        this.testObject = testObject;
-    }
+  public void setTestObject(TestObjectPrime testObject) {
+    this.testObject = testObject;
+  }
 
-    public String getSuperSuperAttr() {
-        return superSuperAttr;
-    }
+  public String getSuperSuperAttr() {
+    return superSuperAttr;
+  }
 
-    public void setSuperSuperAttr(String superAttribute) {
-        this.superSuperAttr = superAttribute;
-    }
+  public void setSuperSuperAttr(String superAttribute) {
+    this.superSuperAttr = superAttribute;
+  }
 }
