@@ -24,7 +24,7 @@
          please thoroughly regression test your system after upgrading to 4.0 to verify that any expected behavior remains unchanged for your specific use cases. We do have a good amount of unit tests around
          the Map backed property feature, but please let us know if you experience any issues after upgrading and we will do everything we can to resolve it soon as possible.  
       </p>
-      <p>Thanks again to everyone submitted bug and feature requests, along with everyone that contributed to the release.</p>
+      <p>Thanks again to everyone that submitted bug and feature requests, along with everyone that contributed to the release.</p>
       <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
       <p></p>      
       <p></p>
