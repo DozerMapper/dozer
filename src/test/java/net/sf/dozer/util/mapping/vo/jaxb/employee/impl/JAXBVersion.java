@@ -5,11 +5,10 @@
 // Generated on: 2006.10.05 at 10:03:40 CEST 
 //
 
-
 package net.sf.dozer.util.mapping.vo.jaxb.employee.impl;
 
 public class JAXBVersion {
 
-    public final static java.lang.String version = "1.0.4";
+  public final static java.lang.String version = "1.0.4";
 
 }

@@ -25,86 +25,68 @@ import com.sun.xml.bind.validator.Locator;
  * Filter implementation of SAXUnmarshallerHandler.
  * 
  * <p>
- * This component internally uses a VerifierFilter to validate
- * SAX events that goes through this component.
- * Discovered error information is just passed down to the next component.
+ * This component internally uses a VerifierFilter to validate SAX events that goes through this component. Discovered
+ * error information is just passed down to the next component.
  * 
  * <p>
- * This will enable the implementation to validate all sources of SAX events
- * in the RI - XMLReader, DOMScanner
- *
+ * This will enable the implementation to validate all sources of SAX events in the RI - XMLReader, DOMScanner
+ * 
  * SAX events will go the VerifierFilter and then to the SAXUnmarshaller...
- *
+ * 
  */
-public class ValidatingUnmarshaller extends ForkContentHandler
-    implements SAXUnmarshallerHandler {
-    
-    /**
-     * Creates a new instance of ValidatingUnmarshaller.
-     */
-    public static ValidatingUnmarshaller create( Grammar grammar, 
-                            SAXUnmarshallerHandler _core,
-                            Locator locator ) {
-        
-        // create a VerifierFilter and configure it
-        // so that error messages will be sent to the core,
-        Verifier v = new Verifier( 
-            new REDocumentDeclaration(grammar),
-            new ErrorHandlerAdaptor(_core,locator) );
-        v.setPanicMode( true );
+public class ValidatingUnmarshaller extends ForkContentHandler implements SAXUnmarshallerHandler {
 
-        return new ValidatingUnmarshaller(
-            new VerifierFilter( v ), _core );
-    }
-    
-    private ValidatingUnmarshaller( VerifierFilter filter,
-                            SAXUnmarshallerHandler _core ) {
-        
-        super( filter, _core );
-        this.core = _core;
-    }
-    
-    // delegate to the next component
-    public Object getResult() throws JAXBException, IllegalStateException { 
-        return core.getResult();
+  /**
+   * Creates a new instance of ValidatingUnmarshaller.
+   */
+  public static ValidatingUnmarshaller create(Grammar grammar, SAXUnmarshallerHandler _core, Locator locator) {
+
+    // create a VerifierFilter and configure it
+    // so that error messages will be sent to the core,
+    Verifier v = new Verifier(new REDocumentDeclaration(grammar), new ErrorHandlerAdaptor(_core, locator));
+    v.setPanicMode(true);
+
+    return new ValidatingUnmarshaller(new VerifierFilter(v), _core);
+  }
+
+  private ValidatingUnmarshaller(VerifierFilter filter, SAXUnmarshallerHandler _core) {
+
+    super(filter, _core);
+    this.core = _core;
+  }
+
+  // delegate to the next component
+  public Object getResult() throws JAXBException, IllegalStateException {
+    return core.getResult();
+  }
+
+  public void handleEvent(ValidationEvent event, boolean canRecover) throws SAXException {
+    // SAXUnmarshallerHandler already checks for RuntimeExceptions, so
+    // there is no need to wrap this call in a try/catch
+    core.handleEvent(event, canRecover);
+  }
+
+  private final SAXUnmarshallerHandler core;
+
+  private final AttributesImpl xsiLessAtts = new AttributesImpl();
+
+  public void startElement(String nsUri, String local, String qname, Attributes atts) throws SAXException {
+    // create an attributes set for MSV that doesn't contains xsi:schemaLocation
+    xsiLessAtts.clear();
+    int len = atts.getLength();
+    for (int i = 0; i < len; i++) {
+      String aUri = atts.getURI(i);
+      String aLocal = atts.getLocalName(i);
+      if (aUri.equals("http://www.w3.org/2001/XMLSchema-instance")
+          && (aLocal.equals("schemaLocation") || aLocal.equals("noNamespaceSchemaLocation") // ||
+          /* aLocal.equals("type") */)) {
+        continue;
+      }
+
+      // we do handle xsi:nil.
+      xsiLessAtts.addAttribute(aUri, aLocal, atts.getQName(i), atts.getType(i), atts.getValue(i));
     }
 
-    public void handleEvent(ValidationEvent event, boolean canRecover ) throws SAXException {
-        // SAXUnmarshallerHandler already checks for RuntimeExceptions, so 
-        // there is no need to wrap this call in a try/catch
-        core.handleEvent(event,canRecover);
-    }
-    
-    private final SAXUnmarshallerHandler core;
-    
-    
-    private final AttributesImpl xsiLessAtts = new AttributesImpl();
-    
-    public void startElement( String nsUri, String local, String qname, Attributes atts ) throws SAXException {
-        // create an attributes set for MSV that doesn't contains xsi:schemaLocation
-        xsiLessAtts.clear();
-        int len = atts.getLength();
-        for( int i=0; i<len; i++ ) {
-            String aUri = atts.getURI(i);
-            String aLocal = atts.getLocalName(i);
-            if(aUri.equals("http://www.w3.org/2001/XMLSchema-instance")
-            && (aLocal.equals("schemaLocation") ||
-                aLocal.equals("noNamespaceSchemaLocation") //||
-                /*aLocal.equals("type")*/))
-                continue;
-                
-            // we do handle xsi:nil.
-            xsiLessAtts.addAttribute( aUri, aLocal,
-                atts.getQName(i), atts.getType(i), atts.getValue(i) );
-        }
-        
-        super.startElement(nsUri,local,qname,xsiLessAtts);
-    }
+    super.startElement(nsUri, local, qname, xsiLessAtts);
+  }
 }
-
-
-
-
-
-
-

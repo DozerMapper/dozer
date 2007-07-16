@@ -15,28 +15,26 @@ import org.xml.sax.SAXException;
 import com.sun.xml.bind.unmarshaller.InterningXMLReader;
 
 /**
- * Filter {@link SAXUnmarshallerHandler} that interns all the Strings
- * in the SAX events. 
+ * Filter {@link SAXUnmarshallerHandler} that interns all the Strings in the SAX events.
  * 
- * @author
- *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
+ * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 final class InterningUnmarshallerHandler extends InterningXMLReader implements SAXUnmarshallerHandler {
-    
-    private final SAXUnmarshallerHandler core;
-    
-    InterningUnmarshallerHandler( SAXUnmarshallerHandler core ) {
-        super();
-        setContentHandler(core);
-        this.core = core;
-    }
-    
-    public void handleEvent(ValidationEvent event, boolean canRecover) throws SAXException {
-        core.handleEvent(event,canRecover);
-    }
 
-    public Object getResult() throws JAXBException, IllegalStateException {
-        return core.getResult();
-    }
+  private final SAXUnmarshallerHandler core;
+
+  InterningUnmarshallerHandler(SAXUnmarshallerHandler core) {
+    super();
+    setContentHandler(core);
+    this.core = core;
+  }
+
+  public void handleEvent(ValidationEvent event, boolean canRecover) throws SAXException {
+    core.handleEvent(event, canRecover);
+  }
+
+  public Object getResult() throws JAXBException, IllegalStateException {
+    return core.getResult();
+  }
 
 }
