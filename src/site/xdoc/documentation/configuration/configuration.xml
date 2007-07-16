@@ -75,7 +75,7 @@ dozer:  Trying to find configuration file: dozer.properties
 dozer:  Using URL [file:/C:/srcforge21X/dozer/config/dozer.properties] for global property configuration
 dozer:  Reading properties from URL [file:/C:/srcforge21X/dozer/config/dozer.properties]
 dozer:  Finished configuring global properties
-dozer:  Initializing a new instance of the dozer bean mapper.  Version: 2.3, Thread Name:main
+dozer:  Initializing a new instance of the dozer bean mapper.  Version: 4.0, Thread Name:main
 dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [mapInterfaceMapping.xml, dozerBeanMapping.xml]
 dozer:  Trying to find xml mapping file: mapInterfaceMapping.xml
 dozer:  Using URL [file:/C:/srcforge21X/dozer/mappings/mapInterfaceMapping.xml] to load custom xml mappings

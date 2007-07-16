@@ -16,7 +16,6 @@
       </p>
       <p>
         Your custom converter must implement the net.sf.dozer.util.mapping.converters.CustomConverter interface in order for Dozer to accept it. Otherwise an exception will be thrown.
-        Please look in {dozer.home}/src/test for the classes TestCustomConverter.java and TestCustomHashMapConverter.java for examples.
       </p>
       <p>
       Custom converters are shared across mapping files. This means that you can define them once in a mapping file and it will be applied to all
@@ -125,26 +124,12 @@ public class TestCustomConverter implements CustomConverter {
         <value>injectedCustomConverter.xml</value>
       </list>
     </property>
-    <property name="factories">
-      <map>
-        <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
-       <entry key="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory">
-         <ref bean="sampleCustomBeanFactory"/>
-       </entry>
-        <!-- more factories can be supplied with additional entry's -->
-      </map>
-    </property>    
     <property name="custom-converters">
       <list>
          <ref bean="customConverterTest"/>
       </list>
     </property>
   </bean>
-
-  <bean id="NoExplicitMappingsMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
-  </bean>
-
-  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory" singleton="true"/>
 
   <!-- custom converter -->
   <bean id="customConverterTest" class="net.sf.dozer.util.mapping.converters.InjectedCustomConverter" singleton="true">

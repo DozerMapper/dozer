@@ -88,6 +88,9 @@ DestinationObject destObject =
         <B>yourDestinationFieldName</B>
       </field>
   </mapping> 
+            
+  other custom class mappings would go here.......   
+                   
 </mappings>
           ]]>
         </source>

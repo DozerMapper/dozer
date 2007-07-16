@@ -12,11 +12,32 @@
   </head>  
   <body>
     <section name="Dozer">
-      <p>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another.  Typically, these Java Beans will be of different complex types.  </p>
+      <p>Dozer is a Java Bean to Java Bean mapper that recursively copies data from one object to another.  Typically, these Java Beans will be of different complex types.  </p>
       <p>Dozer supports simple property mapping, complex type mapping, bi-directional mapping, implicit-explicit mapping, as well as recursive mapping. This includes mapping collection attributes that also need mapping at the element level.</p>
       <p>Please read the <a href="documentation/about.html">about</a> page for detailed information on Dozer.</p>
     </section>
     <section name="Dozer News">
+      <p></p>
+      <h3>Release 4.0 Now Available   <font size="-3" color="gray"><i>07/15/2007</i></font></h3>
+      <p>This release contains bug fixes and feature requests, along with internal refactoring. Some new features include indexed mapping within deep mapping, improved support of Map backed properties, and configuration of auto string trimming.</p>
+      <p>The most significant refactoring was around Map backed properties.  The refactoring did not change the public Dozer API or the xml dtd, but if you are currently using the Map backed property features of Dozer 
+         please thoroughly regression test your system after upgrading to 4.0 to verify that any expected behavior remains unchanged for your specific use cases. We do have a good amount of unit tests around
+         the Map backed property feature, but please let us know if you experience any issues after upgrading and we will do everything we can to resolve it soon as possible.  
+      </p>
+      <p>Thanks again to everyone submitted bug and feature requests, along with everyone that contributed to the release.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>      
+      <p></p>
+      
+      <h3>Dozer hits 10,000 Downloads!  <font size="-3" color="gray"><i>05/19/2007</i></font></h3>
+      <p>We released dozer around 2 years ago and never expected this many downloads for such a niche framework. Thanks to the community for contributing and using our tool. Let's hope for 10,000 more downloads!
+      </p>    
+      <p></p>
+      <h3>Release 3.4 Now Available   <font size="-3" color="gray"><i>05/19/2007</i></font></h3>
+      <p>This release contains bug fixes and feature requests.
+      </p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>      
       <p></p>
       <h3>Release 3.3.1 Now Available   <font size="-3" color="gray"><i>04/28/2007</i></font></h3>
       <p>This release contains improvements to non-cumulative mapping, enhancements to the logic that auto discovers default field mappings, bug fixes, and feature requests.

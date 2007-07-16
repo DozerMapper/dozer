@@ -20,7 +20,7 @@
     <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
  
-      Any required field mapping xml would go here........
+    Any custom field mapping xml would go here........
 
   </mapping>
 

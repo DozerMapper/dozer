@@ -20,7 +20,7 @@
         <source>
            <![CDATA[ 
 public interface BeanFactoryIF {
-  public Object createBean(Object srcObj, Class srcObjClass, String beanId);
+  public Object createBean(Object source, Class sourceClass, String targetBeanId);
 }         
            ]]>
         </source>
@@ -94,8 +94,6 @@ public interface BeanFactoryIF {
     </property>    
   </bean>
 
-  <bean id="NoExplicitMappingsMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true"/>
-  
   <bean id="sampleCustomBeanFactory" class="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory" singleton="true"/>
 
 </beans>
