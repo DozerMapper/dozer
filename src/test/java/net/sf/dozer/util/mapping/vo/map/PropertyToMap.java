@@ -33,6 +33,7 @@ public class PropertyToMap extends BaseTestObject {
   private String stringProperty3;
   private String stringProperty4;
   private String stringProperty5;
+  private String stringProperty6;
   private String excludeMe;
   private Map reverseMap;
   private String reverseClassLevelMapString;
@@ -49,6 +50,10 @@ public class PropertyToMap extends BaseTestObject {
 
   public String getStringProperty2() {
     return stringProperty2;
+  }
+
+  public void setStringProperty2(String stringProperty2) {
+    this.stringProperty2 = stringProperty2;
   }
 
   public void addStringProperty2(String stringProperty2) {
@@ -127,5 +132,12 @@ public class PropertyToMap extends BaseTestObject {
     this.integerProperty = integerProperty;
   }
 
-  
+  public String getStringProperty6() {
+    return stringProperty6;
+  }
+
+  public void setStringProperty6(String stringProperty6) {
+    this.stringProperty6 = stringProperty6;
+  }
+
 }

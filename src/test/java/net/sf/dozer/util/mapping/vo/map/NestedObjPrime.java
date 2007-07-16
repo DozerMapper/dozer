@@ -17,15 +17,14 @@ package net.sf.dozer.util.mapping.vo.map;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 /**
  * @author tierney.matt
  */
 public class NestedObjPrime extends BaseTestObject {
-  
+
   private String field1;
   private String field2;
-  
+
   public String getField1() {
     return field1;
   }
@@ -41,5 +40,5 @@ public class NestedObjPrime extends BaseTestObject {
   public void setField2(String field2) {
     this.field2 = field2;
   }
-  
+
 }

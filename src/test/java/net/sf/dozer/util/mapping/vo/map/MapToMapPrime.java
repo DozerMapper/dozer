@@ -21,13 +21,12 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 /**
  * @author garsombke.franz
- *
+ * 
  */
 public class MapToMapPrime extends BaseTestObject {
 
   private Map standardMap;
   private Map standardMapWithHint;
-  
 
   public Map getStandardMap() {
     return standardMap;
@@ -40,9 +39,4 @@ public class MapToMapPrime extends BaseTestObject {
   public Map getStandardMapWithHint() {
     return standardMapWithHint;
   }
-
-  public void setStandardMapWithHint(Map standardMapWithDestHint) {
-    this.standardMapWithHint = standardMapWithDestHint;
-  }
-  
 }

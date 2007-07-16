@@ -15,13 +15,19 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-
 public class TestReferenceFoo extends BaseTestObject {
   private String a;
   private String b;
   private String c;
 
   public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+
     TestReferenceFoo foo = (TestReferenceFoo) obj;
     if (foo.getA().equals(this.a)) {
       return true;
@@ -30,7 +36,7 @@ public class TestReferenceFoo extends BaseTestObject {
     }
   }
 
-  public int hashCode (){
+  public int hashCode() {
     return 'x';
   }
   public String getA() {

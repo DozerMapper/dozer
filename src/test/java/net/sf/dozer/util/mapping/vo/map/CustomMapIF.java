@@ -22,7 +22,7 @@ package net.sf.dozer.util.mapping.vo.map;
  * 
  */
 public interface CustomMapIF {
-  
+
   public Object getValue(Object key);
 
   public void putValue(Object key, Object value);

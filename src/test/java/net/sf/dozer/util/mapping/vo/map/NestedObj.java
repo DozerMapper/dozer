@@ -21,7 +21,7 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  * @author tierney.matt
  */
 public class NestedObj extends BaseTestObject {
-  
+
   private String field1;
   public String getField1() {
     return field1;

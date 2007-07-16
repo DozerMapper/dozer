@@ -27,12 +27,12 @@ import java.util.Set;
 public class TestReferencePrimeObject extends BaseTestObject {
   private List listAPrime;
   private Object[] arrayToArrayCumulative;
-  private Object[] arrayToArrayNoncumulative;  
+  private Object[] arrayToArrayNoncumulative;
   private String[] listToArray;
   private int[] primitiveArray;
   private Integer[] primitiveArrayWrapper;
-  private Set setToSet;    
-  private Van[] vans;  
+  private Set setToSet;
+  private Van[] vans;
   private Van[] moreVans;
 
   public Set getSetToSet() {

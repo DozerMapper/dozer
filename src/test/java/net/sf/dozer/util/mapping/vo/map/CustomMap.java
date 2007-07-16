@@ -38,4 +38,8 @@ public class CustomMap extends BaseTestObject implements CustomMapIF {
     hashMap.put(key, value);
   }
 
+  public Map getMap() {
+    return hashMap;
+  }
+
 }

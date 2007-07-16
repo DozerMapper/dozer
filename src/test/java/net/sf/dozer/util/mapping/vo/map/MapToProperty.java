@@ -71,7 +71,7 @@ public class MapToProperty extends BaseTestObject {
     return customMapWithDiffSetMethod;
   }
 
-  public void setMyCustomMapWithDiffSetMethod(CustomMapIF customMapWithDiffSetMethod) {
+  public void setCustomMapWithDiffSetMethod(CustomMapIF customMapWithDiffSetMethod) {
     this.customMapWithDiffSetMethod = customMapWithDiffSetMethod;
   }
 
