@@ -23,15 +23,15 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import junit.framework.Assert;
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.util.DateFormatContainer;
 
 /**
  * @author tierney.matt
  */
-public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
+public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
-  private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter(); 
+  private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter();
 
   public void testConvertPrimitiveOrWrapperEmptyString() throws Exception {
     // Test scenarios where emptry string should not result in a null output object
@@ -49,20 +49,18 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
 
     assertNull("output object should be null", output);
   }
-  
+
   public void testConvertInteger() throws Exception {
-    Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17",
-        String.valueOf(Integer.MAX_VALUE), new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10),
-        new Float(11.1), new Double(12.2), new Boolean(true), new Boolean(false) };
-    Integer[] expected = { new Integer(Integer.MIN_VALUE), new Integer(-17), new Integer(-1), new Integer(0),
-        new Integer(1), new Integer(17), new Integer(Integer.MAX_VALUE), new Integer(7), new Integer(8),
-        new Integer(9), new Integer(10), new Integer(11), new Integer(12), new Integer(1), new Integer(0) };
+    Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Integer.MAX_VALUE),
+        new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2),
+        new Boolean(true), new Boolean(false) };
+    Integer[] expected = { new Integer(Integer.MIN_VALUE), new Integer(-17), new Integer(-1), new Integer(0), new Integer(1),
+        new Integer(17), new Integer(Integer.MAX_VALUE), new Integer(7), new Integer(8), new Integer(9), new Integer(10),
+        new Integer(11), new Integer(12), new Integer(1), new Integer(0) };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to Integer", expected[i], converter.convert(
-          input[i], Integer.class, null));
-      assertEquals(input[i].getClass().getName() + " to int", expected[i], converter.convert(
-          input[i], Integer.TYPE, null));
+      assertEquals(input[i].getClass().getName() + " to Integer", expected[i], converter.convert(input[i], Integer.class, null));
+      assertEquals(input[i].getClass().getName() + " to int", expected[i], converter.convert(input[i], Integer.TYPE, null));
     }
   }
 
@@ -77,92 +75,85 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
   }
 
   public void testConvertDouble() throws Exception {
-    Object[] input = { String.valueOf(Double.MIN_VALUE), "-17.2", "-1.1", "0.0", "1.1", "17.2",
-        String.valueOf(Double.MAX_VALUE), new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10),
-        new Float(11.1), new Double(12.2) };
-    Double[] expected = { new Double(Double.MIN_VALUE), new Double(-17.2), new Double(-1.1), new Double(0.0),
-        new Double(1.1), new Double(17.2), new Double(Double.MAX_VALUE), new Double(7), new Double(8), new Double(9),
-        new Double(10), new Double(11.1), new Double(12.2) };
+    Object[] input = { String.valueOf(Double.MIN_VALUE), "-17.2", "-1.1", "0.0", "1.1", "17.2", String.valueOf(Double.MAX_VALUE),
+        new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2) };
+    Double[] expected = { new Double(Double.MIN_VALUE), new Double(-17.2), new Double(-1.1), new Double(0.0), new Double(1.1),
+        new Double(17.2), new Double(Double.MAX_VALUE), new Double(7), new Double(8), new Double(9), new Double(10),
+        new Double(11.1), new Double(12.2) };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to Double", expected[i].doubleValue(), ((Double) (converter
-          .convert(input[i], Double.class, null))).doubleValue(), 0.00001D);
-      assertEquals(input[i].getClass().getName() + " to double", expected[i].doubleValue(), ((Double) (converter
-          .convert(input[i], Double.TYPE, null))).doubleValue(), 0.00001D);
+      assertEquals(input[i].getClass().getName() + " to Double", expected[i].doubleValue(), ((Double) (converter.convert(input[i],
+          Double.class, null))).doubleValue(), 0.00001D);
+      assertEquals(input[i].getClass().getName() + " to double", expected[i].doubleValue(), ((Double) (converter.convert(input[i],
+          Double.TYPE, null))).doubleValue(), 0.00001D);
     }
   }
 
   public void testConvertFloat() throws Exception {
-    Object[] input = { String.valueOf(Float.MIN_VALUE), "-17.2", "-1.1", "0.0", "1.1", "17.2",
-        String.valueOf(Float.MAX_VALUE), new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10),
-        new Float(11.1), new Double(12.2) };
+    Object[] input = { String.valueOf(Float.MIN_VALUE), "-17.2", "-1.1", "0.0", "1.1", "17.2", String.valueOf(Float.MAX_VALUE),
+        new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2) };
     Float[] expected = { new Float(Float.MIN_VALUE), new Float(-17.2), new Float(-1.1), new Float(0.0), new Float(1.1),
-        new Float(17.2), new Float(Float.MAX_VALUE), new Float(7), new Float(8), new Float(9), new Float(10),
-        new Float(11.1), new Float(12.2) };
+        new Float(17.2), new Float(Float.MAX_VALUE), new Float(7), new Float(8), new Float(9), new Float(10), new Float(11.1),
+        new Float(12.2) };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to Float", expected[i].floatValue(), ((Float) (converter
-          .convert(input[i], Float.class, null))).floatValue(), 0.00001);
-      assertEquals(input[i].getClass().getName() + " to float", expected[i].floatValue(), ((Float) (converter
-          .convert(input[i], Float.TYPE, null))).floatValue(), 0.00001);
+      assertEquals(input[i].getClass().getName() + " to Float", expected[i].floatValue(), ((Float) (converter.convert(input[i],
+          Float.class, null))).floatValue(), 0.00001);
+      assertEquals(input[i].getClass().getName() + " to float", expected[i].floatValue(), ((Float) (converter.convert(input[i],
+          Float.TYPE, null))).floatValue(), 0.00001);
     }
   }
 
   public void testConvertLong() throws Exception {
     Object[] input = { String.valueOf(Long.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Long.MAX_VALUE),
-        new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2),
-        Boolean.TRUE, Boolean.FALSE};
+        new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2), Boolean.TRUE,
+        Boolean.FALSE };
     Long[] expected = { new Long(Long.MIN_VALUE), new Long(-17), new Long(-1), new Long(0), new Long(1), new Long(17),
-        new Long(Long.MAX_VALUE), new Long(7), new Long(8), new Long(9), new Long(10), new Long(11), new Long(12),
-        new Long(1), new Long(0)};
+        new Long(Long.MAX_VALUE), new Long(7), new Long(8), new Long(9), new Long(10), new Long(11), new Long(12), new Long(1),
+        new Long(0) };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to Long", expected[i], converter.convert(
-          input[i], Long.class, null));
-      assertEquals(input[i].getClass().getName() + " to long", expected[i], converter.convert(
-          input[i], Long.TYPE, null));
+      assertEquals(input[i].getClass().getName() + " to Long", expected[i], converter.convert(input[i], Long.class, null));
+      assertEquals(input[i].getClass().getName() + " to long", expected[i], converter.convert(input[i], Long.TYPE, null));
     }
   }
 
   public void testConvertBigDecimal() throws Exception {
-    Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17",
-        String.valueOf(Integer.MAX_VALUE), new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), };
-    BigDecimal[] expected = { new BigDecimal(Integer.MIN_VALUE), new BigDecimal(-17), new BigDecimal(-1),
-        new BigDecimal(0), new BigDecimal(1), new BigDecimal(17), new BigDecimal(Integer.MAX_VALUE), new BigDecimal(7),
-        new BigDecimal(8), new BigDecimal(9), new BigDecimal(10) };
+    Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Integer.MAX_VALUE),
+        new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), };
+    BigDecimal[] expected = { new BigDecimal(Integer.MIN_VALUE), new BigDecimal(-17), new BigDecimal(-1), new BigDecimal(0),
+        new BigDecimal(1), new BigDecimal(17), new BigDecimal(Integer.MAX_VALUE), new BigDecimal(7), new BigDecimal(8),
+        new BigDecimal(9), new BigDecimal(10) };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to BigDecimal", expected[i], converter
-          .convert(input[i], BigDecimal.class, null));
+      assertEquals(input[i].getClass().getName() + " to BigDecimal", expected[i], converter.convert(input[i], BigDecimal.class,
+          null));
     }
   }
 
   public void testConvertBigInteger() throws Exception {
-    Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17",
-        String.valueOf(Integer.MAX_VALUE), new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10) };
+    Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Integer.MAX_VALUE),
+        new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10) };
     BigInteger[] expected = { new BigInteger(String.valueOf(Integer.MIN_VALUE)), new BigInteger("-17"), new BigInteger("-1"),
-        new BigInteger("0"), new BigInteger("1"), new BigInteger("17"), new BigInteger(String.valueOf(Integer.MAX_VALUE)), new BigInteger("7"),
-        new BigInteger("8"), new BigInteger("9"), new BigInteger("10")};
+        new BigInteger("0"), new BigInteger("1"), new BigInteger("17"), new BigInteger(String.valueOf(Integer.MAX_VALUE)),
+        new BigInteger("7"), new BigInteger("8"), new BigInteger("9"), new BigInteger("10") };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to BigDecimal", expected[i], converter
-          .convert(input[i], BigInteger.class, null));
+      assertEquals(input[i].getClass().getName() + " to BigDecimal", expected[i], converter.convert(input[i], BigInteger.class,
+          null));
     }
   }
 
   public void testConvertShort() throws Exception {
     Object[] input = { String.valueOf(Short.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Short.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2) };
-    Short[] expected = { new Short(Short.MIN_VALUE), new Short((short) -17), new Short((short) -1),
-        new Short((short) 0), new Short((short) 1), new Short((short) 17), new Short(Short.MAX_VALUE),
-        new Short((short) 7), new Short((short) 8), new Short((short) 9), new Short((short) 10), new Short((short) 11),
-        new Short((short) 12) };
+    Short[] expected = { new Short(Short.MIN_VALUE), new Short((short) -17), new Short((short) -1), new Short((short) 0),
+        new Short((short) 1), new Short((short) 17), new Short(Short.MAX_VALUE), new Short((short) 7), new Short((short) 8),
+        new Short((short) 9), new Short((short) 10), new Short((short) 11), new Short((short) 12) };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to Short", expected[i], converter.convert(
-          input[i], Short.class, null));
-      assertEquals(input[i].getClass().getName() + " to short", expected[i], converter.convert(
-          input[i], Short.TYPE, null));
+      assertEquals(input[i].getClass().getName() + " to Short", expected[i], converter.convert(input[i], Short.class, null));
+      assertEquals(input[i].getClass().getName() + " to short", expected[i], converter.convert(input[i], Short.TYPE, null));
     }
   }
 
@@ -177,19 +168,18 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
     GregorianCalendar gregCal = new GregorianCalendar();
     gregCal.setTimeInMillis(time);
 
-    DateFormat[] dateFormats = new DateFormat[] {DateFormat.getDateInstance(DateFormat.FULL),
+    DateFormat[] dateFormats = new DateFormat[] { DateFormat.getDateInstance(DateFormat.FULL),
         DateFormat.getDateInstance(DateFormat.LONG), DateFormat.getDateInstance(DateFormat.MEDIUM),
-        new SimpleDateFormat("MM/dd/yyyy"), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS")};
+        new SimpleDateFormat("MM/dd/yyyy"), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS") };
 
-    //java.util.Date
+    // java.util.Date
     Object[] input = { new java.sql.Time(time), new java.sql.Timestamp(time), new java.sql.Date(time), cal, gregCal,
         String.valueOf(time) };
     Object expected = new java.util.Date(time);
     Object result = null;
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
-      dfc.setDateFormat(null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       result = converter.convert(input[i], java.util.Date.class, dfc);
       assertTrue("result should be instance of java.util.Date", result instanceof java.util.Date);
       assertEquals(input[i].getClass().getName() + " to java.util.Date", expected, result);
@@ -197,21 +187,20 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.util.Date.class, dfc);
-      assertEquals("String to java.util.Date for input: " + dateStr,dateFormats[i].parse(dateStr), result);
-      assertEquals("String to java.util.Date for input: " + dateStr, dateStr,dateFormats[i].format(result));
+      assertEquals("String to java.util.Date for input: " + dateStr, dateFormats[i].parse(dateStr), result);
+      assertEquals("String to java.util.Date for input: " + dateStr, dateStr, dateFormats[i].format(result));
     }
 
-    //java.sql.Date
-    input = new Object[] { new java.util.Date(time), new java.sql.Time(time), new java.sql.Timestamp(time), cal,
-        gregCal, String.valueOf(time) };
+    // java.sql.Date
+    input = new Object[] { new java.util.Date(time), new java.sql.Time(time), new java.sql.Timestamp(time), cal, gregCal,
+        String.valueOf(time) };
     expected = new java.sql.Date(time);
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
-      dfc.setDateFormat(null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       result = converter.convert(input[i], java.sql.Date.class, dfc);
       assertTrue("result should be instance of java.sql.Date", result instanceof java.sql.Date);
       assertEquals(input[i].getClass().getName() + " to java.sql.Date", expected, result);
@@ -219,21 +208,20 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.sql.Date.class, dfc);
       assertEquals("String to java.sql.Date for input: " + dateStr, dateFormats[i].parse(dateStr), result);
-      assertEquals("String to java.sql.Date for input: " + dateStr, dateStr,dateFormats[i].format(result));
+      assertEquals("String to java.sql.Date for input: " + dateStr, dateStr, dateFormats[i].format(result));
     }
 
-    //java.sql.Time
-    input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Timestamp(time), cal,
-        gregCal, String.valueOf(time) };
+    // java.sql.Time
+    input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Timestamp(time), cal, gregCal,
+        String.valueOf(time) };
     expected = new java.sql.Time(time);
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
-      dfc.setDateFormat(null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       result = converter.convert(input[i], java.sql.Time.class, dfc);
       assertTrue("result should be instance of java.sql.Time", result instanceof java.sql.Time);
       assertEquals(input[i].getClass().getName() + " to java.sql.Time", expected, result);
@@ -241,108 +229,100 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.sql.Time.class, dfc);
       assertEquals("String to java.sql.Time for input: " + dateStr, dateFormats[i].parse(dateStr), result);
-      assertEquals("String to java.sql.Time for input: " + dateStr, dateStr,dateFormats[i].format(result));
+      assertEquals("String to java.sql.Time for input: " + dateStr, dateStr, dateFormats[i].format(result));
     }
 
-    //java.sql.Timestamp
+    // java.sql.Timestamp
     input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time), cal, gregCal,
         String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
-      dfc.setDateFormat(null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       result = converter.convert(input[i], java.sql.Timestamp.class, dfc);
       assertTrue("result should be instance of java.sql.Timestamp", result instanceof java.sql.Timestamp);
-      assertEquals(input[i].getClass().getName() + " to java.sql.Timestamp", time, ((java.sql.Timestamp) result)
-          .getTime());
+      assertEquals(input[i].getClass().getName() + " to java.sql.Timestamp", time, ((java.sql.Timestamp) result).getTime());
     }
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.sql.Timestamp.class, dfc);
       assertEquals("String to java.sql.Timestamp for input: " + dateStr, dateFormats[i].parse(dateStr), result);
-      assertEquals("String to java.sql.Timestamp for input: " + dateStr, dateStr,dateFormats[i].format(result));
+      assertEquals("String to java.sql.Timestamp for input: " + dateStr, dateStr, dateFormats[i].format(result));
     }
 
-    //java.util.Calendar
+    // java.util.Calendar
     input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time),
         new java.sql.Timestamp(time), gregCal, String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
-      dfc.setDateFormat(null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       result = converter.convert(input[i], java.util.Calendar.class, dfc);
       assertTrue("result should be instance of java.util.Calendar", result instanceof java.util.Calendar);
-      assertEquals(input[i].getClass().getName() + " to java.util.Calendar", time, ((java.util.Calendar) result)
+      assertEquals(input[i].getClass().getName() + " to java.util.Calendar", time, ((java.util.Calendar) result).getTimeInMillis());
+    }
+
+    for (int i = 0; i < dateFormats.length; i++) {
+      String dateStr = dateFormats[i].format(date);
+      DateFormatContainer dfc = new DateFormatContainer(null);
+      dfc.setDateFormat(dateFormats[i]);
+      result = converter.convert(dateStr, java.util.Calendar.class, dfc);
+      assertEquals("String to java.util.Calendar for input: " + dateStr, dateFormats[i].parse(dateStr), ((Calendar) result)
+          .getTime());
+    }
+
+    // java.util.GregorianCalendar
+    input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time),
+        new java.sql.Timestamp(time), cal, String.valueOf(time) };
+
+    for (int i = 0; i < input.length; i++) {
+      DateFormatContainer dfc = new DateFormatContainer(null);
+      result = converter.convert(input[i], java.util.GregorianCalendar.class, dfc);
+      assertTrue("result should be instance of java.util.GregorianCalendar", result instanceof java.util.GregorianCalendar);
+      assertEquals(input[i].getClass().getName() + " to java.util.GregorianCalendar", time, ((java.util.GregorianCalendar) result)
           .getTimeInMillis());
     }
 
     for (int i = 0; i < dateFormats.length; i++) {
       String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
-      dfc.setDateFormat(dateFormats[i]);
-      result = converter.convert(dateStr, java.util.Calendar.class, dfc);
-      assertEquals("String to java.util.Calendar for input: " + dateStr, dateFormats[i].parse(dateStr), ((Calendar)result).getTime());
-    }
-
-    //java.util.GregorianCalendar
-    input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time),
-        new java.sql.Timestamp(time), cal, String.valueOf(time) };
-
-    for (int i = 0; i < input.length; i++) {
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
-      dfc.setDateFormat(null);
-      result = converter.convert(input[i], java.util.GregorianCalendar.class, dfc);
-      assertTrue("result should be instance of java.util.GregorianCalendar",
-          result instanceof java.util.GregorianCalendar);
-      assertEquals(input[i].getClass().getName() + " to java.util.GregorianCalendar", time,
-          ((java.util.GregorianCalendar) result).getTimeInMillis());
-    }
-
-    for (int i = 0; i < dateFormats.length; i++) {
-      String dateStr = dateFormats[i].format(date);
-      DateFormatContainer dfc = new DateFormatContainer(null, null);
+      DateFormatContainer dfc = new DateFormatContainer(null);
       dfc.setDateFormat(dateFormats[i]);
       result = converter.convert(dateStr, java.util.GregorianCalendar.class, dfc);
-      assertEquals("String to java.util.GregorianCalendar for input: " + dateStr, dateFormats[i].parse(dateStr), ((GregorianCalendar)result).getTime());
+      assertEquals("String to java.util.GregorianCalendar for input: " + dateStr, dateFormats[i].parse(dateStr),
+          ((GregorianCalendar) result).getTime());
     }
 
-    //invalid mappings
-    Class[] classes = new Class[] { java.util.Date.class, java.sql.Date.class, java.sql.Time.class,
-        java.sql.Timestamp.class, java.util.Calendar.class, java.util.GregorianCalendar.class };
+    // invalid mappings
+    Class[] classes = new Class[] { java.util.Date.class, java.sql.Date.class, java.sql.Time.class, java.sql.Timestamp.class,
+        java.util.Calendar.class, java.util.GregorianCalendar.class };
     String invalidInputStr = "dflksjf";
     for (int i = 0; i < classes.length; i++) {
       try {
         converter.convert(invalidInputStr, classes[i], null);
-        Assert.fail("mapping value " + invalidInputStr + "to class " + classes[i].getName()
-            + " should have thrown a mapping ex");
+        Assert.fail("mapping value " + invalidInputStr + "to class " + classes[i].getName() + " should have thrown a mapping ex");
       } catch (Throwable e) {
         assertTrue(true);
       }
 
-      assertNull("mapping null value to class " + classes[i].getName() + " should result in null", converter
-          .convert(null, classes[i], null));
+      assertNull("mapping null value to class " + classes[i].getName() + " should result in null", converter.convert(null,
+          classes[i], null));
     }
   }
-  
+
   public void testConvertBoolean() throws Exception {
     Object[] input = { Integer.valueOf("0"), Integer.valueOf("1") };
     Boolean[] expected = { Boolean.valueOf(false), Boolean.valueOf(true) };
 
     for (int i = 0; i < expected.length; i++) {
-      assertEquals(input[i].getClass().getName() + " to Boolean", expected[i], converter.convert(
-          input[i], Boolean.class, null));
-      assertEquals(input[i].getClass().getName() + " to boolean", expected[i], converter.convert(
-          input[i], Boolean.TYPE, null));
+      assertEquals(input[i].getClass().getName() + " to Boolean", expected[i], converter.convert(input[i], Boolean.class, null));
+      assertEquals(input[i].getClass().getName() + " to boolean", expected[i], converter.convert(input[i], Boolean.TYPE, null));
     }
   }
-  
 
   public void testConvertStringPositiveScalar() {
     Object value = converter.convert("true", Boolean.TYPE, null);
@@ -394,7 +374,7 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
 
     assertTrue(value instanceof Boolean);
     assertEquals(((Boolean) value).booleanValue(), false);
-    
+
     value = converter.convert("false", Boolean.TYPE, null);
 
     assertTrue(value instanceof Boolean);
@@ -520,7 +500,7 @@ public class PrimitiveOrWrapperConverterTest extends DozerTestBase {
     } catch (ConversionException e) {
       assertTrue(true);
     }
-      value = converter.convert("org.apache.commons.beanutils.Undefined", Class.class, null);
-      assertEquals("org.apache.commons.beanutils.Undefined", value);
+    value = converter.convert("org.apache.commons.beanutils.Undefined", Class.class, null);
+    assertEquals("org.apache.commons.beanutils.Undefined", value);
   }
 }
