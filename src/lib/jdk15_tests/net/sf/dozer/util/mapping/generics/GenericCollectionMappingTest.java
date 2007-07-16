@@ -18,18 +18,27 @@ package net.sf.dozer.util.mapping.generics;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.AnotherTestObject;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.DestDeepObj;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.Family;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.HeadOfHouseHold;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.PersonalDetails;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.Pet;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.SrcDeepObj;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.TestObject;
+import net.sf.dozer.util.mapping.vo.generics.deepindex.TestObjectPrime;
 
 /**
  * @author garsombke.franz
  */
-public class GenericCollectionMappingTest extends DozerTestBase {
+public class GenericCollectionMappingTest extends AbstractDozerTest {
 
   public void testGenericCollectionMapping() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
@@ -81,6 +90,83 @@ public class GenericCollectionMappingTest extends DozerTestBase {
     assertNotNull(usersGroupPrime);
     assertEquals(2, usersGroupPrime.size());
     assertTrue("Expecting instance of UserPrime.", usersGroupPrime.iterator().next() instanceof User);
-    
   }
+  
+  public void testDeepMappingWithIndexOnSrcField() {
+    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    
+    AnotherTestObject anotherTestObject = new AnotherTestObject();
+    anotherTestObject.setField3("another test object field 3 value");
+    anotherTestObject.setField4("6453");
+
+    TestObject testObject1 = new TestObject();
+    TestObject testObject2 = new TestObject();
+    testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[]{anotherTestObject}));
+    
+    SrcDeepObj src = new SrcDeepObj();
+    src.setSomeList(Arrays.asList(new TestObject[] {testObject1, testObject2}));
+
+    DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
+    assertEquals("another test object field 3 value", dest.getDest5());
+    assertEquals(Integer.valueOf("6453"), ((TestObjectPrime)dest.getHintList().get(0)).getTwoPrime());
+  }
+
+  public void testDeepMappingWithIndexOnDestField() {
+    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    DestDeepObj src = new DestDeepObj();
+    src.setDest5("some string value for field");
+
+    SrcDeepObj dest = (SrcDeepObj) mapper.map(src, SrcDeepObj.class);
+    assertEquals("some string value for field", dest.getSomeList().get(1).getEqualNamedList().get(0).getField3());
+  }
+
+  public void testDeepMapIndexed() throws Exception {
+    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    Pet[] myPets = new Pet[2];
+    Family source = new Family("john", "jane", "doe", new Integer(22000), new Integer(20000));
+    Pet firstPet = new Pet("molly", 2, null);
+    myPets[0] = firstPet;
+
+    Pet[] offSprings = new Pet[4];
+    offSprings[0] = new Pet("Rocky1", 1, null);
+    offSprings[1] = new Pet("Rocky2", 1, null);
+    offSprings[2] = new Pet("Rocky3", 1, null);
+    offSprings[3] = new Pet("Rocky4", 1, null);
+
+    Pet secondPet = new Pet("Rocky", 3, offSprings);
+    myPets[1] = secondPet;
+
+    // Save the pet details into the source object
+    source.setPets(myPets);
+
+    HeadOfHouseHold dest = (HeadOfHouseHold) mapper.map(source, HeadOfHouseHold.class);
+    assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getFirstName(), dest.getFirstName());
+    assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getLastName(), dest.getLastName());
+    assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getSalary(), dest.getSalary());
+    assertEquals(source.getPets()[1].getPetName(), dest.getPetName());
+    assertEquals(String.valueOf(source.getPets()[1].getPetAge()), dest.getPetAge());
+    assertEquals(source.getPets()[1].getOffSpring()[2].getPetName(), dest.getOffSpringName());
+  }
+
+  public void testDeepMapInvIndexed() throws Exception {
+    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    HeadOfHouseHold source = new HeadOfHouseHold();
+    source.setFirstName("Tom");
+    source.setLastName("Roy");
+    source.setPetName("Ronny");
+    source.setSalary(new Integer(15000));
+    source.setPetAge("2");
+    source.setOffSpringName("Ronny2");
+
+    Family dest = new Family();
+    mapper.map(source, dest);
+
+    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getFirstName(), source.getFirstName());
+    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getLastName(), source.getLastName());
+    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getSalary(), source.getSalary());
+    assertEquals(dest.getPets()[1].getPetName(), source.getPetName());
+    assertEquals(String.valueOf(dest.getPets()[1].getPetAge()), source.getPetAge());
+    assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
+  }
+  
 }
