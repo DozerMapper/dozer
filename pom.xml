@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <url>http://dozer.sourceforge.net</url>
   <description>Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
-  <version>3.3.1</version>
+  <version>4.0</version>
   <name>dozer</name>
   <dependencies>
     <dependency>
@@ -45,55 +45,64 @@
       <groupId>xmlbeans</groupId>
       <artifactId>xbean</artifactId>
       <version>2.1.0</version>
-      <scope>test</scope>      
+      <scope>test</scope>  
+      <optional>true</optional>    
     </dependency>
     <dependency>
       <groupId>xmlbeans</groupId>
       <artifactId>xbean_xpath</artifactId>
       <version>2.0.0</version>
       <scope>test</scope>      
+      <optional>true</optional>    
     </dependency>
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>1.0</version>
       <scope>test</scope>      
+      <optional>true</optional>    
 		</dependency>
 		<dependency>
 			<groupId>javax.xml.stream</groupId>
 			<artifactId>jsr173_1.0_api</artifactId>
 			<version>1.0</version>
       <scope>test</scope>      
+      <optional>true</optional>    
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>1.0.5</version>
       <scope>test</scope>      
+      <optional>true</optional>    
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-libs</artifactId>
 			<version>1.0.5</version>
       <scope>test</scope>      
+      <optional>true</optional>    
 		</dependency>    
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-xjc</artifactId>
 			<version>1.0.5</version>
       <scope>test</scope>      
+      <optional>true</optional>    
 		</dependency>    
 		<dependency>
 			<groupId>relaxngDatatype</groupId>
 			<artifactId>relaxngDatatype</artifactId>
 			<version>20020414</version>
       <scope>test</scope>      
+      <optional>true</optional>    
 		</dependency>  
 		<dependency>
 			<groupId>stax</groupId>
 			<artifactId>stax</artifactId>
 			<version>1.1.1-dev</version>
 			<scope>test</scope>
+      <optional>true</optional>    
 			<exclusions>
 				<exclusion>
 					<groupId>xmlbeans</groupId>
@@ -127,6 +136,16 @@
 		</testResources>
     <plugins>
 			<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-idea-plugin</artifactId>
+					<version>2.0</version>
+			</plugin>
+			<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.3</version>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
@@ -135,6 +154,25 @@
 					</descriptors>
 				</configuration>
 			</plugin>    
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <id>add generated test sources</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>target/xmlbeans-source</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xmlbeans-maven-plugin</artifactId>
@@ -282,7 +320,6 @@
       <name>Franz Garsombke</name>
       <id>fgarsombke</id>
       <email>fgarsombke@yahoo.com</email>
-      <url>http://www.jroller.com/page/fgarsombke</url>
       <roles>
         <role>Project Lead/Architect</role>
       </roles>
@@ -301,14 +338,12 @@
   <contributors>
     <contributor>
       <name>Ben Sullins</name>
-      <email>bsullins@sullinscolorado.com</email>
     </contributor>
     <contributor>
       <name>David Baker</name>
     </contributor>
     <contributor>
       <name>Matt Benson</name>
-      <email>gudnabrsam@yahoo.com</email>
     </contributor>
     <contributor>
       <name>Soren Chittka</name>
@@ -321,8 +356,6 @@
     </contributor>
     <contributor>
       <name>Bruno Guedes</name>
-      <email>guedes.bruno@gmail.com</email>
-      <timezone>+1</timezone>
     </contributor>
     <contributor>
       <name>Ozzie Gurkan</name>
@@ -332,6 +365,12 @@
     </contributor>
     <contributor>
       <name>Vincent Jassogne</name>
+    </contributor>
+    <contributor>
+      <name>Sachin Katakdound</name>
+    </contributor>
+    <contributor>
+      <name>Joachim Korittky</name>
     </contributor>
     <contributor>
       <name>Wing Tung Leung</name>
@@ -399,7 +438,28 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>     
+      </plugin> 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<threshold>Normal</threshold>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<targetJdk>1.5</targetJdk>
+					<rulesets>
+						<ruleset>/rulesets/basic.xml</ruleset>
+						<ruleset>/rulesets/codesize.xml</ruleset>
+						<ruleset>/rulesets/unusedcode.xml</ruleset>
+						<ruleset>/rulesets/coupling.xml</ruleset>
+					</rulesets>
+				</configuration>
+			</plugin>     
     </plugins>
   </reporting>
   <issueManagement>
