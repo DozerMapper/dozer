@@ -25,16 +25,19 @@ import net.sf.dozer.util.mapping.vo.Aliases;
 import net.sf.dozer.util.mapping.vo.B;
 import net.sf.dozer.util.mapping.vo.C;
 import net.sf.dozer.util.mapping.vo.D;
+import net.sf.dozer.util.mapping.vo.FieldValue;
 import net.sf.dozer.util.mapping.vo.FlatIndividual;
 import net.sf.dozer.util.mapping.vo.Individual;
 import net.sf.dozer.util.mapping.vo.Individuals;
+import net.sf.dozer.util.mapping.vo.index.Mccoy;
+import net.sf.dozer.util.mapping.vo.index.MccoyPrime;
 
 /**
  * @author wojtek.kiersztyn
  * @author dominic.peciuch
  * 
  */
-public class IndexMappingTest extends DozerTestBase {
+public class IndexMappingTest extends AbstractDozerTest {
 
   private static DozerBeanMapper mapper;
 
@@ -59,10 +62,10 @@ public class IndexMappingTest extends DozerTestBase {
     source.setUsernames(userNames);
     source.setSimpleField("a very simple field");
     source.setSecondNames(secondNames);
-    
+
     Set mySet = new HashSet();
     mySet.add("myString");
-    
+
     source.setAddressSet(mySet);
 
     FlatIndividual dest = (FlatIndividual) mapper.map(source, FlatIndividual.class);
@@ -83,7 +86,7 @@ public class IndexMappingTest extends DozerTestBase {
     source.setSecondName2("secondName2");
     source.setPrimaryAlias("aqqq");
     source.setThirdName("thirdName");
-    
+
     Individuals dest = (Individuals) mapper.map(source, Individuals.class);
 
     assertEquals(source.getUsername1(), dest.getUsernames().get(0));
@@ -138,7 +141,7 @@ public class IndexMappingTest extends DozerTestBase {
     assertEquals(source.getSimpleField(), dest.getSimpleField());
   }
 
- public void testNestedArray() {
+  public void testNestedArray() {
     Individuals source = new Individuals();
     Aliases aliases = new Aliases();
     aliases.setOtherAliases(new String[] { "other alias 1", "other alias 2" });
@@ -179,5 +182,19 @@ public class IndexMappingTest extends DozerTestBase {
     D d = new D();
     A a = (A) mapper.map(d, A.class);
     assertNotNull(a);
+  }
+  
+  public void testStringToIndexedSet_UsingMapSetMethod() {
+    mapper = (DozerBeanMapper) getNewMapper(new String[] { "indexMapping.xml" });
+    Mccoy src = new Mccoy();
+    src.setStringProperty(String.valueOf(System.currentTimeMillis()));
+
+    MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class);
+    Set destSet = dest.getFieldValueObjects();
+    assertNotNull("dest set should not be null", destSet);
+    assertEquals("dest set should contain 1 entry", 1, destSet.size());
+    Object entry = destSet.iterator().next();
+    assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
+    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("stringProperty"));
   }
 }

@@ -15,61 +15,43 @@
  */
 package net.sf.dozer.util.mapping;
 
-import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
 
-import net.pmonks.xml.dozer.test.ChildType;
-import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
 import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.ArrayCustConverterObj;
-import net.sf.dozer.util.mapping.vo.ArrayCustConverterObjPrime;
-import net.sf.dozer.util.mapping.vo.Car;
-import net.sf.dozer.util.mapping.vo.Child;
 import net.sf.dozer.util.mapping.vo.FieldValue;
-import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
-import net.sf.dozer.util.mapping.vo.InsideTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.MetalThingyIF;
+import net.sf.dozer.util.mapping.vo.MethodFieldTestObject;
+import net.sf.dozer.util.mapping.vo.MethodFieldTestObject2;
+import net.sf.dozer.util.mapping.vo.NoDefaultConstructor;
+import net.sf.dozer.util.mapping.vo.NoReadMethod;
+import net.sf.dozer.util.mapping.vo.NoReadMethodPrime;
+import net.sf.dozer.util.mapping.vo.NoWriteMethod;
+import net.sf.dozer.util.mapping.vo.NoWriteMethodPrime;
 import net.sf.dozer.util.mapping.vo.PrimitiveArrayObj;
 import net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 import net.sf.dozer.util.mapping.vo.SimpleObjPrime;
-import net.sf.dozer.util.mapping.vo.SimpleObjPrime2;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime2;
-import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
+import net.sf.dozer.util.mapping.vo.allowedexceptions.TestException;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowException;
 import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowExceptionPrime;
 import net.sf.dozer.util.mapping.vo.context.ContextMapping;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingNested;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime;
 import net.sf.dozer.util.mapping.vo.context.ContextMappingPrime;
-import net.sf.dozer.util.mapping.vo.deep.House;
-import net.sf.dozer.util.mapping.vo.deep2.Dest;
-import net.sf.dozer.util.mapping.vo.deep2.Src;
-import net.sf.dozer.util.mapping.vo.map.MapToMap;
-import net.sf.dozer.util.mapping.vo.map.MapToMapPrime;
-import net.sf.dozer.util.mapping.vo.set.NamesArray;
-import net.sf.dozer.util.mapping.vo.set.NamesSet;
-import net.sf.dozer.util.mapping.vo.set.NamesSortedSet;
-import net.sf.dozer.util.mapping.vo.set.SomeDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeOtherDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeVO;
 import net.sf.dozer.util.mapping.vo.iface.ApplicationUser;
 import net.sf.dozer.util.mapping.vo.iface.UpdateMember;
 import net.sf.dozer.util.mapping.vo.index.Mccoy;
@@ -78,61 +60,25 @@ import net.sf.dozer.util.mapping.vo.isaccessible.Foo;
 import net.sf.dozer.util.mapping.vo.isaccessible.FooPrime;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBean;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
+import net.sf.dozer.util.mapping.vo.set.NamesArray;
+import net.sf.dozer.util.mapping.vo.set.NamesSet;
+import net.sf.dozer.util.mapping.vo.set.NamesSortedSet;
+import net.sf.dozer.util.mapping.vo.set.SomeDTO;
+import net.sf.dozer.util.mapping.vo.set.SomeOtherDTO;
+import net.sf.dozer.util.mapping.vo.set.SomeVO;
 
 /**
  * @author garsombke.franz
  */
-public class GranularDozerBeanMapperTest extends DozerTestBase {
+public class GranularDozerBeanMapperTest extends AbstractDozerTest {
 
-  public void testMapToMap() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
-    TestObject to = new TestObject();
-    to.setOne("one");
-    TestObject to2 = new TestObject();
-    to2.setTwo(new Integer(2));
-    Map map = new HashMap();
-    map.put("to", to);
-    map.put("to2", to2);
-    MapToMap mtm = new MapToMap();
-    mtm.setStandardMap(map);
-
-    Map map2 = new HashMap();
-    map2.put("to", to);
-    map2.put("to2", to2);
-
-    mtm.setStandardMapWithHint(map2);
-
-    MapToMapPrime mtmp = (MapToMapPrime) mapper.map(mtm, MapToMapPrime.class);
-    assertEquals("one", ((TestObject) mtmp.getStandardMap().get("to")).getOne());
-    assertEquals(2, ((TestObject) mtmp.getStandardMap().get("to2")).getTwo().intValue());
-    // verify that we transformed from object to object prime
-    assertEquals("one", ((TestObjectPrime) mtmp.getStandardMapWithHint().get("to")).getOnePrime());
-    assertEquals(2, ((TestObjectPrime) mtmp.getStandardMapWithHint().get("to2")).getTwoPrime().intValue());
-  }
-
-  public void testMapToMapExistingDestination() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
-    TestObject to = new TestObject();
-    to.setOne("one");
-    TestObject to2 = new TestObject();
-    to2.setTwo(new Integer(2));
-    Map map = new HashMap();
-    map.put("to", to);
-    map.put("to2", to2);
-    MapToMap mtm = new MapToMap();
-    mtm.setStandardMap(map);
-
-    // create an existing map and set a value so we can test if it exists after
-    // mapping
-    MapToMapPrime mtmp = new MapToMapPrime();
-    Map map2 = new Hashtable();
-    map2.put("toDest", to);
-    mtmp.setStandardMap(map2);
-
-    mapper.map(mtm, mtmp);
-    assertEquals("one", ((TestObject) mtmp.getStandardMap().get("to")).getOne());
-    assertEquals(2, ((TestObject) mtmp.getStandardMap().get("to2")).getTwo().intValue());
-    assertEquals("one", ((TestObject) mtmp.getStandardMap().get("toDest")).getOne());
+  public void testNoDefaultConstructor() throws Exception {
+    try {
+      mapper.map("test", NoDefaultConstructor.class);
+      fail("should have thrown exception");
+    } catch (MappingException e) {
+      assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor.<init>()", e.getMessage());
+    }
   }
 
   public void testFieldAccessible() throws Exception {
@@ -188,23 +134,6 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertEquals("testCreateMethod", toDest.getCreateMethodType().getTestCreateMethod());
   }
 
-  public void testDeepInterfaceWithHint() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
-    InsideTestObject ito = new InsideTestObject();
-    House house = new House();
-    MetalThingyIF thingy = new Car();
-    thingy.setName("name");
-    house.setThingy(thingy);
-    ito.setHouse(house);
-    InsideTestObjectPrime itop = (InsideTestObjectPrime) mapper.map(ito, InsideTestObjectPrime.class);
-    assertEquals("name", itop.getDeepInterfaceString());
-
-    // Map Back
-    InsideTestObject dest = (InsideTestObject) mapper.map(itop, InsideTestObject.class);
-    assertEquals("name", ito.getHouse().getThingy().getName());
-
-  }
-
   public void testIntegerToString() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = new TestObject();
@@ -212,11 +141,6 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     to.setArrayForLists(array);
     TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
     assertEquals("1", top.getListForArray().get(0));
-    // Map Back
-    // InsideTestObject dest = (InsideTestObject) mapper.map(itop,
-    // InsideTestObject.class);
-    // assertEquals("name", ito.getHouse().getThingy().getName());
-
   }
 
   public void testMapNull_MappingLevel() throws Exception {
@@ -375,22 +299,6 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertEquals("loanNoNested", ((ContextMappingNestedPrime) cmpBDest.getContextList().get(0)).getLoanNo());
   }
 
-  public void testXmlBeans() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
-    // Map from TestObject to XMLBeans
-    TestObject to = new TestObject();
-    to.setOne("one");
-    GetWeatherByZipCodeDocument doc = (GetWeatherByZipCodeDocument) mapper.map(to, GetWeatherByZipCodeDocument.class);
-    assertEquals(to.getOne(), doc.getGetWeatherByZipCode().getZipCode());
-
-    // Map from XMLBeans to TestObject
-    GetWeatherByZipCodeDocument res = GetWeatherByZipCodeDocument.Factory.newInstance();
-    GetWeatherByZipCode zipCode = res.addNewGetWeatherByZipCode();
-    zipCode.setZipCode("one");
-    TestObject to2 = (TestObject) mapper.map(res, TestObject.class);
-    assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
-  }
-
   public void testArrayToSortedSet() {
     NamesArray from = new NamesArray();
     NamesSortedSet to = null;
@@ -468,25 +376,11 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertNotNull(dest);
   }
 
-  public void testStringToIndexedSet_UsingMapSetMethod() {
-    mapper = getNewMapper(new String[] { "indexMapping.xml" });
-    Mccoy src = new Mccoy();
-    src.setStringProperty(String.valueOf(System.currentTimeMillis()));
-
-    MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class);
-    Set destSet = dest.getFieldValueObjects();
-    assertNotNull("dest set should not be null", destSet);
-    assertEquals("dest set should contain 1 entry", 1, destSet.size());
-    Object entry = destSet.iterator().next();
-    assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
-    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue());
-    assertEquals("invalid key for dest object", "stringProperty", ((FieldValue) entry).getKey());
-  }
-
   public void testStringToIndexedSet_UsingHint() {
     mapper = getNewMapper(new String[] { "indexMapping.xml" });
     Mccoy src = new Mccoy();
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
+    src.setField2("someValue");
 
     MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class, "usingDestHint");
     Set destSet = dest.getFieldValueObjects();
@@ -494,9 +388,7 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     assertEquals("dest set should contain 1 entry", 1, destSet.size());
     Object entry = destSet.iterator().next();
     assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
-    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue());
-    assertNull("FieldValue key field should be null", ((FieldValue) entry).getKey());
-
+    assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("theKey"));
   }
 
   public void testAllowedExceptions() throws Exception {
@@ -504,78 +396,77 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
     TestObject to = new TestObject();
     to.setThrowAllowedExceptionOnMap("throw me");
     try {
-      TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
-      fail("We should have thrown DozerRuntimeException");
+      mapper.map(to, TestObjectPrime.class);
+      fail("We should have thrown TestException");
     } catch (RuntimeException e) {
-      if (e instanceof DozerRuntimeException) {
+      if (e instanceof TestException) {
         assertTrue(true);
       } else {
-        fail("This should be an instance of DozerRuntimeException");
+        fail("This should be an instance of TestException");
       }
     }
     TestObject to2 = new TestObject();
     to2.setThrowNonAllowedExceptionOnMap("do not throw me");
     try {
-      TestObjectPrime top = (TestObjectPrime) mapper.map(to2, TestObjectPrime.class);
+      mapper.map(to2, TestObjectPrime.class);
     } catch (RuntimeException e) {
       fail("This should not have been thrown");
     }
   }
-  
+
   public void testAllowedExceptions_Implicit() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] {"implicitAllowedExceptionsMapping.xml"});
+    MapperIF mapper = getNewMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
     ThrowException to = new ThrowException();
     to.setThrowAllowedException("throw me");
     try {
-      ThrowExceptionPrime top = (ThrowExceptionPrime) mapper.map(to, ThrowExceptionPrime.class);
-      fail("We should have thrown DozerRuntimeException");
+      mapper.map(to, ThrowExceptionPrime.class);
+      fail("We should have thrown TestException");
     } catch (RuntimeException e) {
-      if (e instanceof DozerRuntimeException) {
+      if (e instanceof TestException) {
         assertTrue(true);
       } else {
-        fail("This should be an instance of DozerRuntimeException");
+        fail("This should be an instance of TestException");
       }
     }
     ThrowException to2 = new ThrowException();
     to2.setThrowNotAllowedException("do not throw me");
     try {
-      ThrowExceptionPrime top = (ThrowExceptionPrime) mapper.map(to2, ThrowExceptionPrime.class);
+      mapper.map(to2, ThrowExceptionPrime.class);
     } catch (RuntimeException e) {
       fail("This should not have been thrown");
     }
   }
-  
-  
-  public void testPrimitiveArrayToList() throws Exception {
-    mapper = getNewMapper(new String[]{"primitiveArrayToListMapping.xml"});
 
-    int[] i = new int[] {1,2,3};
+  public void testPrimitiveArrayToList() throws Exception {
+    mapper = getNewMapper(new String[] { "primitiveArrayToListMapping.xml" });
+
+    int[] i = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = new PrimitiveArrayObj();
     src.setField1(i);
-    
+
     PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class);
-    
+
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", i.length, dest.getField1().size());
 
-    CollectionUtils collUtils = new CollectionUtils();
-    List srcObjectList = collUtils.convertPrimitiveArrayToList(i);
+    List srcObjectList = CollectionUtils.convertPrimitiveArrayToList(i);
     assertEquals("invalid dest field value", srcObjectList, dest.getField1());
   }
-  
-  public void testPrimitiveArrayToList_UsingHint() throws Exception {
-    mapper = getNewMapper(new String[]{"primitiveArrayToListMapping.xml"});
 
-    int[] srcArray = new int[] {1,2,3};
+  public void testPrimitiveArrayToList_UsingHint() throws Exception {
+    mapper = getNewMapper(new String[] { "primitiveArrayToListMapping.xml" });
+
+    int[] srcArray = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = new PrimitiveArrayObj();
     src.setField1(srcArray);
-    
-    PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class, "primitiveToArrayUsingHint");
-    
+
+    PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class,
+        "primitiveToArrayUsingHint");
+
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", srcArray.length, dest.getField1().size());
 
-    for(int i = 0; i < srcArray.length; i++) {
+    for (int i = 0; i < srcArray.length; i++) {
       String srcValue = String.valueOf(srcArray[i]);
       String resultValue = (String) dest.getField1().get(i);
       assertEquals("invalid result entry value", srcValue, resultValue);
@@ -583,265 +474,214 @@ public class GranularDozerBeanMapperTest extends DozerTestBase {
   }
 
   public void testInterface() throws Exception {
-    mapper = getNewMapper(new String[]{"interfaceMapping.xml"});
+    mapper = getNewMapper(new String[] { "interfaceMapping.xml" });
     ApplicationUser user = new ApplicationUser();
     user.setSubscriberNumber("123");
-  
-    //Mapping works
+
+    // Mapping works
     UpdateMember destObject = (UpdateMember) mapper.map(user, UpdateMember.class);
-    
+
     assertEquals("invalid value for subsriber #", user.getSubscriberNumber(), destObject.getSubscriberKey().getSubscriberNumber());
-  
-    //Clear value
+
+    // Clear value
     destObject = new UpdateMember();
-  
-    //Mapping doesn't work
+
+    // Mapping doesn't work
     mapper.map(user, destObject);
-    
+
     assertNotNull("dest field should not be null", destObject.getSubscriberKey());
     assertEquals("invalid value for subsriber #", user.getSubscriberNumber(), destObject.getSubscriberKey().getSubscriberNumber());
   }
-  
-  public void testFieldCustomConverter() throws Exception {
-    mapper = getNewMapper(new String[]{"fieldCustomConverter.xml"});
-    SimpleObj src = new SimpleObj();
-    src.setField1(String.valueOf(System.currentTimeMillis()));
-    
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
 
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
-    assertNotNull("dest field1 should not be null", dest.getField1Prime());
-    StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
-    assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
-    String token1 = st.nextToken();
-    assertEquals("1st portion of dest field1 value should equal src field value", src.getField1(), token1);
-    String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
-        StringAppendCustomConverter.APPENDED_VALUE, token2);
-  }
-  
-  public void testFieldCustomConverter_NullSrcValue() throws Exception {
-    //Test that custom converter gets invoked even if the src field value is NULL
-    mapper = getNewMapper(new String[]{"fieldCustomConverter.xml"});
-    SimpleObj src = new SimpleObj();
-    src.setField1(null);
-    
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
-
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
-    assertNotNull("dest field1 should not be null", dest.getField1Prime());
-    StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
-    assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
-    String token1 = st.nextToken();
-    assertEquals("dest field1 value should contain the explicit null string", "null", token1);
-    String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
-        StringAppendCustomConverter.APPENDED_VALUE, token2);
-  }
-  
-  public void testSimpleCustomConverter() throws Exception {
-    mapper = getNewMapper(new String[]{"simpleCustomConverter.xml"});
-    SimpleObj src = new SimpleObj();
-    src.setField1(String.valueOf(System.currentTimeMillis()));
-    
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
-
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
-    assertNotNull("dest field1 should not be null", dest.getField1Prime());
-    StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
-    assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
-    String token1 = st.nextToken();
-    assertEquals("1st portion of dest field1 value should equal src field value", src.getField1(), token1);
-    String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
-        StringAppendCustomConverter.APPENDED_VALUE, token2);
-  }
-
-  public void testSimpleCustomConverter_NullSrcValue() throws Exception {
-    //Test that custom converter gets invoked even if the src field value is NULL
-    mapper = getNewMapper(new String[]{"simpleCustomConverter.xml"});
-    SimpleObj src = new SimpleObj();
-    src.setField1(null);
-    
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
-
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
-    assertNotNull("dest field1 should not be null", dest.getField1Prime());
-    StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
-    assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
-    String token1 = st.nextToken();
-    assertEquals("dest field1 value should contain the explicit null string", "null", token1);
-    String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
-        StringAppendCustomConverter.APPENDED_VALUE, token2);
-  }
-  
-  /*
-   * Test Case Submitted by Peter Monks 1/2007
-   */
-  public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
-    mapper = getNewMapper(new String[]{"xmlBeansMapping.xml"});
-    Child pojo = new Child();
-      
-    pojo.setId(BigInteger.valueOf(42));
-    pojo.setName("Ernie");
-    pojo.setFu("Fu");
-    pojo.setBar("Bar");
-    
-    ChildType xmlBean = (ChildType)mapper.map(pojo, ChildType.class);
-      
-    assertNotNull("dest obj should not be null", xmlBean);
-    assertNotNull("fu value should not be null", xmlBean.getFu());
-    assertEquals("invalid fu value", pojo.getFu(), xmlBean.getFu());
-    assertNotNull("bar field should not be null", xmlBean.getBar());
-    assertEquals("invalid bar value", pojo.getBar(), xmlBean.getBar());
-    assertNotNull("name value should not be null", xmlBean.getName());
-    assertEquals("invalid name value", pojo.getName(), xmlBean.getName());
-    assertNotNull("id field should not be null", xmlBean.getId());
-    assertEquals("invalid id value", pojo.getId(), xmlBean.getId());
-  }
-
-  /*
-   * Test Case Submitted by Peter Monks 1/2007
-   */
-  public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
-    mapper = getNewMapper(new String[]{"xmlBeansMapping.xml"});
-    ChildType xmlBean = ChildType.Factory.newInstance();
-      
-    xmlBean.setId(BigInteger.valueOf(7236));
-    xmlBean.setName("Bert");
-    xmlBean.setFu("Uf");
-    xmlBean.setBar("Rab");
-      
-    Child pojo = (Child)mapper.map(xmlBean, Child.class);
-      
-    assertNotNull("dest obj should not be null", pojo);
-    assertNotNull("fu should not be null", pojo.getFu());
-    assertEquals("invalid fu value", xmlBean.getFu(), pojo.getFu());
-    assertNotNull("bar should not be null", pojo.getBar());
-    assertEquals("invalid bar value", xmlBean.getBar(), pojo.getBar());
-    assertNotNull("id should not be null", pojo.getId());
-    assertEquals("invalid id value", xmlBean.getId(), pojo.getId());
-    assertNotNull("name should not be null", pojo.getName());
-    assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
-  }
-  
-  public void testArrayToStringCustomConverter() throws Exception {
-    //Test that custom converter is used when src is an Array and dest is a String
-    mapper = getNewMapper(new String[]{"arrayToStringCustomConverter.xml"});
-    SimpleObj simple = new SimpleObj();
-    simple.setField1(String.valueOf(System.currentTimeMillis()));
-    
-    ArrayCustConverterObj src = new ArrayCustConverterObj();
-    src.setField1(new SimpleObj[] {simple});
-    
-    ArrayCustConverterObjPrime dest = (ArrayCustConverterObjPrime) mapper.map(src, ArrayCustConverterObjPrime.class);
-
-    //Custom converter specified for the field1 mapping, so verify custom converter was actually used
-    assertNotNull("dest field1 should not be null", dest.getField1Prime());
-    StringTokenizer st = new StringTokenizer(dest.getField1Prime(), "-");
-    assertEquals("dest field1 value should contain a hyphon", 2, st.countTokens());
-    String token1 = st.nextToken();
-    String token2 = st.nextToken();
-    assertEquals("dest field1 value should have been appended to by the cust converter", 
-        StringAppendCustomConverter.APPENDED_VALUE, token2);
-  }
-  
   public void testCustomFieldMapper() throws Exception {
     CustomFieldMapperIF customFieldMapper = new TestCustomFieldMapper();
     ((DozerBeanMapper) mapper).setCustomFieldMapper(customFieldMapper);
-    
-    String currentTime = String.valueOf(System.currentTimeMillis()); 
+
+    String currentTime = String.valueOf(System.currentTimeMillis());
     SimpleObj src = new SimpleObj();
     src.setField1(currentTime);
     src.setField6("field6Value" + currentTime);
-    
+
     SimpleObjPrime dest = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
-    
+
     assertNotNull("dest field1 should not be null", dest.getField1());
     assertNotNull("dest field6 should not be null", dest.getField6());
     assertEquals("dest field1 should have been set by custom field mapper", TestCustomFieldMapper.FIELD_VALUE, dest.getField1());
     assertEquals("dest field6 should NOT have been set by custom field mapper", src.getField6(), dest.getField6());
   }
-  
+
   public void testPrivateConstructor() throws Exception {
-	  PrivateConstructorBean src = PrivateConstructorBean.newInstance();
-	  src.setField1("someValue");
-	  
-	  PrivateConstructorBeanPrime dest = (PrivateConstructorBeanPrime) mapper.map(src, PrivateConstructorBeanPrime.class);
-	  
-	  assertNotNull("dest bean should not be null", dest);
-	  assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
+    PrivateConstructorBean src = PrivateConstructorBean.newInstance();
+    src.setField1("someValue");
+
+    PrivateConstructorBeanPrime dest = (PrivateConstructorBeanPrime) mapper.map(src, PrivateConstructorBeanPrime.class);
+
+    assertNotNull("dest bean should not be null", dest);
+    assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
   }
-  
-  
+
   /*
-   * Related to feature request #1456486.  Deep mapping with custom getter/setter does not work
+   * Bug #1549738
    */
-  public void testDeepMapping_UsingCustomGetSetMethods() {
-    mapper = super.getNewMapper(new String[]{"deepMappingUsingCustomGetSet.xml"});
-    
-    Src src = new Src();
-    src.setSrcField("srcFieldValue");
-    
-    Dest dest = (Dest) mapper.map(src, Dest.class);
-    
-    assertNotNull(dest.getDestField().getNestedDestField().getNestedNestedDestField());
-    assertEquals(src.getSrcField(), dest.getDestField().getNestedDestField().getNestedNestedDestField());
-    
-    Src dest2 = (Src)mapper.map(dest, Src.class);
-    
-    assertNotNull(dest2.getSrcField());
-    assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());
-  }  
-  
-  /*
-   * Bug #1549738 
-   */  
   public void testSetMapping_UppercaseFieldNameInXML() throws Exception {
-    //For some reason the resulting SomeVO contains a Set with 4 objects.  2 SomeOtherDTO's and 2 SomeOtherVO's.  I believe it
-    //should only contain 2 SomeOtherVO's.  It has something to do with specifying the field name starting with cap in the mapping file.  If
-    //you change the field mapping to start with lower case it seems to map correctly.
-    MapperIF mapper = getNewMapper(new String[] { "setMappingWithUpperCaseFieldName.xml" }); 
-    
-    SomeDTO someDto = new SomeDTO(); 
+    // For some reason the resulting SomeVO contains a Set with 4 objects. 2 SomeOtherDTO's and 2 SomeOtherVO's. I
+    // believe it
+    // should only contain 2 SomeOtherVO's. It has something to do with specifying the field name starting with cap in
+    // the mapping file. If
+    // you change the field mapping to start with lower case it seems to map correctly.
+    MapperIF mapper = getNewMapper(new String[] { "setMappingWithUpperCaseFieldName.xml" });
+
+    SomeDTO someDto = new SomeDTO();
     someDto.setField1(new Integer("1"));
-    
+
     SomeOtherDTO someOtherDto = new SomeOtherDTO();
     someOtherDto.setOtherField2(someDto);
-    someOtherDto.setOtherField3("value1"); 
-    
-    SomeDTO someDto2 = new SomeDTO(); 
-    someDto2.setField1(new Integer("2")); 
-    
+    someOtherDto.setOtherField3("value1");
+
+    SomeDTO someDto2 = new SomeDTO();
+    someDto2.setField1(new Integer("2"));
+
     SomeOtherDTO someOtherDto2 = new SomeOtherDTO();
-    someOtherDto2.setOtherField2(someDto2); 
+    someOtherDto2.setOtherField2(someDto2);
     someOtherDto2.setOtherField3("value2");
-    
+
     SomeDTO src = new SomeDTO();
-    src.setField2(new SomeOtherDTO[] { someOtherDto2,someOtherDto });
-    
+    src.setField2(new SomeOtherDTO[] { someOtherDto2, someOtherDto });
+
     SomeVO dest = (SomeVO) mapper.map(src, SomeVO.class);
-    
+
     assertEquals("incorrect resulting set size", src.getField2().length, dest.getField2().size());
-    //TODO: add more asserts
-  } 
-  
+    // TODO: add more asserts
+  }
+
   public void testGlobalBeanFactoryAppliedToDefaultMappings() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "global-configuration.xml" });
+    mapper = getNewMapper(new String[] { "global-configuration.xml" });
     TestObjectPrime dest = (TestObjectPrime) mapper.map(new TestObject(), TestObjectPrime.class);
-    
+
     assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
     assertEquals("", "net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
-  }  
-  
-  public void testMapIdDoesNotExist() {
-    try {
-      mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
-      fail("should have thrown exception");
-    } catch (Exception e) {
-      //expected
-    }
   }
-  
+
+  public void testStringToDateMapping() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS");
+    String dateStr = "01/29/1975 10:45:13:25";
+    TestObject sourceObj = new TestObject();
+    sourceObj.setDateStr(dateStr);
+    TestObjectPrime result = (TestObjectPrime) mapper.map(sourceObj, TestObjectPrime.class);
+    assertEquals(df.parse(dateStr), result.getDateFromStr());
+    assertEquals(dateStr, df.format(result.getDateFromStr()));
+
+    TestObject result2 = (TestObject) mapper.map(result, TestObject.class);
+    assertEquals(df.format(result.getDateFromStr()), result2.getDateStr());
+    assertEquals(result.getDateFromStr(), df.parse(result2.getDateStr()));
+  }
+
+  public void testMethodMapping() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    MethodFieldTestObject sourceObj = new MethodFieldTestObject();
+    sourceObj.setIntegerStr("1500");
+    sourceObj.setPriceItem("3500");
+    sourceObj.setFieldOne("fieldOne");
+    MethodFieldTestObject2 result = (MethodFieldTestObject2) mapper.map(sourceObj, MethodFieldTestObject2.class);
+    assertEquals("invalid result object size", 1, result.getIntegerList().size());
+    assertEquals("invalid result object value", 3500, result.getTotalPrice());
+    assertEquals("invalid result object value", "fieldOne", result.getFieldOne());
+    // map back
+    MethodFieldTestObject result2 = (MethodFieldTestObject) mapper.map(result, MethodFieldTestObject.class);
+    // if no exceptions we thrown we are good. stopOnErrors = true. both values will be null
+    // since this is a one-way mapping we shouldn't have a value
+    assertNull(result2.getFieldOne());
+  }
+
+  public void testNoReadMethod() throws Exception {
+    // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    NoReadMethod src = new NoReadMethod();
+    src.setNoReadMethod("somevalue");
+
+    NoReadMethodPrime dest = (NoReadMethodPrime) mapper.map(src, NoReadMethodPrime.class);
+    assertNull("field should be null because no read method exists for field", dest.getXXXXX());
+  }
+
+  public void testNoReadMethodSameClassTypes() throws Exception {
+    // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    NoReadMethod src = new NoReadMethod();
+    src.setNoReadMethod("somevalue");
+
+    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
+    assertNull("field should be null because no read method exists for field", dest.getXXXXX());
+  }
+
+  public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
+    // Dont use getter methods that have a param when discovering default fields to be mapped.
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    NoReadMethod src = new NoReadMethod();
+    src.setOtherNoReadMethod("someValue");
+
+    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
+    assertNull("field should be null because no read method exists for field", dest.getOtherNoReadMethod(-1));
+  }
+
+  public void testNoWriteMethod() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    NoWriteMethod src = new NoWriteMethod();
+    src.setXXXXXX("someValue");
+
+    NoWriteMethodPrime dest = (NoWriteMethodPrime) mapper.map(src, NoWriteMethodPrime.class);
+    assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
+
+  }
+
+  public void testNoWriteMethodSameClassTypes() throws Exception {
+    // When mapping between identical types, if the field doesnt have a getter/setter, dont
+    // add it is a default field to be mapped.
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    NoWriteMethod src = new NoWriteMethod();
+    src.setXXXXXX("someValue");
+
+    mapper.map(new NoReadMethod(), NoReadMethod.class);
+
+    NoWriteMethod dest = (NoWriteMethod) mapper.map(src, NoWriteMethod.class);
+    assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
+  }
+
+  public void testNullField() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    AnotherTestObject src = new AnotherTestObject();
+    src.setField2(null);
+    AnotherTestObjectPrime dest = new AnotherTestObjectPrime();
+    dest.setField2(Integer.valueOf("555"));
+    // check that null overrides an existing value
+    mapper.map(src, dest);
+    assertNull("dest field should be null", dest.getField2());
+  }
+
+  public void testNullField2() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    // Test that String --> String with an empty String input value results
+    // in the destination field being an empty String and not null.
+    String input = "";
+    TestObject src = new TestObject();
+    src.setOne(input);
+
+    TestObjectPrime dest = (TestObjectPrime) mapper.map(src, TestObjectPrime.class);
+    assertNotNull("dest field should not be null", dest.getOnePrime());
+    assertEquals("invalid dest field value", input, dest.getOnePrime());
+  }
+
+  public void testNullToPrimitive() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    AnotherTestObject src = new AnotherTestObject();
+    AnotherTestObjectPrime prime = new AnotherTestObjectPrime();
+    TestObject to = new TestObject();
+    to.setThePrimitive(AnotherTestObjectPrime.DEFAULT_FIELD1);
+    prime.setTo(to);
+    mapper.map(src, prime);
+    // check primitive on deep field
+    // primitive should still be default
+    assertEquals("invalid field value", AnotherTestObjectPrime.DEFAULT_FIELD1, prime.getField1());
+    assertEquals("invalid field value", AnotherTestObjectPrime.DEFAULT_FIELD1, prime.getTo().getThePrimitive());
+  }
 }

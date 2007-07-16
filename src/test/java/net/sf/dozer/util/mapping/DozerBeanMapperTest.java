@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.util.mapping.event.EventTestListener;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2;
 import net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory;
@@ -34,9 +35,14 @@ import net.sf.dozer.util.mapping.vo.deep.HomeDescription;
 import net.sf.dozer.util.mapping.vo.deep.House;
 
 /**
+ * Very high level tests of the DozerBeanMapper. This test class is not intended to provide in-depth testing of all the
+ * possible mapping use cases. The more in-depth unit tests of the DozerBeanMapper and MappingProcessor can be found in
+ * other test classes within this same package. i.e) GranularDozerBeanMapperTest, MapperTest, IndexMappingTest, etc
+ * 
  * @author tierney.matt
+ * @author garsombke.franz
  */
-public class DozerBeanMapperTest extends DozerTestBase {
+public class DozerBeanMapperTest extends AbstractDozerTest {
   private static MapperIF mapper;
 
   protected void setUp() throws Exception {
@@ -61,6 +67,24 @@ public class DozerBeanMapperTest extends DozerTestBase {
       fail("should have thrown exception");
     } catch (MappingException e) {
       assertEquals("destination class must not be null", e.getMessage());
+    }
+  }
+
+  public void testNullDestObj() throws Exception {
+    try {
+      Object destObj = null;
+      mapper.map(new TestObject(), destObj);
+      fail("should have thrown mapping exception");
+    } catch (MappingException e) {
+    }
+  }
+
+  public void testMapIdDoesNotExist() {
+    try {
+      mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
+      fail("should have thrown exception");
+    } catch (Exception e) {
+      // expected
     }
   }
 
@@ -116,18 +140,31 @@ public class DozerBeanMapperTest extends DozerTestBase {
     assertCommon(mapper);
   }
 
+  public void testDetectDuplicateMapping() throws Exception {
+    MapperIF myMapper = null;
+    try {
+
+      List mappingFiles = new ArrayList();
+      mappingFiles.add("duplicateMapping.xml");
+      myMapper = new DozerBeanMapper(mappingFiles);
+
+      myMapper.map(new net.sf.dozer.util.mapping.vo.SuperSuperSuperClass(),
+          net.sf.dozer.util.mapping.vo.SuperSuperSuperClassPrime.class);
+      fail("should have thrown exception");
+    } catch (Exception e) {
+      assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
+    }
+  }
+
   public void testCustomBeanFactory() throws Exception {
     // -----------------------------------------------------------
     // Test that java beans get created with explicitly specified
     // custom bean factory
     // -----------------------------------------------------------
 
-    List mappingFiles = new ArrayList();
-    mappingFiles.add("customfactorymapping.xml");
-    MapperIF mapper = getNewMapper((String[]) mappingFiles.toArray(new String[0]));
+    MapperIF mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
 
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
-        TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
 
     // The following asserts will verify that the ClassMap beanFactory attr gets applied to both classes
@@ -151,38 +188,21 @@ public class DozerBeanMapperTest extends DozerTestBase {
     assertEquals("testName", car.getName());
   }
 
-  public void testDetectDuplicateMapping() throws Exception {
-    MapperIF myMapper = null;
-    try {
-
-      List mappingFiles = new ArrayList();
-      mappingFiles.add("duplicateMapping.xml");
-      myMapper = new DozerBeanMapper(mappingFiles);
-
-      myMapper.map(new net.sf.dozer.util.mapping.vo.SuperSuperSuperClass(),
-          net.sf.dozer.util.mapping.vo.SuperSuperSuperClassPrime.class);
-      fail("should have thrown exception");
-    } catch (Exception e) {
-      assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
-    }
+  public void testEventListeners() throws Exception {
+    DozerBeanMapper eventMapper = (DozerBeanMapper) ApplicationBeanFactory.getBean("EventMapper");
+    assertNotNull("event listenter list should not be null", eventMapper.getEventListeners());
+    assertEquals("event listenter list should contain 1 element", 1, eventMapper.getEventListeners().size());
+    assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0)
+        .getClass());
+    House src = TestDataFactory.getHouse();
+    HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
   }
-  
+
   private void assertCommon(MapperIF mapper) throws Exception {
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
-        TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
     TestObjectPrime prime2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
 
     assertEquals(prime2, prime);
   }
-
-  public void testEventListeners() throws Exception {
-    //TestObjectPrime top = (TestObjectPrime) eventMapper.map(TestDataFactory.getInputGeneralMappingTestObject(),
-    //    TestObjectPrime.class);
-    MapperIF eventMapper = (MapperIF) ApplicationBeanFactory.getBean("EventMapper");
-    House src = TestDataFactory.getHouse();
-    HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
-    
-  }
-
 }

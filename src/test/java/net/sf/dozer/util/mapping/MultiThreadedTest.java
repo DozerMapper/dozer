@@ -12,7 +12,7 @@ import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClassPrime;
  * @author tierney.matt
  * @author Ozzie Gurkan
  */
-public class MultiThreadedTest extends DozerTestBase {
+public class MultiThreadedTest extends AbstractDozerTest {
   private MapperIF mapper;
 
   public MultiThreadedTest() {
@@ -22,7 +22,7 @@ public class MultiThreadedTest extends DozerTestBase {
   }
 
   /*
-   * See Bug #1550275.  ConcurrentModificationException was being thrown  
+   * See Bug #1550275. ConcurrentModificationException was being thrown
    */
   public void testMultiThreadedMapping() throws Exception {
 
@@ -65,7 +65,7 @@ public class MultiThreadedTest extends DozerTestBase {
   private void mapSomething() {
     TestObject src = TestDataFactory.getInputGeneralMappingTestObject();
     AnotherSubClass src2 = TestDataFactory.getAnotherSubClass();
-    
+
     mapper.map(src, TestObjectPrime.class);
     mapper.map(src2, AnotherSubClassPrime.class);
   }
