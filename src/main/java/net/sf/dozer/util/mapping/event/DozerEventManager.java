@@ -12,27 +12,28 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.event;
 
 import java.util.List;
 
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.util.MapperConstants;
+import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
+ * Internal class that handles dozer events and invokes any public event listeners. Only intended for internal use.
+ * 
  * @author garsombke.franz
- * @author tierney.matt
-*/
+ */
 public class DozerEventManager implements EventManagerIF {
   private final List eventListeners;
-  
+
   public DozerEventManager(List eventListeners) {
     this.eventListeners = eventListeners;
   }
-  
+
   public void fireEvent(DozerEvent event) {
-    //If no listeners were specified, then just return.
+    // If no listeners were specified, then just return.
     if (eventListeners == null) {
       return;
     }
@@ -40,7 +41,7 @@ public class DozerEventManager implements EventManagerIF {
     int size = eventListeners.size();
     for (int i = 0; i < size; i++) {
       DozerEventListener listener = (DozerEventListener) eventListeners.get(i);
-      if(eventType.equals(MapperConstants.MAPPING_STARTED_EVENT)) {
+      if (eventType.equals(MapperConstants.MAPPING_STARTED_EVENT)) {
         listener.mappingStarted(event);
       } else if (eventType.equals(MapperConstants.MAPPING_PRE_WRITING_DEST_VALUE)) {
         listener.preWritingDestinationValue(event);
@@ -49,9 +50,9 @@ public class DozerEventManager implements EventManagerIF {
       } else if (eventType.equals(MapperConstants.MAPPING_FINISHED_EVENT)) {
         listener.mappingFinished(event);
       } else {
-        throw new MappingException("Unsupported event type: " + eventType);
+        MappingUtils.throwMappingException("Unsupported event type: " + eventType);
       }
     }
   }
-  
+
 }

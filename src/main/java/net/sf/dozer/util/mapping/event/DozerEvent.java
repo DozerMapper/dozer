@@ -15,25 +15,22 @@
  */
 package net.sf.dozer.util.mapping.event;
 
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
+ * Public class containing event information.
+ * 
  * @author garsombke.franz
  * 
  */
 public class DozerEvent {
 
   private String type;
-  
   private ClassMap classMap;
-
   private FieldMap fieldMap;
-
   private Object sourceObject;
-
   private Object destinationObject;
-
   private Object destinationValue;
 
   public DozerEvent(String type, ClassMap classMap, FieldMap fieldMap, Object sourceObject, Object destinationObject,
@@ -50,48 +47,24 @@ public class DozerEvent {
     return type;
   }
 
-  public void setType(String type) {
-    this.type = type;
-  }
-
   public ClassMap getClassMap() {
     return classMap;
-  }
-
-  public void setClassMap(ClassMap classMap) {
-    this.classMap = classMap;
   }
 
   public Object getDestinationObject() {
     return destinationObject;
   }
 
-  public void setDestinationObject(Object destinationObject) {
-    this.destinationObject = destinationObject;
-  }
-
   public Object getDestinationValue() {
     return destinationValue;
-  }
-
-  public void setDestinationValue(Object destinationValue) {
-    this.destinationValue = destinationValue;
   }
 
   public FieldMap getFieldMap() {
     return fieldMap;
   }
 
-  public void setFieldMap(FieldMap fieldMap) {
-    this.fieldMap = fieldMap;
-  }
-
   public Object getSourceObject() {
     return sourceObject;
-  }
-
-  public void setSourceObject(Object sourceObject) {
-    this.sourceObject = sourceObject;
   }
 
   public String toString() {

@@ -15,12 +15,20 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class ExcludeFieldMap extends FieldMap {
+
+  public ExcludeFieldMap(ClassMap classMap) {
+    super(classMap);
+  }
 
 }

@@ -15,39 +15,18 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
  * 
  */
 public class GenericFieldMap extends FieldMap {
-  protected boolean isMethodMap = false;
-  protected boolean isCustomMap = false;
-  private String relationshipType;
-  
-  public String getRelationshipType() {
-    return relationshipType;
+  public GenericFieldMap(ClassMap classMap) {
+    super(classMap);
   }
-
-  public void setRelationshipType(String relationshipType) {
-    this.relationshipType = relationshipType;
-  }
-
-  public boolean isMethodMap() {
-    return isMethodMap;
-  }
-
-  public void setMethodMap(boolean isMethodMap) {
-    this.isMethodMap = isMethodMap;
-  }
-
-  public boolean isCustomMap() {
-    return isCustomMap;
-  }
-
-  public void setCustomMap(boolean isCustomMap) {
-    this.isCustomMap = isCustomMap;
-  }
-
 }

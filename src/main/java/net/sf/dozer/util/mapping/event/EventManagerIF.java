@@ -12,15 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.event;
 
 /**
+ * Internal event manager interface. Only intended for internal use.
+ * 
  * @author garsombke.franz
- * @author tierney.matt
-*/
+ */
 public interface EventManagerIF {
-  
+
   public void fireEvent(DozerEvent event);
-  
+
 }

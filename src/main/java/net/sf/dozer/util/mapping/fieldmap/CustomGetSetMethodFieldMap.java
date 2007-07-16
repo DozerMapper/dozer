@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping;
+package net.sf.dozer.util.mapping.fieldmap;
+
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 
 /**
- * Public root interface for performing Dozer mappings from application code.
+ * Only intended for internal use.
  * 
- * @author tierney.matt
  * @author garsombke.franz
+ * @author sullins.ben
+ * @author tierney.matt
+ * 
  */
-public interface MapperIF {
-
-  public Object map(Object source, Class destinationClass) throws MappingException;
-
-  public void map(Object source, Object destination) throws MappingException;
-
-  public Object map(Object source, Class destinationClass, String mapId) throws MappingException;
-
-  public void map(Object source, Object destination, String mapId) throws MappingException;
-
+public class CustomGetSetMethodFieldMap extends FieldMap {
+  public CustomGetSetMethodFieldMap(ClassMap classMap) {
+    super(classMap);
+  }
 }

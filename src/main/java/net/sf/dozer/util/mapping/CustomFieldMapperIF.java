@@ -15,16 +15,22 @@
  */
 package net.sf.dozer.util.mapping;
 
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
-
 /**
+ * Public custom field mapper interface. A custom field mapper should only be used in very rare and unusual cases
+ * because it is invoked for ALL field mappings. For custom mappings of particular fields, using a CustomConverter is a
+ * much better choice.
+ * 
+ * <p>
+ * If a custom field mapper is specified, Dozer will invoke this class when performing all field mappings. If false is
+ * returned from the call to mapField(), then the field will be subsequently mapped by Dozer as normal.
+ * 
  * @author Gerard Toonstra
  */
 public interface CustomFieldMapperIF {
-  
-  public boolean mapField(Object sourceObj, Object destObj, 
-    Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping);
-  
+
+  public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping);
+
 }

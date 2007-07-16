@@ -15,26 +15,30 @@
  */
 package net.sf.dozer.util.mapping.fieldmap;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
  * 
  */
-public class DozerField implements Cloneable {
+public class DozerField {
   private final String type;
-  private final String name;
+  private String name;
   private String dateFormat;
   private String theGetMethod;
   private String theSetMethod;
   private String key;
   private String mapSetMethod;
   private String mapGetMethod;
-  private boolean isAccessible;
+  private boolean accessible;
   private String createMethod;
-  private boolean isIndexed;
-  private int index = -1;    
+  private boolean indexed;
+  private int index = -1;
 
   public DozerField(String name, String type) {
     this.type = type;
@@ -55,10 +59,6 @@ public class DozerField implements Cloneable {
 
   public void setDateFormat(String dateFormat) {
     this.dateFormat = dateFormat;
-  }
-
-  public String toString() {
-    return getName() + " : " + getType();
   }
 
   public String getTheGetMethod() {
@@ -102,11 +102,11 @@ public class DozerField implements Cloneable {
   }
 
   public boolean isAccessible() {
-    return isAccessible;
+    return accessible;
   }
 
   public void setAccessible(boolean isAccessible) {
-    this.isAccessible = isAccessible;
+    this.accessible = isAccessible;
   }
 
   public String getCreateMethod() {
@@ -126,11 +126,26 @@ public class DozerField implements Cloneable {
   }
 
   public boolean isIndexed() {
-    return isIndexed;
+    return indexed;
   }
 
   public void setIndexed(boolean isIndexed) {
-    this.isIndexed = isIndexed;
+    this.indexed = isIndexed;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public boolean isCustomGetterSetterField() {
+    return getTheGetMethod() != null || getTheSetMethod() != null ? true : false;
+  }
+
+  public boolean isMapTypeCustomGetterSetterField() {
+    return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
+  }
+
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 }
