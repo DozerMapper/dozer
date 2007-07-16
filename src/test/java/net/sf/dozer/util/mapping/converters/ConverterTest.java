@@ -17,31 +17,26 @@ package net.sf.dozer.util.mapping.converters;
 
 import java.text.DateFormat;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.util.DateFormatContainer;
 
 /**
  * @author tierney.matt
  */
-public class ConverterTest extends DozerTestBase {
+public class ConverterTest extends AbstractDozerTest {
   /*
-  * See DataConvertionTest for more thorough data conversion unit tests
-  */
+   * See DataConvertionTest for more thorough data conversion unit tests
+   */
   public void testAccessors() throws Exception {
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
-    CalendarConverter cc = new CalendarConverter(null);
-    cc.setDateFormat(dateFormat);
+    CalendarConverter cc = new CalendarConverter(dateFormat);
     assertEquals(dateFormat, cc.getDateFormat());
 
-    DateConverter dc = new DateConverter(null);
-    dc.setDateFormat(dateFormat);
-    assertEquals(dateFormat, dc.getDateFormat());
-
     StringConverter sc = new StringConverter(null);
-    DateFormatContainer dfc = new DateFormatContainer(null, null);
-    sc.setDateFormat(dfc);
-    assertEquals(dfc, sc.getDateFormat());
+    DateFormatContainer dfc = new DateFormatContainer(null);
+    sc.setDateFormatContainer(dfc);
+    assertEquals(dfc, sc.getDateFormatContainer());
   }
 
   public void testInvalidDateInput() throws Exception {
@@ -53,7 +48,7 @@ public class ConverterTest extends DozerTestBase {
     }
 
     try {
-      //no long constructor
+      // no long constructor
       dc = new DateConverter(null);
       dc.convert(String.class, "123");
       fail("should have thrown ConversionException");

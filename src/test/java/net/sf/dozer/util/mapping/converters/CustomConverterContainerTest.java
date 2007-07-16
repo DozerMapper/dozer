@@ -18,12 +18,12 @@ package net.sf.dozer.util.mapping.converters;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
-public class CustomConverterContainerTest extends DozerTestBase {
+public class CustomConverterContainerTest extends AbstractDozerTest {
 
   public void testSetConverters() throws Exception {
     CustomConverterContainer ccc = new CustomConverterContainer();
@@ -38,4 +38,3 @@ public class CustomConverterContainerTest extends DozerTestBase {
   }
 
 }
-
