@@ -19,37 +19,45 @@ package net.sf.dozer.util.mapping.vo;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class CustomDoubleObject extends BaseTestObject implements CustomDoubleObjectIF {
-    private double theDouble;
-    private String name;
+  private double theDouble;
+  private String name;
 
-    /* (non-Javadoc)
-     * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#getTheDouble()
-     */
-    public double getTheDouble() {
-        return theDouble;
-    }
+  /*
+   * (non-Javadoc)
+   * 
+   * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#getTheDouble()
+   */
+  public double getTheDouble() {
+    return theDouble;
+  }
 
-    /* (non-Javadoc)
-     * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#setTheDouble(double)
-     */
-    public void setTheDouble(double theDouble) {
-        this.theDouble = theDouble;
-    }
+  /*
+   * (non-Javadoc)
+   * 
+   * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#setTheDouble(double)
+   */
+  public void setTheDouble(double theDouble) {
+    this.theDouble = theDouble;
+  }
 
-    /* (non-Javadoc)
-     * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#getName()
-     */
-    public String getName() {
-      return name;
-    }
+  /*
+   * (non-Javadoc)
+   * 
+   * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#getName()
+   */
+  public String getName() {
+    return name;
+  }
 
-    /* (non-Javadoc)
-     * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#setName(java.lang.String)
-     */
-    public void setName(String name) {
-      this.name = name;
-    }
- }
+  /*
+   * (non-Javadoc)
+   * 
+   * @see net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF#setName(java.lang.String)
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+}

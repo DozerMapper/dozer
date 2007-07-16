@@ -21,13 +21,13 @@ package net.sf.dozer.util.mapping.vo;
  * 
  */
 public class D {
-    private String value;
+  private String value;
 
-    public String getValue() {
-        return value;
-    }
+  public String getValue() {
+    return value;
+  }
 
-    public void setValue(String d) {
-        this.value = d;
-    }
+  public void setValue(String d) {
+    this.value = d;
+  }
 }

@@ -15,34 +15,27 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
+import java.util.HashMap;
+import java.util.Map;
 
-import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 /**
  * @author tierney.matt
  */
 public class FieldValue extends BaseTestObject {
-  private String key;
-  private Object value;
-  public FieldValue() {}
+  private Map values = new HashMap();
+  
   public FieldValue(String value) {
-    this.value = value;
+    values.put("theKey", value);
   }
   
-  public String getKey() {
-    return key;
+  public FieldValue() {
   }
-  public void setKey(String key) {
-    this.key = key;
-  }
-  public Object getValue() {
-    return value;
-  }
-  public void setValue(Object value) {
-    this.value = value;
+
+  public Object getValue(String key) {
+    return values.get(key);
   }
   public void putValue(String key, Object value) {
-    this.key = key;
-    this.value = value;
+    values.put(key, value);
   }
 }
