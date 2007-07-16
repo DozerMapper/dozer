@@ -17,12 +17,14 @@
                date-format   The string format of Date fields.  This is used for field mapping between Strings and Dates
                   wildcard   Inicates whether Dozer automatically map fields that have the same name.  
                              This will typically be set to "true".  The default value is "true"
+              trim-strings   Inicates whether Dozer automatically trims String values prior to setting the destination value.  
+                             The default value is "false"
               bean-factory   The factory class to create data objects.  This typically will not be specified.  
                              By default Dozer constructs new instances of data objects by invoking the no-arg constructor
          custom-converters   The custom converters to be registered with Dozer.
         copy-by-references   Indicates which class types should always be copied by reference
 -->
-<!ELEMENT configuration ( stop-on-errors?, date-format?, wildcard?, bean-factory?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
+<!ELEMENT configuration ( stop-on-errors?, date-format?, wildcard?, trim-strings?, bean-factory?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
 
 
 <!--
@@ -39,6 +41,8 @@
                              If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
                              The default value is "true"
                   wildcard   Inicates whether Dozer automatically map fields that have the same name.  The default value is "true"
+              trim-strings   Inicates whether Dozer automatically trims String values prior to setting the destination value.  
+                             The default value is "false"
                   map-null   Indicates whether null values are mapped.  The default value is "true"
           map-empty-string   Indicates whether empty string values are mapped. The default value is "true"
               bean-factory   The factory class to create data objects.  This typically will not be specified.  
@@ -54,6 +58,7 @@
 <!ATTLIST mapping date-format CDATA #IMPLIED >
 <!ATTLIST mapping stop-on-errors CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST mapping wildcard CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping trim-strings CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST mapping map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST mapping map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST mapping bean-factory CDATA #IMPLIED>
@@ -124,7 +129,7 @@
                              The default value is "false"
           custom-converter   Indicates that a specific custom converter should be used for mapping this field.  Typically this will not be specified.
 -->
-<!ELEMENT field ( a, b ,a-hint?, b-hint? ) >
+<!ELEMENT field ( a, b ,a-hint?, b-hint?, a-deep-index-hint?, b-deep-index-hint? ) >
 <!ATTLIST field relationship-type (cumulative  | non-cumulative  ) "cumulative" >
 <!ATTLIST field type (one-way | bi-directional) "bi-directional" >
 <!ATTLIST field map-id CDATA #IMPLIED>
@@ -188,11 +193,14 @@
 -->
 <!ELEMENT a-hint ( #PCDATA ) >
 <!ELEMENT b-hint ( #PCDATA ) >
+<!ELEMENT a-deep-index-hint ( #PCDATA ) >
+<!ELEMENT b-deep-index-hint ( #PCDATA ) >
 <!ELEMENT stop-on-errors ( #PCDATA ) >
 <!ELEMENT date-format ( #PCDATA ) >
 <!ELEMENT map-null ( #PCDATA ) >
 <!ELEMENT map-empty-string ( #PCDATA ) >
 <!ELEMENT wildcard ( #PCDATA ) >
+<!ELEMENT trim-strings ( #PCDATA ) >
 <!ELEMENT bean-factory ( #PCDATA ) >
 <!ELEMENT custom-converters ( converter+ ) >
 <!ELEMENT copy-by-references ( copy-by-reference+ ) >
