@@ -22,16 +22,16 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
 /**
  * @author Dave B. (dsbuk)
  */
-public class MyClassB extends BaseTestObject { 
- 
-  private List aStringList; 
- 
-  public final List getAStringList() { 
-    return aStringList; 
-  } 
- 
-  public final void setAStringList(List pStringList) { 
-    aStringList = pStringList; 
-  } 
+public class MyClassB extends BaseTestObject {
 
-} 
+  private List aStringList;
+
+  public final List getAStringList() {
+    return aStringList;
+  }
+
+  public final void setAStringList(List pStringList) {
+    aStringList = pStringList;
+  }
+
+}

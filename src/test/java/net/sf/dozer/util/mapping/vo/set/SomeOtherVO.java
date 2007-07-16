@@ -34,5 +34,5 @@ public class SomeOtherVO extends BaseTestObject {
   public void setOtherField4(Date otherField4) {
     this.otherField4 = otherField4;
   }
-  
+
 }

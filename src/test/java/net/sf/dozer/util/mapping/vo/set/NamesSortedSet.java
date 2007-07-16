@@ -12,14 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.vo.set;
 
 import java.util.SortedSet;
 
 /**
  * @author Peter Monks
- *
+ * 
  */
 public class NamesSortedSet {
   private SortedSet names = null;

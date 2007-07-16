@@ -1,6 +1,5 @@
 package net.sf.dozer.util.mapping.vo.set;
 
-import java.util.Date;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
@@ -24,26 +23,30 @@ public class SomeVO extends BaseTestObject {
     this.field2 = field2;
   }
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (!super.equals(obj))
+    }
+    if (!super.equals(obj)) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     final SomeVO other = (SomeVO) obj;
     if (field2 == null) {
-      if (other.field2 != null)
+      if (other.field2 != null) {
         return false;
-    } else if (!field2.equals(other.field2))
+      }
+    } else if (!field2.equals(other.field2)) {
       return false;
+    }
     return true;
   }
 
   public int hashCode() {
     final int PRIME = 31;
     int result = super.hashCode();
-    result = PRIME * result
-        + ((field2 == null) ? 0 : field2.hashCode());
+    result = PRIME * result + ((field2 == null) ? 0 : field2.hashCode());
     return result;
   }
 }

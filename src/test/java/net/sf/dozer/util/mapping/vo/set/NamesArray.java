@@ -17,7 +17,7 @@ package net.sf.dozer.util.mapping.vo.set;
 
 /**
  * @author Peter Monks
- *
+ * 
  */
 public class NamesArray {
   private String[] names = null;
