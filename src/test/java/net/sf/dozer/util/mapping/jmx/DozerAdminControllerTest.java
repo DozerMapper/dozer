@@ -15,16 +15,16 @@
  */
 package net.sf.dozer.util.mapping.jmx;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 
 /**
  * @author tierney.matt
  */
-public class DozerAdminControllerTest extends DozerTestBase {
-  
+public class DozerAdminControllerTest extends AbstractDozerTest {
+
   private DozerAdminController controller;
-  
+
   protected void setUp() throws Exception {
     super.setUp();
     controller = new DozerAdminController();
@@ -35,9 +35,9 @@ public class DozerAdminControllerTest extends DozerTestBase {
     controller.setStatisticsEnabled(!isStatisticsEnabled);
     assertEquals("statistics enabled value was not updated", !isStatisticsEnabled, controller.isStatisticsEnabled());
   }
-  
+
   public void testGetCurrentVersion() throws Exception {
     assertEquals("incorrect current version", MapperConstants.CURRENT_VERSION, controller.getCurrentVersion());
   }
-  
+
 }

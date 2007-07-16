@@ -15,9 +15,9 @@
  */
 package net.sf.dozer.util.mapping.factories;
 
-import net.sf.dozer.util.mapping.BeanFactoryIF;
-
 import java.lang.reflect.Method;
+
+import net.sf.dozer.util.mapping.BeanFactoryIF;
 
 /**
  * @author tierney.matt
@@ -26,10 +26,10 @@ public abstract class BaseSampleBeanFactory implements BeanFactoryIF {
 
   protected static void setCreatedByFactoryName(Object target, String name) {
     try {
-      Method method = target.getClass().getMethod("setCreatedByFactoryName", new Class[] {String.class});
-      method.invoke(target, new Object[]{name});
+      Method method = target.getClass().getMethod("setCreatedByFactoryName", new Class[] { String.class });
+      method.invoke(target, new Object[] { name });
     } catch (Exception e) {
-      //this object is only used for unit testing so do a catch all for ease of use
+      // this object is only used for unit testing so do a catch all for ease of use
     }
   }
 }

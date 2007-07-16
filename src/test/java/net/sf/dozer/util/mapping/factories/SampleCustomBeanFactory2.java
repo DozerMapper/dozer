@@ -15,8 +15,8 @@
  */
 package net.sf.dozer.util.mapping.factories;
 
-import net.sf.dozer.util.mapping.vo.InsideTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
+import net.sf.dozer.util.mapping.vo.InsideTestObjectPrime;
 
 /**
  * @author tierney.matt
@@ -24,26 +24,25 @@ import net.sf.dozer.util.mapping.vo.InsideTestObject;
 public class SampleCustomBeanFactory2 extends BaseSampleBeanFactory {
 
   public Object createBean(Object srcObj, Class srcObjClass, String id) {
-    //example of using all input objects.  These params are passed in from the
-    //dozer mapping processor.
+    // example of using all input objects. These params are passed in from the
+    // dozer mapping processor.
 
     if (!id.equals("someBeanId")) {
       throw new IllegalArgumentException("Unsupported bean id: " + id);
     }
 
     if (srcObj == null || srcObjClass == null) {
-      throw new IllegalArgumentException("Source Object and Source Object Class params" +
-              " should have been provided by the Dozer mapping engine");
+      throw new IllegalArgumentException("Source Object and Source Object Class params"
+          + " should have been provided by the Dozer mapping engine");
     }
 
     InsideTestObjectPrime result = new InsideTestObjectPrime();
     result.setLabelPrime(((InsideTestObject) srcObj).getLabel());
-    //Setting the following field so that we have something
-    //to assert on that indicates it was created by the factory
+    // Setting the following field so that we have something
+    // to assert on that indicates it was created by the factory
     setCreatedByFactoryName(result, SampleCustomBeanFactory2.class.getName());
 
     return result;
   }
-
 
 }

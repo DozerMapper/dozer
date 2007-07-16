@@ -21,21 +21,21 @@ import org.apache.commons.logging.LogFactory;
 public class EventTestListener implements DozerEventListener {
 
   private static final Log log = LogFactory.getLog(EventTestListener.class);
-  
+
   public void mappingStarted(DozerEvent event) {
-    log.debug("mappingStarted Called with:" + event.getClassMap().getDestClass().getClassToMap());
+    log.debug("mappingStarted Called with:" + event.getClassMap().getDestClassToMap());
   }
 
   public void preWritingDestinationValue(DozerEvent event) {
-    log.debug("preWritingDestinationValue Called with:" + event.getClassMap().getDestClass().getClassToMap());
+    log.debug("preWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
   }
 
   public void postWritingDestinationValue(DozerEvent event) {
-    log.debug("postWritingDestinationValue Called with:" + event.getClassMap().getDestClass().getClassToMap());
+    log.debug("postWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
   }
 
   public void mappingFinished(DozerEvent event) {
-    log.debug("mappingFinished Called with:" + event.getClassMap().getDestClass().getClassToMap());
+    log.debug("mappingFinished Called with:" + event.getClassMap().getDestClassToMap());
   }
 
 }
