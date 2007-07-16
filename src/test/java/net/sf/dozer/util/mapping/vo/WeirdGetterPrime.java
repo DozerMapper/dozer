@@ -15,31 +15,31 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
-public class WeirdGetterPrime extends BaseTestObject  {
-    private String value;
-    private String wildValue;
-    
-    public WeirdGetterPrime() {}
+public class WeirdGetterPrime extends BaseTestObject {
+  private String value;
+  private String wildValue;
 
-    public String getValue() {
-        return value;
-    }
+  public WeirdGetterPrime() {
+  }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-    public String getWildValue() {
-        return wildValue;
-    }
+  public String getValue() {
+    return value;
+  }
 
-    public void setWildValue(String wildValue) {
-        this.wildValue = wildValue;
-    }
+  public void setValue(String value) {
+    this.value = value;
+  }
+  public String getWildValue() {
+    return wildValue;
+  }
+
+  public void setWildValue(String wildValue) {
+    this.wildValue = wildValue;
+  }
 }
