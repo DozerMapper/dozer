@@ -27,6 +27,9 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
+ * Internal class that provides an interface to a single cache. Holds all of the cache entries for the cache. Only
+ * intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class Cache {
@@ -42,7 +45,7 @@ public class Cache {
     this.maximumSize = maximumSize;
     this.cacheMap = new CacheLinkedHashMap();
   }
-  
+
   public void clear() {
     cacheMap.clear();
   }
@@ -73,7 +76,7 @@ public class Cache {
     }
     return result;
   }
-  
+
   public Collection getEntries() {
     return cacheMap.values();
   }
@@ -85,15 +88,11 @@ public class Cache {
   public int getSize() {
     return cacheMap.size();
   }
-  
+
   public long getMaxSize() {
     return maximumSize;
   }
-  
-  public void setMaxSize(long maximumSize) {
-    this.maximumSize = maximumSize;
-  }
-  
+
   public long getHitCount() {
     return hitCount;
   }
@@ -107,8 +106,7 @@ public class Cache {
   }
 
   private class CacheLinkedHashMap extends LinkedMap {
-    // Order the map by which its entries were last accessed, from least-recently accessed to most-recently
-    // (access-order)
+    // Order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
     public CacheLinkedHashMap() {
       super(100, 0.75F);
     }

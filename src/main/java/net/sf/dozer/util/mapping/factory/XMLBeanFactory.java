@@ -18,8 +18,12 @@ package net.sf.dozer.util.mapping.factory;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
-import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.util.MappingUtils;
+import net.sf.dozer.util.mapping.util.ReflectionUtils;
+
 /**
+ * Public custom bean factory that can be used by applition code when mapping XMLBean data objects
+ * 
  * @author garsombke.franz
  */
 public class XMLBeanFactory implements BeanFactoryIF {
@@ -37,26 +41,25 @@ public class XMLBeanFactory implements BeanFactoryIF {
    */
   public Object createBean(Object srcObj, Class srcObjClass, String beanId) {
     Object result = null;
-    try {
-      Class destClass;
-      destClass = Class.forName(beanId);
-      Class[] innerClasses = destClass.getClasses();
-      Class factory = null;
-      for (int i = 0; i < innerClasses.length; i++) {
-        if (innerClasses[i].getName().endsWith("Factory")) {
-          factory = innerClasses[i];
-        }
+    Class destClass;
+    destClass = MappingUtils.loadClass(beanId);
+    Class[] innerClasses = destClass.getClasses();
+    Class factory = null;
+    for (int i = 0; i < innerClasses.length; i++) {
+      if (innerClasses[i].getName().endsWith("Factory")) {
+        factory = innerClasses[i];
       }
-      if (factory == null) {
-        throw new MappingException("Factory class of Bean of type " + beanId + " not found.");
-      }
-      Method newInstance = factory.getMethod("newInstance", emptyArglist);
-      result = newInstance.invoke(null, emptyArglist);
-    } catch (ClassNotFoundException e) {
-      throw new MappingException("Bean of type " + beanId + " not found.", e);
-    } catch (Exception e) {
-      throw new MappingException(e);
     }
+    if (factory == null) {
+      MappingUtils.throwMappingException("Factory class of Bean of type " + beanId + " not found.");
+    }
+    Method newInstanceMethod = null;
+    try {
+      newInstanceMethod = ReflectionUtils.getMethod(factory, "newInstance", emptyArglist);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    result = ReflectionUtils.invoke(newInstanceMethod, null, emptyArglist);
     return result;
   }
 }

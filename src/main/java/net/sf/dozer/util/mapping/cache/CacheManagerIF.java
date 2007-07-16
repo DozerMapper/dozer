@@ -12,17 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.cache;
 
 import java.util.Set;
 
 /**
+ * Internal interface for managing caches. Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public interface CacheManagerIF {
   public void clearAllEntries();
-  public Set getCaches();  
+  public Set getCaches();
   public Cache getCache(String cacheName);
   public Set getCacheNames();
   public void addCache(String cacheName, long maximumSize);
