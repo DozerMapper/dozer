@@ -21,8 +21,8 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.cache.CacheManagerIF;
 import net.sf.dozer.util.mapping.cache.DozerCacheManager;
+import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
 import net.sf.dozer.util.mapping.interceptor.StatisticsInterceptor;
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
@@ -37,21 +37,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *  Mapper Implementation.  This should be used/defined as a singleton within
- * your application.  This class perfoms several one time initializations and loads
- * the custom xml mappings, so you will not want to create many instances of it for performance reasons.
- * Typically a system will only have one DozerBeanMapper instance per VM.
- * If you are using an IOC framework(i.e Spring), define the MapperIF as singleton="true". 
- * If you are not using an IOC framework, a DozerBeanMapperSingletonWrapper convenience class 
- * has been provided in the Dozer jar. 
- *
+ * Public Dozer MapperIF implementation. This should be used/defined as a singleton within your application. This class
+ * perfoms several one time initializations and loads the custom xml mappings, so you will not want to create many
+ * instances of it for performance reasons. Typically a system will only have one DozerBeanMapper instance per VM. If
+ * you are using an IOC framework(i.e Spring), define the MapperIF as singleton="true". If you are not using an IOC
+ * framework, a DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
+ * 
  * 
  * @author tierney.matt
+ * @author garsombke.franz
  */
 public class DozerBeanMapper implements MapperIF {
 
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
-  
+  private static final StatisticsManagerIF statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+
   static {
     DozerInitializer.init();
   }
@@ -69,14 +69,8 @@ public class DozerBeanMapper implements MapperIF {
    */
   private Map customMappings;
   private Configuration globalConfiguration;
-  //There are no global caches.  Caches are per bean mapper instance
-  private final CacheManagerIF cacheManager = DozerCacheManager.createNew();
-  private final MappingUtils mappingUtils = new MappingUtils();
-  
-  /*
-   * Not accessible for injection.  Global
-   */
-  private static final StatisticsManagerIF statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+  // There are no global caches. Caches are per bean mapper instance
+  private final CacheManagerIF cacheManager = new DozerCacheManager();
 
   public DozerBeanMapper() {
     this(null);
@@ -87,20 +81,20 @@ public class DozerBeanMapper implements MapperIF {
     init();
   }
 
-  public void map(Object sourceObj, Object destObj, String mapId) throws MappingException {
-    getMappingProcessor().map(sourceObj, destObj, mapId);
+  public void map(Object source, Object destination, String mapId) throws MappingException {
+    getMappingProcessor().map(source, destination, mapId);
   }
 
-  public Object map(Object sourceObj, Class destClass, String mapId) throws MappingException {
-    return getMappingProcessor().map(sourceObj, destClass, mapId);
+  public Object map(Object source, Class destinationClass, String mapId) throws MappingException {
+    return getMappingProcessor().map(source, destinationClass, mapId);
   }
 
-  public Object map(Object sourceObj, Class destClass) throws MappingException {
-    return getMappingProcessor().map(sourceObj, destClass);
+  public Object map(Object source, Class destinationClass) throws MappingException {
+    return getMappingProcessor().map(source, destinationClass);
   }
 
-  public void map(Object sourceObj, Object destObj) throws MappingException {
-    getMappingProcessor().map(sourceObj, destObj);
+  public void map(Object source, Object destination) throws MappingException {
+    getMappingProcessor().map(source, destination);
   }
 
   public List getMappingFiles() {
@@ -112,23 +106,20 @@ public class DozerBeanMapper implements MapperIF {
   }
 
   public void setFactories(Map factories) {
-    mappingUtils.addFactories(factories);
+    MappingUtils.storedFactories.putAll(factories);
   }
 
   public void setCustomConverters(List customConverters) {
     this.customConverters = customConverters;
   }
 
-  public List getCustomConverters() {
-    return customConverters;
-  }
-
   private void init() {
     InitLogger.log(log, "Initializing a new instance of the dozer bean mapper.");
-    
+
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
-    cacheManager.addCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE, GlobalSettings.getInstance().getConverterByDestTypeCacheMaxSize());
+    cacheManager.addCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE, GlobalSettings.getInstance()
+        .getConverterByDestTypeCacheMaxSize());
     cacheManager.addCache(MapperConstants.SUPER_TYPE_CHECK_CACHE, GlobalSettings.getInstance().getSuperTypesCacheMaxSize());
 
     // stats
@@ -139,20 +130,19 @@ public class DozerBeanMapper implements MapperIF {
     if (customMappings == null) {
       loadCustomMappings();
     }
-    MapperIF processor = new MappingProcessor(customMappings, globalConfiguration, 
-        cacheManager, statsMgr, customConverters, getEventListeners(), getCustomFieldMapper());
+    MapperIF processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
+        getEventListeners(), getCustomFieldMapper());
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
-      processor = (MapperIF) Proxy.newProxyInstance(processor.getClass().getClassLoader(), processor.getClass()
-          .getInterfaces(), new StatisticsInterceptor(processor, statsMgr));
+      processor = (MapperIF) Proxy.newProxyInstance(processor.getClass().getClassLoader(), processor.getClass().getInterfaces(),
+          new StatisticsInterceptor(processor, statsMgr));
     }
 
     return processor;
   }
-  
+
   private synchronized void loadCustomMappings() {
-    //loadCustomMappings() has to be called outside of init() method because the custom converters are injected.
     if (this.customMappings == null) {
       CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
       LoadMappingsResult loadMappingsResult = customMappingsLoader.load(mappingFiles);

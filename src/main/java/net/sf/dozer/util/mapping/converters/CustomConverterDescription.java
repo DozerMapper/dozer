@@ -15,7 +15,12 @@
  */
 package net.sf.dozer.util.mapping.converters;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
+ * Internal class that contains the custom converter definition information. Only intended for internal use.
+ * 
  * @author sullins.ben
  */
 public class CustomConverterDescription {
@@ -47,4 +52,7 @@ public class CustomConverterDescription {
     this.type = type;
   }
 
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 }

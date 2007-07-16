@@ -15,26 +15,35 @@
  */
 package net.sf.dozer.util.mapping;
 
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
-
 /**
+ * Runtime exception thrown by Dozer. RuntimeExceptions thrown from custom code called by Dozer during mapping (eg.
+ * custom converters) are not wrapped with MappingException.
+ * 
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
  * 
  */
-public class MappingException extends DozerRuntimeException {
-
-  public MappingException(String arg0, Throwable cause) {
-    super(arg0, cause);
-  }
+public class MappingException extends RuntimeException {
+  private Throwable cause;
 
   public MappingException(String arg0) {
     super(arg0);
   }
 
-  public MappingException(Throwable cause) {
-    super(cause);
+  public MappingException(String arg0, Throwable cause) {
+    // For JDK 1.3 RuntimeException - it does not support a Throwable in the constructor
+    super(arg0);
+    this.cause = cause;
   }
-  
+
+  public MappingException(Throwable cause) {
+    // For JDK 1.3 RuntimeException - it does not support a Throwable in the constructor
+    super(cause.toString());
+    this.cause = cause;
+  }
+
+  public Throwable getCause() {
+    return cause;
+  }
 }

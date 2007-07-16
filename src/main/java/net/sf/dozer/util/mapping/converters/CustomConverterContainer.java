@@ -22,7 +22,12 @@ import net.sf.dozer.util.mapping.cache.Cache;
 import net.sf.dozer.util.mapping.cache.CacheEntry;
 import net.sf.dozer.util.mapping.cache.CacheKeyFactory;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
+ * Internal class for holding custom converter definitions. Only intended for internal use.
+ * 
  * @author sullins.ben
  */
 public class CustomConverterContainer {
@@ -33,34 +38,37 @@ public class CustomConverterContainer {
     return converters;
   }
 
-  public void setConverters(List in) {
-    this.converters = in;
+  public void setConverters(List converters) {
+    this.converters = converters;
   }
 
   public void addConverter(CustomConverterDescription converter) {
     getConverters().add(converter);
   }
 
-  public Class getCustomConverter(Class pSourceClass, Class pDestinationClass, Cache converterByDestTypeCache)
-      throws ClassNotFoundException {
-    //If no converters have been specified, no point in continuing.  Just return.
+  public Class getCustomConverter(Class srcClass, Class destClass, Cache converterByDestTypeCache) {
+    // If no converters have been specified, no point in continuing. Just return.
     if (converters == null || converters.size() < 1) {
       return null;
     }
 
     // Let's see if the incoming class is a primitive:
-    Class src = pSourceClass;
-    Class c = getWrapper(pSourceClass);
-    if (c != null) {
-      src = c;
+    Class src = srcClass;
+    if (srcClass.isPrimitive()) {
+      Class c = getWrapper(srcClass);
+      if (c != null) {
+        src = c;
+      }
     }
-    
-    Class dest = pDestinationClass;
-    c = getWrapper(pDestinationClass);
-    if (c != null) {
-      dest = c;
-    }    
-    
+
+    Class dest = destClass;
+    if (dest.isPrimitive()) {
+      Class c = getWrapper(destClass);
+      if (c != null) {
+        dest = c;
+      }
+    }
+
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(new Object[] { dest, src });
     CacheEntry cacheEntry = converterByDestTypeCache.get(cacheKey);
@@ -68,7 +76,7 @@ public class CustomConverterContainer {
       return (Class) cacheEntry.getValue();
     }
 
-    // Otherwise, loop through custom converters and look for a match.  Also, store the result in the cache
+    // Otherwise, loop through custom converters and look for a match. Also, store the result in the cache
     Class result = null;
     long size = converters.size();
     for (int i = 0; i < size; i++) {
@@ -78,8 +86,7 @@ public class CustomConverterContainer {
 
       // we check to see if the destination class is the same as classA defined in the converter mapping xml.
       // we next check if the source class is the same as classA defined in the converter mapping xml.
-      // we also to check to see if it is assignable to either. We then perform these checks in the other direction for
-      // classB
+      // we also to check to see if it is assignable to either. We then perform these checks in the other direction for classB
       if ((classA.isAssignableFrom(dest) && classB.isAssignableFrom(src))
           || (classA.isAssignableFrom(src) && classB.isAssignableFrom(dest))) {
         result = customConverter.getType();
@@ -106,5 +113,9 @@ public class CustomConverterContainer {
       clazz = Float.class;
     }
     return clazz;
+  }
+
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 }

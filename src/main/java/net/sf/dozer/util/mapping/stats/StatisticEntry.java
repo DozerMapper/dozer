@@ -12,10 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.stats;
-
-import java.io.Serializable;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -23,9 +21,12 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
+ * Internal class that represents one entry in the statistic. Holds the statistic value and unique key for lookup. Only
+ * intended for internal use.
+ * 
  * @author tierney.matt
  */
-public class StatisticEntry implements Serializable {
+public class StatisticEntry {
   private final Object key;
   private long value = 0;
 
@@ -42,16 +43,20 @@ public class StatisticEntry implements Serializable {
   }
 
   public void increment() {
-	  increment(1);
+    increment(1);
   }
 
   public synchronized void increment(long value) {
-  	this.value += value;
+    this.value += value;
   }
-  
+
   public boolean equals(Object object) {
-    if ( (this == object ) ) { return true; }
-    if ( !(object instanceof StatisticEntry) ) { return false; }
+    if ((this == object)) {
+      return true;
+    }
+    if (!(object instanceof StatisticEntry)) {
+      return false;
+    }
     StatisticEntry entry = (StatisticEntry) object;
     return new EqualsBuilder().append(this.getKey(), entry.getKey()).isEquals();
   }
@@ -59,7 +64,7 @@ public class StatisticEntry implements Serializable {
   public int hashCode() {
     return new HashCodeBuilder().append(getKey()).toHashCode();
   }
-  
+
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

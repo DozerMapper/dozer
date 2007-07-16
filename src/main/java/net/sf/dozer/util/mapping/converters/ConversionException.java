@@ -18,6 +18,8 @@ package net.sf.dozer.util.mapping.converters;
 import net.sf.dozer.util.mapping.MappingException;
 
 /**
+ * Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class ConversionException extends MappingException {
@@ -30,4 +32,3 @@ public class ConversionException extends MappingException {
     super(throwable);
   }
 }
-

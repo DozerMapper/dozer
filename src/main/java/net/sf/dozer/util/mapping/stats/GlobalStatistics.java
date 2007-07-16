@@ -12,18 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.stats;
 
-
 /**
+ * Internal singleton class that holds global statistics. Only intended for internal use.
+ * 
  * @author tierney.matt
-*/
+ */
 public final class GlobalStatistics {
   private static GlobalStatistics singleton = new GlobalStatistics();
-  
+
   private final StatisticsManagerIF statsMgr;
-  
+
   private GlobalStatistics() {
     statsMgr = new StatisticsManager();
   }
@@ -31,7 +32,7 @@ public final class GlobalStatistics {
   public static GlobalStatistics getInstance() {
     return singleton;
   }
-  
+
   public StatisticsManagerIF getStatsMgr() {
     return statsMgr;
   }

@@ -23,13 +23,14 @@ import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
 import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
- /* 
+/**
+ * Internal dynamic proxy used for collecting mapping statisics. Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class StatisticsInterceptor implements InvocationHandler {
   private final Object delegate;
   private final StatisticsManagerIF statsMgr;
-  private final MappingUtils mappingUtils = new MappingUtils();
 
   public StatisticsInterceptor(Object delegate, StatisticsManagerIF statsMgr) {
     this.delegate = delegate;
@@ -51,7 +52,7 @@ public class StatisticsInterceptor implements InvocationHandler {
       Throwable ex = e.getTargetException();
 
       statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_COUNT);
-      Throwable rootCause = mappingUtils.getRootCause(ex);
+      Throwable rootCause = MappingUtils.getRootCause(ex);
       statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_EX_TYPE_COUNT, rootCause.getClass());
       incrementClassMappingFailureTypeStat(args);
       throw ex;
@@ -59,8 +60,7 @@ public class StatisticsInterceptor implements InvocationHandler {
   }
 
   private void incrementClassMappingFailureTypeStat(Object[] args) {
-    // Determine src and dest class name. The combination of src and dest
-    // class name will be used for the statistic entry key.
+    // Determine src and dest class name. The combination of src and dest class name will be used for the statistic entry key.
     String srcClassName = null;
     if (args[0] != null) {
       srcClassName = args[0].getClass().getName();
@@ -76,4 +76,3 @@ public class StatisticsInterceptor implements InvocationHandler {
     statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_TYPE_COUNT, srcClassName + "-->" + destClassName);
   }
 }
-

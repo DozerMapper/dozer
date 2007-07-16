@@ -16,12 +16,12 @@
 package net.sf.dozer.util.mapping.jmx;
 
 /**
+ * Public Dozer JMX Bean interface
+ * 
  * @author tierney.matt
  */
 public interface DozerAdminControllerMBean {
   public String getCurrentVersion();
-  public void clearGlobalCaches();
-  public void logGlobalCaches();
-  public boolean isStatisticsEnabled();  
+  public boolean isStatisticsEnabled();
   public void setStatisticsEnabled(boolean statisticsEnabled);
 }

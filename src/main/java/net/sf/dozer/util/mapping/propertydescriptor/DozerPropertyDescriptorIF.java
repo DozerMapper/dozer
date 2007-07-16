@@ -15,22 +15,20 @@
  */
 package net.sf.dozer.util.mapping.propertydescriptor;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Hint;
-
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
+ * Internal property descriptor interface. Only intended for internal use.  Dozer property descriptors are used
+ * to read and write the actual field mapping values on the target objects.
+ * 
  * @author garsombke.franz
  */
 public interface DozerPropertyDescriptorIF {
 
-  public Class getPropertyType() throws NoSuchFieldException, NoSuchMethodException;
+  public Class getPropertyType();
   
-  public void setPropertyValue (Object bean, Object value, Hint hint, ClassMap classMap) throws NoSuchFieldException, NoSuchMethodException;
-  
-  public Object getPropertyValue(Object bean) throws NoSuchFieldException, NoSuchMethodException, IllegalAccessException, InvocationTargetException;
-  
+  public Object getPropertyValue(Object bean);
+
+  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap);
+
 }

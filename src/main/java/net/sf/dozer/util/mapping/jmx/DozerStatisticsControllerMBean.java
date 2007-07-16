@@ -20,6 +20,8 @@ import java.util.Set;
 import net.sf.dozer.util.mapping.stats.StatisticsIF;
 
 /**
+ * Public Dozer JMX Bean interface
+ * 
  * @author tierney.matt
  */
 public interface DozerStatisticsControllerMBean extends StatisticsIF {
@@ -28,7 +30,7 @@ public interface DozerStatisticsControllerMBean extends StatisticsIF {
   public long getMappingFailureCount();
   public Set getMappingFailureExceptionTypes();
   public Set getMappingFailureTypes();
-  public long getMappingOverallTime();  
+  public long getMappingOverallTime();
   public Set getCacheHitCount();
   public Set getCacheMissCount();
   public long getMapperInstancesCount();

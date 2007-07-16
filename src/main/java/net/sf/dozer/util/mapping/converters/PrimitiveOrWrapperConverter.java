@@ -34,6 +34,8 @@ import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 
 /**
+ * Internal class for converting between wrapper types(including primitives). Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  * @author benson.matt
@@ -42,11 +44,12 @@ public class PrimitiveOrWrapperConverter {
   private static final Map PRIMITIVE_TYPE_MAP = new HashMap();
   private static final Map CONVERTER_MAP = new HashMap();
   private static final Converter DEFAULT_CONVERTER = new StringConstructorConverter();
-  
+
   static {
     // Set up PRIMITIVE_TYPE_MAP:
     Class[] primitives = { Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
-    Class[] wrappers = { Boolean.class, Byte.class, Character.class, Short.class, Integer.class, Long.class, Float.class, Double.class };
+    Class[] wrappers = { Boolean.class, Byte.class, Character.class, Short.class, Integer.class, Long.class, Float.class,
+        Double.class };
     for (int i = 0; i < primitives.length; i++) {
       PRIMITIVE_TYPE_MAP.put(primitives[i], wrappers[i]);
     }
@@ -61,28 +64,27 @@ public class PrimitiveOrWrapperConverter {
     CONVERTER_MAP.put(Float.class, new FloatConverter());
     CONVERTER_MAP.put(BigDecimal.class, new BigDecimalConverter());
     CONVERTER_MAP.put(BigInteger.class, new BigIntegerConverter());
-  }  
-  
-  public Object convert(Object sourceFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
-    if (sourceFieldValue == null || destFieldClass == null
-        || (sourceFieldValue.equals("") && !destFieldClass.equals(String.class))) {
+  }
+
+  public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
+    if (srcFieldValue == null || destFieldClass == null || (srcFieldValue.equals("") && !destFieldClass.equals(String.class))) {
       return null;
     }
     Converter converter = getPrimitiveOrWrapperConverter(destFieldClass, dateFormatContainer);
     try {
-      return converter.convert(destFieldClass, sourceFieldValue);
+      return converter.convert(destFieldClass, srcFieldValue);
     } catch (org.apache.commons.beanutils.ConversionException e) {
       throw new net.sf.dozer.util.mapping.converters.ConversionException(e);
     }
   }
-  
+
   private Converter getPrimitiveOrWrapperConverter(Class destClass, DateFormatContainer dateFormatContainer) {
     if (String.class.equals(destClass)) {
       return new StringConverter(dateFormatContainer);
     }
 
     Converter result = (Converter) CONVERTER_MAP.get(destClass.isPrimitive() ? wrapPrimitive(destClass) : destClass);
-    
+
     if (result == null) {
       if (java.util.Date.class.isAssignableFrom(destClass)) {
         result = new DateConverter(dateFormatContainer.getDateFormat());
@@ -93,9 +95,9 @@ public class PrimitiveOrWrapperConverter {
     }
     return result == null ? DEFAULT_CONVERTER : result;
   }
-  
+
   private Class wrapPrimitive(Class c) {
     return (Class) PRIMITIVE_TYPE_MAP.get(c);
-  }  
-  
+  }
+
 }

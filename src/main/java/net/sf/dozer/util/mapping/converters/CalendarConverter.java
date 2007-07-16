@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- package net.sf.dozer.util.mapping.converters;
+package net.sf.dozer.util.mapping.converters;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,6 +24,9 @@ import java.util.GregorianCalendar;
 import org.apache.commons.beanutils.Converter;
 
 /**
+ * Internal class for converting Supported Data Types --> Calendar. Supported source data types include Date, Calendar,
+ * String, Objects that return a long from their toString(). Only intended for internal use.
+ * 
  * @author tierney.matt
  */
 public class CalendarConverter implements Converter {
@@ -34,42 +37,37 @@ public class CalendarConverter implements Converter {
     this.dateFormat = dateFormat;
   }
 
-  public Object convert(Class destClass, Object sourceObj) {
+  public Object convert(Class destClass, Object srcObj) {
     Calendar result = new GregorianCalendar();
-    Class sourceFieldClass = sourceObj.getClass();
-    //Convert from Date to Calendar
-    if (java.util.Date.class.isAssignableFrom(sourceFieldClass)) {
-      result.setTime( (java.util.Date) sourceObj);
+    Class srcFieldClass = srcObj.getClass();
+    // Convert from Date to Calendar
+    if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
+      result.setTime((java.util.Date) srcObj);
     }
-    //Convert from Calendar to Calendar
-    else if (Calendar.class.isAssignableFrom(sourceFieldClass)) {
-      Calendar c = (Calendar) sourceObj;
+    // Convert from Calendar to Calendar
+    else if (Calendar.class.isAssignableFrom(srcFieldClass)) {
+      Calendar c = (Calendar) srcObj;
       result.setTime(c.getTime());
     }
-    //String to Calendar
-    else if (dateFormat != null && String.class.isAssignableFrom(sourceFieldClass)) {
+    // String to Calendar
+    else if (dateFormat != null && String.class.isAssignableFrom(srcFieldClass)) {
       try {
-        result.setTime(new Date(dateFormat.parse( (String) sourceObj).getTime()));
+        result.setTime(new Date(dateFormat.parse((String) srcObj).getTime()));
       } catch (ParseException e) {
         throw new ConversionException("Unable to parse source object using specified date format", e);
       }
-    //Default conversion
+      // Default conversion
     } else {
-        try {
-          result.setTime(new Date(Long.parseLong(sourceObj.toString())));
-        }
-        catch (NumberFormatException e) {
-          throw new ConversionException("Unable to determine time in millis of source object", e);
-        }
+      try {
+        result.setTime(new Date(Long.parseLong(srcObj.toString())));
+      } catch (NumberFormatException e) {
+        throw new ConversionException("Unable to determine time in millis of source object", e);
+      }
     }
     return result;
   }
 
   public DateFormat getDateFormat() {
     return dateFormat;
-  }
-
-  public void setDateFormat(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
   }
 }
