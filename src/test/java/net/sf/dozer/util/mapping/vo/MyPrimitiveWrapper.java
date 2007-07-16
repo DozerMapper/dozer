@@ -19,18 +19,16 @@ package net.sf.dozer.util.mapping.vo;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class MyPrimitiveWrapper extends BaseTestObject {
   private Integer value;
 
-  public MyPrimitiveWrapper( String value )
-  {
-    this.value = new Integer( value );
+  public MyPrimitiveWrapper(String value) {
+    this.value = new Integer(value);
   }
 
-  public String toString()
-  {
+  public String toString() {
     return value.toString();
   }
 

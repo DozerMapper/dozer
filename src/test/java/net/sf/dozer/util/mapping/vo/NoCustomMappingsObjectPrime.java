@@ -15,15 +15,15 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
-import java.util.Date;
 
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class NoCustomMappingsObjectPrime extends BaseTestObject {
 
