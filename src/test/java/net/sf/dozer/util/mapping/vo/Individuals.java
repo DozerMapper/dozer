@@ -80,9 +80,9 @@ public class Individuals {
   public void setAddressSet(Set addressSet) {
     this.addressSet = addressSet;
   }
-  
+
   public String getThirdNameElement1() {
     return this.thirdNames[0];
   }
-  
+
 }

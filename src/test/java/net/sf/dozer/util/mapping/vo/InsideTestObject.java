@@ -21,7 +21,7 @@ import net.sf.dozer.util.mapping.vo.deep.House;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class InsideTestObject extends BaseTestObject {
 
@@ -40,7 +40,8 @@ public class InsideTestObject extends BaseTestObject {
   }
 
   /**
-   * @param toWrapper The toWrapper to set.
+   * @param toWrapper
+   *          The toWrapper to set.
    */
   public void setToWrapper(int toWrapper) {
     this.toWrapper = toWrapper;
@@ -54,7 +55,8 @@ public class InsideTestObject extends BaseTestObject {
   }
 
   /**
-   * @param wrapper The wrapper to set.
+   * @param wrapper
+   *          The wrapper to set.
    */
   public void setWrapper(Integer wrapper) {
     this.wrapper = wrapper;
@@ -68,7 +70,8 @@ public class InsideTestObject extends BaseTestObject {
   }
 
   /**
-   * @param label The label to set.
+   * @param label
+   *          The label to set.
    */
   public void setLabel(String label) {
     this.label = label;
@@ -95,7 +98,7 @@ public class InsideTestObject extends BaseTestObject {
   public void setTestCreateMethod(String testCreateMethod) {
     this.testCreateMethod = testCreateMethod;
   }
-  
+
   public House getHouse() {
     return house;
   }
