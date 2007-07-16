@@ -12,23 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.vo.km;
 
 public class Super {
-    private String age;
-    private String loginName;  
+  private String age;
+  private String loginName;
 
-    public String getAge() {
-        return age;
-    }
-    public void setAge(String age) {
-        this.age = age;
-    }
-    public String getLoginName() {
-        return loginName;
-    }
-    public void setLoginName(String name) {
-        this.loginName = name;
-    }
+  public String getAge() {
+    return age;
+  }
+  public void setAge(String age) {
+    this.age = age;
+  }
+  public String getLoginName() {
+    return loginName;
+  }
+  public void setLoginName(String name) {
+    this.loginName = name;
+  }
 }

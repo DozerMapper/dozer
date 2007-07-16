@@ -15,9 +15,6 @@
  */
 package net.sf.dozer.util.mapping.vo.inheritance;
 
-
 public class IntermediateClass extends AnotherBaseClassPrime {
 
-   
-    
 }

@@ -25,7 +25,6 @@ public class Specific2 extends Specific1 {
 
   public void setSuperAttr3(String superAttr3) {
     this.superAttr3 = superAttr3;
-  }  
-  
+  }
 
 }

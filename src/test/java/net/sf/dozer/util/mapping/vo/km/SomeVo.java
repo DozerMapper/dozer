@@ -12,31 +12,31 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 package net.sf.dozer.util.mapping.vo.km;
 
 public class SomeVo {
-    private String age;
-    private String color;
-    private String userName;  
-    
-    public String getAge() {
-        return age;
-    }
-    public void setAge(String age) {
-        this.age = age;
-    }
-    public String getColor() {
-        return color;
-    }
-    public void setColor(String color) {
-        this.color = color;
-    }
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+  private String age;
+  private String color;
+  private String userName;
+
+  public String getAge() {
+    return age;
+  }
+  public void setAge(String age) {
+    this.age = age;
+  }
+  public String getColor() {
+    return color;
+  }
+  public void setColor(String color) {
+    this.color = color;
+  }
+  public String getUserName() {
+    return userName;
+  }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 }
