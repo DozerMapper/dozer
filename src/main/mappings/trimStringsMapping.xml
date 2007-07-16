@@ -3,7 +3,11 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
   
-  <mapping map-null="false" map-empty-string="false">
+  <configuration>
+     <trim-strings>true</trim-strings>
+  </configuration>
+  
+  <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>    
     <field>
@@ -11,10 +15,14 @@
       <b>to.one</b>
     </field>
   </mapping>   
-
-  <mapping>
+  
+  <mapping trim-strings="false">
     <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b map-null="false" map-empty-string="false">net.sf.dozer.util.mapping.vo.TestObjectPrime2</class-b>    
+    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>    
+    <field>
+      <a>one</a>
+      <b>onePrime</b>
+    </field>
   </mapping>   
 
 </mappings>

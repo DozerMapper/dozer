@@ -16,5 +16,15 @@
        <b>field1</b>
      </field-exclude>
  </mapping> 
+  
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.map.CustomMap</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SimpleObj</class-b>    
+    <field>
+      <a map-get-method="getValue" map-set-method="putValue" key="fieldA" date-format="MM/dd/yyyy">this</a>
+      <b>field5</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+  </mapping>   
 
 </mappings>

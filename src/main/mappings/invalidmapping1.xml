@@ -8,7 +8,7 @@
     <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
     
     <field>
-      <a>one</a><!-- converting by name only -->
+      <a>one</a>
       <b>onePrime</b>
     </field>
 

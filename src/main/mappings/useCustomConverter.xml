@@ -3,10 +3,4 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
   
-  <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.Moped</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.Bus</class-b>
-  </mapping>
-  
-
 </mappings>

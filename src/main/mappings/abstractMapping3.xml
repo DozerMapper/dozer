@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+  "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+
+<mappings>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.abstractinheritance.AbstractA</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.abstractinheritance.AbstractB</class-b>
+    <field>
+      <a>abstractAField</a>
+      <b>abstractBField</b>
+    </field>    
+    <field-exclude>
+      <a>abstractField1</a>
+      <b>abstractField1</b>
+    </field-exclude>    
+  </mapping>
+  
+</mappings>

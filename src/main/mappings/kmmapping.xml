@@ -10,11 +10,6 @@
    	  <b>userName</b>
    	</field>
   </mapping>
-<!--  
-  <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.km.Sub/class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.km.SomeVo</class-b>
-  </mapping>  
---> 
+  
 </mappings>
 

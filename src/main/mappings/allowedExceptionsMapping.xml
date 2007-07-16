@@ -8,7 +8,7 @@
      <stop-on-errors>false</stop-on-errors>
 
      <allowed-exceptions>
-       <exception>net.sf.dozer.util.mapping.exception.DozerRuntimeException</exception>
+       <exception>net.sf.dozer.util.mapping.vo.allowedexceptions.TestException</exception>
      </allowed-exceptions>
 
   </configuration>

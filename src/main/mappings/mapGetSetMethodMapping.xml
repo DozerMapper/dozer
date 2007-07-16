@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping map-id="useCase1">
+    <class-a map-get-method="getValue" map-set-method="putValue">net.sf.dozer.util.mapping.vo.map.CustomMap</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>    
+    <field>
+      <a key="fieldA">this</a>
+      <b>field1</b>
+    </field>
+    <field>
+      <a>this</a>
+      <b>field2</b>
+    </field>
+    <field>
+      <a key="fieldC">this</a>
+      <b>field3</b>
+    </field>
+    <field>
+      <a key="fieldD">this</a>
+      <b>field4</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+    <field>
+      <a key="fieldE" date-format="MM-dd-yyyy">this</a>
+      <b>field5</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+  </mapping>   
+  
+  <mapping map-id="useCase2">
+    <class-a>net.sf.dozer.util.mapping.vo.map.CustomMap</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>    
+    <field>
+      <a map-get-method="getValue" map-set-method="putValue" key="fieldA">this</a>
+      <b>field1</b>
+    </field>
+    <field>
+      <a map-get-method="getValue" map-set-method="putValue">this</a>
+      <b>field2</b>
+    </field>
+    <field>
+      <a map-get-method="getValue" map-set-method="putValue" key="fieldC">this</a>
+      <b>field3</b>
+    </field>
+    <field>
+      <a map-get-method="getValue" map-set-method="putValue" key="fieldD">this</a>
+      <b>field4</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+    <field>
+      <a map-get-method="getValue" map-set-method="putValue" key="fieldE" date-format="MM-dd-yyyy">this</a>
+      <b>field5</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+  </mapping>   
+  
+</mappings>

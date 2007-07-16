@@ -7,7 +7,6 @@
      <stop-on-errors>true</stop-on-errors>
      <wildcard>true</wildcard>
      <custom-converters>
-      <!-- this mapping takes place on the TestCustomConverterObject and TestCustomConverterObjectPrime -->
       <converter type="net.sf.dozer.util.mapping.converters.InjectedCustomConverter" >
         <class-a>net.sf.dozer.util.mapping.vo.Vehicle</class-a>
         <class-b>net.sf.dozer.util.mapping.vo.Vehicle</class-b>
@@ -15,10 +14,4 @@
      </custom-converters>
   </configuration>
   
-  <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.Car</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.Van</class-b>
-  </mapping>
-  
-
 </mappings>
