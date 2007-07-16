@@ -24,24 +24,26 @@ import net.sf.dozer.util.mapping.converters.CustomConverter;
  */
 public class CToStringConverter implements CustomConverter {
 
-    /* (non-Javadoc)
-     * @see net.sf.dozer.util.mapping.converters.CustomConverter#convert(java.lang.Object, java.lang.Object, java.lang.Class, java.lang.Class)
-     */
-    public Object convert(Object dest, Object source, Class destClass,
-            Class sourceClass) {
-        
-        if (source instanceof C) {
-            C c = (C) source;
-            return c.getValue();
-            
-        } else if (source instanceof String) {
-            C c = new C();
-            c.setValue((String)source);
-            return c;
-        } else {
-            System.out.println("wrong class type!!!!!!!!!!!!!!");
-            return null;
-        }
+  /*
+   * (non-Javadoc)
+   * 
+   * @see net.sf.dozer.util.mapping.converters.CustomConverter#convert(java.lang.Object, java.lang.Object,
+   *      java.lang.Class, java.lang.Class)
+   */
+  public Object convert(Object dest, Object source, Class destClass, Class sourceClass) {
+
+    if (source instanceof C) {
+      C c = (C) source;
+      return c.getValue();
+
+    } else if (source instanceof String) {
+      C c = new C();
+      c.setValue((String) source);
+      return c;
+    } else {
+      System.out.println("wrong class type!!!!!!!!!!!!!!");
+      return null;
     }
+  }
 
 }
