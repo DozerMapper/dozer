@@ -21,10 +21,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 /**
- * EntityResolver implementation for the dozer mappings DTD, to load the DTD from the dozer classpath resp. JAR file.
+ * Internal EntityResolver implementation for the dozer mappings DTD, to load the DTD from the dozer classpath resp. JAR
+ * file.
  * 
  * <p>
  * Fetches "dozerbeanmapping.dtd" from the classpath resource "/dozerbeanmapping.dtd", no matter if specified as some
@@ -36,7 +36,7 @@ public class DozerResolver implements EntityResolver {
 
   private static final Log log = LogFactory.getLog(DozerResolver.class);
 
-  public InputSource resolveEntity(String publicId, String systemId) throws SAXException {
+  public InputSource resolveEntity(String publicId, String systemId) {
     log.debug("Trying to resolve XML entity with public ID [" + publicId + "] and system ID [" + systemId + "]");
     if (systemId != null && systemId.indexOf(MapperConstants.DTD_NAME) > systemId.lastIndexOf("/")) {
       String dtdFile = systemId.substring(systemId.indexOf(MapperConstants.DTD_NAME));

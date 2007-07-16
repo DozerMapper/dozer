@@ -17,14 +17,11 @@ package net.sf.dozer.util.mapping.util;
 
 import java.lang.reflect.Method;
 
-import net.sf.dozer.util.mapping.MappingException;
-
 /**
- * Contains single instances of thread safe jdk1.5 specific Method objects
- * that are discovered via reflection.  Use single instances of these objects for 
- * performance reasons.  Since Dozer must support older jdks, these
- * jdk1.5 objects must be instantiated via reflection so that the code base can be
- * built with older jdks such as 1.4. 
+ * Internal class containing single instances of thread safe jdk1.5 specific Method objects that are discovered via
+ * reflection. Use single instances of these objects for performance reasons. Since Dozer must support older jdks, these
+ * jdk1.5 objects must be instantiated via reflection so that the code base can be built with older jdks such as 1.4.
+ * Only intended for internal use.
  * 
  */
 public class Jdk5Methods {
@@ -35,6 +32,7 @@ public class Jdk5Methods {
   private Method enumNameMethod;
   private Method enumValueOfMethod;
   private Method methodGetGenericParameterTypesMethod;
+  private Method methodGetGenericReturnTypeMethod;
   private Class parameterizedTypeClass;
   private Method paramaterizedTypeGetActualTypeArgsMethod;
 
@@ -56,37 +54,38 @@ public class Jdk5Methods {
       enumNameMethod = enumClass.getMethod("name", null);
       enumValueOfMethod = enumClass.getMethod("valueOf", new Class[] { Class.class, String.class });
       methodGetGenericParameterTypesMethod = Method.class.getMethod("getGenericParameterTypes", null);
+      methodGetGenericReturnTypeMethod = Method.class.getMethod("getGenericReturnType", null);
       parameterizedTypeClass = Class.forName("java.lang.reflect.ParameterizedType");
       paramaterizedTypeGetActualTypeArgsMethod = parameterizedTypeClass.getMethod("getActualTypeArguments", null);
     } catch (Exception e) {
-      throw new MappingException("Unable to load jdk 1.5 classes via relection", e);
+      MappingUtils.throwMappingException("Unable to load jdk 1.5 classes via relection", e);
     }
   }
-  
-  public static Jdk5Methods getSingleton() {
-    return singleton;
-  }
-  
+
   public Method getClassIsEnumMethod() {
     return classIsEnumMethod;
   }
-  
+
   public Method getEnumNameMethod() {
     return enumNameMethod;
   }
- 
+
   public Method getEnumValueOfMethod() {
     return enumValueOfMethod;
   }
-  
+
   public Method getMethodGetGenericParameterTypesMethod() {
     return methodGetGenericParameterTypesMethod;
   }
   
+  public Method getMethodGetGenericReturnTypeMethod() {
+    return methodGetGenericReturnTypeMethod;
+  }
+
   public Method getParamaterizedTypeGetActualTypeArgsMethod() {
     return paramaterizedTypeGetActualTypeArgsMethod;
   }
-  
+
   public Class getParameterizedTypeClass() {
     return parameterizedTypeClass;
   }

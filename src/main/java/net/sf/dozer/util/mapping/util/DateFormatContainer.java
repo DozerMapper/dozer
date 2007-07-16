@@ -19,21 +19,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-
-
 /**
+ * Internal class used as a container to determine the date format to use for a particular field mapping. Only intended
+ * for internal use.  
+ * 
  * @author tierney.matt
  */
 public class DateFormatContainer {
-  private final ClassMap classMap;
-  private final FieldMap fieldMap;
+  private String dfStr;
   private DateFormat dateFormat;
-  
-  public DateFormatContainer(ClassMap classMap, FieldMap fieldMap) {
-    this.classMap = classMap;
-    this.fieldMap = fieldMap;
+
+  public DateFormatContainer(String dfStr) {
+    this.dfStr = dfStr;
   }
 
   public DateFormat getDateFormat() {
@@ -42,26 +39,12 @@ public class DateFormatContainer {
     }
     return dateFormat;
   }
-  
+
   public void setDateFormat(DateFormat dateFormat) {
     this.dateFormat = dateFormat;
   }
 
   private DateFormat determineDateFormat() {
-    if (classMap == null || fieldMap == null) {
-      return null;
-    }
-    // try to use field mapping date format
-    String dfStr = fieldMap.getSourceField().getDateFormat() == null ? fieldMap.getDestField().getDateFormat()
-        : fieldMap.getSourceField().getDateFormat();
-
-    // if field level date format is not specified, try using class mapping
-    // default date format
-    MappingUtils mappingUtils = new MappingUtils();
-    if (mappingUtils.isBlankOrNull(dfStr)) {
-      dfStr = classMap.getDateFormat();
-    }
-
     return dfStr == null ? null : new SimpleDateFormat(dfStr, Locale.getDefault());
   }
 }

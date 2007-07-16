@@ -17,24 +17,25 @@ package net.sf.dozer.util.mapping.util;
 
 import org.apache.commons.logging.Log;
 
-
 /**
- * This class is a thin wrapper for logging one time dozer initialization messages.  These messages will be written
- * to system.out as well as log.info.  To enable dual writes to System.out:  -Ddozer.debug=true
+ * Internal class that is just a thin wrapper for logging one time dozer initialization messages. These messages will be
+ * written to system.out as well as log.info. To enable dual writes to System.out: -Ddozer.debug=true Only intended for
+ * internal use.
  * 
  * @author tierney.matt
  */
 public class InitLogger {
   private static boolean debugEnabled = false;
-  
+
   static {
     String sysProp = System.getProperty(MapperConstants.DEBUG_SYS_PROP);
     if (sysProp != null && !sysProp.trim().equals("false")) {
       debugEnabled = true;
     }
   }
-  
-  private InitLogger() {}
+
+  private InitLogger() {
+  }
 
   public static void log(Log log, String msg) {
     if (debugEnabled) {

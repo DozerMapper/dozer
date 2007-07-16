@@ -12,36 +12,37 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 package net.sf.dozer.util.mapping.util;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Internal class that generates a unique class mapping key. Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class ClassMapKeyFactory {
-  
+
   private ClassMapKeyFactory() {
   }
 
-  public static String createKey(Class sourceClass, Class destClass, String mapId) {
+  public static String createKey(Class srcClass, Class destClass, String mapId) {
     StringBuffer result = new StringBuffer(150);
+    result.append("SOURCE CLASS-->");
+    result.append(srcClass.getName());
+    result.append(" DEST CLASS-->");
+    result.append(destClass.getName());
     if (StringUtils.isNotEmpty(mapId)) {
-      result.append(sourceClass.getName());
-      result.append(destClass.getName());
+      result.append(" MAP ID-->");
       result.append(mapId);
-    } else {
-      result.append(sourceClass.getName());
-      result.append(destClass.getName());
     }
     return result.toString();
   }
 
-  public static String createKey(Class sourceClass, Class destClass) {
-    return createKey(sourceClass, destClass, null);
+  public static String createKey(Class srcClass, Class destClass) {
+    return createKey(srcClass, destClass, null);
   }
-  
-  
+
 }

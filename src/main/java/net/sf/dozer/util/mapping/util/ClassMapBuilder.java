@@ -20,49 +20,42 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
-
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.Configuration;
-import net.sf.dozer.util.mapping.fieldmap.DozerClass;
-import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.DozerClass;
+import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 
+import org.apache.commons.lang.StringUtils;
 
 /**
+ * Internal class for adding implicit field mappings to a ClassMap. Also, builds implicit ClassMap for class mappings
+ * that dont have an explicit custom xml mapping. Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ClassMapBuilder {
-  private final ReflectionUtils reflectionUtils = new ReflectionUtils();
-  private final MappingUtils mappingUtils = new MappingUtils();
-  
-  public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class sourceClass, Class destClass) {
-    ClassMap classMap = new ClassMap();
-    classMap.setSourceClass(new DozerClass(sourceClass.getName(), sourceClass, globalConfiguration.getBeanFactory(), null, null, null, 
-        Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
-    classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
-        Boolean.valueOf(MapperConstants.DEFAULT_MAP_NULL_POLICY), Boolean.valueOf(MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY)));
+public abstract class ClassMapBuilder {
 
-      classMap.setWildcard(globalConfiguration.getWildcard());
-      classMap.setStopOnErrors(globalConfiguration.getStopOnErrors());
-      classMap.setDateFormat(globalConfiguration.getDateFormat());
-      classMap.setBeanFactory(globalConfiguration.getBeanFactory());
-      if (globalConfiguration.getAllowedExceptions() != null) {
-        classMap.setAllowedExceptions(globalConfiguration.getAllowedExceptions().getExceptions());
-      }
+  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass) {
+    ClassMap classMap = new ClassMap(globalConfiguration);
+    classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null,
+        MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
+    classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
+        MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
+
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
-      addDefaultFieldMappings(classMap);
+      addDefaultFieldMappings(classMap, globalConfiguration);
     }
 
     return classMap;
   }
-  
-  public void addDefaultFieldMappings(Map customMappings) {
+
+  public static void addDefaultFieldMappings(Map customMappings, Configuration globalConfiguration) {
     Set entries = customMappings.entrySet();
     Iterator iter = entries.iterator();
     while (iter.hasNext()) {
@@ -70,129 +63,112 @@ public class ClassMapBuilder {
       ClassMap classMap = (ClassMap) entry.getValue();
 
       if (classMap.isWildcard()) {
-        addDefaultFieldMappings(classMap);
+        addDefaultFieldMappings(classMap, globalConfiguration);
       }
     }
   }
 
-  public void addMapDefaultFieldMappings(ClassMap classMap) {
-    Class sourceClass = classMap.getSourceClass().getClassToMap();
-    Class destClass = classMap.getDestClass().getClassToMap();
+  public static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
+    Class srcClass = classMap.getSrcClassToMap();
+    Class destClass = classMap.getDestClassToMap();
+
+    if (MappingUtils.isSupportedMap(srcClass) || classMap.getSrcClassMapGetMethod() != null
+        || MappingUtils.isSupportedMap(destClass) || classMap.getDestClassMapGetMethod() != null) {
+      addMapDefaultFieldMappings(classMap);
+      return;
+    }
+
+    PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(destClass);
+    for (int i = 0; i < destProperties.length; i++) {
+      PropertyDescriptor destPropertyDescriptor = destProperties[i];
+      String destFieldName = destPropertyDescriptor.getName();
+
+      // If field has already been accounted for, then skip
+      if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
+        continue;
+      }
+
+      // If destination field does not have a write method, then skip
+      if (destPropertyDescriptor.getWriteMethod() == null) {
+        continue;
+      }
+
+      PropertyDescriptor srcProperty = ReflectionUtils.findPropertyDescriptor(srcClass, destFieldName, null);
+
+      // If the sourceProperty is null we know that there is not a corresponding property to map to.
+      // If source property does not have a read method, then skip
+      if (srcProperty == null || srcProperty.getReadMethod() == null) {
+        continue;
+      }
+
+      FieldMap map = null;
+      DozerField field = new DozerField(destFieldName, null);
+      if (field.isCustomGetterSetterField()) {
+        map = new CustomGetSetMethodFieldMap(classMap);
+      } else {
+        map = new GenericFieldMap(classMap);
+      }
+      map.setSrcField(new DozerField(destFieldName, null));
+      map.setDestField(new DozerField(destFieldName, null));
+      // add CopyByReferences per defect #1728159
+      MappingUtils.applyGlobalCopyByReference(globalConfiguration, map, classMap);
+      classMap.addFieldMapping(map);
+    }
+  }
+
+  private static void addMapDefaultFieldMappings(ClassMap classMap) {
+    Class srcClass = classMap.getSrcClassToMap();
+    Class destClass = classMap.getDestClassToMap();
     PropertyDescriptor[] properties = null;
     boolean destIsMap = false;
-    // determine which is the map
-    if (mappingUtils.isSupportedMap(sourceClass) || classMap.getSourceClass().getMapGetMethod() != null) {
-      properties = reflectionUtils.getPropertyDescriptors(destClass);
-      destIsMap = false;
-    } else if (mappingUtils.isSupportedMap(destClass) || classMap.getDestClass().getMapGetMethod() != null) {
-      properties = reflectionUtils.getPropertyDescriptors(sourceClass);
+    if (MappingUtils.isSupportedMap(srcClass) || classMap.getSrcClassMapGetMethod() != null) {
+      properties = ReflectionUtils.getPropertyDescriptors(destClass);
+    } else if (MappingUtils.isSupportedMap(destClass) || classMap.getDestClassMapGetMethod() != null) {
+      properties = ReflectionUtils.getPropertyDescriptors(srcClass);
       destIsMap = true;
     } else {
       return;
     }
+
     for (int i = 0; i < properties.length; i++) {
       String fieldName = properties[i].getName();
-      // if the sourceProperty is null we know that there is not a
-      // corresponding property to map to.
       if (fieldName.equals("class")) {
         continue;
       }
-      MapFieldMap map = new MapFieldMap();
-      if (destIsMap) {
-        map.setSourceField(new DozerField(fieldName, null));
-        DozerField df = new DozerField(MapperConstants.SELF_KEYWORD, null);
-        if (StringUtils.isNotEmpty(classMap.getDestClass().getMapGetMethod())) {
-          df.setMapGetMethod(classMap.getDestClass().getMapGetMethod());
-          df.setTheGetMethod(classMap.getDestClass().getMapGetMethod());
-        } else {
-          df.setMapGetMethod("get");
-          df.setTheGetMethod("get");
-        }
-        if (StringUtils.isNotEmpty(classMap.getDestClass().getMapSetMethod())) {
-          df.setMapSetMethod(classMap.getDestClass().getMapSetMethod());
-          df.setTheSetMethod(classMap.getDestClass().getMapSetMethod());
-        } else {
-          df.setMapSetMethod("put");
-          df.setTheSetMethod("put");
-        }
-        map.setDestField(df);
-        FieldMap fieldMap = classMap.getFieldMapUsingSource(fieldName);
-        // this means we have an existing fieldmap. set default values accordingly
-        if (fieldMap != null && !(fieldMap instanceof ExcludeFieldMap)) {
-          map.getSourceField().setTheGetMethod(fieldMap.getSourceField().getTheGetMethod());
-          map.getSourceField().setTheSetMethod(fieldMap.getSourceField().getTheSetMethod());
-          df.setKey(fieldMap.getDestField().getKey());
-          map.getSourceField().setKey(fieldMap.getDestField().getKey());
-          classMap.removeFieldMapping(fieldMap);
-        } else if (fieldMap instanceof ExcludeFieldMap) {
-          fieldMap.setDestField(df);
-          continue;
-        }
-      } else {
-        map.setDestField(new DozerField(fieldName, null));
-        DozerField sourceField = new DozerField(MapperConstants.SELF_KEYWORD, null);
-        if (StringUtils.isNotEmpty(classMap.getSourceClass().getMapGetMethod())) {
-          sourceField.setMapGetMethod(classMap.getSourceClass().getMapGetMethod());
-          sourceField.setTheGetMethod(classMap.getSourceClass().getMapGetMethod());
-        } else {
-          sourceField.setMapGetMethod("get");
-          sourceField.setTheGetMethod("get");
-        }
-        if (StringUtils.isNotEmpty(classMap.getSourceClass().getMapSetMethod())) {
-          sourceField.setMapSetMethod(classMap.getSourceClass().getMapSetMethod());
-          sourceField.setTheSetMethod(classMap.getSourceClass().getMapSetMethod());
-        } else {
-          sourceField.setMapSetMethod("put");
-          sourceField.setTheSetMethod("put");
-        }
-        map.setSourceField(sourceField);
-        FieldMap fieldMap = classMap.getFieldMapUsingDest(fieldName);
-        // this means we have an existing fieldmap. set default values accordingly
-        if (fieldMap != null && !(fieldMap instanceof ExcludeFieldMap)) {
-          map.getDestField().setTheGetMethod(fieldMap.getDestField().getTheGetMethod());
-          map.getDestField().setTheSetMethod(fieldMap.getDestField().getTheSetMethod());
-          sourceField.setKey(fieldMap.getSourceField().getKey());
-          map.getDestField().setKey(fieldMap.getSourceField().getKey());
-          classMap.removeFieldMapping(fieldMap);
-        } else if (fieldMap instanceof ExcludeFieldMap) {
-          fieldMap.setSourceField(sourceField);
-          continue;
-        }
+
+      if (destIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
+        continue;
       }
+
+      if (!destIsMap && classMap.getFieldMapUsingDest(fieldName) != null) {
+        continue;
+      }
+
+      FieldMap map = new MapFieldMap(classMap);
+      DozerField srcField = new DozerField(MappingUtils.isSupportedMap(srcClass) ? MapperConstants.SELF_KEYWORD : fieldName, null);
+      srcField.setKey(fieldName);
+
+      if (StringUtils.isNotEmpty(classMap.getSrcClassMapGetMethod()) || StringUtils.isNotEmpty(classMap.getSrcClassMapSetMethod())) {
+        srcField.setMapGetMethod(classMap.getSrcClassMapGetMethod());
+        srcField.setMapSetMethod(classMap.getSrcClassMapSetMethod());
+        srcField.setName(MapperConstants.SELF_KEYWORD);
+      }
+
+      DozerField destField = new DozerField(MappingUtils.isSupportedMap(destClass) ? MapperConstants.SELF_KEYWORD : fieldName, null);
+      srcField.setKey(fieldName);
+
+      if (StringUtils.isNotEmpty(classMap.getDestClassMapGetMethod())
+          || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
+        destField.setMapGetMethod(classMap.getDestClassMapGetMethod());
+        destField.setMapSetMethod(classMap.getDestClassMapSetMethod());
+        destField.setName(MapperConstants.SELF_KEYWORD);
+      }
+
+      map.setSrcField(srcField);
+      map.setDestField(destField);
+
       classMap.addFieldMapping(map);
     }
   }
 
-  private void addDefaultFieldMappings(ClassMap classMap) {
-    Class sourceClass = classMap.getSourceClass().getClassToMap();
-    Class destClass = classMap.getDestClass().getClassToMap();
-    PropertyDescriptor[] destProperties = reflectionUtils.getPropertyDescriptors(destClass);
-    for (int i = 0; i < destProperties.length; i++) {
-      PropertyDescriptor destPropertyDescriptor = destProperties[i]; 
-      String destFieldName = destPropertyDescriptor.getName();
-
-      //If field has already been accounted for, then skip
-      if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
-        continue;
-      }
-      
-      //If destination field does not have a write method, then skip
-      if (destPropertyDescriptor.getWriteMethod() == null) {
-        continue;
-      }
-      
-      PropertyDescriptor sourceProperty = reflectionUtils.findPropertyDescriptor(sourceClass, destFieldName);
-
-      // If the sourceProperty is null we know that there is not a corresponding property to map to.  
-      // If source property does not have a read method, then skip
-      if (sourceProperty == null || sourceProperty.getReadMethod() == null) { 
-        continue;
-      }
-
-      GenericFieldMap map = new GenericFieldMap();
-      map.setSourceField(new DozerField(destFieldName, null));
-      map.setDestField(new DozerField(destFieldName, null));
-      classMap.addFieldMapping(map);
-    }
-  }
 }

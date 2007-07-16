@@ -17,102 +17,95 @@ package net.sf.dozer.util.mapping.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
-import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.DozerClass;
-import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Internal class that contains the logic used to create a new instance of the destination object being mapped. Performs
+ * various checks to determine how the destination object instance is created. Only intended for internal use.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DestBeanCreator {
+public abstract class DestBeanCreator {
 
   private static final Log log = LogFactory.getLog(DestBeanCreator.class);
 
-  private final Map factories;
-  private final MappingUtils mappingUtils = new MappingUtils();
-
-  public DestBeanCreator(Map factories) {
-    this.factories = factories;
+  public static Object create(Class targetClass) {
+    return create(targetClass, null);
   }
 
-  public Object create(Object srcObject, ClassMap classMap, Class destClass) throws InstantiationException,
-      IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
-    return create(srcObject, classMap, null, destClass);
+  public static Object create(Class targetClass, Class alternateClass) {
+    return create(null, null, targetClass, alternateClass, null, null, null);
   }
 
-  public Object create(Object srcObject, ClassMap classMap, FieldMap fieldMap, Class destClass)
-      throws InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException,
-      InvocationTargetException {
-    Object rvalue = null;
-    DozerClass destClassObj = classMap.getDestClass();
-    String factoryName = destClassObj.getBeanFactory();
-    // see if there are any static createMethods
-    if (fieldMap != null) {
-      if (fieldMap.getDestField().getCreateMethod() != null) {
-        return destClassObj.getClassToMap().getMethod(fieldMap.getDestField().getCreateMethod(), null).invoke(null,
-            null);
-      }
-    }
-    if (classMap.getDestClass().getCreateMethod() != null) {
-      return destClassObj.getClassToMap().getMethod(classMap.getDestClass().getCreateMethod(), null).invoke(null, null);
-    }
-    // If factory name wasn't specified, just create new instance. Otherwise
-    // use the specified custom bean factory
-    if (mappingUtils.isBlankOrNull(factoryName)) {
+  public static Object create(Object srcObject, Class srcClass, Class targetClass, Class alternateClass, String factoryName,
+      String factoryId, String createMethod) {
+    Class classToCreate = targetClass != null ? targetClass : alternateClass;
+
+    // If custom create method was specified, see if there are any static createMethods
+    if (!MappingUtils.isBlankOrNull(createMethod)) {
+      Method method = null;
       try {
-        rvalue = createNewInstance(destClassObj.getClassToMap());
-      } catch (InstantiationException e) {
-        if (destClass != null) {
-          return createNewInstance(destClass);
-        }
-        // we could be dealing with an Interface or Abstract Class which
-        // was mapped using a Class Level mapId
-        // try to see if the parentFieldMap dest field has a hint...
-        if (fieldMap != null && fieldMap.getDestinationTypeHint() != null) {
-          return createNewInstance(fieldMap.getDestinationTypeHint().getHint());
-        } else {
-          throw e;
-        }
+        method = ReflectionUtils.getMethod(classToCreate, createMethod, null);
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
       }
-    } else {
-      rvalue = createFromFactory(srcObject, classMap.getSourceClass().getClassToMap(), factoryName, destClassObj
-          .getFactoryBeanId(), destClassObj.getClassToMap());
+      return ReflectionUtils.invoke(method, null, null);
+    }
+
+    // If factory name was specified, create using factory.  Otherwise just create a new instance
+    if (!MappingUtils.isBlankOrNull(factoryName)) {
+      Object factoryCreatedObj = createFromFactory(srcObject, srcClass, classToCreate, factoryName, factoryId);
       // verify factory returned expected dest object type
-      if (!classMap.getDestClass().getClassToMap().isAssignableFrom(rvalue.getClass())) {
-        throw new MappingException(
-            "Custom bean factory did not return correct type of destination data object.  Expected: "
-                + classMap.getDestClass().getClassToMap() + ", Actual: " + rvalue.getClass());
+      if (!classToCreate.isAssignableFrom(factoryCreatedObj.getClass())) {
+        MappingUtils
+            .throwMappingException("Custom bean factory did not return correct type of destination data object.  Expected: "
+                + classToCreate + ", Actual: " + factoryCreatedObj.getClass());
+      }
+      return factoryCreatedObj;
+    }
+
+    //Typical oject creation
+    Object rvalue = null;
+    if (MappingUtils.isSupportedMap(classToCreate)) {
+      rvalue = new HashMap();
+    } else {
+      try {
+        rvalue = newInstance(classToCreate);
+      } catch (Exception e) {
+        if (alternateClass != null) {
+          rvalue = newInstance(alternateClass);
+        } else {
+          MappingUtils.throwMappingException(e);
+        }
       }
     }
+
     return rvalue;
   }
 
-  public Object createFromFactory(Object srcObject, Class srcObjectClass, String factoryName, String factoryBeanId,
-      Class destClass) throws ClassNotFoundException, IllegalAccessException, InstantiationException,
-      NoSuchMethodException, InvocationTargetException {
+  private static Object createFromFactory(Object srcObject, Class srcObjectClass, Class destClass, String factoryName,
+      String factoryBeanId) {
 
     // By default, use dest object class name for factory bean id
-    String beanId = !mappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
+    String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
 
-    BeanFactoryIF factory = (BeanFactoryIF) factories.get(factoryName);
+    BeanFactoryIF factory = (BeanFactoryIF) MappingUtils.storedFactories.get(factoryName);
 
     if (factory == null) {
-      Class factoryClass = Class.forName(factoryName);
+      Class factoryClass = MappingUtils.loadClass(factoryName);
       if (!BeanFactoryIF.class.isAssignableFrom(factoryClass)) {
-        throw new MappingException("Custom bean factory must implement the BeanFactoryIF interface.");
+        MappingUtils.throwMappingException("Custom bean factory must implement the BeanFactoryIF interface.");
       }
-      factory = (BeanFactoryIF) createNewInstance(factoryClass);
+      factory = (BeanFactoryIF) newInstance(factoryClass);
       // put the created factory in our factory map
-      factories.put(factoryName, factory);
+      MappingUtils.storedFactories.put(factoryName, factory);
     }
     Object rvalue = factory.createBean(srcObject, srcObjectClass, beanId);
 
@@ -121,25 +114,40 @@ public class DestBeanCreator {
     return rvalue;
   }
 
-  private Object createNewInstance(Class clazz) throws InvocationTargetException, InstantiationException,
-      IllegalAccessException, NoSuchMethodException {
+  private static Object newInstance(Class clazz) {
+    //Create using public or private no-arg constructor
+    Constructor constructor = null;
     try {
-      return clazz.newInstance();
-    } catch (IllegalAccessException e) {
-      // Look for private constructor to use
-      Constructor constructor = clazz.getDeclaredConstructor(null);
-      if (constructor == null) {
-        throw new DozerRuntimeException("Could not create a new instance of the dest object: " + clazz
-            + ".  Could not find a no-arg constructor for this class.");
-      }
-
-      if (!constructor.isAccessible()) {
-        constructor.setAccessible(true);
-      }
-      return constructor.newInstance(null);
+      constructor = clazz.getDeclaredConstructor(null);
+    } catch (SecurityException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
     }
-      
 
+    if (constructor == null) {
+      MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
+          + ".  Could not find a no-arg constructor for this class.");
+    }
+
+    // If private, make it accessible
+    if (!constructor.isAccessible()) {
+      constructor.setAccessible(true);
+    }
+
+    Object result = null;
+    try {
+      result = constructor.newInstance(null);
+    } catch (IllegalArgumentException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (InstantiationException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (InvocationTargetException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
   }
 
 }

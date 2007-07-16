@@ -19,43 +19,41 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
+ * Internal class that contains various Collection utilities specific to Dozer requirements. Not intended for direct use
+ * by application code.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class CollectionUtils {
-  
-  public boolean isArray(Class aClass) {
+public abstract class CollectionUtils {
+
+  public static boolean isArray(Class aClass) {
     return aClass.isArray();
   }
 
-  public boolean isCollection(Class aClass) {
+  public static boolean isCollection(Class aClass) {
     return Collection.class.isAssignableFrom(aClass);
   }
 
-  public boolean isIterator(Class aClass) {
-    return Iterator.class.isAssignableFrom(aClass);
-  }
-  
-  public boolean isList(Class aClass) {
+  public static boolean isList(Class aClass) {
     return List.class.isAssignableFrom(aClass);
   }
 
-  public boolean isSet(Class aClass) {
+  public static boolean isSet(Class aClass) {
     return Set.class.isAssignableFrom(aClass);
   }
-  
-  public boolean isPrimitiveArray(Class aClass) {
+
+  public static boolean isPrimitiveArray(Class aClass) {
     return aClass.isArray() && aClass.getComponentType().isPrimitive();
   }
 
-  public int getLengthOfCollection(Object value) {
+  public static int getLengthOfCollection(Object value) {
     if (isArray(value.getClass())) {
       return Array.getLength(value);
     } else {
@@ -63,23 +61,19 @@ public class CollectionUtils {
     }
   }
 
-  public Object getValueFromCollection(Object collection, int index) {
+  public static Object getValueFromCollection(Object collection, int index) {
     if (isArray(collection.getClass())) {
       return Array.get(collection, index);
-    } else
-    // is collection
-    {
-      Collection collectionTo = (Collection) collection;
-
-      return collectionTo.toArray()[index];
+    } else {
+      return ((Collection) collection).toArray()[index];
     }
   }
-  
-  public Set createNewSet(Class destType) {
+
+  public static Set createNewSet(Class destType) {
     return createNewSet(destType, null);
   }
 
-  public Set createNewSet(Class destType, Collection srcValue) {
+  public static Set createNewSet(Class destType, Collection srcValue) {
     Set result = null;
     if (SortedSet.class.isAssignableFrom(destType)) {
       result = new TreeSet();
@@ -91,8 +85,8 @@ public class CollectionUtils {
     }
     return result;
   }
-  
-  public Object convertListToArray(List list, Class destEntryType) {
+
+  public static Object convertListToArray(List list, Class destEntryType) {
     Object outArray = Array.newInstance(destEntryType, list.size());
     int count = 0;
     int size = list.size();
@@ -103,16 +97,16 @@ public class CollectionUtils {
     }
     return outArray;
   }
-  
-  public List convertPrimitiveArrayToList(Object primitiveArray) {
+
+  public static List convertPrimitiveArrayToList(Object primitiveArray) {
     int length = Array.getLength(primitiveArray);
     List result = new ArrayList(length);
 
     // wrap and copy elements
     for (int i = 0; i < length; i++) {
-        result.add(Array.get(primitiveArray, i));
+      result.add(Array.get(primitiveArray, i));
     }
     return result;
   }
-  
+
 }

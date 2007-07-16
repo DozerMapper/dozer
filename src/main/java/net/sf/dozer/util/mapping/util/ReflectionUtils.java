@@ -17,28 +17,34 @@ package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import net.sf.dozer.util.mapping.config.GlobalSettings;
+import net.sf.dozer.util.mapping.fieldmap.HintContainer;
+
 import org.apache.commons.beanutils.PropertyUtils;
 
-import net.sf.dozer.util.mapping.MappingException;
-
 /**
+ * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
+ * base. Not intended for direct use by application code.
+ * 
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ReflectionUtils {
+public abstract class ReflectionUtils {
 
-  public PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName) {
+  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, HintContainer deepIndexHintContainer) {
     PropertyDescriptor result = null;
 
     if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0) {
-      PropertyDescriptor[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName);
-      result = hierarchy[hierarchy.length - 1];
+      DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
+      result = hierarchy[hierarchy.length - 1].getPropDescriptor();
     } else {
       PropertyDescriptor[] descriptors = getPropertyDescriptors(objectClass);
 
@@ -56,50 +62,87 @@ public class ReflectionUtils {
     return result;
   }
 
-  public PropertyDescriptor[] getDeepFieldHierarchy(Class parentClass, String field) {
+  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, HintContainer deepIndexHintContainer) {
     if (field.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
-      throw new MappingException("Field does not contain deep field delimitor");
+      MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
 
     StringTokenizer toks = new StringTokenizer(field, MapperConstants.DEEP_FIELD_DELIMITOR);
     Class latestClass = parentClass;
-    PropertyDescriptor[] hierarchy = new PropertyDescriptor[toks.countTokens()];
+    DeepHierarchyElement[] hierarchy = new DeepHierarchyElement[toks.countTokens()];
     int index = 0;
+    int hintIndex = 0;
     while (toks.hasMoreTokens()) {
       String aFieldName = toks.nextToken();
-      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, aFieldName);
+      String theFieldName = aFieldName;
+      int collectionIndex = -1;
+
+      if (aFieldName.indexOf("[") > 0) {
+        theFieldName = aFieldName.substring(0, aFieldName.indexOf("["));
+        collectionIndex = Integer.parseInt(aFieldName.substring(aFieldName.indexOf("[") + 1, aFieldName.indexOf("]")));
+      }
+
+      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, theFieldName, deepIndexHintContainer);
+      DeepHierarchyElement r = new DeepHierarchyElement(propDescriptor, collectionIndex);
 
       if (propDescriptor == null) {
-        throw new MappingException("Exception occurred determining deep field hierarchy for Class --> "
-            + parentClass.getName() + ", Field --> " + field
-            + ".  Unable to determine property descriptor for Class --> " + latestClass.getName() + ", Field Name: "
-            + aFieldName);
+        MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "
+            + parentClass.getName() + ", Field --> " + field + ".  Unable to determine property descriptor for Class --> "
+            + latestClass.getName() + ", Field Name: " + aFieldName);
       }
 
       latestClass = propDescriptor.getPropertyType();
-      hierarchy[index++] = propDescriptor;
+      if (toks.hasMoreTokens()) {
+        if (latestClass.isArray()) {
+          latestClass = latestClass.getComponentType();
+        } else if (Collection.class.isAssignableFrom(latestClass)) {
+          Class genericType = determineGenericsType(propDescriptor);
+
+          if (genericType == null && deepIndexHintContainer == null) {
+            MappingUtils
+                .throwMappingException("Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). Exception occurred determining deep field hierarchy for Class --> "
+                    + parentClass.getName() + ", Field --> " + field  + ".  Unable to determine property descriptor for Class --> "
+                    + latestClass.getName() + ", Field Name: " + aFieldName);
+          }
+          if (genericType != null) {
+            latestClass = genericType;
+          } else {
+            latestClass = (Class) deepIndexHintContainer.getHint(hintIndex);
+            hintIndex += 1;
+          }
+        }
+      }
+      hierarchy[index++] = r;
     }
 
     return hierarchy;
   }
 
-  public Method getMethod(Object obj, String methodName) {
-    Method[] methods = obj.getClass().getMethods();
-    Method resultMethod = null;
+  public static Method getMethod(Object obj, String methodName) {
+    return getMethod(obj.getClass(), methodName);
+  }
+
+  public static Method getMethod(Class clazz, String methodName) {
+    Method result = findMethod(clazz, methodName);
+    if (result == null) {
+      MappingUtils.throwMappingException("No method found for class:" + clazz + " and method name:" + methodName);
+    }
+    return result;
+  }
+
+  private static Method findMethod(Class clazz, String methodName) {
+    Method[] methods = clazz.getMethods();
+    Method result = null;
     for (int i = 0; i < methods.length; i++) {
       Method method = methods[i];
       if (method.getName().equals(methodName)) {
-        resultMethod = method;
+        result = method;
       }
     }
-    if (resultMethod == null) {
-      throw new MappingException("No method found for class:" + obj.getClass() + " and method name:" + methodName);
-    }
-    return resultMethod;
+    return result;
   }
 
-  public Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException,
-      ClassNotFoundException {
+  public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException {
     // TODO USE HELPER from bean utils to find method w/ params
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
@@ -109,33 +152,23 @@ public class ReflectionUtils {
       String params = (tokens.hasMoreTokens() ? tokens.nextToken() : null);
       return findMethodWithParam(parentDestClass, m, params);
     }
-    Method[] methods = parentDestClass.getMethods();
-    Method result = null;
-    for (int i = 0; i < methods.length; i++) {
-      Method method = methods[i];
-      if (method.getName().equals(methodName)) {
-        // Return the first method find
-        return method;
-      }
-    }
-    return result;
+    return findMethod(parentDestClass, methodName);
   }
 
-  private Method findMethodWithParam(Class parentDestClass, String methodName, String params)
-      throws NoSuchMethodException, ClassNotFoundException {
+  private static Method findMethodWithParam(Class parentDestClass, String methodName, String params) throws NoSuchMethodException {
     // TODO USE HELPER from bean utils to find method w/ params
     List list = new ArrayList();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken();
-        list.add(Class.forName(token));
+        list.add(MappingUtils.loadClass(token));
       }
     }
-    return parentDestClass.getMethod(methodName, (Class[]) list.toArray(new Class[list.size()]));
+    return getMethod(parentDestClass, methodName, (Class[]) list.toArray(new Class[list.size()]));
   }
 
-  protected PropertyDescriptor[] getPropertyDescriptors(Class objectClass) {
+  protected static PropertyDescriptor[] getPropertyDescriptors(Class objectClass) {
     // If the class is an interface, use custom method to get all prop descriptors in the inheritance hierarchy.
     // PropertyUtils.getPropertyDescriptors() does not work correctly for interface inheritance. It finds props in the
     // actual interface ok, but does not find props in the inheritance hierarchy.
@@ -146,7 +179,7 @@ public class ReflectionUtils {
     }
   }
 
-  private PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
+  private static PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
     List propDescriptors = new ArrayList();
     // Add prop descriptors for interface passed in
     propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
@@ -164,7 +197,7 @@ public class ReflectionUtils {
     return (PropertyDescriptor[]) propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
   }
 
-  public Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {
+  public static Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {
     try {
       return clazz.getDeclaredField(fieldName);
     } catch (NoSuchFieldException e) {
@@ -173,6 +206,87 @@ public class ReflectionUtils {
       }
       throw e;
     }
+  }
+
+  public static Object invoke(Method method, Object obj, Object[] args) {
+    Object result = null;
+    try {
+      result = method.invoke(obj, args);
+    } catch (IllegalArgumentException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (InvocationTargetException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
+  }
+
+  public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
+    return clazz.getMethod(name, parameterTypes);
+  }
+
+  public static Object newInstance(Class clazz) {
+    Object result = null;
+    try {
+      result = clazz.newInstance();
+    } catch (InstantiationException e) {
+      MappingUtils.throwMappingException(e);
+    } catch (IllegalAccessException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return result;
+  }
+
+  public static Class determineGenericsType(PropertyDescriptor propDescriptor) {
+    if (!GlobalSettings.getInstance().isJava5()) {
+      return null;
+    }
+
+    Class result = null;
+    //Try getter and setter to determine the Generics type in case one does not exist
+    if (propDescriptor.getWriteMethod() != null) {
+      result = determineGenericsType(propDescriptor.getWriteMethod(), false);
+    }
+
+    if (result == null && propDescriptor.getReadMethod() != null) {
+      result = determineGenericsType(propDescriptor.getReadMethod(), true);
+    }
+
+    return result;
+  }
+
+  public static Class determineGenericsType(Method method, boolean isReadMethod) {
+    if (!GlobalSettings.getInstance().isJava5()) {
+      return null;
+    }
+
+    Class result = null;
+    Class parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
+    if (isReadMethod) {
+      Object parameterType = ReflectionUtils.invoke(Jdk5Methods.getInstance().getMethodGetGenericReturnTypeMethod(), method, null);
+
+      if (parameterType != null && parameterTypesClass.isAssignableFrom(parameterType.getClass())) {
+        Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
+            .getParamaterizedTypeGetActualTypeArgsMethod(), parameterType, null))[0];
+        if (genericType != null) {
+          result = (Class) genericType;
+        }
+      }
+    } else {
+      Object[] parameterTypes = (Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
+          .getMethodGetGenericParameterTypesMethod(), method, null);
+
+      if (parameterTypes != null && parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
+        Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
+            .getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
+        if (genericType != null) {
+          result = (Class) genericType;
+        }
+      }
+    }
+
+    return result;
   }
 
 }
