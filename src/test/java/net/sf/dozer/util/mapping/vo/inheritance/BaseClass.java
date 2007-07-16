@@ -19,16 +19,14 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 public class BaseClass extends BaseTestObject {
 
-    private String baseAttribute;
+  private String baseAttribute;
 
-    public String getBaseAttribute() {
-        return baseAttribute;
-    }
-    
+  public String getBaseAttribute() {
+    return baseAttribute;
+  }
 
-    public void setBaseAttribute(String baseAttribute) {
-        this.baseAttribute = baseAttribute;
-    }
-    
-    
+  public void setBaseAttribute(String baseAttribute) {
+    this.baseAttribute = baseAttribute;
+  }
+
 }

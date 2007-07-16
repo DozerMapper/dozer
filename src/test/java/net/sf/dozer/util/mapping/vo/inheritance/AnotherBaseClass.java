@@ -15,31 +15,27 @@
  */
 package net.sf.dozer.util.mapping.vo.inheritance;
 
-import net.sf.dozer.util.mapping.vo.*;
+import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 public class AnotherBaseClass extends BaseTestObject {
 
-    private String baseAttribute;
-    private java.util.List listToArray;
+  private String baseAttribute;
+  private java.util.List listToArray;
 
-    public String getBaseAttribute() {
-        return baseAttribute;
-    }
-    
+  public String getBaseAttribute() {
+    return baseAttribute;
+  }
 
-    public void setBaseAttribute(String baseAttribute) {
-        this.baseAttribute = baseAttribute;
-    }
+  public void setBaseAttribute(String baseAttribute) {
+    this.baseAttribute = baseAttribute;
+  }
 
+  public java.util.List getListToArray() {
+    return listToArray;
+  }
 
-    public java.util.List getListToArray() {
-      return listToArray;
-    }
+  public void setListToArray(java.util.List listToArray) {
+    this.listToArray = listToArray;
+  }
 
-
-    public void setListToArray(java.util.List listToArray) {
-      this.listToArray = listToArray;
-    }
-    
-    
 }

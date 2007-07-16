@@ -15,31 +15,27 @@
  */
 package net.sf.dozer.util.mapping.vo.inheritance;
 
-import net.sf.dozer.util.mapping.vo.*;
+import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 public class AnotherBaseClassPrime extends BaseTestObject {
 
-    private String baseAttribute2;
-    private Object[] arrayToList;
+  private String baseAttribute2;
+  private Object[] arrayToList;
 
-    public String getBaseAttribute2() {
-        return baseAttribute2;
-    }
-    
+  public String getBaseAttribute2() {
+    return baseAttribute2;
+  }
 
-    public void setBaseAttribute2(String baseAttribute) {
-        this.baseAttribute2 = baseAttribute;
-    }
+  public void setBaseAttribute2(String baseAttribute) {
+    this.baseAttribute2 = baseAttribute;
+  }
 
+  public Object[] getArrayToList() {
+    return arrayToList;
+  }
 
-    public Object[] getArrayToList() {
-      return arrayToList;
-    }
+  public void setArrayToList(Object[] arrayToList) {
+    this.arrayToList = arrayToList;
+  }
 
-
-    public void setArrayToList(Object[] arrayToList) {
-      this.arrayToList = arrayToList;
-    }
-    
-    
 }

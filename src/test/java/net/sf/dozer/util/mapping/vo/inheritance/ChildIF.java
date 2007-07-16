@@ -16,9 +16,8 @@
 package net.sf.dozer.util.mapping.vo.inheritance;
 
 public interface ChildIF extends ParentIF {
-  
+
   public String getChildField();
   public void setChildField(String childField);
-
 
 }

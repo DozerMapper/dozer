@@ -22,6 +22,7 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  */
 public class Mccoy extends BaseTestObject {
   private String stringProperty;
+  private String field2;
 
   public String getStringProperty() {
     return stringProperty;
@@ -30,4 +31,13 @@ public class Mccoy extends BaseTestObject {
   public void setStringProperty(String stringProperty) {
     this.stringProperty = stringProperty;
   }
+
+  public String getField2() {
+    return field2;
+  }
+
+  public void setField2(String field2) {
+    this.field2 = field2;
+  }
+
 }

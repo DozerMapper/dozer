@@ -21,5 +21,5 @@ package net.sf.dozer.util.mapping.vo.iface;
 public interface SubscriberIF {
 
   public String getSubscriberNumber();
-  
+
 }
