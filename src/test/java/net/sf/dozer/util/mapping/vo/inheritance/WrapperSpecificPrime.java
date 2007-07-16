@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.vo.inheritance;
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 public class WrapperSpecificPrime extends BaseTestObject {
-  
+
   private GenericAbstractSuper specificObjectPrime;
 
   public GenericAbstractSuper getSpecificObjectPrime() {
