@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util.mapping.vo.deep;
 
+import java.util.List;
+
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 /**
@@ -25,6 +27,7 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
 public class SrcDeepObj extends BaseTestObject {
   private SrcNestedDeepObj srcNestedObj;
   private String sameNameField;
+  private List someList;
 
   public SrcNestedDeepObj getSrcNestedObj() {
     return srcNestedObj;
@@ -38,5 +41,12 @@ public class SrcDeepObj extends BaseTestObject {
   public void setSameNameField(String sameNameField) {
     this.sameNameField = sameNameField;
   }
+  public List getSomeList() {
+    return someList;
+  }
+  public void setSomeList(List someList) {
+    this.someList = someList;
+  }
+  
 
 }

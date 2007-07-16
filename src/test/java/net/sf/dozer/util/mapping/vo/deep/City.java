@@ -23,15 +23,14 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  * @author tierney.matt
  */
 public class City extends BaseTestObject {
-    private String name;
+  private String name;
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
 }

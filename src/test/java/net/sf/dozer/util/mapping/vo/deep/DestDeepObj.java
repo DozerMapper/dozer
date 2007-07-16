@@ -15,8 +15,9 @@
  */
 package net.sf.dozer.util.mapping.vo.deep;
 
-import net.sf.dozer.util.mapping.vo.BaseTestObject;
 import java.util.List;
+
+import net.sf.dozer.util.mapping.vo.BaseTestObject;
 import net.sf.dozer.util.mapping.vo.FurtherTestObject;
 
 /**

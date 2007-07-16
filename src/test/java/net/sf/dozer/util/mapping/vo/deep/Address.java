@@ -24,22 +24,22 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  */
 public class Address extends BaseTestObject {
 
-    private String street;
-    private City city;
-    public City getCity() {
-        return city;
-    }
+  private String street;
+  private City city;
+  public City getCity() {
+    return city;
+  }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
+  public void setCity(City city) {
+    this.city = city;
+  }
 
-    public String getStreet() {
-        return street;
-    }
+  public String getStreet() {
+    return street;
+  }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
+  public void setStreet(String street) {
+    this.street = street;
+  }
 
 }

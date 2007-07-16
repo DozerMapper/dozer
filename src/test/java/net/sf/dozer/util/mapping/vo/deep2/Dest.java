@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.vo.deep2;
 
-
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
 public class Dest extends BaseTestObject {

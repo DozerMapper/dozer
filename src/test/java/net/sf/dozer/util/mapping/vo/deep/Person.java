@@ -23,31 +23,31 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
  * @author tierney.matt
  */
 public class Person extends BaseTestObject {
-    private String name;
-    private String yourName;
-    private int[] prim = { 1,2,3 };
+  private String name;
+  private String yourName;
+  private int[] prim = { 1, 2, 3 };
 
-    public int[] getPrim() {
-        return prim;
-    }
+  public int[] getPrim() {
+    return prim;
+  }
 
-    public void setPrim(int[] prim) {
-        this.prim = prim;
-    }
+  public void setPrim(int[] prim) {
+    this.prim = prim;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getYourName() {
-      return yourName;
-    }
+  public String getYourName() {
+    return yourName;
+  }
 
-    public void setYourName(String yourName) {
-      this.yourName = yourName;
-    }
+  public void setYourName(String yourName) {
+    this.yourName = yourName;
+  }
 }
