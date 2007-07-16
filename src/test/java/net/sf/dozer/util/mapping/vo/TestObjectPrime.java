@@ -21,13 +21,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import net.sf.dozer.util.mapping.exception.DozerRuntimeException;
+import net.sf.dozer.util.mapping.vo.allowedexceptions.TestException;
 
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public class TestObjectPrime extends BaseTestObject {
   private String onePrime;
@@ -43,8 +43,8 @@ public class TestObjectPrime extends BaseTestObject {
   private int anotherPrimitive;
   private int bigDecimalToInt;
   private BigDecimal intToBigDecimal;
-  private Calendar date; //test Calender <-> Date map
-  private GregorianCalendar calendar; //Test Calendar <-> Calendar map
+  private Calendar date; // test Calender <-> Date map
+  private GregorianCalendar calendar; // Test Calendar <-> Calendar map
   private NoCustomMappingsObjectPrime noMappingsObj;
   private List hintList;
   private Date timeStamp;
@@ -65,17 +65,17 @@ public class TestObjectPrime extends BaseTestObject {
   private Apple[] setToArrayWithValues;
   private List listToSet;
   private List setToListWithValues;
-  public static String fieldAccessible;  
+  public static String fieldAccessible;
   public int fieldAccessiblePrimInt;
-  public InsideTestObjectPrime fieldAccessibleComplexType; 
-  private List stringArrayWithNullValue;  
+  public InsideTestObjectPrime fieldAccessibleComplexType;
+  private List stringArrayWithNullValue;
   public List fieldAccessibleArrayToList;
   private Date overloadSetField;
-  private InsideTestObjectPrime createMethodType;  
+  private InsideTestObjectPrime createMethodType;
   private String excludeMeOneWay = "excludeMeOneWay";
-  private String throwAllowedExceptionOnMapPrime;  
-  private String throwNonAllowedExceptionOnMapPrime;  
-  
+  private String throwAllowedExceptionOnMapPrime;
+  private String throwNonAllowedExceptionOnMapPrime;
+
   public long[] getPrimitiveArray() {
     return primitiveArray;
   }
@@ -92,14 +92,13 @@ public class TestObjectPrime extends BaseTestObject {
     this.theLongValue = theLongValue;
   }
 
-
   public GregorianCalendar getCalendar() {
     return calendar;
   }
 
-   public void setCalendar(GregorianCalendar calendar) {
-      this.calendar = calendar;
-   }
+  public void setCalendar(GregorianCalendar calendar) {
+    this.calendar = calendar;
+  }
 
   public void setAnotherPrimitive(int anotherPrimitive) {
     this.anotherPrimitive = anotherPrimitive;
@@ -213,21 +212,21 @@ public class TestObjectPrime extends BaseTestObject {
     this.noMappingsObj = noMappingsObj;
   }
 
-    public List getArrayForLists() {
-        return arrayForLists;
-    }
+  public List getArrayForLists() {
+    return arrayForLists;
+  }
 
-    public void setArrayForLists(List arrayForLists) {
-        this.arrayForLists = arrayForLists;
-    }
+  public void setArrayForLists(List arrayForLists) {
+    this.arrayForLists = arrayForLists;
+  }
 
-    public List getHintList() {
-        return hintList;
-    }
+  public List getHintList() {
+    return hintList;
+  }
 
-    public void setHintList(List hintList) {
-        this.hintList = hintList;
-    }
+  public void setHintList(List hintList) {
+    this.hintList = hintList;
+  }
 
   public Date getTimeStamp() {
     return timeStamp;
@@ -396,7 +395,7 @@ public class TestObjectPrime extends BaseTestObject {
   }
 
   public void setThrowAllowedExceptionOnMapPrime(String throwAllowedExceptionOnMapPrime) {
-    throw new DozerRuntimeException("Checking Allowed Exceptions");
+    throw new TestException("Checking Allowed Exceptions");
   }
 
   public String getThrowNonAllowedExceptionOnMapPrime() {
