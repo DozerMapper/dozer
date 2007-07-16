@@ -15,48 +15,29 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
-import net.sf.dozer.util.mapping.fieldmap.DozerClass;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
 
 /**
  * @author tierney.matt
  */
-public class DestBeanCreatorTest extends DozerTestBase {
-  private final DestBeanCreator destBeanCreator = new DestBeanCreator(MappingUtils.storedFactories);
-  
-  public void testCreatDestBeanNoFactory() throws Exception {
-    ClassMap classMap = new ClassMap();
-    DozerClass destClass = new DozerClass();
-    destClass.setName(TestObject.class.getName());
-    classMap.setDestClass(destClass);
+public class DestBeanCreatorTest extends AbstractDozerTest {
 
-    TestObject bean = (TestObject) destBeanCreator.create(null, classMap, null);
+  public void testCreatDestBeanNoFactory() throws Exception {
+    TestObject bean = (TestObject) DestBeanCreator.create(null, null, TestObject.class, null, null, null, null);
 
     assertNotNull(bean);
     assertNull(bean.getCreatedByFactoryName());
   }
 
   public void testCreatBeanFromFactory() throws Exception {
-    DozerClass destClass = new DozerClass();
     String factoryName = "net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory";
-    destClass.setName(TestObject.class.getName());
-    destClass.setBeanFactory(factoryName);
-
-    DozerClass srcClass = new DozerClass();
-    srcClass.setName(TestObjectPrime.class.getName());
-    srcClass.setBeanFactory(factoryName);
-
-    ClassMap classMap = new ClassMap();
-    classMap.setDestClass(destClass);
-    classMap.setSourceClass(srcClass);
-
-    TestObject bean = (TestObject) destBeanCreator.create(new TestObjectPrime(), classMap, null);
+    TestObject bean = (TestObject) DestBeanCreator.create(new TestObjectPrime(), TestObjectPrime.class, TestObject.class, null,
+        factoryName, null, null);
 
     assertNotNull(bean);
     assertEquals(factoryName, bean.getCreatedByFactoryName());
   }
-    
+
 }

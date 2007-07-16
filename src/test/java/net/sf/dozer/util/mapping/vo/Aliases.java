@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.vo;
 
-
 /**
  * @author wojtek.kiersztyn
  * @author dominic.peciuch
@@ -23,13 +22,13 @@ package net.sf.dozer.util.mapping.vo;
  */
 public class Aliases {
 
-    private String[] otherAliases;
+  private String[] otherAliases;
 
-    public String[] getOtherAliases() {
-        return otherAliases;
-    }
+  public String[] getOtherAliases() {
+    return otherAliases;
+  }
 
-    public void setOtherAliases(String[] otherAliases) {
-        this.otherAliases = otherAliases;
-    }
+  public void setOtherAliases(String[] otherAliases) {
+    this.otherAliases = otherAliases;
+  }
 }

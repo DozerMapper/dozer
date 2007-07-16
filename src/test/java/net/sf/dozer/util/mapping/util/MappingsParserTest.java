@@ -17,15 +17,16 @@ package net.sf.dozer.util.mapping.util;
 
 import java.util.Map;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
+import net.sf.dozer.util.mapping.classmap.Mappings;
+
 /**
  * @author tierney.matt
  */
-public class MappingsParserTest extends DozerTestBase {
-  
+public class MappingsParserTest extends AbstractDozerTest {
+
   private MappingsParser parser;
-  
+
   protected void setUp() throws Exception {
     super.setUp();
     parser = new MappingsParser();
@@ -34,29 +35,29 @@ public class MappingsParserTest extends DozerTestBase {
   public void testDuplicateMapIds() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapIdsMapping.xml");
     Mappings mappings = fileReader.read();
-    
+
     try {
-      parser.parseMappings(mappings);
+      parser.processMappings(mappings);
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception thrown", e.getMessage().indexOf("Duplicate Map Id") != -1);
     }
   }
-  
+
   public void testDetectDuplicateMapping() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapping.xml");
     Mappings mappings = fileReader.read();
     try {
-      parser.parseMappings(mappings);
+      parser.processMappings(mappings);
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
     }
   }
-  
+
   public void testEmptyMappings() throws Exception {
     Mappings mappings = new Mappings();
-    Map result = parser.parseMappings(mappings);
+    Map result = parser.processMappings(mappings);
     assertNotNull("result should not be null", result);
     assertEquals("result should be empty", 0, result.size());
   }

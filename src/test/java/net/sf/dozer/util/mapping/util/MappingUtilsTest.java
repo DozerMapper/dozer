@@ -17,70 +17,65 @@ package net.sf.dozer.util.mapping.util;
 
 import java.util.Iterator;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.fieldmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Mappings;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
-import net.sf.dozer.util.mapping.util.MappingFileReader;
-import net.sf.dozer.util.mapping.util.MappingUtils;
-import net.sf.dozer.util.mapping.util.MappingsParser;
 
 /**
  * @author tierney.matt
  */
-public class MappingUtilsTest extends DozerTestBase {
-
-  MappingUtils mappingUtils = new MappingUtils();
+public class MappingUtilsTest extends AbstractDozerTest {
 
   public void testIsBlankOrNull() throws Exception {
-    assertTrue(mappingUtils.isBlankOrNull(null));
-    assertTrue(mappingUtils.isBlankOrNull(""));
-    assertTrue(mappingUtils.isBlankOrNull(" "));
+    assertTrue(MappingUtils.isBlankOrNull(null));
+    assertTrue(MappingUtils.isBlankOrNull(""));
+    assertTrue(MappingUtils.isBlankOrNull(" "));
   }
 
   public void testOverridenFields() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("overridemapping.xml");
     Mappings mappings = fileReader.read();
     MappingsParser mappingsParser = new MappingsParser();
-    mappingsParser.parseMappings(mappings);
+    mappingsParser.processMappings(mappings);
     // validate class mappings
     Iterator iter = mappings.getMapping().iterator();
     while (iter.hasNext()) {
       ClassMap classMap = (ClassMap) iter.next();
-      if (classMap.getSourceClass().getName().equals("net.sf.dozer.util.mapping.vo.FurtherTestObject")) {
-        assertTrue(classMap.getStopOnErrors());
+      if (classMap.getSrcClassToMap().getName().equals("net.sf.dozer.util.mapping.vo.FurtherTestObject")) {
+        assertTrue(classMap.isStopOnErrors());
       }
-      if (classMap.getSourceClass().getName().equals("net.sf.dozer.util.mapping.vo.SuperSuperSuperClass")) {
-        assertTrue(classMap.getWildcard());
+      if (classMap.getSrcClassToMap().getName().equals("net.sf.dozer.util.mapping.vo.SuperSuperSuperClass")) {
+        assertTrue(classMap.isWildcard());
       }
-      if (classMap.getSourceClass().getName().equals("net.sf.dozer.util.mapping.vo.TestObject")) {
-        assertTrue(!((FieldMap) classMap.getFieldMaps().get(0)).getCopyByReference());
+      if (classMap.getSrcClassToMap().getName().equals("net.sf.dozer.util.mapping.vo.TestObject")) {
+        assertTrue(!((FieldMap) classMap.getFieldMaps().get(0)).isCopyByReference());
       }
     }
   }
 
   public void testGetClassWithoutPackage() throws Exception {
-    String result = mappingUtils.getClassNameWithoutPackage(String.class);
+    String result = MappingUtils.getClassNameWithoutPackage(String.class);
     assertNotNull("result should not be null", result);
     assertEquals("invalid result value", "String", result);
   }
-  
+
   public void testThrowMappingException_MappingException() {
     MappingException ex = new MappingException(String.valueOf(System.currentTimeMillis()));
     try {
-      mappingUtils.throwMappingException(ex);
+      MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
     } catch (MappingException e) {
       assertEquals("invalid ex", ex, e);
     }
   }
-  
+
   public void testThrowMappingException_RuntimeException() {
-    //Runtime ex should not get wrapped in MappingException
+    // Runtime ex should not get wrapped in MappingException
     NullPointerException ex = new NullPointerException(String.valueOf(System.currentTimeMillis()));
     try {
-      mappingUtils.throwMappingException(ex);
+      MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
     } catch (NullPointerException e) {
       assertEquals("invalid ex", ex, e);
@@ -88,12 +83,12 @@ public class MappingUtilsTest extends DozerTestBase {
       fail("NullPointerException should have been thrown");
     }
   }
-  
+
   public void testThrowMappingException_CheckedException() {
-    //Checked exception should get wrapped in MappingException
+    // Checked exception should get wrapped in MappingException
     NoSuchFieldException ex = new NoSuchFieldException(String.valueOf(System.currentTimeMillis()));
     try {
-      mappingUtils.throwMappingException(ex);
+      MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
     } catch (MappingException e) {
       assertEquals("invalid nested ex", ex, e.getCause());
@@ -101,5 +96,5 @@ public class MappingUtilsTest extends DozerTestBase {
       fail("MappingException should have been thrown");
     }
   }
-  
+
 }

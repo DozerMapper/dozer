@@ -26,9 +26,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.RandomStringUtils;
-
-import net.sf.dozer.util.mapping.vo.*;
+import net.sf.dozer.util.mapping.vo.Apple;
+import net.sf.dozer.util.mapping.vo.AppleComputer;
+import net.sf.dozer.util.mapping.vo.Car;
+import net.sf.dozer.util.mapping.vo.CustomDoubleObject;
+import net.sf.dozer.util.mapping.vo.CustomDoubleObjectIF;
+import net.sf.dozer.util.mapping.vo.DehydrateTestObject;
+import net.sf.dozer.util.mapping.vo.FurtherTestObject;
+import net.sf.dozer.util.mapping.vo.FurtherTestObjectPrime;
+import net.sf.dozer.util.mapping.vo.HydrateTestObject;
+import net.sf.dozer.util.mapping.vo.HydrateTestObject2;
+import net.sf.dozer.util.mapping.vo.InsideTestObject;
+import net.sf.dozer.util.mapping.vo.MetalThingyIF;
+import net.sf.dozer.util.mapping.vo.NoCustomMappingsObject;
+import net.sf.dozer.util.mapping.vo.NoExtendBaseObject;
+import net.sf.dozer.util.mapping.vo.NoExtendBaseObjectGlobalCopyByReference;
+import net.sf.dozer.util.mapping.vo.Orange;
+import net.sf.dozer.util.mapping.vo.SimpleObj;
+import net.sf.dozer.util.mapping.vo.SubClass;
+import net.sf.dozer.util.mapping.vo.TestCustomConverterObject;
+import net.sf.dozer.util.mapping.vo.TestObject;
+import net.sf.dozer.util.mapping.vo.TheFirstSubClass;
+import net.sf.dozer.util.mapping.vo.Van;
 import net.sf.dozer.util.mapping.vo.deep.Address;
 import net.sf.dozer.util.mapping.vo.deep.City;
 import net.sf.dozer.util.mapping.vo.deep.House;
@@ -42,6 +61,8 @@ import net.sf.dozer.util.mapping.vo.inheritance.S2Class;
 import net.sf.dozer.util.mapping.vo.inheritance.SClass;
 import net.sf.dozer.util.mapping.vo.perf.MyClassA;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
@@ -49,38 +70,36 @@ import net.sf.dozer.util.mapping.vo.perf.MyClassA;
  */
 public abstract class TestDataFactory {
 
+  public static SubClass getSubClass() {
+    SubClass obj = new SubClass();
 
-  public static SubClass getSubClass()
-  {
-      SubClass obj = new SubClass();
+    obj.setAttribute("subclass");
+    obj.setSuperAttribute("superclass");
 
-      obj.setAttribute( "subclass" );
-      obj.setSuperAttribute( "superclass" );
+    List superList = new ArrayList();
+    superList.add("one");
+    superList.add("two");
+    superList.add("three");
 
-      List superList = new ArrayList();
-      superList.add( "one" );
-      superList.add( "two" );
-      superList.add( "three" );
+    obj.setSuperList(superList);
+    obj.setSuperSuperAttribute("supersuperattribute");
+    obj.setSuperSuperSuperAttr("toplevel");
 
-      obj.setSuperList( superList );
-      obj.setSuperSuperAttribute("supersuperattribute");
-      obj.setSuperSuperSuperAttr( "toplevel" );
+    obj.setTestObject(TestDataFactory.getInputGeneralMappingTestObject());
+    HydrateTestObject2 sourceObj = new HydrateTestObject2();
 
-      obj.setTestObject( TestDataFactory.getInputGeneralMappingTestObject() );
-      HydrateTestObject2 sourceObj = new HydrateTestObject2();
+    TestCustomConverterObject cobj = new TestCustomConverterObject();
+    CustomDoubleObjectIF doub = new CustomDoubleObject();
+    doub.setTheDouble(15);
+    cobj.setAttribute(doub);
 
-      TestCustomConverterObject cobj = new TestCustomConverterObject();
-      CustomDoubleObjectIF doub = new CustomDoubleObject();
-      doub.setTheDouble(15);
-      cobj.setAttribute(doub);
+    obj.setCustomConvert(cobj);
 
-      obj.setCustomConvert( cobj );
+    obj.setHydrate(sourceObj);
 
-      obj.setHydrate( sourceObj );
+    obj.setSuperFieldToExclude("superFieldToExclude");
 
-      obj.setSuperFieldToExclude("superFieldToExclude");
-
-      return obj;
+    return obj;
   }
 
   public static SrcDeepObj getSrcDeepObj() {
@@ -99,13 +118,13 @@ public abstract class TestDataFactory {
     srcNested.setSrcNestedObj2(srcNested2);
     srcNested.setSrc6(furtherObjectPrime);
 
-    //List to List.  String to Integer
+    // List to List. String to Integer
     List hintList = new ArrayList();
     hintList.add("1");
     hintList.add("2");
     srcNested.setHintList(hintList);
 
-    //List to List.  TheFirstSubClass to TheFirstSubClassPrime
+    // List to List. TheFirstSubClass to TheFirstSubClassPrime
     TheFirstSubClass hintList2Obj = new TheFirstSubClass();
     hintList2Obj.setS("test");
 
@@ -168,9 +187,10 @@ public abstract class TestDataFactory {
     Car car = new Car();
     car.setName("Build by buildCar");
     HydrateTestObject hto = new HydrateTestObject();
-    //Problem - Destination Field is array of 'cars' - but getMethod() is buildCar() which returns a Car. MapCollection method can not handle this...
-    //DestinationType is a Car and it should be an array.
-    //hto.addCar(car);
+    // Problem - Destination Field is array of 'cars' - but getMethod() is buildCar() which returns a Car. MapCollection
+    // method can not handle this...
+    // DestinationType is a Car and it should be an array.
+    // hto.addCar(car);
     hto.setCarArray(new Car[0]);
     return hto;
   }
@@ -178,6 +198,13 @@ public abstract class TestDataFactory {
   public static NoCustomMappingsObject getInputTestNoClassMappingsNoCustomMappingsObject() {
     NoCustomMappingsObject custom = new NoCustomMappingsObject();
     custom.setStringDataType("stringDataType");
+    custom.setDate(new Date());
+    custom.setFive(55);
+    custom.setFour(44);
+    custom.setSeven(77);
+    custom.setSix(new Double(87.62));
+    custom.setThree(new Integer(9876));
+
     return custom;
   }
 
@@ -247,8 +274,8 @@ public abstract class TestDataFactory {
     custom.setOne("one");
     custom.setTwo(new Integer(2));
 
-    int[] pa = { 0 , 1, 2, 3,4};
-    custom.setPrimArray( pa );
+    int[] pa = { 0, 1, 2, 3, 4 };
+    custom.setPrimArray(pa);
 
     InsideTestObject ito = new InsideTestObject();
     ito.setLabel("label");
@@ -257,7 +284,7 @@ public abstract class TestDataFactory {
 
     custom.setThree(ito);
 
-    //testing if it will map two custom objects that are different types but same names //
+    // testing if it will map two custom objects that are different types but same names //
     InsideTestObject ito2 = new InsideTestObject();
     ito2.setLabel("label");
     custom.setInsideTestObject(ito2);
@@ -305,7 +332,7 @@ public abstract class TestDataFactory {
     hintList.add(fsc2);
 
     custom.setHintList(hintList);
-    
+
     custom.setBlankDate("");
     custom.setBlankStringToLong("");
     NoExtendBaseObject nebo = new NoExtendBaseObject();
@@ -314,7 +341,7 @@ public abstract class TestDataFactory {
     custom.setCopyByReferenceDeep(nebo2);
     NoExtendBaseObjectGlobalCopyByReference globalNebo = new NoExtendBaseObjectGlobalCopyByReference();
     custom.setGlobalCopyByReference(globalNebo);
-    
+
     String[] stringArray = new String[] { null, "one", "two" };
     custom.setStringArrayWithNullValue(stringArray);
     return custom;
@@ -358,14 +385,13 @@ public abstract class TestDataFactory {
     compList.add(apple1);
     compList.add(apple2);
     custom.setAppleComputers(compList);
-    
+
     Car iterateCar = new Car();
     iterateCar.setName("name");
     List iterateCarList = new ArrayList();
     iterateCarList.add(car);
     custom.setIterateCars(iterateCarList);
 
-    Car iterateMoreCar = new Car();
     iterateCar.setName("name");
     List iterateMoreCarList = new ArrayList();
     iterateMoreCarList.add(car);
@@ -399,8 +425,6 @@ public abstract class TestDataFactory {
     return hto;
   }
 
-
-
   public static HydrateTestObject getInputTestHydrateAndMoreHydrateTestObject() {
     HydrateTestObject hto = new HydrateTestObject();
     Car car = new Car();
@@ -423,7 +447,7 @@ public abstract class TestDataFactory {
 
     hto.setApples(apples);
     hto.setOranges(oranges);
-    
+
     AppleComputer apple1 = new AppleComputer();
     apple1.setName("name");
     AppleComputer apple2 = new AppleComputer();
@@ -455,10 +479,10 @@ public abstract class TestDataFactory {
     custom.setAppleComputers(compList);
     List iterateCars = new ArrayList();
     iterateCars.add(car);
-    custom.setIterateCars(iterateCars);    
+    custom.setIterateCars(iterateCars);
     return custom;
   }
-  
+
   public static SimpleObj getSimpleObj() {
     SimpleObj result = new SimpleObj();
     result.setField1("one");
@@ -467,10 +491,10 @@ public abstract class TestDataFactory {
     result.setField4(new Double(44.44));
     result.setField5(Calendar.getInstance());
     result.setField6("66");
-    
+
     return result;
   }
-  
+
   public static AnotherSubClass getAnotherSubClass() {
     AnotherSubClass asub = new AnotherSubClass();
     asub.setBaseAttribute("base");
@@ -510,24 +534,24 @@ public abstract class TestDataFactory {
     asub.setSClass(sclassA);
     asub.setSClass2(sclassB);
 
-    return asub;    
+    return asub;
   }
-  
-  public static MyClassA getRandomMyClassA() { 
-    MyClassA myClassAObj = new MyClassA(); 
-    myClassAObj.setAStringList(getRandomStringList(500)); 
-   
-    return myClassAObj; 
-  } 
-   
-  private static List getRandomStringList(int listSize) { 
-    List stringList = new ArrayList(listSize); 
-   
-    for (int count = 0; count < listSize; count = count + 1) { 
-      stringList.add(RandomStringUtils.randomAlphabetic(255)); 
-    } 
-   
-    return stringList; 
-  } 
-  
+
+  public static MyClassA getRandomMyClassA() {
+    MyClassA myClassAObj = new MyClassA();
+    myClassAObj.setAStringList(getRandomStringList(500));
+
+    return myClassAObj;
+  }
+
+  private static List getRandomStringList(int listSize) {
+    List stringList = new ArrayList(listSize);
+
+    for (int count = 0; count < listSize; count = count + 1) {
+      stringList.add(RandomStringUtils.randomAlphabetic(255));
+    }
+
+    return stringList;
+  }
+
 }

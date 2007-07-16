@@ -17,21 +17,22 @@ package net.sf.dozer.util.mapping.util;
 
 import java.net.URL;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
-import net.sf.dozer.util.mapping.fieldmap.Mappings;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
+import net.sf.dozer.util.mapping.classmap.Mappings;
+
 /**
  * @author garsombke.franz
  */
-public class XMLParserTest extends DozerTestBase {
+public class XMLParserTest extends AbstractDozerTest {
 
   /*
    * Test method for 'net.sf.dozer.util.mapping.util.XMLParser.parse(InputSource)'
    */
   public void testParse() throws Exception {
     XMLParser parser = new XMLParser();
-    Loader loader = new Loader();
+    ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");
-    
+
     Mappings mappings = parser.parse(url.openStream());
     assertNotNull(mappings);
   }

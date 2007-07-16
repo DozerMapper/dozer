@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
+ * 
  */
 public abstract class BaseTestObject implements Serializable {
 

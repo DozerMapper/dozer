@@ -15,15 +15,15 @@
  */
 package net.sf.dozer.util.mapping.stats;
 
-import net.sf.dozer.util.mapping.DozerTestBase;
+import net.sf.dozer.util.mapping.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
-public class GlobalStatisticsTest extends DozerTestBase {
+public class GlobalStatisticsTest extends AbstractDozerTest {
   public void testGetInstance() throws Exception {
     GlobalStatistics mgr = GlobalStatistics.getInstance();
-    
+
     assertEquals("stat mgrs should be equal", mgr, GlobalStatistics.getInstance());
     assertSame("stat mgrs should be the same instance", mgr, GlobalStatistics.getInstance());
   }
