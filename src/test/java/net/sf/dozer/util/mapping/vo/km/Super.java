@@ -15,9 +15,13 @@
  */
 package net.sf.dozer.util.mapping.vo.km;
 
+/**
+ * @author garsombke.franz
+ */
 public class Super {
   private String age;
   private String loginName;
+  private Property property;
 
   public String getAge() {
     return age;
@@ -30,5 +34,11 @@ public class Super {
   }
   public void setLoginName(String name) {
     this.loginName = name;
+  }
+  public Property getProperty() {
+    return property;
+  }
+  public void setProperty(Property property) {
+    this.property = property;
   }
 }

@@ -9,6 +9,11 @@
    	  <a>loginName</a>
    	  <b>userName</b>
    	</field>
+    <!-- testing bug 1757573 -->
+   	<field>
+   	  <a>property.mapMe</a>
+   	  <b>property</b>
+   	</field>
   </mapping>
   
 </mappings>

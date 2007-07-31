@@ -38,6 +38,8 @@ import net.sf.dozer.util.mapping.vo.inheritance.Specific3;
 import net.sf.dozer.util.mapping.vo.inheritance.SpecificObject;
 import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecific;
 import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecificPrime;
+import net.sf.dozer.util.mapping.vo.km.Property;
+import net.sf.dozer.util.mapping.vo.km.PropertyB;
 import net.sf.dozer.util.mapping.vo.km.SomeVo;
 import net.sf.dozer.util.mapping.vo.km.Sub;
 import net.sf.dozer.util.mapping.vo.km.Super;
@@ -334,13 +336,19 @@ public class InheritanceMappingTest extends AbstractDozerTest {
   }
 
   /*
-   * Bug #1486105
+   * Bug #1486105 and #1757573
    */
   public void testKM2() {
     Sub request = new Sub();
     request.setAge("2");
     request.setColor("blue");
     request.setLoginName("fred");
+    Property property = new Property();
+    PropertyB nestedProperty = new PropertyB();
+    nestedProperty.setTestProperty("boo");
+    property.setTestProperty("testProperty");
+    property.setMapMe(nestedProperty);
+    request.setProperty(property);
 
     MapperIF mapper = getNewMapper(new String[] { "kmmapping.xml" });
 
@@ -352,6 +360,8 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     assertEquals("should map SuperClass.name to SubClassPrime userName.", request.getLoginName(), afterMapping.getUserName());
     assertEquals(request.getColor(), afterMapping.getColor());
     assertEquals(request.getAge(), afterMapping.getAge());
+    assertEquals(request.getProperty().getMapMe().getTestProperty(), afterMapping.getProperty().getTestProperty());
+    assertNull(afterMapping.getProperty().getMapMe());
   }
 
   private A getA() {

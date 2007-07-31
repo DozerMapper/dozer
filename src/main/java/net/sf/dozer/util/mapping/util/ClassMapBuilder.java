@@ -41,6 +41,9 @@ import org.apache.commons.lang.StringUtils;
 public abstract class ClassMapBuilder {
 
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass) {
+    return createDefaultClassMap(globalConfiguration, srcClass, destClass, null);    
+  }  
+  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass, ClassMap parentClassMap) {
     ClassMap classMap = new ClassMap(globalConfiguration);
     classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null,
         MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
@@ -49,7 +52,7 @@ public abstract class ClassMapBuilder {
 
     // Add default field mappings if wildcard policy is true
     if (classMap.isWildcard()) {
-      addDefaultFieldMappings(classMap, globalConfiguration);
+      addDefaultFieldMappings(classMap, globalConfiguration, parentClassMap);
     }
 
     return classMap;
@@ -69,6 +72,10 @@ public abstract class ClassMapBuilder {
   }
 
   public static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
+    addDefaultFieldMappings(classMap, globalConfiguration, null);
+  }
+  
+  public static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration, ClassMap parentClassMap) {
     Class srcClass = classMap.getSrcClassToMap();
     Class destClass = classMap.getDestClassToMap();
 
@@ -88,6 +95,12 @@ public abstract class ClassMapBuilder {
         continue;
       }
 
+      // If field has already been accounted for in a parent map, then skip
+      // bug #1757573
+      if (parentClassMap != null && parentClassMap.getFieldMapUsingDest(destFieldName) != null) {
+        continue;
+      }
+      
       // If destination field does not have a write method, then skip
       if (destPropertyDescriptor.getWriteMethod() == null) {
         continue;

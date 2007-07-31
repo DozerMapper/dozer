@@ -824,10 +824,24 @@ public class MappingProcessor implements MapperIF {
 
     // Fix for bug # [ 1486105 ] Inheritance mapping not working correctly
     // We were not creating a default configuration if we found a parent level class map
+    // It seems that the fixation of this introduced another bug. 
+    // To fix this bug, a default class map is created if one of the
+    // destination or source classes given in the mapping defininiton is different
+    // from the actual object classes (as in the case of mapping subclasses using
+    // a mapping for super classes). However this default mapping causes an override effect. 
+    // For example if there is such a declaration in the mapping:
+    // <field>
+    //  <a>propA.realProp</a>
+    //  <b>propA</b>
+    // </field>
+    // MappingProcessor also maps propA to propA because of the default mapping,
+    // causing an override effect.
+    // bug #1757573
     if (mapping.getSrcClassToMap() != srcClass || mapping.getDestClassToMap() != destClass) {
       // there are fields from the source object to dest class we might be missing. create a default mapping between the two.
-      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass);
-      superClasses.add(mapping);
+      ClassMap myMap;
+      myMap = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass, mapping);
+      superClasses.add(myMap);
     }
 
     // If no existing cache entry is found, determine super type mapping and store in cache
