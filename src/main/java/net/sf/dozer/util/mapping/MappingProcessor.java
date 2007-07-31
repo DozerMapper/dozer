@@ -317,7 +317,7 @@ public class MappingProcessor implements MapperIF {
           srcFieldValue, destFieldType, destObj, fieldMapping, false);
     }
 
-    writeDestinationValue(destObj, destFieldValue, fieldMapping);
+    writeDestinationValue(destObj, destFieldValue, fieldMapping, srcObj);
 
     if (log.isDebugEnabled()) {
       log.debug(LogMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
@@ -574,7 +574,7 @@ public class MappingProcessor implements MapperIF {
           value = map(value, fieldMapping.getDestHintContainer().getHint());
         }
         if (value != null) {
-          writeDestinationValue(destObj, value, fieldMapping);
+          writeDestinationValue(destObj, value, fieldMapping, srcObj);
         }
       }
     }
@@ -745,7 +745,7 @@ public class MappingProcessor implements MapperIF {
     return addOrUpdateToList(srcObj, fieldMap, srcValueList, destObj, destEntryType);
   }
 
-  private void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
+  private void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap, Object srcObj) {
     boolean bypass = false;
     // don't map null to dest field if map-null="false"
     if (destFieldValue == null && !fieldMap.getClassMap().isDestClassMapNull()) {
@@ -764,12 +764,12 @@ public class MappingProcessor implements MapperIF {
     }
 
     if (!bypass) {
-      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, null,
+      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
           destObj, destFieldValue));
 
       fieldMap.writeDestValue(destObj, destFieldValue);
 
-      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_POST_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, null,
+      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_POST_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
           destObj, destFieldValue));
     }
   }
