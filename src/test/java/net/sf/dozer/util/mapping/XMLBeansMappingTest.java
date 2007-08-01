@@ -96,4 +96,19 @@ public class XMLBeansMappingTest extends AbstractDozerTest {
     assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
   }
   
+  public void testXmlBeansWithNullFields() throws Exception { 
+    
+    mapper = getNewMapper(new String[]{"xmlBeansMapping.xml"}); 
+    ChildType xmlBean = ChildType.Factory.newInstance(); 
+     
+    Child pojo = (Child) mapper.map(xmlBean, Child.class); 
+     
+    assertNotNull("dest obj should not be null", pojo); 
+    assertNull("fu should be null", pojo.getFu()); 
+    assertNull("bar should be null", pojo.getBar()); 
+    assertNull("id should be null", pojo.getId()); 
+    assertNull("name should be null", pojo.getName()); 
+    assertNull("testBoolean should be null", pojo.getTestBoolean()); 
+    assertNull("testInt should be null", pojo.getTestInt()); 
+    }   
 }

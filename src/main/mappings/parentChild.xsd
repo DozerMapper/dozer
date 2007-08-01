@@ -14,6 +14,8 @@
     <xs:sequence>
       <xs:element name="Id"   type="dt:IdentifierType" minOccurs="1" maxOccurs="1" nillable="false" />
       <xs:element name="Name" type="xs:string"         minOccurs="1" maxOccurs="1" nillable="false" />
+      <xs:element name="testInt" type="xs:int" minOccurs="0" maxOccurs="1" nillable="false" /> 
+      <xs:element name="testBoolean" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="false" />       
     </xs:sequence>
   </xs:complexType>
 
