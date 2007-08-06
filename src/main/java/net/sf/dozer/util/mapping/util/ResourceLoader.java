@@ -15,19 +15,26 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import net.sf.dozer.util.mapping.stats.StatisticsManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
- * Internal class that loads resources from the classpath. Also supports loading resources outside of the classpath if
- * it is prepended with "file:". Only intended for internal use.
+ * Internal class that loads resources from the classpath. Also supports loading
+ * resources outside of the classpath if it is prepended with "file:". Only
+ * intended for internal use.
  * 
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class ResourceLoader {
+
+  private static final Log log = LogFactory.getLog(ResourceLoader.class);
 
   public URL getResource(String resource) {
     URL result = Thread.currentThread().getContextClassLoader().getResource(resource);
@@ -45,12 +52,12 @@ public class ResourceLoader {
       result = ClassLoader.getSystemResource(resource);
     }
 
-    // Patch to load mapping file from outside of classpath.
-    if (resource.startsWith(MapperConstants.FILE_PREFIX)) {
+    // one more time
+    if (result == null) {
       try {
-        return new File(resource.substring(MapperConstants.FILE_PREFIX.length())).toURL();
+        result = new URL(resource);
       } catch (MalformedURLException e) {
-        MappingUtils.throwMappingException(e);
+        log.warn("Malformed URL looking up resource", e);
       }
     }
 
