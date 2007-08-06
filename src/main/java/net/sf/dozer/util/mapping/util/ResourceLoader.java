@@ -57,7 +57,7 @@ public class ResourceLoader {
       try {
         result = new URL(resource);
       } catch (MalformedURLException e) {
-        log.warn("Malformed URL looking up resource", e);
+        log.error("Malformed URL looking up resource", e);
       }
     }
 
