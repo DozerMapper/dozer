@@ -129,6 +129,7 @@ public class MappingProcessor implements MapperIF {
           .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
 
       // Map src values to dest object
+      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, destObj, null));
       map(classMap, srcObj, destObj, null, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
@@ -151,14 +152,15 @@ public class MappingProcessor implements MapperIF {
       // Check to see if custom converter has been specified for this mapping combination. If so, just use it.
       Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
           .getClass(), destObj.getClass());
-      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, destObj, null));
 
       if (converterClass != null) {
+        eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, destObj, null));
         mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destObj.getClass(), destObj, null, true);
         return;
       }
 
       // Map src values to dest object
+      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, destObj, null));
       map(classMap, srcObj, destObj, null, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
