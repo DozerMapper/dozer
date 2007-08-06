@@ -18,11 +18,6 @@ package net.sf.dozer.util.mapping.util;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import net.sf.dozer.util.mapping.stats.StatisticsManager;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * Internal class that loads resources from the classpath. Also supports loading
  * resources outside of the classpath if it is prepended with "file:". Only
@@ -33,8 +28,6 @@ import org.apache.commons.logging.LogFactory;
  * @author garsombke.franz
  */
 public class ResourceLoader {
-
-  private static final Log log = LogFactory.getLog(ResourceLoader.class);
 
   public URL getResource(String resource) {
     URL result = Thread.currentThread().getContextClassLoader().getResource(resource);
@@ -57,7 +50,7 @@ public class ResourceLoader {
       try {
         result = new URL(resource);
       } catch (MalformedURLException e) {
-        log.error("Malformed URL looking up resource", e);
+        MappingUtils.throwMappingException(e);
       }
     }
 
