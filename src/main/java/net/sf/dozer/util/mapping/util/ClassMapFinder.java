@@ -39,7 +39,7 @@ public abstract class ClassMapFinder {
 
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
-  public static ClassMap findClassMap(Map customMappings, Object srcObj, Class destClass, String mapId, boolean isInstance) {
+  public static ClassMap findClassMap(Map customMappings, Object srcObj, Class destClass, String mapId) {
     ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcObj.getClass(), destClass, mapId));
 
     // Determine if it is an Interface or Abstract Class. Iterate through the class maps and see if this class has any
