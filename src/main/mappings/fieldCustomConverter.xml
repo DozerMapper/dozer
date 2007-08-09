@@ -29,6 +29,14 @@
       <b>field1</b>
     </field>
   </mapping>   
-  
+
+  <mapping wildcard="false">
+    <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-b>    
+    <field custom-converter-id="CustomConverterWithId">
+      <a>field1</a>
+      <b>field3</b>
+    </field>
+  </mapping>     
 
 </mappings>

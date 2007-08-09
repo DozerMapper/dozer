@@ -135,7 +135,7 @@
 <!ATTLIST field map-id CDATA #IMPLIED>
 <!ATTLIST field copy-by-reference CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST field custom-converter CDATA #IMPLIED>
-
+<!ATTLIST field custom-converter-id CDATA #IMPLIED>
 
 <!--
     Exclude a particular field from being mapped

@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
-import net.sf.dozer.util.mapping.util.ApplicationBeanFactory;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.ArrayCustConverterObj;
@@ -311,6 +310,21 @@ public class CustomConverterMappingTest extends AbstractDozerTest {
     String token2 = st.nextToken();
     assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
+  }
+  
+  
+  public void testFieldCustomConverter_WithCustomConverterId() throws Exception {
+    mapper = getNewMapper(new String[] { "fieldCustomConverter.xml" });
+    Map map = new HashMap();
+    map.put("CustomConverterWithId", new StringAppendCustomConverter());
+    ((DozerBeanMapper) mapper).setCustomConvertersWithId(map);
+    AnotherTestObject src = new AnotherTestObject();
+    src.setField3("field3");
+
+    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class);
+
+    assertEquals("dest field1 value should have been appended to by the cust converter",
+       src.getField3() + "-" + StringAppendCustomConverter.APPENDED_VALUE, dest.getField1());
   }
   
 

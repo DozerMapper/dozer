@@ -185,6 +185,7 @@ public abstract class MappingUtils {
     destination.setDestField(df);
     destination.setSrcField(sf);
     destination.setCustomConverter(source.getCustomConverter());
+    destination.setCustomConverterId(source.getCustomConverterId());
     destination.setMapId(source.getMapId());
     destination.setRelationshipType(source.getRelationshipType());
     destination.setSrcHintContainer(source.getDestHintContainer());

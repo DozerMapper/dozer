@@ -105,6 +105,7 @@ public class XMLParser {
   private static final String MAP_NULL_ATTRIBUTE = "map-null";
   private static final String MAP_EMPTY_STRING_ATTRIBUTE = "map-empty-string";
   private static final String CUSTOM_CONVERTER_ATTRIBUTE = "custom-converter";
+  private static final String CUSTOM_CONVERTER_ID_ATTRIBUTE = "custom-converter-id";
 
   private final Mappings mappings = new Mappings();
 
@@ -269,6 +270,9 @@ public class XMLParser {
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE))) {
       fm.setCustomConverter(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE));
+    }
+    if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE))) {
+      fm.setCustomConverterId(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE));
     }
 
     parseFieldMap(ele, fm);

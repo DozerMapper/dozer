@@ -53,6 +53,7 @@ public abstract class FieldMap implements Cloneable {
   private boolean copyByReferenceOveridden;
   private String mapId;
   private String customConverter;
+  private String customConverterId;
   private String relationshipType;
 
   public FieldMap(ClassMap classMap) {
@@ -384,6 +385,14 @@ public abstract class FieldMap implements Cloneable {
         destField).append("type", type).append("customConverter", customConverter).append("relationshipType", relationshipType)
         .append("mapId", mapId).append("copyByReference", copyByReference).append("copyByReferenceOveridden",
             copyByReferenceOveridden).append("srcTypeHint", srcHintContainer).append("destTypeHint", destHintContainer).toString();
+  }
+
+  public String getCustomConverterId() {
+    return customConverterId;
+  }
+
+  public void setCustomConverterId(String customConverterId) {
+    this.customConverterId = customConverterId;
   }
 
 }

@@ -63,6 +63,7 @@ public class DozerBeanMapper implements MapperIF {
   private List customConverters;
   private List eventListeners;
   private CustomFieldMapperIF customFieldMapper;
+  private Map customConvertersWithId;
 
   /*
    * Not accessible for injection
@@ -131,7 +132,7 @@ public class DozerBeanMapper implements MapperIF {
       loadCustomMappings();
     }
     MapperIF processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
-        getEventListeners(), getCustomFieldMapper());
+        getEventListeners(), getCustomFieldMapper(), customConvertersWithId);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
@@ -165,6 +166,14 @@ public class DozerBeanMapper implements MapperIF {
 
   public void setCustomFieldMapper(CustomFieldMapperIF customFieldMapper) {
     this.customFieldMapper = customFieldMapper;
+  }
+
+  public Map getCustomConvertersWithId() {
+    return customConvertersWithId;
+  }
+
+  public void setCustomConvertersWithId(Map customConvertersWithId) {
+    this.customConvertersWithId = customConvertersWithId;
   }
 
 }
