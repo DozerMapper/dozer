@@ -71,6 +71,54 @@
         ]]>
      </source>
      <p>
+     Custom converter 'instances' can be reused at the individual field level. In the example below, Dozer will invoke the custom converter to perform the field mapping.
+     </p>
+
+      <source>
+        <![CDATA[
+<mapping>
+  <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime2</class-b>    
+  <field custom-converter-id="CustomConverterWithId">
+    <a>field1</a>
+    <b>field1Prime</b>
+  </field>
+</mapping>   
+        ]]>
+     </source>
+     <p>
+     CustomConverter instances need to be injected into the DozerBeanMapper if you need to do some manipulation
+     with them before they are used in dozer. They can also be set programmatically on the DozerBeanMapper if you do not use Spring.
+     </p>
+<source>
+  <![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="false">
+
+  <bean id="net.sf.dozer.util.mapping.MapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+    <property name="mappingFiles">
+      <list>
+        <value>systempropertymapping1.xml</value>
+        <value>dozerBeanMapping.xml</value>
+        <value>injectedCustomConverter.xml</value>
+      </list>
+    </property>
+    <property name="customConvertersWithId"> 
+      <map> 
+        <entry key="CustomConverterWithId" ref="configurableConverterBeanInstance1"/> 
+        <entry key="CustomConverterWithId2" ref="configurableConverterBeanInstance2"/> 
+      </map> 
+    </property>   
+</bean>
+
+</beans>     
+    ]]>
+ </source>
+
+     <p>
      Sample custom converter implementation:
      </p>
      

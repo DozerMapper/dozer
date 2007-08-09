@@ -352,6 +352,8 @@ public class MappingProcessor implements MapperIF {
             .getClass());
         destFieldValue = mapUsingCustomConverterInstance(customConverterObjectsWithId.get(fieldMapping
             .getCustomConverterId()), srcFieldClass, srcFieldValue, destFieldType, destObj, fieldMapping, false);
+      } else {
+        throw new MappingException("CustomConverter instance not found with id:" + fieldMapping.getCustomConverterId());
       }
     } else if (MappingUtils.isBlankOrNull(fieldMapping.getCustomConverter())) {
       destFieldValue = mapOrRecurseObject(srcObj, srcFieldValue, destFieldType, fieldMapping, destObj);
