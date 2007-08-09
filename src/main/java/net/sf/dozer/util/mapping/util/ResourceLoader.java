@@ -46,7 +46,7 @@ public class ResourceLoader {
     }
 
     // one more time
-    if (result == null) {
+    if (result == null && resource.contains(":")) {
       try {
         result = new URL(resource);
       } catch (MalformedURLException e) {

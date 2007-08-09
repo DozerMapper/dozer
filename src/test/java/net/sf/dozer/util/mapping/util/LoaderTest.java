@@ -18,11 +18,9 @@ package net.sf.dozer.util.mapping.util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
-import net.sf.dozer.util.mapping.MappingException;
 
 /**
  * @author tierney.matt
@@ -31,12 +29,7 @@ public class LoaderTest extends AbstractDozerTest {
   private ResourceLoader loader = new ResourceLoader();
 
   public void testResourceNotFound() throws Exception {
-    try {
-      loader.getResource(String.valueOf(System.currentTimeMillis()));
-      fail("should have thrown a dozer mapping exception");
-    } catch (MappingException t) {
-      assertTrue(t.getCause() instanceof MalformedURLException);
-    }
+    assertNull("file URL should not have been found", loader.getResource(String.valueOf(System.currentTimeMillis())));
   }
 
   public void testGetResource_FileOutsideOfClasspath() throws Exception {
@@ -67,13 +60,8 @@ public class LoaderTest extends AbstractDozerTest {
   }
 
   public void testGetResource_FileOutsideOfClasspath_InvalidFormat() throws Exception {
-    // when using a file outside of classpath the file name must be prepended
-    // with "file:"
-    try {
-      URL url = loader.getResource(String.valueOf(System.currentTimeMillis()));
-      fail("should have thrown a dozer mapping exception");
-    } catch (MappingException t) {
-      assertTrue(t.getCause() instanceof MalformedURLException);
-    }
+    // when using a file outside of classpath the file name must be prepended with "file:"
+    URL url = loader.getResource(String.valueOf(System.currentTimeMillis()));
+    assertNull("URL should be null", url);
   }
 }
