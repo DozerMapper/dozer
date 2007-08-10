@@ -18,6 +18,8 @@ package net.sf.dozer.util.mapping.util;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Internal class that loads resources from the classpath. Also supports loading
  * resources outside of the classpath if it is prepended with "file:". Only
@@ -46,7 +48,7 @@ public class ResourceLoader {
     }
 
     // one more time
-    if (result == null && resource.contains(":")) {
+    if (result == null && StringUtils.contains(resource, ":")) {
       try {
         result = new URL(resource);
       } catch (MalformedURLException e) {
