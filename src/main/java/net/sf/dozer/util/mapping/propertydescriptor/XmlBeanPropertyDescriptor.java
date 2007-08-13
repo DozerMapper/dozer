@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 /**
  * @author Stuntmunkee
  */
-import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 
@@ -60,7 +59,7 @@ public class XmlBeanPropertyDescriptor implements DozerPropertyDescriptorIF {
       final Boolean isSetField = (Boolean) isSetFieldPropertyDescriptor.getPropertyValue(bean);
       return isSetField.booleanValue();
 
-    } catch (MappingException e) {
+    } catch (Throwable e) {
       // The isSetField will not be present for all fields eg. Class.name -
       // that's ok.
       return true;
