@@ -15,15 +15,86 @@
  */
 package net.sf.dozer.functional_tests;
 
+import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.util.mapping.vo.Car;
+import net.sf.dozer.util.mapping.vo.InsideTestObject;
+import net.sf.dozer.util.mapping.vo.InsideTestObjectPrime;
+import net.sf.dozer.util.mapping.vo.MetalThingyIF;
+import net.sf.dozer.util.mapping.vo.deep.DestDeepObj;
+import net.sf.dozer.util.mapping.vo.deep.HomeDescription;
+import net.sf.dozer.util.mapping.vo.deep.House;
+import net.sf.dozer.util.mapping.vo.deep.Person;
+import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
+import net.sf.dozer.util.mapping.vo.deep2.Dest;
+import net.sf.dozer.util.mapping.vo.deep2.Src;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DeepMappingTest extends AbstractDeepMappingTest {
+public class DeepMappingTest extends AbstractMapperTest {
+  public void testDeepMapping() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    SrcDeepObj src = testDataFactory.getSrcDeepObj();
+    DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
+    SrcDeepObj src2 = (SrcDeepObj) mapper.map(dest, SrcDeepObj.class);
+    DestDeepObj dest2 = (DestDeepObj) mapper.map(src2, DestDeepObj.class);
 
-  protected ObjectInstantiator getDataObjectInstantiator() {
-    return ObjectInstantiator.NO_PROXY_INSTANTIATOR;
+    assertEquals(src, src2);
+    assertEquals(dest, dest2);
+  }
+
+  public void testDeepPropertyOneWay() throws Exception {
+    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    House house = (House) newInstance(House.class);
+    Person owner = (Person) newInstance(Person.class);
+    owner.setYourName("myName");
+    house.setOwner(owner);
+    HomeDescription desc = (HomeDescription) mapper.map(house, HomeDescription.class);
+    assertEquals(desc.getDescription().getMyName(), "myName");
+    // make sure we don't map back
+    House house2 = (House) mapper.map(desc, House.class);
+    assertNull(house2.getOwner().getYourName());
+  }
+
+  public void testDeepInterfaceWithHint() throws Exception {
+    MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
+    InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
+    House house = (House) newInstance(House.class);
+    MetalThingyIF thingy = (MetalThingyIF) newInstance(Car.class);
+    thingy.setName("name");
+    house.setThingy(thingy);
+    ito.setHouse(house);
+    InsideTestObjectPrime itop = (InsideTestObjectPrime) mapper.map(ito, InsideTestObjectPrime.class);
+    assertEquals("name", itop.getDeepInterfaceString());
+
+    // Map Back
+    InsideTestObject dest = (InsideTestObject) mapper.map(itop, InsideTestObject.class);
+    assertEquals("name", ito.getHouse().getThingy().getName());
+  }
+
+  /*
+   * Related to feature request #1456486. Deep mapping with custom getter/setter does not work
+   */
+  public void testDeepMapping_UsingCustomGetSetMethods() {
+    mapper = super.getNewMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
+
+    Src src = (Src) newInstance(Src.class);
+    src.setSrcField("srcFieldValue");
+
+    Dest dest = (Dest) mapper.map(src, Dest.class);
+
+    assertNotNull(dest.getDestField().getNestedDestField().getNestedNestedDestField());
+    assertEquals(src.getSrcField(), dest.getDestField().getNestedDestField().getNestedNestedDestField());
+
+    Src dest2 = (Src) mapper.map(dest, Src.class);
+
+    assertNotNull(dest2.getSrcField());
+    assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());
+  }
+
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return DataObjectInstantiator.NO_PROXY_INSTANTIATOR;
   }
 
 }

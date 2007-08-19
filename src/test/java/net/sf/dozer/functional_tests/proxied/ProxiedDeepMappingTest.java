@@ -15,17 +15,17 @@
  */
 package net.sf.dozer.functional_tests.proxied;
 
-import net.sf.dozer.functional_tests.AbstractDeepMappingTest;
-import net.sf.dozer.functional_tests.ObjectInstantiator;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
+import net.sf.dozer.functional_tests.DeepMappingTest;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ProxiedDeepMappingTest extends AbstractDeepMappingTest {
+public class ProxiedDeepMappingTest extends DeepMappingTest {
 
-  protected ObjectInstantiator getDataObjectInstantiator() {
-    return ObjectInstantiator.PROXY_INSTANTIATOR;
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return DataObjectInstantiator.PROXY_INSTANTIATOR;
   }
 
 }

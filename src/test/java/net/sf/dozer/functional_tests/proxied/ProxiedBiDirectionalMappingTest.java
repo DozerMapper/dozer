@@ -15,17 +15,17 @@
  */
 package net.sf.dozer.functional_tests.proxied;
 
-import net.sf.dozer.functional_tests.AbstractBiDirectionalMappingTest;
-import net.sf.dozer.functional_tests.ObjectInstantiator;
+import net.sf.dozer.functional_tests.BiDirectionalMappingTest;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ProxiedBiDirectionalMappingTest extends AbstractBiDirectionalMappingTest {
+public class ProxiedBiDirectionalMappingTest extends BiDirectionalMappingTest {
 
-  protected ObjectInstantiator getDataObjectInstantiator() {
-    return ObjectInstantiator.PROXY_INSTANTIATOR;
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return DataObjectInstantiator.PROXY_INSTANTIATOR;
   }
 
 }

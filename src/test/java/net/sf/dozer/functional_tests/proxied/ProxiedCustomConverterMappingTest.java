@@ -15,17 +15,17 @@
  */
 package net.sf.dozer.functional_tests.proxied;
 
-import net.sf.dozer.functional_tests.AbstractCustomConverterMappingTest;
-import net.sf.dozer.functional_tests.ObjectInstantiator;
+import net.sf.dozer.functional_tests.CustomConverterMappingTest;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ProxiedCustomConverterMappingTest extends AbstractCustomConverterMappingTest {
+public class ProxiedCustomConverterMappingTest extends CustomConverterMappingTest {
 
-  protected ObjectInstantiator getDataObjectInstantiator() {
-    return ObjectInstantiator.PROXY_INSTANTIATOR;
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return DataObjectInstantiator.PROXY_INSTANTIATOR;
   }
 
 }
