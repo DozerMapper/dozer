@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.dozer.functional_tests.ObjectInstantiator;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.Apple;
 import net.sf.dozer.util.mapping.vo.AppleComputer;
 import net.sf.dozer.util.mapping.vo.Car;
@@ -70,10 +70,13 @@ import org.apache.commons.lang.RandomStringUtils;
  * @author tierney.matt
  */
 public class TestDataFactory {
-  private ObjectInstantiator dataObjectInstantiator;
+  private DataObjectInstantiator dataObjectInstantiator;
   
-  public TestDataFactory(ObjectInstantiator dataObjectInstantiator) {
+  public TestDataFactory(DataObjectInstantiator dataObjectInstantiator) {
     this.dataObjectInstantiator = dataObjectInstantiator;
+  }
+  
+  public TestDataFactory() {
   }
   
   private Object newInstance(Class classToInstantiate) {
