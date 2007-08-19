@@ -124,38 +124,38 @@ public class PerformanceTest extends AbstractDozerTest {
 
   public void testMapping1() throws Exception {
     // TestObject --> TestObjectPrime
-    TestObject src = TestDataFactory.getInputGeneralMappingTestObject();
+    TestObject src = testDataFactory.getInputGeneralMappingTestObject();
     runGeneric("testMapping1", src, TestObjectPrime.class, 35000);
   }
 
   public void testMapping2() throws Exception {
     // SimpleObject --> SimpleObjectPrime
-    SimpleObj src = TestDataFactory.getSimpleObj();
+    SimpleObj src = testDataFactory.getSimpleObj();
     runGeneric("testMapping2", src, SimpleObjPrime.class, 3600);
   }
 
   public void testMapping3() throws Exception {
     // SimpleObject --> SimpleObjectPrime2
-    SimpleObj src = TestDataFactory.getSimpleObj();
+    SimpleObj src = testDataFactory.getSimpleObj();
     runGeneric("testMapping3", src, SimpleObjPrime2.class, 3700);
   }
 
   public void testMapping4() throws Exception {
     // AnotherSubClass --> AnotherSubClassPrime (Inheritance)
-    AnotherSubClass src = TestDataFactory.getAnotherSubClass();
+    AnotherSubClass src = testDataFactory.getAnotherSubClass();
     runGeneric("testMapping4", src, AnotherSubClassPrime.class, 12000);
   }
 
   public void testMapping5() throws Exception {
     // SrcDeepObj --> DestDeepObj (Field Deep)
-    SrcDeepObj src = TestDataFactory.getSrcDeepObj();
+    SrcDeepObj src = testDataFactory.getSrcDeepObj();
     runGeneric("testMapping5", src, DestDeepObj.class, 9000);
   }
 
   // 1-2007: Test Case submitted by Dave B.
   public void testMapping6() throws Exception {
     // MyClassA --> MyClassB. Src object contains List with 500 String elements.
-    MyClassA src = TestDataFactory.getRandomMyClassA();
+    MyClassA src = testDataFactory.getRandomMyClassA();
     runGeneric("testMapping6", src, MyClassB.class, 50000);
   }
 

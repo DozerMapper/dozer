@@ -158,7 +158,7 @@ public abstract class AbstractCustomConverterMappingTest extends AbstractMapperT
     doub2.setTheDouble(15);
     obj.setAttribute(doub);
 
-    Collection list = new ArrayList();
+    Collection list = (Collection) newInstance(ArrayList.class);
     list.add(doub2);
 
     obj.setNames(list);
@@ -172,7 +172,7 @@ public abstract class AbstractCustomConverterMappingTest extends AbstractMapperT
 
     objp.setDoubleAttribute(new Double(15));
 
-    Collection list2 = new ArrayList();
+    Collection list2 = (Collection) newInstance(ArrayList.class);
     objp.setNames(list2);
     objp.getNames().add(new Double(10));
 
@@ -296,7 +296,7 @@ public abstract class AbstractCustomConverterMappingTest extends AbstractMapperT
     // Test that custom field converter works for Map type fields
     mapper = getNewMapper(new String[] { "fieldCustomConverter.xml" });
     MapToProperty src = (MapToProperty) newInstance(MapToProperty.class);
-    Map hashMap = new HashMap();
+    Map hashMap = (Map) newInstance(HashMap.class);
     hashMap.put("fieldA", "someStringValue");
     src.setHashMap(hashMap);
 
@@ -316,7 +316,7 @@ public abstract class AbstractCustomConverterMappingTest extends AbstractMapperT
   
   public void testFieldCustomConverter_WithCustomConverterId() throws Exception {
     mapper = getNewMapper(new String[] { "fieldCustomConverter.xml" });
-    Map map = new HashMap();
+    Map map = (Map) newInstance(HashMap.class);
     map.put("CustomConverterWithId", new StringAppendCustomConverter());
     ((DozerBeanMapper) mapper).setCustomConvertersWithId(map);
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);

@@ -22,12 +22,14 @@ import junit.framework.TestCase;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
 import net.sf.dozer.util.mapping.util.MapperConstants;
+import net.sf.dozer.util.mapping.util.TestDataFactory;
 
 /**
  * @author tierney.matt
  */
 public abstract class AbstractMapperTest extends TestCase {
   protected MapperIF mapper;
+  protected TestDataFactory testDataFactory = new TestDataFactory(getDataObjectInstantiator());
 
   protected abstract ObjectInstantiator getDataObjectInstantiator();
   

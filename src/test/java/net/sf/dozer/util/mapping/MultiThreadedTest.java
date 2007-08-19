@@ -63,8 +63,8 @@ public class MultiThreadedTest extends AbstractDozerTest {
   }
 
   private void mapSomething() {
-    TestObject src = TestDataFactory.getInputGeneralMappingTestObject();
-    AnotherSubClass src2 = TestDataFactory.getAnotherSubClass();
+    TestObject src = testDataFactory.getInputGeneralMappingTestObject();
+    AnotherSubClass src2 = testDataFactory.getAnotherSubClass();
 
     mapper.map(src, TestObjectPrime.class);
     mapper.map(src2, AnotherSubClassPrime.class);

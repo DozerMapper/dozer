@@ -164,7 +164,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     MapperIF mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
 
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
 
     // The following asserts will verify that the ClassMap beanFactory attr gets applied to both classes
@@ -194,12 +194,12 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertEquals("event listenter list should contain 1 element", 1, eventMapper.getEventListeners().size());
     assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0)
         .getClass());
-    House src = TestDataFactory.getHouse();
+    House src = testDataFactory.getHouse();
     HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
   }
 
   private void assertCommon(MapperIF mapper) throws Exception {
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
     TestObjectPrime prime2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
 

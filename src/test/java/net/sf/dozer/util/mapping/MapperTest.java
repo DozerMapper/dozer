@@ -74,7 +74,7 @@ public class MapperTest extends AbstractDozerTest {
   public void testNoSourceValueIterateFieldMap() throws Exception {
     DehydrateTestObject inputDto = new DehydrateTestObject();
     HydrateTestObject hto = (HydrateTestObject) mapper.map(inputDto, HydrateTestObject.class);
-    assertEquals(TestDataFactory.getExpectedTestNoSourceValueIterateFieldMapHydrateTestObject(), hto);
+    assertEquals(testDataFactory.getExpectedTestNoSourceValueIterateFieldMapHydrateTestObject(), hto);
   }
 
   public void testCustomGetterSetterMap() throws Exception {
@@ -102,7 +102,7 @@ public class MapperTest extends AbstractDozerTest {
   public void testNoClassMappings() throws Exception {
     MapperIF mapper = new DozerBeanMapper();
     // Should attempt mapping even though it is not in the beanmapping.xml file
-    NoCustomMappingsObjectPrime dest1 = (NoCustomMappingsObjectPrime) mapper.map(TestDataFactory
+    NoCustomMappingsObjectPrime dest1 = (NoCustomMappingsObjectPrime) mapper.map(testDataFactory
         .getInputTestNoClassMappingsNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
     NoCustomMappingsObject source = (NoCustomMappingsObject) mapper.map(dest1, NoCustomMappingsObject.class);
     NoCustomMappingsObjectPrime dest3 = (NoCustomMappingsObjectPrime) mapper.map(source, NoCustomMappingsObjectPrime.class);
@@ -112,7 +112,7 @@ public class MapperTest extends AbstractDozerTest {
   public void testImplicitInnerObject() {
     // This tests that we implicitly map an inner object to an inner object without defining it in the mapping file
     TestObject to = new TestObject();
-    to.setNoMappingsObj(TestDataFactory.getInputTestNoClassMappingsNoCustomMappingsObject());
+    to.setNoMappingsObj(testDataFactory.getInputTestNoClassMappingsNoCustomMappingsObject());
     TestObjectPrime dest2 = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
     TestObject source2 = (TestObject) mapper.map(dest2, TestObject.class);
     TestObjectPrime dest4 = (TestObjectPrime) mapper.map(source2, TestObjectPrime.class);
@@ -120,7 +120,7 @@ public class MapperTest extends AbstractDozerTest {
   }
 
   public void testMapField() throws Exception {
-    NoCustomMappingsObjectPrime dest = (NoCustomMappingsObjectPrime) mapper.map(TestDataFactory
+    NoCustomMappingsObjectPrime dest = (NoCustomMappingsObjectPrime) mapper.map(testDataFactory
         .getInputTestMapFieldWithMapNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
 
     NoCustomMappingsObject source = (NoCustomMappingsObject) mapper.map(dest, NoCustomMappingsObject.class);
@@ -134,7 +134,7 @@ public class MapperTest extends AbstractDozerTest {
     assertEquals(dest2, dest);
 
     // empty Map
-    dest = (NoCustomMappingsObjectPrime) mapper.map(TestDataFactory.getInputTestMapFieldWithEmptyMapNoCustomMappingsObject(),
+    dest = (NoCustomMappingsObjectPrime) mapper.map(testDataFactory.getInputTestMapFieldWithEmptyMapNoCustomMappingsObject(),
         NoCustomMappingsObjectPrime.class);
     source = (NoCustomMappingsObject) mapper.map(dest, NoCustomMappingsObject.class);
     dest2 = (NoCustomMappingsObjectPrime) mapper.map(source, NoCustomMappingsObjectPrime.class);
@@ -143,7 +143,7 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testSetField() throws Exception {
     // basic set --> set
-    NoCustomMappingsObjectPrime dest = (NoCustomMappingsObjectPrime) mapper.map(TestDataFactory
+    NoCustomMappingsObjectPrime dest = (NoCustomMappingsObjectPrime) mapper.map(testDataFactory
         .getInputTestSetFieldWithSetNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
     NoCustomMappingsObject source = (NoCustomMappingsObject) mapper.map(dest, NoCustomMappingsObject.class);
     NoCustomMappingsObjectPrime dest2 = (NoCustomMappingsObjectPrime) mapper.map(source, NoCustomMappingsObjectPrime.class);
@@ -156,14 +156,14 @@ public class MapperTest extends AbstractDozerTest {
     assertEquals(dest2, dest);
 
     // empty set --> set
-    dest = (NoCustomMappingsObjectPrime) mapper.map(TestDataFactory.getInputTestSetFieldWithSetEmptyCustomMappingsObject(),
+    dest = (NoCustomMappingsObjectPrime) mapper.map(testDataFactory.getInputTestSetFieldWithSetEmptyCustomMappingsObject(),
         NoCustomMappingsObjectPrime.class);
     source = (NoCustomMappingsObject) mapper.map(dest, NoCustomMappingsObject.class);
     dest2 = (NoCustomMappingsObjectPrime) mapper.map(source, NoCustomMappingsObjectPrime.class);
     assertEquals(dest2, dest);
 
     // complex type set -->
-    dest = (NoCustomMappingsObjectPrime) mapper.map(TestDataFactory.getInputTestSetFieldComplexSetNoCustomMappingsObject(),
+    dest = (NoCustomMappingsObjectPrime) mapper.map(testDataFactory.getInputTestSetFieldComplexSetNoCustomMappingsObject(),
         NoCustomMappingsObjectPrime.class);
     source = (NoCustomMappingsObject) mapper.map(dest, NoCustomMappingsObject.class);
     dest2 = (NoCustomMappingsObjectPrime) mapper.map(source, NoCustomMappingsObjectPrime.class);
@@ -172,21 +172,21 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testListField() throws Exception {
     // test empty list --> empty list
-    TestObjectPrime dest = (TestObjectPrime) mapper.map(TestDataFactory.getInputTestListFieldEmptyListTestObject(),
+    TestObjectPrime dest = (TestObjectPrime) mapper.map(testDataFactory.getInputTestListFieldEmptyListTestObject(),
         TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(dest, TestObject.class);
     TestObjectPrime dest2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
     assertEquals(dest2, dest);
 
     // test empty array --> empty list
-    dest = (TestObjectPrime) mapper.map(TestDataFactory.getInputTestListFieldArrayListTestObject(), TestObjectPrime.class);
+    dest = (TestObjectPrime) mapper.map(testDataFactory.getInputTestListFieldArrayListTestObject(), TestObjectPrime.class);
     source = (TestObject) mapper.map(dest, TestObject.class);
     dest2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
     assertEquals(dest2, dest);
   }
 
   public void testListUsingDestHint() throws Exception {
-    TestObjectPrime dest = (TestObjectPrime) mapper.map(TestDataFactory.getInputTestListUsingDestHintTestObject(),
+    TestObjectPrime dest = (TestObjectPrime) mapper.map(testDataFactory.getInputTestListUsingDestHintTestObject(),
         TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(dest, TestObject.class);
     TestObjectPrime dest2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
@@ -195,7 +195,7 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testExcludeFields() throws Exception {
     // Map
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     assertEquals("excludeMe", prime.getExcludeMe());
     assertEquals("excludeMeOneWay", prime.getExcludeMeOneWay());
     // map back
@@ -206,7 +206,7 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testGeneralMapping() throws Exception {
     // Map
-    TestObject to = TestDataFactory.getInputGeneralMappingTestObject();
+    TestObject to = testDataFactory.getInputGeneralMappingTestObject();
     TestObjectPrime prime = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
     // valdidate that we copied by object reference -
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
@@ -216,7 +216,7 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testMappingNoDestSpecified() throws Exception {
     // Map
-    House src = TestDataFactory.getHouse();
+    House src = testDataFactory.getHouse();
     HomeDescription dest = (HomeDescription) mapper.map(src, HomeDescription.class);
     House src2 = (House) mapper.map(dest, House.class);
     HomeDescription dest2 = (HomeDescription) mapper.map(src2, HomeDescription.class);
@@ -227,7 +227,7 @@ public class MapperTest extends AbstractDozerTest {
     assertEquals(dest, dest2);
 
     // By reference
-    src = TestDataFactory.getHouse();
+    src = testDataFactory.getHouse();
     House houseClone = (House) SerializationUtils.clone(src);
     dest = (HomeDescription) mapper.map(src, HomeDescription.class);
     mapper.map(dest, House.class);
@@ -236,7 +236,7 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testGeneralMappingPassByReference() throws Exception {
     // Map
-    TestObject to = TestDataFactory.getInputGeneralMappingTestObject();
+    TestObject to = testDataFactory.getInputGeneralMappingTestObject();
     TestObject toClone = (TestObject) SerializationUtils.clone(to);
     TestObjectPrime prime = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
     mapper.map(prime, to);
@@ -273,7 +273,7 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testLongToLongMapping() throws Exception {
     // Map
-    TestObject source = TestDataFactory.getInputGeneralMappingTestObject();
+    TestObject source = testDataFactory.getInputGeneralMappingTestObject();
     source.setAnotherLongValue(42);
     TestObjectPrime prime2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
     Long value = prime2.getTheLongValue();
@@ -282,7 +282,7 @@ public class MapperTest extends AbstractDozerTest {
 
   public void testNoWildcards() throws Exception {
     // Map
-    FurtherTestObjectPrime prime = (FurtherTestObjectPrime) mapper.map(TestDataFactory.getInputTestNoWildcardsFurtherTestObject(),
+    FurtherTestObjectPrime prime = (FurtherTestObjectPrime) mapper.map(testDataFactory.getInputTestNoWildcardsFurtherTestObject(),
         FurtherTestObjectPrime.class);
     FurtherTestObject source = (FurtherTestObject) mapper.map(prime, FurtherTestObject.class);
     FurtherTestObjectPrime prime2 = (FurtherTestObjectPrime) mapper.map(source, FurtherTestObjectPrime.class);
@@ -290,19 +290,19 @@ public class MapperTest extends AbstractDozerTest {
   }
 
   public void testHydrateAndMore() throws Exception {
-    HydrateTestObject dest = (HydrateTestObject) mapper.map(TestDataFactory.getInputTestHydrateAndMoreDehydrateTestObject(),
+    HydrateTestObject dest = (HydrateTestObject) mapper.map(testDataFactory.getInputTestHydrateAndMoreDehydrateTestObject(),
         HydrateTestObject.class);
     // validate results
-    assertEquals(TestDataFactory.getExpectedTestHydrateAndMoreHydrateTestObject(), dest);
+    assertEquals(testDataFactory.getExpectedTestHydrateAndMoreHydrateTestObject(), dest);
 
     // map it back
-    DehydrateTestObject dhto = (DehydrateTestObject) mapper.map(TestDataFactory.getInputTestHydrateAndMoreHydrateTestObject(),
+    DehydrateTestObject dhto = (DehydrateTestObject) mapper.map(testDataFactory.getInputTestHydrateAndMoreHydrateTestObject(),
         DehydrateTestObject.class);
-    assertEquals(TestDataFactory.getExpectedTestHydrateAndMoreDehydrateTestObject(), dhto);
+    assertEquals(testDataFactory.getExpectedTestHydrateAndMoreDehydrateTestObject(), dhto);
   }
 
   public void testDeepProperties() throws Exception {
-    House src = TestDataFactory.getHouse();
+    House src = testDataFactory.getHouse();
     HomeDescription dest = (HomeDescription) mapper.map(src, HomeDescription.class);
     House src2 = (House) mapper.map(dest, House.class);
     HomeDescription dest2 = (HomeDescription) mapper.map(src2, HomeDescription.class);
@@ -313,7 +313,7 @@ public class MapperTest extends AbstractDozerTest {
     assertEquals(dest, dest2);
 
     // By reference
-    src = TestDataFactory.getHouse();
+    src = testDataFactory.getHouse();
     House houseClone = (House) SerializationUtils.clone(src);
     dest = (HomeDescription) mapper.map(src, HomeDescription.class);
     mapper.map(dest, src);

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.dozer.functional_tests.ObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.Apple;
 import net.sf.dozer.util.mapping.vo.AppleComputer;
 import net.sf.dozer.util.mapping.vo.Car;
@@ -68,15 +69,24 @@ import org.apache.commons.lang.RandomStringUtils;
  * @author sullins.ben
  * @author tierney.matt
  */
-public abstract class TestDataFactory {
+public class TestDataFactory {
+  private ObjectInstantiator dataObjectInstantiator;
+  
+  public TestDataFactory(ObjectInstantiator dataObjectInstantiator) {
+    this.dataObjectInstantiator = dataObjectInstantiator;
+  }
+  
+  private Object newInstance(Class classToInstantiate) {
+    return dataObjectInstantiator.newInstance(classToInstantiate);
+  }
 
-  public static SubClass getSubClass() {
-    SubClass obj = new SubClass();
+  public SubClass getSubClass() {
+    SubClass obj = (SubClass) newInstance(SubClass.class);
 
     obj.setAttribute("subclass");
     obj.setSuperAttribute("superclass");
 
-    List superList = new ArrayList();
+    List superList = (List) newInstance(ArrayList.class);
     superList.add("one");
     superList.add("two");
     superList.add("three");
@@ -85,11 +95,11 @@ public abstract class TestDataFactory {
     obj.setSuperSuperAttribute("supersuperattribute");
     obj.setSuperSuperSuperAttr("toplevel");
 
-    obj.setTestObject(TestDataFactory.getInputGeneralMappingTestObject());
-    HydrateTestObject2 sourceObj = new HydrateTestObject2();
+    obj.setTestObject(getInputGeneralMappingTestObject());
+    HydrateTestObject2 sourceObj = (HydrateTestObject2) newInstance(HydrateTestObject2.class);
 
-    TestCustomConverterObject cobj = new TestCustomConverterObject();
-    CustomDoubleObjectIF doub = new CustomDoubleObject();
+    TestCustomConverterObject cobj = (TestCustomConverterObject) newInstance(TestCustomConverterObject.class);
+    CustomDoubleObjectIF doub = (CustomDoubleObjectIF) newInstance(CustomDoubleObject.class);
     doub.setTheDouble(15);
     cobj.setAttribute(doub);
 
@@ -102,11 +112,11 @@ public abstract class TestDataFactory {
     return obj;
   }
 
-  public static SrcDeepObj getSrcDeepObj() {
-    SrcDeepObj result = new SrcDeepObj();
-    SrcNestedDeepObj srcNested = new SrcNestedDeepObj();
-    SrcNestedDeepObj2 srcNested2 = new SrcNestedDeepObj2();
-    FurtherTestObjectPrime furtherObjectPrime = new FurtherTestObjectPrime();
+  public SrcDeepObj getSrcDeepObj() {
+    SrcDeepObj result = (SrcDeepObj) newInstance(SrcDeepObj.class);
+    SrcNestedDeepObj srcNested = (SrcNestedDeepObj) newInstance(SrcNestedDeepObj.class);
+    SrcNestedDeepObj2 srcNested2 = (SrcNestedDeepObj2) newInstance(SrcNestedDeepObj2.class);
+    FurtherTestObjectPrime furtherObjectPrime = (FurtherTestObjectPrime) newInstance(FurtherTestObjectPrime.class);
 
     srcNested2.setSrc5("nestedsrc2field5");
     furtherObjectPrime.setOne("fjd");
@@ -119,19 +129,19 @@ public abstract class TestDataFactory {
     srcNested.setSrc6(furtherObjectPrime);
 
     // List to List. String to Integer
-    List hintList = new ArrayList();
+    List hintList = (List) newInstance(ArrayList.class);
     hintList.add("1");
     hintList.add("2");
     srcNested.setHintList(hintList);
 
     // List to List. TheFirstSubClass to TheFirstSubClassPrime
-    TheFirstSubClass hintList2Obj = new TheFirstSubClass();
+    TheFirstSubClass hintList2Obj = (TheFirstSubClass) newInstance(TheFirstSubClass.class);
     hintList2Obj.setS("test");
 
-    TheFirstSubClass hintList2Obj2 = new TheFirstSubClass();
+    TheFirstSubClass hintList2Obj2 = (TheFirstSubClass) newInstance(TheFirstSubClass.class);
     hintList2Obj.setS("test2");
 
-    List hintList2 = new ArrayList();
+    List hintList2 = (List) newInstance(ArrayList.class);
     hintList2.add(hintList2Obj);
     hintList2.add(hintList2Obj2);
     srcNested.setHintList2(hintList2);
@@ -142,40 +152,40 @@ public abstract class TestDataFactory {
     return result;
   }
 
-  public static House getHouse() {
-    House house = new House();
-    Address address = new Address();
+  public House getHouse() {
+    House house = (House) newInstance(House.class);
+    Address address = (Address) newInstance(Address.class);
     address.setStreet("1234 street");
-    City city = new City();
+    City city = (City) newInstance(City.class);
     city.setName("Denver");
     address.setCity(city);
 
     house.setAddress(address);
 
-    Person person = new Person();
+    Person person = (Person) newInstance(Person.class);
     person.setName("Franz");
 
     house.setOwner(person);
 
     house.setPrice(1000000);
 
-    Van van = new Van();
+    Van van = (Van) newInstance(Van.class);
     van.setName("van");
     van.setTestValue("testValue");
     house.setVan(van);
 
-    Room living = new Room();
+    Room living = (Room) newInstance(Room.class);
     living.setName("Living");
-    Room kitchen = new Room();
+    Room kitchen = (Room) newInstance(Room.class);
     kitchen.setName("kitchen");
 
-    List rooms = new ArrayList();
+    List rooms = (List) newInstance(ArrayList.class);
     rooms.add(living);
     rooms.add(kitchen);
 
     house.setRooms(rooms);
-    List custom = new ArrayList();
-    Van van2 = new Van();
+    List custom = (List) newInstance(ArrayList.class);
+    Van van2 = (Van) newInstance(Van.class);
     van2.setName("van2");
     custom.add(van2);
     house.setCustomSetGetMethod(custom);
@@ -183,10 +193,10 @@ public abstract class TestDataFactory {
     return house;
   }
 
-  public static HydrateTestObject getExpectedTestNoSourceValueIterateFieldMapHydrateTestObject() {
-    Car car = new Car();
+  public HydrateTestObject getExpectedTestNoSourceValueIterateFieldMapHydrateTestObject() {
+    Car car = (Car) newInstance(Car.class);
     car.setName("Build by buildCar");
-    HydrateTestObject hto = new HydrateTestObject();
+    HydrateTestObject hto = (HydrateTestObject) newInstance(HydrateTestObject.class);
     // Problem - Destination Field is array of 'cars' - but getMethod() is buildCar() which returns a Car. MapCollection
     // method can not handle this...
     // DestinationType is a Car and it should be an array.
@@ -195,8 +205,8 @@ public abstract class TestDataFactory {
     return hto;
   }
 
-  public static NoCustomMappingsObject getInputTestNoClassMappingsNoCustomMappingsObject() {
-    NoCustomMappingsObject custom = new NoCustomMappingsObject();
+  public NoCustomMappingsObject getInputTestNoClassMappingsNoCustomMappingsObject() {
+    NoCustomMappingsObject custom = (NoCustomMappingsObject) newInstance(NoCustomMappingsObject.class);
     custom.setStringDataType("stringDataType");
     custom.setDate(new Date());
     custom.setFive(55);
@@ -208,76 +218,76 @@ public abstract class TestDataFactory {
     return custom;
   }
 
-  public static NoCustomMappingsObject getInputTestMapFieldWithMapNoCustomMappingsObject() {
-    NoCustomMappingsObject custom = new NoCustomMappingsObject();
-    Map map = new HashMap();
+  public NoCustomMappingsObject getInputTestMapFieldWithMapNoCustomMappingsObject() {
+    NoCustomMappingsObject custom = (NoCustomMappingsObject) newInstance(NoCustomMappingsObject.class);
+    Map map = (Map) newInstance(HashMap.class);
     map.put("1", "1value");
     map.put("2", "2value");
     custom.setMapDataType(map);
     return custom;
   }
 
-  public static NoCustomMappingsObject getInputTestMapFieldWithEmptyMapNoCustomMappingsObject() {
-    NoCustomMappingsObject custom = new NoCustomMappingsObject();
-    Map map = new HashMap();
+  public NoCustomMappingsObject getInputTestMapFieldWithEmptyMapNoCustomMappingsObject() {
+    NoCustomMappingsObject custom = (NoCustomMappingsObject) newInstance(NoCustomMappingsObject.class);
+    Map map = (Map) newInstance(HashMap.class);
     custom.setMapDataType(map);
     return custom;
   }
 
-  public static NoCustomMappingsObject getInputTestSetFieldWithSetNoCustomMappingsObject() {
-    NoCustomMappingsObject custom = new NoCustomMappingsObject();
-    Set set = new HashSet();
+  public NoCustomMappingsObject getInputTestSetFieldWithSetNoCustomMappingsObject() {
+    NoCustomMappingsObject custom = (NoCustomMappingsObject) newInstance(NoCustomMappingsObject.class);
+    Set set = (Set) newInstance(HashSet.class);
     set.add("1value");
     set.add("2value");
     custom.setSetDataType(set);
     return custom;
   }
 
-  public static NoCustomMappingsObject getInputTestSetFieldWithSetEmptyCustomMappingsObject() {
-    NoCustomMappingsObject custom = new NoCustomMappingsObject();
-    Set set = new HashSet();
+  public NoCustomMappingsObject getInputTestSetFieldWithSetEmptyCustomMappingsObject() {
+    NoCustomMappingsObject custom = (NoCustomMappingsObject) newInstance(NoCustomMappingsObject.class);
+    Set set = (Set) newInstance(HashSet.class);
     custom.setSetDataType(set);
     return custom;
   }
 
-  public static NoCustomMappingsObject getInputTestSetFieldComplexSetNoCustomMappingsObject() {
-    NoCustomMappingsObject custom = new NoCustomMappingsObject();
-    Set set = new HashSet();
+  public NoCustomMappingsObject getInputTestSetFieldComplexSetNoCustomMappingsObject() {
+    NoCustomMappingsObject custom = (NoCustomMappingsObject) newInstance(NoCustomMappingsObject.class);
+    Set set = (Set) newInstance(HashSet.class);
     set.add(getInputTestNoClassMappingsNoCustomMappingsObject());
     custom.setSetDataType(set);
     return custom;
   }
 
-  public static TestObject getInputTestListFieldEmptyListTestObject() {
-    TestObject custom = new TestObject();
-    custom.setEqualNamedList(new ArrayList());
+  public TestObject getInputTestListFieldEmptyListTestObject() {
+    TestObject custom = (TestObject) newInstance(TestObject.class);
+    custom.setEqualNamedList((List)newInstance(ArrayList.class));
     return custom;
   }
 
-  public static TestObject getInputTestListFieldArrayListTestObject() {
-    TestObject custom = new TestObject();
+  public TestObject getInputTestListFieldArrayListTestObject() {
+    TestObject custom = (TestObject) newInstance(TestObject.class);
     Integer[] array = { new Integer(1) };
     custom.setArrayForLists(array);
     return custom;
   }
 
-  public static TestObject getInputTestListUsingDestHintTestObject() {
-    TestObject custom = new TestObject();
-    List list = new ArrayList();
-    list.add(new TheFirstSubClass());
+  public TestObject getInputTestListUsingDestHintTestObject() {
+    TestObject custom = (TestObject) newInstance(TestObject.class);
+    List list = (List) newInstance(ArrayList.class);
+    list.add(newInstance(TheFirstSubClass.class));
     custom.setHintList(list);
     return custom;
   }
 
-  public static TestObject getInputGeneralMappingTestObject() {
-    TestObject custom = new TestObject();
+  public TestObject getInputGeneralMappingTestObject() {
+    TestObject custom = (TestObject) newInstance(TestObject.class);
     custom.setOne("one");
     custom.setTwo(new Integer(2));
 
     int[] pa = { 0, 1, 2, 3, 4 };
     custom.setPrimArray(pa);
 
-    InsideTestObject ito = new InsideTestObject();
+    InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
     ito.setLabel("label");
     ito.setWrapper(new Integer(1));
     ito.setToWrapper(1);
@@ -285,14 +295,14 @@ public abstract class TestDataFactory {
     custom.setThree(ito);
 
     // testing if it will map two custom objects that are different types but same names //
-    InsideTestObject ito2 = new InsideTestObject();
+    InsideTestObject ito2 = (InsideTestObject) newInstance(InsideTestObject.class);
     ito2.setLabel("label");
     custom.setInsideTestObject(ito2);
 
-    List list1 = new ArrayList();
+    List list1 = (List) newInstance(ArrayList.class);
     list1.add("1value");
     list1.add("2value");
-    List list2 = new ArrayList();
+    List list2 = (List) newInstance(ArrayList.class);
     list2.add("1value");
     list2.add("2value");
     custom.setEqualNamedList(list1);
@@ -312,20 +322,20 @@ public abstract class TestDataFactory {
     GregorianCalendar calendar = new GregorianCalendar();
     calendar.setTime(date);
     custom.setCalendar(calendar);
-    Van van = new Van();
+    Van van = (Van) newInstance(Van.class);
     van.setName("van");
     van.setTestValue("testValue");
     custom.setVan(van);
     custom.setExcludeMe("takemeout");
 
     // testing interfaces
-    MetalThingyIF car = new Car();
+    MetalThingyIF car = (MetalThingyIF) newInstance(Car.class);
     car.setName("metalthingy");
     custom.setCarMetalThingy(car);
 
-    List hintList = new ArrayList();
-    TheFirstSubClass fsc = new TheFirstSubClass();
-    TheFirstSubClass fsc2 = new TheFirstSubClass();
+    List hintList = (List) newInstance(ArrayList.class);
+    TheFirstSubClass fsc = (TheFirstSubClass) newInstance(TheFirstSubClass.class);
+    TheFirstSubClass fsc2 = (TheFirstSubClass) newInstance(TheFirstSubClass.class);
     fsc.setS("s");
     fsc2.setS("s");
     hintList.add(fsc);
@@ -335,11 +345,11 @@ public abstract class TestDataFactory {
 
     custom.setBlankDate("");
     custom.setBlankStringToLong("");
-    NoExtendBaseObject nebo = new NoExtendBaseObject();
+    NoExtendBaseObject nebo = (NoExtendBaseObject) newInstance(NoExtendBaseObject.class);
     custom.setCopyByReference(nebo);
-    NoExtendBaseObject nebo2 = new NoExtendBaseObject();
+    NoExtendBaseObject nebo2 = (NoExtendBaseObject) newInstance(NoExtendBaseObject.class);
     custom.setCopyByReferenceDeep(nebo2);
-    NoExtendBaseObjectGlobalCopyByReference globalNebo = new NoExtendBaseObjectGlobalCopyByReference();
+    NoExtendBaseObjectGlobalCopyByReference globalNebo = (NoExtendBaseObjectGlobalCopyByReference) newInstance(NoExtendBaseObjectGlobalCopyByReference.class);
     custom.setGlobalCopyByReference(globalNebo);
 
     String[] stringArray = new String[] { null, "one", "two" };
@@ -347,77 +357,77 @@ public abstract class TestDataFactory {
     return custom;
   }
 
-  public static FurtherTestObject getInputTestNoWildcardsFurtherTestObject() {
-    FurtherTestObject custom = new FurtherTestObject();
+  public FurtherTestObject getInputTestNoWildcardsFurtherTestObject() {
+    FurtherTestObject custom = (FurtherTestObject) newInstance(FurtherTestObject.class);
     custom.setOne("label");
     custom.setTwo("another");
     return custom;
   }
 
-  public static DehydrateTestObject getInputTestHydrateAndMoreDehydrateTestObject() {
-    DehydrateTestObject custom = new DehydrateTestObject();
-    Car car = new Car();
+  public DehydrateTestObject getInputTestHydrateAndMoreDehydrateTestObject() {
+    DehydrateTestObject custom = (DehydrateTestObject) newInstance(DehydrateTestObject.class);
+    Car car = (Car) newInstance(Car.class);
     car.setName("name");
-    List carList = new ArrayList();
+    List carList = (List) newInstance(ArrayList.class);
     carList.add(car);
     custom.setCars(carList);
 
-    Apple apple = new Apple();
+    Apple apple = (Apple) newInstance(Apple.class);
     apple.setName("name");
-    Orange orange = new Orange();
+    Orange orange = (Orange) newInstance(Orange.class);
     orange.setName("name");
-    List fruitList = new ArrayList();
+    List fruitList = (List) newInstance(ArrayList.class);
     fruitList.add(apple);
     fruitList.add(orange);
     custom.setFruit(fruitList);
 
-    Van van = new Van();
+    Van van = (Van) newInstance(Van.class);
     van.setName("name");
-    List vanList = new ArrayList();
+    List vanList = (List) newInstance(ArrayList.class);
     vanList.add(van);
     custom.setVans(vanList);
 
-    AppleComputer apple1 = new AppleComputer();
+    AppleComputer apple1 = (AppleComputer) newInstance(AppleComputer.class);
     apple1.setName("name");
-    AppleComputer apple2 = new AppleComputer();
+    AppleComputer apple2 = (AppleComputer) newInstance(AppleComputer.class);
     apple2.setName("name");
-    List compList = new ArrayList();
+    List compList = (List) newInstance(ArrayList.class);
     compList.add(apple1);
     compList.add(apple2);
     custom.setAppleComputers(compList);
 
-    Car iterateCar = new Car();
+    Car iterateCar = (Car) newInstance(Car.class);
     iterateCar.setName("name");
-    List iterateCarList = new ArrayList();
+    List iterateCarList = (List) newInstance(ArrayList.class);
     iterateCarList.add(car);
     custom.setIterateCars(iterateCarList);
 
     iterateCar.setName("name");
-    List iterateMoreCarList = new ArrayList();
+    List iterateMoreCarList = (List) newInstance(ArrayList.class);
     iterateMoreCarList.add(car);
     custom.setIterateMoreCars(iterateMoreCarList);
 
     return custom;
   }
 
-  public static HydrateTestObject getExpectedTestHydrateAndMoreHydrateTestObject() {
-    HydrateTestObject hto = new HydrateTestObject();
-    Car car = new Car();
+  public HydrateTestObject getExpectedTestHydrateAndMoreHydrateTestObject() {
+    HydrateTestObject hto = (HydrateTestObject) newInstance(HydrateTestObject.class);
+    Car car = (Car) newInstance(Car.class);
     car.setName("name");
-    Car buildByCar = new Car();
+    Car buildByCar = (Car) newInstance(Car.class);
     buildByCar.setName("Build by buildCar");
-    Van van = new Van();
+    Van van = (Van) newInstance(Van.class);
     van.setName("name");
 
-    AppleComputer apple1 = new AppleComputer();
+    AppleComputer apple1 = (AppleComputer) newInstance(AppleComputer.class);
     apple1.setName("name");
-    AppleComputer apple2 = new AppleComputer();
+    AppleComputer apple2 = (AppleComputer) newInstance(AppleComputer.class);
     apple2.setName("name");
-    List compList = new ArrayList();
+    List compList = (List) newInstance(ArrayList.class);
     compList.add(apple1);
     compList.add(apple2);
     hto.setComputers(compList);
-    List iterateCars = new ArrayList();
+    List iterateCars = (List) newInstance(ArrayList.class);
     iterateCars.add(car);
     hto.setIterateCars(iterateCars);
     Car[] carArray = { car };
@@ -425,66 +435,66 @@ public abstract class TestDataFactory {
     return hto;
   }
 
-  public static HydrateTestObject getInputTestHydrateAndMoreHydrateTestObject() {
-    HydrateTestObject hto = new HydrateTestObject();
-    Car car = new Car();
+  public HydrateTestObject getInputTestHydrateAndMoreHydrateTestObject() {
+    HydrateTestObject hto = (HydrateTestObject) newInstance(HydrateTestObject.class);
+    Car car = (Car) newInstance(Car.class);
     car.setName("name");
-    Van van = new Van();
+    Van van = (Van) newInstance(Van.class);
     van.setName("name");
-    List vehicles = new ArrayList();
+    List vehicles = (List) newInstance(ArrayList.class);
     vehicles.add(car);
     vehicles.add(van);
     hto.setVehicles(vehicles);
 
-    Apple apple = new Apple();
+    Apple apple = (Apple) newInstance(Apple.class);
     apple.setName("name");
-    Orange orange = new Orange();
+    Orange orange = (Orange) newInstance(Orange.class);
     orange.setName("name");
-    List apples = new ArrayList();
+    List apples = (List) newInstance(ArrayList.class);
     apples.add(apple);
-    List oranges = new ArrayList();
+    List oranges = (List) newInstance(ArrayList.class);
     oranges.add(orange);
 
     hto.setApples(apples);
     hto.setOranges(oranges);
 
-    AppleComputer apple1 = new AppleComputer();
+    AppleComputer apple1 = (AppleComputer) newInstance(AppleComputer.class);
     apple1.setName("name");
-    AppleComputer apple2 = new AppleComputer();
+    AppleComputer apple2 = (AppleComputer) newInstance(AppleComputer.class);
     apple2.setName("name");
-    List compList = new ArrayList();
+    List compList = (List) newInstance(ArrayList.class);
     compList.add(apple1);
     compList.add(apple2);
     hto.setComputers(compList);
 
-    List iterateCars = new ArrayList();
+    List iterateCars = (List) newInstance(ArrayList.class);
     iterateCars.add(car);
     hto.setIterateCars(iterateCars);
     return hto;
 
   }
 
-  public static DehydrateTestObject getExpectedTestHydrateAndMoreDehydrateTestObject() {
-    DehydrateTestObject custom = new DehydrateTestObject();
-    Car car = new Car();
+  public DehydrateTestObject getExpectedTestHydrateAndMoreDehydrateTestObject() {
+    DehydrateTestObject custom = (DehydrateTestObject) newInstance(DehydrateTestObject.class);
+    Car car = (Car) newInstance(Car.class);
     car.setName("name");
 
-    AppleComputer apple1 = new AppleComputer();
+    AppleComputer apple1 = (AppleComputer) newInstance(AppleComputer.class);
     apple1.setName("name");
-    AppleComputer apple2 = new AppleComputer();
+    AppleComputer apple2 = (AppleComputer) newInstance(AppleComputer.class);
     apple2.setName("name");
-    List compList = new ArrayList();
+    List compList = (List) newInstance(ArrayList.class);
     compList.add(apple1);
     compList.add(apple2);
     custom.setAppleComputers(compList);
-    List iterateCars = new ArrayList();
+    List iterateCars = (List) newInstance(ArrayList.class);
     iterateCars.add(car);
     custom.setIterateCars(iterateCars);
     return custom;
   }
 
-  public static SimpleObj getSimpleObj() {
-    SimpleObj result = new SimpleObj();
+  public SimpleObj getSimpleObj() {
+    SimpleObj result = (SimpleObj) newInstance(SimpleObj.class);
     result.setField1("one");
     result.setField2(Integer.valueOf("2"));
     result.setField3(BigDecimal.valueOf(3));
@@ -495,29 +505,29 @@ public abstract class TestDataFactory {
     return result;
   }
 
-  public static AnotherSubClass getAnotherSubClass() {
-    AnotherSubClass asub = new AnotherSubClass();
+  public AnotherSubClass getAnotherSubClass() {
+    AnotherSubClass asub = (AnotherSubClass) newInstance(AnotherSubClass.class);
     asub.setBaseAttribute("base");
     asub.setSubAttribute("sub");
-    List list = new ArrayList();
-    SClass s = new SClass();
+    List list = (List) newInstance(ArrayList.class);
+    SClass s = (SClass) newInstance(SClass.class);
     s.setBaseSubAttribute("sBase");
     s.setSubAttribute("s");
-    S2Class s2 = new S2Class();
+    S2Class s2 = (S2Class) newInstance(S2Class.class);
     s2.setBaseSubAttribute("s2Base");
     s2.setSub2Attribute("s2");
     list.add(s2);
     list.add(s);
     asub.setSubList(list);
 
-    List list2 = new ArrayList();
-    SClass sclass = new SClass();
+    List list2 = (List) newInstance(ArrayList.class);
+    SClass sclass = (SClass) newInstance(SClass.class);
     sclass.setBaseSubAttribute("sBase");
     sclass.setSubAttribute("s");
-    S2Class s2class = new S2Class();
+    S2Class s2class = (S2Class) newInstance(S2Class.class);
     s2class.setBaseSubAttribute("s2Base");
     s2class.setSub2Attribute("s2");
-    SClass sclass2 = new SClass();
+    SClass sclass2 = (SClass) newInstance(SClass.class);
     sclass2.setBaseSubAttribute("sclass2");
     sclass2.setSubAttribute("sclass2");
     list2.add(s2class);
@@ -525,8 +535,8 @@ public abstract class TestDataFactory {
     list2.add(sclass2);
     asub.setListToArray(list2);
 
-    SClass sclassA = new SClass();
-    SClass sclassB = new SClass();
+    SClass sclassA = (SClass) newInstance(SClass.class);
+    SClass sclassB = (SClass) newInstance(SClass.class);
     sclassA.setBaseSubAttribute("sBase");
     sclassA.setSubAttribute("s");
     sclassB.setBaseSubAttribute("sBase");
@@ -537,15 +547,15 @@ public abstract class TestDataFactory {
     return asub;
   }
 
-  public static MyClassA getRandomMyClassA() {
-    MyClassA myClassAObj = new MyClassA();
+  public MyClassA getRandomMyClassA() {
+    MyClassA myClassAObj = (MyClassA) newInstance(MyClassA.class);
     myClassAObj.setAStringList(getRandomStringList(500));
 
     return myClassAObj;
   }
 
-  private static List getRandomStringList(int listSize) {
-    List stringList = new ArrayList(listSize);
+  private List getRandomStringList(int listSize) {
+    List stringList = (List) newInstance(ArrayList.class);
 
     for (int count = 0; count < listSize; count = count + 1) {
       stringList.add(RandomStringUtils.randomAlphabetic(255));

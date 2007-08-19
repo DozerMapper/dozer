@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping;
+package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.util.TestDataFactory;
+import net.sf.dozer.util.mapping.MapperIF;
 import net.sf.dozer.util.mapping.vo.Car;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
 import net.sf.dozer.util.mapping.vo.InsideTestObjectPrime;
@@ -34,11 +34,11 @@ import net.sf.dozer.util.mapping.vo.deep2.Src;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DeepMappingTest extends AbstractDozerTest {
+public abstract class AbstractDeepMappingTest extends AbstractMapperTest {
 
   public void testDeepMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
-    SrcDeepObj src = TestDataFactory.getSrcDeepObj();
+    SrcDeepObj src = testDataFactory.getSrcDeepObj();
     DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
     SrcDeepObj src2 = (SrcDeepObj) mapper.map(dest, SrcDeepObj.class);
     DestDeepObj dest2 = (DestDeepObj) mapper.map(src2, DestDeepObj.class);
@@ -49,8 +49,8 @@ public class DeepMappingTest extends AbstractDozerTest {
 
   public void testDeepPropertyOneWay() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
-    House house = new House();
-    Person owner = new Person();
+    House house = (House) newInstance(House.class);
+    Person owner = (Person) newInstance(Person.class);
     owner.setYourName("myName");
     house.setOwner(owner);
     HomeDescription desc = (HomeDescription) mapper.map(house, HomeDescription.class);
@@ -62,9 +62,9 @@ public class DeepMappingTest extends AbstractDozerTest {
 
   public void testDeepInterfaceWithHint() throws Exception {
     MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
-    InsideTestObject ito = new InsideTestObject();
-    House house = new House();
-    MetalThingyIF thingy = new Car();
+    InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
+    House house = (House) newInstance(House.class);
+    MetalThingyIF thingy = (MetalThingyIF) newInstance(Car.class);
     thingy.setName("name");
     house.setThingy(thingy);
     ito.setHouse(house);
@@ -82,7 +82,7 @@ public class DeepMappingTest extends AbstractDozerTest {
   public void testDeepMapping_UsingCustomGetSetMethods() {
     mapper = super.getNewMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
 
-    Src src = new Src();
+    Src src = (Src) newInstance(Src.class);
     src.setSrcField("srcFieldValue");
 
     Dest dest = (Dest) mapper.map(src, Dest.class);

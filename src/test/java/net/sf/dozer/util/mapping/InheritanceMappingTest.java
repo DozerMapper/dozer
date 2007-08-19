@@ -248,7 +248,7 @@ public class InheritanceMappingTest extends AbstractDozerTest {
 
   public void testComplexSuperClassMapping() throws Exception {
     mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
-    SubClass obj = TestDataFactory.getSubClass();
+    SubClass obj = testDataFactory.getSubClass();
     SubClassPrime objPrime = (SubClassPrime) mapper.map(obj, SubClassPrime.class);
     SubClass obj2 = (SubClass) mapper.map(objPrime, SubClass.class);
     SubClassPrime objPrime2 = (SubClassPrime) mapper.map(obj2, SubClassPrime.class);
@@ -261,7 +261,7 @@ public class InheritanceMappingTest extends AbstractDozerTest {
     assertEquals(objPrime, objPrime2);
 
     // Pass by reference
-    obj = TestDataFactory.getSubClass();
+    obj = testDataFactory.getSubClass();
     SubClass subClassClone = (SubClass) SerializationUtils.clone(obj);
     objPrime = (SubClassPrime) mapper.map(obj, SubClassPrime.class);
     mapper.map(objPrime, obj);
