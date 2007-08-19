@@ -28,7 +28,7 @@ public class DataObjectInstantiator {
   public static final DataObjectInstantiator NO_PROXY_INSTANTIATOR = new DataObjectInstantiator(0);
   public static final DataObjectInstantiator PROXY_INSTANTIATOR = new DataObjectInstantiator(1);
 
-  private int proxyMode;
+  private int proxyMode = -1;
 
   private DataObjectInstantiator(int proxyMode) {
     this.proxyMode = proxyMode;
