@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping;
+package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
@@ -27,7 +27,7 @@ import net.sf.dozer.util.mapping.vo.TestObjectPrime;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class TrimStringsTest extends AbstractDozerTest {
+public abstract class AbstractTrimStringsTest extends AbstractMapperTest {
   
   protected void setUp() throws Exception {
     super.setUp();
@@ -35,7 +35,7 @@ public class TrimStringsTest extends AbstractDozerTest {
   }
   
   public void testTrimStrings_Global() {
-    AnotherTestObject src = new AnotherTestObject();
+    AnotherTestObject src = (AnotherTestObject) getDataObjectInstantiator().create(AnotherTestObject.class);
     src.setField3("      valueNeedingTrimmed       ");
     src.setField4("      anotherValueNeedingTrimmed       ");
     
@@ -46,7 +46,7 @@ public class TrimStringsTest extends AbstractDozerTest {
   }
 
   public void testTrimStrings_ClassMapLevel() {
-    TestObject src = new TestObject();
+    TestObject src = (TestObject) getDataObjectInstantiator().create(TestObject.class);
     String value = "    shouldNotBeNeedingTrimmed     ";
     src.setOne(value);
     
@@ -56,7 +56,7 @@ public class TrimStringsTest extends AbstractDozerTest {
   }
   
   public void testTrimStrings_ImplicitMapping() {
-    SimpleObj src = new SimpleObj();
+    SimpleObj src = (SimpleObj) getDataObjectInstantiator().create(SimpleObj.class);
     src.setField1("      valueNeedingTrimmed       ");
     
     SimpleObjPrime dest = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
