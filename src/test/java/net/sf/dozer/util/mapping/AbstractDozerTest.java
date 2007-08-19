@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 import junit.framework.TestCase;
-import net.sf.dozer.functional_tests.ObjectInstantiator;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.util.MapperConstants;
 import net.sf.dozer.util.mapping.util.TestDataFactory;
 
@@ -29,13 +29,11 @@ import net.sf.dozer.util.mapping.util.TestDataFactory;
  */
 public abstract class AbstractDozerTest extends TestCase {
   private static Random rand = new Random(System.currentTimeMillis());
-  protected MapperIF mapper;
-  protected TestDataFactory testDataFactory = new TestDataFactory(ObjectInstantiator.NO_PROXY_INSTANTIATOR);
+  protected TestDataFactory testDataFactory = new TestDataFactory(DataObjectInstantiator.NO_PROXY_INSTANTIATOR);
 
   protected void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");
-    mapper = new DozerBeanMapper();
   }
 
   protected MapperIF getNewMapper(String[] mappingFiles) {
