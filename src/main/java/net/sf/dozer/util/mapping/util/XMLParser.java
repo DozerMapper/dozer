@@ -120,7 +120,7 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element ele = (Element) node;
-        log.info("name: " + ele.getNodeName());
+        log.debug("name: " + ele.getNodeName());
         if (CONFIGURATION_ELEMENT.equals(ele.getNodeName())) {
           parseConfiguration(ele);
         } else if (MAPPING_ELEMENT.equals(ele.getNodeName())) {
@@ -166,8 +166,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (CLASS_A_ELEMENT.equals(element.getNodeName())) {
           DozerClass source = new DozerClass();
           source.setName(element.getFirstChild().getNodeValue().trim());
@@ -240,8 +240,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         parseFieldElements(element, efm);
       }
     }
@@ -318,8 +318,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         parseFieldElements(element, fieldMap);
         if (SRC_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
           HintContainer hintContainer = new HintContainer();
@@ -410,8 +410,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
           config.setStopOnErrors(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (DATE_FORMAT.equals(element.getNodeName())) {
@@ -441,8 +441,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (CONVERTER_ELEMENT.equals(element.getNodeName())) {
           CustomConverterDescription customConverter = new CustomConverterDescription();
           container.addConverter(customConverter);
@@ -472,8 +472,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (COPY_BY_REFERENCE.equals(element.getNodeName())) {
           CopyByReference cbr = new CopyByReference();
           container.getCopyByReferences().add(cbr);
@@ -490,8 +490,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
           Class ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
           if (!RuntimeException.class.isAssignableFrom(ex)) {
@@ -543,7 +543,7 @@ public class XMLParser {
     private final Log log = LogFactory.getLog(DozerDefaultHandler.class);
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-      log.info("tag: " + qName);
+      log.debug("tag: " + qName);
     }
 
     public void warning(SAXParseException e) throws SAXException {
