@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.recursive;
+package net.sf.dozer.functional_tests.recursive;
 
 /**
+ * @return .
  */
-public class TestClassAA extends TestClassA {
+public class ClassAAPrime extends ClassAPrime {
 
 }

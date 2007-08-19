@@ -13,22 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.recursive;
+package net.sf.dozer.functional_tests.recursive;
 
 import java.util.TreeSet;
 
-/**  */
-public class TestClassAPrime {
+/**
+ * .
+ * 
+ * @author ADE
+ * 
+ */
+public class ClassA {
   /**  */
   private String nom;
-  /**  */
-  private String prenom;
   /** */
-  private TreeSet subs;
+  private String prenom;
   /**  */
+  private TreeSet subs;
+  /** {@inheritDoc} */
   private final int prime = 31;
   /** {@inheritDoc} */
-  public final void addSubs(final TestClassBPrime value) {
+  public final void addSubs(final ClassB value) {
     if (value == null) {
       return;
     }
@@ -40,6 +45,34 @@ public class TestClassAPrime {
       value.setParent(this);
     }
   }
+  /** {@inheritDoc} */
+  public int hashCode() {
+    int result = 1;
+    result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
+    return result;
+  }
+  /** {@inheritDoc} */
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (this.getClass() != obj.getClass()) {
+      return false;
+    }
+    final ClassA other = (ClassA) obj;
+    if (this.nom == null) {
+      if (other.nom != null) {
+        return false;
+      }
+    } else if (!this.nom.equals(other.nom)) {
+      return false;
+    }
+    return true;
+  }
+
   /** {@inheritDoc} */
   public String getNom() {
     return this.nom;
@@ -63,32 +96,5 @@ public class TestClassAPrime {
   /** {@inheritDoc} */
   public void setSubs(final TreeSet subs) {
     this.subs = subs;
-  }
-  /** {@inheritDoc} */
-  public int hashCode() {
-    int result = 1;
-    result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
-    return result;
-  }
-  /** {@inheritDoc} */
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (this.getClass() != obj.getClass()) {
-      return false;
-    }
-    final TestClassAPrime other = (TestClassAPrime) obj;
-    if (this.nom == null) {
-      if (other.nom != null) {
-        return false;
-      }
-    } else if (!this.nom.equals(other.nom)) {
-      return false;
-    }
-    return true;
   }
 }

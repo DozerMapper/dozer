@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping;
+package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.util.mapping.vo.iface.ApplicationUser;
 import net.sf.dozer.util.mapping.vo.iface.Subscriber;
@@ -22,7 +22,7 @@ import net.sf.dozer.util.mapping.vo.iface.UpdateMember;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class InterfacePerformanceTest extends AbstractDozerTest {
+public class InterfacePerformanceTest extends AbstractMapperTest {
   private static Log log = LogFactory.getLog(InterfacePerformanceTest.class);
 
   public void testInterface() throws Exception {
@@ -48,9 +48,12 @@ public class InterfacePerformanceTest extends AbstractDozerTest {
         mapper.map(source, target);
       }
       long subscriberTime = (System.currentTimeMillis() - start);
-      log.info("Execution of " + j + " iterations times ApplicationUser = " + applicationUserTime + " Subscriber = "
+      log.debug("Execution of " + j + " iterations times ApplicationUser = " + applicationUserTime + " Subscriber = "
           + subscriberTime);
     }
   }
 
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return DataObjectInstantiator.NO_PROXY_INSTANTIATOR;
+  }
 }

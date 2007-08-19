@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.recursive;
+package net.sf.dozer.functional_tests.recursive;
 
 /** */
-public class TestClassB {
+public class ClassB {
   /** */
   private String rue;
 
@@ -24,18 +24,18 @@ public class TestClassB {
   private String ville;
 
   /** */
-  private TestClassA parent;
+  private ClassA parent;
 
   /** */
   private int prime = 31;
 
   /** {@inheritDoc} */
-  public TestClassA getParent() {
+  public ClassA getParent() {
     return this.parent;
   }
 
   /** {@inheritDoc} */
-  public void setParent(final TestClassA parent) {
+  public void setParent(final ClassA parent) {
     this.parent = parent;
   }
 
@@ -72,7 +72,7 @@ public class TestClassB {
     if (this.getClass() != obj.getClass()) {
       return false;
     }
-    final TestClassB other = (TestClassB) obj;
+    final ClassB other = (ClassB) obj;
     if (this.rue == null) {
       if (other.rue != null) {
         return false;
