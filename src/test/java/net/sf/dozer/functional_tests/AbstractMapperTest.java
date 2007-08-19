@@ -17,13 +17,11 @@ package net.sf.dozer.functional_tests;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import junit.framework.TestCase;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
 import net.sf.dozer.util.mapping.util.MapperConstants;
-import net.sf.dozer.util.mapping.vo.SimpleObj;
 
 /**
  * @author tierney.matt

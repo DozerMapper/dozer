@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.functional_tests.proxied;
+package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.functional_tests.AbstractCustomConverterMappingTest;
-import net.sf.dozer.functional_tests.ObjectInstantiator;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ProxiedCustomConverterMappingTest extends AbstractCustomConverterMappingTest {
+public class BiDirectionalMappingTest extends AbstractBiDirectionalMappingTest {
 
   protected ObjectInstantiator getDataObjectInstantiator() {
-    return ObjectInstantiator.PROXY_INSTANTIATOR;
+    return ObjectInstantiator.NO_PROXY_INSTANTIATOR;
   }
-
+  
 }

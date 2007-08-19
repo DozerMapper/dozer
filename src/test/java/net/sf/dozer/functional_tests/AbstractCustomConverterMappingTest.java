@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.converters.StringAppendCustomConverter;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
