@@ -1,7 +1,11 @@
 package net.sf.dozer.functional_tests;
 
+import java.io.Serializable;
+import java.lang.reflect.Method;
+
 import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.NoOp;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 
 /*
  * Copyright 2005-2007 the original author or authors.
@@ -47,8 +51,16 @@ public class DataObjectInstantiator {
   private Object proxyNewInstance(Class clazz) {
     Enhancer enhancer = new Enhancer();
     enhancer.setSuperclass(clazz);
-    enhancer.setCallback(NoOp.INSTANCE);
+    enhancer.setCallback(NoOpInterceptor.INSTANCE);
     return enhancer.create();
+  }
+
+  private static class NoOpInterceptor implements MethodInterceptor, Serializable {
+    private static final NoOpInterceptor INSTANCE = new NoOpInterceptor();
+
+    public Object intercept(Object object, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+      return methodProxy.invokeSuper(object, args);
+    }
   }
 
 }
