@@ -39,6 +39,7 @@ import org.apache.commons.lang.StringUtils;
  * @author garsombke.franz
  */
 public abstract class ClassMapBuilder {
+  private static String CGLIB_ID = "$$EnhancerByCGLIB$$";
 
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass) {
     return createDefaultClassMap(globalConfiguration, srcClass, destClass, null);    
@@ -94,7 +95,12 @@ public abstract class ClassMapBuilder {
       if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
         continue;
       }
-
+      
+      // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
+      if ((destFieldName.equals("callback") ||  destFieldName.equals("callbacks")) && destClass.getName().contains(CGLIB_ID)) {
+        continue;
+      }
+      
       // If field has already been accounted for in a parent map, then skip
       // bug #1757573
       if (parentClassMap != null && parentClassMap.getFieldMapUsingDest(destFieldName) != null) {
@@ -105,7 +111,7 @@ public abstract class ClassMapBuilder {
       if (destPropertyDescriptor.getWriteMethod() == null) {
         continue;
       }
-
+      
       PropertyDescriptor srcProperty = ReflectionUtils.findPropertyDescriptor(srcClass, destFieldName, null);
 
       // If the sourceProperty is null we know that there is not a corresponding property to map to.
@@ -148,6 +154,16 @@ public abstract class ClassMapBuilder {
       if (fieldName.equals("class")) {
         continue;
       }
+      
+      // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
+      if ((fieldName.equals("callback") ||  fieldName.equals("callbacks")) && destClass.getName().contains(CGLIB_ID)) {
+        continue;
+      }
+      
+      if ((fieldName.equals("callback") ||  fieldName.equals("callbacks")) && (destClass.getName().contains(CGLIB_ID) || srcClass.getName().contains(CGLIB_ID))) {
+        continue;
+      }
+      
 
       if (destIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
         continue;
