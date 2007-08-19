@@ -6,7 +6,7 @@ import net.sf.cglib.proxy.NoOp;
 public class ObjectInstantiator {
   
   public static final ObjectInstantiator NO_PROXY_INSTANTIATOR = new ObjectInstantiator(0);
-  public static final ObjectInstantiator CGLIB_INSTANTIATOR = new ObjectInstantiator(1);
+  public static final ObjectInstantiator PROXY_INSTANTIATOR = new ObjectInstantiator(1);
   
   private int proxyMode;
   

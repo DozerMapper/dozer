@@ -28,8 +28,6 @@ import net.sf.dozer.util.mapping.util.MapperConstants;
  * @author tierney.matt
  */
 public abstract class AbstractMapperTest extends TestCase {
-  private static Random rand = new Random(System.currentTimeMillis());
-  
   protected MapperIF mapper;
 
   protected abstract ObjectInstantiator getDataObjectInstantiator();
@@ -50,10 +48,6 @@ public abstract class AbstractMapperTest extends TestCase {
     MapperIF mapper = new DozerBeanMapper();
     ((DozerBeanMapper) mapper).setMappingFiles(list);
     return mapper;
-  }
-
-  protected String getRandomString() {
-    return String.valueOf(rand.nextInt());
   }
 
 }
