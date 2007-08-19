@@ -30,7 +30,7 @@ import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument.GetWeatherByZipC
 public class XMLBeansMappingTest extends AbstractMapperTest {
 
   public void testXmlBeans() throws Exception {
-    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     // Map from TestObject to XMLBeans
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setOne("one");
@@ -49,7 +49,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
    * Test Case Submitted by Peter Monks 1/2007
    */
   public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
-    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     Child pojo = (Child) newInstance(Child.class);
 
     pojo.setId(BigInteger.valueOf(42));
@@ -74,7 +74,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
    * Test Case Submitted by Peter Monks 1/2007
    */
   public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
-    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     ChildType xmlBean = ChildType.Factory.newInstance();
 
     xmlBean.setId(BigInteger.valueOf(7236));
@@ -97,7 +97,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
 
   public void testXmlBeansWithNullFields() throws Exception {
 
-    mapper = getNewMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     ChildType xmlBean = ChildType.Factory.newInstance();
 
     Child pojo = (Child) mapper.map(xmlBean, Child.class);

@@ -86,7 +86,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testFieldAccessible() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setFieldAccessible("fieldAccessible");
     to.setFieldAccessiblePrimInt(2);
@@ -112,7 +112,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testOverloadGetSetMethods() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
     Date date = new Date();
     to.setOverloadGetField(new Date());
@@ -125,7 +125,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testFieldCreateMethod() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
     InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
     // we did not set any values. this will be set in the 'createMethod'
@@ -139,7 +139,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testIntegerToString() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
     Integer[] array = new Integer[] { new Integer(1), new Integer(2) };
     to.setArrayForLists(array);
@@ -148,7 +148,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testMapNull_MappingLevel() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "nullFieldMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that null does not override an existing value when map-null="false"
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     src.setField3(null);
@@ -165,7 +165,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testMapNull_MappingLevel2() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "nullFieldMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // Reverse mapping
     AnotherTestObjectPrime src = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
     src.setTo((TestObject)newInstance(TestObject.class));
@@ -182,7 +182,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testMapEmptyString_MappingLevel() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "nullFieldMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that "" does not override an existing value when
     // map-empty-string="false"
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
@@ -200,7 +200,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testMapEmptyString_MappingLevel2() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "nullFieldMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // reverse mapping
     AnotherTestObjectPrime src = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
     src.setTo((TestObject)newInstance(TestObject.class));
@@ -217,7 +217,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testMapNull_ClassLevel() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "nullFieldMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that null does not override an existing value when map-null="false"
     TestObject src = (TestObject) newInstance(TestObject.class);
     src.setOne(null);
@@ -241,7 +241,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testMapEmptyString_ClassLevel() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "nullFieldMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that "" does not override an existing value when
     // map-empty-string="false"
     TestObject src = (TestObject) newInstance(TestObject.class);
@@ -268,7 +268,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testContextMappingWithNestedContext() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "contextMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "contextMapping.xml" });
 
     ContextMappingNested cmn = (ContextMappingNested) newInstance(ContextMappingNested.class);
     cmn.setLoanNo("loanNoNested");
@@ -369,7 +369,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testSetPrivateField() {
-    mapper = super.getNewMapper(new String[] { "isaccessiblemapping.xml" });
+    mapper = super.getMapper(new String[] { "isaccessiblemapping.xml" });
     Foo src = (Foo) newInstance(Foo.class);
     List list = (ArrayList) newInstance(ArrayList.class);
     list.add("test1");
@@ -381,7 +381,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testStringToIndexedSet_UsingHint() {
-    mapper = getNewMapper(new String[] { "indexMapping.xml" });
+    mapper = getMapper(new String[] { "indexMapping.xml" });
     Mccoy src = (Mccoy) newInstance(Mccoy.class);
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
     src.setField2("someValue");
@@ -396,7 +396,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testAllowedExceptions() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "allowedExceptionsMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "allowedExceptionsMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setThrowAllowedExceptionOnMap("throw me");
     try {
@@ -419,7 +419,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testAllowedExceptions_Implicit() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
     ThrowException to = (ThrowException) newInstance(ThrowException.class);
     to.setThrowAllowedException("throw me");
     try {
@@ -442,7 +442,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testPrimitiveArrayToList() throws Exception {
-    mapper = getNewMapper(new String[] { "primitiveArrayToListMapping.xml" });
+    mapper = getMapper(new String[] { "primitiveArrayToListMapping.xml" });
 
     int[] i = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = (PrimitiveArrayObj) newInstance(PrimitiveArrayObj.class);
@@ -458,7 +458,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testPrimitiveArrayToList_UsingHint() throws Exception {
-    mapper = getNewMapper(new String[] { "primitiveArrayToListMapping.xml" });
+    mapper = getMapper(new String[] { "primitiveArrayToListMapping.xml" });
 
     int[] srcArray = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = (PrimitiveArrayObj) newInstance(PrimitiveArrayObj.class);
@@ -478,7 +478,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testInterface() throws Exception {
-    mapper = getNewMapper(new String[] { "interfaceMapping.xml" });
+    mapper = getMapper(new String[] { "interfaceMapping.xml" });
     ApplicationUser user = (ApplicationUser) newInstance(ApplicationUser.class);
     user.setSubscriberNumber("123");
 
@@ -533,7 +533,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     // should only contain 2 SomeOtherVO's. It has something to do with specifying the field name starting with cap in
     // the mapping file. If
     // you change the field mapping to start with lower case it seems to map correctly.
-    MapperIF mapper = getNewMapper(new String[] { "setMappingWithUpperCaseFieldName.xml" });
+    MapperIF mapper = getMapper(new String[] { "setMappingWithUpperCaseFieldName.xml" });
 
     SomeDTO someDto = (SomeDTO) newInstance(SomeDTO.class);
     someDto.setField1(new Integer("1"));
@@ -559,7 +559,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testGlobalBeanFactoryAppliedToDefaultMappings() throws Exception {
-    mapper = getNewMapper(new String[] { "global-configuration.xml" });
+    mapper = getMapper(new String[] { "global-configuration.xml" });
     TestObjectPrime dest = (TestObjectPrime) mapper.map((TestObject) newInstance(TestObject.class), TestObjectPrime.class);
 
     assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
@@ -567,7 +567,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testStringToDateMapping() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS");
     String dateStr = "01/29/1975 10:45:13:25";
     TestObject sourceObj = (TestObject) newInstance(TestObject.class);
@@ -582,7 +582,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testMethodMapping() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     MethodFieldTestObject sourceObj = (MethodFieldTestObject) newInstance(MethodFieldTestObject.class);
     sourceObj.setIntegerStr("1500");
     sourceObj.setPriceItem("3500");
@@ -600,7 +600,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   public void testNoReadMethod() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     NoReadMethod src = (NoReadMethod) newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
@@ -610,7 +610,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   public void testNoReadMethodSameClassTypes() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     NoReadMethod src = (NoReadMethod) newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
@@ -620,7 +620,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
     // Dont use getter methods that have a param when discovering default fields to be mapped.
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     NoReadMethod src = (NoReadMethod) newInstance(NoReadMethod.class);
     src.setOtherNoReadMethod("someValue");
 
@@ -629,7 +629,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testNoWriteMethod() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     NoWriteMethod src = (NoWriteMethod) newInstance(NoWriteMethod.class);
     src.setXXXXXX("someValue");
 
@@ -641,7 +641,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   public void testNoWriteMethodSameClassTypes() throws Exception {
     // When mapping between identical types, if the field doesnt have a getter/setter, dont
     // add it is a default field to be mapped.
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     NoWriteMethod src = (NoWriteMethod) newInstance(NoWriteMethod.class);
     src.setXXXXXX("someValue");
 
@@ -652,7 +652,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testNullField() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     src.setField2(null);
     AnotherTestObjectPrime dest = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
@@ -663,7 +663,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testNullField2() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     // Test that String --> String with an empty String input value results
     // in the destination field being an empty String and not null.
     String input = "";
@@ -676,7 +676,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   }
 
   public void testNullToPrimitive() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     AnotherTestObjectPrime prime = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
     TestObject to = (TestObject) newInstance(TestObject.class);

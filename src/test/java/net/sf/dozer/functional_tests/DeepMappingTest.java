@@ -34,7 +34,7 @@ import net.sf.dozer.util.mapping.vo.deep2.Src;
  */
 public class DeepMappingTest extends AbstractMapperTest {
   public void testDeepMapping() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
     DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
     SrcDeepObj src2 = (SrcDeepObj) mapper.map(dest, SrcDeepObj.class);
@@ -45,7 +45,7 @@ public class DeepMappingTest extends AbstractMapperTest {
   }
 
   public void testDeepPropertyOneWay() throws Exception {
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     House house = (House) newInstance(House.class);
     Person owner = (Person) newInstance(Person.class);
     owner.setYourName("myName");
@@ -58,7 +58,7 @@ public class DeepMappingTest extends AbstractMapperTest {
   }
 
   public void testDeepInterfaceWithHint() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "fieldAttributeMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
     House house = (House) newInstance(House.class);
     MetalThingyIF thingy = (MetalThingyIF) newInstance(Car.class);
@@ -77,7 +77,7 @@ public class DeepMappingTest extends AbstractMapperTest {
    * Related to feature request #1456486. Deep mapping with custom getter/setter does not work
    */
   public void testDeepMapping_UsingCustomGetSetMethods() {
-    mapper = super.getNewMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
+    mapper = super.getMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
 
     Src src = (Src) newInstance(Src.class);
     src.setSrcField("srcFieldValue");

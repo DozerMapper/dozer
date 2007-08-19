@@ -28,7 +28,7 @@ public class MultiThreadedTest extends AbstractMapperTest {
 
   protected void setUp() throws Exception {
     super.setUp();
-    mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
   }
 
   /*

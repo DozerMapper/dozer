@@ -27,7 +27,7 @@ public class InterfacePerformanceTest extends AbstractMapperTest {
 
   public void testInterface() throws Exception {
     log.info("Starting");
-    mapper = getNewMapper(new String[] { "interfaceMapping.xml" });
+    mapper = getMapper(new String[] { "interfaceMapping.xml" });
     { // warm up to load the config
       ApplicationUser source = new ApplicationUser();
       UpdateMember target = new UpdateMember();

@@ -41,7 +41,7 @@ public abstract class AbstractMapperTest extends TestCase {
     mapper = new DozerBeanMapper();
   }
 
-  protected MapperIF getNewMapper(String[] mappingFiles) {
+  protected MapperIF getMapper(String[] mappingFiles) {
     List list = new ArrayList();
     if (mappingFiles != null) {
       for (int i = 0; i < mappingFiles.length; i++) {

@@ -26,7 +26,7 @@ public class TrimStringsTest extends AbstractMapperTest {
   
   protected void setUp() throws Exception {
     super.setUp();
-    mapper = getNewMapper(new String[] { "trimStringsMapping.xml" }); 
+    mapper = getMapper(new String[] { "trimStringsMapping.xml" }); 
   }
   
   public void testTrimStrings_Global() {

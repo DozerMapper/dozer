@@ -23,7 +23,6 @@ import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2;
 import net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory;
 import net.sf.dozer.util.mapping.util.ApplicationBeanFactory;
-import net.sf.dozer.util.mapping.util.TestDataFactory;
 import net.sf.dozer.util.mapping.vo.Bus;
 import net.sf.dozer.util.mapping.vo.Car;
 import net.sf.dozer.util.mapping.vo.MetalThingyIF;

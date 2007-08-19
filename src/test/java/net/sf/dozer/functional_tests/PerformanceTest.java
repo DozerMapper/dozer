@@ -45,7 +45,7 @@ public class PerformanceTest extends AbstractMapperTest {
   protected void setUp() throws Exception {
     super.setUp();
     if (mapper == null) {
-      mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+      mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     }
   }
 

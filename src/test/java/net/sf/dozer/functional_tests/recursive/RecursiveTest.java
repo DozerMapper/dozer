@@ -47,7 +47,7 @@ public class RecursiveTest extends AbstractMapperTest {
    * 
    */
   public void testConvertWithSubClass() {
-    mapper = getNewMapper(new String[] { "recursivemappings.xml", "recursivemappings2.xml" });
+    mapper = getMapper(new String[] { "recursivemappings.xml", "recursivemappings2.xml" });
     ClassAA testAA = createTestClassAA();
     // the == is on purpose, we test that the referenced parent of the first item of the subs is the parent instance
     // itself

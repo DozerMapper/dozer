@@ -37,7 +37,7 @@ import net.sf.dozer.util.mapping.vo.deepindex.Pet;
 public class DeepMappingWithIndexTest extends AbstractMapperTest {
   protected void setUp() throws Exception {
     super.setUp();
-    mapper = getNewMapper(new String[] { "deepMappingWithIndexedFields.xml" });
+    mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
   }
 
   public void testDeepMappingWithIndexOnSrcField() {
