@@ -23,6 +23,7 @@ import junit.framework.TestCase;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
 import net.sf.dozer.util.mapping.util.MapperConstants;
+import net.sf.dozer.util.mapping.vo.SimpleObj;
 
 /**
  * @author tierney.matt
@@ -48,6 +49,10 @@ public abstract class AbstractMapperTest extends TestCase {
     MapperIF mapper = new DozerBeanMapper();
     ((DozerBeanMapper) mapper).setMappingFiles(list);
     return mapper;
+  }
+  
+  protected Object newInstance(Class classToInstantiate) {
+    return getDataObjectInstantiator().newInstance(classToInstantiate);
   }
 
 }

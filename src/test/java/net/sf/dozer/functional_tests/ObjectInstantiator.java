@@ -14,7 +14,7 @@ public class ObjectInstantiator {
     this.proxyMode = proxyMode;
   }
   
-  public Object create(Class classToInstantiate) {
+  public Object newInstance(Class classToInstantiate) {
     if (proxyMode == 0) {
       try {
         return classToInstantiate.newInstance();

@@ -35,7 +35,7 @@ public abstract class AbstractTrimStringsTest extends AbstractMapperTest {
   }
   
   public void testTrimStrings_Global() {
-    AnotherTestObject src = (AnotherTestObject) getDataObjectInstantiator().create(AnotherTestObject.class);
+    AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     src.setField3("      valueNeedingTrimmed       ");
     src.setField4("      anotherValueNeedingTrimmed       ");
     
@@ -46,7 +46,7 @@ public abstract class AbstractTrimStringsTest extends AbstractMapperTest {
   }
 
   public void testTrimStrings_ClassMapLevel() {
-    TestObject src = (TestObject) getDataObjectInstantiator().create(TestObject.class);
+    TestObject src = (TestObject) newInstance(TestObject.class);
     String value = "    shouldNotBeNeedingTrimmed     ";
     src.setOne(value);
     
@@ -56,7 +56,7 @@ public abstract class AbstractTrimStringsTest extends AbstractMapperTest {
   }
   
   public void testTrimStrings_ImplicitMapping() {
-    SimpleObj src = (SimpleObj) getDataObjectInstantiator().create(SimpleObj.class);
+    SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1("      valueNeedingTrimmed       ");
     
     SimpleObjPrime dest = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
