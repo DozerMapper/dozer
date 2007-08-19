@@ -27,7 +27,7 @@ import net.sf.dozer.util.mapping.util.MapperConstants;
  */
 public abstract class AbstractDozerTest extends TestCase {
   private static Random rand = new Random(System.currentTimeMillis());
-  protected MapperIF mapper = null;
+  protected MapperIF mapper;
 
   protected void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
