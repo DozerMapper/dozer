@@ -42,9 +42,6 @@ public abstract class ClassMapFinder {
   public static ClassMap findClassMap(Map customMappings, Object srcObj, Class destClass, String mapId) {
     ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcObj.getClass(), destClass, mapId));
 
-    // Determine if it is an Interface or Abstract Class. Iterate through the class maps and see if this class has any
-    // sub classes that are mapped to the source class OR any of the source classes super classes.
-    // If we find a mapping don't even bother walking the tree
     if (mapping == null) {
       mapping = findInterfaceOrAbstractMapping(customMappings, destClass, srcObj, mapId);
     }
@@ -101,9 +98,11 @@ public abstract class ClassMapFinder {
     return interfaceMaps;
   }
 
-  // TODO: what is logic difference between this method and checkForInterfaceMappingsInCustomMappings. By the names
-  // these methods seem to be trying to accomplish the same thing with a different implementation. Also, one takes a map-id
-  // and the other doesnt ?? somewhat confusing
+  // Determine if it is an Interface or Abstract Class. Iterate through the class maps and see if this class has any
+  // sub classes that are mapped to the source class OR any of the source classes super classes.
+  // If we find a mapping don't even bother walking the tree.
+  //
+  // Also, this should also find appropriate class mapping for proxied data objects (CGLIB, etc)
   public static ClassMap findInterfaceOrAbstractMapping(Map customMappings, Class destClass, Object srcObj, String mapId) {
     ClassMap newClassMap = null;
     Class newClass = null;
@@ -114,12 +113,17 @@ public abstract class ClassMapFinder {
       ClassMap map = (ClassMap) customMappings.get(keys[i]);
       Class dest = map.getDestClassToMap();
 
+      if ((mapId == null && map.getMapId() != null) || (mapId != null && !mapId.equals(map.getMapId()))) {
+        continue;
+      }
+
       // is Assignable? now that we have the a sub class for the abstract class or interface we need to
-      // verify that the source class in the map IS a super class of the source object...or the source object itself. .
-      if ((destClass.isAssignableFrom(dest) || (dest.isInterface() && dest.isAssignableFrom(destClass)))
+      // verify that the source class in the map IS a super class of the source object...or the source object itself.
+      // Also, this should also find appropriate class mapping for proxied data objects (CGLIB, etc)
+      if ((destClass.isAssignableFrom(dest) || (dest.isAssignableFrom(destClass)))
           && (map.getSrcClassToMap().isAssignableFrom(srcObj.getClass()) || map.getSrcClassToMap().isInstance(srcObj))
           // look for most specific mapping
-          && (newClass == null || newClass.isAssignableFrom(dest)) && (mapId == null || ((String) keys[i]).endsWith(mapId))) {
+          && (newClass == null || newClass.isAssignableFrom(dest))) {
         newClassMap = map;
         newClass = dest;
       }
