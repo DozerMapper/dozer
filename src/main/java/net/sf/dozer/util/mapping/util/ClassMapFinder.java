@@ -40,8 +40,11 @@ public abstract class ClassMapFinder {
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
   public static ClassMap findClassMap(Map customMappings, Object srcObj, Class destClass, String mapId) {
-    ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcObj.getClass(), destClass, mapId));
-
+    Class srcLookupClass = MappingUtils.isProxy(srcObj.getClass()) ? MappingUtils.getProxyRealClass(srcObj.getClass()) : srcObj.getClass();
+    Class destLookupClass = MappingUtils.isProxy(destClass) ? MappingUtils.getProxyRealClass(destClass) : destClass;
+    
+    ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
+    
     if (mapping == null) {
       mapping = findInterfaceOrAbstractMapping(customMappings, destClass, srcObj, mapId);
     }
@@ -116,11 +119,11 @@ public abstract class ClassMapFinder {
       if ((mapId == null && map.getMapId() != null) || (mapId != null && !mapId.equals(map.getMapId()))) {
         continue;
       }
-
+      
       // is Assignable? now that we have the a sub class for the abstract class or interface we need to
       // verify that the source class in the map IS a super class of the source object...or the source object itself.
       // Also, this should also find appropriate class mapping for proxied data objects (CGLIB, etc)
-      if ((destClass.isAssignableFrom(dest) || (dest.isAssignableFrom(destClass)))
+      if ((destClass.isAssignableFrom(dest) || (dest.isInterface() && dest.isAssignableFrom(destClass)))
           && (map.getSrcClassToMap().isAssignableFrom(srcObj.getClass()) || map.getSrcClassToMap().isInstance(srcObj))
           // look for most specific mapping
           && (newClass == null || newClass.isAssignableFrom(dest))) {

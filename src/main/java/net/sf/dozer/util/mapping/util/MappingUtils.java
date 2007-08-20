@@ -271,6 +271,13 @@ public abstract class MappingUtils {
   public static Class getRealSuperclass(Class clazz) {
     return clazz.getName().contains(MapperConstants.CGLIB_ID) ? clazz.getSuperclass().getSuperclass() : clazz.getSuperclass();
   }
+  
+  public static Class getProxyRealClass(Class clazz) {
+    if (!isProxy(clazz)) {
+      throw new IllegalArgumentException("specified class is not a proxy: " + clazz);
+    }
+    return clazz.getSuperclass();
+  }
 
   public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
     Object result = null;
