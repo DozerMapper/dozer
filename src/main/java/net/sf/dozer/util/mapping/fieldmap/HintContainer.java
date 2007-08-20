@@ -82,7 +82,7 @@ public class HintContainer {
           .throwMappingException("When using multiple source and destination hints there must be exactly the same number of hints on the source and the destination.");
     }
     int count = 0;
-    String myClazName = clazz.getName();
+    String myClazName = MappingUtils.isProxy(clazz) ? MappingUtils.getProxyRealClass(clazz).getName() : clazz.getName();
     int size = clazzHints.size();
     for (int i = 0; i < size; i++) {
       Class element = (Class) clazzHints.get(i);
