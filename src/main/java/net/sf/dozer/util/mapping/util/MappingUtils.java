@@ -263,6 +263,15 @@ public abstract class MappingUtils {
     return result;
   }
 
+  public static boolean isProxy(Class clazz) {
+    //todo: implement a better way of determining this that is more generic
+    return clazz.getName().contains(MapperConstants.CGLIB_ID);
+  }
+
+  public static Class getRealSuperclass(Class clazz) {
+    return clazz.getName().contains(MapperConstants.CGLIB_ID) ? clazz.getSuperclass().getSuperclass() : clazz.getSuperclass();
+  }
+
   public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
     Object result = null;
     if (existingCollection == null) {

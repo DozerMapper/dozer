@@ -26,7 +26,7 @@ package net.sf.dozer.util.mapping.util;
  */
 public abstract class MapperConstants {
 
-  public static final String CURRENT_VERSION = "4.0";
+  public static final String CURRENT_VERSION = "4.1";
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_ERROR_POLICY = true;
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
@@ -46,6 +46,7 @@ public abstract class MapperConstants {
   public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
   public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
   public static final String SELF_KEYWORD = "this";
+  public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
 
   // DozerBeanMapper instance caches
   public static final String CONVERTER_BY_DEST_TYPE_CACHE = "Converter By Destination Type Dozer Cache";

@@ -39,12 +39,12 @@ import org.apache.commons.lang.StringUtils;
  * @author garsombke.franz
  */
 public abstract class ClassMapBuilder {
-  private static String CGLIB_ID = "$$EnhancerByCGLIB$$";
 
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass) {
-    return createDefaultClassMap(globalConfiguration, srcClass, destClass, null);    
-  }  
-  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass, ClassMap parentClassMap) {
+    return createDefaultClassMap(globalConfiguration, srcClass, destClass, null);
+  }
+  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass,
+      ClassMap parentClassMap) {
     ClassMap classMap = new ClassMap(globalConfiguration);
     classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null,
         MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
@@ -75,7 +75,7 @@ public abstract class ClassMapBuilder {
   public static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
     addDefaultFieldMappings(classMap, globalConfiguration, null);
   }
-  
+
   public static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration, ClassMap parentClassMap) {
     Class srcClass = classMap.getSrcClassToMap();
     Class destClass = classMap.getDestClassToMap();
@@ -95,23 +95,24 @@ public abstract class ClassMapBuilder {
       if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
         continue;
       }
-      
+
       // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
-      if ((destFieldName.equals("callback") ||  destFieldName.equals("callbacks")) && destClass.getName().contains(CGLIB_ID)) {
+      if ((destFieldName.equals("callback") || destFieldName.equals("callbacks"))
+          && destClass.getName().contains(MapperConstants.CGLIB_ID)) {
         continue;
       }
-      
+
       // If field has already been accounted for in a parent map, then skip
       // bug #1757573
       if (parentClassMap != null && parentClassMap.getFieldMapUsingDest(destFieldName) != null) {
         continue;
       }
-      
+
       // If destination field does not have a write method, then skip
       if (destPropertyDescriptor.getWriteMethod() == null) {
         continue;
       }
-      
+
       PropertyDescriptor srcProperty = ReflectionUtils.findPropertyDescriptor(srcClass, destFieldName, null);
 
       // If the sourceProperty is null we know that there is not a corresponding property to map to.
@@ -154,16 +155,16 @@ public abstract class ClassMapBuilder {
       if (fieldName.equals("class")) {
         continue;
       }
-      
+
       // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
-      if ((fieldName.equals("callback") ||  fieldName.equals("callbacks")) && destClass.getName().contains(CGLIB_ID)) {
+      if ((fieldName.equals("callback") || fieldName.equals("callbacks")) && destClass.getName().contains(MapperConstants.CGLIB_ID)) {
         continue;
       }
-      
-      if ((fieldName.equals("callback") ||  fieldName.equals("callbacks")) && (destClass.getName().contains(CGLIB_ID) || srcClass.getName().contains(CGLIB_ID))) {
+
+      if ((fieldName.equals("callback") || fieldName.equals("callbacks"))
+          && (destClass.getName().contains(MapperConstants.CGLIB_ID) || srcClass.getName().contains(MapperConstants.CGLIB_ID))) {
         continue;
       }
-      
 
       if (destIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
         continue;
