@@ -29,23 +29,10 @@ import net.sf.dozer.util.mapping.util.TestDataFactory;
  */
 public abstract class AbstractDozerTest extends TestCase {
   private static Random rand = new Random(System.currentTimeMillis());
-  protected TestDataFactory testDataFactory = new TestDataFactory(DataObjectInstantiator.NO_PROXY_INSTANTIATOR);
-
+  
   protected void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");
-  }
-
-  protected MapperIF getNewMapper(String[] mappingFiles) {
-    List list = new ArrayList();
-    if (mappingFiles != null) {
-      for (int i = 0; i < mappingFiles.length; i++) {
-        list.add(mappingFiles[i]);
-      }
-    }
-    MapperIF mapper = new DozerBeanMapper();
-    ((DozerBeanMapper) mapper).setMappingFiles(list);
-    return mapper;
   }
 
   protected String getRandomString() {

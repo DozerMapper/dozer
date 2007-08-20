@@ -48,9 +48,9 @@ public abstract class AbstractMapperTest extends TestCase {
         list.add(mappingFiles[i]);
       }
     }
-    MapperIF mapper = new DozerBeanMapper();
-    ((DozerBeanMapper) mapper).setMappingFiles(list);
-    return mapper;
+    MapperIF result = new DozerBeanMapper();
+    ((DozerBeanMapper) result).setMappingFiles(list);
+    return result;
   }
   
   protected Object newInstance(Class classToInstantiate) {

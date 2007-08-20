@@ -18,11 +18,13 @@ package net.sf.dozer.util.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.event.EventTestListener;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2;
 import net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory;
 import net.sf.dozer.util.mapping.util.ApplicationBeanFactory;
+import net.sf.dozer.util.mapping.util.TestDataFactory;
 import net.sf.dozer.util.mapping.vo.Bus;
 import net.sf.dozer.util.mapping.vo.Car;
 import net.sf.dozer.util.mapping.vo.MetalThingyIF;
@@ -43,6 +45,7 @@ import net.sf.dozer.util.mapping.vo.deep.House;
  */
 public class DozerBeanMapperTest extends AbstractDozerTest {
   private static MapperIF mapper;
+  private TestDataFactory testDataFactory = new TestDataFactory(DataObjectInstantiator.NO_PROXY_INSTANTIATOR);
 
   protected void setUp() throws Exception {
     super.setUp();
@@ -204,4 +207,18 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     assertEquals(prime2, prime);
   }
+  
+  private MapperIF getNewMapper(String[] mappingFiles) {
+    List list = new ArrayList();
+    if (mappingFiles != null) {
+      for (int i = 0; i < mappingFiles.length; i++) {
+        list.add(mappingFiles[i]);
+      }
+    }
+    MapperIF mapper = new DozerBeanMapper();
+    ((DozerBeanMapper) mapper).setMappingFiles(list);
+    return mapper;
+  }
+
+  
 }
