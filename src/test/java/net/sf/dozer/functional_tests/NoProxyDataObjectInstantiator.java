@@ -1,3 +1,6 @@
+package net.sf.dozer.functional_tests;
+
+
 /*
  * Copyright 2005-2007 the original author or authors.
  *
@@ -13,14 +16,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.functional_tests.recursive;
 
-import net.sf.dozer.functional_tests.DataObjectInstantiator;
-import net.sf.dozer.functional_tests.ProxyDataObjectInstantiator;
+public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
 
-public class ProxiedRecursiveTest extends RecursiveTest {
-  
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return ProxyDataObjectInstantiator.INSTANCE;
+  public static final NoProxyDataObjectInstantiator INSTANCE = new NoProxyDataObjectInstantiator();
+
+  private NoProxyDataObjectInstantiator() {
   }
+
+  public Object newInstance(Class classToInstantiate) {
+      try {
+        return classToInstantiate.newInstance();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+  }
+
 }

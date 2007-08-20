@@ -17,6 +17,7 @@ package net.sf.dozer.functional_tests.proxied;
 
 import net.sf.dozer.functional_tests.DataObjectInstantiator;
 import net.sf.dozer.functional_tests.IndexMappingTest;
+import net.sf.dozer.functional_tests.ProxyDataObjectInstantiator;
 
 /**
  * @author tierney.matt
@@ -25,7 +26,7 @@ import net.sf.dozer.functional_tests.IndexMappingTest;
 public class ProxiedIndexMappingTest extends IndexMappingTest {
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
-    return DataObjectInstantiator.PROXY_INSTANTIATOR;
+    return ProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

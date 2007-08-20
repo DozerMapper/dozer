@@ -158,7 +158,7 @@ public class PerformanceTest extends AbstractMapperTest {
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
-    return DataObjectInstantiator.NO_PROXY_INSTANTIATOR;
+    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
   private void runGeneric(String testName, Object src, Class destClass, long maxTimeAllowed) throws Exception {

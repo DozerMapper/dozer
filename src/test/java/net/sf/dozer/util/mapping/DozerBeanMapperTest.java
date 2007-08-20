@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.functional_tests.DataObjectInstantiator;
+import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.event.EventTestListener;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2;
@@ -45,7 +46,7 @@ import net.sf.dozer.util.mapping.vo.deep.House;
  */
 public class DozerBeanMapperTest extends AbstractDozerTest {
   private static MapperIF mapper;
-  private TestDataFactory testDataFactory = new TestDataFactory(DataObjectInstantiator.NO_PROXY_INSTANTIATOR);
+  private TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
 
   protected void setUp() throws Exception {
     super.setUp();

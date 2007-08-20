@@ -544,7 +544,7 @@ public class MapperTest extends AbstractMapperTest {
 
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
-    return DataObjectInstantiator.NO_PROXY_INSTANTIATOR;
+    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }
