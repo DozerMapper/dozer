@@ -111,14 +111,10 @@ public abstract class MappingUtils {
     }
     return rootCause;
   }
-
-  public static String getParentFieldNameKey(String parentSrcField, Object srcObj, String srcClassName, String srcFieldName,
-      String destFieldName) {
+  
+  public static String getMappedParentFieldKey(Object destObj, String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
-    buf.append(parentSrcField);
-    buf.append(System.identityHashCode(srcObj));
-    buf.append(srcClassName);
-    buf.append(srcFieldName);
+    buf.append(System.identityHashCode(destObj));
     buf.append(destFieldName);
     return buf.toString();
   }

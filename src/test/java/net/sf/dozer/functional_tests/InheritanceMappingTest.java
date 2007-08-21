@@ -224,14 +224,14 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     so.setSuperAttr1("superAttr1");
 
     // validate abstract class
-    Object obj = mapper.map(so, GenericAbstractSuper.class);
+    Object obj = mapper.map(so, Specific3.class);
     assertTrue(obj instanceof Specific3);
     Specific3 spec3 = (Specific3) obj;
     assertEquals("superAttr1", spec3.getSuperAttr3());
     assertEquals("superAttr1", spec3.getSuperAttr2());
 
     // validate interface
-    obj = mapper.map(so, GenericIF.class);
+    obj = mapper.map(so, Specific3.class);
     assertTrue(obj instanceof Specific3);
     spec3 = (Specific3) obj;
     assertEquals("superAttr1", spec3.getSuperAttr3());

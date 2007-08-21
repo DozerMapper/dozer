@@ -15,10 +15,12 @@
  */
 package net.sf.dozer.util.mapping.vo.km;
 
+import net.sf.dozer.util.mapping.vo.BaseTestObject;
+
 /**
  * @author garsombke.franz
  */
-public class PropertyB {
+public class PropertyB extends BaseTestObject {
 
   private String testProperty;
 

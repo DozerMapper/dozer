@@ -79,18 +79,13 @@ public class MappingProcessor implements MapperIF {
 
   private static final Log log = LogFactory.getLog(MappingProcessor.class);
 
-  private List superListOfFieldNames = null;
-
   private final Map customMappings;
 
   private final Configuration globalConfiguration;
 
   private final List customConverterObjects;// actual converter object instances
 
-  private final Map customConverterObjectsWithId; // key/value pair of custom
-
-  // converter id and object
-  // instance
+  private final Map customConverterObjectsWithId; // key/value pair of custom converter id and object instance
 
   private final StatisticsManagerIF statsMgr;
 
@@ -148,7 +143,7 @@ public class MappingProcessor implements MapperIF {
 
       // Map src values to dest object
       eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, result, null));
-      map(classMap, srcObj, result, null, null);
+      map(classMap, srcObj, result, false, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
     }
@@ -180,25 +175,19 @@ public class MappingProcessor implements MapperIF {
 
       // Map src values to dest object
       eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, destObj, null));
-      map(classMap, srcObj, destObj, null, null);
+      map(classMap, srcObj, destObj, false, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
     }
     eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_FINISHED_EVENT, classMap, null, srcObj, destObj, null));
   }
 
-  private void map(ClassMap classMap, Object srcObj, Object destObj, ClassMap parentClassMap, FieldMap parentFieldMap) {
+  private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop. Keep a record of mapped fields
     // by storing the id of the sourceObj and the destObj to be mapped. This can
     // be referred to later to avoid recursive mapping loops
     mappedFields.put(srcObj, destObj);
-
-    // see if we need to pull a referenced mapId
-    String mapId = null;
-    if (parentFieldMap != null) {
-      mapId = parentFieldMap.getMapId();
-    }
 
     // If class map hasnt already been determined, find the appropriate one for
     // the src/dest object combination
@@ -218,33 +207,35 @@ public class MappingProcessor implements MapperIF {
       return;
     }
 
-    // Now check for super class mappings as a convenience -assuming for now
-    // that super class mappings are at the same level
-    List parentFieldNames = null;
-    if (parentClassMap == null) {
+    // Now check for super class mappings.  Process super class mappings first.
+    List mappedParentFields = null;
+    if (!bypassSuperMappings) {
       // check for super classes
-      Set superClasses = checkForSuperTypeMapping(srcClass, destClass, classMap);
+      Set superClasses = checkForSuperTypeMapping(srcClass, destClass);
       // check for interfaces
       superClasses.addAll(ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass));
       if (superClasses.size() > 0) {
-        superListOfFieldNames = new ArrayList();
-        parentFieldNames = processSuperTypeMapping(superClasses, srcObj, destObj, parentFieldMap);
-        superListOfFieldNames = null;
+        mappedParentFields = processSuperTypeMapping(superClasses, srcObj, destObj, mapId);
       }
     }
 
-    // Perform mappings for each field. Iterate through Fields Maps for this
-    // class mapping
+    // Perform mappings for each field. Iterate through Fields Maps for this class mapping
     List fieldMaps = classMap.getFieldMaps();
     int size = fieldMaps.size();
     for (int i = 0; i < size; i++) {
       FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
-      mapField(fieldMapping, srcObj, destObj, parentClassMap, parentFieldMap, parentFieldNames);
+
+      //Bypass field if it has already been mapped as part of super class mappings.
+      String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());
+      if (mappedParentFields != null && mappedParentFields.contains(key)) {
+          continue;
+      }
+
+      mapField(fieldMapping, srcObj, destObj);
     }
   }
 
-  private void mapField(FieldMap fieldMapping, Object srcObj, Object destObj, ClassMap parentClassMap, FieldMap parentFieldMap,
-      List parentFieldNames) {
+  private void mapField(FieldMap fieldMapping, Object srcObj, Object destObj) {
 
     // The field has been explicitly excluded from mapping. So just return, as
     // no further processing is needed for this field
@@ -252,38 +243,8 @@ public class MappingProcessor implements MapperIF {
       return;
     }
 
-    Class srcClass = srcObj.getClass();
     Object srcFieldValue = null;
     try {
-      // check for super class names
-      String parentSrcField = null;
-      if (parentFieldMap != null) {
-        parentSrcField = parentFieldMap.getSrcFieldName();
-      }
-
-      String key = MappingUtils.getParentFieldNameKey(parentSrcField, srcObj, srcClass.getName(), fieldMapping.getSrcFieldName(),
-          fieldMapping.getDestFieldName());
-      if (parentClassMap != null) {
-        if (superListOfFieldNames != null) {
-          if (superListOfFieldNames.contains(key)) {
-            return;
-          } else {
-            superListOfFieldNames.add(key);
-          }
-        } else {
-          superListOfFieldNames = new ArrayList();
-          superListOfFieldNames.add(key);
-        }
-      }
-      // check for parent field names
-      if (parentFieldNames != null && parentFieldNames.size() > 0) {
-        if (parentFieldNames.contains(key)) {
-          return;
-        } else {
-          parentFieldNames.add(key);
-        }
-      }
-
       // If a custom field mapper was specified, then invoke it. If not, or the
       // custom field mapper returns false(indicating the
       // field was not actually mapped by the custom field mapper), proceed as
@@ -485,7 +446,7 @@ public class MappingProcessor implements MapperIF {
               .getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod());
     }
 
-    map(classMap, srcFieldValue, result, null, fieldMap);
+    map(classMap, srcFieldValue, result, false, fieldMap.getMapId());
 
     return result;
   }
@@ -578,7 +539,7 @@ public class MappingProcessor implements MapperIF {
       Object obj = result.get(srcEntry.getKey());
       if (obj != null && obj.equals(destEntryValue)
           && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(fieldMap.getRelationshipType())) {
-        map(null, srcEntryValue, obj, null, fieldMap);
+        map(null, srcEntryValue, obj, false, null);
       } else {
         result.put(srcEntry.getKey(), destEntryValue);
       }
@@ -707,7 +668,7 @@ public class MappingProcessor implements MapperIF {
           Object obj = result.get(index);
           // make sure it is not a String
           if (!obj.getClass().isAssignableFrom(String.class)) {
-            map(null, srcValue, obj, null, fieldMap);
+            map(null, srcValue, obj, false, null);
           }
         } else {
           result.add(destValue);
@@ -768,7 +729,7 @@ public class MappingProcessor implements MapperIF {
           Object obj = result.get(index);
           // make sure it is not a String
           if (!obj.getClass().isAssignableFrom(String.class)) {
-            map(null, srcValue, obj, null, fieldMap);
+            map(null, srcValue, obj, false, null);
           }
         } else {
           result.add(destValue);
@@ -877,7 +838,7 @@ public class MappingProcessor implements MapperIF {
         fieldMap, topLevel);
   }
 
-  private Set checkForSuperTypeMapping(Class srcClass, Class destClass, ClassMap mapping) {
+  private Set checkForSuperTypeMapping(Class srcClass, Class destClass) {
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(new Object[] { destClass, srcClass });
     CacheEntry cacheEntry = superTypeCache.get(cacheKey);
@@ -885,37 +846,11 @@ public class MappingProcessor implements MapperIF {
       return (Set) cacheEntry.getValue();
     }
 
+    // If no existing cache entry is found, determine super type mappings.
+    // Recursively walk the inheritance hierarchy.
     Set superClasses = new HashSet();
-
-    // Fix for bug # [ 1486105 ] Inheritance mapping not working correctly
-    // We were not creating a default configuration if we found a parent level
-    // class map. It seems that the fixation of this introduced another bug.
-    // To fix this bug, a default class map is created if one of the
-    // destination or source classes given in the mapping defininiton is
-    // different from the actual object classes (as in the case of mapping subclasses
-    // using a mapping for super classes). However this default mapping causes an
-    // override effect. For example if there is such a declaration in the mapping:
-    // <field>
-    // <a>propA.realProp</a>
-    // <b>propA</b>
-    // </field>
-    // MappingProcessor also maps propA to propA because of the default mapping,
-    // causing an override effect. bug #1757573
-    // An additional s check is here to make sure we are not just dealing with a proxied data object.  For 
-    // proxied data objects(CGLIB), we do not want to apply default mappings because they will
-    // override the real mapping definitions.  
-
-    if ((mapping.getSrcClassToMap() != srcClass && !MappingUtils.isProxy(srcClass))
-        || (mapping.getDestClassToMap() != destClass && !MappingUtils.isProxy(destClass))) {
-      // there are fields from the source object to dest class we might be
-      // missing. create a default mapping between the two.
-      ClassMap myMap;
-      myMap = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass, mapping);
-      superClasses.add(myMap);
-    }
-
-    // If no existing cache entry is found, determine super type mapping and
-    // store in cache
+    // Need to call getRealSuperclass because proxied data objects will not return correct
+    // superclass when using basic reflection
     Class superSrcClass = MappingUtils.getRealSuperclass(srcClass);
     Class superDestClass = MappingUtils.getRealSuperclass(destClass);
     boolean stillHasSuperClasses = true;
@@ -929,7 +864,6 @@ public class MappingProcessor implements MapperIF {
         }
         // now walk up the dest classes super classes with our super source
         // class and our source class
-        superDestClass = MappingUtils.getRealSuperclass(destClass);
         boolean stillHasDestSuperClasses = true;
         while (stillHasDestSuperClasses) {
           if (superDestClass != null && !superDestClass.getName().equals("java.lang.Object")) {
@@ -950,43 +884,29 @@ public class MappingProcessor implements MapperIF {
       } else {
         break;
       }
-    }// while
+    }
 
-    // Do we still need to reverse? I have no idea...
-    // We reversed because of this bug:
-    // http://sourceforge.net/tracker/index.php?func=detail&aid=1346370&group_id=133517&atid=727368
-    // [ 1346370 ] multiple levels of custom mapping processed in wrong order
-    // Collections.reverse(superClasses);
-    // All the test cases pass...
+    // Add result to cache
     cacheEntry = new CacheEntry(cacheKey, superClasses);
     superTypeCache.put(cacheEntry);
 
     return superClasses;
   }
 
-  private List processSuperTypeMapping(Set superClasses, Object srcObj, Object destObj, FieldMap parentFieldMap) {
-    List fieldNamesList = new ArrayList();
+  private List processSuperTypeMapping(Set superClasses, Object srcObj, Object destObj, String mapId) {
+    List mappedFields = new ArrayList();
     Object[] superClassArray = superClasses.toArray();
     for (int a = 0; a < superClassArray.length; a++) {
       ClassMap map = (ClassMap) superClassArray[a];
-      map(map, srcObj, destObj, map, parentFieldMap);
+      map(map, srcObj, destObj, true, mapId);
       List fieldMaps = map.getFieldMaps();
       for (int i = 0; i < fieldMaps.size(); i++) {
         FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
-        String parentSrcField = null;
-        if (parentFieldMap != null) {
-          parentSrcField = parentFieldMap.getSrcFieldName();
-        }
-        String key = MappingUtils.getParentFieldNameKey(parentSrcField, srcObj, srcObj.getClass().getName(), fieldMapping
-            .getSrcFieldName(), fieldMapping.getDestFieldName());
-        if (fieldNamesList.contains(key)) {
-          continue;
-        } else {
-          fieldNamesList.add(key);
-        }
+        String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());
+        mappedFields.add(key);
       }
     }
-    return fieldNamesList;
+    return mappedFields;
   }
 
   private static Object getExistingValue(FieldMap fieldMap, Object destObj, Class destFieldType) {
@@ -1016,7 +936,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   private ClassMap getClassMap(Object srcObj, Class destClass, String mapId) {
-    ClassMap mapping = ClassMapFinder.findClassMap(this.customMappings, srcObj, destClass, mapId);
+    ClassMap mapping = ClassMapFinder.findClassMap(this.customMappings, srcObj.getClass(), destClass, mapId);
 
     if (mapping == null) {
       // If mapId was specified and mapping was not found, then throw an
@@ -1025,7 +945,7 @@ public class MappingProcessor implements MapperIF {
         MappingUtils.throwMappingException("Class mapping not found for map-id: " + mapId);
       }
 
-      // If mapping not found in exsting custom mapping collection, create
+      // If mapping not found in existing custom mapping collection, create
       // default as an explicit mapping must not
       // exist. The create default class map method will also add all default
       // mappings that it can determine.

@@ -625,6 +625,7 @@
     <field>
       <a>specificObject</a>
       <b>specificObjectPrime</b>
+      <b-hint>net.sf.dozer.util.mapping.vo.inheritance.Specific3</b-hint>
     </field>
     
   </mapping>   
