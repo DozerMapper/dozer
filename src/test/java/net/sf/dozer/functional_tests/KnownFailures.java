@@ -21,6 +21,9 @@ import java.util.List;
 import net.sf.dozer.util.mapping.vo.MessageHeaderDTO;
 import net.sf.dozer.util.mapping.vo.MessageHeaderVO;
 import net.sf.dozer.util.mapping.vo.MessageIdVO;
+import net.sf.dozer.util.mapping.vo.inheritance.Inner;
+import net.sf.dozer.util.mapping.vo.inheritance.Outer;
+import net.sf.dozer.util.mapping.vo.inheritance.Target;
 
 /**
  * This is a holding grounds for test cases that reproduce known bugs, features, or gaps discovered during development.
@@ -51,6 +54,15 @@ public class KnownFailures extends AbstractMapperTest {
     assertEquals("1", result.getIdList().getMsgIdsArray()[0]);
     assertEquals("2", result.getIdList().getMsgIdsArray()[1]);
   }
+  
+  public void testIt() throws Exception {
+    
+    Outer o = new Outer();
+    Target t = (Target) mapper.map(o, Target.class);
+    
+    assertEquals(((Inner)o.getInner()).getString(), t.getString());
+  }
+  
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
