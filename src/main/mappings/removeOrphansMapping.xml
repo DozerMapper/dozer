@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+  <mapping map-id="testRemoveOrphansOnList">
+    <class-a>net.sf.dozer.util.mapping.vo.perf.MyClassA</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.perf.MyClassB</class-b>
+    <field remove-orphans="true" relationship-type="non-cumulative">
+      <a>AStringList</a>
+      <b>AStringList</b>
+    </field>
+  </mapping>
+</mappings>
