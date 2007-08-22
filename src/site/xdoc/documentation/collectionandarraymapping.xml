@@ -189,7 +189,32 @@ public class UserGroupPrime {
       <subsection name="Cumulative vs. Non-Cumulative List Mapping (bi-directional)">
          <p>If you are mapping to a Class which has already been initialized, dozer will either &apos;add&apos; or &apos;update&apos; objects to your List.  If your List or Set already has objects in it
          dozer checks the mapped List, Set, or Array and calls the contains() method to determine if it needs to &apos;add&apos; or &apos;update&apos;.
-         This is determined using the relationship-type attribute on the field tag. The default is &apos;cumulative&apos;.</p>
+         This is determined using the relationship-type attribute on the field tag. The default is &apos;cumulative&apos;.  relationship-type can be specifed at the field mapping, class mapping, or global configuration level.</p>
+         <br></br><p>global configuration level....</p>
+         <source>
+           <![CDATA[ 
+<mappings>
+  <configuration>
+     <relationship-type>non-cumulative</relationship-type>
+  </configuration>
+</mappings>
+            ]]>
+          </source>
+         <p>class mapping level....</p>
+         <source>
+           <![CDATA[ 
+<mappings>
+  <mapping relationship-type="non-cumulative">
+    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    <field>
+      <a>someList</a>
+      <b>someList</b>
+    </field>    
+  </mapping> 
+</mappings>            ]]>
+          </source>
+         <p>field mapping level....</p>
          <source>
            <![CDATA[ 
 <field relationship-type="cumulative">
@@ -205,6 +230,7 @@ public class UserGroupPrime {
 </field>    
             ]]>
           </source>
+
       </subsection>        
 
     </section>

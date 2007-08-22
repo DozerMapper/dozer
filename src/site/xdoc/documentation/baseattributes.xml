@@ -93,41 +93,6 @@
        <p>Scenario 3</p>
         
       </subsection>        
-      <subsection name="Mapping the destination object to Interfaces, Abstract Classes, or Super Classes">
-        <p>Dozer supports dynamic mapping at run-time based on a super type or Interface. By looking at the Class Diagram
-        below we see that SpecificObject extends SuperSpecificObject. We also see that Specific3 extends Specific2 which
-        extends Specific1 which extends GenericAbstractSuper which implements the Interface GenericIF.
-        We also see that Specific3 is mapped to SuperSpecificObject and Specific1 is also mapped to SuperSpecificObject.
-        Looking at our unit test explains what is possible. The first test uses the Abstract class as a destination.
-        Notice that the returned object is actually an instance of Specific3. We use the following rules to determine
-        how to map. We walk down the abstract class, super class, or Interface until we find a subclass mapping that has
-        a mapping to our source objects super class, or a mapping to the source object directly. The second example
-        shows us mapping to an Interface rather than an actual class.</p>
-        <p>To read more about what drove these requirements view this <a href="http://sourceforge.net/forum/message.php?msg_id=3292204">thread</a></p>
-           <source>
-             <![CDATA[ 
-SpecificObject so = new SpecificObject();
-so.setSuperAttr1("superAttr1");
-
-// validate abstract class
-Object obj = Mapper.map(so, GenericAbstractSuper.class);
-assertTrue(obj instanceof Specific3);
-Specific3 spec3 = (Specific3) obj;
-assertEquals("superAttr1", spec3.getSuperAttr3());
-assertEquals("superAttr1", spec3.getSuperAttr2());
-
-// validate interface
-obj = Mapper.map(so, GenericIF.class);
-assertTrue(obj instanceof Specific3);
-spec3 = (Specific3) obj;
-assertEquals("superAttr1", spec3.getSuperAttr3());
-assertEquals("superAttr1", spec3.getSuperAttr2());
-      
-              ]]>
-              </source>
-       <p><img src="../images/scenario4.jpg"/></p>
-       <p>Scenario 4</p>              
-      </subsection>        
     </section>
   </body>
 </document>
