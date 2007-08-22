@@ -35,6 +35,7 @@ import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.FieldValue;
+import net.sf.dozer.util.mapping.vo.Fruit;
 import net.sf.dozer.util.mapping.vo.InsideTestObject;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject;
 import net.sf.dozer.util.mapping.vo.MethodFieldTestObject2;
@@ -65,6 +66,8 @@ import net.sf.dozer.util.mapping.vo.isaccessible.Foo;
 import net.sf.dozer.util.mapping.vo.isaccessible.FooPrime;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBean;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
+import net.sf.dozer.util.mapping.vo.perf.MyClassA;
+import net.sf.dozer.util.mapping.vo.perf.MyClassB;
 import net.sf.dozer.util.mapping.vo.set.NamesArray;
 import net.sf.dozer.util.mapping.vo.set.NamesSet;
 import net.sf.dozer.util.mapping.vo.set.NamesSortedSet;
@@ -716,6 +719,45 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("wrong # of elements in dest list for non-cumulative mapping", 2, dest.getHintList().size());
   }
   
+  public void testRemoveOrphans() {
+    mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
+
+    MyClassA myClassA = new MyClassA();
+    MyClassB myClassB = new MyClassB();
+
+    Fruit apple = new Fruit();
+    apple.setName("Apple");
+    Fruit banana = new Fruit();
+    banana.setName("Banana");
+    Fruit grape = new Fruit();
+    grape.setName("Grape");
+    Fruit orange = new Fruit();
+    orange.setName("Orange");
+    Fruit kiwiFruit = new Fruit();
+    kiwiFruit.setName("Kiwi Fruit");
+
+    List srcFruits = new ArrayList();
+    srcFruits.add(apple);
+    srcFruits.add(banana);
+    srcFruits.add(kiwiFruit);
+
+    List destFruits = new ArrayList();
+    destFruits.add(grape); // not in src
+    destFruits.add(banana); // shared with src fruits
+    destFruits.add(orange); // not in src
+
+    myClassA.setAStringList(srcFruits);
+    myClassB.setAStringList(destFruits);
+
+    mapper.map(myClassA, myClassB, "testRemoveOrphansOnList");
+
+    assertEquals(3, myClassB.getAStringList().size());
+    assertTrue(myClassB.getAStringList().contains(apple));
+    assertTrue(myClassB.getAStringList().contains(banana));
+    assertTrue(myClassB.getAStringList().contains(kiwiFruit));
+    assertFalse(myClassB.getAStringList().contains(grape));
+    assertFalse(myClassB.getAStringList().contains(orange));
+  }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

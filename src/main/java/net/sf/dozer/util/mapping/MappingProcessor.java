@@ -228,7 +228,7 @@ public class MappingProcessor implements MapperIF {
       //Bypass field if it has already been mapped as part of super class mappings.
       String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());
       if (mappedParentFields != null && mappedParentFields.contains(key)) {
-          continue;
+        continue;
       }
 
       mapField(fieldMapping, srcObj, destObj);
@@ -675,6 +675,19 @@ public class MappingProcessor implements MapperIF {
         }
       }
     }
+
+    //If remove orphans - remove elements in the resulting collection that are not
+    //in the src collection
+    if (fieldMap.isRemoveOrphans()) {
+      Object[] resultArray = result.toArray();
+      for (int i = 0; i < resultArray.length; i++) {
+        Object resultEntry = resultArray[i];
+        if (!srcCollectionValue.contains(resultEntry)) {
+          result.remove(resultEntry); // remove the item then
+        }
+      }
+    }
+
     if (field == null) {
       Class destSetType = fieldMap.getDestFieldType(destObj.getClass());
       return CollectionUtils.createNewSet(destSetType, result);
@@ -736,6 +749,19 @@ public class MappingProcessor implements MapperIF {
         }
       }
     }
+
+    //If remove orphans - remove elements in the resulting collection that are not
+    //in the src collection
+    if (fieldMap.isRemoveOrphans()) {
+      Object[] resultArray = result.toArray();
+      for (int i = 0; i < resultArray.length; i++) {
+        Object resultEntry = resultArray[i];
+        if (!srcCollectionValue.contains(resultEntry)) {
+          result.remove(resultEntry); // remove the item then
+        }
+      }
+    }
+
     return result;
   }
 

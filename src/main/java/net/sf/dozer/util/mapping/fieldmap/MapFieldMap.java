@@ -51,6 +51,7 @@ public class MapFieldMap extends FieldMap {
     setDestDeepIndexHintContainer(fieldMap.getDestDeepIndexHintContainer());
     setMapId(fieldMap.getMapId());
     setRelationshipType(fieldMap.getRelationshipType());
+    setRemoveOrphans(fieldMap.isRemoveOrphans());
     setSrcField(fieldMap.getSrcField());
     setSrcHintContainer(fieldMap.getSrcHintContainer());
     setSrcDeepIndexHintContainer(fieldMap.getSrcDeepIndexHintContainer());
