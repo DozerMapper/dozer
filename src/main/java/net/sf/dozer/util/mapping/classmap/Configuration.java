@@ -16,6 +16,7 @@
 package net.sf.dozer.util.mapping.classmap;
 
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
+import net.sf.dozer.util.mapping.util.MapperConstants;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -36,6 +37,7 @@ public class Configuration {
   private Boolean trimStrings;
   private String dateFormat;
   private String beanFactory;
+  private String relationshipType;
   private CustomConverterContainer customConverters;
   private CopyByReferenceContainer copyByReferences;
   private AllowedExceptionContainer allowedExceptions;
@@ -65,7 +67,7 @@ public class Configuration {
   }
 
   public Boolean getWildcard() {
-    return wildcard;
+    return wildcard != null ? wildcard : Boolean.valueOf(MapperConstants.DEFAULT_WILDCARD_POLICY);
   }
 
   public void setWildcard(Boolean globalWildcardPolicy) {
@@ -73,7 +75,7 @@ public class Configuration {
   }
 
   public Boolean getStopOnErrors() {
-    return stopOnErrors;
+    return stopOnErrors != null ? stopOnErrors : Boolean.valueOf(MapperConstants.DEFAULT_ERROR_POLICY);
   }
 
   public void setStopOnErrors(Boolean stopOnErrors) {
@@ -97,11 +99,19 @@ public class Configuration {
   }
 
   public Boolean getTrimStrings() {
-    return trimStrings;
+    return trimStrings != null ? trimStrings : Boolean.valueOf(MapperConstants.DEFAULT_TRIM_STRINGS_POLICY);
   }
 
   public void setTrimStrings(Boolean trimStrings) {
     this.trimStrings = trimStrings;
+  }
+  
+  public String getRelationshipType() {
+    return relationshipType != null ? relationshipType : MapperConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY;
+  }
+
+  public void setRelationshipType(String relationshipType) {
+    this.relationshipType = relationshipType;
   }
 
   public String toString() {

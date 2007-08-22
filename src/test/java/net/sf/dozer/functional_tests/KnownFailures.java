@@ -62,7 +62,6 @@ public class KnownFailures extends AbstractMapperTest {
     
     assertEquals(((Inner)o.getInner()).getString(), t.getString());
   }
-  
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

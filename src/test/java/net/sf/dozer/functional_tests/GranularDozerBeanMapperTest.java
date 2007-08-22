@@ -18,6 +18,7 @@ package net.sf.dozer.functional_tests;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -688,6 +689,33 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid field value", AnotherTestObjectPrime.DEFAULT_FIELD1, prime.getField1());
     assertEquals("invalid field value", AnotherTestObjectPrime.DEFAULT_FIELD1, prime.getTo().getThePrimitive());
   }
+
+  public void testGlobalRelationshipType() throws Exception {
+    mapper = getMapper(new String[] { "relationship-type-global-configuration.xml" });
+    TestObject src = new TestObject();
+    src.setHintList(new ArrayList(Arrays.asList(new String[] {"a"})));
+    
+    TestObjectPrime dest = new TestObjectPrime();
+    dest.setHintList(new ArrayList(Arrays.asList(new String[] {"a", "b"})));
+    
+    mapper.map(src, dest);
+    
+    assertEquals("wrong # of elements in dest list for non-cumulative mapping", 2, dest.getHintList().size());
+  }
+  
+  public void testClassMapRelationshipType() throws Exception {
+    mapper = getMapper(new String[] { "relationshipTypeMapping.xml" });
+    TestObject src = new TestObject();
+    src.setHintList(new ArrayList(Arrays.asList(new String[] {"a"})));
+    
+    TestObjectPrime dest = new TestObjectPrime();
+    dest.setHintList(new ArrayList(Arrays.asList(new String[] {"a", "b"})));
+    
+    mapper.map(src, dest);
+    
+    assertEquals("wrong # of elements in dest list for non-cumulative mapping", 2, dest.getHintList().size());
+  }
+  
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

@@ -203,6 +203,7 @@ public abstract class MappingUtils {
     destination.setWildcard(Boolean.valueOf(source.isWildcard()));
     destination.setTrimStrings(Boolean.valueOf(source.isTrimStrings()));
     destination.setDateFormat(source.getDateFormat());
+    destination.setRelationshipType(source.getRelationshipType());
     destination.setStopOnErrors(Boolean.valueOf(source.isStopOnErrors()));
     destination.setAllowedExceptions(source.getAllowedExceptions());
     destination.setSrcClassCreateMethod(source.getDestClassCreateMethod());

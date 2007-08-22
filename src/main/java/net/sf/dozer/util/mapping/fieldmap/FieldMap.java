@@ -340,7 +340,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public String getRelationshipType() {
-    return relationshipType;
+    return relationshipType != null ? relationshipType : classMap.getRelationshipType();
   }
 
   public void setRelationshipType(String relationshipType) {

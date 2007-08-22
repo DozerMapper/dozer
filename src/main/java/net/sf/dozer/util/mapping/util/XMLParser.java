@@ -66,6 +66,7 @@ public class XMLParser {
   private static final String TRIM_STRINGS = "trim-strings";
   private static final String BEAN_FACTORY = "bean-factory";
   private static final String DATE_FORMAT = "date-format";
+  private static final String RELATIONSHIP_TYPE = "relationship-type";
 
   // Parsing Elements
   private static final String CONFIGURATION_ELEMENT = "configuration";
@@ -145,6 +146,9 @@ public class XMLParser {
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(BEAN_FACTORY))) {
       classMap.setBeanFactory(ele.getAttribute(BEAN_FACTORY));
+    }
+    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
+      classMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD))) {
       classMap.setWildcard(Boolean.valueOf(ele.getAttribute(WILDCARD)));
@@ -420,6 +424,8 @@ public class XMLParser {
           config.setWildcard(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (TRIM_STRINGS.equals(element.getNodeName())) {
           config.setTrimStrings(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
+        } else if (RELATIONSHIP_TYPE.equals(element.getNodeName())) {
+          config.setRelationshipType(element.getFirstChild().getNodeValue().trim());
         } else if (BEAN_FACTORY.equals(element.getNodeName())) {
           config.setBeanFactory(element.getFirstChild().getNodeValue().trim());
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {
@@ -428,7 +434,7 @@ public class XMLParser {
           parseCopyByReferences(element, config);
         } else if (ALLOWED_EXCEPTIONS_ELEMENT.equals(element.getNodeName())) {
           parseAllowedExceptions(element, config);
-        }
+        } 
       }
     }
   }

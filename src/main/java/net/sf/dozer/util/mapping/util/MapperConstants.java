@@ -32,6 +32,9 @@ public abstract class MapperConstants {
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
   public static final boolean DEFAULT_MAP_EMPTY_STRING_POLICY = true;
   public static final boolean DEFAULT_TRIM_STRINGS_POLICY = false;
+  public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
+  public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
+  public static final String DEFAULT_RELATIONSHIP_TYPE_POLICY = RELATIONSHIP_CUMULATIVE;
   public static final String DTD_NAME = "dozerbeanmapping.dtd";
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";
@@ -43,8 +46,6 @@ public abstract class MapperConstants {
   public static final String ITERATE = "iterate";
   public static final String ONE_WAY = "one-way";
   public static final String DEEP_FIELD_DELIMITOR = ".";
-  public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
-  public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
   public static final String SELF_KEYWORD = "this";
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
 
