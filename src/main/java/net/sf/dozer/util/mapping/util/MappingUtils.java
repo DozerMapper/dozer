@@ -184,6 +184,7 @@ public abstract class MappingUtils {
     destination.setCustomConverterId(source.getCustomConverterId());
     destination.setMapId(source.getMapId());
     destination.setRelationshipType(source.getRelationshipType());
+    destination.setRemoveOrphans(source.isRemoveOrphans());
     destination.setSrcHintContainer(source.getDestHintContainer());
     destination.setDestHintContainer(source.getSrcHintContainer());
     destination.setSrcDeepIndexHintContainer(source.getDestDeepIndexHintContainer());

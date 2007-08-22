@@ -67,6 +67,7 @@ public class XMLParser {
   private static final String BEAN_FACTORY = "bean-factory";
   private static final String DATE_FORMAT = "date-format";
   private static final String RELATIONSHIP_TYPE = "relationship-type";
+  private static final String REMOVE_ORPHANS = "remove-orphans";
 
   // Parsing Elements
   private static final String CONFIGURATION_ELEMENT = "configuration";
@@ -91,7 +92,6 @@ public class XMLParser {
 
   // Parsing Attributes
   private static final String TYPE_ATTRIBUTE = "type";
-  private static final String RELATIONSHIP_TYPE_ATTRIBUTE = "relationship-type";
   private static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
   private static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
   private static final String THE_GET_METHOD_ATTRIBUTE = "get-method";
@@ -314,9 +314,12 @@ public class XMLParser {
   }
 
   private void parseFieldMap(Element ele, FieldMap fieldMap) {
-    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE_ATTRIBUTE))) {
-      fieldMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
+      fieldMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE));
     }
+    if (StringUtils.isNotEmpty(ele.getAttribute(REMOVE_ORPHANS))) {
+      fieldMap.setRemoveOrphans(BooleanUtils.toBoolean(ele.getAttribute(REMOVE_ORPHANS)));
+    }        
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
