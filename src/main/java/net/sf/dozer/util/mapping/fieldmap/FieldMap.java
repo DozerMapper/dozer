@@ -55,6 +55,7 @@ public abstract class FieldMap implements Cloneable {
   private String customConverter;
   private String customConverterId;
   private String relationshipType;
+  private boolean removeOrphans;
 
   public FieldMap(ClassMap classMap) {
     this.classMap = classMap;
@@ -380,19 +381,28 @@ public abstract class FieldMap implements Cloneable {
     return destField;
   }
 
-  public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source field", srcField).append("destination field",
-        destField).append("type", type).append("customConverter", customConverter).append("relationshipType", relationshipType)
-        .append("mapId", mapId).append("copyByReference", copyByReference).append("copyByReferenceOveridden",
-            copyByReferenceOveridden).append("srcTypeHint", srcHintContainer).append("destTypeHint", destHintContainer).toString();
-  }
-
   public String getCustomConverterId() {
     return customConverterId;
   }
 
   public void setCustomConverterId(String customConverterId) {
     this.customConverterId = customConverterId;
+  }
+  
+  public boolean isRemoveOrphans() {
+    return removeOrphans;
+  }
+
+  public void setRemoveOrphans(boolean removeOrphans) {
+    this.removeOrphans = removeOrphans;
+  }
+
+  public String toString() {
+    return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source field", srcField).append("destination field",
+        destField).append("type", type).append("customConverter", customConverter).append("relationshipType", relationshipType)
+        .append("removeOrphans", removeOrphans).append("mapId", mapId).append("copyByReference", copyByReference).append(
+            "copyByReferenceOveridden", copyByReferenceOveridden).append("srcTypeHint", srcHintContainer).append("destTypeHint",
+            destHintContainer).toString();
   }
 
 }

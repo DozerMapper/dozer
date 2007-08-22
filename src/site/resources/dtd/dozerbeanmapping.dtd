@@ -125,6 +125,7 @@
     Optional Attributes: 
 
          relationship-type   For collections, indicates whether to add to existing values or to always replace any existing entries
+         remove-orphans      For collections, indicates whether items that did not exist in the source collection should be removed from the destination collection.          					 
                       type   Indicates whether this mapping is bi-directional or only one-way.  Typically this will be set to bi-directional.
                              The default is "bi-directional".
                     map-id   The id that uniquely identifies this mapping definition.  This typically will not be specified.
@@ -136,6 +137,7 @@
 -->
 <!ELEMENT field ( a, b ,a-hint?, b-hint?, a-deep-index-hint?, b-deep-index-hint? ) >
 <!ATTLIST field relationship-type CDATA #IMPLIED  >
+<!ATTLIST field remove-orphans CDATA #IMPLIED>
 <!ATTLIST field type (one-way | bi-directional) "bi-directional" >
 <!ATTLIST field map-id CDATA #IMPLIED>
 <!ATTLIST field copy-by-reference CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->

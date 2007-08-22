@@ -18,12 +18,15 @@ package net.sf.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.util.mapping.vo.Fruit;
 import net.sf.dozer.util.mapping.vo.MessageHeaderDTO;
 import net.sf.dozer.util.mapping.vo.MessageHeaderVO;
 import net.sf.dozer.util.mapping.vo.MessageIdVO;
 import net.sf.dozer.util.mapping.vo.inheritance.Inner;
 import net.sf.dozer.util.mapping.vo.inheritance.Outer;
 import net.sf.dozer.util.mapping.vo.inheritance.Target;
+import net.sf.dozer.util.mapping.vo.perf.MyClassA;
+import net.sf.dozer.util.mapping.vo.perf.MyClassB;
 
 /**
  * This is a holding grounds for test cases that reproduce known bugs, features, or gaps discovered during development.
@@ -54,13 +57,54 @@ public class KnownFailures extends AbstractMapperTest {
     assertEquals("1", result.getIdList().getMsgIdsArray()[0]);
     assertEquals("2", result.getIdList().getMsgIdsArray()[1]);
   }
-  
+
   public void testIt() throws Exception {
-    
+
     Outer o = new Outer();
     Target t = (Target) mapper.map(o, Target.class);
-    
-    assertEquals(((Inner)o.getInner()).getString(), t.getString());
+
+    assertEquals(((Inner) o.getInner()).getString(), t.getString());
+  }
+
+  public void testRemoveOrphans() {
+    mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
+
+    MyClassA myClassA = new MyClassA();
+    MyClassB myClassB = new MyClassB();
+
+    Fruit apple = new Fruit();
+    apple.setName("Apple");
+    Fruit banana = new Fruit();
+    banana.setName("Banana");
+    Fruit cumcwat = new Fruit();
+    cumcwat.setName("Cumcwat");
+    Fruit orange = new Fruit();
+    orange.setName("Orange");
+    Fruit kiwiFruit = new Fruit();
+    kiwiFruit.setName("Kiwi Fruit");
+
+    List srcFruits = new ArrayList();
+    srcFruits.add(apple);
+    srcFruits.add(banana);
+    srcFruits.add(kiwiFruit);
+
+    List destFruits = new ArrayList();
+    destFruits.add(cumcwat); // not in src
+    destFruits.add(banana); // shared with src fruits
+    destFruits.add(orange); // not in src
+
+    myClassA.setAStringList(srcFruits);
+    myClassB.setAStringList(destFruits);
+
+    mapper.map(myClassA, myClassB, "testRemoveOrphansOnList");
+
+    assertEquals(3, myClassB.getAStringList().size());
+    assertTrue(myClassB.getAStringList().contains(apple));
+    assertTrue(myClassB.getAStringList().contains(banana));
+    assertTrue(myClassB.getAStringList().contains(kiwiFruit));
+    assertFalse(myClassB.getAStringList().contains(cumcwat));
+    assertFalse(myClassB.getAStringList().contains(orange));
+
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
