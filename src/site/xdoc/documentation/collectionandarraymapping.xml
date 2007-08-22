@@ -232,6 +232,21 @@ public class UserGroupPrime {
           </source>
 
       </subsection>        
+      <subsection name="Removing Orphans">
+         <p>Orphans are elements which exist in a destination collection that did not exist within the source collection.
+                  
+         Dozer will remove orphans by calling the &apos;remove&apos; method on actual orphans of the underlying destination collection; it will not clear all.
+         To determine elements which are orphans dozer uses the contains() method to check if the results contains orphans. The default is false.                  
+         </p>                 
+         <source>
+           <![CDATA[ 
+<field remove-orphans="true">
+  <a>srcList</a> 
+  <b>destList</b>  <!-- orphan objects will always be removed from an existing destination List -->
+</field>    
+            ]]>
+          </source>
+      </subsection>  
 
     </section>
   </body>
