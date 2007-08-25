@@ -29,7 +29,6 @@ import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -52,7 +51,7 @@ public abstract class ReflectionUtils {
       if (descriptors != null) {
         int size = descriptors.length;
         for (int i = 0; i < size; i++) {
-          if (StringUtils.capitalize(fieldName).equals(StringUtils.capitalize(descriptors[i].getName()))) {
+          if (fieldName.equalsIgnoreCase(descriptors[i].getName())) {
             result = descriptors[i];
             break;
           }
@@ -144,7 +143,6 @@ public abstract class ReflectionUtils {
   }
 
   public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException {
-    // TODO USE HELPER from bean utils to find method w/ params
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
     // If tokenizer has more elements, it mean that parameters may have been specified
@@ -157,7 +155,6 @@ public abstract class ReflectionUtils {
   }
 
   private static Method findMethodWithParam(Class parentDestClass, String methodName, String params) throws NoSuchMethodException {
-    // TODO USE HELPER from bean utils to find method w/ params
     List list = new ArrayList();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
