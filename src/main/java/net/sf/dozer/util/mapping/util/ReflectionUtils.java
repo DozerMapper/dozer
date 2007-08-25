@@ -29,6 +29,7 @@ import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -51,7 +52,7 @@ public abstract class ReflectionUtils {
       if (descriptors != null) {
         int size = descriptors.length;
         for (int i = 0; i < size; i++) {
-          if (fieldName.equalsIgnoreCase(descriptors[i].getName())) {
+          if (StringUtils.capitalize(fieldName).equals(StringUtils.capitalize(descriptors[i].getName()))) {
             result = descriptors[i];
             break;
           }
