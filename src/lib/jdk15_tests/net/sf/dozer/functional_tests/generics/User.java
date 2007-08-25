@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.generics;
+package net.sf.dozer.functional_tests.generics;
 
 /**
  * 
  * @author garsombke.franz
  *
  */
-public class UserPrime {
+public class User {
 
 	private String firstName;
 	

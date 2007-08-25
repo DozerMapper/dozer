@@ -3,15 +3,15 @@
 <mappings>
 
 	<mapping>
-		<class-a>net.sf.dozer.util.mapping.generics.UserGroup</class-a>
-		<class-b>net.sf.dozer.util.mapping.generics.UserGroupPrime</class-b>
+		<class-a>net.sf.dozer.functional_tests.generics.UserGroup</class-a>
+		<class-b>net.sf.dozer.functional_tests.generics.UserGroupPrime</class-b>
 		<field>
 			<a>users</a>
 			<b>users</b>
 			<!-- testing generics so we do not need to use hints below. we dont even have to have a and b mappings since
 			the attributes are both named users.
-			<a-hint>net.sf.dozer.util.mapping.generics.User</a-hint>
-			<b-hint>net.sf.dozer.util.mapping.generics.UserGroupPrime</b-hint>
+			<a-hint>net.sf.dozer.functional_tests.generics.User</a-hint>
+			<b-hint>net.sf.dozer.functional_tests.generics.UserGroupPrime</b-hint>
 			-->
 		</field>
 		<field>

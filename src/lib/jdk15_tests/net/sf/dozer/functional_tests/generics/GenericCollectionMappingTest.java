@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.generics;
+package net.sf.dozer.functional_tests.generics;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -23,7 +23,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.AbstractDozerTest;
+import net.sf.dozer.functional_tests.AbstractMapperTest;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
+import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.MapperIF;
 import net.sf.dozer.util.mapping.vo.generics.deepindex.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.generics.deepindex.DestDeepObj;
@@ -38,10 +40,10 @@ import net.sf.dozer.util.mapping.vo.generics.deepindex.TestObjectPrime;
 /**
  * @author garsombke.franz
  */
-public class GenericCollectionMappingTest extends AbstractDozerTest {
+public class GenericCollectionMappingTest extends AbstractMapperTest {
 
   public void testGenericCollectionMapping() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
 
     // prepare beans
     User user1 = new User();
@@ -93,7 +95,7 @@ public class GenericCollectionMappingTest extends AbstractDozerTest {
   }
   
   public void testDeepMappingWithIndexOnSrcField() {
-    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     
     AnotherTestObject anotherTestObject = new AnotherTestObject();
     anotherTestObject.setField3("another test object field 3 value");
@@ -112,7 +114,7 @@ public class GenericCollectionMappingTest extends AbstractDozerTest {
   }
 
   public void testDeepMappingWithIndexOnDestField() {
-    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     DestDeepObj src = new DestDeepObj();
     src.setDest5("some string value for field");
 
@@ -121,7 +123,7 @@ public class GenericCollectionMappingTest extends AbstractDozerTest {
   }
 
   public void testDeepMapIndexed() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     Pet[] myPets = new Pet[2];
     Family source = new Family("john", "jane", "doe", new Integer(22000), new Integer(20000));
     Pet firstPet = new Pet("molly", 2, null);
@@ -149,7 +151,7 @@ public class GenericCollectionMappingTest extends AbstractDozerTest {
   }
 
   public void testDeepMapInvIndexed() throws Exception {
-    MapperIF mapper = getNewMapper(new String[] { "genericCollectionMapping.xml" });
+    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     HeadOfHouseHold source = new HeadOfHouseHold();
     source.setFirstName("Tom");
     source.setLastName("Roy");
@@ -167,6 +169,10 @@ public class GenericCollectionMappingTest extends AbstractDozerTest {
     assertEquals(dest.getPets()[1].getPetName(), source.getPetName());
     assertEquals(String.valueOf(dest.getPets()[1].getPetAge()), source.getPetAge());
     assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
+  }
+  
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return NoProxyDataObjectInstantiator.INSTANCE;
   }
   
 }

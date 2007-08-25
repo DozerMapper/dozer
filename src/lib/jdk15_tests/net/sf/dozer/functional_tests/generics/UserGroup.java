@@ -13,33 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.generics;
+package net.sf.dozer.functional_tests.generics;
+
+import java.util.Set;
 
 /**
  * 
  * @author garsombke.franz
  *
  */
-public class User {
 
-	private String firstName;
+enum Status {
+  PROCESSING, SUCCESS, ERROR
+}
+
+public class UserGroup {
+
+  private Status status;
+  
+	private String name;
 	
-	private String lastName;
+	private Set<User> users;
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String aFirstName) {
-		firstName = aFirstName;
+	public void setName(String aName) {
+		name = aName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setLastName(String aLastName) {
-		lastName = aLastName;
+	public void setUsers(Set<User> aUsers) {
+		users = aUsers;
 	}
-	
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
 }

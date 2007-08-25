@@ -13,27 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.generics;
+package net.sf.dozer.functional_tests.generics;
+import java.util.List;
 
-import java.util.Set;
 
 /**
  * 
  * @author garsombke.franz
  *
  */
-
-enum Status {
-  PROCESSING, SUCCESS, ERROR
+enum StatusPrime {
+  PROCESSING, SUCCESS, ERROR  
 }
 
-public class UserGroup {
+public class UserGroupPrime {
 
-  private Status status;
+  private StatusPrime statusPrime;
   
 	private String name;
 	
-	private Set<User> users;
+	private List<UserPrime> users;
 
 	public String getName() {
 		return name;
@@ -43,20 +42,20 @@ public class UserGroup {
 		name = aName;
 	}
 
-	public Set<User> getUsers() {
+	public List<UserPrime> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<User> aUsers) {
+	public void setUsers(List<UserPrime> aUsers) {
 		users = aUsers;
 	}
 
-  public Status getStatus() {
-    return status;
+  public StatusPrime getStatusPrime() {
+    return statusPrime;
   }
 
-  public void setStatus(Status status) {
-    this.status = status;
+  public void setStatusPrime(StatusPrime statusPrime) {
+    this.statusPrime = statusPrime;
   }
 
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping;
+package net.sf.dozer.functional_tests;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ import net.sf.dozer.util.mapping.vo.interfacerecursion.UserPrime;
 /**
  * @author Christoph Goldner
  */
-public class RecursiveInterfaceMappingTest extends TestCase {
+public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
 
   public void testRecursiveInterfaceMapping() throws Exception {
 
@@ -87,4 +87,8 @@ public class RecursiveInterfaceMappingTest extends TestCase {
       assertTrue(userPrime.getUserGroup() == userGroupPrime); // same reference
     }
   }
+  
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return NoProxyDataObjectInstantiator.INSTANCE;
+  }  
 }
