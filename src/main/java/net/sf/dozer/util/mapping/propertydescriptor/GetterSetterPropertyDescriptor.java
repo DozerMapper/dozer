@@ -61,11 +61,9 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     if (isDeepField()) {
       result = getDeepSrcFieldValue(bean);
     } else {
-      Object o = invokeReadMethod(bean);
+      result = invokeReadMethod(bean);
       if (isIndexed) {
-        result = MappingUtils.getIndexedValue(o, index);
-      } else {
-        result = o;
+        result = MappingUtils.getIndexedValue(result, index);
       }      
     }
     return result;

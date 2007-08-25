@@ -27,6 +27,7 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  * and will NOT be invoked. Private fields are accessible by Dozer. Only intended for internal use.
  * 
  * @author garsombke.franz
+ * @author tierney.matt
  * 
  */
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
@@ -51,19 +52,17 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
 
   public Object getPropertyValue(Object bean) {
     Object result = null;
-    Object o = null;
     try {
-      o = field.get(bean);
+      result = field.get(bean);
     } catch (IllegalArgumentException e) {
       MappingUtils.throwMappingException(e);
     } catch (IllegalAccessException e) {
       MappingUtils.throwMappingException(e);
     }
     if (isIndexed) {
-      result = MappingUtils.getIndexedValue(o, index);
-    } else {
-      result = o;
+      result = MappingUtils.getIndexedValue(result, index);
     }
+    
     return result;
   }
 
@@ -74,12 +73,8 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
     }
 
     // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
-    try {
-      if (getPropertyValue(bean) == value) {
-        return;
-      }
-    } catch (Exception e) {
-      // if we failed to read the value, assume we must write, and continue...
+    if (getPropertyValue(bean) == value) {
+      return;
     }
 
     try {
