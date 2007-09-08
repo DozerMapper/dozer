@@ -285,6 +285,8 @@
     #end
     <meta http-equiv="Content-Type" content="text/html; charset=${outputEncoding}" />
     <meta name="verify-v1" content="7G0lpLolCMmMCLyPszBAKPh+Q9qlYwScVq+YdqOxezs=" /> 
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">_uacct = "UA-2566366-1";urchinTracker();</script>
     #if ( $decoration.body.head )
       #foreach( $item in $decoration.body.head.getChildren() )
         #if ( $item.name == "script" )
