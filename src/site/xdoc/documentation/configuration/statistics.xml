@@ -13,8 +13,8 @@
       <p>
         If you enable statistics, Dozer will collect a number of runtime mapping metrics.
         These statistics are global and can be accessed via the GlobalStatistics object.  
-        The statistics are also available via JMX.  Dozer is distributed with a fully functional JMX DozerStatisticsControllerMBean.
-        <br></br>  
+        The statistics are also available via JMX.  Dozer is distributed with a fully functional JMX DozerStatisticsControllerMBean.</p>
+      <p>  
         Based on our profiling numbers, the overhead of enabling statistics is roughly 3-5%. 
       </p>
       <p>
