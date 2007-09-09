@@ -300,26 +300,22 @@
         We believe Dozer performs very well and performance is a high priority for us.  We have spent a significant amount of time profiling the code and 
         optimizing bottlenecks.  
       </p>  
-      <br></br>   
       <p>
         Performance is going to depend on the complexity of the use case and the number of fields mapped.  In our performance tests
         for "average" mapping scenarios, the class mapping times vary from 1/8 of a millisecond to 2 milliseconds.  This roughly equates to 50 - 450 field mappings per millisecond.  
         However, the number of variables in any decent benchmark makes it almost impossible to transfer these results into reasonable conclusions about 
         the performance of your own application. Your application is different and you will have unique use cases.  
       </p>
-      <br></br>   
       <p>      
         Dozer has been successfully implemented on large, very high transactional enterprise systems, without any resulting performance issues.  But we always recommend that you run 
         performance tests on your application to determine the actual performance costs within your system.  You can decide for yourself whether those costs 
         are acceptable in the context of the entire system.
       </p>        
-      <br></br>   
       <p>      
         If you want to see actual Dozer runtime mapping statistics within the context of a system/application, you can enable Dozer statistics. This would be a 
         good way to determine actual mapping times as a percentage of overall system performance. The best way to view the stats is via the Dozer JMX Beans. 
         With the 3.2 release, these JMXBeans are auto registered with the platform mdb server. JConsole is a good way to easily view the MBeans.
       </p>        
-      <br></br>   
       <p>      
         Based on our profiling numbers, the overhead of enabling statistics is roughly 3-5%.
       </p>
@@ -572,12 +568,10 @@
         you have the flexibility to hand code mappings for any objects or fields. For example, you could run your mapping through Dozer to map 99% of your fields and then have a manual mapping 
         for some odd ball field. This would happen all within the Assembler without the client having any knowledge of the underlying implementation.
       </p>
-      <br></br>      
       <p>
         It seems to work best if these assembler type of classes are "dumb" and are only responsible for simply copying data from the source object into the destination object.  
         Any complex postprocessing business logic that needs to be performed on the destination object can be done at a higher level in classses that have more responsibility.  
       </p>  
-      <br></br>
       <p>
         The following is a simple example of an assembler type class that uses Dozer for its underlying implementation. 
       </p>
