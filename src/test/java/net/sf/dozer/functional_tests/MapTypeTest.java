@@ -25,8 +25,10 @@ import java.util.Map;
 import net.sf.dozer.util.mapping.MapperIF;
 import net.sf.dozer.util.mapping.vo.TestObject;
 import net.sf.dozer.util.mapping.vo.TestObjectPrime;
+import net.sf.dozer.util.mapping.vo.map.ChildDOM;
 import net.sf.dozer.util.mapping.vo.map.CustomMap;
 import net.sf.dozer.util.mapping.vo.map.CustomMapIF;
+import net.sf.dozer.util.mapping.vo.map.GenericDOM;
 import net.sf.dozer.util.mapping.vo.map.MapTestObject;
 import net.sf.dozer.util.mapping.vo.map.MapTestObjectPrime;
 import net.sf.dozer.util.mapping.vo.map.MapToMap;
@@ -34,6 +36,7 @@ import net.sf.dozer.util.mapping.vo.map.MapToMapPrime;
 import net.sf.dozer.util.mapping.vo.map.MapToProperty;
 import net.sf.dozer.util.mapping.vo.map.NestedObj;
 import net.sf.dozer.util.mapping.vo.map.NestedObjPrime;
+import net.sf.dozer.util.mapping.vo.map.ParentDOM;
 import net.sf.dozer.util.mapping.vo.map.PropertyToMap;
 import net.sf.dozer.util.mapping.vo.map.SimpleObj;
 import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
@@ -463,6 +466,22 @@ public class MapTypeTest extends AbstractMapperTest {
     assertNull(result.getNested2().getField1());// field exclude in mappings file
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
+  
+  public void testNestedCustomMap() {
+    mapper = getMapper(new String[] { "mapMapping4.xml" });
+
+    ParentDOM src = (ParentDOM) newInstance(ParentDOM.class);
+    src.setTest("someTestValue");
+    ChildDOM child = (ChildDOM) newInstance(ChildDOM.class);
+    child.setChildName("someChildName");
+    src.setChild(child);
+
+    GenericDOM result = (GenericDOM) mapper.map(src, GenericDOM.class);
+    assertEquals("someTestValue", result.get("test"));
+    GenericDOM resultChild = (GenericDOM) result.get("child");
+    assertEquals("someChildName", resultChild.get("childName"));
+  }
+  
   
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
