@@ -121,6 +121,10 @@
      <p>
      Sample custom converter implementation:
      </p>
+     <p>
+     <b>Note: </b> Custom Converters get invoked when the source value is null, so you need to explicitly handle null values in your custom converter implementation.
+     </p>
+ 
      
 <source>
   <![CDATA[
