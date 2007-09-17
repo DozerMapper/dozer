@@ -16,11 +16,16 @@
 package net.sf.dozer.functional_tests;
 
 import java.math.BigInteger;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.pmonks.xml.dozer.test.ChildType;
+import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.Child;
 import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument;
+import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeResponseDocument;
 import net.sf.dozer.util.mapping.vo.TestObject;
+import net.sf.dozer.util.mapping.vo.WeatherData;
 import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
 
 /**
@@ -43,6 +48,15 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     zipCode.setZipCode("one");
     TestObject to2 = (TestObject) mapper.map(res, TestObject.class);
     assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
+    
+    Set set = new HashSet();
+    AnotherTestObject ato = new AnotherTestObject();
+    ato.setDay("day");
+    set.add(ato);
+    to.setSetToArray(set);
+    GetWeatherByZipCodeResponseDocument responseDoc = (GetWeatherByZipCodeResponseDocument) mapper.map(to, GetWeatherByZipCodeResponseDocument.class);
+    WeatherData[] weatherDataArray = responseDoc.getGetWeatherByZipCodeResponse().getWeatherDataArray(); 
+    assertEquals(ato.getDay(), weatherDataArray[0].getDay());    
   }
 
   /*

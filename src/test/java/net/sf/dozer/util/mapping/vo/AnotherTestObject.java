@@ -26,6 +26,16 @@ public class AnotherTestObject extends BaseTestObject {
   private Integer field2;
   private String field3;
   private String field4;
+  private String day;
+  
+  public String getDay() {
+    return day;
+  }
+
+  public void setDay(String day) {
+    this.day = day;
+  }
+
   public Integer getField1() {
     return field1;
   }

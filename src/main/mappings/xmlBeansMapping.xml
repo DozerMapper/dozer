@@ -29,4 +29,14 @@
     </field>
   </mapping>
 
+  <mapping  wildcard="false">
+    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+    <class-b bean-factory="net.sf.dozer.util.mapping.factory.XMLBeanFactory">net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeResponseDocument</class-b>
+
+    <field>
+      <a>setToArray</a>
+      <b>GetWeatherByZipCodeResponse.WeatherDataArray</b>
+    </field>    
+  </mapping>   
+
 </mappings>
