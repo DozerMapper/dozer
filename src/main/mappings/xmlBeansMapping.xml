@@ -36,6 +36,7 @@
     <field>
       <a>setToArray</a>
       <b>GetWeatherByZipCodeResponse.WeatherDataArray</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.AnotherTestObject</a-hint>      
     </field>    
   </mapping>   
 
