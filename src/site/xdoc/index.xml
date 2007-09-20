@@ -18,6 +18,12 @@
     </section>
     <section name="Dozer News">
       <p></p>
+      <h3>Release 4.1 Now Available   <font size="-3" color="gray"><i>09/22/2007</i></font></h3>
+      <p>This release contains bug fixes and feature requests, along with internal refactoring.</p>
+      
+      <p>Thanks again to everyone that submitted bug and feature requests, along with everyone that contributed to the release.</p>
+      <p>Please check here for more <a href="releasenotes.html">release notes</a></p>
+      <p></p>      
       <h3>Release 4.0 Now Available   <font size="-3" color="gray"><i>07/15/2007</i></font></h3>
       <p>This release contains bug fixes and feature requests, along with internal refactoring. Some new features include indexed mapping within deep mapping, improved support of Map backed properties, and configuration of auto string trimming.</p>
       <p>The most significant refactoring was around Map backed properties.  The refactoring did not change the public Dozer API or the xml dtd, but if you are currently using the Map backed property features of Dozer 

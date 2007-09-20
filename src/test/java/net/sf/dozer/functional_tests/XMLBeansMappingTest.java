@@ -54,13 +54,20 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     ato.setDay("day");
     set.add(ato);
     to.setSetToArray(set);
+
+    AnotherTestObject ato2 = new AnotherTestObject();
+    ato2.setDay("day");
+    to.addAnotherTestObject(ato2);
     GetWeatherByZipCodeResponseDocument responseDoc = (GetWeatherByZipCodeResponseDocument) mapper.map(to, GetWeatherByZipCodeResponseDocument.class);
     WeatherData[] weatherDataArray = responseDoc.getGetWeatherByZipCodeResponse().getWeatherDataArray(); 
+    WeatherData[] weatherData2Array = responseDoc.getGetWeatherByZipCodeResponse().getWeatherData2Array(); 
     assertEquals(ato.getDay(), weatherDataArray[0].getDay());
+    assertEquals(ato2.getDay(), weatherData2Array[0].getDay());
     
     // now take the xmlbeans array and map the other direction
     TestObject toResult = (TestObject) mapper.map(responseDoc, TestObject.class);
     assertEquals(weatherDataArray[0].getDay(),((AnotherTestObject)toResult.getSetToArray().iterator().next()).getDay());
+    assertEquals(weatherData2Array[0].getDay(),((AnotherTestObject)toResult.getSetToArrayWithIterate().iterator().next()).getDay());
   }
 
   /*

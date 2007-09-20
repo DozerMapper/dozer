@@ -38,6 +38,13 @@
       <b>GetWeatherByZipCodeResponse.WeatherDataArray</b>
       <a-hint>net.sf.dozer.util.mapping.vo.AnotherTestObject</a-hint>      
     </field>    
+
+    <field>
+      <a set-method="addAnotherTestObject" type="iterate">setToArrayWithIterate</a>
+      <b>GetWeatherByZipCodeResponse.WeatherData2Array</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.AnotherTestObject</a-hint>      
+    </field>    
+
   </mapping>   
 
 </mappings>

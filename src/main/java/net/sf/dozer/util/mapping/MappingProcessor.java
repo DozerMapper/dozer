@@ -292,7 +292,12 @@ public class MappingProcessor implements MapperIF {
   private void mapFromFieldMap(Object srcObj, Object destObj, Object srcFieldValue, FieldMap fieldMapping) {
     Class destFieldType = null;
     if (fieldMapping instanceof CustomGetSetMethodFieldMap) {
-      destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
+      try {
+        destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
+      } catch (Throwable e) {
+        // try traditional way
+        destFieldType = fieldMapping.getDestFieldType(destObj.getClass());
+      }
     } else {
       destFieldType = fieldMapping.getDestFieldType(destObj.getClass());
     }

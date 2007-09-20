@@ -12,6 +12,7 @@
         <s:element minOccurs="1" maxOccurs="1" name="GetWeatherByZipCodeResult" 
           type="tns:WeatherForecasts" />
         <s:element minOccurs="0" maxOccurs="unbounded" name="WeatherData" type="tns:WeatherData" />
+        <s:element minOccurs="0" maxOccurs="unbounded" name="WeatherData2" type="tns:WeatherData" />
       </s:sequence>
     </s:complexType>
   </s:element>
