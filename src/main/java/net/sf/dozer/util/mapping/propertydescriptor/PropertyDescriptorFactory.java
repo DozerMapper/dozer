@@ -33,7 +33,7 @@ public class PropertyDescriptorFactory {
   public static DozerPropertyDescriptorIF getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
       String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name,
       String key, boolean isSelfReferencing, String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
-      HintContainer destDeepIndexHintContainer) {
+      HintContainer destDeepIndexHintContainer, String beanFactory) {
     DozerPropertyDescriptorIF desc = null;
 
     // Raw Map types or custom map-get-method/set specified
@@ -58,8 +58,9 @@ public class PropertyDescriptorFactory {
       desc = new CustomGetSetPropertyDescriptor(clazz, name, isIndexed, index, theSetMethod, theGetMethod,
           srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
+    
      // If this object is an XML Bean - then use the XmlBeanPropertyDescriptor  
-    } else if (implementsXmlObject(clazz)) {
+    } else if (beanFactory != null && beanFactory.equals(MapperConstants.XML_BEAN_FACTORY)) {
       desc = new XmlBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer,
           destDeepIndexHintContainer);
 
@@ -70,25 +71,5 @@ public class PropertyDescriptorFactory {
           destDeepIndexHintContainer);
     }
     return desc;
-  }
-
-  private static boolean implementsXmlObject(final Class testClass) {
-    Class xmlObjectClass = null;
-    if (testClass == null) {
-      return false;
-    }
-    try {
-      xmlObjectClass = Class.forName("org.apache.xmlbeans.XmlObject");
-    } catch (ClassNotFoundException cnfe) {
-      return false;
-    }
-    final Class classInterfaces[] = testClass.getInterfaces();
-    for (int i = 0; i < classInterfaces.length; i++) {
-      final Class testInterface = classInterfaces[i];
-      if (xmlObjectClass.equals(testInterface) || implementsXmlObject(testInterface)) {
-        return true;
-      }
-    }
-    return false;
   }
 }

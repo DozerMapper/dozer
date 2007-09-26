@@ -362,7 +362,7 @@ public abstract class FieldMap implements Cloneable {
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
         getSrcFieldMapGetMethod(), getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
         getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
-        getDestDeepIndexHintContainer());
+        getDestDeepIndexHintContainer(), classMap.getSrcClassBeanFactory());
   }
 
   protected DozerPropertyDescriptorIF getDestPropertyDescriptor(Class runtimeDestClass) {
@@ -370,7 +370,7 @@ public abstract class FieldMap implements Cloneable {
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass, getDestFieldTheGetMethod(),
         getDestFieldTheSetMethod(), getDestFieldMapGetMethod(), getDestFieldMapSetMethod(), isDestFieldAccessible(),
         isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(),
-        getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+        getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), classMap.getDestClassBeanFactory());
   }
 
   protected DozerField getSrcField() {

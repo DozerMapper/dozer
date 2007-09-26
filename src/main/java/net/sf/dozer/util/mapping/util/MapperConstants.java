@@ -60,6 +60,8 @@ public abstract class MapperConstants {
   public static final String MAPPING_PRE_WRITING_DEST_VALUE = "MAPPING_PRE_WRITING_DEST_VALUE";
   public static final String MAPPING_POST_WRITING_DEST_VALUE = "MAPPING_POST_WRITING_DEST_VALUE";
   public static final String MAPPING_FINISHED_EVENT = "MAPPING_FINISHED";
+  
+  public static final String XML_BEAN_FACTORY = "net.sf.dozer.util.mapping.factory.XMLBeanFactory";
 
   // JMX
   public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;
