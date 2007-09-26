@@ -117,7 +117,10 @@ public class PerformanceTest extends AbstractMapperTest {
    * MHT Computer - 7/15/07 - 4.0 release
    * jdk1.4 #1 24078 #2 2844 #3 2891 #4 11656 #5 7797 #6 36156
    * jdk1.5 #1 24625 #2 2656 #3 2688 #4 11515 #5 7781 #6 31797
-
+   * 
+   * MHT Computer - 9/25/07 - 4.1 release
+   * jdk1.4 #1 25766 #2 2938 #3 3000 #4 12078 #5 8156 #6 36031
+   * jdk1.5 #1 24516 #2 2578 #3 2672 #4 11671 #5 7875 #6 32000
    */
 
   public void testMapping1() throws Exception {
@@ -181,8 +184,8 @@ public class PerformanceTest extends AbstractMapperTest {
     }
   }
 
-  public static void main(String[] args) {
+ /* public static void main(String[] args) {
     junit.textui.TestRunner.run(PerformanceTest.class);
-  }
+  }*/
 
 }
