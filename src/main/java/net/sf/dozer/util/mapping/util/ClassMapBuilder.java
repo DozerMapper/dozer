@@ -90,7 +90,7 @@ public abstract class ClassMapBuilder {
 
       // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
       if ((destFieldName.equals("callback") || destFieldName.equals("callbacks"))
-          && destClass.getName().contains(MapperConstants.CGLIB_ID)) {
+          && destClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0) {
         continue;
       }
 
@@ -143,7 +143,7 @@ public abstract class ClassMapBuilder {
       }
 
       if ((fieldName.equals("callback") || fieldName.equals("callbacks"))
-          && (destClass.getName().contains(MapperConstants.CGLIB_ID) || srcClass.getName().contains(MapperConstants.CGLIB_ID))) {
+          && (destClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 || srcClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0)) {
         continue;
       }
 

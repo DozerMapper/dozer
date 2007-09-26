@@ -263,11 +263,11 @@ public abstract class MappingUtils {
 
   public static boolean isProxy(Class clazz) {
     //todo: implement a better way of determining this that is more generic
-    return clazz.getName().contains(MapperConstants.CGLIB_ID);
+    return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0;
   }
 
   public static Class getRealSuperclass(Class clazz) {
-    return clazz.getName().contains(MapperConstants.CGLIB_ID) ? clazz.getSuperclass().getSuperclass() : clazz.getSuperclass();
+    return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 ? clazz.getSuperclass().getSuperclass() : clazz.getSuperclass();
   }
   
   public static Class getProxyRealClass(Class clazz) {
