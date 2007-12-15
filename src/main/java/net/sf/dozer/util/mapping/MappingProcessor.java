@@ -80,25 +80,15 @@ public class MappingProcessor implements MapperIF {
   private static final Log log = LogFactory.getLog(MappingProcessor.class);
 
   private final Map customMappings;
-
   private final Configuration globalConfiguration;
-
   private final List customConverterObjects;// actual converter object instances
-
   private final Map customConverterObjectsWithId; // key/value pair of custom converter id and object instance
-
   private final StatisticsManagerIF statsMgr;
-
   private final EventManagerIF eventMgr;
-
   private final CustomFieldMapperIF customFieldMapper;
-
   private final Map mappedFields = new HashMap();
-
   private final Cache converterByDestTypeCache;
-
   private final Cache superTypeCache;
-
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
   protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManagerIF cacheMgr,
