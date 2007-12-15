@@ -182,7 +182,7 @@ public class TestCustomConverter implements CustomConverter {
         <value>injectedCustomConverter.xml</value>
       </list>
     </property>
-    <property name="custom-converters">
+    <property name="customConverters">
       <list>
          <ref bean="customConverterTest"/>
       </list>
