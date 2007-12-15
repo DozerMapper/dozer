@@ -4,16 +4,18 @@
     <title>usage</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Logging">
       <p>
         Dozer logs various events using Jakarta Commons Logging.
-        <b></b>  
-        Please refer to the <a href="http://jakarta.apache.org/commons/logging/">Jakarta Commons Logging</a> documentation for more information.
+        <b></b>
+        Please refer to the
+        <a href="http://jakarta.apache.org/commons/logging/">Jakarta Commons Logging</a>
+        documentation for more information.
       </p>
     </section>
   </body>

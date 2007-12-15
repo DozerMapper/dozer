@@ -4,19 +4,18 @@
     <title>usage</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Statistics">
       <p>
-        If you enable statistics, Dozer will collect a number of runtime mapping metrics.
-        These statistics are global and can be accessed via the GlobalStatistics object.  
-        The statistics are also available via JMX.  Dozer is distributed with a fully functional JMX DozerStatisticsControllerMBean.</p>
-      <p>  
-        Based on our profiling numbers, the overhead of enabling statistics is roughly 3-5%. 
+        If you enable statistics, Dozer will collect a number of runtime mapping metrics. These statistics are
+        global and can be accessed via the GlobalStatistics object. The statistics are also available via JMX.
+        Dozer is distributed with a fully functional JMX DozerStatisticsControllerMBean.
       </p>
+      <p>Based on our profiling numbers, the overhead of enabling statistics is roughly 3-5%.</p>
       <p>
         <b>Dozer Statistics</b>
       </p>
@@ -44,20 +43,20 @@
         <tr>
           <td>Mapping Failure Exception Types</td>
           <td>
-            # of failures per exception type.  This statistic shows what specific exceptions
-            are being thrown when mappings fail
+            # of failures per exception type. This statistic shows what specific exceptions are being thrown when
+            mappings fail
           </td>
         </tr>
         <tr>
           <td>Mapping Failure Type</td>
           <td>
-            # of failures per source and destination class names.  This statistic shows  
-            which specific mappings have failed per unique src class name and dest class name
+            # of failures per source and destination class names. This statistic shows which specific mappings have
+            failed per unique src class name and dest class name
           </td>
         </tr>
         <tr>
           <td>Mapper Instances Count</td>
-          <td># of DozerBeanMapper objects created.  This should be a low number</td>
+          <td># of DozerBeanMapper objects created. This should be a low number</td>
         </tr>
         <tr>
           <td>Field Mapping Success Count</td>
@@ -70,22 +69,18 @@
         <tr>
           <td>Field Mapping Failure Ignored Count</td>
           <td>
-            # of failed field mappings that were ignored during the mapping process.  
-            By default, Dozer throws an exception when any field mappings fail.  But this behavior can
-            be overridden.  This statistic is useful to understand the impacts of setting stop-on-errors to false
+            # of failed field mappings that were ignored during the mapping process. By default, Dozer throws an
+            exception when any field mappings fail. But this behavior can be overridden. This statistic is useful
+            to understand the impacts of setting stop-on-errors to false
           </td>
         </tr>
         <tr>
           <td>Cache Hit Count</td>
-          <td>
-            # of hits per internal Dozer cache type
-          </td>
+          <td># of hits per internal Dozer cache type</td>
         </tr>
         <tr>
           <td>Cache Miss Count</td>
-          <td>
-            # of misses per internal Dozer cache type
-          </td>
+          <td># of misses per internal Dozer cache type</td>
         </tr>
         <tr>
           <td>Custom Converter Overall Time</td>
@@ -100,7 +95,7 @@
           <td>Percentage of overall time spent in custom converter mappings</td>
         </tr>
       </table>
-      
+
     </section>
   </body>
 </document>
