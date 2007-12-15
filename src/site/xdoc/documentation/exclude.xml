@@ -4,16 +4,18 @@
     <title>Excluding Fields</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Excluding Fields">
-         <p>Dozer supports excluding fields from a mapping using the field-exclude tag. We also
-         support field excludes going one-way as shown in the example.</p>
-         <source>
-           <![CDATA[ 
+      <p>
+        Dozer supports excluding fields from a mapping using the field-exclude tag. We also support field excludes
+        going one-way as shown in the example.
+      </p>
+      <source>
+        <![CDATA[ 
 <field-exclude> 
   <a>fieldToExclude</a> 
   <b>fieldToExclude</b> 
@@ -24,13 +26,15 @@
   <b>fieldToExclude</b> 
 </field-exclude>           
             ]]>
-          </source>
-    <subsection name="Exclude Mapping Null Values">
-      <p>
-      You can bypass the mapping of null values.  If this is specified, the dest field mapping is bypassed at runtime and the destination value setter method will not be called if the src value is null.  This can be specified at the mapping or class level.  For example:
-      </p>
-      <source>
-        <![CDATA[ 
+      </source>
+      <subsection name="Exclude Mapping Null Values">
+        <p>
+          You can bypass the mapping of null values. If this is specified, the dest field mapping is bypassed at
+          runtime and the destination value setter method will not be called if the src value is null. This can be
+          specified at the mapping or class level. For example:
+        </p>
+        <source>
+          <![CDATA[ 
 <mapping map-null="false">
   <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>    
@@ -51,17 +55,18 @@ OR...
   </field>
 </mapping>   
       ]]>
-     </source>
-     <p>
-     </p>
-    </subsection> 
+        </source>
+        <p></p>
+      </subsection>
 
-    <subsection name="Exclude Mapping Empty Strings">
-      <p>
-      You can bypass the mapping of empty String values.  If this is specified, the dest field mapping is bypassed at runtime and the destination value setter method will not be called if the src value is an empty String.  This can be specified at the mapping or class level.  For example:
-      </p>
-      <source>
-        <![CDATA[ 
+      <subsection name="Exclude Mapping Empty Strings">
+        <p>
+          You can bypass the mapping of empty String values. If this is specified, the dest field mapping is
+          bypassed at runtime and the destination value setter method will not be called if the src value is an
+          empty String. This can be specified at the mapping or class level. For example:
+        </p>
+        <source>
+          <![CDATA[ 
 <mapping map-empty-string="false">
   <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>    
@@ -82,10 +87,9 @@ OR...
   </field>
 </mapping>   
       ]]>
-     </source>
-     <p>
-     </p>
-    </subsection> 
+        </source>
+        <p></p>
+      </subsection>
 
 
 

@@ -4,15 +4,18 @@
     <title>Context Based Mapping</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Context Based Mapping">
-    <p>Context based mapping can be specified by using the map-id attribute.  Note that we also support nested context mapping by specifying a map-id at the field level. </p>
-         <source>
-           <![CDATA[ 
+      <p>
+        Context based mapping can be specified by using the map-id attribute. Note that we also support nested
+        context mapping by specifying a map-id at the field level.
+      </p>
+      <source>
+        <![CDATA[ 
 <mapping map-id="caseA">
    <class-a>net.sf.dozer.util.mapping.vo.context.ContextMapping</class-a>
    <class-b>net.sf.dozer.util.mapping.vo.context.ContextMappingPrime</class-b>
@@ -47,13 +50,15 @@
 </mapping>
 </mappings>
   ]]>
-         </source>
-    <p> To use a particular context when invoking the Mapper, you simply specify the map-id in your mapping call.</p>
-             <source>
-               <![CDATA[ 
+      </source>
+      <p>
+        To use a particular context when invoking the Mapper, you simply specify the map-id in your mapping call.
+      </p>
+      <source>
+        <![CDATA[ 
     ContextMappingPrime cmpA = (ContextMappingPrime) mapper.map(cm, ContextMappingPrime.class, "caseA");
                 ]]>
-             </source>
+      </source>
     </section>
   </body>
 </document>

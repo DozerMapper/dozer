@@ -4,24 +4,24 @@
     <title>Enum Mapping</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="JDK 1.5 Enum Mapping">
-         <p>To map an enums value to another enum is shown below.</p>
-         <source>
-           <![CDATA[ 
+      <p>To map an enums value to another enum is shown below.</p>
+      <source>
+        <![CDATA[ 
 <field>
   <a>status</a>
   <b>statusPrime</b>
 </field>
             ]]>
-          </source>
-     <p>
-         <source>
-           <![CDATA[ 
+      </source>
+      <p>
+        <source>
+          <![CDATA[ 
 enum Status {
   PROCESSING, SUCCESS, ERROR
 }
@@ -59,8 +59,8 @@ public class UserGroupPrime {
 }
 
             ]]>
-          </source>
-</p>
+        </source>
+      </p>
 
     </section>
   </body>

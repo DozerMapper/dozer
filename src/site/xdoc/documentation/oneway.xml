@@ -4,17 +4,17 @@
     <title>Excluding Fields</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="One-Way Mapping">
       <p>
-      You can set how a mapping definition behaves as far as direction goes. If you only want to map 
-      two classes to go one-way you can set this at the mapping level. The default is bi-directional. This can be
-      set at the mapping level OR the field level.  When one-way is specified, "a" is always the src object and "b" is always the destination
-      object.  
+        You can set how a mapping definition behaves as far as direction goes. If you only want to map two classes
+        to go one-way you can set this at the mapping level. The default is bi-directional. This can be set at the
+        mapping level OR the field level. When one-way is specified, "a" is always the src object and "b" is always
+        the destination object.
 
       </p>
       <source>
@@ -28,14 +28,14 @@
     </field>
 </mapping>  
       ]]>
-     </source>
+      </source>
 
-<p>
-In the following example the one-way fields are only mapped when "a" object is mapped to "b" object.  If
-"b" is mapped to "a", then the field is not mapped.
-</p>
-         <source>
-           <![CDATA[ 
+      <p>
+        In the following example the one-way fields are only mapped when "a" object is mapped to "b" object. If "b"
+        is mapped to "a", then the field is not mapped.
+      </p>
+      <source>
+        <![CDATA[ 
 
 <mapping> 
   <class-a>net.sf.dozer.util.mapping.vo.TestObjectFoo2</class-a>
@@ -50,24 +50,24 @@ In the following example the one-way fields are only mapped when "a" object is m
     <b>oneFooPrime3</b>
   </field>
       ]]>
-     </source>
-     <p>
-     </p>
+      </source>
+      <p></p>
 
 
       <subsection name="Excluding Fields One-Way">
-         <p>Dozer supports field excludes going one-way as shown in the example.  In the example the field is only excluded when "a" is mapped to "b".  If
-            "b" is mapped to "a", then the field is not excluded.
-         </p>
-         <source>
-           <![CDATA[ 
+        <p>
+          Dozer supports field excludes going one-way as shown in the example. In the example the field is only
+          excluded when "a" is mapped to "b". If "b" is mapped to "a", then the field is not excluded.
+        </p>
+        <source>
+          <![CDATA[ 
 <field-exclude type="one-way""> 
   <a>fieldToExclude</a> 
   <b>fieldToExclude</b> 
 </field-exclude>           
             ]]>
-          </source>
-      </subsection>        
+        </source>
+      </subsection>
     </section>
   </body>
 </document>

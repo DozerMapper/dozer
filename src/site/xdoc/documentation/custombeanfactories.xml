@@ -4,30 +4,41 @@
     <title>Custom Bean Factories and Custom Create Methods</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/> 
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Custom Bean Factories">
-    
+
       <p>
-      You can configure Dozer to use custom bean factories to create new instances of destination data objects during the mapping process.
-      By default Dozer just creates a new instance of any destination objects using a default constructor.  This is sufficient for most use cases, but if you need more flexibility you can specify
-      your own bean factories to instantiate the data objects.
+        You can configure Dozer to use custom bean factories to create new instances of destination data objects
+        during the mapping process. By default Dozer just creates a new instance of any destination objects using a
+        default constructor. This is sufficient for most use cases, but if you need more flexibility you can
+        specify your own bean factories to instantiate the data objects.
       </p>
-      <p>Your custom bean  factory must implement the net.sf.dozer.util.mapping.BeanFactoryIF interface.  By default the Dozer mapping engine will use the destination object class name for the bean id when calling the factory.</p>
-        <source>
-           <![CDATA[ 
+      <p>
+        Your custom bean factory must implement the net.sf.dozer.util.mapping.BeanFactoryIF interface. By default
+        the Dozer mapping engine will use the destination object class name for the bean id when calling the
+        factory.
+      </p>
+      <source>
+        <![CDATA[ 
 public interface BeanFactoryIF {
   public Object createBean(Object source, Class sourceClass, String targetBeanId);
 }         
            ]]>
-        </source>
-        <p>Next, in your Dozer mapping file(s) you just need to specify a bean-factory xml attribute for any mappings that you want to use a custom factory.</p>
-        <p>In the following example, the SampleCustomBeanFactory will be used to create any new instances of the InsideTestObjectPrime java bean data object.</p>
-        <source>
-         <![CDATA[ 
+      </source>
+      <p>
+        Next, in your Dozer mapping file(s) you just need to specify a bean-factory xml attribute for any mappings
+        that you want to use a custom factory.
+      </p>
+      <p>
+        In the following example, the SampleCustomBeanFactory will be used to create any new instances of the
+        InsideTestObjectPrime java bean data object.
+      </p>
+      <source>
+        <![CDATA[ 
 <mapping>
   <class-a>com.example.vo.InsideTestObject</class-a>
   <class-b bean-factory="com.example.factories.SomeCustomBeanFactory">
@@ -35,10 +46,14 @@ public interface BeanFactoryIF {
   </class-b>
 </mapping>  
          ]]>
-        </source>
-        <p>If your factory looks up beans based on a different id than class name, you can specifiy a factory-bean-id xml attribute.  At runtime the specified factory-bean-id will be passed to the factory instead of class name.</p> 
-        <source>
-         <![CDATA[ 
+      </source>
+      <p>
+        If your factory looks up beans based on a different id than class name, you can specifiy a factory-bean-id
+        xml attribute. At runtime the specified factory-bean-id will be passed to the factory instead of class
+        name.
+      </p>
+      <source>
+        <![CDATA[ 
 <mapping>
   <class-a>com.example.vo.InsideTestObject</class-a>
   <class-b bean-factory="com.example.factories.SomeCustomBeanFactory"
@@ -47,12 +62,15 @@ public interface BeanFactoryIF {
   </class-b>
 </mapping>  
          ]]>
-        </source>
+      </source>
 
       <subsection name="Specifying Default Factories">
-        <p>Alternatively, bean factories can be specified in the default configuration section of any Dozer mapping file(s).  The default factory would be used for any mappings in that file.</p>
+        <p>
+          Alternatively, bean factories can be specified in the default configuration section of any Dozer mapping
+          file(s). The default factory would be used for any mappings in that file.
+        </p>
         <source>
-         <![CDATA[ 
+          <![CDATA[ 
 <configuration>
   <stop-on-errors>true</stop-on-errors>
   <wildcard>true</wildcard>
@@ -60,20 +78,23 @@ public interface BeanFactoryIF {
 </configuration>
          ]]>
         </source>
-        <p>Bean factories can also be specified at the mapping level.  The specified factory would be used for class-a and class-b.</p>
+        <p>
+          Bean factories can also be specified at the mapping level. The specified factory would be used for
+          class-a and class-b.
+        </p>
         <source>
-         <![CDATA[ 
+          <![CDATA[ 
 <mapping bean-factory="com.example.factories.SomeCustomBeanFactory">
   <class-a>com.example.vo.TestObject</class-a>
   <class-b>com.example.vo.TestObjectPrime</class-b>
 </mapping>
          ]]>
         </source>
-      </subsection>              
+      </subsection>
       <subsection name="Spring bean factory injection">
         <p>Bean factories can be injected via Spring or similar inversion of control techniques.</p>
         <source>
-         <![CDATA[ 
+          <![CDATA[ 
 <beans default-lazy-init="true">
 
   <bean id="net.sf.dozer.util.mapping.MapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
@@ -101,7 +122,7 @@ public interface BeanFactoryIF {
 ]]>
         </source>
         <p>By defining your factories as Spring beans you can then inject them into the DozerBeanMapper class.</p>
-      </subsection>              
+      </subsection>
     </section>
   </body>
 </document>

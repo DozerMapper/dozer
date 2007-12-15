@@ -4,19 +4,19 @@
     <title>Custom Create Methods</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/> 
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Custom Create Methods">
-    
+
       <p>
-      You can configure Dozer to use custom static create methods to create new instances of destination data objects during the mapping process.
-      This can either be set at the field level or class level.
-      </p>    
-        <source>
-           <![CDATA[ 
+        You can configure Dozer to use custom static create methods to create new instances of destination data
+        objects during the mapping process. This can either be set at the field level or class level.
+      </p>
+      <source>
+        <![CDATA[ 
 <mapping>
   <class-a create-method="someCreateMethod">net.sf.dozer.util.mapping.vo.InsideTestObject</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.InsideTestObjectPrime</class-b>
@@ -27,12 +27,10 @@
   </field>
 </mapping>  
          ]]>
-       </source>      
-      <p>
-      Specifying a custom create method at the Field level....
-      </p>    
-        <source>
-           <![CDATA[ 
+      </source>
+      <p>Specifying a custom create method at the Field level....</p>
+      <source>
+        <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
@@ -43,7 +41,7 @@
   </field>    
 </mapping>
          ]]>
-       </source>      
+      </source>
     </section>
   </body>
 </document>
