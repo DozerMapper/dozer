@@ -4,13 +4,14 @@
 
 <beans default-lazy-init="false">
 
-   <bean id="beanfactory" lazy-init="true" class="org.springframework.context.support.ClassPathXmlApplicationContext">
-     <constructor-arg>
-       <list>
-         <value>springTestApplicationContext.xml</value>
-         <value>springEventTestApplicationContext.xml</value>
-       </list>
-     </constructor-arg>
-   </bean>
-   
+  <bean id="beanfactory" lazy-init="true"
+    class="org.springframework.context.support.ClassPathXmlApplicationContext">
+    <constructor-arg>
+      <list>
+        <value>springTestApplicationContext.xml</value>
+        <value>springEventTestApplicationContext.xml</value>
+      </list>
+    </constructor-arg>
+  </bean>
+
 </beans>

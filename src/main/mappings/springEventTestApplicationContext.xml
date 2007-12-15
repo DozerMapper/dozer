@@ -12,11 +12,11 @@
     </property>
     <property name="eventListeners">
       <list>
-        <ref bean="eventTestListener"/>
+        <ref bean="eventTestListener" />
       </list>
     </property>
   </bean>
 
-  <bean id="eventTestListener" class="net.sf.dozer.util.mapping.event.EventTestListener" singleton="true"/>
-  
+  <bean id="eventTestListener" class="net.sf.dozer.util.mapping.event.EventTestListener" singleton="true" />
+
 </beans>

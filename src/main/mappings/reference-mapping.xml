@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
     "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
-<mappings>          
-  <mapping> 
+<mappings>
+  <mapping>
     <class-a>net.sf.dozer.util.mapping.copybyreference.TestA</class-a>
-    <class-b>net.sf.dozer.util.mapping.copybyreference.TestB</class-b>   
+    <class-b>net.sf.dozer.util.mapping.copybyreference.TestB</class-b>
     <field>
       <a>oneA</a>
       <b>oneB</b>
     </field>
     <field copy-by-reference="true">
-    	<a>testReference</a>
-    	<b>testReference</b>
+      <a>testReference</a>
+      <b>testReference</b>
     </field>
-  </mapping>  
+  </mapping>
 </mappings>

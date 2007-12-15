@@ -7,7 +7,7 @@
     <class-a>net.sf.dozer.util.mapping.vo.FurtherTestObject</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.Car</class-b>
     <field>
-      <a>one</a> 
+      <a>one</a>
       <b>name</b>
     </field>
   </mapping>

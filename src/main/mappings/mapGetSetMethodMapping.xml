@@ -4,8 +4,10 @@
 <mappings>
 
   <mapping map-id="useCase1">
-    <class-a map-get-method="getValue" map-set-method="putValue">net.sf.dozer.util.mapping.vo.map.CustomMap</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>    
+    <class-a map-get-method="getValue" map-set-method="putValue">
+      net.sf.dozer.util.mapping.vo.map.CustomMap
+    </class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>
     <field>
       <a key="fieldA">this</a>
       <b>field1</b>
@@ -28,11 +30,11 @@
       <b>field5</b>
       <a-hint>java.lang.String</a-hint>
     </field>
-  </mapping>   
-  
+  </mapping>
+
   <mapping map-id="useCase2">
     <class-a>net.sf.dozer.util.mapping.vo.map.CustomMap</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>    
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>
     <field>
       <a map-get-method="getValue" map-set-method="putValue" key="fieldA">this</a>
       <b>field1</b>
@@ -55,6 +57,6 @@
       <b>field5</b>
       <a-hint>java.lang.String</a-hint>
     </field>
-  </mapping>   
-  
+  </mapping>
+
 </mappings>

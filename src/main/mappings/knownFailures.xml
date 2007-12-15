@@ -19,15 +19,15 @@
       <a>id</a>
       <b>this</b>
     </field>
-  </mapping> 
-<!--	<mapping>
-		<class-a>net.sf.dozer.util.mapping.vo.inheritance.Outer</class-a>
-		<class-b>net.sf.dozer.util.mapping.vo.inheritance.Target</class-b>
-		<field>
-			<a>inner.string</a>
-			<b>string</b>
-		</field>
-	</mapping>
--->
-  
+  </mapping>
+  <!--	<mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.inheritance.Outer</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.inheritance.Target</class-b>
+    <field>
+    <a>inner.string</a>
+    <b>string</b>
+    </field>
+    </mapping>
+  -->
+
 </mappings>

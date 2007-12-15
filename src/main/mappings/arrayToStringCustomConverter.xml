@@ -4,7 +4,7 @@
 <mappings>
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter" >
+      <converter type="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter">
         <class-a>[Lnet.sf.dozer.util.mapping.vo.SimpleObj;</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
@@ -13,10 +13,10 @@
 
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.ArrayCustConverterObj</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.ArrayCustConverterObjPrime</class-b>    
+    <class-b>net.sf.dozer.util.mapping.vo.ArrayCustConverterObjPrime</class-b>
     <field>
       <a>field1</a>
       <b>field1Prime</b>
     </field>
-  </mapping>   
+  </mapping>
 </mappings>

@@ -2,61 +2,61 @@
 <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
-	<configuration>
-		<custom-converters>
-			<converter type="net.sf.dozer.util.mapping.vo.CToStringConverter">
-				<class-a>net.sf.dozer.util.mapping.vo.C</class-a>
-				<class-b>java.lang.String</class-b>
-			</converter>
-		</custom-converters>
-	</configuration>
-	<mapping wildcard="true">
-		<class-a>net.sf.dozer.util.mapping.vo.Individuals</class-a>
-		<class-b>net.sf.dozer.util.mapping.vo.FlatIndividual</class-b>
-		<field>
-			<a>usernames[0]</a>
-			<b>username1</b>
-		</field>
-		<field>
-			<a>usernames[1]</a>
-			<b>username2</b>
-		</field>
-		<field>
-			<a>individual.username</a>
-			<b>username2</b>
-		</field>
-		<field>
-			<a>secondNames[1]</a>
-			<b>secondName1</b>
-		</field>
-		<field>
-			<a>secondNames[2]</a>
-			<b>secondName2</b>
-		</field>
-		<field>
-			<a>aliases.otherAliases[0]</a>
-			<b>primaryAlias</b>
-		</field>
-		<field>
-			<a>addressSet[0]</a>
-			<b>address</b>
-		</field>
-		<field>
-			<a is-accessible="true">thirdNames[0]</a>
-			<b>thirdName</b>
-		</field>
-		
-	</mapping>
-	
-	<mapping wildcard="false">
-		<class-a>net.sf.dozer.util.mapping.vo.A</class-a>
-		<class-b>net.sf.dozer.util.mapping.vo.D</class-b>
-		
-		<field>
-			<a>b.cs[0]</a>
-			<b>value</b>
-			<a-hint>net.sf.dozer.util.mapping.vo.C</a-hint>
-			<b-hint>java.lang.String</b-hint>
-		</field>
-	</mapping>
+  <configuration>
+    <custom-converters>
+      <converter type="net.sf.dozer.util.mapping.vo.CToStringConverter">
+        <class-a>net.sf.dozer.util.mapping.vo.C</class-a>
+        <class-b>java.lang.String</class-b>
+      </converter>
+    </custom-converters>
+  </configuration>
+  <mapping wildcard="true">
+    <class-a>net.sf.dozer.util.mapping.vo.Individuals</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.FlatIndividual</class-b>
+    <field>
+      <a>usernames[0]</a>
+      <b>username1</b>
+    </field>
+    <field>
+      <a>usernames[1]</a>
+      <b>username2</b>
+    </field>
+    <field>
+      <a>individual.username</a>
+      <b>username2</b>
+    </field>
+    <field>
+      <a>secondNames[1]</a>
+      <b>secondName1</b>
+    </field>
+    <field>
+      <a>secondNames[2]</a>
+      <b>secondName2</b>
+    </field>
+    <field>
+      <a>aliases.otherAliases[0]</a>
+      <b>primaryAlias</b>
+    </field>
+    <field>
+      <a>addressSet[0]</a>
+      <b>address</b>
+    </field>
+    <field>
+      <a is-accessible="true">thirdNames[0]</a>
+      <b>thirdName</b>
+    </field>
+
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>net.sf.dozer.util.mapping.vo.A</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.D</class-b>
+
+    <field>
+      <a>b.cs[0]</a>
+      <b>value</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.C</a-hint>
+      <b-hint>java.lang.String</b-hint>
+    </field>
+  </mapping>
 </mappings>

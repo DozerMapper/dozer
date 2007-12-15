@@ -4,14 +4,14 @@
 <mappings>
 
   <configuration>
-     <stop-on-errors>true</stop-on-errors>
-     <wildcard>true</wildcard>
-     <custom-converters>
-      <converter type="net.sf.dozer.util.mapping.converters.InjectedCustomConverter" >
+    <stop-on-errors>true</stop-on-errors>
+    <wildcard>true</wildcard>
+    <custom-converters>
+      <converter type="net.sf.dozer.util.mapping.converters.InjectedCustomConverter">
         <class-a>net.sf.dozer.util.mapping.vo.Vehicle</class-a>
         <class-b>net.sf.dozer.util.mapping.vo.Vehicle</class-b>
       </converter>
-     </custom-converters>
+    </custom-converters>
   </configuration>
-  
+
 </mappings>

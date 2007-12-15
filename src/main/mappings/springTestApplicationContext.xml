@@ -4,7 +4,8 @@
 
 <beans default-lazy-init="false">
 
-  <bean id="net.sf.dozer.util.mapping.MapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+  <bean id="net.sf.dozer.util.mapping.MapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper"
+    singleton="true">
     <property name="mappingFiles">
       <list>
         <value>systempropertymapping1.xml</value>
@@ -14,15 +15,15 @@
     <property name="factories">
       <map>
         <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
-       <entry key="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory">
-         <ref bean="sampleCustomBeanFactory"/>
-       </entry>
+        <entry key="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory">
+          <ref bean="sampleCustomBeanFactory" />
+        </entry>
         <!-- more factories can be supplied with additional entry's -->
       </map>
-    </property>    
+    </property>
   </bean>
 
-  <bean id="NoExplicitMappingsMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true"/>
+  <bean id="NoExplicitMappingsMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true" />
 
   <bean id="cleanMapper" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
     <property name="mappingFiles">
@@ -30,19 +31,23 @@
         <value>useCustomConverter.xml</value>
         <value>injectedCustomConverter.xml</value>
       </list>
-    </property>  
+    </property>
     <property name="customConverters">
       <list>
-         <ref bean="customConverterTest"/>
+        <ref bean="customConverterTest" />
       </list>
     </property>
   </bean>
 
-  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory" singleton="true"/>
+  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory"
+    singleton="true" />
 
   <!-- custom converter -->
-  <bean id="customConverterTest" class="net.sf.dozer.util.mapping.converters.InjectedCustomConverter" singleton="true">
-    <property name="injectedName"><value>injectedName</value></property>
+  <bean id="customConverterTest" class="net.sf.dozer.util.mapping.converters.InjectedCustomConverter"
+    singleton="true">
+    <property name="injectedName">
+      <value>injectedName</value>
+    </property>
   </bean>
 
 </beans>

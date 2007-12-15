@@ -2,26 +2,26 @@
 <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 
-	<mapping>
-		<class-a>net.sf.dozer.functional_tests.generics.UserGroup</class-a>
-		<class-b>net.sf.dozer.functional_tests.generics.UserGroupPrime</class-b>
-		<field>
-			<a>users</a>
-			<b>users</b>
-			<!-- testing generics so we do not need to use hints below. we dont even have to have a and b mappings since
-			the attributes are both named users.
-			<a-hint>net.sf.dozer.functional_tests.generics.User</a-hint>
-			<b-hint>net.sf.dozer.functional_tests.generics.UserGroupPrime</b-hint>
-			-->
-		</field>
-		<field>
-		  <!-- testing enums -->
-			<a>status</a>
-			<b>statusPrime</b>
-		</field>
-	</mapping>
-  
- <mapping>
+  <mapping>
+    <class-a>net.sf.dozer.functional_tests.generics.UserGroup</class-a>
+    <class-b>net.sf.dozer.functional_tests.generics.UserGroupPrime</class-b>
+    <field>
+      <a>users</a>
+      <b>users</b>
+      <!-- testing generics so we do not need to use hints below. we dont even have to have a and b mappings since
+        the attributes are both named users.
+        <a-hint>net.sf.dozer.functional_tests.generics.User</a-hint>
+        <b-hint>net.sf.dozer.functional_tests.generics.UserGroupPrime</b-hint>
+      -->
+    </field>
+    <field>
+      <!-- testing enums -->
+      <a>status</a>
+      <b>statusPrime</b>
+    </field>
+  </mapping>
+
+  <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.generics.deepindex.SrcDeepObj</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.generics.deepindex.DestDeepObj</class-b>
     <field>
@@ -32,9 +32,9 @@
       <a>someList[1].equalNamedList[0].field4</a>
       <b>hintList[0].twoPrime</b>
     </field>
- </mapping>
+  </mapping>
 
- <mapping>
+  <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.generics.deepindex.HeadOfHouseHold</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.generics.deepindex.Family</class-b>
     <field>
@@ -49,7 +49,7 @@
       <a>salary</a>
       <b>familyMembers[0].salary</b>
     </field>
- 
+
     <field>
       <a>petName</a>
       <b>pets[1].petName</b>
@@ -62,6 +62,6 @@
       <a>offSpringName</a>
       <b>pets[1].offSpring[2].petName</b>
     </field>
- </mapping>
+  </mapping>
 
 </mappings>

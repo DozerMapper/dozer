@@ -10,20 +10,20 @@
     <field>
       <a>superAField</a>
       <b>superBField</b>
-    </field>    
+    </field>
     <field-exclude>
       <a>superField1</a>
       <b>superField1</b>
-    </field-exclude>    
+    </field-exclude>
   </mapping>
-  
+
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.inheritance.A</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.inheritance.B</class-b>
     <field>
       <a>fieldA</a>
       <b>fieldB</b>
-    </field>    
+    </field>
   </mapping>
 
 </mappings>

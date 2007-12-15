@@ -10,11 +10,11 @@
     <field>
       <a>abstractAField</a>
       <b>abstractBField</b>
-    </field>    
+    </field>
     <field-exclude>
       <a>abstractField1</a>
       <b>abstractField1</b>
-    </field-exclude>    
+    </field-exclude>
   </mapping>
-  
+
 </mappings>

@@ -3,6 +3,6 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
   <configuration>
-     <relationship-type>non-cumulative</relationship-type>
+    <relationship-type>non-cumulative</relationship-type>
   </configuration>
 </mappings>

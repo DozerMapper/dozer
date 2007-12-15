@@ -3,18 +3,18 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 
- <mapping map-id="caseA">
+  <mapping map-id="caseA">
     <class-a>java.util.HashMap</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
- </mapping> 
+  </mapping>
 
- <mapping map-id="caseB">
+  <mapping map-id="caseB">
     <class-a>java.util.HashMap</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
-   <field-exclude>
-     <a>field1</a>
-     <b>field1</b>
-   </field-exclude>
- </mapping> 
+    <field-exclude>
+      <a>field1</a>
+      <b>field1</b>
+    </field-exclude>
+  </mapping>
 
 </mappings>
