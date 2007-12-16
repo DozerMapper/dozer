@@ -479,13 +479,6 @@
     <system>Sourceforge</system>
     <url>http://sourceforge.net/tracker/?group_id=133517</url>
   </issueManagement>
-  <repositories>
-    <repository>
-      <id>java.net</id>
-      <url>https://maven-repository.dev.java.net/nonav/repository</url>
-      <layout>legacy</layout>
-    </repository>
-  </repositories>
   <scm>
     <connection>scm:svn:https://dozer.svn.sourceforge.net/svnroot/dozer/trunk</connection>
     <tag>HEAD</tag>
