@@ -14,6 +14,6 @@ Run 'mvn site:site assembly:assembly' to build,package,create site, and assemble
 Run 'mvn -P deploy-dozer antrun:run' to deploy dozer
 
 
-Run 'mvn source:jar javadoc:jar repository:bundle-create' to package dozer for JIRA
+Run 'mvn source:jar javadoc:jar repository:bundle-create' to package dozer for maven upload JIRA request
 
 
