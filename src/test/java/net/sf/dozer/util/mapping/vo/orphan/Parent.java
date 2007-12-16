@@ -9,6 +9,9 @@ public class Parent {
   private Set childrenSet;
   private List childrenList;
 
+  private Parent() {
+  }
+
   public Parent(Long id, String name) {
     this.id = id;
     this.name = name;

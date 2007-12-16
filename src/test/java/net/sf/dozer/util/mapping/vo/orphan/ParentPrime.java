@@ -9,6 +9,9 @@ public class ParentPrime {
   private List childrenList;
   private Set childrenSet;
 
+  private ParentPrime() {
+  }
+  
   public ParentPrime(Long id, String name) {
     this.id = id;
     this.name = name;

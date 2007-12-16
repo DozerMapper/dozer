@@ -4,6 +4,9 @@ public class Child {
   private Long id;
   private String name;
 
+  private Child() {
+  }
+
   public Child(Long id, String name) {
     this.id = id;
     this.name = name;
