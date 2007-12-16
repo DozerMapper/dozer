@@ -10,4 +10,24 @@
       <b>AStringList</b>
     </field>
   </mapping>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.orphan.Parent</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.orphan.ParentPrime</class-b>
+    <field relationship-type="non-cumulative" remove-orphans="true">
+      <a>childrenSet</a>
+      <b>childrenSet</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.orphan.Child</a-hint>
+      <b-hint>net.sf.dozer.util.mapping.vo.orphan.ChildPrime</b-hint>
+    </field>
+    <field relationship-type="non-cumulative" remove-orphans="true">
+      <a>childrenList</a>
+      <b>childrenList</b>
+    </field>
+  </mapping>
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.orphan.Child</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.orphan.ChildPrime</class-b>
+  </mapping>
+
 </mappings>

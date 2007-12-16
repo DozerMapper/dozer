@@ -66,6 +66,10 @@ import net.sf.dozer.util.mapping.vo.isaccessible.Foo;
 import net.sf.dozer.util.mapping.vo.isaccessible.FooPrime;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBean;
 import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
+import net.sf.dozer.util.mapping.vo.orphan.Child;
+import net.sf.dozer.util.mapping.vo.orphan.ChildPrime;
+import net.sf.dozer.util.mapping.vo.orphan.Parent;
+import net.sf.dozer.util.mapping.vo.orphan.ParentPrime;
 import net.sf.dozer.util.mapping.vo.perf.MyClassA;
 import net.sf.dozer.util.mapping.vo.perf.MyClassB;
 import net.sf.dozer.util.mapping.vo.set.NamesArray;
@@ -158,7 +162,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     src.setField3(null);
     src.setField4(null);
     AnotherTestObjectPrime dest = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
-    dest.setTo((TestObject)newInstance(TestObject.class));
+    dest.setTo((TestObject) newInstance(TestObject.class));
     dest.setField3("555");
     dest.getTo().setOne("4641");
 
@@ -172,7 +176,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // Reverse mapping
     AnotherTestObjectPrime src = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
-    src.setTo((TestObject)newInstance(TestObject.class));
+    src.setTo((TestObject) newInstance(TestObject.class));
     src.setField3(null);
     src.getTo().setOne(null);
     AnotherTestObject dest = (AnotherTestObject) newInstance(AnotherTestObject.class);
@@ -193,7 +197,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     src.setField3("");
     src.setField4("");
     AnotherTestObjectPrime dest = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
-    dest.setTo((TestObject)newInstance(TestObject.class));
+    dest.setTo((TestObject) newInstance(TestObject.class));
     dest.setField3("555");
     dest.getTo().setOne("4641");
 
@@ -207,7 +211,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     MapperIF mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // reverse mapping
     AnotherTestObjectPrime src = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
-    src.setTo((TestObject)newInstance(TestObject.class));
+    src.setTo((TestObject) newInstance(TestObject.class));
     src.setField3("");
     src.getTo().setOne("");
     AnotherTestObject dest = (AnotherTestObject) newInstance(AnotherTestObject.class);
@@ -696,29 +700,29 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   public void testGlobalRelationshipType() throws Exception {
     mapper = getMapper(new String[] { "relationship-type-global-configuration.xml" });
     TestObject src = new TestObject();
-    src.setHintList(new ArrayList(Arrays.asList(new String[] {"a"})));
-    
+    src.setHintList(new ArrayList(Arrays.asList(new String[] { "a" })));
+
     TestObjectPrime dest = new TestObjectPrime();
-    dest.setHintList(new ArrayList(Arrays.asList(new String[] {"a", "b"})));
-    
+    dest.setHintList(new ArrayList(Arrays.asList(new String[] { "a", "b" })));
+
     mapper.map(src, dest);
-    
+
     assertEquals("wrong # of elements in dest list for non-cumulative mapping", 2, dest.getHintList().size());
   }
-  
+
   public void testClassMapRelationshipType() throws Exception {
     mapper = getMapper(new String[] { "relationshipTypeMapping.xml" });
     TestObject src = new TestObject();
-    src.setHintList(new ArrayList(Arrays.asList(new String[] {"a"})));
-    
+    src.setHintList(new ArrayList(Arrays.asList(new String[] { "a" })));
+
     TestObjectPrime dest = new TestObjectPrime();
-    dest.setHintList(new ArrayList(Arrays.asList(new String[] {"a", "b"})));
-    
+    dest.setHintList(new ArrayList(Arrays.asList(new String[] { "a", "b" })));
+
     mapper.map(src, dest);
-    
+
     assertEquals("wrong # of elements in dest list for non-cumulative mapping", 2, dest.getHintList().size());
   }
-  
+
   public void testRemoveOrphans() {
     mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
 
@@ -757,6 +761,61 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertTrue(myClassB.getAStringList().contains(kiwiFruit));
     assertFalse(myClassB.getAStringList().contains(grape));
     assertFalse(myClassB.getAStringList().contains(orange));
+  }
+
+  public void testOrphanRemovalSet() {
+    mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
+    Parent parent = new Parent(new Long(1), "parent");
+    Child child1 = new Child(new Long(1), "child1");
+    Set childrenSet = new HashSet();
+    childrenSet.add(child1);
+    parent.setChildrenSet(childrenSet);
+
+    ParentPrime parentPrime = (ParentPrime) mapper.map(parent, ParentPrime.class);
+    // Make sure the first one was mapped ok.
+    assertEquals(parent.getChildrenSet().size(), parentPrime.getChildrenSet().size());
+    System.out.println("Parent: " + parent.getChildrenSet().size() + " | ParentPrime: " + parentPrime.getChildrenSet().size());
+
+    ChildPrime child2 = new ChildPrime(new Long(2L), "child2");
+    parentPrime.getChildrenSet().add(child2);
+    mapper.map(parentPrime, parent);
+    // Make sure adding one works ok.
+    assertEquals(parentPrime.getChildrenSet().size(), parent.getChildrenSet().size());
+    System.out.println("Parent: " + parent.getChildrenSet().size() + " | ParentPrime: " + parentPrime.getChildrenSet().size());
+
+    parentPrime.getChildrenSet().clear();
+    mapper.map(parentPrime, parent);
+    // Make sure REMOVING them (the orphan children) works ok.
+    assertEquals(parentPrime.getChildrenSet().size(), parent.getChildrenSet().size());
+    System.out.println("Parent: " + parent.getChildrenSet().size() + " | ParentPrime: " + parentPrime.getChildrenSet().size());
+
+  }
+
+  public void testOrphanRemovalList() {
+    mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
+    Parent parent = new Parent(new Long(1), "parent");
+    Child child1 = new Child(new Long(1), "child1");
+    List childrenList = new ArrayList();
+    childrenList.add(child1);
+    parent.setChildrenList(childrenList);
+
+    ParentPrime parentPrime = (ParentPrime) mapper.map(parent, ParentPrime.class);
+    // Make sure the first one was mapped ok.
+    assertEquals(parent.getChildrenList().size(), parentPrime.getChildrenList().size());
+    System.out.println("Parent: " + parent.getChildrenList().size() + " | ParentPrime: " + parentPrime.getChildrenList().size());
+
+    ChildPrime child2 = new ChildPrime(new Long(2L), "child2");
+    parentPrime.getChildrenList().add(child2);
+    mapper.map(parentPrime, parent);
+    // Make sure adding one works ok.
+    assertEquals(parentPrime.getChildrenList().size(), parent.getChildrenList().size());
+    System.out.println("Parent: " + parent.getChildrenList().size() + " | ParentPrime: " + parentPrime.getChildrenList().size());
+
+    parentPrime.getChildrenList().clear();
+    mapper.map(parentPrime, parent);
+    // Make sure REMOVING them (the orphan children) works ok.
+    assertEquals(parentPrime.getChildrenList().size(), parent.getChildrenList().size());
+    System.out.println("Parent: " + parent.getChildrenList().size() + " | ParentPrime: " + parentPrime.getChildrenList().size());
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {

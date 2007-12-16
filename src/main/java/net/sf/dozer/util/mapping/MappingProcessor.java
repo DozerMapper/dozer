@@ -637,7 +637,10 @@ public class MappingProcessor implements MapperIF {
   }
 
   private Set addToSet(Object srcObj, FieldMap fieldMap, Collection srcCollectionValue, Object destObj) {
+    // create a list here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
+    List mappedElements = new ArrayList();
     Class destEntryType = null;
+
     ListOrderedSet result = new ListOrderedSet();
     // don't want to create the set if it already exists.
     Object field = fieldMap.getDestValue(destObj);
@@ -656,6 +659,8 @@ public class MappingProcessor implements MapperIF {
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
       if (fieldMap.getRelationshipType() == null || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
         result.add(destValue);
+        mappedElements.add(destValue);
+
       } else {
         if (result.contains(destValue)) {
           int index = result.indexOf(destValue);
@@ -664,29 +669,28 @@ public class MappingProcessor implements MapperIF {
           // make sure it is not a String
           if (!obj.getClass().isAssignableFrom(String.class)) {
             map(null, srcValue, obj, false, null);
+            mappedElements.add(obj);
           }
         } else {
           result.add(destValue);
+          mappedElements.add(destValue);
         }
       }
     }
 
-    //If remove orphans - remove elements in the resulting collection that are not
-    //in the src collection
+    // If remove orphans - we only want to keep the objects we've mapped from the src collection
+    // so we'll clear result and replace all entries with the ones in mappedElements
     if (fieldMap.isRemoveOrphans()) {
-      Object[] resultArray = result.toArray();
-      for (int i = 0; i < resultArray.length; i++) {
-        Object resultEntry = resultArray[i];
-        if (!srcCollectionValue.contains(resultEntry)) {
-          result.remove(resultEntry); // remove the item then
-        }
-      }
+      result.clear();
+      result.addAll(mappedElements);
     }
 
     if (field == null) {
       Class destSetType = fieldMap.getDestFieldType(destObj.getClass());
       return CollectionUtils.createNewSet(destSetType, result);
     } else {
+      // Bug #1822421 - Clear first so we don't end up with the removed orphans again
+      ((Set) field).clear();
       ((Set) field).addAll(result);
       return (Set) field;
     }
@@ -694,7 +698,8 @@ public class MappingProcessor implements MapperIF {
 
   private List addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection srcCollectionValue, Object destObj,
       Class destEntryType) {
-
+    // create a Set here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
+    Set mappedElements = new HashSet();
     List result = null;
     // don't want to create the list if it already exists.
     // these maps are special cases which do not fall under what we are looking
@@ -730,6 +735,7 @@ public class MappingProcessor implements MapperIF {
       prevDestEntryType = destEntryType;
       if (fieldMap.getRelationshipType() == null || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
         result.add(destValue);
+        mappedElements.add(destValue);
       } else {
         if (result.contains(destValue)) {
           int index = result.indexOf(destValue);
@@ -738,23 +744,20 @@ public class MappingProcessor implements MapperIF {
           // make sure it is not a String
           if (!obj.getClass().isAssignableFrom(String.class)) {
             map(null, srcValue, obj, false, null);
+            mappedElements.add(obj);
           }
         } else {
           result.add(destValue);
+          mappedElements.add(destValue);
         }
       }
     }
 
-    //If remove orphans - remove elements in the resulting collection that are not
-    //in the src collection
+    // If remove orphans - we only want to keep the objects we've mapped from the src collection
+    // so we'll clear result and replace all entries with the ones in mappedElements
     if (fieldMap.isRemoveOrphans()) {
-      Object[] resultArray = result.toArray();
-      for (int i = 0; i < resultArray.length; i++) {
-        Object resultEntry = resultArray[i];
-        if (!srcCollectionValue.contains(resultEntry)) {
-          result.remove(resultEntry); // remove the item then
-        }
-      }
+      result.clear();
+      result.addAll(mappedElements);
     }
 
     return result;
@@ -792,8 +795,8 @@ public class MappingProcessor implements MapperIF {
     }
 
     // don't map "" to dest field if map-empty-string="false"
-    if (destFieldValue != null && !fieldMap.isDestMapEmptyString()
-        && destFieldValue.getClass().equals(String.class) && StringUtils.isEmpty((String) destFieldValue)) {
+    if (destFieldValue != null && !fieldMap.isDestMapEmptyString() && destFieldValue.getClass().equals(String.class)
+        && StringUtils.isEmpty((String) destFieldValue)) {
       bypass = true;
     }
 
@@ -818,12 +821,12 @@ public class MappingProcessor implements MapperIF {
     if (!(converterInstance instanceof CustomConverter)) {
       MappingUtils.throwMappingException("Custom Converter does not implement CustomConverter interface");
     }
-    
+
     //1792048 - If map-null = "false" and src value is null, then don't even invoke custom converter
     if (srcFieldValue == null && !fieldMap.isDestMapNull()) {
       return null;
     }
-    
+
     CustomConverter theConverter = (CustomConverter) converterInstance;
     Object result = null;
     long start = System.currentTimeMillis();
