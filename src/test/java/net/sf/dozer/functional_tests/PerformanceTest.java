@@ -121,6 +121,11 @@ public class PerformanceTest extends AbstractMapperTest {
    * MHT Computer - 9/25/07 - 4.1 release
    * jdk1.4 #1 25766 #2 2938 #3 3000 #4 12078 #5 8156 #6 36031
    * jdk1.5 #1 24516 #2 2578 #3 2672 #4 11671 #5 7875 #6 32000
+   * 
+   * MHT Computer - 12/15/07 - 4.2 release
+   * jdk1.4 #1 23937 #2 2781 #3 2781 #4 11696 #5 7687 #6 36953
+   * jdk1.5 #1 24157 #2 2594 #3 2640 #4 12438 #5 7984 #6 34531
+   * 
    */
 
   public void testMapping1() throws Exception {
