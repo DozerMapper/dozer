@@ -11,7 +11,7 @@ public class ParentPrime {
 
   private ParentPrime() {
   }
-  
+
   public ParentPrime(Long id, String name) {
     this.id = id;
     this.name = name;

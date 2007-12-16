@@ -71,14 +71,14 @@ import org.apache.commons.lang.RandomStringUtils;
  */
 public class TestDataFactory {
   private DataObjectInstantiator dataObjectInstantiator;
-  
+
   public TestDataFactory(DataObjectInstantiator dataObjectInstantiator) {
     this.dataObjectInstantiator = dataObjectInstantiator;
   }
-  
+
   public TestDataFactory() {
   }
-  
+
   private Object newInstance(Class classToInstantiate) {
     return dataObjectInstantiator.newInstance(classToInstantiate);
   }
@@ -263,7 +263,7 @@ public class TestDataFactory {
 
   public TestObject getInputTestListFieldEmptyListTestObject() {
     TestObject custom = (TestObject) newInstance(TestObject.class);
-    custom.setEqualNamedList((List)newInstance(ArrayList.class));
+    custom.setEqualNamedList((List) newInstance(ArrayList.class));
     return custom;
   }
 

@@ -39,9 +39,9 @@ import net.sf.dozer.util.mapping.vo.index.MccoyPrime;
  * 
  */
 public class IndexMappingTest extends AbstractMapperTest {
-  
+
   protected void setUp() {
-    mapper = getMapper(new String[] {"IndividualMapping.xml"});
+    mapper = getMapper(new String[] { "IndividualMapping.xml" });
   }
 
   public void testMap1() throws Exception {
@@ -179,7 +179,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     A a = (A) mapper.map(d, A.class);
     assertNotNull(a);
   }
-  
+
   public void testStringToIndexedSet_UsingMapSetMethod() {
     mapper = (DozerBeanMapper) getMapper(new String[] { "indexMapping.xml" });
     Mccoy src = (Mccoy) newInstance(Mccoy.class);

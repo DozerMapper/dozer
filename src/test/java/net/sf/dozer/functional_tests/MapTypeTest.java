@@ -170,7 +170,7 @@ public class MapTypeTest extends AbstractMapperTest {
     Map map = (Map) newInstance(HashMap.class);
     map.put("to", to);
     map.put("to2", to2);
-    
+
     Map map2 = (Map) newInstance(HashMap.class);
     map2.put("to", to);
     map2.put("to2", to2);
@@ -385,7 +385,7 @@ public class MapTypeTest extends AbstractMapperTest {
   public void testMapGetSetMethod_FieldLevel() throws Exception {
     runMapGetSetMethodTest("useCase2");
   }
-  
+
   public void testDateFormat_CustomMapType() throws Exception {
     // Test that date format works for mapping between String and Custom Map Type
     mapper = getMapper(new String[] { "mapMapping3.xml" });
@@ -394,14 +394,14 @@ public class MapTypeTest extends AbstractMapperTest {
     CustomMap src = (CustomMap) newInstance(CustomMap.class);
     src.putValue("fieldA", dateStr);
 
-    net.sf.dozer.util.mapping.vo.SimpleObj dest = (net.sf.dozer.util.mapping.vo.SimpleObj) mapper.map(src, net.sf.dozer.util.mapping.vo.SimpleObj.class);
+    net.sf.dozer.util.mapping.vo.SimpleObj dest = (net.sf.dozer.util.mapping.vo.SimpleObj) mapper.map(src,
+        net.sf.dozer.util.mapping.vo.SimpleObj.class);
     assertNotNull("dest field should not be null", dest.getField5());
     assertEquals("dest field contains wrong date value", df.parse(dateStr), dest.getField5().getTime());
-    
+
     CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class);
     assertEquals("remapped src field contains wrong date string", dateStr, remappedSrc.getValue("fieldA"));
   }
-  
 
   private void runMapGetSetMethodTest(String mapId) throws Exception {
     // Test that custom field converter works for Custom Map Types
@@ -428,7 +428,7 @@ public class MapTypeTest extends AbstractMapperTest {
     CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class, mapId);
     assertTrue("remapped src should equal original src", EqualsBuilder.reflectionEquals(src.getMap(), remappedSrc.getMap()));
   }
-  
+
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
     // Simple test checking that Maps get mapped to a VO without any custom mappings or map-id.
     // Should behave like Vo --> Vo, matching on common attr(key) names.
@@ -466,7 +466,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertNull(result.getNested2().getField1());// field exclude in mappings file
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
-  
+
   public void testNestedCustomMap() {
     mapper = getMapper(new String[] { "mapMapping4.xml" });
 
@@ -481,19 +481,19 @@ public class MapTypeTest extends AbstractMapperTest {
     GenericDOM resultChild = (GenericDOM) result.get("child");
     assertEquals("someChildName", resultChild.get("childName"));
   }
-  
+
   public void testMapToVoUsingMapInterface() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.
     mapper = getMapper(new String[] { "mapMapping5.xml" });
-    
+
     Map src = new HashMap();
     src.put("stringValue", "somevalue");
-    
+
     SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class, "test-id");
 
     assertEquals("wrong value found for field1", "somevalue", dest.getField1());
   }
-  
+
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

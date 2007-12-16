@@ -556,7 +556,7 @@ public class TestObject extends BaseTestObject {
   public void setSetToArrayWithIterate(Set setToArrayWithIterate) {
     this.setToArrayWithIterate = setToArrayWithIterate;
   }
-  
+
   public void addAnotherTestObject(AnotherTestObject ato) {
     getSetToArrayWithIterate().add(ato);
   }

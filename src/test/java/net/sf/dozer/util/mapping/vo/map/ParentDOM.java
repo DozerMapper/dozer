@@ -2,12 +2,11 @@ package net.sf.dozer.util.mapping.vo.map;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 public class ParentDOM extends BaseTestObject {
 
-  private String test; 
+  private String test;
   private ChildDOM child;
-  
+
   public String getTest() {
     return test;
   }

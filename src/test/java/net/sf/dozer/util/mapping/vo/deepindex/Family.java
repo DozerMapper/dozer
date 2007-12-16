@@ -16,8 +16,8 @@
 
 package net.sf.dozer.util.mapping.vo.deepindex;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Family {
   private List familyMembers;

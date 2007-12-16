@@ -1,6 +1,5 @@
 package net.sf.dozer.functional_tests;
 
-
 /*
  * Copyright 2005-2007 the original author or authors.
  *
@@ -20,5 +19,5 @@ package net.sf.dozer.functional_tests;
 public interface DataObjectInstantiator {
 
   public Object newInstance(Class classToInstantiate);
-  
+
 }

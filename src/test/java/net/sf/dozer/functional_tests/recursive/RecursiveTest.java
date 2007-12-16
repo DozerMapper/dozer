@@ -64,7 +64,7 @@ public class RecursiveTest extends AbstractMapperTest {
     ClassBPrime testClassBPrime2 = (ClassBPrime) testAAPrime.getSubs().iterator().next();
     assertTrue(testClassBPrime2.getParent() == testAAPrime);
   }
-  
+
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

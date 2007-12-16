@@ -40,5 +40,5 @@ public class Property extends BaseTestObject {
   public void setMapMe(PropertyB mapMe) {
     this.mapMe = mapMe;
   }
-  
+
 }

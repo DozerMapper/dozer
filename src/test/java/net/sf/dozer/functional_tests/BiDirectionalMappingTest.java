@@ -30,7 +30,6 @@ import net.sf.dozer.util.mapping.vo.bidirectional.B;
  */
 public class BiDirectionalMappingTest extends AbstractMapperTest {
 
-
   public void testSimpleBidirectional() {
     // A contains B and B contains A.
     A src = (A) newInstance(A.class);
@@ -78,7 +77,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
       assertEquals("Wrong value ", b.getCs()[i].getValue(), Integer.toString(i));
     }
   }
-  
+
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

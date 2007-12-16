@@ -5,10 +5,9 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.vo.BaseTestObject;
 
-
 public class GenericDOM extends BaseTestObject {
 
-  private Map hmData =new HashMap();
+  private Map hmData = new HashMap();
 
   public Object get(Object key) {
     return hmData.get(key);

@@ -27,7 +27,7 @@ public class MapToMap extends BaseTestObject {
 
   private Map standardMap;
   private Map standardMapWithHint;
-  
+
   public MapToMap() {
   }
 

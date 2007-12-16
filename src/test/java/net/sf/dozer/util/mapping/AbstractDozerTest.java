@@ -15,21 +15,17 @@
  */
 package net.sf.dozer.util.mapping;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import junit.framework.TestCase;
-import net.sf.dozer.functional_tests.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.util.MapperConstants;
-import net.sf.dozer.util.mapping.util.TestDataFactory;
 
 /**
  * @author tierney.matt
  */
 public abstract class AbstractDozerTest extends TestCase {
   private static Random rand = new Random(System.currentTimeMillis());
-  
+
   protected void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");

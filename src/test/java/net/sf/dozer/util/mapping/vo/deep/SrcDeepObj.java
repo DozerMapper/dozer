@@ -47,6 +47,5 @@ public class SrcDeepObj extends BaseTestObject {
   public void setSomeList(List someList) {
     this.someList = someList;
   }
-  
 
 }

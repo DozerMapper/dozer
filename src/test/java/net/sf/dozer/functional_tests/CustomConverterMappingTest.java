@@ -67,7 +67,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
+
   // Defect #1728385
   public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
     mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
@@ -87,10 +87,10 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     assertEquals("dest field value should have been appended to by the cust converter", StringAppendCustomConverter.APPENDED_VALUE,
         token2);
   }
-  
+
   public void testSimpleCustomConverter_ImplicitMappingWithInheritance() throws Exception {
     mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
-    
+
     Car car = (Car) newInstance(Car.class);
     Van van = (Van) mapper.map(car, Van.class);
     assertEquals("defaultValueSetByCustomConverter", van.getName());
@@ -107,7 +107,6 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     Moped mopedDest = (Moped) mapper.map(bus, Moped.class);
     assertEquals("defaultValueSetByCustomConverter", mopedDest.getName());
   }
-  
 
   public void testSimpleCustomConverter_NullSrcValue() throws Exception {
     // Test that custom converter gets invoked even if the src field value is NULL
@@ -291,7 +290,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
+
   public void testFieldCustomConverter_HashMapField() throws Exception {
     // Test that custom field converter works for Map type fields
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
@@ -312,8 +311,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     assertEquals("dest field1 value should have been appended to by the cust converter",
         StringAppendCustomConverter.APPENDED_VALUE, token2);
   }
-  
-  
+
   public void testFieldCustomConverter_WithCustomConverterId() throws Exception {
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
     Map map = (Map) newInstance(HashMap.class);
@@ -324,10 +322,10 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
 
     SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class);
 
-    assertEquals("dest field1 value should have been appended to by the cust converter",
-       src.getField3() + "-" + StringAppendCustomConverter.APPENDED_VALUE, dest.getField1());
+    assertEquals("dest field1 value should have been appended to by the cust converter", src.getField3() + "-"
+        + StringAppendCustomConverter.APPENDED_VALUE, dest.getField1());
   }
-  
+
   public void testCustomConverter_MapNullFalse() throws Exception {
     mapper = getMapper(new String[] { "custom-converter-map-null.xml" });
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
@@ -335,14 +333,14 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
 
     SimpleObjPrime2 dest = null;
     try {
-     dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
+      dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
     } catch (Exception e) {
       fail("custom converter should not have been invoked");
     }
-    
+
     assertNull("dest value should be null", dest.getField1Prime());
   }
-  
+
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

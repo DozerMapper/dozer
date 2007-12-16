@@ -99,13 +99,13 @@ public class MappingUtilsTest extends AbstractDozerTest {
       fail("MappingException should have been thrown");
     }
   }
-  
+
   public void testIsProxy() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
     assertTrue("should have evaluated to true for cglib proxy", MappingUtils.isProxy(proxyObj.getClass()));
     assertFalse("should not have evaluated to true", MappingUtils.isProxy(ArrayList.class));
   }
-  
+
   public void testGetRealSuperclass() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
     assertEquals("wrong value returned for cglib proxy", AbstractList.class, MappingUtils.getRealSuperclass(proxyObj.getClass()));

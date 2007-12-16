@@ -189,8 +189,8 @@ public class PerformanceTest extends AbstractMapperTest {
     }
   }
 
- /* public static void main(String[] args) {
-    junit.textui.TestRunner.run(PerformanceTest.class);
-  }*/
+  /* public static void main(String[] args) {
+     junit.textui.TestRunner.run(PerformanceTest.class);
+   }*/
 
 }

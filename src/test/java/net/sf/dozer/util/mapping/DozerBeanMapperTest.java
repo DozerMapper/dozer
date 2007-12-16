@@ -18,7 +18,6 @@ package net.sf.dozer.util.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.functional_tests.DataObjectInstantiator;
 import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.event.EventTestListener;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory;
@@ -208,7 +207,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     assertEquals(prime2, prime);
   }
-  
+
   private MapperIF getNewMapper(String[] mappingFiles) {
     List list = new ArrayList();
     if (mappingFiles != null) {
@@ -221,5 +220,4 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     return mapper;
   }
 
-  
 }

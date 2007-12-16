@@ -543,7 +543,6 @@ public class MapperTest extends AbstractMapperTest {
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
   }
 
-
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

@@ -46,26 +46,26 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
 
     SrcNestedDeepObj2 srcNestedObj2 = (SrcNestedDeepObj2) newInstance(SrcNestedDeepObj2.class);
     srcNestedObj2.setSimpleObjects(new SimpleObj[] { simpleObj, (SimpleObj) newInstance(SimpleObj.class) });
-    
+
     SrcNestedDeepObj srcNestedObj = (SrcNestedDeepObj) newInstance(SrcNestedDeepObj.class);
     srcNestedObj.setSrcNestedObj2(srcNestedObj2);
-    
+
     AnotherTestObject anotherTestObject = (AnotherTestObject) newInstance(AnotherTestObject.class);
     anotherTestObject.setField3("another test object field 3 value");
     anotherTestObject.setField4("6453");
 
     TestObject testObject1 = (TestObject) newInstance(TestObject.class);
     TestObject testObject2 = (TestObject) newInstance(TestObject.class);
-    testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[]{anotherTestObject}));
-    
+    testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[] { anotherTestObject }));
+
     SrcDeepObj src = (SrcDeepObj) newInstance(SrcDeepObj.class);
-    src.setSomeList(Arrays.asList(new TestObject[] {testObject1, testObject2}));
+    src.setSomeList(Arrays.asList(new TestObject[] { testObject1, testObject2 }));
     src.setSrcNestedObj(srcNestedObj);
 
     DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
     assertEquals(Integer.valueOf("985756"), dest.getDest2());
     assertEquals("another test object field 3 value", dest.getDest5());
-    assertEquals(Integer.valueOf("6453"), ((TestObjectPrime)dest.getHintList().get(0)).getTwoPrime());
+    assertEquals(Integer.valueOf("6453"), ((TestObjectPrime) dest.getHintList().get(0)).getTwoPrime());
   }
 
   public void testDeepMappingWithIndexOnDestField() {
@@ -75,8 +75,8 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
 
     SrcDeepObj dest = (SrcDeepObj) mapper.map(src, SrcDeepObj.class);
     assertEquals("857557", dest.getSrcNestedObj().getSrcNestedObj2().getSimpleObjects()[0].getField1());
-    TestObject destTestObj = (TestObject)dest.getSomeList().get(1); 
-    assertEquals("789777", ((AnotherTestObject)destTestObj.getEqualNamedList().get(0)).getField3());
+    TestObject destTestObj = (TestObject) dest.getSomeList().get(1);
+    assertEquals("789777", ((AnotherTestObject) destTestObj.getEqualNamedList().get(0)).getField3());
   }
 
   public void testDeepMapIndexed() throws Exception {

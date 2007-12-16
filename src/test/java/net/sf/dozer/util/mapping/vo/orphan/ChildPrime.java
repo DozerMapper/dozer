@@ -3,7 +3,7 @@ package net.sf.dozer.util.mapping.vo.orphan;
 public class ChildPrime {
   private Long id;
   private String name;
-  
+
   private ChildPrime() {
   }
 

@@ -33,7 +33,7 @@ public abstract class AbstractMapperTest extends TestCase {
   protected TestDataFactory testDataFactory = new TestDataFactory(getDataObjectInstantiator());
 
   protected abstract DataObjectInstantiator getDataObjectInstantiator();
-  
+
   protected void setUp() throws Exception {
     super.setUp();
     System.setProperty("log4j.debug", "true");
@@ -52,7 +52,7 @@ public abstract class AbstractMapperTest extends TestCase {
     ((DozerBeanMapper) result).setMappingFiles(list);
     return result;
   }
-  
+
   protected Object newInstance(Class classToInstantiate) {
     return getDataObjectInstantiator().newInstance(classToInstantiate);
   }
