@@ -9,7 +9,7 @@
     Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to
     another
   </description>
-  <version>4.1</version>
+  <version>4.2</version>
   <name>dozer</name>
   <dependencies>
     <dependency>
