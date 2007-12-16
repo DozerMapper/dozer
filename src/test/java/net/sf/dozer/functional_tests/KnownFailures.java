@@ -21,6 +21,8 @@ import java.util.List;
 import net.sf.dozer.util.mapping.vo.MessageHeaderDTO;
 import net.sf.dozer.util.mapping.vo.MessageHeaderVO;
 import net.sf.dozer.util.mapping.vo.MessageIdVO;
+import net.sf.dozer.util.mapping.vo.deepindex.customconverter.First;
+import net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last;
 import net.sf.dozer.util.mapping.vo.inheritance.Inner;
 import net.sf.dozer.util.mapping.vo.inheritance.Outer;
 import net.sf.dozer.util.mapping.vo.inheritance.Target;
@@ -63,6 +65,14 @@ public class KnownFailures extends AbstractMapperTest {
     assertEquals(((Inner) o.getInner()).getString(), t.getString());
   }
 
+  //#1845706 
+  public void testDeepIndexMappingWithCustomConverter() {
+    First first = new First();
+    Last last = (Last) mapper.map(first, Last.class);
+
+    assertNotNull("nested third object should not be null", last.getThird());
+    assertNotNull("name should not be null", last.getThird().getName());
+  }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
