@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping map-id="test-id">
+    <class-a>java.util.Map</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>
+    <field>
+      <a key="stringValue">this</a>
+      <b>field1</b>
+    </field>
+  </mapping>
+
+</mappings>
