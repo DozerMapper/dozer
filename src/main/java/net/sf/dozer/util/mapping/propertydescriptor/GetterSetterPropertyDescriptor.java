@@ -64,7 +64,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       result = invokeReadMethod(bean);
       if (isIndexed) {
         result = MappingUtils.getIndexedValue(result, index);
-      }      
+      }
     }
     return result;
   }
@@ -87,7 +87,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         } else {
           invokeWriteMethod(bean, value);
         }
-      }      
+      }
     }
   }
 

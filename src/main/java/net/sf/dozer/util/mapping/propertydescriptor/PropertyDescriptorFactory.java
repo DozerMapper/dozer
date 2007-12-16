@@ -31,17 +31,17 @@ public class PropertyDescriptorFactory {
   }
 
   public static DozerPropertyDescriptorIF getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
-      String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name,
-      String key, boolean isSelfReferencing, String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
+      String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name, String key,
+      boolean isSelfReferencing, String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
       HintContainer destDeepIndexHintContainer, String beanFactory) {
     DozerPropertyDescriptorIF desc = null;
 
     // Raw Map types or custom map-get-method/set specified
     if (name.equals(MapperConstants.SELF_KEYWORD)
         && (mapSetMethod != null || mapGetMethod != null || MappingUtils.isSupportedMap(clazz))) {
-      desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, MappingUtils.isSupportedMap(clazz) ? "put"
-          : mapSetMethod, MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key
-          : oppositeFieldName, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+      desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, MappingUtils.isSupportedMap(clazz) ? "put" : mapSetMethod,
+          MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key : oppositeFieldName,
+          srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
       // Copy by reference(Not mapped backed properties which also use 'this'
       // identifier for a different purpose)
@@ -50,25 +50,21 @@ public class PropertyDescriptorFactory {
 
       // Access field directly and bypass getter/setters
     } else if (isAccessible) {
-      desc = new FieldPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer,
-          destDeepIndexHintContainer);
+      desc = new FieldPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
       // Custom get-method/set specified
     } else if (theSetMethod != null || theGetMethod != null) {
       desc = new CustomGetSetPropertyDescriptor(clazz, name, isIndexed, index, theSetMethod, theGetMethod,
           srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
-    
-     // If this object is an XML Bean - then use the XmlBeanPropertyDescriptor  
+      // If this object is an XML Bean - then use the XmlBeanPropertyDescriptor  
     } else if (beanFactory != null && beanFactory.equals(MapperConstants.XML_BEAN_FACTORY)) {
-      desc = new XmlBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer,
-          destDeepIndexHintContainer);
+      desc = new XmlBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
       // Everything else. It must be a normal bean with normal custom get/set
       // methods
     } else {
-      desc = new JavaBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer,
-          destDeepIndexHintContainer);
+      desc = new JavaBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     }
     return desc;
   }

@@ -68,7 +68,7 @@ public class HintContainer {
     }
     return hints;
   }
-  
+
   //TODO: Refactor/Relocate.  This method doesn't seem to belong in this class
   public Class getHint(Class clazz, List clazzHints) {
     List hints = getHints();

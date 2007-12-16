@@ -116,11 +116,11 @@ public class MapFieldMap extends FieldMap {
     //  Need to dig out actual destination Map object and use map property descriptor to set the value on that target object....
     DozerPropertyDescriptorIF pd;
     if (isDestFieldAccessible()) {
-      pd = new FieldPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
-          getDestFieldIndex(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+      pd = new FieldPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
     } else {
-      pd = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
-        getDestFieldIndex(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+      pd = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
     }
 
     Class c = pd.getPropertyType();
@@ -154,13 +154,13 @@ public class MapFieldMap extends FieldMap {
     // Dig out actual Map object by calling getter on top level object    
     DozerPropertyDescriptorIF pd;
     if ((isDestObj && isDestFieldAccessible()) || (!isDestObj && isSrcFieldAccessible())) {
-      pd = new FieldPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
-          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+      pd = new FieldPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index, getSrcDeepIndexHintContainer(),
+          getDestDeepIndexHintContainer());
     } else {
-      pd = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
-          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+      pd = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index, getSrcDeepIndexHintContainer(),
+          getDestDeepIndexHintContainer());
     }
-    
+
     return pd.getPropertyType();
   }
 

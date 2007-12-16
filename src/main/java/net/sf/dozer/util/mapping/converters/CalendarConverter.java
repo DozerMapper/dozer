@@ -45,11 +45,11 @@ public class CalendarConverter implements Converter {
       result.setTime((java.util.Date) srcObj);
     }
     //  Convert from Calendar to Calendar
-      else if (Calendar.class.isAssignableFrom(srcFieldClass)) {
+    else if (Calendar.class.isAssignableFrom(srcFieldClass)) {
       Calendar c = (Calendar) srcObj;
       result.setTime(c.getTime());
       result.setTimeZone(c.getTimeZone());
-    }    
+    }
     // String to Calendar
     else if (dateFormat != null && String.class.isAssignableFrom(srcFieldClass)) {
       try {

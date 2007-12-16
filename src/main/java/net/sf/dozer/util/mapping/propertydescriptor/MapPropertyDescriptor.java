@@ -56,9 +56,9 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
     return writeMethod;
   }
-  
+
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
-    if(isDeepField()) {
+    if (isDeepField()) {
       writeDeepDestinationValue(bean, value, fieldMap);
     } else {
       if (!getPropertyType().isPrimitive() || value != null) {
@@ -74,22 +74,22 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
       }
     }
   }
-  
+
   protected Method getReadMethod() throws NoSuchMethodException {
     if (MappingUtils.isBlankOrNull(getMethod)) {
       throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz
           + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
     }
     if (readMethod == null) {
-      readMethod= ReflectionUtils.getMethod(clazz, getMethod);  
+      readMethod = ReflectionUtils.getMethod(clazz, getMethod);
     }
     return readMethod;
   }
-  
+
   protected String getSetMethodName() throws NoSuchMethodException {
     return setMethod;
   }
-  
+
   protected void invokeWriteMethod(Object target, Object value) {
     if (key == null) {
       throw new MappingException("key must be specified");

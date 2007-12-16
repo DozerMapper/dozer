@@ -388,7 +388,7 @@ public abstract class FieldMap implements Cloneable {
   public void setCustomConverterId(String customConverterId) {
     this.customConverterId = customConverterId;
   }
-  
+
   public boolean isRemoveOrphans() {
     return removeOrphans;
   }
@@ -396,19 +396,19 @@ public abstract class FieldMap implements Cloneable {
   public void setRemoveOrphans(boolean removeOrphans) {
     this.removeOrphans = removeOrphans;
   }
-  
+
   public boolean isDestMapNull() {
     return classMap.isDestMapNull();
   }
-  
+
   public boolean isDestMapEmptyString() {
     return classMap.isDestMapEmptyString();
   }
-  
+
   public boolean isTrimStrings() {
     return classMap.isTrimStrings();
   }
-  
+
   public boolean isStopOnErrors() {
     return classMap.isTrimStrings();
   }

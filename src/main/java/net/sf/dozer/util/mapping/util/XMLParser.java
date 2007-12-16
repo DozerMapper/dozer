@@ -319,7 +319,7 @@ public class XMLParser {
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(REMOVE_ORPHANS))) {
       fieldMap.setRemoveOrphans(BooleanUtils.toBoolean(ele.getAttribute(REMOVE_ORPHANS)));
-    }        
+    }
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -437,7 +437,7 @@ public class XMLParser {
           parseCopyByReferences(element, config);
         } else if (ALLOWED_EXCEPTIONS_ELEMENT.equals(element.getNodeName())) {
           parseAllowedExceptions(element, config);
-        } 
+        }
       }
     }
   }

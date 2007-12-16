@@ -84,10 +84,11 @@ public abstract class DestBeanCreator {
           try {
             rvalue = newInstance(alternateClass);
           } catch (MappingException me) {
-            if(me.getCause() instanceof NoSuchMethodException) {
+            if (me.getCause() instanceof NoSuchMethodException) {
               // let's see if it is an XMLBean
               try {
-                rvalue = createFromFactory(srcObject, srcClass, classToCreate, "net.sf.dozer.util.mapping.factory.XMLBeanFactory", factoryId);
+                rvalue = createFromFactory(srcObject, srcClass, classToCreate, "net.sf.dozer.util.mapping.factory.XMLBeanFactory",
+                    factoryId);
               } catch (MappingException e1) {
                 // well this was just a stab in the dark. log and rethrow the original exception
                 log.error("Error trying to use XMLBeanFactory.", e1);
@@ -96,7 +97,7 @@ public abstract class DestBeanCreator {
             } else {
               throw me;
             }
-          }            
+          }
         } else {
           MappingUtils.throwMappingException(e);
         }

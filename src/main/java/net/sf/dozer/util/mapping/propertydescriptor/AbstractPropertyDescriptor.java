@@ -33,7 +33,8 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
   protected HintContainer srcDeepIndexHintContainer;
   protected HintContainer destDeepIndexHintContainer;
 
-  public AbstractPropertyDescriptor(final Class clazz, final String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+  public AbstractPropertyDescriptor(final Class clazz, final String fieldName, boolean isIndexed, int index,
+      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     this.clazz = clazz;
     this.fieldName = fieldName;
     this.isIndexed = isIndexed;
@@ -47,7 +48,7 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
   protected Object prepareIndexedCollection(Object existingCollection, Object collectionEntry) {
     return MappingUtils.prepareIndexedCollection(getPropertyType(), existingCollection, collectionEntry, index);
   }
-  
+
   protected boolean isDeepField() {
     return fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0;
   }

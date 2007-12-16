@@ -62,7 +62,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
     if (isIndexed) {
       result = MappingUtils.getIndexedValue(result, index);
     }
-    
+
     return result;
   }
 

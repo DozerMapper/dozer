@@ -105,7 +105,7 @@ public class Configuration {
   public void setTrimStrings(Boolean trimStrings) {
     this.trimStrings = trimStrings;
   }
-  
+
   public String getRelationshipType() {
     return relationshipType != null ? relationshipType : MapperConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY;
   }

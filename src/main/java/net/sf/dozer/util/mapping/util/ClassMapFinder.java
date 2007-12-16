@@ -42,13 +42,13 @@ public abstract class ClassMapFinder {
   public static ClassMap findClassMap(Map customMappings, Class srcClass, Class destClass, String mapId) {
     Class srcLookupClass = MappingUtils.isProxy(srcClass) ? MappingUtils.getProxyRealClass(srcClass) : srcClass;
     Class destLookupClass = MappingUtils.isProxy(destClass) ? MappingUtils.getProxyRealClass(destClass) : destClass;
-    
+
     ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
-    
+
     if (mapping == null) {
       mapping = findInterfaceMapping(customMappings, destClass, srcClass, mapId);
     }
-    
+
     // one more try...
     // if the mapId is not null looking up a map is easy
     if (mapId != null && mapping == null) {
@@ -110,21 +110,21 @@ public abstract class ClassMapFinder {
       if ((mapId == null && map.getMapId() != null) || (mapId != null && !mapId.equals(map.getMapId()))) {
         continue;
       }
-      
+
       if (mappingSrcClass.isInterface() && mappingSrcClass.isAssignableFrom(srcClass)) {
         if (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass)) {
-            return map;
+          return map;
         } else if (destClass.equals(mappingDestClass)) {
           return map;
         }
       }
-      
+
       if (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass)) {
-         if (srcClass.equals(mappingSrcClass)) {
-           return map;
-         }
+        if (srcClass.equals(mappingSrcClass)) {
+          return map;
+        }
       }
-      
+
     }
     return null;
   }

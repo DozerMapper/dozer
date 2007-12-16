@@ -26,7 +26,7 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 public interface DozerPropertyDescriptorIF {
 
   public Class getPropertyType();
-  
+
   public Object getPropertyValue(Object bean);
 
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap);

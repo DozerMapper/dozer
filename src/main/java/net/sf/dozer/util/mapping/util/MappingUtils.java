@@ -111,7 +111,7 @@ public abstract class MappingUtils {
     }
     return rootCause;
   }
-  
+
   public static String getMappedParentFieldKey(Object destObj, String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
     buf.append(System.identityHashCode(destObj));
@@ -269,7 +269,7 @@ public abstract class MappingUtils {
   public static Class getRealSuperclass(Class clazz) {
     return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 ? clazz.getSuperclass().getSuperclass() : clazz.getSuperclass();
   }
-  
+
   public static Class getProxyRealClass(Class clazz) {
     if (!isProxy(clazz)) {
       throw new IllegalArgumentException("specified class is not a proxy: " + clazz);

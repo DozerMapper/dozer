@@ -295,12 +295,11 @@ public class ClassMap {
   public void setMapEmptyString(boolean mapEmptyString) {
     this.mapEmptyString = mapEmptyString;
   }
-  
+
   public Configuration getGlobalConfiguration() {
     return globalConfiguration;
   }
 
-  
   public String getRelationshipType() {
     return relationshipType != null ? relationshipType : globalConfiguration.getRelationshipType();
   }

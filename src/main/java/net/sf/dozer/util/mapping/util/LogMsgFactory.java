@@ -48,8 +48,8 @@ public abstract class LogMsgFactory {
       try {
         srcFieldValueString = srcFieldValue.toString();
       } catch (Exception e) {
-        log.error("An exception occurred invoking toString() on the source field value: " + srcFieldValue.getClass().getName() + "@"
-            + Integer.toHexString(srcFieldValue.hashCode()), e);
+        log.error("An exception occurred invoking toString() on the source field value: " + srcFieldValue.getClass().getName()
+            + "@" + Integer.toHexString(srcFieldValue.hashCode()), e);
         srcFieldValueString = "Unable to determine source field value";
       }
     } else {

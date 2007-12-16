@@ -377,13 +377,13 @@ public class MappingProcessor implements MapperIF {
         destFieldType = fieldMap.getDestHintContainer().getHint();
       }
       DateFormatContainer dfContainer = new DateFormatContainer(fieldMap.getDateFormat());
-      
+
       //#1841448 - if trim-strings=true, then use a trimmed src string value when converting to dest value
       Object convertSrcFieldValue = srcFieldValue;
       if (srcFieldValue != null && fieldMap.isTrimStrings() && srcFieldValue.getClass().equals(String.class)) {
         convertSrcFieldValue = ((String) srcFieldValue).trim();
       }
-      
+
       if (fieldMap instanceof MapFieldMap && !MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
         // This handles a very special/rare use case(see indexMapping.xml + unit
         // test
