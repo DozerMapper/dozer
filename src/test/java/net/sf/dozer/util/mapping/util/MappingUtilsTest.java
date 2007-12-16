@@ -15,8 +15,11 @@
  */
 package net.sf.dozer.util.mapping.util;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import net.sf.dozer.functional_tests.ProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
@@ -95,6 +98,18 @@ public class MappingUtilsTest extends AbstractDozerTest {
     } catch (Throwable e) {
       fail("MappingException should have been thrown");
     }
+  }
+
+  public void testIsProxy() {
+    Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
+    assertTrue("should have evaluated to true for cglib proxy", MappingUtils.isProxy(proxyObj.getClass()));
+    assertFalse("should not have evaluated to true", MappingUtils.isProxy(ArrayList.class));
+  }
+
+  public void testGetRealSuperclass() {
+    Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
+    assertEquals("wrong value returned for cglib proxy", AbstractList.class, MappingUtils.getRealSuperclass(proxyObj.getClass()));
+    assertEquals("wrong value returned for unproxied object", AbstractList.class, MappingUtils.getRealSuperclass(ArrayList.class));
   }
 
 }

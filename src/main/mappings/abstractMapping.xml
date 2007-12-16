@@ -10,20 +10,20 @@
     <field>
       <a>abstractAField</a>
       <b>abstractBField</b>
-    </field>    
+    </field>
     <field-exclude>
       <a>abstractField1</a>
       <b>abstractField1</b>
-    </field-exclude>    
+    </field-exclude>
   </mapping>
-  
+
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.abstractinheritance.A</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.abstractinheritance.B</class-b>
     <field>
       <a>fieldA</a>
       <b>fieldB</b>
-    </field>    
+    </field>
   </mapping>
 
 </mappings>

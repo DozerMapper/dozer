@@ -16,6 +16,9 @@
 
 package net.sf.dozer.util.mapping.vo.km;
 
+/**
+ * @author garsombke.franz
+ */
 public class Sub extends Super {
   private String color;
 

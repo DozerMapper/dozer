@@ -4,20 +4,20 @@
 <mappings>
 
   <configuration>
-     <stop-on-errors>true</stop-on-errors>
-     <date-format>MM/dd/yyyy HH:mm</date-format> <!-- default dateformat will apply to all class maps unless the class mapping explicitly overrides it -->
-     <wildcard>true</wildcard> <!-- default wildcard policy that will apply to all class maps unless the class mapping explicitly overrides it -->     
+    <stop-on-errors>true</stop-on-errors>
+    <date-format>MM/dd/yyyy HH:mm</date-format><!-- default dateformat will apply to all class maps unless the class mapping explicitly overrides it -->
+    <wildcard>true</wildcard><!-- default wildcard policy that will apply to all class maps unless the class mapping explicitly overrides it -->
   </configuration>
-  
-  <mapping  wildcard="false">
+
+  <mapping wildcard="false">
     <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
     <class-b bean-factory="net.sf.dozer.util.mapping.factory.XMLBeanFactory">net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument</class-b>
 
     <field>
       <a>one</a>
       <b>GetWeatherByZipCode.zipCode</b>
-    </field>    
-  </mapping>   
+    </field>
+  </mapping>
 
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.Child</class-a>
@@ -27,6 +27,24 @@
       <a>name</a>
       <b>name</b>
     </field>
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+    <class-b bean-factory="net.sf.dozer.util.mapping.factory.XMLBeanFactory">net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeResponseDocument</class-b>
+
+    <field>
+      <a>setToArray</a>
+      <b>GetWeatherByZipCodeResponse.WeatherDataArray</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.AnotherTestObject</a-hint>
+    </field>
+
+    <field>
+      <a set-method="addAnotherTestObject" type="iterate">setToArrayWithIterate</a>
+      <b>GetWeatherByZipCodeResponse.WeatherData2Array</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.AnotherTestObject</a-hint>
+    </field>
+
   </mapping>
 
 </mappings>

@@ -3,24 +3,24 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 
- <mapping>
+  <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.index.Mccoy</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.index.MccoyPrime</class-b>
     <field>
       <a>stringProperty</a>
       <b map-get-method="getValue" map-set-method="putValue" key="">fieldValueObjects[0]</b>
-      <b-hint>net.sf.dozer.util.mapping.vo.FieldValue</b-hint> 
+      <b-hint>net.sf.dozer.util.mapping.vo.FieldValue</b-hint>
     </field>
- </mapping>
+  </mapping>
 
- <mapping map-id="usingDestHint">
+  <mapping map-id="usingDestHint">
     <class-a>net.sf.dozer.util.mapping.vo.index.Mccoy</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.index.MccoyPrime</class-b>
     <field>
       <a>stringProperty</a>
       <b>fieldValueObjects[0]</b>
-      <b-hint>net.sf.dozer.util.mapping.vo.FieldValue</b-hint> 
+      <b-hint>net.sf.dozer.util.mapping.vo.FieldValue</b-hint>
     </field>
- </mapping>
+  </mapping>
 
 </mappings>

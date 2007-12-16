@@ -15,9 +15,9 @@
 
     <!-- Links defined across the top right of the site -->
     <links>
-      <item name="Maven"  href="http://maven.apache.org/"/>
+      <item name="Maven" href="http://maven.apache.org/" />
     </links>
- 
+
     <!-- Menu in the Left Navigation -->
     <menu name="Getting Dozer">
       <!-- Standalone item -->
@@ -30,52 +30,52 @@
       <item name="About" href="/documentation/about.html" />
       <item name="Why Map?" href="/documentation/whymap.html" />
       <item name="News" href="/index.html" />
-      <item name="Getting Started" href="/documentation/gettingstarted.html"/>
+      <item name="Getting Started" href="/documentation/gettingstarted.html" />
       <item name="Usage" href="/documentation/usage.html" collapse="true">
-        <item name="Mapping Concepts" href="/documentation/advancedproperty.html"/>
-      </item>    
-      <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
-        <item name="Logging" href="/documentation/configuration/logging.html"/>
+        <item name="Mapping Concepts" href="/documentation/advancedproperty.html" />
       </item>
-      <item name="Statistics" href="/documentation/configuration/statistics.html"/>
-      <item name="JMX Integration" href="/documentation/jmxintegration.html"/>
+      <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
+        <item name="Logging" href="/documentation/configuration/logging.html" />
+      </item>
+      <item name="Statistics" href="/documentation/configuration/statistics.html" />
+      <item name="JMX Integration" href="/documentation/jmxintegration.html" />
       <!-- Collapsed Submenu -->
       <item name="Custom Mappings via XML" href="/documentation/mappings.html" collapse="true">
-        <item name="Mapping Two Classes" href="/documentation/mappingclasses.html"/>
-        <item name="Basic Property Mapping" href="/documentation/simpleproperty.html"/>
-        <item name="String To Date Mapping" href="/documentation/stringtodatemapping.html"/>
-        <item name="Enum Mapping" href="/documentation/enum.html"/>
-        <item name="Collection Mapping" href="/documentation/collectionandarraymapping.html"/>
-        <item name="Map Backed Properties" href="/documentation/mapbackedproperty.html"/>        
-        <item name="Index Mapping" href="/documentation/indexmapping.html"/>
+        <item name="Mapping Two Classes" href="/documentation/mappingclasses.html" />
+        <item name="Basic Property Mapping" href="/documentation/simpleproperty.html" />
+        <item name="String To Date Mapping" href="/documentation/stringtodatemapping.html" />
+        <item name="Enum Mapping" href="/documentation/enum.html" />
+        <item name="Collection Mapping" href="/documentation/collectionandarraymapping.html" />
+        <item name="Map Backed Properties" href="/documentation/mapbackedproperty.html" />
+        <item name="Index Mapping" href="/documentation/indexmapping.html" />
         <item name="Deep Mapping" href="/documentation/deepmapping.html" />
-        <item name="Excluding Fields" href="/documentation/exclude.html"/>
+        <item name="Excluding Fields" href="/documentation/exclude.html" />
         <item name="One-Way Mapping" href="/documentation/oneway.html" />
         <item name="Context Based Mapping" href="/documentation/contextmapping.html" />
-        <item name="Global Configuration" href="/documentation/globalConfiguration.html" />        
-        <item name="Custom Converters" href="/documentation/customconverter.html" />        
-        <item name="Custom Bean Factories" href="/documentation/custombeanfactories.html" />        
-        <item name="Custom Create Methods" href="/documentation/customCreateMethod.html" />        
+        <item name="Global Configuration" href="/documentation/globalConfiguration.html" />
+        <item name="Custom Converters" href="/documentation/customconverter.html" />
+        <item name="Custom Bean Factories" href="/documentation/custombeanfactories.html" />
+        <item name="Custom Create Methods" href="/documentation/customCreateMethod.html" />
         <item name="Custom Get/Set Methods" href="/documentation/custommethods.html" />
         <item name="Copy By Ref Mapping" href="/documentation/copybyreference.html" />
-        <item name="Inheritance Mapping" href="/documentation/baseattributes.html" />                
-        <item name="XMLBeans and JAXB" href="/documentation/xmlbeans.html" />        
-        <item name="Dozer Events" href="/documentation/events.html" />        
+        <item name="Inheritance Mapping" href="/documentation/baseattributes.html" />
+        <item name="XMLBeans and JAXB" href="/documentation/xmlbeans.html" />
+        <item name="Dozer Events" href="/documentation/events.html" />
       </item>
       <item name="Dozer Mapping DTD" href="/dtd/dozerbeanmapping.dtd" />
       <!-- Collapsed Submenu -->
       <item name="Support" href="/documentation/support.html" collapse="true">
-        <item name="Support Forum" href="http://sourceforge.net/forum/?group_id=133517"/>
-        <item name="Bug Tracker" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727368"/>
-        <item name="Feature Request" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371"/>
-        <item name="Patches" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370"/>
+        <item name="Support Forum" href="http://sourceforge.net/forum/?group_id=133517" />
+        <item name="Bug Tracker" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727368" />
+        <item name="Feature Request" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371" />
+        <item name="Patches" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370" />
       </item>
-      <item name="FAQ" href="/documentation/faq.html" />      
+      <item name="FAQ" href="/documentation/faq.html" />
     </menu>
     <menu name="Release Notes">
       <!-- Standalone item -->
       <item name="Release Notes" href="/releasenotes.html" />
-      <item name="Unit Reports" href="surefire-report.html"/>       
+      <item name="Unit Reports" href="surefire-report.html" />
     </menu>
     ${reports}
 

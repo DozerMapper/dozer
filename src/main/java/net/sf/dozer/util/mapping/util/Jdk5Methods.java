@@ -77,7 +77,7 @@ public class Jdk5Methods {
   public Method getMethodGetGenericParameterTypesMethod() {
     return methodGetGenericParameterTypesMethod;
   }
-  
+
   public Method getMethodGetGenericReturnTypeMethod() {
     return methodGetGenericReturnTypeMethod;
   }

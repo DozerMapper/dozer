@@ -26,12 +26,15 @@ package net.sf.dozer.util.mapping.util;
  */
 public abstract class MapperConstants {
 
-  public static final String CURRENT_VERSION = "4.0";
+  public static final String CURRENT_VERSION = "4.2";
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_ERROR_POLICY = true;
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
   public static final boolean DEFAULT_MAP_EMPTY_STRING_POLICY = true;
   public static final boolean DEFAULT_TRIM_STRINGS_POLICY = false;
+  public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
+  public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
+  public static final String DEFAULT_RELATIONSHIP_TYPE_POLICY = RELATIONSHIP_CUMULATIVE;
   public static final String DTD_NAME = "dozerbeanmapping.dtd";
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";
@@ -43,9 +46,8 @@ public abstract class MapperConstants {
   public static final String ITERATE = "iterate";
   public static final String ONE_WAY = "one-way";
   public static final String DEEP_FIELD_DELIMITOR = ".";
-  public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
-  public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
   public static final String SELF_KEYWORD = "this";
+  public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
 
   // DozerBeanMapper instance caches
   public static final String CONVERTER_BY_DEST_TYPE_CACHE = "Converter By Destination Type Dozer Cache";
@@ -58,6 +60,8 @@ public abstract class MapperConstants {
   public static final String MAPPING_PRE_WRITING_DEST_VALUE = "MAPPING_PRE_WRITING_DEST_VALUE";
   public static final String MAPPING_POST_WRITING_DEST_VALUE = "MAPPING_POST_WRITING_DEST_VALUE";
   public static final String MAPPING_FINISHED_EVENT = "MAPPING_FINISHED";
+
+  public static final String XML_BEAN_FACTORY = "net.sf.dozer.util.mapping.factory.XMLBeanFactory";
 
   // JMX
   public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;

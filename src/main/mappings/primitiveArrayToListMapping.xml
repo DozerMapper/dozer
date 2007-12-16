@@ -2,24 +2,24 @@
 <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
- 
- <mapping>
-   <class-a>net.sf.dozer.util.mapping.vo.PrimitiveArrayObj</class-a>
-   <class-b>net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime</class-b>
-   <field>
-     <a>field1</a>
-     <b>field1</b>
-   </field>        
- </mapping> 
 
- <mapping map-id="primitiveToArrayUsingHint">
-   <class-a>net.sf.dozer.util.mapping.vo.PrimitiveArrayObj</class-a>
-   <class-b>net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime</class-b>
-   <field>
-     <a>field1</a>
-     <b>field1</b>
-     <b-hint>java.lang.String</b-hint> 
-   </field>        
- </mapping> 
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.PrimitiveArrayObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime</class-b>
+    <field>
+      <a>field1</a>
+      <b>field1</b>
+    </field>
+  </mapping>
+
+  <mapping map-id="primitiveToArrayUsingHint">
+    <class-a>net.sf.dozer.util.mapping.vo.PrimitiveArrayObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime</class-b>
+    <field>
+      <a>field1</a>
+      <b>field1</b>
+      <b-hint>java.lang.String</b-hint>
+    </field>
+  </mapping>
 
 </mappings>

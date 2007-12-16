@@ -52,6 +52,7 @@ public class ClassMap {
   private Boolean trimStrings;
   private CustomConverterContainer customConverters;
   private String mapId;
+  private String relationshipType;
 
   public ClassMap(Configuration globalConfiguration) {
     this.globalConfiguration = globalConfiguration;
@@ -62,12 +63,7 @@ public class ClassMap {
   }
 
   public boolean isStopOnErrors() {
-    if (stopOnErrors != null) {
-      return stopOnErrors.booleanValue();
-    } else {
-      return globalConfiguration.getStopOnErrors() != null ? globalConfiguration.getStopOnErrors().booleanValue()
-          : MapperConstants.DEFAULT_ERROR_POLICY;
-    }
+    return stopOnErrors != null ? stopOnErrors.booleanValue() : globalConfiguration.getStopOnErrors().booleanValue();
   }
 
   public void setStopOnErrors(Boolean stopOnErrors) {
@@ -75,12 +71,7 @@ public class ClassMap {
   }
 
   public boolean isTrimStrings() {
-    if (trimStrings != null) {
-      return trimStrings.booleanValue();
-    } else {
-      return globalConfiguration.getTrimStrings() != null ? globalConfiguration.getTrimStrings().booleanValue()
-          : MapperConstants.DEFAULT_TRIM_STRINGS_POLICY;
-    }
+    return trimStrings != null ? trimStrings.booleanValue() : globalConfiguration.getTrimStrings().booleanValue();
   }
 
   public void setTrimStrings(Boolean trimStrings) {
@@ -154,12 +145,7 @@ public class ClassMap {
   }
 
   public boolean isWildcard() {
-    if (wildcard != null) {
-      return wildcard.booleanValue();
-    } else {
-      return globalConfiguration.getWildcard() != null ? globalConfiguration.getWildcard().booleanValue()
-          : MapperConstants.DEFAULT_WILDCARD_POLICY;
-    }
+    return wildcard != null ? wildcard.booleanValue() : globalConfiguration.getWildcard().booleanValue();
   }
 
   public void setWildcard(Boolean wildcardPolicy) {
@@ -198,19 +184,19 @@ public class ClassMap {
     return destClass.getClassToMap();
   }
 
-  public boolean isDestClassMapNull() {
+  public boolean isDestMapNull() {
     return destClass.getMapNull() != null ? destClass.getMapNull().booleanValue() : mapNull;
   }
 
-  public boolean isSrcClassMapNull() {
+  public boolean isSrcMapNull() {
     return srcClass.getMapNull() != null ? srcClass.getMapNull().booleanValue() : mapNull;
   }
 
-  public boolean isDestClassMapEmptyString() {
+  public boolean isDestMapEmptyString() {
     return destClass.getMapEmptyString() != null ? destClass.getMapEmptyString().booleanValue() : mapEmptyString;
   }
 
-  public boolean isSrcClassMapEmptyString() {
+  public boolean isSrcMapEmptyString() {
     return srcClass.getMapEmptyString() != null ? srcClass.getMapEmptyString().booleanValue() : mapEmptyString;
   }
 
@@ -308,6 +294,18 @@ public class ClassMap {
 
   public void setMapEmptyString(boolean mapEmptyString) {
     this.mapEmptyString = mapEmptyString;
+  }
+
+  public Configuration getGlobalConfiguration() {
+    return globalConfiguration;
+  }
+
+  public String getRelationshipType() {
+    return relationshipType != null ? relationshipType : globalConfiguration.getRelationshipType();
+  }
+
+  public void setRelationshipType(String relationshipType) {
+    this.relationshipType = relationshipType;
   }
 
   public String toString() {

@@ -3,40 +3,40 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 
-<mapping map-id="caseA">
-   <class-a>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-a>
-   <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
-   <field map-id="caseB">
-     <a>nested2</a>
-     <b>nested2</b>
-   </field>
+  <mapping map-id="caseA">
+    <class-a>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
+    <field map-id="caseB">
+      <a>nested2</a>
+      <b>nested2</b>
+    </field>
 
-</mapping>
+  </mapping>
 
-<mapping map-id="caseA2">
-   <class-a>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-a>
-   <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
-   <field map-id="caseC">
-     <a>nested2</a>
-     <b>nested2</b>
-   </field>
+  <mapping map-id="caseA2">
+    <class-a>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
+    <field map-id="caseC">
+      <a>nested2</a>
+      <b>nested2</b>
+    </field>
 
-</mapping>
+  </mapping>
 
 
 
- <mapping map-id="caseB">
+  <mapping map-id="caseB">
     <class-a>java.util.HashMap</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.map.NestedObjPrime</class-b>
- </mapping> 
+  </mapping>
 
- <mapping map-id="caseC">
+  <mapping map-id="caseC">
     <class-a>java.util.HashMap</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.map.NestedObjPrime</class-b>
     <field-exclude>
-       <a>field1</a>
-       <b>field1</b>
-     </field-exclude>
- </mapping> 
+      <a>field1</a>
+      <b>field1</b>
+    </field-exclude>
+  </mapping>
 
 </mappings>

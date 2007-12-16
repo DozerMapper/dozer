@@ -3,28 +3,28 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 
- <mapping>
+  <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
- </mapping>
+  </mapping>
 
- <mapping>
+  <mapping>
     <class-a>java.util.HashMap</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.map.NestedObjPrime</class-b>
     <field-exclude>
-       <a>field1</a>
-       <b>field1</b>
-     </field-exclude>
- </mapping> 
-  
+      <a>field1</a>
+      <b>field1</b>
+    </field-exclude>
+  </mapping>
+
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.map.CustomMap</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.SimpleObj</class-b>    
+    <class-b>net.sf.dozer.util.mapping.vo.SimpleObj</class-b>
     <field>
       <a map-get-method="getValue" map-set-method="putValue" key="fieldA" date-format="MM/dd/yyyy">this</a>
       <b>field5</b>
       <a-hint>java.lang.String</a-hint>
     </field>
-  </mapping>   
+  </mapping>
 
 </mappings>

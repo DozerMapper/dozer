@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.event.EventTestListener;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory;
 import net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2;
@@ -44,6 +45,7 @@ import net.sf.dozer.util.mapping.vo.deep.House;
  */
 public class DozerBeanMapperTest extends AbstractDozerTest {
   private static MapperIF mapper;
+  private TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
 
   protected void setUp() throws Exception {
     super.setUp();
@@ -164,7 +166,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     MapperIF mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
 
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
 
     // The following asserts will verify that the ClassMap beanFactory attr gets applied to both classes
@@ -194,15 +196,28 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertEquals("event listenter list should contain 1 element", 1, eventMapper.getEventListeners().size());
     assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0)
         .getClass());
-    House src = TestDataFactory.getHouse();
+    House src = testDataFactory.getHouse();
     HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
   }
 
   private void assertCommon(MapperIF mapper) throws Exception {
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(TestDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
+    TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
     TestObjectPrime prime2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
 
     assertEquals(prime2, prime);
   }
+
+  private MapperIF getNewMapper(String[] mappingFiles) {
+    List list = new ArrayList();
+    if (mappingFiles != null) {
+      for (int i = 0; i < mappingFiles.length; i++) {
+        list.add(mappingFiles[i]);
+      }
+    }
+    MapperIF mapper = new DozerBeanMapper();
+    ((DozerBeanMapper) mapper).setMappingFiles(list);
+    return mapper;
+  }
+
 }

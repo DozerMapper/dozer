@@ -16,10 +16,14 @@
 
 package net.sf.dozer.util.mapping.vo.km;
 
+/**
+ * @author garsombke.franz
+ */
 public class SomeVo {
   private String age;
   private String color;
   private String userName;
+  private Property property;
 
   public String getAge() {
     return age;
@@ -38,5 +42,11 @@ public class SomeVo {
   }
   public void setUserName(String userName) {
     this.userName = userName;
+  }
+  public Property getProperty() {
+    return property;
+  }
+  public void setProperty(Property property) {
+    this.property = property;
   }
 }

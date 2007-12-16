@@ -4,10 +4,10 @@
     <title>Event Listening</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Event Listening">
       <p>
@@ -18,8 +18,9 @@
           <li>preWritingDestinationValue</li>
           <li>postWritingDestinationValue</li>
         </ul>
-        A DozerEvent object is passed into these callback methods which stores information about the ClassMap, FieldMap, Source object, destination object, and destination value. This will allow you to extend dozer
-        and manipulate mapped objects at run-time. The interface is shown below:
+        A DozerEvent object is passed into these callback methods which stores information about the ClassMap,
+        FieldMap, Source object, destination object, and destination value. This will allow you to extend dozer and
+        manipulate mapped objects at run-time. The interface is shown below:
       </p>
       <br></br>
       <source>
@@ -31,12 +32,13 @@ public interface DozerEventListener {
   public void mappingFinished(DozerEvent event);
 }        
         ]]>
-      </source>   
+      </source>
       <br></br>
-      <p>The listeners that you create can be injected to the DozerBeanMapper using an IOC like Spring or set
+      <p>
+        The listeners that you create can be injected to the DozerBeanMapper using an IOC like Spring or set
         directly on your DozerBeanMapper instance by using the setEventListeners() method. Below is an example
         using Spring to inject an event listener:
-      </p>   
+      </p>
       <source>
         <![CDATA[ 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -62,7 +64,7 @@ public interface DozerEventListener {
             
 </beans>
        ]]>
-      </source>   
+      </source>
     </section>
   </body>
 </document>

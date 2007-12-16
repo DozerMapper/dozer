@@ -8,7 +8,7 @@
     <field>
       <a>categories</a>
       <b is-accessible="true">categories</b>
-    </field>        
+    </field>
   </mapping>
-  
+
 </mappings>

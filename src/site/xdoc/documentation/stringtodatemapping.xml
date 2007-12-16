@@ -4,24 +4,30 @@
     <title>String to Date Mapping</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="String to Date Mapping">
-         <p>A date format for the String can be specified at the field level so that the necessary data type conversion can be performed.</p>
-         <source>
-           <![CDATA[ 
+      <p>
+        A date format for the String can be specified at the field level so that the necessary data type conversion
+        can be performed.
+      </p>
+      <source>
+        <![CDATA[ 
 <field>
   <a date-format="MM/dd/yyyy HH:mm:ss:SS">dateString</a>
   <b>dateObject</b>
 </field>
             ]]>
-          </source>
-         <p>A default date format can also be specified at the class mapping level.  This default date format will be applied to all field mappings unless it is overridden at the field level.</p>
-         <source>
-           <![CDATA[ 
+      </source>
+      <p>
+        A default date format can also be specified at the class mapping level. This default date format will be
+        applied to all field mappings unless it is overridden at the field level.
+      </p>
+      <source>
+        <![CDATA[ 
 <mapping date-format="MM-dd-yyyy HH:mm:ss">
   <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
@@ -32,10 +38,13 @@
 </mapping>
 
             ]]>
-          </source>
-         <p>A default date format can also be specified at the very top mappings level.  This default date format will be applied to all field mapppings unless it is overridden at a lower level</p>
-         <source>
-           <![CDATA[ 
+      </source>
+      <p>
+        A default date format can also be specified at the very top mappings level. This default date format will
+        be applied to all field mapppings unless it is overridden at a lower level
+      </p>
+      <source>
+        <![CDATA[ 
 
 <mappings>
   <configuration>
@@ -60,7 +69,7 @@
   </mapping>
 </mappings>
             ]]>
-          </source>
+      </source>
     </section>
   </body>
 </document>

@@ -4,22 +4,24 @@
     <title>usage</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Configuration">
       <p>
-        Dozer configuration properties can be customized via an optional Dozer properties file.  
-        By default, Dozer will look for a file named dozer.properties to load configuration properties.
-        If a properties file is not found or specified, default values will be used.
-        <br></br>
-        Dozer is distributed with an example dozer.properties file in /config that shows the various options. Just put the example file in your classpath and customize it.
-        <br></br>
-        An alternative Dozer properties file can be specified via the dozer.configuration system property.
-        <br></br>  
-        ex) -Ddozer.configuration=someDozerConfigurationFile.properties 
+        Dozer configuration properties can be customized via an optional Dozer properties file. By default, Dozer
+        will look for a file named dozer.properties to load configuration properties. If a properties file is not
+        found or specified, default values will be used.
+      </p>
+      <p>
+        Dozer is distributed with an example dozer.properties file in /config that shows the various options. Just
+        put the example file in your classpath and customize it.
+      </p>
+      <p>
+        An alternative Dozer properties file can be specified via the dozer.configuration system property. ex)
+        -Ddozer.configuration=someDozerConfigurationFile.properties
       </p>
       <p>
         <b>Dozer Configuration Properties</b>
@@ -56,18 +58,15 @@
           <td>5000</td>
         </tr>
       </table>
-      
+
     </section>
     <section name="Debugging Initialization">
+      <p>One time Dozer initialization information can be optionally sent to System.out to help with debugging.</p>
+      <p>To enable this additional debugging info, set the dozer.debug system property.</p>
+      <p>ex) -Ddozer.debug=true</p>
       <p>
-        One time Dozer initialization information can be optionally sent to System.out to help with debugging.  
-        <br></br>
-        To enable this additional debugging info, set the dozer.debug system property.
-        <br></br>
-        ex) -Ddozer.debug=true
-        <br></br>
-        Types of information that will be sent to System.out are loading of configuration file, loading of custom xml mapping files, version info, classloader info
-        <br></br>
+        Types of information that will be sent to System.out are loading of configuration file, loading of custom
+        xml mapping files, version info, classloader info
       </p>
       <source>
         <![CDATA[ 

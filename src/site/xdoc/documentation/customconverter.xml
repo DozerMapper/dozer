@@ -4,25 +4,29 @@
     <title>Custom Type Converters</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Custom Converters">
       <p>
-        Custom converters are used to perform custom mapping between two objects.  In the Configuration block, you can add some XML to tell Dozer to use a custom converter for certain class A and class B types. 
-        When a custom converter is specified for a class A and class B combination, Dozer will invoke the custom converter to perform the data mapping instead of the standard mapping logic.
+        Custom converters are used to perform custom mapping between two objects. In the Configuration block, you
+        can add some XML to tell Dozer to use a custom converter for certain class A and class B types. When a
+        custom converter is specified for a class A and class B combination, Dozer will invoke the custom converter
+        to perform the data mapping instead of the standard mapping logic.
       </p>
       <p>
-        Your custom converter must implement the net.sf.dozer.util.mapping.converters.CustomConverter interface in order for Dozer to accept it. Otherwise an exception will be thrown.
+        Your custom converter must implement the net.sf.dozer.util.mapping.converters.CustomConverter interface in
+        order for Dozer to accept it. Otherwise an exception will be thrown.
       </p>
       <p>
-      Custom converters are shared across mapping files. This means that you can define them once in a mapping file and it will be applied to all
-      class mappings in other mapping files that match the Class A - Class B pattern.
+        Custom converters are shared across mapping files. This means that you can define them once in a mapping
+        file and it will be applied to all class mappings in other mapping files that match the Class A - Class B
+        pattern.
 
-      In the example below, whenever Dozer comes across a mapping where the src/dest class match the custom converter definition, it will invoke the custom converter class instead of performing
-      the typical mapping.
+        In the example below, whenever Dozer comes across a mapping where the src/dest class match the custom
+        converter definition, it will invoke the custom converter class instead of performing the typical mapping.
       </p>
       <source>
         <![CDATA[
@@ -49,11 +53,12 @@
 </mappings>
   
         ]]>
-     </source>
+      </source>
 
-     <p>
-     Custom converters can also be specified at the individual field level.  In the example below, Dozer will invoke the custom converter to perform the field mapping.
-     </p>
+      <p>
+        Custom converters can also be specified at the individual field level. In the example below, Dozer will
+        invoke the custom converter to perform the field mapping.
+      </p>
 
 
       <source>
@@ -69,13 +74,67 @@
 </mapping>   
   
         ]]>
-     </source>
-     <p>
-     Sample custom converter implementation:
-     </p>
-     
-<source>
-  <![CDATA[
+      </source>
+      <p>
+        Custom converter 'instances' can be reused at the individual field level. In the example below, Dozer will
+        invoke the custom converter to perform the field mapping.
+      </p>
+
+      <source>
+        <![CDATA[
+<mapping>
+  <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
+  <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime2</class-b>    
+  <field custom-converter-id="CustomConverterWithId">
+    <a>field1</a>
+    <b>field1Prime</b>
+  </field>
+</mapping>   
+        ]]>
+      </source>
+      <p>
+        CustomConverter instances need to be injected into the DozerBeanMapper if you need to do some manipulation
+        with them before they are used in dozer. They can also be set programmatically on the DozerBeanMapper if
+        you do not use Spring.
+      </p>
+      <source>
+        <![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+  "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-lazy-init="false">
+
+  <bean id="net.sf.dozer.util.mapping.MapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+    <property name="mappingFiles">
+      <list>
+        <value>systempropertymapping1.xml</value>
+        <value>dozerBeanMapping.xml</value>
+        <value>injectedCustomConverter.xml</value>
+      </list>
+    </property>
+    <property name="customConvertersWithId"> 
+      <map> 
+        <entry key="CustomConverterWithId" ref="configurableConverterBeanInstance1"/> 
+        <entry key="CustomConverterWithId2" ref="configurableConverterBeanInstance2"/> 
+      </map> 
+    </property>   
+</bean>
+
+</beans>     
+    ]]>
+      </source>
+
+      <p>Sample custom converter implementation:</p>
+      <p>
+        <b>Note:</b>
+        Custom Converters get invoked when the source value is null, so you need to explicitly handle null values
+        in your custom converter implementation.
+      </p>
+
+
+      <source>
+        <![CDATA[
 public class TestCustomConverter implements CustomConverter {
   
   public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
@@ -101,15 +160,14 @@ public class TestCustomConverter implements CustomConverter {
     }
   }     
     ]]>
- </source>
-     <p> 
-     </p>
-     <p>
-     CustomConverters can also be injected into the DozerBeanMapper if you need to do some manipulation
-     with them before they are used in dozer.
-     </p>
-<source>
-  <![CDATA[
+      </source>
+      <p></p>
+      <p>
+        CustomConverters can also be injected into the DozerBeanMapper if you need to do some manipulation with
+        them before they are used in dozer.
+      </p>
+      <source>
+        <![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
   "http://www.springframework.org/dtd/spring-beans.dtd">
@@ -124,7 +182,7 @@ public class TestCustomConverter implements CustomConverter {
         <value>injectedCustomConverter.xml</value>
       </list>
     </property>
-    <property name="custom-converters">
+    <property name="customConverters">
       <list>
          <ref bean="customConverterTest"/>
       </list>
@@ -138,45 +196,48 @@ public class TestCustomConverter implements CustomConverter {
 
 </beans>     
     ]]>
- </source>
+      </source>
 
-    <subsection name="Support for Array Types">
-      <p>
-        You can specify a custom converter for Array types.  For example, if you want to use a custom converter for mapping between an array of objects and a String you would use the following mapping notation.  
-        Dozer generically uses ClassLoader.loadClass() when parsing the mapping files. For arrays, java expects the class name in the following format.... 
-        
-        [Lnet.sf.dozer.util.mapping.vo.SimpleObj; 
-      </p>
+      <subsection name="Support for Array Types">
+        <p>
+          You can specify a custom converter for Array types. For example, if you want to use a custom converter
+          for mapping between an array of objects and a String you would use the following mapping notation. Dozer
+          generically uses ClassLoader.loadClass() when parsing the mapping files. For arrays, java expects the
+          class name in the following format....
 
-      <source>
-        <![CDATA[
+          [Lnet.sf.dozer.util.mapping.vo.SimpleObj;
+        </p>
+
+        <source>
+          <![CDATA[
 <converter type="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter" > 
   <class-a>[Lnet.sf.dozer.util.mapping.vo.SimpleObj;</class-a> 
   <class-b>java.lang.String</class-b> 
 </converter> 
         ]]>
-     </source>
+        </source>
 
-    </subsection>
+      </subsection>
 
-    <subsection name="Support for primitives">
-      <p>
-        You can specify a custom converter for primitive types.  Just use the primitive wrapper class when defining the custom coverter mapping.  
-        In the following example, Dozer will use the specified custom converter when mapping between SomeObject and the int primitive type.
-        Note that Dozer will also use the custom converter when mapping between SomeObject and the Integer wrapper type.
-      </p>
+      <subsection name="Support for primitives">
+        <p>
+          You can specify a custom converter for primitive types. Just use the primitive wrapper class when
+          defining the custom coverter mapping. In the following example, Dozer will use the specified custom
+          converter when mapping between SomeObject and the int primitive type. Note that Dozer will also use the
+          custom converter when mapping between SomeObject and the Integer wrapper type.
+        </p>
 
-      <source>
-        <![CDATA[
+        <source>
+          <![CDATA[
 <converter type="somePackage.SomeCustomConverter" > 
   <class-a>somePackage.SomeObject</class-a> 
   <class-b>java.lang.Integer</class-b> 
 </converter> 
         ]]>
-     </source>
+        </source>
 
-    </subsection>
+      </subsection>
 
-    </section>    
+    </section>
   </body>
 </document>

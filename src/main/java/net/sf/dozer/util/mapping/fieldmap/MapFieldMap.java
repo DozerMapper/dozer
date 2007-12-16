@@ -45,11 +45,13 @@ public class MapFieldMap extends FieldMap {
     super(fieldMap.getClassMap());
     setCopyByReference(fieldMap.isCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
+    setCustomConverterId(fieldMap.getCustomConverterId());
     setDestField(fieldMap.getDestField());
     setDestHintContainer(fieldMap.getDestHintContainer());
     setDestDeepIndexHintContainer(fieldMap.getDestDeepIndexHintContainer());
     setMapId(fieldMap.getMapId());
     setRelationshipType(fieldMap.getRelationshipType());
+    setRemoveOrphans(fieldMap.isRemoveOrphans());
     setSrcField(fieldMap.getSrcField());
     setSrcHintContainer(fieldMap.getSrcHintContainer());
     setSrcDeepIndexHintContainer(fieldMap.getSrcDeepIndexHintContainer());
@@ -67,7 +69,7 @@ public class MapFieldMap extends FieldMap {
     } else {
       if (getDestFieldMapGetMethod() != null
           || MappingUtils.isSupportedMap(determineActualPropertyType(getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
-              destObj))) {
+              destObj, true))) {
         // Need to dig out actual destination Map object and use map property descriptor to set the value on that target object....
         PrepareTargetObjectResult result = prepareTargetObject(destObj);
         targetObject = result.targetObject;
@@ -87,7 +89,7 @@ public class MapFieldMap extends FieldMap {
     if (getSrcFieldName().equals(MapperConstants.SELF_KEYWORD)) {
       propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
     } else {
-      Class ac = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj);
+      Class ac = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj, false);
       if ((getSrcFieldMapGetMethod() != null)
           || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSrcHintContainer() == null)) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
@@ -114,11 +116,11 @@ public class MapFieldMap extends FieldMap {
     //  Need to dig out actual destination Map object and use map property descriptor to set the value on that target object....
     DozerPropertyDescriptorIF pd;
     if (isDestFieldAccessible()) {
-      pd = new FieldPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
-          getDestFieldIndex(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+      pd = new FieldPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
     } else {
-      pd = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(),
-        getDestFieldIndex(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+      pd = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
     }
 
     Class c = pd.getPropertyType();
@@ -148,17 +150,17 @@ public class MapFieldMap extends FieldMap {
 
   }
 
-  private Class determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj) {
+  private Class determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj, boolean isDestObj) {
     // Dig out actual Map object by calling getter on top level object    
     DozerPropertyDescriptorIF pd;
-    if (isDestFieldAccessible()) {
-      pd = new FieldPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
-          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+    if ((isDestObj && isDestFieldAccessible()) || (!isDestObj && isSrcFieldAccessible())) {
+      pd = new FieldPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index, getSrcDeepIndexHintContainer(),
+          getDestDeepIndexHintContainer());
     } else {
-      pd = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index,
-          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+      pd = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index, getSrcDeepIndexHintContainer(),
+          getDestDeepIndexHintContainer());
     }
-    
+
     return pd.getPropertyType();
   }
 

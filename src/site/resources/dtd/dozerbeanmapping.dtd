@@ -21,10 +21,12 @@
                              The default value is "false"
               bean-factory   The factory class to create data objects.  This typically will not be specified.  
                              By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+         relationship-type   Indications whether collections are mapped cumulative or non-cumulative.  cumulative indicates the element is added to the collection.
+                             non-cumulative indicates the element will be added or an existing entry will be updated.  
          custom-converters   The custom converters to be registered with Dozer.
         copy-by-references   Indicates which class types should always be copied by reference
 -->
-<!ELEMENT configuration ( stop-on-errors?, date-format?, wildcard?, trim-strings?, bean-factory?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
+<!ELEMENT configuration ( stop-on-errors?, date-format?, wildcard?, trim-strings?, bean-factory?, relationship-type?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
 
 
 <!--
@@ -52,6 +54,8 @@
                     map-id   The id that uniquely identifies this mapping definition.  This typically will not be specified.
                              You would only need to specify this for only need this for special context based mapping
                              and when mapping between Map objects and Custom Data Objects.
+         relationship-type   Indications whether collections are mapped cumulative or non-cumulative.  cumulative indicates the element is added to the collection.
+                             non-cumulative indicates the element will be added or an existing entry will be updated.  
 -->
 
 <!ELEMENT mapping ( class-a | class-b | field | field-exclude )* >
@@ -63,6 +67,7 @@
 <!ATTLIST mapping map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST mapping bean-factory CDATA #IMPLIED>
 <!ATTLIST mapping type (one-way | bi-directional) "bi-directional" >
+<!ATTLIST mapping relationship-type CDATA #IMPLIED >
 <!ATTLIST mapping map-id CDATA #IMPLIED>
 
 <!--
@@ -120,6 +125,7 @@
     Optional Attributes: 
 
          relationship-type   For collections, indicates whether to add to existing values or to always replace any existing entries
+         remove-orphans      For collections, indicates whether items that did not exist in the source collection should be removed from the destination collection.          					 
                       type   Indicates whether this mapping is bi-directional or only one-way.  Typically this will be set to bi-directional.
                              The default is "bi-directional".
                     map-id   The id that uniquely identifies this mapping definition.  This typically will not be specified.
@@ -130,12 +136,13 @@
           custom-converter   Indicates that a specific custom converter should be used for mapping this field.  Typically this will not be specified.
 -->
 <!ELEMENT field ( a, b ,a-hint?, b-hint?, a-deep-index-hint?, b-deep-index-hint? ) >
-<!ATTLIST field relationship-type (cumulative  | non-cumulative  ) "cumulative" >
+<!ATTLIST field relationship-type CDATA #IMPLIED  >
+<!ATTLIST field remove-orphans CDATA #IMPLIED>
 <!ATTLIST field type (one-way | bi-directional) "bi-directional" >
 <!ATTLIST field map-id CDATA #IMPLIED>
 <!ATTLIST field copy-by-reference CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST field custom-converter CDATA #IMPLIED>
-
+<!ATTLIST field custom-converter-id CDATA #IMPLIED>
 
 <!--
     Exclude a particular field from being mapped
@@ -156,8 +163,6 @@
                              By default, the beans attribute setter is used.
                 get-method   Indicates which get method to invoke on the src object to get the field value  Typically this will not be specified.
                              By default, the beans attribute getter is used.
-                  map-null   Indicates whether null values are mapped.  The default value is "true"
-          map-empty-string   Indicates whether empty string values are mapped. The default value is "true"
              is-accessible   Indicates whether Dozer bypasses getter/setter methods and accesses the field directly.  
                              This will typically be set to "false".  The default value is "false".  If set to "true", the 
                              getter/setter methods will NOT be invoked.  You would want to set this to "true" if 
@@ -202,6 +207,7 @@
 <!ELEMENT wildcard ( #PCDATA ) >
 <!ELEMENT trim-strings ( #PCDATA ) >
 <!ELEMENT bean-factory ( #PCDATA ) >
+<!ELEMENT relationship-type ( #PCDATA ) >
 <!ELEMENT custom-converters ( converter+ ) >
 <!ELEMENT copy-by-references ( copy-by-reference+ ) >
 <!ELEMENT copy-by-reference ( #PCDATA ) >

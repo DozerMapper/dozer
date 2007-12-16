@@ -4,10 +4,10 @@
     <title>license</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>    
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Apache License, Version 2.0">
       <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License, Version 2.0</a>

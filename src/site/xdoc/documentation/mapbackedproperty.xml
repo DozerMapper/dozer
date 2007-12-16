@@ -4,17 +4,19 @@
     <title>mapping map backed property</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Map Backed Property Mapping">
       <subsection name="Map to Map">
-        <p>Dozer will map a java.util.Map to a java.util.Map. If there are complex types with hints it will do deep recursion mapping
-        as well. If the destination map exists it will add elements to the existing map.</p>
-         <source>
-           <![CDATA[ 
+        <p>
+          Dozer will map a java.util.Map to a java.util.Map. If there are complex types with hints it will do deep
+          recursion mapping as well. If the destination map exists it will add elements to the existing map.
+        </p>
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.map.MapToMap</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.map.MapToMapPrime</class-b>
@@ -28,19 +30,21 @@
 </mapping>
 
             ]]>
-         </source>
-      </subsection>        
-      <subsection name="Mapping Field Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
+        </source>
+      </subsection>
+      <subsection
+        name="Mapping Field Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
         <p>
-        Dozer supports mapping map backed properties at the field level. The map can either implement the java.util.Map
-        Interface or be a custom map with a set of unique Get/Set methods.
+          Dozer supports mapping map backed properties at the field level. The map can either implement the
+          java.util.Map Interface or be a custom map with a set of unique Get/Set methods.
         </p>
-        <p>In this example Field A is a basic String and it is mapped to Field B which is a HashMap. The key 
-        in the HashMap will be &quot;stringProperty&quot; (the attribute name) and the value will be whatever value is stored in that
-        attribute.
+        <p>
+          In this example Field A is a basic String and it is mapped to Field B which is a HashMap. The key in the
+          HashMap will be &quot;stringProperty&quot; (the attribute name) and the value will be whatever value is
+          stored in that attribute.
         </p>
-         <source>
-           <![CDATA[ 
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.map.PropertyToMap</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.map.MapToProperty</class-b>    
@@ -52,13 +56,14 @@
 </mapping>   
 
             ]]>
-         </source>
-        <p>This example shows Field A is a basic String and it is mapped to Field B which is a HashMap. The key 
-        in the HashMap will be &quot;myStringProperty&quot; and the value will be whatever value is stored in that
-        attribute. Also notice that Field A has a unique setter() method name.
+        </source>
+        <p>
+          This example shows Field A is a basic String and it is mapped to Field B which is a HashMap. The key in
+          the HashMap will be &quot;myStringProperty&quot; and the value will be whatever value is stored in that
+          attribute. Also notice that Field A has a unique setter() method name.
         </p>
-         <source>
-           <![CDATA[ 
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.map.PropertyToMap</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.map.MapToProperty</class-b>    
@@ -70,15 +75,16 @@
 </mapping>   
 
             ]]>
-         </source>
-        <p>This example shows Field A is a basic String and it is mapped to Field B which is a custom map. The key 
-        in the custom map will be &quot;myCustomProperty&quot; and the value will be whatever value is stored in that
-        attribute. Notice that Field B has unique map getter() and map setter() method names. If you are using a custom map
-        you must explicitly set the map Get/Set method names. A destination hint can also be provided if your custom map implements an
-        Interface or is an Abstract class.
+        </source>
+        <p>
+          This example shows Field A is a basic String and it is mapped to Field B which is a custom map. The key
+          in the custom map will be &quot;myCustomProperty&quot; and the value will be whatever value is stored in
+          that attribute. Notice that Field B has unique map getter() and map setter() method names. If you are
+          using a custom map you must explicitly set the map Get/Set method names. A destination hint can also be
+          provided if your custom map implements an Interface or is an Abstract class.
         </p>
-         <source>
-           <![CDATA[ 
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.map.PropertyToMap</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.map.MapToProperty</class-b>    
@@ -101,22 +107,26 @@
 </mapping>   
 
             ]]>
-         </source>
-      </subsection>            
-      <subsection name="Mapping Class Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
-        <p>Dozer can also map entire complex objects directly to a java.util.Map or a custom map object. This example shows 
-        the declaration of a mapping between a complex object (PropertyToMap) and a java.util.Map. When doing this you need to 
-        explicitly define a unique map-id for the mapping. This is used when determining which map to use at run-time.
-        Every attribute on the PropertyToMap class will be mapped to the java.util.Map. You DO NOT need to explicitly define these mappings.
-        Field exclude mappings can be used to exclude fields at run-time. If the attribute name is not the same as the map key just
-        set the key attribute for a custom field mapping. The mapping to stringProperty2 shows an example of this.
+        </source>
+      </subsection>
+      <subsection
+        name="Mapping Class Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
+        <p>
+          Dozer can also map entire complex objects directly to a java.util.Map or a custom map object. This
+          example shows the declaration of a mapping between a complex object (PropertyToMap) and a java.util.Map.
+          When doing this you need to explicitly define a unique map-id for the mapping. This is used when
+          determining which map to use at run-time. Every attribute on the PropertyToMap class will be mapped to
+          the java.util.Map. You DO NOT need to explicitly define these mappings. Field exclude mappings can be
+          used to exclude fields at run-time. If the attribute name is not the same as the map key just set the key
+          attribute for a custom field mapping. The mapping to stringProperty2 shows an example of this.
         </p>
         <p>
-        The second example shows how to setup a custom map object. The only difference here is that you need to explicitly define
-        map-set-method and map-get-method values. These correspond to the java.util.Map get() and put() methods.
+          The second example shows how to setup a custom map object. The only difference here is that you need to
+          explicitly define map-set-method and map-get-method values. These correspond to the java.util.Map get()
+          and put() methods.
         </p>
-         <source>
-           <![CDATA[ 
+        <source>
+          <![CDATA[ 
 <mapping map-id="myTestMapping">
   <class-a>net.sf.dozer.util.mapping.vo.map.PropertyToMap</class-a>
   <class-b>java.util.Map</class-b>
@@ -148,13 +158,14 @@
 </mapping>   
     
             ]]>
-         </source>
-         <p>
-         The example below shows how to use these mappings. Notice that the field mappings reference a map-id. The first field
-         mapping will use the myTestMapping defined mapping and map accordingly. Same goes with the custom mapping.
-         </p>
-         <source>
-           <![CDATA[ 
+        </source>
+        <p>
+          The example below shows how to use these mappings. Notice that the field mappings reference a map-id. The
+          first field mapping will use the myTestMapping defined mapping and map accordingly. Same goes with the
+          custom mapping.
+        </p>
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.map.MapTestObject</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.map.MapTestObjectPrime</class-b>    
@@ -176,12 +187,13 @@
 </mapping>   
     
             ]]>
-         </source>
-         <p>The Class Level map backed mappings can also be used as a standard mapping. For this dozer has a new API. 
-         In addition to the source and destination classes you can now pass in the map reference Id.
-         </p>
-         <source>
-           <![CDATA[ 
+        </source>
+        <p>
+          The Class Level map backed mappings can also be used as a standard mapping. For this dozer has a new API.
+          In addition to the source and destination classes you can now pass in the map reference Id.
+        </p>
+        <source>
+          <![CDATA[ 
 
 // Example 1
 PropertyToMap ptm = new PropertyToMap();
@@ -204,8 +216,8 @@ PropertyToMap property = (PropertyToMap) Mapper.map(map, PropertyToMap.class, "m
 assertEquals("stringPropertyValue", property.getStringProperty());
 
             ]]>
-         </source>
-      </subsection>        
+        </source>
+      </subsection>
     </section>
   </body>
 </document>

@@ -53,7 +53,9 @@ public abstract class FieldMap implements Cloneable {
   private boolean copyByReferenceOveridden;
   private String mapId;
   private String customConverter;
+  private String customConverterId;
   private String relationshipType;
+  private boolean removeOrphans;
 
   public FieldMap(ClassMap classMap) {
     this.classMap = classMap;
@@ -339,7 +341,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public String getRelationshipType() {
-    return relationshipType;
+    return relationshipType != null ? relationshipType : classMap.getRelationshipType();
   }
 
   public void setRelationshipType(String relationshipType) {
@@ -360,7 +362,7 @@ public abstract class FieldMap implements Cloneable {
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
         getSrcFieldMapGetMethod(), getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
         getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
-        getDestDeepIndexHintContainer());
+        getDestDeepIndexHintContainer(), classMap.getSrcClassBeanFactory());
   }
 
   protected DozerPropertyDescriptorIF getDestPropertyDescriptor(Class runtimeDestClass) {
@@ -368,7 +370,7 @@ public abstract class FieldMap implements Cloneable {
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass, getDestFieldTheGetMethod(),
         getDestFieldTheSetMethod(), getDestFieldMapGetMethod(), getDestFieldMapSetMethod(), isDestFieldAccessible(),
         isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(),
-        getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+        getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), classMap.getDestClassBeanFactory());
   }
 
   protected DozerField getSrcField() {
@@ -379,11 +381,44 @@ public abstract class FieldMap implements Cloneable {
     return destField;
   }
 
+  public String getCustomConverterId() {
+    return customConverterId;
+  }
+
+  public void setCustomConverterId(String customConverterId) {
+    this.customConverterId = customConverterId;
+  }
+
+  public boolean isRemoveOrphans() {
+    return removeOrphans;
+  }
+
+  public void setRemoveOrphans(boolean removeOrphans) {
+    this.removeOrphans = removeOrphans;
+  }
+
+  public boolean isDestMapNull() {
+    return classMap.isDestMapNull();
+  }
+
+  public boolean isDestMapEmptyString() {
+    return classMap.isDestMapEmptyString();
+  }
+
+  public boolean isTrimStrings() {
+    return classMap.isTrimStrings();
+  }
+
+  public boolean isStopOnErrors() {
+    return classMap.isTrimStrings();
+  }
+
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source field", srcField).append("destination field",
         destField).append("type", type).append("customConverter", customConverter).append("relationshipType", relationshipType)
-        .append("mapId", mapId).append("copyByReference", copyByReference).append("copyByReferenceOveridden",
-            copyByReferenceOveridden).append("srcTypeHint", srcHintContainer).append("destTypeHint", destHintContainer).toString();
+        .append("removeOrphans", removeOrphans).append("mapId", mapId).append("copyByReference", copyByReference).append(
+            "copyByReferenceOveridden", copyByReferenceOveridden).append("srcTypeHint", srcHintContainer).append("destTypeHint",
+            destHintContainer).toString();
   }
 
 }

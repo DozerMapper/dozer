@@ -68,7 +68,7 @@ public abstract class ClassMapBuilder {
     }
   }
 
-  public static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
+  private static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
     Class srcClass = classMap.getSrcClassToMap();
     Class destClass = classMap.getDestClassToMap();
 
@@ -85,6 +85,12 @@ public abstract class ClassMapBuilder {
 
       // If field has already been accounted for, then skip
       if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
+        continue;
+      }
+
+      // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
+      if ((destFieldName.equals("callback") || destFieldName.equals("callbacks"))
+          && destClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0) {
         continue;
       }
 
@@ -136,6 +142,11 @@ public abstract class ClassMapBuilder {
         continue;
       }
 
+      if ((fieldName.equals("callback") || fieldName.equals("callbacks"))
+          && (destClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 || srcClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0)) {
+        continue;
+      }
+
       if (destIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
         continue;
       }
@@ -170,5 +181,4 @@ public abstract class ClassMapBuilder {
       classMap.addFieldMapping(map);
     }
   }
-
 }

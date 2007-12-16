@@ -2,16 +2,16 @@
   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 
 <mappings>
-  
+
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.TestObjectNNNNNNN</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
-    
+
     <field>
       <a>one</a>
       <b>onePrime</b>
     </field>
 
-  </mapping>  
-  
+  </mapping>
+
 </mappings>

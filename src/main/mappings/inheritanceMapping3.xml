@@ -10,11 +10,11 @@
     <field>
       <a>superAField</a>
       <b>superBField</b>
-    </field>    
+    </field>
     <field-exclude>
       <a>superField1</a>
       <b>superField1</b>
-    </field-exclude>    
+    </field-exclude>
   </mapping>
-  
+
 </mappings>

@@ -4,15 +4,15 @@
     <title>Indexed Property Mapping</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Indexed Property Mapping">
-         <p>Fields that need to be looked up or written to by indexed property are supported.</p>
-         <source>
-           <![CDATA[ 
+      <p>Fields that need to be looked up or written to by indexed property are supported.</p>
+      <source>
+        <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.Individuals</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.FlatIndividual</class-b>
@@ -43,7 +43,7 @@
 </mapping>
            
             ]]>
-          </source>
+      </source>
     </section>
   </body>
 </document>

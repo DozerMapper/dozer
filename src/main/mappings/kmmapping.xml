@@ -5,11 +5,16 @@
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.km.Super</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.km.SomeVo</class-b>
-   	<field>
-   	  <a>loginName</a>
-   	  <b>userName</b>
-   	</field>
+    <field>
+      <a>loginName</a>
+      <b>userName</b>
+    </field>
+    <!-- testing bug 1757573 -->
+    <field>
+      <a>property.mapMe</a>
+      <b>property</b>
+    </field>
   </mapping>
-  
+
 </mappings>
 

@@ -4,17 +4,22 @@
     <title>mappings</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>   
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Custom Mappings Via Dozer XML Files">
       <p>
-      This section will cover setting up custom mappings in xml file(s). If the two different types of data objects that you are mapping contain any fields that don't share a common property name, you will need to add a class mapping entry to your custom mapping xml file. These mappings xml files are used at runtime by the Dozer mapping engine. 
+        This section will cover setting up custom mappings in xml file(s). If the two different types of data
+        objects that you are mapping contain any fields that don't share a common property name, you will need to
+        add a class mapping entry to your custom mapping xml file. These mappings xml files are used at runtime by
+        the Dozer mapping engine.
       </p>
       <p>
-      Dozer automatically performs any type conversion when copying the source field data to the destination field. The Dozer mapping engine is bi-directional, so if you wanted to map the destination object to the source object, you do not need to add another class mapping to the xml file. 
+        Dozer automatically performs any type conversion when copying the source field data to the destination
+        field. The Dozer mapping engine is bi-directional, so if you wanted to map the destination object to the
+        source object, you do not need to add another class mapping to the xml file.
 
       </p>
       <p>An example of a mapping file....</p>
@@ -44,20 +49,25 @@
 
 </mappings>
         ]]>
-     </source>
-     <p>
-     A mappings element has multiple mapping elements, each with class mapping declarations and field level mappings.
-     The wildcard attribute is set to true by default. This means that it will automatically try to map every property in the two objects.
-     When the attribute is set to false it will only map explicitly defined fields. 
-     </p>
-     <p><b>IMPORTANT:</b> Properties that are of the same name do not need to be specified in the mapping xml file.  Dozer automatically maps all fields with the same property name from the source object into the destination object.</p>
-    </section>
-    <section name="How Custom Mapping Files Are Loaded">
+      </source>
       <p>
-      Dozer will search the entire classpath looking for the specified file.
+        A mappings element has multiple mapping elements, each with class mapping declarations and field level
+        mappings. The wildcard attribute is set to true by default. This means that it will automatically try to
+        map every property in the two objects. When the attribute is set to false it will only map explicitly
+        defined fields.
       </p>
       <p>
-      Alternatively, you can load files from outside the classpath by prepending "file:" to the resource name.  Ex) "file:c:\somedozermapping.xml"
+        <b>IMPORTANT:</b>
+        Properties that are of the same name do not need to be specified in the mapping xml file. Dozer
+        automatically maps all fields with the same property name from the source object into the destination
+        object.
+      </p>
+    </section>
+    <section name="How Custom Mapping Files Are Loaded">
+      <p>Dozer will search the entire classpath looking for the specified file.</p>
+      <p>
+        Alternatively, you can load files from outside the classpath by prepending "file:" to the resource name.
+        Ex) "file:c:\somedozermapping.xml"
       </p>
     </section>
 

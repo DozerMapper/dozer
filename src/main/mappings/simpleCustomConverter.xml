@@ -5,11 +5,11 @@
 
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter" >
+      <converter type="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter">
         <class-a>java.lang.String</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
-      <converter type="net.sf.dozer.util.mapping.converters.InjectedCustomConverter" >
+      <converter type="net.sf.dozer.util.mapping.converters.InjectedCustomConverter">
         <class-a>net.sf.dozer.util.mapping.vo.Vehicle</class-a>
         <class-b>net.sf.dozer.util.mapping.vo.Vehicle</class-b>
       </converter>
@@ -18,11 +18,11 @@
 
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime2</class-b>    
+    <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime2</class-b>
     <field>
       <a>field1</a>
       <b>field1Prime</b>
     </field>
-  </mapping>   
-  
+  </mapping>
+
 </mappings>

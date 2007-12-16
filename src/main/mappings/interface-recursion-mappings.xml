@@ -2,18 +2,18 @@
 <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 
-	<configuration>
-		<bean-factory>net.sf.dozer.util.mapping.factories.UserBeanFactory</bean-factory>
-	</configuration>
- 
-	<mapping>
-		<class-a>net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroup</class-a>
-		<class-b>net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroupPrime</class-b>
-	</mapping>
-	
-	<mapping>
-		<class-a>net.sf.dozer.util.mapping.vo.interfacerecursion.User</class-a>
-		<class-b>net.sf.dozer.util.mapping.vo.interfacerecursion.UserPrime</class-b>
-	</mapping>
-	
+  <configuration>
+    <bean-factory>net.sf.dozer.util.mapping.factories.UserBeanFactory</bean-factory>
+  </configuration>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroup</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroupPrime</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.interfacerecursion.User</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.interfacerecursion.UserPrime</class-b>
+  </mapping>
+
 </mappings>

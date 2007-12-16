@@ -4,17 +4,26 @@
     <title>downloading</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>  
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Downloading Dozer">
-    <ul>   
-      <li><a href="http://sourceforge.net/project/showfiles.php?group_id=133517" target="_blank">Latest Release - Dozer 4.0</a></li>
-      <br></br>
-      <li><a href="http://sourceforge.net/project/showfiles.php?group_id=133517&amp;package_id=146610" target="_blank">Older Releases</a></li>
-    </ul>
+      <ul>
+        <li>
+          <a href="http://sourceforge.net/project/showfiles.php?group_id=133517" target="_blank">
+            Latest Release - Dozer 4.2
+          </a>
+        </li>
+        <br></br>
+        <li>
+          <a href="http://sourceforge.net/project/showfiles.php?group_id=133517&amp;package_id=146610"
+            target="_blank">
+            Older Releases
+          </a>
+        </li>
+      </ul>
     </section>
   </body>
 </document>

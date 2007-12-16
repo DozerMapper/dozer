@@ -4,18 +4,27 @@
     <title>Inheritance Mapping</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/> 
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Inheritance Mapping">
       <subsection name="Reducing Mapping XML when using base class attributes">
-        <p><b>Properties that are of the same name do not need to be specified in the mapping xml file unless hints are needed.</b></p>
-        
-        <p>If you are mapping subclasses that also have have base class attributes requiring mapping XML, you might be inclined to reproduce base class field maps in each subclass mapping element, like the following example:</p>
-           <source>
-             <![CDATA[ 
+        <p>
+          <b>
+            Properties that are of the same name do not need to be specified in the mapping xml file unless hints
+            are needed.
+          </b>
+        </p>
+
+        <p>
+          If you are mapping subclasses that also have have base class attributes requiring mapping XML, you might
+          be inclined to reproduce base class field maps in each subclass mapping element, like the following
+          example:
+        </p>
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.SubClass</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.SubClassPrime</class-b>
@@ -47,12 +56,19 @@
 </mapping>
  
               ]]>
-            </source>
-  <p>In the previous mapping, some of the fields were from a common base class, but you had to reproduce them into each mapping of the sub classes.</p>
-  <p>However, a better way to do it would be to map the base class individually.  This can be done for each base class (in the case of a larger heirarchy).  Assuming the base class name, below is the refactored mapping xml:</p>
-        
-              <source>
-             <![CDATA[ 
+        </source>
+        <p>
+          In the previous mapping, some of the fields were from a common base class, but you had to reproduce them
+          into each mapping of the sub classes.
+        </p>
+        <p>
+          However, a better way to do it would be to map the base class individually. This can be done for each
+          base class (in the case of a larger heirarchy). Assuming the base class name, below is the refactored
+          mapping xml:
+        </p>
+
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.SuperClass</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.SuperClassPrime</class-b>
@@ -83,51 +99,22 @@
   </field>
 </mapping>
               ]]>
-              </source>
-       <p>The following images explain some of the different scenarios dozer handles:</p>
-       <p><img src="../images/scenario1.jpg"/></p>
-       <p>Scenario 1</p>
-       <p><img src="../images/scenario2.jpg"/></p>
-       <p>Scenario 2</p>
-       <p><img src="../images/scenario3.jpg"/></p>
-       <p>Scenario 3</p>
-        
-      </subsection>        
-      <subsection name="Mapping the destination object to Interfaces, Abstract Classes, or Super Classes">
-        <p>Dozer supports dynamic mapping at run-time based on a super type or Interface. By looking at the Class Diagram
-        below we see that SpecificObject extends SuperSpecificObject. We also see that Specific3 extends Specific2 which
-        extends Specific1 which extends GenericAbstractSuper which implements the Interface GenericIF.
-        We also see that Specific3 is mapped to SuperSpecificObject and Specific1 is also mapped to SuperSpecificObject.
-        Looking at our unit test explains what is possible. The first test uses the Abstract class as a destination.
-        Notice that the returned object is actually an instance of Specific3. We use the following rules to determine
-        how to map. We walk down the abstract class, super class, or Interface until we find a subclass mapping that has
-        a mapping to our source objects super class, or a mapping to the source object directly. The second example
-        shows us mapping to an Interface rather than an actual class.</p>
-        <p>To read more about what drove these requirements view this <a href="http://sourceforge.net/forum/message.php?msg_id=3292204">thread</a></p>
-           <source>
-             <![CDATA[ 
-SpecificObject so = new SpecificObject();
-so.setSuperAttr1("superAttr1");
+        </source>
+        <p>The following images explain some of the different scenarios dozer handles:</p>
+        <p>
+          <img src="../images/scenario1.jpg" />
+        </p>
+        <p>Scenario 1</p>
+        <p>
+          <img src="../images/scenario2.jpg" />
+        </p>
+        <p>Scenario 2</p>
+        <p>
+          <img src="../images/scenario3.jpg" />
+        </p>
+        <p>Scenario 3</p>
 
-// validate abstract class
-Object obj = Mapper.map(so, GenericAbstractSuper.class);
-assertTrue(obj instanceof Specific3);
-Specific3 spec3 = (Specific3) obj;
-assertEquals("superAttr1", spec3.getSuperAttr3());
-assertEquals("superAttr1", spec3.getSuperAttr2());
-
-// validate interface
-obj = Mapper.map(so, GenericIF.class);
-assertTrue(obj instanceof Specific3);
-spec3 = (Specific3) obj;
-assertEquals("superAttr1", spec3.getSuperAttr3());
-assertEquals("superAttr1", spec3.getSuperAttr2());
-      
-              ]]>
-              </source>
-       <p><img src="../images/scenario4.jpg"/></p>
-       <p>Scenario 4</p>              
-      </subsection>        
+      </subsection>
     </section>
   </body>
 </document>

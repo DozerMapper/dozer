@@ -66,6 +66,8 @@ public class XMLParser {
   private static final String TRIM_STRINGS = "trim-strings";
   private static final String BEAN_FACTORY = "bean-factory";
   private static final String DATE_FORMAT = "date-format";
+  private static final String RELATIONSHIP_TYPE = "relationship-type";
+  private static final String REMOVE_ORPHANS = "remove-orphans";
 
   // Parsing Elements
   private static final String CONFIGURATION_ELEMENT = "configuration";
@@ -90,7 +92,6 @@ public class XMLParser {
 
   // Parsing Attributes
   private static final String TYPE_ATTRIBUTE = "type";
-  private static final String RELATIONSHIP_TYPE_ATTRIBUTE = "relationship-type";
   private static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
   private static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
   private static final String THE_GET_METHOD_ATTRIBUTE = "get-method";
@@ -105,6 +106,7 @@ public class XMLParser {
   private static final String MAP_NULL_ATTRIBUTE = "map-null";
   private static final String MAP_EMPTY_STRING_ATTRIBUTE = "map-empty-string";
   private static final String CUSTOM_CONVERTER_ATTRIBUTE = "custom-converter";
+  private static final String CUSTOM_CONVERTER_ID_ATTRIBUTE = "custom-converter-id";
 
   private final Mappings mappings = new Mappings();
 
@@ -119,7 +121,7 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element ele = (Element) node;
-        log.info("name: " + ele.getNodeName());
+        log.debug("name: " + ele.getNodeName());
         if (CONFIGURATION_ELEMENT.equals(ele.getNodeName())) {
           parseConfiguration(ele);
         } else if (MAPPING_ELEMENT.equals(ele.getNodeName())) {
@@ -145,6 +147,9 @@ public class XMLParser {
     if (StringUtils.isNotEmpty(ele.getAttribute(BEAN_FACTORY))) {
       classMap.setBeanFactory(ele.getAttribute(BEAN_FACTORY));
     }
+    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
+      classMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE));
+    }
     if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD))) {
       classMap.setWildcard(Boolean.valueOf(ele.getAttribute(WILDCARD)));
     }
@@ -165,8 +170,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (CLASS_A_ELEMENT.equals(element.getNodeName())) {
           DozerClass source = new DozerClass();
           source.setName(element.getFirstChild().getNodeValue().trim());
@@ -239,8 +244,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         parseFieldElements(element, efm);
       }
     }
@@ -269,6 +274,9 @@ public class XMLParser {
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE))) {
       fm.setCustomConverter(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE));
+    }
+    if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE))) {
+      fm.setCustomConverterId(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE));
     }
 
     parseFieldMap(ele, fm);
@@ -306,16 +314,19 @@ public class XMLParser {
   }
 
   private void parseFieldMap(Element ele, FieldMap fieldMap) {
-    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE_ATTRIBUTE))) {
-      fieldMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
+      fieldMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE));
+    }
+    if (StringUtils.isNotEmpty(ele.getAttribute(REMOVE_ORPHANS))) {
+      fieldMap.setRemoveOrphans(BooleanUtils.toBoolean(ele.getAttribute(REMOVE_ORPHANS)));
     }
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         parseFieldElements(element, fieldMap);
         if (SRC_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
           HintContainer hintContainer = new HintContainer();
@@ -406,8 +417,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
           config.setStopOnErrors(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (DATE_FORMAT.equals(element.getNodeName())) {
@@ -416,6 +427,8 @@ public class XMLParser {
           config.setWildcard(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (TRIM_STRINGS.equals(element.getNodeName())) {
           config.setTrimStrings(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
+        } else if (RELATIONSHIP_TYPE.equals(element.getNodeName())) {
+          config.setRelationshipType(element.getFirstChild().getNodeValue().trim());
         } else if (BEAN_FACTORY.equals(element.getNodeName())) {
           config.setBeanFactory(element.getFirstChild().getNodeValue().trim());
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {
@@ -437,8 +450,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (CONVERTER_ELEMENT.equals(element.getNodeName())) {
           CustomConverterDescription customConverter = new CustomConverterDescription();
           container.addConverter(customConverter);
@@ -468,8 +481,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (COPY_BY_REFERENCE.equals(element.getNodeName())) {
           CopyByReference cbr = new CopyByReference();
           container.getCopyByReferences().add(cbr);
@@ -486,8 +499,8 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.info("config name: " + element.getNodeName());
-        log.info("  value: " + element.getFirstChild().getNodeValue());
+        log.debug("config name: " + element.getNodeName());
+        log.debug("  value: " + element.getFirstChild().getNodeValue());
         if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
           Class ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
           if (!RuntimeException.class.isAssignableFrom(ex)) {
@@ -539,7 +552,7 @@ public class XMLParser {
     private final Log log = LogFactory.getLog(DozerDefaultHandler.class);
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-      log.info("tag: " + qName);
+      log.debug("tag: " + qName);
     }
 
     public void warning(SAXParseException e) throws SAXException {

@@ -4,22 +4,23 @@
     <title>Global Configuration</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>      
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Global Configuration">
       <p>
-      The configuration block is used to set the global default settings.  Also, any Custom Converters are defined in this section.  The configuration block is entirely "optional".  
+        The configuration block is used to set the global default settings. Also, any Custom Converters are defined
+        in this section. The configuration block is entirely "optional".
       </p>
       <p>
-      Dozer supports the ability to have multiple mapping files, but only one global configuration across the multiple mapping files.  We recommend having a separate mapping xml file for specifying the single global configuration.
-<b>Implicit mappings will inherit the default values for configuration.</b>
+        Dozer supports the ability to have multiple mapping files, but only one global configuration across the
+        multiple mapping files. We recommend having a separate mapping xml file for specifying the single global
+        configuration.
+        <b>Implicit mappings will inherit the default values for configuration.</b>
       </p>
-      <p>
-      The following is the sample configuration block:
-      </p>
+      <p>The following is the sample configuration block:</p>
       <source>
         <![CDATA[
 <configuration >
@@ -37,12 +38,13 @@
   </custom-converters>     
 </configuration>
        ]]>
-     </source>
+      </source>
     </section>
 
     <subsection name="Overriding Wildcards">
       <p>
-      Each individual mapping section can set its own wildcard policy even if there is a global wildcard policy defined using the configuration block. For example, the following mapping does not allow wildcards:
+        Each individual mapping section can set its own wildcard policy even if there is a global wildcard policy
+        defined using the configuration block. For example, the following mapping does not allow wildcards:
       </p>
       <source>
         <![CDATA[ 
@@ -56,13 +58,13 @@
   </field>
 </mapping> 
         ]]>
-     </source>
-     <p>
-     </p>
-    </subsection>    
+      </source>
+      <p></p>
+    </subsection>
     <subsection name="Overriding Date Format">
       <p>
-      The same is true for date format values.  Each individual mapping section can set its own date format rules.  For example:
+        The same is true for date format values. Each individual mapping section can set its own date format rules.
+        For example:
       </p>
       <source>
         <![CDATA[ 
@@ -76,14 +78,11 @@
   </field>
 </mapping>      
       ]]>
-     </source>
-     <p>
-     </p>
-    </subsection>       
+      </source>
+      <p></p>
+    </subsection>
     <subsection name="Overriding Error Handling">
-      <p>
-      You can override the error handling policy for a particular mapping.  For example:
-      </p>
+      <p>You can override the error handling policy for a particular mapping. For example:</p>
       <source>
         <![CDATA[ 
 <mapping stop-on-errors="false"> <!-- Override top level defaults -->
@@ -96,15 +95,12 @@
   </field>
 </mapping>      
       ]]>
-     </source>
-     <p>
-     </p>
-    </subsection> 
+      </source>
+      <p></p>
+    </subsection>
 
     <subsection name="Overriding Trim Strings Policy">
-      <p>
-      You can override the trim strings policy for a particular mapping.  For example:
-      </p>
+      <p>You can override the trim strings policy for a particular mapping. For example:</p>
       <source>
         <![CDATA[ 
 <mapping trim-strings="true"> <!-- Override top level defaults -->
@@ -117,9 +113,8 @@
   </field>
 </mapping>      
       ]]>
-     </source>
-     <p>
-     </p>
-    </subsection>    
+      </source>
+      <p></p>
+    </subsection>
   </body>
 </document>

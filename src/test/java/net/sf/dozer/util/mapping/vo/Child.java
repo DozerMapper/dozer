@@ -23,9 +23,16 @@ import java.math.BigInteger;
  */
 public class Child {
   private BigInteger id;
+
   private String name;
+
   private String fu;
+
   private String bar;
+
+  private Integer testInt;
+
+  private Boolean testBoolean;
 
   public String getBar() {
     return bar;
@@ -57,5 +64,21 @@ public class Child {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Integer getTestInt() {
+    return testInt;
+  }
+
+  public void setTestInt(Integer testInt) {
+    this.testInt = testInt;
+  }
+
+  public Boolean getTestBoolean() {
+    return testBoolean;
+  }
+
+  public void setTestBoolean(Boolean testBoolean) {
+    this.testBoolean = testBoolean;
   }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <configuration>
+    <custom-converters>
+      <converter type="net.sf.dozer.util.mapping.converters.ThrowExceptionCustomConverter">
+        <class-a>java.lang.String</class-a>
+        <class-b>java.lang.String</class-b>
+      </converter>
+    </custom-converters>
+  </configuration>
+
+  <mapping wildcard="false" map-null="false">
+    <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.SimpleObjPrime2</class-b>
+    <field>
+      <a>field1</a>
+      <b>field1Prime</b>
+    </field>
+  </mapping>
+
+</mappings>

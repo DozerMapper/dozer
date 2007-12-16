@@ -4,10 +4,10 @@
 <mappings>
 
   <configuration>
-     <stop-on-errors>true</stop-on-errors>
-     <date-format>MM/dd/yyyy HH:mm</date-format>
-     <wildcard>false</wildcard>
-     <bean-factory>net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory</bean-factory>
+    <stop-on-errors>true</stop-on-errors>
+    <date-format>MM/dd/yyyy HH:mm</date-format>
+    <wildcard>false</wildcard>
+    <bean-factory>net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory</bean-factory>
   </configuration>
 
 </mappings>

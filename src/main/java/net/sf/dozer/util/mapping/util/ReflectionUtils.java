@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util.mapping.util;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,9 +23,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 
@@ -101,7 +104,10 @@ public abstract class ReflectionUtils {
           if (genericType == null && deepIndexHintContainer == null) {
             MappingUtils
                 .throwMappingException("Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). Exception occurred determining deep field hierarchy for Class --> "
-                    + parentClass.getName() + ", Field --> " + field  + ".  Unable to determine property descriptor for Class --> "
+                    + parentClass.getName()
+                    + ", Field --> "
+                    + field
+                    + ".  Unable to determine property descriptor for Class --> "
                     + latestClass.getName() + ", Field Name: " + aFieldName);
           }
           if (genericType != null) {
@@ -143,7 +149,6 @@ public abstract class ReflectionUtils {
   }
 
   public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException {
-    // TODO USE HELPER from bean utils to find method w/ params
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
     // If tokenizer has more elements, it mean that parameters may have been specified
@@ -156,7 +161,6 @@ public abstract class ReflectionUtils {
   }
 
   private static Method findMethodWithParam(Class parentDestClass, String methodName, String params) throws NoSuchMethodException {
-    // TODO USE HELPER from bean utils to find method w/ params
     List list = new ArrayList();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
@@ -191,10 +195,48 @@ public abstract class ReflectionUtils {
     if (interfaces != null) {
       for (int i = 0; i < interfaces.length; i++) {
         Class superInterfaceClass = interfaces[i];
-        propDescriptors.addAll(Arrays.asList(getInterfacePropertyDescriptors(superInterfaceClass)));
+        List superInterfacePropertyDescriptors = Arrays.asList(getInterfacePropertyDescriptors(superInterfaceClass));
+        /*
+         * #1814758 
+         * Check for existing descriptor with the same name to prevent 2 property descriptors with the same name being added
+         * to the result list.  This caused issues when getter and setter of an attribute on different interfaces in 
+         * an inheritance hierarchy
+         */
+        for (int j = 0; i < superInterfacePropertyDescriptors.size(); i++) {
+          PropertyDescriptor superPropDescriptor = (PropertyDescriptor) superInterfacePropertyDescriptors.get(i);
+          PropertyDescriptor existingPropDescriptor = findPropDescriptorByName(propDescriptors, superPropDescriptor.getName());
+          if (existingPropDescriptor == null) {
+            propDescriptors.add(superPropDescriptor);
+          } else {
+            try {
+              if (existingPropDescriptor.getReadMethod() == null) {
+                existingPropDescriptor.setReadMethod(superPropDescriptor.getReadMethod());
+              }
+              if (existingPropDescriptor.getWriteMethod() == null) {
+                existingPropDescriptor.setWriteMethod(superPropDescriptor.getWriteMethod());
+              }
+            } catch (IntrospectionException e) {
+              throw new MappingException(e);
+            }
+
+          }
+        }
       }
     }
     return (PropertyDescriptor[]) propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
+  }
+
+  private static PropertyDescriptor findPropDescriptorByName(List propDescriptors, String name) {
+    PropertyDescriptor result = null;
+    Iterator iter = propDescriptors.iterator();
+    while (iter.hasNext()) {
+      PropertyDescriptor entry = (PropertyDescriptor) iter.next();
+      if (entry.getName().equals(name)) {
+        result = entry;
+        break;
+      }
+    }
+    return result;
   }
 
   public static Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {

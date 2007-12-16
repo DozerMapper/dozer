@@ -18,17 +18,16 @@ package net.sf.dozer.util.mapping.vo;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * @author tierney.matt
  */
 public class FieldValue extends BaseTestObject {
   private Map values = new HashMap();
-  
+
   public FieldValue(String value) {
     values.put("theKey", value);
   }
-  
+
   public FieldValue() {
   }
 

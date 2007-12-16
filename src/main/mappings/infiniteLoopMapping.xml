@@ -2,23 +2,18 @@
   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 
 <mappings>
-  
-  <mapping stop-on-errors="true" >
+  <mapping stop-on-errors="true">
     <class-a>net.sf.dozer.util.mapping.vo.LoopObjectParent</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.LoopObjectParentPrime</class-b>
-    
     <field>
       <a>attribute</a>
       <b>attributePrime</b>
     </field>
-
     <field>
       <a>child</a>
       <b>childPrime</b>
       <a-hint>net.sf.dozer.util.mapping.vo.LoopObjectChild</a-hint>
       <b-hint>net.sf.dozer.util.mapping.vo.LoopObjectChildPrime</b-hint>
     </field>
-
-  </mapping>  
-  
+  </mapping>
 </mappings>

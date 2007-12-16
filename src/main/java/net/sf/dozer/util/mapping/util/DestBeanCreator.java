@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import net.sf.dozer.util.mapping.BeanFactoryIF;
+import net.sf.dozer.util.mapping.MappingException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,7 +81,23 @@ public abstract class DestBeanCreator {
         rvalue = newInstance(classToCreate);
       } catch (Exception e) {
         if (alternateClass != null) {
-          rvalue = newInstance(alternateClass);
+          try {
+            rvalue = newInstance(alternateClass);
+          } catch (MappingException me) {
+            if (me.getCause() instanceof NoSuchMethodException) {
+              // let's see if it is an XMLBean
+              try {
+                rvalue = createFromFactory(srcObject, srcClass, classToCreate, "net.sf.dozer.util.mapping.factory.XMLBeanFactory",
+                    factoryId);
+              } catch (MappingException e1) {
+                // well this was just a stab in the dark. log and rethrow the original exception
+                log.error("Error trying to use XMLBeanFactory.", e1);
+                throw me;
+              }
+            } else {
+              throw me;
+            }
+          }
         } else {
           MappingUtils.throwMappingException(e);
         }

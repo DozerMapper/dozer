@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -74,6 +75,7 @@ public class TestObject extends BaseTestObject {
   private String excludeMeOneWay;
   private String throwAllowedExceptionOnMap;
   private String throwNonAllowedExceptionOnMap;
+  private Set setToArrayWithIterate = new HashSet();
 
   public int[] getPrimArray() {
     return primArray;
@@ -545,5 +547,17 @@ public class TestObject extends BaseTestObject {
 
   public void setThrowNonAllowedExceptionOnMap(String throwNonAllowedExceptionOnMap) {
     this.throwNonAllowedExceptionOnMap = throwNonAllowedExceptionOnMap;
+  }
+
+  public Set getSetToArrayWithIterate() {
+    return setToArrayWithIterate;
+  }
+
+  public void setSetToArrayWithIterate(Set setToArrayWithIterate) {
+    this.setToArrayWithIterate = setToArrayWithIterate;
+  }
+
+  public void addAnotherTestObject(AnotherTestObject ato) {
+    getSetToArrayWithIterate().add(ato);
   }
 }

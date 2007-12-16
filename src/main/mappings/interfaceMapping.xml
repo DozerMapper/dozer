@@ -6,9 +6,9 @@
   <mapping wildcard="false">
     <class-a>net.sf.dozer.util.mapping.vo.iface.SubscriberIF</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.iface.UpdateMember</class-b>
-      <field>
-        <a>subscriberNumber</a>
-        <b>subscriberKey.subscriberNumber</b>
-      </field>
+    <field>
+      <a>subscriberNumber</a>
+      <b>subscriberKey.subscriberNumber</b>
+    </field>
   </mapping>
 </mappings>

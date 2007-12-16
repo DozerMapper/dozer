@@ -4,16 +4,21 @@
     <title>Deep Property Mapping</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>     
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>        
-  </head>  
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
   <body>
     <section name="Deep Property Mapping">
-         <p>It is possible to map deep properties. An example would be when you have an object with a String property. Your other object has a String property but it is several levels deep within the object graph. In the example below the DestDeepObj has nested attributes within the object graph that need to be mapped.  Type hints are supported for deep field mappings.
-         The attributes copy-by-reference, type=one-way, and relationship-type can also be used.</p>
-         <source>
-           <![CDATA[ 
+      <p>
+        It is possible to map deep properties. An example would be when you have an object with a String property.
+        Your other object has a String property but it is several levels deep within the object graph. In the
+        example below the DestDeepObj has nested attributes within the object graph that need to be mapped. Type
+        hints are supported for deep field mappings. The attributes copy-by-reference, type=one-way, and
+        relationship-type can also be used.
+      </p>
+      <source>
+        <![CDATA[ 
 <mapping>
   <class-a>net.sf.dozer.util.mapping.vo.deep.SrcDeepObj</class-a>
   <class-b>net.sf.dozer.util.mapping.vo.deep.DestDeepObj</class-b>
@@ -54,34 +59,36 @@
 
 </mapping>  
             ]]>
-          </source>
+      </source>
     </section>
-    
+
     <section name="Deep Indexed Mapping">
-         <p>Indexed mapping within deep mapping is supported.</p>
-         <source>
-           <![CDATA[ 
+      <p>Indexed mapping within deep mapping is supported.</p>
+      <source>
+        <![CDATA[ 
 <field>
   <a>offSpringName</a>
   <b>pets[1].offSpring[2].petName</b>
 </field>
             ]]>
-          </source>
-          <p>Destination Hints are NOT required if the indexed collection is an Array or if you are using jdk 1.5 Generics.  Dozer is able to automatically determine the property type for these use cases.
-            But you will need to provide hints if the data types are not Arrays or if you are not using Generics.  This is required so that Dozer knows what types of dest objects to create while it
-            traverses the deep field mapping.
-          </p>
-          <p>The following is an example of using hints.....</p>
-          <source>
-           <![CDATA[ 
+      </source>
+      <p>
+        Destination Hints are NOT required if the indexed collection is an Array or if you are using jdk 1.5
+        Generics. Dozer is able to automatically determine the property type for these use cases. But you will need
+        to provide hints if the data types are not Arrays or if you are not using Generics. This is required so
+        that Dozer knows what types of dest objects to create while it traverses the deep field mapping.
+      </p>
+      <p>The following is an example of using hints.....</p>
+      <source>
+        <![CDATA[ 
 <field>
   <a>someField</a>
   <b>someList[1].someOtherList[0].someOtherField</b>
   <b-deep-index-hint>net.sf.dozer.util.mapping.vo.TestObject, net.sf.dozer.util.mapping.vo.AnotherTestObject</b-deep-index-hint>      
 </field>
              ]]>
-          </source>
+      </source>
     </section>
-    
+
   </body>
 </document>

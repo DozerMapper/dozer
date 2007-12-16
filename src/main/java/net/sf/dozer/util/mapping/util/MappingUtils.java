@@ -112,13 +112,9 @@ public abstract class MappingUtils {
     return rootCause;
   }
 
-  public static String getParentFieldNameKey(String parentSrcField, Object srcObj, String srcClassName, String srcFieldName,
-      String destFieldName) {
+  public static String getMappedParentFieldKey(Object destObj, String destFieldName) {
     StringBuffer buf = new StringBuffer(150);
-    buf.append(parentSrcField);
-    buf.append(System.identityHashCode(srcObj));
-    buf.append(srcClassName);
-    buf.append(srcFieldName);
+    buf.append(System.identityHashCode(destObj));
     buf.append(destFieldName);
     return buf.toString();
   }
@@ -185,8 +181,10 @@ public abstract class MappingUtils {
     destination.setDestField(df);
     destination.setSrcField(sf);
     destination.setCustomConverter(source.getCustomConverter());
+    destination.setCustomConverterId(source.getCustomConverterId());
     destination.setMapId(source.getMapId());
     destination.setRelationshipType(source.getRelationshipType());
+    destination.setRemoveOrphans(source.isRemoveOrphans());
     destination.setSrcHintContainer(source.getDestHintContainer());
     destination.setDestHintContainer(source.getSrcHintContainer());
     destination.setSrcDeepIndexHintContainer(source.getDestDeepIndexHintContainer());
@@ -198,14 +196,15 @@ public abstract class MappingUtils {
     // reverse the fields
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
         source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(), source
-            .isDestClassMapNull(), source.isDestClassMapEmptyString()));
+            .isDestMapNull(), source.isDestMapEmptyString()));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
         source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(), source
-            .isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
+            .isSrcMapNull(), source.isSrcMapEmptyString()));
     destination.setType(source.getType());
     destination.setWildcard(Boolean.valueOf(source.isWildcard()));
     destination.setTrimStrings(Boolean.valueOf(source.isTrimStrings()));
     destination.setDateFormat(source.getDateFormat());
+    destination.setRelationshipType(source.getRelationshipType());
     destination.setStopOnErrors(Boolean.valueOf(source.isStopOnErrors()));
     destination.setAllowedExceptions(source.getAllowedExceptions());
     destination.setSrcClassCreateMethod(source.getDestClassCreateMethod());
@@ -260,6 +259,22 @@ public abstract class MappingUtils {
       MappingUtils.throwMappingException(e);
     }
     return result;
+  }
+
+  public static boolean isProxy(Class clazz) {
+    //todo: implement a better way of determining this that is more generic
+    return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0;
+  }
+
+  public static Class getRealSuperclass(Class clazz) {
+    return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 ? clazz.getSuperclass().getSuperclass() : clazz.getSuperclass();
+  }
+
+  public static Class getProxyRealClass(Class clazz) {
+    if (!isProxy(clazz)) {
+      throw new IllegalArgumentException("specified class is not a proxy: " + clazz);
+    }
+    return clazz.getSuperclass();
   }
 
   public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
