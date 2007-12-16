@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class LogMsgFactory {
   private static final Log log = LogFactory.getLog(LogMsgFactory.class);
 
-  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object destFieldValue, Object destObj,
+  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object srcFieldValue, Object destObj,
       Throwable t) {
     String srcClassName = null;
     if (srcObj != null) {
@@ -41,8 +41,17 @@ public abstract class LogMsgFactory {
     }
 
     String srcValueType = null;
-    if (destFieldValue != null) {
-      srcValueType = destFieldValue.getClass().toString();
+    String srcFieldValueString = null;
+    if (srcFieldValue != null) {
+      srcValueType = srcFieldValue.getClass().toString();
+      //1797808 - If an error occurs calling src value toString(), eat the error and still log the dozer error msg
+      try {
+        srcFieldValueString = srcFieldValue.toString();
+      } catch (Exception e) {
+        log.error("An exception occurred invoking toString() on the source field value: " + srcFieldValue.getClass().getName() + "@"
+            + Integer.toHexString(srcFieldValue.hashCode()), e);
+        srcFieldValueString = "Unable to determine source field value";
+      }
     } else {
       srcValueType = fieldMapping.getSrcFieldType();
     }
@@ -63,10 +72,9 @@ public abstract class LogMsgFactory {
 
     return "Field mapping error -->" + "\n  MapId: " + fieldMapping.getMapId() + "\n  Type: " + fieldMapping.getType()
         + "\n  Source parent class: " + srcClassName + "\n  Source field name: " + fieldMapping.getSrcFieldName()
-        + "\n  Source field type: " + srcValueType + "\n  Source field value: " + destFieldValue + "\n  Dest parent class: "
+        + "\n  Source field type: " + srcValueType + "\n  Source field value: " + srcFieldValueString + "\n  Dest parent class: "
         + destClassName + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: " + destFieldTypeName;
   }
-
   public static String createFieldMappingSuccessMsg(Class srcClass, Class destClass, String srcFieldName, String destFieldName,
       Object srcFieldValue, Object destFieldValue, String classMapId) {
     String srcClassStr = MappingUtils.getClassNameWithoutPackage(srcClass);
