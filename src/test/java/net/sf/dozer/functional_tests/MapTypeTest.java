@@ -482,6 +482,17 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("someChildName", resultChild.get("childName"));
   }
   
+  public void testMapToVoUsingMapInterface() throws Exception {
+    // Test simple Map --> Vo with custom mappings defined.
+    mapper = getMapper(new String[] { "mapMapping5.xml" });
+    
+    Map src = new HashMap();
+    src.put("stringValue", "somevalue");
+    
+    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class, "test-id");
+
+    assertEquals("wrong value found for field1", "somevalue", dest.getField1());
+  }
   
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
