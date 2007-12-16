@@ -10,6 +10,21 @@
   </head>  
   <body>
     <section name="Release Notes">
+      <h3>4.2  <font size="-3" color="gray"><i>12/16/2007</i></font></h3>
+        <p>Bug Fixes</p> 
+        <p>
+          <ul>      
+            <li>Update spring custom converter documentation<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841449&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+            <li>Trim Strings issue with data type conversion<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841448&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Orphans not removed from Sets<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1822421&amp;group_id=133517&amp;atid=727368">1822421</a></li>
+            <li>TimeZone not copied when mapping Calendar<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1815199&amp;group_id=133517&amp;atid=727368">1815199</a></li>
+            <li>Problem when getters and setters are on different interfaces<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1814758&amp;group_id=133517&amp;atid=727368">1814758</a></li>
+            <li>Unexpected exception in LogMsgFactory<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1797808&amp;group_id=133517&amp;atid=727368">1797808</a></li>
+            <li>Map-backed mapping with map-id<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1796344&amp;group_id=133517&amp;atid=727368">1796344</a></li>
+            <li>Custom converter called on null source field<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1792048&amp;group_id=133517&amp;atid=727368">1792048</a></li>
+            <li>Patch for determining source field type<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1823435&amp;group_id=133517&amp;atid=727370">1823435</a></li>
+          </ul>
+        </p>
       <h3>4.1  <font size="-3" color="gray"><i>09/22/2007</i></font></h3>
         <p>Bug Fixes</p> 
         <p>
