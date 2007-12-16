@@ -396,6 +396,22 @@ public abstract class FieldMap implements Cloneable {
   public void setRemoveOrphans(boolean removeOrphans) {
     this.removeOrphans = removeOrphans;
   }
+  
+  public boolean isDestMapNull() {
+    return classMap.isDestMapNull();
+  }
+  
+  public boolean isDestMapEmptyString() {
+    return classMap.isDestMapEmptyString();
+  }
+  
+  public boolean isTrimStrings() {
+    return classMap.isTrimStrings();
+  }
+  
+  public boolean isStopOnErrors() {
+    return classMap.isTrimStrings();
+  }
 
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source field", srcField).append("destination field",

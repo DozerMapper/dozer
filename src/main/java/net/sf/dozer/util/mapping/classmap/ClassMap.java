@@ -184,19 +184,19 @@ public class ClassMap {
     return destClass.getClassToMap();
   }
 
-  public boolean isDestClassMapNull() {
+  public boolean isDestMapNull() {
     return destClass.getMapNull() != null ? destClass.getMapNull().booleanValue() : mapNull;
   }
 
-  public boolean isSrcClassMapNull() {
+  public boolean isSrcMapNull() {
     return srcClass.getMapNull() != null ? srcClass.getMapNull().booleanValue() : mapNull;
   }
 
-  public boolean isDestClassMapEmptyString() {
+  public boolean isDestMapEmptyString() {
     return destClass.getMapEmptyString() != null ? destClass.getMapEmptyString().booleanValue() : mapEmptyString;
   }
 
-  public boolean isSrcClassMapEmptyString() {
+  public boolean isSrcMapEmptyString() {
     return srcClass.getMapEmptyString() != null ? srcClass.getMapEmptyString().booleanValue() : mapEmptyString;
   }
 

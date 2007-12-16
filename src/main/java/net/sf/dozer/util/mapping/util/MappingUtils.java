@@ -196,10 +196,10 @@ public abstract class MappingUtils {
     // reverse the fields
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
         source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(), source
-            .isDestClassMapNull(), source.isDestClassMapEmptyString()));
+            .isDestMapNull(), source.isDestMapEmptyString()));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
         source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(), source
-            .isSrcClassMapNull(), source.isSrcClassMapEmptyString()));
+            .isSrcMapNull(), source.isSrcMapEmptyString()));
     destination.setType(source.getType());
     destination.setWildcard(Boolean.valueOf(source.isWildcard()));
     destination.setTrimStrings(Boolean.valueOf(source.isTrimStrings()));

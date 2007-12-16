@@ -328,6 +328,21 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
        src.getField3() + "-" + StringAppendCustomConverter.APPENDED_VALUE, dest.getField1());
   }
   
+  public void testCustomConverter_MapNullFalse() throws Exception {
+    mapper = getMapper(new String[] { "custom-converter-map-null.xml" });
+    SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
+    src.setField1(null);
+
+    SimpleObjPrime2 dest = null;
+    try {
+     dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
+    } catch (Exception e) {
+      fail("custom converter should not have been invoked");
+    }
+    
+    assertNull("dest value should be null", dest.getField1Prime());
+  }
+  
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

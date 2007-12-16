@@ -263,7 +263,7 @@ public class MappingProcessor implements MapperIF {
       statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
-      if (fieldMapping.getClassMap().isStopOnErrors()) {
+      if (fieldMapping.isStopOnErrors()) {
         MappingUtils.throwMappingException(e);
       } else {
         // check if any Exceptions should be allowed to be thrown
@@ -787,18 +787,18 @@ public class MappingProcessor implements MapperIF {
   private void writeDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap, Object srcObj) {
     boolean bypass = false;
     // don't map null to dest field if map-null="false"
-    if (destFieldValue == null && !fieldMap.getClassMap().isDestClassMapNull()) {
+    if (destFieldValue == null && !fieldMap.isDestMapNull()) {
       bypass = true;
     }
 
     // don't map "" to dest field if map-empty-string="false"
-    if (destFieldValue != null && !fieldMap.getClassMap().isDestClassMapEmptyString()
+    if (destFieldValue != null && !fieldMap.isDestMapEmptyString()
         && destFieldValue.getClass().equals(String.class) && StringUtils.isEmpty((String) destFieldValue)) {
       bypass = true;
     }
 
     // trim string value if trim-strings="true"
-    if (destFieldValue != null && fieldMap.getClassMap().isTrimStrings() && destFieldValue.getClass().equals(String.class)) {
+    if (destFieldValue != null && fieldMap.isTrimStrings() && destFieldValue.getClass().equals(String.class)) {
       destFieldValue = ((String) destFieldValue).trim();
     }
 
@@ -818,6 +818,12 @@ public class MappingProcessor implements MapperIF {
     if (!(converterInstance instanceof CustomConverter)) {
       MappingUtils.throwMappingException("Custom Converter does not implement CustomConverter interface");
     }
+    
+    //1792048 - If map-null = "false" and src value is null, then don't even invoke custom converter
+    if (srcFieldValue == null && !fieldMap.isDestMapNull()) {
+      return null;
+    }
+    
     CustomConverter theConverter = (CustomConverter) converterInstance;
     Object result = null;
     long start = System.currentTimeMillis();
