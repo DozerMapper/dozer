@@ -58,7 +58,6 @@ public class KnownFailures extends AbstractMapperTest {
   }
 
   public void testObjectField() throws Exception {
-
     Outer o = new Outer();
     Target t = (Target) mapper.map(o, Target.class);
 
