@@ -29,8 +29,6 @@ import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClass;
 import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClassPrime;
 import net.sf.dozer.util.mapping.vo.inheritance.B;
 import net.sf.dozer.util.mapping.vo.inheritance.BaseSubClassCombined;
-import net.sf.dozer.util.mapping.vo.inheritance.GenericAbstractSuper;
-import net.sf.dozer.util.mapping.vo.inheritance.GenericIF;
 import net.sf.dozer.util.mapping.vo.inheritance.S2Class;
 import net.sf.dozer.util.mapping.vo.inheritance.S2ClassPrime;
 import net.sf.dozer.util.mapping.vo.inheritance.SClass;
@@ -39,6 +37,9 @@ import net.sf.dozer.util.mapping.vo.inheritance.Specific3;
 import net.sf.dozer.util.mapping.vo.inheritance.SpecificObject;
 import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecific;
 import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecificPrime;
+import net.sf.dozer.util.mapping.vo.inheritance.iface.Person;
+import net.sf.dozer.util.mapping.vo.inheritance.iface.PersonDTO;
+import net.sf.dozer.util.mapping.vo.inheritance.iface.PersonImpl;
 import net.sf.dozer.util.mapping.vo.km.Property;
 import net.sf.dozer.util.mapping.vo.km.PropertyB;
 import net.sf.dozer.util.mapping.vo.km.SomeVo;
@@ -363,6 +364,20 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals(request.getAge(), afterMapping.getAge());
     assertEquals(request.getProperty().getMapMe().getTestProperty(), afterMapping.getProperty().getTestProperty());
     assertNull(afterMapping.getProperty().getMapMe());
+  }
+
+  public void testInterfaceInheritance_GetterSetterAtDifferentLevels() {
+    mapper = getMapper(new String[] { "inheritanceMapping.xml" });
+
+    Long id = new Long(100L);
+    String name = "John";
+    Person person = new PersonImpl(id, name);
+
+    PersonDTO personDTO = (PersonDTO) mapper.map(person, PersonDTO.class);
+
+    assertEquals("Person DTO has incorrect personId value", id, personDTO.getPersonId());
+    assertNotNull("name should not be null", personDTO.getName());
+    assertEquals("Person DTO has incorrect name value", name, personDTO.getName());
   }
 
   private A getA() {

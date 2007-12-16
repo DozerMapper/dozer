@@ -25,5 +25,14 @@
       <b>fieldB</b>
     </field>
   </mapping>
+  
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.inheritance.iface.Person</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.inheritance.iface.PersonDTO</class-b>
+    <field>
+      <a>id</a>
+      <b>personId</b>
+    </field>
+  </mapping>
 
 </mappings>

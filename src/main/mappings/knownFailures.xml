@@ -20,29 +20,16 @@
       <b>this</b>
     </field>
   </mapping>
-  
+
   <mapping>
     <class-a>net.sf.dozer.util.mapping.vo.deepindex.customconverter.First</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last</class-b>
     <field custom-converter="net.sf.dozer.util.mapping.vo.deepindex.customconverter.Conv">
-        <!-- <a>second.thirdArray[7]</a> -->
-          <!--  <a>secondArray[0].third</a> -->
-           <a>secondArray[0].thirdArray[7]</a>   
-          <b>third</b>
+      <!-- <a>second.thirdArray[7]</a> -->
+      <!--  <a>secondArray[0].third</a> -->
+      <a>secondArray[0].thirdArray[7]</a>
+      <b>third</b>
     </field>
   </mapping>
-  
-  
-  
-  
-  <!--	<mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.inheritance.Outer</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.inheritance.Target</class-b>
-    <field>
-    <a>inner.string</a>
-    <b>string</b>
-    </field>
-    </mapping>
-  -->
 
 </mappings>
