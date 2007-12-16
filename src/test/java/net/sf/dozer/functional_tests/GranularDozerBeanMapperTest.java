@@ -774,21 +774,17 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     ParentPrime parentPrime = (ParentPrime) mapper.map(parent, ParentPrime.class);
     // Make sure the first one was mapped ok.
     assertEquals(parent.getChildrenSet().size(), parentPrime.getChildrenSet().size());
-    System.out.println("Parent: " + parent.getChildrenSet().size() + " | ParentPrime: " + parentPrime.getChildrenSet().size());
 
     ChildPrime child2 = new ChildPrime(new Long(2L), "child2");
     parentPrime.getChildrenSet().add(child2);
     mapper.map(parentPrime, parent);
     // Make sure adding one works ok.
     assertEquals(parentPrime.getChildrenSet().size(), parent.getChildrenSet().size());
-    System.out.println("Parent: " + parent.getChildrenSet().size() + " | ParentPrime: " + parentPrime.getChildrenSet().size());
 
     parentPrime.getChildrenSet().clear();
     mapper.map(parentPrime, parent);
     // Make sure REMOVING them (the orphan children) works ok.
     assertEquals(parentPrime.getChildrenSet().size(), parent.getChildrenSet().size());
-    System.out.println("Parent: " + parent.getChildrenSet().size() + " | ParentPrime: " + parentPrime.getChildrenSet().size());
-
   }
 
   public void testOrphanRemovalList() {
@@ -802,20 +798,17 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     ParentPrime parentPrime = (ParentPrime) mapper.map(parent, ParentPrime.class);
     // Make sure the first one was mapped ok.
     assertEquals(parent.getChildrenList().size(), parentPrime.getChildrenList().size());
-    System.out.println("Parent: " + parent.getChildrenList().size() + " | ParentPrime: " + parentPrime.getChildrenList().size());
 
     ChildPrime child2 = new ChildPrime(new Long(2L), "child2");
     parentPrime.getChildrenList().add(child2);
     mapper.map(parentPrime, parent);
     // Make sure adding one works ok.
     assertEquals(parentPrime.getChildrenList().size(), parent.getChildrenList().size());
-    System.out.println("Parent: " + parent.getChildrenList().size() + " | ParentPrime: " + parentPrime.getChildrenList().size());
 
     parentPrime.getChildrenList().clear();
     mapper.map(parentPrime, parent);
     // Make sure REMOVING them (the orphan children) works ok.
     assertEquals(parentPrime.getChildrenList().size(), parent.getChildrenList().size());
-    System.out.println("Parent: " + parent.getChildrenList().size() + " | ParentPrime: " + parentPrime.getChildrenList().size());
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
