@@ -377,6 +377,13 @@ public class MappingProcessor implements MapperIF {
         destFieldType = fieldMap.getDestHintContainer().getHint();
       }
       DateFormatContainer dfContainer = new DateFormatContainer(fieldMap.getDateFormat());
+      
+      //#1841448 - if trim-strings=true, then use a trimmed src string value when converting to dest value
+      Object convertSrcFieldValue = srcFieldValue;
+      if (srcFieldValue != null && fieldMap.isTrimStrings() && srcFieldValue.getClass().equals(String.class)) {
+        convertSrcFieldValue = ((String) srcFieldValue).trim();
+      }
+      
       if (fieldMap instanceof MapFieldMap && !MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
         // This handles a very special/rare use case(see indexMapping.xml + unit
         // test
@@ -389,9 +396,9 @@ public class MappingProcessor implements MapperIF {
         // destination map backed custom object would contain a value that is
         // the custom object dest type instead of the
         // desired src value.
-        return primitiveOrWrapperConverter.convert(srcFieldValue, srcFieldValue.getClass(), dfContainer);
+        return primitiveOrWrapperConverter.convert(convertSrcFieldValue, convertSrcFieldValue.getClass(), dfContainer);
       } else {
-        return primitiveOrWrapperConverter.convert(srcFieldValue, destFieldType, dfContainer);
+        return primitiveOrWrapperConverter.convert(convertSrcFieldValue, destFieldType, dfContainer);
       }
     }
     if (MappingUtils.isSupportedCollection(srcFieldClass) && (MappingUtils.isSupportedCollection(destFieldType))) {

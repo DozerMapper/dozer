@@ -27,7 +27,8 @@ public class AnotherTestObject extends BaseTestObject {
   private String field3;
   private String field4;
   private String day;
-  
+  private String field5;
+
   public String getDay() {
     return day;
   }
@@ -67,4 +68,13 @@ public class AnotherTestObject extends BaseTestObject {
   public void setField4(String field4) {
     this.field4 = field4;
   }
+
+  public String getField5() {
+    return field5;
+  }
+
+  public void setField5(String field5) {
+    this.field5 = field5;
+  }
+
 }

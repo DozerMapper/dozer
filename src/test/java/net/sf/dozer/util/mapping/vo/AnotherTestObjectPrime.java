@@ -28,6 +28,7 @@ public class AnotherTestObjectPrime extends BaseTestObject {
   private Integer field2;
   private String field3;
   private TestObject to;
+  private Integer field5;
 
   public int getField1() {
     return field1;
@@ -59,6 +60,14 @@ public class AnotherTestObjectPrime extends BaseTestObject {
 
   public void setField3(String field3) {
     this.field3 = field3;
+  }
+
+  public Integer getField5() {
+    return field5;
+  }
+
+  public void setField5(Integer field5) {
+    this.field5 = field5;
   }
 
 }

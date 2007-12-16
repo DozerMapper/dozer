@@ -33,11 +33,13 @@ public class TrimStringsTest extends AbstractMapperTest {
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     src.setField3("      valueNeedingTrimmed       ");
     src.setField4("      anotherValueNeedingTrimmed       ");
+    src.setField5("  127 ");
     
     AnotherTestObjectPrime dest = (AnotherTestObjectPrime) mapper.map(src, AnotherTestObjectPrime.class);
     
     assertEquals("valueNeedingTrimmed", dest.getField3());
     assertEquals("anotherValueNeedingTrimmed", dest.getTo().getOne());
+    assertEquals("field 5 not trimmed", Integer.valueOf("127"), dest.getField5());
   }
 
   public void testTrimStrings_ClassMapLevel() {
