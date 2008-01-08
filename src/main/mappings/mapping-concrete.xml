@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+    <!-- Mapping between concrete classes UserGroupImpl and UserGroupPrime -->
+	<mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.collections.UserGroupImpl</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.collections.UserGroupPrime</class-b>
+	</mapping>
+	
+	<!-- Mapping between concrete classes UserImpl and UserPrime -->
+	<mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.collections.UserImpl</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.collections.UserPrime</class-b>
+	</mapping>
+	
+</mappings>
