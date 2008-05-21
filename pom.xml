@@ -78,8 +78,8 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>javax.xml</groupId>
-      <artifactId>jsr173</artifactId>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jsr173_api</artifactId>
       <version>1.0</version>
       <scope>test</scope>
       <optional>true</optional>
