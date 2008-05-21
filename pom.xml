@@ -78,8 +78,8 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>javax.xml.stream</groupId>
-      <artifactId>jsr173_1.0_api</artifactId>
+      <groupId>javax.xml</groupId>
+      <artifactId>jsr173</artifactId>
       <version>1.0</version>
       <scope>test</scope>
       <optional>true</optional>
