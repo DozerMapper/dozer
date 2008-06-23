@@ -1,3 +1,6 @@
+- Upload release file(tar.gz and .zip) to sourceforge
+http://alexandria.wiki.sourceforge.net/File+Release+System+-+Offering+Files+for+Download
+
 - Log into the SourceForge project. ( HYPERLINK "http://sourceforge.net/projects/dozer/" http://sourceforge.net/projects/dozer/)
 - Click on the ‘Admin’ tab and then ‘File Releases’.
 - Scroll to the bottom and click on ‘Add Release’ on the package named ‘dozer’.
