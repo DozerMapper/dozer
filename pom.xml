@@ -260,14 +260,6 @@
               <tasks>
                 <property name="target.dir" value="target" />
                 <property name="dozer.src" value="${project.artifactId}-${project.version}-src" />
-                <!-- FTP to SF upload directory -->
-                <ftp server="upload.sourceforge.net" remotedir="incoming" userid="anonymous"
-                  password="me@myorg.com" verbose="true">
-                  <fileset dir="${target.dir}">
-                    <include name="${dozer.src}.tar.gz" />
-                    <include name="${dozer.src}.zip" />
-                  </fileset>
-                </ftp>
 
                 <property name="host" value="shell.sourceforge.net" />
                 <property name="dozer.docs.dir" value="/home/groups/d/do/dozer/htdocs" />
