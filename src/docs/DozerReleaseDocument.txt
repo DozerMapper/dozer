@@ -1,5 +1,3 @@
-- Run 'maven clean site jar' from {dozer.home}
-- Run 'ant all' from {dozer.home}. You will be prompted for your Sourceforge username and password when the build script is FTPing files.
 - Log into the SourceForge project. ( HYPERLINK "http://sourceforge.net/projects/dozer/" http://sourceforge.net/projects/dozer/)
 - Click on the ‘Admin’ tab and then ‘File Releases’.
 - Scroll to the bottom and click on ‘Add Release’ on the package named ‘dozer’.
