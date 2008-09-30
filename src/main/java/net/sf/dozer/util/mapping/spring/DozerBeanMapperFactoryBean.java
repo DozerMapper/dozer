@@ -18,6 +18,7 @@ package net.sf.dozer.util.mapping.spring;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
@@ -33,6 +34,7 @@ import org.springframework.core.io.Resource;
  * @author Sören Chittka
  */
 public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean {
+    
   private DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
   private List customConverters;
@@ -77,7 +79,9 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     if (this.mappingFiles != null) {
       final List mappings = new ArrayList(this.mappingFiles.length);
       for (int i = 0; i < this.mappingFiles.length; i++) {
-        mappings.add(MapperConstants.FILE_PREFIX + this.mappingFiles[i].getFile().toString());
+          File mappingFile = this.mappingFiles[i].getFile();
+          String mappingFilePath = MapperConstants.FILE_PREFIX + mappingFile.toString().trim();
+          mappings.add(mappingFilePath);
       }
       this.beanMapper.setMappingFiles(mappings);
     }
