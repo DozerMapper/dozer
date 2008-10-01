@@ -35,6 +35,7 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  * 
  * @author garsombke.franz
  * @author tierney.matt
+ * @author dmitry.buzdin
  * 
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
@@ -184,7 +185,16 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     }
     // second, set the very last field in the deep hierarchy
     PropertyDescriptor pd = hierarchy[hierarchy.length - 1].getPropDescriptor();
-    if (!pd.getReadMethod().getReturnType().isPrimitive() || destFieldValue != null) {
+
+    Class type;
+    // For one-way mappings there could be no read method
+    if (pd.getReadMethod() != null) {
+      type = pd.getReadMethod().getReturnType();
+    } else {
+      type = pd.getWriteMethod().getParameterTypes()[0];
+    }
+
+    if (!type.isPrimitive() || destFieldValue != null) {
       if (!isIndexed) {
         Method method = pd.getWriteMethod();
         try {
