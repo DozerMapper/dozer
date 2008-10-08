@@ -17,28 +17,52 @@ package net.sf.dozer.util.mapping.classmap;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Only intended for internal use.
- * 
+ *
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
  */
 public class CopyByReference {
 
-  private String referenceName;
+    private static final String WILDCARD = "*";
+    
+    private String mask;
+    private Pattern pattern;
 
-  public String getReferenceName() {
-    return referenceName;
-  }
+    public CopyByReference(String mask) {
+        this.mask = mask;
+        pattern = compilePattern(mask);
+    }
 
-  public void setReferenceName(String referenceName) {
-    this.referenceName = referenceName;
-  }
+    public String getMask() {
+        return mask;
+    }
 
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+    public void setMask(String mask) {
+        this.mask = mask;
+        pattern = compilePattern(mask);
+    }
+
+    private Pattern compilePattern(String mask) {
+        String regexp = StringUtils.replace(mask, ".", "\\.");
+        regexp = StringUtils.replace(regexp, WILDCARD, ".*?");
+        return Pattern.compile(regexp);
+    }
+
+    public boolean matches(String destFieldTypeName) {
+        Matcher matcher = pattern.matcher(destFieldTypeName);
+        return matcher.matches();
+    }
+
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
 }

@@ -27,10 +27,7 @@ import java.util.Set;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.cache.Cache;
-import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.classmap.Configuration;
-import net.sf.dozer.util.mapping.classmap.CopyByReference;
-import net.sf.dozer.util.mapping.classmap.DozerClass;
+import net.sf.dozer.util.mapping.classmap.*;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -234,24 +231,25 @@ public abstract class MappingUtils {
     return result;
   }
 
-  public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
-    String destFieldTypeName = null;
-    if (globalConfig.getCopyByReferences() != null) {
-      Iterator copyIterator = globalConfig.getCopyByReferences().getCopyByReferences().iterator();
-      Class clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
-      if (clazz != null) {
-        destFieldTypeName = clazz.getName();
-      }
-      while (copyIterator.hasNext()) {
-        CopyByReference copyByReference = (CopyByReference) copyIterator.next();
-        if (copyByReference.getReferenceName().equals(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
-          fieldMap.setCopyByReference(true);
+    public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
+        CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();
+        if (copyByReferenceContainer != null) {
+            String destFieldTypeName = null;
+            Iterator copyIterator = copyByReferenceContainer.getCopyByReferences().iterator();
+            Class clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
+            if (clazz != null) {
+                destFieldTypeName = clazz.getName();
+            }
+            while (copyIterator.hasNext()) {
+                CopyByReference copyByReference = (CopyByReference) copyIterator.next();
+                if (copyByReference.matches(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
+                    fieldMap.setCopyByReference(true);
+                }
+            }
         }
-      }
     }
-  }
 
-  public static Class loadClass(String name) {
+    public static Class loadClass(String name) {
     Class result = null;
     try {
       result = Thread.currentThread().getContextClassLoader().loadClass(name);

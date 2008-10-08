@@ -4,7 +4,7 @@
 <mappings>
   <configuration>
     <copy-by-references>
-      <copy-by-reference>net.sf.dozer.util.mapping.copybyreference.Reference</copy-by-reference>
+      <copy-by-reference>net.sf.dozer.util.mapping.*.Reference</copy-by-reference>
     </copy-by-references>
   </configuration>
   <mapping>

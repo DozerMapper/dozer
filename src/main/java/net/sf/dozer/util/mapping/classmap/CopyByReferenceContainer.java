@@ -23,22 +23,25 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Only intended for internal use.
- * 
+ *
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
  */
 public class CopyByReferenceContainer {
 
-  private List copyByReferences = new ArrayList();
+    private List copyByReferences = new ArrayList();
 
-  public List getCopyByReferences() {
-    return copyByReferences;
-  }
+    public List getCopyByReferences() {
+        return copyByReferences;
+    }
 
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+    public void add(CopyByReference copyByReference) {
+        copyByReferences.add(copyByReference);
+    }
+
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 
 }

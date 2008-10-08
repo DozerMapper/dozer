@@ -325,8 +325,12 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.debug("config name: " + element.getNodeName());
-        log.debug("  value: " + element.getFirstChild().getNodeValue());
+
+        if (log.isDebugEnabled()) {
+          log.debug("config name: " + element.getNodeName());
+          log.debug("  value: " + element.getFirstChild().getNodeValue());
+        }
+
         parseFieldElements(element, fieldMap);
         if (SRC_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
           HintContainer hintContainer = new HintContainer();
@@ -417,8 +421,12 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.debug("config name: " + element.getNodeName());
-        log.debug("  value: " + element.getFirstChild().getNodeValue());
+
+        if (log.isDebugEnabled()) {
+          log.debug("config name: " + element.getNodeName());
+          log.debug("  value: " + element.getFirstChild().getNodeValue());
+        }
+
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
           config.setStopOnErrors(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
         } else if (DATE_FORMAT.equals(element.getNodeName())) {
@@ -450,8 +458,12 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.debug("config name: " + element.getNodeName());
-        log.debug("  value: " + element.getFirstChild().getNodeValue());
+
+        if (log.isDebugEnabled()) {
+          log.debug("config name: " + element.getNodeName());
+          log.debug("  value: " + element.getFirstChild().getNodeValue());
+        }
+
         if (CONVERTER_ELEMENT.equals(element.getNodeName())) {
           CustomConverterDescription customConverter = new CustomConverterDescription();
           container.addConverter(customConverter);
@@ -481,12 +493,16 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.debug("config name: " + element.getNodeName());
-        log.debug("  value: " + element.getFirstChild().getNodeValue());
+
+        if (log.isDebugEnabled()) {
+          log.debug("config name: " + element.getNodeName());
+          log.debug("  value: " + element.getFirstChild().getNodeValue());
+        }
+
         if (COPY_BY_REFERENCE.equals(element.getNodeName())) {
-          CopyByReference cbr = new CopyByReference();
-          container.getCopyByReferences().add(cbr);
-          cbr.setReferenceName(element.getFirstChild().getNodeValue().trim());
+            String typeMask = element.getFirstChild().getNodeValue().trim();
+            CopyByReference copyByReference = new CopyByReference(typeMask);
+            container.add(copyByReference);
         }
       }
     }
@@ -499,8 +515,12 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.debug("config name: " + element.getNodeName());
-        log.debug("  value: " + element.getFirstChild().getNodeValue());
+
+        if (log.isDebugEnabled()) {
+          log.debug("config name: " + element.getNodeName());
+          log.debug("  value: " + element.getFirstChild().getNodeValue());
+        }
+
         if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
           Class ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
           if (!RuntimeException.class.isAssignableFrom(ex)) {
