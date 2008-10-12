@@ -339,9 +339,7 @@ public class MappingProcessor implements MapperIF {
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop
     Object alreadyMappedValue = null;
-    if (srcFieldValue != null) {
-      alreadyMappedValue = mappedFields.get(srcFieldValue);
-    }
+    alreadyMappedValue = mappedFields.get(srcFieldValue);
     if (alreadyMappedValue != null) {
       // 1664984 - bi-directionnal mapping with sets & subclasses
       if (destFieldType.isAssignableFrom(alreadyMappedValue.getClass())) {
@@ -380,7 +378,7 @@ public class MappingProcessor implements MapperIF {
 
       //#1841448 - if trim-strings=true, then use a trimmed src string value when converting to dest value
       Object convertSrcFieldValue = srcFieldValue;
-      if (srcFieldValue != null && fieldMap.isTrimStrings() && srcFieldValue.getClass().equals(String.class)) {
+      if (fieldMap.isTrimStrings() && srcFieldValue.getClass().equals(String.class)) {
         convertSrcFieldValue = ((String) srcFieldValue).trim();
       }
 
@@ -537,10 +535,15 @@ public class MappingProcessor implements MapperIF {
     while (iter.hasNext()) {
       Map.Entry srcEntry = (Map.Entry) iter.next();
       Object srcEntryValue = srcEntry.getValue();
+
+      if (srcEntryValue == null) {
+        result.put(srcEntry.getKey(), null);
+        return result;
+      }
+
       Object destEntryValue = mapOrRecurseObject(srcObj, srcEntryValue, srcEntryValue.getClass(), fieldMap, destObj);
       Object obj = result.get(srcEntry.getKey());
-      if (obj != null && obj.equals(destEntryValue)
-          && MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(fieldMap.getRelationshipType())) {
+      if (obj != null && obj.equals(destEntryValue) && fieldMap.isCumulativeRelationship()) {
         map(null, srcEntryValue, obj, false, null);
       } else {
         result.put(srcEntry.getKey(), destEntryValue);

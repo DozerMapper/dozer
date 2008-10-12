@@ -15,9 +15,7 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 import net.sf.dozer.functional_tests.ProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.AbstractDozerTest;
@@ -28,6 +26,7 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
 public class MappingUtilsTest extends AbstractDozerTest {
 
@@ -111,5 +110,12 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertEquals("wrong value returned for cglib proxy", AbstractList.class, MappingUtils.getRealSuperclass(proxyObj.getClass()));
     assertEquals("wrong value returned for unproxied object", AbstractList.class, MappingUtils.getRealSuperclass(ArrayList.class));
   }
+
+  public void testIsSupportedMap() {
+    assertTrue(MappingUtils.isSupportedMap(Map.class));
+    assertTrue(MappingUtils.isSupportedMap(HashMap.class));
+    assertFalse(MappingUtils.isSupportedMap(String.class));
+  }
+
 
 }

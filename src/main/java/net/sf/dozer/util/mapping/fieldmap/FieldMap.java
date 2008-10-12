@@ -413,6 +413,10 @@ public abstract class FieldMap implements Cloneable {
     return classMap.isStopOnErrors();
   }
 
+  public boolean isCumulativeRelationship() {
+    return MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(relationshipType);
+  }
+
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source field", srcField).append("destination field",
         destField).append("type", type).append("customConverter", customConverter).append("relationshipType", relationshipType)

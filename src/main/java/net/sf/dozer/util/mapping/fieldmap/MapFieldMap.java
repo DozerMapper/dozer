@@ -89,15 +89,18 @@ public class MapFieldMap extends FieldMap {
     if (getSrcFieldName().equals(MapperConstants.SELF_KEYWORD)) {
       propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
     } else {
-      Class ac = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj, false);
+      Class actualType = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj, false);
       if ((getSrcFieldMapGetMethod() != null)
-          || (this.getMapId() == null && MappingUtils.isSupportedMap(ac) && getSrcHintContainer() == null)) {
+          || (this.getMapId() == null && MappingUtils.isSupportedMap(actualType) && getSrcHintContainer() == null)) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
         targetObject = super.getSrcFieldValue(srcObj);
-        propDescriptor = new MapPropertyDescriptor(ac, getSrcFieldName(), isSrcFieldIndexed(), getDestFieldIndex(), MappingUtils
-            .isSupportedMap(ac) ? "put" : getSrcFieldMapSetMethod(), MappingUtils.isSupportedMap(ac) ? "get"
-            : getSrcFieldMapGetMethod(), getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName(),
-            getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+
+        String setMethod = MappingUtils.isSupportedMap(actualType) ? "put" : getSrcFieldMapSetMethod();
+        String getMethod = MappingUtils.isSupportedMap(actualType) ? "get" : getSrcFieldMapGetMethod();
+        String key = getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName();
+
+        propDescriptor = new MapPropertyDescriptor(actualType, getSrcFieldName(), isSrcFieldIndexed(), getDestFieldIndex(),
+                setMethod, getMethod, key, getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
       } else {
         propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
       }

@@ -37,11 +37,15 @@ public class PropertyDescriptorFactory {
     DozerPropertyDescriptorIF desc = null;
 
     // Raw Map types or custom map-get-method/set specified
-    if (name.equals(MapperConstants.SELF_KEYWORD)
-        && (mapSetMethod != null || mapGetMethod != null || MappingUtils.isSupportedMap(clazz))) {
-      desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, MappingUtils.isSupportedMap(clazz) ? "put" : mapSetMethod,
-          MappingUtils.isSupportedMap(clazz) ? "get" : mapGetMethod, key != null ? key : oppositeFieldName,
-          srcDeepIndexHintContainer, destDeepIndexHintContainer);
+    boolean isMapProperty = MappingUtils.isSupportedMap(clazz);
+    if (name.equals(MapperConstants.SELF_KEYWORD) &&
+            (mapSetMethod != null || mapGetMethod != null || isMapProperty)) {
+      String setMethod = isMapProperty ? "put" : mapSetMethod;
+      String getMethod = isMapProperty ? "get" : mapGetMethod;
+
+      desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, setMethod,
+              getMethod, key != null ? key : oppositeFieldName,
+              srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
       // Copy by reference(Not mapped backed properties which also use 'this'
       // identifier for a different purpose)

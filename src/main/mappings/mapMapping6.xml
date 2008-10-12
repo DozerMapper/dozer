@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.map.MapToMap</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.map.MapToMapPrime</class-b>
+    <field>
+      <a>standardMap</a>
+      <b>standardMap</b>
+      <a-hint>java.lang.Boolean</a-hint>
+      <b-hint>java.lang.Boolean</b-hint>
+    </field>
+  </mapping>
+
+</mappings>
