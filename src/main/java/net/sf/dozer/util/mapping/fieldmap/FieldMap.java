@@ -410,7 +410,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public boolean isStopOnErrors() {
-    return classMap.isTrimStrings();
+    return classMap.isStopOnErrors();
   }
 
   public String toString() {

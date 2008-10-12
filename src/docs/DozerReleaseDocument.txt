@@ -1,0 +1,29 @@
+- Upload release file(tar.gz and .zip) to sourceforge
+http://alexandria.wiki.sourceforge.net/File+Release+System+-+Offering+Files+for+Download
+
+- Log into the SourceForge project. ( HYPERLINK "http://sourceforge.net/projects/dozer/" http://sourceforge.net/projects/dozer/)
+- Click on the ‘Admin’ tab and then ‘File Releases’.
+- Scroll to the bottom and click on ‘Add Release’ on the package named ‘dozer’.
+
+
+- Type in the new release name (i.e. 2.3) and click ‘Create This Release’.
+- Step1. Copy the release notes from {dozer.home}/xdocs/releasenotes.xml (for this specific release) and paste them into the section titled ‘Paste The Notes In:’. Next click on the button labeled ‘Submit/Refresh’ to submit the notes.
+- Step 2. Under ‘Add Files to this Release’ select the two dozer files that were uploaded by ant. (i.e. dozer-x.x-src.tar.gz and dozer-x.x-src.zip). Click on ‘Add Files and/or Refresh View’
+- Step 3. For each file added select ‘Platform-Independent’ for the processor type. For the file type select ‘Source .gz’ and ‘Source .zip’ respectively. Note that the ‘Update/Refresh’ button only works on ONE file at a time.
+- Step 4. (optional) Under ‘Email Release Notice’ click on ‘I’m Sure’ and then click on ‘Send Notice’
+
+Labeling and Merging:
+
+- The first thing we do is version the branch. Select the branch then right-click Team ( Tag as Version…
+
+
+Name the version as below and click ‘Ok’.
+
+
+- Right click --> Team --> Merge on your project in Eclipse. Make sure it is the HEAD branch.
+- End tag should be latest version tag.
+- Start tag should be the latest Root branch.
+- On the synchronize view there is a button called ‘Merge All Non-conflicting changes’.
+This obviously needs some work…
+
+
