@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <configuration>
+    <copy-by-references>
+      <copy-by-reference>net.sf.dozer.util.mapping.vo.B</copy-by-reference>
+    </copy-by-references>
+  </configuration>
+
+  <mapping>
+    <class-a>java.util.Map</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.ValueObject</class-b>
+    <field>
+      <a key="1">this</a>
+      <b>value</b>
+    </field>    
+  </mapping>
+
+</mappings>
