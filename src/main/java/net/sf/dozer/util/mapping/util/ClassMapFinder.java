@@ -40,8 +40,8 @@ public abstract class ClassMapFinder {
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
   public static ClassMap findClassMap(Map customMappings, Class srcClass, Class destClass, String mapId) {
-    Class srcLookupClass = MappingUtils.isProxy(srcClass) ? MappingUtils.getProxyRealClass(srcClass) : srcClass;
-    Class destLookupClass = MappingUtils.isProxy(destClass) ? MappingUtils.getProxyRealClass(destClass) : destClass;
+    Class srcLookupClass = MappingUtils.getRealClass(srcClass);
+    Class destLookupClass = MappingUtils.getRealClass(destClass);
 
     ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
 

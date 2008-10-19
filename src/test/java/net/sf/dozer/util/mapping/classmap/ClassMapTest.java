@@ -26,6 +26,14 @@ import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
  */
 public class ClassMapTest extends AbstractDozerTest {
 
+  private ClassMap classMap;
+  private Configuration globalConfiguration;
+
+  protected void setUp() throws Exception {
+    globalConfiguration = new Configuration();
+    classMap = new ClassMap(globalConfiguration);
+  }
+
   public void testAddFieldMappings() throws Exception {
     ClassMap cm = new ClassMap(null);
     GenericFieldMap fm = new GenericFieldMap(cm);
@@ -49,5 +57,14 @@ public class ClassMapTest extends AbstractDozerTest {
     assertTrue(cm.getFieldMaps().size() == fmList.size());
     assertEquals(cm.getFieldMaps().get(0), fmList.get(0));
   }
+
+  public void testGetFieldMapUsingDest() {
+    assertNull(classMap.getFieldMapUsingDest("", true));
+  }
+
+  public void testProvideAlternateName() {
+    assertEquals("field1", classMap.provideAlternateName("Field1"));
+  }
+
 
 }

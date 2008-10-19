@@ -16,9 +16,7 @@
 package net.sf.dozer.util.mapping.util;
 
 import java.beans.PropertyDescriptor;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Configuration;
@@ -39,6 +37,10 @@ import org.apache.commons.lang.StringUtils;
  * @author garsombke.franz
  */
 public abstract class ClassMapBuilder {
+
+  private static final String CLASS = "class";
+  private static final String CALLBACK = "callback";
+  private static final String CALLBACKS = "callbacks";
 
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass) {
     ClassMap classMap = new ClassMap(globalConfiguration);
@@ -84,13 +86,12 @@ public abstract class ClassMapBuilder {
       String destFieldName = destPropertyDescriptor.getName();
 
       // If field has already been accounted for, then skip
-      if (destFieldName.equals("class") || classMap.getFieldMapUsingDest(destFieldName) != null) {
+      if (CLASS.equals(destFieldName) || classMap.getFieldMapUsingDest(destFieldName) != null) {
         continue;
       }
 
       // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
-      if ((destFieldName.equals("callback") || destFieldName.equals("callbacks"))
-          && destClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0) {
+      if ((CALLBACK.equals(destFieldName) || CALLBACKS.equals(destFieldName)) && MappingUtils.isProxy(destClass)) {
         continue;
       }
 
@@ -126,32 +127,32 @@ public abstract class ClassMapBuilder {
     Class srcClass = classMap.getSrcClassToMap();
     Class destClass = classMap.getDestClassToMap();
     PropertyDescriptor[] properties = null;
-    boolean destIsMap = false;
+    boolean destinationIsMap = false;
     if (MappingUtils.isSupportedMap(srcClass) || classMap.getSrcClassMapGetMethod() != null) {
       properties = ReflectionUtils.getPropertyDescriptors(destClass);
     } else if (MappingUtils.isSupportedMap(destClass) || classMap.getDestClassMapGetMethod() != null) {
       properties = ReflectionUtils.getPropertyDescriptors(srcClass);
-      destIsMap = true;
+      destinationIsMap = true;
     } else {
       return;
     }
 
     for (int i = 0; i < properties.length; i++) {
       String fieldName = properties[i].getName();
-      if (fieldName.equals("class")) {
+      if (CLASS.equals(fieldName)) {
         continue;
       }
 
-      if ((fieldName.equals("callback") || fieldName.equals("callbacks"))
-          && (destClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 || srcClass.getName().indexOf(MapperConstants.CGLIB_ID) >= 0)) {
+      if ((CALLBACK.equals(fieldName) || CALLBACKS.equals(fieldName))
+          && (MappingUtils.isProxy(destClass) || MappingUtils.isProxy(srcClass))) {
         continue;
       }
 
-      if (destIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
+      if (destinationIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
         continue;
       }
 
-      if (!destIsMap && classMap.getFieldMapUsingDest(fieldName) != null) {
+      if (!destinationIsMap && classMap.getFieldMapUsingDest(fieldName, true) != null) {
         continue;
       }
 
@@ -181,4 +182,5 @@ public abstract class ClassMapBuilder {
       classMap.addFieldMapping(map);
     }
   }
+
 }

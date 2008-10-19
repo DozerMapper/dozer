@@ -99,6 +99,12 @@ public class MappingUtilsTest extends AbstractDozerTest {
     }
   }
 
+  public void testGetRealClass() {
+    Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
+    assertEquals(ArrayList.class, MappingUtils.getRealClass(proxyObj.getClass()));
+    assertEquals(ArrayList.class, MappingUtils.getRealClass(ArrayList.class));
+  }
+
   public void testIsProxy() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
     assertTrue("should have evaluated to true for cglib proxy", MappingUtils.isProxy(proxyObj.getClass()));
@@ -117,5 +123,14 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertFalse(MappingUtils.isSupportedMap(String.class));
   }
 
+  public void testIsDeepMapping() {
+    assertTrue(MappingUtils.isDeepMapping("a.b"));
+    assertTrue(MappingUtils.isDeepMapping("."));
+    assertTrue(MappingUtils.isDeepMapping("aa.bb.cc"));
+    
+    assertFalse(MappingUtils.isDeepMapping(null));
+    assertFalse(MappingUtils.isDeepMapping(""));
+    assertFalse(MappingUtils.isDeepMapping("aaa"));
+  }
 
 }

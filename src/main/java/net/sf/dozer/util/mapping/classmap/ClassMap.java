@@ -92,27 +92,43 @@ public class ClassMap {
   }
 
   public FieldMap getFieldMapUsingDest(String destFieldName) {
+    return getFieldMapUsingDest(destFieldName, false);
+  }
+
+  public FieldMap getFieldMapUsingDest(String destFieldName, boolean isMap) {
+    if (fieldMaps == null) {
+      return null;
+    }
+
     FieldMap result = null;
 
-    if (fieldMaps != null) {
-      int size = fieldMaps.size();
-      for (int i = 0; i < size; i++) {
-        FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
-        String fieldName = fieldMap.getDestFieldName();
-        String alternateFieldName = fieldName.substring(0, 1).toLowerCase() + fieldName.substring(1);
+    int size = fieldMaps.size();
+    for (int i = 0; i < size; i++) {
+      FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
+      String fieldName = fieldMap.getDestFieldName();
 
-        // Check for exact match on field name. Also, check against alternate field name. The alternate field
-        // name is used just in case the attribute was specified in the dozer xml file starting in a Capital letter.
-        // This prevents the field from getting double mapped in the case that the class attr is named "field1" but in
-        // the dozer xml is it specified as "Field1". This should never happen, but check just in case since the use case
-        // doesnt actually error out. It just double maps which is a problem when the data type is a Collections.
-        if (fieldName.equals(destFieldName) || alternateFieldName.equals(destFieldName)) {
-          result = fieldMap;
-          break;
-        }
+      if (isMap && MappingUtils.isDeepMapping(fieldName)) {
+        fieldName = fieldName.split("\\.")[0];
+      }
+
+      String alternateFieldName = provideAlternateName(fieldName);
+
+      // Check for exact match on field name. Also, check against alternate field name. The alternate field
+      // name is used just in case the attribute was specified in the dozer xml file starting in a Capital letter.
+      // This prevents the field from getting double mapped in the case that the class attr is named "field1" but in
+      // the dozer xml is it specified as "Field1". This should never happen, but check just in case since the use case
+      // doesnt actually error out. It just double maps which is a problem when the data type is a Collections.
+      if (fieldName.equals(destFieldName) || alternateFieldName.equals(destFieldName)) {
+        result = fieldMap;
+        break;
       }
     }
+
     return result;
+  }
+
+  String provideAlternateName(String fieldName) {
+    return fieldName.substring(0, 1).toLowerCase() + fieldName.substring(1);
   }
 
   public FieldMap getFieldMapUsingSrc(String srcFieldName) {

@@ -259,20 +259,23 @@ public abstract class MappingUtils {
     return result;
   }
 
-  public static boolean isProxy(Class clazz) {
+  static boolean isProxy(Class clazz) {
     //todo: implement a better way of determining this that is more generic
     return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0;
   }
 
   public static Class getRealSuperclass(Class clazz) {
-    return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 ? clazz.getSuperclass().getSuperclass() : clazz.getSuperclass();
-  }
-
-  public static Class getProxyRealClass(Class clazz) {
-    if (!isProxy(clazz)) {
-      throw new IllegalArgumentException("specified class is not a proxy: " + clazz);
+    if (isProxy(clazz)) {
+      return clazz.getSuperclass().getSuperclass();
     }
     return clazz.getSuperclass();
+  }
+
+  public static Class getRealClass(Class clazz) {
+    if (isProxy(clazz)) {
+      return clazz.getSuperclass();
+    }
+    return clazz;
   }
 
   public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
@@ -324,6 +327,10 @@ public abstract class MappingUtils {
       result = x;
     }
     return result;
+  }
+
+  public static boolean isDeepMapping(String mapping) {
+    return mapping != null && mapping.indexOf(".") >= 0;
   }
 
 }

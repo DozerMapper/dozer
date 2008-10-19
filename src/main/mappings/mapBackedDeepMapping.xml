@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+        "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping type="one-way" map-id="TC1">
+    <class-a>java.util.Map</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.DeepObject</class-b>
+    <field>
+      <a key="data1">this</a>
+      <b>deepObject.name</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+  </mapping>
+
+  <mapping type="one-way" map-id="TC2">
+    <class-a>java.util.Map</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.DeepObject</class-b>
+    <field>
+      <a key="data1">this</a>
+      <b>deepObject.deepObject.name</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+  </mapping>
+
+  <mapping type="one-way" map-id="TC3">
+    <class-a>java.util.Map</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.DeepObject</class-b>
+    <field>
+      <a key="data1">this</a>
+      <b>name</b>
+      <a-hint>java.lang.String</a-hint>
+    </field>
+  </mapping>
+
+
+</mappings>
