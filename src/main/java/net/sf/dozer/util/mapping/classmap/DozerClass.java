@@ -124,7 +124,7 @@ public class DozerClass {
   }
 
   public boolean isMapTypeCustomGetterSetterClass() {
-    return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
+    return getMapGetMethod() != null || getMapSetMethod() != null;
   }
 
   public String toString() {

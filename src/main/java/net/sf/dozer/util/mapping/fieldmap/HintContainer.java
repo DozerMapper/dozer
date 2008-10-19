@@ -51,7 +51,7 @@ public class HintContainer {
   }
 
   public boolean hasMoreThanOneHint() {
-    return getHints().size() > 1 ? true : false;
+    return getHints().size() > 1;
   }
 
   public List getHints() {

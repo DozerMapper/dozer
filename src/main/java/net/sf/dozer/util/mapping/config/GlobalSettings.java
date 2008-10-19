@@ -43,7 +43,7 @@ import org.apache.commons.logging.LogFactory;
 public class GlobalSettings {
 
   private static final Log log = LogFactory.getLog(GlobalSettings.class);
-  private static GlobalSettings singleton;
+  private static final GlobalSettings INSTANCE = new GlobalSettings();
 
   private String loadedByFileName;
   private boolean statisticsEnabled = MapperConstants.DEFAULT_STATISTICS_ENABLED;
@@ -53,14 +53,11 @@ public class GlobalSettings {
   private final boolean isJdk5 = (System.getProperty("java.version", "1.4").startsWith("1.5") || System.getProperty("java.version",
       "1.4").startsWith("1.6"));
 
-  public static synchronized GlobalSettings getInstance() {
-    if (singleton == null) {
-      singleton = new GlobalSettings();
-    }
-    return singleton;
+  public static GlobalSettings getInstance() {
+    return INSTANCE;
   }
 
-  protected static GlobalSettings createNew() {
+  static GlobalSettings createNew() {
     return new GlobalSettings();
   }
 

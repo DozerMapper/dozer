@@ -330,7 +330,7 @@ public abstract class MappingUtils {
   }
 
   public static boolean isDeepMapping(String mapping) {
-    return mapping != null && mapping.indexOf(".") >= 0;
+    return mapping != null && mapping.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0;
   }
 
 }

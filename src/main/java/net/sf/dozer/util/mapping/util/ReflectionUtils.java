@@ -45,7 +45,7 @@ public abstract class ReflectionUtils {
   public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, HintContainer deepIndexHintContainer) {
     PropertyDescriptor result = null;
 
-    if (fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0) {
+    if (MappingUtils.isDeepMapping(fieldName)) {
       DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
       result = hierarchy[hierarchy.length - 1].getPropDescriptor();
     } else {
@@ -66,7 +66,7 @@ public abstract class ReflectionUtils {
   }
 
   public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, HintContainer deepIndexHintContainer) {
-    if (field.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) < 0) {
+    if (!MappingUtils.isDeepMapping(field)) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
 
@@ -113,7 +113,7 @@ public abstract class ReflectionUtils {
           if (genericType != null) {
             latestClass = genericType;
           } else {
-            latestClass = (Class) deepIndexHintContainer.getHint(hintIndex);
+            latestClass = deepIndexHintContainer.getHint(hintIndex);
             hintIndex += 1;
           }
         }
