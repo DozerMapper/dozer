@@ -183,7 +183,7 @@ public abstract class ReflectionUtils {
     }
   }
 
-  private static PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
+  static PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
     List propDescriptors = new ArrayList();
     // Add prop descriptors for interface passed in
     propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
@@ -202,8 +202,8 @@ public abstract class ReflectionUtils {
          * to the result list.  This caused issues when getter and setter of an attribute on different interfaces in 
          * an inheritance hierarchy
          */
-        for (int j = 0; i < superInterfacePropertyDescriptors.size(); i++) {
-          PropertyDescriptor superPropDescriptor = (PropertyDescriptor) superInterfacePropertyDescriptors.get(i);
+        for (int j = 0; j < superInterfacePropertyDescriptors.size(); j++) {
+          PropertyDescriptor superPropDescriptor = (PropertyDescriptor) superInterfacePropertyDescriptors.get(j);
           PropertyDescriptor existingPropDescriptor = findPropDescriptorByName(propDescriptors, superPropDescriptor.getName());
           if (existingPropDescriptor == null) {
             propDescriptors.add(superPropDescriptor);

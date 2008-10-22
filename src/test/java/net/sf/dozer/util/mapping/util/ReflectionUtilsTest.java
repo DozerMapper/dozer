@@ -68,4 +68,31 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     assertNotNull("prop descriptor should not be null", pd);
     assertEquals("invalid prop descriptor name found", fieldName, pd.getName());
   }
+
+  public void testGetInterfacePropertyDescriptors() {
+    PropertyDescriptor[] descriptors = ReflectionUtils.getInterfacePropertyDescriptors(TestIF1.class);
+    assertEquals(1, descriptors.length);
+
+    descriptors = ReflectionUtils.getInterfacePropertyDescriptors(TestIF2.class);
+    assertEquals(1, descriptors.length);
+
+    descriptors = ReflectionUtils.getInterfacePropertyDescriptors(TestClass.class);
+    assertEquals(4, descriptors.length);
+  }
+
+  private abstract static class TestClass implements TestIF1, TestIF2 {
+    public String getC() {
+      return null;
+    }
+  }
+
+  private static interface TestIF1 {
+    String getA();
+    void setA(String a);
+  }
+
+  private static interface TestIF2 {
+    Integer getB();
+  }
+
 }
