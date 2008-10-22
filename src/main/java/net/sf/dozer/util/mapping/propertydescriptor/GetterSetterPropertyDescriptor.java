@@ -58,7 +58,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   }
 
   public Object getPropertyValue(Object bean) {
-    Object result = null;
+    Object result;
     if (isDeepField()) {
       result = getDeepSrcFieldValue(bean);
     } else {
@@ -133,7 +133,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       DeepHierarchyElement hierarchyElement = hierarchy[i];
       PropertyDescriptor pd = hierarchyElement.getPropDescriptor();
       Object value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
-      Class clazz = null;
+      Class clazz;
       if (value == null) {
         clazz = pd.getPropertyType();
         if (clazz.isInterface() && (i + 1) == hierarchyLength && fieldMap.getDestHintContainer() != null) {
@@ -146,7 +146,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(clazz.getComponentType()),
               hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
-          Class collectionEntryType = null;
+          Class collectionEntryType;
           Class genericType = ReflectionUtils.determineGenericsType(pd);
           if (genericType != null) {
             collectionEntryType = genericType;

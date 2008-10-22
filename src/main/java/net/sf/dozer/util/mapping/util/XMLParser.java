@@ -568,8 +568,8 @@ public class XMLParser {
     return docBuilder;
   }
 
-  class DozerDefaultHandler extends DefaultHandler {
-    private final Log log = LogFactory.getLog(DozerDefaultHandler.class);
+  private static class DozerDefaultHandler extends DefaultHandler {
+    private static final Log log = LogFactory.getLog(DozerDefaultHandler.class);
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
       log.debug("tag: " + qName);

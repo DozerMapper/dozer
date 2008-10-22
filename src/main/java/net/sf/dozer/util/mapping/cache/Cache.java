@@ -33,17 +33,18 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  */
 public class Cache {
+
   private final String name;
 
+  // Order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
+  private final Map cacheMap = new LinkedMap(100, 0.75F);
   private long maximumSize;
-  private final Map cacheMap;
   private long hitCount;
   private long missCount;
 
   public Cache(String name, long maximumSize) {
     this.name = name;
     this.maximumSize = maximumSize;
-    this.cacheMap = new CacheLinkedHashMap();
   }
 
   public void clear() {
@@ -103,13 +104,6 @@ public class Cache {
 
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
-
-  private class CacheLinkedHashMap extends LinkedMap {
-    // Order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
-    public CacheLinkedHashMap() {
-      super(100, 0.75F);
-    }
   }
 
 }

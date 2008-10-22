@@ -167,7 +167,7 @@ public class MapFieldMap extends FieldMap {
     return pd.getPropertyType();
   }
 
-  private class PrepareTargetObjectResult {
+  private static class PrepareTargetObjectResult {
     private Object targetObject;
     private MapPropertyDescriptor propDescriptor;
     public PrepareTargetObjectResult(Object targetObject, MapPropertyDescriptor propDescriptor) {
