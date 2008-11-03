@@ -25,7 +25,7 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
  * 
  * @author garsombke.franz
  */
-public class DozerEventManager implements EventManagerIF {
+public class DozerEventManager implements EventManager {
   private final List eventListeners;
 
   public DozerEventManager(List eventListeners) {

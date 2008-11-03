@@ -23,7 +23,7 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
  * 
  * @author garsombke.franz
  */
-public class SelfPropertyDescriptor implements DozerPropertyDescriptorIF {
+public class SelfPropertyDescriptor implements DozerPropertyDescriptor {
 
   private final Class self;
 

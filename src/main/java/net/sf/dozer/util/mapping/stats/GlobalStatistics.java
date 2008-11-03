@@ -23,17 +23,17 @@ package net.sf.dozer.util.mapping.stats;
 public final class GlobalStatistics {
   private static GlobalStatistics singleton = new GlobalStatistics();
 
-  private final StatisticsManagerIF statsMgr;
+  private final StatisticsManager statsMgr;
 
   private GlobalStatistics() {
-    statsMgr = new StatisticsManager();
+    statsMgr = new StatisticsManagerImpl();
   }
 
   public static GlobalStatistics getInstance() {
     return singleton;
   }
 
-  public StatisticsManagerIF getStatsMgr() {
+  public StatisticsManager getStatsMgr() {
     return statsMgr;
   }
 }

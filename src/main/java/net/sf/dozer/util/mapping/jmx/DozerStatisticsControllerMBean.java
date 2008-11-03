@@ -17,14 +17,14 @@ package net.sf.dozer.util.mapping.jmx;
 
 import java.util.Set;
 
-import net.sf.dozer.util.mapping.stats.StatisticsIF;
+import net.sf.dozer.util.mapping.stats.Statistics;
 
 /**
  * Public Dozer JMX Bean interface
  * 
  * @author tierney.matt
  */
-public interface DozerStatisticsControllerMBean extends StatisticsIF {
+public interface DozerStatisticsControllerMBean extends Statistics {
   public double getMappingAverageTime();
   public long getMappingSuccessCount();
   public long getMappingFailureCount();

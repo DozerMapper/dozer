@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author tierney.matt
  */
-public final class DozerCacheManager implements CacheManagerIF {
+public final class DozerCacheManager implements CacheManager {
   private static final Log log = LogFactory.getLog(DozerCacheManager.class);
   private final Map cachesMap = new HashMap();
 

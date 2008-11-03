@@ -21,7 +21,7 @@ package net.sf.dozer.util.mapping.propertydescriptor;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 
-public class XmlBeanPropertyDescriptor implements DozerPropertyDescriptorIF {
+public class XmlBeanPropertyDescriptor implements DozerPropertyDescriptor {
 
   private static final String IS_SET_PREFIX = "set";
 

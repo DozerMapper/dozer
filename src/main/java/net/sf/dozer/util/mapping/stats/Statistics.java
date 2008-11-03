@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.cache;
+package net.sf.dozer.util.mapping.stats;
 
 import java.util.Set;
 
 /**
- * Internal interface for managing caches. Only intended for internal use.
+ * Internal interface for managing statistics. Only intended for internal use.
  * 
  * @author tierney.matt
  */
-public interface CacheManagerIF {
-  public void clearAllEntries();
-  public Set getCaches();
-  public Cache getCache(String cacheName);
-  public Set getCacheNames();
-  public void addCache(String cacheName, long maximumSize);
-  public void addCache(Cache cache);
-  public boolean cacheExists(String cacheName);
-  public void logCaches();
+public interface Statistics {
+  public void clearAll();
+  public Set getStatisticEntries(String statisticType);
+  public Set getStatisticTypes();
+  public boolean isStatisticsEnabled();
+  public void setStatisticsEnabled(boolean statisticsEnabled);
+  public void logStatistics();
 }

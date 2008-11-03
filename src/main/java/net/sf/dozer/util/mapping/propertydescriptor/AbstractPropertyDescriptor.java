@@ -25,7 +25,7 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
+public abstract class AbstractPropertyDescriptor implements DozerPropertyDescriptor {
   protected final Class clazz;
   protected final String fieldName;
   protected boolean isIndexed = false;

@@ -19,14 +19,14 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.dozer.util.mapping.cache.CacheManagerIF;
+import net.sf.dozer.util.mapping.cache.CacheManager;
 import net.sf.dozer.util.mapping.cache.DozerCacheManager;
 import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.interceptor.StatisticsInterceptor;
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
-import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
+import net.sf.dozer.util.mapping.stats.StatisticsManager;
 import net.sf.dozer.util.mapping.util.CustomMappingsLoader;
 import net.sf.dozer.util.mapping.util.InitLogger;
 import net.sf.dozer.util.mapping.util.LoadMappingsResult;
@@ -50,7 +50,7 @@ import org.apache.commons.logging.LogFactory;
 public class DozerBeanMapper implements MapperIF {
 
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
-  private static final StatisticsManagerIF statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+  private static final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
 
   static {
     DozerInitializer.init();
@@ -71,7 +71,7 @@ public class DozerBeanMapper implements MapperIF {
   private Map customMappings;
   private Configuration globalConfiguration;
   // There are no global caches. Caches are per bean mapper instance
-  private final CacheManagerIF cacheManager = new DozerCacheManager();
+  private final CacheManager cacheManager = new DozerCacheManager();
 
   public DozerBeanMapper() {
     this(null);

@@ -23,7 +23,7 @@ import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticEntry;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
-import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
+import net.sf.dozer.util.mapping.stats.StatisticsManager;
 
 /**
  * Public Dozer JMX Bean
@@ -31,7 +31,7 @@ import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
  * @author tierney.matt
  */
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
-  private final StatisticsManagerIF statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+  private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
 
   public void clearAll() {
     statsMgr.clearAll();

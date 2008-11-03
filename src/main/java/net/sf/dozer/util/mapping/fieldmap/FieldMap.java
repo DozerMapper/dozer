@@ -18,7 +18,7 @@ package net.sf.dozer.util.mapping.fieldmap;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
+import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.GetterSetterPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.PropertyDescriptorFactory;
 import net.sf.dozer.util.mapping.util.MapperConstants;
@@ -78,7 +78,7 @@ public abstract class FieldMap implements Cloneable {
       log.debug("Getting ready to invoke write method on the destination object.  Dest Obj: "
           + MappingUtils.getClassNameWithoutPackage(runtimeDestObj.getClass()) + ", Dest value: " + destFieldValue);
     }
-    DozerPropertyDescriptorIF propDescriptor = getDestPropertyDescriptor(runtimeDestObj.getClass());
+    DozerPropertyDescriptor propDescriptor = getDestPropertyDescriptor(runtimeDestObj.getClass());
     propDescriptor.setPropertyValue(runtimeDestObj, destFieldValue, this);
   }
 
@@ -117,7 +117,7 @@ public abstract class FieldMap implements Cloneable {
     // refactoring effort to clean up the prop descriptor stuff. The underlying write method should not be exposed.
     // For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this
     // context. The other types of prop descriptors would have failed.
-    DozerPropertyDescriptorIF dpd = getDestPropertyDescriptor(runtimeDestClass);
+    DozerPropertyDescriptor dpd = getDestPropertyDescriptor(runtimeDestClass);
     Method result = null;
     try {
       result = ((GetterSetterPropertyDescriptor) dpd).getWriteMethod();
@@ -357,7 +357,7 @@ public abstract class FieldMap implements Cloneable {
     }
   }
 
-  protected DozerPropertyDescriptorIF getSrcPropertyDescriptor(Class runtimeSrcClass) {
+  protected DozerPropertyDescriptor getSrcPropertyDescriptor(Class runtimeSrcClass) {
     //This could possibly be a good place to add caching on prop descriptor for runtime class.
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
         getSrcFieldMapGetMethod(), getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
@@ -365,7 +365,7 @@ public abstract class FieldMap implements Cloneable {
         getDestDeepIndexHintContainer(), classMap.getSrcClassBeanFactory());
   }
 
-  protected DozerPropertyDescriptorIF getDestPropertyDescriptor(Class runtimeDestClass) {
+  protected DozerPropertyDescriptor getDestPropertyDescriptor(Class runtimeDestClass) {
     //This could possibly be a good place to add caching on prop descriptor for runtime class.
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass, getDestFieldTheGetMethod(),
         getDestFieldTheSetMethod(), getDestFieldMapGetMethod(), getDestFieldMapSetMethod(), isDestFieldAccessible(),

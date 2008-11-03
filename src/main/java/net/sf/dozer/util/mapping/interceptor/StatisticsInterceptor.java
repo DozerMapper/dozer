@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
-import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
+import net.sf.dozer.util.mapping.stats.StatisticsManager;
 import net.sf.dozer.util.mapping.util.MappingUtils;
 
 /**
@@ -30,9 +30,9 @@ import net.sf.dozer.util.mapping.util.MappingUtils;
  */
 public class StatisticsInterceptor implements InvocationHandler {
   private final Object delegate;
-  private final StatisticsManagerIF statsMgr;
+  private final StatisticsManager statsMgr;
 
-  public StatisticsInterceptor(Object delegate, StatisticsManagerIF statsMgr) {
+  public StatisticsInterceptor(Object delegate, StatisticsManager statsMgr) {
     this.delegate = delegate;
     this.statsMgr = statsMgr;
   }

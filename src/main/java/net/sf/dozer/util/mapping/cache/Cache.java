@@ -20,7 +20,7 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.stats.GlobalStatistics;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
-import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
+import net.sf.dozer.util.mapping.stats.StatisticsManager;
 
 import org.apache.commons.collections.map.LinkedMap;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -67,7 +67,7 @@ public class Cache {
       throw new IllegalArgumentException("Key cannot be null");
     }
     CacheEntry result = (CacheEntry) cacheMap.get(key);
-    StatisticsManagerIF statMgr = GlobalStatistics.getInstance().getStatsMgr();
+    StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
     if (result != null) {
       hitCount++;
       statMgr.increment(StatisticTypeConstants.CACHE_HIT_COUNT, name);

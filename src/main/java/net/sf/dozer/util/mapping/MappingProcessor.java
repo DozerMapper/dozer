@@ -31,7 +31,7 @@ import java.util.Set;
 import net.sf.dozer.util.mapping.cache.Cache;
 import net.sf.dozer.util.mapping.cache.CacheEntry;
 import net.sf.dozer.util.mapping.cache.CacheKeyFactory;
-import net.sf.dozer.util.mapping.cache.CacheManagerIF;
+import net.sf.dozer.util.mapping.cache.CacheManager;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
@@ -39,14 +39,14 @@ import net.sf.dozer.util.mapping.converters.CustomConverter;
 import net.sf.dozer.util.mapping.converters.PrimitiveOrWrapperConverter;
 import net.sf.dozer.util.mapping.event.DozerEvent;
 import net.sf.dozer.util.mapping.event.DozerEventManager;
-import net.sf.dozer.util.mapping.event.EventManagerIF;
+import net.sf.dozer.util.mapping.event.EventManager;
 import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
 import net.sf.dozer.util.mapping.fieldmap.MapFieldMap;
 import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
-import net.sf.dozer.util.mapping.stats.StatisticsManagerIF;
+import net.sf.dozer.util.mapping.stats.StatisticsManager;
 import net.sf.dozer.util.mapping.util.ClassMapBuilder;
 import net.sf.dozer.util.mapping.util.ClassMapFinder;
 import net.sf.dozer.util.mapping.util.ClassMapKeyFactory;
@@ -83,16 +83,16 @@ public class MappingProcessor implements MapperIF {
   private final Configuration globalConfiguration;
   private final List customConverterObjects;// actual converter object instances
   private final Map customConverterObjectsWithId; // key/value pair of custom converter id and object instance
-  private final StatisticsManagerIF statsMgr;
-  private final EventManagerIF eventMgr;
+  private final StatisticsManager statsMgr;
+  private final EventManager eventMgr;
   private final CustomFieldMapperIF customFieldMapper;
   private final Map mappedFields = new HashMap();
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
-  protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManagerIF cacheMgr,
-      StatisticsManagerIF statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapperIF customFieldMapper,
+  protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManager cacheMgr,
+      StatisticsManager statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapperIF customFieldMapper,
       Map customConverterObjectsWithId) {
     this.customMappings = customMappings;
     this.globalConfiguration = globalConfiguration;

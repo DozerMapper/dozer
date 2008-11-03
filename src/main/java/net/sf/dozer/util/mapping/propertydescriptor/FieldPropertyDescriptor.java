@@ -30,7 +30,7 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  * @author tierney.matt
  * 
  */
-public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptorIF {
+public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptor {
   private Field field;
 
   public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,

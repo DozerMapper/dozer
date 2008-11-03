@@ -25,11 +25,11 @@ import net.sf.dozer.util.mapping.MappingException;
  * @author tierney.matt
  */
 public class StatisticManagerTest extends AbstractDozerTest {
-  private StatisticsManager statMgr;
+  private StatisticsManagerImpl statMgr;
 
   protected void setUp() throws Exception {
     super.setUp();
-    statMgr = new StatisticsManager();
+    statMgr = new StatisticsManagerImpl();
     statMgr.setStatisticsEnabled(true);
   }
 

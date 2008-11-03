@@ -13,22 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util.mapping.propertydescriptor;
-
-import net.sf.dozer.util.mapping.fieldmap.FieldMap;
+package net.sf.dozer.util.mapping.event;
 
 /**
- * Internal property descriptor interface. Only intended for internal use.  Dozer property descriptors are used
- * to read and write the actual field mapping values on the target objects.
+ * Internal event manager interface. Only intended for internal use.
  * 
  * @author garsombke.franz
  */
-public interface DozerPropertyDescriptorIF {
+public interface EventManager {
 
-  public Class getPropertyType();
-
-  public Object getPropertyValue(Object bean);
-
-  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap);
+  public void fireEvent(DozerEvent event);
 
 }

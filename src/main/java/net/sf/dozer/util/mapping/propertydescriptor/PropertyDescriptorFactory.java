@@ -30,11 +30,11 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptorIF getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
+  public static DozerPropertyDescriptor getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
       String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name, String key,
       boolean isSelfReferencing, String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
       HintContainer destDeepIndexHintContainer, String beanFactory) {
-    DozerPropertyDescriptorIF desc = null;
+    DozerPropertyDescriptor desc = null;
 
     // Raw Map types or custom map-get-method/set specified
     boolean isMapProperty = MappingUtils.isSupportedMap(clazz);

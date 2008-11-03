@@ -16,7 +16,7 @@
 package net.sf.dozer.util.mapping.fieldmap;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptorIF;
+import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.FieldPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.JavaBeanPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.MapPropertyDescriptor;
@@ -59,7 +59,7 @@ public class MapFieldMap extends FieldMap {
   }
 
   public void writeDestValue(Object destObj, Object destFieldValue) {
-    DozerPropertyDescriptorIF propDescriptor;
+    DozerPropertyDescriptor propDescriptor;
     Object targetObject = destObj;
 
     if (getDestFieldName().equals(MapperConstants.SELF_KEYWORD)
@@ -83,7 +83,7 @@ public class MapFieldMap extends FieldMap {
   }
 
   public Object getSrcFieldValue(Object srcObj) {
-    DozerPropertyDescriptorIF propDescriptor;
+    DozerPropertyDescriptor propDescriptor;
     Object targetObject = srcObj;
 
     if (getSrcFieldName().equals(MapperConstants.SELF_KEYWORD)) {
@@ -117,7 +117,7 @@ public class MapFieldMap extends FieldMap {
 
   private PrepareTargetObjectResult prepareTargetObject(Object destObj) {
     //  Need to dig out actual destination Map object and use map property descriptor to set the value on that target object....
-    DozerPropertyDescriptorIF pd;
+    DozerPropertyDescriptor pd;
     if (isDestFieldAccessible()) {
       pd = new FieldPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
           getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
@@ -155,7 +155,7 @@ public class MapFieldMap extends FieldMap {
 
   private Class determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj, boolean isDestObj) {
     // Dig out actual Map object by calling getter on top level object    
-    DozerPropertyDescriptorIF pd;
+    DozerPropertyDescriptor pd;
     if ((isDestObj && isDestFieldAccessible()) || (!isDestObj && isSrcFieldAccessible())) {
       pd = new FieldPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index, getSrcDeepIndexHintContainer(),
           getDestDeepIndexHintContainer());
