@@ -42,7 +42,10 @@ import org.apache.commons.lang.StringUtils;
  * @author tierney.matt
  * 
  */
-public abstract class MappingUtils {
+public final class MappingUtils {
+
+  private MappingUtils() {
+  }
 
   // only making public temporarily while refactoring. This static data should be relocated.
   // The stored factories don't belong in MappingUtils and need to be relocated
@@ -98,7 +101,7 @@ public abstract class MappingUtils {
   }
 
   public static boolean isBlankOrNull(String value) {
-    return value == null || value.trim().length() < 1 ? true : false;
+    return value == null || value.trim().length() < 1;
   }
 
   public static Throwable getRootCause(Throwable ex) {
@@ -249,10 +252,10 @@ public abstract class MappingUtils {
         }
     }
 
-    public static Class loadClass(String name) {
+  public static Class loadClass(String name) {
     Class result = null;
     try {
-      result = Thread.currentThread().getContextClassLoader().loadClass(name);
+      result = Class.forName(name);
     } catch (ClassNotFoundException e) {
       MappingUtils.throwMappingException(e);
     }
