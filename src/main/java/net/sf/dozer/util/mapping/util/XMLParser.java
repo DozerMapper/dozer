@@ -121,7 +121,9 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element ele = (Element) node;
-        log.debug("name: " + ele.getNodeName());
+        if (log.isDebugEnabled()) {
+          log.debug("name: " + ele.getNodeName());
+        }
         if (CONFIGURATION_ELEMENT.equals(ele.getNodeName())) {
           parseConfiguration(ele);
         } else if (MAPPING_ELEMENT.equals(ele.getNodeName())) {
@@ -170,8 +172,10 @@ public class XMLParser {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.debug("config name: " + element.getNodeName());
-        log.debug("  value: " + element.getFirstChild().getNodeValue());
+        if (log.isDebugEnabled()) {
+          log.debug("config name: " + element.getNodeName());
+          log.debug("  value: " + element.getFirstChild().getNodeValue());
+        }
         if (CLASS_A_ELEMENT.equals(element.getNodeName())) {
           DozerClass source = new DozerClass();
           source.setName(element.getFirstChild().getNodeValue().trim());
@@ -234,19 +238,21 @@ public class XMLParser {
   }
 
   private void parseFieldExcludeMap(Element ele, ClassMap classMap) {
-    ExcludeFieldMap efm = new ExcludeFieldMap(classMap);
+    ExcludeFieldMap excludeFieldMap = new ExcludeFieldMap(classMap);
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      efm.setType(ele.getAttribute(TYPE_ATTRIBUTE));
+      excludeFieldMap.setType(ele.getAttribute(TYPE_ATTRIBUTE));
     }
-    classMap.addFieldMapping(efm);
-    NodeList nl = ele.getChildNodes();
-    for (int i = 0; i < nl.getLength(); i++) {
-      Node node = nl.item(i);
+    classMap.addFieldMapping(excludeFieldMap);
+    NodeList nodeList = ele.getChildNodes();
+    for (int i = 0; i < nodeList.getLength(); i++) {
+      Node node = nodeList.item(i);
       if (node instanceof Element) {
         Element element = (Element) node;
-        log.debug("config name: " + element.getNodeName());
-        log.debug("  value: " + element.getFirstChild().getNodeValue());
-        parseFieldElements(element, efm);
+        if (log.isDebugEnabled()) {
+          log.debug("config name: " + element.getNodeName());
+          log.debug("  value: " + element.getFirstChild().getNodeValue());
+        }
+        parseFieldElements(element, excludeFieldMap);
       }
     }
   }
@@ -572,7 +578,9 @@ public class XMLParser {
     private static final Log log = LogFactory.getLog(DozerDefaultHandler.class);
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-      log.debug("tag: " + qName);
+      if (log.isDebugEnabled()) {
+        log.debug("tag: " + qName);
+      }
     }
 
     public void warning(SAXParseException e) throws SAXException {

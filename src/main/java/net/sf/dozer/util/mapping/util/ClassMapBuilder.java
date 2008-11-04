@@ -108,7 +108,7 @@ public abstract class ClassMapBuilder {
         continue;
       }
 
-      FieldMap map = null;
+      FieldMap map;
       DozerField field = new DozerField(destFieldName, null);
       if (field.isCustomGetterSetterField()) {
         map = new CustomGetSetMethodFieldMap(classMap);
@@ -126,7 +126,7 @@ public abstract class ClassMapBuilder {
   private static void addMapDefaultFieldMappings(ClassMap classMap) {
     Class srcClass = classMap.getSrcClassToMap();
     Class destClass = classMap.getDestClassToMap();
-    PropertyDescriptor[] properties = null;
+    PropertyDescriptor[] properties;
     boolean destinationIsMap = false;
     if (MappingUtils.isSupportedMap(srcClass) || classMap.getSrcClassMapGetMethod() != null) {
       properties = ReflectionUtils.getPropertyDescriptors(destClass);

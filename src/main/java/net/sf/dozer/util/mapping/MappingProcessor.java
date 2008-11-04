@@ -90,6 +90,7 @@ public class MappingProcessor implements MapperIF {
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
+  private static final String BASE_CLASS = "java.lang.Object";
 
   protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManager cacheMgr,
       StatisticsManager statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapperIF customFieldMapper,
@@ -204,13 +205,14 @@ public class MappingProcessor implements MapperIF {
       Set superClasses = checkForSuperTypeMapping(srcClass, destClass);
       // check for interfaces
       superClasses.addAll(ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass));
-      if (superClasses.size() > 0) {
+      if (!superClasses.isEmpty()) {
         mappedParentFields = processSuperTypeMapping(superClasses, srcObj, destObj, mapId);
       }
     }
 
-    // Perform mappings for each field. Iterate through Fields Maps for this class mapping
     List fieldMaps = classMap.getFieldMaps();
+
+    // Perform mappings for each field. Iterate through Fields Maps for this class mapping
     int size = fieldMaps.size();
     for (int i = 0; i < size; i++) {
       FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
@@ -560,7 +562,7 @@ public class MappingProcessor implements MapperIF {
     } else {
       List list = Arrays.asList((Object[]) srcCollectionValue);
       List returnList = null;
-      if (!destEntryType.getName().equals("java.lang.Object")) {
+      if (!destEntryType.getName().equals(BASE_CLASS)) {
         returnList = addOrUpdateToList(srcObj, fieldMap, list, destObj, destEntryType);
       } else {
         returnList = addOrUpdateToList(srcObj, fieldMap, list, destObj, null);
@@ -634,7 +636,7 @@ public class MappingProcessor implements MapperIF {
     List list = null;
     Class destEntryType = fieldMap.getDestFieldType(destObj.getClass()).getComponentType();
 
-    if (!destEntryType.getName().equals("java.lang.Object")) {
+    if (!destEntryType.getName().equals(BASE_CLASS)) {
       list = addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj, destEntryType);
     } else {
       list = addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj);
@@ -892,45 +894,42 @@ public class MappingProcessor implements MapperIF {
     // Need to call getRealSuperclass because proxied data objects will not return correct
     // superclass when using basic reflection
     Class superSrcClass = MappingUtils.getRealSuperclass(srcClass);
-    Class superDestClass = MappingUtils.getRealSuperclass(destClass);
-    boolean stillHasSuperClasses = true;
-    while (stillHasSuperClasses) {
-      if ((superSrcClass != null && !superSrcClass.getName().equals("java.lang.Object"))
-          || (superDestClass != null && !superDestClass.getName().equals("java.lang.Object"))) {
-        // see if the source super class is mapped to the dest class
-        ClassMap superClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(superSrcClass, destClass));
-        if (superClassMap != null) {
-          superClasses.add(superClassMap);
-        }
-        // now walk up the dest classes super classes with our super source
-        // class and our source class
-        boolean stillHasDestSuperClasses = true;
-        while (stillHasDestSuperClasses) {
-          if (superDestClass != null && !superDestClass.getName().equals("java.lang.Object")) {
-            ClassMap superDestClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(superSrcClass, superDestClass));
-            if (superDestClassMap != null) {
-              superClasses.add(superDestClassMap);
-            }
-            ClassMap srcClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, superDestClass));
-            if (srcClassMap != null) {
-              superClasses.add(srcClassMap);
-            }
-            superDestClass = MappingUtils.getRealSuperclass(superDestClass);
-          } else {
-            break;
-          }
-        }
-        superSrcClass = MappingUtils.getRealSuperclass(superSrcClass);
-      } else {
-        break;
+
+    while (!isBaseClass(superSrcClass)) {
+
+      // see if the source super class is mapped to the dest class
+      ClassMap superClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(superSrcClass, destClass));
+      if (superClassMap != null) {
+        superClasses.add(superClassMap);
       }
+
+      Class superDestClass = MappingUtils.getRealSuperclass(destClass);
+      // now walk up the dest classes super classes with our super source
+      // class and our source class
+      while (!isBaseClass(superDestClass)) {
+
+        ClassMap superDestClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(superSrcClass, superDestClass));
+        if (superDestClassMap != null) {
+          superClasses.add(superDestClassMap);
+        }
+        ClassMap srcClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, superDestClass));
+        if (srcClassMap != null) {
+          superClasses.add(srcClassMap);
+        }
+        superDestClass = MappingUtils.getRealSuperclass(superDestClass);
+      }
+
+      superSrcClass = MappingUtils.getRealSuperclass(superSrcClass);
     }
 
-    // Add result to cache
     cacheEntry = new CacheEntry(cacheKey, superClasses);
     superTypeCache.put(cacheEntry);
 
     return superClasses;
+  }
+
+  private boolean isBaseClass(Class clazz) {
+    return clazz == null || BASE_CLASS.equals(clazz.getName());
   }
 
   private List processSuperTypeMapping(Set superClasses, Object srcObj, Object destObj, String mapId) {
