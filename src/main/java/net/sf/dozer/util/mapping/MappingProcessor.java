@@ -18,15 +18,7 @@ package net.sf.dozer.util.mapping;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import net.sf.dozer.util.mapping.cache.Cache;
 import net.sf.dozer.util.mapping.cache.CacheEntry;
@@ -61,6 +53,7 @@ import net.sf.dozer.util.mapping.util.MappingValidator;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -108,7 +101,7 @@ public class MappingProcessor implements MapperIF {
 
   public Object map(Object srcObj, Class destClass) {
     // map-id is optional, so just pass in null
-    return map(srcObj, destClass, (String) null);
+    return map(srcObj, destClass, null);
   }
 
   public Object map(Object srcObj, Class destClass, String mapId) {
@@ -282,7 +275,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   private void mapFromFieldMap(Object srcObj, Object destObj, Object srcFieldValue, FieldMap fieldMapping) {
-    Class destFieldType = null;
+    Class destFieldType;
     if (fieldMapping instanceof CustomGetSetMethodFieldMap) {
       try {
         destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
@@ -298,7 +291,7 @@ public class MappingProcessor implements MapperIF {
     // Use field level custom converter if one was specified. Otherwise, map or
     // recurse the object as normal
     // 1770440 - fdg - Using multiple instances of CustomConverter
-    Object destFieldValue = null;
+    Object destFieldValue;
     if (!MappingUtils.isBlankOrNull(fieldMapping.getCustomConverterId())) {
       if (customConverterObjectsWithId != null && customConverterObjectsWithId.containsKey(fieldMapping.getCustomConverterId())) {
         Class srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMapping.getSrcFieldType(srcObj.getClass());
@@ -340,7 +333,7 @@ public class MappingProcessor implements MapperIF {
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop
-    Object alreadyMappedValue = null;
+    Object alreadyMappedValue;
     alreadyMappedValue = mappedFields.get(srcFieldValue);
     if (alreadyMappedValue != null) {
       // 1664984 - bi-directionnal mapping with sets & subclasses
@@ -523,7 +516,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   private Object mapMap(Object srcObj, Object srcMapValue, FieldMap fieldMap, Object destObj) {
-    Map result = null;
+    Map result;
     Object field = fieldMap.getDestValue(destObj);
     if (field == null) {
       // no destination map exists
@@ -561,7 +554,7 @@ public class MappingProcessor implements MapperIF {
       return addToPrimitiveArray(srcObj, fieldMap, size, srcCollectionValue, destObj, destEntryType);
     } else {
       List list = Arrays.asList((Object[]) srcCollectionValue);
-      List returnList = null;
+      List returnList;
       if (!destEntryType.getName().equals(BASE_CLASS)) {
         returnList = addOrUpdateToList(srcObj, fieldMap, list, destObj, destEntryType);
       } else {
@@ -611,7 +604,7 @@ public class MappingProcessor implements MapperIF {
   private Object addToPrimitiveArray(Object srcObj, FieldMap fieldMap, int size, Object srcCollectionValue, Object destObj,
       Class destEntryType) {
 
-    Object result = null;
+    Object result;
     Object field = fieldMap.getDestValue(destObj);
     int arraySize = 0;
     if (field == null) {
@@ -633,7 +626,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   private Object mapListToArray(Object srcObj, Collection srcCollectionValue, FieldMap fieldMap, Object destObj) {
-    List list = null;
+    List list;
     Class destEntryType = fieldMap.getDestFieldType(destObj.getClass()).getComponentType();
 
     if (!destEntryType.getName().equals(BASE_CLASS)) {
@@ -650,7 +643,7 @@ public class MappingProcessor implements MapperIF {
 
   private Set addToSet(Object srcObj, FieldMap fieldMap, Collection srcCollectionValue, Object destObj) {
     // create a list here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
-    List mappedElements = new ArrayList();
+    Set mappedElements = new HashSet();
     Class destEntryType = null;
 
     ListOrderedSet result = new ListOrderedSet();
@@ -659,11 +652,10 @@ public class MappingProcessor implements MapperIF {
     if (field != null) {
       result.addAll((Collection) field);
     }
-    Object destValue = null;
-    Iterator iter = srcCollectionValue.iterator();
-    Object srcValue = null;
-    while (iter.hasNext()) {
-      srcValue = iter.next();
+    Object destValue;        
+    for (Iterator iterator = srcCollectionValue.iterator(); iterator.hasNext();) {
+      Object srcValue = iterator.next();
+
       if (destEntryType == null
           || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         destEntryType = fieldMap.getDestHintType(srcValue.getClass());
@@ -711,30 +703,18 @@ public class MappingProcessor implements MapperIF {
   private List addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection srcCollectionValue, Object destObj,
       Class destEntryType) {
     // create a Set here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
-    Set mappedElements = new HashSet();
-    List result = null;
+    List mappedElements = new ArrayList();
+    List result;
     // don't want to create the list if it already exists.
-    // these maps are special cases which do not fall under what we are looking
-    // for
+    // these maps are special cases which do not fall under what we are looking for
     Object field = fieldMap.getDestValue(destObj);
-    if (field == null) {
-      result = new ArrayList(srcCollectionValue.size());
-    } else {
-      if (CollectionUtils.isList(field.getClass())) {
-        result = (List) field;
-      } else if (CollectionUtils.isArray(field.getClass())) {// must be array
-        result = new ArrayList(Arrays.asList((Object[]) field));
-      } else { // assume it is neither - safest way is to create new
-        // List
-        result = new ArrayList(srcCollectionValue.size());
-      }
-    }
-    Object destValue = null;
-    Iterator iter = srcCollectionValue.iterator();
-    Object srcValue = null;
+    result = prepareDestinationList(srcCollectionValue, field);
+
+    Object destValue;
     Class prevDestEntryType = null;
-    while (iter.hasNext()) {
-      srcValue = iter.next();
+    for (Iterator iterator = srcCollectionValue.iterator(); iterator.hasNext();) {
+      Object srcValue = iterator.next();
+      
       if (destEntryType == null
           || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         if (srcValue == null) {
@@ -766,12 +746,41 @@ public class MappingProcessor implements MapperIF {
     }
 
     // If remove orphans - we only want to keep the objects we've mapped from the src collection
-    // so we'll clear result and replace all entries with the ones in mappedElements
     if (fieldMap.isRemoveOrphans()) {
-      result.clear();
-      result.addAll(mappedElements);
+      removeOrphans(mappedElements, result);
     }
 
+    return result;
+  }
+
+  static void removeOrphans(Collection mappedElements, List result) {
+    for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+      Object object = iterator.next();
+      if (!mappedElements.contains(object)) {
+        iterator.remove();
+      }
+    }
+    for (Iterator iterator = mappedElements.iterator(); iterator.hasNext();) {
+      Object object = iterator.next();
+      if (!result.contains(object)) {
+        result.add(object);
+      }
+    }    
+  }
+
+  static List prepareDestinationList(Collection srcCollectionValue, Object field) {
+    List result;
+    if (field == null) {
+      result = new ArrayList(srcCollectionValue.size());
+    } else {
+      if (CollectionUtils.isList(field.getClass())) {
+        result = (List) field;
+      } else if (CollectionUtils.isArray(field.getClass())) {
+        result = new ArrayList(Arrays.asList((Object[]) field));
+      } else { // assume it is neither - safest way is to create new List
+        result = new ArrayList(srcCollectionValue.size());
+      }
+    }
     return result;
   }
 
@@ -784,13 +793,13 @@ public class MappingProcessor implements MapperIF {
   }
 
   private List mapArrayToList(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
-    Class destEntryType = null;
+    Class destEntryType;
     if (fieldMap.getDestHintContainer() != null) {
       destEntryType = fieldMap.getDestHintContainer().getHint();
     } else {
       destEntryType = srcCollectionValue.getClass().getComponentType();
     }
-    List srcValueList = null;
+    List srcValueList;
     if (CollectionUtils.isPrimitiveArray(srcCollectionValue.getClass())) {
       srcValueList = CollectionUtils.convertPrimitiveArrayToList(srcCollectionValue);
     } else {
@@ -840,7 +849,7 @@ public class MappingProcessor implements MapperIF {
     }
 
     CustomConverter theConverter = (CustomConverter) converterInstance;
-    Object result = null;
+    Object result;
     long start = System.currentTimeMillis();
     // if this is a top level mapping the destObj is the highest level
     // mapping...not a recursive mapping
@@ -948,7 +957,7 @@ public class MappingProcessor implements MapperIF {
   }
 
   private static Object getExistingValue(FieldMap fieldMap, Object destObj, Class destFieldType) {
-    Object result = null;
+    Object result;
     // verify that the dest obj is not null
     if (destObj == null) {
       return null;
