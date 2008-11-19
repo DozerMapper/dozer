@@ -39,20 +39,25 @@ import org.apache.commons.beanutils.converters.ShortConverter;
  * @author tierney.matt
  * @author garsombke.franz
  * @author benson.matt
+ * @author dmitry.buzdin
  */
 public class PrimitiveOrWrapperConverter {
+
   private static final Map PRIMITIVE_TYPE_MAP = new HashMap();
   private static final Map CONVERTER_MAP = new HashMap();
   private static final Converter DEFAULT_CONVERTER = new StringConstructorConverter();
 
   static {
     // Set up PRIMITIVE_TYPE_MAP:
-    Class[] primitives = { Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
-    Class[] wrappers = { Boolean.class, Byte.class, Character.class, Short.class, Integer.class, Long.class, Float.class,
-        Double.class };
-    for (int i = 0; i < primitives.length; i++) {
-      PRIMITIVE_TYPE_MAP.put(primitives[i], wrappers[i]);
-    }
+    PRIMITIVE_TYPE_MAP.put(Boolean.TYPE, Boolean.class);
+    PRIMITIVE_TYPE_MAP.put(Character.TYPE, Character.class);
+    PRIMITIVE_TYPE_MAP.put(Short.TYPE, Short.class);
+    PRIMITIVE_TYPE_MAP.put(Byte.TYPE, Byte.class);
+    PRIMITIVE_TYPE_MAP.put(Integer.TYPE, Integer.class);
+    PRIMITIVE_TYPE_MAP.put(Long.TYPE, Long.class);
+    PRIMITIVE_TYPE_MAP.put(Float.TYPE, Float.class);
+    PRIMITIVE_TYPE_MAP.put(Double.TYPE, Double.class);
+
     // Set up CONVERTER_MAP:
     CONVERTER_MAP.put(Integer.class, new IntegerConverter());
     CONVERTER_MAP.put(Double.class, new DoubleConverter());
@@ -96,7 +101,7 @@ public class PrimitiveOrWrapperConverter {
     return result == null ? DEFAULT_CONVERTER : result;
   }
 
-  private Class wrapPrimitive(Class c) {
+  public static Class wrapPrimitive(Class c) {
     return (Class) PRIMITIVE_TYPE_MAP.get(c);
   }
 

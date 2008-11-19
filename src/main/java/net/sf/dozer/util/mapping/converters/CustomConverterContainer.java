@@ -98,21 +98,7 @@ public class CustomConverterContainer {
   }
 
   private Class getWrapper(Class c) {
-    Class clazz = null;
-    if (c.equals(Integer.TYPE)) {
-      clazz = Integer.class;
-    } else if (c.equals(Double.TYPE)) {
-      clazz = Double.class;
-    } else if (c.equals(Short.TYPE)) {
-      clazz = Short.class;
-    } else if (c.equals(Long.TYPE)) {
-      clazz = Long.class;
-    } else if (c.equals(Boolean.TYPE)) {
-      clazz = Boolean.class;
-    } else if (c.equals(Float.TYPE)) {
-      clazz = Float.class;
-    }
-    return clazz;
+    return PrimitiveOrWrapperConverter.wrapPrimitive(c);
   }
 
   public String toString() {

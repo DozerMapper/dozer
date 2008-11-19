@@ -33,7 +33,7 @@ public class StringConverter implements Converter {
   }
 
   public Object convert(Class destClass, Object srcObj) {
-    String result = null;
+    String result;
     Class srcClass = srcObj.getClass();
     if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(srcClass)
         && dateFormatContainer.getDateFormat() != null) {
