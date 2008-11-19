@@ -202,7 +202,7 @@ public class MappingProcessor implements MapperIF {
     List mappedParentFields = null;
     if (!bypassSuperMappings) {
       // check for super classes
-      Set superClasses = checkForSuperTypeMapping(srcClass, destClass);
+      Collection superClasses = checkForSuperTypeMapping(srcClass, destClass);
       // check for interfaces
       superClasses.addAll(ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass));
       if (!superClasses.isEmpty()) {
@@ -880,9 +880,9 @@ public class MappingProcessor implements MapperIF {
         fieldMap, topLevel);
   }
 
-  private Set checkForSuperTypeMapping(Class srcClass, Class destClass) {
+  private Collection checkForSuperTypeMapping(Class srcClass, Class destClass) {
     // Check cache first
-    Object cacheKey = CacheKeyFactory.createKey(new Object[] { destClass, srcClass });
+    Object cacheKey = CacheKeyFactory.createKey(destClass, srcClass);
     CacheEntry cacheEntry = superTypeCache.get(cacheKey);
     if (cacheEntry != null) {
       return (Set) cacheEntry.getValue();
@@ -932,11 +932,10 @@ public class MappingProcessor implements MapperIF {
     return clazz == null || BASE_CLASS.equals(clazz.getName());
   }
 
-  private List processSuperTypeMapping(Set superClasses, Object srcObj, Object destObj, String mapId) {
+  private List processSuperTypeMapping(Collection superClasses, Object srcObj, Object destObj, String mapId) {
     List mappedFields = new ArrayList();
-    Object[] superClassArray = superClasses.toArray();
-    for (int a = 0; a < superClassArray.length; a++) {
-      ClassMap map = (ClassMap) superClassArray[a];
+    for (Iterator iterator = superClasses.iterator(); iterator.hasNext();) {
+      ClassMap map = (ClassMap) iterator.next();
       map(map, srcObj, destObj, true, mapId);
       List fieldMaps = map.getFieldMaps();
       for (int i = 0; i < fieldMaps.size(); i++) {

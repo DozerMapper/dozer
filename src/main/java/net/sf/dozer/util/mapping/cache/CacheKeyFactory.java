@@ -15,21 +15,25 @@
  */
 package net.sf.dozer.util.mapping.cache;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Internal class that is responsible for producing cache keys. Only intended for internal use.
  * 
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
-public class CacheKeyFactory {
+public final class CacheKeyFactory {
 
   private CacheKeyFactory() {
   }
 
-  // TODO Fix this 
-  public static Object createKey(Object[] args) {
-    return Arrays.asList(args);
+  public static Object createKey(Class destClass, Class srcClass) {
+    final List key = new ArrayList();
+    key.add(destClass);
+    key.add(srcClass);
+    return key;
   }
 
 }

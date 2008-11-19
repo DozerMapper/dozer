@@ -27,7 +27,30 @@ public class MappingValidatorTest extends AbstractDozerTest {
     try {
       MappingValidator.validateMappingRequest(null);
       fail("Should have thrown exception");
+    } catch (MappingException e) {}
+  }
+
+  public void testValidateMappingRequest_NullDestObj() throws Exception {
+    try {
+      MappingValidator.validateMappingRequest(new Object(), null);
+      fail("Should have thrown exception");
+    } catch (MappingException e) {}
+  }
+
+  public void testValidateMappingRequest_BothNullObj() throws Exception {
+    try {
+      MappingValidator.validateMappingRequest(null, null);
+      fail("Should have thrown exception");
+    } catch (MappingException e) {}
+  }
+
+  public void testValidateMappingRequest_OK() throws Exception {
+    try {
+      MappingValidator.validateMappingRequest(new Object(), new Object());
+      MappingValidator.validateMappingRequest(new Object(), String.class);
     } catch (MappingException e) {
+        fail("Not expected");
     }
   }
+
 }

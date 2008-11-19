@@ -70,7 +70,7 @@ public class CustomConverterContainer {
     }
 
     // Check cache first
-    Object cacheKey = CacheKeyFactory.createKey(new Object[] { dest, src });
+    Object cacheKey = CacheKeyFactory.createKey(dest, src);
     CacheEntry cacheEntry = converterByDestTypeCache.get(cacheKey);
     if (cacheEntry != null) {
       return (Class) cacheEntry.getValue();

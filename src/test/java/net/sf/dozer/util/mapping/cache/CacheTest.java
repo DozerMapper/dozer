@@ -26,7 +26,7 @@ public class CacheTest extends AbstractDozerTest {
     Cache cache = new Cache(getRandomString(), 50);
     int numCacheEntriesToAdd = 45;
     for (int i = 0; i < numCacheEntriesToAdd; i++) {
-      Object key = CacheKeyFactory.createKey(new Object[] { "testkey", String.valueOf(i) });
+      Object key = String.valueOf(i);
 
       assertNull("cache entry should not already exist", cache.get(key));
 
@@ -67,7 +67,7 @@ public class CacheTest extends AbstractDozerTest {
 
   public void testClear() throws Exception {
     Cache cache = new Cache(getRandomString(), 50);
-    Object key = CacheKeyFactory.createKey(new Object[] { "testkey" });
+    Object key = CacheKeyFactory.createKey(String.class, Integer.class);
     CacheEntry cacheEntry = new CacheEntry(key, "testvalue");
     cache.put(cacheEntry);
 
