@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+  
+	<mapping wildcard="false">
+		<class-a>net.sf.dozer.util.mapping.vo.direction.EntityBase</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.direction.EntityDTO</class-b>
+    <field>
+			<a is-accessible="true">id</a>
+			<b is-accessible="true">id</b>
+		</field>
+	</mapping>
+
+
+	<!-- =============================================================================
+		content item group mapping
+		==============================================================================
+	-->
+
+  <mapping wildcard="true">
+		<class-a>net.sf.dozer.util.mapping.vo.direction.ContentItemGroup</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.direction.ContentItemGroupDTO</class-b>
+		<field>
+			<a>childGroups</a>
+			<b>childGroups</b>			
+			<b-hint>net.sf.dozer.util.mapping.vo.direction.ContentItemGroupDTO</b-hint>
+		</field>
+  </mapping>
+
+</mappings>
