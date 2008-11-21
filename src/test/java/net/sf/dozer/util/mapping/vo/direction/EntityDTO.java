@@ -7,7 +7,7 @@ public class EntityDTO {
 
   private String id;
 
-  protected String getId() {
+  public String getId() {
     return id;
   }
 
@@ -21,5 +21,6 @@ public class EntityDTO {
     }
     return this.id.hashCode();
   }
+
 
 }

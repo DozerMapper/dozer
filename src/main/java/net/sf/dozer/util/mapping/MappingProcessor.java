@@ -891,7 +891,7 @@ public class MappingProcessor implements MapperIF {
 
     // If no existing cache entry is found, determine super type mappings.
     // Recursively walk the inheritance hierarchy.
-    Collection superClasses = new ArrayList();
+    List superClasses = new ArrayList();
     // Need to call getRealSuperclass because proxied data objects will not return correct
     // superclass when using basic reflection
     Class superSrcClass = MappingUtils.getRealSuperclass(srcClass);
@@ -926,6 +926,7 @@ public class MappingProcessor implements MapperIF {
     cacheEntry = new CacheEntry(cacheKey, superClasses);
     superTypeCache.put(cacheEntry);
 
+    Collections.reverse(superClasses); // Done so base classes are processed first
     return superClasses;
   }
 

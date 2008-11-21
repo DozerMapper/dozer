@@ -15,6 +15,7 @@ public class ContentItemGroupDTO extends EntityDTO {
   }
 
   public void setParentGroup(ContentItemGroupDTO parentGroup) {
+    checkId();
     this.parentGroup = parentGroup;
   }
 
@@ -23,7 +24,15 @@ public class ContentItemGroupDTO extends EntityDTO {
   }
 
   public void setChildGroups(Set childGroups) {
+    checkId();
     this.childGroups = childGroups;
+  }
+
+  private void checkId() {
+    String id = getId();
+    if (id == null) {
+      throw new IllegalStateException("No id!");
+    }
   }
 
 }
