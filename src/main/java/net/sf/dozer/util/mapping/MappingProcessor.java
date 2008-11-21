@@ -194,12 +194,15 @@ public class MappingProcessor implements MapperIF {
     // Now check for super class mappings.  Process super class mappings first.
     List mappedParentFields = null;
     if (!bypassSuperMappings) {
-      // check for super classes
+      Collection superMappings = new ArrayList();
+
       Collection superClasses = checkForSuperTypeMapping(srcClass, destClass);
-      // check for interfaces
-      superClasses.addAll(ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass));
-      if (!superClasses.isEmpty()) {
-        mappedParentFields = processSuperTypeMapping(superClasses, srcObj, destObj, mapId);
+      List interfaceMappings = ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass);
+
+      superMappings.addAll(superClasses);
+      superMappings.addAll(interfaceMappings);
+      if (!superMappings.isEmpty()) {
+        mappedParentFields = processSuperTypeMapping(superMappings, srcObj, destObj, mapId);
       }
     }
 
@@ -894,12 +897,12 @@ public class MappingProcessor implements MapperIF {
     Object cacheKey = CacheKeyFactory.createKey(destClass, srcClass);
     CacheEntry cacheEntry = superTypeCache.get(cacheKey);
     if (cacheEntry != null) {
-      return (Set) cacheEntry.getValue();
+      return (Collection) cacheEntry.getValue();
     }
 
     // If no existing cache entry is found, determine super type mappings.
     // Recursively walk the inheritance hierarchy.
-    Set superClasses = new HashSet();
+    Collection superClasses = new ArrayList();
     // Need to call getRealSuperclass because proxied data objects will not return correct
     // superclass when using basic reflection
     Class superSrcClass = MappingUtils.getRealSuperclass(srcClass);

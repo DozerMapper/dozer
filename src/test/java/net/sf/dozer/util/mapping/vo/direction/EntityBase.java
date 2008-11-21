@@ -5,7 +5,11 @@ package net.sf.dozer.util.mapping.vo.direction;
  */
 public abstract class EntityBase implements Entity {
 
-  public String id;
+  private String id;
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public String getId() {
     return this.id;

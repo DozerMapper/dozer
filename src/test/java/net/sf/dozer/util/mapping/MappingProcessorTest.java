@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 /**
  * @author <a href="mailto:dmitry.buzdin@ctco.lv">Dmitry Buzdin</a>

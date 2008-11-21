@@ -9,9 +9,9 @@ import java.util.HashSet;
 public class ContentItemGroupDefault extends EntityBase implements ContentItemGroup {
 
 	private ContentItemGroup parentGroup;
-	private Set childGroups;	
+	private Set childGroups;
 
-	public ContentItemGroup getParentGroup() {
+  public ContentItemGroup getParentGroup() {
 		return this.parentGroup;
 	}
 
