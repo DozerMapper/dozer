@@ -99,33 +99,53 @@ public class MappingProcessor implements MapperIF {
     this.customConverterObjectsWithId = customConverterObjectsWithId;
   }
 
-  public Object map(Object srcObj, Class destClass) {
-    // map-id is optional, so just pass in null
+  public Object map(final Object srcObj, final Class destClass) {    
     return map(srcObj, destClass, null);
   }
 
-  public Object map(Object srcObj, Class destClass, String mapId) {
+  public Object map(final Object srcObj, final Class destClass, final String mapId) {
     MappingValidator.validateMappingRequest(srcObj, destClass);
+    return map(srcObj, destClass, null, mapId);
+  }
 
-    Object result = null;
+  public void map(final Object srcObj, final Object destObj) {
+    map(srcObj, destObj, null);
+  }
+
+  public void map(final Object srcObj, final Object destObj, final String mapId) {
+    MappingValidator.validateMappingRequest(srcObj, destObj);
+    map(srcObj, null, destObj, mapId);
+  }
+
+  private Object map(final Object srcObj, final Class destClass, final Object destObj, final String mapId) {
+    Class destType;
+    Object result;
+    if (destClass == null) {      
+      destType = destObj.getClass();
+      result = destObj;
+    } else {
+      destType = destClass;
+      result = null;
+    }
+
     ClassMap classMap = null;
     try {
-      classMap = getClassMap(srcObj, destClass, mapId);
+      classMap = getClassMap(srcObj, destType, mapId);
 
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
       Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
-          .getClass(), destClass);
+          .getClass(), destType);
       if (converterClass != null) {
         eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, result, null));
-        return mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destClass, result, null, true);
+        return mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destType, result, null, true);
       }
 
-      // Create destination object. It will be populated in the call to map()
-      result = DestBeanCreator.create(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destClass, classMap
-          .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
+      if (result == null) {
+        result = DestBeanCreator.create(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType, classMap
+                .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
+      }
 
-      // Map src values to dest object
       eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, result, null));
       map(classMap, srcObj, result, false, null);
     } catch (Throwable e) {
@@ -133,37 +153,6 @@ public class MappingProcessor implements MapperIF {
     }
     eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_FINISHED_EVENT, classMap, null, srcObj, result, null));
     return result;
-  }
-
-  public void map(Object srcObj, Object destObj) {
-    map(srcObj, destObj, null);
-  }
-
-  public void map(Object srcObj, Object destObj, String mapId) {
-    MappingValidator.validateMappingRequest(srcObj, destObj);
-
-    ClassMap classMap = null;
-    try {
-      classMap = getClassMap(srcObj, destObj.getClass(), mapId);
-
-      // Check to see if custom converter has been specified for this mapping
-      // combination. If so, just use it.
-      Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
-          .getClass(), destObj.getClass());
-
-      if (converterClass != null) {
-        eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, destObj, null));
-        mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destObj.getClass(), destObj, null, true);
-        return;
-      }
-
-      // Map src values to dest object
-      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, destObj, null));
-      map(classMap, srcObj, destObj, false, null);
-    } catch (Throwable e) {
-      MappingUtils.throwMappingException(e);
-    }
-    eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_FINISHED_EVENT, classMap, null, srcObj, destObj, null));
   }
 
   private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
