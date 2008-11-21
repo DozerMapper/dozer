@@ -24,7 +24,10 @@ package net.sf.dozer.util.mapping.util;
  * @author tierney.matt
  * 
  */
-public abstract class MapperConstants {
+public final class MapperConstants {
+
+  private MapperConstants() {
+  }
 
   public static final String CURRENT_VERSION = "4.2.1";
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
@@ -48,7 +51,8 @@ public abstract class MapperConstants {
   public static final String DEEP_FIELD_DELIMITOR = ".";
   public static final String SELF_KEYWORD = "this";
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
-
+  public static final String JAVASSIST_ID = "$$_javassist";
+  
   // DozerBeanMapper instance caches
   public static final String CONVERTER_BY_DEST_TYPE_CACHE = "Converter By Destination Type Dozer Cache";
   public static final String SUPER_TYPE_CHECK_CACHE = "Super Type Mapping Dozer Cache";
