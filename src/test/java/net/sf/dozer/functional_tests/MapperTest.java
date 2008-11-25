@@ -15,10 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
@@ -66,7 +63,7 @@ public class MapperTest extends AbstractMapperTest {
 
   protected void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
   }
 
   public void testNoSourceValueIterateFieldMap() throws Exception {
@@ -483,12 +480,20 @@ public class MapperTest extends AbstractMapperTest {
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setSetToArray(set);
     to.setSetToObjectArray(set2);
+
     TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
-    assertEquals("orange1", top.getArrayToSet()[0].getName());
-    assertEquals("orange2", top.getArrayToSet()[1].getName());
-    // Hashset changes the order
-    assertEquals("orange3", ((Apple) top.getObjectArrayToSet()[1]).getName());
-    assertEquals("orange4", ((Apple) top.getObjectArrayToSet()[0]).getName());
+
+    Set fruitNames = new HashSet();
+    fruitNames.add(top.getArrayToSet()[0].getName());
+    fruitNames.add(top.getArrayToSet()[1].getName());
+    assertTrue(fruitNames.remove("orange1"));
+    assertTrue(fruitNames.remove("orange2"));
+
+    fruitNames.add(((Apple) top.getObjectArrayToSet()[0]).getName());
+    fruitNames.add(((Apple) top.getObjectArrayToSet()[1]).getName());
+    assertTrue(fruitNames.remove("orange3"));
+    assertTrue(fruitNames.remove("orange4"));
+
     Apple apple = (Apple) newInstance(Apple.class);
     apple.setName("apple1");
     Apple[] appleArray = { apple };
