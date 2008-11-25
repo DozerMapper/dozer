@@ -638,7 +638,7 @@ public class MappingProcessor implements MapperIF {
     Set mappedElements = new HashSet();
     Class destEntryType = null;
 
-    ListOrderedSet result = new ListOrderedSet();
+    ListOrderedSet result = ListOrderedSet.decorate(new ArrayList());
     // don't want to create the set if it already exists.
     Object field = fieldMap.getDestValue(destObj);
     if (field != null) {

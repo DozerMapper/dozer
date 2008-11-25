@@ -16,6 +16,7 @@
 package net.sf.dozer.util.mapping.util;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,7 +47,7 @@ public class CustomMappingsLoader {
 
   public LoadMappingsResult load(List mappingFiles) {
     Map customMappings = new HashMap();
-    ListOrderedSet customConverterDescriptions = new ListOrderedSet();
+    ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList());
     Configuration globalConfiguration = new Configuration();
 
     if (mappingFiles != null && mappingFiles.size() > 0) {
