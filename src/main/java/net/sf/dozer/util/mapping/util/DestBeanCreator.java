@@ -33,7 +33,10 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class DestBeanCreator {
+public final class DestBeanCreator {
+
+  private DestBeanCreator() {
+  }
 
   private static final Log log = LogFactory.getLog(DestBeanCreator.class);
 
@@ -126,8 +129,10 @@ public abstract class DestBeanCreator {
     }
     Object rvalue = factory.createBean(srcObject, srcObjectClass, beanId);
 
-    log.debug("Bean instance created with custom factory -->" + "\n  Bean Type: " + rvalue.getClass().getName()
-        + "\n  Factory Name: " + factoryName);
+    if (log.isDebugEnabled()) {
+      log.debug("Bean instance created with custom factory -->" + "\n  Bean Type: " + rvalue.getClass().getName()
+              + "\n  Factory Name: " + factoryName);
+    }
     return rvalue;
   }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <!-- Mapping between User and UserPrime -->
+	<mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.runtimesubclass.User</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.runtimesubclass.UserPrime</class-b>
+    <field>
+      <a>userGroup</a>
+      <b>userGroup</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.runtimesubclass.UserGroup,net.sf.dozer.util.mapping.vo.runtimesubclass.SpecialUserGroup</a-hint>
+      <b-hint>net.sf.dozer.util.mapping.vo.runtimesubclass.UserGroupPrime,net.sf.dozer.util.mapping.vo.runtimesubclass.SpecialUserGroupPrime</b-hint>
+    </field>
+  </mapping>
+
+    <!-- Mapping between basic UserGroup and UserGroupPrime -->
+	<mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.runtimesubclass.UserGroup</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.runtimesubclass.UserGroupPrime</class-b>
+	</mapping>
+
+    <!-- Mapping between specialized SpecialUserGroup and SpecialUserGroupPrime -->
+	<mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.runtimesubclass.SpecialUserGroup</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.runtimesubclass.SpecialUserGroupPrime</class-b>
+	</mapping>
+
+</mappings>
