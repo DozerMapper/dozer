@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping wildcard="false">
+    <class-a>net.sf.dozer.util.mapping.vo.inheritance.twolevel.C</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.inheritance.twolevel.A</class-b>
+    <field>
+      <a>a</a>
+      <b>a</b>
+    </field>
+  </mapping>
+
+
+  <mapping wildcard="false">
+    <class-a>net.sf.dozer.util.mapping.vo.inheritance.twolevel.C</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.inheritance.twolevel.B</class-b>
+    <field>
+      <a>b</a>
+      <b>b</b>
+    </field>
+  </mapping>
+
+</mappings>

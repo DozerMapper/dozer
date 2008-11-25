@@ -895,30 +895,18 @@ public class MappingProcessor implements MapperIF {
     // Need to call getRealSuperclass because proxied data objects will not return correct
     // superclass when using basic reflection
     Class superSrcClass = MappingUtils.getRealSuperclass(srcClass);
+    Class superDestClass = MappingUtils.getRealSuperclass(destClass);
+    
+    checkDestClasses(superClasses, srcClass, superDestClass);    
 
     while (!isBaseClass(superSrcClass)) {
-
       // see if the source super class is mapped to the dest class
-      ClassMap superClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(superSrcClass, destClass));
-      if (superClassMap != null) {
-        superClasses.add(superClassMap);
-      }
+      checkForClassMapping(superSrcClass, superClasses, destClass);
 
-      Class superDestClass = MappingUtils.getRealSuperclass(destClass);
+      superDestClass = MappingUtils.getRealSuperclass(destClass);
       // now walk up the dest classes super classes with our super source
       // class and our source class
-      while (!isBaseClass(superDestClass)) {
-
-        ClassMap superDestClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(superSrcClass, superDestClass));
-        if (superDestClassMap != null) {
-          superClasses.add(superDestClassMap);
-        }
-        ClassMap srcClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, superDestClass));
-        if (srcClassMap != null) {
-          superClasses.add(srcClassMap);
-        }
-        superDestClass = MappingUtils.getRealSuperclass(superDestClass);
-      }
+      checkDestClasses(superClasses, superSrcClass, superDestClass);
 
       superSrcClass = MappingUtils.getRealSuperclass(superSrcClass);
     }
@@ -928,6 +916,20 @@ public class MappingProcessor implements MapperIF {
 
     Collections.reverse(superClasses); // Done so base classes are processed first
     return superClasses;
+  }
+
+  private void checkDestClasses(List superClasses, Class srcClass, Class destClass) {
+    while (!isBaseClass(destClass)) {
+      checkForClassMapping(srcClass, superClasses, destClass);
+      destClass = MappingUtils.getRealSuperclass(destClass);
+    }
+  }
+
+  private void checkForClassMapping(Class srcClass, List superClasses, Class superDestClass) {
+    ClassMap srcClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, superDestClass));
+    if (srcClassMap != null) {
+      superClasses.add(srcClassMap);
+    }
   }
 
   private boolean isBaseClass(Class clazz) {
