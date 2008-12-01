@@ -9,8 +9,9 @@
     Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to
     another
   </description>
-  <version>4.2.1</version>
+  <version>4.3</version>
   <name>dozer</name>
+
   <dependencies>
     <dependency>
       <groupId>commons-logging</groupId>
@@ -126,6 +127,7 @@
       </exclusions>
     </dependency>
   </dependencies>
+
   <build>
     <resources>
       <resource>
@@ -149,6 +151,7 @@
         <directory>src/site/resources/dtd</directory>
       </testResource>
     </testResources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -162,8 +165,6 @@
           <templateFile>site.vm</templateFile>
         </configuration>
       </plugin>
-
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
@@ -248,6 +249,7 @@
       </plugin>
     </plugins>
   </build>
+    
   <profiles>
     <profile>
       <id>deploy-dozer</id>
@@ -322,6 +324,7 @@
       </build>
     </profile>
   </profiles>
+
   <developers>
     <developer>
       <name>Franz Garsombke</name>
@@ -339,6 +342,15 @@
       <timezone>-7</timezone>
       <roles>
         <role>Project Lead/Architect</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Dmitry Buzdin</name>
+      <id>buzdin</id>
+      <email>buzdin@gmail.com</email>
+      <timezone>+2</timezone>
+      <roles>
+        <role>Project Lead</role>
       </roles>
     </developer>
   </developers>
@@ -380,7 +392,7 @@
       <name>Joachim Korittky</name>
     </contributor>
     <contributor>
-      <name>Erik Knut</name>
+      <name>Knut-Erik Johnsen</name>
     </contributor>
     <contributor>
       <name>Wing Tung Leung</name>
@@ -407,18 +419,21 @@
       <name>Kiersztyn Wojtek</name>
     </contributor>
   </contributors>
+
   <organization>
     <name>dozer</name>
     <url>http://java.net/</url>
   </organization>
+
   <licenses>
     <license>
       <name>Apache 2</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
-      <comments>A business-friendly OSS license</comments>
+      <comments>A business-friendly Open Source license</comments>
     </license>
   </licenses>
+
   <reporting>
     <plugins>
       <plugin>
@@ -472,10 +487,12 @@
       </plugin>
     </plugins>
   </reporting>
+
   <issueManagement>
     <system>Sourceforge</system>
     <url>http://sourceforge.net/tracker/?group_id=133517</url>
   </issueManagement>
+
   <scm>
     <connection>scm:svn:https://dozer.svn.sourceforge.net/svnroot/dozer/trunk</connection>
     <tag>HEAD</tag>

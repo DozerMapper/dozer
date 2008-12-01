@@ -10,6 +10,33 @@
   </head>  
   <body>
     <section name="Release Notes">
+      <h3>4.3  <font size="-3" color="gray"><i>12/03/2008</i></font></h3>
+        <p>Bug Fixes</p>
+        <p>
+          <ul>
+            <li>Class hierarchies are not mapped in descending order<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2290928&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+            <li>Map-backed properties are not copied using deep mapping<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2133584&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Mapping with remove-orphans changes the mapped list order<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2057899&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Mapping with remove-orphans should call remove() on the list<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2048382&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Bug in ReflectionUtils.getInterfacePropertyDescriptors()<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2013632&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Classloading approach is not recommended<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1944959&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Problem when loading Dozer bean mapper from Spring<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1921248&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>NullPointerException when mapping a map<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1884714&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Subclasses are not recognized<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865945&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Mapping with parent-child relation does not work<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865775&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Missing destination read method throws NPE<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2038701&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>MappingProcessor does not use hints from DestHintContainer<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1939196&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+          </ul>
+        </p>
+        <p>Feature Requests</p> 
+        <p>
+          <ul>
+            <li>Backport to commons-collections 3.0<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2211532&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+            <li>Mask in copy-by-reference<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1708511&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+            <li>Support for Javassist proxy objects<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2020543&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+            <li>Fix FindBugs issues<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2187241&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+          </ul>
+        </p>
       <h3>4.2.1  <font size="-3" color="gray"><i>6/22/2008</i></font></h3>
         <p>Bug Fixes</p> 
         <p>
