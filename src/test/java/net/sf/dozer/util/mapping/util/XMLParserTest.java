@@ -16,12 +16,16 @@
 package net.sf.dozer.util.mapping.util;
 
 import java.net.URL;
+import java.util.List;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Mappings;
+import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
  * @author garsombke.franz
+ * @author johnsen.knut-erik
  */
 public class XMLParserTest extends AbstractDozerTest {
 
@@ -37,4 +41,42 @@ public class XMLParserTest extends AbstractDozerTest {
     assertNotNull(mappings);
   }
 
+  
+  /**
+   * This tests checks that the customconverterparam reaches the
+   * fieldmapping.
+   * 
+   * @throws Exception
+   */
+  public void testParseCustomConverterParam() throws Exception {
+	  XMLParser parser = new XMLParser();
+	  ResourceLoader loader = new ResourceLoader();
+	  URL url = loader.getResource("fieldCustomConverterParam.xml");
+	  
+	  Mappings mappings = parser.parse(url.openStream());
+	  
+	  assertNotNull("The mappings should not be null", mappings);
+	  
+	  List mapping = mappings.getMapping();
+	  
+	  assertNotNull("The list of mappings should not be null", mapping);
+	  
+	  assertEquals("There should be one mapping", 1, mapping.size());
+	  
+	  ClassMap classMap = (ClassMap) mapping.get(0);
+	  
+	  assertNotNull("The classmap should not be null", classMap);
+	  
+	  List fieldMaps = classMap.getFieldMaps();
+	  
+	  assertNotNull("The fieldmaps should not be null", fieldMaps);
+	  assertEquals("The fieldmap should have one mapping", 1, fieldMaps.size());
+	  
+	  FieldMap fieldMap = (FieldMap) fieldMaps.get(0);
+	  
+	  assertNotNull("The fieldmap should not be null", fieldMap);
+	  assertEquals("The customconverterparam should be correct", "CustomConverterParamTest", fieldMap.getCustomConverterParam());
+	  
+  }
+  
 }

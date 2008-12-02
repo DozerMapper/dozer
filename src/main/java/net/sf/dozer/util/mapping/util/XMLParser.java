@@ -56,6 +56,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Internal class that parses a raw custom xml mapping file into raw ClassMap objects. Only intended for internal use.
  * 
  * @author garsombke.franz
+ * @author johnsen.knut-erik
  */
 public class XMLParser {
 
@@ -107,6 +108,7 @@ public class XMLParser {
   private static final String MAP_EMPTY_STRING_ATTRIBUTE = "map-empty-string";
   private static final String CUSTOM_CONVERTER_ATTRIBUTE = "custom-converter";
   private static final String CUSTOM_CONVERTER_ID_ATTRIBUTE = "custom-converter-id";
+  private static final String CUSTOM_CONVERTER_PARAM_ATTRIBUTE = "custom-converter-param";
 
   private final Mappings mappings = new Mappings();
 
@@ -283,6 +285,10 @@ public class XMLParser {
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE))) {
       fm.setCustomConverterId(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE));
+    }
+    
+    if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_PARAM_ATTRIBUTE))) {
+      fm.setCustomConverterParam(ele.getAttribute(CUSTOM_CONVERTER_PARAM_ATTRIBUTE));
     }
 
     parseFieldMap(ele, fm);

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping wildcard="false">
+    <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-b>
+    <field custom-converter="net.sf.dozer.util.mapping.converters.CustomConverterParamConverter" custom-converter-param="CustomConverterParamTest">
+      <a>field1</a>
+      <b>field3</b>
+    </field>
+  </mapping>
+
+</mappings>

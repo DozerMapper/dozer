@@ -28,7 +28,9 @@ import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.converters.CustomConverter;
+import net.sf.dozer.util.mapping.converters.ConfigurableCustomConverter;
 import net.sf.dozer.util.mapping.converters.PrimitiveOrWrapperConverter;
+import net.sf.dozer.util.mapping.converters.CustomConverterBase;
 import net.sf.dozer.util.mapping.event.DozerEvent;
 import net.sf.dozer.util.mapping.event.DozerEventManager;
 import net.sf.dozer.util.mapping.event.EventManager;
@@ -53,7 +55,6 @@ import net.sf.dozer.util.mapping.util.MappingValidator;
 import net.sf.dozer.util.mapping.util.ReflectionUtils;
 
 import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -66,6 +67,7 @@ import org.apache.commons.logging.LogFactory;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
+ * @author johnsen.knut-erik
  * 
  */
 public class MappingProcessor implements MapperIF {
@@ -831,7 +833,7 @@ public class MappingProcessor implements MapperIF {
 
   private Object mapUsingCustomConverterInstance(Object converterInstance, Class srcFieldClass, Object srcFieldValue,
       Class destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
-    if (!(converterInstance instanceof CustomConverter)) {
+    if (!(converterInstance instanceof CustomConverterBase)) {
       MappingUtils.throwMappingException("Custom Converter does not implement CustomConverter interface");
     }
 
@@ -840,20 +842,37 @@ public class MappingProcessor implements MapperIF {
       return null;
     }
 
-    CustomConverter theConverter = (CustomConverter) converterInstance;
-    Object result;
     long start = System.currentTimeMillis();
-    // if this is a top level mapping the destObj is the highest level
-    // mapping...not a recursive mapping
-    if (topLevel) {
-      result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
+
+    // TODO Remove code duplication
+    Object result;
+    if (converterInstance instanceof ConfigurableCustomConverter) {
+      ConfigurableCustomConverter theConverter = (ConfigurableCustomConverter) converterInstance;
+
+	    // if this is a top level mapping the destObj is the highest level
+	    // mapping...not a recursive mapping
+	    if (topLevel) {
+	      result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap.getCustomConverterParam());
+	    } else {
+	      Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+	      result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap.getCustomConverterParam());
+	    }
     } else {
-      Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
-      result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
+	    CustomConverter theConverter = (CustomConverter) converterInstance;
+
+	    // if this is a top level mapping the destObj is the highest level
+	    // mapping...not a recursive mapping
+	    if (topLevel) {
+	      result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
+	    } else {
+	      Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+	      result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
+	    }
     }
-    long stop = System.currentTimeMillis();
-    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
-    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_TIME, stop - start);
+
+	  long stop = System.currentTimeMillis();
+	  statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
+	  statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_TIME, stop - start);
 
     return result;
   }

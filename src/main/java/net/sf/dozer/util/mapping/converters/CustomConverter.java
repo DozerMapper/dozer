@@ -32,6 +32,8 @@ package net.sf.dozer.util.mapping.converters;
  * @author tierney.matt
  * 
  */
-public interface CustomConverter {
-  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class destinationClass, Class sourceClass);
+public interface CustomConverter extends CustomConverterBase {
+
+  Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class destinationClass, Class sourceClass);
+
 }

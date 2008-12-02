@@ -36,6 +36,7 @@ import org.apache.commons.logging.LogFactory;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
+ * @author johnsen.knut-erik
  * 
  */
 public abstract class FieldMap implements Cloneable {
@@ -54,6 +55,7 @@ public abstract class FieldMap implements Cloneable {
   private String mapId;
   private String customConverter;
   private String customConverterId;
+  private String customConverterParam;
   private String relationshipType;
   private boolean removeOrphans;
 
@@ -433,6 +435,14 @@ public abstract class FieldMap implements Cloneable {
         .append("removeOrphans", removeOrphans).append("mapId", mapId).append("copyByReference", copyByReference).append(
             "copyByReferenceOveridden", copyByReferenceOveridden).append("srcTypeHint", srcHintContainer).append("destTypeHint",
             destHintContainer).toString();
+  }
+
+  public String getCustomConverterParam() {
+	  return customConverterParam;
+  }
+
+  public void setCustomConverterParam(String customConverterParam) {
+	  this.customConverterParam = customConverterParam;
   }
 
 }
