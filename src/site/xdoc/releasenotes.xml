@@ -34,6 +34,7 @@
             <li>Backport to commons-collections 3.0<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2211532&amp;group_id=133517&amp;atid=727368">1841449</a></li>
             <li>Mask in copy-by-reference<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1708511&amp;group_id=133517&amp;atid=727368">1841449</a></li>
             <li>Support for Javassist proxy objects<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2020543&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+            <li>Config parameter for Custom Converter<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1933167&amp;group_id=133517&amp;atid=727368">1841449</a></li>
             <li>Fix FindBugs issues<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2187241&amp;group_id=133517&amp;atid=727368">1841449</a></li>
           </ul>
         </p>
