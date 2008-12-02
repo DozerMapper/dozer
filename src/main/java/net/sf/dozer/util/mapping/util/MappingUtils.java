@@ -152,44 +152,22 @@ public final class MappingUtils {
     return findCustomConverter(converterByDestTypeCache, customConverterContainer, srcClass, destClass);
   }
 
-  public static void reverseFields(FieldMap source, FieldMap destination) {
-    // reverse the fields
-    DozerField df = new DozerField(source.getSrcFieldName(), source.getSrcFieldType());
-    df.setIndexed(source.isSrcFieldIndexed());
-    df.setIndex(source.getSrcFieldIndex());
-    df.setDateFormat(source.getSrcFieldDateFormat());
-    df.setTheGetMethod(source.getSrcFieldTheGetMethod());
-    df.setTheSetMethod(source.getSrcFieldTheSetMethod());
-    df.setKey(source.getSrcFieldKey());
-    df.setMapGetMethod(source.getSrcFieldMapGetMethod());
-    df.setMapSetMethod(source.getSrcFieldMapSetMethod());
-    df.setCreateMethod(source.getSrcFieldCreateMethod());
-    df.setAccessible(source.isSrcFieldAccessible());
+  public static void reverseFields(FieldMap source, FieldMap reversed) {
+    DozerField destField = source.getSrcFieldCopy();
+    DozerField sourceField = source.getDestFieldCopy();
 
-    DozerField sf = new DozerField(source.getDestFieldName(), source.getDestFieldType());
-    sf.setIndexed(source.isDestFieldIndexed());
-    sf.setIndex(source.getDestFieldIndex());
-    sf.setDateFormat(source.getDestFieldDateFormat());
-    sf.setTheGetMethod(source.getDestFieldTheGetMethod());
-    sf.setTheSetMethod(source.getDestFieldTheSetMethod());
-    sf.setKey(source.getDestFieldKey());
-    sf.setMapGetMethod(source.getDestFieldMapGetMethod());
-    sf.setMapSetMethod(source.getDestFieldMapSetMethod());
-    sf.setCreateMethod(source.getDestFieldCreateMethod());
-    sf.setAccessible(source.isDestFieldAccessible());
+    reversed.setDestField(destField);
+    reversed.setSrcField(sourceField);
 
-    destination.setDestField(df);
-    destination.setSrcField(sf);
-    destination.setCustomConverter(source.getCustomConverter());
-    destination.setCustomConverterId(source.getCustomConverterId());
-    destination.setMapId(source.getMapId());
-    destination.setRelationshipType(source.getRelationshipType());
-    destination.setRemoveOrphans(source.isRemoveOrphans());
-    destination.setSrcHintContainer(source.getDestHintContainer());
-    destination.setDestHintContainer(source.getSrcHintContainer());
-    destination.setSrcDeepIndexHintContainer(source.getDestDeepIndexHintContainer());
-    destination.setDestDeepIndexHintContainer(source.getSrcDeepIndexHintContainer());
-
+    reversed.setCustomConverter(source.getCustomConverter());
+    reversed.setCustomConverterId(source.getCustomConverterId());
+    reversed.setMapId(source.getMapId());
+    reversed.setRelationshipType(source.getRelationshipType());
+    reversed.setRemoveOrphans(source.isRemoveOrphans());
+    reversed.setSrcHintContainer(source.getDestHintContainer());
+    reversed.setDestHintContainer(source.getSrcHintContainer());
+    reversed.setSrcDeepIndexHintContainer(source.getDestDeepIndexHintContainer());
+    reversed.setDestDeepIndexHintContainer(source.getSrcDeepIndexHintContainer());
   }
 
   public static void reverseFields(ClassMap source, ClassMap destination) {

@@ -15,11 +15,7 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Mappings;
@@ -38,19 +34,28 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @author garsombke.franz
  */
-public class MappingsParser {
+public final class MappingsParser {
+
+  private static final MappingsParser INSTANCE = new MappingsParser();
+
+  public static MappingsParser getInstance() {
+    return INSTANCE;
+  }
+
+  private MappingsParser() {
+  }
 
   public Map processMappings(Mappings mappings) {
     Map result = new HashMap();
-    FieldMap fieldMapPrime = null;
+    FieldMap fieldMapPrime;
     // verify that we even have any mappings
     if (mappings.getMapping() == null || mappings.getMapping().size() == 0) {
       return result;
     }
     Iterator iter = mappings.getMapping().iterator();
     // need to create bi-directional mappings now.
-    ClassMap classMap = null;
-    ClassMap classMapPrime = null;
+    ClassMap classMap;
+    ClassMap classMapPrime;
     Set mapIds = new HashSet();
     while (iter.hasNext()) {
       classMap = (ClassMap) iter.next();

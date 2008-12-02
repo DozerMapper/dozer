@@ -24,9 +24,11 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
+ * @author dmitry.buzdin
  * 
  */
 public class DozerField {
+
   private final String type;
   private String name;
   private String dateFormat;
@@ -138,14 +140,30 @@ public class DozerField {
   }
 
   public boolean isCustomGetterSetterField() {
-    return getTheGetMethod() != null || getTheSetMethod() != null ? true : false;
+    return getTheGetMethod() != null || getTheSetMethod() != null;
   }
 
   public boolean isMapTypeCustomGetterSetterField() {
-    return getMapGetMethod() != null || getMapSetMethod() != null ? true : false;
+    return getMapGetMethod() != null || getMapSetMethod() != null;
   }
 
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
+
+  public DozerField copyOf() {
+    DozerField copy = new DozerField(name, type);
+    copy.setDateFormat(dateFormat);
+    copy.setTheGetMethod(theGetMethod);
+    copy.setTheSetMethod(theSetMethod);
+    copy.setKey(key);
+    copy.setMapSetMethod(mapSetMethod);
+    copy.setMapGetMethod(mapGetMethod);
+    copy.setAccessible(accessible);
+    copy.setCreateMethod(createMethod);
+    copy.setIndexed(indexed);
+    copy.setIndex(index);
+    return copy;
+  }
+
 }

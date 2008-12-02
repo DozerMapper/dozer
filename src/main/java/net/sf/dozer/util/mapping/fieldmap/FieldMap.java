@@ -359,8 +359,10 @@ public abstract class FieldMap implements Cloneable {
 
   protected DozerPropertyDescriptor getSrcPropertyDescriptor(Class runtimeSrcClass) {
     //This could possibly be a good place to add caching on prop descriptor for runtime class.
+    String srcFieldMapGetMethod = getSrcFieldMapGetMethod();
+    String srcFieldMapSetMethod = getSrcFieldMapSetMethod();
     return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
-        getSrcFieldMapGetMethod(), getSrcFieldMapSetMethod(), isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
+            srcFieldMapGetMethod, srcFieldMapSetMethod, isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
         getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
         getDestDeepIndexHintContainer(), classMap.getSrcClassBeanFactory());
   }
@@ -371,6 +373,14 @@ public abstract class FieldMap implements Cloneable {
         getDestFieldTheSetMethod(), getDestFieldMapGetMethod(), getDestFieldMapSetMethod(), isDestFieldAccessible(),
         isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(),
         getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), classMap.getDestClassBeanFactory());
+  }
+
+  public DozerField getSrcFieldCopy() {
+    return srcField.copyOf();
+  }
+
+  public DozerField getDestFieldCopy() {
+    return destField.copyOf();
   }
 
   protected DozerField getSrcField() {

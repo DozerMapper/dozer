@@ -45,6 +45,8 @@ public class CustomMappingsLoader {
 
   private static final Log log = LogFactory.getLog(CustomMappingsLoader.class);
 
+  private static final MappingsParser mappingsParser = MappingsParser.getInstance();
+
   public LoadMappingsResult load(List mappingFiles) {
     Map customMappings = new HashMap();
     ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList());
@@ -74,7 +76,6 @@ public class CustomMappingsLoader {
           }
         }
         // Decorate the raw ClassMap objects and create ClassMap "prime" instances
-        MappingsParser mappingsParser = new MappingsParser();
         customMappings.putAll(mappingsParser.processMappings(mappings));
       }
     }

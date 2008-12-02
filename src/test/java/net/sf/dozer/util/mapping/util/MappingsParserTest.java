@@ -29,7 +29,7 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   protected void setUp() throws Exception {
     super.setUp();
-    parser = new MappingsParser();
+    parser = MappingsParser.getInstance();
   }
 
   public void testDuplicateMapIds() throws Exception {
