@@ -44,9 +44,7 @@ public class XMLParserTest extends AbstractDozerTest {
   
   /**
    * This tests checks that the customconverterparam reaches the
-   * fieldmapping.
-   * 
-   * @throws Exception
+   * fieldmapping.      
    */
   public void testParseCustomConverterParam() throws Exception {
 	  XMLParser parser = new XMLParser();
@@ -61,7 +59,7 @@ public class XMLParserTest extends AbstractDozerTest {
 	  
 	  assertNotNull("The list of mappings should not be null", mapping);
 	  
-	  assertEquals("There should be one mapping", 1, mapping.size());
+	  assertEquals("There should be one mapping", 3, mapping.size());
 	  
 	  ClassMap classMap = (ClassMap) mapping.get(0);
 	  

@@ -51,7 +51,6 @@
   </configuration>
   
 </mappings>
-  
         ]]>
       </source>
 
@@ -161,7 +160,7 @@ public class TestCustomConverter implements CustomConverter {
   }     
     ]]>
       </source>
-      <p></p>
+      <p/>
       <p>
         CustomConverters can also be injected into the DozerBeanMapper if you need to do some manipulation with
         them before they are used in dozer.
@@ -235,6 +234,54 @@ public class TestCustomConverter implements CustomConverter {
 </converter> 
         ]]>
         </source>
+
+      </subsection>
+
+      <subsection name="Configurable Custom Converters">
+        <p>
+          You can define a custom converter, which can be configured from mappings via configuration parameter.
+          In this case you should implement ConfigurableCustomConverter interface instead of usual CustomConverter.
+          Configurable converter has additional attribute provided in runtime - param. Parameter is provided using
+          custom-converter-param attribute.
+        </p>
+
+        <source>
+          <![CDATA[
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.BeanA</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.BeanB</class-b>
+    <field custom-converter="net.sf.dozer.util.mapping.converters.MathOperationConverter"
+           custom-converter-param="+">
+      <a>amount</a>
+      <b>amount</b>
+    </field>
+  </mapping>
+        ]]>
+        </source>
+
+        <p>
+          Configurable custom converter should be used when you have similar behaviour in many cases, which can be
+          parametrized, but the number of conbinations is too high to do simple Custom Converter subclassing.
+        </p>
+
+        <source>
+          <![CDATA[
+public class MathOperationConverter implements ConfigurableCustomConverter {
+
+	public Object convert(Object destinationFieldValue, Object sourceFieldValue,
+	                      Class destinationClass, Class sourceClass, String param) {
+      Integer source = (Integer) sourceFieldValue;
+      Integer destination = (Integer) destinationFieldValue;
+      if ("+".equals(param)) {
+        return destination.intValue + source.intValue();
+      }
+      if ("-".equals(param)) {
+        return destination.intValue - source.intValue();
+      }
+	}
+}
+        ]]>
+        </source>        
 
       </subsection>
 

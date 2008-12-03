@@ -3,6 +3,15 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 
+  <configuration>
+    <custom-converters>
+      <converter type="net.sf.dozer.util.mapping.converters.CustomConverterParamConverter">
+        <class-a>java.lang.String</class-a>
+        <class-b>java.lang.String</class-b>
+      </converter>
+    </custom-converters>
+  </configuration>
+
   <mapping wildcard="false">
     <class-a>net.sf.dozer.util.mapping.vo.SimpleObj</class-a>
     <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-b>
@@ -11,5 +20,24 @@
       <b>field3</b>
     </field>
   </mapping>
+
+  <mapping map-id="1">
+    <class-a>net.sf.dozer.util.mapping.vo.Individual</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.Fruit</class-b>
+    <field>
+      <a>username</a>
+      <b>name</b>
+    </field>
+  </mapping>
+
+  <mapping map-id="2">
+    <class-a>net.sf.dozer.util.mapping.vo.Individual</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.Fruit</class-b>
+    <field custom-converter-param="PARAM">
+      <a>username</a>
+      <b>name</b>
+    </field>
+  </mapping>
+
 
 </mappings>

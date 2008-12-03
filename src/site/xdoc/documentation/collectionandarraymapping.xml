@@ -33,7 +33,7 @@
           then the destination Collection will be populated with objects that are the same type as the elements in
           the src Collection.
         </p>
-        <br></br>
+        <br/>
         <source>
           <![CDATA[ 
 <field>

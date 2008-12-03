@@ -11,8 +11,11 @@
   <body>
     <section name="Copying By Object Reference">
       <p>
-        Dozer supports copying an object by reference. No conversion/transformation is done. Make sure that both
-        object types are the same or you will run into casting problems. The default value is 'false'.
+        Dozer supports copying an object by reference. No conversion/transformation is done for such objects.
+        This approach allows to decrease a number of object allocations, but is applicable only when Java Beans are
+        to be thrown away (Garbage Collected) after transformation. This approach is generally recommended for performance
+        tuning of the mapping process when possible.
+        Make sure that both object types are the same or you will run into casting problems. The default value is 'false'.
       </p>
       <source>
         <![CDATA[ 
@@ -20,7 +23,6 @@
   <a>copyByReference</a>
   <b>copyByReferencePrime</b>
 </field>               
-
             ]]>
       </source>
       <p>
@@ -34,6 +36,26 @@
    <copy-by-references>
      <copy-by-reference>
        net.sf.dozer.util.mapping.vo.NoExtendBaseObjectGlobalCopyByReference
+     </copy-by-reference>
+   </copy-by-references>
+</configuration>
+  ]]>
+      </source>
+
+      <p>
+        On the class level wildcard expressions are allowed. Copy by reference is applied via mask, which can inlcude
+        multiple wildcard (*) characters.
+      </p>
+      <source>
+        <![CDATA[
+<configuration>
+  ...
+   <copy-by-references>
+     <copy-by-reference>
+       net.sf.dozer.util.mapping.vo.*
+     </copy-by-reference>
+     <copy-by-reference>
+       net.sf.dozer.*.vo.*DTO
      </copy-by-reference>
    </copy-by-references>
 </configuration>

@@ -54,7 +54,6 @@
    <b>attributePrime2</b>
  </field>
 </mapping>
- 
               ]]>
         </source>
         <p>
@@ -100,20 +99,35 @@
 </mapping>
               ]]>
         </source>
-        <p>The following images explain some of the different scenarios dozer handles:</p>
+        <p>
+          The following images explain some of the different scenarios dozer handles. Each diagram shows two mapped
+          class hierarchies and existing relations, which Dozer recognizes and maps.
+        </p>
         <p>
           <img src="../images/scenario1.jpg" />
         </p>
-        <p>Scenario 1</p>
+        <p>Scenario 1 shows that if you map SubClass to ClassPrime all attributes from SuperClass -> ClassPrime will be mapped as well.</p>
         <p>
           <img src="../images/scenario2.jpg" />
         </p>
-        <p>Scenario 2</p>
+        <p>Scenario 2 shows that Dozer has no limitations on the inheritance depth it analyzes to find parent mappings.</p>
         <p>
           <img src="../images/scenario3.jpg" />
         </p>
-        <p>Scenario 3</p>
-
+        <p>
+          Scenario 3 shows that it is possible to map two collections with different subctypes of the same parent type.
+          This is done by providing hints to the collection mapping, describing all potential subclasses.          
+        </p>
+        <source>
+<![CDATA[
+<field>
+  <a>aList</a>
+  <b>bList</b>
+  <a-hint>B1,B2</a-hint>
+  <b-hint>BPrime1,BPrime2</b-hint>
+</field>
+              ]]>
+        </source>
       </subsection>
     </section>
   </body>

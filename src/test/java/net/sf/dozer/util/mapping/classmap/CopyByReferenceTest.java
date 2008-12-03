@@ -32,8 +32,13 @@ public class CopyByReferenceTest extends TestCase {
         assertTrue(new CopyByReference("java.*").matches("java.lang.String"));
         assertTrue(new CopyByReference("java.*.String").matches("java.lang.String"));
         assertTrue(new CopyByReference("java.lang.String*").matches("java.lang.String"));
+        assertTrue(new CopyByReference("java.lang.Stri*").matches("java.lang.String"));
+        assertTrue(new CopyByReference("java.lang.*tring").matches("java.lang.String"));
+        assertTrue(new CopyByReference("java.lang.*tri*").matches("java.lang.String"));
+        assertTrue(new CopyByReference("java.*tring").matches("java.lang.String"));
 
         assertFalse(new CopyByReference("com*").matches("java.lang.String"));
+        assertFalse(new CopyByReference("java.lang.*f*").matches("java.lang.String"));
     }
 
     public void testMatches_SpecialCases() {

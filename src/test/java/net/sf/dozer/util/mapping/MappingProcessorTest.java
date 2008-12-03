@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.HashMap;
 
 /**
- * @author <a href="mailto:dmitry.buzdin@ctco.lv">Dmitry Buzdin</a>
+ * @author Dmitry Buzdin
  */
 public class MappingProcessorTest extends TestCase {
 

@@ -19,6 +19,8 @@ import java.util.StringTokenizer;
 
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
+import net.sf.dozer.util.mapping.vo.Individual;
+import net.sf.dozer.util.mapping.vo.Fruit;
 
 /**
  * @author johnsen.knut-erik
@@ -46,6 +48,23 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
         "CustomConverterParamTest", token2);
     
   }
+
+  public void testGlobalCustomConverter() {
+    Individual individual = new Individual();
+    individual.setUsername("ABC");
+    Fruit result = (Fruit) mapper.map(individual, Fruit.class, "1");
+    assertNotNull("", result.getName());
+    assertTrue(result.getName().startsWith("ABC-null"));
+  }
+
+  public void testGlobalCustomConverter_ParamProvided() {
+    Individual individual = new Individual();
+    individual.setUsername("ABC");
+    Fruit result = (Fruit) mapper.map(individual, Fruit.class, "2");
+    assertNotNull("", result.getName());
+    assertTrue(result.getName().startsWith("ABC-PARAM"));
+  }
+
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

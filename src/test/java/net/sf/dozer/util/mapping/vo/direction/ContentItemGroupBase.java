@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 /**
- * @author <a href="mailto:dmitry.buzdin@ctco.lv">Dmitry Buzdin</a>
+ * @author Dmitry Buzdin
  */
 public class ContentItemGroupBase extends EntityBase {
 
