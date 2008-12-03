@@ -16,6 +16,9 @@
 package net.sf.dozer.util.mapping.fieldmap;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptor;
@@ -58,6 +61,9 @@ public abstract class FieldMap implements Cloneable {
   private String customConverterParam;
   private String relationshipType;
   private boolean removeOrphans;
+
+  private final Map srcPropertyDescriptorMap = new HashMap(); // For Caching Purposes
+  private final Map destPropertyDescriptorMap = new HashMap();
 
   public FieldMap(ClassMap classMap) {
     this.classMap = classMap;
@@ -360,21 +366,34 @@ public abstract class FieldMap implements Cloneable {
   }
 
   protected DozerPropertyDescriptor getSrcPropertyDescriptor(Class runtimeSrcClass) {
-    //This could possibly be a good place to add caching on prop descriptor for runtime class.
-    String srcFieldMapGetMethod = getSrcFieldMapGetMethod();
-    String srcFieldMapSetMethod = getSrcFieldMapSetMethod();
-    return PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass, getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
-            srcFieldMapGetMethod, srcFieldMapSetMethod, isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
-        getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
-        getDestDeepIndexHintContainer(), classMap.getSrcClassBeanFactory());
+    DozerPropertyDescriptor result = (DozerPropertyDescriptor) this.srcPropertyDescriptorMap.get(runtimeSrcClass);
+    if (result == null) {
+      String srcFieldMapGetMethod = getSrcFieldMapGetMethod();
+      String srcFieldMapSetMethod = getSrcFieldMapSetMethod();
+      DozerPropertyDescriptor descriptor = PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass,
+              getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
+              srcFieldMapGetMethod, srcFieldMapSetMethod, isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
+              getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
+              getDestDeepIndexHintContainer(), classMap.getSrcClassBeanFactory());
+      this.srcPropertyDescriptorMap.put(runtimeSrcClass, descriptor);
+      result = descriptor;
+    }
+    return result;
   }
 
   protected DozerPropertyDescriptor getDestPropertyDescriptor(Class runtimeDestClass) {
-    //This could possibly be a good place to add caching on prop descriptor for runtime class.
-    return PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass, getDestFieldTheGetMethod(),
-        getDestFieldTheSetMethod(), getDestFieldMapGetMethod(), getDestFieldMapSetMethod(), isDestFieldAccessible(),
-        isDestFieldIndexed(), getDestFieldIndex(), getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(),
-        getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), classMap.getDestClassBeanFactory());
+    DozerPropertyDescriptor result = (DozerPropertyDescriptor) this.destPropertyDescriptorMap.get(runtimeDestClass);
+    if (result == null) {
+      DozerPropertyDescriptor descriptor = PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass,
+            getDestFieldTheGetMethod(), getDestFieldTheSetMethod(), getDestFieldMapGetMethod(),
+            getDestFieldMapSetMethod(), isDestFieldAccessible(), isDestFieldIndexed(), getDestFieldIndex(),
+            getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(), getSrcFieldName(),
+            getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), classMap.getDestClassBeanFactory());
+
+      this.destPropertyDescriptorMap.put(runtimeDestClass, descriptor);
+      result = descriptor;
+    }
+    return result;
   }
 
   public DozerField getSrcFieldCopy() {

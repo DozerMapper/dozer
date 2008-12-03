@@ -30,10 +30,37 @@ public final class CacheKeyFactory {
   }
 
   public static Object createKey(Class destClass, Class srcClass) {
-    final List key = new ArrayList();
-    key.add(destClass);
-    key.add(srcClass);
-    return key;
+    return new CacheKey(srcClass, destClass);
+  }
+
+  private static class CacheKey {
+
+    private Class srcClass;
+    private Class destClass;
+
+    private CacheKey(Class srcClass, Class destClass) {
+      this.srcClass = srcClass;
+      this.destClass = destClass;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) return true;      
+
+      CacheKey cacheKey = (CacheKey) o;
+
+      if (destClass != null ? !destClass.equals(cacheKey.destClass) : cacheKey.destClass != null) return false;
+      if (srcClass != null ? !srcClass.equals(cacheKey.srcClass) : cacheKey.srcClass != null) return false;
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = (srcClass != null ? srcClass.hashCode() : 0);
+      result = 31 * result + (destClass != null ? destClass.hashCode() : 0);
+      return result;
+    }
+
   }
 
 }

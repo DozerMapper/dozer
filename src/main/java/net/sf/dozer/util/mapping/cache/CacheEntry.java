@@ -60,7 +60,7 @@ public class CacheEntry {
       return false;
     }
     CacheEntry entry = (CacheEntry) object;
-    return new EqualsBuilder().append(this.getKey(), entry.getKey()).isEquals();
+    return this.getKey().equals(entry.getKey());
   }
 
   public String toString() {

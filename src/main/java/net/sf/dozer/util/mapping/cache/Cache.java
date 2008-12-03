@@ -42,6 +42,8 @@ public class Cache {
   private long hitCount;
   private long missCount;
 
+  StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
+
   public Cache(String name, long maximumSize) {
     this.name = name;
     this.maximumSize = maximumSize;
@@ -67,7 +69,6 @@ public class Cache {
       throw new IllegalArgumentException("Key cannot be null");
     }
     CacheEntry result = (CacheEntry) cacheMap.get(key);
-    StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
     if (result != null) {
       hitCount++;
       statMgr.increment(StatisticTypeConstants.CACHE_HIT_COUNT, name);

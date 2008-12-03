@@ -35,17 +35,19 @@ import org.apache.commons.logging.LogFactory;
 /**
  * @author tierney.matt
  * @author garsombke.franz
+ * @author dmitry.buzdin
  */
 public class PerformanceTest extends AbstractMapperTest {
+
   private static Log log = LogFactory.getLog(PerformanceTest.class);
   private static MapperIF mapper;
 
-  private int numIters = 1;
+  private int numIters = 1; // Set this attribute to 25000 to run performance regression
 
   protected void setUp() throws Exception {
     super.setUp();
     if (mapper == null) {
-      mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+      mapper = getMapper("dozerBeanMapping.xml");
     }
   }
 
@@ -125,7 +127,11 @@ public class PerformanceTest extends AbstractMapperTest {
    * MHT Computer - 12/15/07 - 4.2 release
    * jdk1.4 #1 23937 #2 2781 #3 2781 #4 11696 #5 7687 #6 36953
    * jdk1.5 #1 24157 #2 2594 #3 2640 #4 12438 #5 7984 #6 34531
-   * 
+   *
+   * (WinXp SP2, P4-3.20GHz, 2GB, JVM 256m) - 12/03/08 - 4.3 release
+   * jdk1.4 #1 29657 #2 3766 #3 3765 #4 17344 #5 10672 #6 40595
+   * jdk1.5 #1 29297 #2 3484 #3 3329 #4 20688 #5 13032 #6 36813
+   * jdk1.6 #1 22579 #2 2812 #3 3297 #4 16563 #5 11735 #6 23219
    */
 
   public void testMapping1() throws Exception {
@@ -155,7 +161,7 @@ public class PerformanceTest extends AbstractMapperTest {
   public void testMapping5() throws Exception {
     // SrcDeepObj --> DestDeepObj (Field Deep)
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
-    runGeneric("testMapping5", src, DestDeepObj.class, 9000);
+    runGeneric("testMapping5", src, DestDeepObj.class, 13000);
   }
 
   // 1-2007: Test Case submitted by Dave B.
@@ -174,18 +180,19 @@ public class PerformanceTest extends AbstractMapperTest {
     mapper.map(src, destClass);
 
     // perform x number of additional mappings
-    log.debug("Begin timings for " + testName);
+    log.info("Begin timings for " + testName);
     StopWatch timer = new StopWatch();
     timer.start();
     for (int i = 0; i < numIters; i++) {
       mapper.map(src, destClass);
     }
     timer.stop();
-    log.debug("Total time for additional " + numIters + " mappings: " + timer.getTime() + " milliseconds");
-    log.debug("avg time for " + numIters + " mappings: " + (timer.getTime() / numIters) + " milliseconds");
+    log.info("Total time for additional " + numIters + " mappings: " + timer.getTime() + " milliseconds");
+    log.info("avg time for " + numIters + " mappings: " + (timer.getTime() / numIters) + " milliseconds");
 
     if (timer.getTime() > maxTimeAllowed) {
       log.error("Elapsed time exceeded max allowed: " + maxTimeAllowed + " Actual time: " + timer.getTime());
+      fail();
     }
   }
 
