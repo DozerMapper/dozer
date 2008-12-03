@@ -30,7 +30,7 @@
       </p>
     </section>
     <section name="Dozer News">
-      <p></p>
+      <p/>
       <h3>
         Release 4.3 Now Available
         <font size="-3" color="gray">
@@ -38,22 +38,22 @@
         </font>
       </h3>
       <p>
-        This is a maintenance release mostly targeting bug fixes. Note that this release changes classloading behaviour.
+        This is a maintenance release targeting mostly bug fixes. Note that this release changes classloading behaviour.
         If you are experiencing classloading problems in any application container, please tell us urgently.
       </p>
       <p>
-        Thanks to our contributors for submitted bugs and patches, which helped during this release development.
+        Thanks to our contributors for submitted bug reports and patches, which helped greatly during this release development.        
       </p>
       <p>
-        Next Dozer 4.4 release will be targeted on Internal Refactoring, Bug Fixing and Performance Improvements.
-        It will be a stabilization release before new big and interesting features. Stay tuned!
+        Dozer 4.4 release will target internal refactoring, bug fixing and major performance improvements.
+        It will be a stabilization release before new big and shiny features in version 5.0. Stay tuned! Contributors to
+        the project are more than welcome as usual!
       </p>
       <p>
-        Please check here for more
-        <a href="releasenotes.html">release notes</a>
+        Please check <a href="releasenotes.html">release notes</a> for detailed information.
       </p>
 
-      <p></p>
+      <p/>
       <h3>
         Release 4.2.1 Now Available
         <font size="-3" color="gray">

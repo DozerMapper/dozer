@@ -22,6 +22,7 @@ package net.sf.dozer.util.mapping.util;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
+ * @author dmitry.buzdin
  * 
  */
 public final class MapperConstants {
@@ -29,7 +30,8 @@ public final class MapperConstants {
   private MapperConstants() {
   }
 
-  public static final String CURRENT_VERSION = "4.2.1";
+  public static final String CURRENT_VERSION = "4.3";
+
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_ERROR_POLICY = true;
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
