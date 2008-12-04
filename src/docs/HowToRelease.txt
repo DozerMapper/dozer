@@ -1,0 +1,48 @@
+1.  PREBUILD
+- Add to the releasenotes.xml file
+- Update downloading.xml file with latest version number
+- Add to the index.xml file
+- Update version number in pom.xml
+- Update MappingConstants.java CURRENT_VERSION
+- Run PerformanceTest with num iterations set to 25000 to make sure performance timings are still inbounds
+
+
+2.  BUILD
+Run "mvn site:site assembly:assembly"
+After this step is complete, you should see a /target/site directory containing all of the gererated html along with the /target/dozer-4.3-src.zip and /target/dozer-4.3-src.tar.gz files
+
+
+3.  DEPLOY WEB SITE
+Run "mvn -P deploy-dozer antrun:run"
+Note:  Prior to deploying the web site, verify that the html pages in /target/site look good.
+After this step is complete, you should be able to login to the public website and see the 4.3 website mods.....http://dozer.sourceforge.net/
+
+
+4.  SFTP DOZER BUILD ASSETS TO SF
+Upload the following assets to SF..../target/dozer-4.3-src.zip and /target/dozer-4.3-src.tar.gz
+Hostname: frs.sourceforge.net
+Path: uploads/
+Username: Your SourceForge.net Username
+Password: Your SourceForge.net Password
+
+
+5.  SF ADMIN FILE RELEASE
+- Login to the SF project    http://sourceforge.net/projects/dozer/
+- Click "Admin" Tab then "File Releases"
+- Click "Add Release" on the row with package name =  Dozer
+- Type in new release name (i.e. 4.3) and click "Create this Release"
+- Copy the release notes from {dozer.home}/xdocs/releasenotes.xml (for this specific release) and paste them in
+- Under "Add Files to this Release" select the two dozer files that were uploaded by SFTP. (i.e. dozer-x.x-src.tar.gz and dozer-x.x-src.zip). Click on "Add Files and/or Refresh View"
+- For each file added select "Platform-Independent" for the processor type. For the file type select "Source .gz" and "Source .zip" respectively. Note that the "Update/Refresh" button only works on ONE file at a time.
+- Under "Email Release Notice" click on "I'm Sure" and then click on "Send Notice"
+- Create post in "Open Discussion" forum that new release is available
+
+
+6.  REQUEST MAVEN UPLOAD
+- Run "mvn source:jar javadoc:jar repository:bundle-create"
+- Login to http://jira.codehaus.org/secure/Dashboard.jspa
+- Open task to upload latest dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
+
+
+HELP
+http://alexandria.wiki.sourceforge.net/File+Release+System+-+Offering+Files+for+Download
