@@ -3,6 +3,7 @@
 - Update downloading.xml file with latest version number
 - Add to the index.xml file
 - Update version number in pom.xml
+- Add any new contributors to pom.xml
 - Update all web page documentation in src/site to account for any new changes
 - Update MappingConstants.java CURRENT_VERSION
 - Run PerformanceTest with num iterations set to 25000 to make sure performance timings are still inbounds
