@@ -47,5 +47,8 @@ Password: Your SourceForge.net Password
 - Open task to upload latest dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
 
 
+7.  POST RELEASE
+- Create a tag for the release in SVN
+
 HELP
 http://alexandria.wiki.sourceforge.net/File+Release+System+-+Offering+Files+for+Download
