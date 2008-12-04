@@ -1,4 +1,0 @@
-1. Right click --> Team --> Merge on your project in Eclipse. Make sure it is the HEAD branch.
-2. End tag should be latest version tag.
-3. Start tag should be the latest Root branch.
-4. On the synchronize view there is a button called Update all incoming changes to make everything synchronize.
