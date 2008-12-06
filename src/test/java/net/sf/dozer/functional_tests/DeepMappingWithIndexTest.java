@@ -16,6 +16,7 @@
 package net.sf.dozer.functional_tests;
 
 import java.util.Arrays;
+import java.util.Vector;
 
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
@@ -29,6 +30,9 @@ import net.sf.dozer.util.mapping.vo.deepindex.Family;
 import net.sf.dozer.util.mapping.vo.deepindex.HeadOfHouseHold;
 import net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails;
 import net.sf.dozer.util.mapping.vo.deepindex.Pet;
+import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.FlatPerson;
+import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Person;
+import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Phone;
 
 /**
  * @author tierney.matt
@@ -80,7 +84,6 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
   }
 
   public void testDeepMapIndexed() throws Exception {
-
     Pet[] myPets = new Pet[2];
     Family source = new Family("john", "jane", "doe", new Integer(22000), new Integer(20000));
     Pet firstPet = new Pet("molly", 2, null);
@@ -108,7 +111,6 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
   }
 
   public void testDeepMapInvIndexed() throws Exception {
-
     HeadOfHouseHold source = (HeadOfHouseHold) newInstance(HeadOfHouseHold.class);
     source.setFirstName("Tom");
     source.setLastName("Roy");
@@ -126,6 +128,32 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(dest.getPets()[1].getPetName(), source.getPetName());
     assertEquals(String.valueOf(dest.getPets()[1].getPetAge()), source.getPetAge());
     assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
+  }
+
+  public void testDeepMapIndexedIsAccessible() throws Exception {
+    mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
+
+    Person source = (Person) newInstance(Person.class);
+    Vector phonesList = new Vector();
+    Phone phone = new Phone();
+    phone.setNumber("911");
+    phonesList.add(phone);
+    source.phones = phonesList;
+    FlatPerson dest = (FlatPerson) newInstance(FlatPerson.class);
+
+    mapper.map(source, dest);
+    assertEquals(dest.getPhoneNumber(), ((Phone) source.phones.get(0)).getNumber());
+  }
+
+  public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
+    mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
+    
+    FlatPerson source = (FlatPerson) newInstance(FlatPerson.class);
+    source.setPhoneNumber("911");
+    Person dest = (Person) newInstance(Person.class);
+
+    mapper.map(source, dest);
+    assertEquals(((Phone) dest.phones.get(0)).getNumber(), source.getPhoneNumber());
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {

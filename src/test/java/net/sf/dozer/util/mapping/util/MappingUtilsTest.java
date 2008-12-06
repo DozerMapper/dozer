@@ -15,7 +15,14 @@
  */
 package net.sf.dozer.util.mapping.util;
 
-import java.util.*;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import net.sf.dozer.functional_tests.ProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.AbstractDozerTest;
@@ -127,10 +134,54 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertTrue(MappingUtils.isDeepMapping("a.b"));
     assertTrue(MappingUtils.isDeepMapping("."));
     assertTrue(MappingUtils.isDeepMapping("aa.bb.cc"));
-    
+
     assertFalse(MappingUtils.isDeepMapping(null));
     assertFalse(MappingUtils.isDeepMapping(""));
     assertFalse(MappingUtils.isDeepMapping("aaa"));
+  }
+
+  public void testPrepareIndexedCollection_Array() {
+    String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, null, "some entry", 0);
+    assertTrue(Arrays.equals(new String[] { "some entry" }, result));
+
+    result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, null, "some entry", 3);
+    assertTrue(Arrays.equals(new String[] { null, null, null, "some entry" }, result));
+
+    result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, new String[] { "a", "b", "c" }, "some entry", 5);
+    assertTrue(Arrays.equals(new String[] { "a", "b", "c", null, null, "some entry" }, result));
+  }
+
+  public void testPrepareIndexedCollection_List() {
+    List result = (List) MappingUtils.prepareIndexedCollection(List.class, null, "some entry", 0);
+    assertEquals(Arrays.asList(new String[] { "some entry" }), result);
+
+    result = (List) MappingUtils.prepareIndexedCollection(List.class, null, "some entry", 3);
+    assertEquals(Arrays.asList(new String[] { null, null, null, "some entry" }), result);
+
+    result = (List) MappingUtils.prepareIndexedCollection(List.class, Arrays.asList(new String[] { "a", "b", "c" }), "some entry",
+        5);
+    assertEquals(Arrays.asList(new String[] { "a", "b", "c", null, null, "some entry" }), result);
+  }
+
+  public void testPrepareIndexedCollection_Vector() {
+    Vector result = (Vector) MappingUtils.prepareIndexedCollection(Vector.class, null, "some entry", 0);
+    assertEquals(new Vector(Arrays.asList(new String[] { "some entry" })), result);
+
+    result = (Vector) MappingUtils.prepareIndexedCollection(Vector.class, null, "some entry", 3);
+    assertEquals(new Vector(Arrays.asList(new String[] { null, null, null, "some entry" })), result);
+
+    result = (Vector) MappingUtils.prepareIndexedCollection(Vector.class,
+        new Vector(Arrays.asList(new String[] { "a", "b", "c" })), "some entry", 5);
+    assertEquals(new Vector(Arrays.asList(new String[] { "a", "b", "c", null, null, "some entry" })), result);
+  }
+
+  public void testPrepareIndexedCollection_UnsupportedType() {
+    try {
+      MappingUtils.prepareIndexedCollection(String.class, null, "some entry", 0);
+      fail("should have thrown exception");
+    } catch (MappingException e) {
+      //expected
+    }
   }
 
 }

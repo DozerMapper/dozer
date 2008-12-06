@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Person</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deepindex.isaccessible.FlatPerson</class-b>
+      <field map-id="FirstPhoneToFlatPerson">
+        <a is-accessible="true">phones[0]</a>
+        <b>this</b>
+        <a-deep-index-hint>net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Phone</a-deep-index-hint>
+      </field>
+  </mapping>
+  <mapping map-id="FirstPhoneToFlatPerson">
+    <class-a>net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Phone</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deepindex.isaccessible.FlatPerson</class-b>
+      <field>
+        <a>number</a>
+        <b>phoneNumber</b>
+      </field>
+  </mapping>
+</mappings>

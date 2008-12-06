@@ -16,7 +16,9 @@
 
 package net.sf.dozer.util.mapping.vo.deepindex;
 
-public class HeadOfHouseHold {
+import net.sf.dozer.util.mapping.vo.BaseTestObject;
+
+public class HeadOfHouseHold extends BaseTestObject {
   private String firstName;
   private String lastName;
   private Integer salary;

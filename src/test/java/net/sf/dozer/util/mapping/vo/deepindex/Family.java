@@ -19,7 +19,9 @@ package net.sf.dozer.util.mapping.vo.deepindex;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Family {
+import net.sf.dozer.util.mapping.vo.BaseTestObject;
+
+public class Family extends BaseTestObject {
   private List familyMembers;
   private Pet[] pets;
 
@@ -36,7 +38,6 @@ public class Family {
   }
 
   public Family(String firstMember, String secondMember, String lastName, Integer firstSal, Integer secondSal) {
-
     PersonalDetails first = new PersonalDetails();
     first.setFirstName(firstMember);
     first.setLastName(lastName);

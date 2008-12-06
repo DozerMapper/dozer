@@ -22,12 +22,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.cache.Cache;
-import net.sf.dozer.util.mapping.classmap.*;
+import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.CopyByReference;
+import net.sf.dozer.util.mapping.classmap.CopyByReferenceContainer;
+import net.sf.dozer.util.mapping.classmap.DozerClass;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -212,23 +217,23 @@ public final class MappingUtils {
     return result;
   }
 
-    public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
-        CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();
-        if (copyByReferenceContainer != null) {
-            String destFieldTypeName = null;
-            Iterator copyIterator = copyByReferenceContainer.getCopyByReferences().iterator();
-            Class clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
-            if (clazz != null) {
-                destFieldTypeName = clazz.getName();
-            }
-            while (copyIterator.hasNext()) {
-                CopyByReference copyByReference = (CopyByReference) copyIterator.next();
-                if (copyByReference.matches(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
-                    fieldMap.setCopyByReference(true);
-                }
-            }
+  public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
+    CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();
+    if (copyByReferenceContainer != null) {
+      String destFieldTypeName = null;
+      Iterator copyIterator = copyByReferenceContainer.getCopyByReferences().iterator();
+      Class clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
+      if (clazz != null) {
+        destFieldTypeName = clazz.getName();
+      }
+      while (copyIterator.hasNext()) {
+        CopyByReference copyByReference = (CopyByReference) copyIterator.next();
+        if (copyByReference.matches(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
+          fieldMap.setCopyByReference(true);
         }
+      }
     }
+  }
 
   public static Class loadClass(String name) {
     Class result = null;
@@ -242,8 +247,7 @@ public final class MappingUtils {
 
   static boolean isProxy(Class clazz) {
     //todo: implement a better way of determining this that is more generic
-    return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0
-            || clazz.getName().indexOf(MapperConstants.JAVASSIST_ID) >= 0;
+    return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 || clazz.getName().indexOf(MapperConstants.JAVASSIST_ID) >= 0;
   }
 
   public static Class getRealSuperclass(Class clazz) {
@@ -262,57 +266,79 @@ public final class MappingUtils {
 
   public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
     Object result = null;
-    if (existingCollection == null) {
-
-      if (collectionType.isArray()) {
-        existingCollection = Array.newInstance(collectionType.getComponentType(), 0);
-      } else if (CollectionUtils.isSet(collectionType)) {
-        existingCollection = new HashSet();
-      } else {
-        existingCollection = new ArrayList();
-      }
+    if (collectionType.isArray()) {
+      result = prepareIndexedArray(collectionType, existingCollection, collectionEntry, index);
+    } else if (Collection.class.isAssignableFrom(collectionType)) {
+      result = prepareIndexedCollectionType(collectionType, existingCollection, collectionEntry, index);
+    } else {
+      throwMappingException("Only types java.lang.Object[] and java.util.Collection are supported for indexed properties.");
     }
-    if (existingCollection instanceof Collection) {
-      Collection newCollection;
-      if (existingCollection instanceof Set) {
-        newCollection = new HashSet();
-      } else {
-        newCollection = new ArrayList();
-      }
 
-      Collection c = (Collection) existingCollection;
-      Iterator i = c.iterator();
-      int x = 0;
-      while (i.hasNext()) {
-        if (x != index) {
-          newCollection.add(i.next());
-        } else {
-          newCollection.add(collectionEntry);
-        }
-        x++;
-      }
-      if (newCollection.size() <= index) {
-        while (newCollection.size() < index) {
-          newCollection.add(null);
-        }
-        newCollection.add(collectionEntry);
-      }
-      result = newCollection;
-    } else if (existingCollection.getClass().isArray()) {
-      Object[] objs = (Object[]) existingCollection;
-      Object[] x = (Object[]) Array.newInstance(objs.getClass().getComponentType(), objs.length > index ? objs.length + 1
-          : index + 1);
-      for (int i = 0; i < objs.length; i++) {
-        x[i] = objs[i];
-      }
-      x[index] = collectionEntry;
-      result = x;
-    }
     return result;
   }
-
+  
   public static boolean isDeepMapping(String mapping) {
     return mapping != null && mapping.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0;
+  }
+  
+  private static Object[] prepareIndexedArray(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
+    Object[] result;
+
+    if (existingCollection == null) {
+      result = (Object[]) Array.newInstance(collectionType.getComponentType(), index + 1);
+    } else {
+      int originalLenth = ((Object[]) existingCollection).length;
+      result = (Object[]) Array.newInstance(collectionType.getComponentType(), Math.max(index + 1, originalLenth));
+
+      for (int i = 0; i < originalLenth; i++) {
+        result[i] = ((Object[]) existingCollection)[i];
+      }
+    }
+    result[index] = collectionEntry;
+    return result;
+  }
+  
+  private static Collection prepareIndexedCollectionType(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
+    Collection result = null;
+    //Instantiation of the new Collection: can be interface or implementation class
+    if (collectionType.isInterface()) {
+      if (collectionType.equals(Set.class)) {
+        result = new HashSet();
+      }
+      else if (collectionType.equals(List.class)) {
+        result = new ArrayList();
+      } else {
+        throwMappingException("Only interface types java.util.Set and java.util.List are supported for java.util.Collection type indexed properties.");
+      }
+    } else {
+      //It is an implementation class of Collection
+      try {
+        result = (Collection) collectionType.newInstance();
+      } catch (InstantiationException e) {
+        throw new RuntimeException(e);
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+    }
+
+    //Fill in old values in new Collection
+    if (existingCollection != null) {
+      result.addAll((Collection) existingCollection);
+    }
+
+    //Add the new value:
+    //For an ordered Collection
+    if (result instanceof List) {
+      while (result.size() < index + 1) {
+        result.add(null);
+      }
+      ((List) result).set(index, collectionEntry);
+    }
+    //for an unordered Collection (index has no use here)
+    else {
+      result.add(collectionEntry);
+    }
+    return result;
   }
 
 }

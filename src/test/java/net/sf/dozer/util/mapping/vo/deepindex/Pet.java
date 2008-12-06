@@ -16,7 +16,9 @@
 
 package net.sf.dozer.util.mapping.vo.deepindex;
 
-public class Pet {
+import net.sf.dozer.util.mapping.vo.BaseTestObject;
+
+public class Pet extends BaseTestObject {
   private String petName;
   private int petAge;
   private Pet[] offSpring;
