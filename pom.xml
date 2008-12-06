@@ -142,10 +142,7 @@
         <directory>target/xmlbeans-source</directory>
       </testResource>
       <testResource>
-        <directory>src/main/mappings</directory>
-      </testResource>
-      <testResource>
-        <directory>src/main/config</directory>
+        <directory>src/test/resources</directory>
       </testResource>
       <testResource>
         <directory>src/site/resources/dtd</directory>
@@ -211,7 +208,7 @@
           </execution>
         </executions>
         <configuration>
-          <schemaDirectory>src/main/mappings</schemaDirectory>
+          <schemaDirectory>src/test/resources</schemaDirectory>
           <classGenerationDirectory>${project.build.directory}/test-classes</classGenerationDirectory>
         </configuration>
       </plugin>
