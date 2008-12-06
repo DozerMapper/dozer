@@ -6,8 +6,7 @@
   <packaging>jar</packaging>
   <url>http://dozer.sourceforge.net</url>
   <description>
-    Dozer is a powerful, yet simple Java Bean to Java Bean mapper that recursively copies data from one object to
-    another
+    Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to another
   </description>
   <version>4.3</version>
   <name>dozer</name>
@@ -362,6 +361,9 @@
       <name>Matt Benson</name>
     </contributor>
     <contributor>
+      <name>Ed Bras</name>
+    </contributor>    
+    <contributor>
       <name>Soren Chittka</name>
     </contributor>
     <contributor>
@@ -418,14 +420,11 @@
     <contributor>
       <name>Kiersztyn Wojtek</name>
     </contributor>
-    <contributor>
-      <name>Ed Bras</name>
-    </contributor>
   </contributors>
 
   <organization>
     <name>dozer</name>
-    <url>http://java.net/</url>
+    <url>http://dozer.sourceforge.net</url>
   </organization>
 
   <licenses>

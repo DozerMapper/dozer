@@ -7,7 +7,7 @@
 - Update all web page documentation in src/site to account for any new changes
 - Update MappingConstants.java CURRENT_VERSION
 - Run PerformanceTest with num iterations set to 25000 to make sure performance timings are still inbounds
-
+- Run src/misc/jdk15_tests using 1.5 JDK
 
 
 2.  BUILD
