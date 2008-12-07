@@ -38,7 +38,7 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 public class MappingUtilsTest extends AbstractDozerTest {
 
   public void testIsBlankOrNull() throws Exception {
-    assertTrue(MappingUtils.isBlankOrNull(null));
+    assertFalse(MappingUtils.isBlankOrNull(null));
     assertTrue(MappingUtils.isBlankOrNull(""));
     assertTrue(MappingUtils.isBlankOrNull(" "));
   }
