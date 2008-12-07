@@ -36,7 +36,6 @@ public class CollectionUtilsTest extends AbstractDozerTest {
 
   public void testIsList() throws Exception {
     Object[] values = new Object[] { new ArrayList(), new Vector(), new LinkedList() };
-
     for (int i = 0; i < values.length; i++) {
       assertTrue(CollectionUtils.isList(values[i].getClass()));
     }
@@ -44,7 +43,6 @@ public class CollectionUtilsTest extends AbstractDozerTest {
 
   public void testIsSet() throws Exception {
     Object[] values = new Object[] { new TreeSet(), new HashSet(), new HashSet() };
-
     for (int i = 0; i < values.length; i++) {
       assertTrue(CollectionUtils.isSet(values[i].getClass()));
     }
@@ -52,7 +50,6 @@ public class CollectionUtilsTest extends AbstractDozerTest {
 
   public void testIsArray() throws Exception {
     Object[] values = new Object[] { new int[3], new InsideTestObject[2], new String[3] };
-
     for (int i = 0; i < values.length; i++) {
       assertTrue(CollectionUtils.isArray(values[i].getClass()));
     }
@@ -60,7 +57,6 @@ public class CollectionUtilsTest extends AbstractDozerTest {
 
   public void testIsPrimitiveArray() throws Exception {
     Object[] values = new Object[] { new int[3], new long[2], new boolean[3] };
-
     for (int i = 0; i < values.length; i++) {
       assertTrue(CollectionUtils.isPrimitiveArray(values[i].getClass()));
     }
@@ -68,7 +64,6 @@ public class CollectionUtilsTest extends AbstractDozerTest {
 
   public void testIsPrimitiveArray_False() throws Exception {
     Object[] values = new Object[] { new String[3], new Date[2], new SimpleObj[3] };
-
     for (int i = 0; i < values.length; i++) {
       assertFalse(CollectionUtils.isPrimitiveArray(values[i].getClass()));
     }
@@ -109,7 +104,6 @@ public class CollectionUtilsTest extends AbstractDozerTest {
 
   public void testConvertPrimitiveArrayToList() throws Exception {
     int[] srcArray = new int[] { 5, 10, 15 };
-
     List result = CollectionUtils.convertPrimitiveArrayToList(srcArray);
     assertEquals("invalid result size", srcArray.length, result.size());
 
