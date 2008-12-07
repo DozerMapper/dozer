@@ -27,12 +27,16 @@ import java.util.List;
  * @author tierney.matt
  * 
  */
-public class Mappings {
-  private List mapping = new ArrayList();
-  private Configuration configuration = new Configuration();
+public class MappingFileData {
+  private List classMaps = new ArrayList();
+  private Configuration configuration;
 
-  public List getMapping() {
-    return mapping;
+  public List getClassMaps() {
+    return classMaps;
+  }
+  
+  public void addClassMap(ClassMap classMap) {
+    this.classMaps.add(classMap);
   }
 
   public void setConfiguration(Configuration config) {

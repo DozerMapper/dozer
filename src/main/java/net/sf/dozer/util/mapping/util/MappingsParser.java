@@ -18,7 +18,8 @@ package net.sf.dozer.util.mapping.util;
 import java.util.*;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.classmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.MappingFileData;
 import net.sf.dozer.util.mapping.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.GenericFieldMap;
@@ -45,20 +46,23 @@ public final class MappingsParser {
   private MappingsParser() {
   }
 
-  public Map processMappings(Mappings mappings) {
+  public Map processMappings(List classMaps, Configuration globalConfiguration) {
+    if (globalConfiguration == null) {
+      throw new IllegalArgumentException("Global configuration parameter cannot be null");
+    }
     Map result = new HashMap();
-    FieldMap fieldMapPrime;
-    // verify that we even have any mappings
-    if (mappings.getMapping() == null || mappings.getMapping().size() == 0) {
+    if (classMaps == null || classMaps.size() == 0) {
       return result;
     }
-    Iterator iter = mappings.getMapping().iterator();
+    FieldMap fieldMapPrime;
+    Iterator iter = classMaps.iterator();
     // need to create bi-directional mappings now.
     ClassMap classMap;
     ClassMap classMapPrime;
     Set mapIds = new HashSet();
     while (iter.hasNext()) {
       classMap = (ClassMap) iter.next();
+      classMap.setGlobalConfiguration(globalConfiguration);
 
       // add our first class map to the result map and initialize PropertyDescriptor Cache
       ReflectionUtils.findPropertyDescriptor(classMap.getSrcClassToMap(), "", null);
@@ -83,7 +87,7 @@ public final class MappingsParser {
 
       result.put(theClassMapKey, classMap);
       // now create class map prime
-      classMapPrime = new ClassMap(mappings.getConfiguration());
+      classMapPrime = new ClassMap(globalConfiguration);
       MappingUtils.reverseFields(classMap, classMapPrime);
 
       if (classMap.getFieldMaps() != null) {
@@ -122,10 +126,10 @@ public final class MappingsParser {
 
               // iterate through copyByReferences and set accordingly
               if (!(fieldMap instanceof ExcludeFieldMap)) {
-                MappingUtils.applyGlobalCopyByReference(mappings.getConfiguration(), fieldMap, classMap);
+                MappingUtils.applyGlobalCopyByReference(globalConfiguration, fieldMap, classMap);
               }
               if (!(fieldMapPrime instanceof ExcludeFieldMap)) {
-                MappingUtils.applyGlobalCopyByReference(mappings.getConfiguration(), fieldMapPrime, classMapPrime);
+                MappingUtils.applyGlobalCopyByReference(globalConfiguration, fieldMapPrime, classMapPrime);
               }
             } else { // if it is a one-way field map make the other field map excluded
               // make a prime field map
@@ -141,7 +145,7 @@ public final class MappingsParser {
             FieldMap oneWayFieldMap = (FieldMap) fms[i];
             oneWayFieldMap.validate();
 
-            MappingUtils.applyGlobalCopyByReference(mappings.getConfiguration(), oneWayFieldMap, classMap);
+            MappingUtils.applyGlobalCopyByReference(globalConfiguration, oneWayFieldMap, classMap);
             // check to see if we need to exclude the map
             if ((StringUtils.equals(oneWayFieldMap.getType(), MapperConstants.ONE_WAY))) {
               fieldMapPrime = new ExcludeFieldMap(classMapPrime);

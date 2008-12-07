@@ -20,7 +20,7 @@ import java.util.List;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.classmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.MappingFileData;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 /**
@@ -37,7 +37,7 @@ public class XMLParserTest extends AbstractDozerTest {
     ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");
 
-    Mappings mappings = parser.parse(url.openStream());
+    MappingFileData mappings = parser.parse(url.openStream());
     assertNotNull(mappings);
   }
 
@@ -51,11 +51,11 @@ public class XMLParserTest extends AbstractDozerTest {
 	  ResourceLoader loader = new ResourceLoader();
 	  URL url = loader.getResource("fieldCustomConverterParam.xml");
 	  
-	  Mappings mappings = parser.parse(url.openStream());
+	  MappingFileData mappings = parser.parse(url.openStream());
 	  
 	  assertNotNull("The mappings should not be null", mappings);
 	  
-	  List mapping = mappings.getMapping();
+	  List mapping = mappings.getClassMaps();
 	  
 	  assertNotNull("The list of mappings should not be null", mapping);
 	  

@@ -28,7 +28,7 @@ import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.classmap.CopyByReference;
 import net.sf.dozer.util.mapping.classmap.CopyByReferenceContainer;
 import net.sf.dozer.util.mapping.classmap.DozerClass;
-import net.sf.dozer.util.mapping.classmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.MappingFileData;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
 import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
@@ -110,9 +110,9 @@ public class XMLParser {
   private static final String CUSTOM_CONVERTER_ID_ATTRIBUTE = "custom-converter-id";
   private static final String CUSTOM_CONVERTER_PARAM_ATTRIBUTE = "custom-converter-param";
 
-  private final Mappings mappings = new Mappings();
+  private final MappingFileData mappings = new MappingFileData();
 
-  public Mappings parse(InputStream inputSource) throws SAXException, ParserConfigurationException, IOException,
+  public MappingFileData parse(InputStream inputSource) throws SAXException, ParserConfigurationException, IOException,
       ClassNotFoundException {
     DocumentBuilderFactory factory = createDocumentBuilderFactory();
     DocumentBuilder builder = createDocumentBuilder(factory);
@@ -138,7 +138,7 @@ public class XMLParser {
 
   private void parseMapping(Element ele) {
     ClassMap classMap = new ClassMap(mappings.getConfiguration());
-    mappings.getMapping().add(classMap);
+    mappings.getClassMaps().add(classMap);
     if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT))) {
       classMap.setDateFormat(ele.getAttribute(DATE_FORMAT));
     }

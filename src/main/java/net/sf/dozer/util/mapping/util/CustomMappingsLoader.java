@@ -25,7 +25,7 @@ import java.util.Map;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Configuration;
-import net.sf.dozer.util.mapping.classmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.MappingFileData;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
 
@@ -50,8 +50,8 @@ public class CustomMappingsLoader {
   public LoadMappingsResult load(List mappingFiles) {
     Map customMappings = new HashMap();
     ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList());
-    Configuration globalConfiguration = new Configuration();
-
+    Configuration globalConfiguration = null;
+    List mappingFileDataList = new ArrayList();
     if (mappingFiles != null && mappingFiles.size() > 0) {
       InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
       Iterator iter = mappingFiles.iterator();
@@ -61,28 +61,47 @@ public class CustomMappingsLoader {
         URL url = MappingValidator.validateURL(MapperConstants.DEFAULT_PATH_ROOT + mappingFileName);
         InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
         MappingFileReader mappingFileReader = new MappingFileReader(url);
-        Mappings mappings = mappingFileReader.read();
+        MappingFileData mappingFileData = mappingFileReader.read();
         InitLogger.log(log, "Successfully loaded custom xml mappings from URL: [" + url + "]");
 
-        // the last configuration is the 'global' configuration
-        globalConfiguration = mappings.getConfiguration();
-        // build up the custom converters to make them global
-        if (mappings.getConfiguration() != null && mappings.getConfiguration().getCustomConverters() != null
-            && mappings.getConfiguration().getCustomConverters().getConverters() != null) {
-          Iterator iterator = mappings.getConfiguration().getCustomConverters().getConverters().iterator();
-          while (iterator.hasNext()) {
-            CustomConverterDescription cc = (CustomConverterDescription) iterator.next();
-            customConverterDescriptions.add(cc);
+        if (mappingFileData.getConfiguration() != null) {
+          //Only allow 1 global configuration          
+          if (globalConfiguration != null) {
+            MappingUtils
+                .throwMappingException("More than one global configuration found.  "
+                    + "Only one global configuration block (<configuration></configuration>) can be specified across all mapping files.  "
+                    + "You need to consolidate all global configuration blocks into a single one.");
           }
+          globalConfiguration = mappingFileData.getConfiguration();
         }
-        // Decorate the raw ClassMap objects and create ClassMap "prime" instances
-        customMappings.putAll(mappingsParser.processMappings(mappings));
+        mappingFileDataList.add(mappingFileData);
       }
+    }
+
+    //If global configuration was not specified, use defaults
+    if (globalConfiguration == null) {
+      globalConfiguration = new Configuration();
+    }
+
+    // Decorate the raw ClassMap objects and create ClassMap "prime" instances
+    Iterator iter = mappingFileDataList.iterator();
+    while (iter.hasNext()) {
+      MappingFileData mappingFileData = (MappingFileData) iter.next();
+      customMappings.putAll(mappingsParser.processMappings(mappingFileData.getClassMaps(), globalConfiguration));
     }
 
     // Add default mappings using matching property names if wildcard policy
     // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
     ClassMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
+
+    // build up custom converter description objects
+    if (globalConfiguration.getCustomConverters() != null && globalConfiguration.getCustomConverters().getConverters() != null) {
+      Iterator iterator = globalConfiguration.getCustomConverters().getConverters().iterator();
+      while (iterator.hasNext()) {
+        CustomConverterDescription cc = (CustomConverterDescription) iterator.next();
+        customConverterDescriptions.add(cc);
+      }
+    }
 
     // iterate through the classmaps and set all of the customconverters on them
     Iterator entries = customMappings.entrySet().iterator();

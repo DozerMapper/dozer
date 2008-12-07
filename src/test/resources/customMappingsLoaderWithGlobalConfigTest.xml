@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <configuration>
+    <stop-on-errors>true</stop-on-errors>
+    <date-format>MM/dd/yyyy HH:mm</date-format>
+    <wildcard>false</wildcard>
+    <bean-factory>net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory</bean-factory>
+  </configuration>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>
+    <field>
+      <a>field4</a>
+      <b>to.one</b>
+    </field>
+  </mapping>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    <field>
+      <a>one</a>
+      <b>onePrime</b>
+    </field>
+  </mapping>
+
+</mappings>

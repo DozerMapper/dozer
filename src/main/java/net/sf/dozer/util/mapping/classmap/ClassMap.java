@@ -316,6 +316,10 @@ public class ClassMap {
     return globalConfiguration;
   }
 
+  public void setGlobalConfiguration(Configuration globalConfiguration) {
+    this.globalConfiguration = globalConfiguration;
+  }
+
   public String getRelationshipType() {
     return relationshipType != null ? relationshipType : globalConfiguration.getRelationshipType();
   }

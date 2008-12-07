@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import net.sf.dozer.util.mapping.classmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.MappingFileData;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,8 +45,8 @@ public class MappingFileReader {
     url = loader.getResource(fileName);
   }
 
-  public Mappings read() {
-    Mappings result = null;
+  public MappingFileData read() {
+    MappingFileData result = null;
     InputStream stream = null;
     try {
       XMLParser parser = new XMLParser();

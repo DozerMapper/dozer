@@ -18,7 +18,8 @@ package net.sf.dozer.util.mapping.util;
 import java.util.Map;
 
 import net.sf.dozer.util.mapping.AbstractDozerTest;
-import net.sf.dozer.util.mapping.classmap.Mappings;
+import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.MappingFileData;
 
 /**
  * @author tierney.matt
@@ -34,10 +35,10 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   public void testDuplicateMapIds() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapIdsMapping.xml");
-    Mappings mappings = fileReader.read();
+    MappingFileData mappingFileData = fileReader.read();
 
     try {
-      parser.processMappings(mappings);
+      parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception thrown", e.getMessage().indexOf("Duplicate Map Id") != -1);
@@ -46,9 +47,9 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   public void testDetectDuplicateMapping() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapping.xml");
-    Mappings mappings = fileReader.read();
+    MappingFileData mappingFileData = fileReader.read();
     try {
-      parser.processMappings(mappings);
+      parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
@@ -56,8 +57,8 @@ public class MappingsParserTest extends AbstractDozerTest {
   }
 
   public void testEmptyMappings() throws Exception {
-    Mappings mappings = new Mappings();
-    Map result = parser.processMappings(mappings);
+    MappingFileData mappingFileData = new MappingFileData();
+    Map result = parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
     assertNotNull("result should not be null", result);
     assertEquals("result should be empty", 0, result.size());
   }
