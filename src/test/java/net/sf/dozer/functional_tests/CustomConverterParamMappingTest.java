@@ -17,6 +17,8 @@ package net.sf.dozer.functional_tests;
 
 import java.util.StringTokenizer;
 
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.SimpleObj;
 import net.sf.dozer.util.mapping.vo.Individual;

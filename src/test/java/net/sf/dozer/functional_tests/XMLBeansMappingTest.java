@@ -20,6 +20,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.pmonks.xml.dozer.test.ChildType;
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.Child;
 import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument;

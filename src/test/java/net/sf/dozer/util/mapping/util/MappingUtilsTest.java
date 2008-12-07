@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import net.sf.dozer.functional_tests.ProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.AbstractDozerTest;
 import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.ProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.MappingFileData;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;

@@ -15,8 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.runtimesubclass.*;
 
 import java.util.List;

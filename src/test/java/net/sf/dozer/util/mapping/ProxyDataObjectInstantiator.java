@@ -1,4 +1,4 @@
-package net.sf.dozer.functional_tests;
+package net.sf.dozer.util.mapping;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;

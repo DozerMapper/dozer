@@ -18,8 +18,10 @@ package net.sf.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.NoSuperClass;
 import net.sf.dozer.util.mapping.vo.SubClass;
 import net.sf.dozer.util.mapping.vo.SubClassPrime;

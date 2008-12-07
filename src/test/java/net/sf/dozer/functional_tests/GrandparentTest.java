@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.functional_tests;
 
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.excluded.TwoA;
 import net.sf.dozer.util.mapping.vo.excluded.TwoB;
 

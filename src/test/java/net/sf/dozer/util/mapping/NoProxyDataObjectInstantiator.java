@@ -1,4 +1,4 @@
-package net.sf.dozer.functional_tests;
+package net.sf.dozer.util.mapping;
 
 /*
  * Copyright 2005-2007 the original author or authors.

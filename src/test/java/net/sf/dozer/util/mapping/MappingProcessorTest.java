@@ -1,10 +1,9 @@
 package net.sf.dozer.util.mapping;
 
-import junit.framework.TestCase;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
+
+import junit.framework.TestCase;
 
 /**
  * @author Dmitry Buzdin

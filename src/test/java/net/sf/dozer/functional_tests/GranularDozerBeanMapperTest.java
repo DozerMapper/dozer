@@ -27,9 +27,11 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import net.sf.dozer.util.mapping.CustomFieldMapperIF;
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
 import net.sf.dozer.util.mapping.MappingException;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.vo.AnotherTestObject;

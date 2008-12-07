@@ -18,6 +18,8 @@ package net.sf.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.MessageHeaderDTO;
 import net.sf.dozer.util.mapping.vo.MessageHeaderVO;
 import net.sf.dozer.util.mapping.vo.MessageIdVO;

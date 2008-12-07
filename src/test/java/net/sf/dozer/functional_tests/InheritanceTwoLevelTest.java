@@ -1,5 +1,7 @@
 package net.sf.dozer.functional_tests;
 
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.inheritance.twolevel.A;
 import net.sf.dozer.util.mapping.vo.inheritance.twolevel.B;
 import net.sf.dozer.util.mapping.vo.inheritance.twolevel.C;
