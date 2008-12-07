@@ -237,6 +237,10 @@
               <exclude>**/*Test.class</exclude>
             </excludes>
           </instrumentation>
+          <formats>
+            <format>xml</format>
+            <format>html</format>
+          </formats>
         </configuration>
         <executions>
           <execution>
