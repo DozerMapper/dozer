@@ -32,6 +32,10 @@ import net.sf.dozer.util.mapping.vo.deepindex.Family;
 import net.sf.dozer.util.mapping.vo.deepindex.HeadOfHouseHold;
 import net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails;
 import net.sf.dozer.util.mapping.vo.deepindex.Pet;
+import net.sf.dozer.util.mapping.vo.deepindex.customconverter.First;
+import net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last;
+import net.sf.dozer.util.mapping.vo.deepindex.customconverter.NodeContent;
+import net.sf.dozer.util.mapping.vo.deepindex.customconverter.SrcNode;
 import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.FlatPerson;
 import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Person;
 import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Phone;
@@ -156,6 +160,30 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
 
     mapper.map(source, dest);
     assertEquals(((Phone) dest.phones.get(0)).getNumber(), source.getPhoneNumber());
+  }
+  
+  /**
+   * TestCase to reproduce the bug#1845706.  
+   * 
+   * Originally, error happens when users define a multi-level indexed mapping like 
+   * "secondArray[0].thirdArray[7]".  When parsing, XMLParser will replace all indexes, 
+   * thus this custom mapping is translated into "secondArray.thirdArray".  However, this will cause 
+   * net.sf.dozer.util.mapping.propertydescriptor.GetterSetterPropertyDescriptor(line105~110) 
+   * incorrectly invoke the getter method, getThirdArray(), on the array object instead of array's 
+   * specific element, thus causing Reflection throws 
+   * "java.lang.IllegalArgumentException: object is not an instance of declaring class".
+   * 
+   * To fix this problem, let net.sf.dozer.util.mapping.util.XMLParser only replace the last 
+   * indexes in getFieldNameOfIndexedField.
+   */ 
+  public void testDeepIndexMappingWithCustomConverter() {
+    mapper = getMapper(new String[] { "deepMappingWithIndexedFieldsByCustomConverter.xml" });
+    First first = new First();
+    Last last = (Last) mapper.map(first, Last.class);
+    assertNotNull("nested third object should not be null", last.getThird());
+    assertNotNull("name should not be null", last.getThird().getName());
+    assertEquals(
+        first.getSecondArray()[0].getThirdArray()[7].getName(), last.getThird().getName());
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
