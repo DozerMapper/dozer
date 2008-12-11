@@ -373,7 +373,7 @@ public class XMLParser {
   }
 
   private String getFieldNameOfIndexedField(String fieldName) {
-    return fieldName == null ? null : fieldName.replaceAll("\\[\\d+\\]", "");
+    return fieldName == null ? null : fieldName.replaceAll("\\[\\d+\\]$", "");
   }
 
   private int getIndexOfIndexedField(String fieldName) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.deepindex.customconverter.First</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last</class-b>
+    <field custom-converter="net.sf.dozer.util.mapping.vo.deepindex.customconverter.Conv">
+      <!-- <a>second.thirdArray[7]</a> -->
+      <!-- <a>secondArray[0].third</a> -->
+      <a>secondArray[0].thirdArray[7]</a>
+      <b>third</b>
+    </field>
+  </mapping>
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.deepindex.customconverter.SrcNode</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deepindex.customconverter.DestNode</class-b>
+    <field custom-converter="net.sf.dozer.util.mapping.vo.deepindex.customconverter.SrcDestNodeConverter">
+      <!-- <a>second.thirdArray[7]</a> -->
+      <!-- <a>secondArray[0].third</a> -->
+      <a>children[0].children[1].content[1]</a>
+      <b>content</b>
+    </field>
+  </mapping>
+</mappings>
