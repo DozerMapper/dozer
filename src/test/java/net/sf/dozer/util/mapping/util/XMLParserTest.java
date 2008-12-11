@@ -29,11 +29,16 @@ import net.sf.dozer.util.mapping.fieldmap.FieldMap;
  */
 public class XMLParserTest extends AbstractDozerTest {
 
+  private XMLParser parser;
+
+  protected void setUp() throws Exception {
+    parser = new XMLParser();
+  }
+
   /*
-   * Test method for 'net.sf.dozer.util.mapping.util.XMLParser.parse(InputSource)'
-   */
+  * Test method for 'net.sf.dozer.util.mapping.util.XMLParser.parse(InputSource)'
+  */
   public void testParse() throws Exception {
-    XMLParser parser = new XMLParser();
     ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");
 
@@ -47,7 +52,6 @@ public class XMLParserTest extends AbstractDozerTest {
    * fieldmapping.      
    */
   public void testParseCustomConverterParam() throws Exception {
-	  XMLParser parser = new XMLParser();
 	  ResourceLoader loader = new ResourceLoader();
 	  URL url = loader.getResource("fieldCustomConverterParam.xml");
 	  
@@ -74,7 +78,12 @@ public class XMLParserTest extends AbstractDozerTest {
 	  
 	  assertNotNull("The fieldmap should not be null", fieldMap);
 	  assertEquals("The customconverterparam should be correct", "CustomConverterParamTest", fieldMap.getCustomConverterParam());
-	  
   }
-  
+
+  public void testGetFieldNameOfIndexedField() {
+    assertEquals("aaa", parser.getFieldNameOfIndexedField("aaa[0]"));
+    assertEquals("aaa[0].bbb", parser.getFieldNameOfIndexedField("aaa[0].bbb[1]"));
+    assertEquals("aaa[0].bbb[1].ccc", parser.getFieldNameOfIndexedField("aaa[0].bbb[1].ccc[2]"));
+  }
+
 }

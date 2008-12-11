@@ -372,7 +372,7 @@ public class XMLParser {
     return (fieldName != null) && (fieldName.matches(".+\\[\\d+\\]"));
   }
 
-  private String getFieldNameOfIndexedField(String fieldName) {
+  String getFieldNameOfIndexedField(String fieldName) {
     return fieldName == null ? null : fieldName.replaceAll("\\[\\d+\\]$", "");
   }
 
