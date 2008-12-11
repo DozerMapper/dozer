@@ -34,8 +34,6 @@ import net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails;
 import net.sf.dozer.util.mapping.vo.deepindex.Pet;
 import net.sf.dozer.util.mapping.vo.deepindex.customconverter.First;
 import net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last;
-import net.sf.dozer.util.mapping.vo.deepindex.customconverter.NodeContent;
-import net.sf.dozer.util.mapping.vo.deepindex.customconverter.SrcNode;
 import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.FlatPerson;
 import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Person;
 import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Phone;
