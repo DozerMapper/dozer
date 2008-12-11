@@ -12,14 +12,4 @@
       <b>third</b>
     </field>
   </mapping>
-  <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.deepindex.customconverter.SrcNode</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.deepindex.customconverter.DestNode</class-b>
-    <field custom-converter="net.sf.dozer.util.mapping.vo.deepindex.customconverter.SrcDestNodeConverter">
-      <!-- <a>second.thirdArray[7]</a> -->
-      <!-- <a>secondArray[0].third</a> -->
-      <a>children[0].children[1].content[1]</a>
-      <b>content</b>
-    </field>
-  </mapping>
 </mappings>
