@@ -391,9 +391,8 @@ public class MappingProcessor implements MapperIF {
     if (MappingUtils.isSupportedCollection(srcFieldClass) && (MappingUtils.isSupportedCollection(destFieldType))) {
       return mapCollection(srcObj, srcFieldValue, fieldMap, destObj);
     }
-    if (GlobalSettings.getInstance().isJava5()
-        && ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), srcFieldClass, null)).booleanValue()
-        && ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null)).booleanValue()) {
+    
+    if (MappingUtils.isEnumType(srcFieldClass, destFieldType)){
       return mapEnum(srcFieldValue, destFieldType);
     }
 

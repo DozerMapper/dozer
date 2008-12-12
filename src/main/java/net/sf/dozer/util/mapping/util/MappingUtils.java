@@ -33,6 +33,7 @@ import net.sf.dozer.util.mapping.classmap.Configuration;
 import net.sf.dozer.util.mapping.classmap.CopyByReference;
 import net.sf.dozer.util.mapping.classmap.CopyByReferenceContainer;
 import net.sf.dozer.util.mapping.classmap.DozerClass;
+import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
@@ -339,6 +340,37 @@ public final class MappingUtils {
       result.add(collectionEntry);
     }
     return result;
+  }
+  
+  /**
+   * Used to test if both {@code srcFieldClass} and {@code destFieldType} are enum.
+   * @param srcFieldClass the source field to be tested.
+   * @param destFieldType the destination field to be tested.
+   * @return {@code true} if and only if current running JRE is 1.5 or above, and both 
+   * {@code srcFieldClass} and {@code destFieldType} are enum; otherwise return {@code false}.
+   */
+  public static boolean isEnumType(Class srcFieldClass, Class destFieldType){
+    if (GlobalSettings.getInstance().isJava5()){//Verify if running JRE is 1.5 or above
+      if (srcFieldClass.isAnonymousClass()){
+        //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
+        //This is used to ensure Dozer can get correct Enum type.
+        srcFieldClass = srcFieldClass.getEnclosingClass();
+      }
+      if (destFieldType.isAnonymousClass()){
+        //Just like srcFieldClass, if destFieldType is anonymous class, replace destFieldType with 
+        //its enclosing class. This is used to ensure Dozer can get correct Enum type.
+        destFieldType = destFieldType.getEnclosingClass();
+      }
+      return 
+        ((Boolean) ReflectionUtils
+          .invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), srcFieldClass, null))
+          .booleanValue()
+        && 
+        ((Boolean) ReflectionUtils
+          .invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null))
+          .booleanValue();
+    }
+    return false;
   }
 
 }

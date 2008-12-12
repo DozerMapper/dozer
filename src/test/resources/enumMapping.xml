@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.enumtest.MyBean</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.enumtest.MyBeanPrime</class-b>
+    <field>
+      <a>srcType</a>
+      <b>destType</b>
+    </field>
+    <field>
+      <a>srcTypeWithOverride</a>
+      <b>destTypeWithOverride</b>
+    </field>
+  </mapping>
+</mappings>
