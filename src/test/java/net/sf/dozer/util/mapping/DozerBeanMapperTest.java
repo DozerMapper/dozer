@@ -107,7 +107,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     DozerBeanMapper mapperImpl = (DozerBeanMapper) mapper;
 
     MapperIF cleanMapper = (MapperIF) ApplicationBeanFactory.getBean("cleanMapper");
-
+    
     assertNotNull("mapper should not be null", mapper);
     assertNotNull("mapping file names should not be null", mapperImpl.getMappingFiles());
     assertTrue("mapping file names should not be empty", mapperImpl.getMappingFiles().size() > 0);

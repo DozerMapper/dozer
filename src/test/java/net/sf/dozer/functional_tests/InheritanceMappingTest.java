@@ -42,6 +42,7 @@ import net.sf.dozer.util.mapping.vo.inheritance.WrapperSpecificPrime;
 import net.sf.dozer.util.mapping.vo.inheritance.iface.Person;
 import net.sf.dozer.util.mapping.vo.inheritance.iface.PersonDTO;
 import net.sf.dozer.util.mapping.vo.inheritance.iface.PersonImpl;
+import net.sf.dozer.util.mapping.vo.inheritance.iface.PersonWithAddressDTO;
 import net.sf.dozer.util.mapping.vo.km.Property;
 import net.sf.dozer.util.mapping.vo.km.PropertyB;
 import net.sf.dozer.util.mapping.vo.km.SomeVo;
@@ -367,6 +368,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals(request.getProperty().getMapMe().getTestProperty(), afterMapping.getProperty().getTestProperty());
     assertNull(afterMapping.getProperty().getMapMe());
   }
+  
 
   public void testInterfaceInheritance_GetterSetterAtDifferentLevels() {
     mapper = getMapper(new String[] { "inheritanceMapping.xml" });
@@ -380,6 +382,29 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("Person DTO has incorrect personId value", id, personDTO.getPersonId());
     assertNotNull("name should not be null", personDTO.getName());
     assertEquals("Person DTO has incorrect name value", name, personDTO.getName());
+  }
+  
+  /**
+   * Bug #1828693 -- Problem when using with proxies based on interfaces.
+   */
+  public void testInheritance_UnevenHierarchies() {
+    mapper = getMapper(new String[] { "inheritanceMapping.xml" });
+
+    Long id = new Long(100L);
+    String name = "John";
+    String address = "123 Main Street";
+
+    final Person person = new PersonImpl(id, name);
+    person.setAddress(address);
+
+    PersonWithAddressDTO personWithAddressDTO = (PersonWithAddressDTO) mapper.map(
+        newInstance(new Class[] { Person.class }, person), PersonWithAddressDTO.class);
+
+    assertEquals("Person DTO has incorrect personId value", id, personWithAddressDTO.getPersonId());
+    assertNotNull("name should not be null", personWithAddressDTO.getName());
+    assertEquals("Person DTO has incorrect name value", name, personWithAddressDTO.getName());
+    assertNotNull("addresss should not be null", personWithAddressDTO.getAddress());
+    assertEquals("Person DTO has incorrect address value", address, personWithAddressDTO.getAddress());
   }
 
   private A getA() {

@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class PersonImpl implements Person, Serializable {
   private Long id;
   private String name;
+  private String address;
 
   protected PersonImpl() {
   }
@@ -29,4 +30,13 @@ public class PersonImpl implements Person, Serializable {
   public void setName(String name) {
     this.name = name;
   }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
 }

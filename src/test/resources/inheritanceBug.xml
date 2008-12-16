@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd" [
+   <!ENTITY inheritanceBug "net.sf.dozer.util.mapping.vo.inheritance.cc.InheritanceBugConverter">
+]>
+
+<mappings>
+	<configuration>
+		<stop-on-errors>true</stop-on-errors>
+		<date-format>dd/MM/yyyy HH:mm</date-format>
+		<wildcard>true</wildcard>
+	</configuration>
+	 
+	 <mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.inheritance.cc.X</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.inheritance.cc.A</class-b>
+		<field custom-converter="&inheritanceBug;">
+			<a>test</a>
+			<b>test</b>
+		</field>
+	</mapping>
+	
+	<mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.inheritance.cc.Y</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.inheritance.cc.B</class-b>
+	</mapping>
+	
+	<mapping>
+		<class-a>net.sf.dozer.util.mapping.vo.inheritance.cc.Z</class-a>
+		<class-b>net.sf.dozer.util.mapping.vo.inheritance.cc.C</class-b>
+	</mapping>
+
+</mappings>

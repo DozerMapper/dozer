@@ -31,4 +31,8 @@ public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
     }
   }
 
+  public Object newInstance(Class[] interfacesToProxy, Object target) {
+    return target;
+  }
+
 }

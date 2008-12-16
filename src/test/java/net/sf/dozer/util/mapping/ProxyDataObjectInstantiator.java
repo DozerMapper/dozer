@@ -3,6 +3,7 @@ package net.sf.dozer.util.mapping;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
+import net.sf.cglib.proxy.Dispatcher;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
@@ -26,6 +27,8 @@ import net.sf.cglib.proxy.MethodProxy;
 /**
  * Quick and dirty class used to create test data objects that are wrapped with a proxy.  Right now use CGLIB to proxy
  * the data objects since this is probably the most typical usage of proxied data objects(Hibernate lazy loading).
+ * 
+ * @author Matt Tierney
  */
 public class ProxyDataObjectInstantiator implements DataObjectInstantiator {
 
@@ -38,6 +41,19 @@ public class ProxyDataObjectInstantiator implements DataObjectInstantiator {
     Enhancer enhancer = new Enhancer();
     enhancer.setSuperclass(classToInstantiate);
     enhancer.setCallback(NoOpInterceptor.INSTANCE);
+    return enhancer.create();
+  }
+
+  public Object newInstance(Class[] interfacesToProxy, final Object target) {
+    Enhancer enhancer = new Enhancer();
+
+    enhancer.setInterfaces(interfacesToProxy);
+    enhancer.setCallback(new Dispatcher() {
+      public Object loadObject() throws Exception {
+        return target;
+      }
+    });
+
     return enhancer.create();
   }
 

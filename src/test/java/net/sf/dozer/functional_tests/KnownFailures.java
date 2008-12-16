@@ -23,11 +23,11 @@ import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.MessageHeaderDTO;
 import net.sf.dozer.util.mapping.vo.MessageHeaderVO;
 import net.sf.dozer.util.mapping.vo.MessageIdVO;
-import net.sf.dozer.util.mapping.vo.deepindex.customconverter.First;
-import net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last;
 import net.sf.dozer.util.mapping.vo.inheritance.Inner;
 import net.sf.dozer.util.mapping.vo.inheritance.Outer;
 import net.sf.dozer.util.mapping.vo.inheritance.Target;
+import net.sf.dozer.util.mapping.vo.inheritance.cc.C;
+import net.sf.dozer.util.mapping.vo.inheritance.cc.Z;
 
 /**
  * This is a holding grounds for test cases that reproduce known bugs, features, or gaps discovered during development.
@@ -64,6 +64,19 @@ public class KnownFailures extends AbstractMapperTest {
     Target t = (Target) mapper.map(o, Target.class);
 
     assertEquals(((Inner) o.getInner()).getString(), t.getString());
+  }
+
+  /*
+   * Bug #1953410
+   */
+  public void testInheritanceBug() {
+    Z z = new Z();
+    z.setTest("testString");
+
+    mapper = getMapper(new String[] { "inheritanceBug.xml" });
+
+    C c = (C) mapper.map(z, C.class);
+    assertEquals("wrong value", "customConverter", c.getTest());
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {

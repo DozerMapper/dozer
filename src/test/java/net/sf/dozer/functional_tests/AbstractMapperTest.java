@@ -61,5 +61,9 @@ public abstract class AbstractMapperTest extends TestCase {
   protected Object newInstance(Class classToInstantiate) {
     return getDataObjectInstantiator().newInstance(classToInstantiate);
   }
+  
+  protected Object newInstance(Class[] interfacesToProxy, Object target) {
+    return getDataObjectInstantiator().newInstance(interfacesToProxy, target);
+  }
 
 }

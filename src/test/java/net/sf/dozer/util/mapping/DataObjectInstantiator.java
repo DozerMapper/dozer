@@ -19,5 +19,7 @@ package net.sf.dozer.util.mapping;
 public interface DataObjectInstantiator {
 
   public Object newInstance(Class classToInstantiate);
+  
+  public Object newInstance(Class[] interfacesToProxy, Object target);
 
 }
