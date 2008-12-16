@@ -929,10 +929,10 @@ public class MappingProcessor implements MapperIF {
       superSrcClass = MappingUtils.getRealSuperclass(superSrcClass);
     }
 
+    Collections.reverse(superClasses); // Done so base classes are processed first
     cacheEntry = new CacheEntry(cacheKey, superClasses);
     superTypeCache.put(cacheEntry);
-
-    Collections.reverse(superClasses); // Done so base classes are processed first
+    
     return superClasses;
   }
 
