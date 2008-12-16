@@ -32,6 +32,8 @@ import org.apache.commons.lang.StringUtils;
 public class ResourceLoader {
 
   public URL getResource(String resource) {
+    resource = resource.trim();
+    
     URL result = Thread.currentThread().getContextClassLoader().getResource(resource);
 
     // Could not find resource. Try with the classloader that loaded this class.

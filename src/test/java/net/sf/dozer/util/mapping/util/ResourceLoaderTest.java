@@ -25,11 +25,21 @@ import net.sf.dozer.util.mapping.AbstractDozerTest;
 /**
  * @author tierney.matt
  */
-public class LoaderTest extends AbstractDozerTest {
+public class ResourceLoaderTest extends AbstractDozerTest {
   private ResourceLoader loader = new ResourceLoader();
 
   public void testResourceNotFound() throws Exception {
     assertNull("file URL should not have been found", loader.getResource(String.valueOf(System.currentTimeMillis())));
+  }
+  
+  public void testGetResourceWithWhitespace() {
+    URL url = loader.getResource(" contextMapping.xml " );
+    assertNotNull("URL should not be null", url);
+  }
+  
+  public void testGetResourceWithNewlines() {
+    URL url = loader.getResource("\ncontextMapping.xml\n" );
+    assertNotNull("URL should not be null", url);
   }
 
   public void testGetResource_FileOutsideOfClasspath() throws Exception {
