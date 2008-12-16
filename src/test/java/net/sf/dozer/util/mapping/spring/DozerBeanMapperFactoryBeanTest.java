@@ -15,16 +15,16 @@
  */
 package net.sf.dozer.util.mapping.spring;
 
-import net.sf.dozer.util.mapping.AbstractDozerTest;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
-import java.net.URL;
-import java.io.IOException;
-import java.io.File;
-import java.io.InputStream;
+
+import net.sf.dozer.util.mapping.AbstractDozerTest;
+import net.sf.dozer.util.mapping.DozerBeanMapper;
+import net.sf.dozer.util.mapping.MapperIF;
 
 import org.springframework.core.io.Resource;
 
@@ -33,97 +33,76 @@ import org.springframework.core.io.Resource;
  */
 public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
 
-    private DozerBeanMapperFactoryBean factory;
-    private MockResource mockResource;
+  private DozerBeanMapperFactoryBean factory;
+  private MockResource mockResource;
 
-    protected void setUp() throws Exception {
-        factory = new DozerBeanMapperFactoryBean();
-        mockResource = new MockResource();
+  protected void setUp() throws Exception {
+    factory = new DozerBeanMapperFactoryBean();
+    mockResource = new MockResource();
+  }
+
+  public void testOk() throws Exception {
+    factory.setCustomConverters(Collections.EMPTY_LIST);
+    factory.setEventListeners(Collections.EMPTY_LIST);
+    factory.setFactories(Collections.EMPTY_MAP);
+    factory.setMappingFiles(new Resource[] { mockResource });
+
+    URL url = this.getClass().getClassLoader().getResource("contextMapping.xml");
+    mockResource.setURL(url);
+
+    factory.afterPropertiesSet();
+
+    assertEquals(MapperIF.class, factory.getObjectType());
+    assertTrue(factory.isSingleton());
+
+    DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
+    List files = mapper.getMappingFiles();
+    assertEquals(1, files.size());
+    assertEquals("file:" + url.getFile(), files.iterator().next());
+  }
+
+  public void testEmpty() throws Exception {
+    factory.afterPropertiesSet();
+  }
+
+  private class MockResource implements Resource {
+    private URL url;
+
+    public boolean exists() {
+      return false;
     }
 
-    public void testOk() throws Exception {
-        factory.setCustomConverters(Collections.EMPTY_LIST);
-        factory.setEventListeners(Collections.EMPTY_LIST);
-        factory.setFactories(Collections.EMPTY_MAP);
-        factory.setMappingFiles(new Resource[]{mockResource});
-
-        mockResource.setFile(new File("path"));
-
-        factory.afterPropertiesSet();
-
-        assertEquals(MapperIF.class, factory.getObjectType());
-        assertTrue(factory.isSingleton());
-
-        DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
-        List files = mapper.getMappingFiles();
-        assertEquals(1, files.size());
-        assertEquals("file:path", files.iterator().next());
+    public boolean isOpen() {
+      return false;
     }
 
-    public void testEmpty() throws Exception {
-        factory.afterPropertiesSet();
+    public URL getURL() throws IOException {
+      return url;
     }
 
-    public void testMappingFilePathWithWhitespace() throws Exception {
-        factory.setMappingFiles(new Resource[] {mockResource});
-        mockResource.setFile(new File(" path "));
-
-        factory.afterPropertiesSet();
-
-        DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
-        List files = mapper.getMappingFiles();
-        assertEquals("file:path", files.iterator().next());
+    public void setURL(URL url) {
+      this.url = url;
     }
 
-    public void testMappingFilePathWithLinebreak() throws Exception {
-        factory.setMappingFiles(new Resource[] {mockResource});
-        mockResource.setFile(new File("\npath\n"));
-
-        factory.afterPropertiesSet();
-
-        DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
-        List files = mapper.getMappingFiles();
-        assertEquals("file:path", files.iterator().next());
+    public File getFile() throws IOException {
+      return null;
     }
 
-    private class MockResource implements Resource {
-        private File file;
-
-        public boolean exists() {
-            return false;
-        }
-
-        public boolean isOpen() {
-            return false;
-        }
-
-        public URL getURL() throws IOException {
-            return null;
-        }
-
-        public void setFile(File file) {
-            this.file = file;
-        }
-
-        public File getFile() throws IOException {
-            return file;
-        }
-
-        public Resource createRelative(String s) throws IOException {
-            return null;
-        }
-
-        public String getFilename() {
-            return null;
-        }
-
-        public String getDescription() {
-            return null;
-        }
-
-        public InputStream getInputStream() throws IOException {
-            return null;
-        }
+    public Resource createRelative(String s) throws IOException {
+      return null;
     }
+
+    public String getFilename() {
+      return null;
+    }
+
+    public String getDescription() {
+      return null;
+    }
+
+    public InputStream getInputStream() throws IOException {
+      return null;
+    }
+  }
 
 }
