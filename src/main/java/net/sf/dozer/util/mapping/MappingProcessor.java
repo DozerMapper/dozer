@@ -101,7 +101,7 @@ public class MappingProcessor implements MapperIF {
     this.customConverterObjectsWithId = customConverterObjectsWithId;
   }
 
-  public Object map(final Object srcObj, final Class destClass) {    
+  public Object map(final Object srcObj, final Class destClass) {
     return map(srcObj, destClass, null);
   }
 
@@ -122,7 +122,7 @@ public class MappingProcessor implements MapperIF {
   private Object map(final Object srcObj, final Class destClass, final Object destObj, final String mapId) {
     Class destType;
     Object result;
-    if (destClass == null) {      
+    if (destClass == null) {
       destType = destObj.getClass();
       result = destObj;
     } else {
@@ -145,7 +145,7 @@ public class MappingProcessor implements MapperIF {
 
       if (result == null) {
         result = DestBeanCreator.create(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType, classMap
-                .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
+            .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
       }
 
       eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, result, null));
@@ -391,8 +391,8 @@ public class MappingProcessor implements MapperIF {
     if (MappingUtils.isSupportedCollection(srcFieldClass) && (MappingUtils.isSupportedCollection(destFieldType))) {
       return mapCollection(srcObj, srcFieldValue, fieldMap, destObj);
     }
-    
-    if (MappingUtils.isEnumType(srcFieldClass, destFieldType)){
+
+    if (MappingUtils.isEnumType(srcFieldClass, destFieldType)) {
       return mapEnum(srcFieldValue, destFieldType);
     }
 
@@ -645,7 +645,7 @@ public class MappingProcessor implements MapperIF {
     if (field != null) {
       result.addAll((Collection) field);
     }
-    Object destValue;        
+    Object destValue;
     for (Iterator iterator = srcCollectionValue.iterator(); iterator.hasNext();) {
       Object srcValue = iterator.next();
 
@@ -707,7 +707,7 @@ public class MappingProcessor implements MapperIF {
     Class prevDestEntryType = null;
     for (Iterator iterator = srcCollectionValue.iterator(); iterator.hasNext();) {
       Object srcValue = iterator.next();
-      
+
       if (destEntryType == null
           || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         if (srcValue == null) {
@@ -758,7 +758,7 @@ public class MappingProcessor implements MapperIF {
       if (!result.contains(object)) {
         result.add(object);
       }
-    }    
+    }
   }
 
   static List prepareDestinationList(Collection srcCollectionValue, Object field) {
@@ -848,30 +848,32 @@ public class MappingProcessor implements MapperIF {
     if (converterInstance instanceof ConfigurableCustomConverter) {
       ConfigurableCustomConverter theConverter = (ConfigurableCustomConverter) converterInstance;
 
-	    // if this is a top level mapping the destObj is the highest level
-	    // mapping...not a recursive mapping
-	    if (topLevel) {
-	      result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap.getCustomConverterParam());
-	    } else {
-	      Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
-	      result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap.getCustomConverterParam());
-	    }
+      // if this is a top level mapping the destObj is the highest level
+      // mapping...not a recursive mapping
+      if (topLevel) {
+        result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap
+            .getCustomConverterParam());
+      } else {
+        Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+        result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap
+            .getCustomConverterParam());
+      }
     } else {
-	    CustomConverter theConverter = (CustomConverter) converterInstance;
+      CustomConverter theConverter = (CustomConverter) converterInstance;
 
-	    // if this is a top level mapping the destObj is the highest level
-	    // mapping...not a recursive mapping
-	    if (topLevel) {
-	      result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
-	    } else {
-	      Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
-	      result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
-	    }
+      // if this is a top level mapping the destObj is the highest level
+      // mapping...not a recursive mapping
+      if (topLevel) {
+        result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
+      } else {
+        Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+        result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
+      }
     }
 
-	  long stop = System.currentTimeMillis();
-	  statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
-	  statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_TIME, stop - start);
+    long stop = System.currentTimeMillis();
+    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
+    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_TIME, stop - start);
 
     return result;
   }
@@ -914,8 +916,8 @@ public class MappingProcessor implements MapperIF {
     // superclass when using basic reflection
     Class superSrcClass = MappingUtils.getRealSuperclass(srcClass);
     Class superDestClass = MappingUtils.getRealSuperclass(destClass);
-    
-    checkDestClasses(superClasses, srcClass, superDestClass);    
+
+    checkDestClasses(superClasses, srcClass, superDestClass);
 
     while (!isBaseClass(superSrcClass)) {
       // see if the source super class is mapped to the dest class
@@ -929,10 +931,10 @@ public class MappingProcessor implements MapperIF {
       superSrcClass = MappingUtils.getRealSuperclass(superSrcClass);
     }
 
-    Collections.reverse(superClasses); // Done so base classes are processed first
     cacheEntry = new CacheEntry(cacheKey, superClasses);
     superTypeCache.put(cacheEntry);
-    
+
+    Collections.reverse(superClasses); // Done so base classes are processed first
     return superClasses;
   }
 
