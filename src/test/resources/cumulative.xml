@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+<mappings>
+
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.cumulative.Library</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.cumulative.LibraryPrime</class-b>
+    <field remove-orphans="true" relationship-type="non-cumulative">
+      <a>books</a>
+      <b>books</b>
+      <a-hint>net.sf.dozer.util.mapping.vo.cumulative.Book</a-hint>
+      <b-hint>net.sf.dozer.util.mapping.vo.cumulative.BookPrime</b-hint>
+    </field>
+  </mapping>
+
+</mappings>

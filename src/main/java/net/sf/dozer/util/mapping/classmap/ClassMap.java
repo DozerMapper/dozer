@@ -52,7 +52,7 @@ public class ClassMap {
   private Boolean trimStrings;
   private CustomConverterContainer customConverters;
   private String mapId;
-  private String relationshipType;
+  private RelationshipType relationshipType;
 
   public ClassMap(Configuration globalConfiguration) {
     this.globalConfiguration = globalConfiguration;
@@ -320,11 +320,11 @@ public class ClassMap {
     this.globalConfiguration = globalConfiguration;
   }
 
-  public String getRelationshipType() {
+  public RelationshipType getRelationshipType() {
     return relationshipType != null ? relationshipType : globalConfiguration.getRelationshipType();
   }
 
-  public void setRelationshipType(String relationshipType) {
+  public void setRelationshipType(RelationshipType relationshipType) {
     this.relationshipType = relationshipType;
   }
 

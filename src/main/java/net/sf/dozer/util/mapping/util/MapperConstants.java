@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util.mapping.util;
 
+import net.sf.dozer.util.mapping.classmap.RelationshipType;
+
 /**
  * Internal constants file containing a variety of constants used throughout the code base. Only intended for internal
  * use.
@@ -37,9 +39,9 @@ public final class MapperConstants {
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
   public static final boolean DEFAULT_MAP_EMPTY_STRING_POLICY = true;
   public static final boolean DEFAULT_TRIM_STRINGS_POLICY = false;
-  public static final String RELATIONSHIP_CUMULATIVE = "cumulative";
-  public static final String RELATIONSHIP_NON_CUMULATIVE = "non-cumulative";
-  public static final String DEFAULT_RELATIONSHIP_TYPE_POLICY = RELATIONSHIP_CUMULATIVE;
+
+  public static final RelationshipType DEFAULT_RELATIONSHIP_TYPE_POLICY = RelationshipType.CUMULATIVE;
+
   public static final String DTD_NAME = "dozerbeanmapping.dtd";
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";

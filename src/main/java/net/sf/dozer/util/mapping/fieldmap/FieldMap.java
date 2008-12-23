@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.LinkedHashMap;
 
 import net.sf.dozer.util.mapping.classmap.ClassMap;
+import net.sf.dozer.util.mapping.classmap.RelationshipType;
 import net.sf.dozer.util.mapping.propertydescriptor.DozerPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.GetterSetterPropertyDescriptor;
 import net.sf.dozer.util.mapping.propertydescriptor.PropertyDescriptorFactory;
@@ -43,6 +44,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public abstract class FieldMap implements Cloneable {
+  
   private static final Log log = LogFactory.getLog(FieldMap.class);
 
   private ClassMap classMap;
@@ -59,7 +61,7 @@ public abstract class FieldMap implements Cloneable {
   private String customConverter;
   private String customConverterId;
   private String customConverterParam;
-  private String relationshipType;
+  private RelationshipType relationshipType;
   private boolean removeOrphans;
 
   private final Map srcPropertyDescriptorMap = new HashMap(); // For Caching Purposes
@@ -348,11 +350,11 @@ public abstract class FieldMap implements Cloneable {
     this.customConverter = customConverter;
   }
 
-  public String getRelationshipType() {
+  public RelationshipType getRelationshipType() {
     return relationshipType != null ? relationshipType : classMap.getRelationshipType();
   }
 
-  public void setRelationshipType(String relationshipType) {
+  public void setRelationshipType(RelationshipType relationshipType) {
     this.relationshipType = relationshipType;
   }
 
@@ -444,8 +446,8 @@ public abstract class FieldMap implements Cloneable {
     return classMap.isStopOnErrors();
   }
 
-  public boolean isCumulativeRelationship() {
-    return MapperConstants.RELATIONSHIP_NON_CUMULATIVE.equals(relationshipType);
+  public boolean isNonCumulativeRelationship() {
+    return RelationshipType.NON_CUMULATIVE.equals(relationshipType);
   }
 
   public String toString() {

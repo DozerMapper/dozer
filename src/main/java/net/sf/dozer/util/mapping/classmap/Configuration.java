@@ -37,7 +37,7 @@ public class Configuration {
   private Boolean trimStrings;
   private String dateFormat;
   private String beanFactory;
-  private String relationshipType;
+  private RelationshipType relationshipType;
   private CustomConverterContainer customConverters;
   private CopyByReferenceContainer copyByReferences;
   private AllowedExceptionContainer allowedExceptions;
@@ -106,11 +106,11 @@ public class Configuration {
     this.trimStrings = trimStrings;
   }
 
-  public String getRelationshipType() {
-    return relationshipType != null ? relationshipType : MapperConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY;
+  public RelationshipType getRelationshipType() {
+    return relationshipType;
   }
 
-  public void setRelationshipType(String relationshipType) {
+  public void setRelationshipType(RelationshipType relationshipType) {
     this.relationshipType = relationshipType;
   }
 

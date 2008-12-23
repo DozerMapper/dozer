@@ -22,13 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.dozer.util.mapping.classmap.AllowedExceptionContainer;
-import net.sf.dozer.util.mapping.classmap.ClassMap;
-import net.sf.dozer.util.mapping.classmap.Configuration;
-import net.sf.dozer.util.mapping.classmap.CopyByReference;
-import net.sf.dozer.util.mapping.classmap.CopyByReferenceContainer;
-import net.sf.dozer.util.mapping.classmap.DozerClass;
-import net.sf.dozer.util.mapping.classmap.MappingFileData;
+import net.sf.dozer.util.mapping.classmap.*;
 import net.sf.dozer.util.mapping.converters.CustomConverterContainer;
 import net.sf.dozer.util.mapping.converters.CustomConverterDescription;
 import net.sf.dozer.util.mapping.fieldmap.CustomGetSetMethodFieldMap;
@@ -152,7 +146,9 @@ public class XMLParser {
       classMap.setBeanFactory(ele.getAttribute(BEAN_FACTORY));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
-      classMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE));
+      String relationshipTypeValue = ele.getAttribute(RELATIONSHIP_TYPE);
+      RelationshipType relationshipType = RelationshipType.valueOf(relationshipTypeValue);
+      classMap.setRelationshipType(relationshipType);
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD))) {
       classMap.setWildcard(Boolean.valueOf(ele.getAttribute(WILDCARD)));
@@ -326,9 +322,8 @@ public class XMLParser {
   }
 
   private void parseFieldMap(Element ele, FieldMap fieldMap) {
-    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
-      fieldMap.setRelationshipType(ele.getAttribute(RELATIONSHIP_TYPE));
-    }
+    setRelationshipType(ele, fieldMap);
+
     if (StringUtils.isNotEmpty(ele.getAttribute(REMOVE_ORPHANS))) {
       fieldMap.setRemoveOrphans(BooleanUtils.toBoolean(ele.getAttribute(REMOVE_ORPHANS)));
     }
@@ -366,6 +361,15 @@ public class XMLParser {
         }
       }
     }
+  }
+
+  private void setRelationshipType(Element ele, FieldMap fieldMap) {
+    RelationshipType relationshipType = null;
+    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
+      String relationshipTypeValue = ele.getAttribute(RELATIONSHIP_TYPE);
+      relationshipType = RelationshipType.valueOf(relationshipTypeValue);
+    }
+    fieldMap.setRelationshipType(relationshipType);
   }
 
   private boolean isIndexed(String fieldName) {
@@ -439,18 +443,24 @@ public class XMLParser {
           log.debug("  value: " + element.getFirstChild().getNodeValue());
         }
 
+        final String nodeValue = element.getFirstChild().getNodeValue();
+
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
-          config.setStopOnErrors(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
+          config.setStopOnErrors(Boolean.valueOf(nodeValue.trim()));
         } else if (DATE_FORMAT.equals(element.getNodeName())) {
-          config.setDateFormat(element.getFirstChild().getNodeValue().trim());
+          config.setDateFormat(nodeValue.trim());
         } else if (WILDCARD.equals(element.getNodeName())) {
-          config.setWildcard(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
+          config.setWildcard(Boolean.valueOf(nodeValue.trim()));
         } else if (TRIM_STRINGS.equals(element.getNodeName())) {
-          config.setTrimStrings(Boolean.valueOf(element.getFirstChild().getNodeValue().trim()));
+          config.setTrimStrings(Boolean.valueOf(nodeValue.trim()));
         } else if (RELATIONSHIP_TYPE.equals(element.getNodeName())) {
-          config.setRelationshipType(element.getFirstChild().getNodeValue().trim());
+          RelationshipType relationshipType = RelationshipType.valueOf(nodeValue.trim());
+          if (relationshipType == null) {
+            relationshipType = MapperConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY;
+          }
+          config.setRelationshipType(relationshipType);
         } else if (BEAN_FACTORY.equals(element.getNodeName())) {
-          config.setBeanFactory(element.getFirstChild().getNodeValue().trim());
+          config.setBeanFactory(nodeValue.trim());
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {
           parseCustomConverters(element, config);
         } else if (COPY_BY_REFERENCES_ELEMENT.equals(element.getNodeName())) {

@@ -26,6 +26,7 @@ import net.sf.dozer.util.mapping.cache.CacheKeyFactory;
 import net.sf.dozer.util.mapping.cache.CacheManager;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.Configuration;
+import net.sf.dozer.util.mapping.classmap.RelationshipType;
 import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.converters.CustomConverter;
 import net.sf.dozer.util.mapping.converters.ConfigurableCustomConverter;
@@ -67,6 +68,7 @@ import org.apache.commons.logging.LogFactory;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
+ * @author dmitry.buzdin
  * @author johnsen.knut-erik
  * 
  */
@@ -85,7 +87,8 @@ public class MappingProcessor implements MapperIF {
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
-  private static final String BASE_CLASS = "java.lang.Object";
+
+  private static final String BASE_CLASS = "java.lang.Object"; // TODO Move to Constants
 
   protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManager cacheMgr,
       StatisticsManager statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapperIF customFieldMapper,
@@ -94,7 +97,7 @@ public class MappingProcessor implements MapperIF {
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
     this.customConverterObjects = customConverterObjects;
-    this.eventMgr = new DozerEventManager(eventListeners);
+    this.eventMgr = new DozerEventManager(eventListeners); // TODO Should not create this each time
     this.customFieldMapper = customFieldMapper;
     this.converterByDestTypeCache = cacheMgr.getCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE);
     this.superTypeCache = cacheMgr.getCache(MapperConstants.SUPER_TYPE_CHECK_CACHE);
@@ -531,7 +534,7 @@ public class MappingProcessor implements MapperIF {
 
       Object destEntryValue = mapOrRecurseObject(srcObj, srcEntryValue, srcEntryValue.getClass(), fieldMap, destObj);
       Object obj = result.get(srcEntry.getKey());
-      if (obj != null && obj.equals(destEntryValue) && fieldMap.isCumulativeRelationship()) {
+      if (obj != null && obj.equals(destEntryValue) && fieldMap.isNonCumulativeRelationship()) {
         map(null, srcEntryValue, obj, false, null);
       } else {
         result.put(srcEntry.getKey(), destEntryValue);
@@ -654,24 +657,20 @@ public class MappingProcessor implements MapperIF {
         destEntryType = fieldMap.getDestHintType(srcValue.getClass());
       }
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
-      if (fieldMap.getRelationshipType() == null || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
+
+      if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
+              && result.contains(destValue)) {
+        int index = result.indexOf(destValue);
+        // perform an update if complex type - can't map strings
+        Object obj = result.get(index);
+        // make sure it is not a String
+        if (!obj.getClass().isAssignableFrom(String.class)) {
+          map(null, srcValue, obj, false, null);
+          mappedElements.add(obj);
+        }
+      } else {
         result.add(destValue);
         mappedElements.add(destValue);
-
-      } else {
-        if (result.contains(destValue)) {
-          int index = result.indexOf(destValue);
-          // perform an update if complex type - can't map strings
-          Object obj = result.get(index);
-          // make sure it is not a String
-          if (!obj.getClass().isAssignableFrom(String.class)) {
-            map(null, srcValue, obj, false, null);
-            mappedElements.add(obj);
-          }
-        } else {
-          result.add(destValue);
-          mappedElements.add(destValue);
-        }
       }
     }
 
@@ -718,24 +717,22 @@ public class MappingProcessor implements MapperIF {
       }
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
       prevDestEntryType = destEntryType;
-      if (fieldMap.getRelationshipType() == null || fieldMap.getRelationshipType().equals(MapperConstants.RELATIONSHIP_CUMULATIVE)) {
+
+      if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
+              && result.contains(destValue)) {
+        int index = result.indexOf(destValue);
+        // perform an update if complex type - can't map strings
+        Object obj = result.get(index);
+        // make sure it is not a String
+        if (!obj.getClass().isAssignableFrom(String.class)) {
+          map(null, srcValue, obj, false, null);
+          mappedElements.add(obj);
+        }
+      } else {
         result.add(destValue);
         mappedElements.add(destValue);
-      } else {
-        if (result.contains(destValue)) {
-          int index = result.indexOf(destValue);
-          // perform an update if complex type - can't map strings
-          Object obj = result.get(index);
-          // make sure it is not a String
-          if (!obj.getClass().isAssignableFrom(String.class)) {
-            map(null, srcValue, obj, false, null);
-            mappedElements.add(obj);
-          }
-        } else {
-          result.add(destValue);
-          mappedElements.add(destValue);
-        }
       }
+
     }
 
     // If remove orphans - we only want to keep the objects we've mapped from the src collection
