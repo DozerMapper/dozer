@@ -139,7 +139,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertFalse(MappingUtils.isDeepMapping(""));
     assertFalse(MappingUtils.isDeepMapping("aaa"));
   }
-
+  
   public void testPrepareIndexedCollection_Array() {
     String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, null, "some entry", 0);
     assertTrue(Arrays.equals(new String[] { "some entry" }, result));
@@ -173,6 +173,11 @@ public class MappingUtilsTest extends AbstractDozerTest {
     result = (Vector) MappingUtils.prepareIndexedCollection(Vector.class,
         new Vector(Arrays.asList(new String[] { "a", "b", "c" })), "some entry", 5);
     assertEquals(new Vector(Arrays.asList(new String[] { "a", "b", "c", null, null, "some entry" })), result);
+  }
+  
+  public void testPrepareIndexedCollection_ArrayResize() {
+    String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, new String[] {"a", "b"}, "some entry",3);
+    assertTrue(Arrays.equals(new String[] { "a", "b", null, "some entry" }, result));
   }
 
   public void testPrepareIndexedCollection_UnsupportedType() {
