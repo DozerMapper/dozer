@@ -10,17 +10,25 @@
   </head>  
   <body>
     <section name="Release Notes">
-      <h3>4.4  <font size="-3" color="gray"><i>12/27/2008</i></font></h3>
+      <h3>4.4<font size="-3" color="gray"><i>12/27/2008</i></font></h3>
         <p>Bug Fixes and Patches</p>
         <p>
           <ul>
-            <li>Class hierarchies are not mapped in descending order <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2290928&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Global Configuration is Ignored <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1982256&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Throw exception if more than one global configuration found <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398621&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li> Problem loading Dozer bean mapper from Spring <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1921248&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Error in loading mapping files located in jar file <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2130213&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>NullPointerException <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1828693&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Problem with Java 1.5 enum and inheritance <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1806780&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Deep Index Custom Converter Problem <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1845706&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Bug fix not indexed properties (List - Vector) <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2218433&amp;group_id=133517&amp;atid=727370">link</a></li>
+            <li>Deep index patch <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2061942&amp;group_id=133517&amp;atid=727370">link</a></li>
           </ul>
         </p>
         <p>Feature Requests</p> 
         <p>
           <ul>
-            <li>Backport to commons-collections 3.0 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2211532&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Reorganize test mapping and config files in src tree <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398049&amp;group_id=133517&amp;atid=727371">link</a></li>
           </ul>
         </p>
       <h3>4.3  <font size="-3" color="gray"><i>12/03/2008</i></font></h3>
