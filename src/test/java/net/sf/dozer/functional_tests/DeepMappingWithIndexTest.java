@@ -28,6 +28,8 @@ import net.sf.dozer.util.mapping.vo.deep.DestDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj;
 import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj2;
+import net.sf.dozer.util.mapping.vo.deepindex.A;
+import net.sf.dozer.util.mapping.vo.deepindex.B;
 import net.sf.dozer.util.mapping.vo.deepindex.Family;
 import net.sf.dozer.util.mapping.vo.deepindex.HeadOfHouseHold;
 import net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails;
@@ -183,7 +185,19 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(
         first.getSecondArray()[0].getThirdArray()[7].getName(), last.getThird().getName());
   }
-
+  
+  // bug #1803172
+  public void testDeepIndexMapping_CollectionNeedsResizing() {
+    mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
+    A src = new A();
+    src.setId1(new Integer(10));
+    src.setId2(new Integer(20));
+    
+    B dest = (B) mapper.map(src, B.class);
+    assertEquals("wrong value for id1", src.getId1().intValue(), dest.getFoo()[0].getId());
+    assertEquals("wrong value for id2", src.getId2().intValue(), dest.getFoo()[1].getId());
+  }
+  
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
