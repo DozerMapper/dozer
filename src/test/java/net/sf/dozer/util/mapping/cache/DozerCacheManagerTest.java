@@ -113,20 +113,19 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
 
   public void testClearAllCacheEntries() {
     String name = getRandomString();
-    Cache cache = new Cache(name, 5);
-    CacheEntry entry = new CacheEntry(getRandomString(), "value");
-    cache.put(entry);
+    Cache cache = new DozerCache(name, 5);
+    cache.put(getRandomString(), "value");
     cacheMgr.addCache(cache);
 
-    assertEquals("invalid initial cache entry size", 1, cacheMgr.getCache(name).getEntries().size());
+    assertEquals("invalid initial cache entry size", 1, ((DozerCache)cacheMgr.getCache(name)).getEntries().size());
     cacheMgr.clearAllEntries();
-    assertEquals("invalid cache entry size after clearAll", 0, cacheMgr.getCache(name).getEntries().size());
+    assertEquals("invalid cache entry size after clearAll", 0, ((DozerCache)cacheMgr.getCache(name)).getEntries().size());
   }
 
   public void testGetCaches() {
     String name = getRandomString();
-    Cache cache = new Cache(name, 5);
-    Cache cache2 = new Cache(name + "2", 5);
+    Cache cache = new DozerCache(name, 5);
+    Cache cache2 = new DozerCache(name + "2", 5);
     cacheMgr.addCache(cache);
     cacheMgr.addCache(cache2);
 

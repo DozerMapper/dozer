@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.util.mapping.cache;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -26,14 +25,13 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  */
 public class CacheEntry {
+
   private final Object key;
   private final Object value;
-  private final long creationTime;
 
   public CacheEntry(Object key, Object value) {
     this.key = key;
     this.value = value;
-    this.creationTime = System.currentTimeMillis();
   }
 
   public Object getKey() {
@@ -42,10 +40,6 @@ public class CacheEntry {
 
   public Object getValue() {
     return value;
-  }
-
-  public long getCreationTime() {
-    return creationTime;
   }
 
   public int hashCode() {
@@ -66,4 +60,5 @@ public class CacheEntry {
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
+
 }

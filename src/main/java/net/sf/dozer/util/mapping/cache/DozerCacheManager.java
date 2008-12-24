@@ -15,16 +15,11 @@
  */
 package net.sf.dozer.util.mapping.cache;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import net.sf.dozer.util.mapping.util.MappingUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.util.*;
 
 /**
  * Internal class that manages the Dozer caches. Only intended for internal use.
@@ -32,10 +27,11 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  */
 public final class DozerCacheManager implements CacheManager {
+
   private static final Log log = LogFactory.getLog(DozerCacheManager.class);
   private final Map cachesMap = new HashMap();
 
-  public Set getCaches() {
+  public Collection getCaches() {
     return new HashSet(cachesMap.values());
   }
 
@@ -48,7 +44,7 @@ public final class DozerCacheManager implements CacheManager {
   }
 
   public void addCache(String name, long maxElementsInMemory) {
-    addCache(new Cache(name, maxElementsInMemory));
+    addCache(new DozerCache(name, maxElementsInMemory));
   }
 
   public void addCache(Cache cache) {
@@ -61,7 +57,7 @@ public final class DozerCacheManager implements CacheManager {
     }
   }
 
-  public Set getCacheNames() {
+  public Collection getCacheNames() {
     Set results = new HashSet();
     Iterator iter = cachesMap.entrySet().iterator();
     while (iter.hasNext()) {

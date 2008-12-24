@@ -15,9 +15,6 @@
  */
 package net.sf.dozer.util.mapping.cache;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Internal class that is responsible for producing cache keys. Only intended for internal use.
  * 

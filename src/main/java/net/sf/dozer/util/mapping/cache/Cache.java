@@ -15,96 +15,28 @@
  */
 package net.sf.dozer.util.mapping.cache;
 
-import java.util.Collection;
-import java.util.Map;
-
-import net.sf.dozer.util.mapping.stats.GlobalStatistics;
-import net.sf.dozer.util.mapping.stats.StatisticTypeConstants;
-import net.sf.dozer.util.mapping.stats.StatisticsManager;
-
-import org.apache.commons.collections.map.LinkedMap;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 /**
- * Internal class that provides an interface to a single cache. Holds all of the cache entries for the cache. Only
+ * Internal interface to a single cache. Holds all of the cache entries for the cache. Only
  * intended for internal use.
- * 
+ *
  * @author tierney.matt
  */
-public class Cache {
+public interface Cache {
 
-  private final String name;
+  public void clear();
 
-  // Order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
-  private final Map cacheMap = new LinkedMap(100, 0.75F);
-  private long maximumSize;
-  private long hitCount;
-  private long missCount;
+  public void put(Object key, Object value);
 
-  StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
+  public Object get(Object key);
 
-  public Cache(String name, long maximumSize) {
-    this.name = name;
-    this.maximumSize = maximumSize;
-  }
+  public String getName();
 
-  public void clear() {
-    cacheMap.clear();
-  }
+  public long getSize();
 
-  public synchronized void put(CacheEntry cacheEntry) {
-    if (cacheEntry == null) {
-      throw new IllegalArgumentException("Cache Entry cannot be null");
-    }
-    cacheMap.put(cacheEntry.getKey(), cacheEntry);
-    if (cacheMap.size() > maximumSize) {
-      // remove eldest entry
-      ((LinkedMap) cacheMap).remove(cacheMap.size() - 1);
-    }
-  }
+  public long getMaxSize();
 
-  public CacheEntry get(Object key) {
-    if (key == null) {
-      throw new IllegalArgumentException("Key cannot be null");
-    }
-    CacheEntry result = (CacheEntry) cacheMap.get(key);
-    if (result != null) {
-      hitCount++;
-      statMgr.increment(StatisticTypeConstants.CACHE_HIT_COUNT, name);
-    } else {
-      missCount++;
-      statMgr.increment(StatisticTypeConstants.CACHE_MISS_COUNT, name);
-    }
-    return result;
-  }
+  public long getHitCount();
 
-  public Collection getEntries() {
-    return cacheMap.values();
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public int getSize() {
-    return cacheMap.size();
-  }
-
-  public long getMaxSize() {
-    return maximumSize;
-  }
-
-  public long getHitCount() {
-    return hitCount;
-  }
-
-  public long getMissCount() {
-    return missCount;
-  }
-
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+  public long getMissCount();
 
 }

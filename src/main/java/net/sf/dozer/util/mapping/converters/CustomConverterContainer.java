@@ -71,9 +71,9 @@ public class CustomConverterContainer {
 
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(dest, src);
-    CacheEntry cacheEntry = converterByDestTypeCache.get(cacheKey);
-    if (cacheEntry != null) {
-      return (Class) cacheEntry.getValue();
+    Class cachedResult = (Class) converterByDestTypeCache.get(cacheKey);
+    if (cachedResult != null) {
+      return cachedResult;
     }
 
     // Otherwise, loop through custom converters and look for a match. Also, store the result in the cache
@@ -92,8 +92,7 @@ public class CustomConverterContainer {
         result = customConverter.getType();
       }
     }
-    cacheEntry = new CacheEntry(cacheKey, result);
-    converterByDestTypeCache.put(cacheEntry);
+    converterByDestTypeCache.put(cacheKey, result);
     return result;
   }
 

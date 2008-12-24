@@ -28,8 +28,7 @@ public class CacheEntryTest extends AbstractDozerTest {
     CacheEntry cacheEntry = new CacheEntry(key, value);
 
     assertEquals("invalid key", key, cacheEntry.getKey());
-    assertEquals("invalid value", value, cacheEntry.getValue());
-    assertTrue("Creation time should be not null", cacheEntry.getCreationTime() > 0);
+    assertEquals("invalid value", value, cacheEntry.getValue());    
   }
 
   public void testHashCodeAndEquals() throws Exception {

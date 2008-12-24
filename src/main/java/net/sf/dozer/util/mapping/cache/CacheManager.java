@@ -15,20 +15,38 @@
  */
 package net.sf.dozer.util.mapping.cache;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Internal interface for managing caches. Only intended for internal use.
  * 
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
 public interface CacheManager {
+
+  /**
+   * Clears all available caches. Should not be used in production. Can be applied on "soft" application restart.
+   */
   public void clearAllEntries();
-  public Set getCaches();
+
+  /**
+   * Returns a Set of all Cache names
+   * @return Set of String objects representing Cache names.
+   */
+  public Collection getCacheNames();
+
+  public Collection getCaches();
+
+  /**
+   * Get Cache object by name.
+   * @param cacheName unique cache name
+   * @return Cache object or will throw MappingException in case Cache is not registered.
+   */
   public Cache getCache(String cacheName);
-  public Set getCacheNames();
+
   public void addCache(String cacheName, long maximumSize);
-  public void addCache(Cache cache);
+
   public boolean cacheExists(String cacheName);
-  public void logCaches();
+
 }

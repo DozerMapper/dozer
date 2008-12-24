@@ -20,23 +20,20 @@ import net.sf.dozer.util.mapping.AbstractDozerTest;
 /**
  * @author tierney.matt
  */
-public class CacheTest extends AbstractDozerTest {
+public class DozerCacheTest extends AbstractDozerTest {
 
   public void testPutGetFromCache() throws Exception {
-    Cache cache = new Cache(getRandomString(), 50);
+    Cache cache = new DozerCache(getRandomString(), 50);
     int numCacheEntriesToAdd = 45;
     for (int i = 0; i < numCacheEntriesToAdd; i++) {
       Object key = String.valueOf(i);
 
       assertNull("cache entry should not already exist", cache.get(key));
 
-      CacheEntry cacheEntry = new CacheEntry(key, "testvalue" + i);
-      cache.put(cacheEntry);
+      cache.put(key, "testvalue" + i);
 
-      CacheEntry cacheEntry2 = cache.get(key);
-      assertNotNull("cache entry should not be null", cacheEntry2);
-      assertEquals("cache entries should be equal", cacheEntry, cacheEntry2);
-      assertSame("cache entries should be same instance", cacheEntry, cacheEntry2);
+      String value = (String) cache.get(key);
+      assertEquals("cache entries should be equal", value, "testvalue" + i);
     }
     assertEquals("invlid cache size", numCacheEntriesToAdd, cache.getSize());
     assertEquals("invlid cache hit count", numCacheEntriesToAdd, cache.getHitCount());
@@ -45,31 +42,28 @@ public class CacheTest extends AbstractDozerTest {
 
   public void testMaximumCacheSize() throws Exception {
     int maxSize = 25;
-    Cache cache = new Cache(getRandomString(), maxSize);
+    Cache cache = new DozerCache(getRandomString(), maxSize);
     // Add a bunch of entries to cache to verify the cache doesnt grow larger than specified max size
     for (int i = 0; i < maxSize + 125; i++) {
-      CacheEntry cacheEntry = new CacheEntry("testkey" + i, "testvalue" + i);
-      cache.put(cacheEntry);
+      cache.put("testkey" + i, "testvalue" + i);
     }
     assertEquals("cache size should not exceed max size", maxSize, cache.getSize());
   }
 
   public void testMaximumCacheSize_Zero() throws Exception {
     int maxSize = 0;
-    Cache cache = new Cache(getRandomString(), maxSize);
+    Cache cache = new DozerCache(getRandomString(), maxSize);
     // Add a bunch of entries to cache to verify the cache doesnt grow larger than specified max size
     for (int i = 0; i < maxSize + 5; i++) {
-      CacheEntry cacheEntry = new CacheEntry("testkey" + i, "testvalue" + i);
-      cache.put(cacheEntry);
+      cache.put("testkey" + i, "testvalue" + i);
     }
     assertEquals("cache size should not exceed max size", maxSize, cache.getSize());
   }
 
   public void testClear() throws Exception {
-    Cache cache = new Cache(getRandomString(), 50);
+    Cache cache = new DozerCache(getRandomString(), 50);
     Object key = CacheKeyFactory.createKey(String.class, Integer.class);
-    CacheEntry cacheEntry = new CacheEntry(key, "testvalue");
-    cache.put(cacheEntry);
+    cache.put(key, "testvalue");
 
     assertEquals("cache should contain entry", 1, cache.getSize());
     cache.clear();
@@ -78,13 +72,13 @@ public class CacheTest extends AbstractDozerTest {
 
   public void testGetMaxSize() {
     int maxSize = 550;
-    Cache cache = new Cache(getRandomString(), maxSize);
+    Cache cache = new DozerCache(getRandomString(), maxSize);
 
     assertEquals("invalid max size", maxSize, cache.getMaxSize());
   }
 
   public void testGetNull() {
-    Cache cache = new Cache(getRandomString(), 5);
+    Cache cache = new DozerCache(getRandomString(), 5);
     try {
       cache.get(null);
       fail("should have thrown exception");
@@ -93,9 +87,9 @@ public class CacheTest extends AbstractDozerTest {
   }
 
   public void testPutNull() {
-    Cache cache = new Cache(getRandomString(), 5);
+    Cache cache = new DozerCache(getRandomString(), 5);
     try {
-      cache.put(null);
+      cache.put(null, null);
       fail("should have thrown exception");
     } catch (IllegalArgumentException e) {
     }

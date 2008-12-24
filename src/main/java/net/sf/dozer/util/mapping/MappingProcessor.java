@@ -901,9 +901,9 @@ public class MappingProcessor implements MapperIF {
   private Collection checkForSuperTypeMapping(Class srcClass, Class destClass) {
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(destClass, srcClass);
-    CacheEntry cacheEntry = superTypeCache.get(cacheKey);
-    if (cacheEntry != null) {
-      return (Collection) cacheEntry.getValue();
+    Collection cachedResult = (Collection) superTypeCache.get(cacheKey);
+    if (cachedResult != null) {
+      return cachedResult;
     }
 
     // If no existing cache entry is found, determine super type mappings.
@@ -928,8 +928,7 @@ public class MappingProcessor implements MapperIF {
       superSrcClass = MappingUtils.getRealSuperclass(superSrcClass);
     }
 
-    cacheEntry = new CacheEntry(cacheKey, superClasses);
-    superTypeCache.put(cacheEntry);
+    superTypeCache.put(cacheKey, superClasses);
 
     Collections.reverse(superClasses); // Done so base classes are processed first
     return superClasses;
