@@ -28,9 +28,11 @@ import net.sf.dozer.util.mapping.util.ReflectionUtils;
  * 
  * @author garsombke.franz
  * @author tierney.matt
+ * @author dmitry.buzdin
  * 
  */
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptor {
+
   private Field field;
 
   public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
@@ -40,7 +42,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
     try {
       field = ReflectionUtils.getFieldFromBean(clazz, fieldName);
     } catch (NoSuchFieldException e) {
-      MappingUtils.throwMappingException(e);
+      MappingUtils.throwMappingException("No such field found " + clazz + "." + fieldName, e);
     }
     // Allow access to private instance var's that dont have public setter.
     field.setAccessible(true);
