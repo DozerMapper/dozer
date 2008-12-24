@@ -60,4 +60,17 @@
     </field>
   </mapping>
 
+  <mapping>
+    <class-a>net.sf.dozer.util.mapping.vo.deepindex.A</class-a>
+    <class-b>net.sf.dozer.util.mapping.vo.deepindex.B</class-b>
+      <field> 
+        <a>id1</a> 
+        <b>foo[0].id</b> 
+      </field> 
+      <field> 
+        <a>id2</a> 
+        <b>foo[1].id</b> 
+      </field>
+  </mapping>          
+
 </mappings>

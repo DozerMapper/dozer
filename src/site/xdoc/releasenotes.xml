@@ -41,7 +41,6 @@
             <li>Mapping with remove-orphans should call remove() on the list <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2048382&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>Bug in ReflectionUtils.getInterfacePropertyDescriptors() <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2013632&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>Classloading approach is not recommended <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1944959&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Problem when loading Dozer bean mapper from Spring <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1921248&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>NullPointerException when mapping a map <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1884714&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>Subclasses are not recognized<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865945&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>Mapping with parent-child relation does not work <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865775&amp;group_id=133517&amp;atid=727368">link</a></li>

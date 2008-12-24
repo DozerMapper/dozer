@@ -22,6 +22,7 @@ import java.util.Collection;
 
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 import net.sf.dozer.util.mapping.fieldmap.HintContainer;
+import net.sf.dozer.util.mapping.util.CollectionUtils;
 import net.sf.dozer.util.mapping.util.DeepHierarchyElement;
 import net.sf.dozer.util.mapping.util.DestBeanCreator;
 import net.sf.dozer.util.mapping.util.MappingUtils;
@@ -175,6 +176,17 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
         value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       }
+      
+      //Check to see if collection needs to be resized
+      if (MappingUtils.isSupportedCollection(value.getClass())) {
+        int currentSize = CollectionUtils.getLengthOfCollection(value);
+        if (currentSize < hierarchyElement.getIndex() + 1) {
+          value =  MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(pd.getPropertyType().getComponentType()),
+              hierarchyElement.getIndex());
+          ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { value });
+        }
+      }
+      
       if (value != null && value.getClass().isArray()) {
         parentObj = Array.get(value, hierarchyElement.getIndex());
       } else if (value != null && Collection.class.isAssignableFrom(value.getClass())) {

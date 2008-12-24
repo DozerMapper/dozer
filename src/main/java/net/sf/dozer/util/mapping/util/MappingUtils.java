@@ -67,13 +67,7 @@ public final class MappingUtils {
   }
 
   public static boolean isSupportedCollection(Class aClass) {
-    boolean result = false;
-    if (CollectionUtils.isCollection(aClass)) {
-      result = true;
-    } else if (CollectionUtils.isArray(aClass)) {
-      result = true;
-    }
-    return result;
+    return CollectionUtils.isCollection(aClass) || CollectionUtils.isArray(aClass);
   }
 
   public static boolean isSupportedMap(Class aClass) {
