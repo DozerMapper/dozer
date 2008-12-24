@@ -50,6 +50,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   public abstract Method getWriteMethod() throws NoSuchMethodException;
   protected abstract Method getReadMethod() throws NoSuchMethodException;
   protected abstract String getSetMethodName() throws NoSuchMethodException;
+  protected abstract boolean isCustomSetMethod();
 
   public Class getPropertyType() {
     if (propertyType == null) {
@@ -176,17 +177,17 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
         value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       }
-      
+
       //Check to see if collection needs to be resized
       if (MappingUtils.isSupportedCollection(value.getClass())) {
         int currentSize = CollectionUtils.getLengthOfCollection(value);
         if (currentSize < hierarchyElement.getIndex() + 1) {
-          value =  MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(pd.getPropertyType().getComponentType()),
-              hierarchyElement.getIndex());
+          value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(pd.getPropertyType()
+              .getComponentType()), hierarchyElement.getIndex());
           ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { value });
         }
       }
-      
+
       if (value != null && value.getClass().isArray()) {
         parentObj = Array.get(value, hierarchyElement.getIndex());
       } else if (value != null && Collection.class.isAssignableFrom(value.getClass())) {
@@ -208,15 +209,16 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
     if (!type.isPrimitive() || destFieldValue != null) {
       if (!isIndexed) {
-        Method method = pd.getWriteMethod();
-        try {
-          if (method == null && getSetMethodName() != null) {
-            // lets see if we can find a custom method
+        Method method = null;
+        if (!isCustomSetMethod()) {
+          method = pd.getWriteMethod();
+        } else {
+          try {
             method = ReflectionUtils.findAMethod(parentObj.getClass(), getSetMethodName());
+          } catch (NoSuchMethodException e) {
+            MappingUtils.throwMappingException(e);
           }
-        } catch (NoSuchMethodException e) {
-          MappingUtils.throwMappingException(e);
-        }
+        } 
 
         ReflectionUtils.invoke(method, parentObj, new Object[] { destFieldValue });
       } else {

@@ -77,6 +77,7 @@ public class DeepMappingTest extends AbstractMapperTest {
 
   /*
    * Related to feature request #1456486. Deep mapping with custom getter/setter does not work
+   * Also related to #2459076
    */
   public void testDeepMapping_UsingCustomGetSetMethods() {
     mapper = super.getMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
@@ -88,6 +89,7 @@ public class DeepMappingTest extends AbstractMapperTest {
 
     assertNotNull(dest.getDestField().getNestedDestField().getNestedNestedDestField());
     assertEquals(src.getSrcField(), dest.getDestField().getNestedDestField().getNestedNestedDestField());
+    assertTrue("should have been set by customer setter method", dest.getDestField().getNestedDestField().isSetWithCustomMethod());
 
     Src dest2 = (Src) mapper.map(dest, Src.class);
 

@@ -89,6 +89,10 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   protected String getSetMethodName() throws NoSuchMethodException {
     return setMethod;
   }
+  
+  protected boolean isCustomSetMethod() {
+    return true;
+  }
 
   protected void invokeWriteMethod(Object target, Object value) {
     if (key == null) {

@@ -62,4 +62,9 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   protected String getSetMethodName() throws NoSuchMethodException {
     return customSetMethod != null ? customSetMethod : super.getSetMethodName();
   }
+  
+  protected boolean isCustomSetMethod() {
+    return customSetMethod != null;
+  }
+
 }

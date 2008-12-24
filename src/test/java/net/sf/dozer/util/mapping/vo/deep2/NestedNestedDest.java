@@ -20,6 +20,7 @@ import net.sf.dozer.util.mapping.vo.BaseTestObject;
 public class NestedNestedDest extends BaseTestObject {
 
   private String nestedNestedDestField;
+  private boolean setWithCustomMethod;
 
   public String getNestedNestedDestField() {
     return nestedNestedDestField;
@@ -27,6 +28,19 @@ public class NestedNestedDest extends BaseTestObject {
 
   public void setNestedNestedDestField(String nestedNestedDestField) {
     this.nestedNestedDestField = nestedNestedDestField;
+  }
+  
+  public String getField() {
+    return nestedNestedDestField;
+  }
+
+  public void setField(String field) {
+    this.nestedNestedDestField = field;
+    this.setWithCustomMethod = true;
+  }
+
+  public boolean isSetWithCustomMethod() {
+    return setWithCustomMethod;
   }
 
 }

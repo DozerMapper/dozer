@@ -59,6 +59,10 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
     return result;
   }
+  
+  protected boolean isCustomSetMethod() {
+    return false;
+  }
 
   private PropertyDescriptor getPropertyDescriptor(HintContainer deepIndexHintContainer) {
     if (pd == null) {
