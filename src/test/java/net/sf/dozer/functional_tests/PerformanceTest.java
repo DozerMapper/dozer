@@ -134,6 +134,17 @@ public class PerformanceTest extends AbstractMapperTest {
    * jdk1.4 #1 29657 #2 3766 #3 3765 #4 17344 #5 10672 #6 40595
    * jdk1.5 #1 29297 #2 3484 #3 3329 #4 20688 #5 13032 #6 36813
    * jdk1.6 #1 22579 #2 2812 #3 3297 #4 16563 #5 11735 #6 23219
+   * 
+   * MHT Computer (Macbook Pro, 2.4GHZ Intel Core Duo, JVM 256m) - 12/03/08 - 4.3 release
+   * jdk1.4 #1 15378 #2 1868 #3 1867 #4 8463 #5 5870 #6 23802
+   * jdk1.5 #1 11965 #2 1411 #3 1417 #4 6922 #5 4636 #6 15933
+   * jdk1.6 #1 6672 #2 948 #3 583 #4 1911 #5 1683 #6 3643
+   * 
+   * MHT Computer (Macbook Pro, 2.4GHZ Intel Core Duo, JVM 256m) - 12/26/08 - 4.4 release
+   * jdk1.4 #1 17584 #2 2137 #3 2096 #4 9245 #5 6611 #6 37356
+   * jdk1.5 #1 13465 #2 1539 #3 1548 #4 7425 #5 5144 #6 25975
+   * jdk1.6 #1 7357 #2 1353 #3 631 #4 2239 #5 1915 #6 5834
+   *  
    */
 
   public void testMapping1() throws Exception {
@@ -197,9 +208,5 @@ public class PerformanceTest extends AbstractMapperTest {
       fail();
     }
   }
-
-  /* public static void main(String[] args) {
-     junit.textui.TestRunner.run(PerformanceTest.class);
-   }*/
 
 }
