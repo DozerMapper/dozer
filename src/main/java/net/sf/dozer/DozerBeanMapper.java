@@ -86,11 +86,11 @@ public class DozerBeanMapper implements Mapper {
     getMappingProcessor().map(source, destination, mapId);
   }
 
-  public Object map(Object source, Class destinationClass, String mapId) throws MappingException {
+  public <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException {
     return getMappingProcessor().map(source, destinationClass, mapId);
   }
 
-  public Object map(Object source, Class destinationClass) throws MappingException {
+  public <T> T map(Object source, Class<T> destinationClass) throws MappingException {
     return getMappingProcessor().map(source, destinationClass);
   }
 

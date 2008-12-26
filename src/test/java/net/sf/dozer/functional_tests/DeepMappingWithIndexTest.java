@@ -72,7 +72,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     src.setSomeList(Arrays.asList(new TestObject[] { testObject1, testObject2 }));
     src.setSrcNestedObj(srcNestedObj);
 
-    DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
+    DestDeepObj dest = mapper.map(src, DestDeepObj.class);
     assertEquals(Integer.valueOf("985756"), dest.getDest2());
     assertEquals("another test object field 3 value", dest.getDest5());
     assertEquals(Integer.valueOf("6453"), ((TestObjectPrime) dest.getHintList().get(0)).getTwoPrime());
@@ -107,7 +107,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     // Save the pet details into the source object
     source.setPets(myPets);
 
-    HeadOfHouseHold dest = (HeadOfHouseHold) mapper.map(source, HeadOfHouseHold.class);
+    HeadOfHouseHold dest = mapper.map(source, HeadOfHouseHold.class);
     assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getFirstName(), dest.getFirstName());
     assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getLastName(), dest.getLastName());
     assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getSalary(), dest.getSalary());
@@ -179,7 +179,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
   public void testDeepIndexMappingWithCustomConverter() {
     mapper = getMapper(new String[] { "deepMappingWithIndexedFieldsByCustomConverter.xml" });
     First first = new First();
-    Last last = (Last) mapper.map(first, Last.class);
+    Last last =  mapper.map(first, Last.class);
     assertNotNull("nested third object should not be null", last.getThird());
     assertNotNull("name should not be null", last.getThird().getName());
     assertEquals(
@@ -193,7 +193,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     src.setId1(new Integer(10));
     src.setId2(new Integer(20));
     
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
     assertEquals("wrong value for id1", src.getId1().intValue(), dest.getFoo()[0].getId());
     assertEquals("wrong value for id2", src.getId2().intValue(), dest.getFoo()[1].getId());
   }

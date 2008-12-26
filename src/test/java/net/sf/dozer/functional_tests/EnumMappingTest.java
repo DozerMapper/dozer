@@ -60,7 +60,7 @@ public class EnumMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
     MyBean src = new MyBean();
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
-    MyBeanPrime dest = (MyBeanPrime) mapper.map(src, MyBeanPrime.class);
+    MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcTypeWithOverride().toString(),
         dest.getDestType().toString() );
   }
@@ -72,7 +72,7 @@ public class EnumMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
-    MyBeanPrime dest = (MyBeanPrime) mapper.map(src, MyBeanPrime.class);
+    MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcType().toString(),
         dest.getDestTypeWithOverride().toString() );
   }
@@ -84,7 +84,7 @@ public class EnumMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
-    MyBeanPrime dest = (MyBeanPrime) mapper.map(src, MyBeanPrime.class);
+    MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcType().toString(),
         dest.getDestType().toString());
   }
@@ -96,7 +96,7 @@ public class EnumMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
-    MyBeanPrime dest = (MyBeanPrime) mapper.map(src, MyBeanPrime.class);
+    MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcTypeWithOverride().toString(),
         dest.getDestTypeWithOverride().toString());
   }
@@ -107,7 +107,7 @@ public class EnumMappingTest extends AbstractMapperTest {
   public void testEnumMapsToItself() {
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
-    MyBean dest = (MyBean) mapper.map(src, MyBean.class);
+    MyBean dest = mapper.map(src, MyBean.class);
     assertEquals(src.getSrcType(), dest.getSrcType());
     assertEquals(src.getSrcTypeWithOverride(), dest.getSrcTypeWithOverride());
   }
@@ -120,7 +120,7 @@ public class EnumMappingTest extends AbstractMapperTest {
     MyBean src = new MyBean();
     src.setSrcType(SrcType.BAR);
     try {
-      MyBeanPrime dest = (MyBeanPrime) mapper.map(src, MyBean.class);
+      MyBean dest = mapper.map(src, MyBean.class);
       fail("Expect to throw exception but didn't.");
     } catch (Exception e){
       //expect exception

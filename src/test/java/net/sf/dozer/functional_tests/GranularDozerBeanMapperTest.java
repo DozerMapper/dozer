@@ -105,7 +105,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     to.setFieldAccessibleComplexType(ito);
     String[] stringArray = new String[] { "one", "two" };
     to.setFieldAccessibleArrayToList(stringArray);
-    TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
+    TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
     assertEquals("fieldAccessible", top.fieldAccessible);
     assertEquals("label", top.fieldAccessibleComplexType.getLabelPrime());
     assertEquals(2, top.fieldAccessiblePrimInt);
@@ -113,7 +113,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("two", top.fieldAccessibleArrayToList.get(1));
 
     // Map Back
-    TestObject toDest = (TestObject) mapper.map(top, TestObject.class);
+    TestObject toDest = mapper.map(top, TestObject.class);
     assertEquals("fieldAccessible", toDest.getFieldAccessible());
     assertEquals("label", toDest.getFieldAccessibleComplexType().getLabel());
     assertEquals(2, toDest.getFieldAccessiblePrimInt());
@@ -126,7 +126,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     TestObject to = (TestObject) newInstance(TestObject.class);
     Date date = new Date();
     to.setOverloadGetField(new Date());
-    TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
+    TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
     assertEquals(date, top.getOverloadSetField());
 
     // Map Back

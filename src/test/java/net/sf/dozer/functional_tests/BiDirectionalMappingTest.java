@@ -39,7 +39,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
     field1.setField1(src);
     src.setField1(field1);
 
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
     assertNotNull("field1 should have been mapped", dest.getField1());
   }
 
@@ -50,7 +50,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
     loopObjectChild.setParent(loopObjectParent);
     loopObjectParent.setChild(loopObjectChild);
 
-    LoopObjectParentPrime loopObjectParentPrime = (LoopObjectParentPrime) mapper.map(loopObjectParent, LoopObjectParentPrime.class);
+    LoopObjectParentPrime loopObjectParentPrime = mapper.map(loopObjectParent, LoopObjectParentPrime.class);
     assertNotNull(loopObjectParentPrime);
     assertNotNull(loopObjectParentPrime.getChildPrime());
   }

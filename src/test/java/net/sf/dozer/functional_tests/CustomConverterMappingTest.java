@@ -57,7 +57,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
 
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
+    SimpleObjPrime2 dest = mapper.map(src, SimpleObjPrime2.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
@@ -77,7 +77,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     src.setField3(String.valueOf(System.currentTimeMillis()));
 
-    AnotherTestObjectPrime dest = (AnotherTestObjectPrime) mapper.map(src, AnotherTestObjectPrime.class);
+    AnotherTestObjectPrime dest = mapper.map(src, AnotherTestObjectPrime.class);
 
     // Custom converter specified for the field mapping, so verify custom converter was actually used
     assertNotNull("dest field should not be null", dest.getField3());
@@ -94,19 +94,19 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
 
     Car car = (Car) newInstance(Car.class);
-    Van van = (Van) mapper.map(car, Van.class);
+    Van van = mapper.map(car, Van.class);
     assertEquals("defaultValueSetByCustomConverter", van.getName());
     // map back
-    Car carDest = (Car) mapper.map(van, Car.class);
+    Car carDest = mapper.map(van, Car.class);
     assertEquals("defaultValueSetByCustomConverter", carDest.getName());
 
     // test that we get customconverter even though it wasn't defined in the mapping file
     Moped moped = (Moped) newInstance(Moped.class);
-    Bus bus = (Bus) mapper.map(moped, Bus.class);
+    Bus bus = mapper.map(moped, Bus.class);
     assertEquals("defaultValueSetByCustomConverter", bus.getName());
 
     // map back
-    Moped mopedDest = (Moped) mapper.map(bus, Moped.class);
+    Moped mopedDest = mapper.map(bus, Moped.class);
     assertEquals("defaultValueSetByCustomConverter", mopedDest.getName());
   }
 
@@ -116,7 +116,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1(null);
 
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
+    SimpleObjPrime2 dest = mapper.map(src, SimpleObjPrime2.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
@@ -138,7 +138,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     ArrayCustConverterObj src = (ArrayCustConverterObj) newInstance(ArrayCustConverterObj.class);
     src.setField1(new SimpleObj[] { simple });
 
-    ArrayCustConverterObjPrime dest = (ArrayCustConverterObjPrime) mapper.map(src, ArrayCustConverterObjPrime.class);
+    ArrayCustConverterObjPrime dest = mapper.map(src, ArrayCustConverterObjPrime.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
@@ -164,7 +164,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
 
     obj.setNames(list);
 
-    TestCustomConverterObjectPrime dest = (TestCustomConverterObjectPrime) mapper.map(obj, TestCustomConverterObjectPrime.class);
+    TestCustomConverterObjectPrime dest = mapper.map(obj, TestCustomConverterObjectPrime.class);
 
     assertEquals("Custom Converter failed", dest.getDoubleAttribute().doubleValue() + "", "15.0");
     assertEquals("Custom Converter failed", ((Double) dest.getNames().iterator().next()).doubleValue() + "", "15.0");
@@ -177,7 +177,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     objp.setNames(list2);
     objp.getNames().add(new Double(10));
 
-    TestCustomConverterObject destp = (TestCustomConverterObject) mapper.map(objp, TestCustomConverterObject.class);
+    TestCustomConverterObject destp = mapper.map(objp, TestCustomConverterObject.class);
 
     assertEquals("Custom Converter failed", destp.getAttribute().getTheDouble() + "", "15.0");
     assertEquals("Custom Converter failed", ((CustomDoubleObjectIF) destp.getNames().iterator().next()).getTheDouble() + "", "10.0");
@@ -193,13 +193,13 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     // test primitive double
     TestCustomConverterObjectPrime prime = (TestCustomConverterObjectPrime) newInstance(TestCustomConverterObjectPrime.class);
     prime.setPrimitiveDoubleAttribute(25.00);
-    TestCustomConverterObject obj2 = (TestCustomConverterObject) mapper.map(prime, TestCustomConverterObject.class);
+    TestCustomConverterObject obj2 = mapper.map(prime, TestCustomConverterObject.class);
     CustomDoubleObjectIF customDouble = obj2.getPrimitiveDoubleAttribute();
     assertNotNull(customDouble);
     assertTrue(prime.getPrimitiveDoubleAttribute() == obj2.getPrimitiveDoubleAttribute().getTheDouble());
 
     // test conversion in the other direction
-    prime = (TestCustomConverterObjectPrime) mapper.map(obj2, TestCustomConverterObjectPrime.class);
+    prime = mapper.map(obj2, TestCustomConverterObjectPrime.class);
     assertTrue(prime.getPrimitiveDoubleAttribute() == obj2.getPrimitiveDoubleAttribute().getTheDouble());
 
   }
@@ -210,13 +210,13 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     TestCustomConverterObjectPrime prime = (TestCustomConverterObjectPrime) newInstance(TestCustomConverterObjectPrime.class);
     prime.setPrimitiveDoubleAttribute(25.00);
     prime.setDoubleAttribute(new Double(30.00));
-    TestCustomConverterObject obj2 = (TestCustomConverterObject) mapper.map(prime, TestCustomConverterObject.class);
+    TestCustomConverterObject obj2 = mapper.map(prime, TestCustomConverterObject.class);
     CustomDoubleObjectIF customDouble = obj2.getPrimitiveDoubleAttribute();
     assertNotNull(customDouble);
     assertTrue(prime.getPrimitiveDoubleAttribute() == obj2.getPrimitiveDoubleAttribute().getTheDouble());
 
     // test conversion in the other direction
-    prime = (TestCustomConverterObjectPrime) mapper.map(obj2, TestCustomConverterObjectPrime.class);
+    prime = mapper.map(obj2, TestCustomConverterObjectPrime.class);
     assertTrue(prime.getPrimitiveDoubleAttribute() == obj2.getPrimitiveDoubleAttribute().getTheDouble());
 
   }
@@ -230,7 +230,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     TestObjectPrime top = (TestObjectPrime) newInstance(TestObjectPrime.class);
     top.setOnePrime("onePrime");
     testCustomConverterHashMapObject.setTestObjectPrime(top);
-    TestCustomConverterHashMapPrimeObject dest = (TestCustomConverterHashMapPrimeObject) mapper.map(
+    TestCustomConverterHashMapPrimeObject dest = mapper.map(
         testCustomConverterHashMapObject, TestCustomConverterHashMapPrimeObject.class);
     assertEquals(to, dest.getTestObjects().get("object1"));
     assertEquals(top, dest.getTestObjects().get("object2"));
@@ -242,7 +242,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
 
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
+    SimpleObjPrime2 dest = mapper.map(src, SimpleObjPrime2.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
@@ -261,7 +261,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1(null);
 
-    SimpleObjPrime2 dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
+    SimpleObjPrime2 dest = mapper.map(src, SimpleObjPrime2.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1Prime());
@@ -280,7 +280,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     CustomMap src = (CustomMap) newInstance(CustomMap.class);
     src.putValue("fieldA", "someStringValue");
 
-    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class);
+    SimpleObj dest = mapper.map(src, SimpleObj.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1());
@@ -301,7 +301,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     hashMap.put("fieldA", "someStringValue");
     src.setHashMap(hashMap);
 
-    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class);
+    SimpleObj dest = mapper.map(src, SimpleObj.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField1());
@@ -322,7 +322,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     src.setField3("field3");
 
-    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class);
+    SimpleObj dest = mapper.map(src, SimpleObj.class);
 
     assertEquals("dest field1 value should have been appended to by the cust converter", src.getField3() + "-"
         + StringAppendCustomConverter.APPENDED_VALUE, dest.getField1());
@@ -335,7 +335,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
 
     SimpleObjPrime2 dest = null;
     try {
-      dest = (SimpleObjPrime2) mapper.map(src, SimpleObjPrime2.class);
+      dest = mapper.map(src, SimpleObjPrime2.class);
     } catch (Exception e) {
       fail("custom converter should not have been invoked");
     }

@@ -64,7 +64,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     userGroup.setStatus(Status.SUCCESS);
 
     // do mapping
-    UserGroupPrime userGroupPrime = (UserGroupPrime) mapper.map(userGroup, UserGroupPrime.class);
+    UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);
 
     // prove access to generic type information
     Method setter = UserGroupPrime.class.getMethod("setUsers", List.class);
@@ -87,7 +87,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     assertEquals("SUCCESS", userGroupPrime.getStatusPrime().name());
     
     // Map the other way
-    UserGroup userGroupMapBack = (UserGroup) mapper.map(userGroupPrime, UserGroup.class);
+    UserGroup userGroupMapBack = mapper.map(userGroupPrime, UserGroup.class);
     Set<?> usersGroupPrime = userGroupMapBack.getUsers();
     assertNotNull(usersGroupPrime);
     assertEquals(2, usersGroupPrime.size());
@@ -108,7 +108,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     SrcDeepObj src = new SrcDeepObj();
     src.setSomeList(Arrays.asList(new TestObject[] {testObject1, testObject2}));
 
-    DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
+    DestDeepObj dest = mapper.map(src, DestDeepObj.class);
     assertEquals("another test object field 3 value", dest.getDest5());
     assertEquals(Integer.valueOf("6453"), ((TestObjectPrime)dest.getHintList().get(0)).getTwoPrime());
   }
@@ -118,7 +118,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     DestDeepObj src = new DestDeepObj();
     src.setDest5("some string value for field");
 
-    SrcDeepObj dest = (SrcDeepObj) mapper.map(src, SrcDeepObj.class);
+    SrcDeepObj dest = mapper.map(src, SrcDeepObj.class);
     assertEquals("some string value for field", dest.getSomeList().get(1).getEqualNamedList().get(0).getField3());
   }
 
@@ -141,7 +141,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     // Save the pet details into the source object
     source.setPets(myPets);
 
-    HeadOfHouseHold dest = (HeadOfHouseHold) mapper.map(source, HeadOfHouseHold.class);
+    HeadOfHouseHold dest =  mapper.map(source, HeadOfHouseHold.class);
     assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getFirstName(), dest.getFirstName());
     assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getLastName(), dest.getLastName());
     assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getSalary(), dest.getSalary());

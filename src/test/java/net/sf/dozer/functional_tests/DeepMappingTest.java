@@ -38,9 +38,9 @@ public class DeepMappingTest extends AbstractMapperTest {
   public void testDeepMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
-    DestDeepObj dest = (DestDeepObj) mapper.map(src, DestDeepObj.class);
-    SrcDeepObj src2 = (SrcDeepObj) mapper.map(dest, SrcDeepObj.class);
-    DestDeepObj dest2 = (DestDeepObj) mapper.map(src2, DestDeepObj.class);
+    DestDeepObj dest = mapper.map(src, DestDeepObj.class);
+    SrcDeepObj src2 =  mapper.map(dest, SrcDeepObj.class);
+    DestDeepObj dest2 = mapper.map(src2, DestDeepObj.class);
 
     assertEquals(src, src2);
     assertEquals(dest, dest2);
@@ -52,10 +52,10 @@ public class DeepMappingTest extends AbstractMapperTest {
     Person owner = (Person) newInstance(Person.class);
     owner.setYourName("myName");
     house.setOwner(owner);
-    HomeDescription desc = (HomeDescription) mapper.map(house, HomeDescription.class);
+    HomeDescription desc =  mapper.map(house, HomeDescription.class);
     assertEquals(desc.getDescription().getMyName(), "myName");
     // make sure we don't map back
-    House house2 = (House) mapper.map(desc, House.class);
+    House house2 = mapper.map(desc, House.class);
     assertNull(house2.getOwner().getYourName());
   }
 
@@ -67,11 +67,11 @@ public class DeepMappingTest extends AbstractMapperTest {
     thingy.setName("name");
     house.setThingy(thingy);
     ito.setHouse(house);
-    InsideTestObjectPrime itop = (InsideTestObjectPrime) mapper.map(ito, InsideTestObjectPrime.class);
+    InsideTestObjectPrime itop = mapper.map(ito, InsideTestObjectPrime.class);
     assertEquals("name", itop.getDeepInterfaceString());
 
     // Map Back
-    InsideTestObject dest = (InsideTestObject) mapper.map(itop, InsideTestObject.class);
+    InsideTestObject dest = mapper.map(itop, InsideTestObject.class);
     assertEquals("name", ito.getHouse().getThingy().getName());
   }
 
@@ -85,13 +85,13 @@ public class DeepMappingTest extends AbstractMapperTest {
     Src src = (Src) newInstance(Src.class);
     src.setSrcField("srcFieldValue");
 
-    Dest dest = (Dest) mapper.map(src, Dest.class);
+    Dest dest = mapper.map(src, Dest.class);
 
     assertNotNull(dest.getDestField().getNestedDestField().getNestedNestedDestField());
     assertEquals(src.getSrcField(), dest.getDestField().getNestedDestField().getNestedNestedDestField());
     assertTrue("should have been set by customer setter method", dest.getDestField().getNestedDestField().isSetWithCustomMethod());
 
-    Src dest2 = (Src) mapper.map(dest, Src.class);
+    Src dest2 = mapper.map(dest, Src.class);
 
     assertNotNull(dest2.getSrcField());
     assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());

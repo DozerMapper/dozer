@@ -49,14 +49,14 @@ public class SubclassReferenceTest extends TestCase {
     }; // anonymous subclass
     testA.setOne("one");
     testA.setOneA("oneA");
-    testB = (TestB) mapper.map(testA, TestB.class);
+    testB = mapper.map(testA, TestB.class);
     assertEquals(testA.getOne(), testB.getOne());
     assertEquals(testA.getOneA(), testB.getOneB());
   }
 
   public void testReference() {
     testA.setTestReference(Reference.FOO);
-    testB = (TestB) mapper.map(testA, TestB.class);
+    testB = mapper.map(testA, TestB.class);
     assertEquals(testA.getOne(), testB.getOne());
     assertEquals(testA.getOneA(), testB.getOneB());
     assertEquals(testA.getTestReference(), testB.getTestReference());
@@ -66,7 +66,7 @@ public class SubclassReferenceTest extends TestCase {
     TestA testASubclass = new TestA() {
     }; // anonymous subclass
     testASubclass.setTestReference(Reference.FOO);
-    testB = (TestB) mapper.map(testASubclass, TestB.class);
+    testB = mapper.map(testASubclass, TestB.class);
     assertEquals(testASubclass.getOne(), testB.getOne());
     assertEquals(testASubclass.getOneA(), testB.getOneB());
     assertEquals(testASubclass.getTestReference(), testB.getTestReference());

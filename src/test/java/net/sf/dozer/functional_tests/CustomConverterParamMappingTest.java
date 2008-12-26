@@ -37,7 +37,7 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
 
-    AnotherTestObject dest = (AnotherTestObject) mapper.map(src, AnotherTestObject.class);
+    AnotherTestObject dest = mapper.map(src, AnotherTestObject.class);
 
     // Custom converter specified for the field1 mapping, so verify custom converter was actually used
     assertNotNull("dest field1 should not be null", dest.getField3());
@@ -54,7 +54,7 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
   public void testGlobalCustomConverter() {
     Individual individual = new Individual();
     individual.setUsername("ABC");
-    Fruit result = (Fruit) mapper.map(individual, Fruit.class, "1");
+    Fruit result = mapper.map(individual, Fruit.class, "1");
     assertNotNull("", result.getName());
     assertTrue(result.getName().startsWith("ABC-null"));
   }
@@ -62,7 +62,7 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
   public void testGlobalCustomConverter_ParamProvided() {
     Individual individual = new Individual();
     individual.setUsername("ABC");
-    Fruit result = (Fruit) mapper.map(individual, Fruit.class, "2");
+    Fruit result =  mapper.map(individual, Fruit.class, "2");
     assertNotNull("", result.getName());
     assertTrue(result.getName().startsWith("ABC-PARAM"));
   }

@@ -23,11 +23,11 @@ package net.sf.dozer;
  */
 public interface Mapper {
 
-  public Object map(Object source, Class destinationClass) throws MappingException;
+  public <T> T map(Object source, Class<T> destinationClass) throws MappingException;
 
   public void map(Object source, Object destination) throws MappingException;
 
-  public Object map(Object source, Class destinationClass, String mapId) throws MappingException;
+  public <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException;
 
   public void map(Object source, Object destination, String mapId) throws MappingException;
 
