@@ -21,7 +21,7 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
   }
 
   public java.lang.String ____jaxb_ri____getNamespaceURI() {
-    return "http://jaxb.vo.mapping.util.dozer.sf.net/Employee";
+    return "http://jaxb.vo..dozer.sf.net/Employee";
   }
 
   public java.lang.String ____jaxb_ri____getLocalName() {
@@ -35,7 +35,7 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
 
   public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
-    context.startElement("http://jaxb.vo.mapping.util.dozer.sf.net/Employee", "EmployeeWithInnerClass");
+    context.startElement("http://jaxb.vo..dozer.sf.net/Employee", "EmployeeWithInnerClass");
     super.serializeURIs(context);
     context.endNamespaceDecls();
     super.serializeAttributes(context);
@@ -106,7 +106,7 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
               + "thInnerClassType.AddressTypet\u0000+http://java.sun.com/jaxb/xjc/"
               + "dummy-elementssq\u0000~\u0000#ppsq\u0000~\u0000%q\u0000~\u0000(pq\u0000~\u0000)q\u0000~\u00002q\u0000~\u00006sq\u0000~\u00000t\u0000\u0007Ad"
               + "dressq\u0000~\u0000:sq\u0000~\u0000#ppsq\u0000~\u0000%q\u0000~\u0000(pq\u0000~\u0000)q\u0000~\u00002q\u0000~\u00006sq\u0000~\u00000t\u0000\u0016Employ"
-              + "eeWithInnerClasst\u00001http://jaxb.vo.mapping.util.dozer.sf.net/"
+              + "eeWithInnerClasst\u00001http://jaxb.vo..dozer.sf.net/"
               + "Employeesr\u0000\"com.sun.msv.grammar.ExpressionPool\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0000\u0001L\u0000\b"
               + "expTablet\u0000/Lcom/sun/msv/grammar/ExpressionPool$ClosedHash;xp"
               + "sr\u0000-com.sun.msv.grammar.ExpressionPool$ClosedHash\u00d7j\u00d0N\u00ef\u00e8\u00ed\u001c\u0003\u0000\u0003"
@@ -149,7 +149,7 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
           revertToParentFromEnterElement(___uri, ___local, ___qname, __atts);
           return;
         case 0:
-          if (("EmployeeWithInnerClass" == ___local) && ("http://jaxb.vo.mapping.util.dozer.sf.net/Employee" == ___uri)) {
+          if (("EmployeeWithInnerClass" == ___local) && ("http://jaxb.vo..dozer.sf.net/Employee" == ___uri)) {
             context.pushAttributes(__atts, false);
             state = 1;
             return;
@@ -167,7 +167,7 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
       outer: while (true) {
         switch (state) {
         case 2:
-          if (("EmployeeWithInnerClass" == ___local) && ("http://jaxb.vo.mapping.util.dozer.sf.net/Employee" == ___uri)) {
+          if (("EmployeeWithInnerClass" == ___local) && ("http://jaxb.vo..dozer.sf.net/Employee" == ___uri)) {
             context.popAttributes();
             state = 3;
             return;

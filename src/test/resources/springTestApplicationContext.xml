@@ -4,7 +4,7 @@
 
 <beans default-lazy-init="false">
 
-  <bean id="net.sf.dozer.MapperIF" class="net.sf.dozer.DozerBeanMapper"
+  <bean id="net.sf.dozer.Mapper" class="net.sf.dozer.DozerBeanMapper"
     singleton="true">
     <property name="mappingFiles">
       <list>

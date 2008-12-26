@@ -173,7 +173,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
    * specific element, thus causing Reflection throws 
    * "java.lang.IllegalArgumentException: object is not an instance of declaring class".
    * 
-   * To fix this problem, let net.sf.dozer.util.mapping.util.XMLParser only replace the last 
+   * To fix this problem, let net.sf.dozer.XMLParser only replace the last 
    * indexes in getFieldNameOfIndexedField.
    */ 
   public void testDeepIndexMappingWithCustomConverter() {

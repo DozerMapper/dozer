@@ -37,9 +37,7 @@ public class XMLParserTest extends AbstractDozerTest {
     parser = new XMLParser();
   }
 
-  /*
-  * Test method for 'net.sf.dozer.util.mapping.util.XMLParser.parse(InputSource)'
-  */
+
   public void testParse() throws Exception {
     ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");

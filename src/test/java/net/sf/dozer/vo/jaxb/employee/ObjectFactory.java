@@ -39,9 +39,9 @@ public class ObjectFactory extends net.sf.dozer.vo.jaxb.employee.impl.runtime.De
         "net.sf.dozer.util.mapping.vo.jaxb.employee.impl.EmployeeImpl");
     defaultImplementations.put((net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType.AddressType.class),
         "net.sf.dozer.util.mapping.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl.AddressTypeImpl");
-    rootTagMap.put(new javax.xml.namespace.QName("http://jaxb.vo.mapping.util.dozer.sf.net/Employee", "EmployeeWithInnerClass"),
+    rootTagMap.put(new javax.xml.namespace.QName("http://jaxb.vo..dozer.sf.net/Employee", "EmployeeWithInnerClass"),
         (net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClass.class));
-    rootTagMap.put(new javax.xml.namespace.QName("http://jaxb.vo.mapping.util.dozer.sf.net/Employee", "Employee"),
+    rootTagMap.put(new javax.xml.namespace.QName("http://jaxb.vo..dozer.sf.net/Employee", "Employee"),
         (net.sf.dozer.vo.jaxb.employee.Employee.class));
   }
 

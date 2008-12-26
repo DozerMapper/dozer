@@ -21,7 +21,7 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
   }
 
   public java.lang.String ____jaxb_ri____getNamespaceURI() {
-    return "http://jaxb.vo.mapping.util.dozer.sf.net/Employee";
+    return "http://jaxb.vo..dozer.sf.net/Employee";
   }
 
   public java.lang.String ____jaxb_ri____getLocalName() {
@@ -35,7 +35,7 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
 
   public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
-    context.startElement("http://jaxb.vo.mapping.util.dozer.sf.net/Employee", "Employee");
+    context.startElement("http://jaxb.vo.dozer.sf.net/Employee", "Employee");
     super.serializeURIs(context);
     context.endNamespaceDecls();
     super.serializeAttributes(context);
@@ -98,7 +98,7 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
               + "\u0000~\u00001q\u0000~\u00005sq\u0000~\u0000/t\u0000\tBirthDateq\u0000~\u00009q\u0000~\u00005sq\u0000~\u0000\u0000pp\u0000sq\u0000~\u0000\u0007ppq\u0000~\u0000\u0011s"
               + "q\u0000~\u0000\"ppsq\u0000~\u0000$q\u0000~\u0000\'pq\u0000~\u0000(q\u0000~\u00001q\u0000~\u00005sq\u0000~\u0000/t\u0000\bLastNameq\u0000~\u00009sq\u0000~"
               + "\u0000\"ppsq\u0000~\u0000$q\u0000~\u0000\'pq\u0000~\u0000(q\u0000~\u00001q\u0000~\u00005sq\u0000~\u0000/t\u0000\bEmployeet\u00001http://ja"
-              + "xb.vo.mapping.util.dozer.sf.net/Employeesr\u0000\"com.sun.msv.gram"
+              + "xb.vo..dozer.sf.net/Employeesr\u0000\"com.sun.msv.gram"
               + "mar.ExpressionPool\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0002\u0000\u0001L\u0000\bexpTablet\u0000/Lcom/sun/msv/gram"
               + "mar/ExpressionPool$ClosedHash;xpsr\u0000-com.sun.msv.grammar.Expr"
               + "essionPool$ClosedHash\u00d7j\u00d0N\u00ef\u00e8\u00ed\u001c\u0003\u0000\u0003I\u0000\u0005countB\u0000\rstreamVersionL\u0000\u0006p"
@@ -129,7 +129,7 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
       outer: while (true) {
         switch (state) {
         case 0:
-          if (("Employee" == ___local) && ("http://jaxb.vo.mapping.util.dozer.sf.net/Employee" == ___uri)) {
+          if (("Employee" == ___local) && ("http://jaxb.vo..dozer.sf.net/Employee" == ___uri)) {
             context.pushAttributes(__atts, false);
             state = 1;
             return;
@@ -161,7 +161,7 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
           revertToParentFromLeaveElement(___uri, ___local, ___qname);
           return;
         case 2:
-          if (("Employee" == ___local) && ("http://jaxb.vo.mapping.util.dozer.sf.net/Employee" == ___uri)) {
+          if (("Employee" == ___local) && ("http://jaxb.vo..dozer.sf.net/Employee" == ___uri)) {
             context.popAttributes();
             state = 3;
             return;

@@ -3,14 +3,14 @@ import java.util.List;
 
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.util.MapperConstants;
-import net.sf.dozer.util.mapping.util.TestDataFactory;
-import net.sf.dozer.util.mapping.vo.ArrayCustConverterObj;
-import net.sf.dozer.util.mapping.vo.ArrayCustConverterObjPrime;
-import net.sf.dozer.util.mapping.vo.SimpleObj;
-import net.sf.dozer.util.mapping.vo.SimpleObjPrime2;
-import net.sf.dozer.util.mapping.vo.TestObject;
-import net.sf.dozer.util.mapping.vo.TestObjectPrime;
+import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.TestDataFactory;
+import net.sf.dozer.vo.ArrayCustConverterObj;
+import net.sf.dozer.vo.ArrayCustConverterObjPrime;
+import net.sf.dozer.vo.SimpleObj;
+import net.sf.dozer.vo.SimpleObjPrime2;
+import net.sf.dozer.vo.TestObject;
+import net.sf.dozer.vo.TestObjectPrime;
 
 public class JMXTestEngine {
 

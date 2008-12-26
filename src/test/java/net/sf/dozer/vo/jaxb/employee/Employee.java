@@ -15,7 +15,7 @@ package net.sf.dozer.vo.jaxb.employee;
  * <p>
  * 
  * <pre>
- * &lt;element name=&quot;Employee&quot; type=&quot;{http://jaxb.vo.mapping.util.dozer.sf.net/Employee}EmployeeType&quot;/&gt;
+ * &lt;element name=&quot;Employee&quot; type=&quot;{http://jaxb.vo..dozer.sf.net/Employee}EmployeeType&quot;/&gt;
  * </pre>
  * 
  */
