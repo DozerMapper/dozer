@@ -1,7 +1,7 @@
 package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.oneway.DestClass;
 import net.sf.dozer.vo.oneway.Holder;
@@ -13,7 +13,7 @@ import net.sf.dozer.vo.oneway.SourceClass;
 public class OneWayMappingTest extends AbstractMapperTest {
 
     public void testOneWay() {
-        MapperIF mapper = getMapper("oneWayMapping.xml");
+        Mapper mapper = getMapper("oneWayMapping.xml");
 
         SourceClass source = new SourceClass("A");
 

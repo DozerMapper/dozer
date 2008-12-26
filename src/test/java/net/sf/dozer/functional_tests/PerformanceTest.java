@@ -16,7 +16,7 @@
 package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.SimpleObj;
 import net.sf.dozer.vo.SimpleObjPrime;
@@ -42,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
 public class PerformanceTest extends AbstractMapperTest {
 
   private static Log log = LogFactory.getLog(PerformanceTest.class);
-  private static MapperIF mapper;
+  private static Mapper mapper;
 
   private int numIters = 1; // Set this attribute to 25000 to run performance regression
 

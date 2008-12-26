@@ -17,7 +17,7 @@ package net.sf.dozer.factory;
 
 import java.lang.reflect.Method;
 
-import net.sf.dozer.BeanFactoryIF;
+import net.sf.dozer.BeanFactory;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.ReflectionUtils;
 
@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Vincent Jassogne
  */
-public class JAXBBeanFactory implements BeanFactoryIF {
+public class JAXBBeanFactory implements BeanFactory {
   private static final Log log = LogFactory.getLog(JAXBBeanFactory.class);
 
   /**

@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.functional_tests.AbstractMapperTest;
 import net.sf.dozer.vo.generics.deepindex.AnotherTestObject;
@@ -43,7 +43,7 @@ import net.sf.dozer.vo.generics.deepindex.TestObjectPrime;
 public class GenericCollectionMappingTest extends AbstractMapperTest {
 
   public void testGenericCollectionMapping() throws Exception {
-    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
 
     // prepare beans
     User user1 = new User();
@@ -95,7 +95,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
   }
   
   public void testDeepMappingWithIndexOnSrcField() {
-    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     
     AnotherTestObject anotherTestObject = new AnotherTestObject();
     anotherTestObject.setField3("another test object field 3 value");
@@ -114,7 +114,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
   }
 
   public void testDeepMappingWithIndexOnDestField() {
-    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     DestDeepObj src = new DestDeepObj();
     src.setDest5("some string value for field");
 
@@ -123,7 +123,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
   }
 
   public void testDeepMapIndexed() throws Exception {
-    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     Pet[] myPets = new Pet[2];
     Family source = new Family("john", "jane", "doe", new Integer(22000), new Integer(20000));
     Pet firstPet = new Pet("molly", 2, null);
@@ -151,7 +151,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
   }
 
   public void testDeepMapInvIndexed() throws Exception {
-    MapperIF mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     HeadOfHouseHold source = new HeadOfHouseHold();
     source.setFirstName("Tom");
     source.setLastName("Roy");

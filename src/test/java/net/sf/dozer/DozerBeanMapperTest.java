@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.MappingException;
 import net.sf.dozer.event.EventTestListener;
 import net.sf.dozer.factories.SampleCustomBeanFactory;
@@ -46,7 +46,7 @@ import net.sf.dozer.vo.deep.House;
  * @author garsombke.franz
  */
 public class DozerBeanMapperTest extends AbstractDozerTest {
-  private static MapperIF mapper;
+  private static Mapper mapper;
   private TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
 
   protected void setUp() throws Exception {
@@ -99,17 +99,17 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   public void testNoMappingFilesSpecified() throws Exception {
     // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
     // automatically.
-    MapperIF mapper = new DozerBeanMapper();
+    Mapper mapper = new DozerBeanMapper();
 
     assertCommon(mapper);
   }
 
   public void testInjectMapperUsingSpring() throws Exception {
     // Try to get mapper from spring. Mapping files are injected via Spring config.
-    MapperIF mapper = (MapperIF) ApplicationBeanFactory.getBean(MapperIF.class);
+    Mapper mapper = (Mapper) ApplicationBeanFactory.getBean(Mapper.class);
     DozerBeanMapper mapperImpl = (DozerBeanMapper) mapper;
 
-    MapperIF cleanMapper = (MapperIF) ApplicationBeanFactory.getBean("cleanMapper");
+    Mapper cleanMapper = (Mapper) ApplicationBeanFactory.getBean("cleanMapper");
     
     assertNotNull("mapper should not be null", mapper);
     assertNotNull("mapping file names should not be null", mapperImpl.getMappingFiles());
@@ -139,13 +139,13 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   public void testSpringNoMappingFilesSpecified() throws Exception {
     // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
     // automatically.
-    MapperIF mapper = (MapperIF) ApplicationBeanFactory.getBean("NoExplicitMappingsMapperIF");
+    Mapper mapper = (Mapper) ApplicationBeanFactory.getBean("NoExplicitMappingsMapperIF");
 
     assertCommon(mapper);
   }
 
   public void testDetectDuplicateMapping() throws Exception {
-    MapperIF myMapper = null;
+    Mapper myMapper = null;
     try {
 
       List mappingFiles = new ArrayList();
@@ -166,7 +166,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     // custom bean factory
     // -----------------------------------------------------------
 
-    MapperIF mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
+    Mapper mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
 
     TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
@@ -202,7 +202,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
   }
 
-  private void assertCommon(MapperIF mapper) throws Exception {
+  private void assertCommon(Mapper mapper) throws Exception {
     TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = (TestObject) mapper.map(prime, TestObject.class);
     TestObjectPrime prime2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
@@ -210,14 +210,14 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertEquals(prime2, prime);
   }
 
-  private MapperIF getNewMapper(String[] mappingFiles) {
+  private Mapper getNewMapper(String[] mappingFiles) {
     List list = new ArrayList();
     if (mappingFiles != null) {
       for (int i = 0; i < mappingFiles.length; i++) {
         list.add(mappingFiles[i]);
       }
     }
-    MapperIF mapper = new DozerBeanMapper();
+    Mapper mapper = new DozerBeanMapper();
     ((DozerBeanMapper) mapper).setMappingFiles(list);
     return mapper;
   }

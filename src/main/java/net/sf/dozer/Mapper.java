@@ -21,7 +21,7 @@ package net.sf.dozer;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public interface MapperIF {
+public interface Mapper {
 
   public Object map(Object source, Class destinationClass) throws MappingException;
 

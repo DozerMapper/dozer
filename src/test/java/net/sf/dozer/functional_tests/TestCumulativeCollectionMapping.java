@@ -16,7 +16,7 @@
 package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.collections.User;
 import net.sf.dozer.vo.collections.UserGroup;
@@ -46,7 +46,7 @@ public class TestCumulativeCollectionMapping extends AbstractMapperTest {
     assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
     // get mapper
-    MapperIF mapper = getMapper(new String[] { "mapping-interface.xml" });
+    Mapper mapper = getMapper(new String[] { "mapping-interface.xml" });
 
     // do mapping
     UserGroupPrime userGroupPrime = (UserGroupPrime) mapper.map(userGroup, UserGroupPrime.class);
@@ -79,7 +79,7 @@ public class TestCumulativeCollectionMapping extends AbstractMapperTest {
     assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
     // get mapper
-    MapperIF mapper = getMapper(new String[] { "mapping-concrete.xml" });
+    Mapper mapper = getMapper(new String[] { "mapping-concrete.xml" });
 
     // do mapping
     UserGroupPrime userGroupPrime = (UserGroupPrime) mapper.map(userGroup, UserGroupPrime.class);

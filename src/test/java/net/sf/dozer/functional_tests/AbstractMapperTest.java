@@ -21,7 +21,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.util.MapperConstants;
 import net.sf.dozer.util.TestDataFactory;
 
@@ -30,7 +30,7 @@ import net.sf.dozer.util.TestDataFactory;
  * @author garsombke.franz
  */
 public abstract class AbstractMapperTest extends TestCase {
-  protected MapperIF mapper;
+  protected Mapper mapper;
   protected TestDataFactory testDataFactory = new TestDataFactory(getDataObjectInstantiator());
 
   protected abstract DataObjectInstantiator getDataObjectInstantiator();
@@ -42,18 +42,18 @@ public abstract class AbstractMapperTest extends TestCase {
     mapper = new DozerBeanMapper();
   }
 
-  protected MapperIF getMapper(String mappingFile) {
+  protected Mapper getMapper(String mappingFile) {
       return getMapper(new String[] {mappingFile});
   }
 
-  protected MapperIF getMapper(String[] mappingFiles) {
+  protected Mapper getMapper(String[] mappingFiles) {
     List list = new ArrayList();
     if (mappingFiles != null) {
       for (int i = 0; i < mappingFiles.length; i++) {
         list.add(mappingFiles[i]);
       }
     }
-    MapperIF result = new DozerBeanMapper();
+    Mapper result = new DozerBeanMapper();
     ((DozerBeanMapper) result).setMappingFiles(list);
     return result;
   }

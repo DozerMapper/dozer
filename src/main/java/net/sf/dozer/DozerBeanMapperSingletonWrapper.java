@@ -30,12 +30,12 @@ import net.sf.dozer.util.MapperConstants;
  */
 public class DozerBeanMapperSingletonWrapper {
 
-  private static MapperIF instance;
+  private static Mapper instance;
 
   private DozerBeanMapperSingletonWrapper() {
   }
 
-  public static synchronized MapperIF getInstance() {
+  public static synchronized Mapper getInstance() {
     if (instance == null) {
       List mappingFiles = new ArrayList();
       mappingFiles.add(MapperConstants.DEFAULT_MAPPING_FILE);

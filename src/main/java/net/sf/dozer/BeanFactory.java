@@ -36,7 +36,7 @@ package net.sf.dozer;
  * 
  * @author tierney.matt
  */
-public interface BeanFactoryIF {
+public interface BeanFactory {
 
   // Need sourceObjClass in case sourceObj is null
   public Object createBean(Object source, Class sourceClass, String targetBeanId);

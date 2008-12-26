@@ -17,7 +17,7 @@ package net.sf.dozer.factory;
 
 import java.lang.reflect.Method;
 
-import net.sf.dozer.BeanFactoryIF;
+import net.sf.dozer.BeanFactory;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.ReflectionUtils;
 
@@ -26,7 +26,7 @@ import net.sf.dozer.util.ReflectionUtils;
  * 
  * @author garsombke.franz
  */
-public class XMLBeanFactory implements BeanFactoryIF {
+public class XMLBeanFactory implements BeanFactory {
   private static Class[] emptyArglist = new Class[0];
   /**
    * Creat a bean implementation of a xml bean interface.

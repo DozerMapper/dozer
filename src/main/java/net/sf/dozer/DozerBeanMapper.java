@@ -47,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DozerBeanMapper implements MapperIF {
+public class DozerBeanMapper implements Mapper {
 
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
   private static final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
@@ -62,7 +62,7 @@ public class DozerBeanMapper implements MapperIF {
   private List mappingFiles; // String file names
   private List customConverters;
   private List eventListeners;
-  private CustomFieldMapperIF customFieldMapper;
+  private CustomFieldMapper customFieldMapper;
   private Map customConvertersWithId;
 
   /*
@@ -127,16 +127,16 @@ public class DozerBeanMapper implements MapperIF {
     statsMgr.increment(StatisticTypeConstants.MAPPER_INSTANCES_COUNT);
   }
 
-  protected MapperIF getMappingProcessor() {
+  protected Mapper getMappingProcessor() {
     if (customMappings == null) {
       loadCustomMappings();
     }
-    MapperIF processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
+    Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
         getEventListeners(), getCustomFieldMapper(), customConvertersWithId);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
-      processor = (MapperIF) Proxy.newProxyInstance(processor.getClass().getClassLoader(), processor.getClass().getInterfaces(),
+      processor = (Mapper) Proxy.newProxyInstance(processor.getClass().getClassLoader(), processor.getClass().getInterfaces(),
           new StatisticsInterceptor(processor, statsMgr));
     }
 
@@ -160,11 +160,11 @@ public class DozerBeanMapper implements MapperIF {
     this.eventListeners = eventListeners;
   }
 
-  public CustomFieldMapperIF getCustomFieldMapper() {
+  public CustomFieldMapper getCustomFieldMapper() {
     return customFieldMapper;
   }
 
-  public void setCustomFieldMapper(CustomFieldMapperIF customFieldMapper) {
+  public void setCustomFieldMapper(CustomFieldMapper customFieldMapper) {
     this.customFieldMapper = customFieldMapper;
   }
 

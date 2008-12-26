@@ -16,7 +16,7 @@
 package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.Car;
 import net.sf.dozer.vo.InsideTestObject;
@@ -60,7 +60,7 @@ public class DeepMappingTest extends AbstractMapperTest {
   }
 
   public void testDeepInterfaceWithHint() throws Exception {
-    MapperIF mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
     House house = (House) newInstance(House.class);
     MetalThingyIF thingy = (MetalThingyIF) newInstance(Car.class);

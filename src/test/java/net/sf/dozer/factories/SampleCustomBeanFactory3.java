@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.factories;
 
-import net.sf.dozer.BeanFactoryIF;
+import net.sf.dozer.BeanFactory;
 import net.sf.dozer.vo.Car;
 
 /**
@@ -24,7 +24,7 @@ import net.sf.dozer.vo.Car;
  * @author tierney.matt
  * 
  */
-public class SampleCustomBeanFactory3 implements BeanFactoryIF {
+public class SampleCustomBeanFactory3 implements BeanFactory {
 
   public Object createBean(Object srcObj, Class srcObjClass, String id) {
     try {

@@ -72,7 +72,7 @@ import org.apache.commons.logging.LogFactory;
  * @author johnsen.knut-erik
  * 
  */
-public class MappingProcessor implements MapperIF {
+public class MappingProcessor implements Mapper {
 
   private static final Log log = LogFactory.getLog(MappingProcessor.class);
 
@@ -82,7 +82,7 @@ public class MappingProcessor implements MapperIF {
   private final Map customConverterObjectsWithId; // key/value pair of custom converter id and object instance
   private final StatisticsManager statsMgr;
   private final EventManager eventMgr;
-  private final CustomFieldMapperIF customFieldMapper;
+  private final CustomFieldMapper customFieldMapper;
   private final Map mappedFields = new HashMap();
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
@@ -91,7 +91,7 @@ public class MappingProcessor implements MapperIF {
   private static final String BASE_CLASS = "java.lang.Object"; // TODO Move to Constants
 
   protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManager cacheMgr,
-      StatisticsManager statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapperIF customFieldMapper,
+      StatisticsManager statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapper customFieldMapper,
       Map customConverterObjectsWithId) {
     this.customMappings = customMappings;
     this.globalConfiguration = globalConfiguration;

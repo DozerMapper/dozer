@@ -20,7 +20,7 @@ import java.util.List;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.NoSuperClass;
 import net.sf.dozer.vo.SubClass;
@@ -330,7 +330,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     request.setAge("2");
     request.setColor("blue");
 
-    MapperIF mapper = getMapper(new String[] { "kmmapping.xml" });
+    Mapper mapper = getMapper(new String[] { "kmmapping.xml" });
 
     Super afterMapping = (Super) mapper.map(request, Super.class);
 
@@ -355,7 +355,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     property.setMapMe(nestedProperty);
     request.setProperty(property);
 
-    MapperIF mapper = getMapper(new String[] { "kmmapping.xml" });
+    Mapper mapper = getMapper(new String[] { "kmmapping.xml" });
 
     SomeVo afterMapping = (SomeVo) mapper.map(request, SomeVo.class);
 

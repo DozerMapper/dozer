@@ -15,7 +15,7 @@
  */
 package net.sf.dozer.fieldmapper;
 
-import net.sf.dozer.CustomFieldMapperIF;
+import net.sf.dozer.CustomFieldMapper;
 import net.sf.dozer.MappingException;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.fieldmap.FieldMap;
@@ -25,7 +25,7 @@ import net.sf.dozer.vo.SimpleObjPrime;
 /**
  * @author tierney.matt
  */
-public class TestCustomFieldMapper implements CustomFieldMapperIF {
+public class TestCustomFieldMapper implements CustomFieldMapper {
 
   public static String FIELD_VALUE = "This field was set on the dest object by the TestCustomFieldMapper";
 

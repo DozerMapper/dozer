@@ -17,7 +17,7 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapperSingletonWrapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.C;
 import net.sf.dozer.vo.LoopObjectChild;
@@ -44,7 +44,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
   }
 
   public void testBidirectionalWithCustomMapping() throws Exception {
-    MapperIF mapper = getMapper(new String[] { "infiniteLoopMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "infiniteLoopMapping.xml" });
     LoopObjectParent loopObjectParent = (LoopObjectParent) newInstance(LoopObjectParent.class);
     LoopObjectChild loopObjectChild = (LoopObjectChild) newInstance(LoopObjectChild.class);
     loopObjectChild.setParent(loopObjectParent);
@@ -71,7 +71,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
       a.getCs()[i] = c;
     }
 
-    MapperIF mapper = DozerBeanMapperSingletonWrapper.getInstance();
+    Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
     mapper.map(a, b);
 
     // Check if C object nr i holds value i after the mapping

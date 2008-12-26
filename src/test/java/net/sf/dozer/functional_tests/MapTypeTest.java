@@ -23,7 +23,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.TestObject;
 import net.sf.dozer.vo.TestObjectPrime;
@@ -164,7 +164,7 @@ public class MapTypeTest extends AbstractMapperTest {
   }
 
   public void testMapToMap() throws Exception {
-    MapperIF mapper = getMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setOne("one");
     TestObject to2 = (TestObject) newInstance(TestObject.class);
@@ -188,7 +188,7 @@ public class MapTypeTest extends AbstractMapperTest {
   }
 
   public void testMapToMapExistingDestination() throws Exception {
-    MapperIF mapper = getMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
+    Mapper mapper = getMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setOne("one");
     TestObject to2 = (TestObject) newInstance(TestObject.class);

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -62,7 +62,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     return this.beanMapper;
   }
   public final Class getObjectType() {
-    return MapperIF.class;
+    return Mapper.class;
   }
   public final boolean isSingleton() {
     return true;

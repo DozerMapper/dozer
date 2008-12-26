@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-import net.sf.dozer.BeanFactoryIF;
+import net.sf.dozer.BeanFactory;
 import net.sf.dozer.MappingException;
 
 import org.apache.commons.logging.Log;
@@ -116,14 +116,14 @@ public final class DestBeanCreator {
     // By default, use dest object class name for factory bean id
     String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
 
-    BeanFactoryIF factory = (BeanFactoryIF) MappingUtils.storedFactories.get(factoryName);
+    BeanFactory factory = (BeanFactory) MappingUtils.storedFactories.get(factoryName);
 
     if (factory == null) {
       Class factoryClass = MappingUtils.loadClass(factoryName);
-      if (!BeanFactoryIF.class.isAssignableFrom(factoryClass)) {
+      if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
         MappingUtils.throwMappingException("Custom bean factory must implement the BeanFactoryIF interface.");
       }
-      factory = (BeanFactoryIF) newInstance(factoryClass);
+      factory = (BeanFactory) newInstance(factoryClass);
       // put the created factory in our factory map
       MappingUtils.storedFactories.put(factoryName, factory);
     }

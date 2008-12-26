@@ -19,7 +19,7 @@ import java.util.*;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.Apple;
 import net.sf.dozer.vo.Car;
@@ -97,7 +97,7 @@ public class MapperTest extends AbstractMapperTest {
   }
 
   public void testNoClassMappings() throws Exception {
-    MapperIF mapper = new DozerBeanMapper();
+    Mapper mapper = new DozerBeanMapper();
     // Should attempt mapping even though it is not in the beanmapping.xml file
     NoCustomMappingsObjectPrime dest1 = (NoCustomMappingsObjectPrime) mapper.map(testDataFactory
         .getInputTestNoClassMappingsNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);

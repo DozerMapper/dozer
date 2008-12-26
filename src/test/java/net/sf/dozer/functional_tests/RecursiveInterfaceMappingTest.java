@@ -21,7 +21,7 @@ import java.util.List;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.interfacerecursion.User;
 import net.sf.dozer.vo.interfacerecursion.UserGroup;
@@ -64,7 +64,7 @@ public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
     // get mapper
     List mappingFiles = new ArrayList();
     mappingFiles.add("interface-recursion-mappings.xml");
-    MapperIF mapper = new DozerBeanMapper(mappingFiles);
+    Mapper mapper = new DozerBeanMapper(mappingFiles);
 
     // do mapping
     UserGroupPrime userGroupPrime = null;

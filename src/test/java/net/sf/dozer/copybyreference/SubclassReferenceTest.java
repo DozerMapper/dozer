@@ -19,10 +19,10 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 
 public class SubclassReferenceTest extends TestCase {
-  MapperIF mapper;
+  Mapper mapper;
   TestA testA;
   TestB testB;
 

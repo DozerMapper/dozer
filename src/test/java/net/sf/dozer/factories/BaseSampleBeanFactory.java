@@ -17,12 +17,12 @@ package net.sf.dozer.factories;
 
 import java.lang.reflect.Method;
 
-import net.sf.dozer.BeanFactoryIF;
+import net.sf.dozer.BeanFactory;
 
 /**
  * @author tierney.matt
  */
-public abstract class BaseSampleBeanFactory implements BeanFactoryIF {
+public abstract class BaseSampleBeanFactory implements BeanFactory {
 
   protected static void setCreatedByFactoryName(Object target, String name) {
     try {

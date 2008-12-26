@@ -24,7 +24,7 @@ import java.util.List;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.MapperIF;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.spring.DozerBeanMapperFactoryBean;
 
 import org.springframework.core.io.Resource;
@@ -53,7 +53,7 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
 
     factory.afterPropertiesSet();
 
-    assertEquals(MapperIF.class, factory.getObjectType());
+    assertEquals(Mapper.class, factory.getObjectType());
     assertTrue(factory.isSingleton());
 
     DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();

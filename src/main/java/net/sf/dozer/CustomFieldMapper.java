@@ -29,7 +29,7 @@ import net.sf.dozer.fieldmap.FieldMap;
  * 
  * @author Gerard Toonstra
  */
-public interface CustomFieldMapperIF {
+public interface CustomFieldMapper {
 
   public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping);
 

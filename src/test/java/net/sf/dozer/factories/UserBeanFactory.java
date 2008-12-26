@@ -16,7 +16,7 @@
 
 package net.sf.dozer.factories;
 
-import net.sf.dozer.BeanFactoryIF;
+import net.sf.dozer.BeanFactory;
 import net.sf.dozer.vo.interfacerecursion.User;
 import net.sf.dozer.vo.interfacerecursion.UserGroup;
 import net.sf.dozer.vo.interfacerecursion.UserGroupImpl;
@@ -29,7 +29,7 @@ import net.sf.dozer.vo.interfacerecursion.UserPrimeImpl;
 /**
  * @author Christoph Goldner 
  */
-public class UserBeanFactory implements BeanFactoryIF {
+public class UserBeanFactory implements BeanFactory {
 
     public Object createBean(Object aSrcObj, Class aSrcObjClass, String aTargetBeanId) throws RuntimeException {
         
