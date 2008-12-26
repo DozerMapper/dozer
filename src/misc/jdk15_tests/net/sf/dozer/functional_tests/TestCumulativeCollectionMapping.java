@@ -15,10 +15,9 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.functional_tests.AbstractMapperTest;
-import net.sf.dozer.functional_tests.DataObjectInstantiator;
-import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.collections.User;
 import net.sf.dozer.util.mapping.vo.collections.UserGroup;
 import net.sf.dozer.util.mapping.vo.collections.UserGroupImpl;

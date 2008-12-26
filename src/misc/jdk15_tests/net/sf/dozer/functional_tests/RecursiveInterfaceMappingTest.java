@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.framework.TestCase;
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.DozerBeanMapper;
 import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.interfacerecursion.User;
 import net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroup;
 import net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroupImpl;

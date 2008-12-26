@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.dozer.functional_tests.AbstractMapperTest;
-import net.sf.dozer.functional_tests.DataObjectInstantiator;
-import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
+import net.sf.dozer.util.mapping.DataObjectInstantiator;
 import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.vo.generics.deepindex.AnotherTestObject;
 import net.sf.dozer.util.mapping.vo.generics.deepindex.DestDeepObj;
 import net.sf.dozer.util.mapping.vo.generics.deepindex.Family;
