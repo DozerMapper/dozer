@@ -120,7 +120,7 @@ public class EnumMappingTest extends AbstractMapperTest {
     MyBean src = new MyBean();
     src.setSrcType(SrcType.BAR);
     try {
-      MyBean dest = mapper.map(src, MyBean.class);
+      MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
       fail("Expect to throw exception but didn't.");
     } catch (Exception e){
       //expect exception
