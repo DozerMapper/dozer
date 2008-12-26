@@ -3,8 +3,8 @@
 <mappings>
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.util.mapping.vo.inheritance.twolevel.C</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.inheritance.twolevel.A</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.inheritance.twolevel.C</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.inheritance.twolevel.A</class-b>
     <field>
       <a>a</a>
       <b>a</b>
@@ -13,8 +13,8 @@
 
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.util.mapping.vo.inheritance.twolevel.C</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.inheritance.twolevel.B</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.inheritance.twolevel.C</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.inheritance.twolevel.B</class-b>
     <field>
       <a>b</a>
       <b>b</b>

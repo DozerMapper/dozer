@@ -15,8 +15,8 @@
  */
 package net.sf.dozer.functional_tests.generics;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.ProxyDataObjectInstantiator;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.ProxyDataObjectInstantiator;
 
 /**
  * @author tierney.matt

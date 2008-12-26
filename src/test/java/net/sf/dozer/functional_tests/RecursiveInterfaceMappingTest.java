@@ -19,16 +19,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.interfacerecursion.User;
-import net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroup;
-import net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroupImpl;
-import net.sf.dozer.util.mapping.vo.interfacerecursion.UserGroupPrime;
-import net.sf.dozer.util.mapping.vo.interfacerecursion.UserImpl;
-import net.sf.dozer.util.mapping.vo.interfacerecursion.UserPrime;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.DozerBeanMapper;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.interfacerecursion.User;
+import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroup;
+import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupImpl;
+import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupPrime;
+import net.sf.dozer.functional_tests.vo.interfacerecursion.UserImpl;
+import net.sf.dozer.functional_tests.vo.interfacerecursion.UserPrime;
 
 /**
  * @author Christoph Goldner

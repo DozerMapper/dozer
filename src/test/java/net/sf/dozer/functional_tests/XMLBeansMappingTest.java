@@ -20,15 +20,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.pmonks.xml.dozer.test.ChildType;
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.AnotherTestObject;
-import net.sf.dozer.util.mapping.vo.Child;
-import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument;
-import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeResponseDocument;
-import net.sf.dozer.util.mapping.vo.TestObject;
-import net.sf.dozer.util.mapping.vo.WeatherData;
-import net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.AnotherTestObject;
+import net.sf.dozer.functional_tests.vo.Child;
+import net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeDocument;
+import net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeResponseDocument;
+import net.sf.dozer.functional_tests.vo.TestObject;
+import net.sf.dozer.functionalTests.vo.WeatherData;
+import net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
 
 /**
  * @author tierney.matt

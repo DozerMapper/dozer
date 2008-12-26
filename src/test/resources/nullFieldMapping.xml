@@ -4,8 +4,8 @@
 <mappings>
 
   <mapping map-null="false" map-empty-string="false">
-    <class-a>net.sf.dozer.util.mapping.vo.AnotherTestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.AnotherTestObject</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.AnotherTestObjectPrime</class-b>
     <field>
       <a>field4</a>
       <b>to.one</b>
@@ -13,8 +13,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b map-null="false" map-empty-string="false">net.sf.dozer.util.mapping.vo.TestObjectPrime2</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.TestObject</class-a>
+    <class-b map-null="false" map-empty-string="false">net.sf.dozer.functional_tests.vo.TestObjectPrime2</class-b>
   </mapping>
 
 </mappings>

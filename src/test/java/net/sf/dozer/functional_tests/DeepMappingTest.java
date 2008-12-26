@@ -15,20 +15,20 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.Car;
-import net.sf.dozer.util.mapping.vo.InsideTestObject;
-import net.sf.dozer.util.mapping.vo.InsideTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.MetalThingyIF;
-import net.sf.dozer.util.mapping.vo.deep.DestDeepObj;
-import net.sf.dozer.util.mapping.vo.deep.HomeDescription;
-import net.sf.dozer.util.mapping.vo.deep.House;
-import net.sf.dozer.util.mapping.vo.deep.Person;
-import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
-import net.sf.dozer.util.mapping.vo.deep2.Dest;
-import net.sf.dozer.util.mapping.vo.deep2.Src;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.Car;
+import net.sf.dozer.functional_tests.vo.InsideTestObject;
+import net.sf.dozer.functional_tests.vo.InsideTestObjectPrime;
+import net.sf.dozer.functional_tests.vo.MetalThingyIF;
+import net.sf.dozer.functional_tests.vo.deep.DestDeepObj;
+import net.sf.dozer.functional_tests.vo.deep.HomeDescription;
+import net.sf.dozer.functional_tests.vo.deep.House;
+import net.sf.dozer.functional_tests.vo.deep.Person;
+import net.sf.dozer.functional_tests.vo.deep.SrcDeepObj;
+import net.sf.dozer.functional_tests.vo.deep2.Dest;
+import net.sf.dozer.functional_tests.vo.deep2.Src;
 
 /**
  * @author tierney.matt

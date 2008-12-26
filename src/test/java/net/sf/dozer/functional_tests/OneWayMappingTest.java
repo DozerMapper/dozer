@@ -1,25 +1,11 @@
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.oneway.SourceClass;
-import net.sf.dozer.util.mapping.vo.oneway.DestClass;
-import net.sf.dozer.util.mapping.vo.oneway.Holder;/*
- * Copyright 2005-2008 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.oneway.DestClass;
+import net.sf.dozer.functional_tests.vo.oneway.Holder;
+import net.sf.dozer.functional_tests.vo.oneway.SourceClass;
 
 /**
  * @author Dmitry Buzdin

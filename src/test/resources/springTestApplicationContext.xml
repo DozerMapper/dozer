@@ -4,7 +4,7 @@
 
 <beans default-lazy-init="false">
 
-  <bean id="net.sf.dozer.util.mapping.MapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper"
+  <bean id="net.sf.dozer.MapperIF" class="net.sf.dozer.DozerBeanMapper"
     singleton="true">
     <property name="mappingFiles">
       <list>
@@ -15,7 +15,7 @@
     <property name="factories">
       <map>
         <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
-        <entry key="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory">
+        <entry key="net.sf.dozer.factories.SampleCustomBeanFactory">
           <ref bean="sampleCustomBeanFactory" />
         </entry>
         <!-- more factories can be supplied with additional entry's -->
@@ -23,9 +23,9 @@
     </property>
   </bean>
 
-  <bean id="NoExplicitMappingsMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true" />
+  <bean id="NoExplicitMappingsMapperIF" class="net.sf.dozer.DozerBeanMapper" singleton="true" />
 
-  <bean id="cleanMapper" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+  <bean id="cleanMapper" class="net.sf.dozer.DozerBeanMapper" singleton="true">
     <property name="mappingFiles">
       <list>
         <value>useCustomConverter.xml</value>
@@ -39,11 +39,11 @@
     </property>
   </bean>
 
-  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory"
+  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.factories.SampleCustomBeanFactory"
     singleton="true" />
 
   <!-- custom converter -->
-  <bean id="customConverterTest" class="net.sf.dozer.util.mapping.converters.InjectedCustomConverter"
+  <bean id="customConverterTest" class="net.sf.dozer.converters.InjectedCustomConverter"
     singleton="true">
     <property name="injectedName">
       <value>injectedName</value>

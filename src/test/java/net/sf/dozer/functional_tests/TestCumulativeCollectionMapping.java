@@ -15,14 +15,14 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.collections.User;
-import net.sf.dozer.util.mapping.vo.collections.UserGroup;
-import net.sf.dozer.util.mapping.vo.collections.UserGroupImpl;
-import net.sf.dozer.util.mapping.vo.collections.UserGroupPrime;
-import net.sf.dozer.util.mapping.vo.collections.UserImpl;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.collections.User;
+import net.sf.dozer.functional_tests.vo.collections.UserGroup;
+import net.sf.dozer.functional_tests.vo.collections.UserGroupImpl;
+import net.sf.dozer.functional_tests.vo.collections.UserGroupPrime;
+import net.sf.dozer.functional_tests.vo.collections.UserImpl;
 
 public class TestCumulativeCollectionMapping extends AbstractMapperTest {
 

@@ -26,60 +26,60 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import net.sf.dozer.util.mapping.CustomFieldMapperIF;
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.MappingException;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.fieldmapper.TestCustomFieldMapper;
-import net.sf.dozer.util.mapping.util.CollectionUtils;
-import net.sf.dozer.util.mapping.vo.AnotherTestObject;
-import net.sf.dozer.util.mapping.vo.AnotherTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.FieldValue;
-import net.sf.dozer.util.mapping.vo.Fruit;
-import net.sf.dozer.util.mapping.vo.InsideTestObject;
-import net.sf.dozer.util.mapping.vo.MethodFieldTestObject;
-import net.sf.dozer.util.mapping.vo.MethodFieldTestObject2;
-import net.sf.dozer.util.mapping.vo.NoDefaultConstructor;
-import net.sf.dozer.util.mapping.vo.NoReadMethod;
-import net.sf.dozer.util.mapping.vo.NoReadMethodPrime;
-import net.sf.dozer.util.mapping.vo.NoWriteMethod;
-import net.sf.dozer.util.mapping.vo.NoWriteMethodPrime;
-import net.sf.dozer.util.mapping.vo.PrimitiveArrayObj;
-import net.sf.dozer.util.mapping.vo.PrimitiveArrayObjPrime;
-import net.sf.dozer.util.mapping.vo.SimpleObj;
-import net.sf.dozer.util.mapping.vo.SimpleObjPrime;
-import net.sf.dozer.util.mapping.vo.TestObject;
-import net.sf.dozer.util.mapping.vo.TestObjectPrime;
-import net.sf.dozer.util.mapping.vo.TestObjectPrime2;
-import net.sf.dozer.util.mapping.vo.allowedexceptions.TestException;
-import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowException;
-import net.sf.dozer.util.mapping.vo.allowedexceptions.ThrowExceptionPrime;
-import net.sf.dozer.util.mapping.vo.context.ContextMapping;
-import net.sf.dozer.util.mapping.vo.context.ContextMappingNested;
-import net.sf.dozer.util.mapping.vo.context.ContextMappingNestedPrime;
-import net.sf.dozer.util.mapping.vo.context.ContextMappingPrime;
-import net.sf.dozer.util.mapping.vo.iface.ApplicationUser;
-import net.sf.dozer.util.mapping.vo.iface.UpdateMember;
-import net.sf.dozer.util.mapping.vo.index.Mccoy;
-import net.sf.dozer.util.mapping.vo.index.MccoyPrime;
-import net.sf.dozer.util.mapping.vo.isaccessible.Foo;
-import net.sf.dozer.util.mapping.vo.isaccessible.FooPrime;
-import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBean;
-import net.sf.dozer.util.mapping.vo.isaccessible.PrivateConstructorBeanPrime;
-import net.sf.dozer.util.mapping.vo.orphan.Child;
-import net.sf.dozer.util.mapping.vo.orphan.ChildPrime;
-import net.sf.dozer.util.mapping.vo.orphan.Parent;
-import net.sf.dozer.util.mapping.vo.orphan.ParentPrime;
-import net.sf.dozer.util.mapping.vo.perf.MyClassA;
-import net.sf.dozer.util.mapping.vo.perf.MyClassB;
-import net.sf.dozer.util.mapping.vo.set.NamesArray;
-import net.sf.dozer.util.mapping.vo.set.NamesSet;
-import net.sf.dozer.util.mapping.vo.set.NamesSortedSet;
-import net.sf.dozer.util.mapping.vo.set.SomeDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeOtherDTO;
-import net.sf.dozer.util.mapping.vo.set.SomeVO;
+import net.sf.dozer.CustomFieldMapperIF;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.DozerBeanMapper;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.MappingException;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.fieldmapper.TestCustomFieldMapper;
+import net.sf.dozer.functional_tests.vo.AnotherTestObject;
+import net.sf.dozer.functional_tests.vo.AnotherTestObjectPrime;
+import net.sf.dozer.functional_tests.vo.FieldValue;
+import net.sf.dozer.functional_tests.vo.Fruit;
+import net.sf.dozer.functional_tests.vo.InsideTestObject;
+import net.sf.dozer.functional_tests.vo.MethodFieldTestObject;
+import net.sf.dozer.functional_tests.vo.MethodFieldTestObject2;
+import net.sf.dozer.functional_tests.vo.NoDefaultConstructor;
+import net.sf.dozer.functional_tests.vo.NoReadMethod;
+import net.sf.dozer.functional_tests.vo.NoReadMethodPrime;
+import net.sf.dozer.functional_tests.vo.NoWriteMethod;
+import net.sf.dozer.functional_tests.vo.NoWriteMethodPrime;
+import net.sf.dozer.functional_tests.vo.PrimitiveArrayObj;
+import net.sf.dozer.functional_tests.vo.PrimitiveArrayObjPrime;
+import net.sf.dozer.functional_tests.vo.SimpleObj;
+import net.sf.dozer.functional_tests.vo.SimpleObjPrime;
+import net.sf.dozer.functional_tests.vo.TestObject;
+import net.sf.dozer.functional_tests.vo.TestObjectPrime;
+import net.sf.dozer.functional_tests.vo.TestObjectPrime2;
+import net.sf.dozer.functional_tests.vo.allowedexceptions.TestException;
+import net.sf.dozer.functional_tests.vo.allowedexceptions.ThrowException;
+import net.sf.dozer.functional_tests.vo.allowedexceptions.ThrowExceptionPrime;
+import net.sf.dozer.functional_tests.vo.context.ContextMapping;
+import net.sf.dozer.functional_tests.vo.context.ContextMappingNested;
+import net.sf.dozer.functional_tests.vo.context.ContextMappingNestedPrime;
+import net.sf.dozer.functional_tests.vo.context.ContextMappingPrime;
+import net.sf.dozer.functional_tests.vo.iface.ApplicationUser;
+import net.sf.dozer.functional_tests.vo.iface.UpdateMember;
+import net.sf.dozer.functional_tests.vo.index.Mccoy;
+import net.sf.dozer.functional_tests.vo.index.MccoyPrime;
+import net.sf.dozer.functional_tests.vo.isaccessible.Foo;
+import net.sf.dozer.functional_tests.vo.isaccessible.FooPrime;
+import net.sf.dozer.functional_tests.vo.isaccessible.PrivateConstructorBean;
+import net.sf.dozer.functional_tests.vo.isaccessible.PrivateConstructorBeanPrime;
+import net.sf.dozer.functional_tests.vo.orphan.Child;
+import net.sf.dozer.functional_tests.vo.orphan.ChildPrime;
+import net.sf.dozer.functional_tests.vo.orphan.Parent;
+import net.sf.dozer.functional_tests.vo.orphan.ParentPrime;
+import net.sf.dozer.functional_tests.vo.perf.MyClassA;
+import net.sf.dozer.functional_tests.vo.perf.MyClassB;
+import net.sf.dozer.functional_tests.vo.set.NamesArray;
+import net.sf.dozer.functional_tests.vo.set.NamesSet;
+import net.sf.dozer.functional_tests.vo.set.NamesSortedSet;
+import net.sf.dozer.functional_tests.vo.set.SomeDTO;
+import net.sf.dozer.functional_tests.vo.set.SomeOtherDTO;
+import net.sf.dozer.functional_tests.vo.set.SomeVO;
+import net.sf.dozer.util.CollectionUtils;
 
 /**
  * @author garsombke.franz
@@ -91,7 +91,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
       mapper.map("test", NoDefaultConstructor.class);
       fail("should have thrown exception");
     } catch (MappingException e) {
-      assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.util.mapping.vo.NoDefaultConstructor.<init>()", e.getMessage());
+      assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.functional_tests.vo.NoDefaultConstructor.<init>()", e.getMessage());
     }
   }
 
@@ -573,7 +573,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     TestObjectPrime dest = (TestObjectPrime) mapper.map((TestObject) newInstance(TestObject.class), TestObjectPrime.class);
 
     assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
-    assertEquals("", "net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
+    assertEquals("", "net.sf.dozer.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
   }
 
   public void testStringToDateMapping() throws Exception {

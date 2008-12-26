@@ -15,9 +15,9 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.DozerBeanMapper;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
 
 import java.util.ArrayList;
 

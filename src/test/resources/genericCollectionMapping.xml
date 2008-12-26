@@ -22,8 +22,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.generics.deepindex.SrcDeepObj</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.generics.deepindex.DestDeepObj</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.generics.deepindex.SrcDeepObj</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.generics.deepindex.DestDeepObj</class-b>
     <field>
       <a>someList[1].equalNamedList[0].field3</a>
       <b>dest5</b>
@@ -35,8 +35,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.generics.deepindex.HeadOfHouseHold</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.generics.deepindex.Family</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.generics.deepindex.HeadOfHouseHold</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.generics.deepindex.Family</class-b>
     <field>
       <a>firstName</a>
       <b>familyMembers[0].firstName</b>

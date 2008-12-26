@@ -10,24 +10,24 @@
     <wildcard>false</wildcard><!-- default wildcard policy that will apply to all class maps unless the class mapping explicitly overrides it -->
 
     <copy-by-references>
-      <copy-by-reference>net.sf.dozer.util.mapping.vo.NoExtendBaseObjectGlobalCopyByReference</copy-by-reference>
+      <copy-by-reference>net.sf.dozer.functional_tests.vo.NoExtendBaseObjectGlobalCopyByReference</copy-by-reference>
     </copy-by-references>
 
   </configuration>
 
   <mapping stop-on-errors="true">
-    <class-a>net.sf.dozer.util.mapping.vo.FurtherTestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.Car</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.FurtherTestObject</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.Car</class-b>
   </mapping>
 
   <mapping wildcard="true">
-    <class-a>net.sf.dozer.util.mapping.vo.SuperSuperSuperClass</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.SuperSuperSuperClassPrime</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.SuperSuperSuperClass</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.SuperSuperSuperClassPrime</class-b>
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.TestObjectPrime</class-b>
 
     <field copy-by-reference="false">
       <a>globalCopyByReference</a>

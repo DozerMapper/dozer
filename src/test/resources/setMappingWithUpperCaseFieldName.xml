@@ -4,13 +4,13 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.set.SomeDTO</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.set.SomeVO</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.set.SomeDTO</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.set.SomeVO</class-b>
     <field>
       <a>Field2</a>
       <b>Field2</b>
-      <a-hint>net.sf.dozer.util.mapping.vo.set.SomeOtherDTO</a-hint>
-      <b-hint>net.sf.dozer.util.mapping.vo.set.SomeOtherVO</b-hint>
+      <a-hint>net.sf.dozer.functional_tests.vo.set.SomeOtherDTO</a-hint>
+      <b-hint>net.sf.dozer.functional_tests.vo.set.SomeOtherVO</b-hint>
     </field>
   </mapping>
 

@@ -10,8 +10,8 @@
   </configuration>
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b bean-factory="net.sf.dozer.util.mapping.factory.XMLBeanFactory">net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeDocument</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.TestObject</class-a>
+    <class-b bean-factory="net.sf.dozer.factory.XMLBeanFactory">net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeDocument</class-b>
 
     <field>
       <a>one</a>
@@ -20,8 +20,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.Child</class-a>
-    <class-b bean-factory="net.sf.dozer.util.mapping.factory.XMLBeanFactory">net.pmonks.xml.dozer.test.ChildType</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.Child</class-a>
+    <class-b bean-factory="net.sf.dozer.factory.XMLBeanFactory">net.pmonks.xml.dozer.test.ChildType</class-b>
 
     <field>
       <a>name</a>
@@ -30,19 +30,19 @@
   </mapping>
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b bean-factory="net.sf.dozer.util.mapping.factory.XMLBeanFactory">net.sf.dozer.util.mapping.vo.GetWeatherByZipCodeResponseDocument</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.TestObject</class-a>
+    <class-b bean-factory="net.sf.dozer.factory.XMLBeanFactory">net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeResponseDocument</class-b>
 
     <field>
       <a>setToArray</a>
       <b>GetWeatherByZipCodeResponse.WeatherDataArray</b>
-      <a-hint>net.sf.dozer.util.mapping.vo.AnotherTestObject</a-hint>
+      <a-hint>net.sf.dozer.functional_tests.vo.AnotherTestObject</a-hint>
     </field>
 
     <field>
       <a set-method="addAnotherTestObject" type="iterate">setToArrayWithIterate</a>
       <b>GetWeatherByZipCodeResponse.WeatherData2Array</b>
-      <a-hint>net.sf.dozer.util.mapping.vo.AnotherTestObject</a-hint>
+      <a-hint>net.sf.dozer.functional_tests.vo.AnotherTestObject</a-hint>
     </field>
 
   </mapping>

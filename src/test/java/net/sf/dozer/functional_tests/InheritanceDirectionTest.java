@@ -1,10 +1,10 @@
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.direction.ContentItemGroupDefault;
-import net.sf.dozer.util.mapping.vo.direction.ContentItemGroupDTO;
-import net.sf.dozer.util.mapping.vo.direction.ContentItemGroup;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.direction.ContentItemGroup;
+import net.sf.dozer.functional_tests.vo.direction.ContentItemGroupDTO;
+import net.sf.dozer.functional_tests.vo.direction.ContentItemGroupDefault;
 
 import java.util.HashSet;
 

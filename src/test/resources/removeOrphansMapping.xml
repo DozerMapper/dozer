@@ -3,8 +3,8 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
   <mapping map-id="testRemoveOrphansOnList">
-    <class-a>net.sf.dozer.util.mapping.vo.perf.MyClassA</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.perf.MyClassB</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.perf.MyClassA</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.perf.MyClassB</class-b>
     <field remove-orphans="true" relationship-type="non-cumulative">
       <a>AStringList</a>
       <b>AStringList</b>
@@ -12,13 +12,13 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.orphan.Parent</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.orphan.ParentPrime</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.orphan.Parent</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.orphan.ParentPrime</class-b>
     <field relationship-type="non-cumulative" remove-orphans="true">
       <a>childrenSet</a>
       <b>childrenSet</b>
-      <a-hint>net.sf.dozer.util.mapping.vo.orphan.Child</a-hint>
-      <b-hint>net.sf.dozer.util.mapping.vo.orphan.ChildPrime</b-hint>
+      <a-hint>net.sf.dozer.functional_tests.vo.orphan.Child</a-hint>
+      <b-hint>net.sf.dozer.functional_tests.vo.orphan.ChildPrime</b-hint>
     </field>
     <field relationship-type="non-cumulative" remove-orphans="true">
       <a>childrenList</a>
@@ -26,8 +26,8 @@
     </field>
   </mapping>
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.orphan.Child</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.orphan.ChildPrime</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.orphan.Child</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.orphan.ChildPrime</class-b>
   </mapping>
 
 </mappings>

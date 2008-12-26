@@ -15,9 +15,8 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.*;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.cumulative.*;
+import net.sf.dozer.*;
+import net.sf.dozer.functional_tests.vo.cumulative.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +55,7 @@ public class CumulativeMappingTest extends AbstractMapperTest {
 //    assertEquals(new Long(5100L), book.getAuthor().getSalary()); TODO Enable this for non-cumulative recursion bug
   }
 
-  protected net.sf.dozer.util.mapping.DataObjectInstantiator getDataObjectInstantiator() {
+  protected net.sf.dozer.DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
 

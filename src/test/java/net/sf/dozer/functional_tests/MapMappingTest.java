@@ -15,10 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.map.MapToMap;
-import net.sf.dozer.util.mapping.vo.map.MapToMapPrime;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.map.MapToMap;
+import net.sf.dozer.functional_tests.vo.map.MapToMapPrime;
 
 import java.util.HashMap;
 import java.util.Map;

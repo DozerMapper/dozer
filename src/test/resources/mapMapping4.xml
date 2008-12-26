@@ -3,8 +3,8 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.map.ParentDOM</class-a>
-    <class-b map-get-method="get" map-set-method="put">net.sf.dozer.util.mapping.vo.map.GenericDOM</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.map.ParentDOM</class-a>
+    <class-b map-get-method="get" map-set-method="put">net.sf.dozer.functional_tests.vo.map.GenericDOM</class-b>
     <field>
       <a>test</a>
       <b>this</b>
@@ -16,8 +16,8 @@
   </mapping>
 
   <mapping map-id="someMappingId">
-    <class-a>net.sf.dozer.util.mapping.vo.map.ChildDOM</class-a>
-    <class-b map-get-method="get" map-set-method="put">net.sf.dozer.util.mapping.vo.map.GenericDOM</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.map.ChildDOM</class-a>
+    <class-b map-get-method="get" map-set-method="put">net.sf.dozer.functional_tests.vo.map.GenericDOM</class-b>
     <field>
       <a>childName</a>
       <b>this</b>

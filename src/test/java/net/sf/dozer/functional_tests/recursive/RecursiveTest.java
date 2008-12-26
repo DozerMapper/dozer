@@ -15,9 +15,9 @@
  */
 package net.sf.dozer.functional_tests.recursive;
 
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.functional_tests.AbstractMapperTest;
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
 
 /**
  * Test the dozer behaviour when confronted with structures similar to ours. As of now (dozer 3.0) the behaviour is not

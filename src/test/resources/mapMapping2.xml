@@ -5,12 +5,12 @@
 
   <mapping map-id="caseA">
     <class-a>java.util.HashMap</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
+    <class-b>net.sf.dozer.functional_tests.vo.map.SimpleObjPrime</class-b>
   </mapping>
 
   <mapping map-id="caseB">
     <class-a>java.util.HashMap</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObjPrime</class-b>
+    <class-b>net.sf.dozer.functional_tests.vo.map.SimpleObjPrime</class-b>
     <field-exclude>
       <a>field1</a>
       <b>field1</b>

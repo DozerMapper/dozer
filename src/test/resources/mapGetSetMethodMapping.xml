@@ -5,9 +5,9 @@
 
   <mapping map-id="useCase1">
     <class-a map-get-method="getValue" map-set-method="putValue">
-      net.sf.dozer.util.mapping.vo.map.CustomMap
+      net.sf.dozer.functional_tests.vo.map.CustomMap
     </class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>
+    <class-b>net.sf.dozer.functional_tests.vo.map.SimpleObj</class-b>
     <field>
       <a key="fieldA">this</a>
       <b>field1</b>
@@ -33,8 +33,8 @@
   </mapping>
 
   <mapping map-id="useCase2">
-    <class-a>net.sf.dozer.util.mapping.vo.map.CustomMap</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.map.CustomMap</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.map.SimpleObj</class-b>
     <field>
       <a map-get-method="getValue" map-set-method="putValue" key="fieldA">this</a>
       <b>field1</b>

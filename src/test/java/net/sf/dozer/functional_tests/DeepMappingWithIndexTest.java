@@ -18,27 +18,27 @@ package net.sf.dozer.functional_tests;
 import java.util.Arrays;
 import java.util.Vector;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.AnotherTestObject;
-import net.sf.dozer.util.mapping.vo.SimpleObj;
-import net.sf.dozer.util.mapping.vo.TestObject;
-import net.sf.dozer.util.mapping.vo.TestObjectPrime;
-import net.sf.dozer.util.mapping.vo.deep.DestDeepObj;
-import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
-import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj;
-import net.sf.dozer.util.mapping.vo.deep.SrcNestedDeepObj2;
-import net.sf.dozer.util.mapping.vo.deepindex.A;
-import net.sf.dozer.util.mapping.vo.deepindex.B;
-import net.sf.dozer.util.mapping.vo.deepindex.Family;
-import net.sf.dozer.util.mapping.vo.deepindex.HeadOfHouseHold;
-import net.sf.dozer.util.mapping.vo.deepindex.PersonalDetails;
-import net.sf.dozer.util.mapping.vo.deepindex.Pet;
-import net.sf.dozer.util.mapping.vo.deepindex.customconverter.First;
-import net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last;
-import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.FlatPerson;
-import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Person;
-import net.sf.dozer.util.mapping.vo.deepindex.isaccessible.Phone;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.AnotherTestObject;
+import net.sf.dozer.functional_tests.vo.SimpleObj;
+import net.sf.dozer.functional_tests.vo.TestObject;
+import net.sf.dozer.functional_tests.vo.TestObjectPrime;
+import net.sf.dozer.functional_tests.vo.deep.DestDeepObj;
+import net.sf.dozer.functional_tests.vo.deep.SrcDeepObj;
+import net.sf.dozer.functional_tests.vo.deep.SrcNestedDeepObj;
+import net.sf.dozer.functional_tests.vo.deep.SrcNestedDeepObj2;
+import net.sf.dozer.functional_tests.vo.deepindex.A;
+import net.sf.dozer.functional_tests.vo.deepindex.B;
+import net.sf.dozer.functional_tests.vo.deepindex.Family;
+import net.sf.dozer.functional_tests.vo.deepindex.HeadOfHouseHold;
+import net.sf.dozer.functional_tests.vo.deepindex.PersonalDetails;
+import net.sf.dozer.functional_tests.vo.deepindex.Pet;
+import net.sf.dozer.functional_tests.vo.deepindex.customconverter.First;
+import net.sf.dozer.functional_tests.vo.deepindex.customconverter.Last;
+import net.sf.dozer.functional_tests.vo.deepindex.isaccessible.FlatPerson;
+import net.sf.dozer.functional_tests.vo.deepindex.isaccessible.Person;
+import net.sf.dozer.functional_tests.vo.deepindex.isaccessible.Phone;
 
 /**
  * @author tierney.matt

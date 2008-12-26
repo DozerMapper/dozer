@@ -4,13 +4,13 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.cumulative.Library</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.cumulative.LibraryPrime</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.cumulative.Library</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.cumulative.LibraryPrime</class-b>
     <field remove-orphans="true" relationship-type="non-cumulative">
       <a>books</a>
       <b>books</b>
-      <a-hint>net.sf.dozer.util.mapping.vo.cumulative.Book</a-hint>
-      <b-hint>net.sf.dozer.util.mapping.vo.cumulative.BookPrime</b-hint>
+      <a-hint>net.sf.dozer.functional_tests.vo.cumulative.Book</a-hint>
+      <b-hint>net.sf.dozer.functional_tests.vo.cumulative.BookPrime</b-hint>
     </field>
   </mapping>
 

@@ -5,8 +5,8 @@
 
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.util.mapping.converters.StringAppendCustomConverter">
-        <class-a>[Lnet.sf.dozer.util.mapping.vo.map.SimpleObj;</class-a>
+      <converter type="net.sf.dozer.converters.StringAppendCustomConverter">
+        <class-a>[Lnet.sf.dozer.functional_tests.vo.map.SimpleObj;</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
     </custom-converters>

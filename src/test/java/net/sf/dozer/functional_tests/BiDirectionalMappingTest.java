@@ -15,16 +15,16 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.DozerBeanMapperSingletonWrapper;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.C;
-import net.sf.dozer.util.mapping.vo.LoopObjectChild;
-import net.sf.dozer.util.mapping.vo.LoopObjectParent;
-import net.sf.dozer.util.mapping.vo.LoopObjectParentPrime;
-import net.sf.dozer.util.mapping.vo.bidirectional.A;
-import net.sf.dozer.util.mapping.vo.bidirectional.B;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.DozerBeanMapperSingletonWrapper;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.C;
+import net.sf.dozer.functional_tests.vo.LoopObjectChild;
+import net.sf.dozer.functional_tests.vo.LoopObjectParent;
+import net.sf.dozer.functional_tests.vo.LoopObjectParentPrime;
+import net.sf.dozer.functional_tests.vo.bidirectional.A;
+import net.sf.dozer.functional_tests.vo.bidirectional.B;
 
 /**
  * @author tierney.matt
@@ -61,12 +61,12 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
    * @author korittky.joachim
    */
   public void testManyObjects() {
-    net.sf.dozer.util.mapping.vo.B a = (net.sf.dozer.util.mapping.vo.B) newInstance(net.sf.dozer.util.mapping.vo.B.class);
-    net.sf.dozer.util.mapping.vo.B b = new net.sf.dozer.util.mapping.vo.B();
-    a.setCs(new net.sf.dozer.util.mapping.vo.C[20000]);
+    net.sf.dozer.functional_tests.vo.B a = (net.sf.dozer.functional_tests.vo.B) newInstance(net.sf.dozer.functional_tests.vo.B.class);
+    net.sf.dozer.functional_tests.vo.B b = new net.sf.dozer.functional_tests.vo.B();
+    a.setCs(new net.sf.dozer.functional_tests.vo.C[20000]);
     // Fill the list with C objects numbered from 0 to SIZE-1
     for (int i = 0; i < a.getCs().length; i++) {
-      net.sf.dozer.util.mapping.vo.C c = (C) newInstance(net.sf.dozer.util.mapping.vo.C.class);
+      net.sf.dozer.functional_tests.vo.C c = (C) newInstance(net.sf.dozer.functional_tests.vo.C.class);
       c.setValue(Integer.toString(i));
       a.getCs()[i] = c;
     }

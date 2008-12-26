@@ -15,20 +15,20 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.SimpleObj;
-import net.sf.dozer.util.mapping.vo.SimpleObjPrime;
-import net.sf.dozer.util.mapping.vo.SimpleObjPrime2;
-import net.sf.dozer.util.mapping.vo.TestObject;
-import net.sf.dozer.util.mapping.vo.TestObjectPrime;
-import net.sf.dozer.util.mapping.vo.deep.DestDeepObj;
-import net.sf.dozer.util.mapping.vo.deep.SrcDeepObj;
-import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClass;
-import net.sf.dozer.util.mapping.vo.inheritance.AnotherSubClassPrime;
-import net.sf.dozer.util.mapping.vo.perf.MyClassA;
-import net.sf.dozer.util.mapping.vo.perf.MyClassB;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.SimpleObj;
+import net.sf.dozer.functional_tests.vo.SimpleObjPrime;
+import net.sf.dozer.functional_tests.vo.SimpleObjPrime2;
+import net.sf.dozer.functional_tests.vo.TestObject;
+import net.sf.dozer.functional_tests.vo.TestObjectPrime;
+import net.sf.dozer.functional_tests.vo.deep.DestDeepObj;
+import net.sf.dozer.functional_tests.vo.deep.SrcDeepObj;
+import net.sf.dozer.functional_tests.vo.inheritance.AnotherSubClass;
+import net.sf.dozer.functional_tests.vo.inheritance.AnotherSubClassPrime;
+import net.sf.dozer.functional_tests.vo.perf.MyClassA;
+import net.sf.dozer.functional_tests.vo.perf.MyClassB;
 
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.commons.logging.Log;

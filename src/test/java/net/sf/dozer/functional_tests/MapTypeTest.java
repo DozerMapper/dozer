@@ -22,26 +22,26 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.NoProxyDataObjectInstantiator;
-import net.sf.dozer.util.mapping.vo.TestObject;
-import net.sf.dozer.util.mapping.vo.TestObjectPrime;
-import net.sf.dozer.util.mapping.vo.map.ChildDOM;
-import net.sf.dozer.util.mapping.vo.map.CustomMap;
-import net.sf.dozer.util.mapping.vo.map.CustomMapIF;
-import net.sf.dozer.util.mapping.vo.map.GenericDOM;
-import net.sf.dozer.util.mapping.vo.map.MapTestObject;
-import net.sf.dozer.util.mapping.vo.map.MapTestObjectPrime;
-import net.sf.dozer.util.mapping.vo.map.MapToMap;
-import net.sf.dozer.util.mapping.vo.map.MapToMapPrime;
-import net.sf.dozer.util.mapping.vo.map.MapToProperty;
-import net.sf.dozer.util.mapping.vo.map.NestedObj;
-import net.sf.dozer.util.mapping.vo.map.NestedObjPrime;
-import net.sf.dozer.util.mapping.vo.map.ParentDOM;
-import net.sf.dozer.util.mapping.vo.map.PropertyToMap;
-import net.sf.dozer.util.mapping.vo.map.SimpleObj;
-import net.sf.dozer.util.mapping.vo.map.SimpleObjPrime;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.vo.TestObject;
+import net.sf.dozer.functional_tests.vo.TestObjectPrime;
+import net.sf.dozer.functional_tests.vo.map.ChildDOM;
+import net.sf.dozer.functional_tests.vo.map.CustomMap;
+import net.sf.dozer.functional_tests.vo.map.CustomMapIF;
+import net.sf.dozer.functional_tests.vo.map.GenericDOM;
+import net.sf.dozer.functional_tests.vo.map.MapTestObject;
+import net.sf.dozer.functional_tests.vo.map.MapTestObjectPrime;
+import net.sf.dozer.functional_tests.vo.map.MapToMap;
+import net.sf.dozer.functional_tests.vo.map.MapToMapPrime;
+import net.sf.dozer.functional_tests.vo.map.MapToProperty;
+import net.sf.dozer.functional_tests.vo.map.NestedObj;
+import net.sf.dozer.functional_tests.vo.map.NestedObjPrime;
+import net.sf.dozer.functional_tests.vo.map.ParentDOM;
+import net.sf.dozer.functional_tests.vo.map.PropertyToMap;
+import net.sf.dozer.functional_tests.vo.map.SimpleObj;
+import net.sf.dozer.functional_tests.vo.map.SimpleObjPrime;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 
@@ -397,8 +397,8 @@ public class MapTypeTest extends AbstractMapperTest {
     CustomMap src = (CustomMap) newInstance(CustomMap.class);
     src.putValue("fieldA", dateStr);
 
-    net.sf.dozer.util.mapping.vo.SimpleObj dest = (net.sf.dozer.util.mapping.vo.SimpleObj) mapper.map(src,
-        net.sf.dozer.util.mapping.vo.SimpleObj.class);
+    net.sf.dozer.functional_tests.vo.SimpleObj dest = (net.sf.dozer.functional_tests.vo.SimpleObj) mapper.map(src,
+        net.sf.dozer.functional_tests.vo.SimpleObj.class);
     assertNotNull("dest field should not be null", dest.getField5());
     assertEquals("dest field contains wrong date value", df.parse(dateStr), dest.getField5().getTime());
 

@@ -15,8 +15,8 @@
  */
 package net.sf.dozer.functional_tests.recursive;
 
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.ProxyDataObjectInstantiator;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.ProxyDataObjectInstantiator;
 
 public class ProxiedRecursiveTest extends RecursiveTest {
 

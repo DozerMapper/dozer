@@ -5,8 +5,8 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.inheritance.SuperA</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.inheritance.SuperB</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.inheritance.SuperA</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.inheritance.SuperB</class-b>
     <field>
       <a>superAField</a>
       <b>superBField</b>
@@ -18,8 +18,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.inheritance.A</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.inheritance.B</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.inheritance.A</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.inheritance.B</class-b>
     <field>
       <a>fieldA</a>
       <b>fieldB</b>
@@ -27,8 +27,8 @@
   </mapping>
   
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.inheritance.iface.Person</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.inheritance.iface.PersonDTO</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.inheritance.iface.Person</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.inheritance.iface.PersonDTO</class-b>
     <field>
       <a>id</a>
       <b>personId</b>
@@ -36,8 +36,8 @@
   </mapping>
   
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.inheritance.iface.Person</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.inheritance.iface.PersonWithAddressDTO</class-b>
+    <class-a>net.sf.dozer.functional_tests.vo.inheritance.iface.Person</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.inheritance.iface.PersonWithAddressDTO</class-b>
     <field>
       <a>id</a>
       <b>personId</b>

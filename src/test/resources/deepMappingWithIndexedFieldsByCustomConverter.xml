@@ -3,9 +3,9 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.deepindex.customconverter.First</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.deepindex.customconverter.Last</class-b>
-    <field custom-converter="net.sf.dozer.util.mapping.vo.deepindex.customconverter.Conv">
+    <class-a>net.sf.dozer.functional_tests.vo.deepindex.customconverter.First</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.deepindex.customconverter.Last</class-b>
+    <field custom-converter="net.sf.dozer.functional_tests.vo.deepindex.customconverter.Conv">
       <!-- <a>second.thirdArray[7]</a> -->
       <!-- <a>secondArray[0].third</a> -->
       <a>secondArray[0].thirdArray[7]</a>

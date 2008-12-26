@@ -5,7 +5,7 @@
 
   <mapping map-id="test-id">
     <class-a>java.util.Map</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.map.SimpleObj</class-b>
+    <class-b>net.sf.dozer.functional_tests.vo.map.SimpleObj</class-b>
     <field>
       <a key="stringValue">this</a>
       <b>field1</b>

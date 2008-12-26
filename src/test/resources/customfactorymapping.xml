@@ -6,13 +6,13 @@
   <configuration>
     <stop-on-errors>true</stop-on-errors>
     <wildcard>true</wildcard>
-    <bean-factory>net.sf.dozer.util.mapping.factories.SampleDefaultBeanFactory</bean-factory>
+    <bean-factory>net.sf.dozer.factories.SampleDefaultBeanFactory</bean-factory>
   </configuration>
 
   <!-- mapping level factory should override top level factory.  mapping level factory will get applied to both classes-->
-  <mapping bean-factory="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory">
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+  <mapping bean-factory="net.sf.dozer.factories.SampleCustomBeanFactory">
+    <class-a>net.sf.dozer.functional_tests.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.functional_tests.vo.TestObjectPrime</class-b>
     <field>
       <a>one</a>
       <b>onePrime</b>
@@ -29,10 +29,10 @@
 
   <!-- class level factory should override top level and mapping level factory. -->
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.InsideTestObject</class-a>
-    <class-b bean-factory="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory2"
+    <class-a>net.sf.dozer.functional_tests.vo.InsideTestObject</class-a>
+    <class-b bean-factory="net.sf.dozer.factories.SampleCustomBeanFactory2"
       factory-bean-id="someBeanId">
-      net.sf.dozer.util.mapping.vo.InsideTestObjectPrime
+      net.sf.dozer.functional_tests.vo.InsideTestObjectPrime
     </class-b>
     <field-exclude>
       <a>createdByFactoryName</a>
@@ -41,10 +41,10 @@
   </mapping>
 
   <mapping>
-    <class-a bean-factory="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory3">
-      net.sf.dozer.util.mapping.vo.MetalThingyIF
+    <class-a bean-factory="net.sf.dozer.factories.SampleCustomBeanFactory3">
+      net.sf.dozer.functional_tests.vo.MetalThingyIF
     </class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.Van</class-b>
+    <class-b>net.sf.dozer.functional_tests.vo.Van</class-b>
   </mapping>
 
 

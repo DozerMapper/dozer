@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sf.dozer.util.mapping.DataObjectInstantiator;
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-import net.sf.dozer.util.mapping.MapperIF;
-import net.sf.dozer.util.mapping.util.MapperConstants;
-import net.sf.dozer.util.mapping.util.TestDataFactory;
+import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.DozerBeanMapper;
+import net.sf.dozer.MapperIF;
+import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.TestDataFactory;
 
 /**
  * @author tierney.matt
