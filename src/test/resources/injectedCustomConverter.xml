@@ -8,8 +8,8 @@
     <wildcard>true</wildcard>
     <custom-converters>
       <converter type="net.sf.dozer.converters.InjectedCustomConverter">
-        <class-a>net.sf.dozer.functional_tests.vo.Vehicle</class-a>
-        <class-b>net.sf.dozer.functional_tests.vo.Vehicle</class-b>
+        <class-a>net.sf.dozer.vo.Vehicle</class-a>
+        <class-b>net.sf.dozer.vo.Vehicle</class-b>
       </converter>
     </custom-converters>
   </configuration>

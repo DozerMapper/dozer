@@ -16,7 +16,7 @@
 package net.sf.dozer.factories;
 
 import net.sf.dozer.BeanFactoryIF;
-import net.sf.dozer.functional_tests.vo.Car;
+import net.sf.dozer.vo.Car;
 
 /**
  * @author garsombke.franz

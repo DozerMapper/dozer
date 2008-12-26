@@ -2,16 +2,16 @@
 <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
 	<mapping>
-		<class-a>net.sf.dozer.functional_tests.vo.excluded.ZeroA</class-a>
-		<class-b>net.sf.dozer.functional_tests.vo.excluded.ZeroB</class-b>
+		<class-a>net.sf.dozer.vo.excluded.ZeroA</class-a>
+		<class-b>net.sf.dozer.vo.excluded.ZeroB</class-b>
 	</mapping>
 	<mapping>
-		<class-a>net.sf.dozer.functional_tests.vo.excluded.OneA</class-a>
-		<class-b>net.sf.dozer.functional_tests.vo.excluded.OneB</class-b>
+		<class-a>net.sf.dozer.vo.excluded.OneA</class-a>
+		<class-b>net.sf.dozer.vo.excluded.OneB</class-b>
 	</mapping>
 	<mapping>
-		<class-a>net.sf.dozer.functional_tests.vo.excluded.TwoA</class-a>
-		<class-b>net.sf.dozer.functional_tests.vo.excluded.TwoB</class-b>
+		<class-a>net.sf.dozer.vo.excluded.TwoA</class-a>
+		<class-b>net.sf.dozer.vo.excluded.TwoB</class-b>
     <field>
       <a>id</a>
       <b>id</b>

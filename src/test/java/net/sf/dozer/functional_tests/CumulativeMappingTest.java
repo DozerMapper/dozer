@@ -16,7 +16,7 @@
 package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.*;
-import net.sf.dozer.functional_tests.vo.cumulative.*;
+import net.sf.dozer.vo.cumulative.*;
 
 import java.util.Collections;
 import java.util.List;

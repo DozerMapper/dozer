@@ -16,9 +16,9 @@
 package net.sf.dozer.util;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.functional_tests.vo.TestObject;
-import net.sf.dozer.functional_tests.vo.TestObjectPrime;
 import net.sf.dozer.util.DestBeanCreator;
+import net.sf.dozer.vo.TestObject;
+import net.sf.dozer.vo.TestObjectPrime;
 
 /**
  * @author tierney.matt

@@ -17,9 +17,9 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.A;
-import net.sf.dozer.functional_tests.vo.ValueObject;
-import net.sf.dozer.functional_tests.vo.map.MapToMap;
+import net.sf.dozer.vo.A;
+import net.sf.dozer.vo.ValueObject;
+import net.sf.dozer.vo.map.MapToMap;
 
 import java.util.HashMap;
 

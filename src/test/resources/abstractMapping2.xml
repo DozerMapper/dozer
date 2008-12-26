@@ -5,8 +5,8 @@
 <mappings>
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.functional_tests.vo.abstractinheritance.A</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.abstractinheritance.B</class-b>
+    <class-a>net.sf.dozer.vo.abstractinheritance.A</class-a>
+    <class-b>net.sf.dozer.vo.abstractinheritance.B</class-b>
     <field>
       <a>fieldA</a>
       <b>fieldB</b>

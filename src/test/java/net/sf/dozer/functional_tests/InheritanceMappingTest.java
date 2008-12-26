@@ -22,32 +22,32 @@ import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.MapperIF;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.NoSuperClass;
-import net.sf.dozer.functional_tests.vo.SubClass;
-import net.sf.dozer.functional_tests.vo.SubClassPrime;
-import net.sf.dozer.functional_tests.vo.TheFirstSubClass;
-import net.sf.dozer.functional_tests.vo.inheritance.A;
-import net.sf.dozer.functional_tests.vo.inheritance.AnotherSubClass;
-import net.sf.dozer.functional_tests.vo.inheritance.AnotherSubClassPrime;
-import net.sf.dozer.functional_tests.vo.inheritance.B;
-import net.sf.dozer.functional_tests.vo.inheritance.BaseSubClassCombined;
-import net.sf.dozer.functional_tests.vo.inheritance.S2Class;
-import net.sf.dozer.functional_tests.vo.inheritance.S2ClassPrime;
-import net.sf.dozer.functional_tests.vo.inheritance.SClass;
-import net.sf.dozer.functional_tests.vo.inheritance.SClassPrime;
-import net.sf.dozer.functional_tests.vo.inheritance.Specific3;
-import net.sf.dozer.functional_tests.vo.inheritance.SpecificObject;
-import net.sf.dozer.functional_tests.vo.inheritance.WrapperSpecific;
-import net.sf.dozer.functional_tests.vo.inheritance.WrapperSpecificPrime;
-import net.sf.dozer.functional_tests.vo.inheritance.iface.Person;
-import net.sf.dozer.functional_tests.vo.inheritance.iface.PersonDTO;
-import net.sf.dozer.functional_tests.vo.inheritance.iface.PersonImpl;
-import net.sf.dozer.functional_tests.vo.inheritance.iface.PersonWithAddressDTO;
-import net.sf.dozer.functional_tests.vo.km.Property;
-import net.sf.dozer.functional_tests.vo.km.PropertyB;
-import net.sf.dozer.functional_tests.vo.km.SomeVo;
-import net.sf.dozer.functional_tests.vo.km.Sub;
-import net.sf.dozer.functional_tests.vo.km.Super;
+import net.sf.dozer.vo.NoSuperClass;
+import net.sf.dozer.vo.SubClass;
+import net.sf.dozer.vo.SubClassPrime;
+import net.sf.dozer.vo.TheFirstSubClass;
+import net.sf.dozer.vo.inheritance.A;
+import net.sf.dozer.vo.inheritance.AnotherSubClass;
+import net.sf.dozer.vo.inheritance.AnotherSubClassPrime;
+import net.sf.dozer.vo.inheritance.B;
+import net.sf.dozer.vo.inheritance.BaseSubClassCombined;
+import net.sf.dozer.vo.inheritance.S2Class;
+import net.sf.dozer.vo.inheritance.S2ClassPrime;
+import net.sf.dozer.vo.inheritance.SClass;
+import net.sf.dozer.vo.inheritance.SClassPrime;
+import net.sf.dozer.vo.inheritance.Specific3;
+import net.sf.dozer.vo.inheritance.SpecificObject;
+import net.sf.dozer.vo.inheritance.WrapperSpecific;
+import net.sf.dozer.vo.inheritance.WrapperSpecificPrime;
+import net.sf.dozer.vo.inheritance.iface.Person;
+import net.sf.dozer.vo.inheritance.iface.PersonDTO;
+import net.sf.dozer.vo.inheritance.iface.PersonImpl;
+import net.sf.dozer.vo.inheritance.iface.PersonWithAddressDTO;
+import net.sf.dozer.vo.km.Property;
+import net.sf.dozer.vo.km.PropertyB;
+import net.sf.dozer.vo.km.SomeVo;
+import net.sf.dozer.vo.km.Sub;
+import net.sf.dozer.vo.km.Super;
 
 import org.apache.commons.lang.SerializationUtils;
 
@@ -136,7 +136,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   public void testGeneralInheritance() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     // first test mapping of sub and base class to a single class
-    net.sf.dozer.functional_tests.vo.inheritance.SubClass sub = (net.sf.dozer.functional_tests.vo.inheritance.SubClass) newInstance(net.sf.dozer.functional_tests.vo.inheritance.SubClass.class);
+    net.sf.dozer.vo.inheritance.SubClass sub = (net.sf.dozer.vo.inheritance.SubClass) newInstance(net.sf.dozer.vo.inheritance.SubClass.class);
 
     sub.setBaseAttribute("base");
     sub.setSubAttribute("sub");

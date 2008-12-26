@@ -5,13 +5,13 @@
 
   <configuration>
     <copy-by-references>
-      <copy-by-reference>net.sf.dozer.functional_tests.vo.B</copy-by-reference>
+      <copy-by-reference>net.sf.dozer.vo.B</copy-by-reference>
     </copy-by-references>
   </configuration>
 
   <mapping>
     <class-a>java.util.Map</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.ValueObject</class-b>
+    <class-b>net.sf.dozer.vo.ValueObject</class-b>
     <field>
       <a key="1">this</a>
       <b>value</b>

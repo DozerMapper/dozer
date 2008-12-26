@@ -2,9 +2,9 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.inheritance.twolevel.A;
-import net.sf.dozer.functional_tests.vo.inheritance.twolevel.B;
-import net.sf.dozer.functional_tests.vo.inheritance.twolevel.C;
+import net.sf.dozer.vo.inheritance.twolevel.A;
+import net.sf.dozer.vo.inheritance.twolevel.B;
+import net.sf.dozer.vo.inheritance.twolevel.C;
 
 /**
  * @author Dmitry Buzdin

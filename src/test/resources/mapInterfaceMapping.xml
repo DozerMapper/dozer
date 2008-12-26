@@ -4,14 +4,14 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.map.MapToMap</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.map.MapToMapPrime</class-b>
+    <class-a>net.sf.dozer.vo.map.MapToMap</class-a>
+    <class-b>net.sf.dozer.vo.map.MapToMapPrime</class-b>
 
     <field>
       <a is-accessible="true">standardMapWithHint</a>
       <b is-accessible="true">standardMapWithHint</b>
-      <a-hint>net.sf.dozer.functional_tests.vo.TestObject</a-hint>
-      <b-hint>net.sf.dozer.functional_tests.vo.TestObjectPrime</b-hint>
+      <a-hint>net.sf.dozer.vo.TestObject</a-hint>
+      <b-hint>net.sf.dozer.vo.TestObjectPrime</b-hint>
     </field>
 
   </mapping>

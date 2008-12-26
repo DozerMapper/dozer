@@ -19,9 +19,9 @@ import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.MappingException;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.abstractinheritance.A;
-import net.sf.dozer.functional_tests.vo.abstractinheritance.AbstractB;
-import net.sf.dozer.functional_tests.vo.abstractinheritance.B;
+import net.sf.dozer.vo.abstractinheritance.A;
+import net.sf.dozer.vo.abstractinheritance.AbstractB;
+import net.sf.dozer.vo.abstractinheritance.B;
 
 /**
  * Unit tests for data objects that have Abstract Class(s) in their object hierarchy

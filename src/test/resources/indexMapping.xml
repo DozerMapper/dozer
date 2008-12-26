@@ -4,22 +4,22 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.index.Mccoy</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.index.MccoyPrime</class-b>
+    <class-a>net.sf.dozer.vo.index.Mccoy</class-a>
+    <class-b>net.sf.dozer.vo.index.MccoyPrime</class-b>
     <field>
       <a>stringProperty</a>
       <b map-get-method="getValue" map-set-method="putValue" key="">fieldValueObjects[0]</b>
-      <b-hint>net.sf.dozer.functional_tests.vo.FieldValue</b-hint>
+      <b-hint>net.sf.dozer.vo.FieldValue</b-hint>
     </field>
   </mapping>
 
   <mapping map-id="usingDestHint">
-    <class-a>net.sf.dozer.functional_tests.vo.index.Mccoy</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.index.MccoyPrime</class-b>
+    <class-a>net.sf.dozer.vo.index.Mccoy</class-a>
+    <class-b>net.sf.dozer.vo.index.MccoyPrime</class-b>
     <field>
       <a>stringProperty</a>
       <b>fieldValueObjects[0]</b>
-      <b-hint>net.sf.dozer.functional_tests.vo.FieldValue</b-hint>
+      <b-hint>net.sf.dozer.vo.FieldValue</b-hint>
     </field>
   </mapping>
 

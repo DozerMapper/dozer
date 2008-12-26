@@ -19,9 +19,9 @@ public class JAXBBeanFactoryTest extends TestCase {
    */
   public void testCreateBeanForSimpleJaxbClass() {
 
-    Object obj = factory.createBean(null, null, "net.sf.dozer.functional_tests.vo.jaxb.employee.Employee");
+    Object obj = factory.createBean(null, null, "net.sf.dozer.vo.jaxb.employee.Employee");
     assertNotNull("Object can not be null", obj);
-    assertEquals("Invalid class build", obj.getClass().getName(), "net.sf.dozer.functional_tests.vo.jaxb.employee.impl.EmployeeImpl");
+    assertEquals("Invalid class build", obj.getClass().getName(), "net.sf.dozer.vo.jaxb.employee.impl.EmployeeImpl");
   }
   /*
    * 
@@ -43,10 +43,10 @@ public class JAXBBeanFactoryTest extends TestCase {
   public void testCreateBeanForInnerJaxbClass() {
 
     Object obj = factory
-        .createBean(null, null, "net.sf.dozer.functional_tests.vo.jaxb.employee.EmployeeWithInnerClassType$AddressType");
+        .createBean(null, null, "net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType$AddressType");
     assertNotNull("Object can not be null", obj);
     assertEquals("Invalid class build", obj.getClass().getName(),
-        "net.sf.dozer.functional_tests.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl$AddressTypeImpl");
+        "net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl$AddressTypeImpl");
   }
 
 }

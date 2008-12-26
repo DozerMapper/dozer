@@ -19,10 +19,10 @@ import java.util.StringTokenizer;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.AnotherTestObject;
-import net.sf.dozer.functional_tests.vo.Fruit;
-import net.sf.dozer.functional_tests.vo.Individual;
-import net.sf.dozer.functional_tests.vo.SimpleObj;
+import net.sf.dozer.vo.AnotherTestObject;
+import net.sf.dozer.vo.Fruit;
+import net.sf.dozer.vo.Individual;
+import net.sf.dozer.vo.SimpleObj;
 
 /**
  * @author johnsen.knut-erik

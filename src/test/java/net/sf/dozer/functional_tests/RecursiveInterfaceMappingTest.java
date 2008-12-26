@@ -23,12 +23,12 @@ import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.MapperIF;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.User;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroup;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupImpl;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupPrime;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserImpl;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserPrime;
+import net.sf.dozer.vo.interfacerecursion.User;
+import net.sf.dozer.vo.interfacerecursion.UserGroup;
+import net.sf.dozer.vo.interfacerecursion.UserGroupImpl;
+import net.sf.dozer.vo.interfacerecursion.UserGroupPrime;
+import net.sf.dozer.vo.interfacerecursion.UserImpl;
+import net.sf.dozer.vo.interfacerecursion.UserPrime;
 
 /**
  * @author Christoph Goldner

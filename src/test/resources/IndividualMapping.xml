@@ -4,15 +4,15 @@
 <mappings>
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.functional_tests.vo.CToStringConverter">
-        <class-a>net.sf.dozer.functional_tests.vo.C</class-a>
+      <converter type="net.sf.dozer.vo.CToStringConverter">
+        <class-a>net.sf.dozer.vo.C</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
     </custom-converters>
   </configuration>
   <mapping wildcard="true">
-    <class-a>net.sf.dozer.functional_tests.vo.Individuals</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.FlatIndividual</class-b>
+    <class-a>net.sf.dozer.vo.Individuals</class-a>
+    <class-b>net.sf.dozer.vo.FlatIndividual</class-b>
     <field>
       <a>usernames[0]</a>
       <b>username1</b>
@@ -49,13 +49,13 @@
   </mapping>
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.functional_tests.vo.A</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.D</class-b>
+    <class-a>net.sf.dozer.vo.A</class-a>
+    <class-b>net.sf.dozer.vo.D</class-b>
 
     <field>
       <a>b.cs[0]</a>
       <b>value</b>
-      <a-hint>net.sf.dozer.functional_tests.vo.C</a-hint>
+      <a-hint>net.sf.dozer.vo.C</a-hint>
       <b-hint>java.lang.String</b-hint>
     </field>
   </mapping>

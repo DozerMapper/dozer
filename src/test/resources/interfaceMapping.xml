@@ -4,8 +4,8 @@
 
 <mappings>
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.functional_tests.vo.iface.SubscriberIF</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.iface.UpdateMember</class-b>
+    <class-a>net.sf.dozer.vo.iface.SubscriberIF</class-a>
+    <class-b>net.sf.dozer.vo.iface.UpdateMember</class-b>
     <field>
       <a>subscriberNumber</a>
       <b>subscriberKey.subscriberNumber</b>

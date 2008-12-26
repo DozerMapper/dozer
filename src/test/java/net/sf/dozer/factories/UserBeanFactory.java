@@ -17,14 +17,14 @@
 package net.sf.dozer.factories;
 
 import net.sf.dozer.BeanFactoryIF;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.User;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroup;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupImpl;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupPrime;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupPrimeImpl;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserImpl;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserPrime;
-import net.sf.dozer.functional_tests.vo.interfacerecursion.UserPrimeImpl;
+import net.sf.dozer.vo.interfacerecursion.User;
+import net.sf.dozer.vo.interfacerecursion.UserGroup;
+import net.sf.dozer.vo.interfacerecursion.UserGroupImpl;
+import net.sf.dozer.vo.interfacerecursion.UserGroupPrime;
+import net.sf.dozer.vo.interfacerecursion.UserGroupPrimeImpl;
+import net.sf.dozer.vo.interfacerecursion.UserImpl;
+import net.sf.dozer.vo.interfacerecursion.UserPrime;
+import net.sf.dozer.vo.interfacerecursion.UserPrimeImpl;
 
 /**
  * @author Christoph Goldner 

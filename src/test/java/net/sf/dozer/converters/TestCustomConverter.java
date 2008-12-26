@@ -17,8 +17,8 @@ package net.sf.dozer.converters;
 
 import net.sf.dozer.MappingException;
 import net.sf.dozer.converters.CustomConverter;
-import net.sf.dozer.functional_tests.vo.CustomDoubleObject;
-import net.sf.dozer.functional_tests.vo.CustomDoubleObjectIF;
+import net.sf.dozer.vo.CustomDoubleObject;
+import net.sf.dozer.vo.CustomDoubleObjectIF;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

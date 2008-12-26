@@ -3,8 +3,8 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.isaccessible.Foo</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.isaccessible.FooPrime</class-b>
+    <class-a>net.sf.dozer.vo.isaccessible.Foo</class-a>
+    <class-b>net.sf.dozer.vo.isaccessible.FooPrime</class-b>
     <field>
       <a>categories</a>
       <b is-accessible="true">categories</b>

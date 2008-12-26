@@ -26,9 +26,9 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.functional_tests.vo.InsideTestObject;
-import net.sf.dozer.functional_tests.vo.SimpleObj;
 import net.sf.dozer.util.CollectionUtils;
+import net.sf.dozer.vo.InsideTestObject;
+import net.sf.dozer.vo.SimpleObj;
 
 /**
  * @author tierney.matt

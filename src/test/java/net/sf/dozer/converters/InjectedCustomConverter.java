@@ -16,7 +16,7 @@
 package net.sf.dozer.converters;
 
 import net.sf.dozer.converters.CustomConverter;
-import net.sf.dozer.functional_tests.vo.Vehicle;
+import net.sf.dozer.vo.Vehicle;
 
 /**
  * @author garsombke.franz

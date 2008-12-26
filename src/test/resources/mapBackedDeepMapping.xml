@@ -5,7 +5,7 @@
 
   <mapping type="one-way" map-id="TC1">
     <class-a>java.util.Map</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.DeepObject</class-b>
+    <class-b>net.sf.dozer.vo.DeepObject</class-b>
     <field>
       <a key="data1">this</a>
       <b>deepObject.name</b>
@@ -15,7 +15,7 @@
 
   <mapping type="one-way" map-id="TC2">
     <class-a>java.util.Map</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.DeepObject</class-b>
+    <class-b>net.sf.dozer.vo.DeepObject</class-b>
     <field>
       <a key="data1">this</a>
       <b>deepObject.deepObject.name</b>
@@ -25,7 +25,7 @@
 
   <mapping type="one-way" map-id="TC3">
     <class-a>java.util.Map</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.DeepObject</class-b>
+    <class-b>net.sf.dozer.vo.DeepObject</class-b>
     <field>
       <a key="data1">this</a>
       <b>name</b>

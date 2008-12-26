@@ -20,25 +20,25 @@ import java.util.Vector;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.AnotherTestObject;
-import net.sf.dozer.functional_tests.vo.SimpleObj;
-import net.sf.dozer.functional_tests.vo.TestObject;
-import net.sf.dozer.functional_tests.vo.TestObjectPrime;
-import net.sf.dozer.functional_tests.vo.deep.DestDeepObj;
-import net.sf.dozer.functional_tests.vo.deep.SrcDeepObj;
-import net.sf.dozer.functional_tests.vo.deep.SrcNestedDeepObj;
-import net.sf.dozer.functional_tests.vo.deep.SrcNestedDeepObj2;
-import net.sf.dozer.functional_tests.vo.deepindex.A;
-import net.sf.dozer.functional_tests.vo.deepindex.B;
-import net.sf.dozer.functional_tests.vo.deepindex.Family;
-import net.sf.dozer.functional_tests.vo.deepindex.HeadOfHouseHold;
-import net.sf.dozer.functional_tests.vo.deepindex.PersonalDetails;
-import net.sf.dozer.functional_tests.vo.deepindex.Pet;
-import net.sf.dozer.functional_tests.vo.deepindex.customconverter.First;
-import net.sf.dozer.functional_tests.vo.deepindex.customconverter.Last;
-import net.sf.dozer.functional_tests.vo.deepindex.isaccessible.FlatPerson;
-import net.sf.dozer.functional_tests.vo.deepindex.isaccessible.Person;
-import net.sf.dozer.functional_tests.vo.deepindex.isaccessible.Phone;
+import net.sf.dozer.vo.AnotherTestObject;
+import net.sf.dozer.vo.SimpleObj;
+import net.sf.dozer.vo.TestObject;
+import net.sf.dozer.vo.TestObjectPrime;
+import net.sf.dozer.vo.deep.DestDeepObj;
+import net.sf.dozer.vo.deep.SrcDeepObj;
+import net.sf.dozer.vo.deep.SrcNestedDeepObj;
+import net.sf.dozer.vo.deep.SrcNestedDeepObj2;
+import net.sf.dozer.vo.deepindex.A;
+import net.sf.dozer.vo.deepindex.B;
+import net.sf.dozer.vo.deepindex.Family;
+import net.sf.dozer.vo.deepindex.HeadOfHouseHold;
+import net.sf.dozer.vo.deepindex.PersonalDetails;
+import net.sf.dozer.vo.deepindex.Pet;
+import net.sf.dozer.vo.deepindex.customconverter.First;
+import net.sf.dozer.vo.deepindex.customconverter.Last;
+import net.sf.dozer.vo.deepindex.isaccessible.FlatPerson;
+import net.sf.dozer.vo.deepindex.isaccessible.Person;
+import net.sf.dozer.vo.deepindex.isaccessible.Phone;
 
 /**
  * @author tierney.matt

@@ -20,14 +20,14 @@ import java.util.List;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.MessageHeaderDTO;
-import net.sf.dozer.functional_tests.vo.MessageHeaderVO;
-import net.sf.dozer.functional_tests.vo.MessageIdVO;
-import net.sf.dozer.functional_tests.vo.inheritance.Inner;
-import net.sf.dozer.functional_tests.vo.inheritance.Outer;
-import net.sf.dozer.functional_tests.vo.inheritance.Target;
-import net.sf.dozer.functional_tests.vo.inheritance.cc.C;
-import net.sf.dozer.functional_tests.vo.inheritance.cc.Z;
+import net.sf.dozer.vo.MessageHeaderDTO;
+import net.sf.dozer.vo.MessageHeaderVO;
+import net.sf.dozer.vo.MessageIdVO;
+import net.sf.dozer.vo.inheritance.Inner;
+import net.sf.dozer.vo.inheritance.Outer;
+import net.sf.dozer.vo.inheritance.Target;
+import net.sf.dozer.vo.inheritance.cc.C;
+import net.sf.dozer.vo.inheritance.cc.Z;
 
 /**
  * This is a holding grounds for test cases that reproduce known bugs, features, or gaps discovered during development.

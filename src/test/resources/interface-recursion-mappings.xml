@@ -7,13 +7,13 @@
   </configuration>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroup</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.interfacerecursion.UserGroupPrime</class-b>
+    <class-a>net.sf.dozer.vo.interfacerecursion.UserGroup</class-a>
+    <class-b>net.sf.dozer.vo.interfacerecursion.UserGroupPrime</class-b>
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.interfacerecursion.User</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.interfacerecursion.UserPrime</class-b>
+    <class-a>net.sf.dozer.vo.interfacerecursion.User</class-a>
+    <class-b>net.sf.dozer.vo.interfacerecursion.UserPrime</class-b>
   </mapping>
 
 </mappings>

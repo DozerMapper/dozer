@@ -17,10 +17,10 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.enumtest.MyBean;
-import net.sf.dozer.functional_tests.vo.enumtest.MyBeanPrime;
-import net.sf.dozer.functional_tests.vo.enumtest.SrcType;
-import net.sf.dozer.functional_tests.vo.enumtest.SrcTypeWithOverride;
+import net.sf.dozer.vo.enumtest.MyBean;
+import net.sf.dozer.vo.enumtest.MyBeanPrime;
+import net.sf.dozer.vo.enumtest.SrcType;
+import net.sf.dozer.vo.enumtest.SrcTypeWithOverride;
 
 /**
  * Functional test for enum mapping as described 

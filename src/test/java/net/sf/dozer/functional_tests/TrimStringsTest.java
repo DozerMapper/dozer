@@ -17,12 +17,12 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.AnotherTestObject;
-import net.sf.dozer.functional_tests.vo.AnotherTestObjectPrime;
-import net.sf.dozer.functional_tests.vo.SimpleObj;
-import net.sf.dozer.functional_tests.vo.SimpleObjPrime;
-import net.sf.dozer.functional_tests.vo.TestObject;
-import net.sf.dozer.functional_tests.vo.TestObjectPrime;
+import net.sf.dozer.vo.AnotherTestObject;
+import net.sf.dozer.vo.AnotherTestObjectPrime;
+import net.sf.dozer.vo.SimpleObj;
+import net.sf.dozer.vo.SimpleObjPrime;
+import net.sf.dozer.vo.TestObject;
+import net.sf.dozer.vo.TestObjectPrime;
 
 public class TrimStringsTest extends AbstractMapperTest {
 

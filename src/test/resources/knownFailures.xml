@@ -3,17 +3,17 @@
    "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.MessageHeaderVO</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.MessageHeaderDTO</class-b>
+    <class-a>net.sf.dozer.vo.MessageHeaderVO</class-a>
+    <class-b>net.sf.dozer.vo.MessageHeaderDTO</class-b>
     <field>
       <a>msgIds</a>
       <b>idList.msgIdsArray</b>
-      <a-hint>net.sf.dozer.functional_tests.vo.MessageIdVO</a-hint>
+      <a-hint>net.sf.dozer.vo.MessageIdVO</a-hint>
       <b-hint>java.lang.String</b-hint>
     </field>
   </mapping>
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.MessageIdVO</class-a>
+    <class-a>net.sf.dozer.vo.MessageIdVO</class-a>
     <class-b>java.lang.String</class-b>
     <field>
       <a>id</a>
@@ -21,8 +21,8 @@
     </field>
   </mapping>  
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.inheritance.Outer</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.inheritance.Target</class-b>
+    <class-a>net.sf.dozer.vo.inheritance.Outer</class-a>
+    <class-b>net.sf.dozer.vo.inheritance.Target</class-b>
     <field>
       <a>inner.string</a>
       <b>string</b>

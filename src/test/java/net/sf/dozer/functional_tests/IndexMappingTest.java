@@ -23,17 +23,17 @@ import java.util.Set;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.A;
-import net.sf.dozer.functional_tests.vo.Aliases;
-import net.sf.dozer.functional_tests.vo.B;
-import net.sf.dozer.functional_tests.vo.C;
-import net.sf.dozer.functional_tests.vo.D;
-import net.sf.dozer.functional_tests.vo.FieldValue;
-import net.sf.dozer.functional_tests.vo.FlatIndividual;
-import net.sf.dozer.functional_tests.vo.Individual;
-import net.sf.dozer.functional_tests.vo.Individuals;
-import net.sf.dozer.functional_tests.vo.index.Mccoy;
-import net.sf.dozer.functional_tests.vo.index.MccoyPrime;
+import net.sf.dozer.vo.A;
+import net.sf.dozer.vo.Aliases;
+import net.sf.dozer.vo.B;
+import net.sf.dozer.vo.C;
+import net.sf.dozer.vo.D;
+import net.sf.dozer.vo.FieldValue;
+import net.sf.dozer.vo.FlatIndividual;
+import net.sf.dozer.vo.Individual;
+import net.sf.dozer.vo.Individuals;
+import net.sf.dozer.vo.index.Mccoy;
+import net.sf.dozer.vo.index.MccoyPrime;
 
 /**
  * @author wojtek.kiersztyn

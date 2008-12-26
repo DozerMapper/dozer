@@ -22,13 +22,13 @@ import java.util.Set;
 import net.pmonks.xml.dozer.test.ChildType;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.AnotherTestObject;
-import net.sf.dozer.functional_tests.vo.Child;
-import net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeDocument;
-import net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeResponseDocument;
-import net.sf.dozer.functional_tests.vo.TestObject;
-import net.sf.dozer.functionalTests.vo.WeatherData;
-import net.sf.dozer.functionalTests.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
+import net.sf.dozer.vo.GetWeatherByZipCodeDocument;
+import net.sf.dozer.vo.GetWeatherByZipCodeResponseDocument;
+import net.sf.dozer.vo.WeatherData;
+import net.sf.dozer.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
+import net.sf.dozer.vo.AnotherTestObject;
+import net.sf.dozer.vo.Child;
+import net.sf.dozer.vo.TestObject;
 
 /**
  * @author tierney.matt

@@ -19,12 +19,12 @@ import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapperSingletonWrapper;
 import net.sf.dozer.MapperIF;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.C;
-import net.sf.dozer.functional_tests.vo.LoopObjectChild;
-import net.sf.dozer.functional_tests.vo.LoopObjectParent;
-import net.sf.dozer.functional_tests.vo.LoopObjectParentPrime;
-import net.sf.dozer.functional_tests.vo.bidirectional.A;
-import net.sf.dozer.functional_tests.vo.bidirectional.B;
+import net.sf.dozer.vo.C;
+import net.sf.dozer.vo.LoopObjectChild;
+import net.sf.dozer.vo.LoopObjectParent;
+import net.sf.dozer.vo.LoopObjectParentPrime;
+import net.sf.dozer.vo.bidirectional.A;
+import net.sf.dozer.vo.bidirectional.B;
 
 /**
  * @author tierney.matt
@@ -61,12 +61,12 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
    * @author korittky.joachim
    */
   public void testManyObjects() {
-    net.sf.dozer.functional_tests.vo.B a = (net.sf.dozer.functional_tests.vo.B) newInstance(net.sf.dozer.functional_tests.vo.B.class);
-    net.sf.dozer.functional_tests.vo.B b = new net.sf.dozer.functional_tests.vo.B();
-    a.setCs(new net.sf.dozer.functional_tests.vo.C[20000]);
+    net.sf.dozer.vo.B a = (net.sf.dozer.vo.B) newInstance(net.sf.dozer.vo.B.class);
+    net.sf.dozer.vo.B b = new net.sf.dozer.vo.B();
+    a.setCs(new net.sf.dozer.vo.C[20000]);
     // Fill the list with C objects numbered from 0 to SIZE-1
     for (int i = 0; i < a.getCs().length; i++) {
-      net.sf.dozer.functional_tests.vo.C c = (C) newInstance(net.sf.dozer.functional_tests.vo.C.class);
+      net.sf.dozer.vo.C c = (C) newInstance(net.sf.dozer.vo.C.class);
       c.setValue(Integer.toString(i));
       a.getCs()[i] = c;
     }

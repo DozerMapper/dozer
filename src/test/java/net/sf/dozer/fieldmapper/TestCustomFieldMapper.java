@@ -19,8 +19,8 @@ import net.sf.dozer.CustomFieldMapperIF;
 import net.sf.dozer.MappingException;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.fieldmap.FieldMap;
-import net.sf.dozer.functional_tests.vo.SimpleObj;
-import net.sf.dozer.functional_tests.vo.SimpleObjPrime;
+import net.sf.dozer.vo.SimpleObj;
+import net.sf.dozer.vo.SimpleObjPrime;
 
 /**
  * @author tierney.matt

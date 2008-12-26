@@ -25,17 +25,17 @@ import net.sf.dozer.event.EventTestListener;
 import net.sf.dozer.factories.SampleCustomBeanFactory;
 import net.sf.dozer.factories.SampleCustomBeanFactory2;
 import net.sf.dozer.factories.SampleDefaultBeanFactory;
-import net.sf.dozer.functional_tests.vo.Bus;
-import net.sf.dozer.functional_tests.vo.Car;
-import net.sf.dozer.functional_tests.vo.MetalThingyIF;
-import net.sf.dozer.functional_tests.vo.Moped;
-import net.sf.dozer.functional_tests.vo.TestObject;
-import net.sf.dozer.functional_tests.vo.TestObjectPrime;
-import net.sf.dozer.functional_tests.vo.Van;
-import net.sf.dozer.functional_tests.vo.deep.HomeDescription;
-import net.sf.dozer.functional_tests.vo.deep.House;
 import net.sf.dozer.util.ApplicationBeanFactory;
 import net.sf.dozer.util.TestDataFactory;
+import net.sf.dozer.vo.Bus;
+import net.sf.dozer.vo.Car;
+import net.sf.dozer.vo.MetalThingyIF;
+import net.sf.dozer.vo.Moped;
+import net.sf.dozer.vo.TestObject;
+import net.sf.dozer.vo.TestObjectPrime;
+import net.sf.dozer.vo.Van;
+import net.sf.dozer.vo.deep.HomeDescription;
+import net.sf.dozer.vo.deep.House;
 
 /**
  * Very high level tests of the DozerBeanMapper. This test class is not intended to provide in-depth testing of all the
@@ -152,8 +152,8 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
       mappingFiles.add("duplicateMapping.xml");
       myMapper = new DozerBeanMapper(mappingFiles);
 
-      myMapper.map(new net.sf.dozer.functional_tests.vo.SuperSuperSuperClass(),
-          net.sf.dozer.functional_tests.vo.SuperSuperSuperClassPrime.class);
+      myMapper.map(new net.sf.dozer.vo.SuperSuperSuperClass(),
+          net.sf.dozer.vo.SuperSuperSuperClassPrime.class);
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);

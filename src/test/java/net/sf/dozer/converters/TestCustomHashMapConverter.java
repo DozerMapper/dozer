@@ -19,10 +19,10 @@ import java.util.HashMap;
 
 import net.sf.dozer.MappingException;
 import net.sf.dozer.converters.CustomConverter;
-import net.sf.dozer.functional_tests.vo.TestCustomConverterHashMapObject;
-import net.sf.dozer.functional_tests.vo.TestCustomConverterHashMapPrimeObject;
-import net.sf.dozer.functional_tests.vo.TestObject;
-import net.sf.dozer.functional_tests.vo.TestObjectPrime;
+import net.sf.dozer.vo.TestCustomConverterHashMapObject;
+import net.sf.dozer.vo.TestCustomConverterHashMapPrimeObject;
+import net.sf.dozer.vo.TestObject;
+import net.sf.dozer.vo.TestObjectPrime;
 
 /**
  * @author garsombke.franz

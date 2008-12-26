@@ -16,7 +16,7 @@
 package net.sf.dozer.converters;
 
 import net.sf.dozer.converters.CustomConverter;
-import net.sf.dozer.functional_tests.vo.HintedOnly;
+import net.sf.dozer.vo.HintedOnly;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

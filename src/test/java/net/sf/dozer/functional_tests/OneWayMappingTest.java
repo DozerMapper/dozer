@@ -3,9 +3,9 @@ package net.sf.dozer.functional_tests;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.MapperIF;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.oneway.DestClass;
-import net.sf.dozer.functional_tests.vo.oneway.Holder;
-import net.sf.dozer.functional_tests.vo.oneway.SourceClass;
+import net.sf.dozer.vo.oneway.DestClass;
+import net.sf.dozer.vo.oneway.Holder;
+import net.sf.dozer.vo.oneway.SourceClass;
 
 /**
  * @author Dmitry Buzdin

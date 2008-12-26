@@ -10,8 +10,8 @@
   </configuration>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.SuperSuperSuperClass</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.SuperSuperSuperClassPrime</class-b>
+    <class-a>net.sf.dozer.vo.SuperSuperSuperClass</class-a>
+    <class-b>net.sf.dozer.vo.SuperSuperSuperClassPrime</class-b>
 
     <field>
       <a>hydrate</a>
@@ -20,8 +20,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.SuperSuperSuperClass</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.SuperSuperSuperClassPrime</class-b>
+    <class-a>net.sf.dozer.vo.SuperSuperSuperClass</class-a>
+    <class-b>net.sf.dozer.vo.SuperSuperSuperClassPrime</class-b>
 
     <field>
       <a>hydrate</a>

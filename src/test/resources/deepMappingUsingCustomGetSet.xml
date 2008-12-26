@@ -4,8 +4,8 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.deep2.Src</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.deep2.Dest</class-b>
+    <class-a>net.sf.dozer.vo.deep2.Src</class-a>
+    <class-b>net.sf.dozer.vo.deep2.Dest</class-b>
     <field>
       <a>srcField</a>
       <b set-method="setField" get-method="getField">

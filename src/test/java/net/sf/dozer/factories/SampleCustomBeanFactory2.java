@@ -15,8 +15,8 @@
  */
 package net.sf.dozer.factories;
 
-import net.sf.dozer.functional_tests.vo.InsideTestObject;
-import net.sf.dozer.functional_tests.vo.InsideTestObjectPrime;
+import net.sf.dozer.vo.InsideTestObject;
+import net.sf.dozer.vo.InsideTestObjectPrime;
 
 /**
  * @author tierney.matt

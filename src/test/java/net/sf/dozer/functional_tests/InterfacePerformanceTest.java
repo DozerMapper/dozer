@@ -17,9 +17,9 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.iface.ApplicationUser;
-import net.sf.dozer.functional_tests.vo.iface.Subscriber;
-import net.sf.dozer.functional_tests.vo.iface.UpdateMember;
+import net.sf.dozer.vo.iface.ApplicationUser;
+import net.sf.dozer.vo.iface.Subscriber;
+import net.sf.dozer.vo.iface.UpdateMember;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

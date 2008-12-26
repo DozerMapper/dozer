@@ -31,13 +31,13 @@ import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.MappingFileData;
 import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.fieldmap.FieldMap;
-import net.sf.dozer.functional_tests.vo.enumtest.DestType;
-import net.sf.dozer.functional_tests.vo.enumtest.DestTypeWithOverride;
-import net.sf.dozer.functional_tests.vo.enumtest.SrcType;
-import net.sf.dozer.functional_tests.vo.enumtest.SrcTypeWithOverride;
 import net.sf.dozer.util.MappingFileReader;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.MappingsParser;
+import net.sf.dozer.vo.enumtest.DestType;
+import net.sf.dozer.vo.enumtest.DestTypeWithOverride;
+import net.sf.dozer.vo.enumtest.SrcType;
+import net.sf.dozer.vo.enumtest.SrcTypeWithOverride;
 
 /**
  * @author tierney.matt

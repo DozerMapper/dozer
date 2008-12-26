@@ -27,15 +27,15 @@ import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.MapperIF;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.functional_tests.AbstractMapperTest;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.AnotherTestObject;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.DestDeepObj;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.Family;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.HeadOfHouseHold;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.PersonalDetails;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.Pet;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.SrcDeepObj;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.TestObject;
-import net.sf.dozer.functional_tests.vo.generics.deepindex.TestObjectPrime;
+import net.sf.dozer.vo.generics.deepindex.AnotherTestObject;
+import net.sf.dozer.vo.generics.deepindex.DestDeepObj;
+import net.sf.dozer.vo.generics.deepindex.Family;
+import net.sf.dozer.vo.generics.deepindex.HeadOfHouseHold;
+import net.sf.dozer.vo.generics.deepindex.PersonalDetails;
+import net.sf.dozer.vo.generics.deepindex.Pet;
+import net.sf.dozer.vo.generics.deepindex.SrcDeepObj;
+import net.sf.dozer.vo.generics.deepindex.TestObject;
+import net.sf.dozer.vo.generics.deepindex.TestObjectPrime;
 
 /**
  * @author garsombke.franz

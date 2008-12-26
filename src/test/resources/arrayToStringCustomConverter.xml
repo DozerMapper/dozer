@@ -5,15 +5,15 @@
   <configuration>
     <custom-converters>
       <converter type="net.sf.dozer.converters.StringAppendCustomConverter">
-        <class-a>[Lnet.sf.dozer.functional_tests.vo.SimpleObj;</class-a>
+        <class-a>[Lnet.sf.dozer.vo.SimpleObj;</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
     </custom-converters>
   </configuration>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.vo.ArrayCustConverterObj</class-a>
-    <class-b>net.sf.dozer.functional_tests.vo.ArrayCustConverterObjPrime</class-b>
+    <class-a>net.sf.dozer.vo.ArrayCustConverterObj</class-a>
+    <class-b>net.sf.dozer.vo.ArrayCustConverterObjPrime</class-b>
     <field>
       <a>field1</a>
       <b>field1Prime</b>

@@ -4,8 +4,8 @@
 <mappings>
 
     <mapping>
-        <class-a>net.sf.dozer.functional_tests.vo.oneway.SourceClass</class-a>
-        <class-b>net.sf.dozer.functional_tests.vo.oneway.Holder</class-b>
+        <class-a>net.sf.dozer.vo.oneway.SourceClass</class-a>
+        <class-b>net.sf.dozer.vo.oneway.Holder</class-b>
         <field>
             <a>a</a>
             <b>dest.a</b>

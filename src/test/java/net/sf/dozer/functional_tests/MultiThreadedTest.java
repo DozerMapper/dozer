@@ -17,10 +17,10 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.vo.TestObject;
-import net.sf.dozer.functional_tests.vo.TestObjectPrime;
-import net.sf.dozer.functional_tests.vo.inheritance.AnotherSubClass;
-import net.sf.dozer.functional_tests.vo.inheritance.AnotherSubClassPrime;
+import net.sf.dozer.vo.TestObject;
+import net.sf.dozer.vo.TestObjectPrime;
+import net.sf.dozer.vo.inheritance.AnotherSubClass;
+import net.sf.dozer.vo.inheritance.AnotherSubClassPrime;
 
 /**
  * @author tierney.matt
