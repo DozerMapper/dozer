@@ -25,6 +25,7 @@
             <li>Deep index patch <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2061942&amp;group_id=133517&amp;atid=727370">link</a></li>
             <li>Collection deep index issue <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1803172&amp;group_id=133517&amp;atid=727370">link</a></li>
             <li>Deep Mapping with custom setter method does not work when default setter exists <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2459076&amp;group_id=133517&amp;atid=727370">link</a></li>
+            <li>Improve an exception message <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2458137&amp;group_id=133517&amp;atid=727370">link</a></li>
           </ul>
         </p>
         <p>Feature Requests</p> 
