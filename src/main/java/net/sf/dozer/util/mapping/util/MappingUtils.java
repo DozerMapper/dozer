@@ -345,15 +345,15 @@ public final class MappingUtils {
    */
   public static boolean isEnumType(Class srcFieldClass, Class destFieldType){
     if (GlobalSettings.getInstance().isJava5()){//Verify if running JRE is 1.5 or above
-      if (srcFieldClass.isAnonymousClass()){
+      if ( ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), srcFieldClass, null)).booleanValue()) {
         //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
         //This is used to ensure Dozer can get correct Enum type.
-        srcFieldClass = srcFieldClass.getEnclosingClass();
+        srcFieldClass = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), srcFieldClass, null);
       }
-      if (destFieldType.isAnonymousClass()){
+      if ( ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), destFieldType, null)).booleanValue()) {
         //Just like srcFieldClass, if destFieldType is anonymous class, replace destFieldType with 
         //its enclosing class. This is used to ensure Dozer can get correct Enum type.
-        destFieldType = destFieldType.getEnclosingClass();
+        destFieldType = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), destFieldType, null);
       }
       return 
         ((Boolean) ReflectionUtils

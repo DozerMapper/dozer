@@ -33,6 +33,8 @@ public class Jdk5Methods {
   private Method enumValueOfMethod;
   private Method methodGetGenericParameterTypesMethod;
   private Method methodGetGenericReturnTypeMethod;
+  private Method isAnonymousClassMethod;
+  private Method getEnclosingClassMethod;
   private Class parameterizedTypeClass;
   private Method paramaterizedTypeGetActualTypeArgsMethod;
 
@@ -55,6 +57,8 @@ public class Jdk5Methods {
       enumValueOfMethod = enumClass.getMethod("valueOf", new Class[] { Class.class, String.class });
       methodGetGenericParameterTypesMethod = Method.class.getMethod("getGenericParameterTypes", null);
       methodGetGenericReturnTypeMethod = Method.class.getMethod("getGenericReturnType", null);
+      isAnonymousClassMethod = Class.class.getMethod("isAnonymousClass", null); 
+      getEnclosingClassMethod = Class.class.getMethod("getEnclosingClass", null);
       parameterizedTypeClass = Class.forName("java.lang.reflect.ParameterizedType");
       paramaterizedTypeGetActualTypeArgsMethod = parameterizedTypeClass.getMethod("getActualTypeArguments", null);
     } catch (Exception e) {
@@ -89,4 +93,13 @@ public class Jdk5Methods {
   public Class getParameterizedTypeClass() {
     return parameterizedTypeClass;
   }
+
+  public Method getIsAnonymousClassMethod() {
+    return isAnonymousClassMethod;
+  }
+
+  public Method getGetEnclosingClassMethod() {
+    return getEnclosingClassMethod;
+  }
+  
 }

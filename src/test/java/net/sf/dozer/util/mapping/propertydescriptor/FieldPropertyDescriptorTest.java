@@ -28,7 +28,7 @@ public class FieldPropertyDescriptorTest extends TestCase {
       new FieldPropertyDescriptor(String.class, "nosuchfield", false, 0, null, null);
       fail();
     } catch (MappingException e) {
-      assertTrue(e.getMessage().contains("java.lang.String.nosuchfield"));
+      assertTrue(e.getMessage().indexOf("java.lang.String.nosuchfield") > 0);
     }
   }
 
