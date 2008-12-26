@@ -29,7 +29,12 @@ import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.ProxyDataObjectInstantiator;
 import net.sf.dozer.util.mapping.classmap.ClassMap;
 import net.sf.dozer.util.mapping.classmap.MappingFileData;
+import net.sf.dozer.util.mapping.config.GlobalSettings;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
+import net.sf.dozer.util.mapping.vo.enumtest.DestType;
+import net.sf.dozer.util.mapping.vo.enumtest.DestTypeWithOverride;
+import net.sf.dozer.util.mapping.vo.enumtest.SrcType;
+import net.sf.dozer.util.mapping.vo.enumtest.SrcTypeWithOverride;
 
 /**
  * @author tierney.matt
@@ -186,6 +191,22 @@ public class MappingUtilsTest extends AbstractDozerTest {
       fail("should have thrown exception");
     } catch (MappingException e) {
       //expected
+    }
+  }
+  
+  /**
+   * Test for isEnumType(Class srcFieldClass, Class destFieldType) defined in MappingUtils
+   */
+  public void testIsEnum() {
+    if (GlobalSettings.getInstance().isJava5()){
+      assertTrue(MappingUtils.isEnumType(SrcType.class, DestType.class));
+      assertTrue(MappingUtils.isEnumType(SrcType.FOO.getClass(), DestType.FOO.getClass()));
+      assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
+          DestType.FOO.getClass()));
+      assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
+          DestTypeWithOverride.FOO.getClass()));
+      assertFalse(MappingUtils.isEnumType(SrcType.class, String.class));
+      assertFalse(MappingUtils.isEnumType(String.class, SrcType.class));
     }
   }
 
