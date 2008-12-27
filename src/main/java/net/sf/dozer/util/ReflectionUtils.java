@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -298,8 +299,7 @@ public abstract class ReflectionUtils {
 
       if (parameterType != null && ParameterizedType.class.isAssignableFrom(parameterType.getClass())) {
       
-        Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
-            .getParamaterizedTypeGetActualTypeArgsMethod(), parameterType, null))[0];
+        Type genericType = ((ParameterizedType) parameterType).getActualTypeArguments()[0];
         if (genericType != null) {
           result = (Class<?>) genericType;
         }
@@ -308,8 +308,7 @@ public abstract class ReflectionUtils {
       Object[] parameterTypes = method.getGenericParameterTypes();
       
       if (parameterTypes != null && ParameterizedType.class.isAssignableFrom(parameterTypes[0].getClass())) {
-        Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
-            .getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
+        Type genericType = ((ParameterizedType) parameterTypes[0]).getActualTypeArguments()[0];
         if (genericType != null) {
           result = (Class<?>) genericType;
         }

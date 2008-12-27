@@ -37,7 +37,6 @@ import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.RelationshipType;
-import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.converters.ConfigurableCustomConverter;
 import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.converters.CustomConverterBase;
@@ -57,7 +56,6 @@ import net.sf.dozer.util.ClassMapBuilder;
 import net.sf.dozer.util.CollectionUtils;
 import net.sf.dozer.util.DateFormatContainer;
 import net.sf.dozer.util.DestBeanCreator;
-import net.sf.dozer.util.Jdk5Methods;
 import net.sf.dozer.util.LogMsgFactory;
 import net.sf.dozer.util.MapperConstants;
 import net.sf.dozer.util.MappingUtils;
@@ -399,17 +397,16 @@ public class MappingProcessor implements Mapper {
     }
 
     if (MappingUtils.isEnumType(srcFieldClass, destFieldType)) {
-      return mapEnum(srcFieldValue, destFieldType);
+      return mapEnum((Enum) srcFieldValue, destFieldType);
     }
 
     // Default: Map from one custom data object to another custom data object
     return mapCustomObject(fieldMap, destObj, destFieldType, srcFieldValue);
   }
 
-  private Object mapEnum(Object srcFieldValue, Class<?> destFieldType) {
-    String name = (String) ReflectionUtils.invoke(Jdk5Methods.getInstance().getEnumNameMethod(), srcFieldValue, null);
-    return ReflectionUtils.invoke(Jdk5Methods.getInstance().getEnumValueOfMethod(), destFieldType, new Object[] { destFieldType,
-        name });
+  private Object mapEnum(Enum srcFieldValue, Class destFieldType) {
+    String name = srcFieldValue.name();
+    return Enum.valueOf(destFieldType, name);
   }
 
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class<?> destFieldType, Object srcFieldValue) {
