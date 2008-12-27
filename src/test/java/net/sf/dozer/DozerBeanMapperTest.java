@@ -120,19 +120,19 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     // make sure that the customconverter was injected
     Car car = new Car();
-    Van van = (Van) cleanMapper.map(car, Van.class);
+    Van van = cleanMapper.map(car, Van.class);
     assertEquals("injectedName", van.getName());
     // map back
-    Car carDest = (Car) cleanMapper.map(van, Car.class);
+    Car carDest = cleanMapper.map(van, Car.class);
     assertEquals("injectedName", carDest.getName());
 
     // test that we get customconverter even though it wasn't defined in the mapping file
     Moped moped = new Moped();
-    Bus bus = (Bus) cleanMapper.map(moped, Bus.class);
+    Bus bus = cleanMapper.map(moped, Bus.class);
     assertEquals("injectedName", bus.getName());
 
     // map back
-    Moped mopedDest = (Moped) cleanMapper.map(bus, Moped.class);
+    Moped mopedDest = cleanMapper.map(bus, Moped.class);
     assertEquals("injectedName", mopedDest.getName());
   }
 
@@ -168,8 +168,8 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
     Mapper mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
 
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
-    TestObject source = (TestObject) mapper.map(prime, TestObject.class);
+    TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
+    TestObject source = mapper.map(prime, TestObject.class);
 
     // The following asserts will verify that the ClassMap beanFactory attr gets applied to both classes
     assertNotNull("created by factory name should not be null", prime.getCreatedByFactoryName());
@@ -188,7 +188,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     // test returning an Interface
     Van van = new Van();
     van.setName("testName");
-    MetalThingyIF car = (MetalThingyIF) mapper.map(van, MetalThingyIF.class);
+    MetalThingyIF car = mapper.map(van, MetalThingyIF.class);
     assertEquals("testName", car.getName());
   }
 
@@ -199,13 +199,13 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0)
         .getClass());
     House src = testDataFactory.getHouse();
-    HomeDescription dest = (HomeDescription) eventMapper.map(src, HomeDescription.class);
+    HomeDescription dest = eventMapper.map(src, HomeDescription.class);
   }
 
   private void assertCommon(Mapper mapper) throws Exception {
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
-    TestObject source = (TestObject) mapper.map(prime, TestObject.class);
-    TestObjectPrime prime2 = (TestObjectPrime) mapper.map(source, TestObjectPrime.class);
+    TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
+    TestObject source = mapper.map(prime, TestObject.class);
+    TestObjectPrime prime2 = mapper.map(source, TestObjectPrime.class);
 
     assertEquals(prime2, prime);
   }

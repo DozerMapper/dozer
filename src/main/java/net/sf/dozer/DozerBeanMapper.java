@@ -23,6 +23,8 @@ import net.sf.dozer.cache.CacheManager;
 import net.sf.dozer.cache.DozerCacheManager;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.config.GlobalSettings;
+import net.sf.dozer.converters.CustomConverter;
+import net.sf.dozer.event.DozerEventListener;
 import net.sf.dozer.interceptor.StatisticsInterceptor;
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticTypeConstants;
@@ -59,11 +61,11 @@ public class DozerBeanMapper implements Mapper {
   /*
    * Accessible for custom injection
    */
-  private List mappingFiles; // String file names
-  private List customConverters;
-  private List eventListeners;
+  private List<String> mappingFiles; // String file names
+  private List<CustomConverter> customConverters;
+  private List<DozerEventListener> eventListeners;
   private CustomFieldMapper customFieldMapper;
-  private Map customConvertersWithId;
+  private Map<String, CustomConverter> customConvertersWithId;
 
   /*
    * Not accessible for injection
@@ -77,7 +79,7 @@ public class DozerBeanMapper implements Mapper {
     this(null);
   }
 
-  public DozerBeanMapper(List mappingFiles) {
+  public DozerBeanMapper(List<String> mappingFiles) {
     this.mappingFiles = mappingFiles;
     init();
   }
@@ -98,11 +100,11 @@ public class DozerBeanMapper implements Mapper {
     getMappingProcessor().map(source, destination);
   }
 
-  public List getMappingFiles() {
+  public List<String> getMappingFiles() {
     return mappingFiles;
   }
 
-  public void setMappingFiles(List mappingFiles) {
+  public void setMappingFiles(List<String> mappingFiles) {
     this.mappingFiles = mappingFiles;
   }
 
@@ -110,7 +112,7 @@ public class DozerBeanMapper implements Mapper {
     MappingUtils.storedFactories.putAll(factories);
   }
 
-  public void setCustomConverters(List customConverters) {
+  public void setCustomConverters(List<CustomConverter> customConverters) {
     this.customConverters = customConverters;
   }
 
@@ -152,11 +154,11 @@ public class DozerBeanMapper implements Mapper {
     }
   }
 
-  public List getEventListeners() {
+  public List<DozerEventListener> getEventListeners() {
     return eventListeners;
   }
 
-  public void setEventListeners(List eventListeners) {
+  public void setEventListeners(List<DozerEventListener> eventListeners) {
     this.eventListeners = eventListeners;
   }
 
@@ -168,11 +170,11 @@ public class DozerBeanMapper implements Mapper {
     this.customFieldMapper = customFieldMapper;
   }
 
-  public Map getCustomConvertersWithId() {
+  public Map<String, CustomConverter> getCustomConvertersWithId() {
     return customConvertersWithId;
   }
 
-  public void setCustomConvertersWithId(Map customConvertersWithId) {
+  public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
     this.customConvertersWithId = customConvertersWithId;
   }
 
