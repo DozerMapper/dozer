@@ -15,12 +15,18 @@
  */
 package net.sf.dozer.cache;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
 import net.sf.dozer.util.MappingUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.util.*;
 
 /**
  * Internal class that manages the Dozer caches. Only intended for internal use.
@@ -30,10 +36,10 @@ import java.util.*;
 public final class DozerCacheManager implements CacheManager {
 
   private static final Log log = LogFactory.getLog(DozerCacheManager.class);
-  private final Map cachesMap = new HashMap();
+  private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
 
-  public Collection getCaches() {
-    return new HashSet(cachesMap.values());
+  public Collection<Cache> getCaches() {
+    return new HashSet<Cache>(cachesMap.values());
   }
 
   public Cache getCache(String name) {
@@ -58,11 +64,9 @@ public final class DozerCacheManager implements CacheManager {
     }
   }
 
-  public Collection getCacheNames() {
-    Set results = new HashSet();
-    Iterator iter = cachesMap.entrySet().iterator();
-    while (iter.hasNext()) {
-      Map.Entry entry = (Map.Entry) iter.next();
+  public Collection<String> getCacheNames() {
+    Set<String> results = new HashSet<String>();
+    for (Entry<String, Cache> entry : cachesMap.entrySet()) {
       results.add(entry.getKey());
     }
     return results;
@@ -72,9 +76,7 @@ public final class DozerCacheManager implements CacheManager {
    * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each cache
    */
   public void clearAllEntries() {
-    Iterator iter = cachesMap.values().iterator();
-    while (iter.hasNext()) {
-      Cache cache = (Cache) iter.next();
+    for (Cache cache : cachesMap.values()) {
       cache.clear();
     }
   }

@@ -38,7 +38,7 @@ public class DozerCache implements Cache {
   private final String name;
 
   // Order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
-  private final Map cacheMap = new LinkedMap(100, 0.75F);
+  private final Map<Object, Object> cacheMap = new LinkedMap(100, 0.75F);
   private long maximumSize;
   private long hitCount;
   private long missCount;
@@ -82,7 +82,7 @@ public class DozerCache implements Cache {
     }
   }
 
-  public Collection getEntries() {
+  public Collection<Object> getEntries() {
     return cacheMap.values();
   }
 

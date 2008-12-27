@@ -26,27 +26,30 @@ public final class CacheKeyFactory {
   private CacheKeyFactory() {
   }
 
-  public static Object createKey(Class destClass, Class srcClass) {
+  public static Object createKey(Class<?> destClass, Class<?> srcClass) {
     return new CacheKey(srcClass, destClass);
   }
 
   private static class CacheKey {
 
-    private Class srcClass;
-    private Class destClass;
+    private Class<?> srcClass;
+    private Class<?> destClass;
 
-    private CacheKey(Class srcClass, Class destClass) {
+    private CacheKey(Class<?> srcClass, Class<?> destClass) {
       this.srcClass = srcClass;
       this.destClass = destClass;
     }
 
     public boolean equals(Object o) {
-      if (this == o) return true;      
+      if (this == o)
+        return true;
 
       CacheKey cacheKey = (CacheKey) o;
 
-      if (destClass != null ? !destClass.equals(cacheKey.destClass) : cacheKey.destClass != null) return false;
-      if (srcClass != null ? !srcClass.equals(cacheKey.srcClass) : cacheKey.srcClass != null) return false;
+      if (destClass != null ? !destClass.equals(cacheKey.destClass) : cacheKey.destClass != null)
+        return false;
+      if (srcClass != null ? !srcClass.equals(cacheKey.srcClass) : cacheKey.srcClass != null)
+        return false;
 
       return true;
     }

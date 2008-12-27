@@ -34,9 +34,9 @@ public interface CacheManager {
    * Returns a Set of all Cache names
    * @return Set of String objects representing Cache names.
    */
-  public Collection getCacheNames();
+  public Collection<String> getCacheNames();
 
-  public Collection getCaches();
+  public Collection<Cache> getCaches();
 
   /**
    * Get Cache object by name.
