@@ -29,7 +29,7 @@ public class ClassMapKeyFactory {
   }
 
   // TODO Fix this
-  public static String createKey(Class srcClass, Class destClass, String mapId) {
+  public static String createKey(Class<?> srcClass, Class<?> destClass, String mapId) {
     StringBuffer result = new StringBuffer(150);
     result.append("SOURCE CLASS-->");
     result.append(srcClass.getName());
@@ -42,7 +42,7 @@ public class ClassMapKeyFactory {
     return result.toString();
   }
 
-  public static String createKey(Class srcClass, Class destClass) {
+  public static String createKey(Class<?> srcClass, Class<?> destClass) {
     return createKey(srcClass, destClass, null);
   }
 

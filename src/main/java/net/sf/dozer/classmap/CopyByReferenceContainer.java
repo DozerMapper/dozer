@@ -30,9 +30,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class CopyByReferenceContainer {
 
-    private List copyByReferences = new ArrayList();
+    private List<CopyByReference> copyByReferences = new ArrayList<CopyByReference>();
 
-    public List getCopyByReferences() {
+    public List<CopyByReference> getCopyByReferences() {
         return copyByReferences;
     }
 

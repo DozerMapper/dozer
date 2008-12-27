@@ -40,8 +40,8 @@ public class ClassMap {
   private Configuration globalConfiguration;
   private DozerClass srcClass;
   private DozerClass destClass;
-  private List fieldMaps = new ArrayList();
-  private List allowedExceptions = new ArrayList();
+  private List<FieldMap> fieldMaps = new ArrayList<FieldMap>();
+  private List<Class<RuntimeException>> allowedExceptions = new ArrayList<Class<RuntimeException>>();
   private String type;
   private String dateFormat;
   private String beanFactory;
@@ -58,7 +58,7 @@ public class ClassMap {
     this.globalConfiguration = globalConfiguration;
   }
 
-  public List getFieldMaps() {
+  public List<FieldMap> getFieldMaps() {
     return fieldMaps;
   }
 
@@ -87,7 +87,7 @@ public class ClassMap {
     }
   }
 
-  public void setAllowedExceptions(List allowedExceptions) {
+  public void setAllowedExceptions(List<Class<RuntimeException>> allowedExceptions) {
     this.allowedExceptions = allowedExceptions;
   }
 
@@ -148,7 +148,7 @@ public class ClassMap {
     return result;
   }
 
-  public void setFieldMaps(List fieldMaps) {
+  public void setFieldMaps(List<FieldMap> fieldMaps) {
     this.fieldMaps = fieldMaps;
   }
 

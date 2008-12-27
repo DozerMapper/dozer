@@ -75,7 +75,7 @@ public abstract class LogMsgFactory {
         + "\n  Source field type: " + srcValueType + "\n  Source field value: " + srcFieldValueString + "\n  Dest parent class: "
         + destClassName + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: " + destFieldTypeName;
   }
-  public static String createFieldMappingSuccessMsg(Class srcClass, Class destClass, String srcFieldName, String destFieldName,
+  public static String createFieldMappingSuccessMsg(Class<?> srcClass, Class<?> destClass, String srcFieldName, String destFieldName,
       Object srcFieldValue, Object destFieldValue, String classMapId) {
     String srcClassStr = MappingUtils.getClassNameWithoutPackage(srcClass);
     String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);

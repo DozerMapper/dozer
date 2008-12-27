@@ -16,7 +16,10 @@
 package net.sf.dozer.util;
 
 import java.beans.PropertyDescriptor;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.Configuration;
@@ -42,7 +45,7 @@ public abstract class ClassMapBuilder {
   private static final String CALLBACK = "callback";
   private static final String CALLBACKS = "callbacks";
 
-  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class srcClass, Class destClass) {
+  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
     ClassMap classMap = new ClassMap(globalConfiguration);
     classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null,
         MapperConstants.DEFAULT_MAP_NULL_POLICY, MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY));
@@ -57,13 +60,10 @@ public abstract class ClassMapBuilder {
     return classMap;
   }
 
-  public static void addDefaultFieldMappings(Map customMappings, Configuration globalConfiguration) {
-    Set entries = customMappings.entrySet();
-    Iterator iter = entries.iterator();
-    while (iter.hasNext()) {
-      Map.Entry entry = (Map.Entry) iter.next();
+  public static void addDefaultFieldMappings(Map<String, ClassMap> customMappings, Configuration globalConfiguration) {
+    Set<Entry<String, ClassMap>> entries = customMappings.entrySet();
+    for (Entry<String, ClassMap> entry : entries) {
       ClassMap classMap = (ClassMap) entry.getValue();
-
       if (classMap.isWildcard()) {
         addDefaultFieldMappings(classMap, globalConfiguration);
       }
@@ -71,8 +71,8 @@ public abstract class ClassMapBuilder {
   }
 
   private static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
-    Class srcClass = classMap.getSrcClassToMap();
-    Class destClass = classMap.getDestClassToMap();
+    Class<?> srcClass = classMap.getSrcClassToMap();
+    Class<?> destClass = classMap.getDestClassToMap();
 
     if (MappingUtils.isSupportedMap(srcClass) || classMap.getSrcClassMapGetMethod() != null
         || MappingUtils.isSupportedMap(destClass) || classMap.getDestClassMapGetMethod() != null) {
@@ -124,8 +124,8 @@ public abstract class ClassMapBuilder {
   }
 
   private static void addMapDefaultFieldMappings(ClassMap classMap) {
-    Class srcClass = classMap.getSrcClassToMap();
-    Class destClass = classMap.getDestClassToMap();
+    Class<?> srcClass = classMap.getSrcClassToMap();
+    Class<?> destClass = classMap.getDestClassToMap();
     PropertyDescriptor[] properties;
     boolean destinationIsMap = false;
     if (MappingUtils.isSupportedMap(srcClass) || classMap.getSrcClassMapGetMethod() != null) {

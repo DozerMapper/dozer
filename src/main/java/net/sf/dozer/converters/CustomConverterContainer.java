@@ -32,13 +32,13 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class CustomConverterContainer {
 
-  private List converters = new ArrayList();
+  private List<CustomConverterDescription> converters = new ArrayList<CustomConverterDescription>();
 
-  public List getConverters() {
+  public List<CustomConverterDescription> getConverters() {
     return converters;
   }
 
-  public void setConverters(List converters) {
+  public void setConverters(List<CustomConverterDescription> converters) {
     this.converters = converters;
   }
 
@@ -46,7 +46,7 @@ public class CustomConverterContainer {
     getConverters().add(converter);
   }
 
-  public Class getCustomConverter(Class srcClass, Class destClass, Cache converterByDestTypeCache) {
+  public Class getCustomConverter(Class<?> srcClass, Class<?> destClass, Cache converterByDestTypeCache) {
     // If no converters have been specified, no point in continuing. Just return.
     if (converters == null || converters.size() < 1) {
       return null;

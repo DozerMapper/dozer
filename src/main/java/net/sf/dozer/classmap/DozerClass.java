@@ -30,7 +30,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class DozerClass {
   private String name;
-  private Class classToMap;
+  private Class<?> classToMap;
   private String beanFactory;
   private String factoryBeanId;
   private String mapGetMethod;
@@ -42,7 +42,7 @@ public class DozerClass {
   public DozerClass() {
   }
 
-  public DozerClass(String name, Class classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
+  public DozerClass(String name, Class<?> classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
       String mapSetMethod, boolean mapNull, boolean mapEmptyString) {
     this.name = name;
     this.classToMap = classToMap;
@@ -62,7 +62,7 @@ public class DozerClass {
     this.beanFactory = beanFactory;
   }
 
-  public Class getClassToMap() {
+  public Class<?> getClassToMap() {
     return classToMap;
   }
 

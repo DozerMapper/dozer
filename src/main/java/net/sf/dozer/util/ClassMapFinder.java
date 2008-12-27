@@ -39,9 +39,9 @@ public abstract class ClassMapFinder {
 
   private static final Log log = LogFactory.getLog(ClassMapFinder.class);
 
-  public static ClassMap findClassMap(Map customMappings, Class srcClass, Class destClass, String mapId) {
-    Class srcLookupClass = MappingUtils.getRealClass(srcClass);
-    Class destLookupClass = MappingUtils.getRealClass(destClass);
+  public static ClassMap findClassMap(Map<String, ClassMap> customMappings, Class<?> srcClass, Class<?> destClass, String mapId) {
+    Class<?> srcLookupClass = MappingUtils.getRealClass(srcClass);
+    Class<?> destLookupClass = MappingUtils.getRealClass(destClass);
 
     ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
 
@@ -68,12 +68,12 @@ public abstract class ClassMapFinder {
     return mapping;
   }
 
-  public static List findInterfaceMappings(Map customMappings, Class srcClass, Class destClass) {
+  public static List findInterfaceMappings(Map<String, ClassMap> customMappings, Class<?> srcClass, Class<?> destClass) {
     // If no existing cache entry is found, determine super type mapping and store in cache
     // Get interfaces
     Class[] srcInterfaces = srcClass.getInterfaces();
     Class[] destInterfaces = destClass.getInterfaces();
-    List interfaceMaps = new ArrayList();
+    List<ClassMap> interfaceMaps = new ArrayList<ClassMap>();
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
@@ -98,14 +98,14 @@ public abstract class ClassMapFinder {
   }
 
   // Look for an interface mapping
-  private static ClassMap findInterfaceMapping(Map customMappings, Class destClass, Class srcClass, String mapId) {
+  private static ClassMap findInterfaceMapping(Map<String, ClassMap> customMappings, Class<?> destClass, Class<?> srcClass, String mapId) {
     // Use object array for keys to avoid any rare thread synchronization issues while iterating over the custom mappings. 
     // See bug #1550275.
     Object[] keys = customMappings.keySet().toArray();
     for (int i = 0; i < keys.length; i++) {
       ClassMap map = (ClassMap) customMappings.get(keys[i]);
-      Class mappingDestClass = map.getDestClassToMap();
-      Class mappingSrcClass = map.getSrcClassToMap();
+      Class<?> mappingDestClass = map.getDestClassToMap();
+      Class<?> mappingSrcClass = map.getSrcClassToMap();
 
       if ((mapId == null && map.getMapId() != null) || (mapId != null && !mapId.equals(map.getMapId()))) {
         continue;

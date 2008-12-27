@@ -19,9 +19,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.Configuration;
@@ -49,14 +49,12 @@ public class CustomMappingsLoader {
 
   public LoadMappingsResult load(List<String> mappingFiles) {
     Map<String, ClassMap> customMappings = new HashMap<String, ClassMap>();
-    ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList());
+    ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList<CustomConverterDescription>());
     Configuration globalConfiguration = null;
-    List mappingFileDataList = new ArrayList();
+    List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
     if (mappingFiles != null && mappingFiles.size() > 0) {
       InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
-      Iterator iter = mappingFiles.iterator();
-      while (iter.hasNext()) {
-        String mappingFileName = (String) iter.next();
+      for (String mappingFileName : mappingFiles) {
         InitLogger.log(log, "Trying to find xml mapping file: " + mappingFileName);
         URL url = MappingValidator.validateURL(MapperConstants.DEFAULT_PATH_ROOT + mappingFileName);
         InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
@@ -84,9 +82,7 @@ public class CustomMappingsLoader {
     }
 
     // Decorate the raw ClassMap objects and create ClassMap "prime" instances
-    Iterator iter = mappingFileDataList.iterator();
-    while (iter.hasNext()) {
-      MappingFileData mappingFileData = (MappingFileData) iter.next();
+    for (MappingFileData mappingFileData : mappingFileDataList) {
       customMappings.putAll(mappingsParser.processMappings(mappingFileData.getClassMaps(), globalConfiguration));
     }
 
@@ -96,17 +92,13 @@ public class CustomMappingsLoader {
 
     // build up custom converter description objects
     if (globalConfiguration.getCustomConverters() != null && globalConfiguration.getCustomConverters().getConverters() != null) {
-      Iterator iterator = globalConfiguration.getCustomConverters().getConverters().iterator();
-      while (iterator.hasNext()) {
-        CustomConverterDescription cc = (CustomConverterDescription) iterator.next();
+      for (CustomConverterDescription cc : globalConfiguration.getCustomConverters().getConverters()) {
         customConverterDescriptions.add(cc);
       }
     }
 
     // iterate through the classmaps and set all of the customconverters on them
-    Iterator entries = customMappings.entrySet().iterator();
-    while (entries.hasNext()) {
-      Map.Entry entry = (Map.Entry) entries.next();
+    for (Entry<String, ClassMap> entry : customMappings.entrySet()) {
       ClassMap classMap = (ClassMap) entry.getValue();
       if (classMap.getCustomConverters() != null) {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());

@@ -33,23 +33,23 @@ import java.util.TreeSet;
  */
 public abstract class CollectionUtils {
 
-  public static boolean isArray(Class aClass) {
+  public static boolean isArray(Class<?> aClass) {
     return aClass.isArray();
   }
 
-  public static boolean isCollection(Class aClass) {
+  public static boolean isCollection(Class<?> aClass) {
     return Collection.class.isAssignableFrom(aClass);
   }
 
-  public static boolean isList(Class aClass) {
+  public static boolean isList(Class<?> aClass) {
     return List.class.isAssignableFrom(aClass);
   }
 
-  public static boolean isSet(Class aClass) {
+  public static boolean isSet(Class<?> aClass) {
     return Set.class.isAssignableFrom(aClass);
   }
 
-  public static boolean isPrimitiveArray(Class aClass) {
+  public static boolean isPrimitiveArray(Class<?> aClass) {
     return aClass.isArray() && aClass.getComponentType().isPrimitive();
   }
 
@@ -69,7 +69,7 @@ public abstract class CollectionUtils {
     }
   }
 
-  public static Set createNewSet(Class destType) {
+  public static Set createNewSet(Class<?> destType) {
     return createNewSet(destType, null);
   }
 

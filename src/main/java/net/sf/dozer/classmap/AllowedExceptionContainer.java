@@ -29,9 +29,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class AllowedExceptionContainer {
 
-  private List exceptions = new ArrayList();
+  private List<Class<RuntimeException>> exceptions = new ArrayList<Class<RuntimeException>>();
 
-  public List getExceptions() {
+  public List<Class<RuntimeException>> getExceptions() {
     return exceptions;
   }
 
