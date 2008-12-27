@@ -344,20 +344,17 @@ public final class MappingUtils {
    * {@code srcFieldClass} and {@code destFieldType} are enum; otherwise return {@code false}.
    */
   public static boolean isEnumType(Class srcFieldClass, Class destFieldType) {
-    if (((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), srcFieldClass, null))
-        .booleanValue()) {
+    if (srcFieldClass.isAnonymousClass()) {
       //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
       //This is used to ensure Dozer can get correct Enum type.
-      srcFieldClass = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), srcFieldClass, null);
+      srcFieldClass = srcFieldClass.getEnclosingClass();
     }
-    if (((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), destFieldType, null))
-        .booleanValue()) {
+    if (destFieldType.isAnonymousClass()) {
       //Just like srcFieldClass, if destFieldType is anonymous class, replace destFieldType with 
       //its enclosing class. This is used to ensure Dozer can get correct Enum type.
-      destFieldType = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), destFieldType, null);
+      destFieldType = destFieldType.getEnclosingClass();
     }
-    return ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), srcFieldClass, null)).booleanValue()
-        && ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null)).booleanValue();
+    return srcFieldClass.isEnum() && destFieldType.isEnum();
   }
 
 }

@@ -55,19 +55,18 @@ public class Jdk5Methods {
       Class enumClass = Class.forName("java.lang.Enum");
       enumNameMethod = enumClass.getMethod("name", null);
       enumValueOfMethod = enumClass.getMethod("valueOf", new Class[] { Class.class, String.class });
+      
       methodGetGenericParameterTypesMethod = Method.class.getMethod("getGenericParameterTypes", null);
       methodGetGenericReturnTypeMethod = Method.class.getMethod("getGenericReturnType", null);
+      
       isAnonymousClassMethod = Class.class.getMethod("isAnonymousClass", null); 
       getEnclosingClassMethod = Class.class.getMethod("getEnclosingClass", null);
+    
       parameterizedTypeClass = Class.forName("java.lang.reflect.ParameterizedType");
       paramaterizedTypeGetActualTypeArgsMethod = parameterizedTypeClass.getMethod("getActualTypeArguments", null);
     } catch (Exception e) {
       MappingUtils.throwMappingException("Unable to load jdk 1.5 classes via relection", e);
     }
-  }
-
-  public Method getClassIsEnumMethod() {
-    return classIsEnumMethod;
   }
 
   public Method getEnumNameMethod() {
@@ -94,12 +93,5 @@ public class Jdk5Methods {
     return parameterizedTypeClass;
   }
 
-  public Method getIsAnonymousClassMethod() {
-    return isAnonymousClassMethod;
-  }
-
-  public Method getGetEnclosingClassMethod() {
-    return getEnclosingClassMethod;
-  }
   
 }
