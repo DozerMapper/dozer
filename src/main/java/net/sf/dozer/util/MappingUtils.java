@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.dozer.BeanFactory;
 import net.sf.dozer.MappingException;
 import net.sf.dozer.cache.Cache;
 import net.sf.dozer.classmap.ClassMap;
@@ -55,9 +56,9 @@ public final class MappingUtils {
 
   // only making public temporarily while refactoring. This static data should be relocated.
   // The stored factories don't belong in MappingUtils and need to be relocated
-  public static final Map storedFactories = Collections.synchronizedMap(new HashMap());
+  public static final Map<String, BeanFactory> storedFactories = Collections.synchronizedMap(new HashMap<String, BeanFactory>());
 
-  public static String getClassNameWithoutPackage(Class clazz) {
+  public static String getClassNameWithoutPackage(Class<?> clazz) {
     Package pckage = clazz.getPackage();
     int pckageIndex = 0;
     if (pckage != null) {
@@ -66,15 +67,15 @@ public final class MappingUtils {
     return clazz.getName().substring(pckageIndex);
   }
 
-  public static boolean isSupportedCollection(Class aClass) {
+  public static boolean isSupportedCollection(Class<?> aClass) {
     return CollectionUtils.isCollection(aClass) || CollectionUtils.isArray(aClass);
   }
 
-  public static boolean isSupportedMap(Class aClass) {
+  public static boolean isSupportedMap(Class<?> aClass) {
     return Map.class.isAssignableFrom(aClass);
   }
 
-  public static boolean isPrimitiveOrWrapper(Class aClass) {
+  public static boolean isPrimitiveOrWrapper(Class<?> aClass) {
     return (aClass.isPrimitive() || Number.class.isAssignableFrom(aClass) || aClass.equals(String.class)
         || aClass.equals(Character.class) || aClass.equals(Boolean.class) || java.util.Date.class.isAssignableFrom(aClass) || java.util.Calendar.class
         .isAssignableFrom(aClass));
@@ -119,8 +120,8 @@ public final class MappingUtils {
     return buf.toString();
   }
 
-  public static Class findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer,
-      Class srcClass, Class destClass) {
+  public static Class<?> findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer,
+      Class<?> srcClass, Class<?> destClass) {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null
         || customConverterContainer.getConverters().size() < 1) {
       return null;
@@ -129,8 +130,8 @@ public final class MappingUtils {
     return customConverterContainer.getCustomConverter(srcClass, destClass, converterByDestTypeCache);
   }
 
-  public static Class determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache,
-      CustomConverterContainer customConverterContainer, Class srcClass, Class destClass) {
+  public static Class<?> determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache,
+      CustomConverterContainer customConverterContainer, Class<?> srcClass, Class<?> destClass) {
     if (customConverterContainer == null || customConverterContainer.getConverters() == null
         || customConverterContainer.getConverters().size() < 1) {
       return null;
@@ -200,9 +201,9 @@ public final class MappingUtils {
         return x[index];
       }
     } else if (collection instanceof Collection) {
-      Collection x = (Collection) collection;
+      Collection<?> x = (Collection<?>) collection;
       if (index < x.size()) {
-        Iterator iter = x.iterator();
+        Iterator<?> iter = x.iterator();
         for (int i = 0; i < index; i++) {
           iter.next();
         }
@@ -216,8 +217,8 @@ public final class MappingUtils {
     CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();
     if (copyByReferenceContainer != null) {
       String destFieldTypeName = null;
-      Iterator copyIterator = copyByReferenceContainer.getCopyByReferences().iterator();
-      Class clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
+      Iterator<?> copyIterator = copyByReferenceContainer.getCopyByReferences().iterator();
+      Class<?> clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
       if (clazz != null) {
         destFieldTypeName = clazz.getName();
       }
@@ -230,8 +231,8 @@ public final class MappingUtils {
     }
   }
 
-  public static Class loadClass(String name) {
-    Class result = null;
+  public static Class<?> loadClass(String name) {
+    Class<?> result = null;
     try {
       result = Class.forName(name);
     } catch (ClassNotFoundException e) {
@@ -240,26 +241,26 @@ public final class MappingUtils {
     return result;
   }
 
-  static boolean isProxy(Class clazz) {
+  static boolean isProxy(Class<?> clazz) {
     //todo: implement a better way of determining this that is more generic
     return clazz.getName().indexOf(MapperConstants.CGLIB_ID) >= 0 || clazz.getName().indexOf(MapperConstants.JAVASSIST_ID) >= 0;
   }
 
-  public static Class getRealSuperclass(Class clazz) {
+  public static Class<?> getRealSuperclass(Class<?> clazz) {
     if (isProxy(clazz)) {
       return clazz.getSuperclass().getSuperclass();
     }
     return clazz.getSuperclass();
   }
 
-  public static Class getRealClass(Class clazz) {
+  public static Class<?> getRealClass(Class<?> clazz) {
     if (isProxy(clazz)) {
       return clazz.getSuperclass();
     }
     return clazz;
   }
 
-  public static Object prepareIndexedCollection(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
+  public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry, int index) {
     Object result = null;
     if (collectionType.isArray()) {
       result = prepareIndexedArray(collectionType, existingCollection, collectionEntry, index);
@@ -276,7 +277,7 @@ public final class MappingUtils {
     return mapping != null && mapping.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0;
   }
   
-  private static Object[] prepareIndexedArray(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
+  private static Object[] prepareIndexedArray(Class<?> collectionType, Object existingCollection, Object collectionEntry, int index) {
     Object[] result;
 
     if (existingCollection == null) {

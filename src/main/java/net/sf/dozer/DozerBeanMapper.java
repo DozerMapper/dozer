@@ -108,7 +108,7 @@ public class DozerBeanMapper implements Mapper {
     this.mappingFiles = mappingFiles;
   }
 
-  public void setFactories(Map factories) {
+  public void setFactories(Map<String, BeanFactory> factories) {
     MappingUtils.storedFactories.putAll(factories);
   }
 
