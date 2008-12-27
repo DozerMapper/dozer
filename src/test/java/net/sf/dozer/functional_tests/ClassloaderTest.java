@@ -15,11 +15,11 @@
  */
 package net.sf.dozer.functional_tests;
 
+import java.util.ArrayList;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-
-import java.util.ArrayList;
 
 /**
  * @author Dmitry Buzdin

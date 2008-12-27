@@ -1,12 +1,12 @@
 package net.sf.dozer.functional_tests;
 
+import java.util.HashSet;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.direction.ContentItemGroup;
 import net.sf.dozer.vo.direction.ContentItemGroupDTO;
 import net.sf.dozer.vo.direction.ContentItemGroupDefault;
-
-import java.util.HashSet;
 
 /**
  * @author dmitry.buzdin

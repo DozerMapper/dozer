@@ -18,10 +18,6 @@ package net.sf.dozer.converters;
 import java.text.DateFormat;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.converters.CalendarConverter;
-import net.sf.dozer.converters.ConversionException;
-import net.sf.dozer.converters.DateConverter;
-import net.sf.dozer.converters.StringConverter;
 import net.sf.dozer.util.DateFormatContainer;
 
 /**

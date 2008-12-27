@@ -18,9 +18,6 @@ package net.sf.dozer;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.Mapper;
-import net.sf.dozer.MappingException;
 import net.sf.dozer.event.EventTestListener;
 import net.sf.dozer.factories.SampleCustomBeanFactory;
 import net.sf.dozer.factories.SampleCustomBeanFactory2;

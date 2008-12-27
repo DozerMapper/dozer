@@ -15,8 +15,8 @@
  */
 package net.sf.dozer.vo.generics.deepindex;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Family {
   private List<PersonalDetails> familyMembers;

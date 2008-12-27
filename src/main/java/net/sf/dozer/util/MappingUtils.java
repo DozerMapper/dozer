@@ -34,7 +34,6 @@ import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.CopyByReference;
 import net.sf.dozer.classmap.CopyByReferenceContainer;
 import net.sf.dozer.classmap.DozerClass;
-import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.converters.CustomConverterContainer;
 import net.sf.dozer.fieldmap.DozerField;
 import net.sf.dozer.fieldmap.FieldMap;

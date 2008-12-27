@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.classmap;
 
-import net.sf.dozer.classmap.RelationshipType;
 import junit.framework.TestCase;
 
 /**

@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.net.URL;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.util.ResourceLoader;
 
 /**
  * @author tierney.matt

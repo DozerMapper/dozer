@@ -2,7 +2,6 @@ package net.sf.dozer.factory;
 
 import junit.framework.TestCase;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.factory.JAXBBeanFactory;
 
 /**
  * @author Vincent Jassogne

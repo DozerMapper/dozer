@@ -1,7 +1,7 @@
 package net.sf.dozer.vo.direction;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Dmitry Buzdin

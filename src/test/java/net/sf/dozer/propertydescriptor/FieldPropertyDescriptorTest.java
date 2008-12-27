@@ -17,7 +17,6 @@ package net.sf.dozer.propertydescriptor;
 
 import junit.framework.TestCase;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.propertydescriptor.FieldPropertyDescriptor;
 
 /**
  * @author dmitry.buzdin

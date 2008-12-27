@@ -3,8 +3,6 @@ package net.sf.dozer;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.MappingProcessor;
-
 import junit.framework.TestCase;
 
 /**

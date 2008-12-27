@@ -1,6 +1,5 @@
 package net.sf.dozer.converters;
 
-import net.sf.dozer.converters.IntegerConverter;
 import junit.framework.TestCase;
 
 /**

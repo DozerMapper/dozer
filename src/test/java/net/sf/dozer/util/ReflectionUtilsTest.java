@@ -19,7 +19,6 @@ import java.beans.PropertyDescriptor;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.util.ReflectionUtils;
 import net.sf.dozer.vo.SimpleObj;
 import net.sf.dozer.vo.inheritance.ChildChildIF;
 

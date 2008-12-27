@@ -25,7 +25,6 @@ import java.util.List;
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.spring.DozerBeanMapperFactoryBean;
 
 import org.springframework.core.io.Resource;
 

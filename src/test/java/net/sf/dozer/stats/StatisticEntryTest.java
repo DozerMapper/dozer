@@ -16,7 +16,6 @@
 package net.sf.dozer.stats;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.stats.StatisticEntry;
 
 /**
  * @author tierney.matt

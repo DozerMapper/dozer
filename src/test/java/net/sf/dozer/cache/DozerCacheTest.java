@@ -16,9 +16,6 @@
 package net.sf.dozer.cache;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.cache.Cache;
-import net.sf.dozer.cache.CacheKeyFactory;
-import net.sf.dozer.cache.DozerCache;
 
 /**
  * @author tierney.matt

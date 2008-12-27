@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.cache;
 
+import java.util.Collection;
+import java.util.Map;
+
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticTypeConstants;
 import net.sf.dozer.stats.StatisticsManager;
@@ -22,9 +25,6 @@ import net.sf.dozer.stats.StatisticsManager;
 import org.apache.commons.collections.map.LinkedMap;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
-import java.util.Collection;
-import java.util.Map;
 
 /**
  *

@@ -16,7 +16,6 @@
 package net.sf.dozer.converters;
 
 import net.sf.dozer.MappingException;
-import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.vo.CustomDoubleObject;
 import net.sf.dozer.vo.CustomDoubleObjectIF;
 

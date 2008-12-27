@@ -19,7 +19,6 @@ import java.lang.reflect.Method;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.fieldmap.DozerField;
-import net.sf.dozer.propertydescriptor.JavaBeanPropertyDescriptor;
 import net.sf.dozer.vo.deep2.Dest;
 
 /**

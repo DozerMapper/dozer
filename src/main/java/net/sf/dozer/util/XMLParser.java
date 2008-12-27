@@ -22,7 +22,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.dozer.classmap.*;
+import net.sf.dozer.classmap.AllowedExceptionContainer;
+import net.sf.dozer.classmap.ClassMap;
+import net.sf.dozer.classmap.Configuration;
+import net.sf.dozer.classmap.CopyByReference;
+import net.sf.dozer.classmap.CopyByReferenceContainer;
+import net.sf.dozer.classmap.DozerClass;
+import net.sf.dozer.classmap.MappingFileData;
+import net.sf.dozer.classmap.RelationshipType;
 import net.sf.dozer.converters.CustomConverterContainer;
 import net.sf.dozer.converters.CustomConverterDescription;
 import net.sf.dozer.fieldmap.CustomGetSetMethodFieldMap;

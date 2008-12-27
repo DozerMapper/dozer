@@ -15,12 +15,7 @@
  */
 package net.sf.dozer.cache;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.cache.CacheKeyFactory;
 
 /**
  * @author tierney.matt

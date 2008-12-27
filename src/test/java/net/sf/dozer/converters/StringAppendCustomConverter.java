@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.converters;
 
-import net.sf.dozer.converters.CustomConverter;
 
 /**
  * @author tierney.matt

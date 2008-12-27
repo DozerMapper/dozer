@@ -16,7 +16,6 @@
 package net.sf.dozer.config;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.util.MapperConstants;
 
 /**

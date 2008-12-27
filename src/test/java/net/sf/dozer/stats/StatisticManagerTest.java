@@ -20,9 +20,6 @@ import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.stats.Statistic;
-import net.sf.dozer.stats.StatisticEntry;
-import net.sf.dozer.stats.StatisticsManagerImpl;
 
 /**
  * @author tierney.matt

@@ -24,8 +24,6 @@ import java.util.GregorianCalendar;
 
 import junit.framework.Assert;
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.converters.ConversionException;
-import net.sf.dozer.converters.PrimitiveOrWrapperConverter;
 import net.sf.dozer.util.DateFormatContainer;
 
 /**

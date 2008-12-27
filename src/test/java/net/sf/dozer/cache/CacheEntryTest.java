@@ -16,7 +16,6 @@
 package net.sf.dozer.cache;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.cache.CacheEntry;
 
 /**
  * @author tierney.matt

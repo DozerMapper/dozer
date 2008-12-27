@@ -1,6 +1,5 @@
 package net.sf.dozer;
 
-import net.sf.dozer.DozerInitializer;
 import junit.framework.TestCase;
 
 public class DozerInitializerTest extends TestCase {

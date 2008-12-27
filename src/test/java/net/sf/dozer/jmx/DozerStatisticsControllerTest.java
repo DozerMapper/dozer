@@ -18,7 +18,6 @@ package net.sf.dozer.jmx;
 import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.jmx.DozerStatisticsController;
 import net.sf.dozer.stats.StatisticTypeConstants;
 
 /**

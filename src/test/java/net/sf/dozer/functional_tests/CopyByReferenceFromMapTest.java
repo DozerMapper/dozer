@@ -15,13 +15,11 @@
  */
 package net.sf.dozer.functional_tests;
 
+import java.util.HashMap;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.vo.A;
 import net.sf.dozer.vo.ValueObject;
-import net.sf.dozer.vo.map.MapToMap;
-
-import java.util.HashMap;
 
 /**
  * @author Dmitry Buzdin

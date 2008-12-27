@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.converters.CustomConverterContainer;
 
 /**
  * @author tierney.matt

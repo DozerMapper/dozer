@@ -16,7 +16,6 @@
 package net.sf.dozer.jmx;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.jmx.DozerAdminController;
 import net.sf.dozer.util.MapperConstants;
 
 /**

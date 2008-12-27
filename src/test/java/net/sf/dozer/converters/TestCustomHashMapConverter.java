@@ -18,7 +18,6 @@ package net.sf.dozer.converters;
 import java.util.HashMap;
 
 import net.sf.dozer.MappingException;
-import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.vo.TestCustomConverterHashMapObject;
 import net.sf.dozer.vo.TestCustomConverterHashMapPrimeObject;
 import net.sf.dozer.vo.TestObject;

@@ -15,12 +15,17 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.*;
-import net.sf.dozer.vo.cumulative.*;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+
+import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.vo.cumulative.Author;
+import net.sf.dozer.vo.cumulative.AuthorPrime;
+import net.sf.dozer.vo.cumulative.Book;
+import net.sf.dozer.vo.cumulative.BookPrime;
+import net.sf.dozer.vo.cumulative.Library;
+import net.sf.dozer.vo.cumulative.LibraryPrime;
 
 /**
  * @author Dmitry Buzdin

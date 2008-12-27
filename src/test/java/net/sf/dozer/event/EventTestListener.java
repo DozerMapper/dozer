@@ -15,9 +15,6 @@
  */
 package net.sf.dozer.event;
 
-import net.sf.dozer.event.DozerEvent;
-import net.sf.dozer.event.DozerEventListener;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

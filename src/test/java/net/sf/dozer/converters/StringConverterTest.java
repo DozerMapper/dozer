@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import junit.framework.TestCase;
-import net.sf.dozer.converters.StringConverter;
 import net.sf.dozer.util.DateFormatContainer;
 
 public class StringConverterTest extends TestCase {

@@ -17,7 +17,12 @@ package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.vo.excluded.*;
+import net.sf.dozer.vo.excluded.OneA;
+import net.sf.dozer.vo.excluded.OneB;
+import net.sf.dozer.vo.excluded.TwoA;
+import net.sf.dozer.vo.excluded.TwoB;
+import net.sf.dozer.vo.excluded.ZeroA;
+import net.sf.dozer.vo.excluded.ZeroB;
 
 /**
  * @author Dmitry Buzdin

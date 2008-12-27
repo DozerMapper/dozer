@@ -17,7 +17,6 @@ package net.sf.dozer.util;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.util.MappingValidator;
 
 /**
  * @author tierney.matt

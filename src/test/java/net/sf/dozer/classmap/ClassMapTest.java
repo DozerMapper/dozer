@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.classmap.ClassMap;
-import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.fieldmap.GenericFieldMap;
 
 /**

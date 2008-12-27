@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.cache.Cache;
-import net.sf.dozer.cache.CacheEntry;
 import net.sf.dozer.cache.CacheKeyFactory;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;

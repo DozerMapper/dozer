@@ -4,8 +4,6 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.util.CustomMappingsLoader;
-import net.sf.dozer.util.LoadMappingsResult;
 
 public class CustomMappingsLoaderTest extends TestCase {
   private CustomMappingsLoader loader = new CustomMappingsLoader();

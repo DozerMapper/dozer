@@ -16,13 +16,12 @@
 package net.sf.dozer.functional_tests;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.vo.runtimesubclass.*;
-
-import java.util.List;
-import java.util.ArrayList;
+import net.sf.dozer.vo.runtimesubclass.SpecialUserGroup;
+import net.sf.dozer.vo.runtimesubclass.SpecialUserGroupPrime;
+import net.sf.dozer.vo.runtimesubclass.User;
+import net.sf.dozer.vo.runtimesubclass.UserGroup;
+import net.sf.dozer.vo.runtimesubclass.UserPrime;
 
 /**
  * @author Dmitry Buzdin

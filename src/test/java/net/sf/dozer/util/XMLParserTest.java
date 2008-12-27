@@ -22,8 +22,6 @@ import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.MappingFileData;
 import net.sf.dozer.fieldmap.FieldMap;
-import net.sf.dozer.util.ResourceLoader;
-import net.sf.dozer.util.XMLParser;
 
 /**
  * @author garsombke.franz

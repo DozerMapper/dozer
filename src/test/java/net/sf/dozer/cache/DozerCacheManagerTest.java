@@ -20,9 +20,6 @@ import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.cache.Cache;
-import net.sf.dozer.cache.DozerCache;
-import net.sf.dozer.cache.DozerCacheManager;
 
 /**
  * @author tierney.matt
