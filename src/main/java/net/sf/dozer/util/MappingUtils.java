@@ -258,7 +258,8 @@ public final class MappingUtils {
     return clazz;
   }
 
-  public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry, int index) {
+  public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry,
+      int index) {
     Object result = null;
     if (collectionType.isArray()) {
       result = prepareIndexedArray(collectionType, existingCollection, collectionEntry, index);
@@ -270,11 +271,11 @@ public final class MappingUtils {
 
     return result;
   }
-  
+
   public static boolean isDeepMapping(String mapping) {
     return mapping != null && mapping.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0;
   }
-  
+
   private static <T> T[] prepareIndexedArray(Class<T> collectionType, Object existingCollection, Object collectionEntry, int index) {
     T[] result;
 
@@ -291,15 +292,15 @@ public final class MappingUtils {
     result[index] = (T) collectionEntry;
     return result;
   }
-  
-  private static Collection prepareIndexedCollectionType(Class<?> collectionType, Object existingCollection, Object collectionEntry, int index) {
+
+  private static Collection prepareIndexedCollectionType(Class<?> collectionType, Object existingCollection,
+      Object collectionEntry, int index) {
     Collection result = null;
     //Instantiation of the new Collection: can be interface or implementation class
     if (collectionType.isInterface()) {
       if (collectionType.equals(Set.class)) {
         result = new HashSet();
-      }
-      else if (collectionType.equals(List.class)) {
+      } else if (collectionType.equals(List.class)) {
         result = new ArrayList();
       } else {
         throwMappingException("Only interface types java.util.Set and java.util.List are supported for java.util.Collection type indexed properties.");
@@ -334,7 +335,7 @@ public final class MappingUtils {
     }
     return result;
   }
-  
+
   /**
    * Used to test if both {@code srcFieldClass} and {@code destFieldType} are enum.
    * @param srcFieldClass the source field to be tested.
@@ -342,28 +343,21 @@ public final class MappingUtils {
    * @return {@code true} if and only if current running JRE is 1.5 or above, and both 
    * {@code srcFieldClass} and {@code destFieldType} are enum; otherwise return {@code false}.
    */
-  public static boolean isEnumType(Class srcFieldClass, Class destFieldType){
-    if (GlobalSettings.getInstance().isJava5()){//Verify if running JRE is 1.5 or above
-      if ( ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), srcFieldClass, null)).booleanValue()) {
-        //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
-        //This is used to ensure Dozer can get correct Enum type.
-        srcFieldClass = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), srcFieldClass, null);
-      }
-      if ( ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), destFieldType, null)).booleanValue()) {
-        //Just like srcFieldClass, if destFieldType is anonymous class, replace destFieldType with 
-        //its enclosing class. This is used to ensure Dozer can get correct Enum type.
-        destFieldType = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), destFieldType, null);
-      }
-      return 
-        ((Boolean) ReflectionUtils
-          .invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), srcFieldClass, null))
-          .booleanValue()
-        && 
-        ((Boolean) ReflectionUtils
-          .invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null))
-          .booleanValue();
+  public static boolean isEnumType(Class srcFieldClass, Class destFieldType) {
+    if (((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), srcFieldClass, null))
+        .booleanValue()) {
+      //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
+      //This is used to ensure Dozer can get correct Enum type.
+      srcFieldClass = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), srcFieldClass, null);
     }
-    return false;
+    if (((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getIsAnonymousClassMethod(), destFieldType, null))
+        .booleanValue()) {
+      //Just like srcFieldClass, if destFieldType is anonymous class, replace destFieldType with 
+      //its enclosing class. This is used to ensure Dozer can get correct Enum type.
+      destFieldType = (Class) ReflectionUtils.invoke(Jdk5Methods.getInstance().getGetEnclosingClassMethod(), destFieldType, null);
+    }
+    return ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), srcFieldClass, null)).booleanValue()
+        && ((Boolean) ReflectionUtils.invoke(Jdk5Methods.getInstance().getClassIsEnumMethod(), destFieldType, null)).booleanValue();
   }
 
 }

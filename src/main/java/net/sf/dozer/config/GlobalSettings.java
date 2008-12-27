@@ -50,8 +50,6 @@ public class GlobalSettings {
   private long converterByDestTypeCacheMaxSize = MapperConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
   private long superTypesCacheMaxSize = MapperConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
   private boolean autoregisterJMXBeans = MapperConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
-  private final boolean isJdk5 = (System.getProperty("java.version", "1.4").startsWith("1.5") || System.getProperty("java.version",
-      "1.4").startsWith("1.6"));
 
   public static GlobalSettings getInstance() {
     return instance;
@@ -67,10 +65,6 @@ public class GlobalSettings {
 
   protected String getLoadedByFileName() {
     return loadedByFileName;
-  }
-
-  public boolean isJava5() {
-    return isJdk5;
   }
 
   public boolean isAutoregisterJMXBeans() {

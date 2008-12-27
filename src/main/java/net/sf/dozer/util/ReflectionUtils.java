@@ -278,10 +278,6 @@ public abstract class ReflectionUtils {
   }
 
   public static Class<?> determineGenericsType(PropertyDescriptor propDescriptor) {
-    if (!GlobalSettings.getInstance().isJava5()) {
-      return null;
-    }
-
     Class<?> result = null;
     //Try getter and setter to determine the Generics type in case one does not exist
     if (propDescriptor.getWriteMethod() != null) {
@@ -296,10 +292,6 @@ public abstract class ReflectionUtils {
   }
 
   public static Class<?> determineGenericsType(Method method, boolean isReadMethod) {
-    if (!GlobalSettings.getInstance().isJava5()) {
-      return null;
-    }
-
     Class<?> result = null;
     Class<?> parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
     if (isReadMethod) {

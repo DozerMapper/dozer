@@ -201,16 +201,14 @@ public class MappingUtilsTest extends AbstractDozerTest {
    * Test for isEnumType(Class srcFieldClass, Class destFieldType) defined in MappingUtils
    */
   public void testIsEnum() {
-    if (GlobalSettings.getInstance().isJava5()){
-      assertTrue(MappingUtils.isEnumType(SrcType.class, DestType.class));
-      assertTrue(MappingUtils.isEnumType(SrcType.FOO.getClass(), DestType.FOO.getClass()));
-      assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
-          DestType.FOO.getClass()));
-      assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
-          DestTypeWithOverride.FOO.getClass()));
-      assertFalse(MappingUtils.isEnumType(SrcType.class, String.class));
-      assertFalse(MappingUtils.isEnumType(String.class, SrcType.class));
-    }
+    assertTrue(MappingUtils.isEnumType(SrcType.class, DestType.class));
+    assertTrue(MappingUtils.isEnumType(SrcType.FOO.getClass(), DestType.FOO.getClass()));
+    assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
+        DestType.FOO.getClass()));
+    assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
+        DestTypeWithOverride.FOO.getClass()));
+    assertFalse(MappingUtils.isEnumType(SrcType.class, String.class));
+    assertFalse(MappingUtils.isEnumType(String.class, SrcType.class));
   }
 
 }
