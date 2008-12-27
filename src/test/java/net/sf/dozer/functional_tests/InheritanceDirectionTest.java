@@ -27,7 +27,7 @@ public class InheritanceDirectionTest extends AbstractMapperTest {
 
     parentItem.addChildGroup(childItem);
 
-    ContentItemGroupDTO resultChild = (ContentItemGroupDTO) mapper.map(childItem, ContentItemGroupDTO.class);
+    ContentItemGroupDTO resultChild = mapper.map(childItem, ContentItemGroupDTO.class);
     
     assertNotNull(resultChild);
     assertEquals("B", resultChild.getId());
@@ -48,7 +48,7 @@ public class InheritanceDirectionTest extends AbstractMapperTest {
 
     parentItem.addChildGroup(childItem);
 
-    ContentItemGroupDTO resultParent = (ContentItemGroupDTO) mapper.map(parentItem, ContentItemGroupDTO.class);
+    ContentItemGroupDTO resultParent = mapper.map(parentItem, ContentItemGroupDTO.class);
 
     ContentItemGroupDTO resultChild = (ContentItemGroupDTO) resultParent.getChildGroups().iterator().next();
 
@@ -71,7 +71,7 @@ public class InheritanceDirectionTest extends AbstractMapperTest {
     childGroups.add(child);
     parent.setChildGroups(childGroups);
 
-    ContentItemGroup result = (ContentItemGroup) mapper.map(parent, ContentItemGroupDefault.class);
+    ContentItemGroup result = mapper.map(parent, ContentItemGroupDefault.class);
     assertNotNull(result);
     ContentItemGroup childResult = (ContentItemGroup) result.getChildGroups().iterator().next();
     assertEquals(result, childResult.getParentGroup());

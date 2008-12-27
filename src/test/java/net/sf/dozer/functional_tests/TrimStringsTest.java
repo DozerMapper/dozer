@@ -37,7 +37,7 @@ public class TrimStringsTest extends AbstractMapperTest {
     src.setField4("      anotherValueNeedingTrimmed       ");
     src.setField5("  127 ");
 
-    AnotherTestObjectPrime dest = (AnotherTestObjectPrime) mapper.map(src, AnotherTestObjectPrime.class);
+    AnotherTestObjectPrime dest = mapper.map(src, AnotherTestObjectPrime.class);
 
     assertEquals("valueNeedingTrimmed", dest.getField3());
     assertEquals("anotherValueNeedingTrimmed", dest.getTo().getOne());
@@ -49,7 +49,7 @@ public class TrimStringsTest extends AbstractMapperTest {
     String value = "    shouldNotBeNeedingTrimmed     ";
     src.setOne(value);
 
-    TestObjectPrime dest = (TestObjectPrime) mapper.map(src, TestObjectPrime.class);
+    TestObjectPrime dest = mapper.map(src, TestObjectPrime.class);
 
     assertEquals(value, dest.getOnePrime());
   }
@@ -58,7 +58,7 @@ public class TrimStringsTest extends AbstractMapperTest {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1("      valueNeedingTrimmed       ");
 
-    SimpleObjPrime dest = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
+    SimpleObjPrime dest = mapper.map(src, SimpleObjPrime.class);
 
     assertEquals("valueNeedingTrimmed", dest.getField1());
   }

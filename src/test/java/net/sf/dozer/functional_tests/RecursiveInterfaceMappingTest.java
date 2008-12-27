@@ -69,7 +69,7 @@ public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
     // do mapping
     UserGroupPrime userGroupPrime = null;
     try {
-      userGroupPrime = (UserGroupPrime) mapper.map(userGroup, UserGroupPrime.class);
+      userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);
     } catch (StackOverflowError e) {
       fail("Recursive mapping caused a stack overflow.");
     }

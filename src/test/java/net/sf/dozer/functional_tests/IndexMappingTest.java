@@ -66,7 +66,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
     source.setAddressSet(mySet);
 
-    FlatIndividual dest = (FlatIndividual) mapper.map(source, FlatIndividual.class);
+    FlatIndividual dest = mapper.map(source, FlatIndividual.class);
 
     assertEquals(source.getUsernames().get(0), dest.getUsername1());
     assertEquals(source.getSimpleField(), dest.getSimpleField());
@@ -85,7 +85,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     source.setPrimaryAlias("aqqq");
     source.setThirdName("thirdName");
 
-    Individuals dest = (Individuals) mapper.map(source, Individuals.class);
+    Individuals dest = mapper.map(source, Individuals.class);
 
     assertEquals(source.getUsername1(), dest.getUsernames().get(0));
     assertEquals(dest.getIndividual().getUsername(), source.getUsername2());
@@ -115,7 +115,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     source.setIndividual(nestedIndividual);
     source.setSecondNames(secondNames);
 
-    FlatIndividual dest = (FlatIndividual) mapper.map(source, FlatIndividual.class);
+    FlatIndividual dest = mapper.map(source, FlatIndividual.class);
 
     assertEquals(source.getUsernames().get(0), dest.getUsername1());
     assertEquals(source.getIndividual().getUsername(), dest.getUsername2());
@@ -127,7 +127,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     FlatIndividual source = (FlatIndividual) newInstance(FlatIndividual.class);
     source.setSimpleField("a simplefield");
 
-    Individuals dest = (Individuals) mapper.map(source, Individuals.class);
+    Individuals dest = mapper.map(source, Individuals.class);
     assertEquals(source.getSimpleField(), dest.getSimpleField());
   }
 
@@ -135,7 +135,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     Individuals source = (Individuals) newInstance(Individuals.class);
     source.setSimpleField("a simplefield");
 
-    FlatIndividual dest = (FlatIndividual) mapper.map(source, FlatIndividual.class);
+    FlatIndividual dest = mapper.map(source, FlatIndividual.class);
     assertEquals(source.getSimpleField(), dest.getSimpleField());
   }
 
@@ -145,7 +145,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     aliases.setOtherAliases(new String[] { "other alias 1", "other alias 2" });
     source.setAliases(aliases);
 
-    FlatIndividual dest = (FlatIndividual) mapper.map(source, FlatIndividual.class);
+    FlatIndividual dest = mapper.map(source, FlatIndividual.class);
     assertEquals("other alias 1", dest.getPrimaryAlias());
   }
 
@@ -157,14 +157,14 @@ public class IndexMappingTest extends AbstractMapperTest {
     A a = (A) newInstance(A.class);
     a.setB(b);
 
-    D d = (D) mapper.map(a, D.class);
+    D d = mapper.map(a, D.class);
     assertEquals("value not translated", "value1", d.getValue());
   }
 
   public void testNullNestedIndexAtoD() {
     A a = (A) newInstance(A.class);
 
-    D d = (D) mapper.map(a, D.class);
+    D d = mapper.map(a, D.class);
     assertNull("value should not be translated", d.getValue());
   }
 
@@ -172,13 +172,13 @@ public class IndexMappingTest extends AbstractMapperTest {
     D d = (D) newInstance(D.class);
     d.setValue("value1");
 
-    A a = (A) mapper.map(d, A.class);
+    A a = mapper.map(d, A.class);
     assertEquals("value not translated", d.getValue(), a.getB().getCs()[0].getValue());
   }
 
   public void testNullNestedIndexDtoA() {
     D d = (D) newInstance(D.class);
-    A a = (A) mapper.map(d, A.class);
+    A a = mapper.map(d, A.class);
     assertNotNull(a);
   }
 
@@ -187,7 +187,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     Mccoy src = (Mccoy) newInstance(Mccoy.class);
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
 
-    MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class);
+    MccoyPrime dest = mapper.map(src, MccoyPrime.class);
     Set destSet = dest.getFieldValueObjects();
     assertNotNull("dest set should not be null", destSet);
     assertEquals("dest set should contain 1 entry", 1, destSet.size());

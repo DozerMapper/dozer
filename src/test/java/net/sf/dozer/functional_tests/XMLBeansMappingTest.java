@@ -41,14 +41,14 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     // Map from TestObject to XMLBeans
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setOne("one");
-    GetWeatherByZipCodeDocument doc = (GetWeatherByZipCodeDocument) mapper.map(to, GetWeatherByZipCodeDocument.class);
+    GetWeatherByZipCodeDocument doc = mapper.map(to, GetWeatherByZipCodeDocument.class);
     assertEquals(to.getOne(), doc.getGetWeatherByZipCode().getZipCode());
 
     // Map from XMLBeans to TestObject
     GetWeatherByZipCodeDocument res = GetWeatherByZipCodeDocument.Factory.newInstance();
     GetWeatherByZipCode zipCode = res.addNewGetWeatherByZipCode();
     zipCode.setZipCode("one");
-    TestObject to2 = (TestObject) mapper.map(res, TestObject.class);
+    TestObject to2 = mapper.map(res, TestObject.class);
     assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
 
     Set set = new HashSet();
@@ -60,15 +60,14 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     AnotherTestObject ato2 = new AnotherTestObject();
     ato2.setDay("day");
     to.addAnotherTestObject(ato2);
-    GetWeatherByZipCodeResponseDocument responseDoc = (GetWeatherByZipCodeResponseDocument) mapper.map(to,
-        GetWeatherByZipCodeResponseDocument.class);
+    GetWeatherByZipCodeResponseDocument responseDoc = mapper.map(to, GetWeatherByZipCodeResponseDocument.class);
     WeatherData[] weatherDataArray = responseDoc.getGetWeatherByZipCodeResponse().getWeatherDataArray();
     WeatherData[] weatherData2Array = responseDoc.getGetWeatherByZipCodeResponse().getWeatherData2Array();
     assertEquals(ato.getDay(), weatherDataArray[0].getDay());
     assertEquals(ato2.getDay(), weatherData2Array[0].getDay());
 
     // now take the xmlbeans array and map the other direction
-    TestObject toResult = (TestObject) mapper.map(responseDoc, TestObject.class);
+    TestObject toResult = mapper.map(responseDoc, TestObject.class);
     assertEquals(weatherDataArray[0].getDay(), ((AnotherTestObject) toResult.getSetToArray().iterator().next()).getDay());
     assertEquals(weatherData2Array[0].getDay(), ((AnotherTestObject) toResult.getSetToArrayWithIterate().iterator().next())
         .getDay());
@@ -86,7 +85,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     pojo.setFu("Fu");
     pojo.setBar("Bar");
 
-    ChildType xmlBean = (ChildType) mapper.map(pojo, ChildType.class);
+    ChildType xmlBean = mapper.map(pojo, ChildType.class);
 
     assertNotNull("dest obj should not be null", xmlBean);
     assertNotNull("fu value should not be null", xmlBean.getFu());
@@ -111,7 +110,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     xmlBean.setFu("Uf");
     xmlBean.setBar("Rab");
 
-    Child pojo = (Child) mapper.map(xmlBean, Child.class);
+    Child pojo = mapper.map(xmlBean, Child.class);
 
     assertNotNull("dest obj should not be null", pojo);
     assertNotNull("fu should not be null", pojo.getFu());
@@ -129,7 +128,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     ChildType xmlBean = ChildType.Factory.newInstance();
 
-    Child pojo = (Child) mapper.map(xmlBean, Child.class);
+    Child pojo = mapper.map(xmlBean, Child.class);
 
     assertNotNull("dest obj should not be null", pojo);
     assertNull("fu should be null", pojo.getFu());

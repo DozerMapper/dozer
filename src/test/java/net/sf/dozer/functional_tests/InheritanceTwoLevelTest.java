@@ -20,7 +20,7 @@ public class InheritanceTwoLevelTest extends AbstractMapperTest {
     source.setA("A");
     source.setB("B");
 
-    B destination = (B) mapper.map(source, B.class);
+    B destination = mapper.map(source, B.class);
     assertNotNull(destination);
     assertEquals("A", destination.getA());
     assertNotNull("B", destination.getB());
@@ -31,7 +31,7 @@ public class InheritanceTwoLevelTest extends AbstractMapperTest {
     source.setA("A");
     source.setB("B");
 
-    C destination = (C) mapper.map(source, C.class);
+    C destination = mapper.map(source, C.class);
     assertNotNull(destination);
     assertEquals("A", destination.getA());
     assertNotNull("B", destination.getB());
@@ -42,7 +42,7 @@ public class InheritanceTwoLevelTest extends AbstractMapperTest {
     source.setA("A");
     source.setB("B");
 
-    A destination = (A) mapper.map(source, A.class);
+    A destination = mapper.map(source, A.class);
     assertNotNull(destination);
     assertEquals("A", destination.getA());
   }

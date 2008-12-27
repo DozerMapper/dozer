@@ -43,7 +43,7 @@ public class RuntimeSubclassMappingTest extends AbstractMapperTest {
     user.setUserGroup(userGroup);
 
     // do mapping to UserPrime
-    UserPrime userPrime = (UserPrime) mapper.map(user, UserPrime.class);
+    UserPrime userPrime = mapper.map(user, UserPrime.class);
 
     // check class type of mapped group, should be SpecialUserGroupPrime!
     assertNotNull(userPrime.getUserGroup());
@@ -61,7 +61,7 @@ public class RuntimeSubclassMappingTest extends AbstractMapperTest {
     user.setUserGroup(userGroup);
 
     // do mapping to UserPrime
-    UserPrime userPrime = (UserPrime) mapper.map(user, UserPrime.class);
+    UserPrime userPrime = mapper.map(user, UserPrime.class);
 
     // check class type of mapped group, should NOT be SpecialUserGroupPrime!
     assertNotNull(userPrime.getUserGroup());

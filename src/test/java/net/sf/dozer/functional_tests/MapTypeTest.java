@@ -60,7 +60,7 @@ public class MapTypeTest extends AbstractMapperTest {
     src.put("field1", "mapnestedfield1value");
     src.put("nested", nestedObj);
 
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class, "caseA");
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class, "caseA");
     assertEquals(src.get("field1"), result.getField1());
     assertEquals(nestedObj.getField1(), result.getNested().getField1());
   }
@@ -72,7 +72,7 @@ public class MapTypeTest extends AbstractMapperTest {
     src.put("field1", "field1value");
     src.put("field2", "field2value");
 
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class, "caseB");
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class, "caseB");
     assertNull(result.getField1());
     assertEquals(src.get("field2"), result.getField2());
   }
@@ -84,7 +84,7 @@ public class MapTypeTest extends AbstractMapperTest {
     src.put("field1", "field1value");
     src.put("field2", "field2value");
 
-    NestedObjPrime dest = (NestedObjPrime) mapper.map(src, NestedObjPrime.class, "caseB");
+    NestedObjPrime dest = mapper.map(src, NestedObjPrime.class, "caseB");
     assertEquals(src.get("field1"), dest.getField1());
     assertEquals(src.get("field2"), dest.getField2());
   }
@@ -96,7 +96,7 @@ public class MapTypeTest extends AbstractMapperTest {
     src.put("field1", "field1value");
     src.put("field2", "field2value");
 
-    NestedObjPrime dest = (NestedObjPrime) mapper.map(src, NestedObjPrime.class, "caseC");
+    NestedObjPrime dest = mapper.map(src, NestedObjPrime.class, "caseC");
     assertNull("field was excluded and should be null", dest.getField1());
     assertEquals(src.get("field2"), dest.getField2());
   }
@@ -117,7 +117,7 @@ public class MapTypeTest extends AbstractMapperTest {
     nested2.put("field1", "field1MapValue");
     src.setNested2(nested2);
 
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class, "caseA2");
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class, "caseA2");
 
     assertNull(result.getNested2().getField1());// field was excluded
     assertEquals(src.getField1(), result.getField1());
@@ -132,7 +132,7 @@ public class MapTypeTest extends AbstractMapperTest {
     src.put("field1", "mapnestedfield1value");
     src.put("nested", nestedObj);
 
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class);
     assertEquals(src.get("field1"), result.getField1());
     assertEquals(nestedObj.getField1(), result.getNested().getField1());
   }
@@ -157,7 +157,7 @@ public class MapTypeTest extends AbstractMapperTest {
     mapper.map(src, destMap);
 
     // Map HashMap back to new instance of the complex object
-    SimpleObjPrime mappedSrc = (SimpleObjPrime) mapper.map(destMap, SimpleObjPrime.class);
+    SimpleObjPrime mappedSrc = mapper.map(destMap, SimpleObjPrime.class);
 
     // Remapped complex type should equal original src if all fields were mapped both ways.
     assertEquals(src, mappedSrc);
@@ -179,7 +179,7 @@ public class MapTypeTest extends AbstractMapperTest {
 
     MapToMap mtm = new MapToMap(map, map2);
 
-    MapToMapPrime mtmp = (MapToMapPrime) mapper.map(mtm, MapToMapPrime.class);
+    MapToMapPrime mtmp = mapper.map(mtm, MapToMapPrime.class);
     assertEquals("one", ((TestObject) mtmp.getStandardMap().get("to")).getOne());
     assertEquals(2, ((TestObject) mtmp.getStandardMap().get("to2")).getTwo().intValue());
     // verify that we transformed from object to object prime
@@ -217,11 +217,11 @@ public class MapTypeTest extends AbstractMapperTest {
     PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
-    Map map = (Map) mapper.map(ptm, HashMap.class, "myTestMapping");
+    Map map = mapper.map(ptm, HashMap.class, "myTestMapping");
     assertEquals("stringPropertyValue", map.get("stringProperty"));
     assertEquals("stringProperty2Value", map.get("myStringProperty"));
 
-    CustomMapIF customMap = (CustomMapIF) mapper.map(ptm, CustomMap.class, "myCustomTestMapping");
+    CustomMapIF customMap = mapper.map(ptm, CustomMap.class, "myCustomTestMapping");
     assertEquals("stringPropertyValue", customMap.getValue("stringProperty"));
     assertEquals("stringProperty2Value", customMap.getValue("myStringProperty"));
 
@@ -238,7 +238,7 @@ public class MapTypeTest extends AbstractMapperTest {
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
 
-    CustomMapIF customMap = (CustomMapIF) mapper.map(ptm, CustomMap.class, "myCustomTestMapping");
+    CustomMapIF customMap = mapper.map(ptm, CustomMap.class, "myCustomTestMapping");
     assertEquals("stringPropertyValue", customMap.getValue("stringProperty"));
     assertEquals("stringProperty2Value", customMap.getValue("myStringProperty"));
   }
@@ -249,12 +249,12 @@ public class MapTypeTest extends AbstractMapperTest {
     Map map = (Map) newInstance(HashMap.class);
     map.put("stringProperty", "stringPropertyValue");
     map.put("integerProperty", new Integer("567"));
-    PropertyToMap property = (PropertyToMap) mapper.map(map, PropertyToMap.class, "myTestMapping");
+    PropertyToMap property = mapper.map(map, PropertyToMap.class, "myTestMapping");
     assertEquals("stringPropertyValue", property.getStringProperty());
 
     CustomMapIF custom = (CustomMapIF) newInstance(CustomMap.class);
     custom.putValue("stringProperty", "stringPropertyValue");
-    PropertyToMap property2 = (PropertyToMap) mapper.map(custom, PropertyToMap.class, "myCustomTestMapping");
+    PropertyToMap property2 = mapper.map(custom, PropertyToMap.class, "myCustomTestMapping");
     assertEquals("stringPropertyValue", property2.getStringProperty());
 
     map.put("stringProperty3", "myValue");
@@ -272,7 +272,7 @@ public class MapTypeTest extends AbstractMapperTest {
     hashMap.put("reverseMapString", "reverseMapStringValue");
     hashMap.put("reverseMapInteger", new Integer("567"));
     ptm.setReverseMap(hashMap);
-    MapToProperty mtp = (MapToProperty) mapper.map(ptm, MapToProperty.class);
+    MapToProperty mtp = mapper.map(ptm, MapToProperty.class);
     assertTrue(mtp.getHashMap().containsKey("stringProperty"));
     assertTrue(mtp.getHashMap().containsValue("stringPropertyValue"));
     assertTrue(mtp.getHashMap().containsKey("myStringProperty"));
@@ -283,7 +283,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(((Integer) hashMap.get("reverseMapInteger")).toString(), mtp.getReverseMapInteger());
 
     // Map Back
-    PropertyToMap dest = (PropertyToMap) mapper.map(mtp, PropertyToMap.class);
+    PropertyToMap dest = mapper.map(mtp, PropertyToMap.class);
     assertTrue(dest.getStringProperty().equals("stringPropertyValue"));
     assertTrue(dest.getStringProperty2().equals("stringProperty2Value"));
     assertTrue(dest.getReverseMap().containsKey("reverseMapString"));
@@ -297,14 +297,14 @@ public class MapTypeTest extends AbstractMapperTest {
     ptm.setStringProperty3("stringProperty3Value");
     ptm.setStringProperty4("stringProperty4Value");
     ptm.setStringProperty5("stringProperty5Value");
-    MapToProperty mtp = (MapToProperty) mapper.map(ptm, MapToProperty.class);
+    MapToProperty mtp = mapper.map(ptm, MapToProperty.class);
     assertEquals("stringProperty3Value", mtp.getCustomMap().getValue("myCustomProperty"));
     assertEquals("stringProperty5Value", mtp.getCustomMap().getValue("stringProperty5"));
     assertEquals("stringProperty4Value", mtp.getNullCustomMap().getValue("myCustomNullProperty"));
     assertEquals("stringProperty5Value", mtp.getCustomMapWithDiffSetMethod().getValue("stringProperty5"));
 
     // Map Back
-    PropertyToMap dest = (PropertyToMap) mapper.map(mtp, PropertyToMap.class);
+    PropertyToMap dest = mapper.map(mtp, PropertyToMap.class);
     assertEquals("stringProperty3Value", dest.getStringProperty3());
     assertEquals("stringProperty4Value", dest.getStringProperty4());
     assertEquals("stringProperty5Value", dest.getStringProperty5());
@@ -327,7 +327,7 @@ public class MapTypeTest extends AbstractMapperTest {
     PropertyToMap ptm2 = (PropertyToMap) newInstance(PropertyToMap.class);
     ptm2.setStringProperty("stringPropertyValue");
     mto.setPropertyToMapToNullMap(ptm2);
-    MapTestObjectPrime mtop = (MapTestObjectPrime) mapper.map(mto, MapTestObjectPrime.class);
+    MapTestObjectPrime mtop = mapper.map(mto, MapTestObjectPrime.class);
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("myStringProperty"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty3"));
@@ -367,14 +367,14 @@ public class MapTypeTest extends AbstractMapperTest {
     CustomMapIF customMap = (CustomMapIF) newInstance(CustomMap.class);
     customMap.putValue("stringProperty", "stringPropertyValue");
     mto.setPropertyToCustomMapMapWithInterface(customMap);
-    MapTestObjectPrime mtop = (MapTestObjectPrime) mapper.map(mto, MapTestObjectPrime.class);
+    MapTestObjectPrime mtop = mapper.map(mto, MapTestObjectPrime.class);
     assertEquals("stringPropertyValue", mtop.getPropertyToCustomMapMap().getValue("stringProperty"));
     assertNull(mtop.getPropertyToCustomMapMap().getValue("excludeMe"));
     assertEquals("stringProperty2Value", mtop.getPropertyToCustomMapMap().getValue("myStringProperty"));
     assertEquals("stringPropertyValue", mtop.getPropertyToCustomMapWithInterface().getStringProperty());
 
     // Map Back
-    MapTestObject mto2 = (MapTestObject) mapper.map(mtop, MapTestObject.class);
+    MapTestObject mto2 = mapper.map(mtop, MapTestObject.class);
     assertEquals("stringPropertyValue", mto2.getPropertyToCustomMap().getStringProperty());
     assertEquals("stringProperty2Value", mto2.getPropertyToCustomMap().getStringProperty2());
     assertNull(mto2.getPropertyToCustomMap().getExcludeMe());
@@ -397,12 +397,11 @@ public class MapTypeTest extends AbstractMapperTest {
     CustomMap src = (CustomMap) newInstance(CustomMap.class);
     src.putValue("fieldA", dateStr);
 
-    net.sf.dozer.vo.SimpleObj dest = (net.sf.dozer.vo.SimpleObj) mapper.map(src,
-        net.sf.dozer.vo.SimpleObj.class);
+    net.sf.dozer.vo.SimpleObj dest = mapper.map(src, net.sf.dozer.vo.SimpleObj.class);
     assertNotNull("dest field should not be null", dest.getField5());
     assertEquals("dest field contains wrong date value", df.parse(dateStr), dest.getField5().getTime());
 
-    CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class);
+    CustomMap remappedSrc = mapper.map(dest, CustomMap.class);
     assertEquals("remapped src field contains wrong date string", dateStr, remappedSrc.getValue("fieldA"));
   }
 
@@ -416,7 +415,7 @@ public class MapTypeTest extends AbstractMapperTest {
     src.putValue("fieldD", "2");
     src.putValue("fieldE", "10-15-2005");
 
-    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class, mapId);
+    SimpleObj dest = mapper.map(src, SimpleObj.class, mapId);
     assertEquals("wrong value for field1", src.getValue("fieldA"), dest.getField1());
     assertEquals("wrong value for field2", src.getValue("field2"), dest.getField2());
     assertEquals("wrong value for field3", Integer.valueOf("1"), dest.getField3());
@@ -428,7 +427,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(expected.get(Calendar.DATE), dest.getField5().get(Calendar.DATE));
 
     // Remap to test bi-directional mapping
-    CustomMap remappedSrc = (CustomMap) mapper.map(dest, CustomMap.class, mapId);
+    CustomMap remappedSrc = mapper.map(dest, CustomMap.class, mapId);
     assertTrue("remapped src should equal original src", EqualsBuilder.reflectionEquals(src.getMap(), remappedSrc.getMap()));
   }
 
@@ -441,11 +440,11 @@ public class MapTypeTest extends AbstractMapperTest {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setNested2(nested2);
 
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class);
     assertNotNull(result.getNested2());
     assertEquals(nested2.get("field1"), result.getNested2().getField1());
 
-    SimpleObj result2 = (SimpleObj) mapper.map(result, SimpleObj.class);
+    SimpleObj result2 = mapper.map(result, SimpleObj.class);
     assertEquals(src, result2);
   }
 
@@ -465,7 +464,7 @@ public class MapTypeTest extends AbstractMapperTest {
     // src.setNested(nested);
     src.setNested2(nested2);
 
-    SimpleObjPrime result = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class);
     assertNull(result.getNested2().getField1());// field exclude in mappings file
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
@@ -480,7 +479,7 @@ public class MapTypeTest extends AbstractMapperTest {
     child.setChildName("someChildName");
     src.setChild(child);
 
-    GenericDOM result = (GenericDOM) mapper.map(src, GenericDOM.class);
+    GenericDOM result = mapper.map(src, GenericDOM.class);
     assertEquals("someTestValue", result.get("test"));
     GenericDOM resultChild = (GenericDOM) result.get("child");
     assertEquals("someChildName", resultChild.get("childName"));
@@ -493,7 +492,7 @@ public class MapTypeTest extends AbstractMapperTest {
     Map src = new HashMap();
     src.put("stringValue", "somevalue");
 
-    SimpleObj dest = (SimpleObj) mapper.map(src, SimpleObj.class, "test-id");
+    SimpleObj dest = mapper.map(src, SimpleObj.class, "test-id");
 
     assertEquals("wrong value found for field1", "somevalue", dest.getField1());
   }

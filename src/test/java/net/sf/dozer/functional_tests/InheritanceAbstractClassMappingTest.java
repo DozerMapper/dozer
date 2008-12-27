@@ -36,7 +36,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "abstractMapping.xml" });
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertNull("abstractField1 should have been excluded", dest.getAbstractField1());
     assertEquals("abstractBField not mapped correctly", src.getAbstractAField(), dest.getAbstractBField());
@@ -44,8 +44,8 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     assertEquals("fieldB not mapped correctly", src.getFieldA(), dest.getFieldB());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
@@ -56,7 +56,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     mapper = new DozerBeanMapper();
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertEquals("abstractField1 not mapped correctly", src.getAbstractField1(), dest.getAbstractField1());
     assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
@@ -64,8 +64,8 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     assertNull("fieldB should not have been mapped", dest.getFieldB());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
@@ -85,14 +85,14 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "abstractMapping2.xml" });
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertNull("fieldB should not have been mapped", dest.getAbstractField1());
     assertNull("abstractBField should have not been mapped", dest.getAbstractBField());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
@@ -104,15 +104,15 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "abstractMapping3.xml" });
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertNull("abstractField1 should have been excluded", dest.getAbstractField1());
     assertEquals("abstractBField not mapped correctly", src.getAbstractAField(), dest.getAbstractBField());
     assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }

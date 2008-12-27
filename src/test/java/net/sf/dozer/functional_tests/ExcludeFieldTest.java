@@ -33,7 +33,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     ZeroB zeroB = new ZeroB();
 
     zeroB.setId(Integer.valueOf("10"));
-    zeroA = (ZeroA) mapper.map(zeroB, ZeroA.class);
+    zeroA = mapper.map(zeroB, ZeroA.class);
 
     assertNull(zeroA.getId());
     assertEquals(Integer.valueOf("10"), zeroB.getId());
@@ -45,7 +45,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
 
     zeroA.setId(Integer.valueOf("5"));
     System.out.println(zeroA);
-    zeroB = (ZeroB) mapper.map(zeroA, ZeroB.class);
+    zeroB = mapper.map(zeroA, ZeroB.class);
 
     assertEquals(Integer.valueOf("5"), zeroA.getId());
     assertNull(zeroB.getId());
@@ -56,7 +56,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     OneB oneB = new OneB();
 
     oneB.setId(Integer.valueOf("10"));
-    oneA = (OneA) mapper.map(oneB, OneA.class);
+    oneA = mapper.map(oneB, OneA.class);
     
     assertNull(oneA.getId());
     assertEquals(Integer.valueOf("10"), oneB.getId());
@@ -64,10 +64,9 @@ public class ExcludeFieldTest extends AbstractMapperTest {
 
   public void testExcludedField_OneLevelReverse() {
     OneA oneA = new OneA();
-    OneB oneB;
 
     oneA.setId(Integer.valueOf("5"));
-    oneB = (OneB) mapper.map(oneA, OneB.class);
+    OneB oneB = mapper.map(oneA, OneB.class);
 
     assertEquals(Integer.valueOf("5"), oneA.getId());
     assertNull(oneB.getId());
@@ -75,20 +74,16 @@ public class ExcludeFieldTest extends AbstractMapperTest {
 
   public void testExcludedField_TwoLevel() {
     TwoB twoB = new TwoB();
-    TwoA twoA;
-
     twoB.setId(Integer.valueOf("10"));
-    twoA = (TwoA) mapper.map(twoB, TwoA.class);
+    TwoA twoA = mapper.map(twoB, TwoA.class);
     assertNull(twoA.getId());
     assertEquals(Integer.valueOf("10"), twoB.getId());
   }
 
   public void testExcludedField_TwoLevelReverse() {
-    TwoB twoB;
     TwoA twoA = new TwoA();
-
     twoA.setId(Integer.valueOf("5"));
-    twoB = (TwoB) mapper.map(twoA, TwoB.class);
+    TwoB twoB = mapper.map(twoA, TwoB.class);
     assertEquals(Integer.valueOf("5"), twoA.getId());
     assertNull(twoB.getId());
   }

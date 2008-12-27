@@ -49,7 +49,7 @@ public class TestCumulativeCollectionMapping extends AbstractMapperTest {
     Mapper mapper = getMapper(new String[] { "mapping-interface.xml" });
 
     // do mapping
-    UserGroupPrime userGroupPrime = (UserGroupPrime) mapper.map(userGroup, UserGroupPrime.class);
+    UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);
 
     // check mapped group
     assertNotNull(userGroupPrime);
@@ -82,7 +82,7 @@ public class TestCumulativeCollectionMapping extends AbstractMapperTest {
     Mapper mapper = getMapper(new String[] { "mapping-concrete.xml" });
 
     // do mapping
-    UserGroupPrime userGroupPrime = (UserGroupPrime) mapper.map(userGroup, UserGroupPrime.class);
+    UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);
 
     // check mapped group
     assertNotNull(userGroupPrime);

@@ -33,7 +33,7 @@ public class GrandparentTest extends AbstractMapperTest {
     TwoA source = new TwoA();
     source.setId(new Integer(1));
         
-    TwoB dest = (TwoB) mapper.map(source, TwoB.class);
+    TwoB dest = mapper.map(source, TwoB.class);
     assertNotNull(dest);
     assertEquals(new Integer(1), dest.getId());
   }

@@ -12,19 +12,19 @@ import net.sf.dozer.vo.oneway.SourceClass;
  */
 public class OneWayMappingTest extends AbstractMapperTest {
 
-    public void testOneWay() {
-        Mapper mapper = getMapper("oneWayMapping.xml");
+  public void testOneWay() {
+    Mapper mapper = getMapper("oneWayMapping.xml");
 
-        SourceClass source = new SourceClass("A");
+    SourceClass source = new SourceClass("A");
 
-        Holder holder = (Holder) mapper.map(source, Holder.class);
-        DestClass dest = holder.getDest();
-        
-        assertNotNull(dest);
-        assertEquals("A", dest.anonymousAccessor());
-    }
+    Holder holder = mapper.map(source, Holder.class);
+    DestClass dest = holder.getDest();
 
-    protected DataObjectInstantiator getDataObjectInstantiator() {
-         return NoProxyDataObjectInstantiator.INSTANCE;
-    }
+    assertNotNull(dest);
+    assertEquals("A", dest.anonymousAccessor());
+  }
+
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return NoProxyDataObjectInstantiator.INSTANCE;
+  }
 }

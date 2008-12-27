@@ -62,7 +62,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "inheritanceMapping.xml" });
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertNull("superField1 should have been excluded", dest.getSuperField1());
     assertEquals("superBField not mapped correctly", src.getSuperAField(), dest.getSuperBField());
@@ -70,8 +70,8 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("fieldB not mapped correctly", src.getFieldA(), dest.getFieldB());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
@@ -81,7 +81,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     mapper = new DozerBeanMapper();
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertEquals("superField1 not mapped correctly", src.getSuperField1(), dest.getSuperField1());
     assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
@@ -89,8 +89,8 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertNull("fieldB should not have been mapped", dest.getFieldB());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
@@ -101,14 +101,14 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "inheritanceMapping2.xml" });
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertNull("fieldB should not have been mapped", dest.getSuperField1());
     assertNull("superBField should have not been mapped", dest.getSuperBField());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
@@ -120,15 +120,15 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "inheritanceMapping3.xml" });
 
     A src = getA();
-    B dest = (B) mapper.map(src, B.class);
+    B dest = mapper.map(src, B.class);
 
     assertNull("superField1 should have been excluded", dest.getSuperField1());
     assertEquals("superBField not mapped correctly", src.getSuperAField(), dest.getSuperBField());
     assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
 
     // Remap to each other to test bi-directional mapping
-    A mappedSrc = (A) mapper.map(dest, A.class);
-    B mappedDest = (B) mapper.map(mappedSrc, B.class);
+    A mappedSrc = mapper.map(dest, A.class);
+    B mappedDest = mapper.map(mappedSrc, B.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
@@ -141,7 +141,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     sub.setBaseAttribute("base");
     sub.setSubAttribute("sub");
 
-    BaseSubClassCombined combined = (BaseSubClassCombined) mapper.map(sub, BaseSubClassCombined.class);
+    BaseSubClassCombined combined = mapper.map(sub, BaseSubClassCombined.class);
 
     assertEquals(sub.getSubAttribute(), combined.getSubAttribute2());
     assertEquals(sub.getBaseAttribute(), combined.getBaseAttribute2());
@@ -188,7 +188,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     asub.setSClass(sclassA);
     asub.setSClass2(sclassB);
 
-    AnotherSubClassPrime subPrime = (AnotherSubClassPrime) mapper.map(asub, AnotherSubClassPrime.class);
+    AnotherSubClassPrime subPrime = mapper.map(asub, AnotherSubClassPrime.class);
 
     assertEquals(asub.getSubAttribute(), subPrime.getSubAttribute2());
     assertEquals(asub.getBaseAttribute(), subPrime.getBaseAttribute2());
@@ -213,7 +213,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals(asub.getSClass2().getBaseSubAttribute(), subPrime.getSClass2().getBaseSubAttribute2());
 
     // map it back
-    AnotherSubClass sub = (AnotherSubClass) mapper.map(subPrime, AnotherSubClass.class);
+    AnotherSubClass sub = mapper.map(subPrime, AnotherSubClass.class);
     assertTrue(sub.getSubList().get(0) instanceof S2Class);
     assertTrue(sub.getSubList().get(1) instanceof SClass);
     assertEquals(s2.getSub2Attribute(), ((S2Class) sub.getSubList().get(0)).getSub2Attribute());
@@ -245,7 +245,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     SpecificObject so2 = (SpecificObject) newInstance(SpecificObject.class);
     so2.setSuperAttr1("superAttr1");
     ws.setSpecificObject(so2);
-    WrapperSpecificPrime wsp = (WrapperSpecificPrime) mapper.map(ws, WrapperSpecificPrime.class);
+    WrapperSpecificPrime wsp = mapper.map(ws, WrapperSpecificPrime.class);
     assertTrue(wsp.getSpecificObjectPrime() instanceof Specific3);
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr3());
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr2());
@@ -254,9 +254,9 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   public void testComplexSuperClassMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     SubClass obj = testDataFactory.getSubClass();
-    SubClassPrime objPrime = (SubClassPrime) mapper.map(obj, SubClassPrime.class);
-    SubClass obj2 = (SubClass) mapper.map(objPrime, SubClass.class);
-    SubClassPrime objPrime2 = (SubClassPrime) mapper.map(obj2, SubClassPrime.class);
+    SubClassPrime objPrime = mapper.map(obj, SubClassPrime.class);
+    SubClass obj2 = mapper.map(objPrime, SubClass.class);
+    SubClassPrime objPrime2 = mapper.map(obj2, SubClassPrime.class);
 
     assertEquals("" + obj.getCustomConvert().getAttribute().getTheDouble(), obj2.getCustomConvert().getAttribute().getTheDouble()
         + "");
@@ -268,7 +268,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     // Pass by reference
     obj = testDataFactory.getSubClass();
     SubClass subClassClone = (SubClass) SerializationUtils.clone(obj);
-    objPrime = (SubClassPrime) mapper.map(obj, SubClassPrime.class);
+    objPrime = mapper.map(obj, SubClassPrime.class);
     mapper.map(objPrime, obj);
     obj.setCustomConvert(null);
     subClassClone.setCustomConvert(null);
@@ -313,9 +313,9 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     src.setAttribute("somefieldvalue");
     src.setSuperAttribute("someotherfieldvalue");
 
-    SubClass dest = (SubClass) mapper.map(src, SubClass.class);
-    NoSuperClass src1 = (NoSuperClass) mapper.map(dest, NoSuperClass.class);
-    SubClass dest2 = (SubClass) mapper.map(src1, SubClass.class);
+    SubClass dest = mapper.map(src, SubClass.class);
+    NoSuperClass src1 = mapper.map(dest, NoSuperClass.class);
+    SubClass dest2 = mapper.map(src1, SubClass.class);
 
     assertEquals(src, src1);
     assertEquals(dest, dest2);
@@ -332,7 +332,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
 
     Mapper mapper = getMapper(new String[] { "kmmapping.xml" });
 
-    Super afterMapping = (Super) mapper.map(request, Super.class);
+    Super afterMapping = mapper.map(request, Super.class);
 
     assertNotNull("login name should not be null", afterMapping.getLoginName());
     assertNotNull("age should not be null", afterMapping.getAge());
@@ -357,7 +357,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
 
     Mapper mapper = getMapper(new String[] { "kmmapping.xml" });
 
-    SomeVo afterMapping = (SomeVo) mapper.map(request, SomeVo.class);
+    SomeVo afterMapping = mapper.map(request, SomeVo.class);
 
     assertNotNull("un should not be null", afterMapping.getUserName());
     assertNotNull("color should not be null", afterMapping.getColor());
@@ -376,8 +376,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     Long id = new Long(100L);
     String name = "John";
     Person person = new PersonImpl(id, name);
-
-    PersonDTO personDTO = (PersonDTO) mapper.map(person, PersonDTO.class);
+    PersonDTO personDTO = mapper.map(person, PersonDTO.class);
 
     assertEquals("Person DTO has incorrect personId value", id, personDTO.getPersonId());
     assertNotNull("name should not be null", personDTO.getName());
@@ -397,7 +396,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     final Person person = new PersonImpl(id, name);
     person.setAddress(address);
 
-    PersonWithAddressDTO personWithAddressDTO = (PersonWithAddressDTO) mapper.map(
+    PersonWithAddressDTO personWithAddressDTO = mapper.map(
         newInstance(new Class[] { Person.class }, person), PersonWithAddressDTO.class);
 
     assertEquals("Person DTO has incorrect personId value", id, personWithAddressDTO.getPersonId());

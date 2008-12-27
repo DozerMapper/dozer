@@ -140,11 +140,11 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
     // we did not set any values. this will be set in the 'createMethod'
     to.setCreateMethodType(ito);
-    TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
+    TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
     assertEquals("myField", top.getCreateMethodType().getMyField());
 
     // Map Back
-    TestObject toDest = (TestObject) mapper.map(top, TestObject.class);
+    TestObject toDest = mapper.map(top, TestObject.class);
     assertEquals("testCreateMethod", toDest.getCreateMethodType().getTestCreateMethod());
   }
 
@@ -153,7 +153,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     TestObject to = (TestObject) newInstance(TestObject.class);
     Integer[] array = new Integer[] { new Integer(1), new Integer(2) };
     to.setArrayForLists(array);
-    TestObjectPrime top = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
+    TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
     assertEquals("1", top.getListForArray().get(0));
   }
 
@@ -288,7 +288,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     cm.setLoanNo("loanNo");
     cm.setContextList(list);
 
-    ContextMappingPrime cmpA = (ContextMappingPrime) mapper.map(cm, ContextMappingPrime.class, "caseA");
+    ContextMappingPrime cmpA = mapper.map(cm, ContextMappingPrime.class, "caseA");
     assertNull(cmpA.getLoanNo());
     assertNull(((ContextMappingNestedPrime) cmpA.getContextList().get(0)).getLoanNo());
 
@@ -304,23 +304,20 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     prime.setLoanNo("loanNo");
     prime.setContextList(list2);
 
-    ContextMapping cmDest = (ContextMapping) mapper.map(prime, ContextMapping.class, "caseA");
+    ContextMapping cmDest = mapper.map(prime, ContextMapping.class, "caseA");
     assertNull(cmDest.getLoanNo());
     assertNull(((ContextMappingNested) cmDest.getContextList().get(0)).getLoanNo());
 
-    ContextMapping cmpBDest = (ContextMapping) mapper.map(prime, ContextMapping.class, "caseB");
+    ContextMapping cmpBDest = mapper.map(prime, ContextMapping.class, "caseB");
     assertEquals("loanNo", cmpBDest.getLoanNo());
     assertEquals("loanNoNested", ((ContextMappingNestedPrime) cmpBDest.getContextList().get(0)).getLoanNo());
   }
 
   public void testArrayToSortedSet() {
     NamesArray from = (NamesArray) newInstance(NamesArray.class);
-    NamesSortedSet to = null;
     String[] names = { "John", "Bill", "Tony", "Fred", "Bruce" };
-
     from.setNames(names);
-
-    to = (NamesSortedSet) mapper.map(from, NamesSortedSet.class);
+    NamesSortedSet to = mapper.map(from, NamesSortedSet.class);
 
     assertNotNull(to);
     assertEquals(names.length, to.getNames().size());
@@ -337,7 +334,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     names.add("Jill");
     from.setNames(names);
 
-    to = (NamesArray) mapper.map(from, NamesArray.class);
+    to = mapper.map(from, NamesArray.class);
 
     assertNotNull(to);
     assertEquals(names.size(), to.getNames().length);
@@ -353,7 +350,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     names.add("Green");
     from.setNames(names);
 
-    to = (NamesSortedSet) mapper.map(from, NamesSortedSet.class);
+    to = mapper.map(from, NamesSortedSet.class);
 
     assertNotNull(to);
     assertEquals(names.size(), to.getNames().size());
@@ -372,7 +369,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     names.add("Off white");
     from.setNames(names);
 
-    to = (NamesSet) mapper.map(from, NamesSet.class);
+    to = mapper.map(from, NamesSet.class);
 
     assertNotNull(to);
     assertEquals(names.size(), to.getNames().size());
@@ -386,7 +383,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     list.add("test2");
     src.setCategories(list);
 
-    FooPrime dest = (FooPrime) mapper.map(src, FooPrime.class);
+    FooPrime dest = mapper.map(src, FooPrime.class);
     assertNotNull(dest);
   }
 
@@ -396,7 +393,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
     src.setField2("someValue");
 
-    MccoyPrime dest = (MccoyPrime) mapper.map(src, MccoyPrime.class, "usingDestHint");
+    MccoyPrime dest = mapper.map(src, MccoyPrime.class, "usingDestHint");
     Set destSet = dest.getFieldValueObjects();
     assertNotNull("dest set should not be null", destSet);
     assertEquals("dest set should contain 1 entry", 1, destSet.size());
@@ -458,7 +455,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     PrimitiveArrayObj src = (PrimitiveArrayObj) newInstance(PrimitiveArrayObj.class);
     src.setField1(i);
 
-    PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class);
+    PrimitiveArrayObjPrime dest = mapper.map(src, PrimitiveArrayObjPrime.class);
 
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", i.length, dest.getField1().size());
@@ -474,7 +471,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     PrimitiveArrayObj src = (PrimitiveArrayObj) newInstance(PrimitiveArrayObj.class);
     src.setField1(srcArray);
 
-    PrimitiveArrayObjPrime dest = (PrimitiveArrayObjPrime) mapper.map(src, PrimitiveArrayObjPrime.class,
+    PrimitiveArrayObjPrime dest = mapper.map(src, PrimitiveArrayObjPrime.class,
         "primitiveToArrayUsingHint");
 
     assertNotNull("dest list field should not be null", dest.getField1());
@@ -493,7 +490,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     user.setSubscriberNumber("123");
 
     // Mapping works
-    UpdateMember destObject = (UpdateMember) mapper.map(user, UpdateMember.class);
+    UpdateMember destObject = mapper.map(user, UpdateMember.class);
 
     assertEquals("invalid value for subsriber #", user.getSubscriberNumber(), destObject.getSubscriberKey().getSubscriberNumber());
 
@@ -516,7 +513,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     src.setField1(currentTime);
     src.setField6("field6Value" + currentTime);
 
-    SimpleObjPrime dest = (SimpleObjPrime) mapper.map(src, SimpleObjPrime.class);
+    SimpleObjPrime dest = mapper.map(src, SimpleObjPrime.class);
 
     assertNotNull("dest field1 should not be null", dest.getField1());
     assertNotNull("dest field6 should not be null", dest.getField6());
@@ -528,7 +525,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     PrivateConstructorBean src = PrivateConstructorBean.newInstance();
     src.setField1("someValue");
 
-    PrivateConstructorBeanPrime dest = (PrivateConstructorBeanPrime) mapper.map(src, PrivateConstructorBeanPrime.class);
+    PrivateConstructorBeanPrime dest = mapper.map(src, PrivateConstructorBeanPrime.class);
 
     assertNotNull("dest bean should not be null", dest);
     assertEquals("field1 not mapped correctly", src.getField1(), dest.getField1());
@@ -562,7 +559,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     SomeDTO src = (SomeDTO) newInstance(SomeDTO.class);
     src.setField2(new SomeOtherDTO[] { someOtherDto2, someOtherDto });
 
-    SomeVO dest = (SomeVO) mapper.map(src, SomeVO.class);
+    SomeVO dest = mapper.map(src, SomeVO.class);
 
     assertEquals("incorrect resulting set size", src.getField2().length, dest.getField2().size());
     // TODO: add more asserts
@@ -570,7 +567,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   public void testGlobalBeanFactoryAppliedToDefaultMappings() throws Exception {
     mapper = getMapper(new String[] { "global-configuration.xml" });
-    TestObjectPrime dest = (TestObjectPrime) mapper.map((TestObject) newInstance(TestObject.class), TestObjectPrime.class);
+    TestObjectPrime dest = mapper.map((TestObject) newInstance(TestObject.class), TestObjectPrime.class);
 
     assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
     assertEquals("", "net.sf.dozer.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
@@ -582,11 +579,11 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     String dateStr = "01/29/1975 10:45:13:25";
     TestObject sourceObj = (TestObject) newInstance(TestObject.class);
     sourceObj.setDateStr(dateStr);
-    TestObjectPrime result = (TestObjectPrime) mapper.map(sourceObj, TestObjectPrime.class);
+    TestObjectPrime result = mapper.map(sourceObj, TestObjectPrime.class);
     assertEquals(df.parse(dateStr), result.getDateFromStr());
     assertEquals(dateStr, df.format(result.getDateFromStr()));
 
-    TestObject result2 = (TestObject) mapper.map(result, TestObject.class);
+    TestObject result2 = mapper.map(result, TestObject.class);
     assertEquals(df.format(result.getDateFromStr()), result2.getDateStr());
     assertEquals(result.getDateFromStr(), df.parse(result2.getDateStr()));
   }
@@ -597,12 +594,12 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     sourceObj.setIntegerStr("1500");
     sourceObj.setPriceItem("3500");
     sourceObj.setFieldOne("fieldOne");
-    MethodFieldTestObject2 result = (MethodFieldTestObject2) mapper.map(sourceObj, MethodFieldTestObject2.class);
+    MethodFieldTestObject2 result = mapper.map(sourceObj, MethodFieldTestObject2.class);
     assertEquals("invalid result object size", 1, result.getIntegerList().size());
     assertEquals("invalid result object value", 3500, result.getTotalPrice());
     assertEquals("invalid result object value", "fieldOne", result.getFieldOne());
     // map back
-    MethodFieldTestObject result2 = (MethodFieldTestObject) mapper.map(result, MethodFieldTestObject.class);
+    MethodFieldTestObject result2 = mapper.map(result, MethodFieldTestObject.class);
     // if no exceptions we thrown we are good. stopOnErrors = true. both values will be null
     // since this is a one-way mapping we shouldn't have a value
     assertNull(result2.getFieldOne());
@@ -614,7 +611,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     NoReadMethod src = (NoReadMethod) newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
-    NoReadMethodPrime dest = (NoReadMethodPrime) mapper.map(src, NoReadMethodPrime.class);
+    NoReadMethodPrime dest = mapper.map(src, NoReadMethodPrime.class);
     assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
 
@@ -624,7 +621,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     NoReadMethod src = (NoReadMethod) newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
-    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
+    NoReadMethod dest = mapper.map(src, NoReadMethod.class);
     assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
 
@@ -634,7 +631,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     NoReadMethod src = (NoReadMethod) newInstance(NoReadMethod.class);
     src.setOtherNoReadMethod("someValue");
 
-    NoReadMethod dest = (NoReadMethod) mapper.map(src, NoReadMethod.class);
+    NoReadMethod dest = mapper.map(src, NoReadMethod.class);
     assertNull("field should be null because no read method exists for field", dest.getOtherNoReadMethod(-1));
   }
 
@@ -643,7 +640,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     NoWriteMethod src = (NoWriteMethod) newInstance(NoWriteMethod.class);
     src.setXXXXXX("someValue");
 
-    NoWriteMethodPrime dest = (NoWriteMethodPrime) mapper.map(src, NoWriteMethodPrime.class);
+    NoWriteMethodPrime dest = mapper.map(src, NoWriteMethodPrime.class);
     assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
 
   }
@@ -657,7 +654,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
     mapper.map((NoReadMethod) newInstance(NoReadMethod.class), NoReadMethod.class);
 
-    NoWriteMethod dest = (NoWriteMethod) mapper.map(src, NoWriteMethod.class);
+    NoWriteMethod dest = mapper.map(src, NoWriteMethod.class);
     assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
   }
 
@@ -680,7 +677,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     TestObject src = (TestObject) newInstance(TestObject.class);
     src.setOne(input);
 
-    TestObjectPrime dest = (TestObjectPrime) mapper.map(src, TestObjectPrime.class);
+    TestObjectPrime dest = mapper.map(src, TestObjectPrime.class);
     assertNotNull("dest field should not be null", dest.getOnePrime());
     assertEquals("invalid dest field value", input, dest.getOnePrime());
   }

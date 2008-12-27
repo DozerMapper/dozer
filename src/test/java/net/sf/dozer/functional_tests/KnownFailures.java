@@ -52,16 +52,14 @@ public class KnownFailures extends AbstractMapperTest {
     ids.add(new MessageIdVO("1"));
     ids.add(new MessageIdVO("2"));
     vo.setMsgIds(ids);
-    MessageHeaderDTO result = null;
-
-    result = (MessageHeaderDTO) mapper.map(vo, MessageHeaderDTO.class);
+    MessageHeaderDTO result = mapper.map(vo, MessageHeaderDTO.class);
     assertEquals("1", result.getIdList().getMsgIdsArray()[0]);
     assertEquals("2", result.getIdList().getMsgIdsArray()[1]);
   }
 
   public void testObjectField() throws Exception {
     Outer o = new Outer();
-    Target t = (Target) mapper.map(o, Target.class);
+    Target t = mapper.map(o, Target.class);
 
     assertEquals(((Inner) o.getInner()).getString(), t.getString());
   }
@@ -75,7 +73,7 @@ public class KnownFailures extends AbstractMapperTest {
 
     mapper = getMapper(new String[] { "inheritanceBug.xml" });
 
-    C c = (C) mapper.map(z, C.class);
+    C c = mapper.map(z, C.class);
     assertEquals("wrong value", "customConverter", c.getTest());
   }
 
