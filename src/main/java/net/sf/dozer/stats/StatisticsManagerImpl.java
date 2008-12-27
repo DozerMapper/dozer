@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.util.MappingUtils;
@@ -35,19 +36,19 @@ import org.apache.commons.logging.LogFactory;
 public final class StatisticsManagerImpl implements StatisticsManager {
   private static final Log log = LogFactory.getLog(StatisticsManagerImpl.class);
 
-  private final Map statisticsMap = new HashMap();
+  private final Map<String, Statistic> statisticsMap = new HashMap<String, Statistic>();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
 
   public void clearAll() {
     statisticsMap.clear();
   }
 
-  public Set getStatisticEntries(String statisticType) {
+  public Set<StatisticEntry> getStatisticEntries(String statisticType) {
     return getStatistic(statisticType).getEntries();
   }
 
-  public Set getStatistics() {
-    return new HashSet(statisticsMap.values());
+  public Set<Statistic> getStatistics() {
+    return new HashSet<Statistic>(statisticsMap.values());
   }
 
   public boolean isStatisticsEnabled() {
@@ -67,11 +68,9 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     return result;
   }
 
-  public Set getStatisticTypes() {
-    Set results = new HashSet();
-    Iterator iter = statisticsMap.entrySet().iterator();
-    while (iter.hasNext()) {
-      Map.Entry entry = (Map.Entry) iter.next();
+  public Set<String> getStatisticTypes() {
+    Set<String> results = new HashSet<String>();
+    for (Entry<String, Statistic> entry : statisticsMap.entrySet()) {
       results.add(entry.getKey());
     }
     return results;
@@ -132,7 +131,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
    * getStatisticEntries() should be used for statistic types that have more than 1 statistic entry(value)
    */
   public long getStatisticValue(String statisticType) {
-    Set entries = getStatistic(statisticType).getEntries();
+    Set<StatisticEntry> entries = getStatistic(statisticType).getEntries();
     if (entries.size() > 1) {
       throw new IllegalArgumentException("More than one value entry found for stat type: " + statisticType);
     }

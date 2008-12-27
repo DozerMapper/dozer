@@ -33,7 +33,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class Statistic {
   private final String type;
-  private final Map entriesMap = new HashMap();
+  private final Map<Object, StatisticEntry> entriesMap = new HashMap<Object, StatisticEntry>();
 
   public Statistic(String type) {
     this.type = type;
@@ -47,8 +47,8 @@ public class Statistic {
     entriesMap.clear();
   }
 
-  public Set getEntries() {
-    return new HashSet(entriesMap.values());
+  public Set<StatisticEntry> getEntries() {
+    return new HashSet<StatisticEntry>(entriesMap.values());
   }
 
   public void addEntry(StatisticEntry statEntry) {
