@@ -18,10 +18,18 @@ package net.sf.dozer;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import net.sf.dozer.cache.Cache;
-import net.sf.dozer.cache.CacheEntry;
 import net.sf.dozer.cache.CacheKeyFactory;
 import net.sf.dozer.cache.CacheManager;
 import net.sf.dozer.classmap.ClassMap;
@@ -33,6 +41,7 @@ import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.converters.CustomConverterBase;
 import net.sf.dozer.converters.PrimitiveOrWrapperConverter;
 import net.sf.dozer.event.DozerEvent;
+import net.sf.dozer.event.DozerEventListener;
 import net.sf.dozer.event.DozerEventManager;
 import net.sf.dozer.event.EventManager;
 import net.sf.dozer.fieldmap.CustomGetSetMethodFieldMap;
@@ -90,9 +99,9 @@ public class MappingProcessor implements Mapper {
 
   private static final String BASE_CLASS = "java.lang.Object"; // TODO Move to Constants
 
-  protected MappingProcessor(Map customMappings, Configuration globalConfiguration, CacheManager cacheMgr,
-      StatisticsManager statsMgr, List customConverterObjects, List eventListeners, CustomFieldMapper customFieldMapper,
-      Map customConverterObjectsWithId) {
+  protected MappingProcessor(Map<String, ClassMap> customMappings, Configuration globalConfiguration, CacheManager cacheMgr,
+      StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
+      Map<String, CustomConverter> customConverterObjectsWithId) {
     this.customMappings = customMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -186,12 +195,12 @@ public class MappingProcessor implements Mapper {
     }
 
     // Now check for super class mappings.  Process super class mappings first.
-    List mappedParentFields = null;
+    List<String> mappedParentFields = null;
     if (!bypassSuperMappings) {
-      Collection superMappings = new ArrayList();
+      Collection<ClassMap> superMappings = new ArrayList<ClassMap>();
 
-      Collection superClasses = checkForSuperTypeMapping(srcClass, destClass);
-      List interfaceMappings = ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass);
+      Collection<ClassMap> superClasses = checkForSuperTypeMapping(srcClass, destClass);
+      List<ClassMap> interfaceMappings = ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass);
 
       superMappings.addAll(superClasses);
       superMappings.addAll(interfaceMappings);
@@ -200,19 +209,13 @@ public class MappingProcessor implements Mapper {
       }
     }
 
-    List fieldMaps = classMap.getFieldMaps();
-
     // Perform mappings for each field. Iterate through Fields Maps for this class mapping
-    int size = fieldMaps.size();
-    for (int i = 0; i < size; i++) {
-      FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
-
+    for (FieldMap fieldMapping : classMap.getFieldMaps()) {
       //Bypass field if it has already been mapped as part of super class mappings.
       String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());
       if (mappedParentFields != null && mappedParentFields.contains(key)) {
         continue;
       }
-
       mapField(fieldMapping, srcObj, destObj);
     }
   }
@@ -291,7 +294,7 @@ public class MappingProcessor implements Mapper {
     Object destFieldValue;
     if (!MappingUtils.isBlankOrNull(fieldMapping.getCustomConverterId())) {
       if (customConverterObjectsWithId != null && customConverterObjectsWithId.containsKey(fieldMapping.getCustomConverterId())) {
-        Class srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMapping.getSrcFieldType(srcObj.getClass());
+        Class<?> srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMapping.getSrcFieldType(srcObj.getClass());
         destFieldValue = mapUsingCustomConverterInstance(customConverterObjectsWithId.get(fieldMapping.getCustomConverterId()),
             srcFieldClass, srcFieldValue, destFieldType, destObj, fieldMapping, false);
       } else {
@@ -300,7 +303,7 @@ public class MappingProcessor implements Mapper {
     } else if (MappingUtils.isBlankOrNull(fieldMapping.getCustomConverter())) {
       destFieldValue = mapOrRecurseObject(srcObj, srcFieldValue, destFieldType, fieldMapping, destObj);
     } else {
-      Class srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMapping.getSrcFieldType(srcObj.getClass());
+      Class<?> srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMapping.getSrcFieldType(srcObj.getClass());
       destFieldValue = mapUsingCustomConverter(MappingUtils.loadClass(fieldMapping.getCustomConverter()), srcFieldClass,
           srcFieldValue, destFieldType, destObj, fieldMapping, false);
     }
@@ -313,9 +316,9 @@ public class MappingProcessor implements Mapper {
     }
   }
 
-  private Object mapOrRecurseObject(Object srcObj, Object srcFieldValue, Class destFieldType, FieldMap fieldMap, Object destObj) {
-    Class srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMap.getSrcFieldType(srcObj.getClass());
-    Class converterClass = MappingUtils.determineCustomConverter(fieldMap, converterByDestTypeCache, fieldMap.getClassMap()
+  private Object mapOrRecurseObject(Object srcObj, Object srcFieldValue, Class<?> destFieldType, FieldMap fieldMap, Object destObj) {
+    Class<?> srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMap.getSrcFieldType(srcObj.getClass());
+    Class<?> converterClass = MappingUtils.determineCustomConverter(fieldMap, converterByDestTypeCache, fieldMap.getClassMap()
         .getCustomConverters(), srcFieldClass, destFieldType);
 
     // 1-2007 mht: Invoke custom converter even if the src value is null.
@@ -898,7 +901,7 @@ public class MappingProcessor implements Mapper {
         fieldMap, topLevel);
   }
 
-  private Collection checkForSuperTypeMapping(Class srcClass, Class destClass) {
+  private Collection<ClassMap> checkForSuperTypeMapping(Class srcClass, Class destClass) {
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(destClass, srcClass);
     Collection cachedResult = (Collection) superTypeCache.get(cacheKey);
@@ -908,7 +911,7 @@ public class MappingProcessor implements Mapper {
 
     // If no existing cache entry is found, determine super type mappings.
     // Recursively walk the inheritance hierarchy.
-    List superClasses = new ArrayList();
+    List<ClassMap> superClasses = new ArrayList<ClassMap>();
     // Need to call getRealSuperclass because proxied data objects will not return correct
     // superclass when using basic reflection
     Class superSrcClass = MappingUtils.getRealSuperclass(srcClass);
@@ -934,14 +937,14 @@ public class MappingProcessor implements Mapper {
     return superClasses;
   }
 
-  private void checkDestClasses(List superClasses, Class srcClass, Class destClass) {
+  private void checkDestClasses(List<ClassMap> superClasses, Class srcClass, Class destClass) {
     while (!isBaseClass(destClass)) {
       checkForClassMapping(srcClass, superClasses, destClass);
       destClass = MappingUtils.getRealSuperclass(destClass);
     }
   }
 
-  private void checkForClassMapping(Class srcClass, List superClasses, Class superDestClass) {
+  private void checkForClassMapping(Class srcClass, List<ClassMap> superClasses, Class superDestClass) {
     ClassMap srcClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, superDestClass));
     if (srcClassMap != null) {
       superClasses.add(srcClassMap);
@@ -952,14 +955,12 @@ public class MappingProcessor implements Mapper {
     return clazz == null || BASE_CLASS.equals(clazz.getName());
   }
 
-  private List processSuperTypeMapping(Collection superClasses, Object srcObj, Object destObj, String mapId) {
-    List mappedFields = new ArrayList();
+  private List<String> processSuperTypeMapping(Collection superClasses, Object srcObj, Object destObj, String mapId) {
+    List<String> mappedFields = new ArrayList();
     for (Iterator iterator = superClasses.iterator(); iterator.hasNext();) {
       ClassMap map = (ClassMap) iterator.next();
       map(map, srcObj, destObj, true, mapId);
-      List fieldMaps = map.getFieldMaps();
-      for (int i = 0; i < fieldMaps.size(); i++) {
-        FieldMap fieldMapping = (FieldMap) fieldMaps.get(i);
+      for (FieldMap fieldMapping : map.getFieldMaps()) {
         String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());
         mappedFields.add(key);
       }

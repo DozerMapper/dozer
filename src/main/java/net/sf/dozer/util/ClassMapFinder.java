@@ -68,7 +68,7 @@ public abstract class ClassMapFinder {
     return mapping;
   }
 
-  public static List findInterfaceMappings(Map<String, ClassMap> customMappings, Class<?> srcClass, Class<?> destClass) {
+  public static List<ClassMap> findInterfaceMappings(Map<String, ClassMap> customMappings, Class<?> srcClass, Class<?> destClass) {
     // If no existing cache entry is found, determine super type mapping and store in cache
     // Get interfaces
     Class[] srcInterfaces = srcClass.getInterfaces();
