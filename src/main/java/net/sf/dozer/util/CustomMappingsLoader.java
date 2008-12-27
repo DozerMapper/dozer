@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import net.sf.dozer.classmap.ClassMap;
+import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.MappingFileData;
 import net.sf.dozer.converters.CustomConverterContainer;

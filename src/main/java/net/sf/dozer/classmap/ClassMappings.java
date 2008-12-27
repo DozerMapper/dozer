@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util;
+package net.sf.dozer.classmap;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.sf.dozer.classmap.ClassMap;
+import net.sf.dozer.util.ClassMapKeyFactory;
+import net.sf.dozer.util.MappingUtils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;

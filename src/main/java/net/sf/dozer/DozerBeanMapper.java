@@ -21,6 +21,7 @@ import java.util.Map;
 
 import net.sf.dozer.cache.CacheManager;
 import net.sf.dozer.cache.DozerCacheManager;
+import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.converters.CustomConverter;
@@ -29,7 +30,6 @@ import net.sf.dozer.interceptor.StatisticsInterceptor;
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticTypeConstants;
 import net.sf.dozer.stats.StatisticsManager;
-import net.sf.dozer.util.ClassMappings;
 import net.sf.dozer.util.CustomMappingsLoader;
 import net.sf.dozer.util.InitLogger;
 import net.sf.dozer.util.LoadMappingsResult;

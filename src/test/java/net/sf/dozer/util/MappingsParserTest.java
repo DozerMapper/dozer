@@ -16,6 +16,7 @@
 package net.sf.dozer.util;
 
 import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.MappingFileData;
 

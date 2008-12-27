@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import net.sf.dozer.classmap.ClassMap;
+import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.fieldmap.FieldMap;
