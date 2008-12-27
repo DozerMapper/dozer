@@ -36,7 +36,7 @@ import net.sf.dozer.vo.TestObject;
  */
 public class XMLBeansMappingTest extends AbstractMapperTest {
 
-  public void testXmlBeans() throws Exception {
+  public void disabled_testXmlBeans() throws Exception {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     // Map from TestObject to XMLBeans
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -124,7 +124,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
   }
 
-  public void testXmlBeansWithNullFields() throws Exception {
+  public void disabled_testXmlBeansWithNullFields() throws Exception {
 
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     ChildType xmlBean = ChildType.Factory.newInstance();

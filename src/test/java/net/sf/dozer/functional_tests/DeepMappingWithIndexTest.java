@@ -151,7 +151,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(dest.getPhoneNumber(), ((Phone) source.phones.get(0)).getNumber());
   }
 
-  public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
+  public void diabled_testDeepMapIndexedIsAccessibleInversed() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
     
     FlatPerson source = (FlatPerson) newInstance(FlatPerson.class);
