@@ -275,24 +275,24 @@ public final class MappingUtils {
     return mapping != null && mapping.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0;
   }
   
-  private static Object[] prepareIndexedArray(Class<?> collectionType, Object existingCollection, Object collectionEntry, int index) {
-    Object[] result;
+  private static <T> T[] prepareIndexedArray(Class<T> collectionType, Object existingCollection, Object collectionEntry, int index) {
+    T[] result;
 
     if (existingCollection == null) {
-      result = (Object[]) Array.newInstance(collectionType.getComponentType(), index + 1);
+      result = (T[]) Array.newInstance(collectionType.getComponentType(), index + 1);
     } else {
       int originalLenth = ((Object[]) existingCollection).length;
-      result = (Object[]) Array.newInstance(collectionType.getComponentType(), Math.max(index + 1, originalLenth));
+      result = (T[]) Array.newInstance(collectionType.getComponentType(), Math.max(index + 1, originalLenth));
 
       for (int i = 0; i < originalLenth; i++) {
-        result[i] = ((Object[]) existingCollection)[i];
+        result[i] = ((T[]) existingCollection)[i];
       }
     }
-    result[index] = collectionEntry;
+    result[index] = (T) collectionEntry;
     return result;
   }
   
-  private static Collection prepareIndexedCollectionType(Class collectionType, Object existingCollection, Object collectionEntry, int index) {
+  private static Collection prepareIndexedCollectionType(Class<?> collectionType, Object existingCollection, Object collectionEntry, int index) {
     Collection result = null;
     //Instantiation of the new Collection: can be interface or implementation class
     if (collectionType.isInterface()) {

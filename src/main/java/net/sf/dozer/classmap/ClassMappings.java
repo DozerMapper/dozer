@@ -41,11 +41,11 @@ public class ClassMappings {
   
   private Map<String, ClassMap> classMappings = Collections.synchronizedMap(new HashMap<String, ClassMap>());
   
-  public void add(Class srcClass, Class destClass, ClassMap classMap) {
+  public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
     classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass), classMap);
   }
   
-  public void add(Class srcClass, Class destClass, String mapId, ClassMap classMap) {
+  public void add(Class<?> srcClass, Class<?> destClass, String mapId, ClassMap classMap) {
     classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass, mapId), classMap);
   }
   
@@ -99,8 +99,8 @@ public class ClassMappings {
   public List<ClassMap> findInterfaceMappings(Class<?> srcClass, Class<?> destClass) {
     // If no existing cache entry is found, determine super type mapping and store in cache
     // Get interfaces
-    Class[] srcInterfaces = srcClass.getInterfaces();
-    Class[] destInterfaces = destClass.getInterfaces();
+    Class<?>[] srcInterfaces = srcClass.getInterfaces();
+    Class<?>[] destInterfaces = destClass.getInterfaces();
     List<ClassMap> interfaceMaps = new ArrayList<ClassMap>();
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {

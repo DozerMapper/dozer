@@ -40,8 +40,8 @@ public final class DestBeanCreator {
 
   private static final Log log = LogFactory.getLog(DestBeanCreator.class);
 
-  public static Object create(Class targetClass) {
-    return create(targetClass, null);
+  public static <T> T create(Class<T> targetClass) {
+    return (T) create(targetClass, null);
   }
 
   public static Object create(Class targetClass, Class alternateClass) {
@@ -50,7 +50,7 @@ public final class DestBeanCreator {
 
   public static Object create(Object srcObject, Class srcClass, Class targetClass, Class alternateClass, String factoryName,
       String factoryId, String createMethod) {
-    Class classToCreate = targetClass != null ? targetClass : alternateClass;
+    Class<?> classToCreate = targetClass != null ? targetClass : alternateClass;
 
     // If custom create method was specified, see if there are any static createMethods
     if (!MappingUtils.isBlankOrNull(createMethod)) {
@@ -78,7 +78,7 @@ public final class DestBeanCreator {
     //Typical oject creation
     Object rvalue = null;
     if (MappingUtils.isSupportedMap(classToCreate)) {
-      rvalue = new HashMap();
+      rvalue = new HashMap<Object, Object>();
     } else {
       try {
         rvalue = newInstance(classToCreate);
@@ -136,9 +136,9 @@ public final class DestBeanCreator {
     return rvalue;
   }
 
-  private static Object newInstance(Class clazz) {
+  private static <T> T newInstance(Class<T> clazz) {
     //Create using public or private no-arg constructor
-    Constructor constructor = null;
+    Constructor<T> constructor = null;
     try {
       constructor = clazz.getDeclaredConstructor(null);
     } catch (SecurityException e) {
@@ -157,9 +157,9 @@ public final class DestBeanCreator {
       constructor.setAccessible(true);
     }
 
-    Object result = null;
+    T result = null;
     try {
-      result = constructor.newInstance(null);
+      result = (T) constructor.newInstance(null);
     } catch (IllegalArgumentException e) {
       MappingUtils.throwMappingException(e);
     } catch (InstantiationException e) {

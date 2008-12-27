@@ -23,7 +23,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -71,7 +70,7 @@ public abstract class ReflectionUtils {
     }
 
     StringTokenizer toks = new StringTokenizer(field, MapperConstants.DEEP_FIELD_DELIMITOR);
-    Class latestClass = parentClass;
+    Class<?> latestClass = parentClass;
     DeepHierarchyElement[] hierarchy = new DeepHierarchyElement[toks.countTokens()];
     int index = 0;
     int hintIndex = 0;
@@ -99,7 +98,7 @@ public abstract class ReflectionUtils {
         if (latestClass.isArray()) {
           latestClass = latestClass.getComponentType();
         } else if (Collection.class.isAssignableFrom(latestClass)) {
-          Class genericType = determineGenericsType(propDescriptor);
+          Class<?> genericType = determineGenericsType(propDescriptor);
 
           if (genericType == null && deepIndexHintContainer == null) {
             MappingUtils
@@ -183,7 +182,7 @@ public abstract class ReflectionUtils {
     }
   }
 
-  static PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
+  static PropertyDescriptor[] getInterfacePropertyDescriptors(Class<?> interfaceClass) {
     List<PropertyDescriptor> propDescriptors = new ArrayList<PropertyDescriptor>();
     // Add prop descriptors for interface passed in
     propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
@@ -283,7 +282,7 @@ public abstract class ReflectionUtils {
       return null;
     }
 
-    Class result = null;
+    Class<?> result = null;
     //Try getter and setter to determine the Generics type in case one does not exist
     if (propDescriptor.getWriteMethod() != null) {
       result = determineGenericsType(propDescriptor.getWriteMethod(), false);
@@ -296,13 +295,13 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static Class determineGenericsType(Method method, boolean isReadMethod) {
+  public static Class<?> determineGenericsType(Method method, boolean isReadMethod) {
     if (!GlobalSettings.getInstance().isJava5()) {
       return null;
     }
 
-    Class result = null;
-    Class parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
+    Class<?> result = null;
+    Class<?> parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
     if (isReadMethod) {
       Object parameterType = ReflectionUtils.invoke(Jdk5Methods.getInstance().getMethodGetGenericReturnTypeMethod(), method, null);
 
@@ -310,7 +309,7 @@ public abstract class ReflectionUtils {
         Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
             .getParamaterizedTypeGetActualTypeArgsMethod(), parameterType, null))[0];
         if (genericType != null) {
-          result = (Class) genericType;
+          result = (Class<?>) genericType;
         }
       }
     } else {
@@ -321,7 +320,7 @@ public abstract class ReflectionUtils {
         Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
             .getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
         if (genericType != null) {
-          result = (Class) genericType;
+          result = (Class<?>) genericType;
         }
       }
     }

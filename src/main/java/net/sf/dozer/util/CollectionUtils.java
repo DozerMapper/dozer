@@ -57,7 +57,7 @@ public abstract class CollectionUtils {
     if (isArray(value.getClass())) {
       return Array.getLength(value);
     } else {
-      return ((Collection) value).size();
+      return ((Collection<?>) value).size();
     }
   }
 
@@ -65,7 +65,7 @@ public abstract class CollectionUtils {
     if (isArray(collection.getClass())) {
       return Array.get(collection, index);
     } else {
-      return ((Collection) collection).toArray()[index];
+      return ((Collection<?>) collection).toArray()[index];
     }
   }
 

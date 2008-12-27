@@ -78,7 +78,7 @@ public class ClassMap {
     this.trimStrings = trimStrings;
   }
 
-  public List getAllowedExceptions() {
+  public List<Class<RuntimeException>> getAllowedExceptions() {
     if (!allowedExceptions.isEmpty()) {
       return allowedExceptions;
     } else {

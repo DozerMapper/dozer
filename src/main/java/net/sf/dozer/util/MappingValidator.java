@@ -41,7 +41,7 @@ public abstract class MappingValidator {
     }
   }
 
-  public static void validateMappingRequest(Object srcObj, Class destClass) {
+  public static void validateMappingRequest(Object srcObj, Class<?> destClass) {
     validateMappingRequest(srcObj);
     if (destClass == null) {
       MappingUtils.throwMappingException("destination class must not be null");
