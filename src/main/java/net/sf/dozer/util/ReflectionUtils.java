@@ -20,6 +20,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,7 +28,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import net.sf.dozer.MappingException;
-import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.fieldmap.HintContainer;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -293,11 +293,11 @@ public abstract class ReflectionUtils {
 
   public static Class<?> determineGenericsType(Method method, boolean isReadMethod) {
     Class<?> result = null;
-    Class<?> parameterTypesClass = Jdk5Methods.getInstance().getParameterizedTypeClass();
     if (isReadMethod) {
-      Object parameterType = ReflectionUtils.invoke(Jdk5Methods.getInstance().getMethodGetGenericReturnTypeMethod(), method, null);
+      Object parameterType = method.getGenericReturnType();
 
-      if (parameterType != null && parameterTypesClass.isAssignableFrom(parameterType.getClass())) {
+      if (parameterType != null && ParameterizedType.class.isAssignableFrom(parameterType.getClass())) {
+      
         Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
             .getParamaterizedTypeGetActualTypeArgsMethod(), parameterType, null))[0];
         if (genericType != null) {
@@ -305,10 +305,9 @@ public abstract class ReflectionUtils {
         }
       }
     } else {
-      Object[] parameterTypes = (Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
-          .getMethodGetGenericParameterTypesMethod(), method, null);
-
-      if (parameterTypes != null && parameterTypesClass.isAssignableFrom(parameterTypes[0].getClass())) {
+      Object[] parameterTypes = method.getGenericParameterTypes();
+      
+      if (parameterTypes != null && ParameterizedType.class.isAssignableFrom(parameterTypes[0].getClass())) {
         Object genericType = ((Object[]) ReflectionUtils.invoke(Jdk5Methods.getInstance()
             .getParamaterizedTypeGetActualTypeArgsMethod(), parameterTypes[0], null))[0];
         if (genericType != null) {
