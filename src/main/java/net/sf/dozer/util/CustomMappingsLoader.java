@@ -48,7 +48,7 @@ public class CustomMappingsLoader {
   private static final MappingsParser mappingsParser = MappingsParser.getInstance();
 
   public LoadMappingsResult load(List<String> mappingFiles) {
-    Map customMappings = new HashMap();
+    Map<String, ClassMap> customMappings = new HashMap<String, ClassMap>();
     ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList());
     Configuration globalConfiguration = null;
     List mappingFileDataList = new ArrayList();

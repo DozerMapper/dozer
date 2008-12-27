@@ -28,10 +28,10 @@ import java.util.List;
  * 
  */
 public class MappingFileData {
-  private List classMaps = new ArrayList();
+  private List<ClassMap> classMaps = new ArrayList<ClassMap>();
   private Configuration configuration;
 
-  public List getClassMaps() {
+  public List<ClassMap> getClassMaps() {
     return classMaps;
   }
   

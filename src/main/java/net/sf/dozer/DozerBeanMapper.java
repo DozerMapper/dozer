@@ -21,6 +21,7 @@ import java.util.Map;
 
 import net.sf.dozer.cache.CacheManager;
 import net.sf.dozer.cache.DozerCacheManager;
+import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.converters.CustomConverter;
@@ -70,7 +71,7 @@ public class DozerBeanMapper implements Mapper {
   /*
    * Not accessible for injection
    */
-  private Map customMappings;
+  private Map<String, ClassMap> customMappings;
   private Configuration globalConfiguration;
   // There are no global caches. Caches are per bean mapper instance
   private final CacheManager cacheManager = new DozerCacheManager();

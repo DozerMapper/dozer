@@ -15,11 +15,14 @@
  */
 package net.sf.dozer.util;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.Configuration;
-import net.sf.dozer.classmap.MappingFileData;
 import net.sf.dozer.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.fieldmap.FieldMap;
 import net.sf.dozer.fieldmap.GenericFieldMap;
@@ -46,22 +49,19 @@ public final class MappingsParser {
   private MappingsParser() {
   }
 
-  public Map processMappings(List classMaps, Configuration globalConfiguration) {
+  public Map<String, ClassMap> processMappings(List<ClassMap> classMaps, Configuration globalConfiguration) {
     if (globalConfiguration == null) {
       throw new IllegalArgumentException("Global configuration parameter cannot be null");
     }
-    Map result = new HashMap();
+    Map<String, ClassMap> result = new HashMap<String, ClassMap>();
     if (classMaps == null || classMaps.size() == 0) {
       return result;
     }
     FieldMap fieldMapPrime;
-    Iterator iter = classMaps.iterator();
     // need to create bi-directional mappings now.
-    ClassMap classMap;
     ClassMap classMapPrime;
-    Set mapIds = new HashSet();
-    while (iter.hasNext()) {
-      classMap = (ClassMap) iter.next();
+    Set<String> mapIds = new HashSet<String>();
+    for (ClassMap classMap : classMaps) {
       classMap.setGlobalConfiguration(globalConfiguration);
 
       // add our first class map to the result map and initialize PropertyDescriptor Cache
