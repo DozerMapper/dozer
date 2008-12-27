@@ -15,13 +15,9 @@
  */
 package net.sf.dozer.util;
 
-import java.util.Map;
-
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.MappingFileData;
-import net.sf.dozer.util.MappingFileReader;
-import net.sf.dozer.util.MappingsParser;
 
 /**
  * @author tierney.matt
@@ -60,7 +56,7 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   public void testEmptyMappings() throws Exception {
     MappingFileData mappingFileData = new MappingFileData();
-    Map result = parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
+    ClassMappings result = parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
     assertNotNull("result should not be null", result);
     assertEquals("result should be empty", 0, result.size());
   }

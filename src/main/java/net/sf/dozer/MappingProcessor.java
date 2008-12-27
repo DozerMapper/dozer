@@ -33,6 +33,7 @@ import net.sf.dozer.cache.Cache;
 import net.sf.dozer.cache.CacheKeyFactory;
 import net.sf.dozer.cache.CacheManager;
 import net.sf.dozer.classmap.ClassMap;
+import net.sf.dozer.util.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.RelationshipType;
 import net.sf.dozer.config.GlobalSettings;
@@ -52,7 +53,7 @@ import net.sf.dozer.fieldmap.MapFieldMap;
 import net.sf.dozer.stats.StatisticTypeConstants;
 import net.sf.dozer.stats.StatisticsManager;
 import net.sf.dozer.util.ClassMapBuilder;
-import net.sf.dozer.util.ClassMapFinder;
+import net.sf.dozer.util.ClassMappings;
 import net.sf.dozer.util.ClassMapKeyFactory;
 import net.sf.dozer.util.CollectionUtils;
 import net.sf.dozer.util.DateFormatContainer;
@@ -85,7 +86,7 @@ public class MappingProcessor implements Mapper {
 
   private static final Log log = LogFactory.getLog(MappingProcessor.class);
 
-  private final Map<String, ClassMap> customMappings;
+  private final ClassMappings classMappings;
   private final Configuration globalConfiguration;
   private final List<CustomConverter> customConverterObjects;
   private final Map<String, CustomConverter> customConverterObjectsWithId;
@@ -99,10 +100,10 @@ public class MappingProcessor implements Mapper {
 
   private static final String BASE_CLASS = "java.lang.Object"; // TODO Move to Constants
 
-  protected MappingProcessor(Map<String, ClassMap> customMappings, Configuration globalConfiguration, CacheManager cacheMgr,
+  protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
       StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
       Map<String, CustomConverter> customConverterObjectsWithId) {
-    this.customMappings = customMappings;
+    this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
     this.customConverterObjects = customConverterObjects;
@@ -200,7 +201,7 @@ public class MappingProcessor implements Mapper {
       Collection<ClassMap> superMappings = new ArrayList<ClassMap>();
 
       Collection<ClassMap> superClasses = checkForSuperTypeMapping(srcClass, destClass);
-      List<ClassMap> interfaceMappings = ClassMapFinder.findInterfaceMappings(this.customMappings, srcClass, destClass);
+      List<ClassMap> interfaceMappings = classMappings.findInterfaceMappings(srcClass, destClass);
 
       superMappings.addAll(superClasses);
       superMappings.addAll(interfaceMappings);
@@ -945,7 +946,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private void checkForClassMapping(Class srcClass, List<ClassMap> superClasses, Class superDestClass) {
-    ClassMap srcClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, superDestClass));
+    ClassMap srcClassMap = classMappings.find(srcClass, superDestClass);
     if (srcClassMap != null) {
       superClasses.add(srcClassMap);
     }
@@ -995,7 +996,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private ClassMap getClassMap(Object srcObj, Class destClass, String mapId) {
-    ClassMap mapping = ClassMapFinder.findClassMap(this.customMappings, srcObj.getClass(), destClass, mapId);
+    ClassMap mapping = classMappings.find(srcObj.getClass(), destClass, mapId);
 
     if (mapping == null) {
       // If mapId was specified and mapping was not found, then throw an
@@ -1009,7 +1010,7 @@ public class MappingProcessor implements Mapper {
       // exist. The create default class map method will also add all default
       // mappings that it can determine.
       mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcObj.getClass(), destClass);
-      customMappings.put(ClassMapKeyFactory.createKey(srcObj.getClass(), destClass), mapping);
+      classMappings.add(srcObj.getClass(), destClass, mapping);
     }
 
     return mapping;

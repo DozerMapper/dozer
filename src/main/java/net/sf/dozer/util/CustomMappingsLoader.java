@@ -18,9 +18,7 @@ package net.sf.dozer.util;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import net.sf.dozer.classmap.ClassMap;
@@ -48,7 +46,7 @@ public class CustomMappingsLoader {
   private static final MappingsParser mappingsParser = MappingsParser.getInstance();
 
   public LoadMappingsResult load(List<String> mappingFiles) {
-    Map<String, ClassMap> customMappings = new HashMap<String, ClassMap>();
+    ClassMappings customMappings = new ClassMappings();
     ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList<CustomConverterDescription>());
     Configuration globalConfiguration = null;
     List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
@@ -83,7 +81,7 @@ public class CustomMappingsLoader {
 
     // Decorate the raw ClassMap objects and create ClassMap "prime" instances
     for (MappingFileData mappingFileData : mappingFileDataList) {
-      customMappings.putAll(mappingsParser.processMappings(mappingFileData.getClassMaps(), globalConfiguration));
+      customMappings.addAll(mappingsParser.processMappings(mappingFileData.getClassMaps(), globalConfiguration));
     }
 
     // Add default mappings using matching property names if wildcard policy
@@ -98,7 +96,7 @@ public class CustomMappingsLoader {
     }
 
     // iterate through the classmaps and set all of the customconverters on them
-    for (Entry<String, ClassMap> entry : customMappings.entrySet()) {
+    for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
       ClassMap classMap = (ClassMap) entry.getValue();
       if (classMap.getCustomConverters() != null) {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
@@ -107,7 +105,7 @@ public class CustomMappingsLoader {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       }
     }
-    return new LoadMappingsResult(Collections.synchronizedMap(customMappings), globalConfiguration);
+    return new LoadMappingsResult(customMappings, globalConfiguration);
   }
 
 }

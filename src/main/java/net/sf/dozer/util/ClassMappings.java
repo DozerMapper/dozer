@@ -17,6 +17,7 @@ package net.sf.dozer.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,25 +35,55 @@ import org.apache.commons.logging.LogFactory;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class ClassMapFinder {
+public class ClassMappings {
+  private static final Log log = LogFactory.getLog(ClassMappings.class);
+  
+  private Map<String, ClassMap> classMappings = Collections.synchronizedMap(new HashMap<String, ClassMap>());
+  
+  public void add(Class srcClass, Class destClass, ClassMap classMap) {
+    classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass), classMap);
+  }
+  
+  public void add(Class srcClass, Class destClass, String mapId, ClassMap classMap) {
+    classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass, mapId), classMap);
+  }
+  
+  public void addAll(ClassMappings classMappings) {
+    this.classMappings.putAll(classMappings.getAll());
+  }
+  
+  public Map<String, ClassMap> getAll() {
+    return classMappings;
+  }
+  
+  public long size() {
+    return classMappings.size();
+  }
 
-  private static final Log log = LogFactory.getLog(ClassMapFinder.class);
-
-  public static ClassMap findClassMap(Map<String, ClassMap> customMappings, Class<?> srcClass, Class<?> destClass, String mapId) {
+  public ClassMap find(Class<?> srcClass, Class<?> destClass) {
+    return classMappings.get(ClassMapKeyFactory.createKey(srcClass, destClass));
+  }
+  
+  public boolean contains(Class<?> srcClass, Class<?> destClass, String mapId) {
+    String key = ClassMapKeyFactory.createKey(srcClass, destClass, mapId);
+    return classMappings.containsKey(key);
+  }
+  
+  public ClassMap find(Class<?> srcClass, Class<?> destClass, String mapId) {
     Class<?> srcLookupClass = MappingUtils.getRealClass(srcClass);
     Class<?> destLookupClass = MappingUtils.getRealClass(destClass);
 
-    ClassMap mapping = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
+    ClassMap mapping = (ClassMap) classMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
 
     if (mapping == null) {
-      mapping = findInterfaceMapping(customMappings, destClass, srcClass, mapId);
+      mapping = findInterfaceMapping(destClass, srcClass, mapId);
     }
 
     // one more try...
     // if the mapId is not null looking up a map is easy
     if (mapId != null && mapping == null) {
       // probably a more efficient way to do this...
-      for (Entry<String, ClassMap> entry : customMappings.entrySet()) {
+      for (Entry<String, ClassMap> entry : classMappings.entrySet()) {
         ClassMap classMap = entry.getValue();
         if (StringUtils.equals(classMap.getMapId(), mapId)) {
           return classMap;
@@ -64,7 +95,7 @@ public abstract class ClassMapFinder {
     return mapping;
   }
 
-  public static List<ClassMap> findInterfaceMappings(Map<String, ClassMap> customMappings, Class<?> srcClass, Class<?> destClass) {
+  public List<ClassMap> findInterfaceMappings(Class<?> srcClass, Class<?> destClass) {
     // If no existing cache entry is found, determine super type mapping and store in cache
     // Get interfaces
     Class[] srcInterfaces = srcClass.getInterfaces();
@@ -73,7 +104,7 @@ public abstract class ClassMapFinder {
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcClass, destInterfaces[i]));
+      ClassMap interfaceClassMap = (ClassMap) classMappings.get(ClassMapKeyFactory.createKey(srcClass, destInterfaces[i]));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -81,7 +112,7 @@ public abstract class ClassMapFinder {
 
     for (int i = 0; i < srcInterfaces.length; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) customMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i], destClass));
+      ClassMap interfaceClassMap = (ClassMap) classMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i], destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -94,12 +125,12 @@ public abstract class ClassMapFinder {
   }
 
   // Look for an interface mapping
-  private static ClassMap findInterfaceMapping(Map<String, ClassMap> customMappings, Class<?> destClass, Class<?> srcClass, String mapId) {
+  private ClassMap findInterfaceMapping(Class<?> destClass, Class<?> srcClass, String mapId) {
     // Use object array for keys to avoid any rare thread synchronization issues while iterating over the custom mappings. 
     // See bug #1550275.
-    Object[] keys = customMappings.keySet().toArray();
+    Object[] keys = classMappings.keySet().toArray();
     for (int i = 0; i < keys.length; i++) {
-      ClassMap map = (ClassMap) customMappings.get(keys[i]);
+      ClassMap map = (ClassMap) classMappings.get(keys[i]);
       Class<?> mappingDestClass = map.getDestClassToMap();
       Class<?> mappingSrcClass = map.getSrcClassToMap();
 

@@ -49,11 +49,11 @@ public final class MappingsParser {
   private MappingsParser() {
   }
 
-  public Map<String, ClassMap> processMappings(List<ClassMap> classMaps, Configuration globalConfiguration) {
+  public ClassMappings processMappings(List<ClassMap> classMaps, Configuration globalConfiguration) {
     if (globalConfiguration == null) {
       throw new IllegalArgumentException("Global configuration parameter cannot be null");
     }
-    Map<String, ClassMap> result = new HashMap<String, ClassMap>();
+    ClassMappings result = new ClassMappings();
     if (classMaps == null || classMaps.size() == 0) {
       return result;
     }
@@ -67,11 +67,9 @@ public final class MappingsParser {
       // add our first class map to the result map and initialize PropertyDescriptor Cache
       ReflectionUtils.findPropertyDescriptor(classMap.getSrcClassToMap(), "", null);
       ReflectionUtils.findPropertyDescriptor(classMap.getDestClassToMap(), "", null);
-      String theClassMapKey = ClassMapKeyFactory.createKey(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap
-          .getMapId());
 
       // Check to see if this is a duplicate mapping. If so, throw an Exception
-      if (result.containsKey(theClassMapKey)) {
+      if (result.contains(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap.getMapId())) {
         throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: " + classMap.getSrcClassToMap().getName()
             + " Destination: " + classMap.getDestClassToMap().getName());
       }
@@ -85,7 +83,7 @@ public final class MappingsParser {
         mapIds.add(classMap.getMapId());
       }
 
-      result.put(theClassMapKey, classMap);
+      result.add(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap.getMapId(), classMap);
       // now create class map prime
       classMapPrime = new ClassMap(globalConfiguration);
       MappingUtils.reverseFields(classMap, classMapPrime);
@@ -158,8 +156,7 @@ public final class MappingsParser {
       // if it is a one way mapping or a method/iterate method mapping we can not bi-directionally map
       // Map Prime could actually be empty
       if (!StringUtils.equals(classMap.getType(), MapperConstants.ONE_WAY)) {
-        result.put(ClassMapKeyFactory.createKey(classMap.getDestClassToMap(), classMap.getSrcClassToMap(), classMap.getMapId()),
-            classMapPrime);
+        result.add(classMap.getDestClassToMap(), classMap.getSrcClassToMap(), classMap.getMapId(), classMapPrime);
       }
     }
     return result;
