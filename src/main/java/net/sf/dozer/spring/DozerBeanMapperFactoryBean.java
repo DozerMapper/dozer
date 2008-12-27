@@ -19,8 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.dozer.BeanFactory;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
+import net.sf.dozer.converters.CustomConverter;
+import net.sf.dozer.event.DozerEventListener;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -35,23 +38,23 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
 
   private DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
-  private List customConverters;
-  private List eventListeners;
-  private Map factories;
+  private List<CustomConverter> customConverters;
+  private List<DozerEventListener> eventListeners;
+  private Map<String, BeanFactory> factories;
 
   public final void setMappingFiles(final Resource[] mappingFiles) {
     this.mappingFiles = mappingFiles;
   }
 
-  public final void setCustomConverters(final List customConverters) {
+  public final void setCustomConverters(final List<CustomConverter> customConverters) {
     this.customConverters = customConverters;
   }
 
-  public final void setEventListeners(final List eventListeners) {
+  public final void setEventListeners(final List<DozerEventListener> eventListeners) {
     this.eventListeners = eventListeners;
   }
 
-  public final void setFactories(final Map factories) {
+  public final void setFactories(final Map<String, BeanFactory> factories) {
     this.factories = factories;
   }
 
@@ -61,7 +64,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   public final Object getObject() throws Exception {
     return this.beanMapper;
   }
-  public final Class getObjectType() {
+  public final Class<Mapper> getObjectType() {
     return Mapper.class;
   }
   public final boolean isSingleton() {
@@ -75,7 +78,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     this.beanMapper = new DozerBeanMapper();
 
     if (this.mappingFiles != null) {
-      final List mappings = new ArrayList(this.mappingFiles.length);
+      final List<String> mappings = new ArrayList<String>(this.mappingFiles.length);
       for (int i = 0; i < this.mappingFiles.length; i++) {
         mappings.add(this.mappingFiles[i].getURL().toString());
       }

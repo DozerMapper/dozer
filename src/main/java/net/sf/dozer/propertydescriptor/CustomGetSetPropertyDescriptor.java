@@ -34,7 +34,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   private Method writeMethod;
   private Method readMethod;
 
-  public CustomGetSetPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String customSetMethod,
+  public CustomGetSetPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, String customSetMethod,
       String customGetMethod, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     this.customSetMethod = customSetMethod;

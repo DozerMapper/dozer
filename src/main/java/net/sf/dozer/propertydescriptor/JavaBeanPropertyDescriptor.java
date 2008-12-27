@@ -34,7 +34,7 @@ import net.sf.dozer.util.ReflectionUtils;
 public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private PropertyDescriptor pd;
 
-  public JavaBeanPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
+  public JavaBeanPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }

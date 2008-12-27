@@ -26,14 +26,14 @@ import net.sf.dozer.util.MappingUtils;
  * @author garsombke.franz
  */
 public abstract class AbstractPropertyDescriptor implements DozerPropertyDescriptor {
-  protected final Class clazz;
+  protected final Class<?> clazz;
   protected final String fieldName;
   protected boolean isIndexed = false;
   protected int index;
   protected HintContainer srcDeepIndexHintContainer;
   protected HintContainer destDeepIndexHintContainer;
 
-  public AbstractPropertyDescriptor(final Class clazz, final String fieldName, boolean isIndexed, int index,
+  public AbstractPropertyDescriptor(final Class<?> clazz, final String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     this.clazz = clazz;
     this.fieldName = fieldName;
@@ -43,7 +43,7 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
     this.destDeepIndexHintContainer = destDeepIndexHintContainer;
   }
 
-  public abstract Class getPropertyType();
+  public abstract Class<?> getPropertyType();
 
   protected Object prepareIndexedCollection(Object existingCollection, Object collectionEntry) {
     return MappingUtils.prepareIndexedCollection(getPropertyType(), existingCollection, collectionEntry, index);

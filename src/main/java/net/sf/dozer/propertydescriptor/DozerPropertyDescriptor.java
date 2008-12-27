@@ -25,7 +25,7 @@ import net.sf.dozer.fieldmap.FieldMap;
  */
 public interface DozerPropertyDescriptor {
 
-  public Class getPropertyType();
+  public Class<?> getPropertyType();
 
   public Object getPropertyValue(Object bean);
 

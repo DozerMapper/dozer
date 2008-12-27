@@ -25,13 +25,13 @@ import net.sf.dozer.fieldmap.FieldMap;
  */
 public class SelfPropertyDescriptor implements DozerPropertyDescriptor {
 
-  private final Class self;
+  private final Class<?> self;
 
-  public SelfPropertyDescriptor(Class self) {
+  public SelfPropertyDescriptor(Class<?> self) {
     this.self = self;
   }
 
-  public Class getPropertyType() throws MappingException {
+  public Class<?> getPropertyType() throws MappingException {
     return self;
   }
 

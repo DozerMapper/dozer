@@ -35,7 +35,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
 
   private Field field;
 
-  public FieldPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
+  public FieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
@@ -48,7 +48,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
     field.setAccessible(true);
   }
 
-  public Class getPropertyType() {
+  public Class<?> getPropertyType() {
     return field.getType();
   }
 

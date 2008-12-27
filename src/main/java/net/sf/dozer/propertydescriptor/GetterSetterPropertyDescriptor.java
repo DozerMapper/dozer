@@ -40,9 +40,9 @@ import net.sf.dozer.util.ReflectionUtils;
  * 
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
-  private Class propertyType;
+  private Class<?> propertyType;
 
-  public GetterSetterPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index,
+  public GetterSetterPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
@@ -52,7 +52,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   protected abstract String getSetMethodName() throws NoSuchMethodException;
   protected abstract boolean isCustomSetMethod();
 
-  public Class getPropertyType() {
+  public Class<?> getPropertyType() {
     if (propertyType == null) {
       propertyType = determinePropertyType();
     }
@@ -135,7 +135,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       DeepHierarchyElement hierarchyElement = hierarchy[i];
       PropertyDescriptor pd = hierarchyElement.getPropDescriptor();
       Object value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
-      Class clazz;
+      Class<?> clazz;
       if (value == null) {
         clazz = pd.getPropertyType();
         if (clazz.isInterface() && (i + 1) == hierarchyLength && fieldMap.getDestHintContainer() != null) {
@@ -148,8 +148,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(clazz.getComponentType()),
               hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
-          Class collectionEntryType;
-          Class genericType = ReflectionUtils.determineGenericsType(pd);
+          Class<?> collectionEntryType;
+          Class<?> genericType = ReflectionUtils.determineGenericsType(pd);
           if (genericType != null) {
             collectionEntryType = genericType;
           } else {
@@ -199,7 +199,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     // second, set the very last field in the deep hierarchy
     PropertyDescriptor pd = hierarchy[hierarchy.length - 1].getPropDescriptor();
 
-    Class type;
+    Class<?> type;
     // For one-way mappings there could be no read method
     if (pd.getReadMethod() != null) {
       type = pd.getReadMethod().getReturnType();
@@ -255,8 +255,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     invokeWriteMethod(destObj, indexedValue);
   }
 
-  private Class determinePropertyType() {
-    Class returnType = null;
+  private Class<?> determinePropertyType() {
+    Class<?> returnType = null;
     try {
       returnType = getReadMethod().getReturnType();
     } catch (Exception e) {

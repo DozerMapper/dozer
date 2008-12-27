@@ -30,7 +30,7 @@ public class PropertyDescriptorFactory {
   private PropertyDescriptorFactory() {
   }
 
-  public static DozerPropertyDescriptor getPropertyDescriptor(Class clazz, String theGetMethod, String theSetMethod,
+  public static DozerPropertyDescriptor getPropertyDescriptor(Class<?> clazz, String theGetMethod, String theSetMethod,
       String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name, String key,
       boolean isSelfReferencing, String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
       HintContainer destDeepIndexHintContainer, String beanFactory) {

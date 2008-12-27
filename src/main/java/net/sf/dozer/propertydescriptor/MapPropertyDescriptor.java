@@ -38,7 +38,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private Method writeMethod;
   private Method readMethod;
 
-  public MapPropertyDescriptor(Class clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
+  public MapPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
       String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     this.setMethod = setMethod;
