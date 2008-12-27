@@ -37,7 +37,7 @@ public class DozerBeanMapperSingletonWrapper {
 
   public static synchronized Mapper getInstance() {
     if (instance == null) {
-      List mappingFiles = new ArrayList();
+      List<String> mappingFiles = new ArrayList<String>();
       mappingFiles.add(MapperConstants.DEFAULT_MAPPING_FILE);
       instance = new DozerBeanMapper(mappingFiles);
     }

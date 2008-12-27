@@ -25,25 +25,17 @@ package net.sf.dozer;
  * 
  */
 public class MappingException extends RuntimeException {
-  private Throwable cause;
-
   public MappingException(String arg0) {
     super(arg0);
   }
 
-  public MappingException(String arg0, Throwable cause) {
-    // For JDK 1.3 RuntimeException - it does not support a Throwable in the constructor
+  public MappingException(String arg0, Throwable arg1) {
+    super(arg0, arg1);
+  }
+  
+  public MappingException(Throwable arg0) {
     super(arg0);
-    this.cause = cause;
   }
 
-  public MappingException(Throwable cause) {
-    // For JDK 1.3 RuntimeException - it does not support a Throwable in the constructor
-    super(cause.toString());
-    this.cause = cause;
-  }
 
-  public Throwable getCause() {
-    return cause;
-  }
 }
