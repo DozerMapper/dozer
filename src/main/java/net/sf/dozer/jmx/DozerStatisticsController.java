@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.jmx;
 
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -122,10 +121,7 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
   public Set getStatisticEntries(String statisticType) {
     Set result = new TreeSet();
     if (statsMgr.statisticExists(statisticType)) {
-      Set entries = statsMgr.getStatisticEntries(statisticType);
-      Iterator iter = entries.iterator();
-      while (iter.hasNext()) {
-        StatisticEntry entry = (StatisticEntry) iter.next();
+      for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
         result.add(entry.getKey().toString() + ":Count " + entry.getValue());
       }
     }

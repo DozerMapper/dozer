@@ -217,13 +217,11 @@ public final class MappingUtils {
     CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();
     if (copyByReferenceContainer != null) {
       String destFieldTypeName = null;
-      Iterator<?> copyIterator = copyByReferenceContainer.getCopyByReferences().iterator();
       Class<?> clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
       if (clazz != null) {
         destFieldTypeName = clazz.getName();
       }
-      while (copyIterator.hasNext()) {
-        CopyByReference copyByReference = (CopyByReference) copyIterator.next();
+      for (CopyByReference copyByReference : copyByReferenceContainer.getCopyByReferences()) {
         if (copyByReference.matches(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
           fieldMap.setCopyByReference(true);
         }

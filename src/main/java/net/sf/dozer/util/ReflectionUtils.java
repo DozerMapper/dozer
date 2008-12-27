@@ -226,13 +226,11 @@ public abstract class ReflectionUtils {
     return (PropertyDescriptor[]) propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
   }
 
-  private static PropertyDescriptor findPropDescriptorByName(List propDescriptors, String name) {
+  private static PropertyDescriptor findPropDescriptorByName(List<PropertyDescriptor> propDescriptors, String name) {
     PropertyDescriptor result = null;
-    Iterator iter = propDescriptors.iterator();
-    while (iter.hasNext()) {
-      PropertyDescriptor entry = (PropertyDescriptor) iter.next();
-      if (entry.getName().equals(name)) {
-        result = entry;
+    for (PropertyDescriptor pd : propDescriptors) {
+      if (pd.getName().equals(name)) {
+        result = pd;
         break;
       }
     }

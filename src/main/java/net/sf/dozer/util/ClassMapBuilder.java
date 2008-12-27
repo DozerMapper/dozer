@@ -16,7 +16,6 @@
 package net.sf.dozer.util;
 
 import java.beans.PropertyDescriptor;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
