@@ -16,6 +16,8 @@
 package net.sf.dozer.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -26,7 +28,6 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.util.CollectionUtils;
 import net.sf.dozer.vo.InsideTestObject;
 import net.sf.dozer.vo.SimpleObj;
 
@@ -114,5 +115,26 @@ public class CollectionUtilsTest extends AbstractDozerTest {
       assertEquals("invalid result entry value", srcValue, resultValue);
     }
   }
+  
+  public void testConvertListToArray() {
+    List<String> src = Arrays.asList("a", "b");
+    String[]  result = CollectionUtils.convertListToArray(src, String.class);
+    assertTrue("wrong result value", Arrays.equals(new String[]{"a", "b"}, result));
+  }
+  
+  public void testCreateNewSet_ExistingValue() {
+    Collection<String> src = new HashSet<String>();
+    src.add("a");
+    src.add("b");
+    Set<String> result = CollectionUtils.createNewSet(String.class, src);
+    assertEquals("wrong result value", src, result);
+  }
+  
+  public void testCreateNewSet() {
+    Set<String> result = CollectionUtils.createNewSet(String.class);
+    assertNotNull("should be not null", result);
+    assertEquals("shoulb be size zero", 0, result.size());
+  }
+
 
 }

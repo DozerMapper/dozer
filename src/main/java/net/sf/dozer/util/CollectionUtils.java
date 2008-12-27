@@ -69,24 +69,25 @@ public abstract class CollectionUtils {
     }
   }
 
-  public static Set createNewSet(Class<?> destType) {
-    return createNewSet(destType, null);
+  public static <T> Set<T> createNewSet(Class<T> destType) {
+    Set<T> result = null;
+    if (SortedSet.class.isAssignableFrom(destType)) {
+      result = new TreeSet<T>();
+    } else {
+      result = new HashSet<T>();
+    }
+    return result;
   }
 
-  public static Set createNewSet(Class destType, Collection srcValue) {
-    Set result = null;
-    if (SortedSet.class.isAssignableFrom(destType)) {
-      result = new TreeSet();
-    } else {
-      result = new HashSet();
-    }
+  public static <T> Set<T> createNewSet(Class<T> destType, Collection<T> srcValue) {
+    Set<T> result = createNewSet(destType);
     if (srcValue != null) {
       result.addAll(srcValue);
     }
     return result;
   }
 
-  public static Object convertListToArray(List list, Class destEntryType) {
+  public static <T> T[] convertListToArray(List<T> list, Class<T> destEntryType) {
     Object outArray = Array.newInstance(destEntryType, list.size());
     int count = 0;
     int size = list.size();
@@ -95,12 +96,12 @@ public abstract class CollectionUtils {
       Array.set(outArray, count, element);
       count++;
     }
-    return outArray;
+    return (T[]) outArray;
   }
 
-  public static List convertPrimitiveArrayToList(Object primitiveArray) {
+  public static List<Object> convertPrimitiveArrayToList(Object primitiveArray) {
     int length = Array.getLength(primitiveArray);
-    List result = new ArrayList(length);
+    List<Object> result = new ArrayList<Object>(length);
 
     // wrap and copy elements
     for (int i = 0; i < length; i++) {
