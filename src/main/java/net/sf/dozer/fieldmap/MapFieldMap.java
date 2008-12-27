@@ -89,7 +89,7 @@ public class MapFieldMap extends FieldMap {
     if (getSrcFieldName().equals(MapperConstants.SELF_KEYWORD)) {
       propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
     } else {
-      Class actualType = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj, false);
+      Class<?> actualType = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj, false);
       if ((getSrcFieldMapGetMethod() != null)
           || (this.getMapId() == null && MappingUtils.isSupportedMap(actualType) && getSrcHintContainer() == null)) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
@@ -126,7 +126,7 @@ public class MapFieldMap extends FieldMap {
           getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
     }
 
-    Class c = pd.getPropertyType();
+    Class<?> c = pd.getPropertyType();
     Object targetObject = pd.getPropertyValue(destObj);
     if (targetObject == null) {
       // Create new instance of target object that will be populated.
@@ -153,7 +153,7 @@ public class MapFieldMap extends FieldMap {
 
   }
 
-  private Class determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj, boolean isDestObj) {
+  private Class<?> determineActualPropertyType(String fieldName, boolean isIndexed, int index, Object targetObj, boolean isDestObj) {
     // Dig out actual Map object by calling getter on top level object    
     DozerPropertyDescriptor pd;
     if ((isDestObj && isDestFieldAccessible()) || (!isDestObj && isSrcFieldAccessible())) {

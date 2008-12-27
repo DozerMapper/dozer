@@ -34,34 +34,34 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class HintContainer {
   private String hintName;
-  private List hints;
+  private List<Class<?>> hints;
 
-  public Class getHint() {
-    Class result = null;
+  public Class<?> getHint() {
+    Class<?> result = null;
     if (hasMoreThanOneHint()) {
       return null;
     } else {
-      result = (Class) getHints().get(0);
+      result = getHints().get(0);
     }
     return result;
   }
 
-  public Class getHint(int index) {
-    return (Class) getHints().get(index);
+  public Class<?> getHint(int index) {
+    return getHints().get(index);
   }
 
   public boolean hasMoreThanOneHint() {
     return getHints().size() > 1;
   }
 
-  public List getHints() {
+  public List<Class<?>> getHints() {
     if (hints == null) {
-      List list = new ArrayList();
+      List<Class<?>> list = new ArrayList<Class<?>>();
       StringTokenizer st = new StringTokenizer(this.hintName, ",");
       while (st.hasMoreElements()) {
         String theHintName = st.nextToken().trim();
 
-        Class clazz = MappingUtils.loadClass(theHintName);
+        Class<?> clazz = MappingUtils.loadClass(theHintName);
         list.add(clazz);
       }
       hints = list;
@@ -70,8 +70,8 @@ public class HintContainer {
   }
 
   //TODO: Refactor/Relocate.  This method doesn't seem to belong in this class
-  public Class getHint(Class clazz, List clazzHints) {
-    List hints = getHints();
+  public Class<?> getHint(Class<?> clazz, List<Class<?>> clazzHints) {
+    List<Class<?>> hints = getHints();
     int hintsSize = hints.size();
     if (hintsSize == 1) {
       return getHint();
@@ -85,9 +85,9 @@ public class HintContainer {
     String myClazName = MappingUtils.getRealClass(clazz).getName();
     int size = clazzHints.size();
     for (int i = 0; i < size; i++) {
-      Class element = (Class) clazzHints.get(i);
+      Class<?> element = clazzHints.get(i);
       if (element.getName().equals(myClazName)) {
-        return (Class) hints.get(count++);
+        return hints.get(count++);
       }
       count++;
     }

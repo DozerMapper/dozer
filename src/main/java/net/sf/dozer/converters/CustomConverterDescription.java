@@ -24,31 +24,31 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author sullins.ben
  */
 public class CustomConverterDescription {
-  private Class type;
-  private Class classB;
-  private Class classA;
+  private Class<?> type;
+  private Class<?> classB;
+  private Class<?> classA;
 
-  public Class getClassA() {
+  public Class<?> getClassA() {
     return classA;
   }
 
-  public void setClassA(Class classA) {
+  public void setClassA(Class<?> classA) {
     this.classA = classA;
   }
 
-  public Class getClassB() {
+  public Class<?> getClassB() {
     return classB;
   }
 
-  public void setClassB(Class classB) {
+  public void setClassB(Class<?> classB) {
     this.classB = classB;
   }
 
-  public Class getType() {
+  public Class<?> getType() {
     return type;
   }
 
-  public void setType(Class type) {
+  public void setType(Class<?> type) {
     this.type = type;
   }
 

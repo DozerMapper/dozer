@@ -33,6 +33,6 @@ package net.sf.dozer.converters;
  */
 public interface ConfigurableCustomConverter extends CustomConverterBase {
 
-  Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class destinationClass, Class sourceClass, String param);
+  Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass, String param);
   
 }

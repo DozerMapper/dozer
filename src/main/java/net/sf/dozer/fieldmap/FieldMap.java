@@ -18,7 +18,6 @@ package net.sf.dozer.fieldmap;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.LinkedHashMap;
 
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.RelationshipType;
@@ -64,8 +63,8 @@ public abstract class FieldMap implements Cloneable {
   private RelationshipType relationshipType;
   private boolean removeOrphans;
 
-  private final Map srcPropertyDescriptorMap = new HashMap(); // For Caching Purposes
-  private final Map destPropertyDescriptorMap = new HashMap();
+  private final Map<Class<?>, DozerPropertyDescriptor> srcPropertyDescriptorMap = new HashMap<Class<?>, DozerPropertyDescriptor>(); // For Caching Purposes
+  private final Map<Class<?>, DozerPropertyDescriptor> destPropertyDescriptorMap = new HashMap<Class<?>, DozerPropertyDescriptor>();
 
   public FieldMap(ClassMap classMap) {
     this.classMap = classMap;
@@ -92,7 +91,7 @@ public abstract class FieldMap implements Cloneable {
     propDescriptor.setPropertyValue(runtimeDestObj, destFieldValue, this);
   }
 
-  public Class getDestHintType(Class runtimeSrcClass) {
+  public Class<?> getDestHintType(Class<?> runtimeSrcClass) {
     if (getDestHintContainer() != null) {
       if (getSrcHintContainer() != null) {
         return getDestHintContainer().getHint(runtimeSrcClass, getSrcHintContainer().getHints());
@@ -104,8 +103,8 @@ public abstract class FieldMap implements Cloneable {
     }
   }
 
-  public Class getDestFieldType(Class runtimeDestClass) {
-    Class result = null;
+  public Class<?> getDestFieldType(Class<?> runtimeDestClass) {
+    Class<?> result = null;
     if (isDestFieldIndexed()) {
       result = destHintContainer != null ? destHintContainer.getHint() : null;
     }
@@ -115,14 +114,14 @@ public abstract class FieldMap implements Cloneable {
     return result;
   }
 
-  public Class getSrcFieldType(Class runtimeSrcClass) {
+  public Class<?> getSrcFieldType(Class<?> runtimeSrcClass) {
     return getSrcPropertyDescriptor(runtimeSrcClass).getPropertyType();
   }
 
   /**
    * @deprecated As of 3.2 release
    */
-  public Method getDestFieldWriteMethod(Class runtimeDestClass) {
+  public Method getDestFieldWriteMethod(Class<?> runtimeDestClass) {
     // 4-07 mht: The getWriteMethod was removed from the prop descriptor interface. This was done as part of
     // refactoring effort to clean up the prop descriptor stuff. The underlying write method should not be exposed.
     // For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this
@@ -367,7 +366,7 @@ public abstract class FieldMap implements Cloneable {
     }
   }
 
-  protected DozerPropertyDescriptor getSrcPropertyDescriptor(Class runtimeSrcClass) {
+  protected DozerPropertyDescriptor getSrcPropertyDescriptor(Class<?> runtimeSrcClass) {
     DozerPropertyDescriptor result = (DozerPropertyDescriptor) this.srcPropertyDescriptorMap.get(runtimeSrcClass);
     if (result == null) {
       String srcFieldMapGetMethod = getSrcFieldMapGetMethod();
@@ -383,7 +382,7 @@ public abstract class FieldMap implements Cloneable {
     return result;
   }
 
-  protected DozerPropertyDescriptor getDestPropertyDescriptor(Class runtimeDestClass) {
+  protected DozerPropertyDescriptor getDestPropertyDescriptor(Class<?> runtimeDestClass) {
     DozerPropertyDescriptor result = (DozerPropertyDescriptor) this.destPropertyDescriptorMap.get(runtimeDestClass);
     if (result == null) {
       DozerPropertyDescriptor descriptor = PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass,

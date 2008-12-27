@@ -26,9 +26,9 @@ import net.sf.dozer.util.MappingUtils;
  * @author garsombke.franz
  */
 public class DozerEventManager implements EventManager {
-  private final List eventListeners;
+  private final List<DozerEventListener> eventListeners;
 
-  public DozerEventManager(List eventListeners) {
+  public DozerEventManager(List<DozerEventListener> eventListeners) {
     this.eventListeners = eventListeners;
   }
 
@@ -38,9 +38,7 @@ public class DozerEventManager implements EventManager {
       return;
     }
     String eventType = event.getType();
-    int size = eventListeners.size();
-    for (int i = 0; i < size; i++) {
-      DozerEventListener listener = (DozerEventListener) eventListeners.get(i);
+    for (DozerEventListener listener : eventListeners) {
       if (eventType.equals(MapperConstants.MAPPING_STARTED_EVENT)) {
         listener.mappingStarted(event);
       } else if (eventType.equals(MapperConstants.MAPPING_PRE_WRITING_DEST_VALUE)) {
