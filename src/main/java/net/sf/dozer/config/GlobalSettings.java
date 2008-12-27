@@ -43,7 +43,7 @@ import org.apache.commons.logging.LogFactory;
 public class GlobalSettings {
 
   private static final Log log = LogFactory.getLog(GlobalSettings.class);
-  private static final GlobalSettings INSTANCE = new GlobalSettings();
+  private static final GlobalSettings instance = new GlobalSettings();
 
   private String loadedByFileName;
   private boolean statisticsEnabled = MapperConstants.DEFAULT_STATISTICS_ENABLED;
@@ -54,7 +54,7 @@ public class GlobalSettings {
       "1.4").startsWith("1.6"));
 
   public static GlobalSettings getInstance() {
-    return INSTANCE;
+    return instance;
   }
 
   static GlobalSettings createNew() {

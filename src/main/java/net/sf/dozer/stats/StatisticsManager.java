@@ -23,7 +23,7 @@ import java.util.Set;
  * @author tierney.matt
  */
 public interface StatisticsManager extends Statistics {
-  public Set getStatistics();
+  public Set<Statistic> getStatistics();
   public Statistic getStatistic(String statisticType);
   public long getStatisticValue(String statisticType);
   public boolean statisticExists(String statisticType);

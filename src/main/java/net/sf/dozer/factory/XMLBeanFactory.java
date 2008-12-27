@@ -27,7 +27,7 @@ import net.sf.dozer.util.ReflectionUtils;
  * @author garsombke.franz
  */
 public class XMLBeanFactory implements BeanFactory {
-  private static Class[] emptyArglist = new Class[0];
+  private static final Class<?>[] emptyArglist = new Class[0];
   /**
    * Creat a bean implementation of a xml bean interface.
    * 
@@ -39,12 +39,11 @@ public class XMLBeanFactory implements BeanFactory {
    *          the name of the destination interface class
    * @return A implementation of the destination interface
    */
-  public Object createBean(Object srcObj, Class srcObjClass, String beanId) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
     Object result = null;
-    Class destClass;
-    destClass = MappingUtils.loadClass(beanId);
-    Class[] innerClasses = destClass.getClasses();
-    Class factory = null;
+    Class<?> destClass = MappingUtils.loadClass(beanId);
+    Class<?>[] innerClasses = destClass.getClasses();
+    Class<?> factory = null;
     for (int i = 0; i < innerClasses.length; i++) {
       if (innerClasses[i].getName().endsWith("Factory")) {
         factory = innerClasses[i];

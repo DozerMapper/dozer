@@ -43,7 +43,7 @@ public class JAXBBeanFactory implements BeanFactory {
    *          the name of the destination interface class
    * @return A implementation of the destination interface
    */
-  public Object createBean(Object srcObj, Class srcObjClass, String beanId) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
     if (log.isDebugEnabled()) {
       log.debug("createBean(Object, Class, String) - start [" + beanId + "]");
     }
@@ -57,7 +57,7 @@ public class JAXBBeanFactory implements BeanFactory {
     }
     Object result = null;
 
-    Class objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
+    Class<?> objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
     Object factory = ReflectionUtils.newInstance(objectFactory);
     Method method = null;
     try {
