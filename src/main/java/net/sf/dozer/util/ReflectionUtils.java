@@ -42,7 +42,7 @@ import org.apache.commons.beanutils.PropertyUtils;
  */
 public abstract class ReflectionUtils {
 
-  public static PropertyDescriptor findPropertyDescriptor(Class objectClass, String fieldName, HintContainer deepIndexHintContainer) {
+  public static PropertyDescriptor findPropertyDescriptor(Class<?> objectClass, String fieldName, HintContainer deepIndexHintContainer) {
     PropertyDescriptor result = null;
 
     if (MappingUtils.isDeepMapping(fieldName)) {
@@ -65,7 +65,7 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class parentClass, String field, HintContainer deepIndexHintContainer) {
+  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field, HintContainer deepIndexHintContainer) {
     if (!MappingUtils.isDeepMapping(field)) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
@@ -128,7 +128,7 @@ public abstract class ReflectionUtils {
     return getMethod(obj.getClass(), methodName);
   }
 
-  public static Method getMethod(Class clazz, String methodName) {
+  public static Method getMethod(Class<?> clazz, String methodName) {
     Method result = findMethod(clazz, methodName);
     if (result == null) {
       MappingUtils.throwMappingException("No method found for class:" + clazz + " and method name:" + methodName);
@@ -136,7 +136,7 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  private static Method findMethod(Class clazz, String methodName) {
+  private static Method findMethod(Class<?> clazz, String methodName) {
     Method[] methods = clazz.getMethods();
     Method result = null;
     for (int i = 0; i < methods.length; i++) {
@@ -148,7 +148,7 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static Method findAMethod(Class parentDestClass, String methodName) throws NoSuchMethodException {
+  public static Method findAMethod(Class<?> parentDestClass, String methodName) throws NoSuchMethodException {
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
     // If tokenizer has more elements, it mean that parameters may have been specified
@@ -160,8 +160,8 @@ public abstract class ReflectionUtils {
     return findMethod(parentDestClass, methodName);
   }
 
-  private static Method findMethodWithParam(Class parentDestClass, String methodName, String params) throws NoSuchMethodException {
-    List list = new ArrayList();
+  private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params) throws NoSuchMethodException {
+    List<Class<?>> list = new ArrayList<Class<?>>();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
       while (tokenizer.hasMoreTokens()) {
@@ -172,7 +172,7 @@ public abstract class ReflectionUtils {
     return getMethod(parentDestClass, methodName, (Class[]) list.toArray(new Class[list.size()]));
   }
 
-  protected static PropertyDescriptor[] getPropertyDescriptors(Class objectClass) {
+  protected static PropertyDescriptor[] getPropertyDescriptors(Class<?> objectClass) {
     // If the class is an interface, use custom method to get all prop descriptors in the inheritance hierarchy.
     // PropertyUtils.getPropertyDescriptors() does not work correctly for interface inheritance. It finds props in the
     // actual interface ok, but does not find props in the inheritance hierarchy.
@@ -184,18 +184,18 @@ public abstract class ReflectionUtils {
   }
 
   static PropertyDescriptor[] getInterfacePropertyDescriptors(Class interfaceClass) {
-    List propDescriptors = new ArrayList();
+    List<PropertyDescriptor> propDescriptors = new ArrayList<PropertyDescriptor>();
     // Add prop descriptors for interface passed in
     propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
 
     // Look for interface inheritance. If super interfaces are found, recurse up the hierarchy tree and add prop
     // descriptors for each interface found.
     // PropertyUtils.getPropertyDescriptors() does not correctly walk the inheritance hierarchy for interfaces.
-    Class[] interfaces = interfaceClass.getInterfaces();
+    Class<?>[] interfaces = interfaceClass.getInterfaces();
     if (interfaces != null) {
       for (int i = 0; i < interfaces.length; i++) {
-        Class superInterfaceClass = interfaces[i];
-        List superInterfacePropertyDescriptors = Arrays.asList(getInterfacePropertyDescriptors(superInterfaceClass));
+        Class<?> superInterfaceClass = interfaces[i];
+        List<PropertyDescriptor> superInterfacePropertyDescriptors = Arrays.asList(getInterfacePropertyDescriptors(superInterfaceClass));
         /*
          * #1814758 
          * Check for existing descriptor with the same name to prevent 2 property descriptors with the same name being added
@@ -237,7 +237,7 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static Field getFieldFromBean(Class clazz, String fieldName) throws NoSuchFieldException {
+  public static Field getFieldFromBean(Class<?> clazz, String fieldName) throws NoSuchFieldException {
     try {
       return clazz.getDeclaredField(fieldName);
     } catch (NoSuchFieldException e) {
@@ -262,11 +262,11 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static Method getMethod(Class clazz, String name, Class[] parameterTypes) throws NoSuchMethodException {
+  public static Method getMethod(Class<?> clazz, String name, Class<?>[] parameterTypes) throws NoSuchMethodException {
     return clazz.getMethod(name, parameterTypes);
   }
 
-  public static Object newInstance(Class clazz) {
+  public static Object newInstance(Class<?> clazz) {
     Object result = null;
     try {
       result = clazz.newInstance();
@@ -278,7 +278,7 @@ public abstract class ReflectionUtils {
     return result;
   }
 
-  public static Class determineGenericsType(PropertyDescriptor propDescriptor) {
+  public static Class<?> determineGenericsType(PropertyDescriptor propDescriptor) {
     if (!GlobalSettings.getInstance().isJava5()) {
       return null;
     }
