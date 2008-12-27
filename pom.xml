@@ -15,22 +15,22 @@
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
-      <version>1.0.3</version>
+      <version>1.1.1</version>
     </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
-      <version>1.7.0</version>
+      <version>1.8.0</version>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
+      <version>2.4</version>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
-      <version>3.1</version>
+      <version>3.2.1</version>
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8</version>
+      <version>4.5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -59,14 +59,14 @@
     <dependency>
       <groupId>xmlbeans</groupId>
       <artifactId>xbean</artifactId>
-      <version>2.1.0</version>
+      <version>2.2.0</version>
       <scope>test</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>xmlbeans</groupId>
       <artifactId>xbean_xpath</artifactId>
-      <version>2.0.0</version>
+      <version>2.2.0</version>
       <scope>test</scope>
       <optional>true</optional>
     </dependency>
