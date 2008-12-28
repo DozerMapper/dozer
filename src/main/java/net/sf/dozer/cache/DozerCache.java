@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import net.sf.dozer.stats.GlobalStatistics;
-import net.sf.dozer.stats.StatisticTypeConstants;
+import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
 
 import org.apache.commons.collections.map.LinkedMap;
@@ -73,11 +73,11 @@ public class DozerCache implements Cache {
     CacheEntry result = (CacheEntry) cacheMap.get(key);
     if (result != null) {
       hitCount++;
-      statMgr.increment(StatisticTypeConstants.CACHE_HIT_COUNT, name);
+      statMgr.increment(StatisticType.CACHE_HIT_COUNT, name);
       return result.getValue();
     } else {
       missCount++;
-      statMgr.increment(StatisticTypeConstants.CACHE_MISS_COUNT, name);
+      statMgr.increment(StatisticType.CACHE_MISS_COUNT, name);
       return null;
     }
   }

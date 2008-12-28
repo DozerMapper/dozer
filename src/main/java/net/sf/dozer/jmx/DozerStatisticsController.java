@@ -21,7 +21,7 @@ import java.util.TreeSet;
 import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticEntry;
-import net.sf.dozer.stats.StatisticTypeConstants;
+import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
 
 /**
@@ -45,55 +45,55 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
   }
 
   public long getMappingSuccessCount() {
-    return getStatisticValue(StatisticTypeConstants.MAPPING_SUCCESS_COUNT);
+    return getStatisticValue(StatisticType.MAPPING_SUCCESS_COUNT);
   }
 
   public long getMappingFailureCount() {
-    return getStatisticValue(StatisticTypeConstants.MAPPING_FAILURE_COUNT);
+    return getStatisticValue(StatisticType.MAPPING_FAILURE_COUNT);
   }
 
   public long getMapperInstancesCount() {
-    return getStatisticValue(StatisticTypeConstants.MAPPER_INSTANCES_COUNT);
+    return getStatisticValue(StatisticType.MAPPER_INSTANCES_COUNT);
   }
 
   public long getMappingOverallTime() {
-    return getStatisticValue(StatisticTypeConstants.MAPPING_TIME);
+    return getStatisticValue(StatisticType.MAPPING_TIME);
   }
 
   public Set getMappingFailureExceptionTypes() {
-    return getStatisticEntries(StatisticTypeConstants.MAPPING_FAILURE_EX_TYPE_COUNT);
+    return getStatisticEntries(StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT);
   }
 
   public Set getMappingFailureTypes() {
-    return getStatisticEntries(StatisticTypeConstants.MAPPING_FAILURE_TYPE_COUNT);
+    return getStatisticEntries(StatisticType.MAPPING_FAILURE_TYPE_COUNT);
   }
 
   public Set getCacheHitCount() {
-    return getStatisticEntries(StatisticTypeConstants.CACHE_HIT_COUNT);
+    return getStatisticEntries(StatisticType.CACHE_HIT_COUNT);
   }
 
   public Set getCacheMissCount() {
-    return getStatisticEntries(StatisticTypeConstants.CACHE_MISS_COUNT);
+    return getStatisticEntries(StatisticType.CACHE_MISS_COUNT);
   }
 
   public long getFieldMappingSuccessCount() {
-    return getStatisticValue(StatisticTypeConstants.FIELD_MAPPING_SUCCESS_COUNT);
+    return getStatisticValue(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
   }
 
   public long getFieldMappingFailureCount() {
-    return getStatisticValue(StatisticTypeConstants.FIELD_MAPPING_FAILURE_COUNT);
+    return getStatisticValue(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
   }
 
   public long getFieldMappingFailureIgnoredCount() {
-    return getStatisticValue(StatisticTypeConstants.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
+    return getStatisticValue(StatisticType.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
   }
 
   public long getCustomConverterSuccessCount() {
-    return getStatisticValue(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
+    return getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
   }
 
   public long getCustomConverterOverallTime() {
-    return getStatisticValue(StatisticTypeConstants.CUSTOM_CONVERTER_TIME);
+    return getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
   }
 
   public Set getStatisticTypes() {
@@ -101,24 +101,24 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
   }
 
   public double getMappingAverageTime() {
-    double totalTime = getStatisticValue(StatisticTypeConstants.MAPPING_TIME);
-    double totalCount = getStatisticValue(StatisticTypeConstants.MAPPING_SUCCESS_COUNT);
+    double totalTime = getStatisticValue(StatisticType.MAPPING_TIME);
+    double totalCount = getStatisticValue(StatisticType.MAPPING_SUCCESS_COUNT);
     return totalTime / totalCount;
   }
 
   public double getCustomConverterAverageTime() {
-    double totalTime = getStatisticValue(StatisticTypeConstants.CUSTOM_CONVERTER_TIME);
-    double totalCount = getStatisticValue(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
+    double totalTime = getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
+    double totalCount = getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
     return totalTime / totalCount;
   }
 
   public double getCustomConverterPercentageOfMappingTime() {
-    double ccTotalTime = getStatisticValue(StatisticTypeConstants.CUSTOM_CONVERTER_TIME);
-    double overallTime = getStatisticValue(StatisticTypeConstants.MAPPING_TIME);
+    double ccTotalTime = getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
+    double overallTime = getStatisticValue(StatisticType.MAPPING_TIME);
     return (ccTotalTime / overallTime) * 100;
   }
 
-  public Set getStatisticEntries(String statisticType) {
+  public Set getStatisticEntries(StatisticType statisticType) {
     Set result = new TreeSet();
     if (statsMgr.statisticExists(statisticType)) {
       for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
@@ -136,7 +136,7 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     return statsMgr.getStatistics().toString();
   }
 
-  protected long getStatisticValue(String statisticType) {
+  protected long getStatisticValue(StatisticType statisticType) {
     long result = 0;
     if (statsMgr.statisticExists(statisticType)) {
       result = statsMgr.getStatisticValue(statisticType);

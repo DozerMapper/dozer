@@ -15,21 +15,25 @@
  */
 package net.sf.dozer.stats;
 
-import java.util.Set;
-
 /**
- * Internal interface for managing statistics. Only intended for internal use.
+ * Internal constants file that defines the types of supported statistic keys. Only intended for internal use.
  * 
  * @author tierney.matt
  */
-public interface StatisticsManager extends Statistics {
-  public Set<Statistic> getStatistics();
-  public Statistic getStatistic(StatisticType statisticType);
-  public long getStatisticValue(StatisticType statisticType);
-  public boolean statisticExists(StatisticType statisticType);
-
-  public void increment(StatisticType statisticType);
-  public void increment(StatisticType statisticType, long value);
-  public void increment(StatisticType statisticType, Object statisticEntryKey);
-  public void increment(StatisticType statisticType, Object statisticEntryKey, long value);
+public enum StatisticType {
+  
+  MAPPER_INSTANCES_COUNT,
+  MAPPING_SUCCESS_COUNT,
+  MAPPING_FAILURE_COUNT,
+  MAPPING_FAILURE_EX_TYPE_COUNT,
+  MAPPING_FAILURE_TYPE_COUNT,
+  MAPPING_TIME,
+  FIELD_MAPPING_SUCCESS_COUNT,
+  FIELD_MAPPING_FAILURE_COUNT,
+  FIELD_MAPPING_FAILURE_IGNORED_COUNT,
+  CUSTOM_CONVERTER_SUCCESS_COUNT,
+  CUSTOM_CONVERTER_TIME,
+  CACHE_HIT_COUNT,
+  CACHE_MISS_COUNT;
+  
 }

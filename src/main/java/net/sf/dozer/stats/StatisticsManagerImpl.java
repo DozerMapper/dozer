@@ -35,14 +35,14 @@ import org.apache.commons.logging.LogFactory;
 public final class StatisticsManagerImpl implements StatisticsManager {
   private static final Log log = LogFactory.getLog(StatisticsManagerImpl.class);
 
-  private final Map<String, Statistic> statisticsMap = new HashMap<String, Statistic>();
+  private final Map<StatisticType, Statistic> statisticsMap = new HashMap<StatisticType, Statistic>();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
 
   public void clearAll() {
     statisticsMap.clear();
   }
 
-  public Set<StatisticEntry> getStatisticEntries(String statisticType) {
+  public Set<StatisticEntry> getStatisticEntries(StatisticType statisticType) {
     return getStatistic(statisticType).getEntries();
   }
 
@@ -59,7 +59,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
 
-  public Statistic getStatistic(String statisticType) {
+  public Statistic getStatistic(StatisticType statisticType) {
     Statistic result = (Statistic) statisticsMap.get(statisticType);
     if (result == null) {
       MappingUtils.throwMappingException("Unable to find statistic for type: " + statisticType);
@@ -67,9 +67,9 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     return result;
   }
 
-  public Set<String> getStatisticTypes() {
-    Set<String> results = new HashSet<String>();
-    for (Entry<String, Statistic> entry : statisticsMap.entrySet()) {
+  public Set<StatisticType> getStatisticTypes() {
+    Set<StatisticType> results = new HashSet<StatisticType>();
+    for (Entry<StatisticType, Statistic> entry : statisticsMap.entrySet()) {
       results.add(entry.getKey());
     }
     return results;
@@ -79,19 +79,19 @@ public final class StatisticsManagerImpl implements StatisticsManager {
    * Convenience method that should only be used for statistic types that will only ever have 1 statistic entry(value).
    * For stats that only have one entry, it is assumed that the single entrie's key is the same as the stat type name
    */
-  public void increment(String statisticType) {
+  public void increment(StatisticType statisticType) {
     increment(statisticType, 1);
   }
 
-  public void increment(String statisticType, long value) {
+  public void increment(StatisticType statisticType, long value) {
     increment(statisticType, statisticType, value);
   }
 
-  public void increment(String statisticType, Object statisticEntryKey) {
+  public void increment(StatisticType statisticType, Object statisticEntryKey) {
     increment(statisticType, statisticEntryKey, 1);
   }
 
-  public void increment(String statisticType, Object statisticEntryKey, long value) {
+  public void increment(StatisticType statisticType, Object statisticEntryKey, long value) {
     // If statistics are not enabled, just return and do nothing.
     if (!isStatisticsEnabled()) {
       return;
@@ -129,7 +129,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
    * Convenience method that should only be used for statistic types that will only ever have 1 statistic entry(value).
    * getStatisticEntries() should be used for statistic types that have more than 1 statistic entry(value)
    */
-  public long getStatisticValue(String statisticType) {
+  public long getStatisticValue(StatisticType statisticType) {
     Set<StatisticEntry> entries = getStatistic(statisticType).getEntries();
     if (entries.size() > 1) {
       throw new IllegalArgumentException("More than one value entry found for stat type: " + statisticType);
@@ -144,7 +144,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     statisticsMap.put(statistic.getType(), statistic);
   }
 
-  public boolean statisticExists(String statisticType) {
+  public boolean statisticExists(StatisticType statisticType) {
     return statisticsMap.containsKey(statisticType);
   }
 

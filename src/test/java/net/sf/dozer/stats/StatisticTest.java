@@ -23,14 +23,14 @@ import net.sf.dozer.AbstractDozerTest;
 public class StatisticTest extends AbstractDozerTest {
 
   public void testConstructor() throws Exception {
-    String type = getRandomString();
+    StatisticType type = StatisticType.CACHE_HIT_COUNT;
     Statistic stat = new Statistic(type);
 
     assertEquals("invalid type", type, stat.getType());
   }
 
   public void testEquals() throws Exception {
-    String type = getRandomString();
+    StatisticType type = StatisticType.MAPPING_FAILURE_TYPE_COUNT;
     Statistic stat = new Statistic(type);
     Statistic stat2 = new Statistic(type);
 
@@ -39,7 +39,7 @@ public class StatisticTest extends AbstractDozerTest {
   }
 
   public void testAddGetEntries() throws Exception {
-    Statistic stat = new Statistic(getRandomString());
+    Statistic stat = new Statistic(StatisticType.CUSTOM_CONVERTER_TIME);
     int numEntriesToAdd = 5;
     for (int i = 0; i < numEntriesToAdd; i++) {
       String key = "testkey" + String.valueOf(i);
@@ -57,7 +57,7 @@ public class StatisticTest extends AbstractDozerTest {
   }
 
   public void testClear() throws Exception {
-    Statistic stat = new Statistic(getRandomString());
+    Statistic stat = new Statistic(StatisticType.CUSTOM_CONVERTER_TIME);
     StatisticEntry entry = new StatisticEntry(getRandomString());
     stat.addEntry(entry);
 
@@ -67,7 +67,7 @@ public class StatisticTest extends AbstractDozerTest {
   }
 
   public void testGetEntryWithDefaultKey() throws Exception {
-    String type = getRandomString();
+    StatisticType type = StatisticType.FIELD_MAPPING_SUCCESS_COUNT;
     Statistic stat = new Statistic(type);
     StatisticEntry entry = new StatisticEntry(type);
     stat.addEntry(entry);
@@ -76,7 +76,7 @@ public class StatisticTest extends AbstractDozerTest {
   }
 
   public void testGetEntryWithDefaultKeyNotFound() throws Exception {
-    Statistic stat = new Statistic(getRandomString());
+    Statistic stat = new Statistic(StatisticType.MAPPING_FAILURE_TYPE_COUNT);
     StatisticEntry entry = new StatisticEntry(getRandomString());
     stat.addEntry(entry);
 
@@ -84,7 +84,7 @@ public class StatisticTest extends AbstractDozerTest {
   }
 
   public void testAddNull() {
-    Statistic stat = new Statistic(getRandomString());
+    Statistic stat = new Statistic(StatisticType.CACHE_MISS_COUNT);
     try {
       stat.addEntry(null);
       fail("should have thrown exception");

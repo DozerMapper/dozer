@@ -28,7 +28,7 @@ import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.event.DozerEventListener;
 import net.sf.dozer.interceptor.StatisticsInterceptor;
 import net.sf.dozer.stats.GlobalStatistics;
-import net.sf.dozer.stats.StatisticTypeConstants;
+import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
 import net.sf.dozer.util.CustomMappingsLoader;
 import net.sf.dozer.util.InitLogger;
@@ -127,7 +127,7 @@ public class DozerBeanMapper implements Mapper {
     cacheManager.addCache(MapperConstants.SUPER_TYPE_CHECK_CACHE, GlobalSettings.getInstance().getSuperTypesCacheMaxSize());
 
     // stats
-    statsMgr.increment(StatisticTypeConstants.MAPPER_INSTANCES_COUNT);
+    statsMgr.increment(StatisticType.MAPPER_INSTANCES_COUNT);
   }
 
   protected Mapper getMappingProcessor() {

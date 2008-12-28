@@ -50,7 +50,7 @@ import net.sf.dozer.fieldmap.ExcludeFieldMap;
 import net.sf.dozer.fieldmap.FieldMap;
 import net.sf.dozer.fieldmap.HintContainer;
 import net.sf.dozer.fieldmap.MapFieldMap;
-import net.sf.dozer.stats.StatisticTypeConstants;
+import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
 import net.sf.dozer.util.ClassMapBuilder;
 import net.sf.dozer.util.CollectionUtils;
@@ -249,11 +249,11 @@ public class MappingProcessor implements Mapper {
         }
       }
 
-      statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_SUCCESS_COUNT);
+      statsMgr.increment(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
 
     } catch (Throwable e) {
       log.error(LogMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj, e), e);
-      statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_FAILURE_COUNT);
+      statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
       if (fieldMapping.isStopOnErrors()) {
@@ -267,7 +267,7 @@ public class MappingProcessor implements Mapper {
             throw (RuntimeException) thrownType;
           }
         }
-        statsMgr.increment(StatisticTypeConstants.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
+        statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
       }
     }
   }
@@ -863,8 +863,8 @@ public class MappingProcessor implements Mapper {
     }
 
     long stop = System.currentTimeMillis();
-    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_SUCCESS_COUNT);
-    statsMgr.increment(StatisticTypeConstants.CUSTOM_CONVERTER_TIME, stop - start);
+    statsMgr.increment(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
+    statsMgr.increment(StatisticType.CUSTOM_CONVERTER_TIME, stop - start);
 
     return result;
   }

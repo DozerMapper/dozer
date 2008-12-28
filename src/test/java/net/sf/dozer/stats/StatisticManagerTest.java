@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.MappingException;
 
 /**
  * @author tierney.matt
@@ -34,7 +33,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   }
 
   public void testAddAndGetStatistic() {
-    String type = getRandomString();
+    StatisticType type = StatisticType.FIELD_MAPPING_FAILURE_COUNT;
     Statistic stat = new Statistic(type);
     statMgr.addStatistic(stat);
 
@@ -53,25 +52,16 @@ public class StatisticManagerTest extends AbstractDozerTest {
   }
 
   public void testClearAll() {
-    String type = getRandomString();
-    statMgr.addStatistic(new Statistic(type));
-    statMgr.addStatistic(new Statistic(type + "2"));
+    statMgr.addStatistic(new Statistic(StatisticType.MAPPING_FAILURE_TYPE_COUNT));
+    statMgr.addStatistic(new Statistic(StatisticType.CACHE_HIT_COUNT));
     assertEquals("invalid initial stat size", 2, statMgr.getStatistics().size());
     statMgr.clearAll();
     assertEquals("invalid stat size", 0, statMgr.getStatistics().size());
   }
 
-  public void testGetStatiticNotFound() {
-    try {
-      statMgr.getStatistic(getRandomString());
-      fail("should have thrown not found exception");
-    } catch (MappingException e) {
-    }
-  }
-
   public void testGetStatisticTypes() {
-    String type = getRandomString();
-    String type2 = type + "-2";
+    StatisticType type = StatisticType.CUSTOM_CONVERTER_TIME;
+    StatisticType type2 = StatisticType.CACHE_HIT_COUNT;
     statMgr.addStatistic(new Statistic(type));
     statMgr.addStatistic(new Statistic(type2));
 
@@ -90,14 +80,14 @@ public class StatisticManagerTest extends AbstractDozerTest {
     }
 
     try {
-      statMgr.increment("test2", null, 1);
+      statMgr.increment(StatisticType.CACHE_HIT_COUNT, null, 1);
       fail("missing entry key should have thrown exception");
     } catch (IllegalArgumentException e) {
     }
   }
 
   public void testGetStatisticValue() {
-    String type = getRandomString();
+    StatisticType type = StatisticType.MAPPER_INSTANCES_COUNT;
     Statistic stat = new Statistic(type);
     String entryKey = getRandomString();
     stat.addEntry(new StatisticEntry(entryKey));
@@ -109,7 +99,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   }
 
   public void testGetStatisticValueException() {
-    String type = getRandomString();
+    StatisticType type = StatisticType.MAPPING_FAILURE_COUNT;
     Statistic stat = new Statistic(type);
 
     stat.addEntry(new StatisticEntry(getRandomString()));
@@ -124,7 +114,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   }
 
   public void testAddDuplicateStatistic() {
-    String type = getRandomString();
+    StatisticType type = StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT;
     statMgr.addStatistic(new Statistic(type));
 
     try {
@@ -135,7 +125,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   }
 
   public void testIncrementUnknownTypeAndKey() {
-    String type = getRandomString();
+    StatisticType type = StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT;
     String entryKey = getRandomString();
     long incrementValue = 130;
     statMgr.increment(type, entryKey, incrementValue);

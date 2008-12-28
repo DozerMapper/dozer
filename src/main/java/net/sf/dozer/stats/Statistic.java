@@ -32,14 +32,14 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  */
 public class Statistic {
-  private final String type;
+  private final StatisticType type;
   private final Map<Object, StatisticEntry> entriesMap = new HashMap<Object, StatisticEntry>();
 
-  public Statistic(String type) {
+  public Statistic(StatisticType type) {
     this.type = type;
   }
 
-  public String getType() {
+  public StatisticType getType() {
     return type;
   }
 

@@ -24,8 +24,8 @@ import java.util.Set;
  */
 public interface Statistics {
   public void clearAll();
-  public Set<StatisticEntry> getStatisticEntries(String statisticType);
-  public Set<String> getStatisticTypes();
+  public Set<StatisticEntry> getStatisticEntries(StatisticType statisticType);
+  public Set<StatisticType> getStatisticTypes();
   public boolean isStatisticsEnabled();
   public void setStatisticsEnabled(boolean statisticsEnabled);
   public void logStatistics();

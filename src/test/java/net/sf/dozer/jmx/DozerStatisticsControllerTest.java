@@ -18,7 +18,7 @@ package net.sf.dozer.jmx;
 import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.stats.StatisticTypeConstants;
+import net.sf.dozer.stats.StatisticType;
 
 /**
  * @author tierney.matt
@@ -52,20 +52,8 @@ public class DozerStatisticsControllerTest extends AbstractDozerTest {
 
   public void testGetStatisticEntries() throws Exception {
     controller.clearAll();
-    Set entries = controller.getStatisticEntries(StatisticTypeConstants.CACHE_HIT_COUNT);
+    Set entries = controller.getStatisticEntries(StatisticType.CACHE_HIT_COUNT);
     assertEquals("incorrect entries size", 0, entries.size());
-  }
-
-  public void testGetStatisticEntries_UnknownType() throws Exception {
-    controller.clearAll();
-    Set entries = controller.getStatisticEntries(String.valueOf(System.currentTimeMillis()));
-    assertEquals("incorrect entries size", 0, entries.size());
-  }
-
-  public void testGetStatisticValue_UnknownType() throws Exception {
-    controller.clearAll();
-    long value = controller.getStatisticValue(String.valueOf(System.currentTimeMillis()));
-    assertEquals("incorrect value", 0, value);
   }
 
 }

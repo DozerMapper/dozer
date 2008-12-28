@@ -19,7 +19,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import net.sf.dozer.stats.StatisticTypeConstants;
+import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
 import net.sf.dozer.util.MappingUtils;
 
@@ -44,16 +44,16 @@ public class StatisticsInterceptor implements InvocationHandler {
       Object result = method.invoke(delegate, args);
 
       long stop = System.currentTimeMillis();
-      statsMgr.increment(StatisticTypeConstants.MAPPING_SUCCESS_COUNT);
-      statsMgr.increment(StatisticTypeConstants.MAPPING_TIME, (stop - start));
+      statsMgr.increment(StatisticType.MAPPING_SUCCESS_COUNT);
+      statsMgr.increment(StatisticType.MAPPING_TIME, (stop - start));
 
       return result;
     } catch (InvocationTargetException e) {
       Throwable ex = e.getTargetException();
 
-      statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_COUNT);
+      statsMgr.increment(StatisticType.MAPPING_FAILURE_COUNT);
       Throwable rootCause = MappingUtils.getRootCause(ex);
-      statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_EX_TYPE_COUNT, rootCause.getClass());
+      statsMgr.increment(StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT, rootCause.getClass());
       incrementClassMappingFailureTypeStat(args);
       throw ex;
     }
@@ -73,6 +73,6 @@ public class StatisticsInterceptor implements InvocationHandler {
         destClassName = args[1].getClass().getName();
       }
     }
-    statsMgr.increment(StatisticTypeConstants.MAPPING_FAILURE_TYPE_COUNT, srcClassName + "-->" + destClassName);
+    statsMgr.increment(StatisticType.MAPPING_FAILURE_TYPE_COUNT, srcClassName + "-->" + destClassName);
   }
 }
