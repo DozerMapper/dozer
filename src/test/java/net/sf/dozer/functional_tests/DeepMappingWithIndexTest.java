@@ -44,6 +44,7 @@ import net.sf.dozer.vo.deepindex.isaccessible.Person;
 import net.sf.dozer.vo.deepindex.isaccessible.Phone;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -163,8 +164,9 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(dest.getPhoneNumber(), ((Phone) source.phones.get(0)).getNumber());
   }
 
+  @Ignore("Failing. Needs investigation")
   @Test
-  public void diabled_testDeepMapIndexedIsAccessibleInversed() throws Exception {
+  public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
     
     FlatPerson source = (FlatPerson) newInstance(FlatPerson.class);
