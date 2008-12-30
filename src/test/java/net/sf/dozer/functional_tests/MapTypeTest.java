@@ -329,7 +329,7 @@ public class MapTypeTest extends AbstractMapperTest {
 
   // TODO Enable this test in next release. JDK 1.6 compatibility issue
   @Test
-  public void disabled_testPropertyToClassLevelMap() throws Exception {
+  public void testPropertyToClassLevelMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     MapTestObject mto = (MapTestObject) newInstance(MapTestObject.class);
     PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
@@ -495,7 +495,7 @@ public class MapTypeTest extends AbstractMapperTest {
 
   // TODO Enable this test in next release. JDK 1.6 compatibility issue
   @Test
-  public void disable_testNestedCustomMap() {
+  public void testNestedCustomMap() {
     mapper = getMapper(new String[] { "mapMapping4.xml" });
 
     ParentDOM src = (ParentDOM) newInstance(ParentDOM.class);
