@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.cache;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 
 /**
@@ -22,6 +26,7 @@ import net.sf.dozer.AbstractDozerTest;
  */
 public class CacheEntryTest extends AbstractDozerTest {
 
+  @Test
   public void testConstructor() throws Exception {
     String key = getRandomString();
     String value = getRandomString();
@@ -31,6 +36,7 @@ public class CacheEntryTest extends AbstractDozerTest {
     assertEquals("invalid value", value, cacheEntry.getValue());    
   }
 
+  @Test
   public void testHashCodeAndEquals() throws Exception {
     String key = getRandomString();
     String value = getRandomString();

@@ -15,12 +15,18 @@
  */
 package net.sf.dozer.stats;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 
 /**
  * @author tierney.matt
  */
 public class GlobalStatisticsTest extends AbstractDozerTest {
+  
+  @Test
   public void testGetInstance() throws Exception {
     GlobalStatistics mgr = GlobalStatistics.getInstance();
 

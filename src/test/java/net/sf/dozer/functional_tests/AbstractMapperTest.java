@@ -18,25 +18,25 @@ package net.sf.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.util.MapperConstants;
 import net.sf.dozer.util.TestDataFactory;
 
+import org.junit.Before;
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class AbstractMapperTest extends TestCase {
+public abstract class AbstractMapperTest  {
   protected Mapper mapper;
   protected TestDataFactory testDataFactory = new TestDataFactory(getDataObjectInstantiator());
 
   protected abstract DataObjectInstantiator getDataObjectInstantiator();
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");
     mapper = new DozerBeanMapper();

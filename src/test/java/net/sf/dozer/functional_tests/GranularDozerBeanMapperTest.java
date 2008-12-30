@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import org.junit.Test;
 
 import net.sf.dozer.CustomFieldMapper;
 import net.sf.dozer.DataObjectInstantiator;
@@ -86,6 +89,7 @@ import net.sf.dozer.vo.set.SomeVO;
  */
 public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
+  @Test
   public void testNoDefaultConstructor() throws Exception {
     try {
       mapper.map("test", NoDefaultConstructor.class);
@@ -94,7 +98,8 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
       assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.vo.NoDefaultConstructor.<init>()", e.getMessage());
     }
   }
-
+  
+  @Test
   public void testFieldAccessible() throws Exception {
     Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -121,6 +126,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("two", toDest.getFieldAccessibleArrayToList()[1]);
   }
 
+  @Test
   public void testOverloadGetSetMethods() throws Exception {
     Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -134,6 +140,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals(date, toDest.getOverloadGetField());
   }
 
+  @Test
   public void testFieldCreateMethod() throws Exception {
     Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -148,6 +155,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("testCreateMethod", toDest.getCreateMethodType().getTestCreateMethod());
   }
 
+  @Test
   public void testIntegerToString() throws Exception {
     Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -157,6 +165,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("1", top.getListForArray().get(0));
   }
 
+  @Test
   public void testMapNull_MappingLevel() throws Exception {
     Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that null does not override an existing value when map-null="false"
@@ -174,6 +183,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid dest field value2", "4641", dest.getTo().getOne());
   }
 
+  @Test
   public void testMapNull_MappingLevel2() throws Exception {
     Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // Reverse mapping
@@ -191,6 +201,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid dest field value2", "4641", dest.getField4());
   }
 
+  @Test
   public void testMapEmptyString_MappingLevel() throws Exception {
     Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that "" does not override an existing value when
@@ -209,6 +220,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid dest field value2", "4641", dest.getTo().getOne());
   }
 
+  @Test
   public void testMapEmptyString_MappingLevel2() throws Exception {
     Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // reverse mapping
@@ -226,6 +238,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid dest field value2", "4641", dest.getField4());
   }
 
+  @Test
   public void testMapNull_ClassLevel() throws Exception {
     Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that null does not override an existing value when map-null="false"
@@ -250,6 +263,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull("dest should be null", dest2.getOne());
   }
 
+  @Test
   public void testMapEmptyString_ClassLevel() throws Exception {
     Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
     // check that "" does not override an existing value when
@@ -277,6 +291,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   }
 
+  @Test
   public void testContextMappingWithNestedContext() throws Exception {
     Mapper mapper = getMapper(new String[] { "contextMapping.xml" });
 
@@ -313,6 +328,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("loanNoNested", ((ContextMappingNestedPrime) cmpBDest.getContextList().get(0)).getLoanNo());
   }
 
+  @Test
   public void testArrayToSortedSet() {
     NamesArray from = (NamesArray) newInstance(NamesArray.class);
     String[] names = { "John", "Bill", "Tony", "Fred", "Bruce" };
@@ -323,6 +339,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals(names.length, to.getNames().size());
   }
 
+  @Test
   public void testSortedSetToArray() {
     NamesSortedSet from = (NamesSortedSet) newInstance(NamesSortedSet.class);
     NamesArray to = null;
@@ -340,6 +357,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals(names.size(), to.getNames().length);
   }
 
+  @Test
   public void testSetToSortedSet() {
     NamesSet from = (NamesSet) newInstance(NamesSet.class);
     NamesSortedSet to = null;
@@ -356,6 +374,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals(names.size(), to.getNames().size());
   }
 
+  @Test
   public void testSortedSetToSet() {
     NamesSortedSet from = (NamesSortedSet) newInstance(NamesSortedSet.class);
     NamesSet to = null;
@@ -375,6 +394,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals(names.size(), to.getNames().size());
   }
 
+  @Test
   public void testSetPrivateField() {
     mapper = super.getMapper(new String[] { "isaccessiblemapping.xml" });
     Foo src = (Foo) newInstance(Foo.class);
@@ -387,6 +407,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNotNull(dest);
   }
 
+  @Test
   public void testStringToIndexedSet_UsingHint() {
     mapper = getMapper(new String[] { "indexMapping.xml" });
     Mccoy src = (Mccoy) newInstance(Mccoy.class);
@@ -402,6 +423,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("theKey"));
   }
 
+  @Test
   public void testAllowedExceptions() throws Exception {
     Mapper mapper = getMapper(new String[] { "allowedExceptionsMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -425,6 +447,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     }
   }
 
+  @Test
   public void testAllowedExceptions_Implicit() throws Exception {
     Mapper mapper = getMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
     ThrowException to = (ThrowException) newInstance(ThrowException.class);
@@ -448,6 +471,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     }
   }
 
+  @Test
   public void testPrimitiveArrayToList() throws Exception {
     mapper = getMapper(new String[] { "primitiveArrayToListMapping.xml" });
 
@@ -464,6 +488,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid dest field value", srcObjectList, dest.getField1());
   }
 
+  @Test
   public void testPrimitiveArrayToList_UsingHint() throws Exception {
     mapper = getMapper(new String[] { "primitiveArrayToListMapping.xml" });
 
@@ -484,6 +509,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     }
   }
 
+  @Test
   public void testInterface() throws Exception {
     mapper = getMapper(new String[] { "interfaceMapping.xml" });
     ApplicationUser user = (ApplicationUser) newInstance(ApplicationUser.class);
@@ -504,6 +530,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid value for subsriber #", user.getSubscriberNumber(), destObject.getSubscriberKey().getSubscriberNumber());
   }
 
+  @Test
   public void testCustomFieldMapper() throws Exception {
     CustomFieldMapper customFieldMapper = new TestCustomFieldMapper();
     ((DozerBeanMapper) mapper).setCustomFieldMapper(customFieldMapper);
@@ -521,6 +548,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("dest field6 should NOT have been set by custom field mapper", src.getField6(), dest.getField6());
   }
 
+  @Test
   public void testPrivateConstructor() throws Exception {
     PrivateConstructorBean src = PrivateConstructorBean.newInstance();
     src.setField1("someValue");
@@ -534,6 +562,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   /*
    * Bug #1549738
    */
+  @Test
   public void testSetMapping_UppercaseFieldNameInXML() throws Exception {
     // For some reason the resulting SomeVO contains a Set with 4 objects. 2 SomeOtherDTO's and 2 SomeOtherVO's. I
     // believe it
@@ -565,6 +594,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     // TODO: add more asserts
   }
 
+  @Test
   public void testGlobalBeanFactoryAppliedToDefaultMappings() throws Exception {
     mapper = getMapper(new String[] { "global-configuration.xml" });
     TestObjectPrime dest = mapper.map((TestObject) newInstance(TestObject.class), TestObjectPrime.class);
@@ -573,6 +603,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("", "net.sf.dozer.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
   }
 
+  @Test
   public void testStringToDateMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS");
@@ -588,6 +619,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals(result.getDateFromStr(), df.parse(result2.getDateStr()));
   }
 
+  @Test
   public void testMethodMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     MethodFieldTestObject sourceObj = (MethodFieldTestObject) newInstance(MethodFieldTestObject.class);
@@ -605,6 +637,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull(result2.getFieldOne());
   }
 
+  @Test
   public void testNoReadMethod() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -615,6 +648,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
 
+  @Test
   public void testNoReadMethodSameClassTypes() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -625,6 +659,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull("field should be null because no read method exists for field", dest.getXXXXX());
   }
 
+  @Test
   public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
     // Dont use getter methods that have a param when discovering default fields to be mapped.
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -635,6 +670,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull("field should be null because no read method exists for field", dest.getOtherNoReadMethod(-1));
   }
 
+  @Test
   public void testNoWriteMethod() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     NoWriteMethod src = (NoWriteMethod) newInstance(NoWriteMethod.class);
@@ -645,6 +681,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   }
 
+  @Test
   public void testNoWriteMethodSameClassTypes() throws Exception {
     // When mapping between identical types, if the field doesnt have a getter/setter, dont
     // add it is a default field to be mapped.
@@ -658,6 +695,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
   }
 
+  @Test
   public void testNullField() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
@@ -669,6 +707,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull("dest field should be null", dest.getField2());
   }
 
+  @Test
   public void testNullField2() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     // Test that String --> String with an empty String input value results
@@ -682,6 +721,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid dest field value", input, dest.getOnePrime());
   }
 
+  @Test
   public void testNullToPrimitive() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
@@ -696,6 +736,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("invalid field value", AnotherTestObjectPrime.DEFAULT_FIELD1, prime.getTo().getThePrimitive());
   }
 
+  @Test
   public void testGlobalRelationshipType() throws Exception {
     mapper = getMapper(new String[] { "relationship-type-global-configuration.xml" });
     TestObject src = new TestObject();
@@ -709,6 +750,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("wrong # of elements in dest list for non-cumulative mapping", 2, dest.getHintList().size());
   }
 
+  @Test
   public void testClassMapRelationshipType() throws Exception {
     mapper = getMapper(new String[] { "relationshipTypeMapping.xml" });
     TestObject src = new TestObject();
@@ -722,6 +764,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals("wrong # of elements in dest list for non-cumulative mapping", 2, dest.getHintList().size());
   }
 
+  @Test
   public void testRemoveOrphans() {
     mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
 
@@ -762,6 +805,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertFalse(myClassB.getAStringList().contains(orange));
   }
 
+  @Test
   public void testOrphanRemovalSet() {
     mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
     Parent parent = new Parent(new Long(1), "parent");
@@ -786,6 +830,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertEquals(parentPrime.getChildrenSet().size(), parent.getChildrenSet().size());
   }
 
+  @Test
   public void testOrphanRemovalList() {
     mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
     Parent parent = new Parent(new Long(1), "parent");

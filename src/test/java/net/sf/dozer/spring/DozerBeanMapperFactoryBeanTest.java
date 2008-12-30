@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.spring;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +29,8 @@ import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.core.io.Resource;
 
 /**
@@ -36,11 +41,13 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
   private DozerBeanMapperFactoryBean factory;
   private MockResource mockResource;
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     factory = new DozerBeanMapperFactoryBean();
     mockResource = new MockResource();
   }
 
+  @Test
   public void testOk() throws Exception {
     factory.setCustomConverters(Collections.EMPTY_LIST);
     factory.setEventListeners(Collections.EMPTY_LIST);
@@ -61,6 +68,7 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
     assertEquals("file:" + url.getFile(), files.iterator().next());
   }
 
+  @Test
   public void testEmpty() throws Exception {
     factory.afterPropertiesSet();
   }

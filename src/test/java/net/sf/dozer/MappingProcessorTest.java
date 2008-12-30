@@ -1,23 +1,30 @@
 package net.sf.dozer;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
-public class MappingProcessorTest extends TestCase {
+public class MappingProcessorTest  {
 
   private ArrayList sourceList;
   private ArrayList destinationList;
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     sourceList = new ArrayList();
     destinationList = new ArrayList();
   }
 
+  @Test
   public void testPrepareDetinationList_OK() {
     List result = MappingProcessor.prepareDestinationList(sourceList, destinationList);
     assertEquals(destinationList, result);
@@ -27,12 +34,14 @@ public class MappingProcessorTest extends TestCase {
     assertEquals(destinationList, result);
   }
 
+  @Test
   public void testPrepareDetinationList_Null() {
     List result = MappingProcessor.prepareDestinationList(sourceList, null);
     assertNotNull(result);
     assertEquals(new ArrayList(), result);
   }
 
+  @Test
   public void testPrepareDetinationList_Array() {
     List result = MappingProcessor.prepareDestinationList(sourceList, new Object [] {"A"});
     assertNotNull(result);
@@ -40,18 +49,21 @@ public class MappingProcessorTest extends TestCase {
     assertEquals("A", result.iterator().next());
   }
 
+  @Test
   public void testPrepareDetinationList_StrangeCase() {
     List result = MappingProcessor.prepareDestinationList(sourceList, "Hullo");
     assertNotNull(result);
     assertEquals(new ArrayList(), result);
   }
 
+  @Test
   public void testRemoveOrphans_OK() {
     destinationList.add("A");
     MappingProcessor.removeOrphans(sourceList, destinationList);
     assertTrue(destinationList.isEmpty());
   }
 
+  @Test
   public void testRemoveOrphans_Many() {
     destinationList.add("A");
     destinationList.add("B");
@@ -66,6 +78,7 @@ public class MappingProcessorTest extends TestCase {
     assertEquals("D", destinationList.get(1));
   }
 
+  @Test
   public void testRemoveOrphans_Ordering() {
     destinationList.add(new Ordered(1));
     destinationList.add(new Ordered(2));

@@ -15,7 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
+
+import org.junit.Test;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
@@ -26,6 +29,7 @@ import net.sf.dozer.NoProxyDataObjectInstantiator;
  */
 public class ClassloaderTest extends AbstractMapperTest {
 
+  @Test
   public void testClassloader() {
     ArrayList files = new ArrayList();
     files.add("classloader.xml");

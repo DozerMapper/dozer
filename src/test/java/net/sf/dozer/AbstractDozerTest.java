@@ -17,16 +17,18 @@ package net.sf.dozer;
 
 import java.util.Random;
 
-import junit.framework.TestCase;
 import net.sf.dozer.util.MapperConstants;
+
+import org.junit.Before;
 
 /**
  * @author tierney.matt
  */
-public abstract class AbstractDozerTest extends TestCase {
+public abstract class AbstractDozerTest {
   private static Random rand = new Random(System.currentTimeMillis());
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");
   }

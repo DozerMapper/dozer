@@ -15,6 +15,11 @@
  */
 package net.sf.dozer;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +39,9 @@ import net.sf.dozer.vo.Van;
 import net.sf.dozer.vo.deep.HomeDescription;
 import net.sf.dozer.vo.deep.House;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * Very high level tests of the DozerBeanMapper. This test class is not intended to provide in-depth testing of all the
  * possible mapping use cases. The more in-depth unit tests of the DozerBeanMapper and MappingProcessor can be found in
@@ -46,13 +54,14 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   private static Mapper mapper;
   private TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     if (mapper == null) {
       mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
     }
   }
 
+  @Test
   public void testNoSourceObject() throws Exception {
     try {
       mapper.map(null, TestObjectPrime.class);
@@ -62,6 +71,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testNoDestinationClass() throws Exception {
     try {
       mapper.map(new TestObjectPrime(), null);
@@ -71,6 +81,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testNullDestObj() throws Exception {
     try {
       Object destObj = null;
@@ -80,6 +91,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testMapIdDoesNotExist() {
     try {
       mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
@@ -89,10 +101,12 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGeneralMapping() throws Exception {
     assertCommon(mapper);
   }
 
+  @Test
   public void testNoMappingFilesSpecified() throws Exception {
     // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
     // automatically.
@@ -101,6 +115,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertCommon(mapper);
   }
 
+  @Test
   public void testInjectMapperUsingSpring() throws Exception {
     // Try to get mapper from spring. Mapping files are injected via Spring config.
     Mapper mapper = (Mapper) ApplicationBeanFactory.getBean(Mapper.class);
@@ -133,6 +148,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertEquals("injectedName", mopedDest.getName());
   }
 
+  @Test
   public void testSpringNoMappingFilesSpecified() throws Exception {
     // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
     // automatically.
@@ -141,6 +157,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertCommon(mapper);
   }
 
+  @Test
   public void testDetectDuplicateMapping() throws Exception {
     Mapper myMapper = null;
     try {
@@ -157,6 +174,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testCustomBeanFactory() throws Exception {
     // -----------------------------------------------------------
     // Test that java beans get created with explicitly specified
@@ -189,6 +207,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertEquals("testName", car.getName());
   }
 
+  @Test
   public void testEventListeners() throws Exception {
     DozerBeanMapper eventMapper = (DozerBeanMapper) ApplicationBeanFactory.getBean("EventMapper");
     assertNotNull("event listenter list should not be null", eventMapper.getEventListeners());

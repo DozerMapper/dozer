@@ -1,5 +1,9 @@
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
@@ -12,6 +16,7 @@ import net.sf.dozer.vo.oneway.SourceClass;
  */
 public class OneWayMappingTest extends AbstractMapperTest {
 
+  @Test
   public void testOneWay() {
     Mapper mapper = getMapper("oneWayMapping.xml");
 

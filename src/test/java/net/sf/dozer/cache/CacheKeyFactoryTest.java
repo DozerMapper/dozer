@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.cache;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 
 /**
@@ -22,6 +26,7 @@ import net.sf.dozer.AbstractDozerTest;
  */
 public class CacheKeyFactoryTest extends AbstractDozerTest {
 
+  @Test
   public void testCreateKey() throws Exception {
     Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class);
     Object cacheKey2 = CacheKeyFactory.createKey(String.class, Long.class);
@@ -30,6 +35,7 @@ public class CacheKeyFactoryTest extends AbstractDozerTest {
     assertEquals("cache key hash codes should have been equal", cacheKey.hashCode(), cacheKey2.hashCode());
   }
 
+  @Test
   public void testCreateKey_Reverse() throws Exception {
     Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class);
     Object cacheKey2 = CacheKeyFactory.createKey(Long.class, String.class);

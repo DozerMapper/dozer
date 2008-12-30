@@ -15,20 +15,27 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.excluded.TwoA;
 import net.sf.dozer.vo.excluded.TwoB;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
 public class GrandparentTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("grandparent.xml");
   }
 
+  @Test
   public void testParentProperty() {
     TwoA source = new TwoA();
     source.setId(new Integer(1));
@@ -37,7 +44,6 @@ public class GrandparentTest extends AbstractMapperTest {
     assertNotNull(dest);
     assertEquals(new Integer(1), dest.getId());
   }
-
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

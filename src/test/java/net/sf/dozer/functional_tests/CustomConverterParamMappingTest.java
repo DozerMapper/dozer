@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.StringTokenizer;
 
 import net.sf.dozer.DataObjectInstantiator;
@@ -24,15 +28,20 @@ import net.sf.dozer.vo.Fruit;
 import net.sf.dozer.vo.Individual;
 import net.sf.dozer.vo.SimpleObj;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author johnsen.knut-erik
  */
 public class CustomConverterParamMappingTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("fieldCustomConverterParam.xml");
   }
 
+  @Test
   public void testSimpleCustomConverter() throws Exception {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
@@ -51,6 +60,7 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
     
   }
 
+  @Test
   public void testGlobalCustomConverter() {
     Individual individual = new Individual();
     individual.setUsername("ABC");
@@ -59,6 +69,7 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
     assertTrue(result.getName().startsWith("ABC-null"));
   }
 
+  @Test
   public void testGlobalCustomConverter_ParamProvided() {
     Individual individual = new Individual();
     individual.setUsername("ABC");
@@ -66,7 +77,6 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
     assertNotNull("", result.getName());
     assertTrue(result.getName().startsWith("ABC-PARAM"));
   }
-
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

@@ -15,21 +15,30 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.HashMap;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.DeepObject;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Buzdin
  */
 public class MapBackedDeepMappingTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("mapBackedDeepMapping.xml");
   }
 
+  @Test
   public void testMapBackedDeepMapping_OneLevel() {
     DeepObject deepObject = new DeepObject();
     DeepObject hangingReference = new DeepObject();
@@ -46,6 +55,7 @@ public class MapBackedDeepMappingTest extends AbstractMapperTest {
     assertEquals("value", deepObject.getDeepObject().getName());
   }
 
+  @Test
   public void testMapBackedDeepMapping_TwoLevels() {
     DeepObject deepObject = new DeepObject();
     DeepObject firstLevel = new DeepObject();
@@ -65,6 +75,7 @@ public class MapBackedDeepMappingTest extends AbstractMapperTest {
     assertEquals("value", deepObject.getDeepObject().getDeepObject().getName());
   }
   
+  @Test
   public void testMapBackedDeepMapping_Simple() {
     DeepObject deepObject = new DeepObject();
 

@@ -15,10 +15,17 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.MappingFileData;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -27,11 +34,12 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   private MappingsParser parser;
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     parser = MappingsParser.getInstance();
   }
 
+  @Test
   public void testDuplicateMapIds() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapIdsMapping.xml");
     MappingFileData mappingFileData = fileReader.read();
@@ -44,6 +52,7 @@ public class MappingsParserTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testDetectDuplicateMapping() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("duplicateMapping.xml");
     MappingFileData mappingFileData = fileReader.read();
@@ -55,6 +64,7 @@ public class MappingsParserTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testEmptyMappings() throws Exception {
     MappingFileData mappingFileData = new MappingFileData();
     ClassMappings result = parser.processMappings(mappingFileData.getClassMaps(), new Configuration());

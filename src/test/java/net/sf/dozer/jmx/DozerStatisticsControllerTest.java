@@ -15,10 +15,15 @@
  */
 package net.sf.dozer.jmx;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.stats.StatisticType;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -27,17 +32,19 @@ public class DozerStatisticsControllerTest extends AbstractDozerTest {
 
   private DozerStatisticsController controller;
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     controller = new DozerStatisticsController();
   }
 
+  @Test
   public void testIsStatisticsEnabled() throws Exception {
     boolean isStatisticsEnabled = controller.isStatisticsEnabled();
     controller.setStatisticsEnabled(!isStatisticsEnabled);
     assertEquals("statistics enabled value was not updated", !isStatisticsEnabled, controller.isStatisticsEnabled());
   }
 
+  @Test
   public void testGetStatisticValues() throws Exception {
     // just verify these values are zero
     controller.clearAll();
@@ -50,6 +57,7 @@ public class DozerStatisticsControllerTest extends AbstractDozerTest {
     assertEquals(0, controller.getFieldMappingFailureIgnoredCount());
   }
 
+  @Test
   public void testGetStatisticEntries() throws Exception {
     controller.clearAll();
     Set entries = controller.getStatisticEntries(StatisticType.CACHE_HIT_COUNT);

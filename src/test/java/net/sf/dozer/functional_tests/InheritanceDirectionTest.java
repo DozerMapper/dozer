@@ -1,5 +1,10 @@
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 
 import net.sf.dozer.DataObjectInstantiator;
@@ -8,15 +13,20 @@ import net.sf.dozer.vo.direction.ContentItemGroup;
 import net.sf.dozer.vo.direction.ContentItemGroupDTO;
 import net.sf.dozer.vo.direction.ContentItemGroupDefault;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author dmitry.buzdin
  */
 public class InheritanceDirectionTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("inheritanceDirection.xml");
   }
 
+  @Test
   public void testInheritanceDirection_Child() {
     ContentItemGroupDefault parentItem = new ContentItemGroupDefault();
     parentItem.setId("A");
@@ -38,6 +48,7 @@ public class InheritanceDirectionTest extends AbstractMapperTest {
     assertTrue(parentResult.getChildGroups().contains(resultChild));
   }
 
+  @Test
   public void testInheritanceDirection_Parent() {
     ContentItemGroupDefault parentItem = new ContentItemGroupDefault();
     parentItem.setId("A");
@@ -60,6 +71,7 @@ public class InheritanceDirectionTest extends AbstractMapperTest {
     assertTrue(resultParent.getChildGroups().contains(resultChild));
   }
 
+  @Test
   public void testInheritanceDirection_Reverse() {
     ContentItemGroupDTO parent = new ContentItemGroupDTO();
     parent.setId("A");

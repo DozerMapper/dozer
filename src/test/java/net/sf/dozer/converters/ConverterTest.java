@@ -15,7 +15,10 @@
  */
 package net.sf.dozer.converters;
 
+import static org.junit.Assert.*;
 import java.text.DateFormat;
+
+import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.util.DateFormatContainer;
@@ -27,6 +30,7 @@ public class ConverterTest extends AbstractDozerTest {
   /*
    * See DataConvertionTest for more thorough data conversion unit tests
    */
+  @Test
   public void testAccessors() throws Exception {
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
@@ -39,6 +43,7 @@ public class ConverterTest extends AbstractDozerTest {
     assertEquals(dfc, sc.getDateFormatContainer());
   }
 
+  @Test
   public void testInvalidDateInput() throws Exception {
     DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
     try {
@@ -56,6 +61,7 @@ public class ConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testInvalidCalendarInput() throws Exception {
     CalendarConverter dc = new CalendarConverter(DateFormat.getDateInstance(DateFormat.LONG));
     try {

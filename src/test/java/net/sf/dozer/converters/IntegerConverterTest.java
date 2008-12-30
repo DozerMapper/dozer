@@ -1,18 +1,22 @@
 package net.sf.dozer.converters;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
+import org.junit.Test;
 /**
  * @author Dmitry.Buzdin
  */
-public class IntegerConverterTest extends TestCase {
+public class IntegerConverterTest  {
 
   private IntegerConverter converter;
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     converter = new IntegerConverter();
   }
 
+  @Test
   public void testConvert() {
     assertEquals(new Integer(1), converter.convert(Integer.class, Boolean.TRUE));
     assertEquals(new Integer(0), converter.convert(Integer.class, Boolean.FALSE));

@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,12 +45,15 @@ import net.sf.dozer.vo.map.SimpleObj;
 import net.sf.dozer.vo.map.SimpleObjPrime;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class MapTypeTest extends AbstractMapperTest {
+  
+  @Test
   public void testMapToVo() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.
     mapper = getMapper(new String[] { "mapMapping2.xml" });
@@ -65,6 +69,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(nestedObj.getField1(), result.getNested().getField1());
   }
 
+  @Test
   public void testMapToVo_CustomMappings() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.
     mapper = getMapper(new String[] { "mapMapping2.xml" });
@@ -77,6 +82,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(src.get("field2"), result.getField2());
   }
 
+  @Test
   public void testMapToVoUsingMapId() {
     // Simple map --> vo using a map-id
     mapper = super.getMapper(new String[] { "mapMapping.xml" });
@@ -89,6 +95,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(src.get("field2"), dest.getField2());
   }
 
+  @Test
   public void testMapToVoUsingMapId_FieldExclude() {
     // Simple map --> vo using a map-id
     mapper = super.getMapper(new String[] { "mapMapping.xml" });
@@ -101,6 +108,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(src.get("field2"), dest.getField2());
   }
 
+  @Test
   public void testNestedMapToVoUsingMapId() {
     // Another test for nested Map --> Vo using <field map-id=....>
     mapper = super.getMapper(new String[] { "mapMapping.xml" });
@@ -124,6 +132,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(src.getNested().getField1(), result.getNested().getField1());
   }
 
+  @Test
   public void testMapToVo_NoCustomMappings() throws Exception {
     // Test simple Map --> Vo without any custom mappings defined.
     NestedObj nestedObj = (NestedObj) newInstance(NestedObj.class);
@@ -137,6 +146,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(nestedObj.getField1(), result.getNested().getField1());
   }
 
+  @Test
   public void testVoToMap_NoCustomMappings() throws Exception {
     // Test simple Vo --> Map without any custom mappings defined.
     SimpleObjPrime src = (SimpleObjPrime) newInstance(SimpleObjPrime.class);
@@ -163,6 +173,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(src, mappedSrc);
   }
 
+  @Test
   public void testMapToMap() throws Exception {
     Mapper mapper = getMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -187,6 +198,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(2, ((TestObjectPrime) mtmp.getStandardMapWithHint().get("to2")).getTwoPrime().intValue());
   }
 
+  @Test
   public void testMapToMapExistingDestination() throws Exception {
     Mapper mapper = getMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -212,6 +224,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("one", ((TestObject) mtmp.getStandardMap().get("toDest")).getOne());
   }
 
+  @Test
   public void testPropertyClassLevelMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
@@ -232,6 +245,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("myValue", custom.getValue("myKey"));
   }
 
+  @Test
   public void testPropertyClassLevelMap2() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
@@ -243,6 +257,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("stringProperty2Value", customMap.getValue("myStringProperty"));
   }
 
+  @Test
   public void testPropertyClassLevelMapBack() throws Exception {
     // Map Back
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -262,6 +277,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("myValue", property.getStringProperty3());
   }
 
+  @Test
   public void testPropertyToMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
@@ -291,6 +307,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertNull(dest.getNullStringProperty());
   }
 
+  @Test
   public void testPropertyToCustomMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
@@ -311,6 +328,7 @@ public class MapTypeTest extends AbstractMapperTest {
   }
 
   // TODO Enable this test in next release. JDK 1.6 compatibility issue
+  @Test
   public void disabled_testPropertyToClassLevelMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     MapTestObject mto = (MapTestObject) newInstance(MapTestObject.class);
@@ -357,6 +375,7 @@ public class MapTypeTest extends AbstractMapperTest {
 
   }
 
+  @Test
   public void testPropertyToCustomClassLevelMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     MapTestObject mto = (MapTestObject) newInstance(MapTestObject.class);
@@ -381,14 +400,17 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("stringPropertyValue", mto2.getPropertyToCustomMapMapWithInterface().getValue("stringProperty"));
   }
 
+  @Test
   public void testMapGetSetMethod_ClassLevel() throws Exception {
     runMapGetSetMethodTest("useCase1");
   }
 
+  @Test
   public void testMapGetSetMethod_FieldLevel() throws Exception {
     runMapGetSetMethodTest("useCase2");
   }
 
+  @Test
   public void testDateFormat_CustomMapType() throws Exception {
     // Test that date format works for mapping between String and Custom Map Type
     mapper = getMapper(new String[] { "mapMapping3.xml" });
@@ -431,6 +453,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertTrue("remapped src should equal original src", EqualsBuilder.reflectionEquals(src.getMap(), remappedSrc.getMap()));
   }
 
+  @Test
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
     // Simple test checking that Maps get mapped to a VO without any custom mappings or map-id.
     // Should behave like Vo --> Vo, matching on common attr(key) names.
@@ -448,6 +471,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(src, result2);
   }
 
+  @Test
   public void testMapType_MapToVo_CustomMapping_NoMapId() {
     // Test nested Map --> Vo using custom mappings without map-id
     mapper = getMapper(new String[] { "mapMapping3.xml" });
@@ -470,6 +494,7 @@ public class MapTypeTest extends AbstractMapperTest {
   }
 
   // TODO Enable this test in next release. JDK 1.6 compatibility issue
+  @Test
   public void disable_testNestedCustomMap() {
     mapper = getMapper(new String[] { "mapMapping4.xml" });
 
@@ -485,6 +510,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("someChildName", resultChild.get("childName"));
   }
 
+  @Test
   public void testMapToVoUsingMapInterface() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.
     mapper = getMapper(new String[] { "mapMapping5.xml" });

@@ -15,7 +15,10 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
 import java.beans.PropertyDescriptor;
+
+import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
@@ -27,6 +30,7 @@ import net.sf.dozer.vo.inheritance.ChildChildIF;
  */
 public class ReflectionUtilsTest extends AbstractDozerTest {
 
+  @Test
   public void testGetMethod_NotFound() throws Exception {
     SimpleObj src = new SimpleObj();
     try {
@@ -36,6 +40,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetDeepFieldHierarchy_NonDeepField() throws Exception {
     try {
       ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, "test", null);
@@ -45,6 +50,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetDeepFieldHierarchy_NotExists() throws Exception {
     try {
       ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "."
@@ -54,6 +60,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetPropertyDescriptors_InterfaceInheritance() throws Exception {
     // Should walk the inheritance hierarchy all the way up to the super interface and find all properties along the way
     PropertyDescriptor[] pds = ReflectionUtils.getPropertyDescriptors(ChildChildIF.class);
@@ -61,6 +68,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     assertEquals("3 prop descriptors should have been found", 3, pds.length);
   }
 
+  @Test
   public void testFindPropertyDescriptor_InterfaceInheritance() throws Exception {
     // Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
     String fieldName = "parentField";
@@ -69,6 +77,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     assertEquals("invalid prop descriptor name found", fieldName, pd.getName());
   }
 
+  @Test
   public void testGetInterfacePropertyDescriptors() {
     PropertyDescriptor[] descriptors = ReflectionUtils.getInterfacePropertyDescriptors(TestIF1.class);
     assertEquals(1, descriptors.length);

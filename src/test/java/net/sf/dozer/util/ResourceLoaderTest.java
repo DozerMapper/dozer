@@ -15,10 +15,13 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
 
@@ -28,20 +31,24 @@ import net.sf.dozer.AbstractDozerTest;
 public class ResourceLoaderTest extends AbstractDozerTest {
   private ResourceLoader loader = new ResourceLoader();
 
+  @Test
   public void testResourceNotFound() throws Exception {
     assertNull("file URL should not have been found", loader.getResource(String.valueOf(System.currentTimeMillis())));
   }
   
+  @Test
   public void testGetResourceWithWhitespace() {
     URL url = loader.getResource(" contextMapping.xml " );
     assertNotNull("URL should not be null", url);
   }
   
+  @Test
   public void testGetResourceWithNewlines() {
     URL url = loader.getResource("\ncontextMapping.xml\n" );
     assertNotNull("URL should not be null", url);
   }
 
+  @Test
   public void testGetResource_FileOutsideOfClasspath() throws Exception {
     // Create temp file.
     File temp = File.createTempFile("dozerfiletest", ".txt");
@@ -57,6 +64,7 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     assertNotNull("input stream should not be null", is);
   }
 
+  @Test
   public void testGetResource_FileOutsideOfClasspath_NotFound() throws Exception {
     URL url = loader.getResource("file:" + System.currentTimeMillis());
     assertNotNull("URL should not be null", url);
@@ -69,6 +77,7 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetResource_FileOutsideOfClasspath_InvalidFormat() throws Exception {
     // when using a file outside of classpath the file name must be prepended with "file:"
     URL url = loader.getResource(String.valueOf(System.currentTimeMillis()));

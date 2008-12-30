@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
@@ -35,6 +39,8 @@ import net.sf.dozer.vo.deep2.Src;
  * @author garsombke.franz
  */
 public class DeepMappingTest extends AbstractMapperTest {
+  
+  @Test
   public void testDeepMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
@@ -46,6 +52,7 @@ public class DeepMappingTest extends AbstractMapperTest {
     assertEquals(dest, dest2);
   }
 
+  @Test
   public void testDeepPropertyOneWay() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     House house = (House) newInstance(House.class);
@@ -59,6 +66,7 @@ public class DeepMappingTest extends AbstractMapperTest {
     assertNull(house2.getOwner().getYourName());
   }
 
+  @Test
   public void testDeepInterfaceWithHint() throws Exception {
     Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
     InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
@@ -79,6 +87,7 @@ public class DeepMappingTest extends AbstractMapperTest {
    * Related to feature request #1456486. Deep mapping with custom getter/setter does not work
    * Also related to #2459076
    */
+  @Test
   public void testDeepMapping_UsingCustomGetSetMethods() {
     mapper = super.getMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
 

@@ -15,12 +15,15 @@
  */
 package net.sf.dozer.converters;
 
+import static org.junit.Assert.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import org.junit.Test;
 
 import junit.framework.Assert;
 import net.sf.dozer.AbstractDozerTest;
@@ -33,6 +36,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
   private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter();
 
+  @Test
   public void testConvertPrimitiveOrWrapperEmptyString() throws Exception {
     // Test scenarios where emptry string should not result in a null output object
     String input = "";
@@ -42,6 +46,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     assertEquals("invalid output value", input, output);
   }
 
+  @Test
   public void testConvertPrimitiveOrWrapperEmptyString2() throws Exception {
     // For non strings, the output object should be null when an empty string is used as input
     String input = "";
@@ -50,6 +55,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     assertNull("output object should be null", output);
   }
 
+  @Test
   public void testConvertInteger() throws Exception {
     Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Integer.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2),
@@ -64,6 +70,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertIntegerWithFailure() throws Exception {
     Object input = "three";
     try {
@@ -74,6 +81,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertDouble() throws Exception {
     Object[] input = { String.valueOf(Double.MIN_VALUE), "-17.2", "-1.1", "0.0", "1.1", "17.2", String.valueOf(Double.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2) };
@@ -89,6 +97,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertFloat() throws Exception {
     Object[] input = { String.valueOf(Float.MIN_VALUE), "-17.2", "-1.1", "0.0", "1.1", "17.2", String.valueOf(Float.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2) };
@@ -104,6 +113,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertLong() throws Exception {
     Object[] input = { String.valueOf(Long.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Long.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2), Boolean.TRUE,
@@ -118,6 +128,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertBigDecimal() throws Exception {
     Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Integer.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), };
@@ -131,6 +142,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertBigInteger() throws Exception {
     Object[] input = { String.valueOf(Integer.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Integer.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10) };
@@ -144,6 +156,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertShort() throws Exception {
     Object[] input = { String.valueOf(Short.MIN_VALUE), "-17", "-1", "0", "1", "17", String.valueOf(Short.MAX_VALUE),
         new Byte((byte) 7), new Short((short) 8), new Integer(9), new Long(10), new Float(11.1), new Double(12.2) };
@@ -157,6 +170,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertDate() throws Exception {
     long time = Calendar.getInstance().getTimeInMillis();
 
@@ -314,6 +328,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertBoolean() throws Exception {
     Object[] input = { Integer.valueOf("0"), Integer.valueOf("1") };
     Boolean[] expected = { Boolean.valueOf(false), Boolean.valueOf(true) };
@@ -324,6 +339,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testConvertStringPositiveScalar() {
     Object value = converter.convert("true", Boolean.TYPE, null);
 
@@ -486,6 +502,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     assertEquals(((Short) value).shortValue(), (short) 123);
   }
 
+  @Test
   public void testConvertStringNegativeScalar() {
     Object value = null;
     try {

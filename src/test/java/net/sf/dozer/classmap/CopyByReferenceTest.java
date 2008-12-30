@@ -15,34 +15,39 @@
  */
 package net.sf.dozer.classmap;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
-public class CopyByReferenceTest extends TestCase {
+public class CopyByReferenceTest {
 
-    public void testMatches_OK() {
-        assertTrue(new CopyByReference("java.lang.String").matches("java.lang.String"));
-        assertFalse(new CopyByReference("java.lang.String").matches("java.lang.Integer"));
-    }
+  @Test
+  public void testMatches_OK() {
+    assertTrue(new CopyByReference("java.lang.String").matches("java.lang.String"));
+    assertFalse(new CopyByReference("java.lang.String").matches("java.lang.Integer"));
+  }
 
-    public void testMatches_Mask() {
-        assertTrue(new CopyByReference("*").matches("java.lang.String"));
-        assertTrue(new CopyByReference("java.*").matches("java.lang.String"));
-        assertTrue(new CopyByReference("java.*.String").matches("java.lang.String"));
-        assertTrue(new CopyByReference("java.lang.String*").matches("java.lang.String"));
-        assertTrue(new CopyByReference("java.lang.Stri*").matches("java.lang.String"));
-        assertTrue(new CopyByReference("java.lang.*tring").matches("java.lang.String"));
-        assertTrue(new CopyByReference("java.lang.*tri*").matches("java.lang.String"));
-        assertTrue(new CopyByReference("java.*tring").matches("java.lang.String"));
+  @Test
+  public void testMatches_Mask() {
+    assertTrue(new CopyByReference("*").matches("java.lang.String"));
+    assertTrue(new CopyByReference("java.*").matches("java.lang.String"));
+    assertTrue(new CopyByReference("java.*.String").matches("java.lang.String"));
+    assertTrue(new CopyByReference("java.lang.String*").matches("java.lang.String"));
+    assertTrue(new CopyByReference("java.lang.Stri*").matches("java.lang.String"));
+    assertTrue(new CopyByReference("java.lang.*tring").matches("java.lang.String"));
+    assertTrue(new CopyByReference("java.lang.*tri*").matches("java.lang.String"));
+    assertTrue(new CopyByReference("java.*tring").matches("java.lang.String"));
 
-        assertFalse(new CopyByReference("com*").matches("java.lang.String"));
-        assertFalse(new CopyByReference("java.lang.*f*").matches("java.lang.String"));
-    }
+    assertFalse(new CopyByReference("com*").matches("java.lang.String"));
+    assertFalse(new CopyByReference("java.lang.*f*").matches("java.lang.String"));
+  }
 
-    public void testMatches_SpecialCases() {
-        assertFalse(new CopyByReference("java.*.tring").matches("java.lang.String"));
-    }
+  @Test
+  public void testMatches_SpecialCases() {
+    assertFalse(new CopyByReference("java.*.tring").matches("java.lang.String"));
+  }
 
 }

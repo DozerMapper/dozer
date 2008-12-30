@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.converters;
 
+import org.junit.Test;
 
 /**
  * 
@@ -23,26 +24,24 @@ package net.sf.dozer.converters;
  */
 public class CustomConverterParamConverter implements ConfigurableCustomConverter {
 
-	public Object convert(Object existingDestinationFieldValue,
-			Object sourceFieldValue, Class destinationClass, Class sourceClass, String param) {
-		String source = null;
-		Object dest = null;
-		if (String.class.isAssignableFrom(sourceClass)) {
-			source = (String) sourceFieldValue;
-		}
-		
-		if (String.class.isAssignableFrom(destinationClass)) {
-			dest = source + "-" + param;
-		}
-		
-		return dest;
-	}
+  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class destinationClass, Class sourceClass,
+      String param) {
+    String source = null;
+    Object dest = null;
+    if (String.class.isAssignableFrom(sourceClass)) {
+      source = (String) sourceFieldValue;
+    }
 
-	public Object convert(Object existingDestinationFieldValue,
-			Object sourceFieldValue, Class destinationClass, Class sourceClass) {
+    if (String.class.isAssignableFrom(destinationClass)) {
+      dest = source + "-" + param;
+    }
 
-		return convert(existingDestinationFieldValue, sourceFieldValue,
-				destinationClass, sourceClass, null);
-	}
+    return dest;
+  }
+
+  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class destinationClass, Class sourceClass) {
+
+    return convert(existingDestinationFieldValue, sourceFieldValue, destinationClass, sourceClass, null);
+  }
 
 }

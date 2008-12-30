@@ -15,8 +15,11 @@
  */
 package net.sf.dozer.converters;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
 
@@ -25,6 +28,7 @@ import net.sf.dozer.AbstractDozerTest;
  */
 public class CustomConverterContainerTest extends AbstractDozerTest {
 
+  @Test
   public void testSetConverters() throws Exception {
     CustomConverterContainer ccc = new CustomConverterContainer();
     List list = new ArrayList();

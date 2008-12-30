@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
+import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
@@ -41,12 +44,14 @@ import net.sf.dozer.vo.enumtest.SrcTypeWithOverride;
  */
 public class MappingUtilsTest extends AbstractDozerTest {
 
+  @Test
   public void testIsBlankOrNull() throws Exception {
     assertTrue(MappingUtils.isBlankOrNull(null));
     assertTrue(MappingUtils.isBlankOrNull(""));
     assertTrue(MappingUtils.isBlankOrNull(" "));
   }
 
+  @Test
   public void testOverridenFields() throws Exception {
     MappingFileReader fileReader = new MappingFileReader("overridemapping.xml");
     MappingFileData mappingFileData = fileReader.read();
@@ -68,12 +73,14 @@ public class MappingUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetClassWithoutPackage() throws Exception {
     String result = MappingUtils.getClassNameWithoutPackage(String.class);
     assertNotNull("result should not be null", result);
     assertEquals("invalid result value", "String", result);
   }
 
+  @Test
   public void testThrowMappingException_MappingException() {
     MappingException ex = new MappingException(String.valueOf(System.currentTimeMillis()));
     try {
@@ -84,6 +91,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testThrowMappingException_RuntimeException() {
     // Runtime ex should not get wrapped in MappingException
     NullPointerException ex = new NullPointerException(String.valueOf(System.currentTimeMillis()));
@@ -97,6 +105,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testThrowMappingException_CheckedException() {
     // Checked exception should get wrapped in MappingException
     NoSuchFieldException ex = new NoSuchFieldException(String.valueOf(System.currentTimeMillis()));
@@ -110,30 +119,35 @@ public class MappingUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetRealClass() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
     assertEquals(ArrayList.class, MappingUtils.getRealClass(proxyObj.getClass()));
     assertEquals(ArrayList.class, MappingUtils.getRealClass(ArrayList.class));
   }
 
+  @Test
   public void testIsProxy() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
     assertTrue("should have evaluated to true for cglib proxy", MappingUtils.isProxy(proxyObj.getClass()));
     assertFalse("should not have evaluated to true", MappingUtils.isProxy(ArrayList.class));
   }
 
+  @Test
   public void testGetRealSuperclass() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
     assertEquals("wrong value returned for cglib proxy", AbstractList.class, MappingUtils.getRealSuperclass(proxyObj.getClass()));
     assertEquals("wrong value returned for unproxied object", AbstractList.class, MappingUtils.getRealSuperclass(ArrayList.class));
   }
 
+  @Test
   public void testIsSupportedMap() {
     assertTrue(MappingUtils.isSupportedMap(Map.class));
     assertTrue(MappingUtils.isSupportedMap(HashMap.class));
     assertFalse(MappingUtils.isSupportedMap(String.class));
   }
 
+  @Test
   public void testIsDeepMapping() {
     assertTrue(MappingUtils.isDeepMapping("a.b"));
     assertTrue(MappingUtils.isDeepMapping("."));
@@ -144,6 +158,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertFalse(MappingUtils.isDeepMapping("aaa"));
   }
   
+  @Test
   public void testPrepareIndexedCollection_Array() {
     String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, null, "some entry", 0);
     assertTrue(Arrays.equals(new String[] { "some entry" }, result));
@@ -155,6 +170,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertTrue(Arrays.equals(new String[] { "a", "b", "c", null, null, "some entry" }, result));
   }
 
+  @Test
   public void testPrepareIndexedCollection_List() {
     List result = (List) MappingUtils.prepareIndexedCollection(List.class, null, "some entry", 0);
     assertEquals(Arrays.asList(new String[] { "some entry" }), result);
@@ -167,6 +183,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertEquals(Arrays.asList(new String[] { "a", "b", "c", null, null, "some entry" }), result);
   }
 
+  @Test
   public void testPrepareIndexedCollection_Vector() {
     Vector result = (Vector) MappingUtils.prepareIndexedCollection(Vector.class, null, "some entry", 0);
     assertEquals(new Vector(Arrays.asList(new String[] { "some entry" })), result);
@@ -179,11 +196,13 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertEquals(new Vector(Arrays.asList(new String[] { "a", "b", "c", null, null, "some entry" })), result);
   }
   
+  @Test
   public void testPrepareIndexedCollection_ArrayResize() {
     String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, new String[] {"a", "b"}, "some entry",3);
     assertTrue(Arrays.equals(new String[] { "a", "b", null, "some entry" }, result));
   }
 
+  @Test
   public void testPrepareIndexedCollection_UnsupportedType() {
     try {
       MappingUtils.prepareIndexedCollection(String.class, null, "some entry", 0);
@@ -196,6 +215,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
   /**
    * Test for isEnumType(Class srcFieldClass, Class destFieldType) defined in MappingUtils
    */
+  @Test
   public void testIsEnum() {
     assertTrue(MappingUtils.isEnumType(SrcType.class, DestType.class));
     assertTrue(MappingUtils.isEnumType(SrcType.FOO.getClass(), DestType.FOO.getClass()));

@@ -15,14 +15,19 @@
  */
 package net.sf.dozer.propertydescriptor;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import junit.framework.TestCase;
 import net.sf.dozer.MappingException;
 
 /**
  * @author dmitry.buzdin
  */
-public class FieldPropertyDescriptorTest extends TestCase {
+public class FieldPropertyDescriptorTest  {
 
+  @Test
   public void testNoSuchField() {
     try {
       new FieldPropertyDescriptor(String.class, "nosuchfield", false, 0, null, null);
@@ -32,6 +37,7 @@ public class FieldPropertyDescriptorTest extends TestCase {
     }
   }
 
+  @Test
   public void testConstructor() {
     FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(String.class, "offset", false, 0, null, null);
     assertNotNull(descriptor);

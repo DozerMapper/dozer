@@ -15,17 +15,22 @@
  */
 package net.sf.dozer.copybyreference;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 
-import junit.framework.TestCase;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
 
-public class SubclassReferenceTest extends TestCase {
+import org.junit.Before;
+import org.junit.Test;
+
+public class SubclassReferenceTest  {
   Mapper mapper;
   TestA testA;
   TestB testB;
 
+  @Before
   public void setUp() {
     mapper = new DozerBeanMapper(Arrays.asList(new String[] { getMappingFile() }));
     testA = new TestA();
@@ -38,12 +43,14 @@ public class SubclassReferenceTest extends TestCase {
     return "reference-mapping.xml";
   }
 
+  @Test
   public void testBase() {
     testB = (TestB) mapper.map(testA, TestB.class);
     assertEquals(testA.getOne(), testB.getOne());
     assertEquals(testA.getOneA(), testB.getOneB());
   }
 
+  @Test
   public void testSubclassSource() {
     TestA testA = new TestA() {
     }; // anonymous subclass
@@ -54,6 +61,7 @@ public class SubclassReferenceTest extends TestCase {
     assertEquals(testA.getOneA(), testB.getOneB());
   }
 
+  @Test
   public void testReference() {
     testA.setTestReference(Reference.FOO);
     testB = mapper.map(testA, TestB.class);
@@ -62,6 +70,7 @@ public class SubclassReferenceTest extends TestCase {
     assertEquals(testA.getTestReference(), testB.getTestReference());
   }
 
+  @Test
   public void testReferenceSubclassSource() {
     TestA testASubclass = new TestA() {
     }; // anonymous subclass

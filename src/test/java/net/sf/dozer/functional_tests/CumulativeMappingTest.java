@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,12 +29,16 @@ import net.sf.dozer.vo.cumulative.BookPrime;
 import net.sf.dozer.vo.cumulative.Library;
 import net.sf.dozer.vo.cumulative.LibraryPrime;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Buzdin
  */
 public class CumulativeMappingTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("cumulative.xml");
   }
 
@@ -40,6 +46,7 @@ public class CumulativeMappingTest extends AbstractMapperTest {
   * The same is on 'Prime' side with only one exception. AuthorPrime has all the fields of Author and
   * one more - salary.
   */
+  @Test
   public void testMapping() {
     Library libSrc = new Library();
     libSrc.setBooks(Collections.singletonList(new Book(new Long(141L), new Author("The Best One", new Long(505L)))));

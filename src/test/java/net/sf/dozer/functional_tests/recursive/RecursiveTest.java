@@ -15,9 +15,13 @@
  */
 package net.sf.dozer.functional_tests.recursive;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.functional_tests.AbstractMapperTest;
+
+import org.junit.Test;
 
 /**
  * Test the dozer behaviour when confronted with structures similar to ours. As of now (dozer 3.0) the behaviour is not
@@ -47,6 +51,7 @@ public class RecursiveTest extends AbstractMapperTest {
    * dozer3.0 the first reference is not used but the recursion is correct on the next levels.
    * 
    */
+  @Test
   public void testConvertWithSubClass() {
     mapper = getMapper(new String[] { "recursivemappings.xml", "recursivemappings2.xml" });
     ClassAA testAA = createTestClassAA();

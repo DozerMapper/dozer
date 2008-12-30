@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.MappingException;
@@ -31,6 +35,7 @@ import net.sf.dozer.vo.abstractinheritance.B;
  */
 public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
 
+  @Test
   public void testCustomMappingForAbstractClasses() throws Exception {
     // Test that the explicit abstract custom mapping definition is used when mapping sub classes
     mapper = getMapper(new String[] { "abstractMapping.xml" });
@@ -50,6 +55,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
+  @Test
   public void testNoCustomMappingForAbstractClasses() throws Exception {
     // Test that wildcard fields in abstract classes are mapped when there is no explicit abstract custom mapping
     // definition
@@ -70,6 +76,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
+  @Test
   public void testAbstractDestClassThrowsException() throws Exception {
     try {
       mapper.map(newInstance(A.class), AbstractB.class);
@@ -79,6 +86,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     }
   }
 
+  @Test
   public void testNoCustomMappingForAbstractClasses_SubclassAttrsAppliedToAbstractClasses() throws Exception {
     // Test that when there isnt an explicit abstract custom mapping definition the subclass mapping def attrs are
     // applied to the abstract class mapping. In this use case, wildcard="false" for the A --> B mapping definition
@@ -96,7 +104,8 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-
+  
+  @Test
   public void testNoCustomMappingForSubclasses_CustomMappingForAbstractClasses() throws Exception {
     // Tests that custom mappings for abstract classes are used when there are no custom mappings
     // for subclasses. Also tests that a default class map is properly created and used for the subclass

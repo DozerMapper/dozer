@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,12 +27,16 @@ import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.map.MapToMap;
 import net.sf.dozer.vo.map.MapToMapPrime;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Buzdin
  */
 public class MapMappingTest extends AbstractMapperTest{
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("mapMapping6.xml");
   }
 
@@ -54,7 +62,7 @@ public class MapMappingTest extends AbstractMapperTest{
 //    assertNull(resultingMap.get("B"));
 //  }
 
-
+  @Test
   public void testMapWithNullEntries_NullPointer() {
     MapToMap source = new MapToMap();
     HashMap map = new HashMap();

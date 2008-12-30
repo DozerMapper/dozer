@@ -15,9 +15,12 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.junit.Test;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
@@ -35,6 +38,7 @@ import net.sf.dozer.vo.interfacerecursion.UserPrime;
  */
 public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
 
+  @Test
   public void testRecursiveInterfaceMapping() throws Exception {
 
     // prepare 2 Users in 1 UserGroup

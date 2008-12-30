@@ -15,7 +15,10 @@
  */
 package net.sf.dozer.propertydescriptor;
 
+import static org.junit.Assert.*;
 import java.lang.reflect.Method;
+
+import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.fieldmap.DozerField;
@@ -26,6 +29,7 @@ import net.sf.dozer.vo.deep2.Dest;
  */
 public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
 
+  @Test
   public void testGetReadMethod() throws Exception {
     DozerField dozerField = new DozerField("destField", "generic");
 

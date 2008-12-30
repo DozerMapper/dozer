@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -40,16 +43,21 @@ import net.sf.dozer.vo.deepindex.isaccessible.FlatPerson;
 import net.sf.dozer.vo.deepindex.isaccessible.Person;
 import net.sf.dozer.vo.deepindex.isaccessible.Phone;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class DeepMappingWithIndexTest extends AbstractMapperTest {
-  protected void setUp() throws Exception {
-    super.setUp();
+  
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
   }
 
+  @Test
   public void testDeepMappingWithIndexOnSrcField() {
     SimpleObj simpleObj = (SimpleObj) newInstance(SimpleObj.class);
     simpleObj.setField1("985756");
@@ -78,6 +86,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(Integer.valueOf("6453"), ((TestObjectPrime) dest.getHintList().get(0)).getTwoPrime());
   }
 
+  @Test
   public void testDeepMappingWithIndexOnDestField() {
     DestDeepObj src = (DestDeepObj) newInstance(DestDeepObj.class);
     src.setDest2(new Integer(857557));
@@ -89,6 +98,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals("789777", ((AnotherTestObject) destTestObj.getEqualNamedList().get(0)).getField3());
   }
 
+  @Test
   public void testDeepMapIndexed() throws Exception {
     Pet[] myPets = new Pet[2];
     Family source = new Family("john", "jane", "doe", new Integer(22000), new Integer(20000));
@@ -116,6 +126,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(source.getPets()[1].getOffSpring()[2].getPetName(), dest.getOffSpringName());
   }
 
+  @Test
   public void testDeepMapInvIndexed() throws Exception {
     HeadOfHouseHold source = (HeadOfHouseHold) newInstance(HeadOfHouseHold.class);
     source.setFirstName("Tom");
@@ -136,6 +147,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
   }
 
+  @Test
   public void testDeepMapIndexedIsAccessible() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
 
@@ -151,6 +163,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals(dest.getPhoneNumber(), ((Phone) source.phones.get(0)).getNumber());
   }
 
+  @Test
   public void diabled_testDeepMapIndexedIsAccessibleInversed() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
     
@@ -176,6 +189,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
    * To fix this problem, let net.sf.dozer.XMLParser only replace the last 
    * indexes in getFieldNameOfIndexedField.
    */ 
+  @Test
   public void testDeepIndexMappingWithCustomConverter() {
     mapper = getMapper(new String[] { "deepMappingWithIndexedFieldsByCustomConverter.xml" });
     First first = new First();
@@ -187,6 +201,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
   }
   
   // bug #1803172
+  @Test
   public void testDeepIndexMapping_CollectionNeedsResizing() {
     mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
     A src = new A();

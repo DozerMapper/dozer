@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.stats;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 
 /**
@@ -22,6 +26,7 @@ import net.sf.dozer.AbstractDozerTest;
  */
 public class StatisticTest extends AbstractDozerTest {
 
+  @Test
   public void testConstructor() throws Exception {
     StatisticType type = StatisticType.CACHE_HIT_COUNT;
     Statistic stat = new Statistic(type);
@@ -29,6 +34,7 @@ public class StatisticTest extends AbstractDozerTest {
     assertEquals("invalid type", type, stat.getType());
   }
 
+  @Test
   public void testEquals() throws Exception {
     StatisticType type = StatisticType.MAPPING_FAILURE_TYPE_COUNT;
     Statistic stat = new Statistic(type);
@@ -38,6 +44,7 @@ public class StatisticTest extends AbstractDozerTest {
     assertEquals("objects hashcode should be equal", stat.hashCode(), stat2.hashCode());
   }
 
+  @Test
   public void testAddGetEntries() throws Exception {
     Statistic stat = new Statistic(StatisticType.CUSTOM_CONVERTER_TIME);
     int numEntriesToAdd = 5;
@@ -56,6 +63,7 @@ public class StatisticTest extends AbstractDozerTest {
     assertEquals("invlid stat size", numEntriesToAdd, stat.getEntries().size());
   }
 
+  @Test
   public void testClear() throws Exception {
     Statistic stat = new Statistic(StatisticType.CUSTOM_CONVERTER_TIME);
     StatisticEntry entry = new StatisticEntry(getRandomString());
@@ -66,6 +74,7 @@ public class StatisticTest extends AbstractDozerTest {
     assertEquals("stat entries should have been cleared", 0, stat.getEntries().size());
   }
 
+  @Test
   public void testGetEntryWithDefaultKey() throws Exception {
     StatisticType type = StatisticType.FIELD_MAPPING_SUCCESS_COUNT;
     Statistic stat = new Statistic(type);
@@ -75,6 +84,7 @@ public class StatisticTest extends AbstractDozerTest {
     assertEquals("invalid entry found", entry, stat.getEntry());
   }
 
+  @Test
   public void testGetEntryWithDefaultKeyNotFound() throws Exception {
     Statistic stat = new Statistic(StatisticType.MAPPING_FAILURE_TYPE_COUNT);
     StatisticEntry entry = new StatisticEntry(getRandomString());
@@ -83,6 +93,7 @@ public class StatisticTest extends AbstractDozerTest {
     assertNull("entry should not have been found", stat.getEntry());
   }
 
+  @Test
   public void testAddNull() {
     Statistic stat = new Statistic(StatisticType.CACHE_MISS_COUNT);
     try {

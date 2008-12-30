@@ -15,11 +15,19 @@
  */
 package net.sf.dozer.classmap;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.fieldmap.GenericFieldMap;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -29,11 +37,13 @@ public class ClassMapTest extends AbstractDozerTest {
   private ClassMap classMap;
   private Configuration globalConfiguration;
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     globalConfiguration = new Configuration();
     classMap = new ClassMap(globalConfiguration);
   }
 
+  @Test
   public void testAddFieldMappings() throws Exception {
     ClassMap cm = new ClassMap(null);
     GenericFieldMap fm = new GenericFieldMap(cm);
@@ -45,6 +55,7 @@ public class ClassMapTest extends AbstractDozerTest {
     assertEquals(cm.getFieldMaps().get(0), fm);
   }
 
+  @Test
   public void testSetFieldMappings() throws Exception {
     ClassMap cm = new ClassMap(null);
     GenericFieldMap fm = new GenericFieldMap(cm);
@@ -58,10 +69,12 @@ public class ClassMapTest extends AbstractDozerTest {
     assertEquals(cm.getFieldMaps().get(0), fmList.get(0));
   }
 
+  @Test
   public void testGetFieldMapUsingDest() {
     assertNull(classMap.getFieldMapUsingDest("", true));
   }
 
+  @Test
   public void testProvideAlternateName() {
     assertEquals("field1", classMap.provideAlternateName("Field1"));
   }

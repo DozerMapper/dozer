@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.AnotherTestObject;
@@ -24,13 +25,17 @@ import net.sf.dozer.vo.SimpleObjPrime;
 import net.sf.dozer.vo.TestObject;
 import net.sf.dozer.vo.TestObjectPrime;
 
+import org.junit.Before;
+import org.junit.Test;
+
 public class TrimStringsTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper(new String[] { "trimStringsMapping.xml" });
   }
 
+  @Test
   public void testTrimStrings_Global() {
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
     src.setField3("      valueNeedingTrimmed       ");
@@ -44,6 +49,7 @@ public class TrimStringsTest extends AbstractMapperTest {
     assertEquals("field 5 not trimmed", Integer.valueOf("127"), dest.getField5());
   }
 
+  @Test
   public void testTrimStrings_ClassMapLevel() {
     TestObject src = (TestObject) newInstance(TestObject.class);
     String value = "    shouldNotBeNeedingTrimmed     ";
@@ -54,6 +60,7 @@ public class TrimStringsTest extends AbstractMapperTest {
     assertEquals(value, dest.getOnePrime());
   }
 
+  @Test
   public void testTrimStrings_ImplicitMapping() {
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
     src.setField1("      valueNeedingTrimmed       ");

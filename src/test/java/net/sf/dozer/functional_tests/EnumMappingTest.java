@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.enumtest.MyBean;
@@ -49,13 +53,10 @@ import net.sf.dozer.vo.enumtest.SrcTypeWithOverride;
  */
 public class EnumMappingTest extends AbstractMapperTest {
   
-  protected void setUp() throws Exception {
-    super.setUp();
-  }
-  
   /**
    * Test on a mapping from Overrided Enum to Based Enum. 
    */
+  @Test
   public void testOverridedEnumMapsToBasedEnum() {
     mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
     MyBean src = new MyBean();
@@ -68,6 +69,7 @@ public class EnumMappingTest extends AbstractMapperTest {
   /**
    * Test on a mapping from Based Enum to Overrided Enum.
    */
+  @Test
   public void testBasedEnumMapsToOverridedEnum() {
     mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
     MyBean src = new MyBean();
@@ -80,6 +82,7 @@ public class EnumMappingTest extends AbstractMapperTest {
   /**
    * Test on a mapping from Based Enum to Based Enum.
    */
+  @Test
   public void testBasedEnumMapsToBasedEnum() {
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();
@@ -92,6 +95,7 @@ public class EnumMappingTest extends AbstractMapperTest {
   /**
    * Test on a mapping from Overrided Enum to Overrided Enum.
    */
+  @Test
   public void testOverridedEnumMapsToOverridedEnum() {
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();
@@ -104,6 +108,7 @@ public class EnumMappingTest extends AbstractMapperTest {
   /**
    * Test on a mapping from Enum to itself. This test is used to reproduce bug#1806780.
    */
+  @Test
   public void testEnumMapsToItself() {
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
@@ -115,6 +120,7 @@ public class EnumMappingTest extends AbstractMapperTest {
   /**
    * Test on if mapping to nonexist enum value would throw exception.
    */
+  @Test
   public void testEnumMapsToNonexistEnumValue(){
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();

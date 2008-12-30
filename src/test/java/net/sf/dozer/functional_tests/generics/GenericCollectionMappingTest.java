@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.functional_tests.generics;
 
+import static org.junit.Assert.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -22,6 +23,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.junit.Test;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
@@ -42,6 +45,7 @@ import net.sf.dozer.vo.generics.deepindex.TestObjectPrime;
  */
 public class GenericCollectionMappingTest extends AbstractMapperTest {
 
+  @Test
   public void testGenericCollectionMapping() throws Exception {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
 
@@ -94,6 +98,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     assertTrue("Expecting instance of UserPrime.", usersGroupPrime.iterator().next() instanceof User);
   }
   
+  @Test
   public void testDeepMappingWithIndexOnSrcField() {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     
@@ -113,6 +118,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     assertEquals(Integer.valueOf("6453"), ((TestObjectPrime)dest.getHintList().get(0)).getTwoPrime());
   }
 
+  @Test
   public void testDeepMappingWithIndexOnDestField() {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     DestDeepObj src = new DestDeepObj();
@@ -122,6 +128,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     assertEquals("some string value for field", dest.getSomeList().get(1).getEqualNamedList().get(0).getField3());
   }
 
+  @Test
   public void testDeepMapIndexed() throws Exception {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     Pet[] myPets = new Pet[2];
@@ -150,6 +157,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     assertEquals(source.getPets()[1].getOffSpring()[2].getPetName(), dest.getOffSpringName());
   }
 
+  @Test
   public void testDeepMapInvIndexed() throws Exception {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     HeadOfHouseHold source = new HeadOfHouseHold();

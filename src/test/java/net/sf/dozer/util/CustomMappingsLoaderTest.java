@@ -1,19 +1,24 @@
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
 import java.util.Arrays;
+
+import org.junit.Test;
 
 import junit.framework.TestCase;
 import net.sf.dozer.MappingException;
 
-public class CustomMappingsLoaderTest extends TestCase {
+public class CustomMappingsLoaderTest {
   private CustomMappingsLoader loader = new CustomMappingsLoader();
 
+  @Test
   public void testLoad() {
     LoadMappingsResult result = loader.load(Arrays.asList(new String[] { "customMappingsLoaderTest.xml" }));
     assertNotNull("result should not be null", result);
     assertEquals("wrong # of mappings", 4, result.getCustomMappings().size());
   }
 
+  @Test
   public void testLoadWithGlobalConfig() {
     LoadMappingsResult result = loader.load(Arrays.asList(new String[] { "customMappingsLoaderWithGlobalConfigTest.xml" }));
     assertNotNull("result should not be null", result);
@@ -22,6 +27,7 @@ public class CustomMappingsLoaderTest extends TestCase {
         .getGlobalConfiguration().getBeanFactory());
   }
 
+  @Test
   public void testLoad_MultipleGlobalConfigsFound() {
     try {
       loader.load(Arrays.asList(new String[] { "global-configuration.xml", "customMappingsLoaderWithGlobalConfigTest.xml" }));

@@ -15,10 +15,17 @@
  */
 package net.sf.dozer.stats;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -26,12 +33,13 @@ import net.sf.dozer.AbstractDozerTest;
 public class StatisticManagerTest extends AbstractDozerTest {
   private StatisticsManagerImpl statMgr;
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     statMgr = new StatisticsManagerImpl();
     statMgr.setStatisticsEnabled(true);
   }
 
+  @Test
   public void testAddAndGetStatistic() {
     StatisticType type = StatisticType.FIELD_MAPPING_FAILURE_COUNT;
     Statistic stat = new Statistic(type);
@@ -42,6 +50,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertTrue("invalid stat ref found", stat == statMgr.getStatistic(type));
   }
 
+  @Test
   public void testSetStatisticsEnabled() {
     boolean value = true;
     if (statMgr.isStatisticsEnabled()) {
@@ -51,6 +60,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertEquals("invalid stats enabled value", value, statMgr.isStatisticsEnabled());
   }
 
+  @Test
   public void testClearAll() {
     statMgr.addStatistic(new Statistic(StatisticType.MAPPING_FAILURE_TYPE_COUNT));
     statMgr.addStatistic(new Statistic(StatisticType.CACHE_HIT_COUNT));
@@ -59,6 +69,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertEquals("invalid stat size", 0, statMgr.getStatistics().size());
   }
 
+  @Test
   public void testGetStatisticTypes() {
     StatisticType type = StatisticType.CUSTOM_CONVERTER_TIME;
     StatisticType type2 = StatisticType.CACHE_HIT_COUNT;
@@ -72,6 +83,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertEquals("invalid stat types found", expected, statMgr.getStatisticTypes());
   }
 
+  @Test
   public void testIncrementMissingParams() {
     try {
       statMgr.increment(null, "test", 1);
@@ -86,6 +98,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetStatisticValue() {
     StatisticType type = StatisticType.MAPPER_INSTANCES_COUNT;
     Statistic stat = new Statistic(type);
@@ -98,6 +111,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertEquals("invalid entry value", 100, statMgr.getStatisticValue(type));
   }
 
+  @Test
   public void testGetStatisticValueException() {
     StatisticType type = StatisticType.MAPPING_FAILURE_COUNT;
     Statistic stat = new Statistic(type);
@@ -113,6 +127,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testAddDuplicateStatistic() {
     StatisticType type = StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT;
     statMgr.addStatistic(new Statistic(type));
@@ -124,6 +139,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testIncrementUnknownTypeAndKey() {
     StatisticType type = StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT;
     String entryKey = getRandomString();

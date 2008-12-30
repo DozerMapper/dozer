@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapperSingletonWrapper;
 import net.sf.dozer.Mapper;
@@ -32,6 +36,7 @@ import net.sf.dozer.vo.bidirectional.B;
  */
 public class BiDirectionalMappingTest extends AbstractMapperTest {
 
+  @Test
   public void testSimpleBidirectional() {
     // A contains B and B contains A.
     A src = (A) newInstance(A.class);
@@ -43,6 +48,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
     assertNotNull("field1 should have been mapped", dest.getField1());
   }
 
+  @Test
   public void testBidirectionalWithCustomMapping() throws Exception {
     Mapper mapper = getMapper(new String[] { "infiniteLoopMapping.xml" });
     LoopObjectParent loopObjectParent = (LoopObjectParent) newInstance(LoopObjectParent.class);
@@ -60,6 +66,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
    * 
    * @author korittky.joachim
    */
+  @Test
   public void testManyObjects() {
     net.sf.dozer.vo.B a = (net.sf.dozer.vo.B) newInstance(net.sf.dozer.vo.B.class);
     net.sf.dozer.vo.B b = new net.sf.dozer.vo.B();

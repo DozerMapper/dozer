@@ -15,13 +15,17 @@
  */
 package net.sf.dozer.classmap;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
-public class RelationshipTypeTest extends TestCase {
+public class RelationshipTypeTest  {
 
+  @Test
   public void testValueOf() {
     assertNull(RelationshipType.valueOf(""));
     assertNull(RelationshipType.valueOf(null));

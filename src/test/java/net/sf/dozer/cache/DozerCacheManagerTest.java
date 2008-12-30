@@ -15,11 +15,21 @@
  */
 package net.sf.dozer.cache;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -27,11 +37,12 @@ import net.sf.dozer.MappingException;
 public class DozerCacheManagerTest extends AbstractDozerTest {
   private DozerCacheManager cacheMgr;
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     cacheMgr = new DozerCacheManager();
   }
 
+  @Test
   public void testCreateNew() throws Exception {
     DozerCacheManager cacheMgr2 = new DozerCacheManager();
 
@@ -39,6 +50,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     assertNotSame("cache mgrs should not be same instance", cacheMgr, cacheMgr2);
   }
 
+  @Test
   public void testAddGetExistsCache() throws Exception {
     String cacheName = getRandomString();
     cacheMgr.addCache(cacheName, 1);
@@ -52,6 +64,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     assertEquals("invalid cache name", cacheName, cache.getName());
   }
 
+  @Test
   public void testGetUnknownCache() throws Exception {
     String cacheName = getRandomString();
     boolean cacheExists = cacheMgr.cacheExists(cacheName);
@@ -64,6 +77,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testAddDuplicateCachesSingleton() throws Exception {
     String cacheName = getRandomString();
     cacheMgr.addCache(cacheName, 1);
@@ -76,6 +90,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testAddDuplicateCachesNonSingleton() throws Exception {
     // You should be able to add caches with the same name to non singleton instances
     // of the cache manager because they each have their own copies of caches to manage.
@@ -98,6 +113,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     assertEquals("invalid cache name for cache2", cacheName, cache2.getName());
   }
 
+  @Test
   public void testGetStatisticTypes() {
     String name = getRandomString();
     String name2 = name + "-2";
@@ -111,6 +127,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     assertEquals("invalid cache names types found", expected, cacheMgr.getCacheNames());
   }
 
+  @Test
   public void testClearAllCacheEntries() {
     String name = getRandomString();
     Cache cache = new DozerCache(name, 5);
@@ -122,6 +139,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     assertEquals("invalid cache entry size after clearAll", 0, ((DozerCache)cacheMgr.getCache(name)).getEntries().size());
   }
 
+  @Test
   public void testGetCaches() {
     String name = getRandomString();
     Cache cache = new DozerCache(name, 5);

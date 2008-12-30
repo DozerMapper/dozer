@@ -15,21 +15,28 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.HashMap;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.ValueObject;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Buzdin
  */
 public class CopyByReferenceFromMapTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("mapMapping7.xml");
   }
 
+  @Test
   public void testCopyByReferenceFromMap() {
     HashMap hashMap = new HashMap();
     hashMap.put("1", new ValueObject());

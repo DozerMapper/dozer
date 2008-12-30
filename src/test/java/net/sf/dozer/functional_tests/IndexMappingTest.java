@@ -15,6 +15,11 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +40,9 @@ import net.sf.dozer.vo.Individuals;
 import net.sf.dozer.vo.index.Mccoy;
 import net.sf.dozer.vo.index.MccoyPrime;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author wojtek.kiersztyn
  * @author dominic.peciuch
@@ -42,10 +50,12 @@ import net.sf.dozer.vo.index.MccoyPrime;
  */
 public class IndexMappingTest extends AbstractMapperTest {
 
-  protected void setUp() {
+  @Before
+  public void setUp() {
     mapper = getMapper(new String[] { "IndividualMapping.xml" });
   }
 
+  @Test
   public void testMap1() throws Exception {
     List userNames = (List) newInstance(ArrayList.class);
     userNames.add("username1");
@@ -75,6 +85,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals("myString", dest.getAddress());
   }
 
+  @Test
   public void testMap1Inv() {
     FlatIndividual source = (FlatIndividual) newInstance(FlatIndividual.class);
     source.setUsername1("username1");
@@ -97,6 +108,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals(source.getThirdName(), dest.getThirdNameElement1());
   }
 
+  @Test
   public void testMap3() {
     List userNames = (List) newInstance(ArrayList.class);
     userNames.add("username1");
@@ -123,6 +135,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals(source.getSecondNames()[2], dest.getSecondName2());
   }
 
+  @Test
   public void testNulls() {
     FlatIndividual source = (FlatIndividual) newInstance(FlatIndividual.class);
     source.setSimpleField("a simplefield");
@@ -131,6 +144,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals(source.getSimpleField(), dest.getSimpleField());
   }
 
+  @Test
   public void testNullsInv() {
     Individuals source = (Individuals) newInstance(Individuals.class);
     source.setSimpleField("a simplefield");
@@ -139,6 +153,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals(source.getSimpleField(), dest.getSimpleField());
   }
 
+  @Test
   public void testNestedArray() {
     Individuals source = (Individuals) newInstance(Individuals.class);
     Aliases aliases = (Aliases) newInstance(Aliases.class);
@@ -149,6 +164,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals("other alias 1", dest.getPrimaryAlias());
   }
 
+  @Test
   public void testNotNullNestedIndexAtoD() {
     C c = (C) newInstance(C.class);
     c.setValue("value1");
@@ -161,6 +177,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals("value not translated", "value1", d.getValue());
   }
 
+  @Test
   public void testNullNestedIndexAtoD() {
     A a = (A) newInstance(A.class);
 
@@ -168,6 +185,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertNull("value should not be translated", d.getValue());
   }
 
+  @Test
   public void testNotNullNestedIndexDtoA() {
     D d = (D) newInstance(D.class);
     d.setValue("value1");
@@ -176,12 +194,14 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals("value not translated", d.getValue(), a.getB().getCs()[0].getValue());
   }
 
+  @Test
   public void testNullNestedIndexDtoA() {
     D d = (D) newInstance(D.class);
     A a = mapper.map(d, A.class);
     assertNotNull(a);
   }
 
+  @Test
   public void testStringToIndexedSet_UsingMapSetMethod() {
     mapper = (DozerBeanMapper) getMapper(new String[] { "indexMapping.xml" });
     Mccoy src = (Mccoy) newInstance(Mccoy.class);

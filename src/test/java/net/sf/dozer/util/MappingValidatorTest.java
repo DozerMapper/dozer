@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
 
@@ -23,6 +27,7 @@ import net.sf.dozer.MappingException;
  */
 public class MappingValidatorTest extends AbstractDozerTest {
 
+  @Test
   public void testValidateMappingRequest_NullSrcObj() throws Exception {
     try {
       MappingValidator.validateMappingRequest(null);
@@ -30,6 +35,7 @@ public class MappingValidatorTest extends AbstractDozerTest {
     } catch (MappingException e) {}
   }
 
+  @Test
   public void testValidateMappingRequest_NullDestObj() throws Exception {
     try {
       MappingValidator.validateMappingRequest(new Object(), null);
@@ -37,6 +43,7 @@ public class MappingValidatorTest extends AbstractDozerTest {
     } catch (MappingException e) {}
   }
 
+  @Test
   public void testValidateMappingRequest_BothNullObj() throws Exception {
     try {
       MappingValidator.validateMappingRequest(null, null);
@@ -44,6 +51,7 @@ public class MappingValidatorTest extends AbstractDozerTest {
     } catch (MappingException e) {}
   }
 
+  @Test
   public void testValidateMappingRequest_OK() throws Exception {
     try {
       MappingValidator.validateMappingRequest(new Object(), new Object());

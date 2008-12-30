@@ -22,20 +22,24 @@ import net.sf.dozer.vo.TestObjectPrime;
 import net.sf.dozer.vo.inheritance.AnotherSubClass;
 import net.sf.dozer.vo.inheritance.AnotherSubClassPrime;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author tierney.matt
  * @author Ozzie Gurkan
  */
 public class MultiThreadedTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
   }
 
   /*
    * See Bug #1550275. ConcurrentModificationException was being thrown
    */
+  @Test
   public void testMultiThreadedMapping() throws Exception {
 
     Runnable run = new Runnable() {

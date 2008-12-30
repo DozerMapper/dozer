@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
@@ -26,6 +30,7 @@ import net.sf.dozer.vo.collections.UserImpl;
 
 public class TestCumulativeCollectionMapping extends AbstractMapperTest {
 
+  @Test
   public void testMappingInterface() throws Exception {
 
     // prepare 2 Users in 1 UserGroup
@@ -59,6 +64,7 @@ public class TestCumulativeCollectionMapping extends AbstractMapperTest {
     assertEquals("Two users in mapped usergroup expected.", 2, userGroupPrime.getUsers().size());
   }
 
+  @Test
   public void testMappingConcrete() throws Exception {
 
     // prepare 2 Users in 1 UserGroup

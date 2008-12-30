@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,7 @@ import net.sf.dozer.vo.km.Sub;
 import net.sf.dozer.vo.km.Super;
 
 import org.apache.commons.lang.SerializationUtils;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -57,6 +59,7 @@ import org.apache.commons.lang.SerializationUtils;
  */
 public class InheritanceMappingTest extends AbstractMapperTest {
 
+  @Test
   public void testCustomMappingForSuperClasses() throws Exception {
     // Test that the explicit super custom mapping definition is used when mapping sub classes
     mapper = getMapper(new String[] { "inheritanceMapping.xml" });
@@ -76,6 +79,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
+  @Test
   public void testNoCustomMappingForSuperClasses() throws Exception {
     // Test that wildcard fields in super classes are mapped when there is no explicit super custom mapping definition
     mapper = new DozerBeanMapper();
@@ -95,6 +99,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
+  @Test
   public void testNoCustomMappingForSuperClasses_SubclassAttrsAppliedToSuperClasses() throws Exception {
     // Test that when there isnt an explicit super custom mapping definition the subclass mapping def attrs are
     // applied to the super class mapping. In this use case, wildcard="false" for the A --> B mapping definition
@@ -113,6 +118,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
+  @Test
   public void testNoCustomMappingForSubclasses_CustomMappingForSuperClasses() throws Exception {
     // Tests that custom mappings for super classes are used when there are no custom mappings
     // for subclasses. Also tests that a default class map is properly created and used for the subclass
@@ -133,6 +139,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
+  @Test
   public void testGeneralInheritance() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     // first test mapping of sub and base class to a single class
@@ -147,6 +154,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals(sub.getBaseAttribute(), combined.getBaseAttribute2());
   }
 
+  @Test
   public void testGeneralInheritance2() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     // test base to base and sub to sub mapping with an intermediate on the destination
@@ -222,6 +230,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals(s.getBaseSubAttribute(), ((SClass) sub.getSubList().get(1)).getBaseSubAttribute());
   }
 
+  @Test
   public void testInheritanceWithAbstractClassOrInterfaceAsDestination() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     SpecificObject so = (SpecificObject) newInstance(SpecificObject.class);
@@ -251,6 +260,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("superAttr1", ((Specific3) wsp.getSpecificObjectPrime()).getSuperAttr2());
   }
 
+  @Test
   public void testComplexSuperClassMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     SubClass obj = testDataFactory.getSubClass();
@@ -306,6 +316,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals(subClassClone, obj);
   }
 
+  @Test
   public void testSuperClassMapping() throws Exception {
     // source object does not extend a base custom data object, but destination object extends a custom data object.
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -324,6 +335,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   /*
    * Related to bug #1486105
    */
+  @Test
   public void testKM1() {
     SomeVo request = (SomeVo) newInstance(SomeVo.class);
     request.setUserName("yo");
@@ -343,6 +355,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   /*
    * Bug #1486105 and #1757573
    */
+  @Test
   public void testKM2() {
     Sub request = (Sub) newInstance(Sub.class);
     request.setAge("2");
@@ -370,6 +383,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   }
   
 
+  @Test
   public void testInterfaceInheritance_GetterSetterAtDifferentLevels() {
     mapper = getMapper(new String[] { "inheritanceMapping.xml" });
 
@@ -386,6 +400,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   /**
    * Bug #1828693 -- Problem when using with proxies based on interfaces.
    */
+  @Test
   public void testInheritance_UnevenHierarchies() {
     mapper = getMapper(new String[] { "inheritanceMapping.xml" });
 

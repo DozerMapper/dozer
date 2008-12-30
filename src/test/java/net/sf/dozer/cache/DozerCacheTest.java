@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.cache;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 
 /**
@@ -22,6 +26,7 @@ import net.sf.dozer.AbstractDozerTest;
  */
 public class DozerCacheTest extends AbstractDozerTest {
 
+  @Test
   public void testPutGetFromCache() throws Exception {
     Cache cache = new DozerCache(getRandomString(), 50);
     int numCacheEntriesToAdd = 45;
@@ -40,6 +45,7 @@ public class DozerCacheTest extends AbstractDozerTest {
     assertEquals("invlid cache miss count", numCacheEntriesToAdd, cache.getMissCount());
   }
 
+  @Test
   public void testMaximumCacheSize() throws Exception {
     int maxSize = 25;
     Cache cache = new DozerCache(getRandomString(), maxSize);
@@ -50,6 +56,7 @@ public class DozerCacheTest extends AbstractDozerTest {
     assertEquals("cache size should not exceed max size", maxSize, cache.getSize());
   }
 
+  @Test
   public void testMaximumCacheSize_Zero() throws Exception {
     int maxSize = 0;
     Cache cache = new DozerCache(getRandomString(), maxSize);
@@ -60,6 +67,7 @@ public class DozerCacheTest extends AbstractDozerTest {
     assertEquals("cache size should not exceed max size", maxSize, cache.getSize());
   }
 
+  @Test
   public void testClear() throws Exception {
     Cache cache = new DozerCache(getRandomString(), 50);
     Object key = CacheKeyFactory.createKey(String.class, Integer.class);
@@ -70,6 +78,7 @@ public class DozerCacheTest extends AbstractDozerTest {
     assertEquals("cache should have been cleared", 0, cache.getSize());
   }
 
+  @Test
   public void testGetMaxSize() {
     int maxSize = 550;
     Cache cache = new DozerCache(getRandomString(), maxSize);
@@ -77,6 +86,7 @@ public class DozerCacheTest extends AbstractDozerTest {
     assertEquals("invalid max size", maxSize, cache.getMaxSize());
   }
 
+  @Test
   public void testGetNull() {
     Cache cache = new DozerCache(getRandomString(), 5);
     try {
@@ -86,6 +96,7 @@ public class DozerCacheTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testPutNull() {
     Cache cache = new DozerCache(getRandomString(), 5);
     try {

@@ -15,9 +15,13 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
 import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.junit.Test;
 
 import net.pmonks.xml.dozer.test.ChildType;
 import net.sf.dozer.DataObjectInstantiator;
@@ -36,6 +40,7 @@ import net.sf.dozer.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
  */
 public class XMLBeansMappingTest extends AbstractMapperTest {
 
+  @Test
   public void disabled_testXmlBeans() throws Exception {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     // Map from TestObject to XMLBeans
@@ -76,6 +81,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
   /*
    * Test Case Submitted by Peter Monks 1/2007
    */
+  @Test
   public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     Child pojo = (Child) newInstance(Child.class);
@@ -101,6 +107,7 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
   /*
    * Test Case Submitted by Peter Monks 1/2007
    */
+  @Test
   public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     ChildType xmlBean = ChildType.Factory.newInstance();
@@ -123,8 +130,8 @@ public class XMLBeansMappingTest extends AbstractMapperTest {
     assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
   }
 
+  @Test
   public void disabled_testXmlBeansWithNullFields() throws Exception {
-
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
     ChildType xmlBean = ChildType.Factory.newInstance();
 

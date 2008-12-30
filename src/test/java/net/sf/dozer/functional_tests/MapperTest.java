@@ -15,6 +15,11 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -58,6 +63,8 @@ import net.sf.dozer.vo.self.Account;
 import net.sf.dozer.vo.self.SimpleAccount;
 
 import org.apache.commons.lang.SerializationUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author garsombke.franz
@@ -66,17 +73,19 @@ import org.apache.commons.lang.SerializationUtils;
  */
 public class MapperTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("dozerBeanMapping.xml");
   }
 
+  @Test
   public void testNoSourceValueIterateFieldMap() throws Exception {
     DehydrateTestObject inputDto = (DehydrateTestObject) newInstance(DehydrateTestObject.class);
     HydrateTestObject hto = mapper.map(inputDto, HydrateTestObject.class);
     assertEquals(testDataFactory.getExpectedTestNoSourceValueIterateFieldMapHydrateTestObject(), hto);
   }
 
+  @Test
   public void testCustomGetterSetterMap() throws Exception {
     WeirdGetter inputDto = (WeirdGetter) newInstance(WeirdGetter.class);
     inputDto.placeValue("theValue");
@@ -99,6 +108,7 @@ public class MapperTest extends AbstractMapperTest {
 
   }
 
+  @Test
   public void testNoClassMappings() throws Exception {
     Mapper mapper = new DozerBeanMapper();
     // Should attempt mapping even though it is not in the beanmapping.xml file
@@ -109,6 +119,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(dest1, dest3);
   }
 
+  @Test
   public void testImplicitInnerObject() {
     // This tests that we implicitly map an inner object to an inner object without defining it in the mapping file
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -119,6 +130,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(dest2, dest4);
   }
 
+  @Test
   public void testMapField() throws Exception {
     NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory
         .getInputTestMapFieldWithMapNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
@@ -141,6 +153,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(dest2, dest);
   }
 
+  @Test
   public void testSetField() throws Exception {
     // basic set --> set
     NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory
@@ -170,6 +183,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(dest2, dest);
   }
 
+  @Test
   public void testListField() throws Exception {
     // test empty list --> empty list
     TestObjectPrime dest = (TestObjectPrime) mapper.map(testDataFactory.getInputTestListFieldEmptyListTestObject(),
@@ -185,6 +199,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(dest2, dest);
   }
 
+  @Test
   public void testListUsingDestHint() throws Exception {
     TestObjectPrime dest = mapper.map(testDataFactory.getInputTestListUsingDestHintTestObject(),
         TestObjectPrime.class);
@@ -193,6 +208,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(dest, dest2);
   }
 
+  @Test
   public void testExcludeFields() throws Exception {
     // Map
     TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
@@ -204,6 +220,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals("excludeMeOneWay", to.getExcludeMeOneWay());
   }
 
+  @Test
   public void testGeneralMapping() throws Exception {
     // Map
     TestObject to = testDataFactory.getInputGeneralMappingTestObject();
@@ -214,6 +231,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(prime2, prime);
   }
 
+  @Test
   public void testMappingNoDestSpecified() throws Exception {
     // Map
     House src = testDataFactory.getHouse();
@@ -234,6 +252,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(houseClone, src);
   }
 
+  @Test
   public void testGeneralMappingPassByReference() throws Exception {
     // Map
     TestObject to = testDataFactory.getInputGeneralMappingTestObject();
@@ -271,6 +290,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(toClone, to);
   }
 
+  @Test
   public void testLongToLongMapping() throws Exception {
     // Map
     TestObject source = testDataFactory.getInputGeneralMappingTestObject();
@@ -280,6 +300,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(value.longValue(), 42);
   }
 
+  @Test
   public void testNoWildcards() throws Exception {
     // Map
     FurtherTestObjectPrime prime = mapper.map(testDataFactory.getInputTestNoWildcardsFurtherTestObject(),
@@ -289,6 +310,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(prime2, prime);
   }
 
+  @Test
   public void testHydrateAndMore() throws Exception {
     HydrateTestObject dest = mapper.map(testDataFactory.getInputTestHydrateAndMoreDehydrateTestObject(),
         HydrateTestObject.class);
@@ -301,6 +323,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(testDataFactory.getExpectedTestHydrateAndMoreDehydrateTestObject(), dhto);
   }
 
+  @Test
   public void testDeepProperties() throws Exception {
     House src = testDataFactory.getHouse();
     HomeDescription dest = mapper.map(src, HomeDescription.class);
@@ -333,6 +356,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(houseClone, src);
   }
 
+  @Test
   public void testOneWayMapping() throws Exception {
     // Map
     OneWayObject owo = (OneWayObject) newInstance(OneWayObject.class);
@@ -357,7 +381,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(null, source.getOneWayField());
   }
 
-  //TODO - fix this test
+  @Test
   public void donttestMapByReference() throws Exception {
     // Map
     TestReferenceObject tro = (TestReferenceObject) newInstance(TestReferenceObject.class);
@@ -430,6 +454,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(toClone, tro);
   }
 
+  @Test
   public void testHintedOnlyConverter() throws Exception {
     String hintStr = "where's my hint?";
 
@@ -449,6 +474,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(hintStr, sourcePrimeHintStr);
   }
 
+  @Test
   public void testSelfMapping() throws Exception {
     SimpleAccount simpleAccount = (SimpleAccount) newInstance(SimpleAccount.class);
     simpleAccount.setName("name");
@@ -467,6 +493,7 @@ public class MapperTest extends AbstractMapperTest {
     assertEquals(account.getAddress().getPostcode(), dest.getPostcode());
   }
 
+  @Test
   public void testSetToArray() throws Exception {
     Orange orange1 = (Orange) newInstance(Orange.class);
     orange1.setName("orange1");
@@ -520,6 +547,7 @@ public class MapperTest extends AbstractMapperTest {
     assertTrue(toDest.getSetToArrayWithValues() instanceof HashSet);
   }
 
+  @Test
   public void testSetToList() throws Exception {
     Orange orange1 = (Orange) newInstance(Orange.class);
     orange1.setName("orange1");

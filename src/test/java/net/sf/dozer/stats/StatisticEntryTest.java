@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.stats;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 
 /**
@@ -22,6 +26,7 @@ import net.sf.dozer.AbstractDozerTest;
  */
 public class StatisticEntryTest extends AbstractDozerTest {
 
+  @Test
   public void testConstructor() throws Exception {
     String key = "testkey";
     StatisticEntry entry = new StatisticEntry(key);
@@ -30,6 +35,7 @@ public class StatisticEntryTest extends AbstractDozerTest {
     assertEquals("invalid initial value", 0, entry.getValue());
   }
 
+  @Test
   public void testEquals() throws Exception {
     String key = "testkey";
     StatisticEntry entry = new StatisticEntry(key);
@@ -39,6 +45,7 @@ public class StatisticEntryTest extends AbstractDozerTest {
     assertEquals("objects hashcode should be equal", entry.hashCode(), entry2.hashCode());
   }
 
+  @Test
   public void testIncrement() throws Exception {
     String key = "testkey";
     StatisticEntry entry = new StatisticEntry(key);

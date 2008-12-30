@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.config;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.util.MapperConstants;
 
@@ -23,12 +27,14 @@ import net.sf.dozer.util.MapperConstants;
  */
 public class GlobalSettingsTest extends AbstractDozerTest {
 
+  @Test
   public void testLoadDefaultPropFile_Default() {
     GlobalSettings globalSettings = GlobalSettings.createNew();
     assertNotNull("loaded by name should not be null", globalSettings.getLoadedByFileName());
     assertEquals("invalid loaded by file name", MapperConstants.DEFAULT_CONFIG_FILE, globalSettings.getLoadedByFileName());
   }
 
+  @Test
   public void testLoadDefaultPropFile_NotFound() {
     String propFileName = String.valueOf(System.currentTimeMillis());
     System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, propFileName);
@@ -43,9 +49,9 @@ public class GlobalSettingsTest extends AbstractDozerTest {
         .getSuperTypesCacheMaxSize());
     assertEquals("invalid autoregister jmx beans", MapperConstants.DEFAULT_AUTOREGISTER_JMX_BEANS, globalSettings
         .isAutoregisterJMXBeans());
-
   }
 
+  @Test
   public void testLoadPropFile_SpecifiedViaSysProp() {
     String propFileName = "samplecustomdozer.properties";
     System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, propFileName);

@@ -1,20 +1,27 @@
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.inheritance.twolevel.A;
 import net.sf.dozer.vo.inheritance.twolevel.B;
 import net.sf.dozer.vo.inheritance.twolevel.C;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Buzdin
  */
 public class InheritanceTwoLevelTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("inheritanceTwoLevel.xml");
   }
 
+  @Test
   public void testMapping_TwoLevels() {
     C source = new C();
     source.setA("A");
@@ -26,6 +33,7 @@ public class InheritanceTwoLevelTest extends AbstractMapperTest {
     assertNotNull("B", destination.getB());
   }
 
+  @Test
   public void testMapping_TwoLevelsReverse() {
     B source = new B();
     source.setA("A");
@@ -37,6 +45,7 @@ public class InheritanceTwoLevelTest extends AbstractMapperTest {
     assertNotNull("B", destination.getB());
   }
 
+  @Test
   public void testMapping_OneLevel() {
     C source = new C();
     source.setA("A");

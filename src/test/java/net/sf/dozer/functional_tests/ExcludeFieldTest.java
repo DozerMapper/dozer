@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.excluded.OneA;
@@ -24,15 +26,20 @@ import net.sf.dozer.vo.excluded.TwoB;
 import net.sf.dozer.vo.excluded.ZeroA;
 import net.sf.dozer.vo.excluded.ZeroB;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Buzdin
  */
 public class ExcludeFieldTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("excludedField.xml");
   }
 
+  @Test
   public void testExcludedField_SimpleLevel() {
     ZeroA zeroA;
     ZeroB zeroB = new ZeroB();
@@ -44,6 +51,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     assertEquals(Integer.valueOf("10"), zeroB.getId());
   }
 
+  @Test
   public void testExcludedField_SimpleReverse() {
     ZeroA zeroA = new ZeroA();
     ZeroB zeroB;
@@ -56,6 +64,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     assertNull(zeroB.getId());
   }
   
+  @Test
   public void testExcludedField_OneLevel() {
     OneA oneA;
     OneB oneB = new OneB();
@@ -67,6 +76,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     assertEquals(Integer.valueOf("10"), oneB.getId());
   }
 
+  @Test
   public void testExcludedField_OneLevelReverse() {
     OneA oneA = new OneA();
 
@@ -77,6 +87,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     assertNull(oneB.getId());
   }
 
+  @Test
   public void testExcludedField_TwoLevel() {
     TwoB twoB = new TwoB();
     twoB.setId(Integer.valueOf("10"));
@@ -85,6 +96,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     assertEquals(Integer.valueOf("10"), twoB.getId());
   }
 
+  @Test
   public void testExcludedField_TwoLevelReverse() {
     TwoA twoA = new TwoA();
     twoA.setId(Integer.valueOf("5"));

@@ -1,9 +1,12 @@
 package net.sf.dozer;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertTrue;
 
-public class DozerInitializerTest extends TestCase {
+import org.junit.Test;
 
+public class DozerInitializerTest  {
+
+  @Test
   public void testIsInitialized() {
     DozerInitializer.init();
     assertTrue("isInitialized attribute should be set to true", DozerInitializer.isInitialized());

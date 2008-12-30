@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,9 @@ import net.sf.dozer.vo.inheritance.Target;
 import net.sf.dozer.vo.inheritance.cc.C;
 import net.sf.dozer.vo.inheritance.cc.Z;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * This is a holding grounds for test cases that reproduce known bugs, features, or gaps discovered during development.
  * As the use cases are resolved, these tests should be moved to the live unit test classes.
@@ -37,8 +42,8 @@ import net.sf.dozer.vo.inheritance.cc.Z;
  */
 public class KnownFailures extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper(new String[] { "knownFailures.xml" });
   }
 
@@ -46,6 +51,7 @@ public class KnownFailures extends AbstractMapperTest {
    * Feature Request #1731158. Need a way to explicitly specify a mapping between a custom data object and String. Not
    * sure the best way to do this. Copy by reference doesnt seem like a good fit.
    */
+  @Test
   public void testListOfCustomObjectsToStringArray() {
     MessageHeaderVO vo = new MessageHeaderVO();
     List ids = new ArrayList();
@@ -57,6 +63,7 @@ public class KnownFailures extends AbstractMapperTest {
     assertEquals("2", result.getIdList().getMsgIdsArray()[1]);
   }
 
+  @Test
   public void testObjectField() throws Exception {
     Outer o = new Outer();
     Target t = mapper.map(o, Target.class);
@@ -67,6 +74,7 @@ public class KnownFailures extends AbstractMapperTest {
   /*
    * Bug #1953410
    */
+  @Test
   public void testInheritanceBug() {
     Z z = new Z();
     z.setTest("testString");

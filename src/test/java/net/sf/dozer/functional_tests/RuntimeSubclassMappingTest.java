@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.runtimesubclass.SpecialUserGroup;
@@ -23,15 +26,20 @@ import net.sf.dozer.vo.runtimesubclass.User;
 import net.sf.dozer.vo.runtimesubclass.UserGroup;
 import net.sf.dozer.vo.runtimesubclass.UserPrime;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Buzdin
  */
 public class RuntimeSubclassMappingTest extends AbstractMapperTest {
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     mapper = getMapper("runtimeSubclass.xml");
   }
 
+  @Test
   public void testSpecialMapping() throws Exception {
     // SpecialUserGroup(!)
     SpecialUserGroup userGroup = new SpecialUserGroup();
@@ -50,6 +58,7 @@ public class RuntimeSubclassMappingTest extends AbstractMapperTest {
     assertEquals(SpecialUserGroupPrime.class, userPrime.getUserGroup().getClass());
   }
 
+  @Test
   public void testNormalMapping() throws Exception {
     // normal UserGroup
     UserGroup userGroup = new UserGroup();

@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.fail;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
@@ -33,6 +34,8 @@ import net.sf.dozer.vo.perf.MyClassB;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -46,8 +49,8 @@ public class PerformanceTest extends AbstractMapperTest {
 
   private int numIters = 1; // Set this attribute to 25000 to run performance regression
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     if (mapper == null) {
       mapper = getMapper("dozerBeanMapping.xml");
     }
@@ -147,30 +150,35 @@ public class PerformanceTest extends AbstractMapperTest {
    *  
    */
 
+  @Test
   public void testMapping1() throws Exception {
     // TestObject --> TestObjectPrime
     TestObject src = testDataFactory.getInputGeneralMappingTestObject();
     runGeneric("testMapping1", src, TestObjectPrime.class, 35000);
   }
 
+  @Test
   public void testMapping2() throws Exception {
     // SimpleObject --> SimpleObjectPrime
     SimpleObj src = testDataFactory.getSimpleObj();
     runGeneric("testMapping2", src, SimpleObjPrime.class, 3600);
   }
 
+  @Test
   public void testMapping3() throws Exception {
     // SimpleObject --> SimpleObjectPrime2
     SimpleObj src = testDataFactory.getSimpleObj();
     runGeneric("testMapping3", src, SimpleObjPrime2.class, 3700);
   }
 
+  @Test
   public void testMapping4() throws Exception {
     // AnotherSubClass --> AnotherSubClassPrime (Inheritance)
     AnotherSubClass src = testDataFactory.getAnotherSubClass();
     runGeneric("testMapping4", src, AnotherSubClassPrime.class, 12000);
   }
 
+  @Test
   public void testMapping5() throws Exception {
     // SrcDeepObj --> DestDeepObj (Field Deep)
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
@@ -178,6 +186,7 @@ public class PerformanceTest extends AbstractMapperTest {
   }
 
   // 1-2007: Test Case submitted by Dave B.
+  @Test
   public void testMapping6() throws Exception {
     // MyClassA --> MyClassB. Src object contains List with 500 String elements.
     MyClassA src = testDataFactory.getRandomMyClassA();

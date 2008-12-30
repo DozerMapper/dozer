@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,6 +28,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.vo.InsideTestObject;
 import net.sf.dozer.vo.SimpleObj;
@@ -36,6 +39,7 @@ import net.sf.dozer.vo.SimpleObj;
  */
 public class CollectionUtilsTest extends AbstractDozerTest {
 
+  @Test
   public void testIsList() throws Exception {
     Object[] values = new Object[] { new ArrayList(), new Vector(), new LinkedList() };
     for (int i = 0; i < values.length; i++) {
@@ -43,6 +47,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testIsSet() throws Exception {
     Object[] values = new Object[] { new TreeSet(), new HashSet(), new HashSet() };
     for (int i = 0; i < values.length; i++) {
@@ -50,6 +55,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testIsArray() throws Exception {
     Object[] values = new Object[] { new int[3], new InsideTestObject[2], new String[3] };
     for (int i = 0; i < values.length; i++) {
@@ -57,6 +63,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testIsPrimitiveArray() throws Exception {
     Object[] values = new Object[] { new int[3], new long[2], new boolean[3] };
     for (int i = 0; i < values.length; i++) {
@@ -64,6 +71,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testIsPrimitiveArray_False() throws Exception {
     Object[] values = new Object[] { new String[3], new Date[2], new SimpleObj[3] };
     for (int i = 0; i < values.length; i++) {
@@ -71,6 +79,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testGetValueFromCollection() throws Exception {
     String sysTime = String.valueOf(System.currentTimeMillis());
     String[] input = new String[] { "zer", "one", "two", "three", "four", sysTime, "six", "seven" };
@@ -79,22 +88,26 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     assertEquals("invalid result", sysTime, result);
   }
 
+  @Test
   public void testLengthOfCollection() throws Exception {
     String[] input = new String[] { "zer", "one", "two", "three", "four" };
     assertEquals("invalid array size", input.length, CollectionUtils.getLengthOfCollection(input));
   }
 
+  @Test
   public void testCreateNewSet_Default() throws Exception {
     Set result = CollectionUtils.createNewSet(Set.class);
     assertNotNull("new set should not be null", result);
   }
 
+  @Test
   public void testCreateNewSet_SortedSetDefault() throws Exception {
     Set result = CollectionUtils.createNewSet(SortedSet.class);
     assertNotNull("new set should not be null", result);
     assertTrue("new set should be instance of SortedSet", result instanceof SortedSet);
   }
 
+  @Test
   public void testCreateNewSet_FromExistingSet() throws Exception {
     Set src = new HashSet();
     src.add("test1");
@@ -104,6 +117,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     assertEquals("new set should equal src set", src, result);
   }
 
+  @Test
   public void testConvertPrimitiveArrayToList() throws Exception {
     int[] srcArray = new int[] { 5, 10, 15 };
     List result = CollectionUtils.convertPrimitiveArrayToList(srcArray);
@@ -116,12 +130,14 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     }
   }
   
+  @Test
   public void testConvertListToArray() {
     List<String> src = Arrays.asList("a", "b");
     String[]  result = CollectionUtils.convertListToArray(src, String.class);
     assertTrue("wrong result value", Arrays.equals(new String[]{"a", "b"}, result));
   }
   
+  @Test
   public void testCreateNewSet_ExistingValue() {
     Collection<String> src = new HashSet<String>();
     src.add("a");
@@ -130,6 +146,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     assertEquals("wrong result value", src, result);
   }
   
+  @Test
   public void testCreateNewSet() {
     Set<String> result = CollectionUtils.createNewSet(String.class);
     assertNotNull("should be not null", result);

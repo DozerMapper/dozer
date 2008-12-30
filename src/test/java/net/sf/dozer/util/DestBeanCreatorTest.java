@@ -15,6 +15,10 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.vo.TestObject;
 import net.sf.dozer.vo.TestObjectPrime;
@@ -24,6 +28,7 @@ import net.sf.dozer.vo.TestObjectPrime;
  */
 public class DestBeanCreatorTest extends AbstractDozerTest {
 
+  @Test
   public void testCreatDestBeanNoFactory() throws Exception {
     TestObject bean = (TestObject) DestBeanCreator.create(null, null, TestObject.class, null, null, null, null);
 
@@ -31,6 +36,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
     assertNull(bean.getCreatedByFactoryName());
   }
 
+  @Test
   public void testCreatBeanFromFactory() throws Exception {
     String factoryName = "net.sf.dozer.factories.SampleCustomBeanFactory";
     TestObject bean = (TestObject) DestBeanCreator.create(new TestObjectPrime(), TestObjectPrime.class, TestObject.class, null,

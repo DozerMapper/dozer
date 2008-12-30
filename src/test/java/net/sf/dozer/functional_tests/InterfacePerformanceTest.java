@@ -15,6 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
+import static org.junit.Assert.*;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.iface.ApplicationUser;
@@ -23,10 +24,12 @@ import net.sf.dozer.vo.iface.UpdateMember;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 
 public class InterfacePerformanceTest extends AbstractMapperTest {
   private static Log log = LogFactory.getLog(InterfacePerformanceTest.class);
 
+  @Test
   public void testInterface() throws Exception {
     log.info("Starting");
     mapper = getMapper(new String[] { "interfaceMapping.xml" });

@@ -15,8 +15,11 @@
  */
 package net.sf.dozer.util;
 
+import static org.junit.Assert.*;
 import java.net.URL;
 import java.util.List;
+
+import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.classmap.ClassMap;
@@ -29,13 +32,9 @@ import net.sf.dozer.fieldmap.FieldMap;
  */
 public class XMLParserTest extends AbstractDozerTest {
 
-  private XMLParser parser;
+  private XMLParser parser = new XMLParser();
 
-  protected void setUp() throws Exception {
-    parser = new XMLParser();
-  }
-
-
+  @Test
   public void testParse() throws Exception {
     ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");
@@ -49,6 +48,7 @@ public class XMLParserTest extends AbstractDozerTest {
    * This tests checks that the customconverterparam reaches the
    * fieldmapping.      
    */
+  @Test
   public void testParseCustomConverterParam() throws Exception {
 	  ResourceLoader loader = new ResourceLoader();
 	  URL url = loader.getResource("fieldCustomConverterParam.xml");
@@ -78,6 +78,7 @@ public class XMLParserTest extends AbstractDozerTest {
 	  assertEquals("The customconverterparam should be correct", "CustomConverterParamTest", fieldMap.getCustomConverterParam());
   }
 
+  @Test
   public void testGetFieldNameOfIndexedField() {
     assertEquals("aaa", parser.getFieldNameOfIndexedField("aaa[0]"));
     assertEquals("aaa[0].bbb", parser.getFieldNameOfIndexedField("aaa[0].bbb[1]"));
