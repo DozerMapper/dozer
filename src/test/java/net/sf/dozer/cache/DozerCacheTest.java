@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.MappingException;
 
 /**
  * @author tierney.matt
@@ -86,23 +87,15 @@ public class DozerCacheTest extends AbstractDozerTest {
     assertEquals("invalid max size", maxSize, cache.getMaxSize());
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testGetNull() {
     Cache cache = new DozerCache(getRandomString(), 5);
-    try {
-      cache.get(null);
-      fail("should have thrown exception");
-    } catch (IllegalArgumentException e) {
-    }
+    cache.get(null);
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testPutNull() {
     Cache cache = new DozerCache(getRandomString(), 5);
-    try {
-      cache.put(null, null);
-      fail("should have thrown exception");
-    } catch (IllegalArgumentException e) {
-    }
+    cache.put(null, null);
   }
 }

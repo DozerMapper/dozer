@@ -31,17 +31,9 @@ public class JAXBBeanFactoryTest  {
     assertEquals("Invalid class build", obj.getClass().getName(), "net.sf.dozer.vo.jaxb.employee.impl.EmployeeImpl");
   }
   
-  @Test
+  @Test(expected = MappingException.class)
   public void testCreateBeanClassNotFoundException() {
-    try {
-      factory.createBean(null, null, "ve.ve.DE");
-    } catch (MappingException e) {
-      assertTrue(true);
-      // Success
-    } catch (Throwable e) {
-      fail("Not existing class should throw MappingException " + e.toString());
-    }
-
+    factory.createBean(null, null, "ve.ve.DE");
   }
   /*
    * Test method for 'net.sf.dozer.util.mapping.factory.JAXBFactory.createBean(Object, Class, String)'

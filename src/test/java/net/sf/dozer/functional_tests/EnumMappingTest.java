@@ -15,16 +15,16 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
 import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.MappingException;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.enumtest.MyBean;
 import net.sf.dozer.vo.enumtest.MyBeanPrime;
 import net.sf.dozer.vo.enumtest.SrcType;
 import net.sf.dozer.vo.enumtest.SrcTypeWithOverride;
+
+import org.junit.Test;
 
 /**
  * Functional test for enum mapping as described 
@@ -120,17 +120,12 @@ public class EnumMappingTest extends AbstractMapperTest {
   /**
    * Test on if mapping to nonexist enum value would throw exception.
    */
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testEnumMapsToNonexistEnumValue(){
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();
     src.setSrcType(SrcType.BAR);
-    try {
-      MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
-      fail("Expect to throw exception but didn't.");
-    } catch (Exception e){
-      //expect exception
-    }
+    MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
   }
   
   protected DataObjectInstantiator getDataObjectInstantiator() {

@@ -43,31 +43,23 @@ public class ConverterTest extends AbstractDozerTest {
     assertEquals(dfc, sc.getDateFormatContainer());
   }
 
-  @Test
+  @Test(expected = ConversionException.class)
   public void testInvalidDateInput() throws Exception {
     DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
-    try {
-      dc.convert(java.util.Date.class, "jfdlajf");
-      fail("should have thrown ConversionException");
-    } catch (ConversionException e) {
-    }
-
-    try {
-      // no long constructor
-      dc = new DateConverter(null);
-      dc.convert(String.class, "123");
-      fail("should have thrown ConversionException");
-    } catch (ConversionException e) {
-    }
+    dc.convert(java.util.Date.class, "jfdlajf");
   }
 
-  @Test
+  @Test(expected = ConversionException.class)
+  public void testInvalidDateInput_String() throws Exception {
+    DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
+    // no long constructor
+    dc = new DateConverter(null);
+    dc.convert(String.class, "123");
+  }
+
+  @Test(expected = ConversionException.class)
   public void testInvalidCalendarInput() throws Exception {
     CalendarConverter dc = new CalendarConverter(DateFormat.getDateInstance(DateFormat.LONG));
-    try {
-      dc.convert(java.util.GregorianCalendar.class, "jfdlajf");
-      fail("should have thrown ConversionException");
-    } catch (ConversionException e) {
-    }
+    dc.convert(java.util.GregorianCalendar.class, "jfdlajf");
   }
 }

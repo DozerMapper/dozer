@@ -70,15 +70,10 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
   }
 
-  @Test
+  @Test(expected = ConversionException.class)
   public void testConvertIntegerWithFailure() throws Exception {
     Object input = "three";
-    try {
-      converter.convert(input, Integer.class, null);
-      fail("Should have thrown conversion exception");
-    } catch (ConversionException e) {
-      assertTrue(true);
-    }
+    converter.convert(input, Integer.class, null);
   }
 
   @Test
@@ -502,22 +497,19 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     assertEquals(((Short) value).shortValue(), (short) 123);
   }
 
-  @Test
+  @Test(expected = ConversionException.class)
   public void testConvertStringNegativeScalar() {
-    Object value = null;
-    try {
-      value = converter.convert("foo", Boolean.TYPE, null);
-      fail("Should have thrown conversion exception");
-    } catch (ConversionException e) {
-      assertTrue(true);
-    }
-    try {
-      value = converter.convert("foo", Boolean.class, null);
-      fail("Should have thrown conversion exception");
-    } catch (ConversionException e) {
-      assertTrue(true);
-    }
-    value = converter.convert("org.apache.commons.beanutils.Undefined", Class.class, null);
+    Object value = value = converter.convert("foo", Boolean.TYPE, null);
+  }
+
+  @Test(expected = ConversionException.class)
+  public void testConvertStringNegativeScalar2() {
+    Object value = converter.convert("foo", Boolean.class, null);
+  }
+  
+  @Test
+  public void testConvertStringNegativeScalar_Undefined() {
+    Object value = converter.convert("org.apache.commons.beanutils.Undefined", Class.class, null);
     assertEquals("org.apache.commons.beanutils.Undefined", value);
   }
 }

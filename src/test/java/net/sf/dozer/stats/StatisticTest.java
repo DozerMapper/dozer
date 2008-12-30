@@ -93,13 +93,9 @@ public class StatisticTest extends AbstractDozerTest {
     assertNull("entry should not have been found", stat.getEntry());
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testAddNull() {
     Statistic stat = new Statistic(StatisticType.CACHE_MISS_COUNT);
-    try {
-      stat.addEntry(null);
-      fail("should have thrown exception");
-    } catch (IllegalArgumentException e) {
-    }
+    stat.addEntry(null);
   }
 }

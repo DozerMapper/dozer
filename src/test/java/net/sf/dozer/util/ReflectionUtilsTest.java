@@ -30,34 +30,21 @@ import net.sf.dozer.vo.inheritance.ChildChildIF;
  */
 public class ReflectionUtilsTest extends AbstractDozerTest {
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testGetMethod_NotFound() throws Exception {
     SimpleObj src = new SimpleObj();
-    try {
-      ReflectionUtils.getMethod(src, String.valueOf(System.currentTimeMillis()));
-      fail("Should have thrown exception");
-    } catch (MappingException e) {
-    }
+    ReflectionUtils.getMethod(src, String.valueOf(System.currentTimeMillis()));
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testGetDeepFieldHierarchy_NonDeepField() throws Exception {
-    try {
-      ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, "test", null);
-      fail("Should have thrown exception");
-    } catch (MappingException e) {
-      assertEquals("invalid exception thrown", "Field does not contain deep field delimitor", e.getMessage());
-    }
+    ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, "test", null);
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testGetDeepFieldHierarchy_NotExists() throws Exception {
-    try {
-      ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "."
+    ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "."
           + String.valueOf(System.currentTimeMillis()), null);
-      fail("Should have thrown exception");
-    } catch (MappingException e) {
-    }
   }
 
   @Test

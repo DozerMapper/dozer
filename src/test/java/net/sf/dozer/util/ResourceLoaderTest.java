@@ -24,6 +24,7 @@ import java.net.URL;
 import org.junit.Test;
 
 import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.MappingException;
 
 /**
  * @author tierney.matt
@@ -64,17 +65,11 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     assertNotNull("input stream should not be null", is);
   }
 
-  @Test
+  @Test(expected = IOException.class)
   public void testGetResource_FileOutsideOfClasspath_NotFound() throws Exception {
     URL url = loader.getResource("file:" + System.currentTimeMillis());
     assertNotNull("URL should not be null", url);
-
-    try {
-      url.openStream();
-      fail("should have thrown a file not found exception");
-    } catch (IOException e) {
-      // expected
-    }
+    url.openStream();
   }
 
   @Test

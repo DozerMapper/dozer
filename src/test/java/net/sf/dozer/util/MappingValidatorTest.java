@@ -27,28 +27,19 @@ import net.sf.dozer.MappingException;
  */
 public class MappingValidatorTest extends AbstractDozerTest {
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testValidateMappingRequest_NullSrcObj() throws Exception {
-    try {
-      MappingValidator.validateMappingRequest(null);
-      fail("Should have thrown exception");
-    } catch (MappingException e) {}
+    MappingValidator.validateMappingRequest(null);
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testValidateMappingRequest_NullDestObj() throws Exception {
-    try {
-      MappingValidator.validateMappingRequest(new Object(), null);
-      fail("Should have thrown exception");
-    } catch (MappingException e) {}
+    MappingValidator.validateMappingRequest(new Object(), null);
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testValidateMappingRequest_BothNullObj() throws Exception {
-    try {
-      MappingValidator.validateMappingRequest(null, null);
-      fail("Should have thrown exception");
-    } catch (MappingException e) {}
+    MappingValidator.validateMappingRequest(null, null);
   }
 
   @Test

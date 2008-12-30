@@ -76,14 +76,9 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testAbstractDestClassThrowsException() throws Exception {
-    try {
-      mapper.map(newInstance(A.class), AbstractB.class);
-      fail("should have thrown exception");
-    } catch (MappingException e) {
-      // expected
-    }
+    mapper.map(newInstance(A.class), AbstractB.class);
   }
 
   @Test

@@ -83,19 +83,14 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertEquals("invalid stat types found", expected, statMgr.getStatisticTypes());
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testIncrementMissingParams() {
-    try {
-      statMgr.increment(null, "test", 1);
-      fail("missing type should have thrown exception");
-    } catch (IllegalArgumentException e) {
-    }
+    statMgr.increment(null, "test", 1);
+  }
 
-    try {
-      statMgr.increment(StatisticType.CACHE_HIT_COUNT, null, 1);
-      fail("missing entry key should have thrown exception");
-    } catch (IllegalArgumentException e) {
-    }
+  @Test(expected = IllegalArgumentException.class)
+  public void testIncrementMissingParams2() {
+    statMgr.increment(StatisticType.CACHE_HIT_COUNT, null, 1);
   }
 
   @Test
@@ -111,7 +106,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertEquals("invalid entry value", 100, statMgr.getStatisticValue(type));
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testGetStatisticValueException() {
     StatisticType type = StatisticType.MAPPING_FAILURE_COUNT;
     Statistic stat = new Statistic(type);
@@ -119,24 +114,14 @@ public class StatisticManagerTest extends AbstractDozerTest {
     stat.addEntry(new StatisticEntry(getRandomString()));
     stat.addEntry(new StatisticEntry(getRandomString()));
     statMgr.addStatistic(stat);
-
-    try {
-      statMgr.getStatisticValue(type);
-      fail("trying to get stat value for type that has more than 1 entry should throw exception");
-    } catch (IllegalArgumentException e) {
-    }
+    statMgr.getStatisticValue(type);
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testAddDuplicateStatistic() {
     StatisticType type = StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT;
     statMgr.addStatistic(new Statistic(type));
-
-    try {
-      statMgr.addStatistic(new Statistic(type));
-      fail("add duplicate stat should have thrown exception");
-    } catch (IllegalArgumentException e) {
-    }
+    statMgr.addStatistic(new Statistic(type));
   }
 
   @Test

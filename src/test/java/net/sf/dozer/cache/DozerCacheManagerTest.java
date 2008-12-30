@@ -64,30 +64,20 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     assertEquals("invalid cache name", cacheName, cache.getName());
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testGetUnknownCache() throws Exception {
     String cacheName = getRandomString();
     boolean cacheExists = cacheMgr.cacheExists(cacheName);
     assertFalse("cache should not exist", cacheExists);
-
-    try {
-      cacheMgr.getCache(cacheName);
-      fail("trying to get an unknown cache should have thrown a MappingException");
-    } catch (MappingException e) {
-    }
+    cacheMgr.getCache(cacheName);
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testAddDuplicateCachesSingleton() throws Exception {
     String cacheName = getRandomString();
     cacheMgr.addCache(cacheName, 1);
-
-    try {
-      // try adding it again
-      cacheMgr.addCache(cacheName, 1);
-      fail("trying to add duplicate caches should have thrown an ObjectExistsException");
-    } catch (MappingException e) {
-    }
+    // try adding it again
+    cacheMgr.addCache(cacheName, 1);
   }
 
   @Test

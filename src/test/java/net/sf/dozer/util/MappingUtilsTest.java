@@ -202,14 +202,9 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertTrue(Arrays.equals(new String[] { "a", "b", null, "some entry" }, result));
   }
 
-  @Test
+  @Test(expected = MappingException.class)
   public void testPrepareIndexedCollection_UnsupportedType() {
-    try {
-      MappingUtils.prepareIndexedCollection(String.class, null, "some entry", 0);
-      fail("should have thrown exception");
-    } catch (MappingException e) {
-      //expected
-    }
+    MappingUtils.prepareIndexedCollection(String.class, null, "some entry", 0);
   }
   
   /**
