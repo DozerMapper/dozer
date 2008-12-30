@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.fail;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
@@ -150,54 +149,54 @@ public class PerformanceTest extends AbstractMapperTest {
    *  
    */
 
-  @Test
+  @Test(timeout = 35000)
   public void testMapping1() throws Exception {
     // TestObject --> TestObjectPrime
     TestObject src = testDataFactory.getInputGeneralMappingTestObject();
-    runGeneric("testMapping1", src, TestObjectPrime.class, 35000);
+    runGeneric("testMapping1", src, TestObjectPrime.class);
   }
 
-  @Test
+  @Test(timeout = 3600)
   public void testMapping2() throws Exception {
     // SimpleObject --> SimpleObjectPrime
     SimpleObj src = testDataFactory.getSimpleObj();
-    runGeneric("testMapping2", src, SimpleObjPrime.class, 3600);
+    runGeneric("testMapping2", src, SimpleObjPrime.class);
   }
 
-  @Test
+  @Test(timeout = 3700)
   public void testMapping3() throws Exception {
     // SimpleObject --> SimpleObjectPrime2
     SimpleObj src = testDataFactory.getSimpleObj();
-    runGeneric("testMapping3", src, SimpleObjPrime2.class, 3700);
+    runGeneric("testMapping3", src, SimpleObjPrime2.class);
   }
 
-  @Test
+  @Test(timeout = 12000)
   public void testMapping4() throws Exception {
     // AnotherSubClass --> AnotherSubClassPrime (Inheritance)
     AnotherSubClass src = testDataFactory.getAnotherSubClass();
-    runGeneric("testMapping4", src, AnotherSubClassPrime.class, 12000);
+    runGeneric("testMapping4", src, AnotherSubClassPrime.class);
   }
 
-  @Test
+  @Test(timeout = 13000)
   public void testMapping5() throws Exception {
     // SrcDeepObj --> DestDeepObj (Field Deep)
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
-    runGeneric("testMapping5", src, DestDeepObj.class, 13000);
+    runGeneric("testMapping5", src, DestDeepObj.class);
   }
 
   // 1-2007: Test Case submitted by Dave B.
-  @Test
+  @Test(timeout = 35000)
   public void testMapping6() throws Exception {
     // MyClassA --> MyClassB. Src object contains List with 500 String elements.
     MyClassA src = testDataFactory.getRandomMyClassA();
-    runGeneric("testMapping6", src, MyClassB.class, 50000);
+    runGeneric("testMapping6", src, MyClassB.class);
   }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
-  private void runGeneric(String testName, Object src, Class destClass, long maxTimeAllowed) throws Exception {
+  private void runGeneric(String testName, Object src, Class destClass) throws Exception {
     // warm up the mapper
     mapper.map(src, destClass);
 
@@ -211,11 +210,6 @@ public class PerformanceTest extends AbstractMapperTest {
     timer.stop();
     log.info("Total time for additional " + numIters + " mappings: " + timer.getTime() + " milliseconds");
     log.info("avg time for " + numIters + " mappings: " + (timer.getTime() / numIters) + " milliseconds");
-
-    if (timer.getTime() > maxTimeAllowed) {
-      log.error("Elapsed time exceeded max allowed: " + maxTimeAllowed + " Actual time: " + timer.getTime());
-      fail();
-    }
   }
 
 }
