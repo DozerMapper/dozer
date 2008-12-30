@@ -225,7 +225,6 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("one", ((TestObject) mtmp.getStandardMap().get("toDest")).getOne());
   }
 
-  @Ignore("Failing. Needs investigation")
   @Test
   public void testPropertyClassLevelMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -495,7 +494,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
 
-  // TODO Enable this test in next release. JDK 1.6 compatibility issue
+  @Ignore("TODO Enable this test in next release. JDK 1.6 compatibility issue")
   @Test
   public void testNestedCustomMap() {
     mapper = getMapper(new String[] { "mapMapping4.xml" });
