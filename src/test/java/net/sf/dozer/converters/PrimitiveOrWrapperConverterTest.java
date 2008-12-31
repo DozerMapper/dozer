@@ -15,19 +15,27 @@
  */
 package net.sf.dozer.converters;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.junit.Test;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import junit.framework.Assert;
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.util.DateFormatContainer;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -176,6 +184,8 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     GregorianCalendar gregCal = new GregorianCalendar();
     gregCal.setTimeInMillis(time);
+    
+    XMLGregorianCalendar xmlGregCal = getXMLGregorianCalendar(time);
 
     DateFormat[] dateFormats = new DateFormat[] { DateFormat.getDateInstance(DateFormat.FULL),
         DateFormat.getDateInstance(DateFormat.LONG), DateFormat.getDateInstance(DateFormat.MEDIUM),
@@ -183,7 +193,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     // java.util.Date
     Object[] input = { new java.sql.Time(time), new java.sql.Timestamp(time), new java.sql.Date(time), cal, gregCal,
-        String.valueOf(time) };
+        xmlGregCal, String.valueOf(time) };
     Object expected = new java.util.Date(time);
     Object result = null;
 
@@ -205,7 +215,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     // java.sql.Date
     input = new Object[] { new java.util.Date(time), new java.sql.Time(time), new java.sql.Timestamp(time), cal, gregCal,
-        String.valueOf(time) };
+        xmlGregCal, String.valueOf(time) };
     expected = new java.sql.Date(time);
 
     for (int i = 0; i < input.length; i++) {
@@ -226,7 +236,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     // java.sql.Time
     input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Timestamp(time), cal, gregCal,
-        String.valueOf(time) };
+        xmlGregCal, String.valueOf(time) };
     expected = new java.sql.Time(time);
 
     for (int i = 0; i < input.length; i++) {
@@ -247,7 +257,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     // java.sql.Timestamp
     input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time), cal, gregCal,
-        String.valueOf(time) };
+        xmlGregCal, String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
@@ -267,7 +277,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     // java.util.Calendar
     input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time),
-        new java.sql.Timestamp(time), gregCal, String.valueOf(time) };
+        new java.sql.Timestamp(time), gregCal, xmlGregCal, String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
@@ -287,7 +297,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     // java.util.GregorianCalendar
     input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time),
-        new java.sql.Timestamp(time), cal, String.valueOf(time) };
+        new java.sql.Timestamp(time), cal, xmlGregCal, String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
@@ -305,10 +315,31 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
       assertEquals("String to java.util.GregorianCalendar for input: " + dateStr, dateFormats[i].parse(dateStr),
           ((GregorianCalendar) result).getTime());
     }
+    
+ // XMLGregorianCalendar
+    input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time),
+        new java.sql.Timestamp(time), cal, xmlGregCal, String.valueOf(time) };
+
+    for (int i = 0; i < input.length; i++) {
+      DateFormatContainer dfc = new DateFormatContainer(null);
+      result = converter.convert(input[i], XMLGregorianCalendar.class, dfc);
+      assertTrue("result should be instance of java.util.XMLGregorianCalendar", result instanceof java.util.GregorianCalendar);
+      assertEquals(input[i].getClass().getName() + " to java.util.XMLGregorianCalendar", time, ((java.util.GregorianCalendar) result)
+          .getTimeInMillis());
+    }
+
+    for (int i = 0; i < dateFormats.length; i++) {
+      String dateStr = dateFormats[i].format(date);
+      DateFormatContainer dfc = new DateFormatContainer(null);
+      dfc.setDateFormat(dateFormats[i]);
+      result = converter.convert(dateStr, XMLGregorianCalendar.class, dfc);
+      assertEquals("String to java.util.XMLGregorianCalendar for input: " + dateStr, dateFormats[i].parse(dateStr),
+          ((GregorianCalendar) result).getTime());
+    }
 
     // invalid mappings
     Class[] classes = new Class[] { java.util.Date.class, java.sql.Date.class, java.sql.Time.class, java.sql.Timestamp.class,
-        java.util.Calendar.class, java.util.GregorianCalendar.class };
+        java.util.Calendar.class, java.util.GregorianCalendar.class , XMLGregorianCalendar.class};
     String invalidInputStr = "dflksjf";
     for (int i = 0; i < classes.length; i++) {
       try {
@@ -321,6 +352,19 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
       assertNull("mapping null value to class " + classes[i].getName() + " should result in null", converter.convert(null,
           classes[i], null));
     }
+  }
+  
+  private XMLGregorianCalendar getXMLGregorianCalendar(long millis) {
+    GregorianCalendar gcal = new GregorianCalendar();
+    gcal.setTimeInMillis(millis);
+    XMLGregorianCalendar cal = null;
+
+    try {
+      cal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
+    } catch (Exception ignore) {
+    }
+
+    return cal;
   }
 
   @Test

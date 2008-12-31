@@ -28,7 +28,7 @@ import net.sf.dozer.util.DateFormatContainer;
  */
 public class ConverterTest extends AbstractDozerTest {
   /*
-   * See DataConvertionTest for more thorough data conversion unit tests
+   * See PrimitiveOrWrapperConverterTest for more thorough data conversion unit tests
    */
   @Test
   public void testAccessors() throws Exception {

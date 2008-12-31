@@ -20,6 +20,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.apache.commons.beanutils.Converter;
 
 /**
@@ -48,6 +50,8 @@ public class DateConverter implements Converter {
     } else if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
       time = ((java.util.Date) srcObj).getTime();
       // String to Date
+    } else if (XMLGregorianCalendar.class.isAssignableFrom(srcFieldClass)) {
+      time = ((XMLGregorianCalendar) srcObj).toGregorianCalendar().getTimeInMillis();
     } else if (dateFormat != null && String.class.isAssignableFrom(srcObj.getClass())) {
       try {
         if ("".equals(srcObj)) {

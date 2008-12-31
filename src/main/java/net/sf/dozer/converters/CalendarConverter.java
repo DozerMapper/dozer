@@ -21,6 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.apache.commons.beanutils.Converter;
 
 /**
@@ -47,6 +49,10 @@ public class CalendarConverter implements Converter {
     //  Convert from Calendar to Calendar
     else if (Calendar.class.isAssignableFrom(srcFieldClass)) {
       Calendar c = (Calendar) srcObj;
+      result.setTime(c.getTime());
+      result.setTimeZone(c.getTimeZone());
+    } else if (XMLGregorianCalendar.class.isAssignableFrom(srcFieldClass)) {
+      Calendar c = ((XMLGregorianCalendar) srcObj).toGregorianCalendar();
       result.setTime(c.getTime());
       result.setTimeZone(c.getTimeZone());
     }

@@ -21,6 +21,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import net.sf.dozer.util.DateFormatContainer;
 
 import org.apache.commons.beanutils.Converter;
@@ -94,7 +96,7 @@ public class PrimitiveOrWrapperConverter {
       if (java.util.Date.class.isAssignableFrom(destClass)) {
         result = new DateConverter(dateFormatContainer.getDateFormat());
       }
-      if (Calendar.class.isAssignableFrom(destClass)) {
+      if (Calendar.class.isAssignableFrom(destClass) || XMLGregorianCalendar.class.isAssignableFrom(destClass)) {
         result = new CalendarConverter(dateFormatContainer.getDateFormat());
       }
     }
