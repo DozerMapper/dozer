@@ -30,8 +30,7 @@ import net.sf.dozer.factory.XMLBeanFactory;
  */
 public final class MapperConstants {
 
-  private MapperConstants() {
-  }
+  private MapperConstants() {}
 
   public static final String CURRENT_VERSION = "4.4";
 
@@ -40,13 +39,15 @@ public final class MapperConstants {
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
   public static final boolean DEFAULT_MAP_EMPTY_STRING_POLICY = true;
   public static final boolean DEFAULT_TRIM_STRINGS_POLICY = false;
-
+  public static final int DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = 5000;
+  public static final int DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 5000;
   public static final RelationshipType DEFAULT_RELATIONSHIP_TYPE_POLICY = RelationshipType.CUMULATIVE;
-
-  public static final String DTD_NAME = "dozerbeanmapping.dtd";
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";
   public static final String DEFAULT_PATH_ROOT = "";
+  public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;
+
+  public static final String DTD_NAME = "dozerbeanmapping.dtd";
   public static final String FILE_PREFIX = "file:";
   public static final boolean DEFAULT_STATISTICS_ENABLED = false;
   public static final String CONFIG_FILE_SYS_PROP = "dozer.configuration"; // i.e)-Ddozer.configuration=somefile.properties
@@ -57,16 +58,6 @@ public final class MapperConstants {
   public static final String SELF_KEYWORD = "this";
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
   public static final String JAVASSIST_ID = "$$_javassist";
-  
-  // DozerBeanMapper instance caches
-  public static final String CONVERTER_BY_DEST_TYPE_CACHE = "Converter By Destination Type Dozer Cache";
-  public static final String SUPER_TYPE_CHECK_CACHE = "Super Type Mapping Dozer Cache";
-  public static final int DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = 5000;
-  public static final int DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 5000;
-
   public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.toString();
-
-  // JMX
-  public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;
 
 }

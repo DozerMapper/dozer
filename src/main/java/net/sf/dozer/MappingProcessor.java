@@ -33,6 +33,7 @@ import java.util.Map.Entry;
 import net.sf.dozer.cache.Cache;
 import net.sf.dozer.cache.CacheKeyFactory;
 import net.sf.dozer.cache.CacheManager;
+import net.sf.dozer.cache.DozerCacheType;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
@@ -107,8 +108,8 @@ public class MappingProcessor implements Mapper {
     this.customConverterObjects = customConverterObjects;
     this.eventMgr = new DozerEventManager(eventListeners); // TODO Should not create this each time
     this.customFieldMapper = customFieldMapper;
-    this.converterByDestTypeCache = cacheMgr.getCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE);
-    this.superTypeCache = cacheMgr.getCache(MapperConstants.SUPER_TYPE_CHECK_CACHE);
+    this.converterByDestTypeCache = cacheMgr.getCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name());
+    this.superTypeCache = cacheMgr.getCache(DozerCacheType.SUPER_TYPE_CHECK.name());
     this.customConverterObjectsWithId = customConverterObjectsWithId;
   }
 

@@ -21,6 +21,7 @@ import java.util.Map;
 
 import net.sf.dozer.cache.CacheManager;
 import net.sf.dozer.cache.DozerCacheManager;
+import net.sf.dozer.cache.DozerCacheType;
 import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.config.GlobalSettings;
@@ -33,7 +34,6 @@ import net.sf.dozer.stats.StatisticsManager;
 import net.sf.dozer.util.CustomMappingsLoader;
 import net.sf.dozer.util.InitLogger;
 import net.sf.dozer.util.LoadMappingsResult;
-import net.sf.dozer.util.MapperConstants;
 import net.sf.dozer.util.MappingUtils;
 
 import org.apache.commons.logging.Log;
@@ -122,9 +122,9 @@ public class DozerBeanMapper implements Mapper {
 
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
-    cacheManager.addCache(MapperConstants.CONVERTER_BY_DEST_TYPE_CACHE, GlobalSettings.getInstance()
+    cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), GlobalSettings.getInstance()
         .getConverterByDestTypeCacheMaxSize());
-    cacheManager.addCache(MapperConstants.SUPER_TYPE_CHECK_CACHE, GlobalSettings.getInstance().getSuperTypesCacheMaxSize());
+    cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), GlobalSettings.getInstance().getSuperTypesCacheMaxSize());
 
     // stats
     statsMgr.increment(StatisticType.MAPPER_INSTANCES_COUNT);
