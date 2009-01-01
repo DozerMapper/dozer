@@ -6,6 +6,6 @@ import net.sf.dozer.vo.BaseTestObject;
 
 public class Person extends BaseTestObject {
   
-  public Vector phones;
+  public Vector<Phone> phones;
 
 }

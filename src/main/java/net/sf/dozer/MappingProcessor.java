@@ -44,6 +44,7 @@ import net.sf.dozer.converters.PrimitiveOrWrapperConverter;
 import net.sf.dozer.event.DozerEvent;
 import net.sf.dozer.event.DozerEventListener;
 import net.sf.dozer.event.DozerEventManager;
+import net.sf.dozer.event.DozerEventType;
 import net.sf.dozer.event.EventManager;
 import net.sf.dozer.fieldmap.CustomGetSetMethodFieldMap;
 import net.sf.dozer.fieldmap.ExcludeFieldMap;
@@ -146,10 +147,10 @@ public class MappingProcessor implements Mapper {
 
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
-      Class converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
+      Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
           .getClass(), destType);
       if (converterClass != null) {
-        eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, result, null));
+        eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
         return (T) mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destType, result, null, true);
       }
 
@@ -158,12 +159,12 @@ public class MappingProcessor implements Mapper {
             .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
       }
 
-      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_STARTED_EVENT, classMap, null, srcObj, result, null));
+      eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
       map(classMap, srcObj, result, false, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
     }
-    eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_FINISHED_EVENT, classMap, null, srcObj, result, null));
+    eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_FINISHED, classMap, null, srcObj, result, null));
     return result;
   }
 
@@ -355,7 +356,7 @@ public class MappingProcessor implements Mapper {
     boolean isSrcFieldClassSupportedMap = MappingUtils.isSupportedMap(srcFieldClass);
     boolean isDestFieldTypeSupportedMap = MappingUtils.isSupportedMap(destFieldType);
     if (isSrcFieldClassSupportedMap && isDestFieldTypeSupportedMap) {
-      return mapMap(srcObj, (Map) srcFieldValue, fieldMap, destObj);
+      return mapMap(srcObj, (Map<?, ?>) srcFieldValue, fieldMap, destObj);
     }
     if (fieldMap instanceof MapFieldMap && destFieldType.equals(Object.class)) {
       // TODO: find better place for this logic. try to encapsulate in FieldMap?
@@ -624,14 +625,14 @@ public class MappingProcessor implements Mapper {
     } else {
       list = addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj);
     }
-    return CollectionUtils.convertListToArray(list, destEntryType);
+    return (Object[]) CollectionUtils.convertListToArray(list, destEntryType);
   }
 
-  private List<Object> mapListToList(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
+  private List<?> mapListToList(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
     return addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj);
   }
 
-  private Set<Object> addToSet(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj) {
+  private Set<?> addToSet(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj) {
     // create a list here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
     Set<Object> mappedElements = new HashSet<Object>();
     Class<?> destEntryType = null;
@@ -640,7 +641,7 @@ public class MappingProcessor implements Mapper {
     // don't want to create the set if it already exists.
     Object field = fieldMap.getDestValue(destObj);
     if (field != null) {
-      result.addAll((Collection<Object>) field);
+      result.addAll((Collection<?>) field);
     }
     Object destValue;
     for (Iterator<?> iterator = srcCollectionValue.iterator(); iterator.hasNext();) {
@@ -680,17 +681,17 @@ public class MappingProcessor implements Mapper {
       return CollectionUtils.createNewSet(destSetType, result);
     } else {
       // Bug #1822421 - Clear first so we don't end up with the removed orphans again
-      ((Set<Object>) field).clear();
-      ((Set<Object>) field).addAll(result);
-      return (Set<Object>) field;
+      ((Set) field).clear();
+      ((Set) field).addAll((Set)result);
+      return (Set<?>) field;
     }
   }
 
-  private List<Object> addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj,
+  private List<?> addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj,
       Class<?> destEntryType) {
     // create a Set here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
     List<Object> mappedElements = new ArrayList<Object>();
-    List<Object> result;
+    List result;
     // don't want to create the list if it already exists.
     // these maps are special cases which do not fall under what we are looking for
     Object field = fieldMap.getDestValue(destObj);
@@ -752,13 +753,13 @@ public class MappingProcessor implements Mapper {
     }
   }
 
-  static List<Object> prepareDestinationList(Collection<?> srcCollectionValue, Object field) {
-    List<Object> result;
+  static List<?> prepareDestinationList(Collection<?> srcCollectionValue, Object field) {
+    List<?> result;
     if (field == null) {
       result = new ArrayList(srcCollectionValue.size());
     } else {
       if (CollectionUtils.isList(field.getClass())) {
-        result = (List<Object>) field;
+        result = (List<?>) field;
       } else if (CollectionUtils.isArray(field.getClass())) {
         result = new ArrayList(Arrays.asList((Object[]) field));
       } else { // assume it is neither - safest way is to create new List
@@ -768,7 +769,7 @@ public class MappingProcessor implements Mapper {
     return result;
   }
 
-  private List<Object> addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj) {
+  private List<?> addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj) {
     return addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj, null);
   }
 
@@ -776,7 +777,7 @@ public class MappingProcessor implements Mapper {
     return mapListToArray(srcObj, srcCollectionValue, fieldMap, destObj);
   }
 
-  private List<Object> mapArrayToList(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
+  private List<?> mapArrayToList(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
     Class<?> destEntryType;
     if (fieldMap.getDestHintContainer() != null) {
       destEntryType = fieldMap.getDestHintContainer().getHint();
@@ -811,12 +812,12 @@ public class MappingProcessor implements Mapper {
     }
 
     if (!bypass) {
-      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
+      eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
           destObj, destFieldValue));
 
       fieldMap.writeDestValue(destObj, destFieldValue);
 
-      eventMgr.fireEvent(new DozerEvent(MapperConstants.MAPPING_POST_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
+      eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_POST_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
           destObj, destFieldValue));
     }
   }

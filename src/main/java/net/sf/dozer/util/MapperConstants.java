@@ -16,6 +16,7 @@
 package net.sf.dozer.util;
 
 import net.sf.dozer.classmap.RelationshipType;
+import net.sf.dozer.factory.XMLBeanFactory;
 
 /**
  * Internal constants file containing a variety of constants used throughout the code base. Only intended for internal
@@ -63,13 +64,7 @@ public final class MapperConstants {
   public static final int DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = 5000;
   public static final int DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 5000;
 
-  // Supported Events
-  public static final String MAPPING_STARTED_EVENT = "MAPPING_STARTED";
-  public static final String MAPPING_PRE_WRITING_DEST_VALUE = "MAPPING_PRE_WRITING_DEST_VALUE";
-  public static final String MAPPING_POST_WRITING_DEST_VALUE = "MAPPING_POST_WRITING_DEST_VALUE";
-  public static final String MAPPING_FINISHED_EVENT = "MAPPING_FINISHED";
-
-  public static final String XML_BEAN_FACTORY = "net.sf.dozer.util.mapping.factory.XMLBeanFactory";
+  public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.toString();
 
   // JMX
   public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;

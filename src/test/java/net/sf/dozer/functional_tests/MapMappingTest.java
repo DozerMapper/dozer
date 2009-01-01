@@ -19,11 +19,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.vo.TestObject;
 import net.sf.dozer.vo.map.MapToMap;
 import net.sf.dozer.vo.map.MapToMapPrime;
 
@@ -65,12 +67,12 @@ public class MapMappingTest extends AbstractMapperTest{
   @Test
   public void testMapWithNullEntries_NullPointer() {
     MapToMap source = new MapToMap();
-    HashMap map = new HashMap();
+    HashMap<String, TestObject> map = new HashMap<String, TestObject>();
     map.put("A", null);
     source.setStandardMap(map);
 
     MapToMapPrime destination = new MapToMapPrime();
-    HashMap map2 = new HashMap();
+    HashMap<String, Serializable> map2 = new HashMap<String, Serializable>();
     map2.put("B", Boolean.TRUE);
     destination.setStandardMap(map2);
 

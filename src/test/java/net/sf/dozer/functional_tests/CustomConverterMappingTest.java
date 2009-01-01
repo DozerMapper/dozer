@@ -27,6 +27,7 @@ import org.junit.Test;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
+import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.converters.StringAppendCustomConverter;
 import net.sf.dozer.vo.AnotherTestObject;
 import net.sf.dozer.vo.AnotherTestObjectPrime;
@@ -99,7 +100,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testSimpleCustomConverter_ImplicitMappingWithInheritance() throws Exception {
     mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
 
-    Car car = (Car) newInstance(Car.class);
+    Car car = newInstance(Car.class);
     Van van = mapper.map(car, Van.class);
     assertEquals("defaultValueSetByCustomConverter", van.getName());
     // map back
@@ -107,7 +108,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     assertEquals("defaultValueSetByCustomConverter", carDest.getName());
 
     // test that we get customconverter even though it wasn't defined in the mapping file
-    Moped moped = (Moped) newInstance(Moped.class);
+    Moped moped = newInstance(Moped.class);
     Bus bus = mapper.map(moped, Bus.class);
     assertEquals("defaultValueSetByCustomConverter", bus.getName());
 
@@ -120,7 +121,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testSimpleCustomConverter_NullSrcValue() throws Exception {
     // Test that custom converter gets invoked even if the src field value is NULL
     mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
-    SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
+    SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(null);
 
     SimpleObjPrime2 dest = mapper.map(src, SimpleObjPrime2.class);
@@ -140,10 +141,10 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testArrayToStringCustomConverter() throws Exception {
     // Test that custom converter is used when src is an Array and dest is a String
     mapper = getMapper(new String[] { "arrayToStringCustomConverter.xml" });
-    SimpleObj simple = (SimpleObj) newInstance(SimpleObj.class);
+    SimpleObj simple = newInstance(SimpleObj.class);
     simple.setField1(String.valueOf(System.currentTimeMillis()));
 
-    ArrayCustConverterObj src = (ArrayCustConverterObj) newInstance(ArrayCustConverterObj.class);
+    ArrayCustConverterObj src = newInstance(ArrayCustConverterObj.class);
     src.setField1(new SimpleObj[] { simple });
 
     ArrayCustConverterObjPrime dest = mapper.map(src, ArrayCustConverterObjPrime.class);
@@ -161,14 +162,14 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   @Test
   public void testCustomConverterMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
-    TestCustomConverterObject obj = (TestCustomConverterObject) newInstance(TestCustomConverterObject.class);
-    CustomDoubleObjectIF doub = (CustomDoubleObjectIF) newInstance(CustomDoubleObject.class);
+    TestCustomConverterObject obj = newInstance(TestCustomConverterObject.class);
+    CustomDoubleObjectIF doub = newInstance(CustomDoubleObject.class);
     doub.setTheDouble(15);
-    CustomDoubleObjectIF doub2 = (CustomDoubleObjectIF) newInstance(CustomDoubleObject.class);
+    CustomDoubleObjectIF doub2 = newInstance(CustomDoubleObject.class);
     doub2.setTheDouble(15);
     obj.setAttribute(doub);
 
-    Collection list = (Collection) newInstance(ArrayList.class);
+    Collection<CustomDoubleObjectIF> list = newInstance(ArrayList.class);
     list.add(doub2);
 
     obj.setNames(list);
@@ -178,14 +179,14 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     assertEquals("Custom Converter failed", dest.getDoubleAttribute().doubleValue() + "", "15.0");
     assertEquals("Custom Converter failed", ((Double) dest.getNames().iterator().next()).doubleValue() + "", "15.0");
 
-    TestCustomConverterObjectPrime objp = (TestCustomConverterObjectPrime) newInstance(TestCustomConverterObjectPrime.class);
+    TestCustomConverterObjectPrime objp = newInstance(TestCustomConverterObjectPrime.class);
 
     objp.setDoubleAttribute(new Double(15));
 
-    Collection list2 = (Collection) newInstance(ArrayList.class);
+    Collection<Double> list2 = newInstance(ArrayList.class);
+    list2.add(new Double(10));
     objp.setNames(list2);
-    objp.getNames().add(new Double(10));
-
+    
     TestCustomConverterObject destp = mapper.map(objp, TestCustomConverterObject.class);
 
     assertEquals("Custom Converter failed", destp.getAttribute().getTheDouble() + "", "15.0");
@@ -200,7 +201,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
     assertEquals("testName", destp.getAttribute().getName());
 
     // test primitive double
-    TestCustomConverterObjectPrime prime = (TestCustomConverterObjectPrime) newInstance(TestCustomConverterObjectPrime.class);
+    TestCustomConverterObjectPrime prime = newInstance(TestCustomConverterObjectPrime.class);
     prime.setPrimitiveDoubleAttribute(25.00);
     TestCustomConverterObject obj2 = mapper.map(prime, TestCustomConverterObject.class);
     CustomDoubleObjectIF customDouble = obj2.getPrimitiveDoubleAttribute();
@@ -217,7 +218,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testCustomConverterWithPrimitive() throws Exception {
     // test primitive double
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
-    TestCustomConverterObjectPrime prime = (TestCustomConverterObjectPrime) newInstance(TestCustomConverterObjectPrime.class);
+    TestCustomConverterObjectPrime prime = newInstance(TestCustomConverterObjectPrime.class);
     prime.setPrimitiveDoubleAttribute(25.00);
     prime.setDoubleAttribute(new Double(30.00));
     TestCustomConverterObject obj2 = mapper.map(prime, TestCustomConverterObject.class);
@@ -235,10 +236,10 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testCustomConverterHashMapMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     TestCustomConverterHashMapObject testCustomConverterHashMapObject = (TestCustomConverterHashMapObject) newInstance(TestCustomConverterHashMapObject.class);
-    TestObject to = (TestObject) newInstance(TestObject.class);
+    TestObject to = newInstance(TestObject.class);
     to.setOne("one");
     testCustomConverterHashMapObject.setTestObject(to);
-    TestObjectPrime top = (TestObjectPrime) newInstance(TestObjectPrime.class);
+    TestObjectPrime top = newInstance(TestObjectPrime.class);
     top.setOnePrime("onePrime");
     testCustomConverterHashMapObject.setTestObjectPrime(top);
     TestCustomConverterHashMapPrimeObject dest = mapper.map(
@@ -251,7 +252,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   @Test
   public void testFieldCustomConverter() throws Exception {
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
-    SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
+    SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
 
     SimpleObjPrime2 dest = mapper.map(src, SimpleObjPrime2.class);
@@ -271,7 +272,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testFieldCustomConverter_NullSrcValue() throws Exception {
     // Test that custom converter gets invoked even if the src field value is NULL
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
-    SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
+    SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(null);
 
     SimpleObjPrime2 dest = mapper.map(src, SimpleObjPrime2.class);
@@ -291,7 +292,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testFieldCustomConverter_CustomMapType() throws Exception {
     // Test that custom field converter works for Custom Map Types
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
-    CustomMap src = (CustomMap) newInstance(CustomMap.class);
+    CustomMap src = newInstance(CustomMap.class);
     src.putValue("fieldA", "someStringValue");
 
     SimpleObj dest = mapper.map(src, SimpleObj.class);
@@ -311,8 +312,8 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   public void testFieldCustomConverter_HashMapField() throws Exception {
     // Test that custom field converter works for Map type fields
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
-    MapToProperty src = (MapToProperty) newInstance(MapToProperty.class);
-    Map hashMap = (Map) newInstance(HashMap.class);
+    MapToProperty src = newInstance(MapToProperty.class);
+    Map<String, String> hashMap = newInstance(HashMap.class);
     hashMap.put("fieldA", "someStringValue");
     src.setHashMap(hashMap);
 
@@ -332,7 +333,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   @Test
   public void testFieldCustomConverter_WithCustomConverterId() throws Exception {
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
-    Map map = (Map) newInstance(HashMap.class);
+    Map<String, CustomConverter> map = newInstance(HashMap.class);
     map.put("CustomConverterWithId", new StringAppendCustomConverter());
     ((DozerBeanMapper) mapper).setCustomConvertersWithId(map);
     AnotherTestObject src = (AnotherTestObject) newInstance(AnotherTestObject.class);
@@ -347,7 +348,7 @@ public class CustomConverterMappingTest extends AbstractMapperTest {
   @Test
   public void testCustomConverter_MapNullFalse() throws Exception {
     mapper = getMapper(new String[] { "custom-converter-map-null.xml" });
-    SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
+    SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(null);
 
     SimpleObjPrime2 dest = null;

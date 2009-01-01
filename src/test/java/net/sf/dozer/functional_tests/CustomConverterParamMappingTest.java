@@ -43,7 +43,7 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
 
   @Test
   public void testSimpleCustomConverter() throws Exception {
-    SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
+    SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
 
     AnotherTestObject dest = mapper.map(src, AnotherTestObject.class);

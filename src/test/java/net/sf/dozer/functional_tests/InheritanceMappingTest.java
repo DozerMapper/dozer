@@ -15,7 +15,11 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +35,7 @@ import net.sf.dozer.vo.inheritance.A;
 import net.sf.dozer.vo.inheritance.AnotherSubClass;
 import net.sf.dozer.vo.inheritance.AnotherSubClassPrime;
 import net.sf.dozer.vo.inheritance.B;
+import net.sf.dozer.vo.inheritance.BaseSubClass;
 import net.sf.dozer.vo.inheritance.BaseSubClassCombined;
 import net.sf.dozer.vo.inheritance.S2Class;
 import net.sf.dozer.vo.inheritance.S2ClassPrime;
@@ -143,7 +148,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   public void testGeneralInheritance() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     // first test mapping of sub and base class to a single class
-    net.sf.dozer.vo.inheritance.SubClass sub = (net.sf.dozer.vo.inheritance.SubClass) newInstance(net.sf.dozer.vo.inheritance.SubClass.class);
+    net.sf.dozer.vo.inheritance.SubClass sub = newInstance(net.sf.dozer.vo.inheritance.SubClass.class);
 
     sub.setBaseAttribute("base");
     sub.setSubAttribute("sub");
@@ -158,28 +163,28 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   public void testGeneralInheritance2() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     // test base to base and sub to sub mapping with an intermediate on the destination
-    AnotherSubClass asub = (AnotherSubClass) newInstance(AnotherSubClass.class);
+    AnotherSubClass asub = newInstance(AnotherSubClass.class);
     asub.setBaseAttribute("base");
     asub.setSubAttribute("sub");
-    List list = (List) newInstance(ArrayList.class);
-    SClass s = (SClass) newInstance(SClass.class);
+    List<BaseSubClass> list = newInstance(ArrayList.class);
+    SClass s =  newInstance(SClass.class);
     s.setBaseSubAttribute("sBase");
     s.setSubAttribute("s");
-    S2Class s2 = (S2Class) newInstance(S2Class.class);
+    S2Class s2 = newInstance(S2Class.class);
     s2.setBaseSubAttribute("s2Base");
     s2.setSub2Attribute("s2");
     list.add(s2);
     list.add(s);
     asub.setSubList(list);
 
-    List list2 = (List) newInstance(ArrayList.class);
-    SClass sclass = (SClass) newInstance(SClass.class);
+    List<BaseSubClass> list2 = newInstance(ArrayList.class);
+    SClass sclass = newInstance(SClass.class);
     sclass.setBaseSubAttribute("sBase");
     sclass.setSubAttribute("s");
-    S2Class s2class = (S2Class) newInstance(S2Class.class);
+    S2Class s2class = newInstance(S2Class.class);
     s2class.setBaseSubAttribute("s2Base");
     s2class.setSub2Attribute("s2");
-    SClass sclass2 = (SClass) newInstance(SClass.class);
+    SClass sclass2 = newInstance(SClass.class);
     sclass2.setBaseSubAttribute("sclass2");
     sclass2.setSubAttribute("sclass2");
     list2.add(s2class);
@@ -187,8 +192,8 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     list2.add(sclass2);
     asub.setListToArray(list2);
 
-    SClass sclassA = (SClass) newInstance(SClass.class);
-    SClass sclassB = (SClass) newInstance(SClass.class);
+    SClass sclassA = newInstance(SClass.class);
+    SClass sclassB = newInstance(SClass.class);
     sclassA.setBaseSubAttribute("sBase");
     sclassA.setSubAttribute("s");
     sclassB.setBaseSubAttribute("sBase");
@@ -233,7 +238,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   @Test
   public void testInheritanceWithAbstractClassOrInterfaceAsDestination() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
-    SpecificObject so = (SpecificObject) newInstance(SpecificObject.class);
+    SpecificObject so = newInstance(SpecificObject.class);
     so.setSuperAttr1("superAttr1");
 
     // validate abstract class
@@ -250,8 +255,8 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     assertEquals("superAttr1", spec3.getSuperAttr3());
     assertEquals("superAttr1", spec3.getSuperAttr2());
 
-    WrapperSpecific ws = (WrapperSpecific) newInstance(WrapperSpecific.class);
-    SpecificObject so2 = (SpecificObject) newInstance(SpecificObject.class);
+    WrapperSpecific ws = newInstance(WrapperSpecific.class);
+    SpecificObject so2 = newInstance(SpecificObject.class);
     so2.setSuperAttr1("superAttr1");
     ws.setSpecificObject(so2);
     WrapperSpecificPrime wsp = mapper.map(ws, WrapperSpecificPrime.class);
@@ -283,7 +288,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     obj.setCustomConvert(null);
     subClassClone.setCustomConvert(null);
     // more objects should be added to the clone from the ArrayList
-    TheFirstSubClass fsc = (TheFirstSubClass) newInstance(TheFirstSubClass.class);
+    TheFirstSubClass fsc = newInstance(TheFirstSubClass.class);
     fsc.setS("s");
     subClassClone.getTestObject().getHintList().add(fsc);
     subClassClone.getTestObject().getHintList().add(fsc);
@@ -320,7 +325,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   public void testSuperClassMapping() throws Exception {
     // source object does not extend a base custom data object, but destination object extends a custom data object.
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
-    NoSuperClass src = (NoSuperClass) newInstance(NoSuperClass.class);
+    NoSuperClass src = newInstance(NoSuperClass.class);
     src.setAttribute("somefieldvalue");
     src.setSuperAttribute("someotherfieldvalue");
 
@@ -337,7 +342,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
    */
   @Test
   public void testKM1() {
-    SomeVo request = (SomeVo) newInstance(SomeVo.class);
+    SomeVo request = newInstance(SomeVo.class);
     request.setUserName("yo");
     request.setAge("2");
     request.setColor("blue");
@@ -357,7 +362,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
    */
   @Test
   public void testKM2() {
-    Sub request = (Sub) newInstance(Sub.class);
+    Sub request = newInstance(Sub.class);
     request.setAge("2");
     request.setColor("blue");
     request.setLoginName("fred");
@@ -422,7 +427,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
   }
 
   private A getA() {
-    A result = (A) newInstance(A.class);
+    A result = newInstance(A.class);
     result.setField1("field1value");
     result.setFieldA("fieldAValue");
     result.setSuperAField("superAFieldValue");

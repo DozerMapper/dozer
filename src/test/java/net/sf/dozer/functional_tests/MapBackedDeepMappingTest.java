@@ -44,7 +44,7 @@ public class MapBackedDeepMappingTest extends AbstractMapperTest {
     DeepObject hangingReference = new DeepObject();
     deepObject.setDeepObject(hangingReference);
 
-    HashMap map = new HashMap();
+    HashMap<String, String> map = new HashMap<String, String>();
     map.put("data1", "value");
 
     assertNotNull(deepObject.getDeepObject());
@@ -63,7 +63,7 @@ public class MapBackedDeepMappingTest extends AbstractMapperTest {
     DeepObject hangingReference = new DeepObject();
     firstLevel.setDeepObject(hangingReference);
 
-    HashMap map = new HashMap();
+    HashMap<String, String> map = new HashMap<String, String>();
     map.put("data1", "value");
 
     assertNotNull(deepObject.getDeepObject().getDeepObject());
@@ -79,7 +79,7 @@ public class MapBackedDeepMappingTest extends AbstractMapperTest {
   public void testMapBackedDeepMapping_Simple() {
     DeepObject deepObject = new DeepObject();
 
-    HashMap map = new HashMap();
+    HashMap<String, String> map = new HashMap<String, String>();
     map.put("data1", "value");
 
     mapper.map(map, deepObject, "TC3");

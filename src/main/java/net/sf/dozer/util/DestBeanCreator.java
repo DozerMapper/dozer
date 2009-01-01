@@ -44,11 +44,11 @@ public final class DestBeanCreator {
     return (T) create(targetClass, null);
   }
 
-  public static Object create(Class targetClass, Class alternateClass) {
+  public static Object create(Class<?> targetClass, Class<?> alternateClass) {
     return create(null, null, targetClass, alternateClass, null, null, null);
   }
 
-  public static Object create(Object srcObject, Class srcClass, Class targetClass, Class alternateClass, String factoryName,
+  public static Object create(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName,
       String factoryId, String createMethod) {
     Class<?> classToCreate = targetClass != null ? targetClass : alternateClass;
 
@@ -110,7 +110,7 @@ public final class DestBeanCreator {
     return rvalue;
   }
 
-  private static Object createFromFactory(Object srcObject, Class srcObjectClass, Class destClass, String factoryName,
+  private static Object createFromFactory(Object srcObject, Class<?> srcObjectClass, Class<?> destClass, String factoryName,
       String factoryBeanId) {
 
     // By default, use dest object class name for factory bean id
@@ -119,7 +119,7 @@ public final class DestBeanCreator {
     BeanFactory factory = (BeanFactory) MappingUtils.storedFactories.get(factoryName);
 
     if (factory == null) {
-      Class factoryClass = MappingUtils.loadClass(factoryName);
+      Class<?> factoryClass = MappingUtils.loadClass(factoryName);
       if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
         MappingUtils.throwMappingException("Custom bean factory must implement the BeanFactoryIF interface.");
       }
@@ -159,7 +159,7 @@ public final class DestBeanCreator {
 
     T result = null;
     try {
-      result = (T) constructor.newInstance(null);
+      result = constructor.newInstance(null);
     } catch (IllegalArgumentException e) {
       MappingUtils.throwMappingException(e);
     } catch (InstantiationException e) {

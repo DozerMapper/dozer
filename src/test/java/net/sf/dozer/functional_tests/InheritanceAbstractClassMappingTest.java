@@ -122,7 +122,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
   }
 
   private A getA() {
-    A result = (A) newInstance(A.class);
+    A result = newInstance(A.class);
     result.setField1("field1value");
     result.setFieldA("fieldAValue");
     result.setAbstractAField("abstractAFieldValue");

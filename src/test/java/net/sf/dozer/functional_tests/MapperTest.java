@@ -137,7 +137,7 @@ public class MapperTest extends AbstractMapperTest {
         .getInputTestMapFieldWithMapNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
 
     NoCustomMappingsObject source = mapper.map(dest, NoCustomMappingsObject.class);
-    NoCustomMappingsObjectPrime dest2 = (NoCustomMappingsObjectPrime) mapper.map(source, NoCustomMappingsObjectPrime.class);
+    NoCustomMappingsObjectPrime dest2 = mapper.map(source, NoCustomMappingsObjectPrime.class);
 
     assertEquals(dest2, dest);
 
@@ -367,7 +367,7 @@ public class MapperTest extends AbstractMapperTest {
     owo.setNested(nested);
     owop.setOneWayPrimeField("oneWayField");
     owop.setSetOnlyField("setOnly");
-    List list = new ArrayList();
+    List<String> list = new ArrayList<String>();
     list.add("stringToList");
     list.add("src1");
     owop.setStringList(list);
@@ -393,7 +393,7 @@ public class MapperTest extends AbstractMapperTest {
     foo.setA("a");
     foo.setB(null);
     foo.setC("c");
-    List list2 = (ArrayList) newInstance(ArrayList.class);
+    List<TestReferenceFoo> list2 = (ArrayList<TestReferenceFoo>) newInstance(ArrayList.class);
     list2.add(foo);
     tro.setListA(list2);
     tro.setArrayToArrayCumulative(new Object[] { foo1 });
@@ -406,7 +406,7 @@ public class MapperTest extends AbstractMapperTest {
     foo3.setB(null);
     foo3.setC("c");
     tro.setArrayToArrayNoncumulative(new Object[] { foo2 });
-    List list3 = (ArrayList) newInstance(ArrayList.class);
+    List<String> list3 = (ArrayList<String>) newInstance(ArrayList.class);
     list3.add("string1");
     list3.add("string2");
     tro.setListToArray(list3);
@@ -414,7 +414,7 @@ public class MapperTest extends AbstractMapperTest {
     tro.setPrimitiveArray(pa);
     Integer[] integerArray = { new Integer(1), new Integer(2) };
     tro.setPrimitiveArrayWrapper(integerArray);
-    Set set = (HashSet) newInstance(HashSet.class);
+    Set<TestReferenceFoo> set = (HashSet<TestReferenceFoo>) newInstance(HashSet.class);
     TestReferenceFoo foo4 = (TestReferenceFoo) newInstance(TestReferenceFoo.class);
     foo4.setA("a");
     set.add(foo4);
@@ -424,7 +424,7 @@ public class MapperTest extends AbstractMapperTest {
     tro.setCars(new Car[] { car });
     Car car2 = new Car();
     car2.setName("myName");
-    List vehicles = (ArrayList) newInstance(ArrayList.class);
+    List<Car> vehicles = (ArrayList<Car>) newInstance(ArrayList.class);
     vehicles.add(car2);
     tro.setVehicles(vehicles);
     TestReferenceObject toClone = (TestReferenceObject) SerializationUtils.clone(tro);
@@ -505,10 +505,10 @@ public class MapperTest extends AbstractMapperTest {
     orange3.setName("orange3");
     Orange orange4 = (Orange) newInstance(Orange.class);
     orange4.setName("orange4");
-    Set set = (HashSet) newInstance(HashSet.class);
+    Set<Orange> set = (HashSet<Orange>) newInstance(HashSet.class);
     set.add(orange1);
     set.add(orange2);
-    Set set2 = (HashSet) newInstance(HashSet.class);
+    Set<Orange> set2 = (HashSet<Orange>) newInstance(HashSet.class);
     set2.add(orange3);
     set2.add(orange4);
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -517,7 +517,7 @@ public class MapperTest extends AbstractMapperTest {
 
     TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
 
-    Set fruitNames = new HashSet();
+    Set<String> fruitNames = new HashSet<String>();
     fruitNames.add(top.getArrayToSet()[0].getName());
     fruitNames.add(top.getArrayToSet()[1].getName());
     assertTrue(fruitNames.remove("orange1"));
@@ -536,7 +536,7 @@ public class MapperTest extends AbstractMapperTest {
     Apple apple2 = (Apple) newInstance(Apple.class);
     apple2.setName("apple2");
     TestObject toDest = (TestObject) newInstance(TestObject.class);
-    Set hashSet = (HashSet) newInstance(HashSet.class);
+    Set<Apple> hashSet = (HashSet<Apple>) newInstance(HashSet.class);
     hashSet.add(apple2);
     toDest.setSetToArrayWithValues(hashSet);
     mapper.map(top, toDest);
@@ -555,7 +555,7 @@ public class MapperTest extends AbstractMapperTest {
     orange1.setName("orange1");
     Orange orange2 = (Orange) newInstance(Orange.class);
     orange2.setName("orange2");
-    Set set = (HashSet) newInstance(HashSet.class);
+    Set<Orange> set = (HashSet<Orange>) newInstance(HashSet.class);
     set.add(orange1);
     set.add(orange2);
     TestObject to = (TestObject) newInstance(TestObject.class);
@@ -563,7 +563,7 @@ public class MapperTest extends AbstractMapperTest {
     TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
     assertEquals("orange1", ((Orange) top.getListToSet().get(0)).getName());
     assertEquals("orange2", ((Orange) top.getListToSet().get(1)).getName());
-    List list = (ArrayList) newInstance(ArrayList.class);
+    List<Orange> list = (ArrayList<Orange>) newInstance(ArrayList.class);
     Orange orange4 = (Orange) newInstance(Orange.class);
     orange4.setName("orange4");
     list.add(orange4);
@@ -571,7 +571,7 @@ public class MapperTest extends AbstractMapperTest {
     // Map back
     Orange orange3 = (Orange) newInstance(Orange.class);
     orange3.setName("orange3");
-    Set set2 = (HashSet) newInstance(HashSet.class);
+    Set<Orange> set2 = (HashSet<Orange>) newInstance(HashSet.class);
     set2.add(orange3);
     set2.add(orange4);
     TestObject toDest = (TestObject) newInstance(TestObject.class);

@@ -66,7 +66,7 @@ public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
     }
 
     // get mapper
-    List mappingFiles = new ArrayList();
+    List<String> mappingFiles = new ArrayList<String>();
     mappingFiles.add("interface-recursion-mappings.xml");
     Mapper mapper = new DozerBeanMapper(mappingFiles);
 

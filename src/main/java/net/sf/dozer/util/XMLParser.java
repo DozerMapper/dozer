@@ -536,6 +536,7 @@ public class XMLParser {
       }
     }
   }
+  @SuppressWarnings("unchecked")
   private void parseAllowedExceptions(Element ele, Configuration config) {
     AllowedExceptionContainer container = new AllowedExceptionContainer();
     config.setAllowedExceptions(container);
@@ -551,12 +552,12 @@ public class XMLParser {
         }
 
         if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
-          Class<RuntimeException> ex = (Class<RuntimeException>) MappingUtils.loadClass(element.getFirstChild().getNodeValue());
+          Class<?> ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
           if (!RuntimeException.class.isAssignableFrom(ex)) {
             MappingUtils.throwMappingException("allowed-exception Class must extend RuntimeException: "
                 + element.getFirstChild().getNodeValue());
           }
-          container.getExceptions().add(ex);
+          container.getExceptions().add((Class<RuntimeException>) ex);
         }
       }
     }

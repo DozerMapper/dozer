@@ -20,7 +20,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -110,7 +109,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     cacheMgr.addCache(name, 100);
     cacheMgr.addCache(name2, 100);
 
-    Set expected = new HashSet();
+    Set<String> expected = new HashSet<String>();
     expected.add(name);
     expected.add(name2);
 
@@ -137,7 +136,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     cacheMgr.addCache(cache);
     cacheMgr.addCache(cache2);
 
-    Set expected = new HashSet();
+    Set<Cache> expected = new HashSet<Cache>();
     expected.add(cache);
     expected.add(cache2);
 

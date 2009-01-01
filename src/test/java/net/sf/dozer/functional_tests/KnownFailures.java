@@ -54,7 +54,7 @@ public class KnownFailures extends AbstractMapperTest {
   @Test
   public void testListOfCustomObjectsToStringArray() {
     MessageHeaderVO vo = new MessageHeaderVO();
-    List ids = new ArrayList();
+    List<MessageIdVO> ids = new ArrayList<MessageIdVO>();
     ids.add(new MessageIdVO("1"));
     ids.add(new MessageIdVO("2"));
     vo.setMsgIds(ids);

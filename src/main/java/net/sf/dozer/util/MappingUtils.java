@@ -275,6 +275,7 @@ public final class MappingUtils {
     return mapping != null && mapping.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) >= 0;
   }
 
+  @SuppressWarnings("unchecked")
   private static <T> T[] prepareIndexedArray(Class<T> collectionType, Object existingCollection, Object collectionEntry, int index) {
     T[] result;
 
@@ -292,7 +293,7 @@ public final class MappingUtils {
     return result;
   }
 
-  private static Collection prepareIndexedCollectionType(Class<?> collectionType, Object existingCollection,
+  private static Collection<?> prepareIndexedCollectionType(Class<?> collectionType, Object existingCollection,
       Object collectionEntry, int index) {
     Collection result = null;
     //Instantiation of the new Collection: can be interface or implementation class

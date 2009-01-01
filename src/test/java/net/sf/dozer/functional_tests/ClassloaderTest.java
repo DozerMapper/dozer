@@ -31,7 +31,7 @@ public class ClassloaderTest extends AbstractMapperTest {
 
   @Test
   public void testClassloader() {
-    ArrayList files = new ArrayList();
+    ArrayList<String> files = new ArrayList<String>();
     files.add("classloader.xml");
     mapper = new DozerBeanMapper(files);
     assertNotNull(mapper);

@@ -68,7 +68,7 @@ public class StatisticsInterceptor implements InvocationHandler {
     String destClassName = null;
     if (args[1] != null) {
       if (args[1] instanceof Class) {
-        destClassName = ((Class) args[1]).getName();
+        destClassName = ((Class<?>) args[1]).getName();
       } else {
         destClassName = args[1].getClass().getName();
       }

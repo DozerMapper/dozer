@@ -26,14 +26,14 @@ import net.sf.dozer.fieldmap.FieldMap;
  */
 public class DozerEvent {
 
-  private String type;
+  private DozerEventType type;
   private ClassMap classMap;
   private FieldMap fieldMap;
   private Object sourceObject;
   private Object destinationObject;
   private Object destinationValue;
 
-  public DozerEvent(String type, ClassMap classMap, FieldMap fieldMap, Object sourceObject, Object destinationObject,
+  public DozerEvent(DozerEventType type, ClassMap classMap, FieldMap fieldMap, Object sourceObject, Object destinationObject,
       Object destinationValue) {
     this.type = type;
     this.classMap = classMap;
@@ -43,7 +43,7 @@ public class DozerEvent {
     this.destinationValue = destinationValue;
   }
 
-  public String getType() {
+  public DozerEventType getType() {
     return type;
   }
 

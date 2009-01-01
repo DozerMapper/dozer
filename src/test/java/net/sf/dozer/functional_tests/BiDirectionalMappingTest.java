@@ -39,8 +39,8 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
   @Test
   public void testSimpleBidirectional() {
     // A contains B and B contains A.
-    A src = (A) newInstance(A.class);
-    B field1 = (B) newInstance(B.class);
+    A src = newInstance(A.class);
+    B field1 = newInstance(B.class);
     field1.setField1(src);
     src.setField1(field1);
 
@@ -51,8 +51,8 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
   @Test
   public void testBidirectionalWithCustomMapping() throws Exception {
     Mapper mapper = getMapper(new String[] { "infiniteLoopMapping.xml" });
-    LoopObjectParent loopObjectParent = (LoopObjectParent) newInstance(LoopObjectParent.class);
-    LoopObjectChild loopObjectChild = (LoopObjectChild) newInstance(LoopObjectChild.class);
+    LoopObjectParent loopObjectParent = newInstance(LoopObjectParent.class);
+    LoopObjectChild loopObjectChild = newInstance(LoopObjectChild.class);
     loopObjectChild.setParent(loopObjectParent);
     loopObjectParent.setChild(loopObjectChild);
 
@@ -68,12 +68,12 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
    */
   @Test
   public void testManyObjects() {
-    net.sf.dozer.vo.B a = (net.sf.dozer.vo.B) newInstance(net.sf.dozer.vo.B.class);
+    net.sf.dozer.vo.B a = newInstance(net.sf.dozer.vo.B.class);
     net.sf.dozer.vo.B b = new net.sf.dozer.vo.B();
     a.setCs(new net.sf.dozer.vo.C[20000]);
     // Fill the list with C objects numbered from 0 to SIZE-1
     for (int i = 0; i < a.getCs().length; i++) {
-      net.sf.dozer.vo.C c = (C) newInstance(net.sf.dozer.vo.C.class);
+      net.sf.dozer.vo.C c = newInstance(net.sf.dozer.vo.C.class);
       c.setValue(Integer.toString(i));
       a.getCs()[i] = c;
     }

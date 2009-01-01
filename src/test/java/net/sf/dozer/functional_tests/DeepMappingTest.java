@@ -55,8 +55,8 @@ public class DeepMappingTest extends AbstractMapperTest {
   @Test
   public void testDeepPropertyOneWay() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
-    House house = (House) newInstance(House.class);
-    Person owner = (Person) newInstance(Person.class);
+    House house = newInstance(House.class);
+    Person owner = newInstance(Person.class);
     owner.setYourName("myName");
     house.setOwner(owner);
     HomeDescription desc =  mapper.map(house, HomeDescription.class);
@@ -69,9 +69,9 @@ public class DeepMappingTest extends AbstractMapperTest {
   @Test
   public void testDeepInterfaceWithHint() throws Exception {
     Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
-    InsideTestObject ito = (InsideTestObject) newInstance(InsideTestObject.class);
-    House house = (House) newInstance(House.class);
-    MetalThingyIF thingy = (MetalThingyIF) newInstance(Car.class);
+    InsideTestObject ito = newInstance(InsideTestObject.class);
+    House house = newInstance(House.class);
+    MetalThingyIF thingy = newInstance(Car.class);
     thingy.setName("name");
     house.setThingy(thingy);
     ito.setHouse(house);
@@ -91,7 +91,7 @@ public class DeepMappingTest extends AbstractMapperTest {
   public void testDeepMapping_UsingCustomGetSetMethods() {
     mapper = super.getMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
 
-    Src src = (Src) newInstance(Src.class);
+    Src src = newInstance(Src.class);
     src.setSrcField("srcFieldValue");
 
     Dest dest = mapper.map(src, Dest.class);

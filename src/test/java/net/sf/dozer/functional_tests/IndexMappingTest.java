@@ -57,7 +57,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testMap1() throws Exception {
-    List userNames = (List) newInstance(ArrayList.class);
+    List<String> userNames = (List<String>) newInstance(ArrayList.class);
     userNames.add("username1");
     userNames.add("username2");
 
@@ -71,7 +71,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     source.setSimpleField("a very simple field");
     source.setSecondNames(secondNames);
 
-    Set mySet = (Set) newInstance(HashSet.class);
+    Set<String> mySet = (Set<String>) newInstance(HashSet.class);
     mySet.add("myString");
 
     source.setAddressSet(mySet);
@@ -110,11 +110,11 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testMap3() {
-    List userNames = (List) newInstance(ArrayList.class);
+    List<String> userNames = newInstance(ArrayList.class);
     userNames.add("username1");
     userNames.add("username2");
 
-    Individual nestedIndividual = (Individual) newInstance(Individual.class);
+    Individual nestedIndividual = newInstance(Individual.class);
     nestedIndividual.setUsername("nestedusername");
 
     String[] secondNames = new String[3];
@@ -122,7 +122,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     secondNames[1] = "secondName2";
     secondNames[2] = "secondName3";
 
-    Individuals source = (Individuals) newInstance(Individuals.class);
+    Individuals source = newInstance(Individuals.class);
     source.setUsernames(userNames);
     source.setIndividual(nestedIndividual);
     source.setSecondNames(secondNames);
@@ -137,7 +137,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testNulls() {
-    FlatIndividual source = (FlatIndividual) newInstance(FlatIndividual.class);
+    FlatIndividual source = newInstance(FlatIndividual.class);
     source.setSimpleField("a simplefield");
 
     Individuals dest = mapper.map(source, Individuals.class);
@@ -146,7 +146,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testNullsInv() {
-    Individuals source = (Individuals) newInstance(Individuals.class);
+    Individuals source = newInstance(Individuals.class);
     source.setSimpleField("a simplefield");
 
     FlatIndividual dest = mapper.map(source, FlatIndividual.class);
@@ -155,8 +155,8 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testNestedArray() {
-    Individuals source = (Individuals) newInstance(Individuals.class);
-    Aliases aliases = (Aliases) newInstance(Aliases.class);
+    Individuals source = newInstance(Individuals.class);
+    Aliases aliases = newInstance(Aliases.class);
     aliases.setOtherAliases(new String[] { "other alias 1", "other alias 2" });
     source.setAliases(aliases);
 
@@ -166,11 +166,11 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testNotNullNestedIndexAtoD() {
-    C c = (C) newInstance(C.class);
+    C c = newInstance(C.class);
     c.setValue("value1");
-    B b = (B) newInstance(B.class);
+    B b = newInstance(B.class);
     b.setCs(new C[] { c });
-    A a = (A) newInstance(A.class);
+    A a = newInstance(A.class);
     a.setB(b);
 
     D d = mapper.map(a, D.class);
@@ -179,7 +179,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testNullNestedIndexAtoD() {
-    A a = (A) newInstance(A.class);
+    A a = newInstance(A.class);
 
     D d = mapper.map(a, D.class);
     assertNull("value should not be translated", d.getValue());
@@ -187,7 +187,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testNotNullNestedIndexDtoA() {
-    D d = (D) newInstance(D.class);
+    D d = newInstance(D.class);
     d.setValue("value1");
 
     A a = mapper.map(d, A.class);
@@ -196,19 +196,19 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testNullNestedIndexDtoA() {
-    D d = (D) newInstance(D.class);
+    D d = newInstance(D.class);
     A a = mapper.map(d, A.class);
     assertNotNull(a);
   }
 
   @Test
   public void testStringToIndexedSet_UsingMapSetMethod() {
-    mapper = (DozerBeanMapper) getMapper(new String[] { "indexMapping.xml" });
-    Mccoy src = (Mccoy) newInstance(Mccoy.class);
+    mapper = getMapper(new String[] { "indexMapping.xml" });
+    Mccoy src = newInstance(Mccoy.class);
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
 
     MccoyPrime dest = mapper.map(src, MccoyPrime.class);
-    Set destSet = dest.getFieldValueObjects();
+    Set<?> destSet = dest.getFieldValueObjects();
     assertNotNull("dest set should not be null", destSet);
     assertEquals("dest set should contain 1 entry", 1, destSet.size());
     Object entry = destSet.iterator().next();

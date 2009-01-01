@@ -53,7 +53,7 @@ public class CumulativeMappingTest extends AbstractMapperTest {
 
     LibraryPrime libDest = new LibraryPrime();
     BookPrime bookDest = new BookPrime(new Long(141L), new AuthorPrime(new Long(505L), "The Ultimate One", new Long(5100L)));
-    List bookDests = new ArrayList();
+    List<BookPrime> bookDests = new ArrayList<BookPrime>();
     bookDests.add(bookDest);
     libDest.setBooks(bookDests);
 

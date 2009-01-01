@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.fieldmap.FieldMap;
 import net.sf.dozer.fieldmap.GenericFieldMap;
 
 import org.junit.Before;
@@ -59,7 +60,7 @@ public class ClassMapTest extends AbstractDozerTest {
   public void testSetFieldMappings() throws Exception {
     ClassMap cm = new ClassMap(null);
     GenericFieldMap fm = new GenericFieldMap(cm);
-    List fmList = new ArrayList();
+    List<FieldMap> fmList = new ArrayList<FieldMap>();
     fmList.add(fm);
 
     cm.setFieldMaps(fmList);

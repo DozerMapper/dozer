@@ -28,7 +28,7 @@ public class TestCustomConverterObjectPrime extends BaseTestObject {
 
   public double primitiveDoubleAttribute;
 
-  public Collection names;
+  public Collection<?> names;
 
   public Double getDoubleAttribute() {
     return doubleAttribute;
@@ -38,11 +38,11 @@ public class TestCustomConverterObjectPrime extends BaseTestObject {
     this.doubleAttribute = attribute;
   }
 
-  public Collection getNames() {
+  public Collection<?> getNames() {
     return names;
   }
 
-  public void setNames(Collection names) {
+  public void setNames(Collection<?> names) {
     this.names = names;
   }
 

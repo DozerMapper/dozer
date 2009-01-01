@@ -15,9 +15,15 @@
  */
 package net.sf.dozer;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.management.ManagementFactory;
+
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+import javax.management.ObjectName;
 
 import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.jmx.DozerAdminController;
@@ -86,8 +92,8 @@ public class DozerInitializer {
   }
 
   // Auto register Dozer JMX mbeans for jdk 1.5 users
-  private static void registerJMXBeans() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException,
-      IllegalAccessException, InstantiationException {
+  private static void registerJMXBeans() throws MalformedObjectNameException, InstanceNotFoundException,
+      MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
     registerJMXBean("net.sf.dozer.util.mapping.jmx:type=DozerStatisticsController", new DozerStatisticsController());
     registerJMXBean("net.sf.dozer.util.mapping.jmx:type=DozerAdminController", new DozerAdminController());
   }
@@ -96,28 +102,20 @@ public class DozerInitializer {
    * Auto register Dozer JMX mbean for jdk 1.5 users. Need to use reflection so that the code base is backwards
    * compatible with older jdk's
    */
-  private static void registerJMXBean(String mbeanName, Object mbean) throws ClassNotFoundException, InvocationTargetException,
-      NoSuchMethodException, IllegalAccessException, InstantiationException {
-    Class mgmtFactoryClass = Class.forName("java.lang.management.ManagementFactory");
-    Class objectNameClass = Class.forName("javax.management.ObjectName");
-    Class mbsClass = Class.forName("javax.management.MBeanServer");
+  private static void registerJMXBean(String mbeanName, Object mbean) throws MalformedObjectNameException,
+      InstanceNotFoundException, MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
+    ObjectName mbeanObjectName = new ObjectName(mbeanName);
+    MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+    boolean isMBeanRegistered = mbs.isRegistered(mbeanObjectName);
 
-    Constructor objectNameConstructor = objectNameClass.getConstructor(new Class[] { String.class });
-    Object mbeanObjectName = objectNameConstructor.newInstance(new Object[] { mbeanName });
-    Object mbs = mgmtFactoryClass.getMethod("getPlatformMBeanServer", null).invoke(null, null);
-
-    // Check if MBean is already registered. If so, unregister it. This is primarily to handle app redeployment use cases.
-    Method isMBeanRegisteredMethod = mbsClass.getMethod("isRegistered", new Class[] { objectNameClass });
-    Boolean isMBeanRegistered = (Boolean) isMBeanRegisteredMethod.invoke(mbs, new Object[] { mbeanObjectName });
-    if (isMBeanRegistered.booleanValue()) {
+    // Check if MBean is already registered. If so, unregister it. This is primarily to handle app redeployment use cases.    
+    if (isMBeanRegistered) {
       InitLogger.log(log, "Dozer JMX MBean [" + mbeanName + "] already registered.  Unregistering the existing MBean.");
-      Method unregisterMBeanMethod = mbsClass.getMethod("unregisterMBean", new Class[] { objectNameClass });
-      unregisterMBeanMethod.invoke(mbs, new Object[] { mbeanObjectName });
+      mbs.unregisterMBean(mbeanObjectName);
     }
 
     // Register mbean
-    Method registerMBeanMethod = mbsClass.getMethod("registerMBean", new Class[] { Object.class, objectNameClass });
-    registerMBeanMethod.invoke(mbs, new Object[] { mbean, mbeanObjectName });
+    mbs.registerMBean(mbean, mbeanObjectName);
     InitLogger.log(log, "Dozer JMX MBean [" + mbeanName + "] auto registered with the Platform MBean Server");
   }
 

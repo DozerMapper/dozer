@@ -47,7 +47,7 @@ public abstract class AbstractMapperTest  {
   }
 
   protected Mapper getMapper(String[] mappingFiles) {
-    List list = new ArrayList();
+    List<String> list = new ArrayList<String>();
     if (mappingFiles != null) {
       for (int i = 0; i < mappingFiles.length; i++) {
         list.add(mappingFiles[i]);
@@ -58,11 +58,11 @@ public abstract class AbstractMapperTest  {
     return result;
   }
 
-  protected Object newInstance(Class classToInstantiate) {
+  protected <T> T newInstance(Class<T> classToInstantiate) {
     return getDataObjectInstantiator().newInstance(classToInstantiate);
   }
   
-  protected Object newInstance(Class[] interfacesToProxy, Object target) {
+  protected Object newInstance(Class<?>[] interfacesToProxy, Object target) {
     return getDataObjectInstantiator().newInstance(interfacesToProxy, target);
   }
 

@@ -79,7 +79,7 @@ public abstract class CollectionUtils {
     return result;
   }
 
-  public static <T> Set<T> createNewSet(Class<T> destType, Collection<T> srcValue) {
+  public static <T> Set<T> createNewSet(Class<T> destType, Collection srcValue) {
     Set<T> result = createNewSet(destType);
     if (srcValue != null) {
       result.addAll(srcValue);

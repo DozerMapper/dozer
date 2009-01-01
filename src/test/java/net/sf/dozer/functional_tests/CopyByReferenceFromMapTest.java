@@ -38,7 +38,7 @@ public class CopyByReferenceFromMapTest extends AbstractMapperTest {
 
   @Test
   public void testCopyByReferenceFromMap() {
-    HashMap hashMap = new HashMap();
+    HashMap<String, ValueObject> hashMap = new HashMap<String, ValueObject>();
     hashMap.put("1", new ValueObject());
 
     ValueObject destination = new ValueObject();

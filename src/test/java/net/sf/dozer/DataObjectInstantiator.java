@@ -18,8 +18,8 @@ package net.sf.dozer;
 
 public interface DataObjectInstantiator {
 
-  public Object newInstance(Class classToInstantiate);
+  public <T> T newInstance(Class<T> classToInstantiate);
   
-  public Object newInstance(Class[] interfacesToProxy, Object target);
+  public Object newInstance(Class<?>[] interfacesToProxy, Object target);
 
 }

@@ -16,6 +16,8 @@
 package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.*;
+
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -61,7 +63,7 @@ public class MapTypeTest extends AbstractMapperTest {
 
     NestedObj nestedObj = (NestedObj) newInstance(NestedObj.class);
     nestedObj.setField1("nestedfield1value");
-    Map src = (Map) newInstance(HashMap.class);
+    Map<String, Serializable> src = (Map<String, Serializable>) newInstance(HashMap.class);
     src.put("field1", "mapnestedfield1value");
     src.put("nested", nestedObj);
 
@@ -74,7 +76,7 @@ public class MapTypeTest extends AbstractMapperTest {
   public void testMapToVo_CustomMappings() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.
     mapper = getMapper(new String[] { "mapMapping2.xml" });
-    Map src = (Map) newInstance(HashMap.class);
+    Map<String, String> src = (Map<String, String>) newInstance(HashMap.class);
     src.put("field1", "field1value");
     src.put("field2", "field2value");
 
@@ -87,7 +89,7 @@ public class MapTypeTest extends AbstractMapperTest {
   public void testMapToVoUsingMapId() {
     // Simple map --> vo using a map-id
     mapper = super.getMapper(new String[] { "mapMapping.xml" });
-    Map src = (Map) newInstance(HashMap.class);
+    Map<String, String> src = (Map<String, String>) newInstance(HashMap.class);
     src.put("field1", "field1value");
     src.put("field2", "field2value");
 
@@ -100,7 +102,7 @@ public class MapTypeTest extends AbstractMapperTest {
   public void testMapToVoUsingMapId_FieldExclude() {
     // Simple map --> vo using a map-id
     mapper = super.getMapper(new String[] { "mapMapping.xml" });
-    Map src = (Map) newInstance(HashMap.class);
+    Map<String, String> src = (Map<String, String>) newInstance(HashMap.class);
     src.put("field1", "field1value");
     src.put("field2", "field2value");
 
@@ -122,7 +124,7 @@ public class MapTypeTest extends AbstractMapperTest {
     nested.setField1("nestedfield1");
     src.setNested(nested);
 
-    Map nested2 = (Map) newInstance(HashMap.class);
+    Map<String, String> nested2 = (Map<String, String>) newInstance(HashMap.class);
     nested2.put("field1", "field1MapValue");
     src.setNested2(nested2);
 
@@ -138,7 +140,7 @@ public class MapTypeTest extends AbstractMapperTest {
     // Test simple Map --> Vo without any custom mappings defined.
     NestedObj nestedObj = (NestedObj) newInstance(NestedObj.class);
     nestedObj.setField1("nestedfield1value");
-    Map src = (Map) newInstance(HashMap.class);
+    Map<String, Serializable> src = (Map<String, Serializable>) newInstance(HashMap.class);
     src.put("field1", "mapnestedfield1value");
     src.put("nested", nestedObj);
 
@@ -181,11 +183,11 @@ public class MapTypeTest extends AbstractMapperTest {
     to.setOne("one");
     TestObject to2 = (TestObject) newInstance(TestObject.class);
     to2.setTwo(new Integer(2));
-    Map map = (Map) newInstance(HashMap.class);
+    Map<String, TestObject> map = (Map<String, TestObject>) newInstance(HashMap.class);
     map.put("to", to);
     map.put("to2", to2);
 
-    Map map2 = (Map) newInstance(HashMap.class);
+    Map<String, TestObject> map2 = (Map<String, TestObject>) newInstance(HashMap.class);
     map2.put("to", to);
     map2.put("to2", to2);
 
@@ -206,7 +208,7 @@ public class MapTypeTest extends AbstractMapperTest {
     to.setOne("one");
     TestObject to2 = (TestObject) newInstance(TestObject.class);
     to2.setTwo(new Integer(2));
-    Map map = (Map) newInstance(HashMap.class);
+    Map<String, TestObject> map = (Map<String, TestObject>) newInstance(HashMap.class);
     map.put("to", to);
     map.put("to2", to2);
     MapToMap mtm = (MapToMap) newInstance(MapToMap.class);
@@ -215,7 +217,7 @@ public class MapTypeTest extends AbstractMapperTest {
     // create an existing map and set a value so we can test if it exists after
     // mapping
     MapToMapPrime mtmp = (MapToMapPrime) newInstance(MapToMapPrime.class);
-    Map map2 = (Map) newInstance(Hashtable.class);
+    Map<String, Serializable> map2 = (Map<String, Serializable>) newInstance(Hashtable.class);
     map2.put("toDest", to);
     mtmp.setStandardMap(map2);
 
@@ -262,7 +264,7 @@ public class MapTypeTest extends AbstractMapperTest {
   public void testPropertyClassLevelMapBack() throws Exception {
     // Map Back
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
-    Map map = (Map) newInstance(HashMap.class);
+    Map<String, Comparable> map = (Map<String, Comparable>) newInstance(HashMap.class);
     map.put("stringProperty", "stringPropertyValue");
     map.put("integerProperty", new Integer("567"));
     PropertyToMap property = mapper.map(map, PropertyToMap.class, "myTestMapping");
@@ -285,7 +287,7 @@ public class MapTypeTest extends AbstractMapperTest {
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
     ptm.setStringProperty6("string6Value");
-    Map hashMap = (Map) newInstance(HashMap.class);
+    Map<String, Comparable> hashMap = (Map<String, Comparable>) newInstance(HashMap.class);
     hashMap.put("reverseMapString", "reverseMapStringValue");
     hashMap.put("reverseMapInteger", new Integer("567"));
     ptm.setReverseMap(hashMap);
@@ -334,7 +336,7 @@ public class MapTypeTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     MapTestObject mto = (MapTestObject) newInstance(MapTestObject.class);
     PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
-    Map map = (Map) newInstance(HashMap.class);
+    Map<String, String> map = (Map<String, String>) newInstance(HashMap.class);
     map.put("reverseClassLevelMapString", "reverseClassLevelMapStringValue");
     mto.setPropertyToMapMapReverse(map);
     ptm.setStringProperty("stringPropertyValue");
@@ -458,7 +460,7 @@ public class MapTypeTest extends AbstractMapperTest {
   public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
     // Simple test checking that Maps get mapped to a VO without any custom mappings or map-id.
     // Should behave like Vo --> Vo, matching on common attr(key) names.
-    Map nested2 = (Map) newInstance(HashMap.class);
+    Map<String, String> nested2 = (Map<String, String>) newInstance(HashMap.class);
     nested2.put("field1", "mapnestedfield1");
 
     SimpleObj src = (SimpleObj) newInstance(SimpleObj.class);
@@ -480,7 +482,7 @@ public class MapTypeTest extends AbstractMapperTest {
     NestedObj nested = (NestedObj) newInstance(NestedObj.class);
     nested.setField1("field1Value");
 
-    Map nested2 = (Map) newInstance(HashMap.class);
+    Map<String, String> nested2 = (Map<String, String>) newInstance(HashMap.class);
     nested2.put("field1", "mapnestedfield1value");
     nested2.put("field2", "mapnestedfield2value");
 
@@ -516,7 +518,7 @@ public class MapTypeTest extends AbstractMapperTest {
     // Test simple Map --> Vo with custom mappings defined.
     mapper = getMapper(new String[] { "mapMapping5.xml" });
 
-    Map src = new HashMap();
+    Map<String, String> src = new HashMap<String, String>();
     src.put("stringValue", "somevalue");
 
     SimpleObj dest = mapper.map(src, SimpleObj.class, "test-id");

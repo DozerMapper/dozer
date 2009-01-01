@@ -45,7 +45,7 @@ public class SubclassReferenceTest  {
 
   @Test
   public void testBase() {
-    testB = (TestB) mapper.map(testA, TestB.class);
+    testB = mapper.map(testA, TestB.class);
     assertEquals(testA.getOne(), testB.getOne());
     assertEquals(testA.getOneA(), testB.getOneB());
   }

@@ -79,7 +79,7 @@ public class InheritanceDirectionTest extends AbstractMapperTest {
     ContentItemGroupDTO child = new ContentItemGroupDTO();
     child.setId("B");
     child.setParentGroup(parent);
-    HashSet childGroups = new HashSet();
+    HashSet<ContentItemGroupDTO> childGroups = new HashSet<ContentItemGroupDTO>();
     childGroups.add(child);
     parent.setChildGroups(childGroups);
 
