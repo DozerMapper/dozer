@@ -26,7 +26,7 @@ public class MappingProcessorTest  {
 
   @Test
   public void testPrepareDetinationList_OK() {
-    List<Object> result = MappingProcessor.prepareDestinationList(sourceList, destinationList);
+    List<?> result = MappingProcessor.prepareDestinationList(sourceList, destinationList);
     assertEquals(destinationList, result);
     
     destinationList.add("");

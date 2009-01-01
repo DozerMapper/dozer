@@ -754,20 +754,18 @@ public class MappingProcessor implements Mapper {
     }
   }
 
-  static List<Object> prepareDestinationList(Collection<?> srcCollectionValue, Object field) {
-    List<Object> result;
+  static List<?> prepareDestinationList(Collection<?> srcCollectionValue, Object field) {
     if (field == null) {
-      result = new ArrayList(srcCollectionValue.size());
+      return new ArrayList<Object>(srcCollectionValue.size());
     } else {
       if (CollectionUtils.isList(field.getClass())) {
-        result = (List) field;
+        return (List<?>) field;
       } else if (CollectionUtils.isArray(field.getClass())) {
-        result = new ArrayList(Arrays.asList((Object[]) field));
+        return new ArrayList<Object>(Arrays.asList((Object[]) field));
       } else { // assume it is neither - safest way is to create new List
-        result = new ArrayList(srcCollectionValue.size());
+        return new ArrayList<Object>(srcCollectionValue.size());
       }
     }
-    return result;
   }
 
   private List<?> addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj) {

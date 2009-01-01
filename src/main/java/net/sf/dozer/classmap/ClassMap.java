@@ -192,11 +192,11 @@ public class ClassMap {
     this.customConverters = customConverters;
   }
 
-  public Class getSrcClassToMap() {
+  public Class<?> getSrcClassToMap() {
     return srcClass.getClassToMap();
   }
 
-  public Class getDestClassToMap() {
+  public Class<?> getDestClassToMap() {
     return destClass.getClassToMap();
   }
 
