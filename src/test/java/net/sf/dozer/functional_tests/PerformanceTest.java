@@ -15,9 +15,7 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.SimpleObj;
 import net.sf.dozer.vo.SimpleObjPrime;
 import net.sf.dozer.vo.SimpleObjPrime2;
@@ -41,7 +39,7 @@ import org.junit.Test;
  * @author garsombke.franz
  * @author dmitry.buzdin
  */
-public class PerformanceTest extends AbstractMapperTest {
+public class PerformanceTest extends AbstractFunctionalTest {
 
   private static Log log = LogFactory.getLog(PerformanceTest.class);
   private static Mapper mapper;

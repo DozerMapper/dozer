@@ -17,9 +17,7 @@ package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.collections.User;
 import net.sf.dozer.vo.collections.UserGroup;
 import net.sf.dozer.vo.collections.UserGroupImpl;
@@ -28,7 +26,7 @@ import net.sf.dozer.vo.collections.UserImpl;
 
 import org.junit.Test;
 
-public class TestCumulativeCollectionMapping extends AbstractMapperTest {
+public class TestCumulativeCollectionMapping extends AbstractFunctionalTest {
 
   @Test
   public void testMappingInterface() throws Exception {

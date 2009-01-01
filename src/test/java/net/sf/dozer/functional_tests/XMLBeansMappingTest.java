@@ -25,8 +25,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import net.pmonks.xml.dozer.test.ChildType;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.AnotherTestObject;
 import net.sf.dozer.vo.Child;
 import net.sf.dozer.vo.GetWeatherByZipCodeDocument;
@@ -39,7 +37,7 @@ import net.sf.dozer.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class XMLBeansMappingTest extends AbstractMapperTest {
+public class XMLBeansMappingTest extends AbstractFunctionalTest {
 
   @Ignore("Failing after jdk 1.5 upgrade.  Needs investigation")
   @Test

@@ -27,9 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.converters.StringAppendCustomConverter;
 import net.sf.dozer.vo.AnotherTestObject;
@@ -59,7 +57,7 @@ import org.junit.Test;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class CustomConverterMappingTest extends AbstractMapperTest {
+public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testSimpleCustomConverter() throws Exception {

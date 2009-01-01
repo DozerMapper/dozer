@@ -19,9 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.Car;
 import net.sf.dozer.vo.InsideTestObject;
 import net.sf.dozer.vo.InsideTestObjectPrime;
@@ -40,7 +38,7 @@ import org.junit.Test;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DeepMappingTest extends AbstractMapperTest {
+public class DeepMappingTest extends AbstractFunctionalTest {
   
   @Test
   public void testDeepMapping() throws Exception {

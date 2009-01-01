@@ -24,10 +24,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.interfacerecursion.User;
 import net.sf.dozer.vo.interfacerecursion.UserGroup;
 import net.sf.dozer.vo.interfacerecursion.UserGroupImpl;
@@ -40,7 +38,7 @@ import org.junit.Test;
 /**
  * @author Christoph Goldner
  */
-public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
+public class RecursiveInterfaceMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testRecursiveInterfaceMapping() throws Exception {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.copybyreference;
+package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,6 +21,9 @@ import java.util.Arrays;
 
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
+import net.sf.dozer.vo.copybyreference.Reference;
+import net.sf.dozer.vo.copybyreference.TestA;
+import net.sf.dozer.vo.copybyreference.TestB;
 
 import org.junit.Before;
 import org.junit.Test;

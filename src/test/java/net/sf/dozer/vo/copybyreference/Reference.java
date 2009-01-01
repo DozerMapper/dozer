@@ -1,5 +1,3 @@
-package net.sf.dozer;
-
 /*
  * Copyright 2005-2007 the original author or authors.
  *
@@ -15,11 +13,22 @@ package net.sf.dozer;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package net.sf.dozer.vo.copybyreference;
 
-public interface DataObjectInstantiator {
+public class Reference {
 
-  public <T> T newInstance(Class<T> classToInstantiate);
-  
-  public Object newInstance(Class<?>[] interfacesToProxy, Object target);
+  public static final Reference FOO = new Reference("foo");
+  public static final Reference BAR = new Reference("bar");
+
+  private final String one;
+
+  protected Reference(String one) {
+    super();
+    this.one = one;
+  }
+
+  public String getOne() {
+    return one;
+  }
 
 }

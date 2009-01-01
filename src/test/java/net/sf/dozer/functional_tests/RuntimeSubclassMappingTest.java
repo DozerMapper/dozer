@@ -18,8 +18,6 @@ package net.sf.dozer.functional_tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.runtimesubclass.SpecialUserGroup;
 import net.sf.dozer.vo.runtimesubclass.SpecialUserGroupPrime;
 import net.sf.dozer.vo.runtimesubclass.User;
@@ -32,7 +30,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class RuntimeSubclassMappingTest extends AbstractMapperTest {
+public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
 
   @Override
   @Before

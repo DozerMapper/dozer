@@ -34,11 +34,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import net.sf.dozer.CustomFieldMapper;
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.fieldmapper.TestCustomFieldMapper;
 import net.sf.dozer.util.CollectionUtils;
 import net.sf.dozer.vo.AnotherTestObject;
@@ -93,7 +91,7 @@ import org.junit.Test;
 /**
  * @author garsombke.franz
  */
-public class GranularDozerBeanMapperTest extends AbstractMapperTest {
+public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNoDefaultConstructor() throws Exception {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer;
+package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,6 +23,10 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.DozerBeanMapper;
+import net.sf.dozer.Mapper;
+import net.sf.dozer.MappingException;
 import net.sf.dozer.event.EventTestListener;
 import net.sf.dozer.factories.SampleCustomBeanFactory;
 import net.sf.dozer.factories.SampleCustomBeanFactory2;

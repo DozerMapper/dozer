@@ -17,8 +17,6 @@ package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.excluded.TwoA;
 import net.sf.dozer.vo.excluded.TwoB;
 
@@ -28,7 +26,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class GrandparentTest extends AbstractMapperTest {
+public class GrandparentTest extends AbstractFunctionalTest {
 
   @Override
   @Before

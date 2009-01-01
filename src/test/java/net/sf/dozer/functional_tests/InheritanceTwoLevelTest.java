@@ -2,8 +2,6 @@ package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.inheritance.twolevel.A;
 import net.sf.dozer.vo.inheritance.twolevel.B;
 import net.sf.dozer.vo.inheritance.twolevel.C;
@@ -14,7 +12,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class InheritanceTwoLevelTest extends AbstractMapperTest {
+public class InheritanceTwoLevelTest extends AbstractFunctionalTest {
 
   @Override
   @Before

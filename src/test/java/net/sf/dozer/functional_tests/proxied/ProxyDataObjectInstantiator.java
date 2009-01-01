@@ -1,4 +1,4 @@
-package net.sf.dozer;
+package net.sf.dozer.functional_tests.proxied;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -7,6 +7,7 @@ import net.sf.cglib.proxy.Dispatcher;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
 
 /*
  * Copyright 2005-2007 the original author or authors.

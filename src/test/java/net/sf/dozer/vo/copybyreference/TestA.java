@@ -13,28 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.copybyreference;
+package net.sf.dozer.vo.copybyreference;
 
-public class TestB {
+public class TestA {
   private String one;
-  private String oneB;
-  private Reference reference;
+  private String oneA;
+  private Reference testC;
   public String getOne() {
     return one;
   }
   public void setOne(String one) {
     this.one = one;
   }
-  public String getOneB() {
-    return oneB;
+  public String getOneA() {
+    return oneA;
   }
-  public void setOneB(String oneA) {
-    this.oneB = oneA;
+  public void setOneA(String oneA) {
+    this.oneA = oneA;
   }
   public Reference getTestReference() {
-    return reference;
+    return testC;
   }
   public void setTestReference(Reference testC) {
-    this.reference = testC;
+    this.testC = testC;
   }
+
 }

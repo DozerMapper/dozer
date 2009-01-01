@@ -27,10 +27,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.AbstractMapperTest;
+import net.sf.dozer.functional_tests.AbstractFunctionalTest;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
+import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.generics.deepindex.AnotherTestObject;
 import net.sf.dozer.vo.generics.deepindex.DestDeepObj;
 import net.sf.dozer.vo.generics.deepindex.Family;
@@ -44,7 +44,7 @@ import org.junit.Test;
 /**
  * @author garsombke.franz
  */
-public class GenericCollectionMappingTest extends AbstractMapperTest {
+public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testGenericCollectionMapping() throws Exception {

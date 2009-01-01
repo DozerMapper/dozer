@@ -7,8 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.direction.ContentItemGroup;
 import net.sf.dozer.vo.direction.ContentItemGroupDTO;
 import net.sf.dozer.vo.direction.ContentItemGroupDefault;
@@ -19,7 +17,7 @@ import org.junit.Test;
 /**
  * @author dmitry.buzdin
  */
-public class InheritanceDirectionTest extends AbstractMapperTest {
+public class InheritanceDirectionTest extends AbstractFunctionalTest {
 
   @Override
   @Before

@@ -1,3 +1,5 @@
+package net.sf.dozer.functional_tests;
+
 /*
  * Copyright 2005-2007 the original author or authors.
  *
@@ -13,22 +15,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.copybyreference;
 
-public class Reference {
+public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
 
-  public static final Reference FOO = new Reference("foo");
-  public static final Reference BAR = new Reference("bar");
+  public static final NoProxyDataObjectInstantiator INSTANCE = new NoProxyDataObjectInstantiator();
 
-  private final String one;
-
-  protected Reference(String one) {
-    super();
-    this.one = one;
+  private NoProxyDataObjectInstantiator() {
   }
 
-  public String getOne() {
-    return one;
+  public <T> T newInstance(Class<T> classToInstantiate) {
+    try {
+      return classToInstantiate.newInstance();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public Object newInstance(Class<?>[] interfacesToProxy, Object target) {
+    return target;
   }
 
 }

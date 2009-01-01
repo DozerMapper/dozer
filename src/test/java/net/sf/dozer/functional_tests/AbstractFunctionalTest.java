@@ -18,7 +18,6 @@ package net.sf.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.util.MapperConstants;
@@ -29,7 +28,7 @@ import org.junit.Before;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class AbstractMapperTest  {
+public abstract class AbstractFunctionalTest  {
   protected Mapper mapper;
   protected TestDataFactory testDataFactory = new TestDataFactory(getDataObjectInstantiator());
 

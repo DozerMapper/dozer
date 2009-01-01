@@ -1,4 +1,4 @@
-package net.sf.dozer;
+package net.sf.dozer.functional_tests;
 
 /*
  * Copyright 2005-2007 the original author or authors.
@@ -16,23 +16,10 @@ package net.sf.dozer;
  * limitations under the License.
  */
 
-public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
+public interface DataObjectInstantiator {
 
-  public static final NoProxyDataObjectInstantiator INSTANCE = new NoProxyDataObjectInstantiator();
-
-  private NoProxyDataObjectInstantiator() {
-  }
-
-  public <T> T newInstance(Class<T> classToInstantiate) {
-    try {
-      return classToInstantiate.newInstance();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  public Object newInstance(Class<?>[] interfacesToProxy, Object target) {
-    return target;
-  }
+  public <T> T newInstance(Class<T> classToInstantiate);
+  
+  public Object newInstance(Class<?>[] interfacesToProxy, Object target);
 
 }

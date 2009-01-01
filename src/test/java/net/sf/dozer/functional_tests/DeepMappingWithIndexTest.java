@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
 import java.util.Vector;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.AnotherTestObject;
 import net.sf.dozer.vo.SimpleObj;
 import net.sf.dozer.vo.TestObject;
@@ -51,7 +49,7 @@ import org.junit.Test;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DeepMappingWithIndexTest extends AbstractMapperTest {
+public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
   
   @Override
   @Before

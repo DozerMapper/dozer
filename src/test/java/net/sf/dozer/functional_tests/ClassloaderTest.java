@@ -19,16 +19,14 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 
 import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
-public class ClassloaderTest extends AbstractMapperTest {
+public class ClassloaderTest extends AbstractFunctionalTest {
 
   @Test
   public void testClassloader() {

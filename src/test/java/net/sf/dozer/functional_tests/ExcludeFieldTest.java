@@ -17,8 +17,6 @@ package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.excluded.OneA;
 import net.sf.dozer.vo.excluded.OneB;
 import net.sf.dozer.vo.excluded.TwoA;
@@ -32,7 +30,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class ExcludeFieldTest extends AbstractMapperTest {
+public class ExcludeFieldTest extends AbstractFunctionalTest {
 
   @Override
   @Before

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.cumulative.Author;
 import net.sf.dozer.vo.cumulative.AuthorPrime;
 import net.sf.dozer.vo.cumulative.Book;
@@ -35,7 +34,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class CumulativeMappingTest extends AbstractMapperTest {
+public class CumulativeMappingTest extends AbstractFunctionalTest {
 
   @Override
   @Before
@@ -69,7 +68,7 @@ public class CumulativeMappingTest extends AbstractMapperTest {
   }
 
   @Override
-  protected net.sf.dozer.DataObjectInstantiator getDataObjectInstantiator() {
+  protected net.sf.dozer.functional_tests.DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
 

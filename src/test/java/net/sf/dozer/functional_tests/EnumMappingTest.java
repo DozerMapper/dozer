@@ -16,8 +16,6 @@
 package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.enumtest.MyBean;
 import net.sf.dozer.vo.enumtest.MyBeanPrime;
 import net.sf.dozer.vo.enumtest.SrcType;
@@ -50,7 +48,7 @@ import org.junit.Test;
  * @author cchou.hung
  *
  */
-public class EnumMappingTest extends AbstractMapperTest {
+public class EnumMappingTest extends AbstractFunctionalTest {
   
   /**
    * Test on a mapping from Overrided Enum to Based Enum. 

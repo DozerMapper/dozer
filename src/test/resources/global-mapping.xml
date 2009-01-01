@@ -8,8 +8,8 @@
     </copy-by-references>
   </configuration>
   <mapping>
-    <class-a>net.sf.dozer.copybyreference.TestA</class-a>
-    <class-b>net.sf.dozer.copybyreference.TestB</class-b>
+    <class-a>net.sf.dozer.vo.copybyreference.TestA</class-a>
+    <class-b>net.sf.dozer.vo.copybyreference.TestB</class-b>
     <field>
       <a>oneA</a>
       <b>oneB</b>

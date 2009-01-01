@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.DeepObject;
 
 import org.junit.Before;
@@ -31,7 +29,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class MapBackedDeepMappingTest extends AbstractMapperTest {
+public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
 
   @Override
   @Before

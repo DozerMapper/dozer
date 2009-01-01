@@ -19,8 +19,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.ValueObject;
 
 import org.junit.Before;
@@ -29,7 +27,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class CopyByReferenceFromMapTest extends AbstractMapperTest {
+public class CopyByReferenceFromMapTest extends AbstractFunctionalTest {
 
   @Override
   @Before

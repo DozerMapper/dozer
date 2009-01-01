@@ -32,9 +32,9 @@ import java.util.Vector;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.ProxyDataObjectInstantiator;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.MappingFileData;
+import net.sf.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
 import net.sf.dozer.vo.enumtest.DestType;
 import net.sf.dozer.vo.enumtest.DestTypeWithOverride;
 import net.sf.dozer.vo.enumtest.SrcType;

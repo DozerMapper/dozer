@@ -25,10 +25,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.Apple;
 import net.sf.dozer.vo.Car;
 import net.sf.dozer.vo.CustomConverterWrapper;
@@ -72,7 +70,7 @@ import org.junit.Test;
  * @author sullins.ben
  * @author tierney.matt
  */
-public class MapperTest extends AbstractMapperTest {
+public class MapperTest extends AbstractFunctionalTest {
 
   @Override
   @Before

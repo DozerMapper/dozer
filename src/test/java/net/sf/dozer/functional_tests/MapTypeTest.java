@@ -29,9 +29,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.TestObject;
 import net.sf.dozer.vo.TestObjectPrime;
 import net.sf.dozer.vo.map.ChildDOM;
@@ -58,7 +56,7 @@ import org.junit.Test;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class MapTypeTest extends AbstractMapperTest {
+public class MapTypeTest extends AbstractFunctionalTest {
   
   @Test
   public void testMapToVo() throws Exception {

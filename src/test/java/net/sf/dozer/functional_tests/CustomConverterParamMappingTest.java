@@ -21,8 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.StringTokenizer;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.AnotherTestObject;
 import net.sf.dozer.vo.Fruit;
 import net.sf.dozer.vo.Individual;
@@ -34,7 +32,7 @@ import org.junit.Test;
 /**
  * @author johnsen.knut-erik
  */
-public class CustomConverterParamMappingTest extends AbstractMapperTest {
+public class CustomConverterParamMappingTest extends AbstractFunctionalTest {
 
   @Override
   @Before

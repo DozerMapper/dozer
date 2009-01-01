@@ -25,8 +25,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.A;
 import net.sf.dozer.vo.Aliases;
 import net.sf.dozer.vo.B;
@@ -47,7 +45,7 @@ import org.junit.Test;
  * @author dominic.peciuch
  * 
  */
-public class IndexMappingTest extends AbstractMapperTest {
+public class IndexMappingTest extends AbstractFunctionalTest {
 
   @Override
   @Before

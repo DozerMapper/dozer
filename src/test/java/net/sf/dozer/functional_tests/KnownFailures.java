@@ -20,8 +20,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.MessageHeaderDTO;
 import net.sf.dozer.vo.MessageHeaderVO;
 import net.sf.dozer.vo.MessageIdVO;
@@ -40,7 +38,7 @@ import org.junit.Test;
  * 
  * @author tierney.matt
  */
-public class KnownFailures extends AbstractMapperTest {
+public class KnownFailures extends AbstractFunctionalTest {
 
   @Override
   @Before

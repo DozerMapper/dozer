@@ -23,10 +23,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.NoSuperClass;
 import net.sf.dozer.vo.SubClass;
 import net.sf.dozer.vo.SubClassPrime;
@@ -62,7 +60,7 @@ import org.junit.Test;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class InheritanceMappingTest extends AbstractMapperTest {
+public class InheritanceMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testCustomMappingForSuperClasses() throws Exception {

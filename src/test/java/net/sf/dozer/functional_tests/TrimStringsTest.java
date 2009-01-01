@@ -16,8 +16,6 @@
 package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.AnotherTestObject;
 import net.sf.dozer.vo.AnotherTestObjectPrime;
 import net.sf.dozer.vo.SimpleObj;
@@ -28,7 +26,7 @@ import net.sf.dozer.vo.TestObjectPrime;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TrimStringsTest extends AbstractMapperTest {
+public class TrimStringsTest extends AbstractFunctionalTest {
 
   @Override
   @Before

@@ -17,10 +17,8 @@ package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapperSingletonWrapper;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.LoopObjectChild;
 import net.sf.dozer.vo.LoopObjectParent;
 import net.sf.dozer.vo.LoopObjectParentPrime;
@@ -33,7 +31,7 @@ import org.junit.Test;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class BiDirectionalMappingTest extends AbstractMapperTest {
+public class BiDirectionalMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testSimpleBidirectional() {

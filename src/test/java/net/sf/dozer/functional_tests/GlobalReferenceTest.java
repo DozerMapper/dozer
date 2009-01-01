@@ -13,29 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.copybyreference;
+package net.sf.dozer.functional_tests;
 
-public class TestA {
-  private String one;
-  private String oneA;
-  private Reference testC;
-  public String getOne() {
-    return one;
-  }
-  public void setOne(String one) {
-    this.one = one;
-  }
-  public String getOneA() {
-    return oneA;
-  }
-  public void setOneA(String oneA) {
-    this.oneA = oneA;
-  }
-  public Reference getTestReference() {
-    return testC;
-  }
-  public void setTestReference(Reference testC) {
-    this.testC = testC;
+public class GlobalReferenceTest extends SubclassReferenceTest {
+  @Override
+  protected String getMappingFile() {
+    return "global-mapping.xml";
   }
 
 }

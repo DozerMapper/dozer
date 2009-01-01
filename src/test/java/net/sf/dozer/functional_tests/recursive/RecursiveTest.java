@@ -17,9 +17,9 @@ package net.sf.dozer.functional_tests.recursive;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.AbstractMapperTest;
+import net.sf.dozer.functional_tests.AbstractFunctionalTest;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
+import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
 
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ import org.junit.Test;
  * 
  * @author ADE
  */
-public class RecursiveTest extends AbstractMapperTest {
+public class RecursiveTest extends AbstractFunctionalTest {
 
   private ClassAA createTestClassAA() {
 

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.dozer.DataObjectInstantiator;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
 import net.sf.dozer.vo.Apple;
 import net.sf.dozer.vo.AppleComputer;
 import net.sf.dozer.vo.Car;

@@ -15,8 +15,6 @@
  */
 package net.sf.dozer.functional_tests;
 
-import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.TestObject;
 import net.sf.dozer.vo.TestObjectPrime;
 import net.sf.dozer.vo.inheritance.AnotherSubClass;
@@ -29,7 +27,7 @@ import org.junit.Test;
  * @author tierney.matt
  * @author Ozzie Gurkan
  */
-public class MultiThreadedTest extends AbstractMapperTest {
+public class MultiThreadedTest extends AbstractFunctionalTest {
 
   @Override
   @Before
