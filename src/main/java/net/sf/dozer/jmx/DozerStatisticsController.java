@@ -60,19 +60,19 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     return getStatisticValue(StatisticType.MAPPING_TIME);
   }
 
-  public Set getMappingFailureExceptionTypes() {
+  public Set<String> getMappingFailureExceptionTypes() {
     return getStatisticEntries(StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT);
   }
 
-  public Set getMappingFailureTypes() {
+  public Set<String> getMappingFailureTypes() {
     return getStatisticEntries(StatisticType.MAPPING_FAILURE_TYPE_COUNT);
   }
 
-  public Set getCacheHitCount() {
+  public Set<String> getCacheHitCount() {
     return getStatisticEntries(StatisticType.CACHE_HIT_COUNT);
   }
 
-  public Set getCacheMissCount() {
+  public Set<String> getCacheMissCount() {
     return getStatisticEntries(StatisticType.CACHE_MISS_COUNT);
   }
 
@@ -96,7 +96,7 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     return getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
   }
 
-  public Set getStatisticTypes() {
+  public Set<StatisticType> getStatisticTypes() {
     return statsMgr.getStatisticTypes();
   }
 
@@ -118,8 +118,8 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     return (ccTotalTime / overallTime) * 100;
   }
 
-  public Set getStatisticEntries(StatisticType statisticType) {
-    Set result = new TreeSet();
+  public Set<String> getStatisticEntries(StatisticType statisticType) {
+    Set<String> result = new TreeSet<String>();
     if (statsMgr.statisticExists(statisticType)) {
       for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
         result.add(entry.getKey().toString() + ":Count " + entry.getValue());
