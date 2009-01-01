@@ -37,7 +37,8 @@ import net.sf.dozer.CustomFieldMapper;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.MappingException;
-import net.sf.dozer.fieldmapper.TestCustomFieldMapper;
+import net.sf.dozer.functional_tests.support.SampleDefaultBeanFactory;
+import net.sf.dozer.functional_tests.support.TestCustomFieldMapper;
 import net.sf.dozer.util.CollectionUtils;
 import net.sf.dozer.vo.AnotherTestObject;
 import net.sf.dozer.vo.AnotherTestObjectPrime;
@@ -604,7 +605,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     TestObjectPrime dest = mapper.map(newInstance(TestObject.class), TestObjectPrime.class);
 
     assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
-    assertEquals("", "net.sf.dozer.factories.SampleDefaultBeanFactory", dest.getCreatedByFactoryName());
+    assertEquals(SampleDefaultBeanFactory.class.getName(), dest.getCreatedByFactoryName());
   }
 
   @Test

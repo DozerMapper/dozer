@@ -3,7 +3,7 @@
 <mappings>
 
   <configuration>
-    <bean-factory>net.sf.dozer.factories.UserBeanFactory</bean-factory>
+    <bean-factory>net.sf.dozer.functional_tests.support.UserBeanFactory</bean-factory>
   </configuration>
 
   <mapping>

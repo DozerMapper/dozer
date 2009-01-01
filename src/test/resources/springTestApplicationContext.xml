@@ -15,7 +15,7 @@
     <property name="factories">
       <map>
         <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
-        <entry key="net.sf.dozer.factories.SampleCustomBeanFactory">
+        <entry key="net.sf.dozer.functional_tests.support.SampleCustomBeanFactory">
           <ref bean="sampleCustomBeanFactory" />
         </entry>
         <!-- more factories can be supplied with additional entry's -->
@@ -39,11 +39,11 @@
     </property>
   </bean>
 
-  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.factories.SampleCustomBeanFactory"
+  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.functional_tests.support.SampleCustomBeanFactory"
     singleton="true" />
 
   <!-- custom converter -->
-  <bean id="customConverterTest" class="net.sf.dozer.converters.InjectedCustomConverter"
+  <bean id="customConverterTest" class="net.sf.dozer.functional_tests.support.InjectedCustomConverter"
     singleton="true">
     <property name="injectedName">
       <value>injectedName</value>

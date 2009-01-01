@@ -3,8 +3,8 @@
 <mappings>
 
   <mapping>
-    <class-a>net.sf.dozer.functional_tests.generics.UserGroup</class-a>
-    <class-b>net.sf.dozer.functional_tests.generics.UserGroupPrime</class-b>
+    <class-a>net.sf.dozer.vo.generics.UserGroup</class-a>
+    <class-b>net.sf.dozer.vo.generics.UserGroupPrime</class-b>
     <field>
       <a>users</a>
       <b>users</b>

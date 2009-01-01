@@ -6,7 +6,7 @@
   <mapping>
     <class-a>net.sf.dozer.vo.SimpleObj</class-a>
     <class-b>net.sf.dozer.vo.SimpleObjPrime2</class-b>
-    <field custom-converter="net.sf.dozer.converters.StringAppendCustomConverter">
+    <field custom-converter="net.sf.dozer.functional_tests.support.StringAppendCustomConverter">
       <a>field1</a>
       <b>field1Prime</b>
     </field>
@@ -15,7 +15,7 @@
   <mapping>
     <class-a>net.sf.dozer.vo.map.CustomMap</class-a>
     <class-b>net.sf.dozer.vo.SimpleObj</class-b>
-    <field custom-converter="net.sf.dozer.converters.StringAppendCustomConverter">
+    <field custom-converter="net.sf.dozer.functional_tests.support.StringAppendCustomConverter">
       <a map-get-method="getValue" key="fieldA">this</a>
       <b>field1</b>
     </field>
@@ -24,7 +24,7 @@
   <mapping>
     <class-a>net.sf.dozer.vo.map.MapToProperty</class-a>
     <class-b>net.sf.dozer.vo.SimpleObj</class-b>
-    <field custom-converter="net.sf.dozer.converters.StringAppendCustomConverter">
+    <field custom-converter="net.sf.dozer.functional_tests.support.StringAppendCustomConverter">
       <a key="fieldA">hashMap</a>
       <b>field1</b>
     </field>

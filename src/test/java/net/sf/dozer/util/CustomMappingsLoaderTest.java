@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.util.Arrays;
 
 import net.sf.dozer.MappingException;
+import net.sf.dozer.functional_tests.support.SampleDefaultBeanFactory;
 
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class CustomMappingsLoaderTest {
     LoadMappingsResult result = loader.load(Arrays.asList(new String[] { "customMappingsLoaderWithGlobalConfigTest.xml" }));
     assertNotNull("result should not be null", result);
     assertEquals("wrong # of mappings", 4, result.getCustomMappings().size());
-    assertEquals("wrong value in global config", "net.sf.dozer.factories.SampleDefaultBeanFactory", result
+    assertEquals("wrong value in global config", SampleDefaultBeanFactory.class.getName(), result
         .getGlobalConfiguration().getBeanFactory());
   }
 

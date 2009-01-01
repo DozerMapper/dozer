@@ -58,6 +58,6 @@ public final class MapperConstants {
   public static final String SELF_KEYWORD = "this";
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
   public static final String JAVASSIST_ID = "$$_javassist";
-  public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.toString();
+  public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.getName();
 
 }

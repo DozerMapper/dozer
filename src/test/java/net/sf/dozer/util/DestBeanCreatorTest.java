@@ -39,7 +39,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
 
   @Test
   public void testCreatBeanFromFactory() throws Exception {
-    String factoryName = "net.sf.dozer.factories.SampleCustomBeanFactory";
+    String factoryName = "net.sf.dozer.functional_tests.support.SampleCustomBeanFactory";
     TestObject bean = (TestObject) DestBeanCreator.create(new TestObjectPrime(), TestObjectPrime.class, TestObject.class, null,
         factoryName, null, null);
 

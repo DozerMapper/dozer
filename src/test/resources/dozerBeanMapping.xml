@@ -10,13 +10,13 @@
 
     <custom-converters><!-- these are always considered bi-directional -->
 
-      <converter type="net.sf.dozer.converters.TestCustomConverter">
+      <converter type="net.sf.dozer.functional_tests.support.TestCustomConverter">
         <class-a>net.sf.dozer.vo.CustomDoubleObjectIF</class-a>
         <class-b>java.lang.Double</class-b>
       </converter>
 
       <!-- this is a top level custom mapping. You are responsible for mapping everything between class-a and class-b -->
-      <converter type="net.sf.dozer.converters.TestCustomHashMapConverter">
+      <converter type="net.sf.dozer.functional_tests.support.TestCustomHashMapConverter">
         <!-- keep the carriage returns...this tests parsing the xml -->
         <class-a>
           net.sf.dozer.vo.TestCustomConverterHashMapObject
@@ -25,7 +25,7 @@
       </converter>
 
       <!-- testing converters with hints -->
-      <converter type="net.sf.dozer.converters.HintedOnlyConverter">
+      <converter type="net.sf.dozer.functional_tests.support.HintedOnlyConverter">
         <class-a>net.sf.dozer.vo.HintedOnly</class-a>
         <class-b>java.lang.String</class-b>
       </converter>

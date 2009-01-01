@@ -5,7 +5,7 @@
 
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.converters.CustomConverterParamConverter">
+      <converter type="net.sf.dozer.functional_tests.support.CustomConverterParamConverter">
         <class-a>java.lang.String</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
@@ -15,7 +15,7 @@
   <mapping wildcard="false">
     <class-a>net.sf.dozer.vo.SimpleObj</class-a>
     <class-b>net.sf.dozer.vo.AnotherTestObject</class-b>
-    <field custom-converter="net.sf.dozer.converters.CustomConverterParamConverter" custom-converter-param="CustomConverterParamTest">
+    <field custom-converter="net.sf.dozer.functional_tests.support.CustomConverterParamConverter" custom-converter-param="CustomConverterParamTest">
       <a>field1</a>
       <b>field3</b>
     </field>

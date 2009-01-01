@@ -17,6 +17,6 @@
     </property>
   </bean>
 
-  <bean id="eventTestListener" class="net.sf.dozer.event.EventTestListener" singleton="true" />
+  <bean id="eventTestListener" class="net.sf.dozer.functional_tests.support.EventTestListener" singleton="true" />
 
 </beans>

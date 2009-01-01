@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.converters.CustomConverter;
-import net.sf.dozer.converters.StringAppendCustomConverter;
+import net.sf.dozer.functional_tests.support.StringAppendCustomConverter;
 import net.sf.dozer.vo.AnotherTestObject;
 import net.sf.dozer.vo.AnotherTestObjectPrime;
 import net.sf.dozer.vo.ArrayCustConverterObj;

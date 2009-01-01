@@ -6,11 +6,11 @@
   <configuration>
     <stop-on-errors>true</stop-on-errors>
     <wildcard>true</wildcard>
-    <bean-factory>net.sf.dozer.factories.SampleDefaultBeanFactory</bean-factory>
+    <bean-factory>net.sf.dozer.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
   </configuration>
 
   <!-- mapping level factory should override top level factory.  mapping level factory will get applied to both classes-->
-  <mapping bean-factory="net.sf.dozer.factories.SampleCustomBeanFactory">
+  <mapping bean-factory="net.sf.dozer.functional_tests.support.SampleCustomBeanFactory">
     <class-a>net.sf.dozer.vo.TestObject</class-a>
     <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
     <field>
@@ -30,7 +30,7 @@
   <!-- class level factory should override top level and mapping level factory. -->
   <mapping>
     <class-a>net.sf.dozer.vo.InsideTestObject</class-a>
-    <class-b bean-factory="net.sf.dozer.factories.SampleCustomBeanFactory2"
+    <class-b bean-factory="net.sf.dozer.functional_tests.support.SampleCustomBeanFactory2"
       factory-bean-id="someBeanId">
       net.sf.dozer.vo.InsideTestObjectPrime
     </class-b>
@@ -41,7 +41,7 @@
   </mapping>
 
   <mapping>
-    <class-a bean-factory="net.sf.dozer.factories.SampleCustomBeanFactory3">
+    <class-a bean-factory="net.sf.dozer.functional_tests.support.SampleCustomBeanFactory3">
       net.sf.dozer.vo.MetalThingyIF
     </class-a>
     <class-b>net.sf.dozer.vo.Van</class-b>

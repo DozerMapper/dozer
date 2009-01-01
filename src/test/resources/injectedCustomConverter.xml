@@ -7,7 +7,7 @@
     <stop-on-errors>true</stop-on-errors>
     <wildcard>true</wildcard>
     <custom-converters>
-      <converter type="net.sf.dozer.converters.InjectedCustomConverter">
+      <converter type="net.sf.dozer.functional_tests.support.InjectedCustomConverter">
         <class-a>net.sf.dozer.vo.Vehicle</class-a>
         <class-b>net.sf.dozer.vo.Vehicle</class-b>
       </converter>

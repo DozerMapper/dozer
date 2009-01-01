@@ -20,8 +20,8 @@ import java.util.List;
 
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
+import net.sf.dozer.functional_tests.support.TestDataFactory;
 import net.sf.dozer.util.MapperConstants;
-import net.sf.dozer.util.TestDataFactory;
 
 import org.junit.Before;
 /**
