@@ -53,6 +53,7 @@ public class UnmarshallerImpl extends AbstractUnmarshallerImpl {
     DatatypeConverter.setDatatypeConverter(DatatypeConverterImpl.theInstance);
   }
 
+  @Override
   public void setValidating(boolean validating) throws JAXBException {
     super.setValidating(validating);
     if (validating == true) {
@@ -102,6 +103,7 @@ public class UnmarshallerImpl extends AbstractUnmarshallerImpl {
     return unmarshaller;
   }
 
+  @Override
   protected Object unmarshal(XMLReader reader, InputSource source) throws JAXBException {
 
     SAXLocator locator = new SAXLocator();

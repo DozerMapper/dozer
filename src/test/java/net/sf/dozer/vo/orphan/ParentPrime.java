@@ -49,6 +49,7 @@ public class ParentPrime {
     this.childrenSet = childrenSet;
   }
 
+  @Override
   public boolean equals(Object o) {
     if (o instanceof ParentPrime) {
       ParentPrime castObj = (ParentPrime) o;
@@ -57,6 +58,7 @@ public class ParentPrime {
     return false;
   }
 
+  @Override
   public int hashCode() {
     return id.hashCode();
   }

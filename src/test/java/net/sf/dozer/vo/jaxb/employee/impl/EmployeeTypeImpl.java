@@ -161,9 +161,9 @@ public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeT
       return net.sf.dozer.vo.jaxb.employee.impl.EmployeeTypeImpl.this;
     }
 
+    @Override
     public void enterElement(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname,
         org.xml.sax.Attributes __atts) throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 9:
@@ -197,9 +197,9 @@ public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeT
       }
     }
 
+    @Override
     public void leaveElement(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 9:
@@ -235,9 +235,9 @@ public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeT
       }
     }
 
+    @Override
     public void enterAttribute(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 9:
@@ -252,9 +252,9 @@ public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeT
       }
     }
 
+    @Override
     public void leaveAttribute(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 9:
@@ -269,8 +269,8 @@ public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeT
       }
     }
 
+    @Override
     public void handleText(final java.lang.String value) throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         try {
           switch (state) {

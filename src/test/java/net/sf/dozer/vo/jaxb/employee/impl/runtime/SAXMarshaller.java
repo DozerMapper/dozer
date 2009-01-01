@@ -439,6 +439,7 @@ public class SAXMarshaller implements XMLSerializer {
    * Default {@link NamespacePrefixMapper} implementation used when it is not specified by the user.
    */
   private static NamespacePrefixMapper defaultNamespacePrefixMapper = new NamespacePrefixMapper() {
+    @Override
     public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
       if (namespaceUri.equals("http://www.w3.org/2001/XMLSchema-instance")) {
         return "xsi";

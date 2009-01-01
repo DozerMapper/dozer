@@ -40,14 +40,17 @@ public class LoopObjectParentPrime extends BaseTestObject {
     this.childPrime = childPrime;
   }
 
+  @Override
   public int hashCode() {
     return System.identityHashCode(this);
   }
 
+  @Override
   public String toString() {
     return this.getClass().getName() + "@" + Integer.toHexString(hashCode());
   }
 
+  @Override
   public boolean equals(Object obj) {
     return hashCode() == obj.hashCode();
   }

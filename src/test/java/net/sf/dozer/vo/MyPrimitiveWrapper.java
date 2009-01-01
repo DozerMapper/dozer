@@ -28,6 +28,7 @@ public class MyPrimitiveWrapper extends BaseTestObject {
     this.value = new Integer(value);
   }
 
+  @Override
   public String toString() {
     return value.toString();
   }

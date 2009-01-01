@@ -28,11 +28,13 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
     return "EmployeeWithInnerClass";
   }
 
+  @Override
   public net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallingEventHandler createUnmarshaller(
       net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallingContext context) {
     return new net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassImpl.Unmarshaller(context);
   }
 
+  @Override
   public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
     context.startElement("http://jaxb.vo..dozer.sf.net/Employee", "EmployeeWithInnerClass");
@@ -44,18 +46,22 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
     context.endElement();
   }
 
+  @Override
   public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
   }
 
+  @Override
   public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
   }
 
+  @Override
   public java.lang.Class getPrimaryInterface() {
     return (net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClass.class);
   }
 
+  @Override
   public com.sun.msv.verifier.DocumentDeclaration createRawValidator() {
     if (schemaFragment == null) {
       schemaFragment = com.sun.xml.bind.validator.SchemaDeserializer
@@ -132,9 +138,9 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
       return net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassImpl.this;
     }
 
+    @Override
     public void enterElement(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname,
         org.xml.sax.Attributes __atts) throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 1:
@@ -161,9 +167,9 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
       }
     }
 
+    @Override
     public void leaveElement(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 2:
@@ -182,9 +188,9 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
       }
     }
 
+    @Override
     public void enterAttribute(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 3:
@@ -196,9 +202,9 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
       }
     }
 
+    @Override
     public void leaveAttribute(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 3:
@@ -210,8 +216,8 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
       }
     }
 
+    @Override
     public void handleText(final java.lang.String value) throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         try {
           switch (state) {

@@ -15,6 +15,7 @@ public abstract class EntityBase implements Entity {
     return this.id;
   }
 
+  @Override
   public int hashCode() {
     if (this.id == null) {
       throw new IllegalStateException("Id not mapped yet: BOEM.");

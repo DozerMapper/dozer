@@ -63,6 +63,7 @@ public class ObjectFactory extends net.sf.dozer.vo.jaxb.employee.impl.runtime.De
    * @throws JAXBException
    *           if an error occurs
    */
+  @Override
   public java.lang.Object newInstance(java.lang.Class javaContentInterface) throws javax.xml.bind.JAXBException {
     return super.newInstance(javaContentInterface);
   }
@@ -77,6 +78,7 @@ public class ObjectFactory extends net.sf.dozer.vo.jaxb.employee.impl.runtime.De
    * @throws PropertyException
    *           when there is an error retrieving the given property or value
    */
+  @Override
   public java.lang.Object getProperty(java.lang.String name) throws javax.xml.bind.PropertyException {
     return super.getProperty(name);
   }
@@ -92,6 +94,7 @@ public class ObjectFactory extends net.sf.dozer.vo.jaxb.employee.impl.runtime.De
    * @throws PropertyException
    *           when there is an error processing the given property or value
    */
+  @Override
   public void setProperty(java.lang.String name, java.lang.Object value) throws javax.xml.bind.PropertyException {
     super.setProperty(name, value);
   }

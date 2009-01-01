@@ -48,10 +48,12 @@ public class BookPrime {
     this.author = author;
   }
 
+  @Override
   public int hashCode() {
     return id == null ? 0 : id.hashCode();
   }
 
+  @Override
   public boolean equals(Object obj) {
     if (!(obj instanceof BookPrime))
       return false;

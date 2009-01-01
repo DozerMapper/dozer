@@ -85,6 +85,7 @@ public class DefaultJAXBContextImpl extends JAXBContext {
    * @throws JAXBException
    *           if an error was encountered while creating the <code>Marshaller</code> object
    */
+  @Override
   public Marshaller createMarshaller() throws JAXBException {
     return new MarshallerImpl(this);
   }
@@ -96,6 +97,7 @@ public class DefaultJAXBContextImpl extends JAXBContext {
    * @throws JAXBException
    *           if an error was encountered while creating the <code>Unmarshaller</code> object
    */
+  @Override
   public Unmarshaller createUnmarshaller() throws JAXBException {
     return new UnmarshallerImpl(this, gi);
   }
@@ -107,6 +109,7 @@ public class DefaultJAXBContextImpl extends JAXBContext {
    * @throws JAXBException
    *           if an error was encountered while creating the <code>Validator</code> object
    */
+  @Override
   public Validator createValidator() throws JAXBException {
     return new ValidatorImpl(this);
   }

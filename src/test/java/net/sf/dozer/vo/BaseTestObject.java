@@ -30,14 +30,17 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public abstract class BaseTestObject implements Serializable {
 
+  @Override
   public int hashCode() {
     return HashCodeBuilder.reflectionHashCode(this);
   }
 
+  @Override
   public boolean equals(Object obj) {
     return EqualsBuilder.reflectionEquals(this, obj);
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

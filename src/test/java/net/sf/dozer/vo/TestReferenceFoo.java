@@ -20,6 +20,7 @@ public class TestReferenceFoo extends BaseTestObject {
   private String b;
   private String c;
 
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
@@ -36,6 +37,7 @@ public class TestReferenceFoo extends BaseTestObject {
     }
   }
 
+  @Override
   public int hashCode() {
     return 'x';
   }

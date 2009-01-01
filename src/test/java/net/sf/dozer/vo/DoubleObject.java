@@ -41,6 +41,7 @@ public class DoubleObject implements Serializable {
     this.value = value;
   }
 
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -58,11 +59,13 @@ public class DoubleObject implements Serializable {
     return true;
   }
 
+  @Override
   public int hashCode() {
     final long temp = value != +0.0d ? Double.doubleToLongBits(value) : 0l;
     return (int) (temp ^ (temp >>> 32));
   }
 
+  @Override
   public String toString() {
     return String.valueOf(value);
   }

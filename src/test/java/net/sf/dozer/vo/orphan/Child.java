@@ -28,6 +28,7 @@ public class Child {
     this.name = name;
   }
 
+  @Override
   public boolean equals(Object o) {
     if (o instanceof Child) {
       Child castObj = (Child) o;
@@ -36,6 +37,7 @@ public class Child {
     return false;
   }
 
+  @Override
   public int hashCode() {
     return id.hashCode();
   }

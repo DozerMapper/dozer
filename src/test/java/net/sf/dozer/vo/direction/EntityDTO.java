@@ -15,6 +15,7 @@ public class EntityDTO {
     this.id = id;
   }
 
+  @Override
   public int hashCode() {
     if (this.id == null) {
       throw new IllegalStateException("Id not mapped yet: BOEM.");

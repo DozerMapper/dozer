@@ -28,11 +28,13 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
     return "Employee";
   }
 
+  @Override
   public net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallingEventHandler createUnmarshaller(
       net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallingContext context) {
     return new net.sf.dozer.vo.jaxb.employee.impl.EmployeeImpl.Unmarshaller(context);
   }
 
+  @Override
   public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
     context.startElement("http://jaxb.vo.dozer.sf.net/Employee", "Employee");
@@ -44,18 +46,22 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
     context.endElement();
   }
 
+  @Override
   public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
   }
 
+  @Override
   public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
       throws org.xml.sax.SAXException {
   }
 
+  @Override
   public java.lang.Class getPrimaryInterface() {
     return (net.sf.dozer.vo.jaxb.employee.Employee.class);
   }
 
+  @Override
   public com.sun.msv.verifier.DocumentDeclaration createRawValidator() {
     if (schemaFragment == null) {
       schemaFragment = com.sun.xml.bind.validator.SchemaDeserializer
@@ -123,9 +129,9 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
       return net.sf.dozer.vo.jaxb.employee.impl.EmployeeImpl.this;
     }
 
+    @Override
     public void enterElement(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname,
         org.xml.sax.Attributes __atts) throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 0:
@@ -152,9 +158,9 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
       }
     }
 
+    @Override
     public void leaveElement(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 3:
@@ -173,9 +179,9 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
       }
     }
 
+    @Override
     public void enterAttribute(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 3:
@@ -187,9 +193,9 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
       }
     }
 
+    @Override
     public void leaveAttribute(java.lang.String ___uri, java.lang.String ___local, java.lang.String ___qname)
         throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         switch (state) {
         case 3:
@@ -201,8 +207,8 @@ public class EmployeeImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeTyp
       }
     }
 
+    @Override
     public void handleText(final java.lang.String value) throws org.xml.sax.SAXException {
-      int attIdx;
       outer: while (true) {
         try {
           switch (state) {

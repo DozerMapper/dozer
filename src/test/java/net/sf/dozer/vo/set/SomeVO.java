@@ -22,6 +22,7 @@ public class SomeVO extends BaseTestObject {
   public void setField2(Set field2) {
     this.field2 = field2;
   }
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;
@@ -43,6 +44,7 @@ public class SomeVO extends BaseTestObject {
     return true;
   }
 
+  @Override
   public int hashCode() {
     final int PRIME = 31;
     int result = super.hashCode();

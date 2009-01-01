@@ -19,6 +19,7 @@ public class TestReferenceFooPrime extends BaseTestObject {
   private String a;
   private String b;
 
+  @Override
   public boolean equals(Object obj) {
     TestReferenceFooPrime fooPrime = (TestReferenceFooPrime) obj;
     if (fooPrime.getA().equals(this.a)) {
@@ -28,6 +29,7 @@ public class TestReferenceFooPrime extends BaseTestObject {
     }
   }
 
+  @Override
   public int hashCode() {
     return 'x';
   }

@@ -70,6 +70,7 @@ public class ValidatingUnmarshaller extends ForkContentHandler implements SAXUnm
 
   private final AttributesImpl xsiLessAtts = new AttributesImpl();
 
+  @Override
   public void startElement(String nsUri, String local, String qname, Attributes atts) throws SAXException {
     // create an attributes set for MSV that doesn't contains xsi:schemaLocation
     xsiLessAtts.clear();

@@ -238,6 +238,7 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
     }
   }
 
+  @Override
   public Object getProperty(String name) throws PropertyException {
     if (INDENT_STRING.equals(name)) {
       return indent;
@@ -258,6 +259,7 @@ public class MarshallerImpl extends AbstractMarshallerImpl {
     return super.getProperty(name);
   }
 
+  @Override
   public void setProperty(String name, Object value) throws PropertyException {
     if (INDENT_STRING.equals(name) && value instanceof String) {
       indent = (String) value;
