@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
 public final class StatisticsManagerImpl implements StatisticsManager {
   private static final Log log = LogFactory.getLog(StatisticsManagerImpl.class);
 
-  private final Map<StatisticType, Statistic> statisticsMap = new HashMap<StatisticType, Statistic>();
+  private final Map<StatisticType, Statistic<?>> statisticsMap = new HashMap<StatisticType, Statistic<?>>();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
 
   public void clearAll() {
@@ -46,8 +46,8 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     return getStatistic(statisticType).getEntries();
   }
 
-  public Set<Statistic> getStatistics() {
-    return new HashSet<Statistic>(statisticsMap.values());
+  public Set<Statistic<?>> getStatistics() {
+    return new HashSet<Statistic<?>>(statisticsMap.values());
   }
 
   public boolean isStatisticsEnabled() {
@@ -59,8 +59,9 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
 
-  public Statistic getStatistic(StatisticType statisticType) {
-    Statistic result = statisticsMap.get(statisticType);
+  @SuppressWarnings("unchecked")
+  protected <T extends Enum<StatisticType>> Statistic<T> getStatistic(T statisticType) {
+    Statistic<T> result = (Statistic<T>) statisticsMap.get(statisticType);
     if (result == null) {
       MappingUtils.throwMappingException("Unable to find statistic for type: " + statisticType);
     }
@@ -69,7 +70,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
 
   public Set<StatisticType> getStatisticTypes() {
     Set<StatisticType> results = new HashSet<StatisticType>();
-    for (Entry<StatisticType, Statistic> entry : statisticsMap.entrySet()) {
+    for (Entry<StatisticType, Statistic<?>> entry : statisticsMap.entrySet()) {
       results.add(entry.getKey());
     }
     return results;
@@ -91,7 +92,8 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     increment(statisticType, statisticEntryKey, 1);
   }
 
-  public void increment(StatisticType statisticType, Object statisticEntryKey, long value) {
+  @SuppressWarnings("unchecked")
+  protected <T extends Enum<StatisticType>> void increment(T statisticType, Object statisticEntryKey, long value) {
     // If statistics are not enabled, just return and do nothing.
     if (!isStatisticsEnabled()) {
       return;
@@ -106,9 +108,9 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     }
 
     // Get Statistic object for the specified type. If it doesnt aleady exist, create it
-    Statistic statistic = statisticsMap.get(statisticType);
+    Statistic<T> statistic = (Statistic<T>) statisticsMap.get(statisticType);
     if (statistic == null) {
-      statistic = new Statistic(statisticType);
+      statistic = new Statistic<T>(statisticType);
       addStatistic(statistic);
     }
 
@@ -137,11 +139,11 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     return (entries.iterator().next()).getValue();
   }
 
-  public void addStatistic(Statistic statistic) {
-    if (statisticExists(statistic.getType())) {
+  public void addStatistic(Statistic<?> statistic) {
+    if (statisticExists((StatisticType) statistic.getType())) {
       throw new IllegalArgumentException("Statistic already exists for type: " + statistic.getType());
     }
-    statisticsMap.put(statistic.getType(), statistic);
+    statisticsMap.put((StatisticType) statistic.getType(), statistic);
   }
 
   public boolean statisticExists(StatisticType statisticType) {

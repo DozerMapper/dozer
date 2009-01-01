@@ -23,13 +23,11 @@ import java.util.Set;
  * @author tierney.matt
  */
 public interface StatisticsManager extends Statistics {
-  public Set<Statistic> getStatistics();
-  public Statistic getStatistic(StatisticType statisticType);
+  public Set<Statistic<?>> getStatistics();
   public long getStatisticValue(StatisticType statisticType);
   public boolean statisticExists(StatisticType statisticType);
 
   public void increment(StatisticType statisticType);
   public void increment(StatisticType statisticType, long value);
   public void increment(StatisticType statisticType, Object statisticEntryKey);
-  public void increment(StatisticType statisticType, Object statisticEntryKey, long value);
 }

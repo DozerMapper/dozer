@@ -31,15 +31,15 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * 
  * @author tierney.matt
  */
-public class Statistic {
-  private final StatisticType type;
+public class  Statistic<T extends Enum<StatisticType>> {
+  private final T type;
   private final Map<Object, StatisticEntry> entriesMap = new HashMap<Object, StatisticEntry>();
 
-  public Statistic(StatisticType type) {
+  public Statistic(T type) {
     this.type = type;
   }
 
-  public StatisticType getType() {
+  public T getType() {
     return type;
   }
 
@@ -74,7 +74,7 @@ public class Statistic {
     if (!(object instanceof Statistic)) {
       return false;
     }
-    Statistic entry = (Statistic) object;
+    Statistic<?> entry = (Statistic<?>) object;
     return new EqualsBuilder().append(this.getType(), entry.getType()).isEquals();
   }
 
