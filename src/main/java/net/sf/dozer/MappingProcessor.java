@@ -397,14 +397,14 @@ public class MappingProcessor implements Mapper {
     }
 
     if (MappingUtils.isEnumType(srcFieldClass, destFieldType)) {
-      return mapEnum((Enum) srcFieldValue, destFieldType);
+      return mapEnum((Enum) srcFieldValue, (Class<Enum>) destFieldType);
     }
 
     // Default: Map from one custom data object to another custom data object
     return mapCustomObject(fieldMap, destObj, destFieldType, srcFieldValue);
   }
 
-  private Object mapEnum(Enum srcFieldValue, Class destFieldType) {
+  private <T extends Enum<T>> T mapEnum(Enum<T> srcFieldValue, Class<T> destFieldType) {
     String name = srcFieldValue.name();
     return Enum.valueOf(destFieldType, name);
   }

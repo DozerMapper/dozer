@@ -342,7 +342,7 @@ public final class MappingUtils {
    * @return {@code true} if and only if current running JRE is 1.5 or above, and both 
    * {@code srcFieldClass} and {@code destFieldType} are enum; otherwise return {@code false}.
    */
-  public static boolean isEnumType(Class srcFieldClass, Class destFieldType) {
+  public static boolean isEnumType(Class<?> srcFieldClass, Class<?> destFieldType) {
     if (srcFieldClass.isAnonymousClass()) {
       //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
       //This is used to ensure Dozer can get correct Enum type.
