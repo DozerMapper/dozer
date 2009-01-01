@@ -41,6 +41,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
     this.customGetMethod = customGetMethod;
   }
 
+  @Override
   public Method getWriteMethod() throws NoSuchMethodException {
     if (writeMethod == null) {
       if (customSetMethod != null && !isDeepField()) {
@@ -52,6 +53,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
     return writeMethod;
   }
 
+  @Override
   protected Method getReadMethod() throws NoSuchMethodException {
     if (readMethod == null) {
       readMethod = customGetMethod != null ? ReflectionUtils.findAMethod(clazz, customGetMethod) : super.getReadMethod();
@@ -59,10 +61,12 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
     return readMethod;
   }
 
+  @Override
   protected String getSetMethodName() throws NoSuchMethodException {
     return customSetMethod != null ? customSetMethod : super.getSetMethodName();
   }
   
+  @Override
   protected boolean isCustomSetMethod() {
     return customSetMethod != null;
   }

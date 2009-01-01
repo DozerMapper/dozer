@@ -104,7 +104,7 @@ public class ClassMap {
 
     int size = fieldMaps.size();
     for (int i = 0; i < size; i++) {
-      FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
+      FieldMap fieldMap = fieldMaps.get(i);
       String fieldName = fieldMap.getDestFieldName();
 
       if (isMap && MappingUtils.isDeepMapping(fieldName)) {
@@ -136,7 +136,7 @@ public class ClassMap {
 
     if (fieldMaps != null) {
       for (int i = 0; i < fieldMaps.size(); i++) {
-        FieldMap fieldMap = (FieldMap) fieldMaps.get(i);
+        FieldMap fieldMap = fieldMaps.get(i);
         String fieldName = fieldMap.getSrcFieldName();
 
         if ((fieldName != null) && fieldName.equals(srcFieldName)) {
@@ -328,6 +328,7 @@ public class ClassMap {
     this.relationshipType = relationshipType;
   }
 
+  @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source class", getSrcClassName()).append(
         "destination class", getDestClassName()).append("map-id", mapId).toString();

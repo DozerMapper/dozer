@@ -46,6 +46,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     this.key = key;
   }
 
+  @Override
   public Method getWriteMethod() throws NoSuchMethodException {
     if (MappingUtils.isBlankOrNull(setMethod)) {
       throw new MappingException("Custom Map set method not specified for field mapping to class: " + clazz
@@ -57,6 +58,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return writeMethod;
   }
 
+  @Override
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
     if (isDeepField()) {
       writeDeepDestinationValue(bean, value, fieldMap);
@@ -75,6 +77,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
   }
 
+  @Override
   protected Method getReadMethod() throws NoSuchMethodException {
     if (MappingUtils.isBlankOrNull(getMethod)) {
       throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz
@@ -86,14 +89,17 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return readMethod;
   }
 
+  @Override
   protected String getSetMethodName() throws NoSuchMethodException {
     return setMethod;
   }
   
+  @Override
   protected boolean isCustomSetMethod() {
     return true;
   }
 
+  @Override
   protected void invokeWriteMethod(Object target, Object value) {
     if (key == null) {
       throw new MappingException("key must be specified");
@@ -105,6 +111,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
   }
 
+  @Override
   protected Object invokeReadMethod(Object target) {
     if (key == null) {
       throw new MappingException("key must be specified");

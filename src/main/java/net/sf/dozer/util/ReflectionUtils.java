@@ -169,7 +169,7 @@ public abstract class ReflectionUtils {
         list.add(MappingUtils.loadClass(token));
       }
     }
-    return getMethod(parentDestClass, methodName, (Class[]) list.toArray(new Class[list.size()]));
+    return getMethod(parentDestClass, methodName, list.toArray(new Class[list.size()]));
   }
 
   protected static PropertyDescriptor[] getPropertyDescriptors(Class<?> objectClass) {
@@ -203,7 +203,7 @@ public abstract class ReflectionUtils {
          * an inheritance hierarchy
          */
         for (int j = 0; j < superInterfacePropertyDescriptors.size(); j++) {
-          PropertyDescriptor superPropDescriptor = (PropertyDescriptor) superInterfacePropertyDescriptors.get(j);
+          PropertyDescriptor superPropDescriptor = superInterfacePropertyDescriptors.get(j);
           PropertyDescriptor existingPropDescriptor = findPropDescriptorByName(propDescriptors, superPropDescriptor.getName());
           if (existingPropDescriptor == null) {
             propDescriptors.add(superPropDescriptor);
@@ -223,7 +223,7 @@ public abstract class ReflectionUtils {
         }
       }
     }
-    return (PropertyDescriptor[]) propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
+    return propDescriptors.toArray(new PropertyDescriptor[propDescriptors.size()]);
   }
 
   private static PropertyDescriptor findPropDescriptorByName(List<PropertyDescriptor> propDescriptors, String name) {

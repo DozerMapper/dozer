@@ -58,6 +58,7 @@ public class MapFieldMap extends FieldMap {
     setType(fieldMap.getType());
   }
 
+  @Override
   public void writeDestValue(Object destObj, Object destFieldValue) {
     DozerPropertyDescriptor propDescriptor;
     Object targetObject = destObj;
@@ -82,6 +83,7 @@ public class MapFieldMap extends FieldMap {
     propDescriptor.setPropertyValue(targetObject, destFieldValue, this);
   }
 
+  @Override
   public Object getSrcFieldValue(Object srcObj) {
     DozerPropertyDescriptor propDescriptor;
     Object targetObject = srcObj;

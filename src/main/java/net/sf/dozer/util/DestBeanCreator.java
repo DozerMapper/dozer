@@ -116,7 +116,7 @@ public final class DestBeanCreator {
     // By default, use dest object class name for factory bean id
     String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
 
-    BeanFactory factory = (BeanFactory) MappingUtils.storedFactories.get(factoryName);
+    BeanFactory factory = MappingUtils.storedFactories.get(factoryName);
 
     if (factory == null) {
       Class<?> factoryClass = MappingUtils.loadClass(factoryName);

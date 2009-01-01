@@ -516,7 +516,7 @@ public class MappingProcessor implements Mapper {
     Map field = (Map) fieldMap.getDestValue(destObj);
     if (field == null) {
       // no destination map exists
-      result = (Map<?, Object>) DestBeanCreator.create(srcMapValue.getClass());
+      result = DestBeanCreator.create(srcMapValue.getClass());
     } else {
       result = field;
     }
@@ -626,7 +626,7 @@ public class MappingProcessor implements Mapper {
     } else {
       list = addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj);
     }
-    return (Object[]) CollectionUtils.convertListToArray(list, destEntryType);
+    return CollectionUtils.convertListToArray(list, destEntryType);
   }
 
   private List<?> mapListToList(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
@@ -683,7 +683,7 @@ public class MappingProcessor implements Mapper {
     } else {
       // Bug #1822421 - Clear first so we don't end up with the removed orphans again
       ((Set) field).clear();
-      ((Set) field).addAll((Set)result);
+      ((Set) field).addAll(result);
       return (Set<?>) field;
     }
   }
@@ -951,7 +951,7 @@ public class MappingProcessor implements Mapper {
   private List<String> processSuperTypeMapping(Collection<ClassMap> superClasses, Object srcObj, Object destObj, String mapId) {
     List<String> mappedFields = new ArrayList<String>();
     for (Iterator<ClassMap> iterator = superClasses.iterator(); iterator.hasNext();) {
-      ClassMap map = (ClassMap) iterator.next();
+      ClassMap map = iterator.next();
       map(map, srcObj, destObj, true, mapId);
       for (FieldMap fieldMapping : map.getFieldMaps()) {
         String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());

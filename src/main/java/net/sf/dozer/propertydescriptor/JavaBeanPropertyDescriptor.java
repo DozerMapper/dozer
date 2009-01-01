@@ -39,6 +39,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
+  @Override
   public Method getWriteMethod() throws NoSuchMethodException {
     Method writeMethod = getPropertyDescriptor(destDeepIndexHintContainer).getWriteMethod();
     if (writeMethod == null) {
@@ -48,10 +49,12 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return writeMethod;
   }
 
+  @Override
   protected String getSetMethodName() throws NoSuchMethodException {
     return getWriteMethod().getName();
   }
 
+  @Override
   protected Method getReadMethod() throws NoSuchMethodException {
     Method result = getPropertyDescriptor(srcDeepIndexHintContainer).getReadMethod();
     if (result == null) {
@@ -60,6 +63,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return result;
   }
   
+  @Override
   protected boolean isCustomSetMethod() {
     return false;
   }

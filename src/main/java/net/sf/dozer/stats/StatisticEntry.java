@@ -50,6 +50,7 @@ public class StatisticEntry {
     this.value += value;
   }
 
+  @Override
   public boolean equals(Object object) {
     if ((this == object)) {
       return true;
@@ -61,10 +62,12 @@ public class StatisticEntry {
     return new EqualsBuilder().append(this.getKey(), entry.getKey()).isEquals();
   }
 
+  @Override
   public int hashCode() {
     return new HashCodeBuilder().append(getKey()).toHashCode();
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

@@ -121,6 +121,7 @@ public abstract class FieldMap implements Cloneable {
   /**
    * @deprecated As of 3.2 release
    */
+  @Deprecated
   public Method getDestFieldWriteMethod(Class<?> runtimeDestClass) {
     // 4-07 mht: The getWriteMethod was removed from the prop descriptor interface. This was done as part of
     // refactoring effort to clean up the prop descriptor stuff. The underlying write method should not be exposed.
@@ -290,6 +291,7 @@ public abstract class FieldMap implements Cloneable {
     this.srcDeepIndexHintContainer = srcDeepIndexHint;
   }
 
+  @Override
   public Object clone() {
     Object result = null;
     try {
@@ -367,7 +369,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   protected DozerPropertyDescriptor getSrcPropertyDescriptor(Class<?> runtimeSrcClass) {
-    DozerPropertyDescriptor result = (DozerPropertyDescriptor) this.srcPropertyDescriptorMap.get(runtimeSrcClass);
+    DozerPropertyDescriptor result = this.srcPropertyDescriptorMap.get(runtimeSrcClass);
     if (result == null) {
       String srcFieldMapGetMethod = getSrcFieldMapGetMethod();
       String srcFieldMapSetMethod = getSrcFieldMapSetMethod();
@@ -383,7 +385,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   protected DozerPropertyDescriptor getDestPropertyDescriptor(Class<?> runtimeDestClass) {
-    DozerPropertyDescriptor result = (DozerPropertyDescriptor) this.destPropertyDescriptorMap.get(runtimeDestClass);
+    DozerPropertyDescriptor result = this.destPropertyDescriptorMap.get(runtimeDestClass);
     if (result == null) {
       DozerPropertyDescriptor descriptor = PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass,
             getDestFieldTheGetMethod(), getDestFieldTheSetMethod(), getDestFieldMapGetMethod(),
@@ -449,6 +451,7 @@ public abstract class FieldMap implements Cloneable {
     return RelationshipType.NON_CUMULATIVE.equals(relationshipType);
   }
 
+  @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source field", srcField).append("destination field",
         destField).append("type", type).append("customConverter", customConverter).append("relationshipType", relationshipType)

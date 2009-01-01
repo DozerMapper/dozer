@@ -63,9 +63,10 @@ public class Statistic {
   }
 
   public StatisticEntry getEntry(Object entryKey) {
-    return (StatisticEntry) entriesMap.get(entryKey);
+    return entriesMap.get(entryKey);
   }
 
+  @Override
   public boolean equals(Object object) {
     if ((this == object)) {
       return true;
@@ -77,10 +78,12 @@ public class Statistic {
     return new EqualsBuilder().append(this.getType(), entry.getType()).isEquals();
   }
 
+  @Override
   public int hashCode() {
     return new HashCodeBuilder().append(getType()).toHashCode();
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

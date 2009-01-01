@@ -48,6 +48,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
     field.setAccessible(true);
   }
 
+  @Override
   public Class<?> getPropertyType() {
     return field.getType();
   }

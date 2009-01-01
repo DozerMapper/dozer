@@ -40,6 +40,7 @@ public final class CacheKeyFactory {
       this.destClass = destClass;
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o)
         return true;
@@ -54,6 +55,7 @@ public final class CacheKeyFactory {
       return true;
     }
 
+    @Override
     public int hashCode() {
       int result;
       result = (srcClass != null ? srcClass.hashCode() : 0);

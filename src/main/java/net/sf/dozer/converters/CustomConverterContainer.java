@@ -79,7 +79,7 @@ public class CustomConverterContainer {
     Class result = null;
     long size = converters.size();
     for (int i = 0; i < size; i++) {
-      CustomConverterDescription customConverter = (CustomConverterDescription) converters.get(i);
+      CustomConverterDescription customConverter = converters.get(i);
       Class classA = customConverter.getClassA();
       Class classB = customConverter.getClassB();
 
@@ -99,6 +99,7 @@ public class CustomConverterContainer {
     return PrimitiveOrWrapperConverter.wrapPrimitive(c);
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

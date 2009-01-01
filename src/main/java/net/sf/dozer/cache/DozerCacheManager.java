@@ -42,7 +42,7 @@ public final class DozerCacheManager implements CacheManager {
   }
 
   public Cache getCache(String name) {
-    Cache cache = (Cache) cachesMap.get(name);
+    Cache cache = cachesMap.get(name);
     if (cache == null) {
       MappingUtils.throwMappingException("Unable to find cache with name: " + name);
     }

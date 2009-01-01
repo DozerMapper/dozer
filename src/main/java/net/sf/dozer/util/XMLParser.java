@@ -601,21 +601,25 @@ public class XMLParser {
   private static class DozerDefaultHandler extends DefaultHandler {
     private static final Log log = LogFactory.getLog(DozerDefaultHandler.class);
 
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
       if (log.isDebugEnabled()) {
         log.debug("tag: " + qName);
       }
     }
 
+    @Override
     public void warning(SAXParseException e) throws SAXException {
       // you can choose not to handle it
       throw new SAXException(getMessage("Warning", e));
     }
 
+    @Override
     public void error(SAXParseException e) throws SAXException {
       throw new SAXException(getMessage("Error", e));
     }
 
+    @Override
     public void fatalError(SAXParseException e) throws SAXException {
       throw new SAXException(getMessage("Fatal Error", e));
     }

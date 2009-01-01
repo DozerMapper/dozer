@@ -74,7 +74,7 @@ public class ClassMappings {
     Class<?> srcLookupClass = MappingUtils.getRealClass(srcClass);
     Class<?> destLookupClass = MappingUtils.getRealClass(destClass);
 
-    ClassMap mapping = (ClassMap) classMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
+    ClassMap mapping = classMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
 
     if (mapping == null) {
       mapping = findInterfaceMapping(destClass, srcClass, mapId);
@@ -105,7 +105,7 @@ public class ClassMappings {
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) classMappings.get(ClassMapKeyFactory.createKey(srcClass, destInterfaces[i]));
+      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcClass, destInterfaces[i]));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -113,7 +113,7 @@ public class ClassMappings {
 
     for (int i = 0; i < srcInterfaces.length; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = (ClassMap) classMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i], destClass));
+      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i], destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -131,7 +131,7 @@ public class ClassMappings {
     // See bug #1550275.
     Object[] keys = classMappings.keySet().toArray();
     for (int i = 0; i < keys.length; i++) {
-      ClassMap map = (ClassMap) classMappings.get(keys[i]);
+      ClassMap map = classMappings.get(keys[i]);
       Class<?> mappingDestClass = map.getDestClassToMap();
       Class<?> mappingSrcClass = map.getSrcClassToMap();
 

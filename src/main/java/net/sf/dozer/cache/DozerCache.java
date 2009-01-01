@@ -106,6 +106,7 @@ public class DozerCache implements Cache {
     return missCount;
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

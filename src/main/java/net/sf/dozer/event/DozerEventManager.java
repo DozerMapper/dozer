@@ -17,7 +17,6 @@ package net.sf.dozer.event;
 
 import java.util.List;
 
-import net.sf.dozer.util.MapperConstants;
 import net.sf.dozer.util.MappingUtils;
 
 /**

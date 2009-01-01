@@ -114,6 +114,7 @@ public class Configuration {
     this.relationshipType = relationshipType;
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

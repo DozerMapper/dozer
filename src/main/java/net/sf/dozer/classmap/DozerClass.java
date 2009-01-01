@@ -127,6 +127,7 @@ public class DozerClass {
     return getMapGetMethod() != null || getMapSetMethod() != null;
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }

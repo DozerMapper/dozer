@@ -60,7 +60,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
   }
 
   public Statistic getStatistic(StatisticType statisticType) {
-    Statistic result = (Statistic) statisticsMap.get(statisticType);
+    Statistic result = statisticsMap.get(statisticType);
     if (result == null) {
       MappingUtils.throwMappingException("Unable to find statistic for type: " + statisticType);
     }
@@ -106,7 +106,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     }
 
     // Get Statistic object for the specified type. If it doesnt aleady exist, create it
-    Statistic statistic = (Statistic) statisticsMap.get(statisticType);
+    Statistic statistic = statisticsMap.get(statisticType);
     if (statistic == null) {
       statistic = new Statistic(statisticType);
       addStatistic(statistic);
@@ -134,7 +134,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     if (entries.size() > 1) {
       throw new IllegalArgumentException("More than one value entry found for stat type: " + statisticType);
     }
-    return ((StatisticEntry) entries.iterator().next()).getValue();
+    return (entries.iterator().next()).getValue();
   }
 
   public void addStatistic(Statistic statistic) {

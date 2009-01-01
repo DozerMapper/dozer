@@ -97,7 +97,7 @@ public class CustomMappingsLoader {
 
     // iterate through the classmaps and set all of the customconverters on them
     for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
-      ClassMap classMap = (ClassMap) entry.getValue();
+      ClassMap classMap = entry.getValue();
       if (classMap.getCustomConverters() != null) {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       } else {

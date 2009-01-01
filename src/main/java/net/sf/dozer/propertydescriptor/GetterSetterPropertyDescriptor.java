@@ -52,6 +52,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   protected abstract String getSetMethodName() throws NoSuchMethodException;
   protected abstract boolean isCustomSetMethod();
 
+  @Override
   public Class<?> getPropertyType() {
     if (propertyType == null) {
       propertyType = determinePropertyType();

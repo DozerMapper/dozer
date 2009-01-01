@@ -67,6 +67,7 @@ public class DozerEvent {
     return sourceObject;
   }
 
+  @Override
   public String toString() {
     StringBuffer sb = new StringBuffer();
     if (getClassMap() != null) {

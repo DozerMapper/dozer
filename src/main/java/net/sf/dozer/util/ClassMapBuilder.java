@@ -62,7 +62,7 @@ public abstract class ClassMapBuilder {
   public static void addDefaultFieldMappings(ClassMappings classMappings, Configuration globalConfiguration) {
     Set<Entry<String, ClassMap>> entries = classMappings.getAll().entrySet();
     for (Entry<String, ClassMap> entry : entries) {
-      ClassMap classMap = (ClassMap) entry.getValue();
+      ClassMap classMap = entry.getValue();
       if (classMap.isWildcard()) {
         addDefaultFieldMappings(classMap, globalConfiguration);
       }

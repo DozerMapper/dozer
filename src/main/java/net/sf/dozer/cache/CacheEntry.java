@@ -42,10 +42,12 @@ public class CacheEntry {
     return value;
   }
 
+  @Override
   public int hashCode() {
     return key.hashCode();
   }
 
+  @Override
   public boolean equals(Object object) {
     if ((this == object)) {
       return true;
@@ -57,6 +59,7 @@ public class CacheEntry {
     return this.getKey().equals(entry.getKey());
   }
 
+  @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
