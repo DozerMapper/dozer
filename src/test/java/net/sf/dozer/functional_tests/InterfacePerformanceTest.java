@@ -15,7 +15,6 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.iface.ApplicationUser;
