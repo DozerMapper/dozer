@@ -31,6 +31,7 @@ import org.junit.Test;
  */
 public class MultiThreadedTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -78,6 +79,7 @@ public class MultiThreadedTest extends AbstractMapperTest {
     t4.join();
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

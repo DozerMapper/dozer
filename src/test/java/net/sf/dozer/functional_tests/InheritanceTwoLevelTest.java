@@ -16,6 +16,7 @@ import org.junit.Test;
  */
 public class InheritanceTwoLevelTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("inheritanceTwoLevel.xml");
@@ -56,6 +57,7 @@ public class InheritanceTwoLevelTest extends AbstractMapperTest {
     assertEquals("A", destination.getA());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

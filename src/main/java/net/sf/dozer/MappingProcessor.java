@@ -678,7 +678,7 @@ public class MappingProcessor implements Mapper {
     }
 
     if (field == null) {
-      Class<?> destSetType = fieldMap.getDestFieldType(destObj.getClass());
+      Class<? extends Set<?>> destSetType = (Class<? extends Set<?>>) fieldMap.getDestFieldType(destObj.getClass());
       return CollectionUtils.createNewSet(destSetType, result);
     } else {
       // Bug #1822421 - Clear first so we don't end up with the removed orphans again
@@ -754,13 +754,13 @@ public class MappingProcessor implements Mapper {
     }
   }
 
-  static List<?> prepareDestinationList(Collection<?> srcCollectionValue, Object field) {
-    List<?> result;
+  static List<Object> prepareDestinationList(Collection<?> srcCollectionValue, Object field) {
+    List<Object> result;
     if (field == null) {
       result = new ArrayList(srcCollectionValue.size());
     } else {
       if (CollectionUtils.isList(field.getClass())) {
-        result = (List<?>) field;
+        result = (List) field;
       } else if (CollectionUtils.isArray(field.getClass())) {
         result = new ArrayList(Arrays.asList((Object[]) field));
       } else { // assume it is neither - safest way is to create new List

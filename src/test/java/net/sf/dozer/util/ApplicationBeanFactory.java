@@ -15,6 +15,8 @@
  */
 package net.sf.dozer.util;
 
+import net.sf.dozer.Mapper;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.access.BeanFactoryLocator;
 import org.springframework.context.access.ContextSingletonBeanFactoryLocator;
@@ -33,7 +35,7 @@ public class ApplicationBeanFactory {
   private ApplicationBeanFactory() {
   }
 
-  public static Object getBean(Class beanClass) {
+  public static Object getBean(Class<Mapper> beanClass) {
     return beanFactory.getBean(beanClass.getName());
   }
 

@@ -15,13 +15,14 @@
  */
 package net.sf.dozer.util;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.vo.TestObject;
 import net.sf.dozer.vo.TestObjectPrime;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt

@@ -23,7 +23,7 @@ import net.sf.dozer.vo.InsideTestObjectPrime;
  */
 public class SampleCustomBeanFactory2 extends BaseSampleBeanFactory {
 
-  public Object createBean(Object srcObj, Class srcObjClass, String id) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
     // example of using all input objects. These params are passed in from the
     // dozer mapping processor.
 

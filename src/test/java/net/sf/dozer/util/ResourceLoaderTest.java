@@ -15,16 +15,17 @@
  */
 package net.sf.dozer.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.junit.Test;
-
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.MappingException;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt

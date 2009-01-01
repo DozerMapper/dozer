@@ -31,7 +31,7 @@ import net.sf.dozer.vo.interfacerecursion.UserPrimeImpl;
  */
 public class UserBeanFactory implements BeanFactory {
 
-    public Object createBean(Object aSrcObj, Class aSrcObjClass, String aTargetBeanId) throws RuntimeException {
+    public Object createBean(Object aSrcObj, Class<?> aSrcObjClass, String aTargetBeanId) throws RuntimeException {
         
         // check null arguments
         if (aSrcObj == null || aSrcObjClass == null || aTargetBeanId == null) {
@@ -39,7 +39,7 @@ public class UserBeanFactory implements BeanFactory {
         }
         
         // get class for target bean name
-        Class targetClass;
+        Class<?> targetClass;
 		try {
 			targetClass = Class.forName(aTargetBeanId);
 		} catch (ClassNotFoundException e) {

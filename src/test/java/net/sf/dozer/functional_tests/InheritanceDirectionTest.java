@@ -21,6 +21,7 @@ import org.junit.Test;
  */
 public class InheritanceDirectionTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("inheritanceDirection.xml");
@@ -91,6 +92,7 @@ public class InheritanceDirectionTest extends AbstractMapperTest {
     assertEquals("B", childResult.getId());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

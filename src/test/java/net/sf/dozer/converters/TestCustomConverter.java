@@ -29,7 +29,7 @@ public class TestCustomConverter implements CustomConverter {
 
   private static final Log log = LogFactory.getLog(TestCustomConverter.class);
 
-  public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
+  public Object convert(Object destination, Object source, Class<?> destClass, Class<?> sourceClass) {
     // show me the destClass and sourceClass
     log.debug("Source Class is:" + sourceClass.getName());
     log.debug("Dest Class is:" + destClass.getName());

@@ -27,7 +27,7 @@ public class HintedOnlyConverter implements CustomConverter {
 
   private static final Log log = LogFactory.getLog(HintedOnlyConverter.class);
 
-  public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
+  public Object convert(Object destination, Object source, Class<?> destClass, Class<?> sourceClass) {
     log.debug("Source Class is:" + sourceClass.getName());
     log.debug("Dest Class is:" + destClass.getName());
     if (source != null) {

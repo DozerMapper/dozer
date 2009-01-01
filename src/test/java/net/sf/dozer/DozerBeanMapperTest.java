@@ -54,6 +54,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   private static Mapper mapper;
   private TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
 
+  @Override
   @Before
   public void setUp() throws Exception {
     if (mapper == null) {
@@ -162,7 +163,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     Mapper myMapper = null;
     try {
 
-      List mappingFiles = new ArrayList();
+      List<String> mappingFiles = new ArrayList<String>();
       mappingFiles.add("duplicateMapping.xml");
       myMapper = new DozerBeanMapper(mappingFiles);
 
@@ -215,7 +216,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0)
         .getClass());
     House src = testDataFactory.getHouse();
-    HomeDescription dest = eventMapper.map(src, HomeDescription.class);
+    eventMapper.map(src, HomeDescription.class);
   }
 
   private void assertCommon(Mapper mapper) throws Exception {
@@ -227,7 +228,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   }
 
   private Mapper getNewMapper(String[] mappingFiles) {
-    List list = new ArrayList();
+    List<String> list = new ArrayList<String>();
     if (mappingFiles != null) {
       for (int i = 0; i < mappingFiles.length; i++) {
         list.add(mappingFiles[i]);

@@ -24,6 +24,7 @@ import net.sf.dozer.ProxyDataObjectInstantiator;
  */
 public class ProxiedGenericCollectionMappingTest extends GenericCollectionMappingTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

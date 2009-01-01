@@ -15,14 +15,16 @@
  */
 package net.sf.dozer.propertydescriptor;
 
-import static org.junit.Assert.*;
-import java.lang.reflect.Method;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import java.lang.reflect.Method;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.fieldmap.DozerField;
 import net.sf.dozer.vo.deep2.Dest;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt

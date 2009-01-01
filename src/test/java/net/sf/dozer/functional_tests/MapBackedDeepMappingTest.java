@@ -33,6 +33,7 @@ import org.junit.Test;
  */
 public class MapBackedDeepMappingTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("mapBackedDeepMapping.xml");
@@ -87,6 +88,7 @@ public class MapBackedDeepMappingTest extends AbstractMapperTest {
   }
 
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

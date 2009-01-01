@@ -57,6 +57,7 @@ public class InterfacePerformanceTest extends AbstractMapperTest {
     }
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

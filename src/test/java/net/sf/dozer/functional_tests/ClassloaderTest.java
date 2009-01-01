@@ -15,14 +15,15 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
-import java.util.ArrayList;
+import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import java.util.ArrayList;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
+
+import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
@@ -37,6 +38,7 @@ public class ClassloaderTest extends AbstractMapperTest {
     assertNotNull(mapper);
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

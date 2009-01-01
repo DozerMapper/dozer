@@ -37,6 +37,7 @@ import org.junit.Test;
  */
 public class CumulativeMappingTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("cumulative.xml");
@@ -67,6 +68,7 @@ public class CumulativeMappingTest extends AbstractMapperTest {
 //    assertEquals(new Long(5100L), book.getAuthor().getSalary()); TODO Enable this for non-cumulative recursion bug
   }
 
+  @Override
   protected net.sf.dozer.DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

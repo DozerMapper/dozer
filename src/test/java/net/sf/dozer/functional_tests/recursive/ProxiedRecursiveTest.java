@@ -20,6 +20,7 @@ import net.sf.dozer.ProxyDataObjectInstantiator;
 
 public class ProxiedRecursiveTest extends RecursiveTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

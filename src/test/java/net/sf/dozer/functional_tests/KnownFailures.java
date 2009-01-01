@@ -42,6 +42,7 @@ import org.junit.Test;
  */
 public class KnownFailures extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper(new String[] { "knownFailures.xml" });
@@ -85,6 +86,7 @@ public class KnownFailures extends AbstractMapperTest {
     assertEquals("wrong value", "customConverter", c.getTest());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

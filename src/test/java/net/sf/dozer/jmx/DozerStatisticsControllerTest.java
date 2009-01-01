@@ -32,6 +32,7 @@ public class DozerStatisticsControllerTest extends AbstractDozerTest {
 
   private DozerStatisticsController controller;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     controller = new DozerStatisticsController();
@@ -60,7 +61,7 @@ public class DozerStatisticsControllerTest extends AbstractDozerTest {
   @Test
   public void testGetStatisticEntries() throws Exception {
     controller.clearAll();
-    Set entries = controller.getStatisticEntries(StatisticType.CACHE_HIT_COUNT);
+    Set<?> entries = controller.getStatisticEntries(StatisticType.CACHE_HIT_COUNT);
     assertEquals("incorrect entries size", 0, entries.size());
   }
 

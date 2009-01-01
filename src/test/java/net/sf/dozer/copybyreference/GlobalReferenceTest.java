@@ -16,6 +16,7 @@
 package net.sf.dozer.copybyreference;
 
 public class GlobalReferenceTest extends SubclassReferenceTest {
+  @Override
   protected String getMappingFile() {
     return "global-mapping.xml";
   }

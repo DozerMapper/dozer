@@ -34,12 +34,12 @@ public class RecursiveTest extends AbstractMapperTest {
   private ClassAA createTestClassAA() {
 
     // Create sample assureSocialDTO
-    ClassAA classA = (ClassAA) newInstance(ClassAA.class);
+    ClassAA classA = newInstance(ClassAA.class);
 
     classA.setNom("gbs");
     classA.setPrenom("prn");
 
-    ClassB classB = (ClassB) newInstance(ClassB.class);
+    ClassB classB = newInstance(ClassB.class);
     classA.addSubs(classB);
     classB.setRue("rue");
     classB.setVille("ville");
@@ -57,19 +57,20 @@ public class RecursiveTest extends AbstractMapperTest {
     ClassAA testAA = createTestClassAA();
     // the == is on purpose, we test that the referenced parent of the first item of the subs is the parent instance
     // itself
-    ClassB testClassB = (ClassB) testAA.getSubs().iterator().next();
+    ClassB testClassB = testAA.getSubs().iterator().next();
     assertTrue(testClassB.getParent() == testAA);
     ClassAAPrime testAAPrime = mapper.map(testAA, ClassAAPrime.class, null);
     // testing the new dozer3.0 bi-directionnal reference through a set
     assertEquals(testAA.getSubs().size(), testAAPrime.getSubs().size());
     // the equality is true at the data level
-    ClassBPrime testClassBPrime = (ClassBPrime) testAAPrime.getSubs().iterator().next();
+    ClassBPrime testClassBPrime = testAAPrime.getSubs().iterator().next();
     assertTrue(testClassBPrime.getParent().equals(testAAPrime));
     // we want the referenced parent of the first item of the subs to be the parent instance itself
-    ClassBPrime testClassBPrime2 = (ClassBPrime) testAAPrime.getSubs().iterator().next();
+    ClassBPrime testClassBPrime2 = testAAPrime.getSubs().iterator().next();
     assertTrue(testClassBPrime2.getParent() == testAAPrime);
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

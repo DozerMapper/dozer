@@ -15,10 +15,10 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
@@ -33,6 +33,8 @@ import net.sf.dozer.vo.deep.Person;
 import net.sf.dozer.vo.deep.SrcDeepObj;
 import net.sf.dozer.vo.deep2.Dest;
 import net.sf.dozer.vo.deep2.Src;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -78,8 +80,7 @@ public class DeepMappingTest extends AbstractMapperTest {
     InsideTestObjectPrime itop = mapper.map(ito, InsideTestObjectPrime.class);
     assertEquals("name", itop.getDeepInterfaceString());
 
-    // Map Back
-    InsideTestObject dest = mapper.map(itop, InsideTestObject.class);
+    mapper.map(itop, InsideTestObject.class);
     assertEquals("name", ito.getHouse().getThingy().getName());
   }
 
@@ -106,6 +107,7 @@ public class DeepMappingTest extends AbstractMapperTest {
     assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

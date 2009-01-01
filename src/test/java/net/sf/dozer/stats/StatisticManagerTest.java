@@ -17,7 +17,6 @@ package net.sf.dozer.stats;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +32,7 @@ import org.junit.Test;
 public class StatisticManagerTest extends AbstractDozerTest {
   private StatisticsManagerImpl statMgr;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     statMgr = new StatisticsManagerImpl();
@@ -76,7 +76,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     statMgr.addStatistic(new Statistic(type));
     statMgr.addStatistic(new Statistic(type2));
 
-    Set expected = new HashSet();
+    Set<StatisticType> expected = new HashSet<StatisticType>();
     expected.add(type);
     expected.add(type2);
 

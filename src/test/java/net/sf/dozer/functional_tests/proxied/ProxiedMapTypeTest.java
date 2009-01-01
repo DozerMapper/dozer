@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.MapTypeTest;
  */
 public class ProxiedMapTypeTest extends MapTypeTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

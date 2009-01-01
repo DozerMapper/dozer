@@ -36,6 +36,7 @@ import org.junit.Test;
  */
 public class CustomConverterParamMappingTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("fieldCustomConverterParam.xml");
@@ -78,6 +79,7 @@ public class CustomConverterParamMappingTest extends AbstractMapperTest {
     assertTrue(result.getName().startsWith("ABC-PARAM"));
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

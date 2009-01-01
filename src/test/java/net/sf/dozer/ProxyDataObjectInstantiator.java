@@ -37,14 +37,14 @@ public class ProxyDataObjectInstantiator implements DataObjectInstantiator {
   private ProxyDataObjectInstantiator() {
   }
 
-  public Object newInstance(Class classToInstantiate) {
+  public <T> T newInstance(Class<T> classToInstantiate) {
     Enhancer enhancer = new Enhancer();
     enhancer.setSuperclass(classToInstantiate);
     enhancer.setCallback(NoOpInterceptor.INSTANCE);
-    return enhancer.create();
+    return (T) enhancer.create();
   }
 
-  public Object newInstance(Class[] interfacesToProxy, final Object target) {
+  public Object newInstance(Class<?>[] interfacesToProxy, final Object target) {
     Enhancer enhancer = new Enhancer();
 
     enhancer.setInterfaces(interfacesToProxy);

@@ -34,6 +34,7 @@ import org.junit.Test;
  */
 public class RuntimeSubclassMappingTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("runtimeSubclass.xml");
@@ -76,6 +77,7 @@ public class RuntimeSubclassMappingTest extends AbstractMapperTest {
     assertFalse(userPrime.getUserGroup() instanceof SpecialUserGroupPrime);
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

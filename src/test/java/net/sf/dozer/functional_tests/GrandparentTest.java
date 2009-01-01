@@ -30,6 +30,7 @@ import org.junit.Test;
  */
 public class GrandparentTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("grandparent.xml");
@@ -45,6 +46,7 @@ public class GrandparentTest extends AbstractMapperTest {
     assertEquals(new Integer(1), dest.getId());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

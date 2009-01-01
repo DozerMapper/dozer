@@ -15,13 +15,14 @@
  */
 package net.sf.dozer.converters;
 
-import static org.junit.Assert.*;
-import java.text.DateFormat;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import java.text.DateFormat;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.util.DateFormatContainer;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt

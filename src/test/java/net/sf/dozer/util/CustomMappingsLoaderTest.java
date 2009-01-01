@@ -1,12 +1,15 @@
 package net.sf.dozer.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Arrays;
 
-import org.junit.Test;
-
-import junit.framework.TestCase;
 import net.sf.dozer.MappingException;
+
+import org.junit.Test;
 
 public class CustomMappingsLoaderTest {
   private CustomMappingsLoader loader = new CustomMappingsLoader();

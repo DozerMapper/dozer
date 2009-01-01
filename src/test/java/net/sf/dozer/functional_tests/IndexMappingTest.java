@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.A;
 import net.sf.dozer.vo.Aliases;
@@ -50,6 +49,7 @@ import org.junit.Test;
  */
 public class IndexMappingTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() {
     mapper = getMapper(new String[] { "IndividualMapping.xml" });
@@ -57,7 +57,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testMap1() throws Exception {
-    List<String> userNames = (List<String>) newInstance(ArrayList.class);
+    List<String> userNames = newInstance(ArrayList.class);
     userNames.add("username1");
     userNames.add("username2");
 
@@ -66,12 +66,12 @@ public class IndexMappingTest extends AbstractMapperTest {
     secondNames[1] = "secondName2";
     secondNames[2] = "secondName3";
 
-    Individuals source = (Individuals) newInstance(Individuals.class);
+    Individuals source = newInstance(Individuals.class);
     source.setUsernames(userNames);
     source.setSimpleField("a very simple field");
     source.setSecondNames(secondNames);
 
-    Set<String> mySet = (Set<String>) newInstance(HashSet.class);
+    Set<String> mySet = newInstance(HashSet.class);
     mySet.add("myString");
 
     source.setAddressSet(mySet);
@@ -87,7 +87,7 @@ public class IndexMappingTest extends AbstractMapperTest {
 
   @Test
   public void testMap1Inv() {
-    FlatIndividual source = (FlatIndividual) newInstance(FlatIndividual.class);
+    FlatIndividual source = newInstance(FlatIndividual.class);
     source.setUsername1("username1");
     source.setUsername2("username2");
     source.setSimpleField("a simple field");
@@ -216,6 +216,7 @@ public class IndexMappingTest extends AbstractMapperTest {
     assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("stringProperty"));
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

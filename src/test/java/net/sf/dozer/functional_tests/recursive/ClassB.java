@@ -55,6 +55,7 @@ public class ClassB {
   }
 
   /** {@inheritDoc} */
+  @Override
   public int hashCode() {
     int result = 1;
     result = prime * result + ((this.rue == null) ? 0 : this.rue.hashCode());
@@ -62,6 +63,7 @@ public class ClassB {
   }
 
   /** {@inheritDoc} */
+  @Override
   public boolean equals(final Object obj) {
     if (this == obj) {
       return true;

@@ -16,10 +16,9 @@
 package net.sf.dozer.cache;
 
 import static org.junit.Assert.assertEquals;
+import net.sf.dozer.AbstractDozerTest;
 
 import org.junit.Test;
-
-import net.sf.dozer.AbstractDozerTest;
 
 /**
  * @author tierney.matt

@@ -31,6 +31,7 @@ import org.junit.Test;
  */
 public class CopyByReferenceFromMapTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("mapMapping7.xml");
@@ -48,6 +49,7 @@ public class CopyByReferenceFromMapTest extends AbstractMapperTest {
     assertNotNull(destination.getValue());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.DeepMappingWithIndexTest;
  */
 public class ProxiedDeepMappingWithIndexTest extends DeepMappingWithIndexTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

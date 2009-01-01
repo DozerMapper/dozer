@@ -15,12 +15,13 @@
  */
 package net.sf.dozer.propertydescriptor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import net.sf.dozer.MappingException;
 
 import org.junit.Test;
-
-import junit.framework.TestCase;
-import net.sf.dozer.MappingException;
 
 /**
  * @author dmitry.buzdin

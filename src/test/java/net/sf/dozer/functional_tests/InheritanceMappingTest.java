@@ -366,8 +366,8 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     request.setAge("2");
     request.setColor("blue");
     request.setLoginName("fred");
-    Property property = (Property) newInstance(Property.class);
-    PropertyB nestedProperty = (PropertyB) newInstance(PropertyB.class);
+    Property property = newInstance(Property.class);
+    PropertyB nestedProperty = newInstance(PropertyB.class);
     nestedProperty.setTestProperty("boo");
     property.setTestProperty("testProperty");
     property.setMapMe(nestedProperty);
@@ -435,6 +435,7 @@ public class InheritanceMappingTest extends AbstractMapperTest {
     return result;
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

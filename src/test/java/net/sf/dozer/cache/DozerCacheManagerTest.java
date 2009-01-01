@@ -36,6 +36,7 @@ import org.junit.Test;
 public class DozerCacheManagerTest extends AbstractDozerTest {
   private DozerCacheManager cacheMgr;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     cacheMgr = new DozerCacheManager();

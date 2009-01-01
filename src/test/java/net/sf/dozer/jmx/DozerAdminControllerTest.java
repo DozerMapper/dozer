@@ -29,6 +29,7 @@ public class DozerAdminControllerTest extends AbstractDozerTest {
 
   private DozerAdminController controller;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     controller = new DozerAdminController();

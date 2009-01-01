@@ -15,12 +15,11 @@
  */
 package net.sf.dozer.util;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.Assert.fail;
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt

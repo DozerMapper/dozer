@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.GranularDozerBeanMapperTest;
  */
 public class ProxiedGranularDozerBeanMapperTest extends GranularDozerBeanMapperTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

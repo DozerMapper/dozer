@@ -15,12 +15,14 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.junit.Test;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
@@ -32,6 +34,8 @@ import net.sf.dozer.vo.interfacerecursion.UserGroupImpl;
 import net.sf.dozer.vo.interfacerecursion.UserGroupPrime;
 import net.sf.dozer.vo.interfacerecursion.UserImpl;
 import net.sf.dozer.vo.interfacerecursion.UserPrime;
+
+import org.junit.Test;
 
 /**
  * @author Christoph Goldner
@@ -57,7 +61,7 @@ public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
 
     // assert recursion
     assertEquals("Two users in usergroup expected.", 2, userGroup.getUsers().size());
-    Iterator iterator = userGroup.getUsers().iterator();
+    Iterator<?> iterator = userGroup.getUsers().iterator();
     while (iterator.hasNext()) {
       User user = (User) iterator.next();
       assertNotNull(user);
@@ -93,6 +97,7 @@ public class RecursiveInterfaceMappingTest extends AbstractMapperTest {
     }
   }
   
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }  

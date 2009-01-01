@@ -30,6 +30,7 @@ import org.junit.Test;
 
 public class TrimStringsTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper(new String[] { "trimStringsMapping.xml" });
@@ -70,6 +71,7 @@ public class TrimStringsTest extends AbstractMapperTest {
     assertEquals("valueNeedingTrimmed", dest.getField1());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

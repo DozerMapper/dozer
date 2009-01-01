@@ -53,6 +53,7 @@ import org.junit.Test;
  */
 public class DeepMappingWithIndexTest extends AbstractMapperTest {
   
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
@@ -60,24 +61,24 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
 
   @Test
   public void testDeepMappingWithIndexOnSrcField() {
-    SimpleObj simpleObj = (SimpleObj) newInstance(SimpleObj.class);
+    SimpleObj simpleObj = newInstance(SimpleObj.class);
     simpleObj.setField1("985756");
 
-    SrcNestedDeepObj2 srcNestedObj2 = (SrcNestedDeepObj2) newInstance(SrcNestedDeepObj2.class);
-    srcNestedObj2.setSimpleObjects(new SimpleObj[] { simpleObj, (SimpleObj) newInstance(SimpleObj.class) });
+    SrcNestedDeepObj2 srcNestedObj2 = newInstance(SrcNestedDeepObj2.class);
+    srcNestedObj2.setSimpleObjects(new SimpleObj[] { simpleObj, newInstance(SimpleObj.class) });
 
-    SrcNestedDeepObj srcNestedObj = (SrcNestedDeepObj) newInstance(SrcNestedDeepObj.class);
+    SrcNestedDeepObj srcNestedObj = newInstance(SrcNestedDeepObj.class);
     srcNestedObj.setSrcNestedObj2(srcNestedObj2);
 
-    AnotherTestObject anotherTestObject = (AnotherTestObject) newInstance(AnotherTestObject.class);
+    AnotherTestObject anotherTestObject = newInstance(AnotherTestObject.class);
     anotherTestObject.setField3("another test object field 3 value");
     anotherTestObject.setField4("6453");
 
-    TestObject testObject1 = (TestObject) newInstance(TestObject.class);
-    TestObject testObject2 = (TestObject) newInstance(TestObject.class);
+    TestObject testObject1 = newInstance(TestObject.class);
+    TestObject testObject2 = newInstance(TestObject.class);
     testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[] { anotherTestObject }));
 
-    SrcDeepObj src = (SrcDeepObj) newInstance(SrcDeepObj.class);
+    SrcDeepObj src = newInstance(SrcDeepObj.class);
     src.setSomeList(Arrays.asList(new TestObject[] { testObject1, testObject2 }));
     src.setSrcNestedObj(srcNestedObj);
 
@@ -89,11 +90,11 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
 
   @Test
   public void testDeepMappingWithIndexOnDestField() {
-    DestDeepObj src = (DestDeepObj) newInstance(DestDeepObj.class);
+    DestDeepObj src = newInstance(DestDeepObj.class);
     src.setDest2(new Integer(857557));
     src.setDest5("789777");
 
-    SrcDeepObj dest = (SrcDeepObj) mapper.map(src, SrcDeepObj.class);
+    SrcDeepObj dest = mapper.map(src, SrcDeepObj.class);
     assertEquals("857557", dest.getSrcNestedObj().getSrcNestedObj2().getSimpleObjects()[0].getField1());
     TestObject destTestObj = (TestObject) dest.getSomeList().get(1);
     assertEquals("789777", ((AnotherTestObject) destTestObj.getEqualNamedList().get(0)).getField3());
@@ -129,7 +130,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
 
   @Test
   public void testDeepMapInvIndexed() throws Exception {
-    HeadOfHouseHold source = (HeadOfHouseHold) newInstance(HeadOfHouseHold.class);
+    HeadOfHouseHold source = newInstance(HeadOfHouseHold.class);
     source.setFirstName("Tom");
     source.setLastName("Roy");
     source.setPetName("Ronny");
@@ -137,7 +138,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     source.setPetAge("2");
     source.setOffSpringName("Ronny2");
 
-    Family dest = (Family) newInstance(Family.class);
+    Family dest = newInstance(Family.class);
     mapper.map(source, dest);
 
     assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getFirstName(), source.getFirstName());
@@ -158,7 +159,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     phone.setNumber("911");
     phonesList.add(phone);
     source.phones = phonesList;
-    FlatPerson dest = (FlatPerson) newInstance(FlatPerson.class);
+    FlatPerson dest = newInstance(FlatPerson.class);
 
     mapper.map(source, dest);
     assertEquals(dest.getPhoneNumber(), source.phones.get(0).getNumber());
@@ -171,7 +172,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     
     FlatPerson source = newInstance(FlatPerson.class);
     source.setPhoneNumber("911");
-    Person dest = (Person) newInstance(Person.class);
+    Person dest = newInstance(Person.class);
 
     mapper.map(source, dest);
     assertEquals(dest.phones.get(0).getNumber(), source.getPhoneNumber());
@@ -215,6 +216,7 @@ public class DeepMappingWithIndexTest extends AbstractMapperTest {
     assertEquals("wrong value for id2", src.getId2().intValue(), dest.getFoo()[1].getId());
   }
   
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

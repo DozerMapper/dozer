@@ -69,18 +69,18 @@ public abstract class CollectionUtils {
     }
   }
 
-  public static <T> Set<T> createNewSet(Class<T> destType) {
-    Set<T> result = null;
+  public static <T extends Set<?>> Set<?> createNewSet(Class<T> destType) {
+    Set<Object> result = null;
     if (SortedSet.class.isAssignableFrom(destType)) {
-      result = new TreeSet<T>();
+      result = new TreeSet<Object>();
     } else {
-      result = new HashSet<T>();
+      result = new HashSet<Object>();
     }
     return result;
   }
 
-  public static <T> Set<T> createNewSet(Class<T> destType, Collection srcValue) {
-    Set<T> result = createNewSet(destType);
+  public static <T extends Set<?>> Set<?> createNewSet(Class<T> destSetType, Collection srcValue) {
+    Set<Object> result = (Set<Object>) createNewSet(destSetType);
     if (srcValue != null) {
       result.addAll(srcValue);
     }

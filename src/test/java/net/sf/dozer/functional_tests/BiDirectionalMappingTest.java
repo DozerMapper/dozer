@@ -15,20 +15,19 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapperSingletonWrapper;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
-import net.sf.dozer.vo.C;
 import net.sf.dozer.vo.LoopObjectChild;
 import net.sf.dozer.vo.LoopObjectParent;
 import net.sf.dozer.vo.LoopObjectParentPrime;
 import net.sf.dozer.vo.bidirectional.A;
 import net.sf.dozer.vo.bidirectional.B;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -87,6 +86,7 @@ public class BiDirectionalMappingTest extends AbstractMapperTest {
     }
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

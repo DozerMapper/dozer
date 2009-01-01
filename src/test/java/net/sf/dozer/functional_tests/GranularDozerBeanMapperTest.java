@@ -15,7 +15,13 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,8 +32,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import org.junit.Test;
 
 import net.sf.dozer.CustomFieldMapper;
 import net.sf.dozer.DataObjectInstantiator;
@@ -83,6 +87,8 @@ import net.sf.dozer.vo.set.NamesSortedSet;
 import net.sf.dozer.vo.set.SomeDTO;
 import net.sf.dozer.vo.set.SomeOtherDTO;
 import net.sf.dozer.vo.set.SomeVO;
+
+import org.junit.Test;
 
 /**
  * @author garsombke.franz
@@ -307,7 +313,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNull(cmpA.getLoanNo());
     assertNull(((ContextMappingNestedPrime) cmpA.getContextList().get(0)).getLoanNo());
 
-    ContextMappingPrime cmpB = (ContextMappingPrime) mapper.map(cm, ContextMappingPrime.class, "caseB");
+    ContextMappingPrime cmpB = mapper.map(cm, ContextMappingPrime.class, "caseB");
     assertEquals("loanNo", cmpB.getLoanNo());
     assertEquals("loanNoNested", ((ContextMappingNested) cmpB.getContextList().get(0)).getLoanNo());
 
@@ -330,7 +336,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   @Test
   public void testArrayToSortedSet() {
-    NamesArray from = (NamesArray) newInstance(NamesArray.class);
+    NamesArray from = newInstance(NamesArray.class);
     String[] names = { "John", "Bill", "Tony", "Fred", "Bruce" };
     from.setNames(names);
     NamesSortedSet to = mapper.map(from, NamesSortedSet.class);
@@ -341,7 +347,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
 
   @Test
   public void testSortedSetToArray() {
-    NamesSortedSet from = (NamesSortedSet) newInstance(NamesSortedSet.class);
+    NamesSortedSet from = newInstance(NamesSortedSet.class);
     NamesArray to = null;
     SortedSet<String> names = newInstance(TreeSet.class);
 
@@ -397,7 +403,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
   @Test
   public void testSetPrivateField() {
     mapper = super.getMapper(new String[] { "isaccessiblemapping.xml" });
-    Foo src = (Foo) newInstance(Foo.class);
+    Foo src = newInstance(Foo.class);
     List<String> list = (ArrayList<String>) newInstance(ArrayList.class);
     list.add("test1");
     list.add("test2");
@@ -415,7 +421,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     src.setField2("someValue");
 
     MccoyPrime dest = mapper.map(src, MccoyPrime.class, "usingDestHint");
-    Set destSet = dest.getFieldValueObjects();
+    Set<?> destSet = dest.getFieldValueObjects();
     assertNotNull("dest set should not be null", destSet);
     assertEquals("dest set should contain 1 entry", 1, destSet.size());
     Object entry = destSet.iterator().next();
@@ -484,7 +490,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", i.length, dest.getField1().size());
 
-    List srcObjectList = CollectionUtils.convertPrimitiveArrayToList(i);
+    List<?> srcObjectList = CollectionUtils.convertPrimitiveArrayToList(i);
     assertEquals("invalid dest field value", srcObjectList, dest.getField1());
   }
 
@@ -574,14 +580,14 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     SomeDTO someDto = newInstance(SomeDTO.class);
     someDto.setField1(new Integer("1"));
 
-    SomeOtherDTO someOtherDto = (SomeOtherDTO) newInstance(SomeOtherDTO.class);
+    SomeOtherDTO someOtherDto = newInstance(SomeOtherDTO.class);
     someOtherDto.setOtherField2(someDto);
     someOtherDto.setOtherField3("value1");
 
     SomeDTO someDto2 = newInstance(SomeDTO.class);
     someDto2.setField1(new Integer("2"));
 
-    SomeOtherDTO someOtherDto2 = (SomeOtherDTO) newInstance(SomeOtherDTO.class);
+    SomeOtherDTO someOtherDto2 = newInstance(SomeOtherDTO.class);
     someOtherDto2.setOtherField2(someDto2);
     someOtherDto2.setOtherField3("value2");
 
@@ -700,7 +706,7 @@ public class GranularDozerBeanMapperTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     src.setField2(null);
-    AnotherTestObjectPrime dest = (AnotherTestObjectPrime) newInstance(AnotherTestObjectPrime.class);
+    AnotherTestObjectPrime dest = newInstance(AnotherTestObjectPrime.class);
     dest.setField2(Integer.valueOf("555"));
     // check that null overrides an existing value
     mapper.map(src, dest);

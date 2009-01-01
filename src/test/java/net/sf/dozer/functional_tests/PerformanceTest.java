@@ -48,6 +48,7 @@ public class PerformanceTest extends AbstractMapperTest {
 
   private int numIters = 1; // Set this attribute to 25000 to run performance regression
 
+  @Override
   @Before
   public void setUp() throws Exception {
     if (mapper == null) {
@@ -192,11 +193,12 @@ public class PerformanceTest extends AbstractMapperTest {
     runGeneric("testMapping6", src, MyClassB.class);
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
-  private void runGeneric(String testName, Object src, Class destClass) throws Exception {
+  private void runGeneric(String testName, Object src, Class<?> destClass) throws Exception {
     // warm up the mapper
     mapper.map(src, destClass);
 

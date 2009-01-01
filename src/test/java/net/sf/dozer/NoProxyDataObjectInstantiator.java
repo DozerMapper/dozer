@@ -23,7 +23,7 @@ public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
   private NoProxyDataObjectInstantiator() {
   }
 
-  public Object newInstance(Class classToInstantiate) {
+  public <T> T newInstance(Class<T> classToInstantiate) {
     try {
       return classToInstantiate.newInstance();
     } catch (Exception e) {
@@ -31,7 +31,7 @@ public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
     }
   }
 
-  public Object newInstance(Class[] interfacesToProxy, Object target) {
+  public Object newInstance(Class<?>[] interfacesToProxy, Object target) {
     return target;
   }
 

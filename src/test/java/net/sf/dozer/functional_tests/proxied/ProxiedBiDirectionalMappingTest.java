@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.BiDirectionalMappingTest;
  */
 public class ProxiedBiDirectionalMappingTest extends BiDirectionalMappingTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

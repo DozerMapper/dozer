@@ -24,7 +24,7 @@ public class ClassAPrime {
   /**  */
   private String prenom;
   /** */
-  private TreeSet subs;
+  private TreeSet<ClassBPrime> subs;
   /**  */
   private final int prime = 31;
   /** {@inheritDoc} */
@@ -33,7 +33,7 @@ public class ClassAPrime {
       return;
     }
     if (this.getSubs() == null) {
-      this.setSubs(new TreeSet());
+      this.setSubs(new TreeSet<ClassBPrime>());
     }
     this.getSubs().add(value);
     if (value.getParent() != this) {
@@ -57,20 +57,22 @@ public class ClassAPrime {
     this.prenom = prenom;
   }
   /** {@inheritDoc} */
-  public TreeSet getSubs() {
+  public TreeSet<ClassBPrime> getSubs() {
     return this.subs;
   }
   /** {@inheritDoc} */
-  public void setSubs(final TreeSet subs) {
+  public void setSubs(final TreeSet<ClassBPrime> subs) {
     this.subs = subs;
   }
   /** {@inheritDoc} */
+  @Override
   public int hashCode() {
     int result = 1;
     result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
     return result;
   }
   /** {@inheritDoc} */
+  @Override
   public boolean equals(final Object obj) {
     if (this == obj) {
       return true;

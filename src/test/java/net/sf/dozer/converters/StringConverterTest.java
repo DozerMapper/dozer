@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.Test;
-
 import net.sf.dozer.util.DateFormatContainer;
+
+import org.junit.Test;
 public class StringConverterTest  {
 
   @Test

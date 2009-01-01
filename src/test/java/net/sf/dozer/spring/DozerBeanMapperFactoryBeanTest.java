@@ -41,6 +41,7 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
   private DozerBeanMapperFactoryBean factory;
   private MockResource mockResource;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     factory = new DozerBeanMapperFactoryBean();
@@ -63,7 +64,7 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
     assertTrue(factory.isSingleton());
 
     DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
-    List files = mapper.getMappingFiles();
+    List<?> files = mapper.getMappingFiles();
     assertEquals(1, files.size());
     assertEquals("file:" + url.getFile(), files.iterator().next());
   }

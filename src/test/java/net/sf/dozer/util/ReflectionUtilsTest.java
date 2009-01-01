@@ -15,15 +15,17 @@
  */
 package net.sf.dozer.util;
 
-import static org.junit.Assert.*;
-import java.beans.PropertyDescriptor;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import java.beans.PropertyDescriptor;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
 import net.sf.dozer.vo.SimpleObj;
 import net.sf.dozer.vo.inheritance.ChildChildIF;
+
+import org.junit.Test;
 
 /**
  * @author tierney.matt

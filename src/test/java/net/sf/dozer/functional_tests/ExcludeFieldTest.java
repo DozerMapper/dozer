@@ -34,6 +34,7 @@ import org.junit.Test;
  */
 public class ExcludeFieldTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("excludedField.xml");
@@ -105,6 +106,7 @@ public class ExcludeFieldTest extends AbstractMapperTest {
     assertNull(twoB.getId());
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

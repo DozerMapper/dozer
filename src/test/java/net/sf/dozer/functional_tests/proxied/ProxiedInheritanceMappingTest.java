@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.InheritanceMappingTest;
  */
 public class ProxiedInheritanceMappingTest extends InheritanceMappingTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

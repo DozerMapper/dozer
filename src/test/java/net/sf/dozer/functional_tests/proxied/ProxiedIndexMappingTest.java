@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.IndexMappingTest;
  */
 public class ProxiedIndexMappingTest extends IndexMappingTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

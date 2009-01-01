@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.RecursiveInterfaceMappingTest;
  */
 public class ProxiedRecursiveInterfaceMappingTest extends RecursiveInterfaceMappingTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

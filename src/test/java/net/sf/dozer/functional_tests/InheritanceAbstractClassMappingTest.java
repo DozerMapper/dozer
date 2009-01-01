@@ -15,10 +15,8 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.MappingException;
@@ -26,6 +24,8 @@ import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.abstractinheritance.A;
 import net.sf.dozer.vo.abstractinheritance.AbstractB;
 import net.sf.dozer.vo.abstractinheritance.B;
+
+import org.junit.Test;
 
 /**
  * Unit tests for data objects that have Abstract Class(s) in their object hierarchy
@@ -130,6 +130,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractMapperTest {
     return result;
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

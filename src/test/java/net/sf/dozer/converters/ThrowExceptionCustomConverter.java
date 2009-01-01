@@ -22,7 +22,7 @@ package net.sf.dozer.converters;
  */
 public class ThrowExceptionCustomConverter implements CustomConverter {
 
-  public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
+  public Object convert(Object destination, Object source, Class<?> destClass, Class<?> sourceClass) {
     throw new RuntimeException("throwing exception from custom converter");
   }
 

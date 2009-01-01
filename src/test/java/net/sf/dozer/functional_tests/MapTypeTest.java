@@ -15,7 +15,11 @@
  */
 package net.sf.dozer.functional_tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -63,7 +67,7 @@ public class MapTypeTest extends AbstractMapperTest {
 
     NestedObj nestedObj = newInstance(NestedObj.class);
     nestedObj.setField1("nestedfield1value");
-    Map<String, Serializable> src = (Map<String, Serializable>) newInstance(HashMap.class);
+    Map<String, Serializable> src = newInstance(HashMap.class);
     src.put("field1", "mapnestedfield1value");
     src.put("nested", nestedObj);
 
@@ -241,7 +245,7 @@ public class MapTypeTest extends AbstractMapperTest {
     assertEquals("stringPropertyValue", customMap.getValue("stringProperty"));
     assertEquals("stringProperty2Value", customMap.getValue("myStringProperty"));
 
-    CustomMapIF custom = (CustomMapIF) newInstance(CustomMap.class);
+    CustomMapIF custom = newInstance(CustomMap.class);
     custom.putValue("myKey", "myValue");
     mapper.map(ptm, custom, "myCustomTestMapping");
     assertEquals("stringPropertyValue", custom.getValue("stringProperty"));
@@ -270,7 +274,7 @@ public class MapTypeTest extends AbstractMapperTest {
     PropertyToMap property = mapper.map(map, PropertyToMap.class, "myTestMapping");
     assertEquals("stringPropertyValue", property.getStringProperty());
 
-    CustomMapIF custom = (CustomMapIF) newInstance(CustomMap.class);
+    CustomMapIF custom = newInstance(CustomMap.class);
     custom.putValue("stringProperty", "stringPropertyValue");
     PropertyToMap property2 = mapper.map(custom, PropertyToMap.class, "myCustomTestMapping");
     assertEquals("stringPropertyValue", property2.getStringProperty());
@@ -283,7 +287,7 @@ public class MapTypeTest extends AbstractMapperTest {
   @Test
   public void testPropertyToMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
-    PropertyToMap ptm = (PropertyToMap) newInstance(PropertyToMap.class);
+    PropertyToMap ptm = newInstance(PropertyToMap.class);
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
     ptm.setStringProperty6("string6Value");

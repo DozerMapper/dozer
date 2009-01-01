@@ -25,6 +25,7 @@ import net.sf.dozer.functional_tests.CustomConverterMappingTest;
  */
 public class ProxiedCustomConverterMappingTest extends CustomConverterMappingTest {
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;
   }

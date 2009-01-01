@@ -26,7 +26,7 @@ import net.sf.dozer.vo.Car;
  */
 public class SampleCustomBeanFactory3 implements BeanFactory {
 
-  public Object createBean(Object srcObj, Class srcObjClass, String id) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
     try {
       Object rvalue = Car.class.newInstance();
       // return the interface

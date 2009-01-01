@@ -18,6 +18,7 @@ package net.sf.dozer.converters;
 import java.util.HashMap;
 
 import net.sf.dozer.MappingException;
+import net.sf.dozer.vo.BaseTestObject;
 import net.sf.dozer.vo.TestCustomConverterHashMapObject;
 import net.sf.dozer.vo.TestCustomConverterHashMapPrimeObject;
 import net.sf.dozer.vo.TestObject;
@@ -28,7 +29,7 @@ import net.sf.dozer.vo.TestObjectPrime;
  */
 public class TestCustomHashMapConverter implements CustomConverter {
 
-  public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
+  public Object convert(Object destination, Object source, Class<?> destClass, Class<?> sourceClass) {
 
     if (source instanceof TestCustomConverterHashMapObject) {
       TestCustomConverterHashMapPrimeObject dest = null;
@@ -38,7 +39,7 @@ public class TestCustomHashMapConverter implements CustomConverter {
       } else {
         dest = (TestCustomConverterHashMapPrimeObject) destination;
       }
-      HashMap map = new HashMap();
+      HashMap<Object, BaseTestObject> map = new HashMap<Object, BaseTestObject>();
       map.put("object1", testCustomConverterHashMapObject.getTestObject());
       map.put("object2", testCustomConverterHashMapObject.getTestObjectPrime());
       dest.setTestObjects(map);

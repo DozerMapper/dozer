@@ -20,9 +20,9 @@ package net.sf.dozer.factories;
  */
 public class SampleDefaultBeanFactory extends BaseSampleBeanFactory {
 
-  public Object createBean(Object srcObj, Class srcObjClass, String id) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
     try {
-      Class destClass = Class.forName(id);
+      Class<?> destClass = Class.forName(id);
       Object rvalue = destClass.newInstance();
       // just for unit testing. need something to indicate that it was created by the factory method
       setCreatedByFactoryName(rvalue, SampleDefaultBeanFactory.class.getName());

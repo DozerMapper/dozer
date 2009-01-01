@@ -74,6 +74,7 @@ import org.junit.Test;
  */
 public class MapperTest extends AbstractMapperTest {
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("dozerBeanMapping.xml");
@@ -583,6 +584,7 @@ public class MapperTest extends AbstractMapperTest {
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

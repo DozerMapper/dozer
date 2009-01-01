@@ -37,6 +37,7 @@ import org.junit.Test;
  */
 public class MapMappingTest extends AbstractMapperTest{
 
+  @Override
   @Before
   public void setUp() throws Exception {
     mapper = getMapper("mapMapping6.xml");
@@ -78,7 +79,7 @@ public class MapMappingTest extends AbstractMapperTest{
 
     mapper.map(source, destination);
 
-    Map resultingMap = destination.getStandardMap();
+    Map<?, ?> resultingMap = destination.getStandardMap();
 
     assertNotNull(resultingMap);
     assertEquals(2, resultingMap.size());
@@ -86,6 +87,7 @@ public class MapMappingTest extends AbstractMapperTest{
     assertEquals(Boolean.TRUE, resultingMap.get("B"));
   }
 
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

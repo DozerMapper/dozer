@@ -38,6 +38,7 @@ public class ClassMapTest extends AbstractDozerTest {
   private ClassMap classMap;
   private Configuration globalConfiguration;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     globalConfiguration = new Configuration();

@@ -25,7 +25,7 @@ public class InjectedCustomConverter implements CustomConverter {
 
   private String injectedName;
 
-  public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
+  public Object convert(Object destination, Object source, Class<?> destClass, Class<?> sourceClass) {
     Vehicle rvalue = null;
     try {
       rvalue = (Vehicle) destClass.newInstance();

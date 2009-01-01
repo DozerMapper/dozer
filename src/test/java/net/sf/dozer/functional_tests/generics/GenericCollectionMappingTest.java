@@ -15,7 +15,10 @@
  */
 package net.sf.dozer.functional_tests.generics;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -23,8 +26,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.junit.Test;
 
 import net.sf.dozer.DataObjectInstantiator;
 import net.sf.dozer.Mapper;
@@ -34,11 +35,11 @@ import net.sf.dozer.vo.generics.deepindex.AnotherTestObject;
 import net.sf.dozer.vo.generics.deepindex.DestDeepObj;
 import net.sf.dozer.vo.generics.deepindex.Family;
 import net.sf.dozer.vo.generics.deepindex.HeadOfHouseHold;
-import net.sf.dozer.vo.generics.deepindex.PersonalDetails;
 import net.sf.dozer.vo.generics.deepindex.Pet;
 import net.sf.dozer.vo.generics.deepindex.SrcDeepObj;
 import net.sf.dozer.vo.generics.deepindex.TestObject;
-import net.sf.dozer.vo.generics.deepindex.TestObjectPrime;
+
+import org.junit.Test;
 
 /**
  * @author garsombke.franz
@@ -115,7 +116,7 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
 
     DestDeepObj dest = mapper.map(src, DestDeepObj.class);
     assertEquals("another test object field 3 value", dest.getDest5());
-    assertEquals(Integer.valueOf("6453"), ((TestObjectPrime)dest.getHintList().get(0)).getTwoPrime());
+    assertEquals(Integer.valueOf("6453"), (dest.getHintList().get(0)).getTwoPrime());
   }
 
   @Test
@@ -149,9 +150,9 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     source.setPets(myPets);
 
     HeadOfHouseHold dest =  mapper.map(source, HeadOfHouseHold.class);
-    assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getFirstName(), dest.getFirstName());
-    assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getLastName(), dest.getLastName());
-    assertEquals(((PersonalDetails) source.getFamilyMembers().get(0)).getSalary(), dest.getSalary());
+    assertEquals((source.getFamilyMembers().get(0)).getFirstName(), dest.getFirstName());
+    assertEquals((source.getFamilyMembers().get(0)).getLastName(), dest.getLastName());
+    assertEquals((source.getFamilyMembers().get(0)).getSalary(), dest.getSalary());
     assertEquals(source.getPets()[1].getPetName(), dest.getPetName());
     assertEquals(String.valueOf(source.getPets()[1].getPetAge()), dest.getPetAge());
     assertEquals(source.getPets()[1].getOffSpring()[2].getPetName(), dest.getOffSpringName());
@@ -171,14 +172,15 @@ public class GenericCollectionMappingTest extends AbstractMapperTest {
     Family dest = new Family();
     mapper.map(source, dest);
 
-    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getFirstName(), source.getFirstName());
-    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getLastName(), source.getLastName());
-    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getSalary(), source.getSalary());
+    assertEquals((dest.getFamilyMembers().get(0)).getFirstName(), source.getFirstName());
+    assertEquals((dest.getFamilyMembers().get(0)).getLastName(), source.getLastName());
+    assertEquals((dest.getFamilyMembers().get(0)).getSalary(), source.getSalary());
     assertEquals(dest.getPets()[1].getPetName(), source.getPetName());
     assertEquals(String.valueOf(dest.getPets()[1].getPetAge()), source.getPetAge());
     assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
   }
   
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

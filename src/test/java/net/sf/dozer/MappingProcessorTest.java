@@ -15,18 +15,18 @@ import org.junit.Test;
  */
 public class MappingProcessorTest  {
 
-  private ArrayList sourceList;
-  private ArrayList destinationList;
+  private ArrayList<Object> sourceList;
+  private ArrayList<Object> destinationList;
 
   @Before
   public void setUp() throws Exception {
-    sourceList = new ArrayList();
-    destinationList = new ArrayList();
+    sourceList = new ArrayList<Object>();
+    destinationList = new ArrayList<Object>();
   }
 
   @Test
   public void testPrepareDetinationList_OK() {
-    List result = MappingProcessor.prepareDestinationList(sourceList, destinationList);
+    List<Object> result = MappingProcessor.prepareDestinationList(sourceList, destinationList);
     assertEquals(destinationList, result);
     
     destinationList.add("");
@@ -36,14 +36,14 @@ public class MappingProcessorTest  {
 
   @Test
   public void testPrepareDetinationList_Null() {
-    List result = MappingProcessor.prepareDestinationList(sourceList, null);
+    List<?> result = MappingProcessor.prepareDestinationList(sourceList, null);
     assertNotNull(result);
-    assertEquals(new ArrayList(), result);
+    assertEquals(new ArrayList<Object>(), result);
   }
 
   @Test
   public void testPrepareDetinationList_Array() {
-    List result = MappingProcessor.prepareDestinationList(sourceList, new Object [] {"A"});
+    List<?> result = MappingProcessor.prepareDestinationList(sourceList, new Object [] {"A"});
     assertNotNull(result);
     assertEquals(1, result.size());
     assertEquals("A", result.iterator().next());
@@ -51,9 +51,9 @@ public class MappingProcessorTest  {
 
   @Test
   public void testPrepareDetinationList_StrangeCase() {
-    List result = MappingProcessor.prepareDestinationList(sourceList, "Hullo");
+    List<?> result = MappingProcessor.prepareDestinationList(sourceList, "Hullo");
     assertNotNull(result);
-    assertEquals(new ArrayList(), result);
+    assertEquals(new ArrayList<Object>(), result);
   }
 
   @Test
@@ -104,6 +104,7 @@ public class MappingProcessorTest  {
       this.id = id;
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
@@ -112,6 +113,7 @@ public class MappingProcessorTest  {
       return true;
     }
 
+    @Override
     public int hashCode() {
       return id;
     }

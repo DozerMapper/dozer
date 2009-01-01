@@ -17,7 +17,6 @@ package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import net.sf.dozer.DataObjectInstantiator;
-import net.sf.dozer.MappingException;
 import net.sf.dozer.NoProxyDataObjectInstantiator;
 import net.sf.dozer.vo.enumtest.MyBean;
 import net.sf.dozer.vo.enumtest.MyBeanPrime;
@@ -125,9 +124,10 @@ public class EnumMappingTest extends AbstractMapperTest {
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();
     src.setSrcType(SrcType.BAR);
-    MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
+    mapper.map(src, MyBeanPrime.class);
   }
   
+  @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
