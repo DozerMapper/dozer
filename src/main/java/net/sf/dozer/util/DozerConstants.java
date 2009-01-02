@@ -28,19 +28,19 @@ import net.sf.dozer.factory.XMLBeanFactory;
  * @author dmitry.buzdin
  * 
  */
-public final class MapperConstants {
+public final class DozerConstants {
 
-  private MapperConstants() {}
+  private DozerConstants() {}
 
-  public static final String CURRENT_VERSION = "4.4";
+  public static final String CURRENT_VERSION = "5.0";
 
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_ERROR_POLICY = true;
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
   public static final boolean DEFAULT_MAP_EMPTY_STRING_POLICY = true;
   public static final boolean DEFAULT_TRIM_STRINGS_POLICY = false;
-  public static final int DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = 5000;
-  public static final int DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 5000;
+  public static final int DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = 10000;
+  public static final int DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 10000;
   public static final RelationshipType DEFAULT_RELATIONSHIP_TYPE_POLICY = RelationshipType.CUMULATIVE;
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";

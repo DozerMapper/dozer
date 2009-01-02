@@ -21,7 +21,7 @@ import net.sf.dozer.propertydescriptor.FieldPropertyDescriptor;
 import net.sf.dozer.propertydescriptor.JavaBeanPropertyDescriptor;
 import net.sf.dozer.propertydescriptor.MapPropertyDescriptor;
 import net.sf.dozer.util.DestBeanCreator;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
 
 /**
@@ -63,7 +63,7 @@ public class MapFieldMap extends FieldMap {
     DozerPropertyDescriptor propDescriptor;
     Object targetObject = destObj;
 
-    if (getDestFieldName().equals(MapperConstants.SELF_KEYWORD)
+    if (getDestFieldName().equals(DozerConstants.SELF_KEYWORD)
         || (destFieldValue != null && MappingUtils.isSupportedMap(destFieldValue.getClass()))) {
       // Destination value is already a Map, so just use normal
       propDescriptor = super.getDestPropertyDescriptor(destObj.getClass());
@@ -88,7 +88,7 @@ public class MapFieldMap extends FieldMap {
     DozerPropertyDescriptor propDescriptor;
     Object targetObject = srcObj;
 
-    if (getSrcFieldName().equals(MapperConstants.SELF_KEYWORD)) {
+    if (getSrcFieldName().equals(DozerConstants.SELF_KEYWORD)) {
       propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
     } else {
       Class<?> actualType = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj, false);

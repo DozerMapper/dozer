@@ -29,7 +29,7 @@ import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.jmx.DozerAdminController;
 import net.sf.dozer.jmx.DozerStatisticsController;
 import net.sf.dozer.util.InitLogger;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +50,7 @@ public class DozerInitializer {
       return;
     }
 
-    InitLogger.log(log, "Initializing Dozer.  Version: " + MapperConstants.CURRENT_VERSION + ", Thread Name:"
+    InitLogger.log(log, "Initializing Dozer.  Version: " + DozerConstants.CURRENT_VERSION + ", Thread Name:"
         + Thread.currentThread().getName());
 
     // Auto Register Dozer JMX MBeans

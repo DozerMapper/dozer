@@ -17,7 +17,7 @@ package net.sf.dozer;
 
 import java.util.Random;
 
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 
 import org.junit.Before;
 
@@ -30,7 +30,7 @@ public abstract class AbstractDozerTest {
   @Before
   public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
-    System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");
+    System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
   }
 
   protected String getRandomString() {

@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 
 import org.junit.Test;
 
@@ -32,30 +32,30 @@ public class GlobalSettingsTest extends AbstractDozerTest {
   public void testLoadDefaultPropFile_Default() {
     GlobalSettings globalSettings = GlobalSettings.createNew();
     assertNotNull("loaded by name should not be null", globalSettings.getLoadedByFileName());
-    assertEquals("invalid loaded by file name", MapperConstants.DEFAULT_CONFIG_FILE, globalSettings.getLoadedByFileName());
+    assertEquals("invalid loaded by file name", DozerConstants.DEFAULT_CONFIG_FILE, globalSettings.getLoadedByFileName());
   }
 
   @Test
   public void testLoadDefaultPropFile_NotFound() {
     String propFileName = String.valueOf(System.currentTimeMillis());
-    System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, propFileName);
+    System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, propFileName);
     GlobalSettings globalSettings = GlobalSettings.createNew();
 
     // assert all global settings equal the default values
     assertNull("loaded by file name should be null", globalSettings.getLoadedByFileName());
-    assertEquals("invalid stats enabled value", MapperConstants.DEFAULT_STATISTICS_ENABLED, globalSettings.isStatisticsEnabled());
-    assertEquals("invalid converter cache max size value", MapperConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE,
+    assertEquals("invalid stats enabled value", DozerConstants.DEFAULT_STATISTICS_ENABLED, globalSettings.isStatisticsEnabled());
+    assertEquals("invalid converter cache max size value", DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE,
         globalSettings.getConverterByDestTypeCacheMaxSize());
-    assertEquals("invalid super type cache max size value", MapperConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE, globalSettings
+    assertEquals("invalid super type cache max size value", DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE, globalSettings
         .getSuperTypesCacheMaxSize());
-    assertEquals("invalid autoregister jmx beans", MapperConstants.DEFAULT_AUTOREGISTER_JMX_BEANS, globalSettings
+    assertEquals("invalid autoregister jmx beans", DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS, globalSettings
         .isAutoregisterJMXBeans());
   }
 
   @Test
   public void testLoadPropFile_SpecifiedViaSysProp() {
     String propFileName = "samplecustomdozer.properties";
-    System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, propFileName);
+    System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, propFileName);
 
     GlobalSettings globalSettings = GlobalSettings.createNew();
 

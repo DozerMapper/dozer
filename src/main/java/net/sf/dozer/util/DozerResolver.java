@@ -38,8 +38,8 @@ public class DozerResolver implements EntityResolver {
 
   public InputSource resolveEntity(String publicId, String systemId) {
     log.debug("Trying to resolve XML entity with public ID [" + publicId + "] and system ID [" + systemId + "]");
-    if (systemId != null && systemId.indexOf(MapperConstants.DTD_NAME) > systemId.lastIndexOf("/")) {
-      String dtdFile = systemId.substring(systemId.indexOf(MapperConstants.DTD_NAME));
+    if (systemId != null && systemId.indexOf(DozerConstants.DTD_NAME) > systemId.lastIndexOf("/")) {
+      String dtdFile = systemId.substring(systemId.indexOf(DozerConstants.DTD_NAME));
       log.debug("Trying to locate [" + dtdFile + "] in classpath");
       try {
         InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(dtdFile);

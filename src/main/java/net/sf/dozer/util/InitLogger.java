@@ -28,7 +28,7 @@ public class InitLogger {
   private static boolean debugEnabled = false;
 
   static {
-    String sysProp = System.getProperty(MapperConstants.DEBUG_SYS_PROP);
+    String sysProp = System.getProperty(DozerConstants.DEBUG_SYS_PROP);
     if (sysProp != null && !sysProp.trim().equals("false")) {
       debugEnabled = true;
     }

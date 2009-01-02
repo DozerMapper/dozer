@@ -16,7 +16,7 @@
 package net.sf.dozer.classmap;
 
 import net.sf.dozer.converters.CustomConverterContainer;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -67,7 +67,7 @@ public class Configuration {
   }
 
   public Boolean getWildcard() {
-    return wildcard != null ? wildcard : Boolean.valueOf(MapperConstants.DEFAULT_WILDCARD_POLICY);
+    return wildcard != null ? wildcard : Boolean.valueOf(DozerConstants.DEFAULT_WILDCARD_POLICY);
   }
 
   public void setWildcard(Boolean globalWildcardPolicy) {
@@ -75,7 +75,7 @@ public class Configuration {
   }
 
   public Boolean getStopOnErrors() {
-    return stopOnErrors != null ? stopOnErrors : Boolean.valueOf(MapperConstants.DEFAULT_ERROR_POLICY);
+    return stopOnErrors != null ? stopOnErrors : Boolean.valueOf(DozerConstants.DEFAULT_ERROR_POLICY);
   }
 
   public void setStopOnErrors(Boolean stopOnErrors) {
@@ -99,7 +99,7 @@ public class Configuration {
   }
 
   public Boolean getTrimStrings() {
-    return trimStrings != null ? trimStrings : Boolean.valueOf(MapperConstants.DEFAULT_TRIM_STRINGS_POLICY);
+    return trimStrings != null ? trimStrings : Boolean.valueOf(DozerConstants.DEFAULT_TRIM_STRINGS_POLICY);
   }
 
   public void setTrimStrings(Boolean trimStrings) {

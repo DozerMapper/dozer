@@ -17,7 +17,7 @@ package net.sf.dozer.jmx;
 
 import static org.junit.Assert.assertEquals;
 import net.sf.dozer.AbstractDozerTest;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class DozerAdminControllerTest extends AbstractDozerTest {
 
   @Test
   public void testGetCurrentVersion() throws Exception {
-    assertEquals("incorrect current version", MapperConstants.CURRENT_VERSION, controller.getCurrentVersion());
+    assertEquals("incorrect current version", DozerConstants.CURRENT_VERSION, controller.getCurrentVersion());
   }
 
 }

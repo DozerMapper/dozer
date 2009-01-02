@@ -463,7 +463,7 @@ public class XMLParser {
         } else if (RELATIONSHIP_TYPE.equals(element.getNodeName())) {
           RelationshipType relationshipType = RelationshipType.valueOf(nodeValue.trim());
           if (relationshipType == null) {
-            relationshipType = MapperConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY;
+            relationshipType = DozerConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY;
           }
           config.setRelationshipType(relationshipType);
         } else if (BEAN_FACTORY.equals(element.getNodeName())) {

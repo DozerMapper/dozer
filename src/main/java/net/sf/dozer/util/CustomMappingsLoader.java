@@ -54,7 +54,7 @@ public class CustomMappingsLoader {
       InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
       for (String mappingFileName : mappingFiles) {
         InitLogger.log(log, "Trying to find xml mapping file: " + mappingFileName);
-        URL url = MappingValidator.validateURL(MapperConstants.DEFAULT_PATH_ROOT + mappingFileName);
+        URL url = MappingValidator.validateURL(DozerConstants.DEFAULT_PATH_ROOT + mappingFileName);
         InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
         MappingFileReader mappingFileReader = new MappingFileReader(url);
         MappingFileData mappingFileData = mappingFileReader.read();

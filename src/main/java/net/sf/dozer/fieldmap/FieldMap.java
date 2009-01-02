@@ -24,7 +24,7 @@ import net.sf.dozer.classmap.RelationshipType;
 import net.sf.dozer.propertydescriptor.DozerPropertyDescriptor;
 import net.sf.dozer.propertydescriptor.GetterSetterPropertyDescriptor;
 import net.sf.dozer.propertydescriptor.PropertyDescriptorFactory;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -324,11 +324,11 @@ public abstract class FieldMap implements Cloneable {
    * source properties or #CDATA in the xml def.
    */
   protected boolean isSrcSelfReferencing() {
-    return getSrcFieldName().equals(MapperConstants.SELF_KEYWORD);
+    return getSrcFieldName().equals(DozerConstants.SELF_KEYWORD);
   }
 
   protected boolean isDestSelfReferencing() {
-    return getDestFieldName().equals(MapperConstants.SELF_KEYWORD);
+    return getDestFieldName().equals(DozerConstants.SELF_KEYWORD);
   }
 
   public boolean isCopyByReferenceOveridden() {

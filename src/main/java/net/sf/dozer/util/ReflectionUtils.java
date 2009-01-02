@@ -70,7 +70,7 @@ public abstract class ReflectionUtils {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
 
-    StringTokenizer toks = new StringTokenizer(field, MapperConstants.DEEP_FIELD_DELIMITOR);
+    StringTokenizer toks = new StringTokenizer(field, DozerConstants.DEEP_FIELD_DELIMITOR);
     Class<?> latestClass = parentClass;
     DeepHierarchyElement[] hierarchy = new DeepHierarchyElement[toks.countTokens()];
     int index = 0;

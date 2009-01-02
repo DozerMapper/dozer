@@ -20,7 +20,7 @@ import java.util.List;
 
 import net.sf.dozer.converters.CustomConverterContainer;
 import net.sf.dozer.fieldmap.FieldMap;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -45,8 +45,8 @@ public class ClassMap {
   private String type;
   private String dateFormat;
   private String beanFactory;
-  private boolean mapNull = MapperConstants.DEFAULT_MAP_NULL_POLICY;
-  private boolean mapEmptyString = MapperConstants.DEFAULT_MAP_EMPTY_STRING_POLICY;
+  private boolean mapNull = DozerConstants.DEFAULT_MAP_NULL_POLICY;
+  private boolean mapEmptyString = DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY;
   private Boolean wildcard;
   private Boolean stopOnErrors;
   private Boolean trimStrings;

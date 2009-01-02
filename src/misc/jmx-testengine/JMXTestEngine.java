@@ -3,7 +3,7 @@ import java.util.List;
 
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
 import net.sf.dozer.functional_tests.support.TestDataFactory;
 import net.sf.dozer.vo.ArrayCustConverterObj;
@@ -17,7 +17,7 @@ public class JMXTestEngine {
 
   public static void main(String[] args) throws Exception {
     System.setProperty("dozer.debug", "true");
-    System.setProperty(MapperConstants.CONFIG_FILE_SYS_PROP, "jmx_test_engine.properties");
+    System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, "jmx_test_engine.properties");
     performSomeMappings();
 
     System.out.println("Waiting forever...");

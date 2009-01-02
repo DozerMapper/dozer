@@ -20,7 +20,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import net.sf.dozer.util.InitLogger;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.ResourceLoader;
 
@@ -46,10 +46,10 @@ public class GlobalSettings {
   private static final GlobalSettings instance = new GlobalSettings();
 
   private String loadedByFileName;
-  private boolean statisticsEnabled = MapperConstants.DEFAULT_STATISTICS_ENABLED;
-  private long converterByDestTypeCacheMaxSize = MapperConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
-  private long superTypesCacheMaxSize = MapperConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
-  private boolean autoregisterJMXBeans = MapperConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
+  private boolean statisticsEnabled = DozerConstants.DEFAULT_STATISTICS_ENABLED;
+  private long converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
+  private long superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
+  private boolean autoregisterJMXBeans = DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
 
   public static GlobalSettings getInstance() {
     return instance;
@@ -89,9 +89,9 @@ public class GlobalSettings {
 
   private synchronized void loadGlobalSettings() {
     // Determine prop file name
-    String propFileName = System.getProperty(MapperConstants.CONFIG_FILE_SYS_PROP);
+    String propFileName = System.getProperty(DozerConstants.CONFIG_FILE_SYS_PROP);
     if (MappingUtils.isBlankOrNull(propFileName)) {
-      propFileName = MapperConstants.DEFAULT_CONFIG_FILE;
+      propFileName = DozerConstants.DEFAULT_CONFIG_FILE;
     }
 
     InitLogger.log(log, "Trying to find Dozer configuration file: " + propFileName);

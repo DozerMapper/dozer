@@ -59,7 +59,7 @@ import net.sf.dozer.util.CollectionUtils;
 import net.sf.dozer.util.DateFormatContainer;
 import net.sf.dozer.util.DestBeanCreator;
 import net.sf.dozer.util.LogMsgFactory;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.MappingValidator;
 import net.sf.dozer.util.ReflectionUtils;
@@ -241,7 +241,7 @@ public class MappingProcessor implements Mapper {
       }
 
       if (!fieldMapped) {
-        if (fieldMapping.getDestFieldType() != null && fieldMapping.getDestFieldType().equals(MapperConstants.ITERATE)) {
+        if (fieldMapping.getDestFieldType() != null && fieldMapping.getDestFieldType().equals(DozerConstants.ITERATE)) {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(srcObj, destObj, srcFieldValue, fieldMapping);
         } else {

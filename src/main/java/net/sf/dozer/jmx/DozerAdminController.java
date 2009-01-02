@@ -16,7 +16,7 @@
 package net.sf.dozer.jmx;
 
 import net.sf.dozer.config.GlobalSettings;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 
 /**
  * Public Dozer JMX Bean
@@ -26,7 +26,7 @@ import net.sf.dozer.util.MapperConstants;
 public class DozerAdminController implements DozerAdminControllerMBean {
 
   public String getCurrentVersion() {
-    return MapperConstants.CURRENT_VERSION;
+    return DozerConstants.CURRENT_VERSION;
   }
 
   public boolean isStatisticsEnabled() {

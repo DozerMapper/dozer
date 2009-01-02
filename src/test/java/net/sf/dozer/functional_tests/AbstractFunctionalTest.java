@@ -21,7 +21,7 @@ import java.util.List;
 import net.sf.dozer.DozerBeanMapper;
 import net.sf.dozer.Mapper;
 import net.sf.dozer.functional_tests.support.TestDataFactory;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 
 import org.junit.Before;
 
@@ -38,7 +38,7 @@ public abstract class AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
-    System.setProperty(MapperConstants.DEBUG_SYS_PROP, "true");
+    System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
     mapper = new DozerBeanMapper();
   }
 

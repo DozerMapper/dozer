@@ -16,7 +16,7 @@
 package net.sf.dozer.propertydescriptor;
 
 import net.sf.dozer.fieldmap.HintContainer;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
 
 /**
@@ -50,7 +50,7 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
   }
 
   protected boolean isDeepField() {
-    return fieldName.indexOf(MapperConstants.DEEP_FIELD_DELIMITOR) > 0;
+    return fieldName.indexOf(DozerConstants.DEEP_FIELD_DELIMITOR) > 0;
   }
 
 }

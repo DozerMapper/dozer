@@ -16,7 +16,7 @@
 package net.sf.dozer.propertydescriptor;
 
 import net.sf.dozer.fieldmap.HintContainer;
-import net.sf.dozer.util.MapperConstants;
+import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
 
 /**
@@ -38,7 +38,7 @@ public class PropertyDescriptorFactory {
 
     // Raw Map types or custom map-get-method/set specified
     boolean isMapProperty = MappingUtils.isSupportedMap(clazz);
-    if (name.equals(MapperConstants.SELF_KEYWORD) &&
+    if (name.equals(DozerConstants.SELF_KEYWORD) &&
             (mapSetMethod != null || mapGetMethod != null || isMapProperty)) {
       String setMethod = isMapProperty ? "put" : mapSetMethod;
       String getMethod = isMapProperty ? "get" : mapGetMethod;
@@ -62,7 +62,7 @@ public class PropertyDescriptorFactory {
           srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
       // If this object is an XML Bean - then use the XmlBeanPropertyDescriptor  
-    } else if (beanFactory != null && beanFactory.equals(MapperConstants.XML_BEAN_FACTORY)) {
+    } else if (beanFactory != null && beanFactory.equals(DozerConstants.XML_BEAN_FACTORY)) {
       desc = new XmlBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
 
       // Everything else. It must be a normal bean with normal custom get/set
