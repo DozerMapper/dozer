@@ -23,7 +23,12 @@ public class Pet {
   public Pet() {
   }
 
-  public Pet(String petName, int petAge, Pet[] offSpring) {
+  public Pet(String petName, Integer petAge) {
+    this.petName = petName;
+    this.petAge = petAge;
+  }
+
+  public Pet(String petName, Integer petAge, Pet[] offSpring) {
     this.petName = petName;
     this.petAge = petAge;
     this.offSpring = offSpring;

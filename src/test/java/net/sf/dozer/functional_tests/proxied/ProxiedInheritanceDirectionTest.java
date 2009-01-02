@@ -19,36 +19,19 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import net.sf.dozer.functional_tests.DataObjectInstantiator;
-import net.sf.dozer.functional_tests.GenericCollectionMappingTest;
+import net.sf.dozer.functional_tests.InheritanceDirectionTest;
 
 /**
  * @author tierney.matt
  */
-public class ProxiedGenericCollectionMappingTest extends GenericCollectionMappingTest {
+public class ProxiedInheritanceDirectionTest extends InheritanceDirectionTest {
   
   @Test
   @Ignore("Fails.  Needs investigation")
-  public void testDeepMapIndexed() throws Exception {
-    super.testDeepMapIndexed();
+  public void testInheritanceDirection_Reverse() {
+    super.testInheritanceDirection_Reverse();
   }
 
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMapInvIndexed() throws Exception {
-    super.testDeepMapInvIndexed();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMappingWithIndexOnDestField() {
-    super.testDeepMappingWithIndexOnDestField();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMappingWithIndexOnSrcField() {
-    super.testDeepMappingWithIndexOnSrcField();
-  }
 
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {

@@ -27,13 +27,12 @@ public class InheritanceDirectionTest extends AbstractFunctionalTest {
 
   @Test
   public void testInheritanceDirection_Child() {
-    ContentItemGroupDefault parentItem = new ContentItemGroupDefault();
+    ContentItemGroupDefault parentItem = newInstance(ContentItemGroupDefault.class);
     parentItem.setId("A");
 
-    ContentItemGroupDefault childItem = new ContentItemGroupDefault();
+    ContentItemGroupDefault childItem = newInstance(ContentItemGroupDefault.class);
     childItem.setId("B");
     childItem.setParentGroup(parentItem);
-
     parentItem.addChildGroup(childItem);
 
     ContentItemGroupDTO resultChild = mapper.map(childItem, ContentItemGroupDTO.class);
@@ -49,10 +48,10 @@ public class InheritanceDirectionTest extends AbstractFunctionalTest {
 
   @Test
   public void testInheritanceDirection_Parent() {
-    ContentItemGroupDefault parentItem = new ContentItemGroupDefault();
+    ContentItemGroupDefault parentItem = newInstance(ContentItemGroupDefault.class);
     parentItem.setId("A");
 
-    ContentItemGroupDefault childItem = new ContentItemGroupDefault();
+    ContentItemGroupDefault childItem = newInstance(ContentItemGroupDefault.class);
     childItem.setId("B");
     childItem.setParentGroup(parentItem);
 
@@ -72,13 +71,13 @@ public class InheritanceDirectionTest extends AbstractFunctionalTest {
 
   @Test
   public void testInheritanceDirection_Reverse() {
-    ContentItemGroupDTO parent = new ContentItemGroupDTO();
+    ContentItemGroupDTO parent = newInstance(ContentItemGroupDTO.class);
     parent.setId("A");
 
-    ContentItemGroupDTO child = new ContentItemGroupDTO();
+    ContentItemGroupDTO child = newInstance(ContentItemGroupDTO.class);
     child.setId("B");
     child.setParentGroup(parent);
-    HashSet<ContentItemGroupDTO> childGroups = new HashSet<ContentItemGroupDTO>();
+    HashSet<ContentItemGroupDTO> childGroups = newInstance(HashSet.class);
     childGroups.add(child);
     parent.setChildGroups(childGroups);
 

@@ -26,6 +26,11 @@ public class Pet extends BaseTestObject {
   public Pet() {
   }
 
+  public Pet(String petName, int petAge) {
+    this.petName = petName;
+    this.petAge = petAge;
+  }
+
   public Pet(String petName, int petAge, Pet[] offSpring) {
     this.petName = petName;
     this.petAge = petAge;

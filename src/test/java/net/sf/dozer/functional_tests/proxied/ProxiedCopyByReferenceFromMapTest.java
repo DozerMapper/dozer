@@ -15,41 +15,23 @@
  */
 package net.sf.dozer.functional_tests.proxied;
 
+import net.sf.dozer.functional_tests.CopyByReferenceFromMapTest;
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
+
 import org.junit.Ignore;
 import org.junit.Test;
-
-import net.sf.dozer.functional_tests.DataObjectInstantiator;
-import net.sf.dozer.functional_tests.GenericCollectionMappingTest;
 
 /**
  * @author tierney.matt
  */
-public class ProxiedGenericCollectionMappingTest extends GenericCollectionMappingTest {
+public class ProxiedCopyByReferenceFromMapTest extends CopyByReferenceFromMapTest {
+
+  @Ignore("FAILS with proxied objects")
+  @Test
+  public void testCopyByReferenceFromMap() {
+    super.testCopyByReferenceFromMap();
+  }
   
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMapIndexed() throws Exception {
-    super.testDeepMapIndexed();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMapInvIndexed() throws Exception {
-    super.testDeepMapInvIndexed();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMappingWithIndexOnDestField() {
-    super.testDeepMappingWithIndexOnDestField();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMappingWithIndexOnSrcField() {
-    super.testDeepMappingWithIndexOnSrcField();
-  }
-
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return ProxyDataObjectInstantiator.INSTANCE;

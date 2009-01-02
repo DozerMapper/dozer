@@ -37,10 +37,10 @@ public class CopyByReferenceFromMapTest extends AbstractFunctionalTest {
 
   @Test
   public void testCopyByReferenceFromMap() {
-    HashMap<String, ValueObject> hashMap = new HashMap<String, ValueObject>();
+    HashMap<String, ValueObject> hashMap = newInstance(HashMap.class);
     hashMap.put("1", new ValueObject());
 
-    ValueObject destination = new ValueObject();
+    ValueObject destination = newInstance(ValueObject.class);
     mapper.map(hashMap, destination);
 
     assertNotNull(destination);

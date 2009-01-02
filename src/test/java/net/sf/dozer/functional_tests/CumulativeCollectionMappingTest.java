@@ -26,21 +26,21 @@ import net.sf.dozer.vo.collections.UserImpl;
 
 import org.junit.Test;
 
-public class TestCumulativeCollectionMapping extends AbstractFunctionalTest {
+public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testMappingInterface() throws Exception {
 
     // prepare 2 Users in 1 UserGroup
-    User user1 = new UserImpl();
+    User user1 = newInstance(UserImpl.class);
     user1.setFirstName("first name 1");
     user1.setLastName("last name 1");
 
-    User user2 = new UserImpl();
+    User user2 = newInstance(UserImpl.class);
     user2.setFirstName("first name 2");
     user2.setLastName("last name 2");
 
-    UserGroup userGroup = new UserGroupImpl();
+    UserGroup userGroup = newInstance(UserGroupImpl.class);
     userGroup.setName("usergroup name");
     userGroup.addUser(user1);
     userGroup.addUser(user2);
@@ -66,15 +66,15 @@ public class TestCumulativeCollectionMapping extends AbstractFunctionalTest {
   public void testMappingConcrete() throws Exception {
 
     // prepare 2 Users in 1 UserGroup
-    UserImpl user1 = new UserImpl();
+    UserImpl user1 = newInstance(UserImpl.class);
     user1.setFirstName("first name 1");
     user1.setLastName("last name 1");
 
-    UserImpl user2 = new UserImpl();
+    UserImpl user2 = newInstance(UserImpl.class);
     user2.setFirstName("first name 2");
     user2.setLastName("last name 2");
 
-    UserGroupImpl userGroup = new UserGroupImpl();
+    UserGroupImpl userGroup = newInstance(UserGroupImpl.class);
     userGroup.setName("usergroup name");
     userGroup.addUser(user1);
     userGroup.addUser(user2);

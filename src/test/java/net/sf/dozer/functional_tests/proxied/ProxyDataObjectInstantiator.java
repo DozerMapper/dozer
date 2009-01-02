@@ -2,12 +2,15 @@ package net.sf.dozer.functional_tests.proxied;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sf.cglib.proxy.Dispatcher;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 import net.sf.dozer.functional_tests.DataObjectInstantiator;
+import net.sf.dozer.util.MappingUtils;
 
 /*
  * Copyright 2005-2007 the original author or authors.
@@ -44,17 +47,26 @@ public class ProxyDataObjectInstantiator implements DataObjectInstantiator {
     enhancer.setCallback(NoOpInterceptor.INSTANCE);
     return (T) enhancer.create();
   }
+  
+  public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
+    List<Class<?>> argTypes = new ArrayList<Class<?>>();
+    for (Object arg : args) {
+      argTypes.add(MappingUtils.getRealClass(arg.getClass()));
+    }
+    Enhancer enhancer = new Enhancer();
+    enhancer.setSuperclass(classToInstantiate);
+    enhancer.setCallback(NoOpInterceptor.INSTANCE);
+    return (T) enhancer.create(argTypes.toArray(new Class[0]), args);
+  }
 
   public Object newInstance(Class<?>[] interfacesToProxy, final Object target) {
     Enhancer enhancer = new Enhancer();
-
     enhancer.setInterfaces(interfacesToProxy);
     enhancer.setCallback(new Dispatcher() {
       public Object loadObject() throws Exception {
         return target;
       }
     });
-
     return enhancer.create();
   }
 

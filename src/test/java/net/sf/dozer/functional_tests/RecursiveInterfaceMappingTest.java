@@ -44,15 +44,15 @@ public class RecursiveInterfaceMappingTest extends AbstractFunctionalTest {
   public void testRecursiveInterfaceMapping() throws Exception {
 
     // prepare 2 Users in 1 UserGroup
-    User user1 = new UserImpl();
+    User user1 = newInstance(UserImpl.class);
     user1.setFirstName("first name 1");
     user1.setLastName("last name 1");
 
-    User user2 = new UserImpl();
+    User user2 = newInstance(UserImpl.class);
     user2.setFirstName("first name 2");
     user2.setLastName("last name 2");
 
-    UserGroup userGroup = new UserGroupImpl();
+    UserGroup userGroup = newInstance(UserGroupImpl.class);
     userGroup.setName("usergroup name");
     userGroup.addUser(user1);
     userGroup.addUser(user2);

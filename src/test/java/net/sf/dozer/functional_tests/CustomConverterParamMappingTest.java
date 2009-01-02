@@ -60,7 +60,7 @@ public class CustomConverterParamMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testGlobalCustomConverter() {
-    Individual individual = new Individual();
+    Individual individual = newInstance(Individual.class);
     individual.setUsername("ABC");
     Fruit result = mapper.map(individual, Fruit.class, "1");
     assertNotNull("", result.getName());
@@ -69,7 +69,7 @@ public class CustomConverterParamMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testGlobalCustomConverter_ParamProvided() {
-    Individual individual = new Individual();
+    Individual individual = newInstance(Individual.class);
     individual.setUsername("ABC");
     Fruit result = mapper.map(individual, Fruit.class, "2");
     assertNotNull("", result.getName());

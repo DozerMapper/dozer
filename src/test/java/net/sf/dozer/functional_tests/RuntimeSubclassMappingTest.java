@@ -41,11 +41,11 @@ public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
   @Test
   public void testSpecialMapping() throws Exception {
     // SpecialUserGroup(!)
-    SpecialUserGroup userGroup = new SpecialUserGroup();
+    SpecialUserGroup userGroup = newInstance(SpecialUserGroup.class);
     userGroup.setName("special user group");
 
     // User in SpecialUserGroup
-    User user = new User();
+    User user = newInstance(User.class);
     user.setUserGroup(userGroup);
 
     // do mapping to UserPrime
@@ -60,11 +60,11 @@ public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
   @Test
   public void testNormalMapping() throws Exception {
     // normal UserGroup
-    UserGroup userGroup = new UserGroup();
+    UserGroup userGroup = newInstance(UserGroup.class);
     userGroup.setName("user group");
 
     // User in normal UserGroup
-    User user = new User();
+    User user = newInstance(User.class);
     user.setUserGroup(userGroup);
 
     // do mapping to UserPrime

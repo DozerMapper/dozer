@@ -61,6 +61,10 @@ public abstract class AbstractFunctionalTest {
   protected <T> T newInstance(Class<T> classToInstantiate) {
     return getDataObjectInstantiator().newInstance(classToInstantiate);
   }
+  
+  public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
+    return getDataObjectInstantiator().newInstance(classToInstantiate, args);
+  }
 
   protected Object newInstance(Class<?>[] interfacesToProxy, Object target) {
     return getDataObjectInstantiator().newInstance(interfacesToProxy, target);

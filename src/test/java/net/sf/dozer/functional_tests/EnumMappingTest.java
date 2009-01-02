@@ -56,7 +56,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   @Test
   public void testOverridedEnumMapsToBasedEnum() {
     mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
-    MyBean src = new MyBean();
+    MyBean src = newInstance(MyBean.class);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcTypeWithOverride().toString(), dest.getDestType().toString());
@@ -68,7 +68,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   @Test
   public void testBasedEnumMapsToOverridedEnum() {
     mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
-    MyBean src = new MyBean();
+    MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcType().toString(), dest.getDestTypeWithOverride().toString());
@@ -80,7 +80,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   @Test
   public void testBasedEnumMapsToBasedEnum() {
     mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBean src = new MyBean();
+    MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcType().toString(), dest.getDestType().toString());
@@ -92,7 +92,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   @Test
   public void testOverridedEnumMapsToOverridedEnum() {
     mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBean src = new MyBean();
+    MyBean src = newInstance(MyBean.class);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
     assertEquals(src.getSrcTypeWithOverride().toString(), dest.getDestTypeWithOverride().toString());
@@ -103,7 +103,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToItself() {
-    MyBean src = new MyBean();
+    MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.FOO);
     MyBean dest = mapper.map(src, MyBean.class);
     assertEquals(src.getSrcType(), dest.getSrcType());
@@ -116,7 +116,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   @Test(expected = IllegalArgumentException.class)
   public void testEnumMapsToNonexistEnumValue() {
     mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBean src = new MyBean();
+    MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.BAR);
     mapper.map(src, MyBeanPrime.class);
   }

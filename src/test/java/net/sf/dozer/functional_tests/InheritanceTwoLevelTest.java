@@ -22,7 +22,7 @@ public class InheritanceTwoLevelTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapping_TwoLevels() {
-    C source = new C();
+    C source = newInstance(C.class);
     source.setA("A");
     source.setB("B");
 
@@ -34,7 +34,7 @@ public class InheritanceTwoLevelTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapping_TwoLevelsReverse() {
-    B source = new B();
+    B source = newInstance(B.class);
     source.setA("A");
     source.setB("B");
 
@@ -46,7 +46,7 @@ public class InheritanceTwoLevelTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapping_OneLevel() {
-    C source = new C();
+    C source = newInstance(C.class);
     source.setA("A");
     source.setB("B");
 

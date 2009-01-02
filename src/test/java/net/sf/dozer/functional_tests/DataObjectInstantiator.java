@@ -19,6 +19,8 @@ package net.sf.dozer.functional_tests;
 public interface DataObjectInstantiator {
 
   public <T> T newInstance(Class<T> classToInstantiate);
+  
+  public <T> T newInstance(Class<T> classToInstantiate, Object[] args);
 
   public Object newInstance(Class<?>[] interfacesToProxy, Object target);
 

@@ -28,15 +28,15 @@ import net.sf.dozer.vo.copybyreference.TestB;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SubclassReferenceTest {
-  Mapper mapper;
-  TestA testA;
-  TestB testB;
+public class SubclassReferenceTest extends AbstractFunctionalTest {
+  private Mapper mapper;
+  private TestA testA;
+  private TestB testB;
 
   @Before
   public void setUp() {
     mapper = new DozerBeanMapper(Arrays.asList(new String[] { getMappingFile() }));
-    testA = new TestA();
+    testA = newInstance(TestA.class);
     testA.setOne("one");
     testA.setOneA("oneA");
     testB = null;
@@ -83,5 +83,11 @@ public class SubclassReferenceTest {
     assertEquals(testASubclass.getOneA(), testB.getOneB());
     assertEquals(testASubclass.getTestReference(), testB.getTestReference());
   }
+  
+  @Override
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return NoProxyDataObjectInstantiator.INSTANCE;
+  }
+
 
 }

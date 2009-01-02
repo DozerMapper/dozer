@@ -28,6 +28,7 @@ import net.sf.dozer.vo.map.MapToMap;
 import net.sf.dozer.vo.map.MapToMapPrime;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -41,37 +42,38 @@ public class MapMappingTest extends AbstractFunctionalTest {
     mapper = getMapper("mapMapping6.xml");
   }
 
-  //  public void testMapWithNullEntries_WithoutHints() {
-  //    MapToMap source = new MapToMap();
-  //    HashMap map = new HashMap();
-  //    map.put("A", Boolean.TRUE);
-  //    map.put("B", null);
-  //    source.setStandardMap(map);
-  //
-  //    MapToMapPrime destination = new MapToMapPrime();
-  //    HashMap hashMap = new HashMap();
-  //    hashMap.put("C", Boolean.TRUE);
-  //    destination.setStandardMap(hashMap);
-  //
-  //    mapper.map(source, destination);
-  //
-  //    Map resultingMap = destination.getStandardMap();
-  //
-  //    assertNotNull(resultingMap);
-  //    assertEquals(2, resultingMap.size());
-  //    assertEquals(Boolean.TRUE, resultingMap.get("A"));
-  //    assertNull(resultingMap.get("B"));
-  //  }
+  @Ignore("failing for some reason.  was commented out")
+  @Test
+  public void testMapWithNullEntries_WithoutHints() {
+    MapToMap source = newInstance(MapToMap.class);
+    HashMap<String, Object> map = newInstance(HashMap.class);
+    map.put("A", Boolean.TRUE);
+    map.put("B", null);
+    source.setStandardMap(map);
+    MapToMapPrime destination = newInstance(MapToMapPrime.class);
+    HashMap<String, Object> hashMap = newInstance(HashMap.class);
+    hashMap.put("C", Boolean.TRUE);
+    destination.setStandardMap(hashMap);
+
+    mapper.map(source, destination);
+
+    Map<?, ?> resultingMap = destination.getStandardMap();
+
+    assertNotNull(resultingMap);
+    assertEquals(2, resultingMap.size());
+    assertEquals(Boolean.TRUE, resultingMap.get("A"));
+    assertNull(resultingMap.get("B"));
+  }
 
   @Test
   public void testMapWithNullEntries_NullPointer() {
-    MapToMap source = new MapToMap();
-    HashMap<String, TestObject> map = new HashMap<String, TestObject>();
+    MapToMap source = newInstance(MapToMap.class);
+    HashMap<String, TestObject> map = newInstance(HashMap.class);
     map.put("A", null);
     source.setStandardMap(map);
 
-    MapToMapPrime destination = new MapToMapPrime();
-    HashMap<String, Serializable> map2 = new HashMap<String, Serializable>();
+    MapToMapPrime destination = newInstance(MapToMapPrime.class);
+    HashMap<String, Serializable> map2 = newInstance(HashMap.class);
     map2.put("B", Boolean.TRUE);
     destination.setStandardMap(map2);
 

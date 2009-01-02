@@ -17,6 +17,7 @@ package net.sf.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import net.sf.dozer.vo.enumtest.MyBean;
 import net.sf.dozer.vo.excluded.OneA;
 import net.sf.dozer.vo.excluded.OneB;
 import net.sf.dozer.vo.excluded.TwoA;
@@ -40,11 +41,9 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
 
   @Test
   public void testExcludedField_SimpleLevel() {
-    ZeroA zeroA;
-    ZeroB zeroB = new ZeroB();
-
+    ZeroB zeroB = newInstance(ZeroB.class);
     zeroB.setId(Integer.valueOf("10"));
-    zeroA = mapper.map(zeroB, ZeroA.class);
+    ZeroA zeroA = mapper.map(zeroB, ZeroA.class);
 
     assertNull(zeroA.getId());
     assertEquals(Integer.valueOf("10"), zeroB.getId());
@@ -52,12 +51,9 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
 
   @Test
   public void testExcludedField_SimpleReverse() {
-    ZeroA zeroA = new ZeroA();
-    ZeroB zeroB;
-
+    ZeroA zeroA = newInstance(ZeroA.class);
     zeroA.setId(Integer.valueOf("5"));
-    System.out.println(zeroA);
-    zeroB = mapper.map(zeroA, ZeroB.class);
+    ZeroB zeroB = mapper.map(zeroA, ZeroB.class);
 
     assertEquals(Integer.valueOf("5"), zeroA.getId());
     assertNull(zeroB.getId());
@@ -65,11 +61,9 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
 
   @Test
   public void testExcludedField_OneLevel() {
-    OneA oneA;
-    OneB oneB = new OneB();
-
+    OneB oneB = newInstance(OneB.class);
     oneB.setId(Integer.valueOf("10"));
-    oneA = mapper.map(oneB, OneA.class);
+    OneA oneA = mapper.map(oneB, OneA.class);
 
     assertNull(oneA.getId());
     assertEquals(Integer.valueOf("10"), oneB.getId());
@@ -77,8 +71,7 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
 
   @Test
   public void testExcludedField_OneLevelReverse() {
-    OneA oneA = new OneA();
-
+    OneA oneA = newInstance(OneA.class);
     oneA.setId(Integer.valueOf("5"));
     OneB oneB = mapper.map(oneA, OneB.class);
 
@@ -97,7 +90,7 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
 
   @Test
   public void testExcludedField_TwoLevelReverse() {
-    TwoA twoA = new TwoA();
+    TwoA twoA = newInstance(TwoA.class);
     twoA.setId(Integer.valueOf("5"));
     TwoB twoB = mapper.map(twoA, TwoB.class);
     assertEquals(Integer.valueOf("5"), twoA.getId());

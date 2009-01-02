@@ -53,19 +53,19 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
 
     // prepare beans
-    User user1 = new User();
+    User user1 = newInstance(User.class);
     user1.setFirstName("first name 1");
     user1.setLastName("last name 1");
 
-    User user2 = new User();
+    User user2 = newInstance(User.class);
     user2.setFirstName("first name 2");
     user2.setLastName("last name 2");
 
-    Set<User> users = new HashSet<User>();
+    Set<User> users = newInstance(HashSet.class);
     users.add(user1);
     users.add(user2);
 
-    UserGroup userGroup = new UserGroup();
+    UserGroup userGroup = newInstance(UserGroup.class);
     userGroup.setName("usergroup name");
     userGroup.setUsers(users);
     userGroup.setStatus(Status.SUCCESS);
@@ -105,15 +105,15 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
   public void testDeepMappingWithIndexOnSrcField() {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
 
-    AnotherTestObject anotherTestObject = new AnotherTestObject();
+    AnotherTestObject anotherTestObject = newInstance(AnotherTestObject.class);
     anotherTestObject.setField3("another test object field 3 value");
     anotherTestObject.setField4("6453");
 
-    TestObject testObject1 = new TestObject();
-    TestObject testObject2 = new TestObject();
+    TestObject testObject1 = newInstance(TestObject.class);
+    TestObject testObject2 = newInstance(TestObject.class);
     testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[] { anotherTestObject }));
 
-    SrcDeepObj src = new SrcDeepObj();
+    SrcDeepObj src = newInstance(SrcDeepObj.class);
     src.setSomeList(Arrays.asList(new TestObject[] { testObject1, testObject2 }));
 
     DestDeepObj dest = mapper.map(src, DestDeepObj.class);
@@ -124,7 +124,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
   @Test
   public void testDeepMappingWithIndexOnDestField() {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
-    DestDeepObj src = new DestDeepObj();
+    DestDeepObj src = newInstance(DestDeepObj.class);
     src.setDest5("some string value for field");
 
     SrcDeepObj dest = mapper.map(src, SrcDeepObj.class);
@@ -135,17 +135,17 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
   public void testDeepMapIndexed() throws Exception {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
     Pet[] myPets = new Pet[2];
-    Family source = new Family("john", "jane", "doe", new Integer(22000), new Integer(20000));
-    Pet firstPet = new Pet("molly", 2, null);
+    Family source = newInstance(Family.class, new Object[] {"john", "jane", "doe", new Integer(22000), new Integer(20000)});
+    Pet firstPet = newInstance(Pet.class, new Object[] {"molly", 2});
     myPets[0] = firstPet;
 
     Pet[] offSprings = new Pet[4];
-    offSprings[0] = new Pet("Rocky1", 1, null);
-    offSprings[1] = new Pet("Rocky2", 1, null);
-    offSprings[2] = new Pet("Rocky3", 1, null);
-    offSprings[3] = new Pet("Rocky4", 1, null);
+    offSprings[0] = newInstance(Pet.class, new Object[] {"Rocky1", 1});
+    offSprings[1] = newInstance(Pet.class, new Object[] {"Rocky2", 1});
+    offSprings[2] = newInstance(Pet.class, new Object[] {"Rocky3", 1});
+    offSprings[3] = newInstance(Pet.class, new Object[] {"Rocky4", 1});
 
-    Pet secondPet = new Pet("Rocky", 3, offSprings);
+    Pet secondPet = newInstance(Pet.class, new Object[] {"Rocky", 3, offSprings});
     myPets[1] = secondPet;
 
     // Save the pet details into the source object
@@ -163,7 +163,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
   @Test
   public void testDeepMapInvIndexed() throws Exception {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
-    HeadOfHouseHold source = new HeadOfHouseHold();
+    HeadOfHouseHold source = newInstance(HeadOfHouseHold.class);
     source.setFirstName("Tom");
     source.setLastName("Roy");
     source.setPetName("Ronny");
@@ -171,7 +171,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     source.setPetAge("2");
     source.setOffSpringName("Ronny2");
 
-    Family dest = new Family();
+    Family dest = newInstance(Family.class);
     mapper.map(source, dest);
 
     assertEquals((dest.getFamilyMembers().get(0)).getFirstName(), source.getFirstName());

@@ -1,5 +1,11 @@
 package net.sf.dozer.functional_tests;
 
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.beanutils.ConstructorUtils;
+
 /*
  * Copyright 2005-2007 the original author or authors.
  *
@@ -26,6 +32,14 @@ public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
   public <T> T newInstance(Class<T> classToInstantiate) {
     try {
       return classToInstantiate.newInstance();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
+    try {
+      return (T) ConstructorUtils.invokeConstructor(classToInstantiate, args);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

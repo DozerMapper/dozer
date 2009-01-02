@@ -15,39 +15,21 @@
  */
 package net.sf.dozer.functional_tests.proxied;
 
+import net.sf.dozer.functional_tests.DataObjectInstantiator;
+import net.sf.dozer.functional_tests.InheritanceTwoLevelTest;
+
 import org.junit.Ignore;
 import org.junit.Test;
-
-import net.sf.dozer.functional_tests.DataObjectInstantiator;
-import net.sf.dozer.functional_tests.GenericCollectionMappingTest;
 
 /**
  * @author tierney.matt
  */
-public class ProxiedGenericCollectionMappingTest extends GenericCollectionMappingTest {
+public class ProxiedInheritanceTwoLevelTest extends InheritanceTwoLevelTest {
   
   @Test
   @Ignore("Fails.  Needs investigation")
-  public void testDeepMapIndexed() throws Exception {
-    super.testDeepMapIndexed();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMapInvIndexed() throws Exception {
-    super.testDeepMapInvIndexed();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMappingWithIndexOnDestField() {
-    super.testDeepMappingWithIndexOnDestField();
-  }
-
-  @Test
-  @Ignore("Fails.  Needs investigation")
-  public void testDeepMappingWithIndexOnSrcField() {
-    super.testDeepMappingWithIndexOnSrcField();
+  public void testMapping_TwoLevels() {
+    super.testMapping_TwoLevels();
   }
 
   @Override

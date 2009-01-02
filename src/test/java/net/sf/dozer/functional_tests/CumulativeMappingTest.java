@@ -48,21 +48,24 @@ public class CumulativeMappingTest extends AbstractFunctionalTest {
   */
   @Test
   public void testMapping() {
-    Library libSrc = new Library();
-    libSrc.setBooks(Collections.singletonList(new Book(new Long(141L), new Author("The Best One", new Long(505L)))));
+    Library libSrc = newInstance(Library.class);
+    Author author = newInstance(Author.class, new Object[] {"The Best One", new Long(505L)});
+    Book book = newInstance(Book.class, new Object[] {new Long(141L), author});
+    libSrc.setBooks(Collections.singletonList(book));
 
-    LibraryPrime libDest = new LibraryPrime();
-    BookPrime bookDest = new BookPrime(new Long(141L), new AuthorPrime(new Long(505L), "The Ultimate One", new Long(5100L)));
-    List<BookPrime> bookDests = new ArrayList<BookPrime>();
+    LibraryPrime libDest = newInstance(LibraryPrime.class);
+    AuthorPrime authorPrime = newInstance(AuthorPrime.class, new Object[] {new Long(505L), "The Ultimate One", new Long(5100L)});
+    BookPrime bookDest = newInstance(BookPrime.class, new Object[] {new Long(141L), authorPrime});
+    List<BookPrime> bookDests = newInstance(ArrayList.class);
     bookDests.add(bookDest);
     libDest.setBooks(bookDests);
 
     mapper.map(libSrc, libDest);
 
     assertEquals(1, libDest.getBooks().size());
-    BookPrime book = (BookPrime) libDest.getBooks().get(0);
-    assertEquals(new Long(141L), book.getId());
-    assertEquals("The Best One", book.getAuthor().getName());
+    BookPrime bookPrime = (BookPrime) libDest.getBooks().get(0);
+    assertEquals(new Long(141L), bookPrime.getId());
+    assertEquals("The Best One", bookPrime.getAuthor().getName());
 
     //    assertEquals(new Long(5100L), book.getAuthor().getSalary()); TODO Enable this for non-cumulative recursion bug
   }

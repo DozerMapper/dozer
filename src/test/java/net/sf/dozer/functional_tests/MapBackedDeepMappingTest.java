@@ -39,11 +39,11 @@ public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapBackedDeepMapping_OneLevel() {
-    DeepObject deepObject = new DeepObject();
-    DeepObject hangingReference = new DeepObject();
+    DeepObject deepObject = newInstance(DeepObject.class);
+    DeepObject hangingReference = newInstance(DeepObject.class);
     deepObject.setDeepObject(hangingReference);
 
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = newInstance(HashMap.class);
     map.put("data1", "value");
 
     assertNotNull(deepObject.getDeepObject());
@@ -56,13 +56,13 @@ public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapBackedDeepMapping_TwoLevels() {
-    DeepObject deepObject = new DeepObject();
-    DeepObject firstLevel = new DeepObject();
+    DeepObject deepObject = newInstance(DeepObject.class);
+    DeepObject firstLevel = newInstance(DeepObject.class);
     deepObject.setDeepObject(firstLevel);
-    DeepObject hangingReference = new DeepObject();
+    DeepObject hangingReference = newInstance(DeepObject.class);
     firstLevel.setDeepObject(hangingReference);
 
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = newInstance(HashMap.class);
     map.put("data1", "value");
 
     assertNotNull(deepObject.getDeepObject().getDeepObject());
@@ -76,9 +76,9 @@ public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapBackedDeepMapping_Simple() {
-    DeepObject deepObject = new DeepObject();
+    DeepObject deepObject = newInstance(DeepObject.class);
 
-    HashMap<String, String> map = new HashMap<String, String>();
+    HashMap<String, String> map = newInstance(HashMap.class);
     map.put("data1", "value");
 
     mapper.map(map, deepObject, "TC3");
