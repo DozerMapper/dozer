@@ -81,5 +81,4 @@ public class ClassMapTest extends AbstractDozerTest {
     assertEquals("field1", classMap.provideAlternateName("Field1"));
   }
 
-
 }

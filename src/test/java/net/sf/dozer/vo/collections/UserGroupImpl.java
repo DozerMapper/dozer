@@ -20,29 +20,29 @@ import java.util.Set;
 
 public class UserGroupImpl implements UserGroup {
 
-	private String name;
-	
-	private Set<User> users = new HashSet<User>();
+  private String name;
 
-	public String getName() {
-		return name;
-	}
+  private Set<User> users = new HashSet<User>();
 
-	public void setName(String aName) {
-		name = aName;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public Set<User> getUsers() {
-		return users;
-	}
+  public void setName(String aName) {
+    name = aName;
+  }
 
-	public void setUsers(Set<User> aUsers) {
-		users = aUsers;
-	}
+  public Set<User> getUsers() {
+    return users;
+  }
 
-	public void addUser(User aUser) {
-		users.add(aUser);
-		aUser.setUserGroup(this);
-	}
-	
+  public void setUsers(Set<User> aUsers) {
+    users = aUsers;
+  }
+
+  public void addUser(User aUser) {
+    users.add(aUser);
+    aUser.setUserGroup(this);
+  }
+
 }

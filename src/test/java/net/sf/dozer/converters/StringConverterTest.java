@@ -8,7 +8,8 @@ import java.util.Date;
 import net.sf.dozer.util.DateFormatContainer;
 
 import org.junit.Test;
-public class StringConverterTest  {
+
+public class StringConverterTest {
 
   @Test
   public void testDateToString_NoDateFormatSpecified() {

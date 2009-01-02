@@ -94,9 +94,9 @@ public class RecursiveInterfaceMappingTest extends AbstractFunctionalTest {
       assertTrue(userPrime.getUserGroup() == userGroupPrime); // same reference
     }
   }
-  
+
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
-  }  
+  }
 }

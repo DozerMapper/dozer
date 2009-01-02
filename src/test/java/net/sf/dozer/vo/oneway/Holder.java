@@ -21,22 +21,22 @@ package net.sf.dozer.vo.oneway;
  */
 public class Holder {
 
-    DestClass dest;
-    SourceClass source;
+  DestClass dest;
+  SourceClass source;
 
-    public DestClass getDest() {
-        return dest;
-    }
+  public DestClass getDest() {
+    return dest;
+  }
 
-    public void setDest(DestClass dest) {
-        this.dest = dest;
-    }
+  public void setDest(DestClass dest) {
+    this.dest = dest;
+  }
 
-    public SourceClass getSource() {
-        return source;
-    }
+  public SourceClass getSource() {
+    return source;
+  }
 
-    public void setSource(SourceClass source) {
-        this.source = source;
-    }
+  public void setSource(SourceClass source) {
+    this.source = source;
+  }
 }

@@ -92,7 +92,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     assertTrue("Expecting instance of UserPrime.", usersPrime.get(0) instanceof UserPrime);
     assertTrue("Expecting instance of UserPrime.", usersPrime.get(1) instanceof UserPrime);
     assertEquals("SUCCESS", userGroupPrime.getStatusPrime().name());
-    
+
     // Map the other way
     UserGroup userGroupMapBack = mapper.map(userGroupPrime, UserGroup.class);
     Set<?> usersGroupPrime = userGroupMapBack.getUsers();
@@ -100,21 +100,21 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     assertEquals(2, usersGroupPrime.size());
     assertTrue("Expecting instance of UserPrime.", usersGroupPrime.iterator().next() instanceof User);
   }
-  
+
   @Test
   public void testDeepMappingWithIndexOnSrcField() {
     Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
-    
+
     AnotherTestObject anotherTestObject = new AnotherTestObject();
     anotherTestObject.setField3("another test object field 3 value");
     anotherTestObject.setField4("6453");
 
     TestObject testObject1 = new TestObject();
     TestObject testObject2 = new TestObject();
-    testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[]{anotherTestObject}));
-    
+    testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[] { anotherTestObject }));
+
     SrcDeepObj src = new SrcDeepObj();
-    src.setSomeList(Arrays.asList(new TestObject[] {testObject1, testObject2}));
+    src.setSomeList(Arrays.asList(new TestObject[] { testObject1, testObject2 }));
 
     DestDeepObj dest = mapper.map(src, DestDeepObj.class);
     assertEquals("another test object field 3 value", dest.getDest5());
@@ -151,7 +151,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     // Save the pet details into the source object
     source.setPets(myPets);
 
-    HeadOfHouseHold dest =  mapper.map(source, HeadOfHouseHold.class);
+    HeadOfHouseHold dest = mapper.map(source, HeadOfHouseHold.class);
     assertEquals((source.getFamilyMembers().get(0)).getFirstName(), dest.getFirstName());
     assertEquals((source.getFamilyMembers().get(0)).getLastName(), dest.getLastName());
     assertEquals((source.getFamilyMembers().get(0)).getSalary(), dest.getSalary());
@@ -181,10 +181,10 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     assertEquals(String.valueOf(dest.getPets()[1].getPetAge()), source.getPetAge());
     assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
   }
-  
+
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
-  
+
 }

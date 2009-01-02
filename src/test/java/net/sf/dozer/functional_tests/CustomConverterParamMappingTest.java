@@ -54,9 +54,8 @@ public class CustomConverterParamMappingTest extends AbstractFunctionalTest {
     String token1 = st.nextToken();
     assertEquals("1st portion of dest field1 value should equal src field value", src.getField1(), token1);
     String token2 = st.nextToken();
-    assertEquals("custom converter param should have been appended to by the cust converter",
-        "CustomConverterParamTest", token2);
-    
+    assertEquals("custom converter param should have been appended to by the cust converter", "CustomConverterParamTest", token2);
+
   }
 
   @Test
@@ -72,7 +71,7 @@ public class CustomConverterParamMappingTest extends AbstractFunctionalTest {
   public void testGlobalCustomConverter_ParamProvided() {
     Individual individual = new Individual();
     individual.setUsername("ABC");
-    Fruit result =  mapper.map(individual, Fruit.class, "2");
+    Fruit result = mapper.map(individual, Fruit.class, "2");
     assertNotNull("", result.getName());
     assertTrue(result.getName().startsWith("ABC-PARAM"));
   }

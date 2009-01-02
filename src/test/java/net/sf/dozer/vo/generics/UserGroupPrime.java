@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 package net.sf.dozer.vo.generics;
-import java.util.List;
 
+import java.util.List;
 
 /**
  * 
@@ -23,30 +23,29 @@ import java.util.List;
  *
  */
 
-
 public class UserGroupPrime {
 
   private StatusPrime statusPrime;
-  
-	private String name;
-	
-	private List<UserPrime> users;
 
-	public String getName() {
-		return name;
-	}
+  private String name;
 
-	public void setName(String aName) {
-		name = aName;
-	}
+  private List<UserPrime> users;
 
-	public List<UserPrime> getUsers() {
-		return users;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setUsers(List<UserPrime> aUsers) {
-		users = aUsers;
-	}
+  public void setName(String aName) {
+    name = aName;
+  }
+
+  public List<UserPrime> getUsers() {
+    return users;
+  }
+
+  public void setUsers(List<UserPrime> aUsers) {
+    users = aUsers;
+  }
 
   public StatusPrime getStatusPrime() {
     return statusPrime;

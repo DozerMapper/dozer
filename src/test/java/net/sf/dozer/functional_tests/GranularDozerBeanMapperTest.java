@@ -103,7 +103,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
       assertEquals("java.lang.NoSuchMethodException: net.sf.dozer.vo.NoDefaultConstructor.<init>()", e.getMessage());
     }
   }
-  
+
   @Test
   public void testFieldAccessible() throws Exception {
     Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
@@ -284,7 +284,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     assertEquals("invalid dest field value", "555", dest.getOne());
 
     // reverse mapping
-    TestObjectPrime2 src2 =  newInstance(TestObjectPrime2.class);
+    TestObjectPrime2 src2 = newInstance(TestObjectPrime2.class);
     src2.setOne("");
     TestObject dest2 = newInstance(TestObject.class);
     dest2.setOne("555");
@@ -302,7 +302,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
     ContextMappingNested cmn = newInstance(ContextMappingNested.class);
     cmn.setLoanNo("loanNoNested");
-    List<ContextMappingNested> list =  newInstance(ArrayList.class);
+    List<ContextMappingNested> list = newInstance(ArrayList.class);
     list.add(cmn);
     ContextMapping cm = newInstance(ContextMapping.class);
     cm.setLoanNo("loanNo");
@@ -501,8 +501,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     PrimitiveArrayObj src = newInstance(PrimitiveArrayObj.class);
     src.setField1(srcArray);
 
-    PrimitiveArrayObjPrime dest = mapper.map(src, PrimitiveArrayObjPrime.class,
-        "primitiveToArrayUsingHint");
+    PrimitiveArrayObjPrime dest = mapper.map(src, PrimitiveArrayObjPrime.class, "primitiveToArrayUsingHint");
 
     assertNotNull("dest list field should not be null", dest.getField1());
     assertEquals("invalid dest field size", srcArray.length, dest.getField1().size());

@@ -20,14 +20,14 @@ package net.sf.dozer.vo.oneway;
  */
 public class DestClass {
 
-    private String a;
+  private String a;
 
-    public void setA(String a) {
-        this.a = a;
-    }
+  public void setA(String a) {
+    this.a = a;
+  }
 
-    public String anonymousAccessor() {
-        return a;
-    }
+  public String anonymousAccessor() {
+    return a;
+  }
 
 }

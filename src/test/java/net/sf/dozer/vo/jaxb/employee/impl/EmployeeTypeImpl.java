@@ -8,8 +8,7 @@
 package net.sf.dozer.vo.jaxb.employee.impl;
 
 public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeType, com.sun.xml.bind.JAXBObject,
-    net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallableObject,
-    net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable,
+    net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallableObject, net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable,
     net.sf.dozer.vo.jaxb.employee.impl.runtime.ValidatableObject {
 
   protected java.util.Calendar _BirthDate;
@@ -51,8 +50,7 @@ public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeT
     return new net.sf.dozer.vo.jaxb.employee.impl.EmployeeTypeImpl.Unmarshaller(context);
   }
 
-  public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
     context.startElement("", "FirstName");
     context.endNamespaceDecls();
     context.endAttributes();
@@ -84,12 +82,10 @@ public class EmployeeTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeT
     context.endElement();
   }
 
-  public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
   }
 
-  public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
   }
 
   public java.lang.Class getPrimaryInterface() {

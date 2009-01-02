@@ -47,7 +47,7 @@ public class MappingValidatorTest extends AbstractDozerTest {
       MappingValidator.validateMappingRequest(new Object(), new Object());
       MappingValidator.validateMappingRequest(new Object(), String.class);
     } catch (MappingException e) {
-        fail("Not expected");
+      fail("Not expected");
     }
   }
 

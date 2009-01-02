@@ -127,7 +127,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     DozerBeanMapper mapperImpl = (DozerBeanMapper) mapper;
 
     Mapper cleanMapper = (Mapper) ApplicationBeanFactory.getBean("cleanMapper");
-    
+
     assertNotNull("mapper should not be null", mapper);
     assertNotNull("mapping file names should not be null", mapperImpl.getMappingFiles());
     assertTrue("mapping file names should not be empty", mapperImpl.getMappingFiles().size() > 0);
@@ -171,8 +171,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
       mappingFiles.add("duplicateMapping.xml");
       myMapper = new DozerBeanMapper(mappingFiles);
 
-      myMapper.map(new net.sf.dozer.vo.SuperSuperSuperClass(),
-          net.sf.dozer.vo.SuperSuperSuperClassPrime.class);
+      myMapper.map(new net.sf.dozer.vo.SuperSuperSuperClass(), net.sf.dozer.vo.SuperSuperSuperClassPrime.class);
       fail("should have thrown exception");
     } catch (Exception e) {
       assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);

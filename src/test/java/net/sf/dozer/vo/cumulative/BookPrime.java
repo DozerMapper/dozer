@@ -61,5 +61,4 @@ public class BookPrime {
     return id == null ? (this == other) : id.equals(other.id);
   }
 
-
 }

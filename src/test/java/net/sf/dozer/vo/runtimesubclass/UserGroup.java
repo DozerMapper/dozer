@@ -28,6 +28,6 @@ public class UserGroup {
 
   public void setName(String name) {
     this.name = name;
-  }  
+  }
 
 }

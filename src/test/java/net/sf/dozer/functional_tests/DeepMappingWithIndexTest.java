@@ -50,7 +50,7 @@ import org.junit.Test;
  * @author garsombke.franz
  */
 public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
-  
+
   @Override
   @Before
   public void setUp() throws Exception {
@@ -167,7 +167,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
   @Test
   public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
-    
+
     FlatPerson source = newInstance(FlatPerson.class);
     source.setPhoneNumber("911");
     Person dest = newInstance(Person.class);
@@ -175,7 +175,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     mapper.map(source, dest);
     assertEquals(dest.phones.get(0).getNumber(), source.getPhoneNumber());
   }
-  
+
   /**
    * TestCase to reproduce the bug#1845706.  
    * 
@@ -189,18 +189,17 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
    * 
    * To fix this problem, let net.sf.dozer.XMLParser only replace the last 
    * indexes in getFieldNameOfIndexedField.
-   */ 
+   */
   @Test
   public void testDeepIndexMappingWithCustomConverter() {
     mapper = getMapper(new String[] { "deepMappingWithIndexedFieldsByCustomConverter.xml" });
     First first = new First();
-    Last last =  mapper.map(first, Last.class);
+    Last last = mapper.map(first, Last.class);
     assertNotNull("nested third object should not be null", last.getThird());
     assertNotNull("name should not be null", last.getThird().getName());
-    assertEquals(
-        first.getSecondArray()[0].getThirdArray()[7].getName(), last.getThird().getName());
+    assertEquals(first.getSecondArray()[0].getThirdArray()[7].getName(), last.getThird().getName());
   }
-  
+
   // bug #1803172
   @Test
   public void testDeepIndexMapping_CollectionNeedsResizing() {
@@ -208,12 +207,12 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     A src = new A();
     src.setId1(new Integer(10));
     src.setId2(new Integer(20));
-    
+
     B dest = mapper.map(src, B.class);
     assertEquals("wrong value for id1", src.getId1().intValue(), dest.getFoo()[0].getId());
     assertEquals("wrong value for id2", src.getId2().intValue(), dest.getFoo()[1].getId());
   }
-  
+
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

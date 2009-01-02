@@ -21,14 +21,14 @@ package net.sf.dozer.vo.oneway;
  */
 public class SourceClass {
 
-    private String a;
+  private String a;
 
-    public SourceClass(String a) {
-        this.a = a;
-    }
+  public SourceClass(String a) {
+    this.a = a;
+  }
 
-    public String getA() {
-        return a;
-    }
+  public String getA() {
+    return a;
+  }
 
 }

@@ -165,7 +165,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     asub.setBaseAttribute("base");
     asub.setSubAttribute("sub");
     List<BaseSubClass> list = newInstance(ArrayList.class);
-    SClass s =  newInstance(SClass.class);
+    SClass s = newInstance(SClass.class);
     s.setBaseSubAttribute("sBase");
     s.setSubAttribute("s");
     S2Class s2 = newInstance(S2Class.class);
@@ -384,7 +384,6 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     assertEquals(request.getProperty().getMapMe().getTestProperty(), afterMapping.getProperty().getTestProperty());
     assertNull(afterMapping.getProperty().getMapMe());
   }
-  
 
   @Test
   public void testInterfaceInheritance_GetterSetterAtDifferentLevels() {
@@ -399,7 +398,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     assertNotNull("name should not be null", personDTO.getName());
     assertEquals("Person DTO has incorrect name value", name, personDTO.getName());
   }
-  
+
   /**
    * Bug #1828693 -- Problem when using with proxies based on interfaces.
    */
@@ -414,8 +413,8 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     final Person person = new PersonImpl(id, name);
     person.setAddress(address);
 
-    PersonWithAddressDTO personWithAddressDTO = mapper.map(
-        newInstance(new Class[] { Person.class }, person), PersonWithAddressDTO.class);
+    PersonWithAddressDTO personWithAddressDTO = mapper.map(newInstance(new Class[] { Person.class }, person),
+        PersonWithAddressDTO.class);
 
     assertEquals("Person DTO has incorrect personId value", id, personWithAddressDTO.getPersonId());
     assertNotNull("name should not be null", personWithAddressDTO.getName());

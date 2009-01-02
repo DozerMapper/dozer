@@ -23,14 +23,14 @@ import java.util.List;
  */
 public interface UserGroupPrime {
 
-	public String getName();
+  public String getName();
 
-	public void setName(String aName);
+  public void setName(String aName);
 
-	public List<UserPrime> getUsers();
+  public List<UserPrime> getUsers();
 
-	public void setUsers(List<UserPrime> aUsers);
+  public void setUsers(List<UserPrime> aUsers);
 
-	public void addUser(UserPrime aUser);
+  public void addUser(UserPrime aUser);
 
 }

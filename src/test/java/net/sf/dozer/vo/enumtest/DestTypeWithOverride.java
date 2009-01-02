@@ -22,11 +22,12 @@ package net.sf.dozer.vo.enumtest;
  */
 public enum DestTypeWithOverride {
 
-  FOO
-  {
+  FOO {
     @Override
-    public String display() { return "Dest.FOO";}
+    public String display() {
+      return "Dest.FOO";
+    }
   };
-  
+
   public abstract String display();
 }

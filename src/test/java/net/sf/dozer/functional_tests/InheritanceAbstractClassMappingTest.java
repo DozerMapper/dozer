@@ -97,7 +97,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
-  
+
   @Test
   public void testNoCustomMappingForSubclasses_CustomMappingForAbstractClasses() throws Exception {
     // Tests that custom mappings for abstract classes are used when there are no custom mappings

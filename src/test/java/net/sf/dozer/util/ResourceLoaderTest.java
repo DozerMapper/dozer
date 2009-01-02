@@ -37,16 +37,16 @@ public class ResourceLoaderTest extends AbstractDozerTest {
   public void testResourceNotFound() throws Exception {
     assertNull("file URL should not have been found", loader.getResource(String.valueOf(System.currentTimeMillis())));
   }
-  
+
   @Test
   public void testGetResourceWithWhitespace() {
-    URL url = loader.getResource(" contextMapping.xml " );
+    URL url = loader.getResource(" contextMapping.xml ");
     assertNotNull("URL should not be null", url);
   }
-  
+
   @Test
   public void testGetResourceWithNewlines() {
-    URL url = loader.getResource("\ncontextMapping.xml\n" );
+    URL url = loader.getResource("\ncontextMapping.xml\n");
     assertNotNull("URL should not be null", url);
   }
 

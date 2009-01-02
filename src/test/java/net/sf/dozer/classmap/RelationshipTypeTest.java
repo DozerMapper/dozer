@@ -23,7 +23,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class RelationshipTypeTest  {
+public class RelationshipTypeTest {
 
   @Test
   public void testValueOf() {

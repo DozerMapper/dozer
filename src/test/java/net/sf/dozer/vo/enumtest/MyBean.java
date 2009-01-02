@@ -21,9 +21,9 @@ package net.sf.dozer.vo.enumtest;
  *
  */
 public class MyBean {
-  
+
   private SrcTypeWithOverride srcTypeWithOverride;
-  
+
   private SrcType srcType;
 
   public void setSrcTypeWithOverride(SrcTypeWithOverride srcTypeWithOverride) {

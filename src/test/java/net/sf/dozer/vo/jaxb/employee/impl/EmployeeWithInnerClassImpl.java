@@ -7,10 +7,9 @@
 
 package net.sf.dozer.vo.jaxb.employee.impl;
 
-public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl
-    implements net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClass, com.sun.xml.bind.RIElement,
-    com.sun.xml.bind.JAXBObject, net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallableObject,
-    net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable,
+public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl implements
+    net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClass, com.sun.xml.bind.RIElement, com.sun.xml.bind.JAXBObject,
+    net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallableObject, net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable,
     net.sf.dozer.vo.jaxb.employee.impl.runtime.ValidatableObject {
 
   public final static java.lang.Class version = (net.sf.dozer.vo.jaxb.employee.impl.JAXBVersion.class);
@@ -35,8 +34,7 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
   }
 
   @Override
-  public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
     context.startElement("http://jaxb.vo..dozer.sf.net/Employee", "EmployeeWithInnerClass");
     super.serializeURIs(context);
     context.endNamespaceDecls();
@@ -47,13 +45,11 @@ public class EmployeeWithInnerClassImpl extends net.sf.dozer.vo.jaxb.employee.im
   }
 
   @Override
-  public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
   }
 
   @Override
-  public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
   }
 
   @Override

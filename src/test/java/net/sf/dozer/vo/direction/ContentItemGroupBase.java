@@ -42,6 +42,5 @@ public class ContentItemGroupBase extends EntityBase {
       throw new IllegalStateException("No id!");
     }
   }
-  
 
 }

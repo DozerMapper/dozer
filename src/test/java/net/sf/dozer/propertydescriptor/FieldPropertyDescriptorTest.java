@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * @author dmitry.buzdin
  */
-public class FieldPropertyDescriptorTest  {
+public class FieldPropertyDescriptorTest {
 
   @Test
   public void testNoSuchField() {

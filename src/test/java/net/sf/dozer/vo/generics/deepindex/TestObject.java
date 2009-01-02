@@ -27,7 +27,7 @@ import net.sf.dozer.vo.BaseTestObject;
  */
 public class TestObject extends BaseTestObject {
   private List<AnotherTestObject> equalNamedList;
-  
+
   public List<AnotherTestObject> getEqualNamedList() {
     return equalNamedList;
   }

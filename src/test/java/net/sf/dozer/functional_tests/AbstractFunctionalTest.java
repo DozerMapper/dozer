@@ -24,11 +24,12 @@ import net.sf.dozer.functional_tests.support.TestDataFactory;
 import net.sf.dozer.util.MapperConstants;
 
 import org.junit.Before;
+
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class AbstractFunctionalTest  {
+public abstract class AbstractFunctionalTest {
   protected Mapper mapper;
   protected TestDataFactory testDataFactory = new TestDataFactory(getDataObjectInstantiator());
 
@@ -42,7 +43,7 @@ public abstract class AbstractFunctionalTest  {
   }
 
   protected Mapper getMapper(String mappingFile) {
-      return getMapper(new String[] {mappingFile});
+    return getMapper(new String[] { mappingFile });
   }
 
   protected Mapper getMapper(String[] mappingFiles) {
@@ -60,7 +61,7 @@ public abstract class AbstractFunctionalTest  {
   protected <T> T newInstance(Class<T> classToInstantiate) {
     return getDataObjectInstantiator().newInstance(classToInstantiate);
   }
-  
+
   protected Object newInstance(Class<?>[] interfacesToProxy, Object target) {
     return getDataObjectInstantiator().newInstance(interfacesToProxy, target);
   }

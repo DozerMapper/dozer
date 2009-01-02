@@ -183,7 +183,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     GregorianCalendar gregCal = new GregorianCalendar();
     gregCal.setTimeInMillis(time);
-    
+
     XMLGregorianCalendar xmlGregCal = getXMLGregorianCalendar(time);
 
     DateFormat[] dateFormats = new DateFormat[] { DateFormat.getDateInstance(DateFormat.FULL),
@@ -191,8 +191,8 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
         new SimpleDateFormat("MM/dd/yyyy"), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS") };
 
     // java.util.Date
-    Object[] input = { new java.sql.Time(time), new java.sql.Timestamp(time), new java.sql.Date(time), cal, gregCal,
-        xmlGregCal, String.valueOf(time) };
+    Object[] input = { new java.sql.Time(time), new java.sql.Timestamp(time), new java.sql.Date(time), cal, gregCal, xmlGregCal,
+        String.valueOf(time) };
     Object expected = new java.util.Date(time);
     Object result = null;
 
@@ -255,8 +255,8 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
     }
 
     // java.sql.Timestamp
-    input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time), cal, gregCal,
-        xmlGregCal, String.valueOf(time) };
+    input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time), cal, gregCal, xmlGregCal,
+        String.valueOf(time) };
 
     for (int i = 0; i < input.length; i++) {
       DateFormatContainer dfc = new DateFormatContainer(null);
@@ -314,8 +314,8 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
       assertEquals("String to java.util.GregorianCalendar for input: " + dateStr, dateFormats[i].parse(dateStr),
           ((GregorianCalendar) result).getTime());
     }
-    
- // XMLGregorianCalendar
+
+    // XMLGregorianCalendar
     input = new Object[] { new java.util.Date(time), new java.sql.Date(time), new java.sql.Time(time),
         new java.sql.Timestamp(time), cal, xmlGregCal, String.valueOf(time) };
 
@@ -323,8 +323,8 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
       DateFormatContainer dfc = new DateFormatContainer(null);
       result = converter.convert(input[i], XMLGregorianCalendar.class, dfc);
       assertTrue("result should be instance of java.util.XMLGregorianCalendar", result instanceof java.util.GregorianCalendar);
-      assertEquals(input[i].getClass().getName() + " to java.util.XMLGregorianCalendar", time, ((java.util.GregorianCalendar) result)
-          .getTimeInMillis());
+      assertEquals(input[i].getClass().getName() + " to java.util.XMLGregorianCalendar", time,
+          ((java.util.GregorianCalendar) result).getTimeInMillis());
     }
 
     for (int i = 0; i < dateFormats.length; i++) {
@@ -338,7 +338,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
     // invalid mappings
     Class[] classes = new Class[] { java.util.Date.class, java.sql.Date.class, java.sql.Time.class, java.sql.Timestamp.class,
-        java.util.Calendar.class, java.util.GregorianCalendar.class , XMLGregorianCalendar.class};
+        java.util.Calendar.class, java.util.GregorianCalendar.class, XMLGregorianCalendar.class };
     String invalidInputStr = "dflksjf";
     for (int i = 0; i < classes.length; i++) {
       try {
@@ -352,7 +352,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
           classes[i], null));
     }
   }
-  
+
   private XMLGregorianCalendar getXMLGregorianCalendar(long millis) {
     GregorianCalendar gcal = new GregorianCalendar();
     gcal.setTimeInMillis(millis);
@@ -549,7 +549,7 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
   public void testConvertStringNegativeScalar2() {
     Object value = converter.convert("foo", Boolean.class, null);
   }
-  
+
   @Test
   public void testConvertStringNegativeScalar_Undefined() {
     Object value = converter.convert("org.apache.commons.beanutils.Undefined", Class.class, null);

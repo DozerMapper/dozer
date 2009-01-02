@@ -161,7 +161,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertFalse(MappingUtils.isDeepMapping(""));
     assertFalse(MappingUtils.isDeepMapping("aaa"));
   }
-  
+
   @Test
   public void testPrepareIndexedCollection_Array() {
     String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, null, "some entry", 0);
@@ -182,8 +182,8 @@ public class MappingUtilsTest extends AbstractDozerTest {
     result = (List<?>) MappingUtils.prepareIndexedCollection(List.class, null, "some entry", 3);
     assertEquals(Arrays.asList(new String[] { null, null, null, "some entry" }), result);
 
-    result = (List<?>) MappingUtils.prepareIndexedCollection(List.class, Arrays.asList(new String[] { "a", "b", "c" }), "some entry",
-        5);
+    result = (List<?>) MappingUtils.prepareIndexedCollection(List.class, Arrays.asList(new String[] { "a", "b", "c" }),
+        "some entry", 5);
     assertEquals(Arrays.asList(new String[] { "a", "b", "c", null, null, "some entry" }), result);
   }
 
@@ -195,14 +195,14 @@ public class MappingUtilsTest extends AbstractDozerTest {
     result = (Vector<?>) MappingUtils.prepareIndexedCollection(Vector.class, null, "some entry", 3);
     assertEquals(new Vector<String>(Arrays.asList(new String[] { null, null, null, "some entry" })), result);
 
-    result = (Vector<?>) MappingUtils.prepareIndexedCollection(Vector.class,
-        new Vector<String>(Arrays.asList(new String[] { "a", "b", "c" })), "some entry", 5);
+    result = (Vector<?>) MappingUtils.prepareIndexedCollection(Vector.class, new Vector<String>(Arrays.asList(new String[] { "a",
+        "b", "c" })), "some entry", 5);
     assertEquals(new Vector<String>(Arrays.asList(new String[] { "a", "b", "c", null, null, "some entry" })), result);
   }
-  
+
   @Test
   public void testPrepareIndexedCollection_ArrayResize() {
-    String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, new String[] {"a", "b"}, "some entry",3);
+    String[] result = (String[]) MappingUtils.prepareIndexedCollection(String[].class, new String[] { "a", "b" }, "some entry", 3);
     assertTrue(Arrays.equals(new String[] { "a", "b", null, "some entry" }, result));
   }
 
@@ -210,7 +210,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
   public void testPrepareIndexedCollection_UnsupportedType() {
     MappingUtils.prepareIndexedCollection(String.class, null, "some entry", 0);
   }
-  
+
   /**
    * Test for isEnumType(Class srcFieldClass, Class destFieldType) defined in MappingUtils
    */
@@ -218,10 +218,8 @@ public class MappingUtilsTest extends AbstractDozerTest {
   public void testIsEnum() {
     assertTrue(MappingUtils.isEnumType(SrcType.class, DestType.class));
     assertTrue(MappingUtils.isEnumType(SrcType.FOO.getClass(), DestType.FOO.getClass()));
-    assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
-        DestType.FOO.getClass()));
-    assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), 
-        DestTypeWithOverride.FOO.getClass()));
+    assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), DestType.FOO.getClass()));
+    assertTrue(MappingUtils.isEnumType(SrcTypeWithOverride.FOO.getClass(), DestTypeWithOverride.FOO.getClass()));
     assertFalse(MappingUtils.isEnumType(SrcType.class, String.class));
     assertFalse(MappingUtils.isEnumType(String.class, SrcType.class));
   }

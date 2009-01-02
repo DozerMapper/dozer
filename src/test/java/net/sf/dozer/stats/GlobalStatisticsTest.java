@@ -25,7 +25,7 @@ import org.junit.Test;
  * @author tierney.matt
  */
 public class GlobalStatisticsTest extends AbstractDozerTest {
-  
+
   @Test
   public void testGetInstance() throws Exception {
     GlobalStatistics mgr = GlobalStatistics.getInstance();

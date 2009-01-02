@@ -17,16 +17,16 @@ package net.sf.dozer.vo.collections;
 
 public interface User {
 
-	public String getFirstName();
+  public String getFirstName();
 
-	public void setFirstName(String aFirstName);
+  public void setFirstName(String aFirstName);
 
-	public String getLastName();
+  public String getLastName();
 
-	public void setLastName(String aLastName);
+  public void setLastName(String aLastName);
 
-	public UserGroup getUserGroup();
+  public UserGroup getUserGroup();
 
-	public void setUserGroup(UserGroup aUserGroup);
+  public void setUserGroup(UserGroup aUserGroup);
 
 }

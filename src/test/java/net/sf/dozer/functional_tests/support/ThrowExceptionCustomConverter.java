@@ -17,7 +17,6 @@ package net.sf.dozer.functional_tests.support;
 
 import net.sf.dozer.converters.CustomConverter;
 
-
 /**
  * @author tierney.matt
  * 

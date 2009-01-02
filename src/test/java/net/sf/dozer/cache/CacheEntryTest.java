@@ -32,7 +32,7 @@ public class CacheEntryTest extends AbstractDozerTest {
     CacheEntry cacheEntry = new CacheEntry(key, value);
 
     assertEquals("invalid key", key, cacheEntry.getKey());
-    assertEquals("invalid value", value, cacheEntry.getValue());    
+    assertEquals("invalid value", value, cacheEntry.getValue());
   }
 
   @Test

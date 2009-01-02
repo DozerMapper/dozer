@@ -33,7 +33,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class MapMappingTest extends AbstractFunctionalTest{
+public class MapMappingTest extends AbstractFunctionalTest {
 
   @Override
   @Before
@@ -41,27 +41,27 @@ public class MapMappingTest extends AbstractFunctionalTest{
     mapper = getMapper("mapMapping6.xml");
   }
 
-//  public void testMapWithNullEntries_WithoutHints() {
-//    MapToMap source = new MapToMap();
-//    HashMap map = new HashMap();
-//    map.put("A", Boolean.TRUE);
-//    map.put("B", null);
-//    source.setStandardMap(map);
-//
-//    MapToMapPrime destination = new MapToMapPrime();
-//    HashMap hashMap = new HashMap();
-//    hashMap.put("C", Boolean.TRUE);
-//    destination.setStandardMap(hashMap);
-//
-//    mapper.map(source, destination);
-//
-//    Map resultingMap = destination.getStandardMap();
-//
-//    assertNotNull(resultingMap);
-//    assertEquals(2, resultingMap.size());
-//    assertEquals(Boolean.TRUE, resultingMap.get("A"));
-//    assertNull(resultingMap.get("B"));
-//  }
+  //  public void testMapWithNullEntries_WithoutHints() {
+  //    MapToMap source = new MapToMap();
+  //    HashMap map = new HashMap();
+  //    map.put("A", Boolean.TRUE);
+  //    map.put("B", null);
+  //    source.setStandardMap(map);
+  //
+  //    MapToMapPrime destination = new MapToMapPrime();
+  //    HashMap hashMap = new HashMap();
+  //    hashMap.put("C", Boolean.TRUE);
+  //    destination.setStandardMap(hashMap);
+  //
+  //    mapper.map(source, destination);
+  //
+  //    Map resultingMap = destination.getStandardMap();
+  //
+  //    assertNotNull(resultingMap);
+  //    assertEquals(2, resultingMap.size());
+  //    assertEquals(Boolean.TRUE, resultingMap.get("A"));
+  //    assertNull(resultingMap.get("B"));
+  //  }
 
   @Test
   public void testMapWithNullEntries_NullPointer() {

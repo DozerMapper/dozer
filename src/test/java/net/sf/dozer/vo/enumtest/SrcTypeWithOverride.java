@@ -21,16 +21,18 @@ package net.sf.dozer.vo.enumtest;
  *
  */
 public enum SrcTypeWithOverride {
-  FOO
-  {
+  FOO {
     @Override
-    public String display() { return "Src.FOO";}
+    public String display() {
+      return "Src.FOO";
+    }
   },
-  BAR
-  {
+  BAR {
     @Override
-    public String display() { return "Src.BAR"; }
+    public String display() {
+      return "Src.BAR";
+    }
   };
-  
+
   public abstract String display();
 }

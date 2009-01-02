@@ -162,9 +162,9 @@ public class MSVValidator implements XMLSerializer, IDContextProvider2 {
   public void endAttribute() throws SAXException {
     insideAttribute = false;
     if (!acceptor.onAttribute2(attNamespaceUri, attLocalName, attLocalName /*
-                                                                                * we don't have QName, so just use the
-                                                                                * local name
-                                                                                */, buf.toString(), this, null, null)) {
+                                                                                   * we don't have QName, so just use the
+                                                                                   * local name
+                                                                                   */, buf.toString(), this, null, null)) {
 
       // either the name was incorrect (which is quite unlikely),
       // or the value was wrong.

@@ -10,10 +10,10 @@ import org.junit.Test;
 /**
  * @author Vincent Jassogne
  */
-public class JAXBBeanFactoryTest  {
+public class JAXBBeanFactoryTest {
 
   private JAXBBeanFactory factory;
-  
+
   @Before
   public void setUp() throws Exception {
     factory = new JAXBBeanFactory();
@@ -28,7 +28,7 @@ public class JAXBBeanFactoryTest  {
     assertNotNull("Object can not be null", obj);
     assertEquals("Invalid class build", obj.getClass().getName(), "net.sf.dozer.vo.jaxb.employee.impl.EmployeeImpl");
   }
-  
+
   @Test(expected = MappingException.class)
   public void testCreateBeanClassNotFoundException() {
     factory.createBean(null, null, "ve.ve.DE");
@@ -39,8 +39,7 @@ public class JAXBBeanFactoryTest  {
   @Test
   public void testCreateBeanForInnerJaxbClass() {
 
-    Object obj = factory
-        .createBean(null, null, "net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType$AddressType");
+    Object obj = factory.createBean(null, null, "net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType$AddressType");
     assertNotNull("Object can not be null", obj);
     assertEquals("Invalid class build", obj.getClass().getName(),
         "net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl$AddressTypeImpl");

@@ -57,7 +57,7 @@ import org.junit.Test;
  * @author garsombke.franz
  */
 public class MapTypeTest extends AbstractFunctionalTest {
-  
+
   @Test
   public void testMapToVo() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.

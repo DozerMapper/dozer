@@ -95,11 +95,10 @@ public class TestCumulativeCollectionMapping extends AbstractFunctionalTest {
     // check mapped collection
     assertEquals("Two users in mapped usergroup expected.", 2, userGroupPrime.getUsers().size());
   }
-  
+
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
-  
 }

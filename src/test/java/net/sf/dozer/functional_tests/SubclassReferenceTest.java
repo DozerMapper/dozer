@@ -28,7 +28,7 @@ import net.sf.dozer.vo.copybyreference.TestB;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SubclassReferenceTest  {
+public class SubclassReferenceTest {
   Mapper mapper;
   TestA testA;
   TestB testB;

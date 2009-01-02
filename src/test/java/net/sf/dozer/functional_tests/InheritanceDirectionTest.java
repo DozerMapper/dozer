@@ -37,7 +37,7 @@ public class InheritanceDirectionTest extends AbstractFunctionalTest {
     parentItem.addChildGroup(childItem);
 
     ContentItemGroupDTO resultChild = mapper.map(childItem, ContentItemGroupDTO.class);
-    
+
     assertNotNull(resultChild);
     assertEquals("B", resultChild.getId());
     assertNull(resultChild.getChildGroups());

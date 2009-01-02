@@ -133,14 +133,14 @@ public class CollectionUtilsTest extends AbstractDozerTest {
       assertEquals("invalid result entry value", srcValue, resultValue);
     }
   }
-  
+
   @Test
   public void testConvertListToArray() {
     List<String> src = Arrays.asList("a", "b");
-    String[]  result = CollectionUtils.convertListToArray(src, String.class);
-    assertTrue("wrong result value", Arrays.equals(new String[]{"a", "b"}, result));
+    String[] result = CollectionUtils.convertListToArray(src, String.class);
+    assertTrue("wrong result value", Arrays.equals(new String[] { "a", "b" }, result));
   }
-  
+
   @Test
   public void testCreateNewSet_ExistingValue() {
     Collection<String> src = new HashSet<String>();
@@ -149,13 +149,12 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     Set<?> result = CollectionUtils.createNewSet(TreeSet.class, src);
     assertEquals("wrong result value", src, result);
   }
-  
+
   @Test
   public void testCreateNewSet() {
     Set<?> result = CollectionUtils.createNewSet(HashSet.class);
     assertNotNull("should be not null", result);
     assertEquals("shoulb be size zero", 0, result.size());
   }
-
 
 }

@@ -62,7 +62,7 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
     assertEquals(Integer.valueOf("5"), zeroA.getId());
     assertNull(zeroB.getId());
   }
-  
+
   @Test
   public void testExcludedField_OneLevel() {
     OneA oneA;
@@ -70,7 +70,7 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
 
     oneB.setId(Integer.valueOf("10"));
     oneA = mapper.map(oneB, OneA.class);
-    
+
     assertNull(oneA.getId());
     assertEquals(Integer.valueOf("10"), oneB.getId());
   }

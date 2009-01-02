@@ -23,7 +23,7 @@ package net.sf.dozer.vo.enumtest;
 public class MyBeanPrime {
 
   private DestTypeWithOverride destTypeWithOverride;
-  
+
   private DestType destType;
 
   public void setDestTypeWithOverride(DestTypeWithOverride destTypeWithOverride) {

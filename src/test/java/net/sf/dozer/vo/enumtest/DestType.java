@@ -23,5 +23,5 @@ package net.sf.dozer.vo.enumtest;
 public enum DestType {
 
   FOO;
-  
+
 }

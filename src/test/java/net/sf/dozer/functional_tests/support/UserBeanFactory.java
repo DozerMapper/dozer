@@ -31,42 +31,42 @@ import net.sf.dozer.vo.interfacerecursion.UserPrimeImpl;
  */
 public class UserBeanFactory implements BeanFactory {
 
-    public Object createBean(Object aSrcObj, Class<?> aSrcObjClass, String aTargetBeanId) throws RuntimeException {
-        
-        // check null arguments
-        if (aSrcObj == null || aSrcObjClass == null || aTargetBeanId == null) {
-            return null;
-        }
-        
-        // get class for target bean name
-        Class<?> targetClass;
-		try {
-			targetClass = Class.forName(aTargetBeanId);
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
+  public Object createBean(Object aSrcObj, Class<?> aSrcObjClass, String aTargetBeanId) throws RuntimeException {
 
-        // handle known interfaces
-        if (User.class.isAssignableFrom(targetClass)) {
-        	return new UserImpl();
-        }
-        if (UserGroup.class.isAssignableFrom(targetClass)) {
-        	return new UserGroupImpl();
-        }
-        if (UserPrime.class.isAssignableFrom(targetClass)) {
-        	return new UserPrimeImpl();
-        }
-        if (UserGroupPrime.class.isAssignableFrom(targetClass)) {
-        	return new UserGroupPrimeImpl();
-        }
-        
-        // otherwise create instance directly
-        try {
-			return targetClass.newInstance();
-		} catch (InstantiationException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		}
+    // check null arguments
+    if (aSrcObj == null || aSrcObjClass == null || aTargetBeanId == null) {
+      return null;
     }
+
+    // get class for target bean name
+    Class<?> targetClass;
+    try {
+      targetClass = Class.forName(aTargetBeanId);
+    } catch (ClassNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+
+    // handle known interfaces
+    if (User.class.isAssignableFrom(targetClass)) {
+      return new UserImpl();
+    }
+    if (UserGroup.class.isAssignableFrom(targetClass)) {
+      return new UserGroupImpl();
+    }
+    if (UserPrime.class.isAssignableFrom(targetClass)) {
+      return new UserPrimeImpl();
+    }
+    if (UserGroupPrime.class.isAssignableFrom(targetClass)) {
+      return new UserGroupPrimeImpl();
+    }
+
+    // otherwise create instance directly
+    try {
+      return targetClass.newInstance();
+    } catch (InstantiationException e) {
+      throw new RuntimeException(e);
+    } catch (IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

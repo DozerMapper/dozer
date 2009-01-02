@@ -17,7 +17,6 @@ package net.sf.dozer.functional_tests.support;
 
 import net.sf.dozer.converters.ConfigurableCustomConverter;
 
-
 /**
  * 
  * @author johnsen.knut-erik
@@ -25,8 +24,8 @@ import net.sf.dozer.converters.ConfigurableCustomConverter;
  */
 public class CustomConverterParamConverter implements ConfigurableCustomConverter {
 
-  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass,
-      String param) {
+  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass,
+      Class<?> sourceClass, String param) {
     String source = null;
     Object dest = null;
     if (String.class.isAssignableFrom(sourceClass)) {
@@ -40,7 +39,8 @@ public class CustomConverterParamConverter implements ConfigurableCustomConverte
     return dest;
   }
 
-  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
+  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass,
+      Class<?> sourceClass) {
 
     return convert(existingDestinationFieldValue, sourceFieldValue, destinationClass, sourceClass, null);
   }

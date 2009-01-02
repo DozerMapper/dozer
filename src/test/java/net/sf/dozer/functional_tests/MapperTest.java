@@ -112,8 +112,8 @@ public class MapperTest extends AbstractFunctionalTest {
   public void testNoClassMappings() throws Exception {
     Mapper mapper = new DozerBeanMapper();
     // Should attempt mapping even though it is not in the beanmapping.xml file
-    NoCustomMappingsObjectPrime dest1 = mapper.map(testDataFactory
-        .getInputTestNoClassMappingsNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
+    NoCustomMappingsObjectPrime dest1 = mapper.map(testDataFactory.getInputTestNoClassMappingsNoCustomMappingsObject(),
+        NoCustomMappingsObjectPrime.class);
     NoCustomMappingsObject source = mapper.map(dest1, NoCustomMappingsObject.class);
     NoCustomMappingsObjectPrime dest3 = mapper.map(source, NoCustomMappingsObjectPrime.class);
     assertEquals(dest1, dest3);
@@ -132,8 +132,8 @@ public class MapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapField() throws Exception {
-    NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory
-        .getInputTestMapFieldWithMapNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
+    NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory.getInputTestMapFieldWithMapNoCustomMappingsObject(),
+        NoCustomMappingsObjectPrime.class);
 
     NoCustomMappingsObject source = mapper.map(dest, NoCustomMappingsObject.class);
     NoCustomMappingsObjectPrime dest2 = mapper.map(source, NoCustomMappingsObjectPrime.class);
@@ -146,8 +146,7 @@ public class MapperTest extends AbstractFunctionalTest {
     assertEquals(dest2, dest);
 
     // empty Map
-    dest = mapper.map(testDataFactory.getInputTestMapFieldWithEmptyMapNoCustomMappingsObject(),
-        NoCustomMappingsObjectPrime.class);
+    dest = mapper.map(testDataFactory.getInputTestMapFieldWithEmptyMapNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
     source = mapper.map(dest, NoCustomMappingsObject.class);
     dest2 = mapper.map(source, NoCustomMappingsObjectPrime.class);
     assertEquals(dest2, dest);
@@ -156,8 +155,8 @@ public class MapperTest extends AbstractFunctionalTest {
   @Test
   public void testSetField() throws Exception {
     // basic set --> set
-    NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory
-        .getInputTestSetFieldWithSetNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
+    NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory.getInputTestSetFieldWithSetNoCustomMappingsObject(),
+        NoCustomMappingsObjectPrime.class);
     NoCustomMappingsObject source = mapper.map(dest, NoCustomMappingsObject.class);
     NoCustomMappingsObjectPrime dest2 = mapper.map(source, NoCustomMappingsObjectPrime.class);
     assertEquals(dest2, dest);
@@ -169,15 +168,13 @@ public class MapperTest extends AbstractFunctionalTest {
     assertEquals(dest2, dest);
 
     // empty set --> set
-    dest = mapper.map(testDataFactory.getInputTestSetFieldWithSetEmptyCustomMappingsObject(),
-        NoCustomMappingsObjectPrime.class);
+    dest = mapper.map(testDataFactory.getInputTestSetFieldWithSetEmptyCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
     source = mapper.map(dest, NoCustomMappingsObject.class);
     dest2 = mapper.map(source, NoCustomMappingsObjectPrime.class);
     assertEquals(dest2, dest);
 
     // complex type set -->
-    dest = mapper.map(testDataFactory.getInputTestSetFieldComplexSetNoCustomMappingsObject(),
-        NoCustomMappingsObjectPrime.class);
+    dest = mapper.map(testDataFactory.getInputTestSetFieldComplexSetNoCustomMappingsObject(), NoCustomMappingsObjectPrime.class);
     source = mapper.map(dest, NoCustomMappingsObject.class);
     dest2 = mapper.map(source, NoCustomMappingsObjectPrime.class);
     assertEquals(dest2, dest);
@@ -186,8 +183,7 @@ public class MapperTest extends AbstractFunctionalTest {
   @Test
   public void testListField() throws Exception {
     // test empty list --> empty list
-    TestObjectPrime dest = mapper.map(testDataFactory.getInputTestListFieldEmptyListTestObject(),
-        TestObjectPrime.class);
+    TestObjectPrime dest = mapper.map(testDataFactory.getInputTestListFieldEmptyListTestObject(), TestObjectPrime.class);
     TestObject source = mapper.map(dest, TestObject.class);
     TestObjectPrime dest2 = mapper.map(source, TestObjectPrime.class);
     assertEquals(dest2, dest);
@@ -201,8 +197,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testListUsingDestHint() throws Exception {
-    TestObjectPrime dest = mapper.map(testDataFactory.getInputTestListUsingDestHintTestObject(),
-        TestObjectPrime.class);
+    TestObjectPrime dest = mapper.map(testDataFactory.getInputTestListUsingDestHintTestObject(), TestObjectPrime.class);
     TestObject source = mapper.map(dest, TestObject.class);
     TestObjectPrime dest2 = mapper.map(source, TestObjectPrime.class);
     assertEquals(dest, dest2);
@@ -312,14 +307,12 @@ public class MapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testHydrateAndMore() throws Exception {
-    HydrateTestObject dest = mapper.map(testDataFactory.getInputTestHydrateAndMoreDehydrateTestObject(),
-        HydrateTestObject.class);
+    HydrateTestObject dest = mapper.map(testDataFactory.getInputTestHydrateAndMoreDehydrateTestObject(), HydrateTestObject.class);
     // validate results
     assertEquals(testDataFactory.getExpectedTestHydrateAndMoreHydrateTestObject(), dest);
 
     // map it back
-    DehydrateTestObject dhto = mapper.map(testDataFactory.getInputTestHydrateAndMoreHydrateTestObject(),
-        DehydrateTestObject.class);
+    DehydrateTestObject dhto = mapper.map(testDataFactory.getInputTestHydrateAndMoreHydrateTestObject(), DehydrateTestObject.class);
     assertEquals(testDataFactory.getExpectedTestHydrateAndMoreDehydrateTestObject(), dhto);
   }
 

@@ -7,14 +7,14 @@ import java.util.Set;
  */
 public interface ContentItemGroup extends Entity {
 
-	void setParentGroup(ContentItemGroup parent);
+  void setParentGroup(ContentItemGroup parent);
 
-	ContentItemGroup getParentGroup();
+  ContentItemGroup getParentGroup();
 
-	Set getChildGroups();
+  Set getChildGroups();
 
-	void setChildGroups(Set childs);
+  void setChildGroups(Set childs);
 
-	void addChildGroup(ContentItemGroup child);
+  void addChildGroup(ContentItemGroup child);
 
 }

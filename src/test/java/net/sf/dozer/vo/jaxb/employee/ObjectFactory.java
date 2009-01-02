@@ -116,8 +116,7 @@ public class ObjectFactory extends net.sf.dozer.vo.jaxb.employee.impl.runtime.De
    * @throws JAXBException
    *           if an error occurs
    */
-  public net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClass createEmployeeWithInnerClass()
-      throws javax.xml.bind.JAXBException {
+  public net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClass createEmployeeWithInnerClass() throws javax.xml.bind.JAXBException {
     return new net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassImpl();
   }
 

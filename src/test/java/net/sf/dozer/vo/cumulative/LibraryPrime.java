@@ -22,17 +22,17 @@ import java.util.List;
  */
 public class LibraryPrime {
 
-    List books;
+  List books;
 
-    public LibraryPrime() {
-    }
+  public LibraryPrime() {
+  }
 
-    public List getBooks() {
-        return books;
-    }
+  public List getBooks() {
+    return books;
+  }
 
-    public void setBooks(List books) {
-        this.books = books;
-    }
+  public void setBooks(List books) {
+    this.books = books;
+  }
 
 }

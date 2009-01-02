@@ -9,8 +9,7 @@ package net.sf.dozer.vo.jaxb.employee.impl;
 
 public class EmployeeWithInnerClassTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType,
     com.sun.xml.bind.JAXBObject, net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallableObject,
-    net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable,
-    net.sf.dozer.vo.jaxb.employee.impl.runtime.ValidatableObject {
+    net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable, net.sf.dozer.vo.jaxb.employee.impl.runtime.ValidatableObject {
 
   protected java.util.Calendar _BirthDate;
   protected java.lang.String _FirstName;
@@ -60,8 +59,7 @@ public class EmployeeWithInnerClassTypeImpl implements net.sf.dozer.vo.jaxb.empl
     return new net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl.Unmarshaller(context);
   }
 
-  public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
     context.startElement("", "FirstName");
     context.endNamespaceDecls();
     context.endAttributes();
@@ -100,12 +98,10 @@ public class EmployeeWithInnerClassTypeImpl implements net.sf.dozer.vo.jaxb.empl
     context.endElement();
   }
 
-  public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeAttributes(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
   }
 
-  public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-      throws org.xml.sax.SAXException {
+  public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
   }
 
   public java.lang.Class getPrimaryInterface() {
@@ -173,8 +169,7 @@ public class EmployeeWithInnerClassTypeImpl implements net.sf.dozer.vo.jaxb.empl
 
   public static class AddressTypeImpl implements net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType.AddressType,
       com.sun.xml.bind.JAXBObject, net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallableObject,
-      net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable,
-      net.sf.dozer.vo.jaxb.employee.impl.runtime.ValidatableObject {
+      net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializable, net.sf.dozer.vo.jaxb.employee.impl.runtime.ValidatableObject {
 
     protected java.lang.String _Street;
     public final static java.lang.Class version = (net.sf.dozer.vo.jaxb.employee.impl.JAXBVersion.class);
@@ -194,12 +189,10 @@ public class EmployeeWithInnerClassTypeImpl implements net.sf.dozer.vo.jaxb.empl
 
     public net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallingEventHandler createUnmarshaller(
         net.sf.dozer.vo.jaxb.employee.impl.runtime.UnmarshallingContext context) {
-      return new net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl.AddressTypeImpl.Unmarshaller(
-          context);
+      return new net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl.AddressTypeImpl.Unmarshaller(context);
     }
 
-    public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-        throws org.xml.sax.SAXException {
+    public void serializeBody(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
       context.startElement("", "Street");
       context.endNamespaceDecls();
       context.endAttributes();
@@ -215,8 +208,7 @@ public class EmployeeWithInnerClassTypeImpl implements net.sf.dozer.vo.jaxb.empl
         throws org.xml.sax.SAXException {
     }
 
-    public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context)
-        throws org.xml.sax.SAXException {
+    public void serializeURIs(net.sf.dozer.vo.jaxb.employee.impl.runtime.XMLSerializer context) throws org.xml.sax.SAXException {
     }
 
     public java.lang.Class getPrimaryInterface() {
@@ -432,8 +424,8 @@ public class EmployeeWithInnerClassTypeImpl implements net.sf.dozer.vo.jaxb.empl
         case 10:
           if (("Street" == ___local) && ("" == ___uri)) {
             _Address = ((net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl.AddressTypeImpl) spawnChildFromEnterElement(
-                (net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl.AddressTypeImpl.class), 11, ___uri,
-                ___local, ___qname, __atts));
+                (net.sf.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl.AddressTypeImpl.class), 11, ___uri, ___local,
+                ___qname, __atts));
             return;
           }
           break;

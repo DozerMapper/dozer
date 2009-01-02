@@ -23,5 +23,4 @@ public class EntityDTO {
     return this.id.hashCode();
   }
 
-
 }

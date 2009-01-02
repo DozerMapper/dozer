@@ -21,34 +21,34 @@ package net.sf.dozer.vo.interfacerecursion;
  */
 public class UserImpl implements User {
 
-	private String firstName;
-	
-	private String lastName;
+  private String firstName;
 
-	private UserGroup userGroup;
-	
-	public String getFirstName() {
-		return firstName;
-	}
+  private String lastName;
 
-	public void setFirstName(String aFirstName) {
-		firstName = aFirstName;
-	}
+  private UserGroup userGroup;
 
-	public String getLastName() {
-		return lastName;
-	}
+  public String getFirstName() {
+    return firstName;
+  }
 
-	public void setLastName(String aLastName) {
-		lastName = aLastName;
-	}
+  public void setFirstName(String aFirstName) {
+    firstName = aFirstName;
+  }
 
-	public UserGroup getUserGroup() {
-		return userGroup;
-	}
+  public String getLastName() {
+    return lastName;
+  }
 
-	public void setUserGroup(UserGroup aUserGroup) {
-		userGroup = aUserGroup;
-	}
-	
+  public void setLastName(String aLastName) {
+    lastName = aLastName;
+  }
+
+  public UserGroup getUserGroup() {
+    return userGroup;
+  }
+
+  public void setUserGroup(UserGroup aUserGroup) {
+    userGroup = aUserGroup;
+  }
+
 }

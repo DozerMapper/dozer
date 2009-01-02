@@ -19,7 +19,7 @@ public class PersonalDetails {
   String firstName;
   String lastName;
   Integer salary;
-  
+
   public String getFirstName() {
     return firstName;
   }

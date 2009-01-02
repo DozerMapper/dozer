@@ -39,13 +39,13 @@ import org.junit.Test;
  * @author garsombke.franz
  */
 public class DeepMappingTest extends AbstractFunctionalTest {
-  
+
   @Test
   public void testDeepMapping() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
     DestDeepObj dest = mapper.map(src, DestDeepObj.class);
-    SrcDeepObj src2 =  mapper.map(dest, SrcDeepObj.class);
+    SrcDeepObj src2 = mapper.map(dest, SrcDeepObj.class);
     DestDeepObj dest2 = mapper.map(src2, DestDeepObj.class);
 
     assertEquals(src, src2);
@@ -59,7 +59,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
     Person owner = newInstance(Person.class);
     owner.setYourName("myName");
     house.setOwner(owner);
-    HomeDescription desc =  mapper.map(house, HomeDescription.class);
+    HomeDescription desc = mapper.map(house, HomeDescription.class);
     assertEquals(desc.getDescription().getMyName(), "myName");
     // make sure we don't map back
     House house2 = mapper.map(desc, House.class);

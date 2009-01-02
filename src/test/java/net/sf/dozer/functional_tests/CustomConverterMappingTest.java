@@ -189,7 +189,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     Collection<Double> list2 = newInstance(ArrayList.class);
     list2.add(new Double(10));
     objp.setNames(list2);
-    
+
     TestCustomConverterObject destp = mapper.map(objp, TestCustomConverterObject.class);
 
     assertEquals("Custom Converter failed", destp.getAttribute().getTheDouble() + "", "15.0");
@@ -245,8 +245,8 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     TestObjectPrime top = newInstance(TestObjectPrime.class);
     top.setOnePrime("onePrime");
     testCustomConverterHashMapObject.setTestObjectPrime(top);
-    TestCustomConverterHashMapPrimeObject dest = mapper.map(
-        testCustomConverterHashMapObject, TestCustomConverterHashMapPrimeObject.class);
+    TestCustomConverterHashMapPrimeObject dest = mapper.map(testCustomConverterHashMapObject,
+        TestCustomConverterHashMapPrimeObject.class);
     assertEquals(to, dest.getTestObjects().get("object1"));
     assertEquals(top, dest.getTestObjects().get("object2"));
 

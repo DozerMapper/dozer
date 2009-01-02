@@ -73,7 +73,7 @@ public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
     assertNotNull(deepObject.getDeepObject().getDeepObject());
     assertEquals("value", deepObject.getDeepObject().getDeepObject().getName());
   }
-  
+
   @Test
   public void testMapBackedDeepMapping_Simple() {
     DeepObject deepObject = new DeepObject();
@@ -84,7 +84,6 @@ public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
     mapper.map(map, deepObject, "TC3");
     assertEquals("value", deepObject.getName());
   }
-
 
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {

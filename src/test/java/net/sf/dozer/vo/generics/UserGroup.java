@@ -23,31 +23,29 @@ import java.util.Set;
  *
  */
 
-
-
 public class UserGroup {
 
   private Status status;
-  
-	private String name;
-	
-	private Set<User> users;
 
-	public String getName() {
-		return name;
-	}
+  private String name;
 
-	public void setName(String aName) {
-		name = aName;
-	}
+  private Set<User> users;
 
-	public Set<User> getUsers() {
-		return users;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setUsers(Set<User> aUsers) {
-		users = aUsers;
-	}
+  public void setName(String aName) {
+    name = aName;
+  }
+
+  public Set<User> getUsers() {
+    return users;
+  }
+
+  public void setUsers(Set<User> aUsers) {
+    users = aUsers;
+  }
 
   public Status getStatus() {
     return status;

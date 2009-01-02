@@ -64,7 +64,7 @@ public class CumulativeMappingTest extends AbstractFunctionalTest {
     assertEquals(new Long(141L), book.getId());
     assertEquals("The Best One", book.getAuthor().getName());
 
-//    assertEquals(new Long(5100L), book.getAuthor().getSalary()); TODO Enable this for non-cumulative recursion bug
+    //    assertEquals(new Long(5100L), book.getAuthor().getSalary()); TODO Enable this for non-cumulative recursion bug
   }
 
   @Override

@@ -13,7 +13,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class MappingProcessorTest  {
+public class MappingProcessorTest {
 
   private ArrayList<Object> sourceList;
   private ArrayList<Object> destinationList;
@@ -28,7 +28,7 @@ public class MappingProcessorTest  {
   public void testPrepareDetinationList_OK() {
     List<?> result = MappingProcessor.prepareDestinationList(sourceList, destinationList);
     assertEquals(destinationList, result);
-    
+
     destinationList.add("");
     result = MappingProcessor.prepareDestinationList(sourceList, destinationList);
     assertEquals(destinationList, result);
@@ -43,7 +43,7 @@ public class MappingProcessorTest  {
 
   @Test
   public void testPrepareDetinationList_Array() {
-    List<?> result = MappingProcessor.prepareDestinationList(sourceList, new Object [] {"A"});
+    List<?> result = MappingProcessor.prepareDestinationList(sourceList, new Object[] { "A" });
     assertNotNull(result);
     assertEquals(1, result.size());
     assertEquals("A", result.iterator().next());
@@ -106,10 +106,13 @@ public class MappingProcessorTest  {
 
     @Override
     public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if (this == o)
+        return true;
+      if (o == null || getClass() != o.getClass())
+        return false;
       Ordered ordered = (Ordered) o;
-      if (id != ordered.id) return false;
+      if (id != ordered.id)
+        return false;
       return true;
     }
 

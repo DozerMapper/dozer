@@ -22,24 +22,24 @@ package net.sf.dozer.vo.generics;
  */
 public class UserPrime {
 
-	private String firstName;
-	
-	private String lastName;
+  private String firstName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+  private String lastName;
 
-	public void setFirstName(String aFirstName) {
-		firstName = aFirstName;
-	}
+  public String getFirstName() {
+    return firstName;
+  }
 
-	public String getLastName() {
-		return lastName;
-	}
+  public void setFirstName(String aFirstName) {
+    firstName = aFirstName;
+  }
 
-	public void setLastName(String aLastName) {
-		lastName = aLastName;
-	}
-	
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String aLastName) {
+    lastName = aLastName;
+  }
+
 }

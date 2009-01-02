@@ -42,7 +42,6 @@ package net.sf.dozer.vo.jaxb.employee;
  * </pre>
  * 
  */
-public interface EmployeeWithInnerClass extends javax.xml.bind.Element,
-    net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType {
+public interface EmployeeWithInnerClass extends javax.xml.bind.Element, net.sf.dozer.vo.jaxb.employee.EmployeeWithInnerClassType {
 
 }

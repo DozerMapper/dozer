@@ -3,7 +3,7 @@ package net.sf.dozer.vo.deepindex;
 public class A {
   protected Integer id1;
   protected Integer id2;
-  
+
   public Integer getId1() {
     return id1;
   }

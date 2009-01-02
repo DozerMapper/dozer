@@ -20,29 +20,29 @@ import java.util.List;
 
 public class UserGroupPrime {
 
-	private String name;
-	
-	private List<UserPrime> users = new ArrayList<UserPrime>();
+  private String name;
 
-	public String getName() {
-		return name;
-	}
+  private List<UserPrime> users = new ArrayList<UserPrime>();
 
-	public void setName(String aName) {
-		name = aName;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public List<UserPrime> getUsers() {
-		return users;
-	}
+  public void setName(String aName) {
+    name = aName;
+  }
 
-	public void setUsers(List<UserPrime> aUsers) {
-		users = aUsers;
-	}
+  public List<UserPrime> getUsers() {
+    return users;
+  }
 
-	public void addUser(UserPrime aUser) {
-		users.add(aUser);
-		aUser.setUserGroup(this);
-	}
+  public void setUsers(List<UserPrime> aUsers) {
+    users = aUsers;
+  }
+
+  public void addUser(UserPrime aUser) {
+    users.add(aUser);
+    aUser.setUserGroup(this);
+  }
 
 }

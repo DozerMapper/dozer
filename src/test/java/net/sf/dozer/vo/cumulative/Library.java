@@ -22,15 +22,14 @@ import java.util.List;
  */
 public class Library {
 
-    List books;
+  List books;
 
-    public List getBooks() {
-        return books;
-    }
+  public List getBooks() {
+    return books;
+  }
 
-    public void setBooks(List books) {
-        this.books = books;
-    }
+  public void setBooks(List books) {
+    this.books = books;
+  }
 
 }
-

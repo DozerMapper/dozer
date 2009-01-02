@@ -21,34 +21,34 @@ package net.sf.dozer.vo.interfacerecursion;
  */
 public class UserPrimeImpl implements UserPrime {
 
-	private String firstName;
-	
-	private String lastName;
+  private String firstName;
 
-	private UserGroupPrime userGroup;
-	
-	public String getFirstName() {
-		return firstName;
-	}
+  private String lastName;
 
-	public void setFirstName(String aFirstName) {
-		firstName = aFirstName;
-	}
+  private UserGroupPrime userGroup;
 
-	public String getLastName() {
-		return lastName;
-	}
+  public String getFirstName() {
+    return firstName;
+  }
 
-	public void setLastName(String aLastName) {
-		lastName = aLastName;
-	}
+  public void setFirstName(String aFirstName) {
+    firstName = aFirstName;
+  }
 
-	public UserGroupPrime getUserGroup() {
-		return userGroup;
-	}
+  public String getLastName() {
+    return lastName;
+  }
 
-	public void setUserGroup(UserGroupPrime aUserGroup) {
-		userGroup = aUserGroup;
-	}
-	
+  public void setLastName(String aLastName) {
+    lastName = aLastName;
+  }
+
+  public UserGroupPrime getUserGroup() {
+    return userGroup;
+  }
+
+  public void setUserGroup(UserGroupPrime aUserGroup) {
+    userGroup = aUserGroup;
+  }
+
 }

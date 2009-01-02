@@ -27,8 +27,8 @@ public class CustomMappingsLoaderTest {
     LoadMappingsResult result = loader.load(Arrays.asList(new String[] { "customMappingsLoaderWithGlobalConfigTest.xml" }));
     assertNotNull("result should not be null", result);
     assertEquals("wrong # of mappings", 4, result.getCustomMappings().size());
-    assertEquals("wrong value in global config", SampleDefaultBeanFactory.class.getName(), result
-        .getGlobalConfiguration().getBeanFactory());
+    assertEquals("wrong value in global config", SampleDefaultBeanFactory.class.getName(), result.getGlobalConfiguration()
+        .getBeanFactory());
   }
 
   @Test

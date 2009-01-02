@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class DozerInitializerTest  {
+public class DozerInitializerTest {
 
   @Test
   public void testIsInitialized() {

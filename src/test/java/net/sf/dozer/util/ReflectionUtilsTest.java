@@ -46,7 +46,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   @Test(expected = MappingException.class)
   public void testGetDeepFieldHierarchy_NotExists() throws Exception {
     ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "."
-          + String.valueOf(System.currentTimeMillis()), null);
+        + String.valueOf(System.currentTimeMillis()), null);
   }
 
   @Test

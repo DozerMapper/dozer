@@ -49,7 +49,7 @@ import org.junit.Test;
  *
  */
 public class EnumMappingTest extends AbstractFunctionalTest {
-  
+
   /**
    * Test on a mapping from Overrided Enum to Based Enum. 
    */
@@ -59,10 +59,9 @@ public class EnumMappingTest extends AbstractFunctionalTest {
     MyBean src = new MyBean();
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
-    assertEquals(src.getSrcTypeWithOverride().toString(),
-        dest.getDestType().toString() );
+    assertEquals(src.getSrcTypeWithOverride().toString(), dest.getDestType().toString());
   }
-  
+
   /**
    * Test on a mapping from Based Enum to Overrided Enum.
    */
@@ -72,10 +71,9 @@ public class EnumMappingTest extends AbstractFunctionalTest {
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
-    assertEquals(src.getSrcType().toString(),
-        dest.getDestTypeWithOverride().toString() );
+    assertEquals(src.getSrcType().toString(), dest.getDestTypeWithOverride().toString());
   }
-  
+
   /**
    * Test on a mapping from Based Enum to Based Enum.
    */
@@ -85,10 +83,9 @@ public class EnumMappingTest extends AbstractFunctionalTest {
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
-    assertEquals(src.getSrcType().toString(),
-        dest.getDestType().toString());
+    assertEquals(src.getSrcType().toString(), dest.getDestType().toString());
   }
-  
+
   /**
    * Test on a mapping from Overrided Enum to Overrided Enum.
    */
@@ -98,10 +95,9 @@ public class EnumMappingTest extends AbstractFunctionalTest {
     MyBean src = new MyBean();
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
-    assertEquals(src.getSrcTypeWithOverride().toString(),
-        dest.getDestTypeWithOverride().toString());
+    assertEquals(src.getSrcTypeWithOverride().toString(), dest.getDestTypeWithOverride().toString());
   }
-  
+
   /**
    * Test on a mapping from Enum to itself. This test is used to reproduce bug#1806780.
    */
@@ -113,18 +109,18 @@ public class EnumMappingTest extends AbstractFunctionalTest {
     assertEquals(src.getSrcType(), dest.getSrcType());
     assertEquals(src.getSrcTypeWithOverride(), dest.getSrcTypeWithOverride());
   }
-  
+
   /**
    * Test on if mapping to nonexist enum value would throw exception.
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testEnumMapsToNonexistEnumValue(){
+  public void testEnumMapsToNonexistEnumValue() {
     mapper = getMapper(new String[] { "enumMapping.xml" });
     MyBean src = new MyBean();
     src.setSrcType(SrcType.BAR);
     mapper.map(src, MyBeanPrime.class);
   }
-  
+
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;

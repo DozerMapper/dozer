@@ -1,6 +1,5 @@
 package net.sf.dozer.vo.direction;
 
-
 /**
  * @author dmitry.buzdin
  */

@@ -23,14 +23,14 @@ import java.util.Set;
  */
 public interface UserGroup {
 
-	public String getName();
+  public String getName();
 
-	public void setName(String aName);
+  public void setName(String aName);
 
-	public Set<User> getUsers();
+  public Set<User> getUsers();
 
-	public void setUsers(Set<User> aUsers);
+  public void setUsers(Set<User> aUsers);
 
-	public void addUser(User aUser);
+  public void addUser(User aUser);
 
 }

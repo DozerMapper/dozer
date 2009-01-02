@@ -21,16 +21,16 @@ package net.sf.dozer.vo.interfacerecursion;
  */
 public interface UserPrime {
 
-	public String getFirstName();
+  public String getFirstName();
 
-	public void setFirstName(String aFirstName);
+  public void setFirstName(String aFirstName);
 
-	public String getLastName();
+  public String getLastName();
 
-	public void setLastName(String aLastName);
+  public void setLastName(String aLastName);
 
-	public UserGroupPrime getUserGroup();
+  public UserGroupPrime getUserGroup();
 
-	public void setUserGroup(UserGroupPrime aUserGroup);
+  public void setUserGroup(UserGroupPrime aUserGroup);
 
 }

@@ -38,7 +38,7 @@ public class GrandparentTest extends AbstractFunctionalTest {
   public void testParentProperty() {
     TwoA source = new TwoA();
     source.setId(new Integer(1));
-        
+
     TwoB dest = mapper.map(source, TwoB.class);
     assertNotNull(dest);
     assertEquals(new Integer(1), dest.getId());
