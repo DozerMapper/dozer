@@ -56,40 +56,38 @@ public class PerformanceTest extends AbstractFunctionalTest {
 
   /*
    * Baseline Performance Numbers. Established with Release 2.0 - Jan 2006
+   * All performance results based on 25000 numIters
    * 
-   * All performance results based on 25000 numIters and jdk 1.4.2(unless otherwise specified)
-   * 
-   * TEST TOTAL TIME(ms) - 1/1/06
-   * 
-   * testMapping1 19562 testMapping2 2859 testMapping3 2782 testMapping4 8391 testMapping5 4985
+   * 1/1/06 - jdk 1.4
+   * #1 19562 #2 2859 #3 2782 #4 8391 #5 4985
    * 
    * 
-   * MHT Computer - 8/12/06 
+   * MHT Computer - 8/12/06 - jdk 1.4 
    * #1 17015 #2 1954 #3 1890 #4 5985 #5 4062
    * 
    * 
-   * MHT Computer - 9/26/06 - After 2.3 release 
+   * MHT Computer - 9/26/06 - After 2.3 release - jdk 1.4 
    * #1 19578 #2 1937 #3 1953 #4 6734 #5 4641
    * 
    * 
-   * MHT Computer - 10/1/06 - 2.4 release. After removing Reflection caching to resolve general CGLIB/Proxy issues 
+   * MHT Computer - 10/1/06 - 2.4 release - jdk 1.4. After removing Reflection caching to resolve general CGLIB/Proxy issues 
    * #1 29313 #2 2985 #3 3130 #4 9891 #5 7656
    * 
    * 
-   * MHT Computer - 12/20/06 - 2.5 release. After adding code submitted for fixing recursive mapping infinite loop
+   * MHT Computer - 12/20/06 - 2.5 release - jdk 1.4. After adding code submitted for fixing recursive mapping infinite loop
    * problem. Due to maintaining mappedFields variable in MappingProcessor. Is this ok or better way to do it? Not sure
    * #1 31422 #2 3485 #3 3547 #4 11656 #5 8281
    * 
    * 
-   * MHT Computer - 1/26/07 - 2.5 release. After making misc perf improvements to improve test case #6
+   * MHT Computer - 1/26/07 - 2.5 release - jdk 1.4. After making misc perf improvements to improve test case #6
    * #1 26047 #2 3375 #3 3469 #4 11672 #5 7516 #6 45850
    * 
    * 
-   * MHT Computer - 2/1/07 - 2.5 release. Just prior to release of 2.5
+   * MHT Computer - 2/1/07 - 2.5 release - jdk 1.4. Just prior to release of 2.5
    * #1 26266 #2 3094 #3 3203 #4 11297 #5 7453 #6 42312
    * 
    * 
-   * MHT Computer - 4/2/07 - 3.2 release.
+   * MHT Computer - 4/2/07 - 3.2 release - jdk 1.4.
    * #1 24891 #2 3125 #3 3219 #4 10609 #5 7328 #6 45156
    * 
    * 
@@ -145,7 +143,11 @@ public class PerformanceTest extends AbstractFunctionalTest {
    * jdk1.4 #1 17584 #2 2137 #3 2096 #4 9245 #5 6611 #6 37356
    * jdk1.5 #1 13465 #2 1539 #3 1548 #4 7425 #5 5144 #6 25975
    * jdk1.6 #1 7357 #2 1353 #3 631 #4 2239 #5 1915 #6 5834
-   *  
+   *
+   * MHT Computer (Macbook Pro, 2.4GHZ Intel Core Duo, JVM 256m) - 1/1/09 - 5.0 release Rev:831
+   * jdk1.4 Good Bye
+   * jdk1.5 #1 11056 #2 1406 #3 1404 #4 5621 #5 3957 #6 25996
+   * jdk1.6 #1 6167 #2 1154 #3 598 #4 2442 #5 1706 #6 5460
    */
 
   @Test(timeout = 35000)
