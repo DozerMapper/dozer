@@ -19,8 +19,8 @@
         <![CDATA[ 
 <mappings>          
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    <class-a>net.sf.dozer.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
  
     Any custom field mapping xml would go here........
 

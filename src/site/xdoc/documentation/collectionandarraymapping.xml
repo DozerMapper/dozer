@@ -39,7 +39,7 @@
 <field>
   <a>hintList</a> <!-- converting TheFirstSubClass List to TheFirstSubClassPrime List -->
   <b>hintList</b> 
-  <b-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClassPrime</b-hint> 
+  <b-hint>net.sf.dozer.vo.TheFirstSubClassPrime</b-hint> 
 </field>    
             ]]>
         </source>
@@ -241,8 +241,8 @@ public class UserGroupPrime {
           <![CDATA[ 
 <mappings>
   <mapping relationship-type="non-cumulative">
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    <class-a>net.sf.dozer.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
     <field>
       <a>someList</a>
       <b>someList</b>
@@ -256,8 +256,8 @@ public class UserGroupPrime {
 <field relationship-type="cumulative">
   <a>hintList</a> <!-- objects will always be added to an existing List -->
   <b>hintList</b> 
-  <a-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClass</a-hint> 
-  <b-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClassPrime</b-hint> 
+  <a-hint>net.sf.dozer.vo.TheFirstSubClass</a-hint> 
+  <b-hint>net.sf.dozer.vo.TheFirstSubClassPrime</b-hint> 
 </field>    
 
 <field relationship-type="non-cumulative">

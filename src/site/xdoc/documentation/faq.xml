@@ -258,7 +258,7 @@
 
           <source>
             <![CDATA[ 
-<bean id="net.sf.dozer.util.mapping.Mapper" class="net.sf.dozer.util.mapping.DozerBeanMapper">
+<bean id="net.sf.dozer.Mapper" class="net.sf.dozer.DozerBeanMapper">
   <property name="mappingFiles">
     <list>
       <value>dozer-global-configuration.xml</value>			   
@@ -405,8 +405,8 @@
             <![CDATA[ 
         
 <custom-converters>
-  <converter type="net.sf.dozer.util.mapping.converters.SomeCustomConverter" >
-    <class-a>net.sf.dozer.util.mapping.vo.SomeCustomDoubleObject</class-a>
+  <converter type="net.sf.dozer.converters.SomeCustomConverter" >
+    <class-a>net.sf.dozer.vo.SomeCustomDoubleObject</class-a>
     <class-b>java.lang.Double</class-b>
   </converter>
 </custom-converters>           
@@ -487,7 +487,7 @@
         <source>
           <![CDATA[ 
 <mapping map-id="myTestMapping">
-  <class-a>net.sf.dozer.util.mapping.vo.map.SomeComplexType</class-a>
+  <class-a>net.sf.dozer.vo.map.SomeComplexType</class-a>
   <class-b>java.util.Map</class-b>
   <field>
     <a>stringProperty2</a>
@@ -574,7 +574,7 @@
 <field>
   <a>someList</a>
   <b>otherList</b> 
-  <b-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClassPrime</b-hint> 
+  <b-hint>net.sf.dozer.vo.TheFirstSubClassPrime</b-hint> 
 </field>
  ]]>
         </source>
@@ -767,9 +767,9 @@ dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversio
         <br></br>
         <p>
           To debug individual field mappings between classes, set the logging level
-          "net.sf.dozer.util.mapping.MappingProcessor=DEBUG". For example, if you are using log4j you would add the
+          "net.sf.dozer.MappingProcessor=DEBUG". For example, if you are using log4j you would add the
           following entry to your log4j configuration file
-          "log4j.category.net.sf.dozer.util.mapping.MappingProcessor=DEBUG". This will show you every field mapping
+          "log4j.category.net.sf.dozer.MappingProcessor=DEBUG". This will show you every field mapping
           that Dozer performs along with the actual source and destination values. You will see output similar to
           the following....
         </p>
@@ -804,8 +804,8 @@ dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversio
     <date-format>MM/dd/yyyy HH:mm</date-format>
     <wildcard>false</wildcard>
     <custom-converters>
-      <converter type="net.sf.dozer.util.mapping.converters.TestCustomConverter" >
-        <class-a>net.sf.dozer.util.mapping.vo.CustomDoubleObject</class-a>
+      <converter type="net.sf.dozer.converters.TestCustomConverter" >
+        <class-a>net.sf.dozer.vo.CustomDoubleObject</class-a>
         <class-b>java.lang.Double</class-b>
       </converter>
      </custom-converters>

@@ -18,13 +18,13 @@
         specify your own bean factories to instantiate the data objects.
       </p>
       <p>
-        Your custom bean factory must implement the net.sf.dozer.util.mapping.BeanFactoryIF interface. By default
+        Your custom bean factory must implement the net.sf.dozer.BeanFactory interface. By default
         the Dozer mapping engine will use the destination object class name for the bean id when calling the
         factory.
       </p>
       <source>
         <![CDATA[ 
-public interface BeanFactoryIF {
+public interface BeanFactory {
   public Object createBean(Object source, Class sourceClass, String targetBeanId);
 }         
            ]]>
@@ -97,7 +97,7 @@ public interface BeanFactoryIF {
           <![CDATA[ 
 <beans default-lazy-init="true">
 
-  <bean id="net.sf.dozer.util.mapping.MapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+  <bean id="net.sf.dozer.Mapper" class="net.sf.dozer.DozerBeanMapper">
     <property name="mappingFiles">
       <list>
         <value>systempropertymapping1.xml</value>
@@ -107,7 +107,7 @@ public interface BeanFactoryIF {
     <property name="factories">
       <map>
         <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
-       <entry key="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory">
+       <entry key="net.sf.dozer.factories.SampleCustomBeanFactory">
          <ref bean="sampleCustomBeanFactory"/>
        </entry>
         <!-- more factories can be supplied with additional entry's -->
@@ -115,7 +115,7 @@ public interface BeanFactoryIF {
     </property>    
   </bean>
 
-  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.util.mapping.factories.SampleCustomBeanFactory" singleton="true"/>
+  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.factories.SampleCustomBeanFactory"/>
 
 </beans>
 

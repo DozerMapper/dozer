@@ -30,8 +30,8 @@
     "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
 <mappings>          
   <mapping> 
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>   
+    <class-a>net.sf.dozer.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>   
     <field>
       <a>one</a>
       <b>onePrime</b>
@@ -39,8 +39,8 @@
   </mapping>  
 
   <mapping wildcard="false"> 
-    <class-a>net.sf.dozer.util.mapping.vo.TestObjectFoo</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestObjectFooPrime</class-b>   
+    <class-a>net.sf.dozer.vo.TestObjectFoo</class-a>
+    <class-b>net.sf.dozer.vo.TestObjectFooPrime</class-b>   
       <field>
         <a>oneFoo</a>
         <b>oneFooPrime</b>

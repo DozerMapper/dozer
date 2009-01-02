@@ -20,8 +20,8 @@
       <source>
         <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.util.mapping.vo.deep.SrcDeepObj</class-a>
-  <class-b>net.sf.dozer.util.mapping.vo.deep.DestDeepObj</class-b>
+  <class-a>net.sf.dozer.vo.deep.SrcDeepObj</class-a>
+  <class-b>net.sf.dozer.vo.deep.DestDeepObj</class-b>
     
   <field>
     <a>srcNestedObj.src1</a>
@@ -48,8 +48,8 @@
   <field>
     <a>srcNestedObj.hintList2</a>
     <b>hintList2</b>
-    <a-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClass</a-hint>
-    <b-hint>net.sf.dozer.util.mapping.vo.TheFirstSubClassPrime</b-hint> 
+    <a-hint>net.sf.dozer.vo.TheFirstSubClass</a-hint>
+    <b-hint>net.sf.dozer.vo.TheFirstSubClassPrime</b-hint> 
   </field>
 
   <field copy-by-reference="true">
@@ -84,7 +84,7 @@
 <field>
   <a>someField</a>
   <b>someList[1].someOtherList[0].someOtherField</b>
-  <b-deep-index-hint>net.sf.dozer.util.mapping.vo.TestObject, net.sf.dozer.util.mapping.vo.AnotherTestObject</b-deep-index-hint>      
+  <b-deep-index-hint>net.sf.dozer.vo.TestObject, net.sf.dozer.vo.AnotherTestObject</b-deep-index-hint>      
 </field>
              ]]>
       </source>

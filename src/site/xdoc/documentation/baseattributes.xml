@@ -26,8 +26,8 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.util.mapping.vo.SubClass</class-a>
-  <class-b>net.sf.dozer.util.mapping.vo.SubClassPrime</class-b>
+  <class-a>net.sf.dozer.vo.SubClass</class-a>
+  <class-b>net.sf.dozer.vo.SubClassPrime</class-b>
     
   <field>
     <a>superAttribute</a> <!-- this is the same for all sub classes -->
@@ -41,8 +41,8 @@
 </mapping>
  
 <mapping>
- <class-a>net.sf.dozer.util.mapping.vo.SubClass2</class-a>
- <class-b>net.sf.dozer.util.mapping.vo.SubClassPrime2</class-b>
+ <class-a>net.sf.dozer.vo.SubClass2</class-a>
+ <class-b>net.sf.dozer.vo.SubClassPrime2</class-b>
      
  <field>
    <a>superAttribute</a> <!-- this is the same for all sub classes -->
@@ -69,8 +69,8 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.util.mapping.vo.SuperClass</class-a>
-  <class-b>net.sf.dozer.util.mapping.vo.SuperClassPrime</class-b>
+  <class-a>net.sf.dozer.vo.SuperClass</class-a>
+  <class-b>net.sf.dozer.vo.SuperClassPrime</class-b>
     
   <field>
     <a>superAttribute</a>
@@ -79,8 +79,8 @@
 </mapping>  
 
 <mapping>
-  <class-a>net.sf.dozer.util.mapping.vo.SubClass</class-a>
-  <class-b>net.sf.dozer.util.mapping.vo.SubClassPrime</class-b>
+  <class-a>net.sf.dozer.vo.SubClass</class-a>
+  <class-b>net.sf.dozer.vo.SubClassPrime</class-b>
     
   <field>
     <a>attribute</a>
@@ -89,8 +89,8 @@
 </mapping>
   
 <mapping>
-  <class-a>net.sf.dozer.util.mapping.vo.SubClass2</class-a>
-  <class-b>net.sf.dozer.util.mapping.vo.SubClassPrime2</class-b>
+  <class-a>net.sf.dozer.vo.SubClass2</class-a>
+  <class-b>net.sf.dozer.vo.SubClassPrime2</class-b>
      
   <field>
     <a>attribute2</a>

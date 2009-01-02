@@ -29,8 +29,8 @@
       <source>
         <![CDATA[ 
 <mapping date-format="MM-dd-yyyy HH:mm:ss">
-  <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-  <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+  <class-a>net.sf.dozer.vo.TestObject</class-a>
+  <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
   <field>
     <a>dateString</a>
     <b>dateObject</b>
@@ -52,16 +52,16 @@
   </configuration>
 
   <mapping wildcard="true">
-    <class-a>net.sf.dozer.util.mapping.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.TestObjectPrime</class-b>
+    <class-a>net.sf.dozer.vo.TestObject</class-a>
+    <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
     <field>
       <a>dateString</a>
       <b>dateObject</b>
     </field>
   </mapping>
   <mapping>
-    <class-a>net.sf.dozer.util.mapping.vo.SomeObject</class-a>
-    <class-b>net.sf.dozer.util.mapping.vo.SomeOtherObject</class-b>
+    <class-a>net.sf.dozer.vo.SomeObject</class-a>
+    <class-b>net.sf.dozer.vo.SomeOtherObject</class-b>
     <field>
       <a>srcField</a>
       <b>destField</b>
