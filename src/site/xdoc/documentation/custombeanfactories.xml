@@ -95,8 +95,7 @@ public interface BeanFactory {
         <p>Bean factories can be injected via Spring or similar inversion of control techniques.</p>
         <source>
           <![CDATA[ 
-<beans default-lazy-init="true">
-
+<beans>
   <bean id="net.sf.dozer.Mapper" class="net.sf.dozer.DozerBeanMapper">
     <property name="mappingFiles">
       <list>
@@ -116,7 +115,6 @@ public interface BeanFactory {
   </bean>
 
   <bean id="sampleCustomBeanFactory" class="net.sf.dozer.factories.SampleCustomBeanFactory"/>
-
 </beans>
 
 ]]>
