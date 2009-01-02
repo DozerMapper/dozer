@@ -52,7 +52,7 @@ public class DozerCache implements Cache {
     }
     this.name = name;
     this.maximumSize = maximumSize;
-    cacheMap = new LRUMap(maximumSize);
+    this.cacheMap = new LRUMap(maximumSize);
   }
 
   public void clear() {
