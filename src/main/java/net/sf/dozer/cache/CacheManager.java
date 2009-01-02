@@ -45,7 +45,7 @@ public interface CacheManager {
    */
   public Cache getCache(String cacheName);
 
-  public void addCache(String cacheName, long maximumSize);
+  public void addCache(String cacheName, int maximumSize);
 
   public boolean cacheExists(String cacheName);
 

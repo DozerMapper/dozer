@@ -49,7 +49,7 @@ public final class DozerCacheManager implements CacheManager {
     return cache;
   }
 
-  public void addCache(String name, long maxElementsInMemory) {
+  public void addCache(String name, int maxElementsInMemory) {
     addCache(new DozerCache(name, maxElementsInMemory));
   }
 

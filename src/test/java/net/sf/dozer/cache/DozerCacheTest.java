@@ -56,7 +56,7 @@ public class DozerCacheTest extends AbstractDozerTest {
     assertEquals("cache size should not exceed max size", maxSize, cache.getSize());
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testMaximumCacheSize_Zero() throws Exception {
     int maxSize = 0;
     Cache cache = new DozerCache(getRandomString(), maxSize);

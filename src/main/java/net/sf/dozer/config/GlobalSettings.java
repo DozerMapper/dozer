@@ -47,8 +47,8 @@ public class GlobalSettings {
 
   private String loadedByFileName;
   private boolean statisticsEnabled = DozerConstants.DEFAULT_STATISTICS_ENABLED;
-  private long converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
-  private long superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
+  private int converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
+  private int superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
   private boolean autoregisterJMXBeans = DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
 
   public static GlobalSettings getInstance() {
@@ -71,7 +71,7 @@ public class GlobalSettings {
     return autoregisterJMXBeans;
   }
 
-  public long getConverterByDestTypeCacheMaxSize() {
+  public int getConverterByDestTypeCacheMaxSize() {
     return converterByDestTypeCacheMaxSize;
   }
 
@@ -83,7 +83,7 @@ public class GlobalSettings {
     this.statisticsEnabled = statisticsEnabled;
   }
 
-  public long getSuperTypesCacheMaxSize() {
+  public int getSuperTypesCacheMaxSize() {
     return superTypesCacheMaxSize;
   }
 
@@ -121,11 +121,11 @@ public class GlobalSettings {
     }
     propValue = props.getProperty(PropertyConstants.CONVERTER_CACHE_MAX_SIZE);
     if (propValue != null) {
-      converterByDestTypeCacheMaxSize = Long.parseLong(propValue);
+      converterByDestTypeCacheMaxSize = Integer.parseInt(propValue);
     }
     propValue = props.getProperty(PropertyConstants.SUPERTYPE_CACHE_MAX_SIZE);
     if (propValue != null) {
-      superTypesCacheMaxSize = Long.parseLong(propValue);
+      superTypesCacheMaxSize = Integer.parseInt(propValue);
     }
     propValue = props.getProperty(PropertyConstants.AUTOREGISTER_JMX_BEANS);
     if (propValue != null) {

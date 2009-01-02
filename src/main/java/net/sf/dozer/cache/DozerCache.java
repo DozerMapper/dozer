@@ -16,13 +16,14 @@
 package net.sf.dozer.cache;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
 
-import org.apache.commons.collections.map.LinkedMap;
+import org.apache.commons.collections.map.LRUMap;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -37,17 +38,21 @@ public class DozerCache implements Cache {
 
   private final String name;
 
-  // Order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
-  private final Map<Object, Object> cacheMap = new LinkedMap(100, 0.75F);
+  // Via LRUMap implementation, order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
+  private Map<Object, Object> cacheMap;
   private long maximumSize;
   private long hitCount;
   private long missCount;
 
   StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
 
-  public DozerCache(String name, long maximumSize) {
+  public DozerCache(String name, int maximumSize) {
+    if (maximumSize < 1) {
+      throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
+    }
     this.name = name;
     this.maximumSize = maximumSize;
+    cacheMap = new LRUMap(maximumSize);
   }
 
   public void clear() {
@@ -60,10 +65,6 @@ public class DozerCache implements Cache {
     }
     CacheEntry cacheEntry = new CacheEntry(key, value);
     cacheMap.put(cacheEntry.getKey(), cacheEntry);
-    if (cacheMap.size() > maximumSize) {
-      // remove eldest entry
-      ((LinkedMap) cacheMap).remove(cacheMap.size() - 1);
-    }
   }
 
   public Object get(Object key) {
@@ -110,6 +111,17 @@ public class DozerCache implements Cache {
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
-
+  
+  private class ConcurrentCacheMap extends LinkedHashMap {
+    private int maxSize;
+    
+    protected ConcurrentCacheMap(int maxSize) {
+      this.maxSize = maxSize;  
+    }
+    
+    protected boolean removeEldestEntry(Map.Entry eldest) {
+      return size() > maxSize;
+   }
+  }
 
 }
