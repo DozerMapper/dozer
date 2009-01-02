@@ -30,10 +30,9 @@
         </p>
         <source>
           <![CDATA[        
-MapperIF mapper = new DozerBeanMapper();
+Mapper mapper = new DozerBeanMapper();
 
-DestinationObject destObject =
-  (DestinationObject) mapper.map(sourceObject, DestinationObject.class);
+DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
              or
 DestinationObject destObject = new DestinationObject();
 mapper.map(sourceObject, destObject);
@@ -44,7 +43,7 @@ mapper.map(sourceObject, destObject);
           <b>IMPORTANT:</b>
           For real-world applications it is not recommended that you create a new instance of the Mapper each time
           you map objects. Typically a system will only have one DozerBeanMapper instance per VM. If you are not
-          using an IOC framework where you can define the MapperIF as singleton="true", a
+          using an IOC framework where you can define the Mapper as singleton="true", a
           DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
         </p>
       </subsection>
@@ -89,8 +88,8 @@ DestinationObject destObject = (DestinationObject) mapper.map(sourceObject, Dest
 
           <source>
             <![CDATA[ 
-<bean id="net.sf.dozer.util.mapping.MapperIF" 
-  class="net.sf.dozer.util.mapping.DozerBeanMapper" singleton="true">
+<bean id="mapper" 
+  class="net.sf.dozer.util.mapping.DozerBeanMapper">
   <property name="mappingFiles">
     <list>
       <value>dozer-global-configuration.xml</value>			   
@@ -129,13 +128,14 @@ DestinationObject destObject = (DestinationObject) mapper.map(sourceObject, Dest
           mapping the two objects it then returns the destination object with all of its mapped fields.
         </p>
         <source>
-          MapperIF mapper = DozerBeanMapperSingletonWrapper.getInstance(); DestinationObject destObject =
-          (DestinationObject) mapper.map(sourceObject, DestinationObject.class);
+          Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance(); 
+          DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
 
           or
 
-          MapperIF mapper = DozerBeanMapperSingletonWrapper.getInstance(); DestinationObject destObject = new
-          DestinationObject(); mapper.map(sourceObject, destObject);
+          Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance(); 
+          DestinationObject destObject = new DestinationObject(); 
+          mapper.map(sourceObject, destObject);
         </source>
       </subsection>
     </section>

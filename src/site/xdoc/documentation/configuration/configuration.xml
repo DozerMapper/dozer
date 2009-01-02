@@ -49,13 +49,13 @@
           <td>dozer.cache.converter.by.dest.type.maxsize</td>
           <td>Specifies the max size for one of Dozers internal caches</td>
           <td>0 - Long.MAX_VALUE</td>
-          <td>5000</td>
+          <td>10000</td>
         </tr>
         <tr>
           <td>dozer.cache.super.type.maxsize</td>
           <td>Specifies the max size for one of Dozers internal caches</td>
           <td>0 - Long.MAX_VALUE</td>
-          <td>5000</td>
+          <td>10000</td>
         </tr>
       </table>
 
@@ -70,18 +70,20 @@
       </p>
       <source>
         <![CDATA[ 
-dozer:  Trying to find configuration file: dozer.properties
-dozer:  Using URL [file:/C:/srcforge21X/dozer/config/dozer.properties] for global property configuration
-dozer:  Reading properties from URL [file:/C:/srcforge21X/dozer/config/dozer.properties]
-dozer:  Finished configuring global properties
-dozer:  Initializing a new instance of the dozer bean mapper.  Version: 4.0, Thread Name:main
-dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [mapInterfaceMapping.xml, dozerBeanMapping.xml]
-dozer:  Trying to find xml mapping file: mapInterfaceMapping.xml
-dozer:  Using URL [file:/C:/srcforge21X/dozer/mappings/mapInterfaceMapping.xml] to load custom xml mappings
-dozer:  Successfully loaded custom xml mappings from URL: [file:/C:/srcforge21X/dozer/mappings/mapInterfaceMapping.xml]
-dozer:  Trying to find xml mapping file: dozerBeanMapping.xml
-dozer:  Using URL [file:/C:/srcforge21X/dozer/mappings/dozerBeanMapping.xml] to load custom xml mappings
-dozer:  Successfully loaded custom xml mappings from URL: [file:/C:/srcforge21X/dozer/mappings/dozerBeanMapping.xml]         
+dozer:  Trying to find Dozer configuration file: dozer.properties
+dozer:  Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties] for Dozer global property configuration
+dozer:  Reading Dozer properties from URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties]
+dozer:  Finished configuring Dozer global properties
+dozer:  Initializing Dozer.  Version: 5.0, Thread Name:main
+dozer:  Dozer JMX MBean [net.sf.dozer.jmx:type=DozerStatisticsController] auto registered with the Platform MBean Server
+dozer:  Dozer JMX MBean [net.sf.dozer.jmx:type=DozerAdminController] auto registered with the Platform MBean Server
+dozer:  Initializing a new instance of the dozer bean mapper.
+dozer:  Initializing a new instance of the dozer bean mapper.
+dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [fieldAttributeMapping.xml]
+dozer:  Trying to find xml mapping file: fieldAttributeMapping.xml
+dozer:  Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml] to load custom xml mappings
+dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml]
+       
         ]]>
       </source>
     </section>
