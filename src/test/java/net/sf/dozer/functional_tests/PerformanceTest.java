@@ -44,7 +44,7 @@ public class PerformanceTest extends AbstractFunctionalTest {
   private static Log log = LogFactory.getLog(PerformanceTest.class);
   private static Mapper mapper;
 
-  private int numIters = 25000; // Set this attribute to 25000 to run performance regression
+  private int numIters = 1; // Set this attribute to 25000 to run performance regression
 
   @Override
   @Before
