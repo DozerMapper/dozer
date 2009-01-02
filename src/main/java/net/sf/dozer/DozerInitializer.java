@@ -94,8 +94,8 @@ public class DozerInitializer {
   // Auto register Dozer JMX mbeans for jdk 1.5 users
   private static void registerJMXBeans() throws MalformedObjectNameException, InstanceNotFoundException,
       MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
-    registerJMXBean("net.sf.dozer.util.mapping.jmx:type=DozerStatisticsController", new DozerStatisticsController());
-    registerJMXBean("net.sf.dozer.util.mapping.jmx:type=DozerAdminController", new DozerAdminController());
+    registerJMXBean("net.sf.dozer.jmx:type=DozerStatisticsController", new DozerStatisticsController());
+    registerJMXBean("net.sf.dozer.jmx:type=DozerAdminController", new DozerAdminController());
   }
 
   /*

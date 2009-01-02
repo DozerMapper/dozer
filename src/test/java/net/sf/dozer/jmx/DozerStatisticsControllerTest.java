@@ -52,7 +52,7 @@ public class DozerStatisticsControllerTest extends AbstractDozerTest {
     assertEquals(0, controller.getMappingSuccessCount());
     assertEquals(0, controller.getMappingFailureCount());
     assertEquals(0, controller.getMapperInstancesCount());
-    assertEquals(0, controller.getMappingOverallTime());
+    assertEquals(0, controller.getMappingOverallTimeInMillis());
     assertEquals(0, controller.getFieldMappingSuccessCount());
     assertEquals(0, controller.getFieldMappingFailureCount());
     assertEquals(0, controller.getFieldMappingFailureIgnoredCount());

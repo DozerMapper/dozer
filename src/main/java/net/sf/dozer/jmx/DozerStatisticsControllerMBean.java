@@ -17,34 +17,30 @@ package net.sf.dozer.jmx;
 
 import java.util.Set;
 
-import net.sf.dozer.stats.StatisticType;
-
 /**
  * Public Dozer JMX Bean interface
  * 
  * @author tierney.matt
  */
 public interface DozerStatisticsControllerMBean {
-  public double getMappingAverageTime();
+  public double getMappingAverageTimeInMillis();
   public long getMappingSuccessCount();
   public long getMappingFailureCount();
   public Set<String> getMappingFailureExceptionTypes();
   public Set<String> getMappingFailureTypes();
-  public long getMappingOverallTime();
+  public long getMappingOverallTimeInMillis();
   public Set<String> getCacheHitCount();
   public Set<String> getCacheMissCount();
   public long getMapperInstancesCount();
   public long getFieldMappingSuccessCount();
   public long getFieldMappingFailureCount();
   public long getFieldMappingFailureIgnoredCount();
-  public long getCustomConverterOverallTime();
+  public long getCustomConverterOverallTimeInMillis();
   public long getCustomConverterSuccessCount();
   public double getCustomConverterPercentageOfMappingTime();
-  public double getCustomConverterAverageTime();
+  public double getCustomConverterAverageTimeInMillis();
   public String dumpStatistics();
   public void clearAll();
-  public Set<String> getStatisticEntries(StatisticType statisticType);
-  public Set<StatisticType> getStatisticTypes();
   public boolean isStatisticsEnabled();
   public void setStatisticsEnabled(boolean statisticsEnabled);
   public void logStatistics();

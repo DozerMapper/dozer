@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.util.mapping.DozerBeanMapper;
-import net.sf.dozer.util.mapping.MapperIF;
+import net.sf.dozer.DozerBeanMapper;
+import net.sf.dozer.Mapper;
 import net.sf.dozer.util.MapperConstants;
-import net.sf.dozer.util.TestDataFactory;
+import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
+import net.sf.dozer.functional_tests.support.TestDataFactory;
 import net.sf.dozer.vo.ArrayCustConverterObj;
 import net.sf.dozer.vo.ArrayCustConverterObjPrime;
 import net.sf.dozer.vo.SimpleObj;
@@ -24,9 +25,9 @@ public class JMXTestEngine {
   }
 
   private static void performSomeMappings() {
-    List mappingFiles = new ArrayList();
+    List<String> mappingFiles = new ArrayList<String>();
     mappingFiles.add("dozerBeanMapping.xml");
-    MapperIF mapper = new DozerBeanMapper(mappingFiles);
+    Mapper mapper = new DozerBeanMapper(mappingFiles);
 
     try {
       mapper.map(new String("yo"), new String("y"));
@@ -42,18 +43,19 @@ public class JMXTestEngine {
     } catch (Throwable t) {
     }
 
-    TestObject to = TestDataFactory.getInputGeneralMappingTestObject();
-    TestObjectPrime prime = (TestObjectPrime) mapper.map(to, TestObjectPrime.class);
-    TestObject source = (TestObject) mapper.map(prime, TestObject.class);
+    TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
+    TestObject to = testDataFactory.getInputGeneralMappingTestObject();
+    TestObjectPrime prime = mapper.map(to, TestObjectPrime.class);
+    TestObject source = mapper.map(prime, TestObject.class);
     mapper.map(source, TestObjectPrime.class);
 
     int numIters = 4000;
     for (int i = 0; i < numIters; i++) {
-      SimpleObj src = (SimpleObj) TestDataFactory.getSimpleObj();
+      SimpleObj src = testDataFactory.getSimpleObj();
       mapper.map(src, SimpleObjPrime2.class);
     }
 
-    mappingFiles = new ArrayList();
+    mappingFiles = new ArrayList<String>();
     mappingFiles.add("arrayToStringCustomConverter.xml");
     mapper = new DozerBeanMapper(mappingFiles);
 
@@ -64,7 +66,7 @@ public class JMXTestEngine {
       ArrayCustConverterObj src = new ArrayCustConverterObj();
       src.setField1(new SimpleObj[] { simple });
 
-      ArrayCustConverterObjPrime dest = (ArrayCustConverterObjPrime) mapper.map(src, ArrayCustConverterObjPrime.class);
+      mapper.map(src, ArrayCustConverterObjPrime.class);
     }
   }
 }

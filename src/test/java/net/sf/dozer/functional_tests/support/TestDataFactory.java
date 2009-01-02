@@ -80,9 +80,6 @@ public class TestDataFactory {
     this.dataObjectInstantiator = dataObjectInstantiator;
   }
 
-  public TestDataFactory() {
-  }
-
   private <T> T newInstance(Class<T> classToInstantiate) {
     return dataObjectInstantiator.newInstance(classToInstantiate);
   }

@@ -1,5 +1,5 @@
 
-  1.  Add lib/JMXTestEngine to your dozer eclipse project src.  Doesn't matter where.  The java file doesnt have a package so it just needs to be in root
+  1.  Add misc/jmx-testengine/JMXTestEngine to your dozer eclipse project src.  Doesn't matter where.  The java file doesnt have a package so it just needs to be in root
   2.  Using jdk1.5, run JMXTestEngine with the following VM arg set --> -Dcom.sun.management.jmxremote
   3.  Open a dos window and run jconsole.  i.e) C:\Sun\AppServer\jdk\bin>jconsole
   4.  When jconsole opens, select the JMXTestEngine process and click connect.  Go to the mbeans tab and you should see the 2 dozer mbeans

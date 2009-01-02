@@ -56,7 +56,7 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     return getStatisticValue(StatisticType.MAPPER_INSTANCES_COUNT);
   }
 
-  public long getMappingOverallTime() {
+  public long getMappingOverallTimeInMillis() {
     return getStatisticValue(StatisticType.MAPPING_TIME);
   }
 
@@ -92,21 +92,17 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     return getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
   }
 
-  public long getCustomConverterOverallTime() {
+  public long getCustomConverterOverallTimeInMillis() {
     return getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
   }
 
-  public Set<StatisticType> getStatisticTypes() {
-    return statsMgr.getStatisticTypes();
-  }
-
-  public double getMappingAverageTime() {
+  public double getMappingAverageTimeInMillis() {
     double totalTime = getStatisticValue(StatisticType.MAPPING_TIME);
     double totalCount = getStatisticValue(StatisticType.MAPPING_SUCCESS_COUNT);
     return totalTime / totalCount;
   }
 
-  public double getCustomConverterAverageTime() {
+  public double getCustomConverterAverageTimeInMillis() {
     double totalTime = getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
     double totalCount = getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
     return totalTime / totalCount;
@@ -118,7 +114,7 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     return (ccTotalTime / overallTime) * 100;
   }
 
-  public Set<String> getStatisticEntries(StatisticType statisticType) {
+  protected Set<String> getStatisticEntries(StatisticType statisticType) {
     Set<String> result = new TreeSet<String>();
     if (statsMgr.statisticExists(statisticType)) {
       for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
