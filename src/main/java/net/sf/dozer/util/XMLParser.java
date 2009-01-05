@@ -300,7 +300,7 @@ public class XMLParser {
   private FieldMap determineFieldMap(ClassMap classMap, Element ele) {
     DozerField srcField = null;
     DozerField destField = null;
-    FieldMap result = null;
+    FieldMap result;
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -392,7 +392,7 @@ public class XMLParser {
   }
 
   private DozerField parseField(Element ele) {
-    DozerField rvalue = null;
+    DozerField rvalue;
     String type = null;
     String fieldName;
     String name = (ele.getFirstChild().getNodeValue().trim());

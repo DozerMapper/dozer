@@ -40,7 +40,7 @@ public class XMLBeanFactory implements BeanFactory {
    * @return A implementation of the destination interface
    */
   public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
-    Object result = null;
+    Object result;
     Class<?> destClass = MappingUtils.loadClass(beanId);
     Class<?>[] innerClasses = destClass.getClasses();
     Class<?> factory = null;

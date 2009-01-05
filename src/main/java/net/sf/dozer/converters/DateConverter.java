@@ -38,10 +38,10 @@ public class DateConverter implements Converter {
   }
 
   public Object convert(Class destClass, Object srcObj) {
-    Object result = null;
+    Object result;
 
     Class srcFieldClass = srcObj.getClass();
-    long time = -1;
+    long time;
     // Calendar to Date
     if (Calendar.class.isAssignableFrom(srcFieldClass)) {
       Calendar inVal = (Calendar) srcObj;
@@ -71,8 +71,8 @@ public class DateConverter implements Converter {
     }
 
     try {
-      Constructor constructor = destClass.getConstructor(new Class[] { Long.TYPE });
-      result = constructor.newInstance(new Object[] { new Long(time) });
+      Constructor constructor = destClass.getConstructor(Long.TYPE);
+      result = constructor.newInstance(new Long(time));
     } catch (Exception e) {
       throw new ConversionException(e);
     }

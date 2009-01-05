@@ -71,22 +71,22 @@ public class DozerEvent {
   public String toString() {
     StringBuffer sb = new StringBuffer();
     if (getClassMap() != null) {
-      sb.append("Type:" + type + "\n");
+      sb.append("Type:").append(type).append("\n");
     }
     if (getClassMap() != null) {
-      sb.append("ClassMap:" + getClassMap().toString() + "\n");
+      sb.append("ClassMap:").append(getClassMap().toString()).append("\n");
     }
     if (getFieldMap() != null) {
-      sb.append("FieldMap:" + getFieldMap().toString() + "\n");
+      sb.append("FieldMap:").append(getFieldMap().toString()).append("\n");
     }
     if (getSourceObject() != null) {
-      sb.append("SourceObject:" + getSourceObject().toString() + "\n");
+      sb.append("SourceObject:").append(getSourceObject().toString()).append("\n");
     }
     if (getDestinationObject() != null) {
-      sb.append("DestinationObject:" + getDestinationObject().toString() + "\n");
+      sb.append("DestinationObject:").append(getDestinationObject().toString()).append("\n");
     }
     if (getDestinationValue() != null) {
-      sb.append("DestinationValue:" + getDestinationValue().toString() + "\n");
+      sb.append("DestinationValue:").append(getDestinationValue().toString()).append("\n");
     }
     return sb.toString();
   }

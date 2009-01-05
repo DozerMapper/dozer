@@ -116,7 +116,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
 
     // Get the Statistic Entry object which contains the actual value.
     // If it doesnt aleady exist, create it so that it can be incremented
-    StatisticEntry statisticEntry = null;
+    StatisticEntry statisticEntry;
     statisticEntry = statistic.getEntry(statisticEntryKey);
     if (statisticEntry == null) {
       statisticEntry = new StatisticEntry(statisticEntryKey);

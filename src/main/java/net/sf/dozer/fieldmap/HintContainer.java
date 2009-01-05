@@ -37,7 +37,7 @@ public class HintContainer {
   private List<Class<?>> hints;
 
   public Class<?> getHint() {
-    Class<?> result = null;
+    Class<?> result;
     if (hasMoreThanOneHint()) {
       return null;
     } else {

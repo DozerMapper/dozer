@@ -40,7 +40,7 @@ public abstract class LogMsgFactory {
       srcClassName = srcObj.getClass().getName();
     }
 
-    String srcValueType = null;
+    String srcValueType;
     String srcFieldValueString = null;
     if (srcFieldValue != null) {
       srcValueType = srcFieldValue.getClass().toString();

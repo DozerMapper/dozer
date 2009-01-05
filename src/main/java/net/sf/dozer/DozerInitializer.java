@@ -73,7 +73,7 @@ public class DozerInitializer {
   }
 
   private static boolean areJMXMgmtClassesAvailable() {
-    boolean result = false;
+    boolean result;
 
     try {
       Class.forName("java.lang.management.ManagementFactory");
