@@ -79,8 +79,8 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
 
     if (this.mappingFiles != null) {
       final List<String> mappings = new ArrayList<String>(this.mappingFiles.length);
-      for (int i = 0; i < this.mappingFiles.length; i++) {
-        mappings.add(this.mappingFiles[i].getURL().toString());
+      for (Resource mappingFile : this.mappingFiles) {
+        mappings.add(mappingFile.getURL().toString());
       }
       this.beanMapper.setMappingFiles(mappings);
     }

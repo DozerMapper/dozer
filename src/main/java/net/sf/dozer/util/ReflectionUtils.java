@@ -139,8 +139,7 @@ public abstract class ReflectionUtils {
   private static Method findMethod(Class<?> clazz, String methodName) {
     Method[] methods = clazz.getMethods();
     Method result = null;
-    for (int i = 0; i < methods.length; i++) {
-      Method method = methods[i];
+    for (Method method : methods) {
       if (method.getName().equals(methodName)) {
         result = method;
       }
@@ -193,8 +192,7 @@ public abstract class ReflectionUtils {
     // PropertyUtils.getPropertyDescriptors() does not correctly walk the inheritance hierarchy for interfaces.
     Class<?>[] interfaces = interfaceClass.getInterfaces();
     if (interfaces != null) {
-      for (int i = 0; i < interfaces.length; i++) {
-        Class<?> superInterfaceClass = interfaces[i];
+      for (Class<?> superInterfaceClass : interfaces) {
         List<PropertyDescriptor> superInterfacePropertyDescriptors = Arrays.asList(getInterfacePropertyDescriptors(superInterfaceClass));
         /*
          * #1814758 
@@ -202,8 +200,7 @@ public abstract class ReflectionUtils {
          * to the result list.  This caused issues when getter and setter of an attribute on different interfaces in 
          * an inheritance hierarchy
          */
-        for (int j = 0; j < superInterfacePropertyDescriptors.size(); j++) {
-          PropertyDescriptor superPropDescriptor = superInterfacePropertyDescriptors.get(j);
+        for (PropertyDescriptor superPropDescriptor : superInterfacePropertyDescriptors) {
           PropertyDescriptor existingPropDescriptor = findPropDescriptorByName(propDescriptors, superPropDescriptor.getName());
           if (existingPropDescriptor == null) {
             propDescriptors.add(superPropDescriptor);

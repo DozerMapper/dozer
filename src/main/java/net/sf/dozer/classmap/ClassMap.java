@@ -135,8 +135,7 @@ public class ClassMap {
     FieldMap result = null;
 
     if (fieldMaps != null) {
-      for (int i = 0; i < fieldMaps.size(); i++) {
-        FieldMap fieldMap = fieldMaps.get(i);
+      for (FieldMap fieldMap : fieldMaps) {
         String fieldName = fieldMap.getSrcFieldName();
 
         if ((fieldName != null) && fieldName.equals(srcFieldName)) {

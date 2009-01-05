@@ -645,11 +645,9 @@ public class MappingProcessor implements Mapper {
       result.addAll((Collection<?>) field);
     }
     Object destValue;
-    for (Iterator<?> iterator = srcCollectionValue.iterator(); iterator.hasNext();) {
-      Object srcValue = iterator.next();
-
+    for (Object srcValue : srcCollectionValue) {
       if (destEntryType == null
-          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
+              || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         destEntryType = fieldMap.getDestHintType(srcValue.getClass());
       }
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
@@ -700,11 +698,9 @@ public class MappingProcessor implements Mapper {
 
     Object destValue;
     Class<?> prevDestEntryType = null;
-    for (Iterator<?> iterator = srcCollectionValue.iterator(); iterator.hasNext();) {
-      Object srcValue = iterator.next();
-
+    for (Object srcValue : srcCollectionValue) {
       if (destEntryType == null
-          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
+              || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         if (srcValue == null) {
           destEntryType = prevDestEntryType;
         } else {
@@ -746,8 +742,7 @@ public class MappingProcessor implements Mapper {
         iterator.remove();
       }
     }
-    for (Iterator<?> iterator = mappedElements.iterator(); iterator.hasNext();) {
-      Object object = iterator.next();
+    for (Object object : mappedElements) {
       if (!result.contains(object)) {
         result.add(object);
       }
@@ -875,11 +870,10 @@ public class MappingProcessor implements Mapper {
     Object converterInstance = null;
     // search our injected customconverters for a match
     if (customConverterObjects != null) {
-      for (int i = 0; i < customConverterObjects.size(); i++) {
-        Object customConverter = customConverterObjects.get(i);
-        if (customConverter.getClass().isAssignableFrom(customConverterClass)) {
+      for (CustomConverter customConverterObject : customConverterObjects) {
+        if (customConverterObject.getClass().isAssignableFrom(customConverterClass)) {
           // we have a match
-          converterInstance = customConverter;
+          converterInstance = customConverterObject;
         }
       }
     }
@@ -948,8 +942,7 @@ public class MappingProcessor implements Mapper {
 
   private List<String> processSuperTypeMapping(Collection<ClassMap> superClasses, Object srcObj, Object destObj, String mapId) {
     List<String> mappedFields = new ArrayList<String>();
-    for (Iterator<ClassMap> iterator = superClasses.iterator(); iterator.hasNext();) {
-      ClassMap map = iterator.next();
+    for (ClassMap map : superClasses) {
       map(map, srcObj, destObj, true, mapId);
       for (FieldMap fieldMapping : map.getFieldMaps()) {
         String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());

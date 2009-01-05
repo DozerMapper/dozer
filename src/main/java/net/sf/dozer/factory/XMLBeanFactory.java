@@ -44,9 +44,9 @@ public class XMLBeanFactory implements BeanFactory {
     Class<?> destClass = MappingUtils.loadClass(beanId);
     Class<?>[] innerClasses = destClass.getClasses();
     Class<?> factory = null;
-    for (int i = 0; i < innerClasses.length; i++) {
-      if (innerClasses[i].getName().endsWith("Factory")) {
-        factory = innerClasses[i];
+    for (Class<?> innerClass : innerClasses) {
+      if (innerClass.getName().endsWith("Factory")) {
+        factory = innerClass;
       }
     }
     if (factory == null) {

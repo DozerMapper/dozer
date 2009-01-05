@@ -80,8 +80,7 @@ public abstract class ClassMapBuilder {
     }
 
     PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(destClass);
-    for (int i = 0; i < destProperties.length; i++) {
-      PropertyDescriptor destPropertyDescriptor = destProperties[i];
+    for (PropertyDescriptor destPropertyDescriptor : destProperties) {
       String destFieldName = destPropertyDescriptor.getName();
 
       // If field has already been accounted for, then skip
@@ -136,14 +135,14 @@ public abstract class ClassMapBuilder {
       return;
     }
 
-    for (int i = 0; i < properties.length; i++) {
-      String fieldName = properties[i].getName();
+    for (PropertyDescriptor property : properties) {
+      String fieldName = property.getName();
       if (CLASS.equals(fieldName)) {
         continue;
       }
 
       if ((CALLBACK.equals(fieldName) || CALLBACKS.equals(fieldName))
-          && (MappingUtils.isProxy(destClass) || MappingUtils.isProxy(srcClass))) {
+              && (MappingUtils.isProxy(destClass) || MappingUtils.isProxy(srcClass))) {
         continue;
       }
 
@@ -169,7 +168,7 @@ public abstract class ClassMapBuilder {
       srcField.setKey(fieldName);
 
       if (StringUtils.isNotEmpty(classMap.getDestClassMapGetMethod())
-          || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
+              || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
         destField.setMapGetMethod(classMap.getDestClassMapGetMethod());
         destField.setMapSetMethod(classMap.getDestClassMapSetMethod());
         destField.setName(DozerConstants.SELF_KEYWORD);

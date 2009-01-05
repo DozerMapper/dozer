@@ -40,7 +40,6 @@ public class DozerCache implements Cache {
 
   // Via LRUMap implementation, order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
   private Map<Object, Object> cacheMap;
-  private long maximumSize;
   private long hitCount;
   private long missCount;
 
@@ -51,8 +50,7 @@ public class DozerCache implements Cache {
       throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
     }
     this.name = name;
-    this.maximumSize = maximumSize;
-    this.cacheMap = new LRUMap(maximumSize);
+    this.cacheMap = new LRUMap(maximumSize) ;
   }
 
   public void clear() {
@@ -96,7 +94,7 @@ public class DozerCache implements Cache {
   }
 
   public long getMaxSize() {
-    return maximumSize;
+    return ((LRUMap) cacheMap).maxSize();
   }
 
   public long getHitCount() {
@@ -110,18 +108,6 @@ public class DozerCache implements Cache {
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
-  
-  private class ConcurrentCacheMap extends LinkedHashMap {
-    private int maxSize;
-    
-    protected ConcurrentCacheMap(int maxSize) {
-      this.maxSize = maxSize;  
-    }
-    
-    protected boolean removeEldestEntry(Map.Entry eldest) {
-      return size() > maxSize;
-   }
   }
 
 }

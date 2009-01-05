@@ -111,9 +111,9 @@ public class ClassMappings {
       }
     }
 
-    for (int i = 0; i < srcInterfaces.length; i++) {
+    for (Class<?> srcInterface : srcInterfaces) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcInterfaces[i], destClass));
+      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcInterface, destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
