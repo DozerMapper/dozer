@@ -27,7 +27,7 @@ import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.config.GlobalSettings;
 import net.sf.dozer.converters.CustomConverter;
 import net.sf.dozer.event.DozerEventListener;
-import net.sf.dozer.interceptor.StatisticsInterceptor;
+import net.sf.dozer.stats.StatisticsInterceptor;
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
