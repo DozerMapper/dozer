@@ -49,7 +49,7 @@ public class MappingFileReader {
     MappingFileData result = null;
     InputStream stream = null;
     try {
-      XMLParser parser = new XMLParser();
+      XMLParser parser = new XMLParser(); // TODO DOM Parser should be created once
       stream = url.openStream();
       result = parser.parse(stream);
     } catch (Throwable e) {

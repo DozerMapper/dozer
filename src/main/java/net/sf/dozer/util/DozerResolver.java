@@ -23,12 +23,11 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
 /**
- * Internal EntityResolver implementation for the dozer mappings DTD, to load the DTD from the dozer classpath resp. JAR
- * file.
+ * Internal EntityResolver implementation to load Xml Schema from the dozer classpath resp. JAR file.
  * 
  * <p>
- * Fetches "dozerbeanmapping.dtd" from the classpath resource "/dozerbeanmapping.dtd", no matter if specified as some
- * local URL or as "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd".
+ * Fetches "beanmapping.xsd" from the classpath resource "/beanmapping.xsd", no matter if specified as some
+ * local URL or as "http://dozer.sourceforge.net/schema/beanmapping.xsd".
  * 
  * @author garsombke.franz
  */
@@ -38,18 +37,18 @@ public class DozerResolver implements EntityResolver {
 
   public InputSource resolveEntity(String publicId, String systemId) {
     log.debug("Trying to resolve XML entity with public ID [" + publicId + "] and system ID [" + systemId + "]");
-    if (systemId != null && systemId.indexOf(DozerConstants.DTD_NAME) > systemId.lastIndexOf("/")) {
-      String dtdFile = systemId.substring(systemId.indexOf(DozerConstants.DTD_NAME));
-      log.debug("Trying to locate [" + dtdFile + "] in classpath");
+    if (systemId != null && systemId.indexOf(DozerConstants.XSD_NAME) > systemId.lastIndexOf("/")) {
+      String fileName = systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME));
+      log.debug("Trying to locate [" + fileName + "] in classpath");
       try {
-        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(dtdFile);
+        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
         InputSource source = new InputSource(stream);
         source.setPublicId(publicId);
         source.setSystemId(systemId);
-        log.debug("Found dozerbeanmapping DTD [" + systemId + "] in classpath");
+        log.debug("Found beanmapping XML Schema [" + systemId + "] in classpath");
         return source;
       } catch (Exception ex) {
-        log.error("Could not resolve beans DTD [" + systemId + "]: not found in classpath", ex);
+        log.error("Could not resolve beansmapping XML Schema [" + systemId + "]: not found in classpath", ex);
       }
     }
     // use the default behaviour -> download from website or wherever

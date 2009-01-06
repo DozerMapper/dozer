@@ -136,9 +136,9 @@
   <build>
     <resources>
       <resource>
-        <directory>src/site/resources/dtd</directory>
+        <directory>src/site/resources/schema</directory>
         <includes>
-          <include>dozerbeanmapping.dtd</include>
+          <include>beanmapping.xsd</include>
         </includes>
       </resource>
     </resources>
@@ -150,7 +150,7 @@
         <directory>src/test/resources</directory>
       </testResource>
       <testResource>
-        <directory>src/site/resources/dtd</directory>
+        <directory>src/site/resources/schema</directory>
       </testResource>
     </testResources>
 

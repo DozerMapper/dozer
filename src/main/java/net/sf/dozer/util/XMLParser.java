@@ -15,31 +15,10 @@
  */
 package net.sf.dozer.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import net.sf.dozer.classmap.AllowedExceptionContainer;
-import net.sf.dozer.classmap.ClassMap;
-import net.sf.dozer.classmap.Configuration;
-import net.sf.dozer.classmap.CopyByReference;
-import net.sf.dozer.classmap.CopyByReferenceContainer;
-import net.sf.dozer.classmap.DozerClass;
-import net.sf.dozer.classmap.MappingFileData;
-import net.sf.dozer.classmap.RelationshipType;
+import net.sf.dozer.classmap.*;
 import net.sf.dozer.converters.CustomConverterContainer;
 import net.sf.dozer.converters.CustomConverterDescription;
-import net.sf.dozer.fieldmap.CustomGetSetMethodFieldMap;
-import net.sf.dozer.fieldmap.DozerField;
-import net.sf.dozer.fieldmap.ExcludeFieldMap;
-import net.sf.dozer.fieldmap.FieldMap;
-import net.sf.dozer.fieldmap.GenericFieldMap;
-import net.sf.dozer.fieldmap.HintContainer;
-import net.sf.dozer.fieldmap.MapFieldMap;
-
+import net.sf.dozer.fieldmap.*;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -48,14 +27,28 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.w3c.dom.ls.LSInput;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.XMLConstants;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Schema;
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 /**
  * Internal class that parses a raw custom xml mapping file into raw ClassMap objects. Only intended for internal use.
- * 
+ *
  * @author garsombke.franz
  * @author johnsen.knut-erik
  */
@@ -114,7 +107,7 @@ public class XMLParser {
   private final MappingFileData mappings = new MappingFileData();
 
   public MappingFileData parse(InputStream inputSource) throws SAXException, ParserConfigurationException, IOException,
-      ClassNotFoundException {
+          ClassNotFoundException {
     DocumentBuilderFactory factory = createDocumentBuilderFactory();
     DocumentBuilder builder = createDocumentBuilder(factory);
     Document document = builder.parse(inputSource);
@@ -289,7 +282,7 @@ public class XMLParser {
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE))) {
       fm.setCustomConverterId(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE));
     }
-    
+
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_PARAM_ATTRIBUTE))) {
       fm.setCustomConverterParam(ele.getAttribute(CUSTOM_CONVERTER_PARAM_ATTRIBUTE));
     }
@@ -317,7 +310,7 @@ public class XMLParser {
     }
 
     if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField()
-        || classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
+            || classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
       result = new MapFieldMap(classMap);
     } else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
       result = new CustomGetSetMethodFieldMap(classMap);
@@ -529,13 +522,14 @@ public class XMLParser {
         }
 
         if (COPY_BY_REFERENCE.equals(element.getNodeName())) {
-            String typeMask = element.getFirstChild().getNodeValue().trim();
-            CopyByReference copyByReference = new CopyByReference(typeMask);
-            container.add(copyByReference);
+          String typeMask = element.getFirstChild().getNodeValue().trim();
+          CopyByReference copyByReference = new CopyByReference(typeMask);
+          container.add(copyByReference);
         }
       }
     }
   }
+
   @SuppressWarnings("unchecked")
   private void parseAllowedExceptions(Element ele, Configuration config) {
     AllowedExceptionContainer container = new AllowedExceptionContainer();
@@ -555,7 +549,7 @@ public class XMLParser {
           Class<?> ex = MappingUtils.loadClass(element.getFirstChild().getNodeValue());
           if (!RuntimeException.class.isAssignableFrom(ex)) {
             MappingUtils.throwMappingException("allowed-exception Class must extend RuntimeException: "
-                + element.getFirstChild().getNodeValue());
+                    + element.getFirstChild().getNodeValue());
           }
           container.getExceptions().add((Class<RuntimeException>) ex);
         }
@@ -566,32 +560,28 @@ public class XMLParser {
   /**
    * Create a JAXP DocumentBuilderFactory that this bean definition reader will use for parsing XML documents. Can be
    * overridden in subclasses, adding further initialization of the factory.
-   * 
+   *
    * @return the JAXP DocumentBuilderFactory
-   * @throws ParserConfigurationException
-   *           if thrown by JAXP methods
+   * @throws ParserConfigurationException if thrown by JAXP methods
    */
-  protected DocumentBuilderFactory createDocumentBuilderFactory() {
-
+  protected DocumentBuilderFactory createDocumentBuilderFactory()  {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setValidating(true);
-    factory.setNamespaceAware(false);
+    factory.setNamespaceAware(true);
     factory.setIgnoringElementContentWhitespace(true);
+    factory.setAttribute("http://apache.org/xml/features/validation/schema", true); // For Xerces implementation
     return factory;
   }
 
   /**
    * Create a JAXP DocumentBuilder that this bean definition reader will use for parsing XML documents. Can be
    * overridden in subclasses, adding further initialization of the builder.
-   * 
-   * @param factory
-   *          the JAXP DocumentBuilderFactory that the DocumentBuilder should be created with
+   *
+   * @param factory the JAXP DocumentBuilderFactory that the DocumentBuilder should be created with
    * @return the JAXP DocumentBuilder
-   * @throws ParserConfigurationException
-   *           if thrown by JAXP methods
+   * @throws ParserConfigurationException if thrown by JAXP methods
    */
   protected DocumentBuilder createDocumentBuilder(DocumentBuilderFactory factory) throws ParserConfigurationException {
-
     DocumentBuilder docBuilder = factory.newDocumentBuilder();
     docBuilder.setErrorHandler(new DozerDefaultHandler());
     docBuilder.setEntityResolver(new DozerResolver());
@@ -626,7 +616,8 @@ public class XMLParser {
 
     private String getMessage(String level, SAXParseException e) {
       return ("Parsing " + level + "\n" + "Line:    " + e.getLineNumber() + "\n" + "URI:     " + e.getSystemId() + "\n"
-          + "Message: " + e.getMessage());
+              + "Message: " + e.getMessage());
     }
   }
+
 }

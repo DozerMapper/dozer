@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
-   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd" [
-   <!ENTITY inheritanceBug "net.sf.dozer.vo.inheritance.cc.InheritanceBugConverter">
-]>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-<mappings>
 	<configuration>
 		<stop-on-errors>true</stop-on-errors>
 		<date-format>dd/MM/yyyy HH:mm</date-format>
@@ -14,7 +12,7 @@
 	 <mapping>
 		<class-a>net.sf.dozer.vo.inheritance.cc.X</class-a>
 		<class-b>net.sf.dozer.vo.inheritance.cc.A</class-b>
-		<field custom-converter="&inheritanceBug;">
+		<field custom-converter="net.sf.dozer.vo.inheritance.cc.InheritanceBugConverter">
 			<a>test</a>
 			<b>test</b>
 		</field>
