@@ -60,7 +60,7 @@ public class MappingFileReader {
       XMLParser parser = new XMLParser();
       result = parser.parse(document);
     } catch (Throwable e) {
-      log.error("Error in loading dozer mapping file url: [" + url + "] : " + e);
+      log.error("Error while loading dozer mapping file url: [" + url + "] : " + e);
       MappingUtils.throwMappingException(e);
     } finally {
       try {
