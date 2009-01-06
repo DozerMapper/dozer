@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util;
+package net.sf.dozer.loader.xml;
 
 import net.sf.dozer.classmap.*;
 import net.sf.dozer.converters.CustomConverterContainer;
 import net.sf.dozer.converters.CustomConverterDescription;
 import net.sf.dozer.fieldmap.*;
+import net.sf.dozer.util.DozerConstants;
+import net.sf.dozer.util.MappingUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -27,30 +29,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.ls.LSResourceResolver;
-import org.w3c.dom.ls.LSInput;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.XMLConstants;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Schema;
-import javax.xml.transform.stream.StreamSource;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 /**
  * Internal class that parses a raw custom xml mapping file into raw ClassMap objects. Only intended for internal use.
  *
  * @author garsombke.franz
  * @author johnsen.knut-erik
+ * @author dmitry.buzdin
  */
 public class XMLParser {
 
@@ -106,11 +98,7 @@ public class XMLParser {
 
   private final MappingFileData mappings = new MappingFileData();
 
-  public MappingFileData parse(InputStream inputSource) throws SAXException, ParserConfigurationException, IOException,
-          ClassNotFoundException {
-    DocumentBuilderFactory factory = createDocumentBuilderFactory();
-    DocumentBuilder builder = createDocumentBuilder(factory);
-    Document document = builder.parse(inputSource);
+  public MappingFileData parse(Document document) {
     Element theRoot = document.getDocumentElement();
     NodeList nl = theRoot.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
@@ -554,69 +542,6 @@ public class XMLParser {
           container.getExceptions().add((Class<RuntimeException>) ex);
         }
       }
-    }
-  }
-
-  /**
-   * Create a JAXP DocumentBuilderFactory that this bean definition reader will use for parsing XML documents. Can be
-   * overridden in subclasses, adding further initialization of the factory.
-   *
-   * @return the JAXP DocumentBuilderFactory
-   * @throws ParserConfigurationException if thrown by JAXP methods
-   */
-  protected DocumentBuilderFactory createDocumentBuilderFactory()  {
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    factory.setValidating(true);
-    factory.setNamespaceAware(true);
-    factory.setIgnoringElementContentWhitespace(true);
-    factory.setAttribute("http://apache.org/xml/features/validation/schema", true); // For Xerces implementation
-    return factory;
-  }
-
-  /**
-   * Create a JAXP DocumentBuilder that this bean definition reader will use for parsing XML documents. Can be
-   * overridden in subclasses, adding further initialization of the builder.
-   *
-   * @param factory the JAXP DocumentBuilderFactory that the DocumentBuilder should be created with
-   * @return the JAXP DocumentBuilder
-   * @throws ParserConfigurationException if thrown by JAXP methods
-   */
-  protected DocumentBuilder createDocumentBuilder(DocumentBuilderFactory factory) throws ParserConfigurationException {
-    DocumentBuilder docBuilder = factory.newDocumentBuilder();
-    docBuilder.setErrorHandler(new DozerDefaultHandler());
-    docBuilder.setEntityResolver(new DozerResolver());
-    return docBuilder;
-  }
-
-  private static class DozerDefaultHandler extends DefaultHandler {
-    private static final Log log = LogFactory.getLog(DozerDefaultHandler.class);
-
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-      if (log.isDebugEnabled()) {
-        log.debug("tag: " + qName);
-      }
-    }
-
-    @Override
-    public void warning(SAXParseException e) throws SAXException {
-      // you can choose not to handle it
-      throw new SAXException(getMessage("Warning", e));
-    }
-
-    @Override
-    public void error(SAXParseException e) throws SAXException {
-      throw new SAXException(getMessage("Error", e));
-    }
-
-    @Override
-    public void fatalError(SAXParseException e) throws SAXException {
-      throw new SAXException(getMessage("Fatal Error", e));
-    }
-
-    private String getMessage(String level, SAXParseException e) {
-      return ("Parsing " + level + "\n" + "Line:    " + e.getLineNumber() + "\n" + "URI:     " + e.getSystemId() + "\n"
-              + "Message: " + e.getMessage());
     }
   }
 

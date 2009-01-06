@@ -32,6 +32,8 @@ import java.util.Vector;
 
 import net.sf.dozer.AbstractDozerTest;
 import net.sf.dozer.MappingException;
+import net.sf.dozer.loader.xml.MappingFileReader;
+import net.sf.dozer.loader.xml.XMLParserFactory;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.MappingFileData;
 import net.sf.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
@@ -57,14 +59,12 @@ public class MappingUtilsTest extends AbstractDozerTest {
 
   @Test
   public void testOverridenFields() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader("overridemapping.xml");
-    MappingFileData mappingFileData = fileReader.read();
+    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
+    MappingFileData mappingFileData = fileReader.read("overridemapping.xml");
     MappingsParser mappingsParser = MappingsParser.getInstance();
     mappingsParser.processMappings(mappingFileData.getClassMaps(), mappingFileData.getConfiguration());
     // validate class mappings
-    Iterator<?> iter = mappingFileData.getClassMaps().iterator();
-    while (iter.hasNext()) {
-      ClassMap classMap = (ClassMap) iter.next();
+    for (ClassMap classMap : mappingFileData.getClassMaps()) {
       if (classMap.getSrcClassToMap().getName().equals("net.sf.dozer.util.mapping.vo.FurtherTestObject")) {
         assertTrue(classMap.isStopOnErrors());
       }

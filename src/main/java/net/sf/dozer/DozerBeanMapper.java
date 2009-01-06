@@ -31,7 +31,7 @@ import net.sf.dozer.stats.StatisticsInterceptor;
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticType;
 import net.sf.dozer.stats.StatisticsManager;
-import net.sf.dozer.util.CustomMappingsLoader;
+import net.sf.dozer.loader.CustomMappingsLoader;
 import net.sf.dozer.util.InitLogger;
 import net.sf.dozer.util.LoadMappingsResult;
 import net.sf.dozer.util.MappingUtils;

@@ -13,12 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
+package net.sf.dozer.loader;
 
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.ClassMappings;
@@ -26,10 +21,23 @@ import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.MappingFileData;
 import net.sf.dozer.converters.CustomConverterContainer;
 import net.sf.dozer.converters.CustomConverterDescription;
-
+import net.sf.dozer.loader.xml.MappingFileReader;
+import net.sf.dozer.loader.xml.XMLParserFactory;
+import net.sf.dozer.util.ClassMapBuilder;
+import net.sf.dozer.util.DozerConstants;
+import net.sf.dozer.util.InitLogger;
+import net.sf.dozer.util.LoadMappingsResult;
+import net.sf.dozer.util.MappingUtils;
+import net.sf.dozer.util.MappingValidator;
+import net.sf.dozer.util.MappingsParser;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned
@@ -44,6 +52,7 @@ public class CustomMappingsLoader {
   private static final Log log = LogFactory.getLog(CustomMappingsLoader.class);
 
   private static final MappingsParser mappingsParser = MappingsParser.getInstance();
+  private final MappingFileReader mappingFileReader = new MappingFileReader(XMLParserFactory.getInstance());
 
   public LoadMappingsResult load(List<String> mappingFiles) {
     ClassMappings customMappings = new ClassMappings();
@@ -56,8 +65,7 @@ public class CustomMappingsLoader {
         InitLogger.log(log, "Trying to find xml mapping file: " + mappingFileName);
         URL url = MappingValidator.validateURL(DozerConstants.DEFAULT_PATH_ROOT + mappingFileName);
         InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
-        MappingFileReader mappingFileReader = new MappingFileReader(url);
-        MappingFileData mappingFileData = mappingFileReader.read();
+        MappingFileData mappingFileData = mappingFileReader.read(url);
         InitLogger.log(log, "Successfully loaded custom xml mappings from URL: [" + url + "]");
 
         if (mappingFileData.getConfiguration() != null) {

@@ -1,4 +1,4 @@
-package net.sf.dozer.util;
+package net.sf.dozer.loader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -8,6 +8,8 @@ import static org.junit.Assert.fail;
 import java.util.Arrays;
 
 import net.sf.dozer.MappingException;
+import net.sf.dozer.util.LoadMappingsResult;
+import net.sf.dozer.loader.CustomMappingsLoader;
 import net.sf.dozer.functional_tests.support.SampleDefaultBeanFactory;
 
 import org.junit.Test;

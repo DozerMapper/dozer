@@ -13,45 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util;
+package net.sf.dozer.loader.xml;
 
+import net.sf.dozer.classmap.MappingFileData;
+import net.sf.dozer.util.MappingUtils;
+import net.sf.dozer.util.ResourceLoader;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import net.sf.dozer.classmap.MappingFileData;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * Internal class that reads and parses a single custom mapping xml file into raw ClassMap objects. Only intended for
  * internal use.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class MappingFileReader {
+
   private static final Log log = LogFactory.getLog(MappingFileReader.class);
 
-  private final URL url;
+  private final DocumentBuilder documentBuilder;
 
-  public MappingFileReader(URL url) {
-    this.url = url;
+  public MappingFileReader(XMLParserFactory parserFactory) {
+    documentBuilder = parserFactory.createParser();
   }
 
-  public MappingFileReader(String fileName) {
+  public MappingFileData read(String fileName) {
     ResourceLoader loader = new ResourceLoader();
-    url = loader.getResource(fileName);
+    URL url = loader.getResource(fileName);
+    return read(url);
   }
 
-  public MappingFileData read() {
+  public MappingFileData read(URL url) {
     MappingFileData result = null;
     InputStream stream = null;
     try {
-      XMLParser parser = new XMLParser(); // TODO DOM Parser should be created once
       stream = url.openStream();
-      result = parser.parse(stream);
+      Document document = documentBuilder.parse(stream);
+      
+      XMLParser parser = new XMLParser();
+      result = parser.parse(document);
     } catch (Throwable e) {
       log.error("Error in loading dozer mapping file url: [" + url + "] : " + e);
       MappingUtils.throwMappingException(e);

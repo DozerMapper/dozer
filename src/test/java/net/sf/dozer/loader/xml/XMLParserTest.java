@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.sf.dozer.util;
+package net.sf.dozer.loader.xml;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,11 +22,14 @@ import java.net.URL;
 import java.util.List;
 
 import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.util.ResourceLoader;
+import net.sf.dozer.loader.xml.XMLParser;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.MappingFileData;
 import net.sf.dozer.fieldmap.FieldMap;
 
 import org.junit.Test;
+import org.w3c.dom.Document;
 
 /**
  * @author garsombke.franz
@@ -41,7 +44,8 @@ public class XMLParserTest extends AbstractDozerTest {
     ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");
 
-    MappingFileData mappings = parser.parse(url.openStream());
+    Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
+    MappingFileData mappings = parser.parse(document);
     assertNotNull(mappings);
   }
 
@@ -54,7 +58,8 @@ public class XMLParserTest extends AbstractDozerTest {
     ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("fieldCustomConverterParam.xml");
 
-    MappingFileData mappings = parser.parse(url.openStream());
+    Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
+    MappingFileData mappings = parser.parse(document);
 
     assertNotNull("The mappings should not be null", mappings);
 

@@ -20,6 +20,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.loader.xml.MappingFileReader;
+import net.sf.dozer.loader.xml.XMLParserFactory;
 import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
 import net.sf.dozer.classmap.MappingFileData;
@@ -42,8 +44,8 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   @Test
   public void testDuplicateMapIds() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader("duplicateMapIdsMapping.xml");
-    MappingFileData mappingFileData = fileReader.read();
+    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
+    MappingFileData mappingFileData = fileReader.read("duplicateMapIdsMapping.xml");
 
     try {
       parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
@@ -55,8 +57,8 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   @Test
   public void testDetectDuplicateMapping() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader("duplicateMapping.xml");
-    MappingFileData mappingFileData = fileReader.read();
+    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
+    MappingFileData mappingFileData = fileReader.read("duplicateMapping.xml");
     try {
       parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
       fail("should have thrown exception");
