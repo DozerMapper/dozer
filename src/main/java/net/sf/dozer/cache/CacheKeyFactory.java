@@ -55,10 +55,7 @@ public final class CacheKeyFactory {
     }
 
     @Override
-    public boolean equals(Object o) {
-      if (this == o)
-        return true;
-
+    public boolean equals(Object o) {      
       CacheKey cacheKey = (CacheKey) o;
 
       if (destClass != null ? !destClass.equals(cacheKey.destClass) : cacheKey.destClass != null)

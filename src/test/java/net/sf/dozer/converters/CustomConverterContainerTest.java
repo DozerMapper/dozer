@@ -23,26 +23,88 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.dozer.AbstractDozerTest;
+import net.sf.dozer.cache.DozerCache;
+import net.sf.dozer.cache.CacheKeyFactory;
 
 import org.junit.Test;
+import org.junit.Before;
 
 /**
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
 public class CustomConverterContainerTest extends AbstractDozerTest {
 
+  private CustomConverterContainer ccc;
+  private DozerCache cache;
+  private List<CustomConverterDescription> converters;
+
+  @Before
+  public void setUp() throws Exception {
+    ccc = new CustomConverterContainer();
+    cache = new DozerCache("NAME", 10);
+    converters = new ArrayList<CustomConverterDescription>();
+    ccc.setConverters(converters);
+  }
+
   @Test
   public void testSetConverters() throws Exception {
-    CustomConverterContainer ccc = new CustomConverterContainer();
-    List<CustomConverterDescription> list = new ArrayList<CustomConverterDescription>();
-    CustomConverterDescription ccd = new CustomConverterDescription();
-    list.add(ccd);
-
-    ccc.setConverters(list);
+    CustomConverterDescription description = new CustomConverterDescription();
+    converters.add(description);
+    ccc.setConverters(converters);
 
     assertNotNull(ccc.getConverters());
-    assertTrue(ccc.getConverters().size() == list.size());
-    assertEquals(ccc.getConverters().get(0), list.get(0));
+    assertTrue(ccc.getConverters().size() == converters.size());
+    assertEquals(ccc.getConverters().get(0), converters.get(0));
+  }
+
+  @Test
+  public void testGetCustomConverter_Cached() {
+    CustomConverterDescription description = new CustomConverterDescription();
+    converters.add(description);
+    cache.put(CacheKeyFactory.createKey(String.class, Integer.class), Object.class);
+
+    Class result;
+
+    result = ccc.getCustomConverter(Integer.class, String.class, cache);
+    assertEquals(Object.class, result);
+  }
+
+  @Test
+  public void testGetCustomConverter_NotCached() {
+    CustomConverterDescription description = new CustomConverterDescription();
+    description.setClassA(String.class);
+    description.setClassB(Integer.class);
+    description.setType(Void.class);
+    converters.add(description);
+
+    Class result;
+
+    result = ccc.getCustomConverter(String.class, Integer.TYPE, cache);
+    assertEquals(Void.class, result);
+
+    result = ccc.getCustomConverter(String.class, Integer.class, cache);
+    assertEquals(Void.class, result);
+  }
+
+  @Test
+  public void testGetCustomConverter_Miss() {
+    cache.put(CacheKeyFactory.createKey(String.class, Integer.class), Object.class);
+
+    Class result;
+
+    result = ccc.getCustomConverter(Integer.class, Double.class, cache);
+    assertEquals(null, result);
+
+    result = ccc.getCustomConverter(Double.class, String.class, cache);
+    assertEquals(null, result);
+  }
+
+  @Test
+  public void testGetCustomConverter_IsEmpty() {
+    converters.clear();
+    Class result = ccc.getCustomConverter(Integer.class, Double.class, cache);
+    assertEquals(null, result);
   }
 
 }

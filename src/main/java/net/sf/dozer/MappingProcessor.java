@@ -58,11 +58,12 @@ import net.sf.dozer.util.ClassMapBuilder;
 import net.sf.dozer.util.CollectionUtils;
 import net.sf.dozer.util.DateFormatContainer;
 import net.sf.dozer.util.DestBeanCreator;
-import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.LogMsgFactory;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.MappingValidator;
 import net.sf.dozer.util.ReflectionUtils;
+
+import static net.sf.dozer.util.DozerConstants.*;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.collections.set.ListOrderedSet;
@@ -96,8 +97,6 @@ public class MappingProcessor implements Mapper {
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
-
-  private static final String BASE_CLASS = "java.lang.Object"; // TODO Move to Constants
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
       StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
@@ -241,7 +240,7 @@ public class MappingProcessor implements Mapper {
       }
 
       if (!fieldMapped) {
-        if (fieldMapping.getDestFieldType() != null && fieldMapping.getDestFieldType().equals(DozerConstants.ITERATE)) {
+        if (fieldMapping.getDestFieldType() != null && fieldMapping.getDestFieldType().equals(ITERATE)) {
           // special logic for iterate feature
           mapFromIterateMethodFieldMap(srcObj, destObj, srcFieldValue, fieldMapping);
         } else {

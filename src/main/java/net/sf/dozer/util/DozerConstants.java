@@ -59,6 +59,7 @@ public final class DozerConstants {
   public static final String SELF_KEYWORD = "this";
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
   public static final String JAVASSIST_ID = "$$_javassist";
+  public static final String BASE_CLASS = "java.lang.Object";
   public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.getName();
 
 }

@@ -34,6 +34,7 @@ import org.apache.commons.beanutils.converters.CharacterConverter;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
+import org.apache.commons.lang.ClassUtils;
 
 /**
  * Internal class for converting between wrapper types(including primitives). Only intended for internal use.
@@ -45,22 +46,10 @@ import org.apache.commons.beanutils.converters.ShortConverter;
  */
 public class PrimitiveOrWrapperConverter {
 
-  private static final Map PRIMITIVE_TYPE_MAP = new HashMap();
-  private static final Map CONVERTER_MAP = new HashMap();
+  private static final Map CONVERTER_MAP = new HashMap(10);
   private static final Converter DEFAULT_CONVERTER = new StringConstructorConverter();
 
   static {
-    // Set up PRIMITIVE_TYPE_MAP:
-    PRIMITIVE_TYPE_MAP.put(Boolean.TYPE, Boolean.class);
-    PRIMITIVE_TYPE_MAP.put(Character.TYPE, Character.class);
-    PRIMITIVE_TYPE_MAP.put(Short.TYPE, Short.class);
-    PRIMITIVE_TYPE_MAP.put(Byte.TYPE, Byte.class);
-    PRIMITIVE_TYPE_MAP.put(Integer.TYPE, Integer.class);
-    PRIMITIVE_TYPE_MAP.put(Long.TYPE, Long.class);
-    PRIMITIVE_TYPE_MAP.put(Float.TYPE, Float.class);
-    PRIMITIVE_TYPE_MAP.put(Double.TYPE, Double.class);
-
-    // Set up CONVERTER_MAP:
     CONVERTER_MAP.put(Integer.class, new IntegerConverter());
     CONVERTER_MAP.put(Double.class, new DoubleConverter());
     CONVERTER_MAP.put(Short.class, new ShortConverter());
@@ -90,7 +79,7 @@ public class PrimitiveOrWrapperConverter {
       return new StringConverter(dateFormatContainer);
     }
 
-    Converter result = (Converter) CONVERTER_MAP.get(destClass.isPrimitive() ? wrapPrimitive(destClass) : destClass);
+    Converter result = (Converter) CONVERTER_MAP.get(ClassUtils.primitiveToWrapper(destClass));
 
     if (result == null) {
       if (java.util.Date.class.isAssignableFrom(destClass)) {
@@ -101,10 +90,6 @@ public class PrimitiveOrWrapperConverter {
       }
     }
     return result == null ? DEFAULT_CONVERTER : result;
-  }
-
-  public static Class wrapPrimitive(Class c) {
-    return (Class) PRIMITIVE_TYPE_MAP.get(c);
   }
 
 }

@@ -113,7 +113,7 @@ public final class MappingUtils {
   }
 
   public static String getMappedParentFieldKey(Object destObj, String destFieldName) {
-    StringBuffer buf = new StringBuffer(150);
+    StringBuffer buf = new StringBuffer(150); // TODO Use IdentityHashMap instead of String concatenation
     buf.append(System.identityHashCode(destObj));
     buf.append(destFieldName);
     return buf.toString();
@@ -121,8 +121,7 @@ public final class MappingUtils {
 
   public static Class<?> findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer,
       Class<?> srcClass, Class<?> destClass) {
-    if (customConverterContainer == null || customConverterContainer.getConverters() == null
-        || customConverterContainer.getConverters().size() < 1) {
+    if (customConverterContainer == null) {
       return null;
     }
 
@@ -131,8 +130,7 @@ public final class MappingUtils {
 
   public static Class<?> determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache,
       CustomConverterContainer customConverterContainer, Class<?> srcClass, Class<?> destClass) {
-    if (customConverterContainer == null || customConverterContainer.getConverters() == null
-        || customConverterContainer.getConverters().size() < 1) {
+    if (customConverterContainer == null) {
       return null;
     }
 

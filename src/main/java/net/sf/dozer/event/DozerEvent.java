@@ -33,6 +33,7 @@ public class DozerEvent {
   private Object destinationObject;
   private Object destinationValue;
 
+  // TODO Create Object instances only if Event Listeners are registered;
   public DozerEvent(DozerEventType type, ClassMap classMap, FieldMap fieldMap, Object sourceObject, Object destinationObject,
       Object destinationValue) {
     this.type = type;
