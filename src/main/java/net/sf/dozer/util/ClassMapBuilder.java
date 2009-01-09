@@ -17,6 +17,7 @@ package net.sf.dozer.util;
 
 import java.beans.PropertyDescriptor;
 import java.util.Set;
+import java.util.Collection;
 import java.util.Map.Entry;
 
 import net.sf.dozer.classmap.ClassMap;
@@ -28,6 +29,7 @@ import net.sf.dozer.fieldmap.DozerField;
 import net.sf.dozer.fieldmap.FieldMap;
 import net.sf.dozer.fieldmap.GenericFieldMap;
 import net.sf.dozer.fieldmap.MapFieldMap;
+import net.sf.dozer.cache.CacheEntry;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -60,9 +62,9 @@ public abstract class ClassMapBuilder {
   }
 
   public static void addDefaultFieldMappings(ClassMappings classMappings, Configuration globalConfiguration) {
-    Set<Entry<String, ClassMap>> entries = classMappings.getAll().entrySet();
-    for (Entry<String, ClassMap> entry : entries) {
-      ClassMap classMap = entry.getValue();
+    Collection<CacheEntry> entries = classMappings.getAll();
+    for (CacheEntry entry : entries) {
+      ClassMap classMap = (ClassMap) entry.getValue();
       if (classMap.isWildcard()) {
         addDefaultFieldMappings(classMap, globalConfiguration);
       }

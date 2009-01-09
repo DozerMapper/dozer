@@ -20,23 +20,26 @@ package net.sf.dozer.cache;
  * intended for internal use.
  *
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
-public interface Cache {
+public interface Cache <KeyType, ValueType> {
 
-  public void clear();
+  void clear();
 
-  public void put(Object key, Object value);
+  void put(KeyType key, ValueType value);
 
-  public Object get(Object key);
+  ValueType get(KeyType key);
 
-  public String getName();
+  String getName();
 
-  public long getSize();
+  long getSize();
 
-  public long getMaxSize();
+  long getMaxSize();
 
-  public long getHitCount();
+  long getHitCount();
 
-  public long getMissCount();
+  long getMissCount();
+
+  boolean containsKey(KeyType key);
 
 }

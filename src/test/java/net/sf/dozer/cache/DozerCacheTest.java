@@ -97,4 +97,21 @@ public class DozerCacheTest extends AbstractDozerTest {
     Cache cache = new DozerCache(getRandomString(), 5);
     cache.put(null, null);
   }
+
+  @Test
+  public void testAddEntries() {
+    DozerCache cache = new DozerCache(getRandomString(), 5);
+    DozerCache cache2 = new DozerCache(getRandomString(), 5);
+
+    cache2.put("A", "B");
+    cache2.put("B", "C");
+
+    assertEquals(0, cache.getSize());
+
+    cache.addEntries(cache2.getEntries());
+
+    assertEquals(2, cache.getSize());
+    assertEquals(2, cache2.getSize());
+  }
+
 }

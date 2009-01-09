@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2007 the original author or authors.
+ * Copyright 2005-2009 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import net.sf.dozer.util.LoadMappingsResult;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.MappingValidator;
 import net.sf.dozer.util.MappingsParser;
+import net.sf.dozer.cache.CacheEntry;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,8 +105,8 @@ public class CustomMappingsLoader {
     }
 
     // iterate through the classmaps and set all of the customconverters on them
-    for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
-      ClassMap classMap = entry.getValue();
+    for (CacheEntry entry : customMappings.getAll()) {
+      ClassMap classMap = (ClassMap) entry.getValue();
       if (classMap.getCustomConverters() != null) {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       } else {

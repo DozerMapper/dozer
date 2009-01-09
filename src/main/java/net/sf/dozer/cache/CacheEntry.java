@@ -23,22 +23,23 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * time. Only intended for internal use.
  * 
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
-public class CacheEntry {
+public class CacheEntry <KeyType, ValueType> {
 
-  private final Object key;
-  private final Object value;
+  private final KeyType key;
+  private final ValueType value;
 
-  public CacheEntry(Object key, Object value) {
+  public CacheEntry(KeyType key, ValueType value) {
     this.key = key;
     this.value = value;
   }
 
-  public Object getKey() {
+  public KeyType getKey() {
     return key;
   }
 
-  public Object getValue() {
+  public ValueType getValue() {
     return value;
   }
 

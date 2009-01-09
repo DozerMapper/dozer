@@ -35,6 +35,7 @@ import org.apache.commons.logging.LogFactory;
 public final class DozerCacheManager implements CacheManager {
 
   private static final Log log = LogFactory.getLog(DozerCacheManager.class);
+
   private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
 
   public Collection<Cache> getCaches() {
@@ -87,4 +88,5 @@ public final class DozerCacheManager implements CacheManager {
   public void logCaches() {
     log.info(getCaches());
   }
+  
 }

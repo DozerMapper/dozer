@@ -45,4 +45,14 @@ public class CacheKeyFactoryTest extends AbstractDozerTest {
     assertFalse(cacheKey.hashCode() == cacheKey2.hashCode());
   }
 
+  @Test
+  public void testCreateKey_AllParameters() throws Exception {
+    Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class, "A");
+    Object cacheKey2 = CacheKeyFactory.createKey(String.class, Long.class, "B");
+
+    assertFalse(cacheKey.equals(cacheKey2));
+    assertFalse(cacheKey2.equals(cacheKey));
+    assertFalse(cacheKey.hashCode() == cacheKey2.hashCode());
+  }
+
 }

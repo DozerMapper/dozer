@@ -18,6 +18,8 @@ package net.sf.dozer.cache;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Iterator;
+import java.util.Set;
 
 import net.sf.dozer.stats.GlobalStatistics;
 import net.sf.dozer.stats.StatisticType;
@@ -34,18 +36,18 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  * @author dmitry.buzdin
  */
-public class DozerCache implements Cache {
+public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueType> {
 
   private final String name;
 
   // Via LRUMap implementation, order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
-  private Map<Object, Object> cacheMap;
+  private Map<KeyType, CacheEntry<KeyType, ValueType> > cacheMap;
   private long hitCount;
   private long missCount;
 
   StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
 
-  public DozerCache(String name, int maximumSize) {
+  public DozerCache (String name, int maximumSize) {
     if (maximumSize < 1) {
       throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
     }
@@ -57,19 +59,19 @@ public class DozerCache implements Cache {
     cacheMap.clear();
   }
 
-  public synchronized void put(Object key, Object value) {
+  public synchronized void put(KeyType key, ValueType value) {
     if (key == null) {
       throw new IllegalArgumentException("Cache entry key cannot be null");
     }
-    CacheEntry cacheEntry = new CacheEntry(key, value);
+    CacheEntry <KeyType, ValueType> cacheEntry = new CacheEntry <KeyType, ValueType> (key, value);
     cacheMap.put(cacheEntry.getKey(), cacheEntry);
   }
 
-  public Object get(Object key) {
+  public ValueType get(KeyType key) {
     if (key == null) {
       throw new IllegalArgumentException("Key cannot be null");
     }
-    CacheEntry result = (CacheEntry) cacheMap.get(key);
+    CacheEntry <KeyType, ValueType> result = cacheMap.get(key);
     if (result != null) {
       hitCount++;
       statMgr.increment(StatisticType.CACHE_HIT_COUNT, name);
@@ -81,7 +83,13 @@ public class DozerCache implements Cache {
     }
   }
 
-  public Collection<Object> getEntries() {
+  public void addEntries(Collection<CacheEntry <KeyType, ValueType> > entries) {
+    for (CacheEntry <KeyType, ValueType> entry : entries) {
+      cacheMap.put(entry.getKey(), entry);
+    }
+  }
+
+  public Collection<CacheEntry <KeyType, ValueType> > getEntries() {
     return cacheMap.values();
   }
 
@@ -103,6 +111,14 @@ public class DozerCache implements Cache {
 
   public long getMissCount() {
     return missCount;
+  }
+
+  public boolean containsKey(KeyType key) {
+    return cacheMap.containsKey(key);
+  }
+
+  public Set<KeyType> keySet() {
+    return cacheMap.keySet();
   }
 
   @Override

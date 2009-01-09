@@ -15,6 +15,9 @@
  */
 package net.sf.dozer.cache;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * Internal class that is responsible for producing cache keys. Only intended for internal use.
  * 
@@ -30,10 +33,21 @@ public final class CacheKeyFactory {
     return new CacheKey(srcClass, destClass);
   }
 
+  public static Object createKey(Class<?> destClass, Class<?> srcClass, String mapId) {
+    return new CacheKey(srcClass, destClass, mapId);
+  }
+
   private static class CacheKey {
 
     private Class<?> srcClass;
     private Class<?> destClass;
+    private String mapId;
+
+    private CacheKey(Class<?> srcClass, Class<?> destClass, String mapId) {
+      this.srcClass = srcClass;
+      this.destClass = destClass;
+      this.mapId = mapId;
+    }
 
     private CacheKey(Class<?> srcClass, Class<?> destClass) {
       this.srcClass = srcClass;
@@ -51,6 +65,8 @@ public final class CacheKeyFactory {
         return false;
       if (srcClass != null ? !srcClass.equals(cacheKey.srcClass) : cacheKey.srcClass != null)
         return false;
+      if (mapId != null ? !mapId.equals(cacheKey.mapId) : cacheKey.mapId != null)
+        return false;
 
       return true;
     }
@@ -60,9 +76,15 @@ public final class CacheKeyFactory {
       int result;
       result = (srcClass != null ? srcClass.hashCode() : 0);
       result = 31 * result + (destClass != null ? destClass.hashCode() : 0);
+      result = 31 * result + (mapId != null ? mapId.hashCode() : 0);
       return result;
     }
 
+    @Override
+    public String toString() {
+      return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+    
   }
 
 }
