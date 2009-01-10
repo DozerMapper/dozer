@@ -10,6 +10,15 @@
   </head>  
   <body>
     <section name="Release Notes">
+
+      <h3>4.4.1<font size="-3" color="gray"><i>1/10/2009</i></font></h3>
+        <p>Bug Fixes</p>
+        <p>
+          <ul>
+            <li>Using ContextClassLoader to load classes <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2487499&amp;group_id=133517&amp;atid=727368">link</a></li>
+          </ul>
+        </p>
+
       <h3>4.4<font size="-3" color="gray"><i>12/27/2008</i></font></h3>
         <p>Bug Fixes and Patches</p>
         <p>
@@ -45,7 +54,7 @@
             <li>Bug in ReflectionUtils.getInterfacePropertyDescriptors() <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2013632&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>Classloading approach is not recommended <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1944959&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>NullPointerException when mapping a map <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1884714&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Subclasses are not recognized<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865945&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Subclasses are not recognized <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865945&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>Mapping with parent-child relation does not work <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865775&amp;group_id=133517&amp;atid=727368">link</a></li>
             <li>Missing destination read method throws NPE <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2038701&amp;group_id=133517&amp;atid=727370">link</a></li>
             <li>MappingProcessor does not use hints from DestHintContainer <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1939196&amp;group_id=133517&amp;atid=727370">link</a></li>
@@ -74,40 +83,40 @@
         <p>Bug Fixes</p> 
         <p>
           <ul>      
-            <li>Update spring custom converter documentation<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841449&amp;group_id=133517&amp;atid=727368">1841449</a></li>
-            <li>Trim Strings issue with data type conversion<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841448&amp;group_id=133517&amp;atid=727368">1841448</a></li>
-            <li>Orphans not removed from Sets<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1822421&amp;group_id=133517&amp;atid=727368">1822421</a></li>
-            <li>TimeZone not copied when mapping Calendar<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1815199&amp;group_id=133517&amp;atid=727368">1815199</a></li>
-            <li>Problem when getters and setters are on different interfaces<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1814758&amp;group_id=133517&amp;atid=727368">1814758</a></li>
-            <li>Unexpected exception in LogMsgFactory<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1797808&amp;group_id=133517&amp;atid=727368">1797808</a></li>
-            <li>Map-backed mapping with map-id<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1796344&amp;group_id=133517&amp;atid=727368">1796344</a></li>
-            <li>Custom converter called on null source field<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1792048&amp;group_id=133517&amp;atid=727368">1792048</a></li>
-            <li>Patch for determining source field type<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1823435&amp;group_id=133517&amp;atid=727370">1823435</a></li>
+            <li>Update spring custom converter documentation <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841449&amp;group_id=133517&amp;atid=727368">1841449</a></li>
+            <li>Trim Strings issue with data type conversion <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841448&amp;group_id=133517&amp;atid=727368">1841448</a></li>
+            <li>Orphans not removed from Sets <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1822421&amp;group_id=133517&amp;atid=727368">1822421</a></li>
+            <li>TimeZone not copied when mapping Calendar <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1815199&amp;group_id=133517&amp;atid=727368">1815199</a></li>
+            <li>Problem when getters and setters are on different interfaces <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1814758&amp;group_id=133517&amp;atid=727368">1814758</a></li>
+            <li>Unexpected exception in LogMsgFactory <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1797808&amp;group_id=133517&amp;atid=727368">1797808</a></li>
+            <li>Map-backed mapping with map-id <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1796344&amp;group_id=133517&amp;atid=727368">1796344</a></li>
+            <li>Custom converter called on null source field <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1792048&amp;group_id=133517&amp;atid=727368">1792048</a></li>
+            <li>Patch for determining source field type <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1823435&amp;group_id=133517&amp;atid=727370">1823435</a></li>
           </ul>
         </p>
       <h3>4.1  <font size="-3" color="gray"><i>09/22/2007</i></font></h3>
         <p>Bug Fixes</p> 
         <p>
           <ul>      
-            <li>Inheritance issue(s) with proxied data objects<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777357&amp;group_id=133517&amp;atid=727368">1777357</a></li>
-            <li>Array mapping with XMLBeans throws NoSuchMehtod exception<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1773425&amp;group_id=133517&amp;atid=727368">1773425</a></li>
-            <li>Mapping Started Event Not firing on mapping<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1768660&amp;group_id=133517&amp;atid=727368">1768660</a></li>
-            <li>Inheritance mapping not working correctly - Part Deux<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757573&amp;group_id=133517&amp;atid=727368">1757573</a></li>
-            <li>Test Cases section not diplaying correctly in web site docs<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1657562&amp;group_id=133517&amp;atid=727368">1657562</a></li>
+            <li>Inheritance issue(s) with proxied data objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777357&amp;group_id=133517&amp;atid=727368">1777357</a></li>
+            <li>Array mapping with XMLBeans throws NoSuchMehtod exception <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1773425&amp;group_id=133517&amp;atid=727368">1773425</a></li>
+            <li>Mapping Started Event Not firing on mapping <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1768660&amp;group_id=133517&amp;atid=727368">1768660</a></li>
+            <li>Inheritance mapping not working correctly - Part Deux <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757573&amp;group_id=133517&amp;atid=727368">1757573</a></li>
+            <li>Test Cases section not diplaying correctly in web site docs <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1657562&amp;group_id=133517&amp;atid=727368">1657562</a></li>
           </ul>
         </p>
         <p>Feature Requests</p> 
         <p>
           <ul>      
-            <li>Update inheritance mapping doc's<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1778316&amp;group_id=133517&amp;atid=727371">1778316</a></li>                                    
-            <li>Repackage functional/e2e tests<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777076&amp;group_id=133517&amp;atid=727371">1777076</a></li>                                    
-            <li>Using multiple instances of CustomConverter<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1770440&amp;group_id=133517&amp;atid=727371">1770440</a></li>                                    
-            <li>Dozer vs. XmlBeans generated primitive types<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1764916&amp;group_id=133517&amp;atid=727371">1764916</a></li>                                    
-            <li>DozerEvent - sourceObject always null.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1762642&amp;group_id=133517&amp;atid=727371">1762642</a></li>                                    
-            <li>Path to ResourceLoader to accept any URL<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757321&amp;group_id=133517&amp;atid=727371">1757321</a></li>                                    
-            <li>Run existing tests in both unproxied and cglib proxied mode<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1756584&amp;group_id=133517&amp;atid=727371">1756584</a></li>                                    
-            <li>Removal of orphans in destination collection<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1755838&amp;group_id=133517&amp;atid=727371">1755838</a></li>                                    
-            <li>Allow global configuration of relationship-type<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750158&amp;group_id=133517&amp;atid=727371">1750158</a></li>                                    
+            <li>Update inheritance mapping doc's <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1778316&amp;group_id=133517&amp;atid=727371">1778316</a></li>
+            <li>Repackage functional/e2e tests <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777076&amp;group_id=133517&amp;atid=727371">1777076</a></li>
+            <li>Using multiple instances of CustomConverter <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1770440&amp;group_id=133517&amp;atid=727371">1770440</a></li>
+            <li>Dozer vs. XmlBeans generated primitive types <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1764916&amp;group_id=133517&amp;atid=727371">1764916</a></li>
+            <li>DozerEvent - sourceObject always null. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1762642&amp;group_id=133517&amp;atid=727371">1762642</a></li>
+            <li>Path to ResourceLoader to accept any URL <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757321&amp;group_id=133517&amp;atid=727371">1757321</a></li>
+            <li>Run existing tests in both unproxied and cglib proxied mode <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1756584&amp;group_id=133517&amp;atid=727371">1756584</a></li>
+            <li>Removal of orphans in destination collection <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1755838&amp;group_id=133517&amp;atid=727371">1755838</a></li>
+            <li>Allow global configuration of relationship-type <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750158&amp;group_id=133517&amp;atid=727371">1750158</a></li>
           </ul>
         </p>
       <h3>4.0  <font size="-3" color="gray"><i>07/15/2007</i></font></h3>
