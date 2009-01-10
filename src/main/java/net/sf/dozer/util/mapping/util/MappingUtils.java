@@ -39,6 +39,7 @@ import net.sf.dozer.util.mapping.fieldmap.DozerField;
 import net.sf.dozer.util.mapping.fieldmap.FieldMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ClassUtils;
 
 /**
  * Internal class that provides various mapping utilities used throughout the code base. Only intended for internal use.
@@ -233,7 +234,7 @@ public final class MappingUtils {
   public static Class loadClass(String name) {
     Class result = null;
     try {
-      result = Class.forName(name);
+      result = ClassUtils.getClass(name);
     } catch (ClassNotFoundException e) {
       MappingUtils.throwMappingException(e);
     }

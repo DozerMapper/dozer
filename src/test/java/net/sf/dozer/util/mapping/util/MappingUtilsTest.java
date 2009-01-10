@@ -189,4 +189,10 @@ public class MappingUtilsTest extends AbstractDozerTest {
     }
   }
 
+  public void testLoadClass() {
+    assertNotNull(MappingUtils.loadClass("java.lang.String"));
+    assertNotNull(MappingUtils.loadClass("java.lang.String[]"));
+    assertNotNull(MappingUtils.loadClass("[Ljava.lang.String;"));
+  }
+
 }

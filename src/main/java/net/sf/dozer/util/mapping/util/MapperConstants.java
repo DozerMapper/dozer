@@ -32,7 +32,7 @@ public final class MapperConstants {
   private MapperConstants() {
   }
 
-  public static final String CURRENT_VERSION = "4.4";
+  public static final String CURRENT_VERSION = "4.4.1";
 
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_ERROR_POLICY = true;
