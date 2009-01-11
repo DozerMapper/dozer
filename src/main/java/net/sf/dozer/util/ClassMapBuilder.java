@@ -62,15 +62,15 @@ public abstract class ClassMapBuilder {
   }
 
   public static void addDefaultFieldMappings(ClassMappings classMappings, Configuration globalConfiguration) {
-    Collection<CacheEntry> entries = classMappings.getAll();
-    for (CacheEntry entry : entries) {
-      ClassMap classMap = (ClassMap) entry.getValue();
+    Set<Entry<String, ClassMap>> entries = classMappings.getAll().entrySet();
+    for (Entry<String, ClassMap> entry : entries) {
+      ClassMap classMap = entry.getValue();
       if (classMap.isWildcard()) {
         addDefaultFieldMappings(classMap, globalConfiguration);
       }
     }
   }
-
+  
   private static void addDefaultFieldMappings(ClassMap classMap, Configuration globalConfiguration) {
     Class<?> srcClass = classMap.getSrcClassToMap();
     Class<?> destClass = classMap.getDestClassToMap();

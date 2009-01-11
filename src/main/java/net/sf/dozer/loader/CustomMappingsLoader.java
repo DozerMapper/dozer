@@ -18,8 +18,8 @@ package net.sf.dozer.loader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
-import net.sf.dozer.cache.CacheEntry;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
@@ -105,8 +105,8 @@ public class CustomMappingsLoader {
     }
 
     // iterate through the classmaps and set all of the customconverters on them
-    for (CacheEntry entry : customMappings.getAll()) {
-      ClassMap classMap = (ClassMap) entry.getValue();
+    for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
+      ClassMap classMap = entry.getValue();
       if (classMap.getCustomConverters() != null) {
         classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
       } else {
@@ -116,5 +116,4 @@ public class CustomMappingsLoader {
     }
     return new LoadMappingsResult(customMappings, globalConfiguration);
   }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2009 the original author or authors.
+ * Copyright 2005-2007 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,18 @@
  */
 package net.sf.dozer.classmap;
 
-import net.sf.dozer.cache.Cache;
-import net.sf.dozer.cache.CacheEntry;
-import net.sf.dozer.cache.CacheKeyFactory;
-import net.sf.dozer.cache.DozerCache;
-import net.sf.dozer.cache.DozerCacheManager;
-import net.sf.dozer.cache.DozerCacheType;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import net.sf.dozer.util.MappingUtils;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Internal class that determines the appropriate class mapping to be used for the source and destination object being
@@ -39,51 +36,44 @@ import java.util.List;
  * @author garsombke.franz
  */
 public class ClassMappings {
-
   private static final Log log = LogFactory.getLog(ClassMappings.class);
-
-  private final DozerCacheManager cacheManager = new DozerCacheManager();
-  private Cache <Object, ClassMap> cache;
-
-  public ClassMappings() {
-    cacheManager.addCache(DozerCacheType.CLASS_MAPPINGS.name(), 2000); // TODO Parameterize this
-    cache = cacheManager.getCache(DozerCacheType.CLASS_MAPPINGS.name());
-  }
+  
+  private Map<String, ClassMap> classMappings = Collections.synchronizedMap(new HashMap<String, ClassMap>());
   
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
-    cache.put(CacheKeyFactory.createKey(srcClass, destClass), classMap);
+    classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass), classMap);
   }
   
   public void add(Class<?> srcClass, Class<?> destClass, String mapId, ClassMap classMap) {
-    cache.put(CacheKeyFactory.createKey(srcClass, destClass, mapId), classMap);
+    classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass, mapId), classMap);
   }
   
   public void addAll(ClassMappings classMappings) {
-    ((DozerCache) cache).addEntries(classMappings.getAll());
+    this.classMappings.putAll(classMappings.getAll());
   }
   
-  public Collection<CacheEntry> getAll() {
-    return ((DozerCache) cache).getEntries();
+  public Map<String, ClassMap> getAll() {
+    return classMappings;
   }
   
   public long size() {
-    return cache.getSize();
+    return classMappings.size();
   }
 
   public ClassMap find(Class<?> srcClass, Class<?> destClass) {
-    return cache.get(CacheKeyFactory.createKey(srcClass, destClass));
+    return classMappings.get(ClassMapKeyFactory.createKey(srcClass, destClass));
   }
   
   public boolean contains(Class<?> srcClass, Class<?> destClass, String mapId) {
-    Object key = CacheKeyFactory.createKey(srcClass, destClass, mapId);
-    return cache.containsKey(key);
+    String key = ClassMapKeyFactory.createKey(srcClass, destClass, mapId);
+    return classMappings.containsKey(key);
   }
   
   public ClassMap find(Class<?> srcClass, Class<?> destClass, String mapId) {
     Class<?> srcLookupClass = MappingUtils.getRealClass(srcClass);
     Class<?> destLookupClass = MappingUtils.getRealClass(destClass);
 
-    ClassMap mapping = cache.get(CacheKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
+    ClassMap mapping = classMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
 
     if (mapping == null) {
       mapping = findInterfaceMapping(destClass, srcClass, mapId);
@@ -93,8 +83,8 @@ public class ClassMappings {
     // if the mapId is not null looking up a map is easy
     if (mapId != null && mapping == null) {
       // probably a more efficient way to do this...
-      for (CacheEntry entry : getAll()) {
-        ClassMap classMap = (ClassMap) entry.getValue();
+      for (Entry<String, ClassMap> entry : classMappings.entrySet()) {
+        ClassMap classMap = entry.getValue();
         if (StringUtils.equals(classMap.getMapId(), mapId)) {
           return classMap;
         }
@@ -114,7 +104,7 @@ public class ClassMappings {
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = cache.get(CacheKeyFactory.createKey(srcClass, destInterfaces[i]));
+      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcClass, destInterfaces[i]));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -122,7 +112,7 @@ public class ClassMappings {
 
     for (Class<?> srcInterface : srcInterfaces) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = cache.get(CacheKeyFactory.createKey(srcInterface, destClass));
+      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcInterface, destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -138,9 +128,9 @@ public class ClassMappings {
   private ClassMap findInterfaceMapping(Class<?> destClass, Class<?> srcClass, String mapId) {
     // Use object array for keys to avoid any rare thread synchronization issues while iterating over the custom mappings. 
     // See bug #1550275.
-    Object[] keys = ((DozerCache) cache).keySet().toArray();
-    for (Object key : keys) {
-      ClassMap map = cache.get(key);
+    Object[] keys = classMappings.keySet().toArray();
+    for (int i = 0; i < keys.length; i++) {
+      ClassMap map = classMappings.get(keys[i]);
       Class<?> mappingDestClass = map.getDestClassToMap();
       Class<?> mappingSrcClass = map.getSrcClassToMap();
 
