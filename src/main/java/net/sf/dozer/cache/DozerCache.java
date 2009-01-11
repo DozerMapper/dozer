@@ -16,9 +16,7 @@
 package net.sf.dozer.cache;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Iterator;
 import java.util.Set;
 
 import net.sf.dozer.stats.GlobalStatistics;

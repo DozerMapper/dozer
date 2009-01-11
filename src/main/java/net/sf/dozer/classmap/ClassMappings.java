@@ -17,10 +17,10 @@ package net.sf.dozer.classmap;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.dozer.util.MappingUtils;
 
@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
 public class ClassMappings {
   private static final Log log = LogFactory.getLog(ClassMappings.class);
   
-  private Map<String, ClassMap> classMappings = Collections.synchronizedMap(new HashMap<String, ClassMap>());
+  private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
   
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
     classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass), classMap);
@@ -52,6 +52,7 @@ public class ClassMappings {
     this.classMappings.putAll(classMappings.getAll());
   }
   
+  //TODO: don't expose the internal datastore
   public Map<String, ClassMap> getAll() {
     return classMappings;
   }
@@ -94,7 +95,7 @@ public class ClassMappings {
 
     return mapping;
   }
-
+  
   public List<ClassMap> findInterfaceMappings(Class<?> srcClass, Class<?> destClass) {
     // If no existing cache entry is found, determine super type mapping and store in cache
     // Get interfaces
@@ -155,5 +156,7 @@ public class ClassMappings {
     }
     return null;
   }
+  
+  
 
 }
