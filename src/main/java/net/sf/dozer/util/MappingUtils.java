@@ -18,13 +18,12 @@ package net.sf.dozer.util;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.dozer.BeanFactory;
 import net.sf.dozer.MappingException;
@@ -55,7 +54,7 @@ public final class MappingUtils {
 
   // only making public temporarily while refactoring. This static data should be relocated.
   // The stored factories don't belong in MappingUtils and need to be relocated
-  public static final Map<String, BeanFactory> storedFactories = Collections.synchronizedMap(new HashMap<String, BeanFactory>());
+  public static final Map<String, BeanFactory> storedFactories = new ConcurrentHashMap<String, BeanFactory>();
 
   public static String getClassNameWithoutPackage(Class<?> clazz) {
     Package pckage = clazz.getPackage();
