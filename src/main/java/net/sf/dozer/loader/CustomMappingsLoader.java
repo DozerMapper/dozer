@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2009 the original author or authors.
+ * Copyright 2005-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,11 @@
  */
 package net.sf.dozer.loader;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.dozer.cache.CacheEntry;
 import net.sf.dozer.classmap.ClassMap;
 import net.sf.dozer.classmap.ClassMappings;
 import net.sf.dozer.classmap.Configuration;
@@ -30,15 +35,10 @@ import net.sf.dozer.util.LoadMappingsResult;
 import net.sf.dozer.util.MappingUtils;
 import net.sf.dozer.util.MappingValidator;
 import net.sf.dozer.util.MappingsParser;
-import net.sf.dozer.cache.CacheEntry;
+
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned

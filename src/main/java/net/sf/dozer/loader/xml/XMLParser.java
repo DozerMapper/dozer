@@ -15,12 +15,26 @@
  */
 package net.sf.dozer.loader.xml;
 
-import net.sf.dozer.classmap.*;
+import net.sf.dozer.classmap.AllowedExceptionContainer;
+import net.sf.dozer.classmap.ClassMap;
+import net.sf.dozer.classmap.Configuration;
+import net.sf.dozer.classmap.CopyByReference;
+import net.sf.dozer.classmap.CopyByReferenceContainer;
+import net.sf.dozer.classmap.DozerClass;
+import net.sf.dozer.classmap.MappingFileData;
+import net.sf.dozer.classmap.RelationshipType;
 import net.sf.dozer.converters.CustomConverterContainer;
 import net.sf.dozer.converters.CustomConverterDescription;
-import net.sf.dozer.fieldmap.*;
+import net.sf.dozer.fieldmap.CustomGetSetMethodFieldMap;
+import net.sf.dozer.fieldmap.DozerField;
+import net.sf.dozer.fieldmap.ExcludeFieldMap;
+import net.sf.dozer.fieldmap.FieldMap;
+import net.sf.dozer.fieldmap.GenericFieldMap;
+import net.sf.dozer.fieldmap.HintContainer;
+import net.sf.dozer.fieldmap.MapFieldMap;
 import net.sf.dozer.util.DozerConstants;
 import net.sf.dozer.util.MappingUtils;
+
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -29,13 +43,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Internal class that parses a raw custom xml mapping file into raw ClassMap objects. Only intended for internal use.
