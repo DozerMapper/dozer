@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.3"?>
+<plugin>
+
+	<!-- ContentType for Dozer -->
+	<extension point="org.eclipse.core.runtime.contentTypes">
+		<content-type id="dozerMapping" name="Dozer Mapping File"
+			base-type="org.eclipse.core.runtime.xml" 
+			priority="normal"
+			default-charset="UTF-8">
+			<describer
+				class="org.eclipse.core.runtime.content.XMLRootElementContentDescriber">
+				<parameter name="element" value="mappings" />
+			</describer>
+		</content-type>
+	</extension>
+	
+	<!-- DTD registration -->
+	<extension
+         point="org.eclipse.wst.xml.core.catalogContributions">
+      <catalogContribution
+            id="default">
+         <public
+               publicId="-//DOZER//DTD MAPPINGS//EN"
+               uri="dtd/dozerbeanmapping.dtd">
+         </public>
+      </catalogContribution>
+   </extension>
+   
+	<!-- Content Assist -->
+	<extension point="org.eclipse.wst.sse.ui.editorConfiguration">
+		<sourceViewerConfiguration
+			class="net.sf.dozer.eclipse.plugin.editor.DozerStructuredTextViewerConfiguration"
+			target="net.sf.dozer.eclipse.plugin.dozerMapping" />
+	</extension>	
+	
+	<!-- Hyperlink Detector -->
+	<extension
+         point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
+      	<hyperlinkDetector
+      		targetId="org.eclipse.core.runtime.xml"
+            class="net.sf.dozer.eclipse.plugin.hyperlink.DozerClassHyperlinkDetector"
+            id="net.sf.dozer.eclipse.plugin.DozerClassHyperinkDetector"
+            name="DozerClassHyperinkDetector"/>        
+	</extension>
+	
+	<!--<extension point="org.eclipse.ui.ide.markerSupport">
+		<markerTypeCategory name="Dozer">
+			<markerTypeReference id="net.sf.dozer.eclipse.plugin.marker.dozerproblemmarker" />
+		</markerTypeCategory>
+	</extension>-->
+	
+	<!-- Validation -->
+	<extension
+		id="DozerValidator"
+		name="Dozer Mapping File Validator"
+		point="org.eclipse.wst.validation.validator">
+		<validator>
+			<filter				
+				objectClass="org.eclipse.core.resources.IFile"
+				nameFilter="*.xml">
+			</filter>
+         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.dozerMapping"/>			
+			<helper class="org.eclipse.wst.xml.core.internal.validation.core.Helper"/>
+			<run
+				async="true"
+				fullBuild="true"
+				incremental="true"
+				enabled="true"
+				class="net.sf.dozer.eclipse.plugin.validation.Validator"/>
+		</validator>
+	</extension>
+	
+	<!-- Wizard -->
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="net.sf.dozer.eclipse.plugin.wizards.category"
+            name="Dozer Mapping Framework"/>
+      <wizard 
+      		hasPages="true"
+            id="net.sf.dozer.eclipse.plugin.wizards.newMappingConfig"
+            name="Dozer Mapping File"
+            class="net.sf.dozer.eclipse.plugin.wizards.NewMappingFileWizard"
+            category="net.sf.dozer.eclipse.plugin.wizards.category"
+            icon="icons/dozer.gif">
+         <description>
+            Create a new Dozer Mapping file.
+         </description>
+      </wizard>
+   </extension>
+</plugin>
