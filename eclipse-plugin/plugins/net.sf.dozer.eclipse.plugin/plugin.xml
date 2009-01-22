@@ -4,7 +4,7 @@
 
 	<!-- ContentType for Dozer -->
 	<extension point="org.eclipse.core.runtime.contentTypes">
-		<content-type id="dozerMapping" name="Dozer Mapping File"
+		<content-type id="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping" name="Dozer Mapping File"
 			base-type="org.eclipse.core.runtime.xml" 
 			priority="normal"
 			default-charset="UTF-8">
@@ -15,6 +15,20 @@
 		</content-type>
 	</extension>
 	
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="net.sf.dozer.eclipse.plugin.editor.DozerMultiPageEditor"
+            contributorClass="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorActionBarContributor"
+            icon="icons/dozer.gif"
+            id="net.sf.dozer.eclipse.plugin.editor.dozerEditor"
+            name="Dozer Mapping Editor">
+         <contentTypeBinding
+               contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping">
+         </contentTypeBinding>
+      </editor>
+   </extension>
+   	
 	<!-- DTD registration -->
 	<extension
          point="org.eclipse.wst.xml.core.catalogContributions">
@@ -31,7 +45,7 @@
 	<extension point="org.eclipse.wst.sse.ui.editorConfiguration">
 		<sourceViewerConfiguration
 			class="net.sf.dozer.eclipse.plugin.editor.DozerStructuredTextViewerConfiguration"
-			target="net.sf.dozer.eclipse.plugin.dozerMapping" />
+			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping" />
 	</extension>	
 	
 	<!-- Hyperlink Detector -->
@@ -60,7 +74,7 @@
 				objectClass="org.eclipse.core.resources.IFile"
 				nameFilter="*.xml">
 			</filter>
-         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.dozerMapping"/>			
+         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping"/>			
 			<helper class="org.eclipse.wst.xml.core.internal.validation.core.Helper"/>
 			<run
 				async="true"
