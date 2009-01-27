@@ -307,7 +307,7 @@ public class DozerPluginUtils {
 			checkProperty = propertySplitted[0];
 		}
 		//if we are doing indexed property mapping, we remove the []
-		checkProperty = checkProperty.replaceAll("[]", "");
+		checkProperty = checkProperty.replaceAll("\\[\\]", "");
 		
 		Collection<IMethod> methods = Introspector.findReadableProperties(javaType, checkProperty, true);
 		
@@ -319,8 +319,8 @@ public class DozerPluginUtils {
 			while (iterator.hasNext()) {
 				IMethod method = (IMethod) iterator.next();
 				
-				className = JdtUtils.resolveClassName(className, javaType);
 				try {
+					className = JdtUtils.resolveClassName(className, javaType);
 					if (!Class.forName(className).isPrimitive())
 						className = null;					
 				} catch (Throwable t) {

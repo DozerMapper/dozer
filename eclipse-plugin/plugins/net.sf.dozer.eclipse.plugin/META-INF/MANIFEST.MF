@@ -20,7 +20,7 @@ Require-Bundle: org.eclipse.ui,
  org.springframework.ide.eclipse.beans.ui,
  org.eclipse.wst.sse.ui,
  org.eclipse.wst.validation
-Bundle-Vendor: Markus Thielen for Dozer
+Bundle-Vendor: Dozer Team
 Export-Package: net.sf.dozer.eclipse.plugin.contentassist,
  net.sf.dozer.eclipse.plugin.editor,
  net.sf.dozer.eclipse.plugin.hyperlink,
