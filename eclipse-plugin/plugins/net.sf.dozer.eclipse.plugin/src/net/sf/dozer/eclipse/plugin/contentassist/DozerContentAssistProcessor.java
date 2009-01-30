@@ -79,7 +79,8 @@ public class DozerContentAssistProcessor extends XMLContentAssistProcessor {
 		} else if ("a".equals(node.getNodeName()) || "b".equals(node.getNodeName())) { 
 			if (firstChild == null)
 				firstChild = nodeAtOffset.appendChild(node.getOwnerDocument().createTextNode(""));
-			if (firstChild.getNodeType() == Node.TEXT_NODE && "field".equals(node.getParentNode().getNodeName())) {
+			if (firstChild.getNodeType() == Node.TEXT_NODE && 
+					("field".equals(node.getParentNode().getNodeName()) || "field-exclude".equals(node.getParentNode().getNodeName()))) {
 				return computeDozerPropertyContentProposals(documentPosition, firstChild.getNodeValue(), completionRegion, (IDOMNode)firstChild, node);
 			}
 		}

@@ -64,6 +64,7 @@ public class Validator extends AbstractNestedValidator {
 				
 				//field correct?
 				checkFieldNodes(doc.getElementsByTagName("field"), file, validationReport);
+				checkFieldNodes(doc.getElementsByTagName("field-exclude"), file, validationReport);
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
