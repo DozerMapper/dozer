@@ -224,4 +224,11 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertFalse(MappingUtils.isEnumType(String.class, SrcType.class));
   }
 
+  @Test
+  public void testLoadClass() {
+    assertNotNull(MappingUtils.loadClass("java.lang.String"));
+    assertNotNull(MappingUtils.loadClass("java.lang.String[]"));
+    assertNotNull(MappingUtils.loadClass("[Ljava.lang.String;"));
+  }
+
 }
