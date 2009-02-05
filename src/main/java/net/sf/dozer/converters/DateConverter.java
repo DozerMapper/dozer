@@ -19,18 +19,30 @@ import java.lang.reflect.Constructor;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.sql.Timestamp;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting Supported Data Types --> Date. Supported source data types include Date, Calendar,
- * String, Objects that return a long from their toString(). Only intended for internal use.
+ * Internal convertor for handling Date/Time conversions.
+ *
+ * Supported source data types include java.util.Date,
+ * java.sql.Date, java.sql.Time, java.sql.Timestamp, java.util.Calendar, javax.xml.datatype.XMLGregorianCalendar,
+ * java.lang.String and any objects that return a number of milliseconds applicable to java.lang.Long
+ * format in their toString() form.
+ *
+ * Supported return data types are all Date/Time types, which are based on a timestamp constructor
+ * (e.g. new MyDate(new Long(1))). Calendar return type is also supported.
+ *
+ * Only intended for internal use.
  * 
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
 public class DateConverter implements Converter {
+
   private DateFormat dateFormat;
 
   public DateConverter(DateFormat dateFormat) {
@@ -38,18 +50,19 @@ public class DateConverter implements Converter {
   }
 
   public Object convert(Class destClass, Object srcObj) {
-    Object result;
+    final Class srcFieldClass = srcObj.getClass();
 
-    Class srcFieldClass = srcObj.getClass();
     long time;
-    // Calendar to Date
+    int nanos = 0;
     if (Calendar.class.isAssignableFrom(srcFieldClass)) {
       Calendar inVal = (Calendar) srcObj;
       time = inVal.getTime().getTime();
-      // Date to Date
+    } else if (Timestamp.class.isAssignableFrom(srcFieldClass)) {
+      Timestamp timestamp = (Timestamp) srcObj;
+      time = timestamp.getTime();
+      nanos = timestamp.getNanos();
     } else if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
       time = ((java.util.Date) srcObj).getTime();
-      // String to Date
     } else if (XMLGregorianCalendar.class.isAssignableFrom(srcFieldClass)) {
       time = ((XMLGregorianCalendar) srcObj).toGregorianCalendar().getTimeInMillis();
     } else if (dateFormat != null && String.class.isAssignableFrom(srcObj.getClass())) {
@@ -71,13 +84,21 @@ public class DateConverter implements Converter {
     }
 
     try {
+      if (Calendar.class.isAssignableFrom(destClass)) {
+        Constructor constructor = destClass.getConstructor();
+        Calendar result = (Calendar) constructor.newInstance();
+        result.setTimeInMillis(time);
+        return result;
+      }
       Constructor constructor = destClass.getConstructor(Long.TYPE);
-      result = constructor.newInstance(new Long(time));
+      Object result = constructor.newInstance(time);
+      if (nanos != 0 && (Timestamp.class.isAssignableFrom(destClass))) {
+        ((Timestamp) result).setNanos(nanos);
+      }
+      return result;
     } catch (Exception e) {
       throw new ConversionException(e);
     }
-
-    return result;
-
   }
+
 }
