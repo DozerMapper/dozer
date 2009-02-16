@@ -63,16 +63,16 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>xmlbeans</groupId>
-      <artifactId>xbean</artifactId>
-      <version>2.2.0</version>
+      <groupId>org.apache.xmlbeans</groupId>
+      <artifactId>xmlbeans</artifactId>
+      <version>2.4.0</version>
       <scope>test</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>xmlbeans</groupId>
-      <artifactId>xbean_xpath</artifactId>
-      <version>2.2.0</version>
+      <groupId>org.apache.xmlbeans</groupId>
+      <artifactId>xmlbeans-xpath</artifactId>
+      <version>2.3.0</version>
       <scope>test</scope>
       <optional>true</optional>
     </dependency>

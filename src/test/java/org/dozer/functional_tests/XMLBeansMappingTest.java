@@ -39,7 +39,6 @@ import net.pmonks.xml.dozer.test.ChildType;
  */
 public class XMLBeansMappingTest extends AbstractFunctionalTest {
 
-  @Ignore("Failing after jdk 1.5 upgrade.  Needs investigation")
   @Test
   public void testXmlBeans() throws Exception {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
@@ -81,7 +80,6 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
   /*
    * Test Case Submitted by Peter Monks 1/2007
    */
-  @Ignore("Failing after jdk 1.5 upgrade.  Needs investigation")
   @Test
   public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
@@ -108,7 +106,6 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
   /*
    * Test Case Submitted by Peter Monks 1/2007
    */
-  @Ignore("Failing after jdk 1.5 upgrade.  Needs investigation")
   @Test
   public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
@@ -132,7 +129,6 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
     assertEquals("invalid name value", xmlBean.getName(), pojo.getName());
   }
 
-  @Ignore("Failing after jdk 1.5 upgrade.  Needs investigation")
   @Test
   public void testXmlBeansWithNullFields() throws Exception {
     mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
