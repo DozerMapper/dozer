@@ -5,14 +5,14 @@
 
     <!-- Mapping between concrete classes UserGroupImpl and UserGroupPrime -->
 	<mapping>
-		<class-a>net.sf.dozer.vo.collections.UserGroupImpl</class-a>
-		<class-b>net.sf.dozer.vo.collections.UserGroupPrime</class-b>
+		<class-a>org.dozer.vo.collections.UserGroupImpl</class-a>
+		<class-b>org.dozer.vo.collections.UserGroupPrime</class-b>
 	</mapping>
 	
 	<!-- Mapping between concrete classes UserImpl and UserPrime -->
 	<mapping>
-		<class-a>net.sf.dozer.vo.collections.UserImpl</class-a>
-		<class-b>net.sf.dozer.vo.collections.UserPrime</class-b>
+		<class-a>org.dozer.vo.collections.UserImpl</class-a>
+		<class-b>org.dozer.vo.collections.UserPrime</class-b>
 	</mapping>
 	
 </mappings>

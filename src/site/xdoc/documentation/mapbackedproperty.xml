@@ -18,14 +18,14 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.vo.map.MapToMap</class-a>
-  <class-b>net.sf.dozer.vo.map.MapToMapPrime</class-b>
+  <class-a>org.dozer.vo.map.MapToMap</class-a>
+  <class-b>org.dozer.vo.map.MapToMapPrime</class-b>
 
   <field>
     <a>standardMapWithHint</a>
     <b>standardMapWithHint</b>
-    <a-hint>net.sf.dozer.vo.TestObject</a-hint>
-    <b-hint>net.sf.dozer.vo.TestObjectPrime</b-hint> 
+    <a-hint>org.dozer.vo.TestObject</a-hint>
+    <b-hint>org.dozer.vo.TestObjectPrime</b-hint> 
   </field>    
 </mapping>
 
@@ -46,8 +46,8 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.vo.map.PropertyToMap</class-a>
-  <class-b>net.sf.dozer.vo.map.MapToProperty</class-b>    
+  <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+  <class-b>org.dozer.vo.map.MapToProperty</class-b>    
 
   <field>
     <a>stringProperty</a>
@@ -65,8 +65,8 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.vo.map.PropertyToMap</class-a>
-  <class-b>net.sf.dozer.vo.map.MapToProperty</class-b>    
+  <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+  <class-b>org.dozer.vo.map.MapToProperty</class-b>    
 
   <field>
     <a set-method="addStringProperty2">stringProperty2</a>
@@ -86,8 +86,8 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.vo.map.PropertyToMap</class-a>
-  <class-b>net.sf.dozer.vo.map.MapToProperty</class-b>    
+  <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+  <class-b>org.dozer.vo.map.MapToProperty</class-b>    
 
   <field>
     <a>stringProperty3</a>
@@ -97,7 +97,7 @@
   <field>
     <a>stringProperty4</a>
     <b map-get-method="getValue" map-set-method="putValue" key="myCustomNullProperty">nullCustomMap</b>
-    <b-hint>net.sf.dozer.vo.map.CustomMap</b-hint>
+    <b-hint>org.dozer.vo.map.CustomMap</b-hint>
   </field>
 
   <field>
@@ -128,7 +128,7 @@
         <source>
           <![CDATA[ 
 <mapping map-id="myTestMapping">
-  <class-a>net.sf.dozer.vo.map.PropertyToMap</class-a>
+  <class-a>org.dozer.vo.map.PropertyToMap</class-a>
   <class-b>java.util.Map</class-b>
   <field>
     <a set-method="addStringProperty2">stringProperty2</a>
@@ -143,8 +143,8 @@
 </mapping>              
 
 <mapping map-id="myCustomTestMapping">
-  <class-a>net.sf.dozer.vo.map.PropertyToMap</class-a>
-  <class-b map-set-method="putValue" map-get-method="getValue">net.sf.dozer.vo.map.CustomMap</class-b>
+  <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+  <class-b map-set-method="putValue" map-get-method="getValue">org.dozer.vo.map.CustomMap</class-b>
   <field>
     <a set-method="addStringProperty2">stringProperty2</a>
     <b key="myStringProperty">this</b>
@@ -167,8 +167,8 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.vo.map.MapTestObject</class-a>
-  <class-b>net.sf.dozer.vo.map.MapTestObjectPrime</class-b>    
+  <class-a>org.dozer.vo.map.MapTestObject</class-a>
+  <class-b>org.dozer.vo.map.MapTestObjectPrime</class-b>    
   <field map-id="myTestMapping">
     <a>propertyToMap</a>
     <b>propertyToMapMap</b>

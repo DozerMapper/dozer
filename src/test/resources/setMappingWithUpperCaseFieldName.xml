@@ -4,13 +4,13 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.set.SomeDTO</class-a>
-    <class-b>net.sf.dozer.vo.set.SomeVO</class-b>
+    <class-a>org.dozer.vo.set.SomeDTO</class-a>
+    <class-b>org.dozer.vo.set.SomeVO</class-b>
     <field>
       <a>Field2</a>
       <b>Field2</b>
-      <a-hint>net.sf.dozer.vo.set.SomeOtherDTO</a-hint>
-      <b-hint>net.sf.dozer.vo.set.SomeOtherVO</b-hint>
+      <a-hint>org.dozer.vo.set.SomeOtherDTO</a-hint>
+      <b-hint>org.dozer.vo.set.SomeOtherVO</b-hint>
     </field>
   </mapping>
 

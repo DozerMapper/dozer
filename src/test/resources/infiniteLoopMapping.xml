@@ -3,8 +3,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
   <mapping stop-on-errors="true">
 
-    <class-a>net.sf.dozer.vo.LoopObjectParent</class-a>
-    <class-b>net.sf.dozer.vo.LoopObjectParentPrime</class-b>
+    <class-a>org.dozer.vo.LoopObjectParent</class-a>
+    <class-b>org.dozer.vo.LoopObjectParentPrime</class-b>
     <field>
       <a>attribute</a>
       <b>attributePrime</b>
@@ -12,8 +12,8 @@
     <field>
       <a>child</a>
       <b>childPrime</b>
-      <a-hint>net.sf.dozer.vo.LoopObjectChild</a-hint>
-      <b-hint>net.sf.dozer.vo.LoopObjectChildPrime</b-hint>
+      <a-hint>org.dozer.vo.LoopObjectChild</a-hint>
+      <b-hint>org.dozer.vo.LoopObjectChildPrime</b-hint>
     </field>
   </mapping>
 </mappings>

@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.deep2.Src</class-a>
-    <class-b>net.sf.dozer.vo.deep2.Dest</class-b>
+    <class-a>org.dozer.vo.deep2.Src</class-a>
+    <class-b>org.dozer.vo.deep2.Dest</class-b>
     <field>
       <a>srcField</a>
       <b set-method="setField" get-method="getField">

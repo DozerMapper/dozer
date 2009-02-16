@@ -51,7 +51,7 @@ mapper.map(sourceObject, destObject);
         <p>
           The Dozer mapping xml file(s) define any custom mappings that can't be automatically performed by the
           Dozer mapping engine. Any custom Dozer mapping files need to be injected into the Mapper
-          implementation(net.sf.dozer.DozerBeanMapper). Both setter-based and constructor-based
+          implementation(org.dozer.DozerBeanMapper). Both setter-based and constructor-based
           injection are supported.
         </p>
         <p>
@@ -88,7 +88,7 @@ DestinationObject destObject = (DestinationObject) mapper.map(sourceObject, Dest
 
           <source>
             <![CDATA[ 
-<bean id="mapper" class="net.sf.dozer.DozerBeanMapper">
+<bean id="mapper" class="org.dozer.DozerBeanMapper">
   <property name="mappingFiles">
     <list>
       <value>dozer-global-configuration.xml</value>			   

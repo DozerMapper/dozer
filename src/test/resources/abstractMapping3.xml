@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.abstractinheritance.AbstractA</class-a>
-    <class-b>net.sf.dozer.vo.abstractinheritance.AbstractB</class-b>
+    <class-a>org.dozer.vo.abstractinheritance.AbstractA</class-a>
+    <class-b>org.dozer.vo.abstractinheritance.AbstractB</class-b>
     <field>
       <a>abstractAField</a>
       <b>abstractBField</b>

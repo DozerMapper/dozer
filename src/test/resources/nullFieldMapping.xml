@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping map-null="false" map-empty-string="false">
-    <class-a>net.sf.dozer.vo.AnotherTestObject</class-a>
-    <class-b>net.sf.dozer.vo.AnotherTestObjectPrime</class-b>
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
     <field>
       <a>field4</a>
       <b>to.one</b>
@@ -13,8 +13,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.vo.TestObject</class-a>
-    <class-b map-null="false" map-empty-string="false">net.sf.dozer.vo.TestObjectPrime2</class-b>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b map-null="false" map-empty-string="false">org.dozer.vo.TestObjectPrime2</class-b>
   </mapping>
 
 </mappings>

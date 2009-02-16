@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<s:schema xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.vo.dozer.sf.net" elementFormDefault="qualified" targetNamespace="http://www.vo.dozer.sf.net">
+<s:schema xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.vo.dozer.org" elementFormDefault="qualified" targetNamespace="http://www.vo.dozer.org">
   <s:element name="GetWeatherByZipCode">
     <s:complexType>
       <s:sequence>

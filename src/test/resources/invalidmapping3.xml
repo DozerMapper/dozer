@@ -3,8 +3,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
 
     <field>
       <a>one</a>

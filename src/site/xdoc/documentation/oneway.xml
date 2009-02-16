@@ -20,8 +20,8 @@
       <source>
         <![CDATA[ 
 <mapping type="one-way"> 
-  <class-a>net.sf.dozer.vo.TestObjectFoo</class-a>
-  <class-b>net.sf.dozer.vo.TestObjectFooPrime</class-b>   
+  <class-a>org.dozer.vo.TestObjectFoo</class-a>
+  <class-b>org.dozer.vo.TestObjectFooPrime</class-b>   
     <field>
       <a>oneFoo</a>
       <b>oneFooPrime</b>
@@ -38,8 +38,8 @@
         <![CDATA[ 
 
 <mapping> 
-  <class-a>net.sf.dozer.vo.TestObjectFoo2</class-a>
-  <class-b>net.sf.dozer.vo.TestObjectFooPrime2</class-b>   
+  <class-a>org.dozer.vo.TestObjectFoo2</class-a>
+  <class-b>org.dozer.vo.TestObjectFooPrime2</class-b>   
   <field type="one-way">
     <a>oneFoo2</a>
     <b>oneFooPrime2</b>

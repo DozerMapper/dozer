@@ -4,22 +4,22 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.index.Mccoy</class-a>
-    <class-b>net.sf.dozer.vo.index.MccoyPrime</class-b>
+    <class-a>org.dozer.vo.index.Mccoy</class-a>
+    <class-b>org.dozer.vo.index.MccoyPrime</class-b>
     <field>
       <a>stringProperty</a>
       <b map-get-method="getValue" map-set-method="putValue" key="">fieldValueObjects[0]</b>
-      <b-hint>net.sf.dozer.vo.FieldValue</b-hint>
+      <b-hint>org.dozer.vo.FieldValue</b-hint>
     </field>
   </mapping>
 
   <mapping map-id="usingDestHint">
-    <class-a>net.sf.dozer.vo.index.Mccoy</class-a>
-    <class-b>net.sf.dozer.vo.index.MccoyPrime</class-b>
+    <class-a>org.dozer.vo.index.Mccoy</class-a>
+    <class-b>org.dozer.vo.index.MccoyPrime</class-b>
     <field>
       <a>stringProperty</a>
       <b>fieldValueObjects[0]</b>
-      <b-hint>net.sf.dozer.vo.FieldValue</b-hint>
+      <b-hint>org.dozer.vo.FieldValue</b-hint>
     </field>
   </mapping>
 

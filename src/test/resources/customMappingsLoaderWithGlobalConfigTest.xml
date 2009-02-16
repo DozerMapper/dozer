@@ -7,12 +7,12 @@
     <stop-on-errors>true</stop-on-errors>
     <date-format>MM/dd/yyyy HH:mm</date-format>
     <wildcard>false</wildcard>
-    <bean-factory>net.sf.dozer.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
+    <bean-factory>org.dozer.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
   </configuration>
 
   <mapping>
-    <class-a>net.sf.dozer.vo.AnotherTestObject</class-a>
-    <class-b>net.sf.dozer.vo.AnotherTestObjectPrime</class-b>
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
     <field>
       <a>field4</a>
       <b>to.one</b>
@@ -20,8 +20,8 @@
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
     <field>
       <a>one</a>
       <b>onePrime</b>

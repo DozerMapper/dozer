@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.vo.inheritance.twolevel.C</class-a>
-    <class-b>net.sf.dozer.vo.inheritance.twolevel.A</class-b>
+    <class-a>org.dozer.vo.inheritance.twolevel.C</class-a>
+    <class-b>org.dozer.vo.inheritance.twolevel.A</class-b>
     <field>
       <a>a</a>
       <b>a</b>
@@ -14,8 +14,8 @@
 
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.vo.inheritance.twolevel.C</class-a>
-    <class-b>net.sf.dozer.vo.inheritance.twolevel.B</class-b>
+    <class-a>org.dozer.vo.inheritance.twolevel.C</class-a>
+    <class-b>org.dozer.vo.inheritance.twolevel.B</class-b>
     <field>
       <a>b</a>
       <b>b</b>

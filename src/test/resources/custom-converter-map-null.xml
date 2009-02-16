@@ -5,7 +5,7 @@
 
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.functional_tests.support.ThrowExceptionCustomConverter">
+      <converter type="org.dozer.functional_tests.support.ThrowExceptionCustomConverter">
         <class-a>java.lang.String</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
@@ -13,8 +13,8 @@
   </configuration>
 
   <mapping wildcard="false" map-null="false">
-    <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-    <class-b>net.sf.dozer.vo.SimpleObjPrime2</class-b>
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
     <field>
       <a>field1</a>
       <b>field1Prime</b>

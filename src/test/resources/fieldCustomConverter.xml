@@ -4,35 +4,35 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-    <class-b>net.sf.dozer.vo.SimpleObjPrime2</class-b>
-    <field custom-converter="net.sf.dozer.functional_tests.support.StringAppendCustomConverter">
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
+    <field custom-converter="org.dozer.functional_tests.support.StringAppendCustomConverter">
       <a>field1</a>
       <b>field1Prime</b>
     </field>
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.vo.map.CustomMap</class-a>
-    <class-b>net.sf.dozer.vo.SimpleObj</class-b>
-    <field custom-converter="net.sf.dozer.functional_tests.support.StringAppendCustomConverter">
+    <class-a>org.dozer.vo.map.CustomMap</class-a>
+    <class-b>org.dozer.vo.SimpleObj</class-b>
+    <field custom-converter="org.dozer.functional_tests.support.StringAppendCustomConverter">
       <a map-get-method="getValue" key="fieldA">this</a>
       <b>field1</b>
     </field>
   </mapping>
 
   <mapping>
-    <class-a>net.sf.dozer.vo.map.MapToProperty</class-a>
-    <class-b>net.sf.dozer.vo.SimpleObj</class-b>
-    <field custom-converter="net.sf.dozer.functional_tests.support.StringAppendCustomConverter">
+    <class-a>org.dozer.vo.map.MapToProperty</class-a>
+    <class-b>org.dozer.vo.SimpleObj</class-b>
+    <field custom-converter="org.dozer.functional_tests.support.StringAppendCustomConverter">
       <a key="fieldA">hashMap</a>
       <b>field1</b>
     </field>
   </mapping>
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-    <class-b>net.sf.dozer.vo.AnotherTestObject</class-b>
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.AnotherTestObject</class-b>
     <field custom-converter-id="CustomConverterWithId">
       <a>field1</a>
       <b>field3</b>

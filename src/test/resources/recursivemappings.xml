@@ -3,23 +3,23 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping wildcard="true">
-    <class-a>net.sf.dozer.vo.recursive.ClassA</class-a>
-    <class-b>net.sf.dozer.vo.recursive.ClassAPrime</class-b>
+    <class-a>org.dozer.vo.recursive.ClassA</class-a>
+    <class-b>org.dozer.vo.recursive.ClassAPrime</class-b>
     <field>
       <a>subs</a>
       <b>subs</b>
-      <a-hint>net.sf.dozer.vo.recursive.ClassB</a-hint>
-      <b-hint>net.sf.dozer.vo.recursive.ClassBPrime</b-hint>
+      <a-hint>org.dozer.vo.recursive.ClassB</a-hint>
+      <b-hint>org.dozer.vo.recursive.ClassBPrime</b-hint>
     </field>
   </mapping>
 
   <mapping wildcard="true">
-    <class-a>net.sf.dozer.vo.recursive.ClassAA</class-a>
-    <class-b>net.sf.dozer.vo.recursive.ClassAAPrime</class-b>
+    <class-a>org.dozer.vo.recursive.ClassAA</class-a>
+    <class-b>org.dozer.vo.recursive.ClassAAPrime</class-b>
   </mapping>
   <mapping wildcard="false" map-id="minimal">
-    <class-a>net.sf.dozer.vo.recursive.ClassA</class-a>
-    <class-b>net.sf.dozer.vo.recursive.ClassAPrime</class-b>
+    <class-a>org.dozer.vo.recursive.ClassA</class-a>
+    <class-b>org.dozer.vo.recursive.ClassAPrime</class-b>
     <field>
       <a>nom</a>
       <b>nom</b>
@@ -27,8 +27,8 @@
     <field map-id="minimal">
       <a>subs</a>
       <b>subs</b>
-      <a-hint>net.sf.dozer.vo.recursive.ClassB</a-hint>
-      <b-hint>net.sf.dozer.vo.recursive.ClassBPrime</b-hint>
+      <a-hint>org.dozer.vo.recursive.ClassB</a-hint>
+      <b-hint>org.dozer.vo.recursive.ClassBPrime</b-hint>
     </field>
   </mapping>
 </mappings>

@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.map.ParentDOM</class-a>
-    <class-b map-get-method="get" map-set-method="put">net.sf.dozer.vo.map.GenericDOM</class-b>
+    <class-a>org.dozer.vo.map.ParentDOM</class-a>
+    <class-b map-get-method="get" map-set-method="put">org.dozer.vo.map.GenericDOM</class-b>
     <field>
       <a>test</a>
       <b>this</b>
@@ -17,8 +17,8 @@
   </mapping>
 
   <mapping map-id="someMappingId">
-    <class-a>net.sf.dozer.vo.map.ChildDOM</class-a>
-    <class-b map-get-method="get" map-set-method="put">net.sf.dozer.vo.map.GenericDOM</class-b>
+    <class-a>org.dozer.vo.map.ChildDOM</class-a>
+    <class-b map-get-method="get" map-set-method="put">org.dozer.vo.map.GenericDOM</class-b>
     <field>
       <a>childName</a>
       <b>this</b>

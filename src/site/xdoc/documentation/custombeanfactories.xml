@@ -18,7 +18,7 @@
         specify your own bean factories to instantiate the data objects.
       </p>
       <p>
-        Your custom bean factory must implement the net.sf.dozer.BeanFactory interface. By default
+        Your custom bean factory must implement the org.dozer.BeanFactory interface. By default
         the Dozer mapping engine will use the destination object class name for the bean id when calling the
         factory.
       </p>
@@ -96,7 +96,7 @@ public interface BeanFactory {
         <source>
           <![CDATA[ 
 <beans>
-  <bean id="net.sf.dozer.Mapper" class="net.sf.dozer.DozerBeanMapper">
+  <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
     <property name="mappingFiles">
       <list>
         <value>systempropertymapping1.xml</value>
@@ -106,7 +106,7 @@ public interface BeanFactory {
     <property name="factories">
       <map>
         <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
-       <entry key="net.sf.dozer.factories.SampleCustomBeanFactory">
+       <entry key="org.dozer.factories.SampleCustomBeanFactory">
          <ref bean="sampleCustomBeanFactory"/>
        </entry>
         <!-- more factories can be supplied with additional entry's -->
@@ -114,7 +114,7 @@ public interface BeanFactory {
     </property>    
   </bean>
 
-  <bean id="sampleCustomBeanFactory" class="net.sf.dozer.factories.SampleCustomBeanFactory"/>
+  <bean id="sampleCustomBeanFactory" class="org.dozer.factories.SampleCustomBeanFactory"/>
 </beans>
 
 ]]>

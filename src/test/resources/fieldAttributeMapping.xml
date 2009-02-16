@@ -4,8 +4,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.TestObject</class-a>
-    <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
 
     <field>
       <a>fieldAccessible</a>
@@ -51,8 +51,8 @@
   </mapping>
 
   <mapping>
-    <class-a create-method="createMethod">net.sf.dozer.vo.InsideTestObject</class-a>
-    <class-b>net.sf.dozer.vo.InsideTestObjectPrime</class-b>
+    <class-a create-method="createMethod">org.dozer.vo.InsideTestObject</class-a>
+    <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
 
     <field>
       <a>label</a><!-- converting String to String by name only -->
@@ -62,21 +62,21 @@
     <field>
       <a>house.thingy.name</a>
       <b>deepInterfaceString</b>
-      <a-hint>net.sf.dozer.vo.Car</a-hint>
+      <a-hint>org.dozer.vo.Car</a-hint>
     </field>
 
   </mapping>
 
   <!-- this is for defect [ 1477786 ] Duplicate Class Mapping Found -->
   <mapping type="one-way">
-    <class-a>net.sf.dozer.vo.Car</class-a>
-    <class-b>net.sf.dozer.vo.Van</class-b>
+    <class-a>org.dozer.vo.Car</class-a>
+    <class-b>org.dozer.vo.Van</class-b>
   </mapping>
 
   <!-- this is for defect [ 1477786 ] Duplicate Class Mapping Found -->
   <mapping type="one-way">
-    <class-a>net.sf.dozer.vo.Van</class-a>
-    <class-b>net.sf.dozer.vo.Car</class-b>
+    <class-a>org.dozer.vo.Van</class-a>
+    <class-b>org.dozer.vo.Car</class-b>
   </mapping>
 
 </mappings>

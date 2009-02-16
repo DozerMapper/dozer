@@ -4,17 +4,17 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.deepindex.isaccessible.Person</class-a>
-    <class-b>net.sf.dozer.vo.deepindex.isaccessible.FlatPerson</class-b>
+    <class-a>org.dozer.vo.deepindex.isaccessible.Person</class-a>
+    <class-b>org.dozer.vo.deepindex.isaccessible.FlatPerson</class-b>
       <field map-id="FirstPhoneToFlatPerson">
         <a is-accessible="true">phones[0]</a>
         <b>this</b>
-        <a-deep-index-hint>net.sf.dozer.vo.deepindex.isaccessible.Phone</a-deep-index-hint>
+        <a-deep-index-hint>org.dozer.vo.deepindex.isaccessible.Phone</a-deep-index-hint>
       </field>
   </mapping>
   <mapping map-id="FirstPhoneToFlatPerson">
-    <class-a>net.sf.dozer.vo.deepindex.isaccessible.Phone</class-a>
-    <class-b>net.sf.dozer.vo.deepindex.isaccessible.FlatPerson</class-b>
+    <class-a>org.dozer.vo.deepindex.isaccessible.Phone</class-a>
+    <class-b>org.dozer.vo.deepindex.isaccessible.FlatPerson</class-b>
       <field>
         <a>number</a>
         <b>phoneNumber</b>

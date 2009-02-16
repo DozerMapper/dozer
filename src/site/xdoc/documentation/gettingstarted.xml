@@ -124,7 +124,7 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
         </p>
         <source>
           <![CDATA[ 
-<bean id="mapper" class="net.sf.dozer.DozerBeanMapper">
+<bean id="mapper" class="org.dozer.DozerBeanMapper">
   <property name="mappingFiles">
     <list>
       <value>dozer-global-configuration.xml</value>			  

@@ -5,20 +5,20 @@
 
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.functional_tests.support.StringAppendCustomConverter">
+      <converter type="org.dozer.functional_tests.support.StringAppendCustomConverter">
         <class-a>java.lang.String</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
-      <converter type="net.sf.dozer.functional_tests.support.InjectedCustomConverter">
-        <class-a>net.sf.dozer.vo.Vehicle</class-a>
-        <class-b>net.sf.dozer.vo.Vehicle</class-b>
+      <converter type="org.dozer.functional_tests.support.InjectedCustomConverter">
+        <class-a>org.dozer.vo.Vehicle</class-a>
+        <class-b>org.dozer.vo.Vehicle</class-b>
       </converter>
     </custom-converters>
   </configuration>
 
   <mapping>
-    <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-    <class-b>net.sf.dozer.vo.SimpleObjPrime2</class-b>
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
     <field>
       <a>field1</a>
       <b>field1Prime</b>

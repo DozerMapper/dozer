@@ -18,21 +18,21 @@
         </p>
         <source>
           <![CDATA[ 
-<class-a>net.sf.dozer.vo.DehydrateTestObject</class-a>
-<class-b>net.sf.dozer.vo.HydrateTestObject</class-b>
+<class-a>org.dozer.vo.DehydrateTestObject</class-a>
+<class-b>org.dozer.vo.HydrateTestObject</class-b>
   <field-hydrate>
     <a>cars</a> 
     <b>vehicles</b>
-    <a-hint>net.sf.dozer.vo.Car</a-hint>
-    <b-hint>net.sf.dozer.vo.Car</b-hint>
+    <a-hint>org.dozer.vo.Car</a-hint>
+    <b-hint>org.dozer.vo.Car</b-hint>
     <!-- this could be a different Car type, subclass of a different Vehicle type -->
   </field-hydrate>    
 
   <field-hydrate>
     <a>vans</a>
     <b>vehicles</b>
-    <a-hint>net.sf.dozer.vo.Van</a-hint>
-    <b-hint>net.sf.dozer.vo.Van</b-hint>
+    <a-hint>org.dozer.vo.Van</a-hint>
+    <b-hint>org.dozer.vo.Van</b-hint>
     <!-- this could be a different Van type, subclass of a different Vehicle type -->
   </field-hydrate>     
             ]]>
@@ -46,20 +46,20 @@
         </p>
         <source>
           <![CDATA[ 
-<class-a>net.sf.dozer.vo.DehydrateTestObject</class-a>
-<class-b>net.sf.dozer.vo.HydrateTestObject</class-b>
+<class-a>org.dozer.vo.DehydrateTestObject</class-a>
+<class-b>org.dozer.vo.HydrateTestObject</class-b>
   <field-dehydrate>
     <a>fruit</a>  
     <b>apples</b>      
-    <a-hint>net.sf.dozer.vo.Apple</a-hint>         
-    <b-hint>net.sf.dozer.vo.Apple</b-hint> 
+    <a-hint>org.dozer.vo.Apple</a-hint>         
+    <b-hint>org.dozer.vo.Apple</b-hint> 
     <!--this could be a different type -->
   </field-dehydrate>   
   <field-dehydrate>
     <a>fruit</a> 
     <b>oranges</b>      
-    <a-hint>net.sf.dozer.vo.Orange</a-hint>
-    <b-hint>net.sf.dozer.vo.Orange</b-hint>
+    <a-hint>org.dozer.vo.Orange</a-hint>
+    <b-hint>org.dozer.vo.Orange</b-hint>
   </field-dehydrate>
             ]]>
         </source>

@@ -36,8 +36,8 @@
         <source>
           <![CDATA[ 
 <mapping map-null="false">
-  <class-a>net.sf.dozer.vo.AnotherTestObject</class-a>
-  <class-b>net.sf.dozer.vo.AnotherTestObjectPrime</class-b>    
+  <class-a>org.dozer.vo.AnotherTestObject</class-a>
+  <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>    
   <field>
     <a>field4</a>
     <b>to.one</b>
@@ -47,8 +47,8 @@
 OR...
 
 <mapping>
-  <class-a>net.sf.dozer.vo.AnotherTestObject</class-a>
-  <class-b map-null="false">net.sf.dozer.vo.AnotherTestObjectPrime</class-b>    
+  <class-a>org.dozer.vo.AnotherTestObject</class-a>
+  <class-b map-null="false">org.dozer.vo.AnotherTestObjectPrime</class-b>    
   <field>
     <a>field4</a>
     <b>to.one</b>
@@ -68,8 +68,8 @@ OR...
         <source>
           <![CDATA[ 
 <mapping map-empty-string="false">
-  <class-a>net.sf.dozer.vo.AnotherTestObject</class-a>
-  <class-b>net.sf.dozer.vo.AnotherTestObjectPrime</class-b>    
+  <class-a>org.dozer.vo.AnotherTestObject</class-a>
+  <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>    
   <field>
     <a>field4</a>
     <b>to.one</b>
@@ -79,8 +79,8 @@ OR...
 OR...
 
 <mapping>
-  <class-a>net.sf.dozer.vo.AnotherTestObject</class-a>
-  <class-b map-empty-string="false">net.sf.dozer.vo.AnotherTestObjectPrime</class-b>    
+  <class-a>org.dozer.vo.AnotherTestObject</class-a>
+  <class-b map-empty-string="false">org.dozer.vo.AnotherTestObjectPrime</class-b>    
   <field>
     <a>field4</a>
     <b>to.one</b>

@@ -4,14 +4,14 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping map-id="someMapId">
-    <class-a>net.sf.dozer.vo.SuperSuperSuperClass</class-a>
-    <class-b>net.sf.dozer.vo.SuperSuperSuperClassPrime</class-b>
+    <class-a>org.dozer.vo.SuperSuperSuperClass</class-a>
+    <class-b>org.dozer.vo.SuperSuperSuperClassPrime</class-b>
   </mapping>
 
 
   <mapping map-id="someMapId">
-    <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-    <class-b>net.sf.dozer.vo.SimpleObjPrime</class-b>
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.SimpleObjPrime</class-b>
   </mapping>
 
 </mappings>

@@ -35,7 +35,7 @@
   ...
    <copy-by-references>
      <copy-by-reference>
-       net.sf.dozer.vo.NoExtendBaseObjectGlobalCopyByReference
+       org.dozer.vo.NoExtendBaseObjectGlobalCopyByReference
      </copy-by-reference>
    </copy-by-references>
 </configuration>
@@ -52,10 +52,10 @@
   ...
    <copy-by-references>
      <copy-by-reference>
-       net.sf.dozer.vo.*
+       org.dozer.vo.*
      </copy-by-reference>
      <copy-by-reference>
-       net.sf.dozer.*.vo.*DTO
+       org.dozer.*.vo.*DTO
      </copy-by-reference>
    </copy-by-references>
 </configuration>
@@ -71,8 +71,8 @@
         <source>
           <![CDATA[ 
 <mapping>
-  <classa>net.sf.dozer.vo.self.SimpleAccount</classa>
-  <classb>net.sf.dozer.vo.self.Account</classb>
+  <classa>org.dozer.vo.self.SimpleAccount</classa>
+  <classb>org.dozer.vo.self.Account</classb>
   <field>
     <a>this</a>
     <b>address</b>
@@ -80,8 +80,8 @@
 </mapping>
 
 <mapping>
-  <classa>net.sf.dozer.vo.self.SimpleAccount</classa>
-  <classb>net.sf.dozer.vo.self.Address</classb>
+  <classa>org.dozer.vo.self.SimpleAccount</classa>
+  <classb>org.dozer.vo.self.Address</classb>
 
   <field>
     <a>streetName</a>

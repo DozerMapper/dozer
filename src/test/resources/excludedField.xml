@@ -3,19 +3,19 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 	<mapping wildcard="false">
-		<class-a>net.sf.dozer.vo.excluded.ZeroA</class-a>
-		<class-b>net.sf.dozer.vo.excluded.ZeroB</class-b>
+		<class-a>org.dozer.vo.excluded.ZeroA</class-a>
+		<class-b>org.dozer.vo.excluded.ZeroB</class-b>
 		<field-exclude>
 			<a>id</a>
 			<b>id</b>
 		</field-exclude>
 	</mapping>
 	<mapping wildcard="false">
-		<class-a>net.sf.dozer.vo.excluded.OneA</class-a>
-		<class-b>net.sf.dozer.vo.excluded.OneB</class-b>
+		<class-a>org.dozer.vo.excluded.OneA</class-a>
+		<class-b>org.dozer.vo.excluded.OneB</class-b>
 	</mapping>
 	<mapping wildcard="false">
-		<class-a>net.sf.dozer.vo.excluded.TwoA</class-a>
-		<class-b>net.sf.dozer.vo.excluded.TwoB</class-b>
+		<class-a>org.dozer.vo.excluded.TwoA</class-a>
+		<class-b>org.dozer.vo.excluded.TwoB</class-b>
 	</mapping>
 </mappings>

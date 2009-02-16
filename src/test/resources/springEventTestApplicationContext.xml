@@ -4,7 +4,7 @@
 
 <beans default-lazy-init="false">
 
-  <bean id="EventMapper" class="net.sf.dozer.DozerBeanMapper" singleton="true">
+  <bean id="EventMapper" class="org.dozer.DozerBeanMapper" singleton="true">
     <property name="mappingFiles">
       <list>
         <value>dozerBeanMapping.xml</value>
@@ -17,6 +17,6 @@
     </property>
   </bean>
 
-  <bean id="eventTestListener" class="net.sf.dozer.functional_tests.support.EventTestListener" singleton="true" />
+  <bean id="eventTestListener" class="org.dozer.functional_tests.support.EventTestListener" singleton="true" />
 
 </beans>

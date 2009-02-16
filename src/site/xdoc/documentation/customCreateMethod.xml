@@ -18,8 +18,8 @@
       <source>
         <![CDATA[ 
 <mapping>
-  <class-a create-method="someCreateMethod">net.sf.dozer.vo.InsideTestObject</class-a>
-  <class-b>net.sf.dozer.vo.InsideTestObjectPrime</class-b>
+  <class-a create-method="someCreateMethod">org.dozer.vo.InsideTestObject</class-a>
+  <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
 
   <field>
     <a>label</a>
@@ -32,8 +32,8 @@
       <source>
         <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.vo.TestObject</class-a>
-  <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
+  <class-a>org.dozer.vo.TestObject</class-a>
+  <class-b>org.dozer.vo.TestObjectPrime</class-b>
 
   <field>
     <a>createMethodType</a>

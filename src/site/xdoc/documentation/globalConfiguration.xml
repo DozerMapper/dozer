@@ -30,8 +30,8 @@
   <trim-strings>false</trim-strings>
      
   <custom-converters> <!-- these are always bi-directional -->
-    <converter type="net.sf.dozer.converters.TestCustomConverter" >
-      <class-a>net.sf.dozer.vo.TestCustomConverterObject</class-a>
+    <converter type="org.dozer.converters.TestCustomConverter" >
+      <class-a>org.dozer.vo.TestCustomConverterObject</class-a>
       <class-b>another.type.to.Associate</class-b>
     </converter>
      
@@ -49,8 +49,8 @@
       <source>
         <![CDATA[ 
 <mapping wildcard="false">
-  <class-a>net.sf.dozer.vo.SpringBean</class-a>
-  <class-b>net.sf.dozer.vo.SpringBeanPrime</class-b>
+  <class-a>org.dozer.vo.SpringBean</class-a>
+  <class-b>org.dozer.vo.SpringBeanPrime</class-b>
     
   <field>
     <a>anAttributeToMap</a>
@@ -69,8 +69,8 @@
       <source>
         <![CDATA[ 
 <mapping date-format="MM-dd-yyyy HH:mm:ss"> <!-- Override top level date format default  -->
-  <class-a>net.sf.dozer.vo.TestObject</class-a>
-  <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
+  <class-a>org.dozer.vo.TestObject</class-a>
+  <class-b>org.dozer.vo.TestObjectPrime</class-b>
     
   <field>
     <a>one</a> 
@@ -86,8 +86,8 @@
       <source>
         <![CDATA[ 
 <mapping stop-on-errors="false"> <!-- Override top level defaults -->
-  <class-a>net.sf.dozer.vo.TestObject</class-a>
-  <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
+  <class-a>org.dozer.vo.TestObject</class-a>
+  <class-b>org.dozer.vo.TestObjectPrime</class-b>
     
   <field>
     <a>one</a>
@@ -104,8 +104,8 @@
       <source>
         <![CDATA[ 
 <mapping trim-strings="true"> <!-- Override top level defaults -->
-  <class-a>net.sf.dozer.vo.TestObject</class-a>
-  <class-b>net.sf.dozer.vo.TestObjectPrime</class-b>
+  <class-a>org.dozer.vo.TestObject</class-a>
+  <class-b>org.dozer.vo.TestObjectPrime</class-b>
     
   <field>
     <a>one</a>

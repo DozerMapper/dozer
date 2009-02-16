@@ -5,7 +5,7 @@
 
   <configuration>
     <custom-converters>
-      <converter type="net.sf.dozer.functional_tests.support.CustomConverterParamConverter">
+      <converter type="org.dozer.functional_tests.support.CustomConverterParamConverter">
         <class-a>java.lang.String</class-a>
         <class-b>java.lang.String</class-b>
       </converter>
@@ -13,17 +13,17 @@
   </configuration>
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-    <class-b>net.sf.dozer.vo.AnotherTestObject</class-b>
-    <field custom-converter="net.sf.dozer.functional_tests.support.CustomConverterParamConverter" custom-converter-param="CustomConverterParamTest">
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.AnotherTestObject</class-b>
+    <field custom-converter="org.dozer.functional_tests.support.CustomConverterParamConverter" custom-converter-param="CustomConverterParamTest">
       <a>field1</a>
       <b>field3</b>
     </field>
   </mapping>
 
   <mapping map-id="1">
-    <class-a>net.sf.dozer.vo.Individual</class-a>
-    <class-b>net.sf.dozer.vo.Fruit</class-b>
+    <class-a>org.dozer.vo.Individual</class-a>
+    <class-b>org.dozer.vo.Fruit</class-b>
     <field>
       <a>username</a>
       <b>name</b>
@@ -31,8 +31,8 @@
   </mapping>
 
   <mapping map-id="2">
-    <class-a>net.sf.dozer.vo.Individual</class-a>
-    <class-b>net.sf.dozer.vo.Fruit</class-b>
+    <class-a>org.dozer.vo.Individual</class-a>
+    <class-b>org.dozer.vo.Fruit</class-b>
     <field custom-converter-param="PARAM">
       <a>username</a>
       <b>name</b>

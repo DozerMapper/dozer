@@ -17,7 +17,7 @@
         to perform the data mapping instead of the standard mapping logic.
       </p>
       <p>
-        Your custom converter must implement the net.sf.dozer.converters.CustomConverter interface in
+        Your custom converter must implement the org.dozer.converters.CustomConverter interface in
         order for Dozer to accept it. Otherwise an exception will be thrown.
       </p>
       <p>
@@ -36,15 +36,15 @@
 <mappings>
   <configuration>
     <custom-converters> <!-- these are always bi-directional -->
-      <converter type="net.sf.dozer.converters.TestCustomConverter" >
-        <class-a>net.sf.dozer.vo.CustomDoubleObject</class-a>
+      <converter type="org.dozer.converters.TestCustomConverter" >
+        <class-a>org.dozer.vo.CustomDoubleObject</class-a>
         <class-b>java.lang.Double</class-b>
       </converter>
 
       <!-- You are responsible for mapping everything between ClassA and ClassB -->
-      <converter type="net.sf.dozer.converters.TestCustomHashMapConverter" >
-        <class-a>net.sf.dozer.vo.TestCustomConverterHashMapObject</class-a>
-        <class-b>net.sf.dozer.vo.TestCustomConverterHashMapPrimeObject</class-b>
+      <converter type="org.dozer.converters.TestCustomHashMapConverter" >
+        <class-a>org.dozer.vo.TestCustomConverterHashMapObject</class-a>
+        <class-b>org.dozer.vo.TestCustomConverterHashMapPrimeObject</class-b>
       </converter>
      
     </custom-converters>     
@@ -64,9 +64,9 @@
         <![CDATA[
 
 <mapping>
-  <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-  <class-b>net.sf.dozer.vo.SimpleObjPrime2</class-b>    
-  <field custom-converter="net.sf.dozer.converters.StringAppendCustomConverter">
+  <class-a>org.dozer.vo.SimpleObj</class-a>
+  <class-b>org.dozer.vo.SimpleObjPrime2</class-b>    
+  <field custom-converter="org.dozer.converters.StringAppendCustomConverter">
     <a>field1</a>
     <b>field1Prime</b>
   </field>
@@ -82,8 +82,8 @@
       <source>
         <![CDATA[
 <mapping>
-  <class-a>net.sf.dozer.vo.SimpleObj</class-a>
-  <class-b>net.sf.dozer.vo.SimpleObjPrime2</class-b>    
+  <class-a>org.dozer.vo.SimpleObj</class-a>
+  <class-b>org.dozer.vo.SimpleObjPrime2</class-b>    
   <field custom-converter-id="CustomConverterWithId">
     <a>field1</a>
     <b>field1Prime</b>
@@ -104,7 +104,7 @@
 
 <beans default-lazy-init="false">
 
-  <bean id="net.sf.dozer.Mapper" class="net.sf.dozer.DozerBeanMapper">
+  <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
     <property name="mappingFiles">
       <list>
         <value>systempropertymapping1.xml</value>
@@ -173,7 +173,7 @@ public class TestCustomConverter implements CustomConverter {
 
 <beans default-lazy-init="false">
 
-  <bean id="net.sf.dozer.Mapper" class="net.sf.dozer.DozerBeanMapper">
+  <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
     <property name="mappingFiles">
       <list>
         <value>systempropertymapping1.xml</value>
@@ -189,7 +189,7 @@ public class TestCustomConverter implements CustomConverter {
   </bean>
 
   <!-- custom converter -->
-  <bean id="customConverterTest" class="net.sf.dozer.converters.InjectedCustomConverter">
+  <bean id="customConverterTest" class="org.dozer.converters.InjectedCustomConverter">
     <property name="injectedName"><value>injectedName</value></property>
   </bean>
 
@@ -204,13 +204,13 @@ public class TestCustomConverter implements CustomConverter {
           generically uses ClassLoader.loadClass() when parsing the mapping files. For arrays, java expects the
           class name in the following format....
 
-          [Lnet.sf.dozer.vo.SimpleObj;
+          [Lorg.dozer.vo.SimpleObj;
         </p>
 
         <source>
           <![CDATA[
-<converter type="net.sf.dozer.converters.StringAppendCustomConverter" > 
-  <class-a>[Lnet.sf.dozer.vo.SimpleObj;</class-a> 
+<converter type="org.dozer.converters.StringAppendCustomConverter" > 
+  <class-a>[Lorg.dozer.vo.SimpleObj;</class-a> 
   <class-b>java.lang.String</class-b> 
 </converter> 
         ]]>
@@ -248,9 +248,9 @@ public class TestCustomConverter implements CustomConverter {
         <source>
           <![CDATA[
   <mapping>
-    <class-a>net.sf.dozer.vo.BeanA</class-a>
-    <class-b>net.sf.dozer.vo.BeanB</class-b>
-    <field custom-converter="net.sf.dozer.converters.MathOperationConverter"
+    <class-a>org.dozer.vo.BeanA</class-a>
+    <class-b>org.dozer.vo.BeanB</class-b>
+    <field custom-converter="org.dozer.converters.MathOperationConverter"
            custom-converter-param="+">
       <a>amount</a>
       <b>amount</b>

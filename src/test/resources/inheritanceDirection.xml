@@ -4,20 +4,20 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping wildcard="true">
-    <class-a>net.sf.dozer.vo.direction.ContentItemGroupBase</class-a>
-    <class-b>net.sf.dozer.vo.direction.ContentItemGroupDTO</class-b>
+    <class-a>org.dozer.vo.direction.ContentItemGroupBase</class-a>
+    <class-b>org.dozer.vo.direction.ContentItemGroupDTO</class-b>
     <field>
       <a>childGroups</a>
       <b>childGroups</b>
-      <a-hint>net.sf.dozer.vo.direction.ContentItemGroupDefault</a-hint>
-      <b-hint>net.sf.dozer.vo.direction.ContentItemGroupDTO</b-hint>
+      <a-hint>org.dozer.vo.direction.ContentItemGroupDefault</a-hint>
+      <b-hint>org.dozer.vo.direction.ContentItemGroupDTO</b-hint>
     </field>
   </mapping>
 
 
   <mapping wildcard="false">
-    <class-a>net.sf.dozer.vo.direction.EntityBase</class-a>
-    <class-b>net.sf.dozer.vo.direction.EntityDTO</class-b>
+    <class-a>org.dozer.vo.direction.EntityBase</class-a>
+    <class-b>org.dozer.vo.direction.EntityDTO</class-b>
     <field>
       <a is-accessible="true">id</a>
       <b is-accessible="true">id</b>

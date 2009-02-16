@@ -47,7 +47,7 @@ public interface DozerEventListener {
           
 <beans default-lazy-init="false">
           
- <bean id="EventMapper" class="net.sf.dozer.DozerBeanMapper">
+ <bean id="EventMapper" class="org.dozer.DozerBeanMapper">
   <property name="mappingFiles">
    <list>
     <value>dozerBeanMapping.xml</value>
@@ -60,7 +60,7 @@ public interface DozerEventListener {
   </property>
  </bean>
           
- <bean id="eventTestListener" class="net.sf.dozer.event.EventTestListener"/>
+ <bean id="eventTestListener" class="org.dozer.event.EventTestListener"/>
             
 </beans>
        ]]>

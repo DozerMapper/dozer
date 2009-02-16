@@ -12,7 +12,7 @@
     <section name="JMX Integration">
       <p>
         Dozer can be managed via JMX. The Dozer distibution contains fully functional JMX MBeans. These MBeans can
-        be found in the net.sf.dozer.jmx package.
+        be found in the org.dozer.jmx package.
       </p>
       <p>
         If JMX libraries and a JMX MBeanServer are available in your environment (they are include in JDK 1.5 and

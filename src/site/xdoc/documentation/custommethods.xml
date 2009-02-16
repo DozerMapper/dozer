@@ -76,7 +76,7 @@
 <field> 
   <a>appleComputers</a> 
   <b set-method="addComputer" type="iterate">computers</b> 
-  <b-hint>net.sf.dozer.vo.AppleComputer</b-hint>       
+  <b-hint>org.dozer.vo.AppleComputer</b-hint>       
 </field>
             ]]>
         </source>
@@ -86,8 +86,8 @@
 <field> 
   <a set-method="addCar" get-method="myIterateCars" type="iterate">iterateCars</a> 
   <b set-method="addIterateCar" type="iterate">iterateCars</b> 
-  <a-hint>net.sf.dozer.vo.Car</a-hint>       
-  <b-hint>net.sf.dozer.vo.Car</b-hint>       
+  <a-hint>org.dozer.vo.Car</a-hint>       
+  <b-hint>org.dozer.vo.Car</b-hint>       
 </field>
             ]]>
         </source>

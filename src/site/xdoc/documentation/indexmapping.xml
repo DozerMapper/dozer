@@ -14,8 +14,8 @@
       <source>
         <![CDATA[ 
 <mapping>
-  <class-a>net.sf.dozer.vo.Individuals</class-a>
-  <class-b>net.sf.dozer.vo.FlatIndividual</class-b>
+  <class-a>org.dozer.vo.Individuals</class-a>
+  <class-b>org.dozer.vo.FlatIndividual</class-b>
     <field>
       <a>usernames[0]</a>
       <b>username1</b>

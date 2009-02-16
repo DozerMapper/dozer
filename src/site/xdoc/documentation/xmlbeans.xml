@@ -19,9 +19,9 @@
         <source>
           <![CDATA[ 
 <mapping wildcard="false">
-  <class-a>net.sf.dozer.vo.TestObject</class-a>
-  <class-b bean-factory="net.sf.dozer.factory.XMLBeanFactory">
-    net.sf.dozer.vo.GetWeatherByZipCodeDocument
+  <class-a>org.dozer.vo.TestObject</class-a>
+  <class-b bean-factory="org.dozer.factory.XMLBeanFactory">
+    org.dozer.vo.GetWeatherByZipCodeDocument
   </class-b>
 
   <field>

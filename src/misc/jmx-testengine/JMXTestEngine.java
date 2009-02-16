@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.DozerBeanMapper;
-import net.sf.dozer.Mapper;
-import net.sf.dozer.util.DozerConstants;
-import net.sf.dozer.functional_tests.NoProxyDataObjectInstantiator;
-import net.sf.dozer.functional_tests.support.TestDataFactory;
-import net.sf.dozer.vo.ArrayCustConverterObj;
-import net.sf.dozer.vo.ArrayCustConverterObjPrime;
-import net.sf.dozer.vo.SimpleObj;
-import net.sf.dozer.vo.SimpleObjPrime2;
-import net.sf.dozer.vo.TestObject;
-import net.sf.dozer.vo.TestObjectPrime;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
+import org.dozer.util.DozerConstants;
+import org.dozer.functional_tests.NoProxyDataObjectInstantiator;
+import org.dozer.functional_tests.support.TestDataFactory;
+import org.dozer.vo.ArrayCustConverterObj;
+import org.dozer.vo.ArrayCustConverterObjPrime;
+import org.dozer.vo.SimpleObj;
+import org.dozer.vo.SimpleObjPrime2;
+import org.dozer.vo.TestObject;
+import org.dozer.vo.TestObjectPrime;
 
 public class JMXTestEngine {
 

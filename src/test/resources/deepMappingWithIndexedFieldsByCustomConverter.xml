@@ -4,9 +4,9 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
   <mapping>
-    <class-a>net.sf.dozer.vo.deepindex.customconverter.First</class-a>
-    <class-b>net.sf.dozer.vo.deepindex.customconverter.Last</class-b>
-    <field custom-converter="net.sf.dozer.vo.deepindex.customconverter.Conv">
+    <class-a>org.dozer.vo.deepindex.customconverter.First</class-a>
+    <class-b>org.dozer.vo.deepindex.customconverter.Last</class-b>
+    <field custom-converter="org.dozer.vo.deepindex.customconverter.Conv">
       <!-- <a>second.thirdArray[7]</a> -->
       <!-- <a>secondArray[0].third</a> -->
       <a>secondArray[0].thirdArray[7]</a>
