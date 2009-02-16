@@ -157,6 +157,17 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/org/dozer/vo/**</exclude>
+            <exclude>**/net/pmonks/**</exclude>
+            <exclude>**/schemaorg_apache_xmlbeans/**</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-idea-plugin</artifactId>
         <version>2.2</version>
       </plugin>
