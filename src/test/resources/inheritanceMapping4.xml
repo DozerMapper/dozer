@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping  wildcard="false">
+    <class-a>org.dozer.vo.mapid.AContainer</class-a>
+    <class-b>org.dozer.vo.mapid.BContainer</class-b>
+      <field map-id="MapSuperAToSuperB">
+        <a>AProperty</a>
+        <b>BProperty</b>
+      </field>
+  </mapping>
+
+
+  <mapping map-id="MapSuperAToSuperB" wildcard="false">
+    <class-a>org.dozer.vo.inheritance.SuperA</class-a>
+    <class-b>org.dozer.vo.inheritance.SuperB</class-b>
+    <field>
+      <a>superAField</a>
+      <b>superBField</b>
+    </field>   
+  </mapping>
+
+</mappings>

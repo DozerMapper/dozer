@@ -22,41 +22,41 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.util.MappingUtils;
 
 /**
- * Internal class that determines the appropriate class mapping to be used for the source and destination object being
- * mapped. Only intended for internal use.
+ * Internal class that determines the appropriate class mapping to be used for
+ * the source and destination object being mapped. Only intended for internal
+ * use.
  * 
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class ClassMappings {
   private static final Log log = LogFactory.getLog(ClassMappings.class);
-  
+
   private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
-  
+
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
     classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass), classMap);
   }
-  
+
   public void add(Class<?> srcClass, Class<?> destClass, String mapId, ClassMap classMap) {
     classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass, mapId), classMap);
   }
-  
+
   public void addAll(ClassMappings classMappings) {
     this.classMappings.putAll(classMappings.getAll());
   }
-  
-  //TODO: don't expose the internal datastore
+
+  // TODO: don't expose the internal datastore
   public Map<String, ClassMap> getAll() {
     return classMappings;
   }
-  
+
   public long size() {
     return classMappings.size();
   }
@@ -64,17 +64,18 @@ public class ClassMappings {
   public ClassMap find(Class<?> srcClass, Class<?> destClass) {
     return classMappings.get(ClassMapKeyFactory.createKey(srcClass, destClass));
   }
-  
+
   public boolean contains(Class<?> srcClass, Class<?> destClass, String mapId) {
     String key = ClassMapKeyFactory.createKey(srcClass, destClass, mapId);
     return classMappings.containsKey(key);
   }
-  
+
   public ClassMap find(Class<?> srcClass, Class<?> destClass, String mapId) {
     Class<?> srcLookupClass = MappingUtils.getRealClass(srcClass);
     Class<?> destLookupClass = MappingUtils.getRealClass(destClass);
 
-    ClassMap mapping = classMappings.get(ClassMapKeyFactory.createKey(srcLookupClass, destLookupClass, mapId));
+    ClassMap mapping = classMappings.get(ClassMapKeyFactory.createKey(srcLookupClass,
+        destLookupClass, mapId));
 
     if (mapping == null) {
       mapping = findInterfaceMapping(destClass, srcClass, mapId);
@@ -86,18 +87,22 @@ public class ClassMappings {
       // probably a more efficient way to do this...
       for (Entry<String, ClassMap> entry : classMappings.entrySet()) {
         ClassMap classMap = entry.getValue();
-        if (StringUtils.equals(classMap.getMapId(), mapId)) {
+        if (StringUtils.equals(classMap.getMapId(), mapId)
+            && classMap.getSrcClassToMap().isAssignableFrom(srcClass)
+            && classMap.getDestClassToMap().isAssignableFrom(destClass)) {
           return classMap;
         }
+
       }
       log.info("No ClassMap found for mapId:" + mapId);
     }
 
     return mapping;
   }
-  
+
   public List<ClassMap> findInterfaceMappings(Class<?> srcClass, Class<?> destClass) {
-    // If no existing cache entry is found, determine super type mapping and store in cache
+    // If no existing cache entry is found, determine super type mapping and
+    // store in cache
     // Get interfaces
     Class<?>[] srcInterfaces = srcClass.getInterfaces();
     Class<?>[] destInterfaces = destClass.getInterfaces();
@@ -105,7 +110,8 @@ public class ClassMappings {
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcClass, destInterfaces[i]));
+      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcClass,
+          destInterfaces[i]));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -113,13 +119,15 @@ public class ClassMappings {
 
     for (Class<?> srcInterface : srcInterfaces) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcInterface, destClass));
+      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcInterface,
+          destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
     }
 
-    // multiple levels of custom mapping processed in wrong order - need to reverse
+    // multiple levels of custom mapping processed in wrong order - need to
+    // reverse
     Collections.reverse(interfaceMaps);
 
     return interfaceMaps;
@@ -127,7 +135,8 @@ public class ClassMappings {
 
   // Look for an interface mapping
   private ClassMap findInterfaceMapping(Class<?> destClass, Class<?> srcClass, String mapId) {
-    // Use object array for keys to avoid any rare thread synchronization issues while iterating over the custom mappings. 
+    // Use object array for keys to avoid any rare thread synchronization issues
+    // while iterating over the custom mappings.
     // See bug #1550275.
     Object[] keys = classMappings.keySet().toArray();
     for (int i = 0; i < keys.length; i++) {
@@ -135,7 +144,8 @@ public class ClassMappings {
       Class<?> mappingDestClass = map.getDestClassToMap();
       Class<?> mappingSrcClass = map.getSrcClassToMap();
 
-      if ((mapId == null && map.getMapId() != null) || (mapId != null && !mapId.equals(map.getMapId()))) {
+      if ((mapId == null && map.getMapId() != null)
+          || (mapId != null && !mapId.equals(map.getMapId()))) {
         continue;
       }
 
@@ -156,7 +166,5 @@ public class ClassMappings {
     }
     return null;
   }
-  
-  
 
 }
