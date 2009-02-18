@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
+   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+
+<mappings>
+	<mapping wildcard="true" map-null="false">
+		<class-a>org.dozer.functional_tests.SuperInterfaceMappingTest$Member</class-a>
+		<class-b>org.dozer.functional_tests.SuperInterfaceMappingTest$MemberDto</class-b>
+		<field type="one-way" >
+			<a>name</a>
+			<b is-accessible="true">name</b>
+		</field>
+	</mapping>
+
+	<mapping wildcard="true" map-null="false">
+		<class-a>org.dozer.functional_tests.SuperInterfaceMappingTest$Taxer</class-a>
+		<class-b>org.dozer.functional_tests.SuperInterfaceMappingTest$TaxerDto</class-b>
+		<field type="one-way" >
+			<a>socialNr</a>
+			<b is-accessible="true">socialNr</b>
+		</field>
+	</mapping>
+</mappings>
