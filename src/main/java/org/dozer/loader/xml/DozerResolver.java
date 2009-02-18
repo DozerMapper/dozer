@@ -16,10 +16,12 @@
 package org.dozer.loader.xml;
 
 import java.io.InputStream;
+import java.net.URL;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.util.DozerConstants;
+import org.dozer.util.ResourceLoader;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
@@ -42,7 +44,8 @@ public class DozerResolver implements EntityResolver {
       String fileName = systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME));
       log.debug("Trying to locate [" + fileName + "] in classpath");
       try {
-        InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+        ResourceLoader resourceLoader = new ResourceLoader();
+        InputStream stream = resourceLoader.getResource(fileName).openStream();
         InputSource source = new InputSource(stream);
         source.setPublicId(publicId);
         source.setSystemId(systemId);
