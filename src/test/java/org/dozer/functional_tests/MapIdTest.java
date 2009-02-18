@@ -5,7 +5,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.dozer.vo.inheritance.A;
 import org.dozer.vo.mapid.AContainer;
+import org.dozer.vo.mapid.AListContainer;
 import org.dozer.vo.mapid.BContainer;
+import org.dozer.vo.mapid.BContainer2;
 import org.junit.Test;
 
 public class MapIdTest extends AbstractFunctionalTest {
@@ -27,6 +29,26 @@ public class MapIdTest extends AbstractFunctionalTest {
     BContainer mappedDest = (BContainer) mapper.map(mappedSrc, BContainer.class);
 
     assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
+  }
+
+  @Test
+  public void testMapIdWithHint() {
+    mapper = getMapper(new String[] { "mapIdWithHint.xml" });
+
+    AListContainer aListContainer = new AListContainer();
+    aListContainer.getAList().add(getA());
+
+    BContainer2 bContainer = new BContainer2();
+    mapper.map(aListContainer, bContainer);
+
+    assertNotNull(bContainer);
+    assertNotNull(bContainer.getBField());
+    assertEquals(((A) (aListContainer.getAList().get(0))).getSuperAField(), bContainer.getBField()
+        .getSuperBField());
+
+    AListContainer newAListContainer = (AListContainer) mapper
+        .map(bContainer, AListContainer.class);
+    assertEquals("failed reverse map", aListContainer, newAListContainer);
   }
 
   private A getA() {

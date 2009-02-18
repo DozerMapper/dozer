@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.mapid.AListContainer</class-a>
+    <class-b>org.dozer.vo.mapid.BContainer2</class-b>
+    <field map-id="MapSuperAToSuperB">
+      <a>aList[0]</a>
+      <b>bField</b>
+      <a-deep-index-hint>org.dozer.vo.inheritance.A</a-deep-index-hint>
+    </field>
+  </mapping>
+
+  <mapping map-id="MapSuperAToSuperB">
+    <class-a>org.dozer.vo.inheritance.A</class-a>
+    <class-b>org.dozer.vo.inheritance.B</class-b>
+      <field>
+        <a>fieldA</a>
+        <b>fieldB</b>
+      </field>
+      <field>
+        <a>superAField</a>
+        <b>superBField</b>
+      </field>
+  </mapping>
+
+</mappings>

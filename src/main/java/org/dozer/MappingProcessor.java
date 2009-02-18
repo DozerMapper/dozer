@@ -400,6 +400,10 @@ public class MappingProcessor implements Mapper {
     if (MappingUtils.isEnumType(srcFieldClass, destFieldType)) {
       return mapEnum((Enum) srcFieldValue, (Class<Enum>) destFieldType);
     }
+    
+    if (fieldMap.getDestDeepIndexHintContainer() != null) {
+      destFieldType = fieldMap.getDestDeepIndexHintContainer().getHint();
+    }
 
     // Default: Map from one custom data object to another custom data object
     return mapCustomObject(fieldMap, destObj, destFieldType, srcFieldValue);
