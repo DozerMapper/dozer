@@ -27,6 +27,31 @@
 </field-exclude>           
             ]]>
       </source>
+      
+      <subsection name="Wildcard - excluding default field mappings">
+        <p>
+          There's also a flag (<code>wildcard</code>) set on class mapping which controls whether the default mapping (which applies to pair of properties of the same name)
+	      should be done. The default value is true. For example:
+        </p>	  
+        <source>
+          <![CDATA[
+<mapping wildcard="false">
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+       <a>field1</a>
+       <b>field1</b>
+    </field>   
+</mapping>
+          ]]>
+        </source>
+      </subsection>
+
+      <p>
+        This configuration would cause only the fields <code>field1</code> in both classes to be mapped, even if both classes share a property
+        with the same name called <code>field2</code>. 
+      </p>
+      
       <subsection name="Exclude Mapping Null Values">
         <p>
           You can bypass the mapping of null values. If this is specified, the dest field mapping is bypassed at
