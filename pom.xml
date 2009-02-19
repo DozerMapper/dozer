@@ -356,7 +356,7 @@
       <id>fgarsombke</id>
       <email>fgarsombke@yahoo.com</email>
       <roles>
-        <role>Project Lead/Architect</role>
+        <role>Project Lead</role>
       </roles>
       <timezone>-7</timezone>
     </developer>
@@ -366,7 +366,7 @@
       <email>mhtierney@comcast.net</email>
       <timezone>-7</timezone>
       <roles>
-        <role>Project Lead/Architect</role>
+        <role>Project Lead</role>
       </roles>
     </developer>
     <developer>

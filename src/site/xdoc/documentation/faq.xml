@@ -74,7 +74,7 @@
             <a href="#dozer-perf">How does Dozer perform?</a>
           </li>
           <li>
-            <a href="#jdk-support">Does Dozer support JDK 1.3?</a>
+            <a href="#jdk-support">Which JDK versions are supported?</a>
           </li>
           <li>
             <a href="#maven-repo">Is Dozer in the maven repository?</a>
@@ -363,8 +363,8 @@
 
       <br></br>
       <a name="jdk-support"></a>
-      <subsection name="Does Dozer support JDK 1.3?">
-        <p>Yes. Currently it can run in JDK 1.3 and above.</p>
+      <subsection name="Which JDK versions are supported?">
+        <p>JDK 1.5 and above .</p>
       </subsection>
 
       <br></br>
@@ -377,7 +377,7 @@
         <source>
           <![CDATA[ 
     <dependency>
-      <groupId>dozer<groupId>
+      <groupId>org.dozer<groupId>
       <artifactId>dozer</artifactId>
       <version>5.0</version>
     </dependency>
@@ -735,10 +735,8 @@ public void testAssembleSomeObject_NullValues() throws Exception {
       <a name="viewing-runtime-stats"></a>
       <subsection name="What is the best way to view runtime mapping statistics?">
         <p>
-          The best way to view the runtime stats is via the Dozer JMX Beans. With the 3.2 release, if you are
-          running JDK 1.5 these JMXBeans are auto registered with the platform mdb server. JConsole is a good way
-          to easily view the MBeans. If you are not running JDK 1.5, you will need to register the MBeans manually
-          with your server.
+          The best way to view the runtime stats is via the Dozer JMX Beans. These JMXBeans are auto registered with the platform mdb server at startup.
+          JConsole is a good way to easily view the MBeans. 
         </p>
       </subsection>
 
@@ -774,13 +772,11 @@ dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversio
           the following....
         </p>
         <source>
-          MAPPED: SimpleObj.field1 --> SimpleObjPrime.field1 VALUES: one --> one MAPID: someMapId MAPPED:
-          SimpleObj.field2 --> SimpleObjPrime.field2 VALUES: 2 --> 2 MAPID: someMapId MAPPED: SimpleObj.field3 -->
-          SimpleObjPrime.field3 VALUES: 3 --> 3 MAPID: someMapId MAPPED: SimpleObj.field4 --> SimpleObjPrime.field4
-          VALUES: 44.44 --> 44.44 MAPID: someMapId MAPPED: SimpleObj.field5 --> SimpleObjPrime.field5 VALUES:
-          java.util.GregorianCalendar[time=1176686852984,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="America/Denver",offset=-25200000,dstSavings=3600000,useDaylight=true,transitions=157,lastRule=java.util.SimpleTimeZone[id=America/Denver,offset=-25200000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=1,YEAR=2007,MONTH=3,WEEK_OF_YEAR=16,WEEK_OF_MONTH=3,DAY_OF_MONTH=15,DAY_OF_YEAR=105,DAY_OF_WEEK=1,DAY_OF_WEEK_IN_MONTH=3,AM_PM=1,HOUR=7,HOUR_OF_DAY=19,MINUTE=27,SECOND=32,MILLISECOND=984,ZONE_OFFSET=-25200000,DST_OFFSET=3600000]
-          --> 04/15/2007 19:27 MAPID: someMapId MAPPED: SimpleObj.field6 --> SimpleObjPrime.field6 VALUES: 66 -->
-          66 MAPID: someMapId
+          MAPPED: SimpleObj.field1 --> SimpleObjPrime.field1 VALUES: one --> one MAPID: someMapId 
+          MAPPED: SimpleObj.field2 --> SimpleObjPrime.field2 VALUES: 2 --> 2 MAPID: someMapId 
+          MAPPED: SimpleObj.field3 --> SimpleObjPrime.field3 VALUES: 3 --> 3 MAPID: someMapId 
+          MAPPED: SimpleObj.field4 --> SimpleObjPrime.field4 VALUES: 44.44 --> 44.44 MAPID: someMapId 
+          MAPPED: SimpleObj.field6 --> SimpleObjPrime.field6 VALUES: 66 --> 66 MAPID: someMapId
         </source>
 
       </subsection>
@@ -796,7 +792,7 @@ dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversio
           <![CDATA[ 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
-   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+   "http://dozer.sourceforge.net/schema/beanmapping.xsd">
 <mappings>
 
   <configuration>

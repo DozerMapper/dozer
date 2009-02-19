@@ -56,7 +56,7 @@
       </p>
       <source>
         <![CDATA[ 
-    ContextMappingPrime cmpA = (ContextMappingPrime) mapper.map(cm, ContextMappingPrime.class, "caseA");
+    ContextMappingPrime cmpA = mapper.map(cm, ContextMappingPrime.class, "caseA");
                 ]]>
       </source>
     </section>

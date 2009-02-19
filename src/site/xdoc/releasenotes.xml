@@ -41,7 +41,7 @@
           <tr>
             <td>Switched to using XSD instead of DTD</td>
             <td>beanmapping.xsd</td>
-            <td>beanmapping.dtd</td>
+            <td>dozerbeanmapping.dtd</td>
           </tr>
           <tr>
             <td>Renamed some public Interfaces</td>

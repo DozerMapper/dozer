@@ -44,7 +44,7 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
         </p>
         <p>
           <b>IMPORTANT:</b>
-          For real-world applications it is not recommended that you create a new instance of the Mapper each time
+          For real-world applications it is NOT recommended to create a new instance of the Mapper each time
           you map objects. Typically a system will only have one DozerBeanMapper instance per VM. If you are not
           using an IOC framework where you can define the Mapper Instance as singleton="true".  If needed, a
           DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
@@ -90,7 +90,7 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
           <![CDATA[ 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
-   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
+   "http://dozer.sourceforge.net/schema/beanmapping.xsd">
 <mappings>
   <configuration>
     <stop-on-errors>true</stop-on-errors>

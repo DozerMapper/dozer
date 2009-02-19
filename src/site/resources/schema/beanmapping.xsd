@@ -27,21 +27,27 @@
         Optional Attributes:
 
         stop-on-errors Indicates whether Dozer should stop mapping fields and throw the Exception if an error is
-        encountered while performing a field mapping.
-        It is recommended that this is set to "true".
-        If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
-        The default value is "true".
+        encountered while performing a field mapping. It is recommended that this is set to "true". If set to "false", 
+        Dozer will trap the exception, log the error, and then continue mapping subsequent fields. The default value is "true".
+        
         date-format The string format of Date fields. This is used for field mapping between Strings and Dates
-        wildcard Inicates whether Dozer automatically map fields that have the same name.
+        
+        wildcard Indicates whether Dozer automatically map fields that have the same name.
         This will typically be set to "true". The default value is "true"
-        trim-strings Inicates whether Dozer automatically trims String values prior to setting the destination value.
+        
+        trim-strings Indicates whether Dozer automatically trims String values prior to setting the destination value.
         The default value is "false"
+        
         bean-factory The factory class to create data objects. This typically will not be specified.
         By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+        
         relationship-type Indications whether collections are mapped cumulative or non-cumulative. cumulative indicates
         the element is added to the collection.
+        
         non-cumulative indicates the element will be added or an existing entry will be updated.
+        
         custom-converters The custom converters to be registered with Dozer.
+        
         copy-by-references Indicates which class types should always be copied by reference
       </documentation>
     </annotation>
@@ -72,26 +78,34 @@
         Optional Attributes:
 
         date-format The string format of Date fields. This is used for field mapping between Strings and Dates
+        
         stop-on-errors Indicates whether Dozer should stop mapping fields and throw the Exception if an error is
-        encountered while performing a field mapping.
-        It is recommended that this is set to "true".
+        encountered while performing a field mapping. It is recommended that this is set to "true".
         If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
         The default value is "true"
-        wildcard Inicates whether Dozer automatically map fields that have the same name. The default value is "true"
-        trim-strings Inicates whether Dozer automatically trims String values prior to setting the destination value.
+        
+        wildcard Indicates whether Dozer automatically map fields that have the same name. The default value is "true"
+        
+        trim-strings Indicates whether Dozer automatically trims String values prior to setting the destination value.
         The default value is "false"
+        
         map-null Indicates whether null values are mapped. The default value is "true"
+        
         map-empty-string Indicates whether empty string values are mapped. The default value is "true"
+        
         bean-factory The factory class to create data objects. This typically will not be specified.
         By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+        
         type Indicates whether this mapping is bi-directional or only one-way. Typically this will be set to
-        bi-directional.
-        The default is "bi-directional".
+        bi-directional. The default is "bi-directional".
+        
         map-id The id that uniquely identifies this mapping definition. This typically will not be specified.
         You would only need to specify this for only need this for special context based mapping
         and when mapping between Map objects and Custom Data Objects.
+        
         relationship-type Indications whether collections are mapped cumulative or non-cumulative. cumulative indicates
         the element is added to the collection.
+        
         non-cumulative indicates the element will be added or an existing entry will be updated.
       </documentation>
     </annotation>
@@ -130,16 +144,20 @@
 
         bean-factory The factory class to create data objects. This typically will not be specified.
         By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+        
         factory-bean-id The id passed to the specified bean factory
+        
         map-set-method For Map backed objects, this indicates which setter method should be used to retrieve field
-        values.
+        values. This should only be used of Map backed objects.
+        
+        map-get-method For Map backed objects, this indicates which getter method should be used to retrieve field values.
         This should only be used of Map backed objects.
-        map-get-method For Map backed objects, this indicates which getter method should be used to retrieve field
-        values.
-        This should only be used of Map backed objects.
+        
         create-method Which method to invoke to create a new instance of the class. This is typically not specified.
         By default, the no arg constructor(public or private) is used
+        
         map-null Indicates whether null values are mapped. The default value is "true"
+        
         map-empty-string Indicates whether empty string values are mapped. The default value is "true"
       </documentation>
     </annotation>
@@ -170,17 +188,19 @@
 
         relationship-type For collections, indicates whether to add to existing values or to always replace any existing
         entries
+        
         remove-orphans For collections, indicates whether items that did not exist in the source collection should be
         removed from the destination collection.
-        type Indicates whether this mapping is bi-directional or only one-way. Typically this will be set to
-        bi-directional.
-        The default is "bi-directional".
+        
+        type Indicates whether this mapping is bi-directional or only one-way. Typically this will be set to bi-directional. The default is "bi-directional".
+        
         map-id The id that uniquely identifies this mapping definition. This typically will not be specified.
         You would only need to specify this for only need this for special context based mapping
         and when mapping between Map objects and Custom Data Objects.
-        copy-by-reference Indicates whether the source field value is copied by reference or by value when populating
-        the destination field.
-        The default value is "false"
+        
+        
+        copy-by-reference Indicates whether the source field value is copied by reference or by value when populating the destination field. The default value is "false"
+
         custom-converter Indicates that a specific custom converter should be used for mapping this field. Typically
         this will not be specified.
       </documentation>
@@ -235,16 +255,15 @@
         Optional Attributes:
 
         date-format The string format of Date fields. This is used for field mapping between Strings and Dates
-        set-method Indicates which set method to invoke when setting the destination value. Typically this will not be
-        specified.
+        
+        set-method Indicates which set method to invoke when setting the destination value. Typically this will not be specified.
         By default, the beans attribute setter is used.
-        get-method Indicates which get method to invoke on the src object to get the field value Typically this will not
-        be specified.
+        
+        get-method Indicates which get method to invoke on the src object to get the field value Typically this will not be specified.
         By default, the beans attribute getter is used.
-        is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly.
-        This will typically be set to "false". The default value is "false". If set to "true", the
-        getter/setter methods will NOT be invoked. You would want to set this to "true" if
-        the field is lacking a getter or setter method.
+        
+        is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is "false". If set to "true", the
+        getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method.
       </documentation>
     </annotation>
     <attribute name='date-format' type='string'/>

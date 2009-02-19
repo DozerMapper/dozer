@@ -38,15 +38,14 @@
 // Map from TestObject to XMLBeans
 TestObject to = new TestObject();
 to.setOne("one");
-GetWeatherByZipCodeDocument doc = 
-  (GetWeatherByZipCodeDocument) mapper.map(to, GetWeatherByZipCodeDocument.class);
+GetWeatherByZipCodeDocument doc = mapper.map(to, GetWeatherByZipCodeDocument.class);
 assertEquals(to.getOne(), doc.getGetWeatherByZipCode().getZipCode());
 
 // Map from XMLBeans to TestObject
 GetWeatherByZipCodeDocument res = GetWeatherByZipCodeDocument.Factory.newInstance();
 GetWeatherByZipCode zipCode = res.addNewGetWeatherByZipCode();
 zipCode.setZipCode("one");
-TestObject to2 = (TestObject) mapper.map(res, TestObject.class);
+TestObject to2 = mapper.map(res, TestObject.class);
 assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
         ]]>
         </source>

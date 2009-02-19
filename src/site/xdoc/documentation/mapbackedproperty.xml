@@ -199,7 +199,7 @@
 PropertyToMap ptm = new PropertyToMap();
 ptm.setStringProperty("stringPropertyValue");
 ptm.addStringProperty2("stringProperty2Value");
-Map map = (Map) Mapper.map(ptm, HashMap.class, "myTestMapping");
+Map map = Mapper.map(ptm, HashMap.class, "myTestMapping");
 
 // Example 2
 CustomMap customMap = mapper.map(ptm, CustomMap.class, "myCustomTestMapping");

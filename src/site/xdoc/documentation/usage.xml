@@ -69,7 +69,7 @@ myMappingFiles.add("dozerBeanMapping.xml");
 myMappingFiles.add("someOtherDozerBeanMappings.xml");
 DozerBeanMapper mapper = new DozerBeanMapper();
 mapper.setMappingFiles(myMappingFiles);
-DestinationObject destObject = (DestinationObject) mapper.map(sourceObject, DestinationObject.class);
+DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
           ]]>
           </source>
           <b>IMPORTANT:</b>

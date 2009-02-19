@@ -62,7 +62,7 @@
         <item name="XMLBeans and JAXB" href="/documentation/xmlbeans.html" />
         <item name="Dozer Events" href="/documentation/events.html" />
       </item>
-      <item name="Dozer Mapping DTD" href="/dtd/dozerbeanmapping.dtd" />
+      <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />
       <!-- Collapsed Submenu -->
       <item name="Support" href="/documentation/support.html" collapse="true">
         <item name="Support Forum" href="http://sourceforge.net/forum/?group_id=133517" />
