@@ -10,6 +10,81 @@
   </head>  
   <body>
     <section name="Release Notes">
+      <h3>5.0  <font size="-3" color="gray"><i>2/31/2009</i></font></h3>
+        <p>Migration guide</p>
+        <table border="1">
+          <tr>
+            <th>Change Description</th>
+            <th>New - Dozer 5.0</th>
+            <th>Old - Dozer 4.4.1</th>
+          </tr>
+          <tr>
+            <td>Repackaged all dozer classes</td>
+            <td>org.dozer</td>
+            <td>net.sf.dozer.util.mapping</td>
+          </tr>
+           <tr>
+            <td>Changed Maven group id</td>
+            <td>org.dozer</td>
+            <td>net.sf.dozer</td>
+          </tr>
+          <tr>
+            <td>Added Generics to public api</td>
+            <td>A dest = mapper.map(b, A.class)</td>
+            <td>A dest = (A) mapper.map(b, A.class)</td>
+          </tr>
+          <tr>
+            <td>Increased minimum JDK requirements</td>
+            <td>Requires JDK 1.5+</td>
+            <td>Required JDK 1.4+</td>
+          </tr>
+          <tr>
+            <td>Switched to using XSD instead of DTD</td>
+            <td>beanmapping.xsd</td>
+            <td>beanmapping.dtd</td>
+          </tr>
+          <tr>
+            <td>Renamed some public Interfaces</td>
+            <td>BeanFactory</td>
+            <td>BeanFactoryIF</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>CustomFieldMapper</td>
+            <td>CustomFieldMapperIF</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Mapper</td>
+            <td>MapperIF</td>
+          </tr>
+          <tr>
+            <td>Upgraded 3rd party dependencies</td>
+            <td>commons-collections 3.2.1</td>
+            <td>commons-collections 3.1</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>commons-beanutils 1.8.0</td>
+            <td>commons-beanutils 1.7.0</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>commons-lang 2.4 </td>
+            <td>commons-lang 2.2</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>commons-logging 1.1.1, junit 4.5 </td>
+            <td>commons-logging 1.0.3, junit 3.8</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>junit 4.5 </td>
+            <td>junit 3.8</td>
+          </tr>
+        </table>
+    
       <h3>4.4.1  <font size="-3" color="gray"><i>1/31/2009</i></font></h3>
         <p>Bug Fixes</p>
         <p>
