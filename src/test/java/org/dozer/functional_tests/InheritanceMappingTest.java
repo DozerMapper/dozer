@@ -428,7 +428,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
   }
   
   @Test
-  public void mapSubMarker() {
+  public void testSubMarker() {
     mapper = super.getMapper("inheritanceMapping.xml");
     Main src = testDataFactory.getMain();
 
