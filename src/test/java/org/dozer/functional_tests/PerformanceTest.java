@@ -148,6 +148,12 @@ public class PerformanceTest extends AbstractFunctionalTest {
    * jdk1.4 Good Bye
    * jdk1.5 #1 11056 #2 1406 #3 1404 #4 5621 #5 3957 #6 25996
    * jdk1.6 #1 6167 #2 1154 #3 598 #4 2442 #5 1706 #6 5460
+   * 
+   * MHT Computer (Macbook Pro, 2.4GHZ Intel Core Duo, JVM 256m) - 2/20/09 - 5.0 release Rev:893
+   * jdk1.4 Good Bye
+   * jdk1.5 #1 11128 #2 1396 #3 1389 #4 5646 #5 3980 #6 27703
+   * jdk1.6 #1 6488 #2 1318 #3 599 #4 2440 #5 1704 #6 6003
+
    */
 
   @Test(timeout = 35000)

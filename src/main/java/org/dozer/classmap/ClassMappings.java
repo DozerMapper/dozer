@@ -91,6 +91,8 @@ public class ClassMappings {
             && classMap.getSrcClassToMap().isAssignableFrom(srcClass)
             && classMap.getDestClassToMap().isAssignableFrom(destClass)) {
           return classMap;
+        } else if (StringUtils.equals(classMap.getMapId(), mapId) && srcClass.equals(destClass)) {
+          return classMap;
         }
 
       }

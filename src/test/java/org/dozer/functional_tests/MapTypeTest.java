@@ -332,7 +332,6 @@ public class MapTypeTest extends AbstractFunctionalTest {
     assertEquals("stringProperty5Value", dest.getStringProperty5());
   }
 
-  @Ignore("TODO Enable this test in next release. JDK 1.6 compatibility issue")
   @Test
   public void testPropertyToClassLevelMap() throws Exception {
     mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
@@ -496,7 +495,6 @@ public class MapTypeTest extends AbstractFunctionalTest {
     assertEquals(nested2.get("field2"), result.getNested2().getField2());
   }
 
-  @Ignore("TODO Enable this test in next release. JDK 1.6 compatibility issue")
   @Test
   public void testNestedCustomMap() {
     mapper = getMapper(new String[] { "mapMapping4.xml" });

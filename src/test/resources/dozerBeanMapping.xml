@@ -785,7 +785,7 @@
 
   <!-- testing mapping properties to a Class Level Map -->
   <mapping map-id="myReverseTestMapping">
-    <class-a>java.util.HashMap</class-a>
+    <class-a>java.util.Map</class-a>
     <class-b>org.dozer.vo.map.PropertyToMap</class-b>
     <field>
       <a key="myStringProperty">this</a>

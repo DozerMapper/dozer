@@ -163,7 +163,6 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     assertEquals(dest.getPhoneNumber(), source.phones.get(0).getNumber());
   }
 
-  @Ignore("Failing. Needs investigation")
   @Test
   public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
     mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });

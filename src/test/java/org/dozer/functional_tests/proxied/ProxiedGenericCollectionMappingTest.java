@@ -27,25 +27,25 @@ import org.junit.Test;
 public class ProxiedGenericCollectionMappingTest extends GenericCollectionMappingTest {
   
   @Test
-  @Ignore("Fails.  Needs investigation")
+  @Ignore("Fails.  Needs investigation. Implemented proxy functional tests across the board for recently added tests.  found failures")
   public void testDeepMapIndexed() throws Exception {
     super.testDeepMapIndexed();
   }
 
   @Test
-  @Ignore("Fails.  Needs investigation")
+  @Ignore("Fails.  Needs investigation. Implemented proxy functional tests across the board for recently added tests.  found failures")
   public void testDeepMapInvIndexed() throws Exception {
     super.testDeepMapInvIndexed();
   }
 
   @Test
-  @Ignore("Fails.  Needs investigation")
+  @Ignore("Fails.  Needs investigation. Implemented proxy functional tests across the board for recently added tests.  found failures")
   public void testDeepMappingWithIndexOnDestField() {
     super.testDeepMappingWithIndexOnDestField();
   }
 
   @Test
-  @Ignore("Fails.  Needs investigation")
+  @Ignore("Fails.  Needs investigation. Implemented proxy functional tests across the board for recently added tests.  found failures")
   public void testDeepMappingWithIndexOnSrcField() {
     super.testDeepMappingWithIndexOnSrcField();
   }

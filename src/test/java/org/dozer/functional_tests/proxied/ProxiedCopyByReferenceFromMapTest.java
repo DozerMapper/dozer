@@ -26,7 +26,7 @@ import org.junit.Test;
  */
 public class ProxiedCopyByReferenceFromMapTest extends CopyByReferenceFromMapTest {
 
-  @Ignore("FAILS with proxied objects")
+  @Ignore("FAILS with proxied objects.  implemented proxy functional tests across the board for recently added tests.  found failures")
   @Test
   public void testCopyByReferenceFromMap() {
     super.testCopyByReferenceFromMap();
