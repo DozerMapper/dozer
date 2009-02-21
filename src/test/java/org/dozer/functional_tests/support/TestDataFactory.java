@@ -64,8 +64,10 @@ import org.dozer.vo.deep.SrcNestedDeepObj;
 import org.dozer.vo.deep.SrcNestedDeepObj2;
 import org.dozer.vo.inheritance.AnotherSubClass;
 import org.dozer.vo.inheritance.BaseSubClass;
+import org.dozer.vo.inheritance.Main;
 import org.dozer.vo.inheritance.S2Class;
 import org.dozer.vo.inheritance.SClass;
+import org.dozer.vo.inheritance.Sub;
 import org.dozer.vo.perf.MyClassA;
 
 /**
@@ -555,6 +557,18 @@ public class TestDataFactory {
 
     return myClassAObj;
   }
+  
+  public Main getMain() {
+    Sub sub = newInstance(Sub.class);
+    sub.setName("sName");
+    sub.setDetail("sDetail");
+    sub.setMarker("sMarker");
+    Main result = newInstance(Main.class);
+    result.setName("topLevelName");
+    result.setSub(sub);
+    return result;
+  }
+
 
   private List<String> getRandomStringList(int listSize) {
     List<String> stringList = newInstance(ArrayList.class);

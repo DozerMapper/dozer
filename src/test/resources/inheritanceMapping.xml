@@ -42,6 +42,31 @@
       <b>personId</b>
     </field>
   </mapping>
+  
+  <mapping wildcard="true" map-null="false">
+    <class-a>org.dozer.vo.inheritance.Main</class-a>
+    <class-b>org.dozer.vo.inheritance.MainDto</class-b>
+      <field>
+        <a>sub</a>
+        <b>sub</b>
+        <a-hint>org.dozer.vo.inheritance.Sub</a-hint>
+        <b-hint>org.dozer.vo.inheritance.SubDto</b-hint>
+      </field>
+  </mapping>
+
+  <mapping wildcard="true" map-null="false">
+    <class-a>org.dozer.vo.inheritance.SubMarker</class-a>
+    <class-b>org.dozer.vo.inheritance.SubMarkerDto</class-b>
+      <field type="one-way">
+        <a>marker</a>
+        <b>marker</b>
+      </field>
+  </mapping>
+  
+  <mapping wildcard="true" map-null="false">
+    <class-a>org.dozer.vo.inheritance.Sub</class-a>
+    <class-b>org.dozer.vo.inheritance.SubDto</class-b>
+  </mapping>
     
   
 

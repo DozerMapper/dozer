@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.commons.lang.SerializationUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -37,12 +36,18 @@ import org.dozer.vo.inheritance.AnotherSubClassPrime;
 import org.dozer.vo.inheritance.B;
 import org.dozer.vo.inheritance.BaseSubClass;
 import org.dozer.vo.inheritance.BaseSubClassCombined;
+import org.dozer.vo.inheritance.Main;
+import org.dozer.vo.inheritance.MainDto;
 import org.dozer.vo.inheritance.S2Class;
 import org.dozer.vo.inheritance.S2ClassPrime;
 import org.dozer.vo.inheritance.SClass;
 import org.dozer.vo.inheritance.SClassPrime;
 import org.dozer.vo.inheritance.Specific3;
 import org.dozer.vo.inheritance.SpecificObject;
+import org.dozer.vo.inheritance.Sub;
+import org.dozer.vo.inheritance.SubDto;
+import org.dozer.vo.inheritance.SubMarker;
+import org.dozer.vo.inheritance.SubMarkerDto;
 import org.dozer.vo.inheritance.WrapperSpecific;
 import org.dozer.vo.inheritance.WrapperSpecificPrime;
 import org.dozer.vo.inheritance.iface.Person;
@@ -52,7 +57,6 @@ import org.dozer.vo.inheritance.iface.PersonWithAddressDTO;
 import org.dozer.vo.km.Property;
 import org.dozer.vo.km.PropertyB;
 import org.dozer.vo.km.SomeVo;
-import org.dozer.vo.km.Sub;
 import org.dozer.vo.km.Super;
 import org.junit.Test;
 
@@ -360,7 +364,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testKM2() {
-    Sub request = newInstance(Sub.class);
+    org.dozer.vo.km.Sub request = newInstance(org.dozer.vo.km.Sub.class);
     request.setAge("2");
     request.setColor("blue");
     request.setLoginName("fred");
@@ -421,6 +425,43 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     assertEquals("Person DTO has incorrect name value", name, personWithAddressDTO.getName());
     assertNotNull("addresss should not be null", personWithAddressDTO.getAddress());
     assertEquals("Person DTO has incorrect address value", address, personWithAddressDTO.getAddress());
+  }
+  
+  @Test
+  public void mapSubMarker() {
+    mapper = super.getMapper("inheritanceMapping.xml");
+    Main src = testDataFactory.getMain();
+
+    // Map to Dto
+    MainDto dest = mapper.map(src, MainDto.class);
+    assertNotNull(dest);
+    assertEquals(src.getName(), dest.getName());
+    
+    SubMarker subMarker = src.getSub();
+    SubMarkerDto subMarkerDto = dest.getSub();
+    assertNotNull(subMarkerDto);
+    assertNull(subMarkerDto.getSub());
+    assertEquals(subMarker.getMarker(), subMarkerDto.getMarker());
+    assertEquals(subMarker.getName(), subMarkerDto.getName());
+
+    Sub sub = (Sub) subMarker;
+    SubDto subDto = (SubDto) subMarkerDto;
+    assertEquals(sub.getDetail(), subDto.getDetail()); 
+    
+    
+    // Map back
+    src = mapper.map(dest, Main.class);
+    assertNotNull(dest);
+    assertEquals(dest.getName(), src.getName());
+
+    subMarker = src.getSub();
+    assertNotNull(subMarker);
+    assertNull(subMarker.getSub());
+    assertNull(subMarker.getMarker());//One way mapping
+    assertEquals(subMarkerDto.getName(), subMarker.getName());
+    
+    sub = (Sub) subMarker;
+    assertEquals(subDto.getDetail(), sub.getDetail()); 
   }
 
   private A getA() {
