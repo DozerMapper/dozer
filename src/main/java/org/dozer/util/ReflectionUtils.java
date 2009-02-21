@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
+import org.dozer.propertydescriptor.DeepHierarchyElement;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -171,7 +172,7 @@ public abstract class ReflectionUtils {
     return getMethod(parentDestClass, methodName, list.toArray(new Class[list.size()]));
   }
 
-  protected static PropertyDescriptor[] getPropertyDescriptors(Class<?> objectClass) {
+  public static PropertyDescriptor[] getPropertyDescriptors(Class<?> objectClass) {
     // If the class is an interface, use custom method to get all prop descriptors in the inheritance hierarchy.
     // PropertyUtils.getPropertyDescriptors() does not work correctly for interface inheritance. It finds props in the
     // actual interface ok, but does not find props in the inheritance hierarchy.

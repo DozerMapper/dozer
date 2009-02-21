@@ -1,6 +1,6 @@
 package org.dozer.vo.inheritance.cc;
 
-import org.dozer.converters.CustomConverter;
+import org.dozer.CustomConverter;
 
 /**
  * This is the base class for creating all dummy-objects.

@@ -35,7 +35,6 @@ import junit.framework.Assert;
 import org.dozer.AbstractDozerTest;
 import org.dozer.converters.ConversionException;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
-import org.dozer.util.DateFormatContainer;
 import org.junit.Test;
 
 /**

@@ -17,7 +17,6 @@ package org.dozer.converters;
 
 
 import org.apache.commons.beanutils.Converter;
-import org.dozer.util.DateFormatContainer;
 
 /**
  * Internal class for converting Supported Data Types --> String. Uses date formatter for Date and Calendar source

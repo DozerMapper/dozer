@@ -17,8 +17,8 @@ package org.dozer.functional_tests.support;
 
 import java.util.HashMap;
 
+import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-import org.dozer.converters.CustomConverter;
 import org.dozer.vo.BaseTestObject;
 import org.dozer.vo.TestCustomConverterHashMapObject;
 import org.dozer.vo.TestCustomConverterHashMapPrimeObject;

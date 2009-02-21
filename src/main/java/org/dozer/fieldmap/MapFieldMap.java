@@ -16,11 +16,11 @@
 package org.dozer.fieldmap;
 
 import org.dozer.classmap.ClassMap;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.FieldPropertyDescriptor;
 import org.dozer.propertydescriptor.JavaBeanPropertyDescriptor;
 import org.dozer.propertydescriptor.MapPropertyDescriptor;
-import org.dozer.util.DestBeanCreator;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 

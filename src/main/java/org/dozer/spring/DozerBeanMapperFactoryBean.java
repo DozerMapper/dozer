@@ -21,10 +21,10 @@ import java.util.Map;
 
 
 import org.dozer.BeanFactory;
+import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
-import org.dozer.converters.CustomConverter;
-import org.dozer.event.DozerEventListener;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;

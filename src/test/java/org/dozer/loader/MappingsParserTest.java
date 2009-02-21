@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.util;
+package org.dozer.loader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,9 +24,9 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.loader.MappingsParser;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParserFactory;
-import org.dozer.util.MappingsParser;
 import org.junit.Before;
 import org.junit.Test;
 

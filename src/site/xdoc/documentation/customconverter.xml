@@ -17,7 +17,7 @@
         to perform the data mapping instead of the standard mapping logic.
       </p>
       <p>
-        Your custom converter must implement the org.dozer.converters.CustomConverter interface in
+        Your custom converter must implement the org.dozer.CustomConverter interface in
         order for Dozer to accept it. Otherwise an exception will be thrown.
       </p>
       <p>

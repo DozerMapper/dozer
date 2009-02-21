@@ -25,7 +25,6 @@ import org.dozer.converters.CalendarConverter;
 import org.dozer.converters.ConversionException;
 import org.dozer.converters.DateConverter;
 import org.dozer.converters.StringConverter;
-import org.dozer.util.DateFormatContainer;
 import org.junit.Test;
 
 /**

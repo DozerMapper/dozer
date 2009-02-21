@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.event;
+package org.dozer;
+
+import org.dozer.event.DozerEvent;
 
 /**
  * Public event listener interface. By implementing the DozerEventListener interface Dozer allows you to listen to 4

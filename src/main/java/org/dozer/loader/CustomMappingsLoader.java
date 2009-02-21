@@ -25,6 +25,7 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
@@ -32,13 +33,10 @@ import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParserFactory;
-import org.dozer.util.ClassMapBuilder;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.InitLogger;
-import org.dozer.util.LoadMappingsResult;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
-import org.dozer.util.MappingsParser;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned

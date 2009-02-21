@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 
+import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
-import org.dozer.converters.CustomConverter;
 import org.dozer.functional_tests.support.StringAppendCustomConverter;
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.AnotherTestObjectPrime;

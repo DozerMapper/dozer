@@ -7,7 +7,6 @@ import java.util.Date;
 
 
 import org.dozer.converters.StringConverter;
-import org.dozer.util.DateFormatContainer;
 import org.junit.Test;
 
 public class StringConverterTest {

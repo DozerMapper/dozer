@@ -45,7 +45,7 @@ public class DozerInitializer {
 
   private static boolean isInitialized = false;
 
-  public static void init() {
+  protected static void init() {
     if (isInitialized) {
       return;
     }

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.util;
+package org.dozer.factory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.util.DestBeanCreator;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 import org.junit.Test;

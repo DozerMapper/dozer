@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.util;
+package org.dozer.factory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.BeanFactory;
 import org.dozer.MappingException;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.ReflectionUtils;
 
 /**
  * Internal class that contains the logic used to create a new instance of the destination object being mapped. Performs
@@ -34,6 +38,11 @@ import org.dozer.MappingException;
  * @author garsombke.franz
  */
 public final class DestBeanCreator {
+  
+  // only making public temporarily while refactoring. This static data should be relocated.
+  // The stored factories don't belong in MappingUtils and need to be relocated
+  public static final Map<String, BeanFactory> storedFactories = new ConcurrentHashMap<String, BeanFactory>();
+
 
   private DestBeanCreator() {
   }
@@ -116,7 +125,7 @@ public final class DestBeanCreator {
     // By default, use dest object class name for factory bean id
     String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
 
-    BeanFactory factory = MappingUtils.storedFactories.get(factoryName);
+    BeanFactory factory = storedFactories.get(factoryName);
 
     if (factory == null) {
       Class<?> factoryClass = MappingUtils.loadClass(factoryName);
@@ -125,7 +134,7 @@ public final class DestBeanCreator {
       }
       factory = (BeanFactory) newInstance(factoryClass);
       // put the created factory in our factory map
-      MappingUtils.storedFactories.put(factoryName, factory);
+      storedFactories.put(factoryName, factory);
     }
     Object rvalue = factory.createBean(srcObject, srcObjectClass, beanId);
 

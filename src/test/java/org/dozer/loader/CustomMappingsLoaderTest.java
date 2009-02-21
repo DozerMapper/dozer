@@ -11,7 +11,6 @@ import java.util.Arrays;
 import org.dozer.MappingException;
 import org.dozer.functional_tests.support.SampleDefaultBeanFactory;
 import org.dozer.loader.CustomMappingsLoader;
-import org.dozer.util.LoadMappingsResult;
 import org.junit.Test;
 
 public class CustomMappingsLoaderTest {

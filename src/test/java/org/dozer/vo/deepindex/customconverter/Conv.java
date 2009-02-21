@@ -1,6 +1,6 @@
 package org.dozer.vo.deepindex.customconverter;
 
-import org.dozer.converters.CustomConverter;
+import org.dozer.CustomConverter;
 
 public class Conv implements CustomConverter {
 

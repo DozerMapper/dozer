@@ -34,7 +34,6 @@ import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.lang.ClassUtils;
-import org.dozer.util.DateFormatContainer;
 
 /**
  * Internal class for converting between wrapper types(including primitives). Only intended for internal use.

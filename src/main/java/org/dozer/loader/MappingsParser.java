@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.util;
+package org.dozer.loader;
 
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +28,9 @@ import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.util.DozerConstants;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.ReflectionUtils;
 
 /**
  * Internal class that decorates raw ClassMap objects and performs various validations on the explicit field mappings.

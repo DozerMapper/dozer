@@ -15,7 +15,7 @@
  */
 package org.dozer.vo;
 
-import org.dozer.converters.CustomConverter;
+import org.dozer.CustomConverter;
 
 /**
  * @author wojtek.kiersztyn

@@ -59,6 +59,21 @@
             <td>MapperIF</td>
           </tr>
           <tr>
+            <td>Repackaged some public Interfaces</td>
+            <td>org.dozer.CustomConverter</td>
+            <td>net.sf.dozer.util.mapping.converters.CustomConverter</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>org.dozer.ConfigurableCustomConverter</td>
+            <td>net.sf.dozer.util.mapping.converters.ConfigurableCustomConverter</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>org.dozer.DozerEventListener</td>
+            <td>net.sf.dozer.util.mapping.event.DozerEventListener</td>
+          </tr>
+          <tr>
             <td>Upgraded 3rd party dependencies</td>
             <td>commons-collections 3.2.1</td>
             <td>commons-collections 3.1</td>

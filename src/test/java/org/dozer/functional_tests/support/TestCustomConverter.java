@@ -18,8 +18,8 @@ package org.dozer.functional_tests.support;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-import org.dozer.converters.CustomConverter;
 import org.dozer.vo.CustomDoubleObject;
 import org.dozer.vo.CustomDoubleObjectIF;
 

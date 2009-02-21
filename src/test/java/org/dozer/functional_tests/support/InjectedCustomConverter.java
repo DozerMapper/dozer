@@ -15,7 +15,7 @@
  */
 package org.dozer.functional_tests.support;
 
-import org.dozer.converters.CustomConverter;
+import org.dozer.CustomConverter;
 import org.dozer.vo.Vehicle;
 
 

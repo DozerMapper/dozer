@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.util;
+package org.dozer.classmap;
 
 import java.beans.PropertyDescriptor;
 import java.util.Set;
@@ -23,15 +23,14 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.dozer.cache.CacheEntry;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.ClassMappings;
-import org.dozer.classmap.Configuration;
-import org.dozer.classmap.DozerClass;
 import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.util.DozerConstants;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.ReflectionUtils;
 
 /**
  * Internal class for adding implicit field mappings to a ClassMap. Also, builds implicit ClassMap for class mappings

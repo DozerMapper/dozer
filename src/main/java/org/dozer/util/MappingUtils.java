@@ -53,9 +53,6 @@ public final class MappingUtils {
   private MappingUtils() {
   }
 
-  // only making public temporarily while refactoring. This static data should be relocated.
-  // The stored factories don't belong in MappingUtils and need to be relocated
-  public static final Map<String, BeanFactory> storedFactories = new ConcurrentHashMap<String, BeanFactory>();
 
   public static String getClassNameWithoutPackage(Class<?> clazz) {
     Package pckage = clazz.getPackage();
@@ -236,7 +233,7 @@ public final class MappingUtils {
     return result;
   }
 
-  static boolean isProxy(Class<?> clazz) {
+  public static boolean isProxy(Class<?> clazz) {
     //todo: implement a better way of determining this that is more generic
     return clazz.getName().indexOf(DozerConstants.CGLIB_ID) >= 0 || clazz.getName().indexOf(DozerConstants.JAVASSIST_ID) >= 0;
   }

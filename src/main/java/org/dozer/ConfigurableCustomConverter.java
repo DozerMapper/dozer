@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.converters;
+package org.dozer;
+
+import org.dozer.converters.CustomConverterBase;
 
 /**
  * Public custom converter interface.

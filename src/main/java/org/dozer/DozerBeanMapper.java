@@ -19,7 +19,6 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.cache.CacheManager;
@@ -28,16 +27,14 @@ import org.dozer.cache.DozerCacheType;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.config.GlobalSettings;
-import org.dozer.converters.CustomConverter;
-import org.dozer.event.DozerEventListener;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
+import org.dozer.loader.LoadMappingsResult;
 import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.InitLogger;
-import org.dozer.util.LoadMappingsResult;
-import org.dozer.util.MappingUtils;
 
 /**
  * Public Dozer MapperIF implementation. This should be used/defined as a singleton within your application. This class
@@ -110,7 +107,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void setFactories(Map<String, BeanFactory> factories) {
-    MappingUtils.storedFactories.putAll(factories);
+    DestBeanCreator.storedFactories.putAll(factories);
   }
 
   public void setCustomConverters(List<CustomConverter> customConverters) {

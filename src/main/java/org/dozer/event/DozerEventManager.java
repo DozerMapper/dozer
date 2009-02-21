@@ -17,6 +17,7 @@ package org.dozer.event;
 
 import java.util.List;
 
+import org.dozer.DozerEventListener;
 import org.dozer.util.MappingUtils;
 
 
