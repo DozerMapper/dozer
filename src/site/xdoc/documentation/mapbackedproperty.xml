@@ -139,7 +139,6 @@
     <b>this</b>
   </field-exclude>
 
-  <!-- ALL OTHER FIELDS ARE MAPPED EXPLICITLY -->
 </mapping>              
 
 <mapping map-id="myCustomTestMapping">
@@ -154,7 +153,6 @@
     <b>this</b>
   </field-exclude>
 
-  <!-- ALL OTHER FIELDS ARE MAPPED EXPLICITLY -->
 </mapping>   
     
             ]]>

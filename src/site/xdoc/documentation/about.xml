@@ -33,10 +33,10 @@
         property mapping for these fields.
       </p>
       <p>
-        The picture below depicts some of the common areas for Dozer to be inserted into an architecture. Notice
+        The picture below depicts some of the common areas Dozer could be inserted into an architecture. Notice
         that it typically is utilized at the boundaries (entry/exit). Dozer will make sure that your internal
-        domain objects from the database do not bleed into the presentation layer or to external consumers. It can
-        also help map your domain objects to external APIs calls and vice-versa.
+        domain objects from the database do not bleed into external presentation layers or to external consumers. It can
+        also help map your domain objects to external APIs calls and vice-versa.   
       </p>
       <p>
         <img src="../images/architecture.gif" />

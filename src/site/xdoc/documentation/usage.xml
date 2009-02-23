@@ -23,7 +23,7 @@
       </p>
       <subsection name="Dozer Bean Mapper">
         <p>
-          Before we go over setting up custom xml bean mappings, let us look at how simple it is to use Dozer. The
+          Before we go over setting up custom xml bean mappings, let us look at a simple example of using Dozer. The
           Dozer mapping implementation has a method called map which takes a source object and either a destination
           object or destination object class type. After mapping the two objects it then returns the destination
           object with all of its mapped fields.

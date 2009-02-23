@@ -267,18 +267,19 @@ public class TestCustomConverter implements CustomConverter {
         <source>
           <![CDATA[
 public class MathOperationConverter implements ConfigurableCustomConverter {
-
-	public Object convert(Object destinationFieldValue, Object sourceFieldValue,
-	                      Class destinationClass, Class sourceClass, String param) {
-      Integer source = (Integer) sourceFieldValue;
-      Integer destination = (Integer) destinationFieldValue;
-      if ("+".equals(param)) {
-        return destination.intValue + source.intValue();
-      }
-      if ("-".equals(param)) {
-        return destination.intValue - source.intValue();
-      }
-	}
+  
+  public Object convert(Object destinationFieldValue, Object sourceFieldValue,
+                        Class destinationClass, Class sourceClass, String param) {
+    Integer source = (Integer) sourceFieldValue;
+    Integer destination = (Integer) destinationFieldValue;
+    if ("+".equals(param)) {
+      return destination.intValue + source.intValue();
+    }
+    if ("-".equals(param)) {
+      return destination.intValue - source.intValue();
+    }
+  }
+  
 }
         ]]>
         </source>        

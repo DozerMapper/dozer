@@ -38,9 +38,16 @@
           <i>3/31/2009</i>
         </font>
       </h3>
-      <p>This release.......</p>
       <p>
-        Please check here for more information and a migration guide for changes that are not backwards compatible with prior versions of Dozer. 
+         This release contains some changes that are not backwards compatible with prior versions of Dozer.
+         There is a 5.0 migration guide in the release notes section which outlines these changes.  The 5.0 release also contains some feature requests
+         along with bug fixes.
+      </p>
+      <p>
+        Thanks to everyone that helped out with this release and submitted tickets.  Please let us know if you find any issues introduced in the release and we will do our best to fix them soon as possible.
+      </p>
+      <p>
+        Please check here for more information and the 5.0 migration guide.  
         <a href="releasenotes.html">release notes</a>
       </p>
       <p></p>
@@ -173,7 +180,7 @@
       <p></p>
 
       <h3>
-        Dozer hits 10,000 Downloads!
+        Dozer hits 10,000 Downloads
         <font size="-3" color="gray">
           <i>05/19/2007</i>
         </font>

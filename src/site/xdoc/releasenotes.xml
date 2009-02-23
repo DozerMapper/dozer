@@ -11,7 +11,7 @@
   <body>
     <section name="Release Notes">
       <h3>5.0  <font size="-3" color="gray"><i>2/31/2009</i></font></h3>
-        <p>Migration guide</p>
+        <p>Migrating from Dozer 4 to Dozer 5</p>
         <table border="1">
           <tr>
             <th>Change Description</th>
@@ -19,7 +19,12 @@
             <th>Old - Dozer 4.4.1</th>
           </tr>
           <tr>
-            <td>Repackaged all dozer classes</td>
+            <td>Increased minimum JDK requirements</td>
+            <td>Requires JDK 1.5+</td>
+            <td>Required JDK 1.4+</td>
+          </tr>
+          <tr>
+            <td>Repackaged Dozer classes</td>
             <td>org.dozer</td>
             <td>net.sf.dozer.util.mapping</td>
           </tr>
@@ -34,12 +39,7 @@
             <td>A dest = (A) mapper.map(b, A.class)</td>
           </tr>
           <tr>
-            <td>Increased minimum JDK requirements</td>
-            <td>Requires JDK 1.5+</td>
-            <td>Required JDK 1.4+</td>
-          </tr>
-          <tr>
-            <td>Switched to using XSD instead of DTD</td>
+            <td>Switched to XSD instead of DTD</td>
             <td>beanmapping.xsd</td>
             <td>dozerbeanmapping.dtd</td>
           </tr>
@@ -99,6 +99,33 @@
             <td>junit 3.8</td>
           </tr>
         </table>
+        <br/>
+        <p>Bug Fixes and Patches</p>
+        <p>
+          <ul>
+            <li>DozerResolver should resolve the DTD using class classLoader <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2605660&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Inheritance + Map-Id <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2589532&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Exclude test classes from the dist jar <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2587665&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Timestamp mapping broken <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2545113&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Map method lookup <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2542694&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>DozerBeanMapper doesn't resolve graphs properly <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1920762&amp;group_id=133517&amp;atid=727368">link</a></li>
+            <li>Bug using MapIds <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2592492&amp;group_id=133517&amp;atid=727370">link</a></li>
+            <li>Bug with MapIds using Hints <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2592785&amp;group_id=133517&amp;atid=727370">link</a></li>
+          </ul>
+        </p>
+        <p>Feature Requests</p> 
+        <p>
+          <ul>
+            <li>Change maven group id <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2476391&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Repackage dozer classes <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398325&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Add Generics to public Mapper interface <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2629164&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Upgrade to JUnit 4 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2432382&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Upgrade 3rd party dependencies <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2423000&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Switch to XSD instead of DTD <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2207505&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Migrate to JDK 5 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2338450&amp;group_id=133517&amp;atid=727371">link</a></li>
+            <li>Rename some public interfaces <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2629165&amp;group_id=133517&amp;atid=727371">link</a></li>
+          </ul>
+        </p>
     
       <h3>4.4.1  <font size="-3" color="gray"><i>1/31/2009</i></font></h3>
         <p>Bug Fixes</p>

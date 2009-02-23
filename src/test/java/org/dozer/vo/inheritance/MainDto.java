@@ -1,6 +1,8 @@
 package org.dozer.vo.inheritance;
 
-public class MainDto {
+import org.dozer.vo.BaseTestObject;
+
+public class MainDto extends BaseTestObject {
 
   private String name;
   private SubMarkerDto sub;

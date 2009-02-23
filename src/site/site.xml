@@ -31,9 +31,7 @@
       <item name="Why Map?" href="/documentation/whymap.html" />
       <item name="News" href="/index.html" />
       <item name="Getting Started" href="/documentation/gettingstarted.html" />
-      <item name="Usage" href="/documentation/usage.html" collapse="true">
-        <item name="Mapping Concepts" href="/documentation/advancedproperty.html" />
-      </item>
+      <item name="Usage" href="/documentation/usage.html" collapse="true"/>
       <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
         <item name="Logging" href="/documentation/configuration/logging.html" />
       </item>
