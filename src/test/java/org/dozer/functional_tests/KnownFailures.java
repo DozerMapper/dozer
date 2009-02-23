@@ -16,9 +16,13 @@
 package org.dozer.functional_tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import org.dozer.vo.MessageHeaderDTO;
@@ -29,6 +33,8 @@ import org.dozer.vo.inheritance.Outer;
 import org.dozer.vo.inheritance.Target;
 import org.dozer.vo.inheritance.cc.C;
 import org.dozer.vo.inheritance.cc.Z;
+import org.dozer.vo.map.House;
+import org.dozer.vo.map.Room;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -82,6 +88,24 @@ public class KnownFailures extends AbstractFunctionalTest {
 
     C c = mapper.map(z, C.class);
     assertEquals("wrong value", "customConverter", c.getTest());
+  }
+  
+  /*
+   *  2-2009  Stumbled on this while investigating a post.  The mappingProcessor.mapCollection() appeared to return null for the dest value
+   */
+  @Test
+  public void testMapWithList() {
+    Room room = new Room();
+    room.setRoomName("some room name");
+    House house = new House();
+    house.setHouseName("some house name");
+    house.setBathrooms(new ArrayList(Arrays.asList("master", "spare")));
+    house.setRoom(room);
+    
+    Map<String, Object> result = mapper.map(house, HashMap.class);
+    assertNotNull("bathrooms should exist", result.containsKey("bathrooms"));
+    assertEquals("wrong bathrooms found", house.getBathrooms(),  (List<String>) result.get("bathrooms"));
+        
   }
 
   @Override

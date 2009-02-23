@@ -38,7 +38,7 @@ public class CustomMappingsLoaderTest {
       loader.load(Arrays.asList(new String[] { "global-configuration.xml", "customMappingsLoaderWithGlobalConfigTest.xml" }));
       fail("should have thrown exception");
     } catch (MappingException e) {
-      assertTrue("invalid exception thrown", e.getMessage().indexOf("More than one global configuration found") != -1);
+      assertTrue("invalid exception thrown", e.getMessage().contains("More than one global configuration found"));
     }
   }
 

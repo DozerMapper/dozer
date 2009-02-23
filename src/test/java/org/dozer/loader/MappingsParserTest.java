@@ -52,7 +52,7 @@ public class MappingsParserTest extends AbstractDozerTest {
       parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
       fail("should have thrown exception");
     } catch (Exception e) {
-      assertTrue("invalid exception thrown", e.getMessage().indexOf("Duplicate Map Id") != -1);
+      assertTrue("invalid exception thrown", e.getMessage().contains("Duplicate Map Id"));
     }
   }
 
@@ -64,7 +64,7 @@ public class MappingsParserTest extends AbstractDozerTest {
       parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
       fail("should have thrown exception");
     } catch (Exception e) {
-      assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
+      assertTrue("invalid exception", e.getMessage().contains("Duplicate Class Mapping Found"));
     }
   }
 

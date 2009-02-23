@@ -174,7 +174,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
       myMapper.map(new org.dozer.vo.SuperSuperSuperClass(), org.dozer.vo.SuperSuperSuperClassPrime.class);
       fail("should have thrown exception");
     } catch (Exception e) {
-      assertTrue("invalid exception", e.getMessage().indexOf("Duplicate Class Mapping Found") != -1);
+      assertTrue("invalid exception", e.getMessage().contains("Duplicate Class Mapping Found"));
     }
   }
 
