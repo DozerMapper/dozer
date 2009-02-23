@@ -908,7 +908,6 @@ public class MappingProcessor implements Mapper {
       // see if the source super class is mapped to the dest class
       checkForClassMapping(superSrcClass, superClasses, destClass);
 
-      superDestClass = MappingUtils.getRealSuperclass(destClass);
       // now walk up the dest classes super classes with our super source
       // class and our source class
       checkDestClasses(superClasses, superSrcClass, superDestClass);
