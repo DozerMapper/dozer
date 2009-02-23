@@ -81,7 +81,7 @@ public abstract class ReflectionUtils {
       String theFieldName = aFieldName;
       int collectionIndex = -1;
 
-      if (aFieldName.indexOf("[") > 0) {
+      if (aFieldName.contains("[")) {
         theFieldName = aFieldName.substring(0, aFieldName.indexOf("["));
         collectionIndex = Integer.parseInt(aFieldName.substring(aFieldName.indexOf("[") + 1, aFieldName.indexOf("]")));
       }

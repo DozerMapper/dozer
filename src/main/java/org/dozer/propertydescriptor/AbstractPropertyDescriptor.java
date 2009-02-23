@@ -50,7 +50,7 @@ public abstract class AbstractPropertyDescriptor implements DozerPropertyDescrip
   }
 
   protected boolean isDeepField() {
-    return fieldName.indexOf(DozerConstants.DEEP_FIELD_DELIMITOR) > 0;
+    return fieldName.contains(DozerConstants.DEEP_FIELD_DELIMITOR);
   }
 
 }
