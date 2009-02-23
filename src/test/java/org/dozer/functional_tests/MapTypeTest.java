@@ -24,11 +24,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
-
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.dozer.Mapper;
@@ -38,6 +40,7 @@ import org.dozer.vo.map.ChildDOM;
 import org.dozer.vo.map.CustomMap;
 import org.dozer.vo.map.CustomMapIF;
 import org.dozer.vo.map.GenericDOM;
+import org.dozer.vo.map.House;
 import org.dozer.vo.map.MapTestObject;
 import org.dozer.vo.map.MapTestObjectPrime;
 import org.dozer.vo.map.MapToMap;
@@ -47,9 +50,9 @@ import org.dozer.vo.map.NestedObj;
 import org.dozer.vo.map.NestedObjPrime;
 import org.dozer.vo.map.ParentDOM;
 import org.dozer.vo.map.PropertyToMap;
+import org.dozer.vo.map.Room;
 import org.dozer.vo.map.SimpleObj;
 import org.dozer.vo.map.SimpleObjPrime;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -523,7 +526,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     assertEquals("wrong value found for field1", "somevalue", dest.getField1());
   }
-
+  
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

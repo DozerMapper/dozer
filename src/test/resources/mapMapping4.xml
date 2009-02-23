@@ -24,4 +24,14 @@
       <b>this</b>
     </field>
   </mapping>
+  
+  <mapping>
+    <class-a>org.dozer.vo.map.House</class-a>
+    <class-b>java.util.Map</class-b>
+    <field-exclude>
+      <a>room</a>
+      <b>this</b>
+    </field-exclude>
+  </mapping>
+  
 </mappings>
