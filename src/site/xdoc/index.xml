@@ -39,12 +39,22 @@
         </font>
       </h3>
       <p>
-         This release contains some changes that are not backwards compatible with prior versions of Dozer.
-         There is a 5.0 migration guide in the release notes section which outlines these changes.  The 5.0 release also contains some feature requests
-         along with bug fixes.
+         This release contains changes that are not backwards compatible with prior versions of Dozer.
+         There is a 5.0 migration guide in the <a href="releasenotes.html">release notes</a> section, which outlines these changes.  
       </p>
       <p>
-        Thanks to everyone that helped out with this release and submitted tickets.  Please let us know if you find any issues introduced in the release and we will do our best to fix them soon as possible.
+         Key 5.0 changes.....
+         <ul>
+           <li>Added Generics to public api</li>
+           <li>Switched to XSD instead of DTD</li>
+           <li>Simpler packaging</li>
+           <li>Upgraded 3rd party dependencies</li>
+           <li>Upgraded code to use jdk 1.5 features</li>
+           <li>Various feature requests and bug fixes</li>
+         </ul>   
+      </p>
+      <p>
+        Thanks to everyone that helped out with this release and submitted tickets.  Please let us know if you find any issues with the release and we will do our best to fix them soon as possible.
       </p>
       <p>
         Please check here for more information and the 5.0 migration guide.  
