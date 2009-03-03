@@ -43,7 +43,7 @@
          There is a 5.0 migration guide in the <a href="releasenotes.html">release notes</a> section, which outlines these changes.  
       </p>
       <p>
-         Key 5.0 changes.....
+         Key 5.0 changes:
          <ul>
            <li>Added Generics to public api</li>
            <li>Switched to XSD instead of DTD</li>
