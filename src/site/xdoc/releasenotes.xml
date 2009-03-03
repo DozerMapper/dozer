@@ -10,7 +10,7 @@
   </head>  
   <body>
     <section name="Release Notes">
-      <h3>5.0  <font size="-3" color="gray"><i>2/31/2009</i></font></h3>
+      <h3>5.0  <font size="-3" color="gray"><i>3/3/2009</i></font></h3>
         <p>Migrating from Dozer 4 to Dozer 5</p>
         <table border="1">
           <tr>
