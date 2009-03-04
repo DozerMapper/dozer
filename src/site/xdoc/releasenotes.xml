@@ -11,7 +11,7 @@
   <body>
     <section name="Release Notes">
       <h3>5.0  <font size="-3" color="gray"><i>3/3/2009</i></font></h3>
-        <p>Migrating from Dozer 4 to Dozer 5</p>
+        <p>Migration Guide</p>
         <table border="1">
           <tr>
             <th>Change Description</th>
@@ -90,8 +90,8 @@
           </tr>
           <tr>
             <td></td>
-            <td>commons-logging 1.1.1, junit 4.5 </td>
-            <td>commons-logging 1.0.3, junit 3.8</td>
+            <td>commons-logging 1.1.1</td>
+            <td>commons-logging 1.0.3</td>
           </tr>
           <tr>
             <td></td>
