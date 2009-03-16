@@ -36,10 +36,6 @@ public interface Cache <KeyType, ValueType> {
 
   long getMaxSize();
 
-  long getHitCount();
-
-  long getMissCount();
-
   boolean containsKey(KeyType key);
 
 }

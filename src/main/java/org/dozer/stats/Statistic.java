@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -30,10 +31,12 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * statistic. Only intended for internal use.
  * 
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
-public class  Statistic<T extends Enum<StatisticType>> {
+public class Statistic<T extends Enum<StatisticType>> {
+
   private final T type;
-  private final Map<Object, StatisticEntry> entriesMap = new HashMap<Object, StatisticEntry>();
+  private final Map<Object, StatisticEntry> entriesMap = new ConcurrentHashMap<Object, StatisticEntry>();
 
   public Statistic(T type) {
     this.type = type;
@@ -80,11 +83,12 @@ public class  Statistic<T extends Enum<StatisticType>> {
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(getType()).toHashCode();
+    return type.hashCode();
   }
 
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
+
 }

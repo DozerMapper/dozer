@@ -20,15 +20,21 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
- * Internal class that represents one entry in the statistic. Holds the statistic value and unique key for lookup. Only
- * intended for internal use.
+ * Internal class that represents one entry in the statistic. Holds the statistic value and unique key for lookup.
+ * Entry counter is based on AtomicLong and is Thread Safe.
+ *
+ * Only intended for internal use.
  * 
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
 public class StatisticEntry {
+
   private final Object key;
-  private long value = 0;
+  private final AtomicLong value = new AtomicLong();
 
   public StatisticEntry(Object key) {
     this.key = key;
@@ -39,15 +45,15 @@ public class StatisticEntry {
   }
 
   public long getValue() {
-    return value;
+    return value.get();
   }
 
   public void increment() {
     increment(1);
   }
 
-  public synchronized void increment(long value) {
-    this.value += value;
+  public void increment(long value) {
+    this.value.addAndGet(value);
   }
 
   @Override
@@ -64,11 +70,12 @@ public class StatisticEntry {
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(getKey()).toHashCode();
+    return key.hashCode();
   }
 
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
+  
 }

@@ -15,8 +15,7 @@
  */
 package org.dozer.stats;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -108,6 +107,30 @@ public class StatisticManagerTest extends AbstractDozerTest {
     statMgr.increment(type, entryKey, 100);
 
     assertEquals("invalid entry value", 100, statMgr.getStatisticValue(type));
+  }
+
+  @Test
+  public void testGetStatisticValueByEntry() {
+    final Object key1 = new Object();
+    final Object key2 = new Object();
+    Statistic stat = new Statistic(StatisticType.CACHE_HIT_COUNT);
+    stat.addEntry(new StatisticEntry(key1));
+
+    statMgr.addStatistic(stat);
+    statMgr.increment(StatisticType.CACHE_HIT_COUNT, key1, 100);
+    statMgr.increment(StatisticType.CACHE_HIT_COUNT, key2, 1);
+
+    long result = statMgr.getStatisticValue(StatisticType.CACHE_HIT_COUNT, key1);
+    assertEquals("invalid entry value", 100, result);
+
+    result = statMgr.getStatisticValue(StatisticType.CACHE_HIT_COUNT, key2);
+    assertEquals("invalid entry value", 1, result);
+
+    try {
+      statMgr.getStatisticValue(StatisticType.CACHE_HIT_COUNT, new Object());
+      fail();
+    } catch (IllegalStateException e) {
+    }
   }
 
   @Test(expected = IllegalArgumentException.class)

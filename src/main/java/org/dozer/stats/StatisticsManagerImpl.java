@@ -33,6 +33,7 @@ import org.dozer.util.MappingUtils;
  * @author tierney.matt
  */
 public final class StatisticsManagerImpl implements StatisticsManager {
+
   private static final Log log = LogFactory.getLog(StatisticsManagerImpl.class);
 
   private final Map<StatisticType, Statistic<?>> statisticsMap = new HashMap<StatisticType, Statistic<?>>();
@@ -139,6 +140,14 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     return (entries.iterator().next()).getValue();
   }
 
+  public long getStatisticValue(StatisticType statisticType, Object entryKey) {
+    StatisticEntry statisticEntry = getStatistic(statisticType).getEntry(entryKey);
+    if (statisticEntry == null) {
+      throw new IllegalStateException("Statistics entry not found: " + statisticType + " for key: " + entryKey);
+    }
+    return statisticEntry.getValue();
+  }
+
   public void addStatistic(Statistic<?> statistic) {
     if (statisticExists((StatisticType) statistic.getType())) {
       throw new IllegalArgumentException("Statistic already exists for type: " + statistic.getType());
@@ -153,4 +162,5 @@ public final class StatisticsManagerImpl implements StatisticsManager {
   public void logStatistics() {
     log.info(getStatistics());
   }
+
 }

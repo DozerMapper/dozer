@@ -40,8 +40,6 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
 
   // Via LRUMap implementation, order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
   private Map<KeyType, CacheEntry<KeyType, ValueType> > cacheMap;
-  private long hitCount;
-  private long missCount;
 
   StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
 
@@ -50,7 +48,7 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
       throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
     }
     this.name = name;
-    this.cacheMap = new LRUMap(maximumSize) ;
+    this.cacheMap = new LRUMap(maximumSize) ; // TODO This should be in Collections.synchronizedMap()
   }
 
   public void clear() {
@@ -71,11 +69,9 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
     }
     CacheEntry <KeyType, ValueType> result = cacheMap.get(key);
     if (result != null) {
-      hitCount++;
       statMgr.increment(StatisticType.CACHE_HIT_COUNT, name);
       return result.getValue();
     } else {
-      missCount++;
       statMgr.increment(StatisticType.CACHE_MISS_COUNT, name);
       return null;
     }
@@ -101,14 +97,6 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
 
   public long getMaxSize() {
     return ((LRUMap) cacheMap).maxSize();
-  }
-
-  public long getHitCount() {
-    return hitCount;
-  }
-
-  public long getMissCount() {
-    return missCount;
   }
 
   public boolean containsKey(KeyType key) {

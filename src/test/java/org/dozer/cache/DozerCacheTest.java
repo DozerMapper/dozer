@@ -44,8 +44,6 @@ public class DozerCacheTest extends AbstractDozerTest {
       assertEquals("cache entries should be equal", value, "testvalue" + i);
     }
     assertEquals("invlid cache size", numCacheEntriesToAdd, cache.getSize());
-    assertEquals("invlid cache hit count", numCacheEntriesToAdd, cache.getHitCount());
-    assertEquals("invlid cache miss count", numCacheEntriesToAdd, cache.getMissCount());
   }
 
   @Test

@@ -19,22 +19,35 @@ import java.util.Set;
 
 /**
  * Internal interface for managing statistics. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  */
 public interface StatisticsManager {
-  public Set<Statistic<?>> getStatistics();
-  public long getStatisticValue(StatisticType statisticType);
-  public boolean statisticExists(StatisticType statisticType);
-  public void clearAll();
-  public Set<StatisticEntry> getStatisticEntries(StatisticType statisticType);
-  public Set<StatisticType> getStatisticTypes();
-  public boolean isStatisticsEnabled();
-  public void setStatisticsEnabled(boolean statisticsEnabled);
-  public void logStatistics();
-  public void increment(StatisticType statisticType);
-  public void increment(StatisticType statisticType, long value);
-  public void increment(StatisticType statisticType, Object statisticEntryKey);
-  
-  
+
+  Set<Statistic<?>> getStatistics();
+
+  long getStatisticValue(StatisticType statisticType);
+
+  long getStatisticValue(StatisticType statisticType, Object entryKey);
+
+  boolean statisticExists(StatisticType statisticType);
+
+  void clearAll();
+
+  Set<StatisticEntry> getStatisticEntries(StatisticType statisticType);
+
+  Set<StatisticType> getStatisticTypes();
+
+  boolean isStatisticsEnabled();
+
+  void setStatisticsEnabled(boolean statisticsEnabled);
+
+  void logStatistics();
+
+  void increment(StatisticType statisticType);
+
+  void increment(StatisticType statisticType, long value);
+
+  void increment(StatisticType statisticType, Object statisticEntryKey);
+
 }
