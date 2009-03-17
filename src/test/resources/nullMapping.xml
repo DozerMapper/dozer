@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <mapping map-id="null" wildcard="false">
+        <class-a>java.util.HashMap</class-a>
+        <class-b>org.dozer.vo.A</class-b>
+        <field>
+            <a key="key">this</a>
+            <b>b</b>
+        </field>
+    </mapping>
+
+  <mapping map-id="not-null" map-null="false" wildcard="false">
+      <class-a>java.util.HashMap</class-a>
+      <class-b>org.dozer.vo.A</class-b>
+      <field>
+          <a key="key">this</a>
+          <b>b</b>
+      </field>
+  </mapping>
+
+</mappings>

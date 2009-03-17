@@ -353,12 +353,13 @@ public class MapTypeTest extends AbstractFunctionalTest {
     ptm2.setStringProperty("stringPropertyValue");
     mto.setPropertyToMapToNullMap(ptm2);
     MapTestObjectPrime mtop = mapper.map(mto, MapTestObjectPrime.class);
+
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("myStringProperty"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty3"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty4"));
     assertTrue(mtop.getPropertyToMapMap().containsKey("stringProperty5"));
-    assertFalse(mtop.getPropertyToMapMap().containsKey("nullStringProperty"));
+    assertTrue(mtop.getPropertyToMapMap().containsKey("nullStringProperty"));
     assertTrue(mtop.getPropertyToMapMap().containsValue("stringPropertyValue"));
     assertTrue(mtop.getPropertyToMapMap().containsValue("stringProperty2Value"));
     assertTrue(mtop.getPropertyToMapMap().containsValue("stringProperty3Value"));
@@ -366,6 +367,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     assertTrue(mtop.getPropertyToMapMap().containsValue("stringProperty5Value"));
     assertFalse(mtop.getPropertyToMapMap().containsValue("nullStringProperty"));
     assertFalse(mtop.getPropertyToMapMap().containsKey("excludeMe"));
+    
     assertEquals("reverseClassLevelMapStringValue", mtop.getPropertyToMapReverse().getReverseClassLevelMapString());
     assertTrue(mtop.getNullPropertyToMapMap().containsKey("stringProperty"));
     assertEquals("stringPropertyValue", mtop.getNullPropertyToMapMap().get("stringProperty"));
@@ -466,6 +468,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     // Should behave like Vo --> Vo, matching on common attr(key) names.
     Map<String, String> nested2 = newInstance(HashMap.class);
     nested2.put("field1", "mapnestedfield1");
+    nested2.put("field2", null);
 
     SimpleObj src = newInstance(SimpleObj.class);
     src.setNested2(nested2);

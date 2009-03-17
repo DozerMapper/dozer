@@ -16,6 +16,7 @@
 package org.dozer.propertydescriptor;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import org.dozer.MappingException;
 import org.dozer.fieldmap.FieldMap;
@@ -86,7 +87,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
       if (!getPropertyType().isPrimitive() || value != null) {
         // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
         try {
-          if (getPropertyValue(bean) == value) {
+          // We should map null values to create a new key in the map
+          if (value != null && getPropertyValue(bean) == value) {
             return;
           }
         } catch (Exception e) {
