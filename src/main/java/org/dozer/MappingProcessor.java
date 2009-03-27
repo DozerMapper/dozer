@@ -451,17 +451,19 @@ public class MappingProcessor implements Mapper {
     // generics to determine the mapping type
     // this will only happen once on the dest hint. the next mapping will
     // already have the hint
-    Class<?> genericType = null;
-    try {
-      Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
-      genericType = ReflectionUtils.determineGenericsType(method, false);
-    } catch (Throwable e) {
-      log.info("The destObj:" + destObj + " does not have a write method");
-    }
-    if (genericType != null) {
-      HintContainer destHintContainer = new HintContainer();
-      destHintContainer.setHintName(genericType.getName());
-      fieldMap.setDestHintContainer(destHintContainer);
+    if (fieldMap.getDestHintContainer() == null) {
+      Class<?> genericType = null;
+      try {
+        Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
+        genericType = ReflectionUtils.determineGenericsType(method, false);
+      } catch (Throwable e) {
+        log.info("The destObj:" + destObj + " does not have a write method");
+      }
+      if (genericType != null) {
+        HintContainer destHintContainer = new HintContainer();
+        destHintContainer.setHintName(genericType.getName());
+        fieldMap.setDestHintContainer(destHintContainer);
+      }
     }
 
     // if it is an iterator object turn it into a List

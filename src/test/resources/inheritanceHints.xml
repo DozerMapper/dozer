@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.hints.Source</class-a>
+    <class-b>org.dozer.vo.inheritance.hints.Target</class-b>
+    <field>
+      <a>set</a>
+      <b>set</b>
+      <a-hint>
+        org.dozer.vo.inheritance.hints.BaseA,
+        org.dozer.vo.inheritance.hints.BaseB
+      </a-hint>
+      <b-hint>
+        org.dozer.vo.inheritance.hints.BaseA2,
+        org.dozer.vo.inheritance.hints.BaseB2
+      </b-hint>
+    </field>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.hints.BaseA</class-a>
+    <class-b>org.dozer.vo.inheritance.hints.BaseA2</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.hints.BaseB</class-a>
+    <class-b>org.dozer.vo.inheritance.hints.BaseB2</class-b>
+  </mapping>
+
+</mappings>
