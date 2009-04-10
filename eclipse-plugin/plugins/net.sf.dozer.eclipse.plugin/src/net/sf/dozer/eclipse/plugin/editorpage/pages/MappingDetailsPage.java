@@ -22,7 +22,6 @@ import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 
 public class MappingDetailsPage implements IDetailsPage {
 	

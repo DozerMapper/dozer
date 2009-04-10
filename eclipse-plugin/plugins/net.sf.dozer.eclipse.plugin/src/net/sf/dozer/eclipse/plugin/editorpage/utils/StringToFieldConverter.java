@@ -1,18 +1,11 @@
 package net.sf.dozer.eclipse.plugin.editorpage.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.databinding.conversion.Converter;
 import org.eclipse.jdt.core.IField;
-import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.internal.core.SourceField;
-import org.eclipse.jdt.internal.core.SourceMethod;
-import org.eclipse.jface.internal.databinding.swt.CComboObservableValue;
-import org.eclipse.jface.internal.databinding.viewers.ViewerSingleSelectionObservableValue;
-import org.eclipse.jface.viewers.AbstractListViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.custom.CCombo;
 
 public class StringToFieldConverter extends Converter {
 

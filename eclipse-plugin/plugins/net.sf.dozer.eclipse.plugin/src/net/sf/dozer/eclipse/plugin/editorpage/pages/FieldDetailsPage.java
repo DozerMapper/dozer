@@ -5,7 +5,6 @@ import net.sf.dozer.eclipse.plugin.editorpage.Messages;
 import net.sf.dozer.eclipse.plugin.editorpage.pages.composites.FieldOptionComposite;
 import net.sf.dozer.eclipse.plugin.editorpage.pages.composites.MappingFieldComposite;
 import net.sf.dozer.eclipse.plugin.editorpage.utils.DOMUtils;
-import net.sf.dozer.eclipse.plugin.editorpage.utils.HyperlinkHelper;
 
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.viewers.ISelection;
@@ -19,11 +18,8 @@ import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
-import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.w3c.dom.Element;
 
 public class FieldDetailsPage implements IDetailsPage {

@@ -5,15 +5,10 @@ import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ufacekit.core.databinding.instance.IInstanceObservedContainer;
 import org.eclipse.ufacekit.core.databinding.instance.observable.ILazyObserving;
 import org.eclipse.ufacekit.core.databinding.sse.dom.SSEDOMObservables;
-import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.w3c.dom.Element;
 

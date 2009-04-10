@@ -1,22 +1,9 @@
 package net.sf.dozer.eclipse.plugin.editorpage.pages.composites;
 
-import java.util.List;
-
 import net.sf.dozer.eclipse.plugin.editorpage.DozerModelManager;
 import net.sf.dozer.eclipse.plugin.editorpage.utils.DozerUiUtils;
-import net.sf.dozer.eclipse.plugin.editorpage.utils.DozerUtils;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.observable.list.WritableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.core.databinding.observable.value.IValueChangeListener;
-import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jdt.core.IMethod;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.AbstractListViewer;
 import org.eclipse.swt.SWT;
@@ -27,10 +14,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
-import org.springframework.ide.eclipse.core.java.FlagsMethodFilter;
-import org.springframework.ide.eclipse.core.java.IMethodFilter;
-import org.springframework.ide.eclipse.core.java.Introspector;
-import org.springframework.ide.eclipse.core.java.JdtUtils;
 
 public class MappingFieldComposite extends Composite {
 
