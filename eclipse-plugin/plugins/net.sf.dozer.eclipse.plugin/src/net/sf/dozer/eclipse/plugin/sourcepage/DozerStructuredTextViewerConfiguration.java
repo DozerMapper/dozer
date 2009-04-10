@@ -8,9 +8,9 @@
  * Contributors:
  *     Spring IDE Developers - initial API and implementation
  *******************************************************************************/
-package net.sf.dozer.eclipse.plugin.editor;
+package net.sf.dozer.eclipse.plugin.sourcepage;
 
-import net.sf.dozer.eclipse.plugin.contentassist.DozerContentAssistProcessor;
+import net.sf.dozer.eclipse.plugin.sourcepage.contentassist.DozerContentAssistProcessor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.source.ISourceViewer;
@@ -29,10 +29,10 @@ public class DozerStructuredTextViewerConfiguration extends
 
 		if (partitionType == IStructuredPartitions.DEFAULT_PARTITION
 				|| partitionType == IXMLPartitions.XML_DEFAULT) {
+			//adding the DozerContentAssistProcessor to XML partions of the sourceview
 			processors = new IContentAssistProcessor[] { new DozerContentAssistProcessor() };
 		} else {
-			processors = super.getContentAssistProcessors(sourceViewer,
-					partitionType);
+			processors = super.getContentAssistProcessors(sourceViewer, partitionType);
 		}
 		
 		return processors;

@@ -8,6 +8,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.UIPlugin;
+import org.eclipse.wst.xml.core.internal.Logger;
 
 public class NewMappingFileWizard extends Wizard implements INewWizard {
 
@@ -19,8 +20,7 @@ public class NewMappingFileWizard extends Wizard implements INewWizard {
 		try {
 			createAndOpenNewConfig();
 		} catch (PartInitException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.logException(e);
 		}
 
 		return true;

@@ -1,4 +1,4 @@
-package net.sf.dozer.eclipse.plugin.contentassist;
+package net.sf.dozer.eclipse.plugin.sourcepage.contentassist;
 
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;

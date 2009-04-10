@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Dozer Xml Editor Plugin
+Bundle-Name: Dozer Editor Plugin
 Bundle-SymbolicName: net.sf.dozer.eclipse.plugin;singleton:=true
-Bundle-Version: 0.6.4
+Bundle-Version: 0.8.0
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.jdt.ui,
@@ -19,12 +19,64 @@ Require-Bundle: org.eclipse.ui,
  org.springframework.ide.eclipse.beans.core,
  org.springframework.ide.eclipse.beans.ui,
  org.eclipse.wst.sse.ui,
- org.eclipse.wst.validation
-Bundle-Vendor: Dozer Team
-Export-Package: net.sf.dozer.eclipse.plugin.contentassist,
- net.sf.dozer.eclipse.plugin.editor,
- net.sf.dozer.eclipse.plugin.hyperlink,
- net.sf.dozer.eclipse.plugin.util,
- net.sf.dozer.eclipse.plugin.validation,
- net.sf.dozer.eclipse.plugin.wizards
+ org.eclipse.wst.validation,
+ org.eclipse.ui.forms,
+ org.eclipse.jface.databinding,
+ org.eclipse.core.databinding,
+ org.eclipse.core.databinding.beans,
+ org.eclipse.core.databinding.dom;bundle-version="1.0.0",
+ org.eclipse.ufacekit.core.databinding.instance;bundle-version="1.0.0",
+ org.eclipse.ufacekit.core.databinding.sse;bundle-version="1.0.0",
+ org.eclipse.ufacekit.core.databinding.sse.dom;bundle-version="1.0.0"
+Bundle-Vendor: http://dozer.sourceforge.net/
+Export-Package: net.sf.dozer.eclipse.plugin.editorpage;
+  uses:="org.eclipse.jface.text,
+   org.eclipse.core.runtime,
+   org.eclipse.jface.text.source,
+   org.eclipse.jface.resource,
+   org.eclipse.ui,
+   org.eclipse.wst.sse.ui,
+   org.eclipse.wst.xml.ui.internal.tabletree,
+   org.eclipse.ui.forms,
+   org.eclipse.ui.forms.widgets,
+   org.eclipse.ui.forms.editor,
+   net.sf.dozer.eclipse.plugin.editor.model,
+   org.eclipse.jdt.core,
+   org.eclipse.wst.xml.ui,
+   org.eclipse.jface.viewers,
+   org.eclipse.swt.graphics,
+   org.eclipse.swt.widgets",
+ net.sf.dozer.eclipse.plugin.sourcepage.contentassist;
+  uses:="org.springframework.ide.eclipse.beans.ui.editor.contentassist,
+   org.eclipse.jface.text,
+   org.eclipse.wst.sse.core.internal.provisional.text,
+   org.eclipse.wst.xml.core.internal.provisional.document,
+   org.eclipse.swt.graphics,
+   org.eclipse.jface.text.contentassist,
+   org.eclipse.wst.xml.ui.internal.contentassist",
+ net.sf.dozer.eclipse.plugin.sourcepage.hyperlink;
+  uses:="org.eclipse.jface.text.hyperlink,
+   org.eclipse.jface.text,
+   org.w3c.dom,
+   org.springframework.ide.eclipse.core.model",
+ net.sf.dozer.eclipse.plugin.sourcepage.util;
+  uses:="org.eclipse.jdt.core,
+   org.eclipse.core.resources,
+   org.springframework.ide.eclipse.beans.core.internal.model,
+   org.eclipse.wst.xml.ui.internal.contentassist,
+   org.springframework.ide.eclipse.beans.core.model,
+   org.w3c.dom",
+ net.sf.dozer.eclipse.plugin.sourcepage.validation;uses:="org.apache.xerces.parsers,org.eclipse.wst.xml.core.internal.validation.core,org.apache.xerces.xni",
+ net.sf.dozer.eclipse.plugin.wizards;
+  uses:="org.eclipse.jface.wizard,
+   org.eclipse.ui,
+   org.eclipse.core.resources,
+   org.eclipse.jface.viewers,
+   org.eclipse.ui.dialogs"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Activator: net.sf.dozer.eclipse.plugin.DozerPlugin
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/commons-beanutils.jar,
+ lib/commons-logging-1.1.1.jar,
+ lib/commons-lang-2.4.jar,
+ .

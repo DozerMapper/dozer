@@ -1,8 +1,8 @@
-package net.sf.dozer.eclipse.plugin.hyperlink;
+package net.sf.dozer.eclipse.plugin.sourcepage.hyperlink;
 
 import java.util.Set;
 
-import net.sf.dozer.eclipse.plugin.util.DozerPluginUtils;
+import net.sf.dozer.eclipse.plugin.sourcepage.util.DozerPluginUtils;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IMethod;
@@ -13,6 +13,7 @@ import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.hyperlink.AbstractHyperlinkDetector;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
+import org.eclipse.wst.xml.core.internal.Logger;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMAttr;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMElement;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMNode;
@@ -141,8 +142,7 @@ public class DozerClassHyperlinkDetector extends AbstractHyperlinkDetector {
 					if (method != null)
 						return new JavaElementHyperlink(hyperlinkRegion, method);					
 				} catch (Throwable e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Logger.logException(e);
 				}				
 			}
 		} else if ("bean-factory".equals(attrName)) {

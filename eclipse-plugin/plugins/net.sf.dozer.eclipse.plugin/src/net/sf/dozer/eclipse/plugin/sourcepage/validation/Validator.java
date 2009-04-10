@@ -1,9 +1,9 @@
-package net.sf.dozer.eclipse.plugin.validation;
+package net.sf.dozer.eclipse.plugin.sourcepage.validation;
 
 import java.io.InputStream;
 import java.net.URI;
 
-import net.sf.dozer.eclipse.plugin.util.DozerPluginUtils;
+import net.sf.dozer.eclipse.plugin.sourcepage.util.DozerPluginUtils;
 
 import org.apache.xerces.dom.NodeImpl;
 import org.apache.xerces.parsers.DOMParser;

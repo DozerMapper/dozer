@@ -1,9 +1,9 @@
-package net.sf.dozer.eclipse.plugin.contentassist;
+package net.sf.dozer.eclipse.plugin.sourcepage.contentassist;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.dozer.eclipse.plugin.util.DozerPluginUtils;
+import net.sf.dozer.eclipse.plugin.sourcepage.util.DozerPluginUtils;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -239,9 +239,9 @@ public class DozerContentAssistProcessor extends XMLContentAssistProcessor {
 					return JdtUtils.getJavaType(file.getProject(), className);
 				}
 			};
-
+			
 			IContentAssistProposalRecorder recorder = new DefaultContentAssistProposalRecorder(contentAssistRequest);
-			IContentAssistContext context = new DefaultContentAssistContext(contentAssistRequest, "xyz", //@TODO
+			IContentAssistContext context = new DefaultContentAssistContext(contentAssistRequest, "xyz", //FIXME
 					prefix);					
 			
 			calculator.computeProposals(context, recorder); //request, prefix, null, null, null);

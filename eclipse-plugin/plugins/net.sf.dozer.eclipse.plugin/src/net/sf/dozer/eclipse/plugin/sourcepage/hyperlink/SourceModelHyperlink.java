@@ -1,4 +1,4 @@
-package net.sf.dozer.eclipse.plugin.hyperlink;
+package net.sf.dozer.eclipse.plugin.sourcepage.hyperlink;
 
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;

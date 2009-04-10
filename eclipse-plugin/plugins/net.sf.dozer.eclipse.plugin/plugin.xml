@@ -2,50 +2,73 @@
 <?eclipse version="3.3"?>
 <plugin>
 
-	<!-- ContentType for Dozer -->
+	<!-- ContentType for Dozer 4 -->
 	<extension point="org.eclipse.core.runtime.contentTypes">
-		<content-type id="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping" name="Dozer Mapping File"
+		<content-type id="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4" name="Dozer 4 Mapping File"
 			base-type="org.eclipse.core.runtime.xml" 
 			priority="normal"
+			file-extensions="xml"
 			default-charset="UTF-8">
 			<describer
-				class="org.eclipse.core.runtime.content.XMLRootElementContentDescriber">
-				<parameter name="element" value="mappings" />
+				class="org.eclipse.core.runtime.content.XMLRootElementContentDescriber2">
+				<parameter name="element" value="mappings/http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd" />
 			</describer>
 		</content-type>
-	</extension>
+	<!-- ContentType for Dozer 5 -->
+		<content-type id="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5" name="Dozer 5 Mapping File"
+			base-type="org.eclipse.core.runtime.xml" 
+			priority="normal"
+			file-extensions="xml"
+			default-charset="UTF-8">
+			<describer
+				class="org.eclipse.core.runtime.content.XMLRootElementContentDescriber2">
+				<parameter name="element" value="{http://dozer.sourceforge.net}mappings" />
+			</describer>
+		</content-type>
+	</extension>	
 	
-   <extension
+	<!-- Icon for Dozer contenttypes -->
+	<extension
          point="org.eclipse.ui.editors">
       <editor
-            class="net.sf.dozer.eclipse.plugin.editor.DozerMultiPageEditor"
+            class="net.sf.dozer.eclipse.plugin.DozerMultiPageEditor"
             contributorClass="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorActionBarContributor"
             icon="icons/dozer.gif"
             id="net.sf.dozer.eclipse.plugin.editor.dozerEditor"
             name="Dozer Mapping Editor">
-         <contentTypeBinding
-               contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping">
-         </contentTypeBinding>
+         <contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4" />
+         <contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5" />
       </editor>
    </extension>
    	
-	<!-- DTD registration -->
-	<extension
-         point="org.eclipse.wst.xml.core.catalogContributions">
+	<!-- DTD and XSD registration -->
+	<extension point="org.eclipse.wst.xml.core.catalogContributions">
       <catalogContribution
             id="default">
          <public
                publicId="-//DOZER//DTD MAPPINGS//EN"
-               uri="dtd/dozerbeanmapping.dtd">
+               uri="schema/dozerbeanmapping.dtd">
          </public>
       </catalogContribution>
+      <catalogContribution
+            id="default">
+         <public
+               publicId="http://dozer.sourceforge.net"
+               uri="schema/beanmapping.xsd">
+         </public>
+      </catalogContribution>      
    </extension>
    
+  <!-- Source pane -->
+  
 	<!-- Content Assist -->
 	<extension point="org.eclipse.wst.sse.ui.editorConfiguration">
 		<sourceViewerConfiguration
-			class="net.sf.dozer.eclipse.plugin.editor.DozerStructuredTextViewerConfiguration"
-			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping" />
+			class="net.sf.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
+			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4" />
+		<sourceViewerConfiguration
+			class="net.sf.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
+			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5" />
 	</extension>	
 	
 	<!-- Hyperlink Detector -->
@@ -53,16 +76,10 @@
          point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
       	<hyperlinkDetector
       		targetId="org.eclipse.core.runtime.xml"
-            class="net.sf.dozer.eclipse.plugin.hyperlink.DozerClassHyperlinkDetector"
+            class="net.sf.dozer.eclipse.plugin.sourcepage.hyperlink.DozerClassHyperlinkDetector"
             id="net.sf.dozer.eclipse.plugin.DozerClassHyperinkDetector"
             name="DozerClassHyperinkDetector"/>        
 	</extension>
-	
-	<!--<extension point="org.eclipse.ui.ide.markerSupport">
-		<markerTypeCategory name="Dozer">
-			<markerTypeReference id="net.sf.dozer.eclipse.plugin.marker.dozerproblemmarker" />
-		</markerTypeCategory>
-	</extension>-->
 	
 	<!-- Validation -->
 	<extension
@@ -74,7 +91,8 @@
 				objectClass="org.eclipse.core.resources.IFile"
 				nameFilter="*.xml">
 			</filter>
-         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping"/>			
+         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4"/>			
+         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5"/>			
 			<helper class="org.eclipse.wst.xml.core.internal.validation.core.Helper"/>
 			<run
 				async="true"
@@ -103,4 +121,6 @@
          </description>
       </wizard>
    </extension>
+   
+   
 </plugin>

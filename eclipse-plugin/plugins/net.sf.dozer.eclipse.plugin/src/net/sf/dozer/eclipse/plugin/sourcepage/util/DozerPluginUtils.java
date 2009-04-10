@@ -1,4 +1,4 @@
-package net.sf.dozer.eclipse.plugin.util;
+package net.sf.dozer.eclipse.plugin.sourcepage.util;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -87,7 +87,14 @@ public class DozerPluginUtils {
 		
 		//First get direct references
 		IBeansProject beansProject = BeansCorePlugin.getModel().getProject(mappingIFile.getProject());
+		
+		if (beansProject == null)
+			return null;
+		
 		Set<IBeansConfig> tempConfigs = beansProject.getConfigs();
+		
+		if (tempConfigs == null)
+			return null;		
 		
 		//We need some File to later get allBeans from ConfigSets
 		IFile someBeansModelFile = null;
@@ -179,6 +186,10 @@ public class DozerPluginUtils {
 	
 	public static String getClassNameForCCI(IFile mappingIFile, String customConverterId) {		
 		IBean bean = getDozerBeanForMappingFile(mappingIFile);
+		
+		if (bean == null)
+			return null;
+		
 		BeansMapEntry beansMapEntry = getCCIModelElementForMappingFile(bean, customConverterId);
 
 		if (beansMapEntry != null) {
