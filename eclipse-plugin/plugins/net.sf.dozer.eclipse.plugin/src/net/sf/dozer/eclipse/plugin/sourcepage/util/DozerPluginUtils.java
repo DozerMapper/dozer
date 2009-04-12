@@ -32,10 +32,10 @@ import org.springframework.ide.eclipse.beans.core.model.IBeansProject;
 import org.springframework.ide.eclipse.beans.ui.BeansUIImages;
 import org.springframework.ide.eclipse.beans.ui.editor.contentassist.BeansJavaCompletionProposal;
 import org.springframework.ide.eclipse.beans.ui.editor.util.BeansEditorUtils;
+import org.springframework.ide.eclipse.core.StringUtils;
 import org.springframework.ide.eclipse.core.java.Introspector;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
 import org.springframework.ide.eclipse.core.model.IModelElement;
-import org.springframework.util.StringUtils;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
@@ -347,7 +347,7 @@ public class DozerPluginUtils {
 					if (propertySplitted.length > 1) {			
 						List<String> l = new ArrayList<String>(Arrays.asList(propertySplitted));
 						l.remove(0);			
-						property = StringUtils.arrayToDelimitedString(l.toArray(), ".");
+						property = StringUtils.collectionToDelimitedString(l, ".");
 			
 						return hasReadProperty(property, className, project);
 					} else {
@@ -369,7 +369,7 @@ public class DozerPluginUtils {
 			List<String> l = new ArrayList(Arrays.asList(propertySplitted));
 			checkProperty = l.get(l.size()-1);
 			l.remove(l.size()-1);			
-			property = StringUtils.arrayToDelimitedString(l.toArray(), ".");
+			property = StringUtils.collectionToDelimitedString(l, ".");
 			
 			javaType = DozerPluginUtils.hasReadProperty(property, className, project);
 			if (javaType == null)
