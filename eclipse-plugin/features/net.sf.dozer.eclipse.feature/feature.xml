@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net.sf.dozer.eclipse.feature"
+      label="Dozer Editor Feature"
+      version="0.8.0"
+      provider-name="http://dozer.sourceforge.net/">
+
+   <description url="http://dozer.sourceforge.net/">
+      WTP XML Editor extension and Form based Editors
+   </description>
+
+   <license url="http://www.apache.org/licenses/LICENSE-2.0">
+      Copyright 2009 Sourceforge Dozer Project Team
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use
+this file except in compliance with the License. You may obtain
+a copy of the License at 
+
+   http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+or implied. See the License for the specific language governing
+permissions and limitations under the License.
+   </license>
+
+   <url>
+      <update url="http://dozer.sourceforge.net/eclipse-plugin"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.wst.xml.core"/>
+      <import plugin="org.eclipse.wst.xml.ui"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.wst.sse.core"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.springframework.beans" version="2.5.6" match="greaterOrEqual"/>
+      <import plugin="org.springframework.ide.eclipse.core"/>
+      <import plugin="org.springframework.ide.eclipse.beans.core"/>
+      <import plugin="org.springframework.ide.eclipse.beans.ui"/>
+      <import plugin="org.springframework.ide.eclipse.beans.ui.editor"/>
+      <import plugin="org.eclipse.wst.sse.ui"/>
+      <import plugin="org.eclipse.wst.validation"/>
+      <import plugin="org.eclipse.ui.forms"/>
+      <import plugin="org.eclipse.jface.databinding"/>
+      <import plugin="org.eclipse.core.databinding"/>
+      <import plugin="org.eclipse.core.databinding.beans"/>
+      <import plugin="org.eclipse.core.databinding.dom" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ufacekit.core.databinding.instance" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ufacekit.core.databinding.sse" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ufacekit.core.databinding.sse.dom" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jface"/>
+   </requires>
+
+   <plugin
+         id="net.sf.dozer.eclipse.plugin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.core.databinding.dom"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ufacekit.core.databinding.instance"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ufacekit.core.databinding.sse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ufacekit.core.databinding.sse.dom"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
