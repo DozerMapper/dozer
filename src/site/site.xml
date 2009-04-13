@@ -25,6 +25,15 @@
       <item name="License" href="/license.html" />
     </menu>
 
+	<!-- Menu for the Eclipse plugin -->
+    <menu name="Eclipse Plugin">
+    	<item name="Installation" href="/documentation/eclipse-plugin/installation.html" />
+    	<item name="Usage" href="/documentation/eclipse-plugin/usage.html" collapse="true">
+			<item name="Mapping via Editor" href="/documentation/eclipse-plugin/usage-editor.html" />
+			<item name="Mapping via XML" href="/documentation/eclipse-plugin/usage-xml.html" />
+		</item>
+    </menu>
+
     <menu name="User's Guide">
       <!-- Standalone item -->
       <item name="About" href="/documentation/about.html" />

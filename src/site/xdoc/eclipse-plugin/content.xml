@@ -1,0 +1,528 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?metadataRepository class='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'?>
+<repository name='file:/W:/Privat/Java/Dozer/src/site/xdoc/eclipse-plugin/ - metadata' type='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.compressed' value='false'/>
+    <property name='p2.timestamp' value='1239631436131'/>
+  </properties>
+  <references size='2'>
+    <repository url='http://dozer.sourceforge.net/eclipse-plugin' type='0' options='0'/>
+    <repository url='http://dozer.sourceforge.net/eclipse-plugin' type='1' options='0'/>
+  </references>
+  <units size='13'>
+    <unit id='net.sf.dozer.eclipse.feature.feature.group' version='0.8.0' singleton='false'>
+      <update id='net.sf.dozer.eclipse.feature.feature.group' range='[0.0.0,0.8.0)' severity='0'/>
+      <properties size='5'>
+        <property name='org.eclipse.equinox.p2.name' value='Dozer Plugin Feature'/>
+        <property name='org.eclipse.equinox.p2.description' value='WTP XML Editor extension and Form based Editors'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://dozer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.provider' value='http://dozer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.sf.dozer.eclipse.feature.feature.group' version='0.8.0'/>
+      </provides>
+      <requires size='23'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui.ide' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.jdt.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.wst.xml.core' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.wst.xml.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.jface.text' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.wst.sse.core' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.jdt.core' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.springframework.ide.eclipse.beans.ui.editor' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.springframework.bundle.spring' range='2.5.6'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.springframework.ide.eclipse.core' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.springframework.ide.eclipse.beans.core' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.springframework.ide.eclipse.beans.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.wst.sse.ui' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.wst.validation' range='0.0.0'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ui.forms' range='3.3.101'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.jface.databinding' range='1.2.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.databinding' range='1.1.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.databinding.beans' range='1.1.1'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.sf.dozer.eclipse.plugin' range='[0.8.0,0.8.0]'/>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.sf.dozer.eclipse.feature.feature.jar' range='[0.8.0,0.8.0]'>
+          <filter>
+            (org.eclipse.update.install.features=true)
+          </filter>
+        </required>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <licenses size='1'>
+        <license url='http://www.apache.org/licenses/LICENSE-2.0'>
+          Copyright 2009 Sourceforge Dozer Project Team&#xA;&#xA;Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use&#xA;this file except in compliance with the License. You may obtain&#xA;a copy of the License at &#xA;&#xA;   http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express&#xA;or implied. See the License for the specific language governing&#xA;permissions and limitations under the License.
+        </license>
+      </licenses>
+    </unit>
+    <unit id='Core' version='0.0.0'>
+      <properties size='3'>
+        <property name='org.eclipse.equinox.p2.name' value='Dozer Eclipse Plugin'/>
+        <property name='org.eclipse.equinox.p2.description' value='WTP XML Editor extension and Form based Editors'/>
+        <property name='org.eclipse.equinox.p2.type.category' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='Core' version='0.0.0'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='net.sf.dozer.eclipse.feature.feature.group' range='[0.8.0,0.8.0]'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+    </unit>
+    <unit id='tooling.source.default' version='1.0.0' singleton='false'>
+      <hostRequirements size='1'>
+        <required namespace='org.eclipse.equinox.p2.eclipse.type' name='source' range='0.0.0' optional='true' multiple='true' greedy='false'/>
+      </hostRequirements>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.type.fragment' value='true'/>
+      </properties>
+      <provides size='2'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='tooling.source.default' version='1.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.flavor' name='tooling' version='1.0.0'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.eclipse.type' name='source' range='0.0.0' optional='true' multiple='true' greedy='false'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='install'>
+            addSourceBundle(bundle:${artifact})
+          </instruction>
+          <instruction key='uninstall'>
+            removeSourceBundle(bundle:${artifact})
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='net.sf.dozer.eclipse.plugin' version='0.8.0'>
+      <update id='net.sf.dozer.eclipse.plugin' range='[0.0.0,0.8.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Dozer Editor Plugin'/>
+        <property name='org.eclipse.equinox.p2.provider' value='http://dozer.sourceforge.net/'/>
+      </properties>
+      <provides size='9'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.sf.dozer.eclipse.plugin' version='0.8.0'/>
+        <provided namespace='osgi.bundle' name='net.sf.dozer.eclipse.plugin' version='0.8.0'/>
+        <provided namespace='java.package' name='net.sf.dozer.eclipse.plugin.editorpage' version='0.0.0'/>
+        <provided namespace='java.package' name='net.sf.dozer.eclipse.plugin.sourcepage.contentassist' version='0.0.0'/>
+        <provided namespace='java.package' name='net.sf.dozer.eclipse.plugin.sourcepage.hyperlink' version='0.0.0'/>
+        <provided namespace='java.package' name='net.sf.dozer.eclipse.plugin.sourcepage.util' version='0.0.0'/>
+        <provided namespace='java.package' name='net.sf.dozer.eclipse.plugin.sourcepage.validation' version='0.0.0'/>
+        <provided namespace='java.package' name='net.sf.dozer.eclipse.plugin.wizards' version='0.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='21'>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jdt.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.xml.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.xml.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jface.text' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.sse.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jdt.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.springframework.ide.eclipse.beans.ui.editor' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.springframework.bundle.spring' range='2.5.6'/>
+        <required namespace='osgi.bundle' name='org.springframework.ide.eclipse.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.springframework.ide.eclipse.beans.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.springframework.ide.eclipse.beans.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.sse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.validation' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui.forms' range='3.3.101'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jface.databinding' range='1.2.1'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.databinding' range='1.1.1'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.databinding.beans' range='1.1.1'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='net.sf.dozer.eclipse.plugin' version='0.8.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='manifest'>
+            Bundle-ManifestVersion: 2&#xA;Export-Package: net.sf.dozer.eclipse.plugin.editorpage; uses:=&quot;org.eclipse.jface.text,  org.eclipse.core.runtime,  org.eclipse.jface.text.source,  org.eclipse.jface.resource,  org.eclipse.ui,  org.eclipse.wst.sse.ui,  org.eclipse.wst.xml.ui.internal.tabletree,  org.eclipse.ui.forms,  org.eclipse.ui.forms.widgets,  org.eclipse.ui.forms.editor,  net.sf.dozer.eclipse.plugin.editor.model,  org.eclipse.jdt.core,  org.eclipse.wst.xml.ui,  org.eclipse.jface.viewers,  org.eclipse.swt.graphics,  org.eclipse.swt.widgets&quot;,net.sf.dozer.eclipse.plugin.sourcepage.contentassist; uses:=&quot;org.springframework.ide.eclipse.beans.ui.editor.contentassist,  org.eclipse.jface.text,  org.eclipse.wst.sse.core.internal.provisional.text,  org.eclipse.wst.xml.core.internal.provisional.document,  org.eclipse.swt.graphics,  org.eclipse.jface.text.contentassist,  org.eclipse.wst.xml.ui.internal.contentassist&quot;,net.sf.dozer.eclipse.plugin.sourcepage.hyperlink; uses:=&quot;org.eclipse.jface.text.hyperlink,  org.eclipse.jface.text,  org.w3c.dom,  org.springframework.ide.eclipse.core.model&quot;,net.sf.dozer.eclipse.plugin.sourcepage.util; uses:=&quot;org.eclipse.jdt.core,  org.eclipse.core.resources,  org.springframework.ide.eclipse.beans.core.internal.model,  org.eclipse.wst.xml.ui.internal.contentassist,  org.springframework.ide.eclipse.beans.core.model,  org.w3c.dom&quot;,net.sf.dozer.eclipse.plugin.sourcepage.validation;uses:=&quot;org.apache.xerces.parsers,org.eclipse.wst.xml.core.internal.validation.core,org.apache.xerces.xni&quot;,net.sf.dozer.eclipse.plugin.wizards; uses:=&quot;org.eclipse.jface.wizard,  org.eclipse.ui,  org.eclipse.core.resources,  org.eclipse.jface.viewers,  org.eclipse.ui.dialogs&quot;&#xA;Bundle-RequiredExecutionEnvironment: J2SE-1.5&#xA;Require-Bundle: org.eclipse.ui,org.eclipse.ui.ide,org.eclipse.jdt.ui,org.eclipse.wst.xml.core,org.eclipse.wst.xml.ui,org.eclipse.jface.text,org.eclipse.wst.sse.core,org.eclipse.core.runtime,org.eclipse.jdt.core,org.springframework.ide.eclipse.beans.ui.editor,org.eclipse.core.resources,org.springframework.bundle.spring;bundle-version=&quot;2.5.6&quot;,org.springframework.ide.eclipse.core,org.springframework.ide.eclipse.beans.core,org.springframework.ide.eclipse.beans.ui,org.eclipse.wst.sse.ui,org.eclipse.wst.validation,org.eclipse.ui.forms;bundle-version=&quot;3.3.101&quot;,org.eclipse.jface.databinding;bundle-version=&quot;1.2.1&quot;,org.eclipse.core.databinding;bundle-version=&quot;1.1.1&quot;,org.eclipse.core.databinding.beans;bundle-version=&quot;1.1.1&quot;&#xA;Bundle-Activator: net.sf.dozer.eclipse.plugin.DozerPlugin&#xA;Bundle-Name: Dozer Editor Plugin&#xA;Bundle-Version: 0.8.0&#xA;Bundle-Vendor: http://dozer.sourceforge.net/&#xA;Bundle-SymbolicName: net.sf.dozer.eclipse.plugin;singleton:=true&#xA;Bundle-ActivationPolicy: lazy&#xA;Bundle-ClassPath: lib/commons-beanutils.jar,lib/commons-logging-1.1.1.jar,lib/commons-lang-2.4.jar,.&#xA;Manifest-Version: 1.0
+          </instruction>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='net.sf.dozer.eclipse.feature.feature.jar' version='0.8.0'>
+      <update id='net.sf.dozer.eclipse.feature.feature.jar' range='[0.0.0,0.8.0)' severity='0'/>
+      <properties size='4'>
+        <property name='org.eclipse.equinox.p2.name' value='Dozer Plugin Feature'/>
+        <property name='org.eclipse.equinox.p2.description' value='WTP XML Editor extension and Form based Editors'/>
+        <property name='org.eclipse.equinox.p2.description.url' value='http://dozer.sourceforge.net/'/>
+        <property name='org.eclipse.equinox.p2.provider' value='http://dozer.sourceforge.net/'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='net.sf.dozer.eclipse.feature.feature.jar' version='0.8.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+        <provided namespace='org.eclipse.update.feature' name='net.sf.dozer.eclipse.feature' version='0.8.0'/>
+      </provides>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <artifacts size='1'>
+        <artifact classifier='org.eclipse.update.feature' id='net.sf.dozer.eclipse.feature' version='0.8.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='zipped'>
+            true
+          </instruction>
+        </instructions>
+      </touchpointData>
+      <licenses size='1'>
+        <license url='http://www.apache.org/licenses/LICENSE-2.0'>
+          Copyright 2009 Sourceforge Dozer Project Team&#xA;&#xA;Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use&#xA;this file except in compliance with the License. You may obtain&#xA;a copy of the License at &#xA;&#xA;   http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express&#xA;or implied. See the License for the specific language governing&#xA;permissions and limitations under the License.
+        </license>
+      </licenses>
+    </unit>
+    <unit id='tooling.osgi.bundle.default' version='1.0.0' singleton='false'>
+      <hostRequirements size='1'>
+        <required namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' range='0.0.0' multiple='true' greedy='false'/>
+      </hostRequirements>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.type.fragment' value='true'/>
+      </properties>
+      <provides size='2'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='tooling.osgi.bundle.default' version='1.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.flavor' name='tooling' version='1.0.0'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' range='0.0.0' multiple='true' greedy='false'/>
+      </requires>
+      <touchpoint id='null' version='0.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='4'>
+          <instruction key='install'>
+            installBundle(bundle:${artifact})
+          </instruction>
+          <instruction key='uninstall'>
+            uninstallBundle(bundle:${artifact})
+          </instruction>
+          <instruction key='unconfigure'>
+
+          </instruction>
+          <instruction key='configure'>
+            setStartLevel(startLevel:4);
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='tooling.org.eclipse.update.feature.default' version='1.0.0' singleton='false'>
+      <hostRequirements size='1'>
+        <required namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' range='0.0.0' optional='true' multiple='true' greedy='false'/>
+      </hostRequirements>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.type.fragment' value='true'/>
+      </properties>
+      <provides size='2'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='tooling.org.eclipse.update.feature.default' version='1.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.flavor' name='tooling' version='1.0.0'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' range='0.0.0' optional='true' multiple='true' greedy='false'/>
+      </requires>
+      <filter>
+        (org.eclipse.update.install.features=true)
+      </filter>
+      <touchpoint id='null' version='0.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='2'>
+          <instruction key='install'>
+            installFeature(feature:${artifact},featureId:default,featureVersion:default)
+          </instruction>
+          <instruction key='uninstall'>
+            uninstallFeature(feature:${artifact},featureId:default,featureVersion:default)
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='config.a.jre' version='1.6.0' singleton='false'>
+      <hostRequirements size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='a.jre' range='1.6.0'/>
+      </hostRequirements>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.type.fragment' value='true'/>
+      </properties>
+      <provides size='1'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='config.a.jre' version='1.6.0'/>
+      </provides>
+      <requires size='1'>
+        <required namespace='org.eclipse.equinox.p2.iu' name='a.jre' range='1.6.0'/>
+      </requires>
+      <touchpoint id='org.eclipse.equinox.p2.native' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='install'>
+
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='a.jre' version='1.6.0' singleton='false'>
+      <provides size='117'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='a.jre' version='1.6.0'/>
+        <provided namespace='java.package' name='javax.accessibility' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.activity' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.crypto' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.crypto.interfaces' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.crypto.spec' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.imageio' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.imageio.event' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.imageio.metadata' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.imageio.plugins.bmp' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.imageio.plugins.jpeg' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.imageio.spi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.imageio.stream' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.loading' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.modelmbean' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.monitor' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.openmbean' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.relation' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.remote' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.remote.rmi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.management.timer' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.naming' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.naming.directory' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.naming.event' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.naming.ldap' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.naming.spi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.net' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.net.ssl' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.print' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.print.attribute' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.print.attribute.standard' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.print.event' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.rmi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.rmi.CORBA' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.rmi.ssl' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.auth' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.auth.callback' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.auth.kerberos' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.auth.login' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.auth.spi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.auth.x500' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.cert' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.security.sasl' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sound.midi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sound.midi.spi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sound.sampled' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sound.sampled.spi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sql' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sql.rowset' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sql.rowset.serial' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.sql.rowset.spi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.border' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.colorchooser' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.event' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.filechooser' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.plaf' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.plaf.basic' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.plaf.metal' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.plaf.multi' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.plaf.synth' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.table' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.text' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.text.html' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.text.html.parser' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.text.rtf' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.tree' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.swing.undo' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.transaction' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.transaction.xa' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.datatype' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.namespace' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.parsers' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.transform' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.transform.dom' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.transform.sax' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.transform.stream' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.validation' version='0.0.0'/>
+        <provided namespace='java.package' name='javax.xml.xpath' version='0.0.0'/>
+        <provided namespace='java.package' name='org.ietf.jgss' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CORBA' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CORBA_2_3' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CORBA_2_3.portable' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CORBA.DynAnyPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CORBA.ORBPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CORBA.portable' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CORBA.TypeCodePackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CosNaming' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CosNaming.NamingContextExtPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.CosNaming.NamingContextPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.Dynamic' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.DynamicAny' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.DynamicAny.DynAnyFactoryPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.DynamicAny.DynAnyPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.IOP' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.IOP.CodecFactoryPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.IOP.CodecPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.Messaging' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableInterceptor' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableInterceptor.ORBInitInfoPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableServer' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableServer.CurrentPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableServer.POAManagerPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableServer.POAPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableServer.portable' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.PortableServer.ServantLocatorPackage' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.SendingContext' version='0.0.0'/>
+        <provided namespace='java.package' name='org.omg.stub.java.rmi' version='0.0.0'/>
+        <provided namespace='java.package' name='org.w3c.dom' version='0.0.0'/>
+        <provided namespace='java.package' name='org.w3c.dom.bootstrap' version='0.0.0'/>
+        <provided namespace='java.package' name='org.w3c.dom.events' version='0.0.0'/>
+        <provided namespace='java.package' name='org.w3c.dom.ls' version='0.0.0'/>
+        <provided namespace='java.package' name='org.xml.sax' version='0.0.0'/>
+        <provided namespace='java.package' name='org.xml.sax.ext' version='0.0.0'/>
+        <provided namespace='java.package' name='org.xml.sax.helpers' version='0.0.0'/>
+      </provides>
+      <touchpoint id='org.eclipse.equinox.p2.native' version='1.0.0'/>
+    </unit>
+    <unit id='org.eclipse.ufacekit.core.databinding.instance' version='1.0.0' singleton='false'>
+      <update id='org.eclipse.ufacekit.core.databinding.instance' range='[0.0.0,1.0.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='Instance - Core - JFace Databinding'/>
+        <property name='org.eclipse.equinox.p2.provider' value='UFacekit'/>
+      </properties>
+      <provides size='9'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ufacekit.core.databinding.instance' version='1.0.0'/>
+        <provided namespace='osgi.bundle' name='org.eclipse.ufacekit.core.databinding.instance' version='1.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.instance' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.instance.beans' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.instance.dom' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.instance.observable' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.instance.observable.masterdetail' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.instance.observable.value' version='0.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='2'>
+        <required namespace='osgi.bundle' name='org.eclipse.core.databinding' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.eclipse.ufacekit.core.databinding.instance' version='1.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-ManifestVersion: 2&#xA;Bundle-Name: Instance - Core - JFace Databinding&#xA;Bundle-Version: 1.0.0&#xA;Require-Bundle: org.eclipse.core.databinding,org.eclipse.core.runtime&#xA;Export-Package: org.eclipse.ufacekit.core.databinding.instance,org.eclipse.ufacekit.core.databinding.instance.beans,org.eclipse.ufacekit.core.databinding.instance.dom,org.eclipse.ufacekit.core.databinding.instance.observable,org.eclipse.ufacekit.core.databinding.instance.observable.masterdetail,org.eclipse.ufacekit.core.databinding.instance.observable.value&#xA;Bundle-RequiredExecutionEnvironment: J2SE-1.4&#xA;Bundle-SymbolicName: org.eclipse.ufacekit.core.databinding.instance&#xA;Manifest-Version: 1.0&#xA;Bundle-Vendor: UFacekit
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.eclipse.core.databinding.dom' version='1.0.0' singleton='false'>
+      <update id='org.eclipse.core.databinding.dom' range='[0.0.0,1.0.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='%pluginName'/>
+        <property name='org.eclipse.equinox.p2.provider' value='%providerName'/>
+      </properties>
+      <provides size='11'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.core.databinding.dom' version='1.0.0'/>
+        <provided namespace='osgi.bundle' name='org.eclipse.core.databinding.dom' version='1.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.core.databinding.dom' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.core.databinding.dom.conversion' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.core.databinding.dom.factory' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.core.databinding.dom.xpath' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.core.dom.events' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.core.dom.utils' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.core.internal.databinding.dom' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.jface.databinding.viewers.dom' version='0.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='3'>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.databinding' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.jface' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.eclipse.core.databinding.dom' version='1.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-ManifestVersion: 2&#xA;Bundle-Name: %pluginName&#xA;Bundle-Version: 1.0.0&#xA;Require-Bundle: org.eclipse.core.runtime,org.eclipse.core.databinding,org.eclipse.jface&#xA;Export-Package: org.eclipse.core.databinding.dom,org.eclipse.core.databinding.dom.conversion,org.eclipse.core.databinding.dom.factory,org.eclipse.core.databinding.dom.xpath,org.eclipse.core.dom.events,org.eclipse.core.dom.utils,org.eclipse.core.internal.databinding.dom,org.eclipse.jface.databinding.viewers.dom&#xA;Bundle-RequiredExecutionEnvironment: J2SE-1.4,CDC-1.0/Foundation-1.0&#xA;Bundle-SymbolicName: org.eclipse.core.databinding.dom&#xA;Manifest-Version: 1.0&#xA;Bundle-Vendor: %providerName
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.eclipse.ufacekit.core.databinding.sse.dom' version='1.0.0' singleton='false'>
+      <update id='org.eclipse.ufacekit.core.databinding.sse.dom' range='[0.0.0,1.0.0)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='DOM-SSE - JFace Databinding'/>
+      </properties>
+      <provides size='5'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ufacekit.core.databinding.sse.dom' version='1.0.0'/>
+        <provided namespace='osgi.bundle' name='org.eclipse.ufacekit.core.databinding.sse.dom' version='1.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.sse.dom' version='0.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.sse.dom.xpath' version='0.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='8'>
+        <required namespace='osgi.bundle' name='org.eclipse.ufacekit.core.databinding.sse' range='1.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.databinding' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.xml.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.sse.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.databinding.dom' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ufacekit.core.databinding.instance' range='1.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.eclipse.ufacekit.core.databinding.sse.dom' version='1.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-ManifestVersion: 2&#xA;Bundle-Version: 1.0.0&#xA;Export-Package: org.eclipse.ufacekit.core.databinding.sse.dom,org.eclipse.ufacekit.core.databinding.sse.dom.xpath&#xA;Require-Bundle: org.eclipse.ufacekit.core.databinding.sse;bundle-version=&quot;1.0.0&quot;,org.eclipse.core.databinding,org.eclipse.wst.xml.core,org.eclipse.wst.sse.core,org.eclipse.core.runtime,org.eclipse.core.databinding.dom,org.eclipse.ufacekit.core.databinding.instance;bundle-version=&quot;1.0.0&quot;,org.eclipse.ui&#xA;Manifest-Version: 1.0&#xA;Bundle-SymbolicName: org.eclipse.ufacekit.core.databinding.sse.dom&#xA;Bundle-Name: DOM-SSE - JFace Databinding&#xA;Bundle-RequiredExecutionEnvironment: J2SE-1.4
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+    <unit id='org.eclipse.ufacekit.core.databinding.sse' version='1.0.0' singleton='false'>
+      <update id='org.eclipse.ufacekit.core.databinding.sse' range='[0.0.0,1.0.0)' severity='0'/>
+      <properties size='1'>
+        <property name='org.eclipse.equinox.p2.name' value='SSE - Core - JFace Databinding'/>
+      </properties>
+      <provides size='4'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.ufacekit.core.databinding.sse' version='1.0.0'/>
+        <provided namespace='osgi.bundle' name='org.eclipse.ufacekit.core.databinding.sse' version='1.0.0'/>
+        <provided namespace='java.package' name='org.eclipse.ufacekit.core.databinding.sse' version='0.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='5'>
+        <required namespace='osgi.bundle' name='org.eclipse.core.databinding' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ufacekit.core.databinding.instance' range='1.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.wst.sse.core' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='org.eclipse.ufacekit.core.databinding.sse' version='1.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+      <touchpointData size='1'>
+        <instructions size='1'>
+          <instruction key='manifest'>
+            Bundle-ManifestVersion: 2&#xA;Bundle-Version: 1.0.0&#xA;Export-Package: org.eclipse.ufacekit.core.databinding.sse&#xA;Require-Bundle: org.eclipse.core.databinding,org.eclipse.ufacekit.core.databinding.instance;bundle-version=&quot;1.0.0&quot;,org.eclipse.wst.sse.core, org.eclipse.ui,org.eclipse.core.runtime&#xA;Manifest-Version: 1.0&#xA;Bundle-SymbolicName: org.eclipse.ufacekit.core.databinding.sse&#xA;Bundle-Name: SSE - Core - JFace Databinding&#xA;Bundle-RequiredExecutionEnvironment: J2SE-1.4
+          </instruction>
+        </instructions>
+      </touchpointData>
+    </unit>
+  </units>
+</repository>

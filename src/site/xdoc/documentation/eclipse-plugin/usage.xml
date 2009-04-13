@@ -1,0 +1,26 @@
+<document>
+  <properties>
+   <author email="mhielen@users.sourceforge.net">Markus Thielen</author>
+    <title>eclipse plugin usage</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
+  <body>
+    <section name="Create new Mapping files">
+      <p>
+        The plugin provides a simple wizard for creating new mapping-xml files.
+        A new mapping-xml file can be created using File > New > Other > Dozer Mapping Framework > Dozer Mapping File.
+        Select the correct dozer version (4, DTD or 5, XSD) in the wizard and create the file.
+      </p>
+    </section>   
+    <section name="Configure the Mapping">
+      <p>
+      	<a href="usage-xml.html">via XML</a><br />
+      	<a href="usage-editor.html">via the Editor</a>     	
+      </p>
+    </section>  
+  </body>
+</document>

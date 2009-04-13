@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository class='org.eclipse.equinox.internal.p2.artifact.repository.simple.SimpleArtifactRepository' version='1.0.0'?>
+<repository name='file:/W:/Privat/Java/Dozer/src/site/xdoc/eclipse-plugin/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.compressed' value='false'/>
+    <property name='p2.timestamp' value='1239631436129'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='11'>
+    <artifact classifier='osgi.bundle' id='org.eclipse.ufacekit.core.databinding.sse' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='4517'/>
+        <property name='download.size' value='4517'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.sf.dozer.eclipse.plugin' version='0.8.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='191457'/>
+        <property name='download.size' value='191457'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.sf.dozer.eclipse.plugin' version='0.8.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='191264'/>
+        <property name='download.size' value='191264'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='net.sf.dozer.eclipse.feature' version='0.8.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='1317'/>
+        <property name='download.size' value='1317'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.sf.dozer.eclipse.plugin' version='0.8.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='191449'/>
+        <property name='download.size' value='191449'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='net.sf.dozer.eclipse.feature' version='0.8.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='1264'/>
+        <property name='download.size' value='1264'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.core.databinding.dom' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='63164'/>
+        <property name='download.size' value='63164'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='net.sf.dozer.eclipse.plugin' version='0.8.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='642386'/>
+        <property name='download.size' value='642386'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.ufacekit.core.databinding.sse' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='4480'/>
+        <property name='download.size' value='4480'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.ufacekit.core.databinding.sse.dom' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='35728'/>
+        <property name='download.size' value='35728'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.ufacekit.core.databinding.instance' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='21744'/>
+        <property name='download.size' value='21744'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

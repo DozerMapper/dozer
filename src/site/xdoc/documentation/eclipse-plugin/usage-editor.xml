@@ -1,0 +1,28 @@
+<document>
+  <properties>
+   <author email="mhielen@users.sourceforge.net">Markus Thielen</author>
+    <title>eclipse plugin usage editor</title>
+  </properties>
+  <head>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
+    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+  </head>
+  <body>
+    <section name="Setting global dozer configuration">
+      <p>
+        All global configuration values can be set in the "Global Configuration" Tab.
+        <br/><img src="../../images/eclipse-globalconfigtab.gif" /> 
+      </p>
+    </section>   
+    <section name="Configuring mappings">
+      <p>
+        Every classmapping is listed in the "Mapping" Tab. Mappings of classes and fields
+        can be added by Popup menu or the action-buttons at the top. On the right side the
+        mappings can be configured. Every Attribute or Element in the XML file is shown for
+        editing.
+        <br/><img src="../../images/eclipse-mappingtab.gif" /> 
+      </p>
+    </section>      
+  </body>
+</document>

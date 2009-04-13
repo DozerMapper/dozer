@@ -31,7 +31,34 @@
     </section>
     <section name="Dozer News">
       <p/>
-
+		
+	  <h3>
+        Dozer Eclipse Plugin 0.8.0 Now Available
+        <font size="-3" color="gray">
+          <i>4/14/2009</i>
+        </font>
+      </h3>
+      <p>
+         This is the first release with a fully featured GUI around the Mapping XML.  
+      </p>
+      <p>
+         Features are:
+         <ul>
+           <li>GUI for the mapping XML. Based on Eclipse Forms.</li>
+           <li>Content Assist and XML Validation for the XML View.</li>
+           <li>Compatible with Dozer 4.x and 5.x</li>
+         </ul>   
+      </p>
+      <p>
+        Thanks to Angelo Zerr who wrote the <a href="http://wiki.eclipse.org/JFace_Data_Binding/SSE">DOM/SSE Databinding</a> that the Plugin uses.<br />        
+      </p>
+      <p>
+        Please check here for more information.<br /> 
+        <a href="documentation/eclipse-plugin/installation.html">installation</a><br/>
+        <a href="documentation/eclipse-plugin/usage.html">usage</a>
+      </p>
+      <p></p>
+      
       <h3>
         Release 5.0 Now Available
         <font size="-3" color="gray">
