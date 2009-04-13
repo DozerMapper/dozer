@@ -15,6 +15,8 @@ import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.dom.utils.DOMUtils;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -22,6 +24,7 @@ import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -257,14 +260,14 @@ public class DozerConfigurationEditorPage extends FormPage {
 								public void run() {
 									CustomConverterData data = dialog.getData();
 									
-									Element element = (Element)getModel().getDocument().createElement("converter");
+									Element element = getModel().getDocument().createElement("converter");
 									element.setAttribute("type", data.getCustomConverterName());
 									
-									Element classA = (Element)getModel().getDocument().createElement("class-a");
+									Element classA = getModel().getDocument().createElement("class-a");
 									element.appendChild(classA);
 									org.eclipse.core.dom.utils.DOMUtils.setTextContent(classA, data.getClassA());
 
-									Element classB = (Element)getModel().getDocument().createElement("class-b");
+									Element classB = getModel().getDocument().createElement("class-b");
 									element.appendChild(classB);
 									org.eclipse.core.dom.utils.DOMUtils.setTextContent(classB, data.getClassB());
 
@@ -294,14 +297,24 @@ public class DozerConfigurationEditorPage extends FormPage {
 		
 		TableColumn column = new TableColumn(table, SWT.LEFT);
 		column.setText("Converter");
-        column.setWidth(200);
         TableColumn column2 = new TableColumn(table, SWT.LEFT);
 		column2.setText("From");
-        column2.setWidth(200);
         TableColumn column3 = new TableColumn(table, SWT.LEFT);
 		column3.setText("To");
-        column3.setWidth(200);
-
+		
+		TableLayout tableLayout = new TableLayout();
+		ColumnWeightData columnData1 = new ColumnWeightData(1);
+		columnData1.minimumWidth = 100;
+		ColumnWeightData columnData2 = new ColumnWeightData(1);
+		columnData2.minimumWidth = 100;
+		ColumnWeightData columnData3 = new ColumnWeightData(1);
+		columnData3.minimumWidth = 100;
+		
+		tableLayout.addColumnData(columnData1);
+		tableLayout.addColumnData(columnData2);		
+		tableLayout.addColumnData(columnData3);		
+		table.setLayout(tableLayout);
+		
 	//Logic
 		ElementAsClassLabelProvider labelProvider = 
 			new ElementAsClassLabelProvider() {

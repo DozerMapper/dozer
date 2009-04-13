@@ -99,7 +99,7 @@
 				fullBuild="true"
 				incremental="true"
 				enabled="true"
-				class="net.sf.dozer.eclipse.plugin.validation.Validator"/>
+				class="net.sf.dozer.eclipse.plugin.sourcepage.validation.Validator"/>
 		</validator>
 	</extension>
 	

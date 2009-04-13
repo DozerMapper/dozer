@@ -96,7 +96,7 @@ public class FieldOptionComposite extends Composite {
 					this, 
 					"FieldSection.customConverter", 
 					DozerUtils.getCustomConverterInterfaceName(model),
-					false); //$NON-NLS-1$
+					false); 
 			customConverterId = DozerUiUtils.createLabelText(this, "FieldSection.customConverterId");
 			customConverterParam = DozerUiUtils.createLabelText(this, "FieldSection.customConverterParam");
 		}

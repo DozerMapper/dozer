@@ -113,11 +113,13 @@ public class AddRemoveListComposite extends Composite {
 		});
 		
 		fAddAction = new Action("Add") {
+			@Override
 			public void run() {
 				addBtnSelectionListener.widgetSelected(null);
 			}
 		};
 		fRemoveAction = new Action("Remove") {
+			@Override
 			public void run() {
 				removeBtnSelectionListener.widgetSelected(null);
 			}

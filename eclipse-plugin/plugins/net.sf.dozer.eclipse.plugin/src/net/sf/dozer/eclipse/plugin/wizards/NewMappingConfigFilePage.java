@@ -41,6 +41,7 @@ public class NewMappingConfigFilePage extends WizardNewFileCreationPage {
 		setFileName("dozerMapping.xml");
 	}
 	
+	@Override
 	protected void createAdvancedControls(Composite parent) {
 		Composite dozerSelectorLevel = new Composite(parent, SWT.NONE);
 		

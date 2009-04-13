@@ -12,9 +12,11 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.Signature;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.xml.ui.internal.contentassist.ContentAssistRequest;
 import org.springframework.ide.eclipse.beans.core.BeansCorePlugin;
@@ -308,7 +310,7 @@ public class DozerPluginUtils {
 		}
 	}	
 	
-	public static IType hasReadProperty(String property, String className, IProject project) throws JavaModelException {
+	public static IType hasReadProperty(String property, String className, IProject project, boolean noGetter) throws JavaModelException {
 		IType javaType = JdtUtils.getJavaType(project, className);
 		String checkProperty = property;
 		
@@ -320,36 +322,46 @@ public class DozerPluginUtils {
 		//if we are doing indexed property mapping, we remove the []
 		checkProperty = checkProperty.replaceAll("\\[\\]", "");
 		
-		Collection<IMethod> methods = Introspector.findReadableProperties(javaType, checkProperty, true);
+		if (noGetter) {
+			IField[] fields = javaType.getFields();
+			for (IField field : fields) {
+				if (field.getElementName().equals(property)) {
+					return field.getDeclaringType();
+				}
+			}
+			return null;
+		}
+		
+		Collection<IMethod> methods = Introspector.findReadableProperties(javaType, checkProperty, true);		
 		
 		boolean retVal = methods.size() > 0;
 		if (!retVal)
 			return null;
 		else {
+			try {
+				//className = JdtUtils.resolveClassName(className, javaType);
+				if (!Class.forName(className).isPrimitive())
+					className = null;					
+			} catch (Throwable t) {
+				//className = null;
+			}
+			
 			Iterator<?> iterator = methods.iterator();
 			while (iterator.hasNext()) {
 				IMethod method = (IMethod) iterator.next();
+				IType returnType = JdtUtils.getJavaTypeForMethodReturnType(method, javaType);
 				
-				try {
-					className = JdtUtils.resolveClassName(className, javaType);
-					if (!Class.forName(className).isPrimitive())
-						className = null;					
-				} catch (Throwable t) {
-					className = null;
-				}
-
 				if (className == null) {
-					IType returnType = JdtUtils.getJavaTypeForMethodReturnType(method, javaType);
-					if (returnType != null) {
+					if (returnType != null)
 						className = returnType.getFullyQualifiedName();
 				}				
-				if (className != null)
+				if (className != null) {
 					if (propertySplitted.length > 1) {			
 						List<String> l = new ArrayList<String>(Arrays.asList(propertySplitted));
 						l.remove(0);			
 						property = StringUtils.collectionToDelimitedString(l, ".");
 			
-						return hasReadProperty(property, className, project);
+						return hasReadProperty(property, returnType.getFullyQualifiedName(), project, false);
 					} else {
 						return returnType;
 					}
@@ -371,7 +383,7 @@ public class DozerPluginUtils {
 			l.remove(l.size()-1);			
 			property = StringUtils.collectionToDelimitedString(l, ".");
 			
-			javaType = DozerPluginUtils.hasReadProperty(property, className, project);
+			javaType = DozerPluginUtils.hasReadProperty(property, className, project, false);
 			if (javaType == null)
 				return null;			
 		}

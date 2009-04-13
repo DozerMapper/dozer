@@ -4,7 +4,6 @@ import net.sf.dozer.eclipse.plugin.editorpage.DozerFormEditor;
 import net.sf.dozer.eclipse.plugin.editorpage.Messages;
 
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 import org.eclipse.wst.xml.ui.internal.Logger;
 import org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart;
@@ -47,14 +46,14 @@ public class DozerMultiPageEditor extends XMLMultiPageEditorPart {
 		super.pageChange(newPageIndex);
 		
 		//if coming from dozer page, format the source
-		if (fLastChangeIndex > 0 && fLastChangeIndex == fDozerPageIndex) {
+		/*if (fLastChangeIndex > 0 && fLastChangeIndex == fDozerPageIndex) {
 			IHandlerService handlerService = (IHandlerService) getSite().getService(IHandlerService.class);
 			try {
 				handlerService.executeCommand("org.eclipse.wst.sse.ui.format.document", null); //$NON-NLS-1$
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		
 		//remember the last page
 		fLastChangeIndex = newPageIndex;

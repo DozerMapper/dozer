@@ -26,7 +26,7 @@ public class StringToFieldConverter extends Converter {
 	public Object convert(Object fromObject) {
 		String fieldName = fromObject.toString();
 		
-		if (fieldName == null)
+		if (fieldName == null || "".equals(fieldName))
 			return null;
 		
 		for (IField field : existingFields) {

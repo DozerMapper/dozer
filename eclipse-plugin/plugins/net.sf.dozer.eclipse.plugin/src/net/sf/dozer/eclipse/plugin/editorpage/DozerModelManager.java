@@ -95,42 +95,43 @@ public class DozerModelManager {
 			
 			methodHolder.clear();
 			
-			IMethodFilter filter = null;
-			
-			filter = new FlagsMethodFilter(FlagsMethodFilter.NOT_INTERFACE
-					| FlagsMethodFilter.NOT_CONSTRUCTOR
-					| FlagsMethodFilter.PUBLIC
-					| FlagsMethodFilter.NOT_VOID);				
-			for (IMethod method : Introspector.findAllMethods(type, filter)) {
-				methodHolder.getGetMethods().add(method);
-			}		
-			
-			filter = new FlagsMethodFilter(FlagsMethodFilter.NOT_INTERFACE
-					| FlagsMethodFilter.NOT_CONSTRUCTOR
-					| FlagsMethodFilter.PUBLIC);
-			
-			for (IMethod method : Introspector.findAllMethods(type, filter)) {
-				try {
-					if (method.getParameterNames().length > 0)
-						methodHolder.getSetMethods().add(method);
-				} catch (JavaModelException e) {
-					//skip
+			if (type != null) {
+				IMethodFilter filter = null;			
+				filter = new FlagsMethodFilter(FlagsMethodFilter.NOT_INTERFACE
+						| FlagsMethodFilter.NOT_CONSTRUCTOR
+						| FlagsMethodFilter.PUBLIC
+						| FlagsMethodFilter.NOT_VOID);				
+				for (IMethod method : Introspector.findAllMethods(type, filter)) {
+					methodHolder.getGetMethods().add(method);
+				}		
+				
+				filter = new FlagsMethodFilter(FlagsMethodFilter.NOT_INTERFACE
+						| FlagsMethodFilter.NOT_CONSTRUCTOR
+						| FlagsMethodFilter.PUBLIC);
+				
+				for (IMethod method : Introspector.findAllMethods(type, filter)) {
+					try {
+						if (method.getParameterNames().length > 0)
+							methodHolder.getSetMethods().add(method);
+					} catch (JavaModelException e) {
+						//skip
+					}
+				}					
+				
+				filter = new FlagsMethodFilter(FlagsMethodFilter.NOT_INTERFACE
+						| FlagsMethodFilter.STATIC
+						| FlagsMethodFilter.PUBLIC);				
+				for (IMethod method : Introspector.findAllMethods(type, filter)) {
+					methodHolder.getCreateMethods().add(method);
 				}
-			}					
-			
-			filter = new FlagsMethodFilter(FlagsMethodFilter.NOT_INTERFACE
-					| FlagsMethodFilter.STATIC
-					| FlagsMethodFilter.PUBLIC);				
-			for (IMethod method : Introspector.findAllMethods(type, filter)) {
-				methodHolder.getCreateMethods().add(method);
+				
+				try {
+					methodHolder.getProperties().addAll(Arrays.asList(type.getFields()));
+				} catch (JavaModelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			
-			try {
-				methodHolder.getProperties().addAll(Arrays.asList(type.getFields()));
-			} catch (JavaModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
 			
 			//FIXME
 			if (mappingClassComposite != null) {
@@ -435,7 +436,7 @@ public class DozerModelManager {
 			configurationPage.getCopyByReferences().refresh();
 		
 		if (!mappingPage.getDozerMappingListBlock().getMappings().getTree().isDisposed())
-			mappingPage.getDozerMappingListBlock().getMappings().refresh();		
+			mappingPage.getDozerMappingListBlock().getMappings().refresh();
 		//dataBindingContext.updateTargets();
 	}		
 	

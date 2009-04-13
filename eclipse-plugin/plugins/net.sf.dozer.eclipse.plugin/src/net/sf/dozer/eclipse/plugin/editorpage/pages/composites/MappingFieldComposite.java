@@ -10,6 +10,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
@@ -52,7 +53,7 @@ public class MappingFieldComposite extends Composite {
 				"MappingSection.fieldName"); //$NON-NLS-1$		
 		fieldName = ViewersObservables.observeSingleSelection(fieldComboViewer);
 
-		optionSection = toolkit.createSection(this, Section.TWISTIE | Section.SHORT_TITLE_BAR);
+		optionSection = toolkit.createSection(this, ExpandableComposite.TWISTIE | ExpandableComposite.SHORT_TITLE_BAR);
 		optionSection.setText("Field Options");
 		
 		Composite sectionComposite = toolkit.createComposite(optionSection);

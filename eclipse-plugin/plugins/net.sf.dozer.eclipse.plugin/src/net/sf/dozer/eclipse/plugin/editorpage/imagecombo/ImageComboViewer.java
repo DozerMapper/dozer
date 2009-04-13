@@ -52,38 +52,46 @@ public class ImageComboViewer extends AbstractListViewer {
         hookControl(list);
     }
     
-    protected void listAdd(String string, int index) {
+    @Override
+	protected void listAdd(String string, int index) {
         combo.add(string, null, index);
     }
 
-    protected void listSetItem(int index, String string) {
+    @Override
+	protected void listSetItem(int index, String string) {
         combo.setItem(index, string, null);
     }
 
-    protected int[] listGetSelectionIndices() {
+    @Override
+	protected int[] listGetSelectionIndices() {
         return new int[] { combo.getSelectionIndex() };
     }
 
-    protected int listGetItemCount() {
+    @Override
+	protected int listGetItemCount() {
         return combo.getItemCount();
     }
 
-    protected void listSetItems(String[] labels) {
+    @Override
+	protected void listSetItems(String[] labels) {
         combo.setItems(labels);
     }
 
-    protected void listRemoveAll() {
+    @Override
+	protected void listRemoveAll() {
         combo.removeAll();
     }
 
-    protected void listRemove(int index) {
+    @Override
+	protected void listRemove(int index) {
         combo.remove(index);
     }
 
     /* (non-Javadoc)
      * Method declared on Viewer.
      */
-    public Control getControl() {
+    @Override
+	public Control getControl() {
         return combo;
     }
 
@@ -103,13 +111,15 @@ public class ImageComboViewer extends AbstractListViewer {
      * we can ensure that the given element is visible without changing the selection.
      * Method defined on StructuredViewer.
      */
-    public void reveal(Object element) {
+    @Override
+	public void reveal(Object element) {
     }
     
     /* (non-Javadoc)
      * @see org.eclipse.jface.viewers.AbstractListViewer#listSetSelection(int[])
      */
-    protected void listSetSelection(int[] ixs) {
+    @Override
+	protected void listSetSelection(int[] ixs) {
        for (int idx = 0; idx < ixs.length; idx++) {
            combo.select(ixs[idx]);
        }
@@ -118,7 +128,8 @@ public class ImageComboViewer extends AbstractListViewer {
     /* (non-Javadoc)
      * @see org.eclipse.jface.viewers.AbstractListViewer#listDeselectAll()
      */
-    protected void listDeselectAll() {
+    @Override
+	protected void listDeselectAll() {
         combo.deselectAll();
         combo.clearSelection();
     }
@@ -126,7 +137,8 @@ public class ImageComboViewer extends AbstractListViewer {
     /* (non-Javadoc)
      * @see org.eclipse.jface.viewers.AbstractListViewer#listShowSelection()
      */
-    protected void listShowSelection() {
+    @Override
+	protected void listShowSelection() {
     }
 
 }

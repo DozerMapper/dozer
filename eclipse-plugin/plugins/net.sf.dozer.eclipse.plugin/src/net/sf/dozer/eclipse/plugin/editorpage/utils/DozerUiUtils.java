@@ -294,7 +294,7 @@ public class DozerUiUtils {
 		final CCombo combo = new CCombo(client, SWT.FLAT | SWT.BORDER);
 		TableWrapData td = new TableWrapData();
 		td.grabHorizontal = true;
-		td.maxWidth = 400;
+		//td.maxWidth = 400;
 		combo.setLayoutData(td);
 
 		toolkit.adapt(combo);
@@ -366,7 +366,7 @@ public class DozerUiUtils {
 		final CCombo combo = new CCombo(client, SWT.FLAT | SWT.BORDER);
 		TableWrapData td = new TableWrapData();
 		td.grabHorizontal = true;
-		td.maxWidth = 400;
+		//td.maxWidth = 400;
 		combo.setLayoutData(td);
 
 		toolkit.adapt(combo);
@@ -491,7 +491,7 @@ public class DozerUiUtils {
 						Display.getCurrent(), 
 						new Runnable() {
 							public void run() {
-								Element element = (Element)getModel().getDocument().createElement(elementName);
+								Element element = getModel().getDocument().createElement(elementName);
 								
 								org.eclipse.core.dom.utils.DOMUtils.setTextContent(element, className);
 								
@@ -541,7 +541,7 @@ public class DozerUiUtils {
 		Section section = toolkit.createSection(parentClient,
 				ExpandableComposite.TITLE_BAR | 
 				ExpandableComposite.TWISTIE);
-		section.setText(Messages.getString(messagePrefix)); //$NON-NLS-1$
+		section.setText(Messages.getString(messagePrefix)); 
 		section.setDescriptionControl(toolkit.createLabel(section, Messages.getString(messagePrefix+"_sdesc")));
 		section.setExpanded(true);
 		

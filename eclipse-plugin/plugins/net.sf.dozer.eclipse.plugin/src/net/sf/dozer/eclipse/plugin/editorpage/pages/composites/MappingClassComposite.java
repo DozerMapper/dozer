@@ -11,6 +11,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
@@ -47,9 +48,9 @@ public class MappingClassComposite extends Composite {
 				this, 
 				"ClassMappingSection.classname", 
 				null,
-				true); //$NON-NLS-1$
+				true); 
 		
-		optionSection = toolkit.createSection(this, Section.TWISTIE | Section.SHORT_TITLE_BAR);
+		optionSection = toolkit.createSection(this, ExpandableComposite.TWISTIE | ExpandableComposite.SHORT_TITLE_BAR);
 		optionSection.setText("Class Options");
 		
 		Composite sectionComposite = toolkit.createComposite(optionSection);
@@ -67,7 +68,7 @@ public class MappingClassComposite extends Composite {
 				sectionComposite, 
 				"ConfigSection.beanfactory", 
 				DozerUtils.getBeanFactoryInterfaceName(modelManager.getModel()),
-				false); //$NON-NLS-1$
+				false); 
 		
 		beanFactoryId = DozerUiUtils.createLabelText(sectionComposite, "ClassMappingSection.beanFactoryId");
 		

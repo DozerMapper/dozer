@@ -21,7 +21,7 @@ public class DozerMappingEditorPage extends FormPage {
 	public DozerMappingEditorPage(FormEditor editor, DozerModelManager modelManager) {
 		super(	editor, 
 				PAGE_ID, 
-				Messages.getString("DozerMappingEditorMapping.label")); //$NON-NLS-1$ //$NON-NLS-2$
+				Messages.getString("DozerMappingEditorMapping.label")); //$NON-NLS-1$ 
 		
 		this.modelManager = modelManager;
 		dozerMappingListBlock = new MappingMasterPage(this);

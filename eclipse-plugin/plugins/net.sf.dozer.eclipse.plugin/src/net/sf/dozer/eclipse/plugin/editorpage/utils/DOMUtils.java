@@ -92,7 +92,7 @@ public class DOMUtils {
 				}
 			}
 		}
-		return (Element[]) elements.toArray(EMPTY_ELEMENT);
+		return elements.toArray(EMPTY_ELEMENT);
 	}
 
 	/**

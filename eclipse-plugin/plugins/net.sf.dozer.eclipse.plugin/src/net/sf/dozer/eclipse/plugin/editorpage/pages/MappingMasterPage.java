@@ -379,6 +379,7 @@ public class MappingMasterPage extends MasterDetailsBlock {
 		TreeSelection selection = (TreeSelection)filteredTree.getViewer().getSelection();
 		
 		Action fRemoveAction = new Action("Remove Class-Mapping") {
+			@Override
 			public void run() {
 				StructuredSelection structuredSelection = (StructuredSelection)mappings.getSelection();
 				Element selected = (Element)structuredSelection.getFirstElement();
@@ -395,6 +396,7 @@ public class MappingMasterPage extends MasterDetailsBlock {
 		};
 
 		Action fFieldRemoveAction = new Action("Remove Field-Mapping") {
+			@Override
 			public void run() {
 				deleteItem();
 			}
@@ -434,7 +436,7 @@ public class MappingMasterPage extends MasterDetailsBlock {
 		
 		//this.page.getModelManager().getModel().aboutToChangeModel();
 		
-		Element mappingsNode = (Element)page.getModelManager().getModel().getDocument().getDocumentElement();
+		Element mappingsNode = page.getModelManager().getModel().getDocument().getDocumentElement();
 		Element mapping = mappingsNode.getOwnerDocument().createElement("mapping");
 			
 		if ("mapping".equals(selected.getNodeName())) {
@@ -475,6 +477,7 @@ public class MappingMasterPage extends MasterDetailsBlock {
 					"Add Class-Mapping...", 
 					DozerPlugin.getDefault().getImageRegistry().getDescriptor(DozerPlugin.IMG_ADD_CLASSMAPPING)) {
 			
+			@Override
 			public void run() {
 				addMappingItem();
 			}
@@ -484,6 +487,7 @@ public class MappingMasterPage extends MasterDetailsBlock {
 					"Add Field-Mapping...", 
 					DozerPlugin.getDefault().getImageRegistry().getDescriptor(DozerPlugin.IMG_ADD_FIELDMAPPING)) {
 			
+			@Override
 			public void run() {
 				addFieldItem(false);
 			}
@@ -494,6 +498,7 @@ public class MappingMasterPage extends MasterDetailsBlock {
 					"Add Field-Exclude-Mapping...", 
 					DozerPlugin.getDefault().getImageRegistry().getDescriptor(DozerPlugin.IMG_ADD_FIELDEXCLUDEMAPPING)) {
 			
+			@Override
 			public void run() {
 				addFieldItem(true);
 			}

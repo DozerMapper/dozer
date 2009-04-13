@@ -26,7 +26,6 @@ import org.eclipse.wst.xml.core.internal.validation.core.ValidationReport;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
-import org.w3c.dom.DocumentType;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.UserDataHandler;
@@ -47,17 +46,23 @@ public class Validator extends AbstractNestedValidator {
 			//hmm, could be multiple? Lets just take the first
 			IFile file = files[0];
 			
-//			Ok, this is sick.
+//			FIXME this is sick.
 //			To get the line/column-numbers for the broken custom-converter properties, we need to
 //			extend the DOMParser class to get the location information.
-//			No idea whether this will work everywhere. I bet there will be better solution somewhere...			
+//			No idea whether this will work everywhere. I bet there is a a better solution somewhere...			
 			LocationTrackingDOMParser parser = new LocationTrackingDOMParser();
 			parser.setFeature("http://apache.org/xml/features/dom/defer-node-expansion", false);	//must disable that feature to get location
+			parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 			parser.parse(new InputSource(uri));
 			Document doc = parser.getDocument();	//Parse the Doc (every node gets UserData-Info for location info, see below)
 			
-			DocumentType docType = doc.getDoctype();
-			if (docType != null && "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd".equals(docType.getSystemId())) {
+			//DocumentType docType = doc.getDoctype();
+			//String sysId = null;
+			//if (docType != null)
+			//	sysId = docType.getSystemId();
+			
+			//if (sysId != null && "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd".equals(sysId)) {
+			if ("mapping".equals(doc.getDocumentElement().getNodeName()))
 				//classes exist?
 				checkClassNodes(doc.getElementsByTagName("class-a"), file, validationReport);
 				checkClassNodes(doc.getElementsByTagName("class-b"), file, validationReport);
@@ -65,7 +70,7 @@ public class Validator extends AbstractNestedValidator {
 				//field correct?
 				checkFieldNodes(doc.getElementsByTagName("field"), file, validationReport);
 				checkFieldNodes(doc.getElementsByTagName("field-exclude"), file, validationReport);
-			}
+			//}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -129,7 +134,7 @@ public class Validator extends AbstractNestedValidator {
 				Node abNode = abList.item(a);	//a or b
 				if ("a".equals(abNode.getNodeName()) || "b".equals(abNode.getNodeName())) {
 					Node textNode = abNode.getFirstChild();
-					//...no value set between <a></a> or <b></b>
+					//...no value set between <a></a> or <b></b>?
 					if(textNode == null){
 						Integer[] location = (Integer[])node.getUserData("location");
 						String className = DozerPluginUtils.getMappingClassName(abNode);
@@ -137,7 +142,7 @@ public class Validator extends AbstractNestedValidator {
 						
 						validationReport.addError("Unsetted property value in node "+nodeName+" for class " + className, location[0], location[1], validationReport.getFileURI());
 					}
-					//...is fieldname correct
+					//...is fieldname correct?
 					else if (textNode.getNodeType() == Node.TEXT_NODE) {					
 						String property = textNode.getNodeValue();
 						String className = DozerPluginUtils.getMappingClassName(abNode);
@@ -149,10 +154,15 @@ public class Validator extends AbstractNestedValidator {
 						}
 						
 						if (!"this".equals(property)) {
-							if ((bIsBiDirectional || "a".equals(abNode.getNodeName())) && DozerPluginUtils.hasReadProperty(property, className, file.getProject()) == null) {
+							Node isAccessibleNode = abNode.getAttributes().getNamedItem("is-accessible");
+							boolean isAccessible = isAccessibleNode != null && "true".equals(isAccessibleNode.getNodeValue());
+							
+							if ((bIsBiDirectional || "a".equals(abNode.getNodeName())) && 
+									DozerPluginUtils.hasReadProperty(property, className, file.getProject(), isAccessible) == null) {
 								Integer[] location = (Integer[])abNode.getUserData("location");
 								validationReport.addError("Property "+property+" for class "+className+" cannot be read from.", location[0], location[1], validationReport.getFileURI());
-							} else if ((bIsBiDirectional || "b".equals(abNode.getNodeName())) && DozerPluginUtils.hasWriteProperty(property, className, file.getProject()) == null) {
+							} else if ((bIsBiDirectional || "b".equals(abNode.getNodeName())) && 
+									DozerPluginUtils.hasWriteProperty(property, className, file.getProject()) == null) {
 								Integer[] location = (Integer[])abNode.getUserData("location");
 								validationReport.addError("Property "+property+" for class "+className+" cannot be written to.", location[0], location[1], validationReport.getFileURI());
 							}

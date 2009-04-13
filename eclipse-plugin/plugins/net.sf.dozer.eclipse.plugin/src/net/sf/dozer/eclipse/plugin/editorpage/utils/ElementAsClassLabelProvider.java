@@ -48,6 +48,7 @@ public class ElementAsClassLabelProvider extends LabelProvider implements ILabel
 		return DozerUtils.getShortClassName(fullClassName);
 	}
 	
+	@Override
 	public String getText(Object element) {
 		if (!(element instanceof Element))
 			return null;

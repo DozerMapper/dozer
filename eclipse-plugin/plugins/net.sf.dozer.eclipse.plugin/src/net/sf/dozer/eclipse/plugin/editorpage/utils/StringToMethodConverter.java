@@ -26,7 +26,7 @@ public class StringToMethodConverter extends Converter {
 	public Object convert(Object fromObject) {
 		String methodName = fromObject.toString();
 		
-		if (methodName == null)
+		if (methodName == null || "".equals(methodName))
 			return null;
 		
 		for (IMethod method : existingMethods) {

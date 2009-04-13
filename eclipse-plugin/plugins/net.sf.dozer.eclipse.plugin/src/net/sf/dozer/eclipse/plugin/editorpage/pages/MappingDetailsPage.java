@@ -70,9 +70,9 @@ public class MappingDetailsPage implements IDetailsPage {
 	private void createConfigurationSection(Composite parent) {
 		mappingConfigSection = toolkit.createSection(
 				parent, 
-				Section.TITLE_BAR | 
-				Section.TWISTIE |
-				Section.EXPANDED);
+				ExpandableComposite.TITLE_BAR | 
+				ExpandableComposite.TWISTIE |
+				ExpandableComposite.EXPANDED);
 		mappingConfigSection.setText(Messages.getString("MappingsSection.mappingconfig_sname")); //$NON-NLS-1$		
 		GridData gd = new GridData(SWT.FILL, 0, true, false);
 		mappingConfigSection.setLayoutData(gd);

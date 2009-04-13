@@ -43,7 +43,7 @@ public class ConfigurationOptionComposite extends Composite {
 				this, 
 				"ConfigSection.beanfactory", 
 				DozerUtils.getBeanFactoryInterfaceName(model),
-				false); //$NON-NLS-1$
+				false); 
 		
 		DozerUiUtils.createLabel(this, "ConfigSection.relationshiptype");
 		
