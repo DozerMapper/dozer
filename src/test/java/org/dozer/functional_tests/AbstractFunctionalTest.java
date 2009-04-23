@@ -17,6 +17,7 @@ package org.dozer.functional_tests;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 
 import org.dozer.DozerBeanMapper;
@@ -49,9 +50,7 @@ public abstract class AbstractFunctionalTest {
   protected Mapper getMapper(String[] mappingFiles) {
     List<String> list = new ArrayList<String>();
     if (mappingFiles != null) {
-      for (int i = 0; i < mappingFiles.length; i++) {
-        list.add(mappingFiles[i]);
-      }
+      list.addAll(Arrays.asList(mappingFiles));
     }
     Mapper result = new DozerBeanMapper();
     ((DozerBeanMapper) result).setMappingFiles(list);

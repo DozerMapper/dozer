@@ -110,12 +110,14 @@
       </documentation>
     </annotation>
     <complexType>
-      <choice minOccurs='0' maxOccurs='unbounded'>
+      <sequence minOccurs='0' maxOccurs='1'>
         <element ref="t:class-a"/>
         <element ref="t:class-b"/>
-        <element ref='t:field' maxOccurs="unbounded"/>
-        <element ref='t:field-exclude' minOccurs="0" maxOccurs="unbounded"/>
-      </choice>
+        <choice minOccurs='0' maxOccurs='unbounded'>
+          <element ref='t:field' maxOccurs="unbounded"/>
+          <element ref='t:field-exclude' minOccurs="0" maxOccurs="unbounded"/>
+        </choice>
+      </sequence>
       <attribute name="date-format" type="string"/>
       <attribute name="stop-on-errors" type="boolean"/>
       <attribute name="wildcard" type="boolean"/>
