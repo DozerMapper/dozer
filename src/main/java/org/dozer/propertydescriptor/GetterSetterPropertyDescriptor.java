@@ -23,9 +23,7 @@ import java.util.Collection;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
-import org.dozer.util.CollectionUtils;
-import org.dozer.util.MappingUtils;
-import org.dozer.util.ReflectionUtils;
+import org.dozer.util.*;
 
 
 /**
@@ -219,7 +217,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           } catch (NoSuchMethodException e) {
             MappingUtils.throwMappingException(e);
           }
-        } 
+        }
 
         ReflectionUtils.invoke(method, parentObj, new Object[] { destFieldValue });
       } else {
@@ -256,19 +254,45 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     invokeWriteMethod(destObj, indexedValue);
   }
 
-  private Class<?> determinePropertyType() {
-    Class<?> returnType = null;
+  private Class determinePropertyType() {
+    Method readMethod = getBridgedReadMethod();
+    Method writeMethod = getBridgedWriteMethod();
+    Class returnType = null;
+
     try {
-      returnType = getReadMethod().getReturnType();
+      returnType = TypeResolver.resolvePropertyType(clazz, readMethod, writeMethod);
+    } catch (Exception ignore) {}
+
+    if (returnType != null)
+      return returnType;
+
+    try {
+      returnType = readMethod.getReturnType();
     } catch (Exception e) {
       // let us try the set method - the field might not have a 'get' method
       try {
-        returnType = getWriteMethod().getParameterTypes()[0];
+        returnType = writeMethod.getParameterTypes()[0];
       } catch (Exception e1) {
         MappingUtils.throwMappingException(e);
       }
     }
     return returnType;
+  }
+
+  private Method getBridgedReadMethod() {
+    try {
+      return BridgedMethodFinder.findMethod(getReadMethod(), clazz);
+    } catch (Exception ignore) {
+    }
+    return null;
+  }
+
+  private Method getBridgedWriteMethod() {
+    try {
+      return BridgedMethodFinder.findMethod(getWriteMethod(), clazz);
+    } catch (Exception ignore) {
+    }
+    return null;
   }
 
 }
