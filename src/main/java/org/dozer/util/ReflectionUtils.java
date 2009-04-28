@@ -41,7 +41,9 @@ import org.dozer.propertydescriptor.DeepHierarchyElement;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class ReflectionUtils {
+public final class ReflectionUtils {
+
+  private ReflectionUtils() {}
 
   public static PropertyDescriptor findPropertyDescriptor(Class<?> objectClass, String fieldName, HintContainer deepIndexHintContainer) {
     PropertyDescriptor result = null;

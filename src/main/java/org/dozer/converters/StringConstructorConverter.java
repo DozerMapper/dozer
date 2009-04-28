@@ -29,8 +29,8 @@ public class StringConstructorConverter implements Converter {
 
   public Object convert(Class destClass, Object srcObj) {
     try {
-      Constructor constructor = destClass.getConstructor(new Class[] { String.class });
-      return constructor.newInstance(new Object[] { srcObj.toString() });
+      Constructor constructor = destClass.getConstructor(String.class);
+      return constructor.newInstance(srcObj.toString());
     } catch (NoSuchMethodException e) {
       // just return the string
       return srcObj.toString();

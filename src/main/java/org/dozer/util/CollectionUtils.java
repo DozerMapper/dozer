@@ -31,7 +31,9 @@ import java.util.TreeSet;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class CollectionUtils {
+public final class CollectionUtils {
+
+  private CollectionUtils() {}
 
   public static boolean isArray(Class<?> aClass) {
     return aClass.isArray();
@@ -70,7 +72,7 @@ public abstract class CollectionUtils {
   }
 
   public static <T extends Set<?>> Set<?> createNewSet(Class<T> destType) {
-    Set<Object> result = null;
+    Set<Object> result;
     if (SortedSet.class.isAssignableFrom(destType)) {
       result = new TreeSet<Object>();
     } else {

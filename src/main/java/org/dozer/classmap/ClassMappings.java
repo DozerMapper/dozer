@@ -36,6 +36,7 @@ import org.dozer.util.MappingUtils;
  * @author garsombke.franz
  */
 public class ClassMappings {
+  
   private static final Log log = LogFactory.getLog(ClassMappings.class);
 
   private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();

@@ -26,7 +26,9 @@ import java.net.URL;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class MappingValidator {
+public final class MappingValidator {
+
+  private MappingValidator() {}
 
   public static void validateMappingRequest(Object srcObj) {
     if (srcObj == null) {

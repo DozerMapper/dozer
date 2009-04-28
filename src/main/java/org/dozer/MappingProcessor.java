@@ -250,7 +250,7 @@ public class MappingProcessor implements Mapper {
       statsMgr.increment(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
 
     } catch (Throwable e) {
-      log.error(LogMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj, e), e);
+      log.error(LogMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj), e);
       statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
@@ -515,18 +515,17 @@ public class MappingProcessor implements Mapper {
 
   private Object mapMap(Object srcObj, Map srcMapValue, FieldMap fieldMap, Object destObj) {
     Map result;
-    Map field = (Map) fieldMap.getDestValue(destObj);
-    if (field == null) {
-      // no destination map exists
+    Map destinationMap = (Map) fieldMap.getDestValue(destObj);
+    if (destinationMap == null) {
       result = DestBeanCreator.create(srcMapValue.getClass());
     } else {
-      result = field;
+      result = destinationMap;
     }
-    Map<?, Object> srcMap = srcMapValue;
-    for (Entry<?, Object> srcEntry : srcMap.entrySet()) {
+
+    for (Entry<?, Object> srcEntry : ((Map<?, Object>) srcMapValue).entrySet()) {
       Object srcEntryValue = srcEntry.getValue();
 
-      if (srcEntryValue == null) {
+      if (srcEntryValue == null) { // overwrites with null in any case
         result.put(srcEntry.getKey(), null);
         return result;
       }
@@ -607,9 +606,7 @@ public class MappingProcessor implements Mapper {
     } else {
       result = Array.newInstance(destEntryType, size + Array.getLength(field));
       arraySize = Array.getLength(field);
-      for (int i = 0; i < Array.getLength(field); i++) {
-        Array.set(result, i, Array.get(field, i));
-      }
+      System.arraycopy(field, 0, result, 0, arraySize);
     }
     // primitive arrays are ALWAYS cumulative
     for (int i = 0; i < size; i++) {
@@ -954,13 +951,12 @@ public class MappingProcessor implements Mapper {
   }
 
   private static Object getExistingValue(FieldMap fieldMap, Object destObj, Class<?> destFieldType) {
-    Object result;
     // verify that the dest obj is not null
     if (destObj == null) {
       return null;
     }
     // call the getXX method to see if the field is already instantiated
-    result = fieldMap.getDestValue(destObj);
+    Object result = fieldMap.getDestValue(destObj);
 
     // When we are recursing through a list we need to make sure that we are not
     // in the list

@@ -24,7 +24,8 @@ import org.apache.commons.logging.Log;
  * 
  * @author tierney.matt
  */
-public class InitLogger {
+public final class InitLogger {
+
   private static boolean debugEnabled = false;
 
   static {

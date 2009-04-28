@@ -28,25 +28,25 @@ public interface CacheManager {
   /**
    * Clears all available caches. Should not be used in production. Can be applied on "soft" application restart.
    */
-  public void clearAllEntries();
+  void clearAllEntries();
 
   /**
    * Returns a Set of all Cache names
    * @return Set of String objects representing Cache names.
    */
-  public Collection<String> getCacheNames();
+  Collection<String> getCacheNames();
 
-  public Collection<Cache> getCaches();
+  Collection<Cache> getCaches();
 
   /**
    * Get Cache object by name.
    * @param cacheName unique cache name
    * @return Cache object or will throw MappingException in case Cache is not registered.
    */
-  public Cache getCache(String cacheName);
+  Cache getCache(String cacheName);
 
-  public void addCache(String cacheName, int maximumSize);
+  void addCache(String cacheName, int maximumSize);
 
-  public boolean cacheExists(String cacheName);
+  boolean cacheExists(String cacheName);
 
 }

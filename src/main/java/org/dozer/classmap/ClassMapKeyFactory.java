@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class ClassMapKeyFactory {
+public final class ClassMapKeyFactory {
 
   private ClassMapKeyFactory() {
   }

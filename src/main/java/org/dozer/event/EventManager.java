@@ -22,6 +22,6 @@ package org.dozer.event;
  */
 public interface EventManager {
 
-  public void fireEvent(DozerEvent event);
+  void fireEvent(DozerEvent event);
 
 }

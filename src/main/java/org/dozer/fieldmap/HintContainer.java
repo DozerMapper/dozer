@@ -87,7 +87,7 @@ public class HintContainer {
     for (int i = 0; i < size; i++) {
       Class<?> element = clazzHints.get(i);
       if (element.getName().equals(myClazName)) {
-        return hints.get(count++);
+        return hints.get(count);
       }
       count++;
     }

@@ -39,11 +39,13 @@ import org.dozer.util.ReflectionUtils;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class ClassMapBuilder {
+public final class ClassMapBuilder {
 
   private static final String CLASS = "class";
   private static final String CALLBACK = "callback";
   private static final String CALLBACKS = "callbacks";
+
+  private ClassMapBuilder() {}
 
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
     ClassMap classMap = new ClassMap(globalConfiguration);

@@ -95,8 +95,8 @@ public final class MappingsParser {
         // iterate through the fields and see wether or not they should be mapped
         // one way class mappings we do not need to add any fields
         if (!StringUtils.equals(classMap.getType(), DozerConstants.ONE_WAY)) {
-          for (int i = 0; i < fms.length; i++) {
-            FieldMap fieldMap = (FieldMap) fms[i];
+          for (Object fm1 : fms) {
+            FieldMap fieldMap = (FieldMap) fm1;
             fieldMap.validate();
 
             // If we are dealing with a Map data type, transform the field map into a MapFieldMap type
@@ -141,8 +141,8 @@ public final class MappingsParser {
         } else {
           // since it is one-way...we still need to validate if it has some type of method mapping and validate the
           // field maps
-          for (int i = 0; i < fms.length; i++) {
-            FieldMap oneWayFieldMap = (FieldMap) fms[i];
+          for (Object fm : fms) {
+            FieldMap oneWayFieldMap = (FieldMap) fm;
             oneWayFieldMap.validate();
 
             MappingUtils.applyGlobalCopyByReference(globalConfiguration, oneWayFieldMap, classMap);

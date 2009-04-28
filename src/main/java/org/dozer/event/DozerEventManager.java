@@ -26,7 +26,8 @@ import org.dozer.util.MappingUtils;
  * 
  * @author garsombke.franz
  */
-public class DozerEventManager implements EventManager {
+public final class DozerEventManager implements EventManager {
+  
   private final List<DozerEventListener> eventListeners;
 
   public DozerEventManager(List<DozerEventListener> eventListeners) {

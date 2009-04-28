@@ -30,11 +30,13 @@ import org.dozer.fieldmap.FieldMap;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public abstract class LogMsgFactory {
+public final class LogMsgFactory {
+
   private static final Log log = LogFactory.getLog(LogMsgFactory.class);
 
-  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object srcFieldValue, Object destObj,
-      Throwable t) {
+  private LogMsgFactory() {}
+
+  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object srcFieldValue, Object destObj) {
     String srcClassName = null;
     if (srcObj != null) {
       srcClassName = srcObj.getClass().getName();
@@ -75,6 +77,7 @@ public abstract class LogMsgFactory {
         + "\n  Source field type: " + srcValueType + "\n  Source field value: " + srcFieldValueString + "\n  Dest parent class: "
         + destClassName + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: " + destFieldTypeName;
   }
+
   public static String createFieldMappingSuccessMsg(Class<?> srcClass, Class<?> destClass, String srcFieldName, String destFieldName,
       Object srcFieldValue, Object destFieldValue, String classMapId) {
     String srcClassStr = MappingUtils.getClassNameWithoutPackage(srcClass);
@@ -101,4 +104,5 @@ public abstract class LogMsgFactory {
     }
     return output;
   }
+
 }
