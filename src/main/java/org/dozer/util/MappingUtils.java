@@ -40,6 +40,8 @@ import org.dozer.converters.CustomConverterContainer;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 
+import sun.reflect.Reflection;
+
 /**
  * Internal class that provides various mapping utilities used throughout the code base. Only intended for internal use.
  * 
@@ -226,7 +228,8 @@ public final class MappingUtils {
   public static Class<?> loadClass(String name) {
     Class<?> result = null;
     try {
-      result = ClassUtils.getClass(name);      
+    	Class caller = Reflection.getCallerClass(3);
+    	result = ClassUtils.getClass(caller.getClassLoader(), name);      
     } catch (ClassNotFoundException e) {
       MappingUtils.throwMappingException(e);
     }
@@ -277,10 +280,12 @@ public final class MappingUtils {
     if (existingCollection == null) {
       result = (T[]) Array.newInstance(collectionType.getComponentType(), index + 1);
     } else {
-      int originalLength = Array.getLength(existingCollection);
-      result = (T[]) Array.newInstance(collectionType.getComponentType(), Math.max(index + 1, originalLength));
+      int originalLenth = ((Object[]) existingCollection).length;
+      result = (T[]) Array.newInstance(collectionType.getComponentType(), Math.max(index + 1, originalLenth));
 
-      System.arraycopy(existingCollection, 0, result, 0, originalLength);
+      for (int i = 0; i < originalLenth; i++) {
+        result[i] = ((T[]) existingCollection)[i];
+      }
     }
     result[index] = (T) collectionEntry;
     return result;
