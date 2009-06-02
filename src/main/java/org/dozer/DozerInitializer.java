@@ -15,108 +15,109 @@
  */
 package org.dozer;
 
-import java.lang.management.ManagementFactory;
-
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.InstanceNotFoundException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
-import javax.management.ObjectName;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.config.GlobalSettings;
 import org.dozer.jmx.DozerAdminController;
 import org.dozer.jmx.DozerStatisticsController;
+import org.dozer.jmx.JMXPlatform;
+import org.dozer.jmx.JMXPlatformImpl;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.InitLogger;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+
 /**
  * Internal class that performs one time Dozer initializations. Only intended for internal use.
- * 
+ * Registers internal JMX MBeans if those are enabled in the configuration.
+ *
  * @author tierney.matt
  */
-public class DozerInitializer {
+public final class DozerInitializer {
 
   private static final Log log = LogFactory.getLog(DozerInitializer.class);
 
-  private static boolean isInitialized = false;
+  private static final String DOZER_STATISTICS_CONTROLLER = "org.dozer.jmx:type=DozerStatisticsController";
+  private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
 
-  protected static void init() {
-    if (isInitialized) {
-      return;
-    }
+  private static final DozerInitializer instance = new DozerInitializer();
 
-    InitLogger.log(log, "Initializing Dozer.  Version: " + DozerConstants.CURRENT_VERSION + ", Thread Name:"
-        + Thread.currentThread().getName());
+  private volatile boolean isInitialized = false;
 
-    // Auto Register Dozer JMX MBeans
-    if (GlobalSettings.getInstance().isAutoregisterJMXBeans()) {
-      // Check to see that 1.5 JMX mgmt classes are available prior to attempting to regiser JMX MBeans
-      if (!areJMXMgmtClassesAvailable()) {
-        InitLogger.log(log, "jdk1.5 management classes unavailable.  Dozer JMX MBeans will not be auto registered.");
-      } else {
+  private DozerInitializer() {
+  }
+
+  public void init() {
+    // Multiple threads may try to initialize simultaniously
+    synchronized (this) {
+      if (isInitialized) {
+        log.debug("Tried to perform initialization when Dozer already started.");
+        return;
+      }
+
+      InitLogger.log(log, "Initializing Dozer.  Version: " + DozerConstants.CURRENT_VERSION + ", Thread Name:"
+          + Thread.currentThread().getName());
+
+      if (GlobalSettings.getInstance().isAutoregisterJMXBeans()) {
         // Register JMX MBeans. If an error occurs, don't propogate exception
         try {
-          registerJMXBeans();
+          registerJMXBeans(new JMXPlatformImpl());
         } catch (Throwable t) {
           log.warn("Unable to register Dozer JMX MBeans with the PlatformMBeanServer.  Dozer will still function "
               + "normally, but management via JMX may not be available", t);
         }
       }
-    }
 
-    isInitialized = true;
+      isInitialized = true;
+    }
   }
 
-  private static boolean areJMXMgmtClassesAvailable() {
-    boolean result;
+  public void destroy() {
+    synchronized (this) {
+      if (!isInitialized) {
+        log.debug("Tried to destroy when no Dozer instance started.");
+        return;
+      }
 
-    try {
-      Class.forName("java.lang.management.ManagementFactory");
-      Class.forName("javax.management.ObjectName");
-      Class.forName("javax.management.MBeanServer");
-      result = true;
-    } catch (Throwable t) {
-      result = false;
+      try {
+        unregisterJMXBeans(new JMXPlatformImpl());
+      } catch (Throwable e) {
+        log.warn("Exception caught while disposing Dozer JMX MBeans.", e);
+      }
+      isInitialized = false;
     }
-
-    return result;
   }
 
-  protected static boolean isInitialized() {
+  public boolean isInitialized() {
     return isInitialized;
   }
 
   // Auto register Dozer JMX mbeans for jdk 1.5 users
-  private static void registerJMXBeans() throws MalformedObjectNameException, InstanceNotFoundException,
+  private void registerJMXBeans(JMXPlatform platform) throws MalformedObjectNameException, InstanceNotFoundException,
       MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
-    registerJMXBean("org.dozer.jmx:type=DozerStatisticsController", new DozerStatisticsController());
-    registerJMXBean("org.dozer.jmx:type=DozerAdminController", new DozerAdminController());
+    if (platform.isAvailable()) {
+      platform.registerMBean(DOZER_STATISTICS_CONTROLLER, new DozerStatisticsController());
+      platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
+    } else {
+      InitLogger.log(log, "jdk1.5 management classes unavailable. Dozer JMX MBeans will not be auto registered.");
+    }
   }
 
-  /*
-   * Auto register Dozer JMX mbean for jdk 1.5 users. Need to use reflection so that the code base is backwards
-   * compatible with older jdk's
-   */
-  private static void registerJMXBean(String mbeanName, Object mbean) throws MalformedObjectNameException,
-      InstanceNotFoundException, MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
-    ObjectName mbeanObjectName = new ObjectName(mbeanName);
-    MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-    boolean isMBeanRegistered = mbs.isRegistered(mbeanObjectName);
-
-    // Check if MBean is already registered. If so, unregister it. This is primarily to handle app redeployment use cases.    
-    if (isMBeanRegistered) {
-      InitLogger.log(log, "Dozer JMX MBean [" + mbeanName + "] already registered.  Unregistering the existing MBean.");
-      mbs.unregisterMBean(mbeanObjectName);
+  private void unregisterJMXBeans(JMXPlatform platform) throws MBeanRegistrationException, MalformedObjectNameException {
+    if (platform.isAvailable()) {
+      platform.unregisterMBean(DOZER_ADMIN_CONTROLLER);
+      platform.unregisterMBean(DOZER_STATISTICS_CONTROLLER);
+    } else {
+      log.warn("jdk1.5 management classes unavailable.");
     }
+  }
 
-    // Register mbean
-    mbs.registerMBean(mbean, mbeanObjectName);
-    InitLogger.log(log, "Dozer JMX MBean [" + mbeanName + "] auto registered with the Platform MBean Server");
+  public static DozerInitializer getInstance() {
+    return instance;
   }
 
 }

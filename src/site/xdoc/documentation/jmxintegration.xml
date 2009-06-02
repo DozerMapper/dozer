@@ -37,9 +37,16 @@
         </tr>
         <tr>
           <td>DozerAdminControllerMBean</td>
-          <td>Admin functions</td>
+          <td>Admin functions such as enabling/disabling statistics gathering at runtime.</td>
         </tr>
       </table>
+
+      Note that JMX MBeans are potential source of memory leaks. MBeans should be disposed properly
+      when application is stopped or restarted as in most of todays Web Containers there 
+      is no full JVM restart.
+
+      The proper way to unregister all Dozer JMX Beans is to call destroy() method on DozerBeanMapper object.
+
       <br></br>
       <subsection name="Sample JMX Screen Shots">
         <p>Dozer JMX MBeans via JConsole.....</p>

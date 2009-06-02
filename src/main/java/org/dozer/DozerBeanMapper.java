@@ -37,10 +37,10 @@ import org.dozer.stats.StatisticsManager;
 import org.dozer.util.InitLogger;
 
 /**
- * Public Dozer MapperIF implementation. This should be used/defined as a singleton within your application. This class
+ * Public Dozer Mapper implementation. This should be used/defined as a singleton within your application. This class
  * perfoms several one time initializations and loads the custom xml mappings, so you will not want to create many
  * instances of it for performance reasons. Typically a system will only have one DozerBeanMapper instance per VM. If
- * you are using an IOC framework(i.e Spring), define the MapperIF as singleton="true". If you are not using an IOC
+ * you are using an IOC framework(i.e Spring), define the Mapper as singleton="true". If you are not using an IOC
  * framework, a DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
  * 
  * 
@@ -51,10 +51,6 @@ public class DozerBeanMapper implements Mapper {
 
   private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
   private static final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
-
-  static {
-    DozerInitializer.init();
-  }
 
   /*
    * Accessible for custom injection
@@ -115,6 +111,8 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
+    DozerInitializer.getInstance().init();
+
     InitLogger.log(log, "Initializing a new instance of the dozer bean mapper.");
 
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
@@ -125,6 +123,10 @@ public class DozerBeanMapper implements Mapper {
 
     // stats
     statsMgr.increment(StatisticType.MAPPER_INSTANCES_COUNT);
+  }
+
+  public void destroy() {
+    DozerInitializer.getInstance().destroy();
   }
 
   protected Mapper getMappingProcessor() {

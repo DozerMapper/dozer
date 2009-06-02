@@ -31,6 +31,7 @@ import org.dozer.stats.StatisticsManager;
  * @author tierney.matt
  */
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
+
   private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
 
   public void clearAll() {
@@ -140,4 +141,5 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
     }
     return result;
   }
+
 }

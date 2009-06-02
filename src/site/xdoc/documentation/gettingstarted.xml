@@ -142,11 +142,30 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
           mapping files for each mapping would be inefficent and unnecessary. The DozerBeanMapper.java class is
           thread safe.
         </p>
-        <br></br>
+        <br/>
+
+        A more convinient approach supporting proper deinitialization of global Dozer resources (such as JMX MBeans)
+        is to use DozerBeanMapperFactoryBean. It does implement Spring FactoryBean interface to serve as
+        a custom Mapper object factory. The properties of the factory bean are similar to DozerBeanMapper itself.
+
+        <source>
+          <![CDATA[
+<bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+  <property name="mappingFiles">
+    <list>
+      <value>dozer-global-configuration.xml</value>
+      <value>dozer-bean-mappings.xml</value>
+    </list>
+  </property>
+</bean>
+          ]]>
+        </source>
+
+        <br/>
         <p>Using Spring to retrieve the Dozer Mapper......</p>
         <source>
           <![CDATA[ 
-Mapper mapper = YourSpringBeanFactory.getBean("mapperBeanName");
+Mapper mapper = yourSpringBeanFactory.getBean("mapperBeanName");
 DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
           ]]>
         </source>

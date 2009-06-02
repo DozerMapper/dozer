@@ -25,16 +25,20 @@ import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
+import org.dozer.DozerInitializer;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.core.io.Resource;
 
 /**
- * Public Spring FactoryBean and InitializingBean that can be used by applition code
- * 
+ * Public Spring FactoryBean that can be used by application code.
+ * Uses Spring InitializingBean and DisposableBean contracts to properly start-up and
+ * release global Dozer resources.
+ *
  * @author Sören Chittka
  */
-public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean {
+public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean, DisposableBean {
 
   private DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
@@ -64,9 +68,11 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   public final Object getObject() throws Exception {
     return this.beanMapper;
   }
+
   public final Class<Mapper> getObjectType() {
     return Mapper.class;
   }
+
   public final boolean isSingleton() {
     return true;
   }
@@ -92,6 +98,18 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     }
     if (this.factories != null) {
       this.beanMapper.setFactories(this.factories);
+    }
+  }
+
+  /**
+   * Spring DisposableBean method implemention. Triggered when application context is stopped.
+   * Used to release global Dozer resources for hot redeployment without stopping the JVM.
+   *
+   * @throws Exception
+   */
+  public void destroy() throws Exception {
+    if (this.beanMapper != null) {
+      this.beanMapper.destroy();
     }
   }
 
