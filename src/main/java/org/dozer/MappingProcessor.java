@@ -527,7 +527,7 @@ public class MappingProcessor implements Mapper {
 
       if (srcEntryValue == null) { // overwrites with null in any case
         result.put(srcEntry.getKey(), null);
-        return result;
+        continue;
       }
 
       Object destEntryValue = mapOrRecurseObject(srcObj, srcEntryValue, srcEntryValue.getClass(), fieldMap, destObj);

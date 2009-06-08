@@ -87,6 +87,30 @@ public class MapMappingTest extends AbstractFunctionalTest {
     assertEquals(Boolean.TRUE, resultingMap.get("B"));
   }
 
+  @Test
+  public void testMapNullEntry_MultipleEntries() {
+    MapToMap source = newInstance(MapToMap.class);
+    HashMap<String, Boolean> map = newInstance(HashMap.class);
+    map.put("A", null);
+    map.put("B", null);
+    map.put("C", null);
+    source.setStandardMap(map);
+
+    MapToMapPrime destination = newInstance(MapToMapPrime.class);
+    HashMap<String, Serializable> map2 = newInstance(HashMap.class);
+    destination.setStandardMap(map2);
+
+    mapper.map(source, destination);
+
+    Map<?, ?> resultingMap = destination.getStandardMap();
+
+    assertNotNull(resultingMap);
+    assertEquals(3, resultingMap.size());
+    assertNull(resultingMap.get("A"));
+    assertNull(resultingMap.get("B"));
+    assertNull(resultingMap.get("C"));
+  }
+
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
