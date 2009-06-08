@@ -119,7 +119,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
   @Test
   public void testNestedMapToVoUsingMapId() {
     // Another test for nested Map --> Vo using <field map-id=....>
-    mapper = super.getMapper(new String[] { "mapMapping.xml" });
+    mapper = super.getMapper("mapMapping.xml");
 
     SimpleObj src = newInstance(SimpleObj.class);
 
@@ -184,9 +184,9 @@ public class MapTypeTest extends AbstractFunctionalTest {
   @Test
   public void testMapToMap() throws Exception {
     Mapper mapper = getMapper(new String[] { "mapInterfaceMapping.xml", "dozerBeanMapping.xml" });
-    TestObject to = (TestObject) newInstance(TestObject.class);
+    TestObject to = newInstance(TestObject.class);
     to.setOne("one");
-    TestObject to2 = (TestObject) newInstance(TestObject.class);
+    TestObject to2 = newInstance(TestObject.class);
     to2.setTwo(new Integer(2));
     Map<String, TestObject> map = newInstance(HashMap.class);
     map.put("to", to);
@@ -484,7 +484,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
   @Test
   public void testMapType_MapToVo_CustomMapping_NoMapId() {
     // Test nested Map --> Vo using custom mappings without map-id
-    mapper = getMapper(new String[] { "mapMapping3.xml" });
+    mapper = getMapper("mapMapping3.xml");
 
     NestedObj nested = newInstance(NestedObj.class);
     nested.setField1("field1Value");
@@ -503,7 +503,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testNestedCustomMap() {
-    mapper = getMapper(new String[] { "mapMapping4.xml" });
+    mapper = getMapper("mapMapping4.xml");
 
     ParentDOM src = newInstance(ParentDOM.class);
     src.setTest("someTestValue");
@@ -520,7 +520,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
   @Test
   public void testMapToVoUsingMapInterface() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.
-    mapper = getMapper(new String[] { "mapMapping5.xml" });
+    mapper = getMapper("mapMapping5.xml");
 
     Map<String, String> src = newInstance(HashMap.class);
     src.put("stringValue", "somevalue");

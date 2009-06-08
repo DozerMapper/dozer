@@ -18,10 +18,14 @@ package org.dozer.functional_tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 import org.dozer.vo.TestObject;
@@ -109,6 +113,72 @@ public class MapMappingTest extends AbstractFunctionalTest {
     assertNull(resultingMap.get("A"));
     assertNull(resultingMap.get("B"));
     assertNull(resultingMap.get("C"));
+  }
+
+  @Test
+  public void testMapMapWithList_Simple() {
+    MapToMap source = newInstance(MapToMap.class);
+    HashMap<String, List> map = newInstance(HashMap.class);
+    ArrayList<Boolean> list = new ArrayList<Boolean>();
+    list.add(Boolean.TRUE);
+    map.put("A", list);
+    source.setStandardMap(map);
+
+    MapToMapPrime destination = mapper.map(source, MapToMapPrime.class);
+
+    Map<String, List> resultingMap = destination.getStandardMap();
+
+    assertNotNull(resultingMap);
+    assertEquals(1, resultingMap.size());
+    assertNotNull(resultingMap.get("A"));
+    assertEquals(1, resultingMap.get("A").size());
+    assertEquals(Boolean.TRUE, resultingMap.get("A").iterator().next());
+  }
+
+  @Test
+  public void testSimple() {
+    Simpler input = new Simpler();
+    input.getValues().put("f", Integer.valueOf(5));
+    Simpler output = mapper.map(input, Simpler.class);
+    assertEquals(input.getValues(), output.getValues());
+  }
+
+  @Test
+  public void testMapListOfPrimitives() {
+    DTO input = new DTO();
+    input.getValues().put("e", Collections.singletonList(Integer.valueOf(3)));
+
+    DTO output = mapper.map(input, DTO.class);
+    assertTrue(output.getValues().get("e") != null);
+    assertTrue(output.getValues().get("e").contains("3"));
+  }
+
+  public static class DTO {
+
+    private Map<String, List<Integer>> values = new HashMap<String, List<Integer>>();
+
+    public Map<String, List<Integer>> getValues() {
+      return values;
+    }
+
+    public void setValues(Map<String, List<Integer>> values) {
+      this.values = values;
+    }
+
+  }
+
+  public static class Simpler {
+
+    private Map<String, Integer> values = new HashMap<String, Integer>();
+
+    public Map<String, Integer> getValues() {
+      return values;
+    }
+
+    public void setValues(Map<String, Integer> values) {
+      this.values = values;
+    }
+
   }
 
   @Override
