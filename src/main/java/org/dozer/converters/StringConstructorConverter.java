@@ -27,13 +27,20 @@ import org.apache.commons.beanutils.Converter;
  */
 public class StringConstructorConverter implements Converter {
 
+  private StringConverter stringConverter;
+
+  public StringConstructorConverter(DateFormatContainer dateFormatContainer) {
+    this.stringConverter = new StringConverter(dateFormatContainer);
+  }
+
   public Object convert(Class destClass, Object srcObj) {
+    String result = (String) stringConverter.convert(destClass, srcObj);
     try {
-      Constructor constructor = destClass.getConstructor(String.class);
-      return constructor.newInstance(srcObj.toString());
+      Constructor constructor = destClass.getConstructor(String.class); // TODO Check, but not catch
+      return constructor.newInstance(result);
     } catch (NoSuchMethodException e) {
       // just return the string
-      return srcObj.toString();
+      return result;
     } catch (Exception e) {
       throw new ConversionException(e);
     }

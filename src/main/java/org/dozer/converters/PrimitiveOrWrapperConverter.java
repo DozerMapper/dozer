@@ -34,6 +34,8 @@ import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.lang.ClassUtils;
+import org.dozer.util.ReflectionUtils;
+import org.dozer.util.MappingUtils;
 
 /**
  * Internal class for converting between wrapper types(including primitives). Only intended for internal use.
@@ -46,7 +48,6 @@ import org.apache.commons.lang.ClassUtils;
 public class PrimitiveOrWrapperConverter {
 
   private static final Map CONVERTER_MAP = new HashMap(10);
-  private static final Converter DEFAULT_CONVERTER = new StringConstructorConverter();
 
   static {
     CONVERTER_MAP.put(Integer.class, new IntegerConverter());
@@ -88,7 +89,7 @@ public class PrimitiveOrWrapperConverter {
         result = new CalendarConverter(dateFormatContainer.getDateFormat());
       }
     }
-    return result == null ? DEFAULT_CONVERTER : result;
+    return result == null ? new StringConstructorConverter(dateFormatContainer) : result;
   }
 
 }
