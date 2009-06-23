@@ -85,8 +85,8 @@ public class MappingProcessor implements Mapper {
 
   private final ClassMappings classMappings;
   private final Configuration globalConfiguration;
-  private final List<CustomConverter> customConverterObjects;
-  private final Map<String, CustomConverter> customConverterObjectsWithId;
+  private final List<CustomConverterBase> customConverterObjects;
+  private final Map<String, CustomConverterBase> customConverterObjectsWithId;
   private final StatisticsManager statsMgr;
   private final EventManager eventMgr;
   private final CustomFieldMapper customFieldMapper;
@@ -96,8 +96,8 @@ public class MappingProcessor implements Mapper {
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
-      StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
-      Map<String, CustomConverter> customConverterObjectsWithId) {
+      StatisticsManager statsMgr, List<CustomConverterBase> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
+      Map<String, CustomConverterBase> customConverterObjectsWithId) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -822,7 +822,7 @@ public class MappingProcessor implements Mapper {
   private Object mapUsingCustomConverterInstance(Object converterInstance, Class<?> srcFieldClass, Object srcFieldValue,
       Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
     if (!(converterInstance instanceof CustomConverterBase)) {
-      MappingUtils.throwMappingException("Custom Converter does not implement CustomConverter interface");
+      MappingUtils.throwMappingException("Custom Converter does not implement org.dozer.CustomConverter interface");
     }
 
     //1792048 - If map-null = "false" and src value is null, then don't even invoke custom converter
@@ -873,7 +873,7 @@ public class MappingProcessor implements Mapper {
     Object converterInstance = null;
     // search our injected customconverters for a match
     if (customConverterObjects != null) {
-      for (CustomConverter customConverterObject : customConverterObjects) {
+      for (CustomConverterBase customConverterObject : customConverterObjects) {
         if (customConverterObject.getClass().isAssignableFrom(customConverterClass)) {
           // we have a match
           converterInstance = customConverterObject;
@@ -882,6 +882,7 @@ public class MappingProcessor implements Mapper {
     }
     // if converter object instances were not injected, then create new instance
     // of the converter for each conversion
+    // TODO : Should we really create it each time?
     if (converterInstance == null) {
       converterInstance = ReflectionUtils.newInstance(customConverterClass);
     }

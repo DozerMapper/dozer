@@ -26,6 +26,7 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
 import org.dozer.DozerInitializer;
+import org.dozer.converters.CustomConverterBase;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.DisposableBean;
@@ -42,7 +43,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
 
   private DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
-  private List<CustomConverter> customConverters;
+  private List<CustomConverterBase> customConverters;
   private List<DozerEventListener> eventListeners;
   private Map<String, BeanFactory> factories;
 
@@ -50,7 +51,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     this.mappingFiles = mappingFiles;
   }
 
-  public final void setCustomConverters(final List<CustomConverter> customConverters) {
+  public final void setCustomConverters(final List<CustomConverterBase> customConverters) {
     this.customConverters = customConverters;
   }
 

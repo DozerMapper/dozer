@@ -35,6 +35,7 @@ import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.InitLogger;
+import org.dozer.converters.CustomConverterBase;
 
 /**
  * Public Dozer Mapper implementation. This should be used/defined as a singleton within your application. This class
@@ -56,10 +57,10 @@ public class DozerBeanMapper implements Mapper {
    * Accessible for custom injection
    */
   private List<String> mappingFiles; // String file names
-  private List<CustomConverter> customConverters;
+  private List<CustomConverterBase> customConverters;
   private List<DozerEventListener> eventListeners;
   private CustomFieldMapper customFieldMapper;
-  private Map<String, CustomConverter> customConvertersWithId;
+  private Map<String, CustomConverterBase> customConvertersWithId;
 
   /*
    * Not accessible for injection
@@ -106,7 +107,7 @@ public class DozerBeanMapper implements Mapper {
     DestBeanCreator.storedFactories.putAll(factories);
   }
 
-  public void setCustomConverters(List<CustomConverter> customConverters) {
+  public void setCustomConverters(List<CustomConverterBase> customConverters) {
     this.customConverters = customConverters;
   }
 
@@ -170,11 +171,11 @@ public class DozerBeanMapper implements Mapper {
     this.customFieldMapper = customFieldMapper;
   }
 
-  public Map<String, CustomConverter> getCustomConvertersWithId() {
+  public Map<String, CustomConverterBase> getCustomConvertersWithId() {
     return customConvertersWithId;
   }
 
-  public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
+  public void setCustomConvertersWithId(Map<String, CustomConverterBase> customConvertersWithId) {
     this.customConvertersWithId = customConvertersWithId;
   }
 

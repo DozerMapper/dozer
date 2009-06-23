@@ -4,6 +4,16 @@
 
 <beans>
 
+  <!-- Provided Spring Integration -->
   <bean class="org.dozer.spring.DozerBeanMapperFactoryBean"/>
+
+  <!-- Semi-Manual Solution -->
+  <bean class="org.dozer.DozerBeanMapper">
+       <property name="customConverters">
+         <list>
+           <bean class="org.dozer.functional_tests.support.CustomConverterParamConverter"/>
+         </list>
+       </property>
+  </bean>
 
 </beans>
