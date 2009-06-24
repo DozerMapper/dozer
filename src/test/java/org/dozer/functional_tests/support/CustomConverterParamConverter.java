@@ -23,9 +23,11 @@ import org.dozer.ConfigurableCustomConverter;
  *
  */
 public class CustomConverterParamConverter implements ConfigurableCustomConverter {
+  
+  private String param;
 
   public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass,
-      Class<?> sourceClass, String param) {
+      Class<?> sourceClass) {
     String source = null;
     Object dest = null;
     if (String.class.isAssignableFrom(sourceClass)) {
@@ -39,10 +41,8 @@ public class CustomConverterParamConverter implements ConfigurableCustomConverte
     return dest;
   }
 
-  public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass,
-      Class<?> sourceClass) {
-
-    return convert(existingDestinationFieldValue, sourceFieldValue, destinationClass, sourceClass, null);
+  public void setParameter(String parameter) {
+    param = parameter;
   }
 
 }

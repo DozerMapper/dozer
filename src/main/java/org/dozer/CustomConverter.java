@@ -15,8 +15,6 @@
  */
 package org.dozer;
 
-import org.dozer.converters.CustomConverterBase;
-
 /**
  * Public custom converter interface.
  * 
@@ -34,7 +32,7 @@ import org.dozer.converters.CustomConverterBase;
  * @author tierney.matt
  * 
  */
-public interface CustomConverter extends CustomConverterBase {
+public interface CustomConverter {
 
   Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass);
 

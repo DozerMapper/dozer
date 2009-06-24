@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <configuration>
+    <custom-converters>
+      <converter type="org.dozer.functional_tests.support.MyDozerConverter">
+        <class-a>java.lang.String</class-a>
+        <class-b>java.lang.Boolean</class-b>
+      </converter>
+    </custom-converters>
+  </configuration>
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.SimpleObj</class-b>
+    <field custom-converter="org.dozer.functional_tests.support.MyDozerConverter" custom-converter-param="*">
+      <a>field1</a>
+      <b>field7</b>
+    </field>
+  </mapping>
+
+</mappings>

@@ -47,7 +47,6 @@ import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.RelationshipType;
-import org.dozer.converters.CustomConverterBase;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
 import org.dozer.event.DozerEvent;
@@ -85,8 +84,8 @@ public class MappingProcessor implements Mapper {
 
   private final ClassMappings classMappings;
   private final Configuration globalConfiguration;
-  private final List<CustomConverterBase> customConverterObjects;
-  private final Map<String, CustomConverterBase> customConverterObjectsWithId;
+  private final List<CustomConverter> customConverterObjects;
+  private final Map<String, CustomConverter> customConverterObjectsWithId;
   private final StatisticsManager statsMgr;
   private final EventManager eventMgr;
   private final CustomFieldMapper customFieldMapper;
@@ -96,8 +95,8 @@ public class MappingProcessor implements Mapper {
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
-      StatisticsManager statsMgr, List<CustomConverterBase> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
-      Map<String, CustomConverterBase> customConverterObjectsWithId) {
+      StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
+      Map<String, CustomConverter> customConverterObjectsWithId) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -819,11 +818,8 @@ public class MappingProcessor implements Mapper {
     }
   }
 
-  private Object mapUsingCustomConverterInstance(Object converterInstance, Class<?> srcFieldClass, Object srcFieldValue,
+  private Object mapUsingCustomConverterInstance(CustomConverter converterInstance, Class<?> srcFieldClass, Object srcFieldValue,
       Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
-    if (!(converterInstance instanceof CustomConverterBase)) {
-      MappingUtils.throwMappingException("Custom Converter does not implement org.dozer.CustomConverter interface");
-    }
 
     //1792048 - If map-null = "false" and src value is null, then don't even invoke custom converter
     if (srcFieldValue == null && !fieldMap.isDestMapNull()) {
@@ -837,19 +833,12 @@ public class MappingProcessor implements Mapper {
     if (converterInstance instanceof ConfigurableCustomConverter) {
       ConfigurableCustomConverter theConverter = (ConfigurableCustomConverter) converterInstance;
 
-      // if this is a top level mapping the destObj is the highest level
-      // mapping...not a recursive mapping
-      if (topLevel) {
-        result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap
-            .getCustomConverterParam());
-      } else {
-        Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
-        result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass, fieldMap
-            .getCustomConverterParam());
+      // Converter could be not configured for this particular case
+      if (fieldMap != null) {
+        String param = fieldMap.getCustomConverterParam();
+        theConverter.setParameter(param);
       }
-    } else {
-      CustomConverter theConverter = (CustomConverter) converterInstance;
-
+      
       // if this is a top level mapping the destObj is the highest level
       // mapping...not a recursive mapping
       if (topLevel) {
@@ -857,6 +846,15 @@ public class MappingProcessor implements Mapper {
       } else {
         Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
         result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
+      }
+    } else {
+      // if this is a top level mapping the destObj is the highest level
+      // mapping...not a recursive mapping
+      if (topLevel) {
+        result = converterInstance.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
+      } else {
+        Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+        result = converterInstance.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
       }
     }
 
@@ -870,10 +868,10 @@ public class MappingProcessor implements Mapper {
   // TODO: possibly extract this to a separate class
   private Object mapUsingCustomConverter(Class<?> customConverterClass, Class<?> srcFieldClass, Object srcFieldValue,
       Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
-    Object converterInstance = null;
+    CustomConverter converterInstance = null;
     // search our injected customconverters for a match
     if (customConverterObjects != null) {
-      for (CustomConverterBase customConverterObject : customConverterObjects) {
+      for (CustomConverter customConverterObject : customConverterObjects) {
         if (customConverterObject.getClass().isAssignableFrom(customConverterClass)) {
           // we have a match
           converterInstance = customConverterObject;
@@ -884,7 +882,7 @@ public class MappingProcessor implements Mapper {
     // of the converter for each conversion
     // TODO : Should we really create it each time?
     if (converterInstance == null) {
-      converterInstance = ReflectionUtils.newInstance(customConverterClass);
+      converterInstance = (CustomConverter) ReflectionUtils.newInstance(customConverterClass);
     }
     return mapUsingCustomConverterInstance(converterInstance, srcFieldClass, srcFieldValue, destFieldClass, existingDestFieldValue,
         fieldMap, topLevel);

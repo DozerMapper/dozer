@@ -15,7 +15,6 @@
  */
 package org.dozer;
 
-import org.dozer.converters.CustomConverterBase;
 
 /**
  * Public custom converter interface.
@@ -33,8 +32,14 @@ import org.dozer.converters.CustomConverterBase;
  * @author johnsen.knut-erik
  * 
  */
-public interface ConfigurableCustomConverter extends CustomConverterBase {
+public interface ConfigurableCustomConverter extends CustomConverter {
 
-  Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass, String param);
+  /**
+   * Setter for converter static parameter. Method is guaranteed to be called before the first execution.
+   *
+   * @param parameter - converter instance, which is injected via custom-converter-param attribute
+   */
+  void setParameter(String parameter);
+
   
 }

@@ -31,6 +31,7 @@ public class SimpleObj extends BaseTestObject {
   private Double field4;
   private Calendar field5;
   private String field6;
+  private Boolean field7;
 
   public String getField1() {
     return field1;
@@ -67,5 +68,13 @@ public class SimpleObj extends BaseTestObject {
   }
   public void setField6(String field6) {
     this.field6 = field6;
+  }
+
+  public Boolean getField7() {
+    return field7;
+  }
+
+  public void setField7(Boolean field7) {
+    this.field7 = field7;
   }
 }

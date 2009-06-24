@@ -30,7 +30,6 @@ import java.util.StringTokenizer;
 
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
-import org.dozer.converters.CustomConverterBase;
 import org.dozer.functional_tests.support.StringAppendCustomConverter;
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.AnotherTestObjectPrime;
@@ -337,7 +336,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testFieldCustomConverter_WithCustomConverterId() throws Exception {
     mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
-    Map<String, CustomConverterBase> map = newInstance(HashMap.class);
+    Map<String, CustomConverter> map = newInstance(HashMap.class);
     map.put("CustomConverterWithId", new StringAppendCustomConverter());
     ((DozerBeanMapper) mapper).setCustomConvertersWithId(map);
     AnotherTestObject src = newInstance(AnotherTestObject.class);
