@@ -15,21 +15,16 @@
  */
 package org.dozer.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
+import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
@@ -39,11 +34,20 @@ import org.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
 import org.dozer.loader.MappingsParser;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParserFactory;
-import org.dozer.util.MappingUtils;
 import org.dozer.vo.enumtest.DestType;
 import org.dozer.vo.enumtest.DestTypeWithOverride;
 import org.dozer.vo.enumtest.SrcType;
 import org.dozer.vo.enumtest.SrcTypeWithOverride;
+import org.dozer.vo.interfacerecursion.AnotherLevelTwo;
+import org.dozer.vo.interfacerecursion.AnotherLevelTwoImpl;
+import org.dozer.vo.interfacerecursion.Base;
+import org.dozer.vo.interfacerecursion.BaseImpl;
+import org.dozer.vo.interfacerecursion.LevelOne;
+import org.dozer.vo.interfacerecursion.LevelOneImpl;
+import org.dozer.vo.interfacerecursion.LevelTwo;
+import org.dozer.vo.interfacerecursion.LevelTwoImpl;
+import org.dozer.vo.interfacerecursion.User;
+import org.dozer.vo.interfacerecursion.UserSub;
 import org.junit.Test;
 
 /**
@@ -232,5 +236,44 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertNotNull(MappingUtils.loadClass("java.lang.String[]"));
     assertNotNull(MappingUtils.loadClass("[Ljava.lang.String;"));
   }
+
+  @Test
+  public void testGetDeepInterfaces() {
+
+    testGetDeepInterfaces(Base.class);
+    testGetDeepInterfaces(LevelOne.class, Base.class, User.class);
+    testGetDeepInterfaces(LevelTwo.class, LevelOne.class, User.class, Base.class);
+    testGetDeepInterfaces(AnotherLevelTwo.class, LevelOne.class, UserSub.class, Base.class, User.class);
+
+    testGetDeepInterfaces(BaseImpl.class, Base.class);
+    testGetDeepInterfaces(LevelOneImpl.class, LevelOne.class, Serializable.class, Base.class, User.class);
+    testGetDeepInterfaces(LevelTwoImpl.class, LevelTwo.class, LevelOne.class, User.class, Base.class);
+    testGetDeepInterfaces(AnotherLevelTwoImpl.class, AnotherLevelTwo.class, LevelOne.class, UserSub.class, Base.class, User.class);
+  }
+
+  public void testGetDeepInterfaces(Class<?> classToTest, Class<?>... expectedInterfaces) {
+    List<Class<?>> result = MappingUtils.getInterfaceHierarchy(classToTest);
+    List<Class<?>> expected = Arrays.asList(expectedInterfaces);
+
+    assertEquals(expected, result);
+  }
+
+
+  @Test
+  public void testGetSuperClasses() {
+
+    testGetSuperClasses(BaseImpl.class, Base.class);
+    testGetSuperClasses(LevelOneImpl.class, BaseImpl.class, LevelOne.class, Serializable.class, Base.class, User.class);
+    testGetSuperClasses(LevelTwoImpl.class, LevelTwo.class, LevelOne.class, User.class, Base.class);
+    testGetSuperClasses(AnotherLevelTwoImpl.class, LevelOneImpl.class, BaseImpl.class, AnotherLevelTwo.class, LevelOne.class, UserSub.class, Base.class, User.class, Serializable.class);
+  }
+
+  public void testGetSuperClasses(Class<?> classToTest, Class<?>... expectedClasses) {
+    List<Class<?>> result = MappingUtils.getSuperClassesAndInterfaces(classToTest);
+    List<Class<?>> expected = Arrays.asList(expectedClasses);
+
+    assertEquals(expected, result);
+  }
+
 
 }

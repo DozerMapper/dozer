@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <configuration>
+    <stop-on-errors>true</stop-on-errors>
+    <date-format>dd/MM/yyyy</date-format>
+    <wildcard>false</wildcard>
+  </configuration>
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.SuperA</class-a>
+    <class-b>java.util.Map</class-b>
+    <field>
+      <a>superAField</a>
+      <b key="superAField">this</b>
+    </field>
+    <field>
+      <a>superField1</a>
+      <b key="superField1">this</b>
+    </field>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.A</class-a>
+    <class-b>java.util.Map</class-b>
+    <field>
+      <a>fieldA</a>
+      <b key="fieldA">this</b>
+    </field>
+    <field>
+      <a>field1</a>
+      <b key="field1">this</b>
+    </field>
+  </mapping>
+  
+  
+
+</mappings>

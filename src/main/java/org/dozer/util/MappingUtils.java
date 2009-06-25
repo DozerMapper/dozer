@@ -15,20 +15,22 @@
  */
 package org.dozer.util;
 
+import static org.dozer.util.DozerConstants.BASE_CLASS;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ClassUtils;
-import org.dozer.BeanFactory;
+import org.apache.commons.lang.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.cache.Cache;
 import org.dozer.classmap.ClassMap;
@@ -111,10 +113,13 @@ public final class MappingUtils {
     return rootCause;
   }
 
-  public static String getMappedParentFieldKey(Object destObj, String destFieldName) {
-    StringBuffer buf = new StringBuffer(150); // TODO Use IdentityHashMap instead of String concatenation
+  public static String getMappedParentFieldKey(Object destObj, FieldMap destFieldMap) {
+    StringBuffer buf = new StringBuffer(100); // TODO Use IdentityHashMap instead of String concatenation
     buf.append(System.identityHashCode(destObj));
-    buf.append(destFieldName);
+    buf.append(destFieldMap.getDestFieldName());
+    if ( destFieldMap.getDestFieldKey() != null ) {
+      buf.append("[").append( destFieldMap.getDestFieldKey() ).append("]");
+    }
     return buf.toString();
   }
 
@@ -291,6 +296,7 @@ public final class MappingUtils {
     return result;
   }
 
+  @SuppressWarnings("unchecked")
   private static Collection<?> prepareIndexedCollectionType(Class<?> collectionType, Object existingCollection,
       Object collectionEntry, int index) {
     Collection result = null;
@@ -355,4 +361,63 @@ public final class MappingUtils {
     return srcFieldClass.isEnum() && destFieldType.isEnum();
   }
 
+
+  public static List<Class<?>> getSuperClassesAndInterfaces(Class<?> srcClass) {
+
+    List<Class<?>> superClasses = new ArrayList<Class<?>>();
+    Class<?> realClass = getRealClass(srcClass);
+
+    // Add all super classes first
+    Class<?> superClass = getRealSuperclass(realClass);
+    while (!isBaseClass(superClass)) {
+      superClasses.add(superClass);
+      superClass = getRealSuperclass(superClass);
+    }
+
+    // Now add all interfaces of the passed in class and all it's super classes
+
+    // Linked hash set so duplicated are not added but insertion order is kept 
+    LinkedHashSet<Class<?>> interfaces = new LinkedHashSet<Class<?>>();
+
+    interfaces.addAll(getInterfaceHierarchy(realClass));
+    for (Class<?> clazz : superClasses) {
+      interfaces.addAll(getInterfaceHierarchy(clazz));
+    }
+
+    superClasses.addAll(interfaces);
+    return superClasses;
+  }
+
+  @SuppressWarnings("unchecked")
+  public static List<Class<?>> getInterfaceHierarchy(Class<?> srcClass) {
+    final List<Class<?>> result = new LinkedList<Class<?>>();
+    Class<?> realClass = getRealClass(srcClass);
+
+    final LinkedList<Class> interfacesToProcess = new LinkedList<Class>();
+
+    Class[] interfaces = realClass.getInterfaces();
+
+    interfacesToProcess.addAll(Arrays.asList(interfaces));
+
+    while (!interfacesToProcess.isEmpty()) {
+      Class<?> iface = interfacesToProcess.remove();
+      if (!result.contains(iface)) {
+        result.add(iface);
+        for (Class subiface : iface.getInterfaces()) {
+          // if we haven't processed this interface yet then add it to be processed
+          if (!result.contains(subiface)) {
+            interfacesToProcess.add(subiface);
+          }
+        }
+      }
+    }
+
+    return result;
+
+  }
+  
+  private static boolean isBaseClass(Class<?> clazz) {
+    return clazz == null || BASE_CLASS.equals(clazz.getName());
+  }
+  
 }

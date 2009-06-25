@@ -195,10 +195,10 @@ public class MappingProcessor implements Mapper {
       Collection<ClassMap> superMappings = new ArrayList<ClassMap>();
 
       Collection<ClassMap> superClasses = checkForSuperTypeMapping(srcClass, destClass);
-      List<ClassMap> interfaceMappings = classMappings.findInterfaceMappings(srcClass, destClass);
+      //List<ClassMap> interfaceMappings = classMappings.findInterfaceMappings(srcClass, destClass);
 
       superMappings.addAll(superClasses);
-      superMappings.addAll(interfaceMappings);
+      //superMappings.addAll(interfaceMappings);
       if (!superMappings.isEmpty()) {
         mappedParentFields = processSuperTypeMapping(superMappings, srcObj, destObj, mapId);
       }
@@ -207,7 +207,7 @@ public class MappingProcessor implements Mapper {
     // Perform mappings for each field. Iterate through Fields Maps for this class mapping
     for (FieldMap fieldMapping : classMap.getFieldMaps()) {
       //Bypass field if it has already been mapped as part of super class mappings.
-      String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());
+      String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping);
       if (mappedParentFields != null && mappedParentFields.contains(key)) {
         continue;
       }
@@ -901,33 +901,28 @@ public class MappingProcessor implements Mapper {
     List<ClassMap> superClasses = new ArrayList<ClassMap>();
     // Need to call getRealSuperclass because proxied data objects will not return correct
     // superclass when using basic reflection
-    Class<?> superSrcClass = MappingUtils.getRealSuperclass(srcClass);
-    Class<?> superDestClass = MappingUtils.getRealSuperclass(destClass);
 
-    checkDestClasses(superClasses, srcClass, superDestClass);
+    List<Class<?>> superSrcClasses = MappingUtils.getSuperClassesAndInterfaces(srcClass);
+    List<Class<?>> superDestClasses = MappingUtils.getSuperClassesAndInterfaces(destClass);
 
-    while (!isBaseClass(superSrcClass)) {
-      // see if the source super class is mapped to the dest class
-      checkForClassMapping(superSrcClass, superClasses, destClass);
+    // add the actual classes to check for mappings between the original and the opposite 
+    // super classes
+    superSrcClasses.add(0, srcClass);
+    superDestClasses.add(0, destClass);
 
-      // now walk up the dest classes super classes with our super source
-      // class and our source class
-      checkDestClasses(superClasses, superSrcClass, superDestClass);
-
-      superSrcClass = MappingUtils.getRealSuperclass(superSrcClass);
+    for (Class<?> superSrcClass : superSrcClasses) {
+      for (Class<?> superDestClass : superDestClasses) {
+        if (!(superSrcClass.equals(srcClass) && superDestClass.equals(destClass))) {
+          checkForClassMapping(superSrcClass, superClasses, superDestClass);
+        }
+      }
     }
+    
+    Collections.reverse(superClasses); // Done so base classes are processed first
 
     superTypeCache.put(cacheKey, superClasses);
 
-    Collections.reverse(superClasses); // Done so base classes are processed first
     return superClasses;
-  }
-
-  private void checkDestClasses(List<ClassMap> superClasses, Class<?> srcClass, Class<?> destClass) {
-    while (!isBaseClass(destClass)) {
-      checkForClassMapping(srcClass, superClasses, destClass);
-      destClass = MappingUtils.getRealSuperclass(destClass);
-    }
   }
 
   private void checkForClassMapping(Class<?> srcClass, List<ClassMap> superClasses, Class<?> superDestClass) {
@@ -937,16 +932,12 @@ public class MappingProcessor implements Mapper {
     }
   }
 
-  private boolean isBaseClass(Class<?> clazz) {
-    return clazz == null || BASE_CLASS.equals(clazz.getName());
-  }
-
   private List<String> processSuperTypeMapping(Collection<ClassMap> superClasses, Object srcObj, Object destObj, String mapId) {
     List<String> mappedFields = new ArrayList<String>();
     for (ClassMap map : superClasses) {
       map(map, srcObj, destObj, true, mapId);
       for (FieldMap fieldMapping : map.getFieldMaps()) {
-        String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping.getDestFieldName());
+        String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping);
         mappedFields.add(key);
       }
     }
