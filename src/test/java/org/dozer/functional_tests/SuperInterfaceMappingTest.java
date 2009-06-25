@@ -20,7 +20,6 @@ import org.junit.Test;
 
 public class SuperInterfaceMappingTest extends AbstractDozerTest {
 
-  @Ignore("Identified as a failing use case.  See bug #2556896.  https://sourceforge.net/tracker/index.php?func=detail&aid=2556896&group_id=133517&atid=727368")
   @Test
   public void testInterfaces() {
     // test data
