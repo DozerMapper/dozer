@@ -216,7 +216,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xmlbeans-maven-plugin</artifactId>
-        <version>2.3.1</version>
+        <version>2.3.2</version>
         <executions>
           <execution>
             <phase>generate-test-resources</phase>
@@ -544,9 +544,17 @@
     <url>http://sourceforge.net/tracker/?group_id=133517</url>
   </issueManagement>
 
+  <distributionManagement>
+    <site>
+      <id>dozer.sf.net</id>
+      <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs</url>
+    </site>
+  </distributionManagement>
+
   <scm>
     <connection>scm:svn:https://dozer.svn.sourceforge.net/svnroot/dozer/trunk</connection>
     <tag>HEAD</tag>
     <url>http://dozer.svn.sourceforge.net/viewvc/dozer/</url>
   </scm>
+
 </project>
