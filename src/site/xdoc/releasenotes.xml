@@ -29,8 +29,8 @@
             <td>net.sf.dozer.util.mapping</td>
           </tr>
            <tr>
-            <td>Changed Maven group id</td>
-            <td>org.dozer</td>
+            <td>Maven group id</td>
+            <td>net.sf.dozer</td>
             <td>net.sf.dozer</td>
           </tr>
           <tr>
