@@ -62,20 +62,22 @@
       <version>1.5.3</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.apache.xmlbeans</groupId>
       <artifactId>xmlbeans</artifactId>
       <version>2.4.0</version>
-      <scope>test</scope>
+      <scope>provided</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.apache.xmlbeans</groupId>
       <artifactId>xmlbeans-xpath</artifactId>
       <version>2.3.0</version>
-      <scope>test</scope>
+      <scope>provided</scope>
       <optional>true</optional>
     </dependency>
+
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
@@ -111,6 +113,7 @@
       <scope>test</scope>
       <optional>true</optional>
     </dependency>
+
     <dependency>
       <groupId>relaxngDatatype</groupId>
       <artifactId>relaxngDatatype</artifactId>
@@ -219,17 +222,34 @@
         <version>2.3.2</version>
         <executions>
           <execution>
-            <phase>generate-test-resources</phase>
             <goals>
-              <goal>xmlbeans</goal>
+              <goal>xmlbeans-test</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
-          <schemaDirectory>src/test/resources</schemaDirectory>
-          <classGenerationDirectory>${project.build.directory}/test-classes</classGenerationDirectory>
+          <schemaDirectory>src/test/xsd</schemaDirectory>
         </configuration>
       </plugin>
+
+      <!--<plugin>-->
+        <!--<groupId>org.codehaus.mojo</groupId>-->
+        <!--<artifactId>jaxb2-maven-plugin</artifactId>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<phase>generate-test-resources</phase>-->
+            <!--<goals>-->
+              <!--<goal>xjc</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+        <!--<configuration>-->
+          <!--<schemaDirectory>src/test/resources/jaxb</schemaDirectory>-->
+          <!--<packageName>org.dozer.vo.jaxb.employee</packageName>-->
+          <!--<outputDirectory>target/generated-sources</outputDirectory>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
