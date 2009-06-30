@@ -24,7 +24,7 @@ package org.dozer;
  * instantiate the data objects.
  * 
  * <p>
- * Your custom bean factory must implement the org.dozer.BeanFactoryIF interface.
+ * Your custom bean factory must implement the org.dozer.BeanFactory interface.
  * 
  * <p>
  * Note: By default the Dozer mapping engine will use the destination object class name for the bean id when invoking

@@ -15,8 +15,9 @@
 
 
 3.  DEPLOY WEB SITE
-  -Run "mvn -P deploy-dozer antrun:run"
-  -Note:  Prior to deploying the web site, verify that the html pages in /target/site look good.
+  -Run "mvn site:deploy"
+  -Note: Prior to deploying the web site, verify that the html pages in /target/site look good
+      after generating those with mvn site:site command.
   -After this step is complete, you should be able to login to the public website and see the 4.3 website mods.....http://dozer.sourceforge.net/
 
 

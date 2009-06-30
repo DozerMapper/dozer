@@ -30,10 +30,12 @@ import org.dozer.util.ReflectionUtils;
  * @author Vincent Jassogne
  */
 public class JAXBBeanFactory implements BeanFactory {
+
   private static final Log log = LogFactory.getLog(JAXBBeanFactory.class);
+  private static final char INNER_CLASS_DELIMETER = '$';
 
   /**
-   * Creat a bean implementation of a jaxb interface.
+   * Create a bean implementation of a jaxb interface.
    * 
    * @param srcObj
    *          The source object
@@ -48,12 +50,13 @@ public class JAXBBeanFactory implements BeanFactory {
       log.debug("createBean(Object, Class, String) - start [" + beanId + "]");
     }
 
-    int indexOf = beanId.indexOf('$');
-    if (indexOf > 0) {
+    int indexOf = beanId.indexOf(INNER_CLASS_DELIMETER);
+    while (indexOf > 0) {
       beanId = beanId.substring(0, indexOf) + beanId.substring(indexOf + 1);
       if (log.isDebugEnabled()) {
         log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  [" + beanId + "]");
       }
+      indexOf = beanId.indexOf(INNER_CLASS_DELIMETER);
     }
     Object result;
 
@@ -73,4 +76,5 @@ public class JAXBBeanFactory implements BeanFactory {
 
     return result;
   }
+
 }

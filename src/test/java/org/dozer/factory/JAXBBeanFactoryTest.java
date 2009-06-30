@@ -22,10 +22,9 @@ public class JAXBBeanFactoryTest {
 
   @Test
   public void testCreateBeanForSimpleJaxbClass() {
-
-    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.Employee");
+    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeType");
     assertNotNull("Object can not be null", obj);
-    assertEquals("Invalid class build", obj.getClass().getName(), "org.dozer.vo.jaxb.employee.impl.EmployeeImpl");
+    assertEquals("org.dozer.vo.jaxb.employee.EmployeeType", obj.getClass().getName());
   }
 
   @Test(expected = MappingException.class)
@@ -35,11 +34,16 @@ public class JAXBBeanFactoryTest {
 
   @Test
   public void testCreateBeanForInnerJaxbClass() {
+    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address");
+    assertNotNull(obj);
+    assertEquals("org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address", obj.getClass().getName());
+  }
 
-    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClassType$AddressType");
-    assertNotNull("Object can not be null", obj);
-    assertEquals("Invalid class build", obj.getClass().getName(),
-        "org.dozer.vo.jaxb.employee.impl.EmployeeWithInnerClassTypeImpl$AddressTypeImpl");
+  @Test
+  public void testCreateBeanForNestedInnerJaxbClass() {
+    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State");
+    assertNotNull(obj);
+    assertEquals("org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State", obj.getClass().getName());
   }
 
 }

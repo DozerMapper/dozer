@@ -19,6 +19,13 @@
           <complexType>
             <sequence>
               <element name="Street" type="string"></element>
+              <element name="State">
+                <complexType>
+                  <sequence>
+                    <element name="Name"/>
+                  </sequence>
+                </complexType>
+              </element>
             </sequence>
           </complexType>
         </element>
