@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.dozer</groupId>
+  <groupId>net.sf.dozer</groupId>
   <artifactId>dozer</artifactId>
   <packaging>jar</packaging>
   <url>http://dozer.sourceforge.net</url>
