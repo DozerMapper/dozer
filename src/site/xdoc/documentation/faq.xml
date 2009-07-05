@@ -377,7 +377,7 @@
         <source>
           <![CDATA[ 
     <dependency>
-      <groupId>org.dozer<groupId>
+      <groupId>net.sf.dozer<groupId>
       <artifactId>dozer</artifactId>
       <version>5.0</version>
     </dependency>
