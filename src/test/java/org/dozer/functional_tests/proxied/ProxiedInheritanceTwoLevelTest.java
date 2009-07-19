@@ -25,12 +25,6 @@ import org.junit.Test;
  * @author tierney.matt
  */
 public class ProxiedInheritanceTwoLevelTest extends InheritanceTwoLevelTest {
-  
-  @Test
-  @Ignore("Fails.  Needs investigation.  Implemented proxy functional tests across the board for recently added tests.  found failures")
-  public void testMapping_TwoLevels() {
-    super.testMapping_TwoLevels();
-  }
 
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {

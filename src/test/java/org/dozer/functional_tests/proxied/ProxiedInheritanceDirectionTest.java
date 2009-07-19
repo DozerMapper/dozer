@@ -25,12 +25,6 @@ import org.junit.Test;
  * @author tierney.matt
  */
 public class ProxiedInheritanceDirectionTest extends InheritanceDirectionTest {
-  
-  @Test
-  @Ignore("Fails.  Needs investigation. Implemented proxy functional tests across the board for recently added tests.  found failures")
-  public void testInheritanceDirection_Reverse() {
-    super.testInheritanceDirection_Reverse();
-  }
 
 
   @Override

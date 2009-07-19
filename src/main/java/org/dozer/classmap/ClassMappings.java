@@ -40,13 +40,18 @@ public class ClassMappings {
   private static final Log log = LogFactory.getLog(ClassMappings.class);
 
   private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
+  private ClassMapKeyFactory keyFactory;
+
+  public ClassMappings() {
+    keyFactory = new ClassMapKeyFactory();
+  }
 
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
-    classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass), classMap);
+    classMappings.put(keyFactory.createKey(srcClass, destClass), classMap);
   }
 
   public void add(Class<?> srcClass, Class<?> destClass, String mapId, ClassMap classMap) {
-    classMappings.put(ClassMapKeyFactory.createKey(srcClass, destClass, mapId), classMap);
+    classMappings.put(keyFactory.createKey(srcClass, destClass, mapId), classMap);
   }
 
   public void addAll(ClassMappings classMappings) {
@@ -63,20 +68,16 @@ public class ClassMappings {
   }
 
   public ClassMap find(Class<?> srcClass, Class<?> destClass) {
-    return classMappings.get(ClassMapKeyFactory.createKey(srcClass, destClass));
+    return classMappings.get(keyFactory.createKey(srcClass, destClass));
   }
 
   public boolean contains(Class<?> srcClass, Class<?> destClass, String mapId) {
-    String key = ClassMapKeyFactory.createKey(srcClass, destClass, mapId);
+    String key = keyFactory.createKey(srcClass, destClass, mapId);
     return classMappings.containsKey(key);
   }
 
   public ClassMap find(Class<?> srcClass, Class<?> destClass, String mapId) {
-    Class<?> srcLookupClass = MappingUtils.getRealClass(srcClass);
-    Class<?> destLookupClass = MappingUtils.getRealClass(destClass);
-
-    ClassMap mapping = classMappings.get(ClassMapKeyFactory.createKey(srcLookupClass,
-        destLookupClass, mapId));
+    ClassMap mapping = classMappings.get(keyFactory.createKey(srcClass, destClass, mapId));
 
     if (mapping == null) {
       mapping = findInterfaceMapping(destClass, srcClass, mapId);
@@ -113,8 +114,7 @@ public class ClassMappings {
     int size = destInterfaces.length;
     for (int i = 0; i < size; i++) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcClass,
-          destInterfaces[i]));
+      ClassMap interfaceClassMap = classMappings.get(keyFactory.createKey(srcClass, destInterfaces[i]));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
@@ -122,8 +122,7 @@ public class ClassMappings {
 
     for (Class<?> srcInterface : srcInterfaces) {
       // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = classMappings.get(ClassMapKeyFactory.createKey(srcInterface,
-          destClass));
+      ClassMap interfaceClassMap = classMappings.get(keyFactory.createKey(srcInterface, destClass));
       if (interfaceClassMap != null) {
         interfaceMaps.add(interfaceClassMap);
       }
