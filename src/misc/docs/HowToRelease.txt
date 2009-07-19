@@ -41,10 +41,13 @@
 
 
 6.  REQUEST MAVEN UPLOAD
-- -Run "mvn source:jar javadoc:jar repository:bundle-create"
+- Run "mvn source:jar javadoc:jar repository:bundle-create"
+- Check the results in target directory
+- Run mvn deploy to upload to local Maven repository mirror via scp
+
+6.1  MANUAL UPLOAD (IN EMERGENCY CASE ONLY)
 - -Login to http://jira.codehaus.org/secure/Dashboard.jspa
 - -Open task to upload latest dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
-
 
 7.  POST RELEASE
   -Create a tag for the release in SVN

@@ -33,7 +33,7 @@
       <version>3.2.1</version>
     </dependency>
     <dependency>
-      <groupId>springframework</groupId>
+      <groupId>org.springframework</groupId>
       <artifactId>spring</artifactId>
       <version>1.2.3</version>
       <scope>provided</scope>
@@ -480,6 +480,11 @@
       <id>dozer.sf.net</id>
       <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs</url>
     </site>
+    <repository>
+      <id>dozer.sf.net</id>
+      <name>SF.net repository mirror</name>
+      <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs/m2repo</url>
+    </repository>
   </distributionManagement>
 
   <scm>
