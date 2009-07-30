@@ -62,4 +62,7 @@ public final class DozerConstants {
   public static final String BASE_CLASS = "java.lang.Object";
   public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.getName();
 
+  public static final String DEFAULT_CLASS_LOADER_BEAN = DefaultClassLoader.class.getName();
+  public static final String DEFAULT_PROXY_RESOLVER_BEAN = DefaultProxyResolver.class.getName();
+
 }

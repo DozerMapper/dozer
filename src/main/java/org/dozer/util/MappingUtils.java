@@ -32,6 +32,7 @@ import java.util.Set;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.cache.Cache;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.Configuration;
@@ -57,8 +58,7 @@ public final class MappingUtils {
   private MappingUtils() {
   }
 
-
-  public static String getClassNameWithoutPackage(Class<?> clazz) {
+  public static String getClassNameWithoutPackage(Class<?> clazz) { // TODO Replace with Apache implementation
     Package pckage = clazz.getPackage();
     int pckageIndex = 0;
     if (pckage != null) {
@@ -114,7 +114,7 @@ public final class MappingUtils {
   }
 
   public static String getMappedParentFieldKey(Object destObj, FieldMap destFieldMap) {
-    StringBuffer buf = new StringBuffer(100); // TODO Use IdentityHashMap instead of String concatenation
+    StringBuilder buf = new StringBuilder(100); // TODO Use IdentityHashMap instead of String concatenation
     buf.append(System.identityHashCode(destObj));
     buf.append(destFieldMap.getDestFieldName());
     if ( destFieldMap.getDestFieldKey() != null ) {
@@ -231,33 +231,27 @@ public final class MappingUtils {
   }
 
   public static Class<?> loadClass(String name) {
-    Class<?> result = null;
-    try {
-    	Class caller = Reflection.getCallerClass(3);
-    	result = ClassUtils.getClass(caller.getClassLoader(), name);      
-    } catch (ClassNotFoundException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
+    BeanContainer container = BeanContainer.getInstance();
+    DozerClassLoader loader = container.getClassLoader();
+    return loader.loadClass(name);
   }
 
   public static boolean isProxy(Class<?> clazz) {
-    //todo: implement a better way of determining this that is more generic
-    return clazz.getName().contains(DozerConstants.CGLIB_ID) || clazz.getName().contains(DozerConstants.JAVASSIST_ID);
+    BeanContainer container = BeanContainer.getInstance();
+    DozerProxyResolver proxyResolver = container.getProxyResolver();
+    return proxyResolver.isProxy(clazz);
   }
 
   public static Class<?> getRealSuperclass(Class<?> clazz) {
-    if (isProxy(clazz)) {
-      return clazz.getSuperclass().getSuperclass();
-    }
-    return clazz.getSuperclass();
+    BeanContainer container = BeanContainer.getInstance();
+    DozerProxyResolver proxyResolver = container.getProxyResolver();
+    return proxyResolver.getRealSuperclass(clazz);
   }
 
   public static Class<?> getRealClass(Class<?> clazz) {
-    if (isProxy(clazz)) {
-      return clazz.getSuperclass();
-    }
-    return clazz;
+    BeanContainer container = BeanContainer.getInstance();
+    DozerProxyResolver proxyResolver = container.getProxyResolver();
+    return proxyResolver.getRealClass(clazz);
   }
 
   public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry,

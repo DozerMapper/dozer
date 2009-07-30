@@ -33,6 +33,7 @@ import org.dozer.vo.perf.MyClassA;
 import org.dozer.vo.perf.MyClassB;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.After;
 
 /**
  * @author tierney.matt
@@ -52,6 +53,12 @@ public class PerformanceTest extends AbstractFunctionalTest {
     if (mapper == null) {
       mapper = getMapper("dozerBeanMapping.xml");
     }
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    System.gc();
+    Thread.sleep(100);
   }
 
   /*

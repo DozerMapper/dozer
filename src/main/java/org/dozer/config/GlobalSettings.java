@@ -16,6 +16,7 @@
 package org.dozer.config;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
@@ -31,18 +32,19 @@ import org.dozer.util.ResourceLoader;
  * Internal singleton class that holds the global settings used by Dozer. Most of these settings are configurable via an
  * optional Dozer properties file. By default, Dozer will look for a file named dozer.properties to load these
  * configuration properties. If a properties file is not found or specified, default values will be used.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * An alternative Dozer properties file can be specified via the dozer.configuration system property.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * ex) -Ddozer.configuration=someDozerConfigurationFile.properties
- * 
+ *
  * @author tierney.matt
  */
 public class GlobalSettings {
 
   private static final Log log = LogFactory.getLog(GlobalSettings.class);
+
   private static final GlobalSettings instance = new GlobalSettings();
 
   private String loadedByFileName;
@@ -50,6 +52,9 @@ public class GlobalSettings {
   private int converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
   private int superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
   private boolean autoregisterJMXBeans = DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
+
+  private String classLoaderBeanName = DozerConstants.DEFAULT_CLASS_LOADER_BEAN;
+  private String proxyResolverBeanName = DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN;
 
   public static GlobalSettings getInstance() {
     return instance;
@@ -87,6 +92,14 @@ public class GlobalSettings {
     return superTypesCacheMaxSize;
   }
 
+  public String getClassLoaderName() {
+    return classLoaderBeanName;
+  }
+
+  public String getProxyResolverName() {
+    return proxyResolverBeanName;
+  }
+
   private synchronized void loadGlobalSettings() {
     // Determine prop file name
     String propFileName = System.getProperty(DozerConstants.CONFIG_FILE_SYS_PROP);
@@ -107,17 +120,32 @@ public class GlobalSettings {
     }
 
     Properties props = new Properties();
+    InputStream inputStream = null;
     try {
       InitLogger.log(log, "Reading Dozer properties from URL [" + url + "]");
-      props.load(url.openStream());
+      inputStream = url.openStream();
+      props.load(inputStream);
     } catch (IOException e) {
       MappingUtils.throwMappingException("Problem loading Dozer properties from URL [" + propFileName + "]", e);
+    } finally {
+      if (inputStream != null) {
+        try {
+          inputStream.close();
+        } catch (IOException e) {
+        }
+      }
     }
 
-    // Populate settings from loaded properties
+    populateSettings(props);
+
+    loadedByFileName = propFileName;
+    InitLogger.log(log, "Finished configuring Dozer global properties");
+  }
+
+  private void populateSettings(Properties props) {
     String propValue = props.getProperty(PropertyConstants.STATISTICS_ENABLED);
     if (propValue != null) {
-      statisticsEnabled = Boolean.valueOf(propValue).booleanValue();
+      statisticsEnabled = Boolean.valueOf(propValue); // TODO Parsing errors?
     }
     propValue = props.getProperty(PropertyConstants.CONVERTER_CACHE_MAX_SIZE);
     if (propValue != null) {
@@ -129,11 +157,17 @@ public class GlobalSettings {
     }
     propValue = props.getProperty(PropertyConstants.AUTOREGISTER_JMX_BEANS);
     if (propValue != null) {
-      autoregisterJMXBeans = Boolean.valueOf(propValue).booleanValue();
+      autoregisterJMXBeans = Boolean.valueOf(propValue);
     }
 
-    loadedByFileName = propFileName;
-    InitLogger.log(log, "Finished configuring Dozer global properties");
+    propValue = props.getProperty(PropertyConstants.CLASS_LOADER_BEAN);
+    if (propValue != null) {
+      classLoaderBeanName = propValue;
+    }
+    propValue = props.getProperty(PropertyConstants.PROXY_RESOLVER_BEAN);
+    if (propValue != null) {
+      proxyResolverBeanName = propValue;
+    }
   }
 
 }

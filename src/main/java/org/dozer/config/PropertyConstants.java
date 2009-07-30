@@ -29,4 +29,8 @@ public final class PropertyConstants {
   public static final String SUPERTYPE_CACHE_MAX_SIZE = "dozer.cache.super.type.maxsize";
   public static final String AUTOREGISTER_JMX_BEANS = "dozer.autoregister.jmx.beans";
 
+  // Bean Implementations
+  public static final String CLASS_LOADER_BEAN = "org.dozer.util.DozerClassLoader";
+  public static final String PROXY_RESOLVER_BEAN = "org.dozer.util.DozerProxyResolver";
+
 }

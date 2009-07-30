@@ -266,8 +266,8 @@ public final class ReflectionUtils {
     return clazz.getMethod(name, parameterTypes);
   }
 
-  public static Object newInstance(Class<?> clazz) {
-    Object result = null;
+  public static <T> T newInstance (Class<T> clazz) {
+    T result = null;
     try {
       result = clazz.newInstance();
     } catch (InstantiationException e) {
