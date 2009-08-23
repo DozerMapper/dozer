@@ -1,12 +1,16 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>about</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Why Map?">
@@ -25,7 +29,8 @@
       <p>
         Mapping between data objects has been traditionally addressed by hand coding value object assemblers (or
         converters) that copy data between the objects. Most programmers will develop some sort of custom mapping
-        framework and spend countless hours and thousands of lines of code mapping to and from their different data object.
+        framework and spend countless hours and thousands of lines of code mapping to and from their different data
+        object.
       </p>
       <p>
         A generic mapping framework solves these problems. Dozer is an open source mapping framework that is

@@ -1,12 +1,15 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>usage</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Configuration">
@@ -74,7 +77,7 @@ dozer:  Trying to find Dozer configuration file: dozer.properties
 dozer:  Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties] for Dozer global property configuration
 dozer:  Reading Dozer properties from URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties]
 dozer:  Finished configuring Dozer global properties
-dozer:  Initializing Dozer.  Version: 5.0, Thread Name:main
+dozer:  Initializing Dozer.  Version: ${project.version}, Thread Name:main
 dozer:  Dozer JMX MBean [org.dozer.jmx:type=DozerStatisticsController] auto registered with the Platform MBean Server
 dozer:  Dozer JMX MBean [org.dozer.jmx:type=DozerAdminController] auto registered with the Platform MBean Server
 dozer:  Initializing a new instance of the dozer bean mapper.

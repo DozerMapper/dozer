@@ -1,12 +1,15 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>mapping map backed property</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Map Backed Property Mapping">
@@ -33,7 +36,7 @@
         </source>
       </subsection>
       <subsection
-        name="Mapping Field Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
+          name="Mapping Field Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
         <p>
           Dozer supports mapping map backed properties at the field level. The map can either implement the
           java.util.Map Interface or be a custom map with a set of unique Get/Set methods.
@@ -110,7 +113,7 @@
         </source>
       </subsection>
       <subsection
-        name="Mapping Class Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
+          name="Mapping Class Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods">
         <p>
           Dozer can also map entire complex objects directly to a java.util.Map or a custom map object. This
           example shows the declaration of a mapping between a complex object (PropertyToMap) and a java.util.Map.

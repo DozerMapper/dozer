@@ -1,12 +1,15 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>faq</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Frequently Asked Questions">
@@ -286,7 +289,7 @@
       <br></br>
       <a name="matching-prop-names"></a>
       <subsection
-        name="If my src and dest object have all matching attribute names, do I need to specify any xml mapping definitions at all?">
+          name="If my src and dest object have all matching attribute names, do I need to specify any xml mapping definitions at all?">
         <p>
           Nope. Just invoke the mapper. You don't need any explicit xml mapping entries for this combination of
           source and destination object.
@@ -296,7 +299,7 @@
       <br></br>
       <a name="is-bidirectional"></a>
       <subsection
-        name="For mappings that require an xml mapping definition, is the mapping definition bi-directional, or do I need 2 xml definitions if I need to map the two objects both ways?">
+          name="For mappings that require an xml mapping definition, is the mapping definition bi-directional, or do I need 2 xml definitions if I need to map the two objects both ways?">
         <p>
           All mapping definitions are bi-directional, so you only need one mapping definition. You can map a --> b
           and b--> a using this single mapping definition.
@@ -379,7 +382,7 @@
     <dependency>
       <groupId>net.sf.dozer<groupId>
       <artifactId>dozer</artifactId>
-      <version>5.0</version>
+      <version>${project.version}</version>
     </dependency>
             ]]>
         </source>
@@ -394,7 +397,7 @@
       <br></br>
       <a name="custom-converters"></a>
       <subsection
-        name="Can I implement custom mapping logic between 2 data types and have Dozer invoke this custom logic when it's performing mappings?">
+          name="Can I implement custom mapping logic between 2 data types and have Dozer invoke this custom logic when it's performing mappings?">
         <p>
           Yes. A very useful feature provided by Dozer is the concept of custom converters. Custom converters are
           used to perform custom mapping between two objects. In the Configuration block, you can add some XML to
@@ -418,7 +421,7 @@
       <br></br>
       <a name="deep-mapping"></a>
       <subsection
-        name="Can I map one field into another field that is nested n layers deep in the destination object?">
+          name="Can I map one field into another field that is nested n layers deep in the destination object?">
         <p>
           Yes. Dozer supports dot notation for nested fields. As with other dozer field mappings, these are
           bi-directional.
@@ -449,7 +452,7 @@
       <br></br>
       <a name="infinite-loop"></a>
       <subsection
-        name="If I am mapping data objects that contain bi-directional relationships, will it result in an infinite loop and eventual stack overflow error?">
+          name="If I am mapping data objects that contain bi-directional relationships, will it result in an infinite loop and eventual stack overflow error?">
         <p>
           No. Dozer has built in logic that prevents infinite loops for bi-directional data object relationships
         </p>
@@ -517,7 +520,7 @@
       <br></br>
       <a name="private-constructors"></a>
       <subsection
-        name="Some of my data objects don't have public constructors.  Does Dozer support this use case?">
+          name="Some of my data objects don't have public constructors.  Does Dozer support this use case?">
         <p>
           Yes. When creating a new instance of the destination object if a public no-arg constructor is not found,
           Dozer will auto detect a private constructor and use that. If the data object does not have a private
@@ -560,7 +563,7 @@
       <br></br>
       <a name="collection-hints"></a>
       <subsection
-        name="When mapping collections, how do I tell Dozer what type of data objects I want in the destination collection?">
+          name="When mapping collections, how do I tell Dozer what type of data objects I want in the destination collection?">
         <p>
           Hints are supported to handle this use case. Hints are not required if you are using JDK 1.5 Generics
           because the types can be auto detected by Dozer. But if you are not using generics, to convert a
@@ -727,7 +730,7 @@ public void testAssembleSomeObject_NullValues() throws Exception {
       <br></br>
       <a name="component-mappings"></a>
       <subsection
-        name="Is it better to have 1 large xml mapping file or to have multiple smaller mapping files?">
+          name="Is it better to have 1 large xml mapping file or to have multiple smaller mapping files?">
         <p>We recommend componentizing your mapping files instead of having 1 large mapping file.</p>
       </subsection>
 
@@ -735,8 +738,9 @@ public void testAssembleSomeObject_NullValues() throws Exception {
       <a name="viewing-runtime-stats"></a>
       <subsection name="What is the best way to view runtime mapping statistics?">
         <p>
-          The best way to view the runtime stats is via the Dozer JMX Beans. These JMXBeans are auto registered with the platform mdb server at startup.
-          JConsole is a good way to easily view the MBeans. 
+          The best way to view the runtime stats is via the Dozer JMX Beans. These JMXBeans are auto registered with the
+          platform mdb server at startup.
+          JConsole is a good way to easily view the MBeans.
         </p>
       </subsection>
 
@@ -748,19 +752,26 @@ public void testAssembleSomeObject_NullValues() throws Exception {
           will see output similar to the following....
         </p>
         <source>
-dozer:  Trying to find Dozer configuration file: dozer.properties
-dozer:  Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties] for Dozer global property configuration
-dozer:  Reading Dozer properties from URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties]
-dozer:  Finished configuring Dozer global properties
-dozer:  Initializing Dozer.  Version: 5.0, Thread Name:main
-dozer:  Dozer JMX MBean [org.dozer.jmx:type=DozerStatisticsController] auto registered with the Platform MBean Server
-dozer:  Dozer JMX MBean [org.dozer.jmx:type=DozerAdminController] auto registered with the Platform MBean Server
-dozer:  Initializing a new instance of the dozer bean mapper.
-dozer:  Initializing a new instance of the dozer bean mapper.
-dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [fieldAttributeMapping.xml]
-dozer:  Trying to find xml mapping file: fieldAttributeMapping.xml
-dozer:  Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml] to load custom xml mappings
-dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml]
+          dozer: Trying to find Dozer configuration file: dozer.properties
+          dozer: Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties] for Dozer
+          global property configuration
+          dozer: Reading Dozer properties from URL
+          [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties]
+          dozer: Finished configuring Dozer global properties
+          dozer: Initializing Dozer. Version: ${project.version}, Thread Name:main
+          dozer: Dozer JMX MBean [org.dozer.jmx:type=DozerStatisticsController] auto registered with the Platform MBean
+          Server
+          dozer: Dozer JMX MBean [org.dozer.jmx:type=DozerAdminController] auto registered with the Platform MBean
+          Server
+          dozer: Initializing a new instance of the dozer bean mapper.
+          dozer: Initializing a new instance of the dozer bean mapper.
+          dozer: Using the following xml files to load custom mappings for the bean mapper instance:
+          [fieldAttributeMapping.xml]
+          dozer: Trying to find xml mapping file: fieldAttributeMapping.xml
+          dozer: Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml]
+          to load custom xml mappings
+          dozer: Successfully loaded custom xml mappings from URL:
+          [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml]
         </source>
         <br></br>
         <p>
@@ -772,10 +783,10 @@ dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversio
           the following....
         </p>
         <source>
-          MAPPED: SimpleObj.field1 --> SimpleObjPrime.field1 VALUES: one --> one MAPID: someMapId 
-          MAPPED: SimpleObj.field2 --> SimpleObjPrime.field2 VALUES: 2 --> 2 MAPID: someMapId 
-          MAPPED: SimpleObj.field3 --> SimpleObjPrime.field3 VALUES: 3 --> 3 MAPID: someMapId 
-          MAPPED: SimpleObj.field4 --> SimpleObjPrime.field4 VALUES: 44.44 --> 44.44 MAPID: someMapId 
+          MAPPED: SimpleObj.field1 --> SimpleObjPrime.field1 VALUES: one --> one MAPID: someMapId
+          MAPPED: SimpleObj.field2 --> SimpleObjPrime.field2 VALUES: 2 --> 2 MAPID: someMapId
+          MAPPED: SimpleObj.field3 --> SimpleObjPrime.field3 VALUES: 3 --> 3 MAPID: someMapId
+          MAPPED: SimpleObj.field4 --> SimpleObjPrime.field4 VALUES: 44.44 --> 44.44 MAPID: someMapId
           MAPPED: SimpleObj.field6 --> SimpleObjPrime.field6 VALUES: 66 --> 66 MAPID: someMapId
         </source>
 

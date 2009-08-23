@@ -4,41 +4,54 @@
     <title>eclipse plugin installation</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Prerequisites">
       <p>
-        The Plugin currently depends on <a href="http://springide.org/blog/">Spring IDE 2.2.3</a>. This way the plugin can
-		find out if the mapping.xml is used within a spring context and therefore can propose definied custom converters
-		that are defined there. See also Custom Converter <a href="../customconverter.html">configuration documentation</a>.
-		<b>It is planned to remove this dependency.</b>
+        The Plugin currently depends on<a href="http://springide.org/blog/">Spring IDE 2.2.3</a>. This way the plugin
+        can
+        find out if the mapping.xml is used within a spring context and therefore can propose definied custom converters
+        that are defined there. See also Custom Converter<a href="../customconverter.html">configuration
+        documentation</a>.
+        <b>It is planned to remove this dependency.</b>
       </p>
       <p>
-      	<ul>
-      		<li><a href="http://www.eclipse.org">Eclipse 3.4.2</a> (might work with lower versions, too)</li>
-      		<li><a href="http://www.eclipse.org/webtools/">WTP 3.0.2</a></li>
-      		<li><a href="http://springide.org/blog/">Spring IDE 2.2.3</a></li>
-      	</ul>
+        <ul>
+          <li>
+            <a href="http://www.eclipse.org">Eclipse 3.4.2</a>
+            (might work with lower versions, too)
+          </li>
+          <li>
+            <a href="http://www.eclipse.org/webtools/">WTP 3.0.2</a>
+          </li>
+          <li>
+            <a href="http://springide.org/blog/">Spring IDE 2.2.3</a>
+          </li>
+        </ul>
       </p>
     </section>
     <section name="Installation">
       <p>
         The Dozer Plugin-feature can be installed and updated using the Eclipse Update Manager. Add a new Update-URL:
-      <source><![CDATA[http://dozer.sourceforge.net/eclipse-plugin]]></source>
-		Select all required dependencies and install the plugin.
+        <source><![CDATA[http://dozer.sourceforge.net/eclipse-plugin]]></source>
+        Select all required dependencies and install the plugin.
       </p>
       <p>
-      Alternatively you can download the package at <a href="https://sourceforge.net/project/showfiles.php?group_id=133517">sourceforge</a>
-      and unzip it in your eclipse installation folder. You might have to enable the Plugin after starting Eclipse. This can be done at
-      Help > Software Updates > Manage Configuration.
+        Alternatively you can download the package at
+        <a href="https://sourceforge.net/project/showfiles.php?group_id=133517">sourceforge</a>
+        and unzip it in your eclipse installation folder. You might have to enable the Plugin after starting Eclipse.
+        This can be done at
+        Help > Software Updates > Manage Configuration.
       </p>
       <p>
-      After installation is done you should see a little red dozer-icon on all your mapping-xml files.
-      <br/><img src="../../images/eclipse-dozerfile.gif"/>
+        After installation is done you should see a little red dozer-icon on all your mapping-xml files.
+        <br/>
+        <img src="../../images/eclipse-dozerfile.gif"/>
       </p>
-    </section>    
+    </section>
   </body>
 </document>

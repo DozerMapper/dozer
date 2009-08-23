@@ -1,12 +1,15 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>usage</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="JMX Integration">
@@ -40,21 +43,21 @@
           <td>Admin functions such as enabling/disabling statistics gathering at runtime.</td>
         </tr>
       </table>
+      <p>
+        Note that JMX MBeans are potential source of memory leaks. MBeans should be disposed properly
+        when application is stopped or restarted as in most of todays Web Containers there
+        is no full JVM restart.
 
-      Note that JMX MBeans are potential source of memory leaks. MBeans should be disposed properly
-      when application is stopped or restarted as in most of todays Web Containers there 
-      is no full JVM restart.
-
-      The proper way to unregister all Dozer JMX Beans is to call destroy() method on DozerBeanMapper object.
-
-      <br></br>
+        The proper way to unregister all Dozer JMX Beans is to call destroy() method on DozerBeanMapper object.
+      </p>
+      <br/>
       <subsection name="Sample JMX Screen Shots">
         <p>Dozer JMX MBeans via JConsole.....</p>
         <p>
-          <img src="../images/jmx1.png" />
+          <img alt="jmx1" src="../images/jmx1.png"/>
         </p>
         <p>
-          <img src="../images/jmx2.png" />
+          <img alt="jmx2" src="../images/jmx2.png"/>
         </p>
       </subsection>
     </section>

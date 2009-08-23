@@ -1,32 +1,33 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>usage</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Getting Started">
-      <p>
+      <ul>
         <li>
           Download
           <a href="http://sourceforge.net/project/showfiles.php?group_id=133517" target="_blank">Dozer</a>
           and extract the archive.
         </li>
-        <br></br>
         <li>Add ${dozer.home}/dist/dozer.jar to your classpath.</li>
-        <br></br>
         <li>
           Add
           <a href="../dependencies.html">required thirdparty runtime jars</a>
           to your classpath.
         </li>
-        <br></br>
-      </p>
-      <br></br>
+      </ul>
+      <br/>
       <subsection name="1st Mapping">
         <p>For your first mapping lets assume that the two data objects share all common attribute names.</p>
         <source>
@@ -46,12 +47,12 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
           <b>IMPORTANT:</b>
           For real-world applications it is NOT recommended to create a new instance of the Mapper each time
           you map objects. Typically a system will only have one DozerBeanMapper instance per VM. If you are not
-          using an IOC framework where you can define the Mapper Instance as singleton="true".  If needed, a
+          using an IOC framework where you can define the Mapper Instance as singleton="true". If needed, a
           DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
         </p>
       </subsection>
 
-      <br></br>
+      <br/>
       <subsection name="Specifying Custom Mappings via XML">
         <p>
           If the two different types of data objects that you are mapping contain any fields that don't share a
@@ -116,8 +117,7 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
         </source>
       </subsection>
 
-
-      <br></br>
+      <br/>
       <subsection name="Spring Integration">
         <p>
           Add the Mapper bean to your Spring configuration file. The mappingFiles property is where you would
@@ -138,18 +138,19 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
         </source>
         <p>
           <b>IMPORTANT:</b>
-          You shoud define the Dozer mapper bean is defined as <b>singleton="true"</b>
+          You shoud define the Dozer mapper bean is defined as
+          <b>singleton="true"</b>
           . You should configure the Mapper instance(s) this way so that you do not have to reload and reinitialize
           the mapping files for each individual mapping during the lifecycle of your app. Reinitializing the
           mapping files for each mapping would be inefficent and unnecessary. The DozerBeanMapper.java class is
           thread safe.
         </p>
         <br/>
-
-        A more convinient approach supporting proper deinitialization of global Dozer resources (such as JMX MBeans)
-        is to use DozerBeanMapperFactoryBean. It does implement Spring FactoryBean interface to serve as
-        a custom Mapper object factory. The properties of the factory bean are similar to DozerBeanMapper itself.
-
+        <p>
+          A more convinient approach supporting proper deinitialization of global Dozer resources (such as JMX MBeans)
+          is to use DozerBeanMapperFactoryBean. It does implement Spring FactoryBean interface to serve as
+          a custom Mapper object factory. The properties of the factory bean are similar to DozerBeanMapper itself.
+        </p>
         <source>
           <![CDATA[
 <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">

@@ -1,12 +1,15 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>Global Configuration</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Global Configuration">
@@ -41,7 +44,7 @@
       </source>
     </section>
 
-    <subsection name="Overriding Wildcards">
+    <section name="Overriding Wildcards">
       <p>
         Each individual mapping section can set its own wildcard policy even if there is a global wildcard policy
         defined using the configuration block. For example, the following mapping does not allow wildcards:
@@ -59,9 +62,9 @@
 </mapping> 
         ]]>
       </source>
-      <p></p>
-    </subsection>
-    <subsection name="Overriding Date Format">
+      <p/>
+    </section>
+    <section name="Overriding Date Format">
       <p>
         The same is true for date format values. Each individual mapping section can set its own date format rules.
         For example:
@@ -79,9 +82,9 @@
 </mapping>      
       ]]>
       </source>
-      <p></p>
-    </subsection>
-    <subsection name="Overriding Error Handling">
+      <p/>
+    </section>
+    <section name="Overriding Error Handling">
       <p>You can override the error handling policy for a particular mapping. For example:</p>
       <source>
         <![CDATA[ 
@@ -96,10 +99,10 @@
 </mapping>      
       ]]>
       </source>
-      <p></p>
-    </subsection>
+      <p/>
+    </section>
 
-    <subsection name="Overriding Trim Strings Policy">
+    <section name="Overriding Trim Strings Policy">
       <p>You can override the trim strings policy for a particular mapping. For example:</p>
       <source>
         <![CDATA[ 
@@ -114,7 +117,7 @@
 </mapping>      
       ]]>
       </source>
-      <p></p>
-    </subsection>
+      <p/>
+    </section>
   </body>
 </document>

@@ -1,0 +1,61 @@
+<document xmlns="http://maven.apache.org/DOCUMENT/1.0.1"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/DOCUMENT/1.0.1 http://maven.apache.org/xsd/document-1.0.1.xsd"
+          outputName="dozer-${project.version}">
+
+  <meta>
+    <title>Dozer Reference Manual</title>
+    <author>Dozer Development Team</author>
+  </meta>
+
+  <toc name="Table of Contents">
+    <item name="About" ref="/documentation/about.html"/>
+    <item name="Why Map?" ref="/documentation/whymap.html"/>
+    <item name="Getting Started" ref="/documentation/gettingstarted.html"/>
+    <item name="Usage" ref="/documentation/usage.html" collapse="true"/>
+
+    <item name="Custom Mappings via XML" ref="/documentation/mappings.html" collapse="true">
+      <item name="Mapping Two Classes" ref="/documentation/mappingclasses.html"/>
+      <item name="Basic Property Mapping" ref="/documentation/simpleproperty.html"/>
+      <item name="String To Date Mapping" ref="/documentation/stringtodatemapping.html"/>
+      <item name="Enum Mapping" ref="/documentation/enum.html"/>
+      <item name="Collection Mapping" ref="/documentation/collectionandarraymapping.html"/>
+      <item name="Map Backed Properties" ref="/documentation/mapbackedproperty.html"/>
+      <item name="Index Mapping" ref="/documentation/indexmapping.html"/>
+      <item name="Deep Mapping" ref="/documentation/deepmapping.html"/>
+      <item name="Excluding Fields" ref="/documentation/exclude.html"/>
+      <item name="One-Way Mapping" ref="/documentation/oneway.html"/>
+      <item name="Context Based Mapping" ref="/documentation/contextmapping.html"/>
+      <item name="Global Configuration" ref="/documentation/globalConfiguration.html"/>
+      <item name="Custom Converters" ref="/documentation/customconverter.html"/>
+      <item name="Custom Bean Factories" ref="/documentation/custombeanfactories.html"/>
+      <item name="Custom Create Methods" ref="/documentation/customCreateMethod.html"/>
+      <item name="Custom Get/Set Methods" ref="/documentation/custommethods.html"/>
+      <item name="Copy By Ref Mapping" ref="/documentation/copybyreference.html"/>
+      <item name="Inheritance Mapping" ref="/documentation/baseattributes.html"/>
+      <item name="XMLBeans and JAXB" ref="/documentation/xmlbeans.html"/>
+      <item name="Dozer Events" ref="/documentation/events.html"/>
+    </item>
+
+    <item name="Configuration" ref="/documentation/configuration/configuration.html" collapse="true">
+      <item name="Logging" ref="/documentation/configuration/logging.html"/>
+    </item>
+
+    <item name="Statistics" ref="/documentation/configuration/statistics.html"/>
+    <item name="JMX Integration" ref="/documentation/jmxintegration.html"/>
+
+    <item name="FAQ" ref="/documentation/faq.html"/>
+
+  </toc>
+
+  <cover>
+    <coverTitle>Dozer</coverTitle>
+    <coverSubTitle>v.${project.version}</coverSubTitle>
+    <coverType>User's Guide</coverType>
+    <projectName>Dozer</projectName>
+    <projectLogo>http://maven.apache.org/images/maventxt_logo_200.gif</projectLogo>
+    <companyName>Franz Garsombke, Matt Tierney, Dmitry Buzdin</companyName>
+    <companyLogo>images/dozer.jpeg</companyLogo>
+  </cover>
+
+</document>

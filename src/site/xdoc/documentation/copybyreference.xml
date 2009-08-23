@@ -1,21 +1,27 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>Copying By Object Reference</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Copying By Object Reference">
       <p>
         Dozer supports copying an object by reference. No conversion/transformation is done for such objects.
         This approach allows to decrease a number of object allocations, but is applicable only when Java Beans are
-        to be thrown away (Garbage Collected) after transformation. This approach is generally recommended for performance
+        to be thrown away (Garbage Collected) after transformation. This approach is generally recommended for
+        performance
         tuning of the mapping process when possible.
-        Make sure that both object types are the same or you will run into casting problems. The default value is 'false'.
+        Make sure that both object types are the same or you will run into casting problems. The default value is
+        'false'.
       </p>
       <source>
         <![CDATA[ 

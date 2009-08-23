@@ -1,12 +1,16 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>Collection and Array Mapping</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Collection and Array Mapping">
@@ -46,97 +50,115 @@
         <p>
           Below is a summary of the mapping logic used when mapping Arrays, Sets, and Lists. This gives a breakdown
           of what happens when hints are or are not used.
-          <ul>
-            <li>List to List</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
-              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
-            </ul>
-          </ul>
-          <ul>
-            <li>Array to List</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
-              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
-            </ul>
-          </ul>
-          <ul>
-            <li>List to Array</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest array will contain data types defined by the array</li>
-              <li>
-                If hint is speficied: Dest list will contain objects that match dest hint(s) type (only if Object
-                Array)
-              </li>
-            </ul>
-          </ul>
-          <ul>
-            <li>Array to Array</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest array will contain data types defined by the array</li>
-              <li>
-                If hint is speficied: Dest list will contain objects that match dest hint(s) type (only if Object
-                Array)
-              </li>
-            </ul>
-          </ul>
-          <ul>
-            <li>Set to Set</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
-              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
-            </ul>
-          </ul>
-          <ul>
-            <li>Array to Set</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
-              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
-            </ul>
-          </ul>
-          <ul>
-            <li>Set to Array</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest array will contain data types defined by the array</li>
-              <li>
-                If hint is speficied: Dest list will contain objects that match dest hint(s) type (only if Object
-                Array)
-              </li>
-            </ul>
-          </ul>
-          <ul>
-            <li>List to Set</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
-              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
-            </ul>
-          </ul>
-          <ul>
-            <li>Set to List</li>
-            <ul>
-              <li>Dest Hint req'd: NO</li>
-              <li>Dest Hint allowed: YES</li>
-              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
-              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
-            </ul>
-          </ul>
         </p>
+        <ul>
+          <li>List to List</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
+              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>Array to List</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
+              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>List to Array</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest array will contain data types defined by the array</li>
+              <li>
+                If hint is speficied: Dest list will contain objects that match dest hint(s) type (only if Object
+                Array)
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>Array to Array</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest array will contain data types defined by the array</li>
+              <li>
+                If hint is speficied: Dest list will contain objects that match dest hint(s) type (only if Object
+                Array)
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>Set to Set</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
+              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>Array to Set</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
+              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>Set to Array</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest array will contain data types defined by the array</li>
+              <li>
+                If hint is speficied: Dest list will contain objects that match dest hint(s) type (only if Object
+                Array)
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>List to Set</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
+              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li>Set to List</li>
+          <li>
+            <ul>
+              <li>Dest Hint req'd: NO</li>
+              <li>Dest Hint allowed: YES</li>
+              <li>If no dest hint specified: Dest list will contain the same data types in the source</li>
+              <li>If hint is speficied: Dest list will contain objects that match dest hint(s) type</li>
+            </ul>
+          </li>
+        </ul>
       </subsection>
       <subsection name="Using JDK 1.5 Generics for Collection Mapping">
         <p>

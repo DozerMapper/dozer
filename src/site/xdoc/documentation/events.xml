@@ -1,28 +1,34 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>Event Listening</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Event Listening">
       <p>
         By implementing the DozerEventListener interface dozer allows you to listen to 4 different events:
-        <ul>
-          <li>mappingStarted</li>
-          <li>mappingFinished</li>
-          <li>preWritingDestinationValue</li>
-          <li>postWritingDestinationValue</li>
-        </ul>
+      </p>
+      <ul>
+        <li>mappingStarted</li>
+        <li>mappingFinished</li>
+        <li>preWritingDestinationValue</li>
+        <li>postWritingDestinationValue</li>
+      </ul>
+      <p>
         A DozerEvent object is passed into these callback methods which stores information about the ClassMap,
         FieldMap, Source object, destination object, and destination value. This will allow you to extend dozer and
         manipulate mapped objects at run-time. The interface is shown below:
       </p>
-      <br></br>
+      <br/>
       <source>
         <![CDATA[ 
 public interface DozerEventListener {
@@ -33,7 +39,7 @@ public interface DozerEventListener {
 }        
         ]]>
       </source>
-      <br></br>
+      <br/>
       <p>
         The listeners that you create can be injected to the DozerBeanMapper using an IOC like Spring or set
         directly on your DozerBeanMapper instance by using the setEventListeners() method. Below is an example

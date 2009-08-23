@@ -1,12 +1,15 @@
-<document>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>Excluding Fields</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Excluding Fields">
@@ -27,12 +30,13 @@
 </field-exclude>           
             ]]>
       </source>
-      
+
       <subsection name="Wildcard - excluding default field mappings">
         <p>
-          There's also a flag (<code>wildcard</code>) set on class mapping which controls whether the default mapping (which applies to pair of properties of the same name)
-	      should be done. The default value is true. For example:
-        </p>	  
+          There's also a flag (<code>wildcard</code>) set on class mapping which controls whether the default mapping
+          (which applies to pair of properties of the same name)
+          should be done. The default value is true. For example:
+        </p>
         <source>
           <![CDATA[
 <mapping wildcard="false">
@@ -48,10 +52,12 @@
       </subsection>
 
       <p>
-        This configuration would cause only the fields <code>field1</code> in both classes to be mapped, even if both classes share a property
-        with the same name called <code>field2</code>. 
+        This configuration would cause only the fields
+        <code>field1</code>
+        in both classes to be mapped, even if both classes share a property
+        with the same name called<code>field2</code>.
       </p>
-      
+
       <subsection name="Exclude Mapping Null Values">
         <p>
           You can bypass the mapping of null values. If this is specified, the dest field mapping is bypassed at
@@ -115,7 +121,6 @@ OR...
         </source>
         <p></p>
       </subsection>
-
 
 
     </section>

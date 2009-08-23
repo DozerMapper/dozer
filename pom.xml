@@ -277,6 +277,20 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pdf-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <id>pdf</id>
+            <phase>site</phase>
+            <goals>
+              <goal>pdf</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -309,88 +323,92 @@
       </roles>
     </developer>
   </developers>
-  
+
+  <!-- List of contributors is in alphabetical order -->
   <contributors>
     <contributor>
+      <name>Alan Stewart</name>
+    </contributor>
+    <contributor>
       <name>Ben Sullins</name>
-    </contributor>
-    <contributor>
-      <name>David Baker</name>
-    </contributor>
-    <contributor>
-      <name>Matt Benson</name>
-    </contributor>
-    <contributor>
-      <name>Ed Bras</name>
-    </contributor>    
-    <contributor>
-      <name>Soren Chittka</name>
-    </contributor>
-    <contributor>
-      <name>Peciuch Dominic</name>
-    </contributor>
-    <contributor>
-      <name>Christoph Goldner</name>
     </contributor>
     <contributor>
       <name>Bruno Guedes</name>
     </contributor>
     <contributor>
-      <name>Ozzie Gurkan</name>
-    </contributor>
-    <contributor>
-      <name>Rohan Hart</name>
-    </contributor>
-    <contributor>
       <name>Chia-Chou Hung</name>
     </contributor>
     <contributor>
-      <name>Vincent Jassogne</name>
+      <name>Christoph Goldner</name>
+    </contributor>
+    <contributor>
+      <name>David Baker</name>
+    </contributor>
+    <contributor>
+      <name>Ed Bras</name>
     </contributor>
     <contributor>
       <name>Florian Kammermann</name>
     </contributor>
     <contributor>
-      <name>Sachin Katakdound</name>
+      <name>Gerard Toonstra</name>
     </contributor>
     <contributor>
       <name>Joachim Korittky</name>
     </contributor>
     <contributor>
+      <name>Kiersztyn Wojtek</name>
+    </contributor>
+    <contributor>
       <name>Knut-Erik Johnsen</name>
     </contributor>
     <contributor>
-      <name>Wing Tung Leung</name>
+      <name>Luke Robinson</name>
     </contributor>
     <contributor>
-      <name>Peter Monks</name>
+      <name>Mariusz Pala</name>
+    </contributor>
+    <contributor>
+      <name>Markus Thielen</name>
+    </contributor>
+    <contributor>
+      <name>Matt Benson</name>
     </contributor>
     <contributor>
       <name>Mickael Morier</name>
     </contributor>
     <contributor>
-      <name>Tom Rigole</name>
-    </contributor>    
-    <contributor>
-      <name>Luke Robinson</name>
-    </contributor>
-    <contributor>
-      <name>Alan Stewart</name>
-    </contributor>
-    <contributor>
-      <name>Gerard Toonstra</name>
-    </contributor>
-    <contributor>
       <name>Nhat Vo</name>
+    </contributor>
+    <contributor>
+      <name>Ozzie Gurkan</name>
+    </contributor>
+    <contributor>
+      <name>Peciuch Dominic</name>
+    </contributor>
+    <contributor>
+      <name>Peter Monks</name>
     </contributor>
     <contributor>
       <name>Rob Volden</name>
     </contributor>
     <contributor>
-      <name>Kiersztyn Wojtek</name>
+      <name>Rohan Hart</name>
     </contributor>
     <contributor>
-      <name>Mariusz Pala</name>
+      <name>Sachin Katakdound</name>
+    </contributor>
+    <contributor>
+      <name>Soren Chittka</name>
+    </contributor>
+    <contributor>
+      <name>Tom Rigole</name>
+    </contributor>
+    <contributor>
+      <name>Vincent Jassogne</name>
+    </contributor>
+    <contributor>
+      <name>Wing Tung Leung</name>
     </contributor>
   </contributors>
 

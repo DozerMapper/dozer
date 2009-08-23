@@ -79,6 +79,7 @@
       </item>
       <item name="FAQ" href="/documentation/faq.html" />
     </menu>
+
     <menu name="Release Notes">
       <!-- Standalone item -->
       <item name="Release Notes" href="/releasenotes.html" />

@@ -4,768 +4,2075 @@
     <title>release notes</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE"/>    
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE"/>    
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0"/>    
-  </head>  
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
+  </head>
   <body>
     <section name="Release Notes">
-      <h3>5.0  <font size="-3" color="gray"><i>3/3/2009</i></font></h3>
-        <p>Migration Guide</p>
-        <table border="1">
-          <tr>
-            <th>Change Description</th>
-            <th>New - Dozer 5.0</th>
-            <th>Old - Dozer 4.4.1</th>
-          </tr>
-          <tr>
-            <td>Increased minimum JDK requirements</td>
-            <td>Requires JDK 1.5+</td>
-            <td>Required JDK 1.4+</td>
-          </tr>
-          <tr>
-            <td>Repackaged Dozer classes</td>
-            <td>org.dozer</td>
-            <td>net.sf.dozer.util.mapping</td>
-          </tr>
-           <tr>
-            <td>Maven group id</td>
-            <td>net.sf.dozer</td>
-            <td>net.sf.dozer</td>
-          </tr>
-          <tr>
-            <td>Added Generics to public api</td>
-            <td>A dest = mapper.map(b, A.class)</td>
-            <td>A dest = (A) mapper.map(b, A.class)</td>
-          </tr>
-          <tr>
-            <td>Switched to XSD instead of DTD</td>
-            <td>beanmapping.xsd</td>
-            <td>dozerbeanmapping.dtd</td>
-          </tr>
-          <tr>
-            <td>Renamed some public Interfaces</td>
-            <td>BeanFactory</td>
-            <td>BeanFactoryIF</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>CustomFieldMapper</td>
-            <td>CustomFieldMapperIF</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>Mapper</td>
-            <td>MapperIF</td>
-          </tr>
-          <tr>
-            <td>Repackaged some public Interfaces</td>
-            <td>org.dozer.CustomConverter</td>
-            <td>net.sf.dozer.util.mapping.converters.CustomConverter</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>org.dozer.ConfigurableCustomConverter</td>
-            <td>net.sf.dozer.util.mapping.converters.ConfigurableCustomConverter</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>org.dozer.DozerEventListener</td>
-            <td>net.sf.dozer.util.mapping.event.DozerEventListener</td>
-          </tr>
-          <tr>
-            <td>Upgraded 3rd party dependencies</td>
-            <td>commons-collections 3.2.1</td>
-            <td>commons-collections 3.1</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>commons-beanutils 1.8.0</td>
-            <td>commons-beanutils 1.7.0</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>commons-lang 2.4 </td>
-            <td>commons-lang 2.2</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>commons-logging 1.1.1</td>
-            <td>commons-logging 1.0.3</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>junit 4.5 </td>
-            <td>junit 3.8</td>
-          </tr>
-        </table>
-        <br/>
-        <p>Bug Fixes and Patches</p>
-        <p>
-          <ul>
-            <li>DozerResolver should resolve the DTD using class classLoader <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2605660&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Inheritance + Map-Id <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2589532&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Exclude test classes from the dist jar <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2587665&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Timestamp mapping broken <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2545113&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Map method lookup <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2542694&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>DozerBeanMapper doesn't resolve graphs properly <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1920762&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Bug using MapIds <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2592492&amp;group_id=133517&amp;atid=727370">link</a></li>
-            <li>Bug with MapIds using Hints <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2592785&amp;group_id=133517&amp;atid=727370">link</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>
-            <li>Change maven group id <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2476391&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Repackage dozer classes <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398325&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Add Generics to public Mapper interface <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2629164&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Upgrade to JUnit 4 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2432382&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Upgrade 3rd party dependencies <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2423000&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Switch to XSD instead of DTD <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2207505&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Migrate to JDK 5 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2338450&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Rename some public interfaces <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2629165&amp;group_id=133517&amp;atid=727371">link</a></li>
-          </ul>
-        </p>
-    
-      <h3>4.4.1  <font size="-3" color="gray"><i>1/31/2009</i></font></h3>
-        <p>Bug Fixes</p>
-        <p>
-          <ul>
-            <li>Using ContextClassLoader to load classes <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2487499&amp;group_id=133517&amp;atid=727368">link</a></li>
-          </ul>
-        </p>
+      <h3>5.1
+        <font size="-3" color="gray">
+          <i>8/19/2009</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Global Configuration is Ignored
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1982256&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Reorganize test mapping and config files in src tree
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398049&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
 
-      <h3>4.4  <font size="-3" color="gray"><i>12/27/2008</i></font></h3>
-        <p>Bug Fixes and Patches</p>
-        <p>
-          <ul>
-            <li>Global Configuration is Ignored <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1982256&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Throw exception if more than one global configuration found <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398621&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li> Problem loading Dozer bean mapper from Spring <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1921248&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Error in loading mapping files located in jar file <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2130213&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>NullPointerException <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1828693&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Problem with Java 1.5 enum and inheritance <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1806780&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Deep Index Custom Converter Problem <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1845706&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Bug fix not indexed properties (List - Vector) <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2218433&amp;group_id=133517&amp;atid=727370">link</a></li>
-            <li>Deep index patch <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2061942&amp;group_id=133517&amp;atid=727370">link</a></li>
-            <li>Collection deep index issue <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1803172&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Deep Mapping with custom setter method does not work when default setter exists <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2459076&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Improve an exception message <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2458137&amp;group_id=133517&amp;atid=727368">link</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>
-            <li>Reorganize test mapping and config files in src tree <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398049&amp;group_id=133517&amp;atid=727371">link</a></li>
-          </ul>
-        </p>
-      <h3>4.3  <font size="-3" color="gray"><i>12/03/2008</i></font></h3>
-        <p>Bug Fixes</p>
-        <p>
-          <ul>
-            <li>Class hierarchies are not mapped in descending order <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2290928&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Map-backed properties are not copied using deep mapping <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2133584&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Mapping with remove-orphans changes the mapped list order <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2057899&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Mapping with remove-orphans should call remove() on the list <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2048382&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Bug in ReflectionUtils.getInterfacePropertyDescriptors() <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2013632&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Classloading approach is not recommended <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1944959&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>NullPointerException when mapping a map <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1884714&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Subclasses are not recognized <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865945&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Mapping with parent-child relation does not work <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865775&amp;group_id=133517&amp;atid=727368">link</a></li>
-            <li>Missing destination read method throws NPE <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2038701&amp;group_id=133517&amp;atid=727370">link</a></li>
-            <li>MappingProcessor does not use hints from DestHintContainer <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1939196&amp;group_id=133517&amp;atid=727370">link</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>
-            <li>Backport to commons-collections 3.0 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2211532&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Mask in copy-by-reference <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1708511&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Support for Javassist proxy objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2020543&amp;group_id=133517&amp;atid=727370">link</a></li>
-            <li>Config parameter for Custom Converter <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1933167&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Fix FindBugs issues <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2187241&amp;group_id=133517&amp;atid=727371">link</a></li>
-            <li>Documentation update <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1968841&amp;group_id=133517&amp;atid=727371">link</a></li>
-          </ul>
-        </p>
-      <h3>4.2.1  <font size="-3" color="gray"><i>6/22/2008</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>stop-on-errors bug<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1953945&amp;group_id=133517&amp;atid=727368">1953945</a></li>
-          </ul>
-        </p>
+      <h3>5.0
+        <font size="-3" color="gray">
+          <i>3/3/2009</i>
+        </font>
+      </h3>
+      <p>Migration Guide</p>
+      <table border="1">
+        <tr>
+          <th>Change Description</th>
+          <th>New - Dozer 5.0</th>
+          <th>Old - Dozer 4.4.1</th>
+        </tr>
+        <tr>
+          <td>Increased minimum JDK requirements</td>
+          <td>Requires JDK 1.5+</td>
+          <td>Required JDK 1.4+</td>
+        </tr>
+        <tr>
+          <td>Repackaged Dozer classes</td>
+          <td>org.dozer</td>
+          <td>net.sf.dozer.util.mapping</td>
+        </tr>
+        <tr>
+          <td>Maven group id</td>
+          <td>net.sf.dozer</td>
+          <td>net.sf.dozer</td>
+        </tr>
+        <tr>
+          <td>Added Generics to public api</td>
+          <td>A dest = mapper.map(b, A.class)</td>
+          <td>A dest = (A) mapper.map(b, A.class)</td>
+        </tr>
+        <tr>
+          <td>Switched to XSD instead of DTD</td>
+          <td>beanmapping.xsd</td>
+          <td>dozerbeanmapping.dtd</td>
+        </tr>
+        <tr>
+          <td>Renamed some public Interfaces</td>
+          <td>BeanFactory</td>
+          <td>BeanFactoryIF</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>CustomFieldMapper</td>
+          <td>CustomFieldMapperIF</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Mapper</td>
+          <td>MapperIF</td>
+        </tr>
+        <tr>
+          <td>Repackaged some public Interfaces</td>
+          <td>org.dozer.CustomConverter</td>
+          <td>net.sf.dozer.util.mapping.converters.CustomConverter</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>org.dozer.ConfigurableCustomConverter</td>
+          <td>net.sf.dozer.util.mapping.converters.ConfigurableCustomConverter</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>org.dozer.DozerEventListener</td>
+          <td>net.sf.dozer.util.mapping.event.DozerEventListener</td>
+        </tr>
+        <tr>
+          <td>Upgraded 3rd party dependencies</td>
+          <td>commons-collections 3.2.1</td>
+          <td>commons-collections 3.1</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>commons-beanutils 1.8.0</td>
+          <td>commons-beanutils 1.7.0</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>commons-lang 2.4</td>
+          <td>commons-lang 2.2</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>commons-logging 1.1.1</td>
+          <td>commons-logging 1.0.3</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>junit 4.5</td>
+          <td>junit 3.8</td>
+        </tr>
+      </table>
+      <br/>
+      <p>Bug Fixes and Patches</p>
+      <p>
+        <ul>
+          <li>DozerResolver should resolve the DTD using class classLoader
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2605660&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Inheritance + Map-Id
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2589532&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Exclude test classes from the dist jar
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2587665&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Timestamp mapping broken
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2545113&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Map method lookup
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2542694&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>DozerBeanMapper doesn't resolve graphs properly
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1920762&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Bug using MapIds
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2592492&amp;group_id=133517&amp;atid=727370">
+              link
+            </a>
+          </li>
+          <li>Bug with MapIds using Hints
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2592785&amp;group_id=133517&amp;atid=727370">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Change maven group id
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2476391&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Repackage dozer classes
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398325&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Add Generics to public Mapper interface
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2629164&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Upgrade to JUnit 4
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2432382&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Upgrade 3rd party dependencies
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2423000&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Switch to XSD instead of DTD
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2207505&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Migrate to JDK 5
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2338450&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Rename some public interfaces
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2629165&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
 
-      <h3>4.2  <font size="-3" color="gray"><i>12/16/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Update spring custom converter documentation <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841449&amp;group_id=133517&amp;atid=727368">1841449</a></li>
-            <li>Trim Strings issue with data type conversion <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841448&amp;group_id=133517&amp;atid=727368">1841448</a></li>
-            <li>Orphans not removed from Sets <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1822421&amp;group_id=133517&amp;atid=727368">1822421</a></li>
-            <li>TimeZone not copied when mapping Calendar <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1815199&amp;group_id=133517&amp;atid=727368">1815199</a></li>
-            <li>Problem when getters and setters are on different interfaces <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1814758&amp;group_id=133517&amp;atid=727368">1814758</a></li>
-            <li>Unexpected exception in LogMsgFactory <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1797808&amp;group_id=133517&amp;atid=727368">1797808</a></li>
-            <li>Map-backed mapping with map-id <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1796344&amp;group_id=133517&amp;atid=727368">1796344</a></li>
-            <li>Custom converter called on null source field <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1792048&amp;group_id=133517&amp;atid=727368">1792048</a></li>
-            <li>Patch for determining source field type <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1823435&amp;group_id=133517&amp;atid=727370">1823435</a></li>
-          </ul>
-        </p>
-      <h3>4.1  <font size="-3" color="gray"><i>09/22/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Inheritance issue(s) with proxied data objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777357&amp;group_id=133517&amp;atid=727368">1777357</a></li>
-            <li>Array mapping with XMLBeans throws NoSuchMehtod exception <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1773425&amp;group_id=133517&amp;atid=727368">1773425</a></li>
-            <li>Mapping Started Event Not firing on mapping <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1768660&amp;group_id=133517&amp;atid=727368">1768660</a></li>
-            <li>Inheritance mapping not working correctly - Part Deux <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757573&amp;group_id=133517&amp;atid=727368">1757573</a></li>
-            <li>Test Cases section not diplaying correctly in web site docs <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1657562&amp;group_id=133517&amp;atid=727368">1657562</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Update inheritance mapping doc's <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1778316&amp;group_id=133517&amp;atid=727371">1778316</a></li>
-            <li>Repackage functional/e2e tests <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777076&amp;group_id=133517&amp;atid=727371">1777076</a></li>
-            <li>Using multiple instances of CustomConverter <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1770440&amp;group_id=133517&amp;atid=727371">1770440</a></li>
-            <li>Dozer vs. XmlBeans generated primitive types <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1764916&amp;group_id=133517&amp;atid=727371">1764916</a></li>
-            <li>DozerEvent - sourceObject always null. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1762642&amp;group_id=133517&amp;atid=727371">1762642</a></li>
-            <li>Path to ResourceLoader to accept any URL <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757321&amp;group_id=133517&amp;atid=727371">1757321</a></li>
-            <li>Run existing tests in both unproxied and cglib proxied mode <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1756584&amp;group_id=133517&amp;atid=727371">1756584</a></li>
-            <li>Removal of orphans in destination collection <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1755838&amp;group_id=133517&amp;atid=727371">1755838</a></li>
-            <li>Allow global configuration of relationship-type <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750158&amp;group_id=133517&amp;atid=727371">1750158</a></li>
-          </ul>
-        </p>
-      <h3>4.0  <font size="-3" color="gray"><i>07/15/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Field custom converter bug with Map data types <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749982&amp;group_id=133517&amp;atid=727368">1749982</a></li>
-            <li>Prob w/ map-get-method and date-format <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1733793&amp;group_id=133517&amp;atid=727368">1733793</a></li>
-            <li>Global custom converters missing in default ClassMap <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1728385&amp;group_id=133517&amp;atid=727368">1728385</a></li>
-            <li>Copy Reference mapping instructions ignored for subclasses <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1728159&amp;group_id=133517&amp;atid=727368">1728159</a></li>
-            <li>mvn eclipse:eclipse does not get all dependencies <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1727717&amp;group_id=133517&amp;atid=727368">1727717</a></li>
-            <li>Prob w/ map-get-method and CustomConverter <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1724104&amp;group_id=133517&amp;atid=727368">1724104</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Misc code cleanup and refactoring <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1754179&amp;group_id=133517&amp;atid=727371">1754179</a></li>                                    
-            <li>Refactor/Clean Up Dest Bean Creator <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1752379&amp;group_id=133517&amp;atid=727371">1752379</a></li>            
-            <li>Mapping deep level field in Indexed structure <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1752329&amp;group_id=133517&amp;atid=727371">1752329</a></li>            
-            <li>Add map-id to field mapping debug output <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750157&amp;group_id=133517&amp;atid=727371">1750157</a></li>
-            <li>Push mapping value hierarchy down to ClassMap and FieldMap <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749805&amp;group_id=133517&amp;atid=727371">1749805</a></li>
-            <li>Add bidirectional relationship between FieldMap and ClassMap   <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749804&amp;group_id=133517&amp;atid=727371">1749804</a></li>
-            <li>Don't expose DozerField and DozerClass objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749802&amp;group_id=133517&amp;atid=727371">1749802</a></li>
-            <li>Remove *PRIME* feature from the docs <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1736864&amp;group_id=133517&amp;atid=727371">1736864</a></li>            
-            <li>Major refactor of Map backed properties <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734665&amp;group_id=133517&amp;atid=727371">1734665</a></li>
-            <li>Repackage ClassMap.java <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734228&amp;group_id=133517&amp;atid=727371">1734228</a></li>
-            <li>Load classes consistently <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734163&amp;group_id=133517&amp;atid=727371">1734163</a></li>
-            <li>Cleanup of internal exception handling <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734161&amp;group_id=133517&amp;atid=727371">1734161</a></li>
-            <li>Add config support for auto trimming of strings  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1707034&amp;group_id=133517&amp;atid=727371">1707034</a></li>
-            <li>Mapping deep level field in Indexed structure <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1473800&amp;group_id=133517&amp;atid=727371">1473800</a></li>                                    
-          </ul>
-        </p>
-      
-      <h3>3.4  <font size="-3" color="gray"><i>05/19/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Incorrectly recognizing JDK 6.0 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1717547&amp;group_id=133517&amp;atid=727368">1717547</a></li>
-            <li>Null pointer on MappingProcessor at Line 282 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1717318&amp;group_id=133517&amp;atid=727368">1717318</a></li>
-            <li>Change the way we determine JDK Version <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1715819&amp;group_id=133517&amp;atid=727368">1715819</a></li>
-            <li>Lost and Duplicated Objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1715496&amp;group_id=133517&amp;atid=727368">1715496</a></li>
-            <li>Fix Map VO with no custom mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713550&amp;group_id=133517&amp;atid=727368">1713550</a></li>
-            <li>Propagate exceptions while parsing allowed-exceptions xml <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713242&amp;group_id=133517&amp;atid=727368">1713242</a></li>
-            <li>NPE when Date String when no date format specified <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1711580&amp;group_id=133517&amp;atid=727368">1711580</a></li>
-            <li>inappropriate subclass mappings applied <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1674199&amp;group_id=133517&amp;atid=727368">1674199</a></li>
-            <li>Inheritance mapping not working correctly <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1486105&amp;group_id=133517&amp;atid=727368">1486105</a></li>
-            <li>bidirectionnal mapping with sets subclasses <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664984&amp;group_id=133517&amp;atid=727368">1664984</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Change util classes to static <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713604&amp;group_id=133517&amp;atid=727371">1713604</a></li>
-            <li>Add PMD and Findbugs reports <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1712886&amp;group_id=133517&amp;atid=727371">1712886</a></li>
-            <li>Remove NotFoundException and DozerRuntimeExceptions  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1712513&amp;group_id=133517&amp;atid=727371">1712513</a></li>
-            <li>Add class level javadoc for classes missing it <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1696636&amp;group_id=133517&amp;atid=727371">1696636</a></li>
-          </ul>
-        </p>
+      <h3>4.4.1
+        <font size="-3" color="gray">
+          <i>1/31/2009</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Using ContextClassLoader to load classes
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2487499&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
 
-       <h3>3.3.1  <font size="-3" color="gray"><i>04/28/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Remove Spring runtime dependency.  Revert back to using Apache Commons to get Property Descriptors <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1709117&amp;group_id=133517&amp;atid=727368">1709117</a></li>
-          </ul>
-        </p>
-      
-      <h3>3.3  <font size="-3" color="gray"><i>04/26/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Throw exception if map-id cannot be resolved <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1706291&amp;group_id=133517&amp;atid=727368">1706291</a></li>
-            <li>When adding default field mappings, skip getter's w/params <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1705525&amp;group_id=133517&amp;atid=727368">1705525</a></li>
-            <li>When discovering default field mappings require corresponding get/set method  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1704085&amp;group_id=133517&amp;atid=727368">1704085</a></li>
-            <li>Global Bean Factory not applied to default mappings  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1700448&amp;group_id=133517&amp;atid=727368">1700448</a></li>
-            <li>Non-Cumulative mapping issues  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1698069&amp;group_id=133517&amp;atid=727368">1698069</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Use Spring's BeanUtils.getPropDescriptors() instead of jakarta <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1707014&amp;group_id=133517&amp;atid=727371">1707014</a></li>
-            <li>When auto registering mbeans check if mbean is already reg'd <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1697294&amp;group_id=133517&amp;atid=727371">1697294</a></li>
-            <li>Recursive object mapping not working with interfaces  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1658168&amp;group_id=133517&amp;atid=727371">1658168</a></li>
-            <li>Improve collection handling, esp. non-cumulative mapping  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1482749&amp;group_id=133517&amp;atid=727371">1482749</a></li>
-          </ul>
-        </p>
-      
-      <h3>3.2.1  <font size="-3" color="gray"><i>04/08/2007</i></font></h3>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Boolean to number auto converstion <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695408&amp;group_id=133517&amp;atid=727371">1695408</a></li>
-            <li>Added statistics for custom converter mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695380&amp;group_id=133517&amp;atid=727371">1695380</a></li>
-            <li>Small performance improvement for jdk1.5 users <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1694734&amp;group_id=133517&amp;atid=727371">1694734</a></li>
-          </ul>
-        </p>
+      <h3>4.4
+        <font size="-3" color="gray">
+          <i>12/27/2008</i>
+        </font>
+      </h3>
+      <p>Bug Fixes and Patches</p>
+      <p>
+        <ul>
+          <li>Global Configuration is Ignored
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1982256&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Throw exception if more than one global configuration found
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398621&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Problem loading Dozer bean mapper from Spring
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1921248&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Error in loading mapping files located in jar file
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2130213&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>NullPointerException
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1828693&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Problem with Java 1.5 enum and inheritance
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1806780&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Deep Index Custom Converter Problem
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1845706&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Bug fix not indexed properties (List - Vector)
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2218433&amp;group_id=133517&amp;atid=727370">
+              link
+            </a>
+          </li>
+          <li>Deep index patch
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2061942&amp;group_id=133517&amp;atid=727370">
+              link
+            </a>
+          </li>
+          <li>Collection deep index issue
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1803172&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Deep Mapping with custom setter method does not work when default setter exists
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2459076&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Improve an exception message
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2458137&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Reorganize test mapping and config files in src tree
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398049&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>4.3
+        <font size="-3" color="gray">
+          <i>12/03/2008</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Class hierarchies are not mapped in descending order
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2290928&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Map-backed properties are not copied using deep mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2133584&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Mapping with remove-orphans changes the mapped list order
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2057899&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Mapping with remove-orphans should call remove() on the list
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2048382&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Bug in ReflectionUtils.getInterfacePropertyDescriptors()
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2013632&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Classloading approach is not recommended
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1944959&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>NullPointerException when mapping a map
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1884714&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Subclasses are not recognized
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865945&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Mapping with parent-child relation does not work
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1865775&amp;group_id=133517&amp;atid=727368">
+              link
+            </a>
+          </li>
+          <li>Missing destination read method throws NPE
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2038701&amp;group_id=133517&amp;atid=727370">
+              link
+            </a>
+          </li>
+          <li>MappingProcessor does not use hints from DestHintContainer
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1939196&amp;group_id=133517&amp;atid=727370">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Backport to commons-collections 3.0
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2211532&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Mask in copy-by-reference
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1708511&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Support for Javassist proxy objects
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2020543&amp;group_id=133517&amp;atid=727370">
+              link
+            </a>
+          </li>
+          <li>Config parameter for Custom Converter
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1933167&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Fix FindBugs issues
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2187241&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+          <li>Documentation update
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1968841&amp;group_id=133517&amp;atid=727371">
+              link
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>4.2.1
+        <font size="-3" color="gray">
+          <i>6/22/2008</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>stop-on-errors bug
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1953945&amp;group_id=133517&amp;atid=727368">
+              1953945
+            </a>
+          </li>
+        </ul>
+      </p>
 
-      <h3>3.2  <font size="-3" color="gray"><i>04/03/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>3.1 Release not backwards compatible with JDK 1.3 <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1692620&amp;group_id=133517&amp;atid=727368">1692620</a></li>
-            <li>Destination Value always null in CustomConverter <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1679996&amp;group_id=133517&amp;atid=727368">1679996</a></li>
-            <li>Indexed Mapping broke when is-accessible is true <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1673152&amp;group_id=133517&amp;atid=727368">1673152</a></li>
-            <li>Allowed Exceptions not working for default mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1658569&amp;group_id=133517&amp;atid=727368">1658569</a></li>
-            <li>Remove is-accessible option from configuration and mapping sections in the DTD <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1692603&amp;group_id=133517&amp;atid=727368">1692603</a></li>
-            <li>Set mapping problem when field starts in upper case in mapping xml file <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1549738&amp;group_id=133517&amp;atid=727368">1549738</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Auto register Dozer JMX MBeans with the platform mbean server <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1690327&amp;group_id=133517&amp;atid=727371">1690327</a></li>
-            <li>Private constructor support when creating new instances of data objects <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1690298&amp;group_id=133517&amp;atid=727371">1690298</a></li>
-            <li>Create quick reference page for mapping xml options <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1657611&amp;group_id=133517&amp;atid=727371">1657611</a></li>
-            <li>Set/get method for last field in deep-chaing <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1456486&amp;group_id=133517&amp;atid=727371">1456486</a></li>
-            <li>Add documentation for existing custom converter support of Array types <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1691021&amp;group_id=133517&amp;atid=727371">1691021</a></li>
-          </ul>
-        </p>
-      <h3>3.1  <font size="-3" color="gray"><i>03/25/2007</i></font></h3>
-        <p>Patches</p> 
-        <p>
-          <ul>      
-            <li>Bi-direction is-accessible <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664865&amp;group_id=133517&amp;atid=727370">1664865</a></li>
-          </ul>
-        </p>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Dramatic Performance Degradation with Interfaces <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1684237&amp;group_id=133517&amp;atid=727368">1684237</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Transparent Java 5 enums support <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1685083&amp;group_id=133517&amp;atid=727371">1685083</a></li>
-            <li>Move dozer to subversion <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1684934&amp;group_id=133517&amp;atid=727371">1684934</a></li>
-            <li>Maven 2 Repo <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1677946&amp;group_id=133517&amp;atid=727371">1677946</a></li>
-            <li>Resolve collection hints from Java 5 generic type information <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1677376&amp;group_id=133517&amp;atid=727371">1677376</a></li>
-          </ul>
-        </p>
-      <h3>3.0  <font size="-3" color="gray"><i>02/08/2007</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Fixed custom converter cache  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644966 &amp;group_id=133517&amp;atid=727368">1644966</a></li>
-            <li>Fixed wildcard mapping not working with interface inheritance  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1636354&amp;group_id=133517&amp;atid=727368">1636354</a></li>
-            <li>Fixed inherited setters not found with interface inheritances  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1637106&amp;group_id=133517&amp;atid=727368">1637106</a></li>
-            <li>Fixed mapping from object to array  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1616229&amp;group_id=133517&amp;atid=727368">1616229</a></li>
-            <li>Fixed ClassMapFinder does not find ClassMap for interfaces  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1615377&amp;group_id=133517&amp;atid=727368">1615377</a></li>
-            <li>Added Spring FactoryBean  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1613791&amp;group_id=133517&amp;atid=727368">1613791</a></li>
-            <li>Fixed is-accessible problem with abstract super classes  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1599457&amp;group_id=133517&amp;atid=727368">1599457</a></li>
-            <li>Fixed ClassMap not found for interface mapping  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1554793&amp;group_id=133517&amp;atid=727368">1554793</a></li>
-            <li>Fixed issue with custom converters not being invoked for null values  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1563795&amp;group_id=133517&amp;atid=727368">1563795</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Upgrade build infrastructure to Maven2  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1651498&amp;group_id=133517&amp;atid=727371">1651498</a></li>
-            <li>Removed dependency on log4j  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644537&amp;group_id=133517&amp;atid=727371">1644537</a></li>
-            <li>Misc performance improvements  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1645687&amp;group_id=133517&amp;atid=727371">1645687</a></li>
-            <li>Cleaned up indexed logic and custom converter logic  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1620589&amp;group_id=133517&amp;atid=727371">1620589</a></li>
-            <li>Prevent infinite loop for bi-directional data object relationships  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1596766&amp;group_id=133517&amp;atid=727371">1596766</a></li>
-            <li>Added support for custom converters at field level  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1476780&amp;group_id=133517&amp;atid=727371">1476780</a></li>
-            <li>Modified custom converting matching logic  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481357&amp;group_id=133517&amp;atid=727371">1481357</a></li>
-            <li>Added support for custom field mappers  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1654784&amp;group_id=133517&amp;atid=727371">1654784</a></li>
-          </ul>
-        </p>
+      <h3>4.2
+        <font size="-3" color="gray">
+          <i>12/16/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Update spring custom converter documentation
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841449&amp;group_id=133517&amp;atid=727368">
+              1841449
+            </a>
+          </li>
+          <li>Trim Strings issue with data type conversion
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1841448&amp;group_id=133517&amp;atid=727368">
+              1841448
+            </a>
+          </li>
+          <li>Orphans not removed from Sets
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1822421&amp;group_id=133517&amp;atid=727368">
+              1822421
+            </a>
+          </li>
+          <li>TimeZone not copied when mapping Calendar
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1815199&amp;group_id=133517&amp;atid=727368">
+              1815199
+            </a>
+          </li>
+          <li>Problem when getters and setters are on different interfaces
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1814758&amp;group_id=133517&amp;atid=727368">
+              1814758
+            </a>
+          </li>
+          <li>Unexpected exception in LogMsgFactory
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1797808&amp;group_id=133517&amp;atid=727368">
+              1797808
+            </a>
+          </li>
+          <li>Map-backed mapping with map-id
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1796344&amp;group_id=133517&amp;atid=727368">
+              1796344
+            </a>
+          </li>
+          <li>Custom converter called on null source field
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1792048&amp;group_id=133517&amp;atid=727368">
+              1792048
+            </a>
+          </li>
+          <li>Patch for determining source field type
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1823435&amp;group_id=133517&amp;atid=727370">
+              1823435
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>4.1
+        <font size="-3" color="gray">
+          <i>09/22/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Inheritance issue(s) with proxied data objects
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777357&amp;group_id=133517&amp;atid=727368">
+              1777357
+            </a>
+          </li>
+          <li>Array mapping with XMLBeans throws NoSuchMehtod exception
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1773425&amp;group_id=133517&amp;atid=727368">
+              1773425
+            </a>
+          </li>
+          <li>Mapping Started Event Not firing on mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1768660&amp;group_id=133517&amp;atid=727368">
+              1768660
+            </a>
+          </li>
+          <li>Inheritance mapping not working correctly - Part Deux
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757573&amp;group_id=133517&amp;atid=727368">
+              1757573
+            </a>
+          </li>
+          <li>Test Cases section not diplaying correctly in web site docs
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1657562&amp;group_id=133517&amp;atid=727368">
+              1657562
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Update inheritance mapping doc's
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1778316&amp;group_id=133517&amp;atid=727371">
+              1778316
+            </a>
+          </li>
+          <li>Repackage functional/e2e tests
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1777076&amp;group_id=133517&amp;atid=727371">
+              1777076
+            </a>
+          </li>
+          <li>Using multiple instances of CustomConverter
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1770440&amp;group_id=133517&amp;atid=727371">
+              1770440
+            </a>
+          </li>
+          <li>Dozer vs. XmlBeans generated primitive types
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1764916&amp;group_id=133517&amp;atid=727371">
+              1764916
+            </a>
+          </li>
+          <li>DozerEvent - sourceObject always null.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1762642&amp;group_id=133517&amp;atid=727371">
+              1762642
+            </a>
+          </li>
+          <li>Path to ResourceLoader to accept any URL
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1757321&amp;group_id=133517&amp;atid=727371">
+              1757321
+            </a>
+          </li>
+          <li>Run existing tests in both unproxied and cglib proxied mode
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1756584&amp;group_id=133517&amp;atid=727371">
+              1756584
+            </a>
+          </li>
+          <li>Removal of orphans in destination collection
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1755838&amp;group_id=133517&amp;atid=727371">
+              1755838
+            </a>
+          </li>
+          <li>Allow global configuration of relationship-type
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750158&amp;group_id=133517&amp;atid=727371">
+              1750158
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>4.0
+        <font size="-3" color="gray">
+          <i>07/15/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Field custom converter bug with Map data types
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749982&amp;group_id=133517&amp;atid=727368">
+              1749982
+            </a>
+          </li>
+          <li>Prob w/ map-get-method and date-format
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1733793&amp;group_id=133517&amp;atid=727368">
+              1733793
+            </a>
+          </li>
+          <li>Global custom converters missing in default ClassMap
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1728385&amp;group_id=133517&amp;atid=727368">
+              1728385
+            </a>
+          </li>
+          <li>Copy Reference mapping instructions ignored for subclasses
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1728159&amp;group_id=133517&amp;atid=727368">
+              1728159
+            </a>
+          </li>
+          <li>mvn eclipse:eclipse does not get all dependencies
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1727717&amp;group_id=133517&amp;atid=727368">
+              1727717
+            </a>
+          </li>
+          <li>Prob w/ map-get-method and CustomConverter
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1724104&amp;group_id=133517&amp;atid=727368">
+              1724104
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Misc code cleanup and refactoring
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1754179&amp;group_id=133517&amp;atid=727371">
+              1754179
+            </a>
+          </li>
+          <li>Refactor/Clean Up Dest Bean Creator
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1752379&amp;group_id=133517&amp;atid=727371">
+              1752379
+            </a>
+          </li>
+          <li>Mapping deep level field in Indexed structure
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1752329&amp;group_id=133517&amp;atid=727371">
+              1752329
+            </a>
+          </li>
+          <li>Add map-id to field mapping debug output
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1750157&amp;group_id=133517&amp;atid=727371">
+              1750157
+            </a>
+          </li>
+          <li>Push mapping value hierarchy down to ClassMap and FieldMap
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749805&amp;group_id=133517&amp;atid=727371">
+              1749805
+            </a>
+          </li>
+          <li>Add bidirectional relationship between FieldMap and ClassMap
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749804&amp;group_id=133517&amp;atid=727371">
+              1749804
+            </a>
+          </li>
+          <li>Don't expose DozerField and DozerClass objects
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1749802&amp;group_id=133517&amp;atid=727371">
+              1749802
+            </a>
+          </li>
+          <li>Remove *PRIME* feature from the docs
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1736864&amp;group_id=133517&amp;atid=727371">
+              1736864
+            </a>
+          </li>
+          <li>Major refactor of Map backed properties
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734665&amp;group_id=133517&amp;atid=727371">
+              1734665
+            </a>
+          </li>
+          <li>Repackage ClassMap.java
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734228&amp;group_id=133517&amp;atid=727371">
+              1734228
+            </a>
+          </li>
+          <li>Load classes consistently
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734163&amp;group_id=133517&amp;atid=727371">
+              1734163
+            </a>
+          </li>
+          <li>Cleanup of internal exception handling
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1734161&amp;group_id=133517&amp;atid=727371">
+              1734161
+            </a>
+          </li>
+          <li>Add config support for auto trimming of strings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1707034&amp;group_id=133517&amp;atid=727371">
+              1707034
+            </a>
+          </li>
+          <li>Mapping deep level field in Indexed structure
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1473800&amp;group_id=133517&amp;atid=727371">
+              1473800
+            </a>
+          </li>
+        </ul>
+      </p>
 
-      <h3>2.4  <font size="-3" color="gray"><i>10/14/2006</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Added ability to load custom mapping files from outside of classpath  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1563130&amp;group_id=133517&amp;atid=727368">1563130</a></li>
-            <li>Runtime exceptions no longer wrapped in MappingException  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1561837&amp;group_id=133517&amp;atid=727368">1561837</a></li>
-            <li>Fixed primitive array to List mapping issue  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1561184&amp;group_id=133517&amp;atid=727368">1561184</a></li>
-            <li>Fixed ConcurrentModificationException  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1550275&amp;group_id=133517&amp;atid=727368">1550275</a></li>
-            <li>Fixed Proxy/Hibernate Lazy Init Object Issues  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1572949&amp;group_id=133517&amp;atid=727368">1572949</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Request for passing up RuntimeException when stop on error is set to false  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1513128&amp;group_id=133517&amp;atid=727371">1513128</a></li>
-            <li>Request for JAXB object factory  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1572996&amp;group_id=133517&amp;atid=727371">1572996</a></li>
-            <li>Request for allowing alternate declaration of mapping files  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1480372&amp;group_id=133517&amp;atid=727371">1480372</a></li>
-            <li>Request for proper null conversion for "proxy" mappings  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1471808&amp;group_id=133517&amp;atid=727371">1471808</a></li>
-            <li>Request for Mapping deep level field in Indexed structure  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1473800&amp;group_id=133517&amp;atid=727371">1473800</a></li>
-          </ul>
-        </p>
-      <h3>2.3  <font size="-3" color="gray"><i>09/01/2006</i></font></h3>
-        <p>Bug Fixes</p> 
-        <p>
-          <ul>      
-            <li>Fixed String to indexed Set using a destination hint  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1543202&amp;group_id=133517&amp;atid=727368">1543202</a></li>
-            <li>Fixed duplicate map-id's found  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1539461&amp;group_id=133517&amp;atid=727368">1539461</a></li>
-            <li>Fixed unable to map SortedSet subinterface  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1538441&amp;group_id=133517&amp;atid=727368">1538441</a></li>
-            <li>Fixed source property desciptor caching  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1537668&amp;group_id=133517&amp;atid=727368">1537668</a></li>
-            <li>Fixed isAccessible not being able to find private fields  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1503670&amp;group_id=133517&amp;atid=727368">1503670</a></li>
-            <li>Fixed index mapping with Set  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1480666&amp;group_id=133517&amp;atid=727368">1480666</a></li>
-            <li>Attempted to fix ConcurrentModificationException  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1550275&amp;group_id=133517&amp;atid=727368">1550275</a></li>
-          </ul>
-        </p>
-        <p>Feature Requests</p> 
-        <p>
-          <ul>      
-            <li>Request for new logging category for startup/init information  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475235&amp;group_id=133517&amp;atid=727371">1475235</a></li>
-            <li>Request for bypass of set dest value when the dest value already equals src value  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481427&amp;group_id=133517&amp;atid=727371">1481427</a></li>
-            <li>Request to use static map of threadsafe primitive + wrapper converters  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481500&amp;group_id=133517&amp;atid=727371">1481500</a></li>
-            <li>Request to make DozerBeanMapper.getMappingProcessor() protected  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470425&amp;group_id=133517&amp;atid=727371">1470425</a></li>
-            <li>Request for improve testability/readability of the code base  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1543302&amp;group_id=133517&amp;atid=727371">1543302</a></li>
-            <li>Request to remove SourceField, DestinationField classes  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1480804&amp;group_id=133517&amp;atid=727371">1480804</a></li>
-            <li>Request to remove SrcClass, DestClass, SrcHint, DestHint, and Hydrate classes  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1539455&amp;group_id=133517&amp;atid=727371">1539455</a></li>
-            <li>Request to move duplicate assemble key logic to common place  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481505&amp;group_id=133517&amp;atid=727371">1481505</a></li>
-            <li>Request to add more unit testing around JMX controller classes  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481538&amp;group_id=133517&amp;atid=727371">1481538</a></li>
-            <li>Request to make map-id more intuitive from a coding perspective  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1484397&amp;group_id=133517&amp;atid=727371">1484397</a></li>
-            <li>Request to clean up PMD errors  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1539639&amp;group_id=133517&amp;atid=727371">1539639</a></li>
-            <li>Request to add more comments to the code base  <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1543264&amp;group_id=133517&amp;atid=727371">1543264</a></li>
-          </ul>
-        </p>
-      <h3>2.2  <font size="-3" color="gray"><i>04/29/2006</i></font></h3>
-        <p>
-          <ul>      
-            <li>Request Implement Event Listening Model<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470590&amp;group_id=133517&amp;atid=727371">RFE 1470590</a></li>
-            <li>Request Remove Hydrate and Dehydrate mapping code<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474422&amp;group_id=133517&amp;atid=727371">RFE 1474422</a></li>
-            <li>Request Remove mapping with just source object<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474413&amp;group_id=133517&amp;atid=727371">RFE 1474413</a></li>
-            <li>Request Mapping XmlBean to JavaBeans Objects<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1468926&amp;group_id=133517&amp;atid=727371">RFE 1468926</a></li>
-            <li>Request DozerBeanMapper extensibility <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470425&amp;group_id=133517&amp;atid=727371">RFE 1470425</a></li>
-            <li>Request field-exclude does not support type one-way <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474440&amp;group_id=133517&amp;atid=727371">RFE 1474440</a></li>
-            <li>Fixed Duplicate Class Mapping Found <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1477786&amp;group_id=133517&amp;atid=727368">Issue 1477786</a></li>
-            <li>Fixed custom converter(s) and primitive matching <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474216&amp;group_id=133517&amp;atid=727368">Issue 1474216</a></li>
-            <li>Fixed CGLIB Source Class - object not instance of declaring class <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1427982&amp;group_id=133517&amp;atid=727368">Issue 1427982</a></li>
-            <li>Added JMX integration and hooks.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475229&amp;group_id=133517&amp;atid=727371">  RFE 1475229</a></li>
-            <li>Added runtime Statistics support.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475228&amp;group_id=133517&amp;atid=727371">  RFE 1475228</a></li>
-            <li>Added support for Dozer configuration via properties file.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475232&amp;group_id=133517&amp;atid=727371">  RFE 1475232</a></li>
-            <li>Cleaned up project documentation.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470452&amp;group_id=133517&amp;atid=727371">  RFE 1470452</a></li>
-          </ul>
-        </p>
-      <h3>2.1.1  <font size="-3" color="gray"><i>04/18/2006</i></font></h3>
-        <p>
-          <ul>      
-            <li>Fixed performance degradation.</li>
-          </ul>
-        </p>
-      <h3>2.1  <font size="-3" color="gray"><i>03/15/2006</i></font></h3>
-        <p>
-          <ul>      
-            <li>Refactored the code extensively to support a more flexible property descriptor model</li>
-            <li>Request Index based mappings<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1468873&amp;group_id=133517&amp;atid=727371">RFE 1468873. Thank you Kiersztyn Wojtek and Peciuch Dominic for your code contribution!</a></li>
-            <li>Request Make 'this' keyword functionality bi-directional<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1456490&amp;group_id=133517&amp;atid=727371">RFE 1456490</a></li>
-            <li>Request Support for write only (set) or read only (get) objects<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1459057&amp;group_id=133517&amp;atid=727371">RFE 1459057</a></li>
-            <li>Fixed Superclass reflection issue<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1468980&amp;group_id=133517&amp;atid=727368">Issue 1468980</a></li>
-            <li>Fixed Wrong field mapped when an instance is passed in.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1456513&amp;group_id=133517&amp;atid=727368">Issue 1456513</a></li>
-            <li>Fixed No tranformation from a Map attribute to source value<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1431086&amp;group_id=133517&amp;atid=727368">Issue 1431086</a></li>
-            <li>Fixed CGLIB Source Class - object not instance of declaring class <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1427982&amp;group_id=133517&amp;atid=727368">Issue 1427982</a></li>
-          </ul>
-        </p>
-      <h3>2.0.2  <font size="-3" color="gray"><i>02/29/2006</i></font></h3>
-        <p>
-          <ul>      
-            <li>Added PDF Users Guide</li>
-            <li>Request for more log.dubug statements to help diagnosing mapping problems<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1445372&amp;group_id=133517&amp;atid=727371">RFE 1445372</a></li>
-            <li>Fixed log.error when an exception is thrown and stop on errors is true<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1445376&amp;group_id=133517&amp;atid=727368">RFE 1445376</a></li>
-          </ul>
-        </p>
-      <h3>2.0.1  <font size="-3" color="gray"><i>02/02/2006</i></font></h3>
-        <p>
-          <ul>      
-            <li>Request for allow override to exclude mapping of null src field value<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1413480&amp;group_id=133517&amp;atid=727371">RFE 1413480</a></li>
-            <li>Request for allow override to exclude mapping of "" src field value<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1417170&amp;group_id=133517&amp;atid=727371">RFE 1417170</a></li>
-            <li>Request check mapping file for duplicate entries<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1416905&amp;group_id=133517&amp;atid=727371">RFE 1416905</a></li>
-            <li>Fixed Hint is not used for Array to List<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1413429&amp;group_id=133517&amp;atid=727368">Issue 1413429</a></li>
-            <li>Fixed Context Based Mapping and Nested Context based mapping does not work unless a Map<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1413451&amp;group_id=133517&amp;atid=727368">Issues 1413443 and 1413451</a></li>
-            <li>Fixed LinkedHashMap not compatible with JDK 1.3<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1419357&amp;group_id=133517&amp;atid=727368">Issues 1419357</a></li>
-            <li>Fixed NPE when sourceFieldValue is null in logFieldMappingError() method</li>
-          </ul>
-        </p>
-      <h3>2.0  <font size="-3" color="gray"><i>01/16/2006</i></font></h3>
-        <p>
-          <ul>      
-            <li>Request for create dozer 1.x - 2.x migration documentation.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1397121&amp;group_id=133517&amp;atid=727371">RFE 1397121</a></li>
-            <li>Request for increase performance 4X - 8X.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1381246&amp;group_id=133517&amp;atid=727371">RFE 1381246</a></li>
-            <li>Request for XML tags more consistent.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1381249&amp;group_id=133517&amp;atid=727371">RFE 1381249</a></li>
-            <li>Request for custom create methods.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1386770&amp;group_id=133517&amp;atid=727371">RFE 1386770</a></li>
-            <li>Request for remove static BeanMapper.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1381248&amp;group_id=133517&amp;atid=727371">RFE 1381248</a></li>
-            <li>Fixed exclude-field doesn't work on an indexed property <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1404944&amp;group_id=133517&amp;atid=727368">Issue 1404944</a></li>
-            <li>Fixed Better error message for null top level src object <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1386663&amp;group_id=133517&amp;atid=727368">Issue 1386663</a></li>
-            <li>Fixed OO domain objs to flat VO obj w/ interface issue <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1391777&amp;group_id=133517&amp;atid=727368">Issue 1391777</a></li>
-            <li>Fixed Default ClassMap not getting CustomConverters <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1384887&amp;group_id=133517&amp;atid=727368">Issue 1384887</a></li>
-          </ul>
-        </p>
-      <h3>1.5.8.1  <font size="-3" color="gray"><i>12/08/2005</i></font></h3>
-        <p>
-          <ul>      
-            <li>Request for ability to have overloaded set() methods. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1375559&amp;group_id=133517&amp;atid=727371">RFE 1375559</a></li>
-            <li>Request for upgrade to commons-lang-2.1. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1375457&amp;group_id=133517&amp;atid=727371">RFE 1375457</a></li>
-            <li>Request for ability to map field w/out get() set() Methods. This is a partial implementation.<a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1373285&amp;group_id=133517&amp;atid=727371">RFE 1373285</a></li>
-            <li>Request for if no destination for List, Set, Map inst. source class when appropriate. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1373219&amp;group_id=133517&amp;atid=727371">RFE 1373219</a></li>
-            <li>Request for enhanced ability to copy map to map. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1372011&amp;group_id=133517&amp;atid=727371">RFE 1372011</a></li>
-            <li>Request for Set to Array, Array to Set, Set to List, List to Set. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1370482&amp;group_id=133517&amp;atid=727371">RFE 1370482</a></li>
-            <li>Fixed compatibility with JDK 1.3. At one point we had this...and then reverted back by using LinkedHashSet.</li>
-            <li>Fixed Null Value in String Array causes NPE <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1373824&amp;group_id=133517&amp;atid=727368">Issue 1373824</a></li>
-            <li>Fixed Deep property mapping and Inheritance <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1372000&amp;group_id=133517&amp;atid=727368">Issue 1372000</a></li>
-          </ul>
-        </p>
-      <h3>1.5.8  <font size="-3" color="gray"><i>11/29/2005</i></font></h3>
-        <p>
-          <ul>      
-            <li>Request for enhancement remove dependency on Castor. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1369801&amp;group_id=133517&amp;atid=727371">RFE 1369801</a></li>
-            <li>Request for enhancement ability to Initialize DozerBeanMapper. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1367803&amp;group_id=133517&amp;atid=727371">RFE 1367803</a></li>
-            <li>Request for ability to inject custom converters. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1363361&amp;group_id=133517&amp;atid=727371">RFE 1363361</a></li>
-            <li>Request for enhancement for making CustomConverters global to all mapping files. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1363358&amp;group_id=133517&amp;atid=727371">RFE 1363358</a></li>
-            <li>Fixed InterFace isAssignableFrom Class <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1365701&amp;group_id=133517&amp;atid=727368">Issue 1365701</a></li>
-            <li>Fixed Iterator to Array/List <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1364373&amp;group_id=133517&amp;atid=727368">Issue 1364373</a></li>
-            <li>Fixed Array to Array mapping <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1361105&amp;group_id=133517&amp;atid=727368">Issue 1361105</a></li>
-          </ul>
-        </p>
-      <h3>1.5.7  <font size="-3" color="gray"><i>11/15/2005</i></font></h3>
-        <p>
-          <ul>      
-            <li>Added support to map to/from a Map or Struts *like* DynaActionForm object. Dozer now supports mapping to/from any Map backed property. It can implement the Map Interface
-            or be a custom map object: <a href="http://sourceforge.net/forum/forum.php?thread_id=1373700&amp;forum_id=452530">Forum Thread 452530</a></li>
-            <li>Request for enhancement declare a class as copy-by-reference <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1345821&amp;group_id=133517&amp;atid=727371">RFE 1345821</a></li>
-            <li>Request for enhancement No way to reference self (this) in field mapping <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1277096&amp;group_id=133517&amp;atid=727371">RFE 1277096</a></li>
-            <li>Request for enhancement for Collapse &lt;field-deep&gt; tag into &lt;field&gt; tag. All &lt;field-deep&gt; tags need to be replaced with &lt;field&gt; tags. <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1347953&amp;group_id=133517&amp;atid=727371">RFE 1347953</a></li>
-            <li>Applied patch for Spring bean factory injection: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1349799&amp;group_id=133517&amp;atid=727370">Patch 1349799</a></li>
-            <li>Fixed Configuration Overrides Not Working <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1352438&amp;group_id=133517&amp;atid=727368">Issue 1352438</a></li>
-            <li>Fixed multiple levels of custom mapping processed in wrong order <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1346370&amp;group_id=133517&amp;atid=727368">Issue 1346370</a></li>
-            <li>Fixed regression on finding most specific destination mapping <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1346342&amp;group_id=133517&amp;atid=727368">Issue 1346342</a></li>
-            <li>Fixed ExcludeFieldMap not inherited <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1345816&amp;group_id=133517&amp;atid=727368">Issue 1345816</a></li>
-          </ul>
-        </p>
-      <h3>1.5.6  <font size="-3" color="gray"><i>10/30/2005</i></font></h3>
-        <p>
-          <ul>      
-            <li>&lt;field-deep&gt; enhancements: Support for copy-by-reference and type (one-way) attributes.</li>          
-            <li>Added News section on home page. Latest release number is now on left-hand side navigation column.</li>
-            <li>Added support for copying an object by reference: <a href="http://sourceforge.net/forum/forum.php?thread_id=1369762&amp;forum_id=452530">Forum Thread</a></li>
-            <li>Request for enhancement for Custom Bean Creation Factories: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1325412&amp;group_id=133517&amp;atid=727371">RFE 1325412</a></li>
-            <li>Applied patch for MappingProcessor exception handling refactoring: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1333634&amp;group_id=133517&amp;atid=727370">Patch 1333634</a></li>
-            <li>Applied patch for finding most specific mapping: <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1325524&amp;group_id=133517&amp;atid=727370">Patch 1325524</a></li>
-            <li>Fixed Empty String value is getting lost during mapping <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1342611&amp;group_id=133517&amp;atid=727368">Issue 1342611</a></li>
-            <li>Fixed one-way overriden by default field mappings <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1339074&amp;group_id=133517&amp;atid=727368">Issue 1339074</a></li>
-            <li>Fixed Using an Interface for a Custom Converter Class <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1342127&amp;group_id=133517&amp;atid=727368">Issue 1342127</a></li>
-            <li>Fixed wrong destination object for list of custom converted object <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1332606&amp;group_id=133517&amp;atid=727368">Issue 1332606</a></li>
-            <li>Fixed custom convertor not associated with hints <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1321647&amp;group_id=133517&amp;atid=727368">Issue 1321647</a></li>
-          </ul>
-        </p>
-      <h3>1.5.5  <font size="-3" color="gray"><i>10/13/2005</i></font></h3>
-        <p>
-          <ul> 
-            <li>Fixed incorrect set mapping for existing destination set <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1324277&amp;group_id=133517&amp;atid=727368">Issue</a></li>
-            <li>Fixed Use of Default ClassMap with date formatting <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1324220&amp;group_id=133517&amp;atid=727368">Issue</a></li>
-            <li>If the destination object was mapped and is NULL, we now map it.</li>
-            <li>When mapping Array -> Array or List -> Array do not need hints anymore. This does not apply to Object Arrays.</li>
-            <li>Fixed Another Hydrate and Non-Cumulative <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1305239&amp;group_id=133517&amp;atid=727368">Issue</a></li>
-            <li>Fixed DTD has field-method and field-iterate methods <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1305240&amp;group_id=133517&amp;atid=727368">Issue</a></li>
-            <li>Fixed Field-Deep String to List Error <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1305033&amp;group_id=133517&amp;atid=727368">Issue</a></li>
-          </ul>
-        </p>
-      <h3>1.5.4  <font size="-3" color="gray"><i>09/20/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Added ability to Map the destination object to Interfaces, Abstract Classes, or Super Classes. See this <a href="http://sourceforge.net/forum/message.php?msg_id=3292204">thread</a> for more information</li>
-            <li>Fixed the Hydrate and Non-Cumulative <a href="http://sourceforge.net/forum/forum.php?thread_id=1350771&amp;forum_id=452530">Issue</a></li>
-            <li>Removed samples folder until we can make it more up-to-date.</li>
-          </ul>
-        </p>
-      <h3>1.5.3  <font size="-3" color="gray"><i>09/16/2005</i></font></h3>
-        <p>
-          <ul>           
-            <li>Fixed Custom Mapping and made the interface cleaner <a href="http://sourceforge.net/forum/forum.php?thread_id=1348774&amp;forum_id=452530">issue</a></li>
-            <li>Fixed blank string conversion bug <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1292080&amp;group_id=133517&amp;atid=727368">1292080</a></li>
-          </ul>
-        </p>
-      <h3>1.5.2  <font size="-3" color="gray"><i>09/14/2005</i></font></h3>
-        <p>
-          <ul>           
-            <li>Added support for multiple source and destination hints in Collection and Array mapping</li>
-            <li>Fixed Mapping iheritance<a href="http://sourceforge.net/forum/forum.php?thread_id=1340715&amp;forum_id=452530"> issue(s)</a></li>
-            <li>Iterate type methods can now return an Iterator for their get() method.</li>
-          </ul>
-        </p>
-      <h3>1.5.1  <font size="-3" color="gray"><i>09/07/2005</i></font></h3>
-        <p>
-          <ul>           
-            <li>Added &lt;field&gt; level one-way mapping. i.e. &lt;field type="one-way"&gt;</li>
-            <li>Removed &lt;field-method&gt; and &lt;field-iterate-method&gt; and now use the &lt;field&gt; in combination with attributes. See this <a href="http://sourceforge.net/forum/forum.php?thread_id=1332901&amp;forum_id=452530">thread</a> for more information. This has also been updated in the documentation.</li>
-            <li>DTD validation was disabled. It is now working.</li>
-            <li>Thanks to Seb :) the ClassLoader issues have been put to bed.</li>
-          </ul>
-        </p>
-      <h3>1.5.0.1  <font size="-3" color="gray"><i>08/31/2005</i></font></h3>
-        <p>
-          <ul>           
-            <li>Fixed ClassLoader <a href="http://sourceforge.net/forum/message.php?msg_id=3320046"> issue</a></li>
-          </ul>
-        </p>
-      <h3>1.5.0  <font size="-3" color="gray"><i>08/30/2005</i></font></h3>
-        <p>
-          <ul>           
-            <li>Fixed map by reference <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1264347&amp;group_id=133517&amp;atid=727368">defect 1264347</a></li>
-            <li>Integrated with Spring.  Dozer can be used statically and as a bean</li>
-            <li>Fixed a global wildcard bug.</li>
-            <li>Upgraded to caster 0.9.6 to fix for allowing whitespace in the XML files</li>
-            <li>Addressed adding vs. updating List. We were not truly updating the <a href="http://sourceforge.net/forum/forum.php?thread_id=1336784&amp;forum_id=452529">list</a> </li>
-          </ul>
-        </p>
-      <h3>1.4.6  <font size="-3" color="gray"><i>08/19/2005</i></font></h3>
-        <p>
-          <ul>           
-            <li>Addressed adding vs. updating List <a href="http://sourceforge.net/forum/forum.php?thread_id=1336784&amp;forum_id=452529">objects</a></li> 
-            <li>Added GenericFieldMap which extends FieldMap so we can have custom behavior on simple field mappings.</li>
-            <li>Finally :) fixed ClassLoader bug <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1263159&amp;group_id=133517&amp;atid=727368">1263159</a></li>
-            <li>Dozer now supports overriding getter() and setter() <a href="http://sourceforge.net/forum/forum.php?thread_id=1332901&amp;forum_id=452530">method names</a></li>
-            <li>Addressed Cloneable VS SerializationUtils.clone() <a href="http://sourceforge.net/forum/forum.php?thread_id=1338042&amp;forum_id=452529">issue</a></li>
-          </ul>
-        </p>
-      <h3>1.4.5  <font size="-3" color="gray"><i>08/18/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Addressed the ClassLoader defect <a href="http://sourceforge.net/forum/forum.php?thread_id=1336861&amp;forum_id=452530">issue</a></li>
-            <li>Addressed the Pass By Reference <a href="http://sourceforge.net/forum/forum.php?thread_id=1336784&amp;forum_id=452529">issue</a></li>
-            <li>Addressed the field exclude getter() setter() <a href="http://sourceforge.net/forum/forum.php?thread_id=1336161&amp;forum_id=452530">issue</a></li>
-          </ul>
-        </p>
-      <h3>1.4.4  <font size="-3" color="gray"><i>08/16/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Added one-way mapping at mapping level into DTD</li>
-            <li>Added unit test for one-way mapping</li>
-            <li>&lt;field&gt; level tag source and destination hint functionality did not work unless it was an array or list. This has been fixed.</li>
-          </ul>
-        </p>
-      <h3>1.4.3  <font size="-3" color="gray"><i>08/15/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Moved to DTD validation from XSD validation per defect ID <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1256049&amp;group_id=133517&amp;atid=727368">1256049</a></li>
-            <li>Added &lt;field-exclude&gt; tag.</li>
-            <li>Fixed bug where branch and lower level objects which were on the source and already been instantiated were being new()ed up on conversion back to the source.</li>
-            <li>If a Java Bean did not have a getter() or setter() method we would throw NPE. We now throw a MappingException with description.</li>
-          </ul>
-        </p>
-      <h3>1.4.2  <font size="-3" color="gray"><i>08/10/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Support for JDK 1.3</li>
-          </ul>
-        </p>
-      <h3>1.4.1  <font size="-3" color="gray"><i>07/28/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Deep field output for logging arrays</li>
-            <li>Field-deep tag now supports sourceTypeHint and destinationTypeHints</li>
-          </ul>
-        </p>
-      <h3>1.4  <font size="-3" color="gray"><i>07/11/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Removed test data retrieval from Spring</li>
-            <li>MapperException is now a RuntimeException</li>
-            <li>Fields in a base class can now be mapped in the mapping file and all of the corresponding sub-classes will not have to specify those fields</li>            
-            <li>Multiple mapping files can be added to the dozerContext.xml file.</li>            
-          </ul>
-        </p>
-      <h3>1.3.3  <font size="-3" color="gray"><i>06/07/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Added Getting Started section to documentation</li>
-            <li>Fixed bug inability to locate mapping file in a jar file at runtime</li>
-          </ul>
-        </p>
-      <h3>1.3.2  <font size="-3" color="gray"><i>06/03/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Fixed bug 1214291 NullPointerException when no fields</li>
-            <li>Changed license to Apache, Version 2.0</li>
-          </ul>
-        </p>
-      <h3>1.3.1  <font size="-3" color="gray"><i>06/02/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Fixed incorrect error message stating that beanmapping.xml was not in the classpath</li>
-            <li>Fixed documentation so that images appear offline</li>
-            <li>Added note about using log4j.properties file</li>
-          </ul>
-        </p>
-      <h3>1.3  <font size="-3" color="gray"><i>06/01/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Fixed deep field mapping logic</li>
-            <li>Renamed castormappings.xml to dozercastormappings.xml</li>
-            <li>Changed default dozer mappings file to dozerBeanMapping.xml.  beanmapping.xml is still supported for backwards compatability.</li>
-            <li>Allow override of default mapping file that will get loaded by using system property.  -Ddozer.configuration=myBeanMapping.xml</li>
-            <li>Resolved some of the pmd errors</li>
-            <li>Added a validate method to Mapping Reader.  We need to add more.</li>
-            <li>Apply top level configuration props to children during initialization process.  Removed double checking in the code</li>
-            <li>Apply top level configuration props to default class map in processor.</li>
-            <li>Added some todos to working doc.</li>
-            <li>Added deep mapping examples to samples</li>
-            <li>XSD Schema validation</li>
-            <li>XSD Schema is now on the website</li>
-          </ul>
-        </p>
-      <h3>1.2  <font size="-3" color="gray"><i>05/03/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>Created a dozer-full.jar file which includes all of the run-time dependency classes needed</li>
-            <li>Mappings file can now be empty except for begin and end mappings tag</li>
-            <li>Added global configuration XML to contain settings for wildcard, dateformat, error handling, and custom converters</li>
-            <li>changes to allow each mapping element override global settings, and some even at the field level</li>
-            <li>added a check for infinite loops during mapping</li>
-            <li>user can specify whether or not Dozer throws exceptions or eats exceptions</li>
-            <li>added the ability to specify custom converter objects to handle special mapping/conversion cases</li>
-            <li>created a mapping processor object to allow the use of local variables.  Mapper class methods are still static for ease of use.</li>
-            <li>Added more unit tests, as always</li>
-          </ul>
-        </p>
-      <h3>1.1  <font size="-3" color="gray"><i>04/06/2005</i></font></h3>
-        <p>
-          <ul>
-            <li>fixed mapping bug with methodMap and methodDehydrate where it would transform but not convert</li>
-            <li>many infrastructure changes: moved beanmapping.xml parsing to castor</li>
-            <li>fixed bug where bogus data conversion from String to Wrapper would not produce any errors</li>
-            <li>The code was changed to get the default mappings after it loads the custom mappings</li>
-            <li>String conversions to a Date object based on a date format</li>
-            <li>beanmapping.xml file now has field-deep, field-hydrate, field-dehydrate, field-method, and field-iterate-method elements</li>
-            <li>Added more unit tests</li>
-          </ul>
-        </p>
+      <h3>3.4
+        <font size="-3" color="gray">
+          <i>05/19/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Incorrectly recognizing JDK 6.0
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1717547&amp;group_id=133517&amp;atid=727368">
+              1717547
+            </a>
+          </li>
+          <li>Null pointer on MappingProcessor at Line 282
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1717318&amp;group_id=133517&amp;atid=727368">
+              1717318
+            </a>
+          </li>
+          <li>Change the way we determine JDK Version
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1715819&amp;group_id=133517&amp;atid=727368">
+              1715819
+            </a>
+          </li>
+          <li>Lost and Duplicated Objects
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1715496&amp;group_id=133517&amp;atid=727368">
+              1715496
+            </a>
+          </li>
+          <li>Fix Map VO with no custom mappings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713550&amp;group_id=133517&amp;atid=727368">
+              1713550
+            </a>
+          </li>
+          <li>Propagate exceptions while parsing allowed-exceptions xml
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713242&amp;group_id=133517&amp;atid=727368">
+              1713242
+            </a>
+          </li>
+          <li>NPE when Date String when no date format specified
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1711580&amp;group_id=133517&amp;atid=727368">
+              1711580
+            </a>
+          </li>
+          <li>inappropriate subclass mappings applied
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1674199&amp;group_id=133517&amp;atid=727368">
+              1674199
+            </a>
+          </li>
+          <li>Inheritance mapping not working correctly
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1486105&amp;group_id=133517&amp;atid=727368">
+              1486105
+            </a>
+          </li>
+          <li>bidirectionnal mapping with sets subclasses
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664984&amp;group_id=133517&amp;atid=727368">
+              1664984
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Change util classes to static
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1713604&amp;group_id=133517&amp;atid=727371">
+              1713604
+            </a>
+          </li>
+          <li>Add PMD and Findbugs reports
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1712886&amp;group_id=133517&amp;atid=727371">
+              1712886
+            </a>
+          </li>
+          <li>Remove NotFoundException and DozerRuntimeExceptions
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1712513&amp;group_id=133517&amp;atid=727371">
+              1712513
+            </a>
+          </li>
+          <li>Add class level javadoc for classes missing it
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1696636&amp;group_id=133517&amp;atid=727371">
+              1696636
+            </a>
+          </li>
+        </ul>
+      </p>
+
+      <h3>3.3.1
+        <font size="-3" color="gray">
+          <i>04/28/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Remove Spring runtime dependency. Revert back to using Apache Commons to get Property Descriptors
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1709117&amp;group_id=133517&amp;atid=727368">
+              1709117
+            </a>
+          </li>
+        </ul>
+      </p>
+
+      <h3>3.3
+        <font size="-3" color="gray">
+          <i>04/26/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Throw exception if map-id cannot be resolved
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1706291&amp;group_id=133517&amp;atid=727368">
+              1706291
+            </a>
+          </li>
+          <li>When adding default field mappings, skip getter's w/params
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1705525&amp;group_id=133517&amp;atid=727368">
+              1705525
+            </a>
+          </li>
+          <li>When discovering default field mappings require corresponding get/set method
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1704085&amp;group_id=133517&amp;atid=727368">
+              1704085
+            </a>
+          </li>
+          <li>Global Bean Factory not applied to default mappings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1700448&amp;group_id=133517&amp;atid=727368">
+              1700448
+            </a>
+          </li>
+          <li>Non-Cumulative mapping issues
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1698069&amp;group_id=133517&amp;atid=727368">
+              1698069
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Use Spring's BeanUtils.getPropDescriptors() instead of jakarta
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1707014&amp;group_id=133517&amp;atid=727371">
+              1707014
+            </a>
+          </li>
+          <li>When auto registering mbeans check if mbean is already reg'd
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1697294&amp;group_id=133517&amp;atid=727371">
+              1697294
+            </a>
+          </li>
+          <li>Recursive object mapping not working with interfaces
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1658168&amp;group_id=133517&amp;atid=727371">
+              1658168
+            </a>
+          </li>
+          <li>Improve collection handling, esp. non-cumulative mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1482749&amp;group_id=133517&amp;atid=727371">
+              1482749
+            </a>
+          </li>
+        </ul>
+      </p>
+
+      <h3>3.2.1
+        <font size="-3" color="gray">
+          <i>04/08/2007</i>
+        </font>
+      </h3>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Boolean to number auto converstion
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695408&amp;group_id=133517&amp;atid=727371">
+              1695408
+            </a>
+          </li>
+          <li>Added statistics for custom converter mappings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695380&amp;group_id=133517&amp;atid=727371">
+              1695380
+            </a>
+          </li>
+          <li>Small performance improvement for jdk1.5 users
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1694734&amp;group_id=133517&amp;atid=727371">
+              1694734
+            </a>
+          </li>
+        </ul>
+      </p>
+
+      <h3>3.2
+        <font size="-3" color="gray">
+          <i>04/03/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>3.1 Release not backwards compatible with JDK 1.3
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1692620&amp;group_id=133517&amp;atid=727368">
+              1692620
+            </a>
+          </li>
+          <li>Destination Value always null in CustomConverter
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1679996&amp;group_id=133517&amp;atid=727368">
+              1679996
+            </a>
+          </li>
+          <li>Indexed Mapping broke when is-accessible is true
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1673152&amp;group_id=133517&amp;atid=727368">
+              1673152
+            </a>
+          </li>
+          <li>Allowed Exceptions not working for default mappings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1658569&amp;group_id=133517&amp;atid=727368">
+              1658569
+            </a>
+          </li>
+          <li>Remove is-accessible option from configuration and mapping sections in the DTD
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1692603&amp;group_id=133517&amp;atid=727368">
+              1692603
+            </a>
+          </li>
+          <li>Set mapping problem when field starts in upper case in mapping xml file
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1549738&amp;group_id=133517&amp;atid=727368">
+              1549738
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Auto register Dozer JMX MBeans with the platform mbean server
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1690327&amp;group_id=133517&amp;atid=727371">
+              1690327
+            </a>
+          </li>
+          <li>Private constructor support when creating new instances of data objects
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1690298&amp;group_id=133517&amp;atid=727371">
+              1690298
+            </a>
+          </li>
+          <li>Create quick reference page for mapping xml options
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1657611&amp;group_id=133517&amp;atid=727371">
+              1657611
+            </a>
+          </li>
+          <li>Set/get method for last field in deep-chaing
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1456486&amp;group_id=133517&amp;atid=727371">
+              1456486
+            </a>
+          </li>
+          <li>Add documentation for existing custom converter support of Array types
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1691021&amp;group_id=133517&amp;atid=727371">
+              1691021
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>3.1
+        <font size="-3" color="gray">
+          <i>03/25/2007</i>
+        </font>
+      </h3>
+      <p>Patches</p>
+      <p>
+        <ul>
+          <li>Bi-direction is-accessible
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1664865&amp;group_id=133517&amp;atid=727370">
+              1664865
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Dramatic Performance Degradation with Interfaces
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1684237&amp;group_id=133517&amp;atid=727368">
+              1684237
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Transparent Java 5 enums support
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1685083&amp;group_id=133517&amp;atid=727371">
+              1685083
+            </a>
+          </li>
+          <li>Move dozer to subversion
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1684934&amp;group_id=133517&amp;atid=727371">
+              1684934
+            </a>
+          </li>
+          <li>Maven 2 Repo
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1677946&amp;group_id=133517&amp;atid=727371">
+              1677946
+            </a>
+          </li>
+          <li>Resolve collection hints from Java 5 generic type information
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1677376&amp;group_id=133517&amp;atid=727371">
+              1677376
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>3.0
+        <font size="-3" color="gray">
+          <i>02/08/2007</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Fixed custom converter cache
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644966 &amp;group_id=133517&amp;atid=727368">
+              1644966
+            </a>
+          </li>
+          <li>Fixed wildcard mapping not working with interface inheritance
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1636354&amp;group_id=133517&amp;atid=727368">
+              1636354
+            </a>
+          </li>
+          <li>Fixed inherited setters not found with interface inheritances
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1637106&amp;group_id=133517&amp;atid=727368">
+              1637106
+            </a>
+          </li>
+          <li>Fixed mapping from object to array
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1616229&amp;group_id=133517&amp;atid=727368">
+              1616229
+            </a>
+          </li>
+          <li>Fixed ClassMapFinder does not find ClassMap for interfaces
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1615377&amp;group_id=133517&amp;atid=727368">
+              1615377
+            </a>
+          </li>
+          <li>Added Spring FactoryBean
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1613791&amp;group_id=133517&amp;atid=727368">
+              1613791
+            </a>
+          </li>
+          <li>Fixed is-accessible problem with abstract super classes
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1599457&amp;group_id=133517&amp;atid=727368">
+              1599457
+            </a>
+          </li>
+          <li>Fixed ClassMap not found for interface mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1554793&amp;group_id=133517&amp;atid=727368">
+              1554793
+            </a>
+          </li>
+          <li>Fixed issue with custom converters not being invoked for null values
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1563795&amp;group_id=133517&amp;atid=727368">
+              1563795
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Upgrade build infrastructure to Maven2
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1651498&amp;group_id=133517&amp;atid=727371">
+              1651498
+            </a>
+          </li>
+          <li>Removed dependency on log4j
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1644537&amp;group_id=133517&amp;atid=727371">
+              1644537
+            </a>
+          </li>
+          <li>Misc performance improvements
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1645687&amp;group_id=133517&amp;atid=727371">
+              1645687
+            </a>
+          </li>
+          <li>Cleaned up indexed logic and custom converter logic
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1620589&amp;group_id=133517&amp;atid=727371">
+              1620589
+            </a>
+          </li>
+          <li>Prevent infinite loop for bi-directional data object relationships
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1596766&amp;group_id=133517&amp;atid=727371">
+              1596766
+            </a>
+          </li>
+          <li>Added support for custom converters at field level
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1476780&amp;group_id=133517&amp;atid=727371">
+              1476780
+            </a>
+          </li>
+          <li>Modified custom converting matching logic
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481357&amp;group_id=133517&amp;atid=727371">
+              1481357
+            </a>
+          </li>
+          <li>Added support for custom field mappers
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1654784&amp;group_id=133517&amp;atid=727371">
+              1654784
+            </a>
+          </li>
+        </ul>
+      </p>
+
+      <h3>2.4
+        <font size="-3" color="gray">
+          <i>10/14/2006</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Added ability to load custom mapping files from outside of classpath
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1563130&amp;group_id=133517&amp;atid=727368">
+              1563130
+            </a>
+          </li>
+          <li>Runtime exceptions no longer wrapped in MappingException
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1561837&amp;group_id=133517&amp;atid=727368">
+              1561837
+            </a>
+          </li>
+          <li>Fixed primitive array to List mapping issue
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1561184&amp;group_id=133517&amp;atid=727368">
+              1561184
+            </a>
+          </li>
+          <li>Fixed ConcurrentModificationException
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1550275&amp;group_id=133517&amp;atid=727368">
+              1550275
+            </a>
+          </li>
+          <li>Fixed Proxy/Hibernate Lazy Init Object Issues
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1572949&amp;group_id=133517&amp;atid=727368">
+              1572949
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Request for passing up RuntimeException when stop on error is set to false
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1513128&amp;group_id=133517&amp;atid=727371">
+              1513128
+            </a>
+          </li>
+          <li>Request for JAXB object factory
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1572996&amp;group_id=133517&amp;atid=727371">
+              1572996
+            </a>
+          </li>
+          <li>Request for allowing alternate declaration of mapping files
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1480372&amp;group_id=133517&amp;atid=727371">
+              1480372
+            </a>
+          </li>
+          <li>Request for proper null conversion for "proxy" mappings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1471808&amp;group_id=133517&amp;atid=727371">
+              1471808
+            </a>
+          </li>
+          <li>Request for Mapping deep level field in Indexed structure
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1473800&amp;group_id=133517&amp;atid=727371">
+              1473800
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>2.3
+        <font size="-3" color="gray">
+          <i>09/01/2006</i>
+        </font>
+      </h3>
+      <p>Bug Fixes</p>
+      <p>
+        <ul>
+          <li>Fixed String to indexed Set using a destination hint
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1543202&amp;group_id=133517&amp;atid=727368">
+              1543202
+            </a>
+          </li>
+          <li>Fixed duplicate map-id's found
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1539461&amp;group_id=133517&amp;atid=727368">
+              1539461
+            </a>
+          </li>
+          <li>Fixed unable to map SortedSet subinterface
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1538441&amp;group_id=133517&amp;atid=727368">
+              1538441
+            </a>
+          </li>
+          <li>Fixed source property desciptor caching
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1537668&amp;group_id=133517&amp;atid=727368">
+              1537668
+            </a>
+          </li>
+          <li>Fixed isAccessible not being able to find private fields
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1503670&amp;group_id=133517&amp;atid=727368">
+              1503670
+            </a>
+          </li>
+          <li>Fixed index mapping with Set
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1480666&amp;group_id=133517&amp;atid=727368">
+              1480666
+            </a>
+          </li>
+          <li>Attempted to fix ConcurrentModificationException
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1550275&amp;group_id=133517&amp;atid=727368">
+              1550275
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p>Feature Requests</p>
+      <p>
+        <ul>
+          <li>Request for new logging category for startup/init information
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475235&amp;group_id=133517&amp;atid=727371">
+              1475235
+            </a>
+          </li>
+          <li>Request for bypass of set dest value when the dest value already equals src value
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481427&amp;group_id=133517&amp;atid=727371">
+              1481427
+            </a>
+          </li>
+          <li>Request to use static map of threadsafe primitive + wrapper converters
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481500&amp;group_id=133517&amp;atid=727371">
+              1481500
+            </a>
+          </li>
+          <li>Request to make DozerBeanMapper.getMappingProcessor() protected
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470425&amp;group_id=133517&amp;atid=727371">
+              1470425
+            </a>
+          </li>
+          <li>Request for improve testability/readability of the code base
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1543302&amp;group_id=133517&amp;atid=727371">
+              1543302
+            </a>
+          </li>
+          <li>Request to remove SourceField, DestinationField classes
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1480804&amp;group_id=133517&amp;atid=727371">
+              1480804
+            </a>
+          </li>
+          <li>Request to remove SrcClass, DestClass, SrcHint, DestHint, and Hydrate classes
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1539455&amp;group_id=133517&amp;atid=727371">
+              1539455
+            </a>
+          </li>
+          <li>Request to move duplicate assemble key logic to common place
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481505&amp;group_id=133517&amp;atid=727371">
+              1481505
+            </a>
+          </li>
+          <li>Request to add more unit testing around JMX controller classes
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1481538&amp;group_id=133517&amp;atid=727371">
+              1481538
+            </a>
+          </li>
+          <li>Request to make map-id more intuitive from a coding perspective
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1484397&amp;group_id=133517&amp;atid=727371">
+              1484397
+            </a>
+          </li>
+          <li>Request to clean up PMD errors
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1539639&amp;group_id=133517&amp;atid=727371">
+              1539639
+            </a>
+          </li>
+          <li>Request to add more comments to the code base
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1543264&amp;group_id=133517&amp;atid=727371">
+              1543264
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>2.2
+        <font size="-3" color="gray">
+          <i>04/29/2006</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Request Implement Event Listening Model
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470590&amp;group_id=133517&amp;atid=727371">
+              RFE 1470590
+            </a>
+          </li>
+          <li>Request Remove Hydrate and Dehydrate mapping code
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474422&amp;group_id=133517&amp;atid=727371">
+              RFE 1474422
+            </a>
+          </li>
+          <li>Request Remove mapping with just source object
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474413&amp;group_id=133517&amp;atid=727371">
+              RFE 1474413
+            </a>
+          </li>
+          <li>Request Mapping XmlBean to JavaBeans Objects
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1468926&amp;group_id=133517&amp;atid=727371">
+              RFE 1468926
+            </a>
+          </li>
+          <li>Request DozerBeanMapper extensibility
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470425&amp;group_id=133517&amp;atid=727371">
+              RFE 1470425
+            </a>
+          </li>
+          <li>Request field-exclude does not support type one-way
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474440&amp;group_id=133517&amp;atid=727371">
+              RFE 1474440
+            </a>
+          </li>
+          <li>Fixed Duplicate Class Mapping Found
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1477786&amp;group_id=133517&amp;atid=727368">
+              Issue 1477786
+            </a>
+          </li>
+          <li>Fixed custom converter(s) and primitive matching
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1474216&amp;group_id=133517&amp;atid=727368">
+              Issue 1474216
+            </a>
+          </li>
+          <li>Fixed CGLIB Source Class - object not instance of declaring class
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1427982&amp;group_id=133517&amp;atid=727368">
+              Issue 1427982
+            </a>
+          </li>
+          <li>Added JMX integration and hooks.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475229&amp;group_id=133517&amp;atid=727371">
+              RFE 1475229
+            </a>
+          </li>
+          <li>Added runtime Statistics support.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475228&amp;group_id=133517&amp;atid=727371">
+              RFE 1475228
+            </a>
+          </li>
+          <li>Added support for Dozer configuration via properties file.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1475232&amp;group_id=133517&amp;atid=727371">
+              RFE 1475232
+            </a>
+          </li>
+          <li>Cleaned up project documentation.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1470452&amp;group_id=133517&amp;atid=727371">
+              RFE 1470452
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>2.1.1
+        <font size="-3" color="gray">
+          <i>04/18/2006</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed performance degradation.</li>
+        </ul>
+      </p>
+      <h3>2.1
+        <font size="-3" color="gray">
+          <i>03/15/2006</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Refactored the code extensively to support a more flexible property descriptor model</li>
+          <li>Request Index based mappings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1468873&amp;group_id=133517&amp;atid=727371">
+              RFE 1468873. Thank you Kiersztyn Wojtek and Peciuch Dominic for your code contribution!
+            </a>
+          </li>
+          <li>Request Make 'this' keyword functionality bi-directional
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1456490&amp;group_id=133517&amp;atid=727371">
+              RFE 1456490
+            </a>
+          </li>
+          <li>Request Support for write only (set) or read only (get) objects
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1459057&amp;group_id=133517&amp;atid=727371">
+              RFE 1459057
+            </a>
+          </li>
+          <li>Fixed Superclass reflection issue
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1468980&amp;group_id=133517&amp;atid=727368">
+              Issue 1468980
+            </a>
+          </li>
+          <li>Fixed Wrong field mapped when an instance is passed in.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1456513&amp;group_id=133517&amp;atid=727368">
+              Issue 1456513
+            </a>
+          </li>
+          <li>Fixed No tranformation from a Map attribute to source value
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1431086&amp;group_id=133517&amp;atid=727368">
+              Issue 1431086
+            </a>
+          </li>
+          <li>Fixed CGLIB Source Class - object not instance of declaring class
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1427982&amp;group_id=133517&amp;atid=727368">
+              Issue 1427982
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>2.0.2
+        <font size="-3" color="gray">
+          <i>02/29/2006</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Added PDF Users Guide</li>
+          <li>Request for more log.dubug statements to help diagnosing mapping problems
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1445372&amp;group_id=133517&amp;atid=727371">
+              RFE 1445372
+            </a>
+          </li>
+          <li>Fixed log.error when an exception is thrown and stop on errors is true
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1445376&amp;group_id=133517&amp;atid=727368">
+              RFE 1445376
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>2.0.1
+        <font size="-3" color="gray">
+          <i>02/02/2006</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Request for allow override to exclude mapping of null src field value
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1413480&amp;group_id=133517&amp;atid=727371">
+              RFE 1413480
+            </a>
+          </li>
+          <li>Request for allow override to exclude mapping of "" src field value
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1417170&amp;group_id=133517&amp;atid=727371">
+              RFE 1417170
+            </a>
+          </li>
+          <li>Request check mapping file for duplicate entries
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1416905&amp;group_id=133517&amp;atid=727371">
+              RFE 1416905
+            </a>
+          </li>
+          <li>Fixed Hint is not used for Array to List
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1413429&amp;group_id=133517&amp;atid=727368">
+              Issue 1413429
+            </a>
+          </li>
+          <li>Fixed Context Based Mapping and Nested Context based mapping does not work unless a Map
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1413451&amp;group_id=133517&amp;atid=727368">
+              Issues 1413443 and 1413451
+            </a>
+          </li>
+          <li>Fixed LinkedHashMap not compatible with JDK 1.3
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1419357&amp;group_id=133517&amp;atid=727368">
+              Issues 1419357
+            </a>
+          </li>
+          <li>Fixed NPE when sourceFieldValue is null in logFieldMappingError() method</li>
+        </ul>
+      </p>
+      <h3>2.0
+        <font size="-3" color="gray">
+          <i>01/16/2006</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Request for create dozer 1.x - 2.x migration documentation.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1397121&amp;group_id=133517&amp;atid=727371">
+              RFE 1397121
+            </a>
+          </li>
+          <li>Request for increase performance 4X - 8X.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1381246&amp;group_id=133517&amp;atid=727371">
+              RFE 1381246
+            </a>
+          </li>
+          <li>Request for XML tags more consistent.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1381249&amp;group_id=133517&amp;atid=727371">
+              RFE 1381249
+            </a>
+          </li>
+          <li>Request for custom create methods.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1386770&amp;group_id=133517&amp;atid=727371">
+              RFE 1386770
+            </a>
+          </li>
+          <li>Request for remove static BeanMapper.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1381248&amp;group_id=133517&amp;atid=727371">
+              RFE 1381248
+            </a>
+          </li>
+          <li>Fixed exclude-field doesn't work on an indexed property
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1404944&amp;group_id=133517&amp;atid=727368">
+              Issue 1404944
+            </a>
+          </li>
+          <li>Fixed Better error message for null top level src object
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1386663&amp;group_id=133517&amp;atid=727368">
+              Issue 1386663
+            </a>
+          </li>
+          <li>Fixed OO domain objs to flat VO obj w/ interface issue
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1391777&amp;group_id=133517&amp;atid=727368">
+              Issue 1391777
+            </a>
+          </li>
+          <li>Fixed Default ClassMap not getting CustomConverters
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1384887&amp;group_id=133517&amp;atid=727368">
+              Issue 1384887
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.8.1
+        <font size="-3" color="gray">
+          <i>12/08/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Request for ability to have overloaded set() methods.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1375559&amp;group_id=133517&amp;atid=727371">
+              RFE 1375559
+            </a>
+          </li>
+          <li>Request for upgrade to commons-lang-2.1.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1375457&amp;group_id=133517&amp;atid=727371">
+              RFE 1375457
+            </a>
+          </li>
+          <li>Request for ability to map field w/out get() set() Methods. This is a partial implementation.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1373285&amp;group_id=133517&amp;atid=727371">
+              RFE 1373285
+            </a>
+          </li>
+          <li>Request for if no destination for List, Set, Map inst. source class when appropriate.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1373219&amp;group_id=133517&amp;atid=727371">
+              RFE 1373219
+            </a>
+          </li>
+          <li>Request for enhanced ability to copy map to map.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1372011&amp;group_id=133517&amp;atid=727371">
+              RFE 1372011
+            </a>
+          </li>
+          <li>Request for Set to Array, Array to Set, Set to List, List to Set.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1370482&amp;group_id=133517&amp;atid=727371">
+              RFE 1370482
+            </a>
+          </li>
+          <li>Fixed compatibility with JDK 1.3. At one point we had this...and then reverted back by using
+            LinkedHashSet.
+          </li>
+          <li>Fixed Null Value in String Array causes NPE
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1373824&amp;group_id=133517&amp;atid=727368">
+              Issue 1373824
+            </a>
+          </li>
+          <li>Fixed Deep property mapping and Inheritance
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1372000&amp;group_id=133517&amp;atid=727368">
+              Issue 1372000
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.8
+        <font size="-3" color="gray">
+          <i>11/29/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Request for enhancement remove dependency on Castor.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1369801&amp;group_id=133517&amp;atid=727371">
+              RFE 1369801
+            </a>
+          </li>
+          <li>Request for enhancement ability to Initialize DozerBeanMapper.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1367803&amp;group_id=133517&amp;atid=727371">
+              RFE 1367803
+            </a>
+          </li>
+          <li>Request for ability to inject custom converters.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1363361&amp;group_id=133517&amp;atid=727371">
+              RFE 1363361
+            </a>
+          </li>
+          <li>Request for enhancement for making CustomConverters global to all mapping files.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1363358&amp;group_id=133517&amp;atid=727371">
+              RFE 1363358
+            </a>
+          </li>
+          <li>Fixed InterFace isAssignableFrom Class
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1365701&amp;group_id=133517&amp;atid=727368">
+              Issue 1365701
+            </a>
+          </li>
+          <li>Fixed Iterator to Array/List
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1364373&amp;group_id=133517&amp;atid=727368">
+              Issue 1364373
+            </a>
+          </li>
+          <li>Fixed Array to Array mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1361105&amp;group_id=133517&amp;atid=727368">
+              Issue 1361105
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.7
+        <font size="-3" color="gray">
+          <i>11/15/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Added support to map to/from a Map or Struts *like* DynaActionForm object. Dozer now supports mapping
+            to/from any Map backed property. It can implement the Map Interface
+            or be a custom map object:
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1373700&amp;forum_id=452530">Forum Thread 452530
+            </a>
+          </li>
+          <li>Request for enhancement declare a class as copy-by-reference
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1345821&amp;group_id=133517&amp;atid=727371">
+              RFE 1345821
+            </a>
+          </li>
+          <li>Request for enhancement No way to reference self (this) in field mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1277096&amp;group_id=133517&amp;atid=727371">
+              RFE 1277096
+            </a>
+          </li>
+          <li>Request for enhancement for Collapse &lt;field-deep&gt; tag into &lt;field&gt; tag. All &lt;field-deep&gt;
+            tags need to be replaced with &lt;field&gt; tags.
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1347953&amp;group_id=133517&amp;atid=727371">
+              RFE 1347953
+            </a>
+          </li>
+          <li>Applied patch for Spring bean factory injection:
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1349799&amp;group_id=133517&amp;atid=727370">
+              Patch 1349799
+            </a>
+          </li>
+          <li>Fixed Configuration Overrides Not Working
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1352438&amp;group_id=133517&amp;atid=727368">
+              Issue 1352438
+            </a>
+          </li>
+          <li>Fixed multiple levels of custom mapping processed in wrong order
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1346370&amp;group_id=133517&amp;atid=727368">
+              Issue 1346370
+            </a>
+          </li>
+          <li>Fixed regression on finding most specific destination mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1346342&amp;group_id=133517&amp;atid=727368">
+              Issue 1346342
+            </a>
+          </li>
+          <li>Fixed ExcludeFieldMap not inherited
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1345816&amp;group_id=133517&amp;atid=727368">
+              Issue 1345816
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.6
+        <font size="-3" color="gray">
+          <i>10/30/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>&lt;field-deep&gt; enhancements: Support for copy-by-reference and type (one-way) attributes.</li>
+          <li>Added News section on home page. Latest release number is now on left-hand side navigation column.</li>
+          <li>Added support for copying an object by reference:
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1369762&amp;forum_id=452530">Forum Thread</a>
+          </li>
+          <li>Request for enhancement for Custom Bean Creation Factories:
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1325412&amp;group_id=133517&amp;atid=727371">
+              RFE 1325412
+            </a>
+          </li>
+          <li>Applied patch for MappingProcessor exception handling refactoring:
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1333634&amp;group_id=133517&amp;atid=727370">
+              Patch 1333634
+            </a>
+          </li>
+          <li>Applied patch for finding most specific mapping:
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1325524&amp;group_id=133517&amp;atid=727370">
+              Patch 1325524
+            </a>
+          </li>
+          <li>Fixed Empty String value is getting lost during mapping
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1342611&amp;group_id=133517&amp;atid=727368">
+              Issue 1342611
+            </a>
+          </li>
+          <li>Fixed one-way overriden by default field mappings
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1339074&amp;group_id=133517&amp;atid=727368">
+              Issue 1339074
+            </a>
+          </li>
+          <li>Fixed Using an Interface for a Custom Converter Class
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1342127&amp;group_id=133517&amp;atid=727368">
+              Issue 1342127
+            </a>
+          </li>
+          <li>Fixed wrong destination object for list of custom converted object
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1332606&amp;group_id=133517&amp;atid=727368">
+              Issue 1332606
+            </a>
+          </li>
+          <li>Fixed custom convertor not associated with hints
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1321647&amp;group_id=133517&amp;atid=727368">
+              Issue 1321647
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.5
+        <font size="-3" color="gray">
+          <i>10/13/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed incorrect set mapping for existing destination set
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1324277&amp;group_id=133517&amp;atid=727368">
+              Issue
+            </a>
+          </li>
+          <li>Fixed Use of Default ClassMap with date formatting
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1324220&amp;group_id=133517&amp;atid=727368">
+              Issue
+            </a>
+          </li>
+          <li>If the destination object was mapped and is NULL, we now map it.</li>
+          <li>When mapping Array -> Array or List -> Array do not need hints anymore. This does not apply to Object
+            Arrays.
+          </li>
+          <li>Fixed Another Hydrate and Non-Cumulative
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1305239&amp;group_id=133517&amp;atid=727368">
+              Issue
+            </a>
+          </li>
+          <li>Fixed DTD has field-method and field-iterate methods
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1305240&amp;group_id=133517&amp;atid=727368">
+              Issue
+            </a>
+          </li>
+          <li>Fixed Field-Deep String to List Error
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1305033&amp;group_id=133517&amp;atid=727368">
+              Issue
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.4
+        <font size="-3" color="gray">
+          <i>09/20/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Added ability to Map the destination object to Interfaces, Abstract Classes, or Super Classes. See this
+            <a href="http://sourceforge.net/forum/message.php?msg_id=3292204">thread</a>
+            for more information
+          </li>
+          <li>Fixed the Hydrate and Non-Cumulative
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1350771&amp;forum_id=452530">Issue</a>
+          </li>
+          <li>Removed samples folder until we can make it more up-to-date.</li>
+        </ul>
+      </p>
+      <h3>1.5.3
+        <font size="-3" color="gray">
+          <i>09/16/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed Custom Mapping and made the interface cleaner
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1348774&amp;forum_id=452530">issue</a>
+          </li>
+          <li>Fixed blank string conversion bug
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1292080&amp;group_id=133517&amp;atid=727368">
+              1292080
+            </a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.2
+        <font size="-3" color="gray">
+          <i>09/14/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Added support for multiple source and destination hints in Collection and Array mapping</li>
+          <li>Fixed Mapping iheritance
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1340715&amp;forum_id=452530">issue(s)</a>
+          </li>
+          <li>Iterate type methods can now return an Iterator for their get() method.</li>
+        </ul>
+      </p>
+      <h3>1.5.1
+        <font size="-3" color="gray">
+          <i>09/07/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Added &lt;field&gt; level one-way mapping. i.e. &lt;field type="one-way"&gt;</li>
+          <li>Removed &lt;field-method&gt; and &lt;field-iterate-method&gt; and now use the &lt;field&gt; in combination
+            with attributes. See this
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1332901&amp;forum_id=452530">thread</a>
+            for more information. This has also been updated in the documentation.
+          </li>
+          <li>DTD validation was disabled. It is now working.</li>
+          <li>Thanks to Seb :) the ClassLoader issues have been put to bed.</li>
+        </ul>
+      </p>
+      <h3>1.5.0.1
+        <font size="-3" color="gray">
+          <i>08/31/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed ClassLoader
+            <a href="http://sourceforge.net/forum/message.php?msg_id=3320046">issue</a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.5.0
+        <font size="-3" color="gray">
+          <i>08/30/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed map by reference
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1264347&amp;group_id=133517&amp;atid=727368">
+              defect 1264347
+            </a>
+          </li>
+          <li>Integrated with Spring. Dozer can be used statically and as a bean</li>
+          <li>Fixed a global wildcard bug.</li>
+          <li>Upgraded to caster 0.9.6 to fix for allowing whitespace in the XML files</li>
+          <li>Addressed adding vs. updating List. We were not truly updating the
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1336784&amp;forum_id=452529">list</a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.4.6
+        <font size="-3" color="gray">
+          <i>08/19/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Addressed adding vs. updating List
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1336784&amp;forum_id=452529">objects</a>
+          </li>
+          <li>Added GenericFieldMap which extends FieldMap so we can have custom behavior on simple field mappings.</li>
+          <li>Finally :) fixed ClassLoader bug
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1263159&amp;group_id=133517&amp;atid=727368">
+              1263159
+            </a>
+          </li>
+          <li>Dozer now supports overriding getter() and setter()
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1332901&amp;forum_id=452530">method names</a>
+          </li>
+          <li>Addressed Cloneable VS SerializationUtils.clone()
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1338042&amp;forum_id=452529">issue</a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.4.5
+        <font size="-3" color="gray">
+          <i>08/18/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Addressed the ClassLoader defect
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1336861&amp;forum_id=452530">issue</a>
+          </li>
+          <li>Addressed the Pass By Reference
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1336784&amp;forum_id=452529">issue</a>
+          </li>
+          <li>Addressed the field exclude getter() setter()
+            <a href="http://sourceforge.net/forum/forum.php?thread_id=1336161&amp;forum_id=452530">issue</a>
+          </li>
+        </ul>
+      </p>
+      <h3>1.4.4
+        <font size="-3" color="gray">
+          <i>08/16/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Added one-way mapping at mapping level into DTD</li>
+          <li>Added unit test for one-way mapping</li>
+          <li>&lt;field&gt; level tag source and destination hint functionality did not work unless it was an array or
+            list. This has been fixed.
+          </li>
+        </ul>
+      </p>
+      <h3>1.4.3
+        <font size="-3" color="gray">
+          <i>08/15/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Moved to DTD validation from XSD validation per defect ID
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1256049&amp;group_id=133517&amp;atid=727368">
+              1256049
+            </a>
+          </li>
+          <li>Added &lt;field-exclude&gt; tag.</li>
+          <li>Fixed bug where branch and lower level objects which were on the source and already been instantiated were
+            being new()ed up on conversion back to the source.
+          </li>
+          <li>If a Java Bean did not have a getter() or setter() method we would throw NPE. We now throw a
+            MappingException with description.
+          </li>
+        </ul>
+      </p>
+      <h3>1.4.2
+        <font size="-3" color="gray">
+          <i>08/10/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Support for JDK 1.3</li>
+        </ul>
+      </p>
+      <h3>1.4.1
+        <font size="-3" color="gray">
+          <i>07/28/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Deep field output for logging arrays</li>
+          <li>Field-deep tag now supports sourceTypeHint and destinationTypeHints</li>
+        </ul>
+      </p>
+      <h3>1.4
+        <font size="-3" color="gray">
+          <i>07/11/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Removed test data retrieval from Spring</li>
+          <li>MapperException is now a RuntimeException</li>
+          <li>Fields in a base class can now be mapped in the mapping file and all of the corresponding sub-classes will
+            not have to specify those fields
+          </li>
+          <li>Multiple mapping files can be added to the dozerContext.xml file.</li>
+        </ul>
+      </p>
+      <h3>1.3.3
+        <font size="-3" color="gray">
+          <i>06/07/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Added Getting Started section to documentation</li>
+          <li>Fixed bug inability to locate mapping file in a jar file at runtime</li>
+        </ul>
+      </p>
+      <h3>1.3.2
+        <font size="-3" color="gray">
+          <i>06/03/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed bug 1214291 NullPointerException when no fields</li>
+          <li>Changed license to Apache, Version 2.0</li>
+        </ul>
+      </p>
+      <h3>1.3.1
+        <font size="-3" color="gray">
+          <i>06/02/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed incorrect error message stating that beanmapping.xml was not in the classpath</li>
+          <li>Fixed documentation so that images appear offline</li>
+          <li>Added note about using log4j.properties file</li>
+        </ul>
+      </p>
+      <h3>1.3
+        <font size="-3" color="gray">
+          <i>06/01/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Fixed deep field mapping logic</li>
+          <li>Renamed castormappings.xml to dozercastormappings.xml</li>
+          <li>Changed default dozer mappings file to dozerBeanMapping.xml. beanmapping.xml is still supported for
+            backwards compatability.
+          </li>
+          <li>Allow override of default mapping file that will get loaded by using system property.
+            -Ddozer.configuration=myBeanMapping.xml
+          </li>
+          <li>Resolved some of the pmd errors</li>
+          <li>Added a validate method to Mapping Reader. We need to add more.</li>
+          <li>Apply top level configuration props to children during initialization process. Removed double checking in
+            the code
+          </li>
+          <li>Apply top level configuration props to default class map in processor.</li>
+          <li>Added some todos to working doc.</li>
+          <li>Added deep mapping examples to samples</li>
+          <li>XSD Schema validation</li>
+          <li>XSD Schema is now on the website</li>
+        </ul>
+      </p>
+      <h3>1.2
+        <font size="-3" color="gray">
+          <i>05/03/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>Created a dozer-full.jar file which includes all of the run-time dependency classes needed</li>
+          <li>Mappings file can now be empty except for begin and end mappings tag</li>
+          <li>Added global configuration XML to contain settings for wildcard, dateformat, error handling, and custom
+            converters
+          </li>
+          <li>changes to allow each mapping element override global settings, and some even at the field level</li>
+          <li>added a check for infinite loops during mapping</li>
+          <li>user can specify whether or not Dozer throws exceptions or eats exceptions</li>
+          <li>added the ability to specify custom converter objects to handle special mapping/conversion cases</li>
+          <li>created a mapping processor object to allow the use of local variables. Mapper class methods are still
+            static for ease of use.
+          </li>
+          <li>Added more unit tests, as always</li>
+        </ul>
+      </p>
+      <h3>1.1
+        <font size="-3" color="gray">
+          <i>04/06/2005</i>
+        </font>
+      </h3>
+      <p>
+        <ul>
+          <li>fixed mapping bug with methodMap and methodDehydrate where it would transform but not convert</li>
+          <li>many infrastructure changes: moved beanmapping.xml parsing to castor</li>
+          <li>fixed bug where bogus data conversion from String to Wrapper would not produce any errors</li>
+          <li>The code was changed to get the default mappings after it loads the custom mappings</li>
+          <li>String conversions to a Date object based on a date format</li>
+          <li>beanmapping.xml file now has field-deep, field-hydrate, field-dehydrate, field-method, and
+            field-iterate-method elements
+          </li>
+          <li>Added more unit tests</li>
+        </ul>
+      </p>
     </section>
   </body>
 </document>

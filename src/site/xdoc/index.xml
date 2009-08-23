@@ -1,16 +1,17 @@
 <document>
   <properties>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
     <title>Dozer</title>
+    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
+    <title/>
     <meta http-equiv="Description" name="Description"
-      content="Dozer is a powerful, yet simple Java Bean to Java Bean mapper." />
+          content="Dozer is a powerful, yet simple Java Bean to Java Bean mapper."/>
     <meta http-equiv="Keywords" name="Keywords"
-      content="Java Bean Mapper, Java, Mapper, Complex Mapping, Dozer, bean utils" />
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="-1" />
+          content="Java Bean Mapper, Java, Mapper, Complex Mapping, Dozer, bean utils"/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="-1"/>
   </head>
   <body>
     <section name="Dozer">
@@ -31,34 +32,39 @@
     </section>
     <section name="Dozer News">
       <p/>
-		
-	  <h3>
+
+      <h3>
         Dozer Eclipse Plugin 0.8.0 Now Available
         <font size="-3" color="gray">
           <i>6/24/2009</i>
         </font>
       </h3>
       <p>
-         This is the first release with a fully featured GUI around the Mapping XML.  
+        This is the first release with a fully featured GUI around the Mapping XML.
       </p>
       <p>
-         Features are:
-         <ul>
-           <li>GUI for the mapping XML. Based on Eclipse Forms.</li>
-           <li>Content Assist and XML Validation for the XML View.</li>
-           <li>Compatible with Dozer 4.x and 5.x</li>
-         </ul>   
+        Features are:
+        <ul>
+          <li>GUI for the mapping XML. Based on Eclipse Forms.</li>
+          <li>Content Assist and XML Validation for the XML View.</li>
+          <li>Compatible with Dozer 4.x and 5.x</li>
+        </ul>
       </p>
       <p>
-        Thanks to Angelo Zerr who wrote the <a href="http://wiki.eclipse.org/JFace_Data_Binding/SSE">DOM/SSE Databinding</a> that the Plugin uses.<br />        
+        Thanks to Angelo Zerr who wrote the
+        <a href="http://wiki.eclipse.org/JFace_Data_Binding/SSE">DOM/SSE Databinding</a>
+        that the Plugin uses.
+        <br/>
       </p>
       <p>
-        Please check here for more information.<br /> 
-        <a href="documentation/eclipse-plugin/installation.html">installation</a><br/>
+        Please check here for more information.
+        <br/>
+        <a href="documentation/eclipse-plugin/installation.html">installation</a>
+        <br/>
         <a href="documentation/eclipse-plugin/usage.html">usage</a>
       </p>
       <p></p>
-      
+
       <h3>
         Release 5.0 Now Available
         <font size="-3" color="gray">
@@ -66,25 +72,28 @@
         </font>
       </h3>
       <p>
-         This release contains changes that are not backwards compatible with prior versions of Dozer.
-         There is a 5.0 migration guide in the <a href="releasenotes.html">release notes</a> section, which outlines these changes.  
+        This release contains changes that are not backwards compatible with prior versions of Dozer.
+        There is a 5.0 migration guide in the
+        <a href="releasenotes.html">release notes</a>
+        section, which outlines these changes.
       </p>
       <p>
-         Key 5.0 changes:
-         <ul>
-           <li>Added Generics to public api</li>
-           <li>Switched to XSD instead of DTD</li>
-           <li>Simpler packaging</li>
-           <li>Upgraded 3rd party dependencies</li>
-           <li>Upgraded code to use jdk 1.5 features</li>
-           <li>Various feature requests and bug fixes</li>
-         </ul>   
+        Key 5.0 changes:
+        <ul>
+          <li>Added Generics to public api</li>
+          <li>Switched to XSD instead of DTD</li>
+          <li>Simpler packaging</li>
+          <li>Upgraded 3rd party dependencies</li>
+          <li>Upgraded code to use jdk 1.5 features</li>
+          <li>Various feature requests and bug fixes</li>
+        </ul>
       </p>
       <p>
-        Thanks to everyone that helped out with this release and submitted tickets.  Please let us know if you find any issues with the release and we will do our best to fix them soon as possible.
+        Thanks to everyone that helped out with this release and submitted tickets. Please let us know if you find any
+        issues with the release and we will do our best to fix them soon as possible.
       </p>
       <p>
-        Please check here for more information and the 5.0 migration guide.  
+        Please check here for more information and the 5.0 migration guide.
         <a href="releasenotes.html">release notes</a>
       </p>
       <p></p>
@@ -95,7 +104,9 @@
           <i>1/31/2009</i>
         </font>
       </h3>
-      <p>This release fixes classloading issues for custom ClassLoaders.  These classloading issues were introduced in the 4.3 release.</p>
+      <p>This release fixes classloading issues for custom ClassLoaders. These classloading issues were introduced in
+        the 4.3 release.
+      </p>
       <p>
         Please check here for more
         <a href="releasenotes.html">release notes</a>
@@ -118,7 +129,7 @@
         <a href="releasenotes.html">release notes</a>
       </p>
       <p></p>
-      
+
       <h3>
         Release 4.3 Now Available
         <font size="-3" color="gray">
@@ -130,13 +141,16 @@
         If you are experiencing classloading problems in any application container, please tell us urgently.
       </p>
       <p>
-        Thanks to our contributors for submitted bug reports and patches, which helped greatly during this release development.        
+        Thanks to our contributors for submitted bug reports and patches, which helped greatly during this release
+        development.
       </p>
       <p>
         Contributors to the project are more than welcome as usual!
       </p>
       <p>
-        Please check <a href="releasenotes.html">release notes</a> for detailed information.
+        Please check
+        <a href="releasenotes.html">release notes</a>
+        for detailed information.
       </p>
 
       <p/>

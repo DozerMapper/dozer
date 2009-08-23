@@ -1,36 +1,41 @@
 <document>
   <properties>
-   <author email="mhielen@users.sourceforge.net">Markus Thielen</author>
+    <author email="mhielen@users.sourceforge.net">Markus Thielen</author>
     <title>eclipse plugin usage xml</title>
   </properties>
   <head>
-    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" CONTENT="NO-CACHE" />
-    <meta http-equiv="PRAGMA" name="PRAGMA" CONTENT="NO-CACHE" />
-    <META HTTP-EQUIV="EXPIRES" CONTENT="0" />
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
     <section name="Open mapping file">
       <p>
         When opening a Dozer-mapping-file the Dozer-editor appears. If you want to edit the
         raw XML you can switch to the "source" view.
-		<br/><img src="../../images/eclipse-sourcetab.gif" />
+        <br/>
+        <img src="../../images/eclipse-sourcetab.gif"/>
       </p>
     </section>
     <section name="Content Assist">
       <p>
-        All the class-a/class-b, field, get-method, set-method, etc -nodes or -attributes automaticly 
-        show content-assist popups when pressing ctrl+space or the configured WTP-XML content assist 
+        All the class-a/class-b, field, get-method, set-method, etc -nodes or -attributes automaticly
+        show content-assist popups when pressing ctrl+space or the configured WTP-XML content assist
         characters. These can be changed in the preferences.
-		<br/><img src="../../images/eclipse-xmlassist.gif" />
-		<br/><img src="../../images/eclipse-xmlassist2.gif" />
+        <br/>
+        <img src="../../images/eclipse-xmlassist.gif"/>
+        <br/>
+        <img src="../../images/eclipse-xmlassist2.gif"/>
       </p>
-    </section>      
+    </section>
     <section name="Validation">
       <p>
         The Dozer Plugin validates the Mapping to find out if the mapped class do exist and if the mapped
         fields are accessible.
-		<br/><img src="../../images/eclipse-validation.gif" />
+        <br/>
+        <img src="../../images/eclipse-validation.gif"/>
       </p>
-    </section> 
+    </section>
   </body>
 </document>
