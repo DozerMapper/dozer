@@ -532,6 +532,35 @@ public class MapTypeTest extends AbstractFunctionalTest {
     assertEquals("wrong value found for field1", "somevalue", dest.getField1());
   }
   
+  @Test
+  @Ignore("Known bug")
+  public void testEmptyMapToVo() throws Exception {
+    mapper = getMapper("mapMapping5.xml");
+
+    Map<String, String> src = newInstance(HashMap.class);
+    assertTrue(src.isEmpty());
+
+    SimpleObj dest = new SimpleObj();
+    dest.setField1("existingValue");
+    mapper.map(src, dest, "test-id");
+
+    assertEquals("existingValue", dest.getField1());
+  }
+
+  @Test
+  public void testMapToVoOverwritesExistingValue() throws Exception {
+    mapper = getMapper("mapMapping5.xml");
+
+    Map<String, String> src = newInstance(HashMap.class);
+    src.put("stringValue", "overwritten");
+
+    SimpleObj dest = new SimpleObj();
+    dest.setField1("existingValue");
+    mapper.map(src, dest, "test-id");
+
+    assertEquals("overwritten", dest.getField1());
+  }
+
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }

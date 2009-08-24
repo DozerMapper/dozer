@@ -38,19 +38,21 @@
         </tr>
         <tr>
           <td>dozer.statistics.enabled</td>
-          <td>Specifies whether Dozer collects runtime mapping statistics</td>
+          <td>Specifies whether Dozer collects runtime mapping statistics. Note that
+          statistics gathering imposes certain performance overhead. It is not recommended
+          to enable this option in production settings under heavy load.</td>
           <td>true|false</td>
           <td>false</td>
         </tr>
         <tr>
           <td>dozer.autoregister.jmx.beans</td>
-          <td>Specifies whether Dozer will auto register it's JMX beans with the PlatformMDBServer on startup</td>
+          <td>Specifies whether Dozer will auto register it's JMX beans with the PlatformMDBServer on startup.</td>
           <td>true|false</td>
           <td>true</td>
         </tr>
         <tr>
           <td>dozer.cache.converter.by.dest.type.maxsize</td>
-          <td>Specifies the max size for one of Dozers internal caches</td>
+          <td>Specifies the max size for one of Dozers internal caches.</td>
           <td>0 - Long.MAX_VALUE</td>
           <td>10000</td>
         </tr>
@@ -59,6 +61,18 @@
           <td>Specifies the max size for one of Dozers internal caches</td>
           <td>0 - Long.MAX_VALUE</td>
           <td>10000</td>
+        </tr>
+        <tr>
+          <td>org.dozer.util.DozerProxyResolver</td>
+          <td>Specifies implementation of DozerProxyResolver to be used</td>
+          <td>Valid class name</td>
+          <td>Default implementation</td>
+        </tr>
+        <tr>
+          <td>org.dozer.util.DozerClassLoader</td>
+          <td>Specifies implementation of DozerClassLoader to be used</td>
+          <td>Valid class name</td>
+          <td>Default implementation</td>
         </tr>
       </table>
 

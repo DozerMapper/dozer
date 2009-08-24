@@ -127,8 +127,7 @@
     </property>   
 </bean>
 
-</beans>     
-    ]]>
+</beans> ]]>
       </source>
 
       <p>Sample custom converter implementation:</p>
@@ -164,8 +163,7 @@ public class TestCustomConverter implements CustomConverter {
       throw new MappingException("Converter TestCustomConverter used incorrectly. Arguments passed in were:"
           + destination + " and " + source);
     }
-  }     
-    ]]>
+  } ]]>
       </source>
       <p/>
       <p>
@@ -200,10 +198,9 @@ public class TestCustomConverter implements CustomConverter {
     <property name="injectedName"><value>injectedName</value></property>
   </bean>
 
-</beans>     
-    ]]>
+</beans> ]]>
       </source>
-
+           
       <subsection name="Support for Array Types">
         <p>
           You can specify a custom converter for Array types. For example, if you want to use a custom converter
@@ -238,8 +235,7 @@ public class TestCustomConverter implements CustomConverter {
 <converter type="somePackage.SomeCustomConverter" > 
   <class-a>somePackage.SomeObject</class-a> 
   <class-b>java.lang.Integer</class-b> 
-</converter> 
-        ]]>
+</converter> ]]>
         </source>
 
       </subsection>
@@ -254,16 +250,15 @@ public class TestCustomConverter implements CustomConverter {
 
         <source>
           <![CDATA[
-  <mapping>
-    <class-a>org.dozer.vo.BeanA</class-a>
-    <class-b>org.dozer.vo.BeanB</class-b>
-    <field custom-converter="org.dozer.converters.MathOperationConverter"
-           custom-converter-param="+">
-      <a>amount</a>
-      <b>amount</b>
-    </field>
-  </mapping>
-        ]]>
+<mapping>
+  <class-a>org.dozer.vo.BeanA</class-a>
+  <class-b>org.dozer.vo.BeanB</class-b>
+  <field custom-converter="org.dozer.converters.MathOperationConverter"
+         custom-converter-param="+">
+    <a>amount</a>
+    <b>amount</b>
+  </field>
+</mapping> ]]>
         </source>
 
         <p>
@@ -287,10 +282,56 @@ public class MathOperationConverter implements ConfigurableCustomConverter {
     }
   }
   
-}
-        ]]>
+} ]]>
         </source>
 
+      </subsection>
+
+      <subsection name="New Custom Converter API">
+        <p>
+          While providing great deal of flexibility Custom Converter API described above is written
+          on fairly low levele of abstraction. This results in converter, which code is difficult
+          to understand and to reuse in other ways than plugging into Dozer mapping. However it is not
+          uncommon situation when the same convertation logic should be called from a place other than
+          bean mapping framework.
+        </p>
+        <p>
+          Latest version of Dozer gets shipped with new - cleaner API for defining custom converter, which
+          gives you more obvious API while taking away certain part of control of the executions flow.
+          The following example demonstrates simple, yet working converter using new API.
+        </p>
+        <source>
+          <![CDATA[
+public class NewDozerConverter extends DozerConverter<String, Boolean> {
+
+  public NewDozerConverter() {
+    super(String.class, Boolean.class);
+  }
+
+  public Boolean convertTo(String source, Boolean destination) {
+    if ("yes".equals(source)) {
+      return Boolean.TRUE;
+    } else if ("no".equals(source)) {
+      return Boolean.FALSE;
+    }
+    throw new IllegalStateException("Unknown value!");
+  }
+
+  public String convertFrom(Boolean source, String destination) {
+    if (Boolean.TRUE.equals(source)) {
+      return "yes";
+    } else if (Boolean.FALSE.equals(source)) {
+      return "no";
+    }
+    throw new IllegalStateException("Unknown value!");
+  }
+
+}  ]]>
+        </source>
+        <p>
+          Note that Java 5 Generics are supported and you do not need to cast source object
+          to desired type as previously.
+        </p>
       </subsection>
 
     </section>

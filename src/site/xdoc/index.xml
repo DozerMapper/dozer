@@ -34,6 +34,23 @@
       <p/>
 
       <h3>
+        Release 5.1 Now Available
+        <font size="-3" color="gray">
+          <i>8/25/2009</i>
+        </font>
+      </h3>
+      <p>
+        This is a maintenance release addressing more than a dozen bugs. Upgrade is recommended
+        for everyone using 5.0 version. Several nasty bugs in area of processing complex type
+        hierarchies have been fixed. The most valuable addition to this version is a new custom
+        converter API, which supports Generics.
+      </p>
+      <p>
+        Please check <a href="releasenotes.html">release notes</a> for more information.
+      </p>
+      <p/>
+
+      <h3>
         Dozer Eclipse Plugin 0.8.0 Now Available
         <font size="-3" color="gray">
           <i>6/24/2009</i>
@@ -63,7 +80,7 @@
         <br/>
         <a href="documentation/eclipse-plugin/usage.html">usage</a>
       </p>
-      <p></p>
+      <p/>
 
       <h3>
         Release 5.0 Now Available
@@ -96,7 +113,7 @@
         Please check here for more information and the 5.0 migration guide.
         <a href="releasenotes.html">release notes</a>
       </p>
-      <p></p>
+      <p/>
 
       <h3>
         Release 4.4.1 Now Available
@@ -111,7 +128,7 @@
         Please check here for more
         <a href="releasenotes.html">release notes</a>
       </p>
-      <p></p>
+      <p/>
 
       <h3>
         Release 4.4 Now Available

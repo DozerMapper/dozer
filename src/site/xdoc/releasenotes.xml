@@ -13,26 +13,58 @@
     <section name="Release Notes">
       <h3>5.1
         <font size="-3" color="gray">
-          <i>8/19/2009</i>
+          <i>8/25/2009</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
       <p>
         <ul>
-          <li>Global Configuration is Ignored
-            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1982256&amp;group_id=133517&amp;atid=727368">
-              link
-            </a>
+          <li>JAXBBeanFactory can not create bean for nested type
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=1661389&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>Mapping definition of super interface is ignored
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2556896&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>Inheritance mapping with proxy object
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2819255&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>Processing Map with Null entry fails
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2800476&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>Date Format is not used for collection elements
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2793919&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>Memory Leak on Web Container reload when using JMX Beans
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2780613&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+           <li>Hints does not work for inherited classes
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2714863&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>Null values are not copied to destination Map
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2569088&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>Map with List entries is mapped incorrectly
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2724920&amp;group_id=133517&amp;atid=727368">link</a>
+          </li>
+          <li>NPE when missing one of the class names in mapping definition
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2750813&amp;group_id=133517&amp;atid=727368">link</a>
           </li>
         </ul>
       </p>
       <p>Feature Requests</p>
       <p>
         <ul>
-          <li>Reorganize test mapping and config files in src tree
-            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2398049&amp;group_id=133517&amp;atid=727371">
-              link
-            </a>
+          <li>Support for Generic return types
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2667908&amp;group_id=133517&amp;atid=727371">link</a>
+          </li>
+          <li>Generics in Custom Converter API
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2569541&amp;group_id=133517&amp;atid=727371">link</a>
+          </li>
+          <li>Support for custom proxy resolver
+            <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=2624921&amp;group_id=133517&amp;atid=727371">link</a>
+          </li>
+          <li>Support for custom class loaders
+            <a href="http://sourceforge.net/tracker/?func=detail&amp;aid=2792720&amp;group_id=133517&amp;atid=727368">link</a>
           </li>
         </ul>
       </p>
