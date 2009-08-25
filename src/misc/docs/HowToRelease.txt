@@ -23,7 +23,11 @@
 
 
 4.  SFTP DOZER BUILD ASSETS TO SF
-  -Upload the following assets to SF..../target/dozer-X.X-src.zip and /target/dozer-x.x-src.tar.gz
+  -Upload the following assets to SF....
+      /target/dozer-x.x-src.zip
+      /target/dozer-x.x-src.tar.gz
+      /target/dozer-x.x.jar
+    Now SF offers Web interface as the alternative to SFTP
     Hostname: frs.sourceforge.net
     Path: uploads/
     Username: Your SourceForge.net Username

@@ -45,6 +45,7 @@
         hierarchies have been fixed. The most valuable addition to this version is a new custom
         converter API, which supports Generics.
       </p>
+      <p>Thanks to everyone contributing patches and ideas for this release!</p>
       <p>
         Please check <a href="releasenotes.html">release notes</a> for more information.
       </p>

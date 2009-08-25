@@ -19,8 +19,10 @@
     </links>
 
     <!-- Menu in the Left Navigation -->
-    <menu name="Getting Dozer">
+    <menu name="About Dozer">
       <!-- Standalone item -->
+      <item name="About" href="/documentation/about.html" />
+      <item name="News" href="/index.html" />
       <item name="Downloading" href="/downloading.html" />
       <item name="License" href="/license.html" />
     </menu>
@@ -36,16 +38,9 @@
 
     <menu name="User's Guide">
       <!-- Standalone item -->
-      <item name="About" href="/documentation/about.html" />
       <item name="Why Map?" href="/documentation/whymap.html" />
-      <item name="News" href="/index.html" />
       <item name="Getting Started" href="/documentation/gettingstarted.html" />
       <item name="Usage" href="/documentation/usage.html" collapse="true"/>
-      <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
-        <item name="Logging" href="/documentation/configuration/logging.html" />
-      </item>
-      <item name="Statistics" href="/documentation/configuration/statistics.html" />
-      <item name="JMX Integration" href="/documentation/jmxintegration.html" />
       <!-- Collapsed Submenu -->
       <item name="Custom Mappings via XML" href="/documentation/mappings.html" collapse="true">
         <item name="Mapping Two Classes" href="/documentation/mappingclasses.html" />
@@ -69,7 +64,12 @@
         <item name="XMLBeans and JAXB" href="/documentation/xmlbeans.html" />
         <item name="Dozer Events" href="/documentation/events.html" />
       </item>
-      <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />
+      <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
+        <item name="Logging" href="/documentation/configuration/logging.html" />
+      </item>
+      <item name="Statistics" href="/documentation/configuration/statistics.html" />
+      <item name="JMX Integration" href="/documentation/jmxintegration.html" />      
+      <item name="FAQ" href="/documentation/faq.html" />
       <!-- Collapsed Submenu -->
       <item name="Support" href="/documentation/support.html" collapse="true">
         <item name="Support Forum" href="http://sourceforge.net/forum/?group_id=133517" />
@@ -77,7 +77,7 @@
         <item name="Feature Request" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371" />
         <item name="Patches" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370" />
       </item>
-      <item name="FAQ" href="/documentation/faq.html" />
+      <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />
     </menu>
 
     <menu name="Release Notes">

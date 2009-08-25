@@ -9,7 +9,6 @@
   </meta>
 
   <toc name="Table of Contents">
-    <item name="About" ref="/documentation/about.html"/>
     <item name="Why Map?" ref="/documentation/whymap.html"/>
     <item name="Getting Started" ref="/documentation/gettingstarted.html"/>
     <item name="Usage" ref="/documentation/usage.html" collapse="true"/>
