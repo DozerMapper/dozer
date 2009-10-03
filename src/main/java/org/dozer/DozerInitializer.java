@@ -17,18 +17,18 @@ package org.dozer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.dozer.config.GlobalSettings;
 import org.dozer.config.BeanContainer;
+import org.dozer.config.GlobalSettings;
 import org.dozer.jmx.DozerAdminController;
 import org.dozer.jmx.DozerStatisticsController;
 import org.dozer.jmx.JMXPlatform;
 import org.dozer.jmx.JMXPlatformImpl;
-import org.dozer.util.DozerConstants;
-import org.dozer.util.InitLogger;
 import org.dozer.util.DefaultClassLoader;
-import org.dozer.util.MappingUtils;
 import org.dozer.util.DozerClassLoader;
+import org.dozer.util.DozerConstants;
 import org.dozer.util.DozerProxyResolver;
+import org.dozer.util.InitLogger;
+import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -110,6 +110,9 @@ public final class DozerInitializer {
     return (Class<? extends T>) beanType;
   }
 
+  /**
+   * Performs framework shutdown sequence. Includes de-registering existing Dozer JMX MBeans.
+   */
   public void destroy() {
     synchronized (this) {
       if (!isInitialized) {

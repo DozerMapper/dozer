@@ -15,20 +15,19 @@
  */
 package org.dozer.spring;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-
 import org.dozer.BeanFactory;
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.core.io.Resource;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Public Spring FactoryBean that can be used by application code.

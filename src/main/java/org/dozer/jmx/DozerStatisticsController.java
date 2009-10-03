@@ -15,14 +15,14 @@
  */
 package org.dozer.jmx;
 
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.dozer.config.GlobalSettings;
 import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticEntry;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 
 /**

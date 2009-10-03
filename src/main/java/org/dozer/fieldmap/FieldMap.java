@@ -15,11 +15,6 @@
  */
 package org.dozer.fieldmap;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
@@ -31,6 +26,10 @@ import org.dozer.propertydescriptor.GetterSetterPropertyDescriptor;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Internal class that represents a field mapping definition. Holds all of the information about a single field mapping

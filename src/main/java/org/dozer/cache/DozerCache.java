@@ -15,17 +15,16 @@
  */
 package org.dozer.cache;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-
-
 import org.apache.commons.collections.map.LRUMap;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *

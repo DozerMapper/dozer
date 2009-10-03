@@ -15,17 +15,16 @@
  */
 package org.dozer.cache;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.dozer.util.MappingUtils;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
-
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.dozer.util.MappingUtils;
+import java.util.Set;
 
 /**
  * Internal class that manages the Dozer caches. Only intended for internal use.

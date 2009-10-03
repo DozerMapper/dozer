@@ -15,10 +15,6 @@
  */
 package org.dozer;
 
-import java.lang.reflect.Proxy;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.cache.CacheManager;
@@ -36,13 +32,19 @@ import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.InitLogger;
 
+import java.lang.reflect.Proxy;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Public Dozer Mapper implementation. This should be used/defined as a singleton within your application. This class
  * perfoms several one time initializations and loads the custom xml mappings, so you will not want to create many
  * instances of it for performance reasons. Typically a system will only have one DozerBeanMapper instance per VM. If
  * you are using an IOC framework(i.e Spring), define the Mapper as singleton="true". If you are not using an IOC
  * framework, a DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
- * 
+ *
+ * It is technically possible to have multiple DozerBeanMapper instances initialized, but it will hinder internal
+ * performance optimizations such as caching.
  * 
  * @author tierney.matt
  * @author garsombke.franz
