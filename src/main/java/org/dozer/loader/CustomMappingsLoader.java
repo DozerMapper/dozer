@@ -15,12 +15,6 @@
  */
 package org.dozer.loader;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-
-
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +31,11 @@ import org.dozer.util.DozerConstants;
 import org.dozer.util.InitLogger;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned

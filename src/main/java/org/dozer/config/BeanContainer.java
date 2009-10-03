@@ -15,10 +15,10 @@
  */
 package org.dozer.config;
 
-import org.dozer.util.DozerClassLoader;
-import org.dozer.util.DozerProxyResolver;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DefaultProxyResolver;
+import org.dozer.util.DozerClassLoader;
+import org.dozer.util.DozerProxyResolver;
 
 /**
  * @author dmitry.buzdin

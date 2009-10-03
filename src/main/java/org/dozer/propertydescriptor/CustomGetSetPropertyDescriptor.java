@@ -15,10 +15,10 @@
  */
 package org.dozer.propertydescriptor;
 
-import java.lang.reflect.Method;
-
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.ReflectionUtils;
+
+import java.lang.reflect.Method;
 
 
 /**

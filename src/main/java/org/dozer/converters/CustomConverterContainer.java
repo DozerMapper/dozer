@@ -15,15 +15,14 @@
  */
 package org.dozer.converters;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.lang.ClassUtils;
 import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Internal class for holding custom converter definitions. Only intended for internal use.

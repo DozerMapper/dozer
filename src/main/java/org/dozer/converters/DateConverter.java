@@ -15,15 +15,14 @@
  */
 package org.dozer.converters;
 
+import org.apache.commons.beanutils.Converter;
+
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Constructor;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.sql.Timestamp;
-
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.apache.commons.beanutils.Converter;
 
 /**
  * Internal convertor for handling Date/Time conversions.

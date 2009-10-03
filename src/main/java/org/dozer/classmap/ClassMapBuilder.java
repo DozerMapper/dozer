@@ -15,14 +15,7 @@
  */
 package org.dozer.classmap;
 
-import java.beans.PropertyDescriptor;
-import java.util.Set;
-import java.util.Collection;
-import java.util.Map.Entry;
-
-
 import org.apache.commons.lang.StringUtils;
-import org.dozer.cache.CacheEntry;
 import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
@@ -31,6 +24,10 @@ import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+
+import java.beans.PropertyDescriptor;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Internal class for adding implicit field mappings to a ClassMap. Also, builds implicit ClassMap for class mappings

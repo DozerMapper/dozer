@@ -15,15 +15,14 @@
  */
 package org.dozer.converters;
 
+import org.apache.commons.beanutils.Converter;
+
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.apache.commons.beanutils.Converter;
 
 /**
  * Internal class for converting Supported Data Types --> Calendar. Supported source data types include Date, Calendar,

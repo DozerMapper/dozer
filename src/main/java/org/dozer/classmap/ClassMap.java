@@ -15,16 +15,15 @@
  */
 package org.dozer.classmap;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Internal class that represents a class mapping definition. Holds all of the information about a single class mapping.

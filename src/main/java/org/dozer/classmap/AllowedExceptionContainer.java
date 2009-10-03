@@ -15,11 +15,11 @@
  */
 package org.dozer.classmap;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Internal class used to hold any "allowed exceptions" that may have been specified in the mapping xml. Only intended
