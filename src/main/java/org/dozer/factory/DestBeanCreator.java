@@ -25,6 +25,7 @@ import org.dozer.util.ReflectionUtils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -62,13 +63,7 @@ public final class DestBeanCreator {
 
     // If custom create method was specified, see if there are any static createMethods
     if (!MappingUtils.isBlankOrNull(createMethod)) {
-      Method method = null;
-      try {
-        method = ReflectionUtils.getMethod(classToCreate, createMethod, null);
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
-      return ReflectionUtils.invoke(method, null, null);
+      return createByStaticMethod(createMethod, classToCreate);
     }
 
     // If factory name was specified, create using factory.  Otherwise just create a new instance
@@ -81,6 +76,10 @@ public final class DestBeanCreator {
                 + classToCreate + ", Actual: " + factoryCreatedObj.getClass());
       }
       return factoryCreatedObj;
+    }
+
+    if (Calendar.class.isAssignableFrom(classToCreate)) {
+      return createByStaticMethod("getInstance", classToCreate);
     }
 
     //Typical oject creation
@@ -116,6 +115,16 @@ public final class DestBeanCreator {
     }
 
     return rvalue;
+  }
+
+  private static Object createByStaticMethod(String createMethod, Class<?> classToCreate) {
+    Method method = null;
+    try {
+      method = ReflectionUtils.getMethod(classToCreate, createMethod, null);
+    } catch (NoSuchMethodException e) {
+      MappingUtils.throwMappingException(e);
+    }
+    return ReflectionUtils.invoke(method, null, null);
   }
 
   private static Object createFromFactory(Object srcObject, Class<?> srcObjectClass, Class<?> destClass, String factoryName,

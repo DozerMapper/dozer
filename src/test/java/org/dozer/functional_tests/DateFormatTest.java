@@ -15,13 +15,15 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.vo.DateContainer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import org.dozer.vo.DateContainer;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author dmitry.buzdin
@@ -44,8 +46,55 @@ public class DateFormatTest extends AbstractFunctionalTest {
     assertEquals("2009-07-03 12:20:10", result.getSet().iterator().next());
   }
 
+  @Test
+  public void testConversion_Calendar() {
+    GregorianCalendar cal = new GregorianCalendar(2009, 2, 3);
+    Date sourceValue = cal.getTime();
+    Calendar result = mapper.map(sourceValue, Calendar.class);
+    assertEquals(cal.getTime(), result.getTime());
+  }
+
+  @Test
+  public void testConversion_CalendarInsideBean() {
+    GregorianCalendar cal = new GregorianCalendar(2009, 2, 3);
+    Date sourceValue = cal.getTime();
+    Source source = new Source();
+    source.setDate(sourceValue);
+    Destination result = mapper.map(source, Destination.class);
+
+    assertEquals(cal.getTime(), result.getDate().getTime());
+  }
+
+
   @Override
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
   }
+
+  public static class Source {
+    private Date date;
+
+    public Date getDate() {
+      return date;
+    }
+
+    public void setDate(Date date) {
+      this.date = date;
+    }
+  }
+
+
+  public static class Destination {
+
+    private Calendar calendar;
+
+    public Calendar getDate() {
+      return calendar;
+    }
+
+    public void setDate(Calendar calendar) {
+      this.calendar = calendar;
+    }
+  }
+
 }
