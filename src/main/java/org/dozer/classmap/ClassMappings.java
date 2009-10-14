@@ -38,6 +38,7 @@ public class ClassMappings {
   
   private static final Log log = LogFactory.getLog(ClassMappings.class);
 
+  // Cache key --> Mapping Structure
   private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
   private ClassMapKeyFactory keyFactory;
 

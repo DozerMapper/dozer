@@ -15,14 +15,13 @@
  */
 package org.dozer.factory;
 
-import java.lang.reflect.Method;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.BeanFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+
+import java.lang.reflect.Method;
 
 /**
  * Public custom bean factory that can be used by applition code when mapping JAXB data objects

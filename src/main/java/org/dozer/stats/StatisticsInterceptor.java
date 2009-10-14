@@ -15,13 +15,11 @@
  */
 package org.dozer.stats;
 
+import org.dozer.util.MappingUtils;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.dozer.stats.StatisticType;
-import org.dozer.stats.StatisticsManager;
-import org.dozer.util.MappingUtils;
 
 
 /**

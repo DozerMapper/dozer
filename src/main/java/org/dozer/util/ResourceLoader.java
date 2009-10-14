@@ -15,10 +15,10 @@
  */
 package org.dozer.util;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Internal class that loads resources from the classpath. Also supports loading

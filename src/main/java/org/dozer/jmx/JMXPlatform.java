@@ -15,8 +15,8 @@
  */
 package org.dozer.jmx;
 
-import javax.management.MalformedObjectNameException;
 import javax.management.MBeanRegistrationException;
+import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 
 /**

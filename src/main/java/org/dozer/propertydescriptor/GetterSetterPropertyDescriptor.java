@@ -15,15 +15,19 @@
  */
 package org.dozer.propertydescriptor;
 
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.fieldmap.FieldMap;
+import org.dozer.fieldmap.HintContainer;
+import org.dozer.util.BridgedMethodFinder;
+import org.dozer.util.CollectionUtils;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.ReflectionUtils;
+import org.dozer.util.TypeResolver;
+
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.Collection;
-
-import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.util.*;
 
 
 /**

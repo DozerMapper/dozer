@@ -15,14 +15,13 @@
  */
 package org.dozer.util;
 
-import java.util.Collection;
-
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.fieldmap.FieldMap;
+
+import java.util.Collection;
 
 /**
  * Internal class used to build various types of log messages. Only intended for internal use.

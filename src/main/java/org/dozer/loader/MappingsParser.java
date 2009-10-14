@@ -15,11 +15,6 @@
  */
 package org.dozer.loader;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-
 import org.apache.commons.lang.StringUtils;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
@@ -31,6 +26,10 @@ import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Internal class that decorates raw ClassMap objects and performs various validations on the explicit field mappings.

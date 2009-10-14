@@ -15,24 +15,6 @@
  */
 package org.dozer;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
-import java.util.List;  
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-
-
-import static org.dozer.util.DozerConstants.*;
-
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
@@ -62,10 +44,27 @@ import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.CollectionUtils;
+import static org.dozer.util.DozerConstants.BASE_CLASS;
+import static org.dozer.util.DozerConstants.ITERATE;
 import org.dozer.util.LogMsgFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
 import org.dozer.util.ReflectionUtils;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.

@@ -15,14 +15,13 @@
  */
 package org.dozer.propertydescriptor;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-
 import org.dozer.MappingException;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+
+import java.lang.reflect.Method;
 
 
 /**

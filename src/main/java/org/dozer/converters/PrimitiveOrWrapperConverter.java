@@ -15,15 +15,6 @@
  */
 package org.dozer.converters;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.datatype.XMLGregorianCalendar;
-
-
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
 import org.apache.commons.beanutils.converters.BigIntegerConverter;
@@ -34,8 +25,13 @@ import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.lang.ClassUtils;
-import org.dozer.util.ReflectionUtils;
-import org.dozer.util.MappingUtils;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Internal class for converting between wrapper types(including primitives). Only intended for internal use.

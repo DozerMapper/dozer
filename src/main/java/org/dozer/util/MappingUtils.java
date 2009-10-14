@@ -15,6 +15,18 @@
  */
 package org.dozer.util;
 
+import org.apache.commons.lang.StringUtils;
+import org.dozer.MappingException;
+import org.dozer.cache.Cache;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.Configuration;
+import org.dozer.classmap.CopyByReference;
+import org.dozer.classmap.CopyByReferenceContainer;
+import org.dozer.classmap.DozerClass;
+import org.dozer.config.BeanContainer;
+import org.dozer.converters.CustomConverterContainer;
+import org.dozer.fieldmap.DozerField;
+import org.dozer.fieldmap.FieldMap;
 import static org.dozer.util.DozerConstants.BASE_CLASS;
 
 import java.lang.reflect.Array;
@@ -28,22 +40,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.dozer.MappingException;
-import org.dozer.config.BeanContainer;
-import org.dozer.cache.Cache;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.Configuration;
-import org.dozer.classmap.CopyByReference;
-import org.dozer.classmap.CopyByReferenceContainer;
-import org.dozer.classmap.DozerClass;
-import org.dozer.converters.CustomConverterContainer;
-import org.dozer.fieldmap.DozerField;
-import org.dozer.fieldmap.FieldMap;
-
-import sun.reflect.Reflection;
 
 /**
  * Internal class that provides various mapping utilities used throughout the code base. Only intended for internal use.

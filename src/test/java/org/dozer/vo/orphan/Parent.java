@@ -2,12 +2,15 @@ package org.dozer.vo.orphan;
 
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
 
 public class Parent {
+
   private Long id;
   private String name;
   private Set childrenSet;
   private List childrenList;
+  private Map childrenMap;
 
   private Parent() {
   }
@@ -47,6 +50,14 @@ public class Parent {
 
   public void setChildrenSet(Set childrenSet) {
     this.childrenSet = childrenSet;
+  }
+
+  public Map getChildrenMap() {
+    return childrenMap;
+  }
+
+  public void setChildrenMap(Map childrenMap) {
+    this.childrenMap = childrenMap;
   }
 
   @Override

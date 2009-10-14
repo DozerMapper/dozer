@@ -15,14 +15,13 @@
  */
 package org.dozer.fieldmap;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.dozer.util.MappingUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Only intended for internal use.

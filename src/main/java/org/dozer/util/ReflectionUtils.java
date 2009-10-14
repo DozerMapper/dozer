@@ -15,6 +15,11 @@
  */
 package org.dozer.util;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.dozer.MappingException;
+import org.dozer.fieldmap.HintContainer;
+import org.dozer.propertydescriptor.DeepHierarchyElement;
+
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -27,12 +32,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.StringTokenizer;
-
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.dozer.MappingException;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.propertydescriptor.DeepHierarchyElement;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code

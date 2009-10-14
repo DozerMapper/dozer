@@ -15,18 +15,17 @@
  */
 package org.dozer.config;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Properties;
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.InitLogger;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ResourceLoader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Properties;
 
 /**
  * Internal singleton class that holds the global settings used by Dozer. Most of these settings are configurable via an
