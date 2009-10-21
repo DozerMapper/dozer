@@ -16,4 +16,15 @@
     </field>
   </mapping>
 
+  <mapping>
+    <class-a>org.dozer.vo.DateObjectSource</class-a>
+    <class-b>org.dozer.vo.DateObjectDest</class-b>
+    <field>
+      <a>recalledDate</a>
+      <b>recDate</b>
+      <b-hint>com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl</b-hint>
+    </field>
+  </mapping>
+
+
 </mappings>

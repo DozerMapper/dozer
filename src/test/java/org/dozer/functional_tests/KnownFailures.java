@@ -25,9 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 
-import org.dozer.vo.MessageHeaderDTO;
-import org.dozer.vo.MessageHeaderVO;
-import org.dozer.vo.MessageIdVO;
+import org.dozer.vo.*;
 import org.dozer.vo.inheritance.Inner;
 import org.dozer.vo.inheritance.Outer;
 import org.dozer.vo.inheritance.Target;
@@ -35,8 +33,10 @@ import org.dozer.vo.inheritance.cc.C;
 import org.dozer.vo.inheritance.cc.Z;
 import org.dozer.vo.map.House;
 import org.dozer.vo.map.Room;
+import org.dozer.MappingException;
 import org.junit.Before;
 import org.junit.Test;
+import junit.framework.Assert;
 
 /**
  * This is a holding grounds for test cases that reproduce known bugs, features, or gaps discovered during development.
@@ -106,6 +106,21 @@ public class KnownFailures extends AbstractFunctionalTest {
     assertNotNull("bathrooms should exist", result.containsKey("bathrooms"));
     assertEquals("wrong bathrooms found", house.getBathrooms(),  (List<String>) result.get("bathrooms"));
         
+  }
+
+  /*
+   Test, which shows, that dozer doesn't support indexed read property
+   */
+  @Test
+  public void testIndexedGetFailure() {
+    CustomGetSource customGetSource = new CustomGetSource();
+    customGetSource.setValue("some value");
+
+    try {
+      mapper.map(customGetSource, CustomGetDest.class);
+    } catch (IllegalArgumentException e) {        
+    }
+    Assert.fail("Feature with indexed get method is not supported");
   }
 
   @Override

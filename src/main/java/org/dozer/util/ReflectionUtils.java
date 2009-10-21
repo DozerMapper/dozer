@@ -22,6 +22,7 @@ import org.dozer.propertydescriptor.DeepHierarchyElement;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
+import java.beans.IndexedPropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -56,6 +57,20 @@ public final class ReflectionUtils {
       if (descriptors != null) {
         int size = descriptors.length;
         for (int i = 0; i < size; i++) {
+
+          /*
+            Bugfix #2826468.
+            if object class has methods, f.e, getValue() and getValue(int index) in this case
+            could happen that this field couldn't be mapped, because getValue(int index) becomes first
+            and PropertyDescriptor.getReadMethod() returns null. We need to exclude IndexedPropertyDescriptor from
+            search. At this time dozer dosen't support mappings from indexed fields from POJO.
+
+            See KnownFailures.testIndexedGetFailure()
+          */
+          if (descriptors[i] instanceof IndexedPropertyDescriptor) {
+            continue;
+          }
+
           if (fieldName.equalsIgnoreCase(descriptors[i].getName())) {
             result = descriptors[i];
             break;

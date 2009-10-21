@@ -29,4 +29,13 @@
     </field>
   </mapping>
 
+  <mapping>
+    <class-a>org.dozer.vo.CustomGetSource</class-a>
+    <class-b>org.dozer.vo.CustomGetDest</class-b>
+    <field>
+      <a get-method="getValue(int)">value</a>
+      <b>value</b>
+    </field>
+  </mapping>
+
 </mappings>
