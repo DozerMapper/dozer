@@ -717,7 +717,7 @@ public class MappingProcessor implements Mapper {
         // perform an update if complex type - can't map strings
         Object obj = result.get(index);
         // make sure it is not a String
-        if (!obj.getClass().isAssignableFrom(String.class)) {
+        if (obj != null && !obj.getClass().isAssignableFrom(String.class)) {
           map(null, srcValue, obj, false, null);
           mappedElements.add(obj);
         }
@@ -757,7 +757,7 @@ public class MappingProcessor implements Mapper {
       if (CollectionUtils.isList(field.getClass())) {
         return (List<?>) field;
       } else if (CollectionUtils.isArray(field.getClass())) {
-        return new ArrayList<Object>(Arrays.asList((Object[]) field));
+        return new ArrayList<Object>(Arrays.asList((Object[]) field));        
       } else { // assume it is neither - safest way is to create new List
         return new ArrayList<Object>(srcCollectionValue.size());
       }
