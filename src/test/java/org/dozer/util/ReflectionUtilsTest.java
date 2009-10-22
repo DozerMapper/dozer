@@ -19,14 +19,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.util.ReflectionUtils;
 import org.dozer.vo.SimpleObj;
+import org.dozer.vo.A;
+import org.dozer.vo.B;
 import org.dozer.vo.inheritance.ChildChildIF;
 import org.junit.Test;
+import junit.framework.Assert;
 
 /**
  * @author tierney.matt
@@ -77,6 +81,22 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
     descriptors = ReflectionUtils.getInterfacePropertyDescriptors(TestClass.class);
     assertEquals(4, descriptors.length);
+  }
+
+  @Test
+  public void testIllegalMethodType() {
+    A a = new A();
+    String methodName = "setB";
+    try {
+      Method method = a.getClass().getMethod(methodName, B.class);
+      ReflectionUtils.invoke(method, a, new Object[] {"wrong param"});
+    } catch (NoSuchMethodException e) {
+      Assert.fail("Method " + methodName + "missed");
+    } catch (MappingException e) {
+      if(!e.getMessage().contains("Illegal object type for the method '" + methodName +"'")) {
+        Assert.fail("Wrong exception message");
+      }
+    }
   }
 
   private abstract static class TestClass implements TestIF1, TestIF2 {

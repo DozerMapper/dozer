@@ -16,6 +16,7 @@
 package org.dozer.util;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
@@ -42,6 +43,8 @@ import java.util.StringTokenizer;
  * @author garsombke.franz
  */
 public final class ReflectionUtils {
+
+  private static final String IAE_MESSAGE = "argument type mismatch";
 
   private ReflectionUtils() {}
 
@@ -267,6 +270,10 @@ public final class ReflectionUtils {
     try {
       result = method.invoke(obj, args);
     } catch (IllegalArgumentException e) {
+
+      if (e.getMessage().equals(IAE_MESSAGE)) {                
+        MappingUtils.throwMappingException(prepareExceptionMessage(method, args), e);
+      }
       MappingUtils.throwMappingException(e);
     } catch (IllegalAccessException e) {
       MappingUtils.throwMappingException(e);
@@ -274,6 +281,19 @@ public final class ReflectionUtils {
       MappingUtils.throwMappingException(e);
     }
     return result;
+  }
+
+  private static String prepareExceptionMessage(Method method, Object[] args) {
+    StringBuffer message = new StringBuffer("Illegal object type for the method '" + method.getName() + "'. \n ");
+    message.append("Expected types: \n");
+    for (Class<?> type : method.getParameterTypes()) {
+      message.append(type.getName());
+    }
+    message.append("\n Actual types: \n");
+    for (Object param: args) {
+      message.append(param.getClass().getName());
+    }
+    return message.toString();
   }
 
   public static Method getMethod(Class<?> clazz, String name, Class<?>[] parameterTypes) throws NoSuchMethodException {
