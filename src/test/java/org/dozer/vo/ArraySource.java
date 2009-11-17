@@ -15,8 +15,8 @@
  */
 package org.dozer.vo;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Put comments here
@@ -30,6 +30,8 @@ public class ArraySource {
   private String[] preInitializedArray = new String[preInitializedArraySize];
 
   private List<String> list = new ArrayList<String>();
+
+  private String value = null;
 
   public String[] getPreInitializedArray() {
     return preInitializedArray;
@@ -45,5 +47,13 @@ public class ArraySource {
 
   public void setList(List<String> list) {
     this.list = list;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
   }
 }

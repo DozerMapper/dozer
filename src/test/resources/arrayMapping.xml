@@ -12,4 +12,13 @@
     </field>
   </mapping>
 
+  <mapping wildcard="false" map-id="single">
+    <class-a>org.dozer.vo.ArraySource</class-a>
+    <class-b>org.dozer.vo.ArrayDest</class-b>
+    <field relationship-type="non-cumulative">
+      <a>value</a>
+      <b>array[0]</b>
+    </field>
+  </mapping>
+
 </mappings>

@@ -18,11 +18,7 @@ package org.dozer.propertydescriptor;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
-import org.dozer.util.BridgedMethodFinder;
-import org.dozer.util.CollectionUtils;
-import org.dozer.util.MappingUtils;
-import org.dozer.util.ReflectionUtils;
-import org.dozer.util.TypeResolver;
+import org.dozer.util.*;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
@@ -80,17 +76,18 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       writeDeepDestinationValue(bean, value, fieldMap);
     } else {
       if (!getPropertyType().isPrimitive() || value != null) {
-        // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
-        try {
-          if (getPropertyValue(bean) == value) {
-            return;
-          }
-        } catch (Exception e) {
-          // if we failed to read the value, assume we must write, and continue...
-        }
+        //First check if value is indexed. If it's null, then the new array will be created
         if (isIndexed) {
           writeIndexedValue(bean, value);
         } else {
+          // Check if dest value is already set and is equal to src value. If true, no need to rewrite the dest value
+          try {
+            if (getPropertyValue(bean) == value && !isIndexed) {
+              return;
+            }
+          } catch (Exception e) {
+            // if we failed to read the value, assume we must write, and continue...
+          }
           invokeWriteMethod(bean, value);
         }
       }

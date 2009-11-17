@@ -15,8 +15,8 @@
  */
 package org.dozer.vo;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Put comments here
@@ -26,9 +26,12 @@ import java.util.ArrayList;
 public class ArrayDest {
 
   private final int preInitializedArraySize = 100;
+
   private String[] preInitializedArray = new String[preInitializedArraySize];
 
   private List<String> destList = new ArrayList<String>(100);
+
+  private String[] array = null;
 
   public ArrayDest() {
     for (int i = 0; i < 10; i++) {
@@ -54,5 +57,13 @@ public class ArrayDest {
 
   public void setDestList(List<String> destList) {
     this.destList = destList;
+  }
+
+  public String[] getArray() {
+    return array;
+  }
+
+  public void setArray(String[] array) {
+    this.array = array;
   }
 }

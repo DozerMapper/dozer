@@ -52,6 +52,13 @@ public class CollectionTest
 
   }
 
+  @Test
+  public void testSetValueToNullArray() {
+    ArraySource sourceBean = new ArraySource();
+    ArrayDest arrayDest = mapper.map(sourceBean, ArrayDest.class, "single");
+    Assert.assertEquals(1, arrayDest.getArray().length);
+    Assert.assertNull("Element must contain null", arrayDest.getArray()[0]);
+  }
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
