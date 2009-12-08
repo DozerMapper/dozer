@@ -15,19 +15,13 @@
  */
 package org.dozer.stats;
 
+import org.dozer.AbstractDozerTest;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
-
-
-import org.dozer.AbstractDozerTest;
-import org.dozer.stats.Statistic;
-import org.dozer.stats.StatisticEntry;
-import org.dozer.stats.StatisticType;
-import org.dozer.stats.StatisticsManagerImpl;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -144,11 +138,13 @@ public class StatisticManagerTest extends AbstractDozerTest {
     statMgr.getStatisticValue(type);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testAddDuplicateStatistic() {
     StatisticType type = StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT;
-    statMgr.addStatistic(new Statistic(type));
-    statMgr.addStatistic(new Statistic(type));
+    Statistic first = new Statistic(type);
+    statMgr.addStatistic(first);
+    Statistic statistic = statMgr.addStatistic(new Statistic(type));
+    assertSame(first, statistic);
   }
 
   @Test

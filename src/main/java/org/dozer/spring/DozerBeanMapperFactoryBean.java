@@ -15,7 +15,11 @@
  */
 package org.dozer.spring;
 
-import org.dozer.*;
+import org.dozer.BeanFactory;
+import org.dozer.CustomConverter;
+import org.dozer.DozerBeanMapper;
+import org.dozer.DozerEventListener;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -30,7 +34,7 @@ import java.util.Map;
  * Uses Spring InitializingBean and DisposableBean contracts to properly start-up and
  * release global Dozer resources.
  *
- * @author S�ren Chittka                                даже 
+ * @author S'ren Chittka
  */
 public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean, DisposableBean {
 

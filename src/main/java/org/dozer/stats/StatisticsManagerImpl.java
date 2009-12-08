@@ -20,22 +20,22 @@ import org.apache.commons.logging.LogFactory;
 import org.dozer.config.GlobalSettings;
 import org.dozer.util.MappingUtils;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Internal class that manages the Dozer statistics. Only intended for internal use.
- * 
+ * Internal class that manages the Dozer runtime statistics. Only intended for internal use.
+ *
  * @author tierney.matt
  */
 public final class StatisticsManagerImpl implements StatisticsManager {
 
   private static final Log log = LogFactory.getLog(StatisticsManagerImpl.class);
 
-  private final Map<StatisticType, Statistic<?>> statisticsMap = new HashMap<StatisticType, Statistic<?>>();
+  private final Map<StatisticType, Statistic<?>> statisticsMap = new ConcurrentHashMap<StatisticType, Statistic<?>>();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
 
   public void clearAll() {
@@ -92,8 +92,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     increment(statisticType, statisticEntryKey, 1);
   }
 
-  @SuppressWarnings("unchecked")
-  protected <T extends Enum<StatisticType>> void increment(T statisticType, Object statisticEntryKey, long value) {
+  protected void increment(StatisticType statisticType, Object statisticEntryKey, long value) {
     // If statistics are not enabled, just return and do nothing.
     if (!isStatisticsEnabled()) {
       return;
@@ -108,10 +107,10 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     }
 
     // Get Statistic object for the specified type. If it doesnt aleady exist, create it
-    Statistic<T> statistic = (Statistic<T>) statisticsMap.get(statisticType);
+    Statistic statistic = statisticsMap.get(statisticType);
     if (statistic == null) {
-      statistic = new Statistic<T>(statisticType);
-      addStatistic(statistic);
+      statistic = new Statistic(statisticType);
+      statistic = addStatistic(statistic);
     }
 
     // Get the Statistic Entry object which contains the actual value.
@@ -147,11 +146,11 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     return statisticEntry.getValue();
   }
 
-  public void addStatistic(Statistic<?> statistic) {
-    if (statisticExists((StatisticType) statistic.getType())) {
-      throw new IllegalArgumentException("Statistic already exists for type: " + statistic.getType());
+  protected Statistic addStatistic(Statistic<?> statistic) {
+    if (!statisticExists((StatisticType) statistic.getType())) {
+      statisticsMap.put((StatisticType) statistic.getType(), statistic);
     }
-    statisticsMap.put((StatisticType) statistic.getType(), statistic);
+    return statisticsMap.get((StatisticType) statistic.getType());
   }
 
   public boolean statisticExists(StatisticType statisticType) {
