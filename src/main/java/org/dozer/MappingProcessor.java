@@ -24,11 +24,7 @@ import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheType;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.ClassMapBuilder;
-import org.dozer.classmap.ClassMappings;
-import org.dozer.classmap.Configuration;
-import org.dozer.classmap.RelationshipType;
+import org.dozer.classmap.*;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
 import org.dozer.event.DozerEvent;
@@ -36,35 +32,19 @@ import org.dozer.event.DozerEventManager;
 import org.dozer.event.DozerEventType;
 import org.dozer.event.EventManager;
 import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
-import org.dozer.fieldmap.ExcludeFieldMap;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.fieldmap.*;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
-import org.dozer.util.CollectionUtils;
-import static org.dozer.util.DozerConstants.BASE_CLASS;
-import static org.dozer.util.DozerConstants.ITERATE;
-import org.dozer.util.LogMsgFactory;
-import org.dozer.util.MappingUtils;
-import org.dozer.util.MappingValidator;
-import org.dozer.util.ReflectionUtils;
+import org.dozer.util.*;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
+
+import static org.dozer.util.DozerConstants.BASE_CLASS;
+import static org.dozer.util.DozerConstants.ITERATE;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
@@ -646,12 +626,18 @@ public class MappingProcessor implements Mapper {
       result.addAll((Collection<?>) field);
     }
     Object destValue;
+    Class<?> prevDestEntryType = null;
     for (Object srcValue : srcCollectionValue) {
       if (destEntryType == null
               || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
-        destEntryType = fieldMap.getDestHintType(srcValue.getClass());
+        if (srcValue == null) {
+          destEntryType = prevDestEntryType;
+        } else {
+          destEntryType = fieldMap.getDestHintType(srcValue.getClass());
+        }
       }
       destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
+      prevDestEntryType = destEntryType;
 
       if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
               && result.contains(destValue)) {

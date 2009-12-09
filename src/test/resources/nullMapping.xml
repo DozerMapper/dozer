@@ -21,4 +21,24 @@
       </field>
   </mapping>
 
+  <mapping map-id="null-set" wildcard="false">
+      <class-a>org.dozer.vo.set.NamesArray</class-a>
+      <class-b>org.dozer.vo.set.NamesSet</class-b>
+      <field>
+          <a>names</a>
+          <b>names</b>
+          <b-hint>java.util.HashSet</b-hint>
+      </field>
+  </mapping>
+
+  <mapping map-id="null-list" wildcard="false">
+      <class-a>org.dozer.vo.set.NamesArray</class-a>
+      <class-b>org.dozer.vo.set.NamesList</class-b>
+      <field>
+          <a>names</a>
+          <b>names</b>
+          <b-hint>java.util.LinkedList</b-hint>
+      </field>
+  </mapping>
+
 </mappings>

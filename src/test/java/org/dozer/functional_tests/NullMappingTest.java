@@ -15,16 +15,19 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.vo.A;
+import org.dozer.vo.B;
+import org.dozer.vo.set.NamesArray;
+import org.dozer.vo.set.NamesList;
+import org.dozer.vo.set.NamesSet;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;import static org.junit.Assert.assertFalse;
-import org.dozer.vo.B;
-import org.dozer.vo.A;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * @author dmitry.buzdin
@@ -86,6 +89,25 @@ public class NullMappingTest extends AbstractFunctionalTest {
     assertNotNull(dest);
     assertFalse(dest.containsKey("key"));
   }
+
+  @Test
+  public void testNullSet() {
+    NamesArray namesArray = new NamesArray();
+    String[] arr = new String[] {null, "two"};
+    namesArray.setNames(arr);
+    NamesSet namesSet = mapper.map(namesArray, NamesSet.class, "null-set");
+    Assert.assertArrayEquals(arr, namesSet.getNames().toArray());
+  }
+
+  @Test
+  public void testNullList() {
+    NamesArray namesArray = new NamesArray();
+    String[] arr = new String[] {null, "two"};
+    namesArray.setNames(arr);
+    NamesList namesSet = mapper.map(namesArray, NamesList.class, "null-list");
+    Assert.assertArrayEquals(arr, namesSet.getNames().toArray());
+  }
+
 
   protected DataObjectInstantiator getDataObjectInstantiator() {
     return NoProxyDataObjectInstantiator.INSTANCE;
