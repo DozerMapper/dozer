@@ -50,7 +50,12 @@ public class DefaultProxyResolver implements DozerProxyResolver {
 
   public Class<?> getRealClass(Class<?> clazz) {
     if (isProxy(clazz)) {
-      return clazz.getSuperclass();
+      Class<?> superclass = clazz.getSuperclass();
+      // Proxy could be created based on set of interfaces. In this case we will rely on inheritance mappings.
+      if (DozerConstants.BASE_CLASS.equals(superclass.getName())) {
+        return clazz;
+      }
+      return superclass;
     }
     return clazz;
   }

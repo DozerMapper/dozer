@@ -141,8 +141,8 @@ public class ClassMappings {
     // while iterating over the custom mappings.
     // See bug #1550275.
     Object[] keys = classMappings.keySet().toArray();
-    for (int i = 0; i < keys.length; i++) {
-      ClassMap map = classMappings.get(keys[i]);
+    for (Object key : keys) {
+      ClassMap map = classMappings.get(key);
       Class<?> mappingDestClass = map.getDestClassToMap();
       Class<?> mappingSrcClass = map.getSrcClassToMap();
 
@@ -159,7 +159,8 @@ public class ClassMappings {
         }
       }
 
-      if (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass)) {
+      if (destClass.isAssignableFrom(mappingDestClass) ||
+          (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass))) {
         if (srcClass.equals(mappingSrcClass)) {
           return map;
         }

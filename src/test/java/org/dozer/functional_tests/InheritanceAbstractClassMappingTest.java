@@ -15,14 +15,13 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import org.dozer.DozerBeanMapper;
 import org.dozer.MappingException;
 import org.dozer.vo.abstractinheritance.A;
+import org.dozer.vo.abstractinheritance.AbstractA;
 import org.dozer.vo.abstractinheritance.AbstractB;
 import org.dozer.vo.abstractinheritance.B;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -77,6 +76,26 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   @Test(expected = MappingException.class)
   public void testAbstractDestClassThrowsException() throws Exception {
     mapper.map(newInstance(A.class), AbstractB.class);
+  }
+  
+  @Test
+  public void testCustomerMappingForAbstractDestClass() throws Exception {
+	  mapper = getMapper("abstractMapping.xml");
+	  A src = getA();
+	  AbstractB dest = mapper.map(src, AbstractB.class);
+	  
+	  assertTrue(dest instanceof B);
+	  
+	  assertNull("abstractField1 should have been excluded", dest.getAbstractField1());
+	  assertEquals("abstractBField not mapped correctly", src.getAbstractAField(), dest.getAbstractBField());
+	  assertEquals("field1 not mapped correctly", src.getField1(), ((B)dest).getField1());
+	  assertEquals("fieldB not mapped correctly", src.getFieldA(), ((B)dest).getFieldB());
+
+	  // Remap to each other to test bi-directional mapping
+	  AbstractA mappedSrc = mapper.map(dest, AbstractA.class);
+	  AbstractB mappedDest = mapper.map(mappedSrc, AbstractB.class);
+	  
+	  assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
 
   @Test

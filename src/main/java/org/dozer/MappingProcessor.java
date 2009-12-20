@@ -24,7 +24,11 @@ import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheType;
-import org.dozer.classmap.*;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.ClassMappings;
+import org.dozer.classmap.Configuration;
+import org.dozer.classmap.RelationshipType;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
 import org.dozer.event.DozerEvent;
@@ -32,19 +36,35 @@ import org.dozer.event.DozerEventManager;
 import org.dozer.event.DozerEventType;
 import org.dozer.event.EventManager;
 import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.*;
+import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
+import org.dozer.fieldmap.ExcludeFieldMap;
+import org.dozer.fieldmap.FieldMap;
+import org.dozer.fieldmap.HintContainer;
+import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
-import org.dozer.util.*;
+import org.dozer.util.CollectionUtils;
+import static org.dozer.util.DozerConstants.BASE_CLASS;
+import static org.dozer.util.DozerConstants.ITERATE;
+import org.dozer.util.LogMsgFactory;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.MappingValidator;
+import org.dozer.util.ReflectionUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-
-import static org.dozer.util.DozerConstants.BASE_CLASS;
-import static org.dozer.util.DozerConstants.ITERATE;
+import java.util.Set;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
@@ -118,8 +138,10 @@ public class MappingProcessor implements Mapper {
 
     ClassMap classMap = null;
     try {
-      classMap = getClassMap(srcObj, destType, mapId);
+      Class<?> srcRealClass = MappingUtils.getRealClass(srcObj.getClass());
+      classMap = getClassMap(srcRealClass, destType, mapId);
 
+      // TODO Check if any proxy issues are here
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
       Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
@@ -153,7 +175,7 @@ public class MappingProcessor implements Mapper {
     // If class map hasnt already been determined, find the appropriate one for
     // the src/dest object combination
     if (classMap == null) {
-      classMap = getClassMap(srcObj, destObj.getClass(), mapId);
+      classMap = getClassMap(srcObj.getClass(), destObj.getClass(), mapId);
     }
 
     Class<?> srcClass = srcObj.getClass();
@@ -409,7 +431,7 @@ public class MappingProcessor implements Mapper {
       // Check to see if explicit map-id has been specified for the field
       // mapping
       String mapId = fieldMap.getMapId();
-      classMap = getClassMap(srcFieldValue, destFieldType, mapId);
+      classMap = getClassMap(srcFieldValue.getClass(), destFieldType, mapId);
 
       result = DestBeanCreator.create(srcFieldValue, classMap.getSrcClassToMap(),
           fieldMap.getDestHintContainer() != null ? fieldMap.getDestHintContainer().getHint() : classMap.getDestClassToMap(),
@@ -954,8 +976,8 @@ public class MappingProcessor implements Mapper {
     return result;
   }
 
-  private ClassMap getClassMap(Object srcObj, Class<?> destClass, String mapId) {
-    ClassMap mapping = classMappings.find(srcObj.getClass(), destClass, mapId);
+  private ClassMap getClassMap(Class<?> srcClass, Class<?> destClass, String mapId) {
+    ClassMap mapping = classMappings.find(srcClass, destClass, mapId);
 
     if (mapping == null) {
       // If mapId was specified and mapping was not found, then throw an
@@ -968,8 +990,8 @@ public class MappingProcessor implements Mapper {
       // default as an explicit mapping must not
       // exist. The create default class map method will also add all default
       // mappings that it can determine.
-      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcObj.getClass(), destClass);
-      classMappings.add(srcObj.getClass(), destClass, mapping);
+      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass);
+      classMappings.add(srcClass, destClass, mapping);
     }
 
     return mapping;

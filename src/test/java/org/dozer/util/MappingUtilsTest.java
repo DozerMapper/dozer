@@ -15,17 +15,6 @@
  */
 package org.dozer.util;
 
-import static org.junit.Assert.*;
-
-import java.io.Serializable;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.classmap.ClassMap;
@@ -48,7 +37,17 @@ import org.dozer.vo.interfacerecursion.LevelTwo;
 import org.dozer.vo.interfacerecursion.LevelTwoImpl;
 import org.dozer.vo.interfacerecursion.User;
 import org.dozer.vo.interfacerecursion.UserSub;
+import static org.junit.Assert.*;
 import org.junit.Test;
+
+import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * @author tierney.matt
@@ -134,6 +133,12 @@ public class MappingUtilsTest extends AbstractDozerTest {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
     assertEquals(ArrayList.class, MappingUtils.getRealClass(proxyObj.getClass()));
     assertEquals(ArrayList.class, MappingUtils.getRealClass(ArrayList.class));
+  }
+
+  @Test
+  public void testGetRealClass_CGLIBTarget() {
+    Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(new Class[] {List.class}, new ArrayList());
+    assertSame(proxyObj.getClass(), MappingUtils.getRealClass(proxyObj.getClass()));
   }
 
   @Test
