@@ -31,7 +31,7 @@
 	<extension
          point="org.eclipse.ui.editors">
       <editor
-            class="net.sf.dozer.eclipse.plugin.DozerMultiPageEditor"
+            class="org.dozer.eclipse.plugin.DozerMultiPageEditor"
             contributorClass="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorActionBarContributor"
             icon="icons/dozer.gif"
             id="net.sf.dozer.eclipse.plugin.editor.dozerEditor"
@@ -64,10 +64,10 @@
 	<!-- Content Assist -->
 	<extension point="org.eclipse.wst.sse.ui.editorConfiguration">
 		<sourceViewerConfiguration
-			class="net.sf.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
+			class="org.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
 			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4" />
 		<sourceViewerConfiguration
-			class="net.sf.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
+			class="org.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
 			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5" />
 	</extension>	
 	
@@ -76,7 +76,7 @@
          point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
       	<hyperlinkDetector
       		targetId="org.eclipse.core.runtime.xml"
-            class="net.sf.dozer.eclipse.plugin.sourcepage.hyperlink.DozerClassHyperlinkDetector"
+            class="org.dozer.eclipse.plugin.sourcepage.hyperlink.DozerClassHyperlinkDetector"
             id="net.sf.dozer.eclipse.plugin.DozerClassHyperinkDetector"
             name="DozerClassHyperinkDetector"/>        
 	</extension>
@@ -99,7 +99,7 @@
 				fullBuild="true"
 				incremental="true"
 				enabled="true"
-				class="net.sf.dozer.eclipse.plugin.sourcepage.validation.Validator"/>
+				class="org.dozer.eclipse.plugin.sourcepage.validation.Validator"/>
 		</validator>
 	</extension>
 	
@@ -107,14 +107,14 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            id="net.sf.dozer.eclipse.plugin.wizards.category"
+            id="org.dozer.eclipse.plugin.wizards.category"
             name="Dozer Mapping Framework"/>
       <wizard 
       		hasPages="true"
-            id="net.sf.dozer.eclipse.plugin.wizards.newMappingConfig"
+            id="org.dozer.eclipse.plugin.wizards.newMappingConfig"
             name="Dozer Mapping File"
-            class="net.sf.dozer.eclipse.plugin.wizards.NewMappingFileWizard"
-            category="net.sf.dozer.eclipse.plugin.wizards.category"
+            class="org.dozer.eclipse.plugin.wizards.NewMappingFileWizard"
+            category="org.dozer.eclipse.plugin.wizards.category"
             icon="icons/dozer.gif">
          <description>
             Create a new Dozer Mapping file.
