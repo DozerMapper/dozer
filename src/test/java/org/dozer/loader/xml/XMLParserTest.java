@@ -15,22 +15,18 @@
  */
 package org.dozer.loader.xml;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.net.URL;
-import java.util.List;
-
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.fieldmap.FieldMap;
-import org.dozer.loader.xml.XMLParser;
-import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.util.ResourceLoader;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.w3c.dom.Document;
+
+import java.net.URL;
+import java.util.List;
 
 /**
  * @author garsombke.franz
@@ -83,13 +79,6 @@ public class XMLParserTest extends AbstractDozerTest {
 
     assertNotNull("The fieldmap should not be null", fieldMap);
     assertEquals("The customconverterparam should be correct", "CustomConverterParamTest", fieldMap.getCustomConverterParam());
-  }
-
-  @Test
-  public void testGetFieldNameOfIndexedField() {
-    assertEquals("aaa", parser.getFieldNameOfIndexedField("aaa[0]"));
-    assertEquals("aaa[0].bbb", parser.getFieldNameOfIndexedField("aaa[0].bbb[1]"));
-    assertEquals("aaa[0].bbb[1].ccc", parser.getFieldNameOfIndexedField("aaa[0].bbb[1].ccc[2]"));
   }
 
 }
