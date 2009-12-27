@@ -16,12 +16,14 @@
 package org.dozer.loader;
 
 import org.apache.commons.lang.StringUtils;
+import org.dozer.CustomConverter;
 import org.dozer.classmap.AllowedExceptionContainer;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.CopyByReference;
 import org.dozer.classmap.CopyByReferenceContainer;
 import org.dozer.classmap.DozerClass;
+import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.converters.CustomConverterContainer;
@@ -128,9 +130,8 @@ public class MappingBuilder {
       return this;
     }
 
-    // TODO Typization
-    public MappingDefinitionBuilder type(String value) {
-      classMap.setType(value);
+    public MappingDefinitionBuilder type(MappingDirection type) {
+      classMap.setType(type);
       return this;
     }
 
@@ -181,7 +182,9 @@ public class MappingBuilder {
 
   public interface FieldContainerBuider {
     FieldBuilder a(String name, String type);
+
     FieldBuilder b(String name, String type);
+
     void build();
   }
 
@@ -193,7 +196,7 @@ public class MappingBuilder {
       this.fieldMap = fieldMap;
     }
 
-    public void type(String type) {
+    public void type(MappingDirection type) {
       fieldMap.setType(type);
     }
 
@@ -222,7 +225,7 @@ public class MappingBuilder {
     private ClassMap classMap;
     private DozerField srcField;
     private DozerField destField;
-    private String type;
+    private MappingDirection type;
     private RelationshipType relationshipType;
     private boolean removeOrphans;
     private HintContainer srcHintContainer;
@@ -234,6 +237,7 @@ public class MappingBuilder {
     private String customConverter;
     private String customConverterId;
     private String customConverterParam;
+    private boolean copyByReferenceSet;
 
     public FieldMapBuilder(ClassMap classMap) {
       this.classMap = classMap;
@@ -251,61 +255,77 @@ public class MappingBuilder {
       return new FieldBuilder(field);
     }
 
-    public void type(String type) {
+    public FieldMapBuilder type(MappingDirection type) {
       this.type = type;
+      return this;
     }
 
-    public void relationshipType(RelationshipType relationshipType) {
+    public FieldMapBuilder relationshipType(RelationshipType relationshipType) {
       this.relationshipType = relationshipType;
+      return this;
     }
 
-    public void removeOrphans(boolean value) {
+    public FieldMapBuilder removeOrphans(boolean value) {
       this.removeOrphans = value;
+      return this;
     }
 
-    public void srcHintContainer(String hint) {
+    public FieldMapBuilder srcHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.srcHintContainer = hintContainer;
+      return this;
     }
 
-    public void destHintContainer(String hint) {
+    public FieldMapBuilder destHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.destHintContainer = hintContainer;
+      return this;
     }
 
-    public void srcDeepIndexHintContainer(String hint) {
+    public FieldMapBuilder srcDeepIndexHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.srcDeepIndexHintContainer = hintContainer;
+      return this;
     }
 
-    public void destDeepIndexHintContainer(String hint) {
+    public FieldMapBuilder destDeepIndexHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.destDeepIndexHintContainer = hintContainer;
+      return this;
     }
 
-    public void copyByReference(boolean b) {
-      this.copyByReference = b;
+    public FieldMapBuilder copyByReference(boolean value) {
+      this.copyByReferenceSet = true;
+      this.copyByReference = value;
+      return this;
     }
 
-    public void mapId(String attribute) {
+    public FieldMapBuilder mapId(String attribute) {
       this.mapId = attribute;
+      return this;
     }
 
-    // TODO Lookup class
-    public void customConverter(String attribute) {
-      this.customConverter = attribute;
+    public FieldMapBuilder customConverter(Class<? extends CustomConverter> type) {
+      return customConverter(type.getName());
+    }
+    
+    public FieldMapBuilder customConverter(String typeName) {
+      this.customConverter = typeName;
+      return this;
     }
 
-    public void customConverterId(String attribute) {
+    public FieldMapBuilder customConverterId(String attribute) {
       this.customConverterId = attribute;
+      return this;
     }
 
-    public void customConverterParam(String attribute) {
+    public FieldMapBuilder customConverterParam(String attribute) {
       this.customConverterParam = attribute;
+      return this;
     }
 
     public void build() {
@@ -331,7 +351,9 @@ public class MappingBuilder {
       result.setSrcDeepIndexHintContainer(srcDeepIndexHintContainer);
       result.setDestDeepIndexHintContainer(destDeepIndexHintContainer);
 
-      result.setCopyByReference(copyByReference);
+      if (copyByReferenceSet) {
+        result.setCopyByReference(copyByReference);
+      }
       result.setMapId(mapId);
 
       result.setCustomConverter(customConverter);
@@ -554,7 +576,6 @@ public class MappingBuilder {
     }
 
     public CustomConverterBuilder classA(Class type) {
-      validateCustomConverter();
       converterDescription.setClassA(type);
       return this;
     }
@@ -565,17 +586,9 @@ public class MappingBuilder {
     }
 
     public CustomConverterBuilder classB(Class type) {
-      validateCustomConverter();
       converterDescription.setClassB(type);
       return this;
     }
-
-    private void validateCustomConverter() {
-      if (converterDescription == null) {
-        throw new IllegalStateException("Call customConverter() before assigning classA() or classB()");
-      }
-    }
-
 
   }
 

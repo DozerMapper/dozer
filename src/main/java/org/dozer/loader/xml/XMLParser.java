@@ -20,6 +20,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.MappingBuilder;
@@ -150,7 +151,9 @@ public class XMLParser {
       definitionBuilder.mapId(ele.getAttribute(MAPID_ATTRIBUTE));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      definitionBuilder.type(ele.getAttribute(TYPE_ATTRIBUTE));
+      String mappingDirection = ele.getAttribute(TYPE_ATTRIBUTE);
+      MappingDirection direction = MappingDirection.valueOf(mappingDirection);
+      definitionBuilder.type(direction);
     }
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
@@ -204,7 +207,9 @@ public class XMLParser {
   private void parseFieldExcludeMap(Element ele, MappingBuilder.MappingDefinitionBuilder definitionBuilder) {
     MappingBuilder.ExcludeFieldBuilder fieldMapBuilder = definitionBuilder.fieldExclude();
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      fieldMapBuilder.type(ele.getAttribute(TYPE_ATTRIBUTE));
+      String mappingDirection = ele.getAttribute(TYPE_ATTRIBUTE);
+      MappingDirection direction = MappingDirection.valueOf(mappingDirection);
+      fieldMapBuilder.type(direction);
     }
     NodeList nodeList = ele.getChildNodes();
     for (int i = 0; i < nodeList.getLength(); i++) {
@@ -242,7 +247,9 @@ public class XMLParser {
       fieldMapBuilder.mapId(ele.getAttribute(MAPID_ATTRIBUTE));
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      fieldMapBuilder.type(ele.getAttribute(TYPE_ATTRIBUTE));
+      String mappingDirection = ele.getAttribute(TYPE_ATTRIBUTE);
+      MappingDirection direction = MappingDirection.valueOf(mappingDirection);
+      fieldMapBuilder.type(direction);
     }
     if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE))) {
       fieldMapBuilder.customConverter(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE));

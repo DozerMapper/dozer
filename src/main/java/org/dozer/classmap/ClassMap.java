@@ -41,7 +41,7 @@ public class ClassMap {
   private DozerClass destClass;
   private List<FieldMap> fieldMaps = new ArrayList<FieldMap>();
   private List<Class<RuntimeException>> allowedExceptions = new ArrayList<Class<RuntimeException>>();
-  private String type;
+  private MappingDirection type;
   private String dateFormat;
   private String beanFactory;
   private boolean mapNull = DozerConstants.DEFAULT_MAP_NULL_POLICY;
@@ -166,11 +166,11 @@ public class ClassMap {
     this.wildcard = wildcardPolicy;
   }
 
-  public String getType() {
+  public MappingDirection getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(MappingDirection type) {
     this.type = type;
   }
 

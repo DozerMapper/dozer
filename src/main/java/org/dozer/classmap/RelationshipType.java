@@ -39,7 +39,7 @@ public final class RelationshipType {
     } else if (StringUtils.isEmpty(relationshipType)) {
       return null;
     }
-    throw new IllegalStateException("relationship-type should be cumulative or non-cumulative.");
+    throw new IllegalStateException("relationship-type should be cumulative or non-cumulative. " + relationshipType);
   }
 
 }

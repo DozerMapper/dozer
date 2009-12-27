@@ -20,6 +20,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.GetterSetterPropertyDescriptor;
@@ -52,7 +53,7 @@ public abstract class FieldMap implements Cloneable {
   private HintContainer destHintContainer;
   private HintContainer srcDeepIndexHintContainer;
   private HintContainer destDeepIndexHintContainer;
-  private String type;
+  private MappingDirection type;
   private boolean copyByReference;
   private boolean copyByReferenceOveridden;
   private String mapId;
@@ -301,11 +302,11 @@ public abstract class FieldMap implements Cloneable {
     return result;
   }
 
-  public String getType() {
+  public MappingDirection getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(MappingDirection type) {
     this.type = type;
   }
 

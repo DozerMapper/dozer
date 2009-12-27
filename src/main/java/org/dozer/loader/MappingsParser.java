@@ -15,15 +15,14 @@
  */
 package org.dozer.loader;
 
-import org.apache.commons.lang.StringUtils;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
+import org.dozer.classmap.MappingDirection;
 import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.MapFieldMap;
-import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
@@ -93,7 +92,7 @@ public final class MappingsParser {
         Object[] fms = classMap.getFieldMaps().toArray();
         // iterate through the fields and see wether or not they should be mapped
         // one way class mappings we do not need to add any fields
-        if (!StringUtils.equals(classMap.getType(), DozerConstants.ONE_WAY)) {
+        if (!MappingDirection.ONE_WAY.equals(classMap.getType())) {
           for (Object fm1 : fms) {
             FieldMap fieldMap = (FieldMap) fm1;
             fieldMap.validate();
@@ -111,12 +110,12 @@ public final class MappingsParser {
               }
             }
 
-            if (!(StringUtils.equals(fieldMap.getType(), DozerConstants.ONE_WAY) && !(fieldMap instanceof ExcludeFieldMap))) {
+            if (!(MappingDirection.ONE_WAY.equals(fieldMap.getType()) && !(fieldMap instanceof ExcludeFieldMap))) {
               // make a prime field map
               fieldMapPrime = (FieldMap) fieldMap.clone();
               fieldMapPrime.setClassMap(classMapPrime);
               // check to see if it is only an exclude one way
-              if (fieldMapPrime instanceof ExcludeFieldMap && StringUtils.equals(fieldMap.getType(), DozerConstants.ONE_WAY)) {
+              if (fieldMapPrime instanceof ExcludeFieldMap && MappingDirection.ONE_WAY.equals(fieldMap.getType())) {
                 // need to make a generic field map for the other direction
                 fieldMapPrime = new GenericFieldMap(classMapPrime);
               }
@@ -146,7 +145,7 @@ public final class MappingsParser {
 
             MappingUtils.applyGlobalCopyByReference(globalConfiguration, oneWayFieldMap, classMap);
             // check to see if we need to exclude the map
-            if ((StringUtils.equals(oneWayFieldMap.getType(), DozerConstants.ONE_WAY))) {
+            if (MappingDirection.ONE_WAY.equals(oneWayFieldMap.getType())) {
               fieldMapPrime = new ExcludeFieldMap(classMapPrime);
               MappingUtils.reverseFields(oneWayFieldMap, fieldMapPrime);
               classMapPrime.addFieldMapping(fieldMapPrime);
@@ -156,7 +155,7 @@ public final class MappingsParser {
       }
       // if it is a one way mapping or a method/iterate method mapping we can not bi-directionally map
       // Map Prime could actually be empty
-      if (!StringUtils.equals(classMap.getType(), DozerConstants.ONE_WAY)) {
+      if (!MappingDirection.ONE_WAY.equals(classMap.getType())) {
         result.add(classMap.getDestClassToMap(), classMap.getSrcClassToMap(), classMap.getMapId(), classMapPrime);
       }
     }

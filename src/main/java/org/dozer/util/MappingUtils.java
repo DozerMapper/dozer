@@ -177,11 +177,11 @@ public final class MappingUtils {
         source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(), source
             .isSrcMapNull(), source.isSrcMapEmptyString()));
     destination.setType(source.getType());
-    destination.setWildcard(Boolean.valueOf(source.isWildcard()));
-    destination.setTrimStrings(Boolean.valueOf(source.isTrimStrings()));
+    destination.setWildcard(source.isWildcard());
+    destination.setTrimStrings(source.isTrimStrings());
     destination.setDateFormat(source.getDateFormat());
     destination.setRelationshipType(source.getRelationshipType());
-    destination.setStopOnErrors(Boolean.valueOf(source.isStopOnErrors()));
+    destination.setStopOnErrors(source.isStopOnErrors());
     destination.setAllowedExceptions(source.getAllowedExceptions());
     destination.setSrcClassCreateMethod(source.getDestClassCreateMethod());
     destination.setDestClassCreateMethod(source.getSrcClassCreateMethod());

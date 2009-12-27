@@ -54,7 +54,6 @@ public final class DozerConstants {
   public static final String CONFIG_FILE_SYS_PROP = "dozer.configuration"; // i.e)-Ddozer.configuration=somefile.properties
   public static final String DEBUG_SYS_PROP = "dozer.debug";// i.e)-Ddozer.debug=true
   public static final String ITERATE = "iterate";
-  public static final String ONE_WAY = "one-way";
   public static final String DEEP_FIELD_DELIMITOR = ".";
   public static final String SELF_KEYWORD = "this";
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
