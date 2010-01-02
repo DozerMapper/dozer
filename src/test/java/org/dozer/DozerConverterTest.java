@@ -46,6 +46,15 @@ public class DozerConverterTest extends TestCase {
     }
   }
 
+  public void test_convert_exception() {
+    try {
+      converter.convert("", "", Boolean.class, String.class);
+      fail();
+    } catch (MappingException e) {
+      assertTrue(e.getMessage().contains(this.getClass().getName()));
+    }
+  }
+
   public void test_gettingParameter() {
     converter.setParameter("A");
     assertEquals("A", converter.getParameter());
@@ -65,21 +74,21 @@ public class DozerConverterTest extends TestCase {
   }
 
   public void test_hierarchy() {
-     DozerConverter<Number, Integer> converter = new DozerConverter<Number, Integer>(Number.class, Integer.class) {
+    DozerConverter<Number, Integer> converter = new DozerConverter<Number, Integer>(Number.class, Integer.class) {
 
-       public Integer convertTo(Number source, Integer destination) {
-         return source.intValue();
-       }
+      public Integer convertTo(Number source, Integer destination) {
+        return source.intValue();
+      }
 
-       public Number convertFrom(Integer source, Number destination) {
-         return source;
-       }
-     };
+      public Number convertFrom(Integer source, Number destination) {
+        return source;
+      }
+    };
 
 
     assertEquals(new Integer(1), converter.convert(null, new Integer(1), Number.class, Integer.class));
 
     assertEquals(new Integer(1), converter.convert(null, new Double(1), Integer.class, Number.class));
   }
-  
+
 }
