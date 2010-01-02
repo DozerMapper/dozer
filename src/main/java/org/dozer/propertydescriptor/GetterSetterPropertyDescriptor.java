@@ -15,10 +15,15 @@
  */
 package org.dozer.propertydescriptor;
 
+import org.dozer.MappingException;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
-import org.dozer.util.*;
+import org.dozer.util.BridgedMethodFinder;
+import org.dozer.util.CollectionUtils;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.ReflectionUtils;
+import org.dozer.util.TypeResolver;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
@@ -258,26 +263,41 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   private Class determinePropertyType() {
     Method readMethod = getBridgedReadMethod();
     Method writeMethod = getBridgedWriteMethod();
+
     Class returnType = null;
 
     try {
       returnType = TypeResolver.resolvePropertyType(clazz, readMethod, writeMethod);
-    } catch (Exception ignore) {}
-
-    if (returnType != null)
-      return returnType;
-
-    try {
-      returnType = readMethod.getReturnType();
-    } catch (Exception e) {
-      // let us try the set method - the field might not have a 'get' method
-      try {
-        returnType = writeMethod.getParameterTypes()[0];
-      } catch (Exception e1) {
-        MappingUtils.throwMappingException(e);
-      }
+    } catch (Exception ignore) {
     }
-    return returnType;
+
+    if (returnType != null) {
+      return returnType;
+    }
+
+    if (readMethod == null && writeMethod == null) {
+      throw new MappingException("No read or write method found for field (" + fieldName
+          + ") in class (" + clazz + ")");
+    }
+
+    if (readMethod == null) {
+      return determineByWriteMethod(writeMethod);
+    } else {
+      try {
+        return readMethod.getReturnType();
+      } catch (Exception e) {
+        // let us try the set method - the field might have inacessible 'get' method
+        return determineByWriteMethod(writeMethod);
+      }
+    }    
+  }
+
+  private Class determineByWriteMethod(Method writeMethod) {
+    try {
+      return writeMethod.getParameterTypes()[0];
+    } catch (Exception e) {
+      throw new MappingException(e);
+    }
   }
 
   private Method getBridgedReadMethod() {

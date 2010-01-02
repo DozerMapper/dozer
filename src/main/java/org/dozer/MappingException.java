@@ -25,16 +25,17 @@ package org.dozer;
  * 
  */
 public class MappingException extends RuntimeException {
-  public MappingException(String arg0) {
-    super(arg0);
+
+  public MappingException(String message) {
+    super(message);
   }
 
-  public MappingException(String arg0, Throwable arg1) {
-    super(arg0, arg1);
+  public MappingException(String message, Throwable cause) {
+    super(message, cause);
   }
   
-  public MappingException(Throwable arg0) {
-    super(arg0);
+  public MappingException(Throwable message) {
+    super(message);
   }
 
 

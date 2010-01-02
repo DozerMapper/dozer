@@ -15,26 +15,29 @@
  */
 package org.dozer.functional_tests;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
-
-
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.functional_tests.support.TestDataFactory;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
 public abstract class AbstractFunctionalTest {
+
   protected Mapper mapper;
   protected TestDataFactory testDataFactory = new TestDataFactory(getDataObjectInstantiator());
 
-  protected abstract DataObjectInstantiator getDataObjectInstantiator();
+  // Provides default non-proxy instantiation behavior
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return NoProxyDataObjectInstantiator.INSTANCE;
+  }
 
   @Before
   public void setUp() throws Exception {

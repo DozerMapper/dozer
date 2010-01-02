@@ -15,9 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.DozerBeanMapperSingletonWrapper;
 import org.dozer.Mapper;
 import org.dozer.vo.LoopObjectChild;
@@ -25,6 +22,8 @@ import org.dozer.vo.LoopObjectParent;
 import org.dozer.vo.LoopObjectParentPrime;
 import org.dozer.vo.bidirectional.A;
 import org.dozer.vo.bidirectional.B;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
@@ -82,11 +81,6 @@ public class BiDirectionalMappingTest extends AbstractFunctionalTest {
     for (int i = 0; i < b.getCs().length; i++) {
       assertEquals("Wrong value ", b.getCs()[i].getValue(), Integer.toString(i));
     }
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

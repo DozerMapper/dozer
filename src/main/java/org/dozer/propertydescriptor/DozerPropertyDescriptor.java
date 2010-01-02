@@ -25,10 +25,10 @@ import org.dozer.fieldmap.FieldMap;
  */
 public interface DozerPropertyDescriptor {
 
-  public Class<?> getPropertyType();
+  Class<?> getPropertyType();
 
-  public Object getPropertyValue(Object bean);
+  Object getPropertyValue(Object bean);
 
-  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap);
+  void setPropertyValue(Object bean, Object value, FieldMap fieldMap);
 
 }

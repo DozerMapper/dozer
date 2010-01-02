@@ -15,16 +15,14 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import org.dozer.vo.enumtest.MyBean;
 import org.dozer.vo.excluded.OneA;
 import org.dozer.vo.excluded.OneB;
 import org.dozer.vo.excluded.TwoA;
 import org.dozer.vo.excluded.TwoB;
 import org.dozer.vo.excluded.ZeroA;
 import org.dozer.vo.excluded.ZeroB;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -95,11 +93,6 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
     TwoB twoB = mapper.map(twoA, TwoB.class);
     assertEquals(Integer.valueOf("5"), twoA.getId());
     assertNull(twoB.getId());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }
