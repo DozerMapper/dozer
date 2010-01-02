@@ -15,12 +15,15 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.vo.inheritance.hints.Base;
+import org.dozer.vo.inheritance.hints.Base2;
+import org.dozer.vo.inheritance.hints.BaseA;
+import org.dozer.vo.inheritance.hints.BaseB;
+import org.dozer.vo.inheritance.hints.Source;
+import org.dozer.vo.inheritance.hints.Target;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.*;
-import org.dozer.vo.inheritance.hints.*;
 
 import java.util.HashSet;
 
@@ -53,12 +56,6 @@ public class IneritanceHintSupportTest extends AbstractFunctionalTest {
     assertTrue(objects[0] instanceof Base2);
     assertTrue(objects[1] instanceof Base2);
     assertNotSame(objects[0].getClass(), objects[1].getClass());
-  }
-
-  
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

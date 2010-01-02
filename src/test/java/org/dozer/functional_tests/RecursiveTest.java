@@ -15,13 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.dozer.vo.recursive.ClassAA;
 import org.dozer.vo.recursive.ClassAAPrime;
 import org.dozer.vo.recursive.ClassB;
 import org.dozer.vo.recursive.ClassBPrime;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -69,11 +68,6 @@ public class RecursiveTest extends AbstractFunctionalTest {
     // we want the referenced parent of the first item of the subs to be the parent instance itself
     ClassBPrime testClassBPrime2 = testAAPrime.getSubs().iterator().next();
     assertTrue(testClassBPrime2.getParent() == testAAPrime);
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

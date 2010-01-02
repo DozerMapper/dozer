@@ -15,13 +15,11 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.DozerBeanMapper;
 import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
 
 import java.util.ArrayList;
-
-
-import org.dozer.DozerBeanMapper;
-import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
@@ -34,11 +32,6 @@ public class ClassloaderTest extends AbstractFunctionalTest {
     files.add("classloader.xml");
     mapper = new DozerBeanMapper(files);
     assertNotNull(mapper);
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

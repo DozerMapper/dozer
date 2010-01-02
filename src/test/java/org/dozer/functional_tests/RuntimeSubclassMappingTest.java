@@ -15,15 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.vo.runtimesubclass.SpecialUserGroup;
 import org.dozer.vo.runtimesubclass.SpecialUserGroupPrime;
 import org.dozer.vo.runtimesubclass.User;
 import org.dozer.vo.runtimesubclass.UserGroup;
 import org.dozer.vo.runtimesubclass.UserPrime;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -73,11 +70,6 @@ public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
     // check class type of mapped group, should NOT be SpecialUserGroupPrime!
     assertNotNull(userPrime.getUserGroup());
     assertFalse(userPrime.getUserGroup() instanceof SpecialUserGroupPrime);
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

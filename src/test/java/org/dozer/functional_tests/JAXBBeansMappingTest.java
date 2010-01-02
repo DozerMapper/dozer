@@ -15,12 +15,13 @@
  */
 package org.dozer.functional_tests;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertNotNull;import static org.junit.Assert.assertEquals;
+import org.dozer.util.MappingUtils;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
-import org.dozer.util.MappingUtils;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
@@ -55,10 +56,6 @@ public class JAXBBeansMappingTest extends AbstractFunctionalTest {
     EmployeeWithInnerClass.Address.State result = mapper.map(source, EmployeeWithInnerClass.Address.State.class);
     assertNotNull(result);
     assertEquals("Name", result.getName());
-  }
-
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

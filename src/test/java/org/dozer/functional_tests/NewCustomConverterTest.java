@@ -15,13 +15,11 @@
  */
 package org.dozer.functional_tests;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import org.dozer.Mapper;
 import org.dozer.vo.SimpleObj;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
@@ -64,10 +62,6 @@ public class NewCustomConverterTest extends AbstractFunctionalTest {
 
     assertEquals(Boolean.TRUE, mapper.map("yes", Boolean.class));
     assertEquals(Boolean.FALSE, mapper.map("no", Boolean.class));
-  }
-  
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

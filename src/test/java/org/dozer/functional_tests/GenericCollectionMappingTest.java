@@ -15,19 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-
 import org.dozer.Mapper;
 import org.dozer.vo.generics.Status;
 import org.dozer.vo.generics.User;
@@ -41,7 +28,16 @@ import org.dozer.vo.generics.deepindex.HeadOfHouseHold;
 import org.dozer.vo.generics.deepindex.Pet;
 import org.dozer.vo.generics.deepindex.SrcDeepObj;
 import org.dozer.vo.generics.deepindex.TestObject;
+import static org.junit.Assert.*;
 import org.junit.Test;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author garsombke.franz
@@ -180,11 +176,6 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     assertEquals(dest.getPets()[1].getPetName(), source.getPetName());
     assertEquals(String.valueOf(dest.getPets()[1].getPetAge()), source.getPetAge());
     assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

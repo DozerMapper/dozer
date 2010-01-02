@@ -1,18 +1,13 @@
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.HashSet;
-
-
 import org.dozer.vo.direction.ContentItemGroup;
 import org.dozer.vo.direction.ContentItemGroupDTO;
 import org.dozer.vo.direction.ContentItemGroupDefault;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashSet;
 
 /**
  * @author dmitry.buzdin
@@ -87,11 +82,6 @@ public class InheritanceDirectionTest extends AbstractFunctionalTest {
     assertEquals(result, childResult.getParentGroup());
     assertEquals("A", result.getId());
     assertEquals("B", childResult.getId());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

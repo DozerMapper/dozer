@@ -31,9 +31,9 @@ import org.dozer.vo.inheritance.AnotherSubClass;
 import org.dozer.vo.inheritance.AnotherSubClassPrime;
 import org.dozer.vo.perf.MyClassA;
 import org.dozer.vo.perf.MyClassB;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.After;
 
 /**
  * @author tierney.matt
@@ -204,11 +204,6 @@ public class PerformanceTest extends AbstractFunctionalTest {
     // MyClassA --> MyClassB. Src object contains List with 500 String elements.
     MyClassA src = testDataFactory.getRandomMyClassA();
     runGeneric("testMapping6", src, MyClassB.class);
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
   private void runGeneric(String testName, Object src, Class<?> destClass) throws Exception {

@@ -15,21 +15,19 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-
 import org.dozer.vo.cumulative.Author;
 import org.dozer.vo.cumulative.AuthorPrime;
 import org.dozer.vo.cumulative.Book;
 import org.dozer.vo.cumulative.BookPrime;
 import org.dozer.vo.cumulative.Library;
 import org.dozer.vo.cumulative.LibraryPrime;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Dmitry Buzdin
@@ -68,11 +66,6 @@ public class CumulativeMappingTest extends AbstractFunctionalTest {
     assertEquals("The Best One", bookPrime.getAuthor().getName());
 
     //    assertEquals(new Long(5100L), book.getAuthor().getSalary()); TODO Enable this for non-cumulative recursion bug
-  }
-
-  @Override
-  protected org.dozer.functional_tests.DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

@@ -15,23 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.TestObject;
@@ -40,7 +23,6 @@ import org.dozer.vo.map.ChildDOM;
 import org.dozer.vo.map.CustomMap;
 import org.dozer.vo.map.CustomMapIF;
 import org.dozer.vo.map.GenericDOM;
-import org.dozer.vo.map.House;
 import org.dozer.vo.map.MapTestObject;
 import org.dozer.vo.map.MapTestObjectPrime;
 import org.dozer.vo.map.MapToMap;
@@ -50,11 +32,19 @@ import org.dozer.vo.map.NestedObj;
 import org.dozer.vo.map.NestedObjPrime;
 import org.dozer.vo.map.ParentDOM;
 import org.dozer.vo.map.PropertyToMap;
-import org.dozer.vo.map.Room;
 import org.dozer.vo.map.SimpleObj;
 import org.dozer.vo.map.SimpleObjPrime;
-import org.junit.Test;
+import static org.junit.Assert.*;
 import org.junit.Ignore;
+import org.junit.Test;
+
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * @author tierney.matt
@@ -559,10 +549,6 @@ public class MapTypeTest extends AbstractFunctionalTest {
     mapper.map(src, dest, "test-id");
 
     assertEquals("overwritten", dest.getField1());
-  }
-
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

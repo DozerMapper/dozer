@@ -55,8 +55,4 @@ public class InterfacePerformanceTest extends AbstractFunctionalTest {
     }
   }
 
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
 }

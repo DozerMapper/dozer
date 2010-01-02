@@ -1,11 +1,10 @@
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.vo.inheritance.twolevel.A;
 import org.dozer.vo.inheritance.twolevel.B;
 import org.dozer.vo.inheritance.twolevel.C;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,11 +52,6 @@ public class InheritanceTwoLevelTest extends AbstractFunctionalTest {
     A destination = mapper.map(source, A.class);
     assertNotNull(destination);
     assertEquals("A", destination.getA());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

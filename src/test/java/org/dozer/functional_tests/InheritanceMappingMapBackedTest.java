@@ -15,12 +15,11 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.vo.inheritance.A;
 import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.Map;
-
-import org.dozer.vo.inheritance.A;
-import org.junit.Test;
 
 /**
  * @author Peter Oxenham
@@ -64,11 +63,6 @@ public class InheritanceMappingMapBackedTest extends AbstractFunctionalTest {
     result.setSuperAField("superAFieldValue");
     result.setSuperField1("superField1Value");
     return result;
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

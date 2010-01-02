@@ -15,11 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import org.dozer.Mapper;
 import org.dozer.vo.Car;
 import org.dozer.vo.InsideTestObject;
@@ -32,6 +27,7 @@ import org.dozer.vo.deep.Person;
 import org.dozer.vo.deep.SrcDeepObj;
 import org.dozer.vo.deep2.Dest;
 import org.dozer.vo.deep2.Src;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -103,11 +99,6 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
     assertNotNull(dest2.getSrcField());
     assertEquals(dest.getDestField().getNestedDestField().getNestedNestedDestField(), dest2.getSrcField());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

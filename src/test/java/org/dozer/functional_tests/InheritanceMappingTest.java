@@ -469,9 +469,4 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     return result;
   }
 
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
-
 }

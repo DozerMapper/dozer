@@ -1,13 +1,12 @@
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.vo.inheritance.A;
 import org.dozer.vo.mapid.AContainer;
 import org.dozer.vo.mapid.AListContainer;
 import org.dozer.vo.mapid.BContainer;
 import org.dozer.vo.mapid.BContainer2;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class MapIdTest extends AbstractFunctionalTest {
@@ -59,10 +58,6 @@ public class MapIdTest extends AbstractFunctionalTest {
     result.setSuperField1("superField1Value");
     return result;
 
-  }
-
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

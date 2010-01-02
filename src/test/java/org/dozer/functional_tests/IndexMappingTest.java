@@ -15,17 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-
 import org.dozer.vo.A;
 import org.dozer.vo.Aliases;
 import org.dozer.vo.B;
@@ -37,8 +26,14 @@ import org.dozer.vo.Individual;
 import org.dozer.vo.Individuals;
 import org.dozer.vo.index.Mccoy;
 import org.dozer.vo.index.MccoyPrime;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author wojtek.kiersztyn
@@ -212,11 +207,6 @@ public class IndexMappingTest extends AbstractFunctionalTest {
     Object entry = destSet.iterator().next();
     assertTrue("dest set entry should be instance of FieldValue", entry instanceof FieldValue);
     assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("stringProperty"));
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

@@ -15,13 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.Arrays;
-import java.util.Vector;
-
-
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.TestObject;
@@ -41,9 +34,13 @@ import org.dozer.vo.deepindex.customconverter.Last;
 import org.dozer.vo.deepindex.isaccessible.FlatPerson;
 import org.dozer.vo.deepindex.isaccessible.Person;
 import org.dozer.vo.deepindex.isaccessible.Phone;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.Vector;
 
 /**
  * @author tierney.matt
@@ -210,11 +207,6 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     B dest = mapper.map(src, B.class);
     assertEquals("wrong value for id1", src.getId1().intValue(), dest.getFoo()[0].getId());
     assertEquals("wrong value for id2", src.getId2().intValue(), dest.getFoo()[1].getId());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

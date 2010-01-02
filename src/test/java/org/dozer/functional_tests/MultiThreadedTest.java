@@ -77,11 +77,6 @@ public class MultiThreadedTest extends AbstractFunctionalTest {
     t4.join();
   }
 
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
-
   private void mapSomething() {
     TestObject src = testDataFactory.getInputGeneralMappingTestObject();
     AnotherSubClass src2 = testDataFactory.getAnotherSubClass();

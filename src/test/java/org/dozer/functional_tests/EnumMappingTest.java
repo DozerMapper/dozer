@@ -15,12 +15,11 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-
 import org.dozer.vo.enumtest.MyBean;
 import org.dozer.vo.enumtest.MyBeanPrime;
 import org.dozer.vo.enumtest.SrcType;
 import org.dozer.vo.enumtest.SrcTypeWithOverride;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -119,11 +118,6 @@ public class EnumMappingTest extends AbstractFunctionalTest {
     MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.BAR);
     mapper.map(src, MyBeanPrime.class);
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

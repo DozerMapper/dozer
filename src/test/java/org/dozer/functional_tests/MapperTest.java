@@ -15,17 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-
 import org.apache.commons.lang.SerializationUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -61,9 +50,15 @@ import org.dozer.vo.deep.Room;
 import org.dozer.vo.deep.SrcNestedDeepObj;
 import org.dozer.vo.self.Account;
 import org.dozer.vo.self.SimpleAccount;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author garsombke.franz
@@ -573,11 +568,6 @@ public class MapperTest extends AbstractFunctionalTest {
     assertTrue(toDest.getSetToList().contains(top.getListToSet().get(1)));
     assertTrue(toDest.getSetToListWithValues().contains(orange3));
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

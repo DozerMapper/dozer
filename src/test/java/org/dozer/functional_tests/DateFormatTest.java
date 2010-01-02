@@ -15,9 +15,10 @@
  */
 package org.dozer.functional_tests;
 
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import org.dozer.vo.DateContainer;
-import org.dozer.vo.DateObjectSource;
 import org.dozer.vo.DateObjectDest;
+import org.dozer.vo.DateObjectSource;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
@@ -26,8 +27,6 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 /**
  * @author dmitry.buzdin
@@ -82,12 +81,6 @@ public class DateFormatTest extends AbstractFunctionalTest {
     dest.setRecDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
     mapper.map(source, dest);
     assertEquals(source.getRecalledDate(), dest.getRecDate());
-  }
-
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
   public static class Source {

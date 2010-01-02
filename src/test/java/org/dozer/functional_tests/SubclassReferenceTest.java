@@ -15,18 +15,16 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-
-
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.vo.copybyreference.Reference;
 import org.dozer.vo.copybyreference.TestA;
 import org.dozer.vo.copybyreference.TestB;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 public class SubclassReferenceTest extends AbstractFunctionalTest {
   private Mapper mapper;
@@ -83,11 +81,5 @@ public class SubclassReferenceTest extends AbstractFunctionalTest {
     assertEquals(testASubclass.getOneA(), testB.getOneB());
     assertEquals(testASubclass.getTestReference(), testB.getTestReference());
   }
-  
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
-
 
 }

@@ -65,8 +65,4 @@ public class InvalidMappingTest extends AbstractFunctionalTest {
     }
   }
 
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
-
 }

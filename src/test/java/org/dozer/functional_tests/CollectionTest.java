@@ -60,9 +60,4 @@ public class CollectionTest
     Assert.assertNull("Element must contain null", arrayDest.getArray()[0]);
   }
 
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
-
-  
 }

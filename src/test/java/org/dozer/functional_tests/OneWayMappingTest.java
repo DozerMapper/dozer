@@ -1,12 +1,11 @@
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.Mapper;
 import org.dozer.vo.oneway.DestClass;
 import org.dozer.vo.oneway.Holder;
 import org.dozer.vo.oneway.SourceClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
@@ -27,8 +26,4 @@ public class OneWayMappingTest extends AbstractFunctionalTest {
     assertEquals("A", dest.anonymousAccessor());
   }
 
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
 }

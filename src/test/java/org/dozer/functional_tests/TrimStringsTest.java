@@ -15,14 +15,13 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.AnotherTestObjectPrime;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.SimpleObjPrime;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,11 +66,6 @@ public class TrimStringsTest extends AbstractFunctionalTest {
     SimpleObjPrime dest = mapper.map(src, SimpleObjPrime.class);
 
     assertEquals("valueNeedingTrimmed", dest.getField1());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

@@ -15,25 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-
 import org.dozer.CustomFieldMapper;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -87,7 +68,19 @@ import org.dozer.vo.set.NamesSortedSet;
 import org.dozer.vo.set.SomeDTO;
 import org.dozer.vo.set.SomeOtherDTO;
 import org.dozer.vo.set.SomeVO;
+import static org.junit.Assert.*;
 import org.junit.Test;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * @author garsombke.franz
@@ -857,10 +850,6 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     mapper.map(parentPrime, parent);
     // Make sure REMOVING them (the orphan children) works ok.
     assertEquals(parentPrime.getChildrenList().size(), parent.getChildrenList().size());
-  }
-
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

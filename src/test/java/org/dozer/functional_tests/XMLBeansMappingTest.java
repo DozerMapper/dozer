@@ -15,23 +15,20 @@
  */
 package org.dozer.functional_tests;
 
+import net.pmonks.xml.dozer.test.ChildType;
+import org.dozer.vo.AnotherTestObject;
+import org.dozer.vo.Child;
+import org.dozer.vo.GetWeatherByZipCodeDocument;
+import org.dozer.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
+import org.dozer.vo.GetWeatherByZipCodeResponseDocument;
+import org.dozer.vo.TestObject;
+import org.dozer.vo.WeatherData;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.dozer.vo.AnotherTestObject;
-import org.dozer.vo.Child;
-import org.dozer.vo.GetWeatherByZipCodeDocument;
-import org.dozer.vo.GetWeatherByZipCodeResponseDocument;
-import org.dozer.vo.TestObject;
-import org.dozer.vo.WeatherData;
-import org.dozer.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import net.pmonks.xml.dozer.test.ChildType;
 
 /**
  * @author tierney.matt
@@ -145,7 +142,4 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
     assertNull("testInt should be null", pojo.getTestInt());
   }
 
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
 }

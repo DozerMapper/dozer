@@ -15,15 +15,14 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.Mapper;
 import org.dozer.vo.collections.User;
 import org.dozer.vo.collections.UserGroup;
 import org.dozer.vo.collections.UserGroupImpl;
 import org.dozer.vo.collections.UserGroupPrime;
 import org.dozer.vo.collections.UserImpl;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
@@ -94,11 +93,6 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
 
     // check mapped collection
     assertEquals("Two users in mapped usergroup expected.", 2, userGroupPrime.getUsers().size());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

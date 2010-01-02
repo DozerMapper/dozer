@@ -15,17 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-import org.dozer.vo.*;
+import junit.framework.Assert;
+import org.dozer.vo.CustomGetDest;
+import org.dozer.vo.CustomGetSource;
+import org.dozer.vo.MessageHeaderDTO;
+import org.dozer.vo.MessageHeaderVO;
+import org.dozer.vo.MessageIdVO;
 import org.dozer.vo.inheritance.Inner;
 import org.dozer.vo.inheritance.Outer;
 import org.dozer.vo.inheritance.Target;
@@ -33,10 +28,16 @@ import org.dozer.vo.inheritance.cc.C;
 import org.dozer.vo.inheritance.cc.Z;
 import org.dozer.vo.map.House;
 import org.dozer.vo.map.Room;
-import org.dozer.MappingException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
-import junit.framework.Assert;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This is a holding grounds for test cases that reproduce known bugs, features, or gaps discovered during development.
@@ -123,8 +124,4 @@ public class KnownFailures extends AbstractFunctionalTest {
     Assert.fail("Feature with indexed get method is not supported");
   }
 
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
-  }
 }

@@ -15,11 +15,10 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.vo.excluded.TwoA;
 import org.dozer.vo.excluded.TwoB;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,11 +41,6 @@ public class GrandparentTest extends AbstractFunctionalTest {
     TwoB dest = mapper.map(source, TwoB.class);
     assertNotNull(dest);
     assertEquals(new Integer(1), dest.getId());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

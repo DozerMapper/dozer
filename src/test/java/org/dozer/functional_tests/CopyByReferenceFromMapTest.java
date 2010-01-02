@@ -15,14 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.util.HashMap;
-
-
 import org.dozer.vo.ValueObject;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
 
 /**
  * @author Dmitry Buzdin
@@ -45,11 +43,6 @@ public class CopyByReferenceFromMapTest extends AbstractFunctionalTest {
 
     assertNotNull(destination);
     assertNotNull(destination.getValue());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

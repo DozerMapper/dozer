@@ -21,13 +21,12 @@ import org.dozer.vo.set.NamesArray;
 import org.dozer.vo.set.NamesList;
 import org.dozer.vo.set.NamesSet;
 import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * @author dmitry.buzdin
@@ -106,11 +105,6 @@ public class NullMappingTest extends AbstractFunctionalTest {
     namesArray.setNames(arr);
     NamesList namesSet = mapper.map(namesArray, NamesList.class, "null-list");
     Assert.assertArrayEquals(arr, namesSet.getNames().toArray());
-  }
-
-
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }

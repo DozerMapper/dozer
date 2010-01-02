@@ -15,16 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.util.HashMap;
-
-
 import org.dozer.vo.DeepObject;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
 
 /**
  * @author Dmitry Buzdin
@@ -83,11 +79,6 @@ public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
 
     mapper.map(map, deepObject, "TC3");
     assertEquals("value", deepObject.getName());
-  }
-
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
   }
 
 }
