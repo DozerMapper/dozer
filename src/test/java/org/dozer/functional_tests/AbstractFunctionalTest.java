@@ -46,11 +46,7 @@ public abstract class AbstractFunctionalTest {
     mapper = new DozerBeanMapper();
   }
 
-  protected Mapper getMapper(String mappingFile) {
-    return getMapper(new String[] { mappingFile });
-  }
-
-  protected Mapper getMapper(String[] mappingFiles) {
+  protected Mapper getMapper(String ... mappingFiles) {
     List<String> list = new ArrayList<String>();
     if (mappingFiles != null) {
       list.addAll(Arrays.asList(mappingFiles));

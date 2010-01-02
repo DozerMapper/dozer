@@ -59,7 +59,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -69,13 +68,14 @@ import java.util.Set;
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
  * This class does most of the heavy lifting and is very recursive in nature.
- * 
+ * <p/>
+ * This class is not threadsafe and is instantiated for each new mapping request.
+ *
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
  * @author dmitry.buzdin
  * @author johnsen.knut-erik
- * 
  */
 public class MappingProcessor implements Mapper {
 
@@ -88,14 +88,16 @@ public class MappingProcessor implements Mapper {
   private final StatisticsManager statsMgr;
   private final EventManager eventMgr;
   private final CustomFieldMapper customFieldMapper;
-  private final Map<Object, Object> mappedFields = new IdentityHashMap<Object, Object>();
+
+  private final MappedFieldsTracker mappedFields = new MappedFieldsTracker();
+
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
-      StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
-      Map<String, CustomConverter> customConverterObjectsWithId) {
+                             StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
+                             Map<String, CustomConverter> customConverterObjectsWithId) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -329,20 +331,9 @@ public class MappingProcessor implements Mapper {
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop
-    Object alreadyMappedValue;
-    alreadyMappedValue = mappedFields.get(srcFieldValue);
+    Object alreadyMappedValue = mappedFields.getMappedValue(srcFieldValue, destFieldType);
     if (alreadyMappedValue != null) {
-      // 1664984 - bi-directionnal mapping with sets & subclasses
-      if (destFieldType.isAssignableFrom(alreadyMappedValue.getClass())) {
-        // Source value has already been mapped to the required destFieldType.
-        return alreadyMappedValue;
-      }
-
-      // 1658168 - Recursive mapping issue for interfaces
-      if (destFieldType.isInterface() && destFieldType.isAssignableFrom(alreadyMappedValue.getClass())) {
-        // Source value has already been mapped to the required destFieldType.
-        return alreadyMappedValue;
-      }
+      return alreadyMappedValue;
     }
 
     if (fieldMap.isCopyByReference()) {
@@ -397,7 +388,7 @@ public class MappingProcessor implements Mapper {
     if (MappingUtils.isEnumType(srcFieldClass, destFieldType)) {
       return mapEnum((Enum) srcFieldValue, (Class<Enum>) destFieldType);
     }
-    
+
     if (fieldMap.getDestDeepIndexHintContainer() != null) {
       destFieldType = fieldMap.getDestDeepIndexHintContainer().getHint();
     }
@@ -586,7 +577,12 @@ public class MappingProcessor implements Mapper {
           value = mapUsingCustomConverter(converterClass, srcFieldClass, value, fieldMapping.getDestHintContainer().getHint(),
               null, fieldMapping, false);
         } else {
-          value = map(value, fieldMapping.getDestHintContainer().getHint());
+          Object alreadyMappedValue = mappedFields.getMappedValue(value, fieldMapping.getDestHintContainer().getHint());
+          if (alreadyMappedValue != null) {
+            value = alreadyMappedValue;
+          } else {
+            value = map(value, fieldMapping.getDestHintContainer().getHint());
+          }
         }
         if (value != null) {
           writeDestinationValue(destObj, value, fieldMapping, srcObj);
@@ -600,7 +596,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private Object addToPrimitiveArray(Object srcObj, FieldMap fieldMap, int size, Object srcCollectionValue, Object destObj,
-      Class<?> destEntryType) {
+                                     Class<?> destEntryType) {
 
     Object result;
     Object field = fieldMap.getDestValue(destObj);
@@ -651,7 +647,7 @@ public class MappingProcessor implements Mapper {
     Class<?> prevDestEntryType = null;
     for (Object srcValue : srcCollectionValue) {
       if (destEntryType == null
-              || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
+          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         if (srcValue == null) {
           destEntryType = prevDestEntryType;
         } else {
@@ -662,7 +658,7 @@ public class MappingProcessor implements Mapper {
       prevDestEntryType = destEntryType;
 
       if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
-              && result.contains(destValue)) {
+          && result.contains(destValue)) {
         int index = result.indexOf(destValue);
         // perform an update if complex type - can't map strings
         Object obj = result.get(index);
@@ -696,7 +692,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private List<?> addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj,
-      Class<?> destEntryType) {
+                                    Class<?> destEntryType) {
     // create a Set here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
     List<Object> mappedElements = new ArrayList<Object>();
     List result;
@@ -709,7 +705,7 @@ public class MappingProcessor implements Mapper {
     Class<?> prevDestEntryType = null;
     for (Object srcValue : srcCollectionValue) {
       if (destEntryType == null
-              || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
+          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
         if (srcValue == null) {
           destEntryType = prevDestEntryType;
         } else {
@@ -720,7 +716,7 @@ public class MappingProcessor implements Mapper {
       prevDestEntryType = destEntryType;
 
       if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
-              && result.contains(destValue)) {
+          && result.contains(destValue)) {
         int index = result.indexOf(destValue);
         // perform an update if complex type - can't map strings
         Object obj = result.get(index);
@@ -765,7 +761,7 @@ public class MappingProcessor implements Mapper {
       if (CollectionUtils.isList(field.getClass())) {
         return (List<?>) field;
       } else if (CollectionUtils.isArray(field.getClass())) {
-        return new ArrayList<Object>(Arrays.asList((Object[]) field));        
+        return new ArrayList<Object>(Arrays.asList((Object[]) field));
       } else { // assume it is neither - safest way is to create new List
         return new ArrayList<Object>(srcCollectionValue.size());
       }
@@ -826,7 +822,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private Object mapUsingCustomConverterInstance(CustomConverter converterInstance, Class<?> srcFieldClass, Object srcFieldValue,
-      Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
+                                                 Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
 
     //1792048 - If map-null = "false" and src value is null, then don't even invoke custom converter
     if (srcFieldValue == null && !fieldMap.isDestMapNull()) {
@@ -845,7 +841,7 @@ public class MappingProcessor implements Mapper {
         String param = fieldMap.getCustomConverterParam();
         theConverter.setParameter(param);
       }
-      
+
       // if this is a top level mapping the destObj is the highest level
       // mapping...not a recursive mapping
       if (topLevel) {
@@ -874,7 +870,7 @@ public class MappingProcessor implements Mapper {
 
   // TODO: possibly extract this to a separate class
   private Object mapUsingCustomConverter(Class<?> customConverterClass, Class<?> srcFieldClass, Object srcFieldValue,
-      Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
+                                         Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
     CustomConverter converterInstance = null;
     // search our injected customconverters for a match
     if (customConverterObjects != null) {
@@ -924,7 +920,7 @@ public class MappingProcessor implements Mapper {
         }
       }
     }
-    
+
     Collections.reverse(superClasses); // Done so base classes are processed first
 
     superTypeCache.put(cacheKey, superClasses);

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+    </configuration>
+
+	<mapping>
+        <class-a>org.dozer.functional_tests.RecursiveSelfMappingTest$ContainerBean</class-a>
+        <class-b>org.dozer.functional_tests.RecursiveSelfMappingTest$ContainerBean2</class-b>
+        <field>
+        	<a>beans</a>
+			<b set-method="add" type="iterate">beans</b>
+			<b-hint>org.dozer.functional_tests.RecursiveSelfMappingTest$SelfReferencingBean</b-hint>
+		</field>
+	</mapping>
+
+    <mapping>
+        <class-a>org.dozer.functional_tests.RecursiveSelfMappingTest$SelfReferencingBean</class-a>
+        <class-b>org.dozer.functional_tests.RecursiveSelfMappingTest$SelfReferencingBean</class-b>
+        <field >
+            <a>this</a>
+            <b>detailBean</b>
+        </field>
+	</mapping>
+    
+</mappings>

@@ -19,8 +19,7 @@ import org.dozer.vo.recursive.ClassAA;
 import org.dozer.vo.recursive.ClassAAPrime;
 import org.dozer.vo.recursive.ClassB;
 import org.dozer.vo.recursive.ClassBPrime;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -53,7 +52,7 @@ public class RecursiveTest extends AbstractFunctionalTest {
    */
   @Test
   public void testConvertWithSubClass() {
-    mapper = getMapper(new String[] { "recursivemappings.xml", "recursivemappings2.xml" });
+    mapper = getMapper("recursivemappings.xml", "recursivemappings2.xml");
     ClassAA testAA = createTestClassAA();
     // the == is on purpose, we test that the referenced parent of the first item of the subs is the parent instance
     // itself
@@ -69,5 +68,64 @@ public class RecursiveTest extends AbstractFunctionalTest {
     ClassBPrime testClassBPrime2 = testAAPrime.getSubs().iterator().next();
     assertTrue(testClassBPrime2.getParent() == testAAPrime);
   }
+
+  @Test
+  public void testMirroredSelfReferencingTypes() {
+    TypeA src = new TypeA();
+    src.setId("1");
+    TypeA parent = new TypeA();
+    parent.setId("2");
+    src.setParent(parent);
+
+    TypeB result = new TypeB();
+    mapper.map(src, result);
+    
+    assertNotNull(result);
+    assertEquals("1", result.getId());
+    assertEquals("2", result.getParent().getId());
+  }
+
+  public static class TypeA {
+    private TypeA parent;
+    private String id;
+
+    public TypeA getParent() {
+      return parent;
+    }
+
+    public void setParent(TypeA parent) {
+      this.parent = parent;
+    }
+
+    public String getId() {
+      return id;
+    }
+
+    public void setId(String id) {
+      this.id = id;
+    }
+  }
+
+  public static class TypeB {
+    private TypeB parent;
+    private String id;
+
+    public TypeB getParent() {
+      return parent;
+    }
+
+    public void setParent(TypeB parent) {
+      this.parent = parent;
+    }
+
+    public String getId() {
+      return id;
+    }
+
+    public void setId(String id) {
+      this.id = id;
+    }
+  }
+
 
 }
