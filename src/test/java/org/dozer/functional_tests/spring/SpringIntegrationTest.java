@@ -16,11 +16,11 @@
 package org.dozer.functional_tests.spring;
 
 import junit.framework.TestCase;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 
 import java.util.Map;
 
@@ -42,6 +42,9 @@ public class SpringIntegrationTest extends TestCase {
     assertFalse(map.isEmpty());
     Object bean = map.values().iterator().next();
     assertTrue(bean instanceof DozerBeanMapper);
+
+    DozerBeanMapper mapper = (DozerBeanMapper) bean;
+    assertFalse(mapper.getMappingFiles().isEmpty());
   }
 
 }

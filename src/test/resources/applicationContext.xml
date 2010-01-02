@@ -5,7 +5,18 @@
 <beans>
 
   <!-- Provided Spring Integration -->
-  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean"/>
+  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+      <property name="mappingFiles" value="classpath*:/*Mapping.xml"/>
+      <property name="customConverters">
+          <list/>
+      </property>
+      <property name="eventListeners">
+          <list/>
+      </property>
+      <property name="factories">
+          <map/>
+      </property>
+  </bean>
 
   <!-- Semi-Manual Solution -->
   <bean class="org.dozer.DozerBeanMapper">

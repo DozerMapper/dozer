@@ -44,6 +44,17 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   private List<DozerEventListener> eventListeners;
   private Map<String, BeanFactory> factories;
 
+  /**
+   * Spring resources definition for providing mapping file location.
+   * Could be used for loading all mapping files by wildcard definition for example
+   * {@code
+   *   <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+   *       <property name="mappingFiles" value="classpath*:/*.dozer.xml"/>
+   *   </bean>
+   * }
+   *
+   * @param mappingFiles Spring resource definition
+   */
   public final void setMappingFiles(final Resource[] mappingFiles) {
     this.mappingFiles = mappingFiles;
   }
