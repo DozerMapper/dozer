@@ -448,7 +448,7 @@ public class MappingProcessor implements Mapper {
         Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
         genericType = ReflectionUtils.determineGenericsType(method, false);
       } catch (Throwable e) {
-        log.info("The destObj:" + destObj + " does not have a write method");
+        log.warn("The destination object: " + destObj + " does not have a write method");
       }
       if (genericType != null) {
         HintContainer destHintContainer = new HintContainer();

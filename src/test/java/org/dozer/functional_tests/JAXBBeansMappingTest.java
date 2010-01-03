@@ -15,13 +15,18 @@
  */
 package org.dozer.functional_tests;
 
+import static junit.framework.Assert.assertTrue;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.TestObject;
+import org.dozer.vo.jaxb.employee.EmployeeType;
 import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author dmitry.buzdin
@@ -56,6 +61,30 @@ public class JAXBBeansMappingTest extends AbstractFunctionalTest {
     EmployeeWithInnerClass.Address.State result = mapper.map(source, EmployeeWithInnerClass.Address.State.class);
     assertNotNull(result);
     assertEquals("Name", result.getName());
+  }
+
+  @Test
+  public void testJAXBListWithNoSetter() {
+    ListContainer source = new ListContainer();
+    source.getList().add(1);
+    source.getList().add(2);
+
+    EmployeeType result = mapper.map(source, EmployeeType.class);
+
+    assertNotNull(result);
+    assertEquals(2, result.getIds().size());
+    assertTrue(result.getIds().contains(1));
+    assertTrue(result.getIds().contains(2));
+  }
+
+
+  public static class ListContainer {
+    private List<Integer> list = new ArrayList<Integer>();
+
+    public List<Integer> getList() {
+      return list;
+    }
+
   }
 
 }

@@ -29,4 +29,13 @@
 
   </mapping>
 
+  <mapping wildcard="false">
+      <class-a bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.EmployeeType</class-a>
+      <class-b>org.dozer.functional_tests.JAXBBeansMappingTest$ListContainer</class-b>
+      <field>
+          <a>ids</a>
+          <b>list</b>
+      </field>
+  </mapping>
+
 </mappings>

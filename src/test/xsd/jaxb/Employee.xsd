@@ -2,23 +2,24 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://jaxb.vo.dozer.org/Employee" xmlns:tns="http://jaxb.vo.dozer.org/Employee">
   <complexType name="EmployeeType">
     <sequence>
-      <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"></element>
-      <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"></element>
-      <element name="LastName" type="string" minOccurs="1" maxOccurs="1"></element>
+      <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"/>
+      <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"/>
+      <element name="LastName" type="string" minOccurs="1" maxOccurs="1"/>
+      <element name="Ids" type="tns:ListOfIds"/>
     </sequence>
   </complexType>
 
-  <element name="Employee" type="tns:EmployeeType"></element>
+  <element name="Employee" type="tns:EmployeeType"/>
   <element name="EmployeeWithInnerClass">
     <complexType>
       <sequence>
-        <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"></element>
-        <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"></element>
-        <element name="LastName" type="string" minOccurs="1" maxOccurs="1"></element>
+        <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"/>
+        <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"/>
+        <element name="LastName" type="string" minOccurs="1" maxOccurs="1"/>
         <element name="Address">
           <complexType>
             <sequence>
-              <element name="Street" type="string"></element>
+              <element name="Street" type="string"/>
               <element name="State">
                 <complexType>
                   <sequence>
@@ -32,4 +33,9 @@
       </sequence>
     </complexType>
   </element>
+
+  <simpleType name="ListOfIds">
+    <list itemType="int"/>
+  </simpleType>
+
 </schema>
