@@ -21,6 +21,7 @@ import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
+import java.lang.ref.SoftReference;
 import java.lang.reflect.Method;
 
 
@@ -45,8 +46,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private final String getMethodName;
   private final String key;
 
-  private Method writeMethod;
-  private Method readMethod;
+  private SoftReference<Method> writeMethod;
+  private SoftReference<Method> readMethod;
 
   public MapPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
                                String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
@@ -62,10 +63,11 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
       throw new MappingException("Custom Map set method not specified for field mapping to class: " + clazz
           + ".  Perhaps the map-set-method wasn't specified in the dozer mapping file?");
     }
-    if (writeMethod == null) {
-      writeMethod = findMapMethod(clazz, setMethodName, 2);
+    if (writeMethod == null || writeMethod.get() == null) {
+      Method method = findMapMethod(clazz, setMethodName, 2);
+      writeMethod = new SoftReference<Method>(method);
     }
-    return writeMethod;
+    return writeMethod.get();
   }
 
   private Method findMapMethod(Class clazz, String methodName, int parameterCount) {
@@ -104,10 +106,11 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
       throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz
           + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
     }
-    if (readMethod == null) {
-      readMethod = findMapMethod(clazz, getMethodName, 1);
+    if (readMethod == null || readMethod.get() == null) {
+      Method method = findMapMethod(clazz, getMethodName, 1);
+      readMethod = new SoftReference<Method>(method);
     }
-    return readMethod;
+    return readMethod.get();
   }
 
   @Override

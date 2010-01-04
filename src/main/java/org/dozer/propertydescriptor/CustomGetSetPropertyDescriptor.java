@@ -18,6 +18,7 @@ package org.dozer.propertydescriptor;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.ReflectionUtils;
 
+import java.lang.ref.SoftReference;
 import java.lang.reflect.Method;
 
 
@@ -30,10 +31,12 @@ import java.lang.reflect.Method;
  * @author tierney.matt
  */
 public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
+
   private final String customSetMethod;
   private final String customGetMethod;
-  private Method writeMethod;
-  private Method readMethod;
+
+  private SoftReference<Method> writeMethod;
+  private SoftReference<Method> readMethod;
 
   public CustomGetSetPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, String customSetMethod,
       String customGetMethod, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
@@ -44,22 +47,28 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
 
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
-    if (writeMethod == null) {
+    if (writeMethod == null || writeMethod.get() == null) {
       if (customSetMethod != null && !isDeepField()) {
-        writeMethod = ReflectionUtils.findAMethod(clazz, customSetMethod);
+        Method method = ReflectionUtils.findAMethod(clazz, customSetMethod);
+        writeMethod = new SoftReference<Method>(method);
       } else {
-        writeMethod = super.getWriteMethod();
+        return super.getWriteMethod();
       }
     }
-    return writeMethod;
+    return writeMethod.get();
   }
 
   @Override
   protected Method getReadMethod() throws NoSuchMethodException {
-    if (readMethod == null) {
-      readMethod = customGetMethod != null ? ReflectionUtils.findAMethod(clazz, customGetMethod) : super.getReadMethod();
+    if (readMethod == null || readMethod.get() == null) {
+      if (customGetMethod != null) {
+        Method method = ReflectionUtils.findAMethod(clazz, customGetMethod);
+        readMethod = new SoftReference<Method>(method);
+      } else {
+        return super.getReadMethod();
+      }
     }
-    return readMethod;
+    return readMethod.get();
   }
 
   @Override
