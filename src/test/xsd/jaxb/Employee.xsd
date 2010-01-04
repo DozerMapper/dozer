@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://jaxb.vo.dozer.org/Employee" xmlns:tns="http://jaxb.vo.dozer.org/Employee">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://jaxb.vo.dozer.org/Employee"
+        xmlns:tns="http://jaxb.vo.dozer.org/Employee">
+
   <complexType name="EmployeeType">
     <sequence>
       <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"/>
       <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"/>
       <element name="LastName" type="string" minOccurs="1" maxOccurs="1"/>
       <element name="Ids" type="tns:ListOfIds"/>
+      <element name="Subordinates" type="tns:EmployeeType" minOccurs="0" maxOccurs="unbounded"/>  
     </sequence>
   </complexType>
 

@@ -94,8 +94,12 @@ public class NullMappingTest extends AbstractFunctionalTest {
     NamesArray namesArray = new NamesArray();
     String[] arr = new String[] {null, "two"};
     namesArray.setNames(arr);
+    
     NamesSet namesSet = mapper.map(namesArray, NamesSet.class, "null-set");
-    Assert.assertArrayEquals(arr, namesSet.getNames().toArray());
+
+    assertEquals(2, namesSet.getNames().size());
+    assertTrue(namesSet.getNames().contains(arr[0]));
+    assertTrue(namesSet.getNames().contains(arr[1]));
   }
 
   @Test

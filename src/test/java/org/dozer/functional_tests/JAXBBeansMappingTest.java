@@ -69,22 +69,51 @@ public class JAXBBeansMappingTest extends AbstractFunctionalTest {
     source.getList().add(1);
     source.getList().add(2);
 
+    source.getSubordinates().add(new StringContainer("John"));
+
     EmployeeType result = mapper.map(source, EmployeeType.class);
 
     assertNotNull(result);
     assertEquals(2, result.getIds().size());
     assertTrue(result.getIds().contains(1));
     assertTrue(result.getIds().contains(2));
+    
+    assertEquals(1, result.getSubordinates().size());
+    assertEquals("John", result.getSubordinates().get(0).getFirstName());
   }
-
 
   public static class ListContainer {
     private List<Integer> list = new ArrayList<Integer>();
+    private List<StringContainer> subordinates = new ArrayList<StringContainer>();
 
     public List<Integer> getList() {
       return list;
     }
 
+    public List<StringContainer> getSubordinates() {
+      return subordinates;
+    }
+
+  }
+
+  public static class StringContainer {
+    private String value;
+
+    public StringContainer() {
+
+    }
+    
+    public StringContainer(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public void setValue(String value) {
+      this.value = value;
+    }
   }
 
 }

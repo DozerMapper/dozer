@@ -36,6 +36,20 @@
           <a>ids</a>
           <b>list</b>
       </field>
+      <field>
+          <a>subordinates</a>
+          <b>subordinates</b>
+          <a-hint>org.dozer.vo.jaxb.employee.EmployeeType</a-hint>
+      </field>
+  </mapping>
+
+  <mapping wildcard="false">
+      <class-a bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.EmployeeType</class-a>
+      <class-b>org.dozer.functional_tests.JAXBBeansMappingTest$StringContainer</class-b>
+      <field>
+          <a>firstName</a>
+          <b>value</b>
+      </field>
   </mapping>
 
 </mappings>
