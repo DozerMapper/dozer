@@ -831,6 +831,10 @@ public class MappingProcessor implements Mapper {
 
     long start = System.currentTimeMillis();
 
+    if (converterInstance instanceof MapperAware) {
+      ((MapperAware) converterInstance).setMapper(this);
+    }
+
     // TODO Remove code duplication
     Object result;
     if (converterInstance instanceof ConfigurableCustomConverter) {
