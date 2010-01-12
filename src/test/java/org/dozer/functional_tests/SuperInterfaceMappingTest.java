@@ -1,14 +1,9 @@
 package org.dozer.functional_tests;
 
-import java.io.Serializable;
-import java.util.Arrays;
-
-import org.dozer.AbstractDozerTest;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.Serializable;
 
 /**
  * 
@@ -17,8 +12,13 @@ import org.junit.Test;
  * @version $Revision: 461 $ - - $Date: 2007-11-04 12:46:47 +0100 (zo, 04 nov
  *          2007) $
  */
+public class SuperInterfaceMappingTest extends AbstractFunctionalTest {
 
-public class SuperInterfaceMappingTest extends AbstractDozerTest {
+  @Override
+  public void setUp() throws Exception {
+    super.setUp();
+    mapper = getMapper("superInterfaceMapping.xml");
+  }
 
   @Test
   public void testInterfaces() {
@@ -26,7 +26,6 @@ public class SuperInterfaceMappingTest extends AbstractDozerTest {
     String name = "name1";
     String socialNr = "socialNr1";
     Taxer source = new TaxerDef(name, socialNr);
-    Mapper mapper = createMapper();
     // convert
     TaxerDto target = TaxerDto.class.cast(mapper.map(source, TaxerDto.class));
     assertTarget(target);
@@ -36,13 +35,6 @@ public class SuperInterfaceMappingTest extends AbstractDozerTest {
     Assert.assertNotNull(target);
     Assert.assertNotNull(target.getSocialNr());
     Assert.assertNotNull(target.getName()); // fail due to bug
-  }
-
-  private Mapper createMapper() {
-    Mapper mapper = new DozerBeanMapper();
-    ((DozerBeanMapper) mapper).setMappingFiles(Arrays
-        .asList(new String[] { "superInterfaceMapping.xml" }));
-    return mapper;
   }
 
   public interface Member {

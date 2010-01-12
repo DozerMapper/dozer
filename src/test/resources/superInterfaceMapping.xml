@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN"
-   "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd">
-
-<mappings>
-	<mapping wildcard="true" map-null="false">
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+    
+    <mapping wildcard="true" map-null="false">
 		<class-a>org.dozer.functional_tests.SuperInterfaceMappingTest$Member</class-a>
 		<class-b>org.dozer.functional_tests.SuperInterfaceMappingTest$MemberDto</class-b>
 		<field type="one-way" >
