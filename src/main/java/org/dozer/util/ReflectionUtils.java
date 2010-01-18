@@ -16,14 +16,12 @@
 package org.dozer.util;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
-import java.beans.IndexedPropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -70,9 +68,10 @@ public final class ReflectionUtils {
 
             See KnownFailures.testIndexedGetFailure()
           */
-          if (descriptors[i] instanceof IndexedPropertyDescriptor) {
-            continue;
-          }
+          // TODO Disables for now as it breaks indexed array mapping
+//          if (descriptors[i] instanceof IndexedPropertyDescriptor) {
+//            continue;
+//          }
 
           if (fieldName.equalsIgnoreCase(descriptors[i].getName())) {
             result = descriptors[i];

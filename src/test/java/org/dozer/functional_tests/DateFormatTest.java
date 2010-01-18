@@ -73,13 +73,22 @@ public class DateFormatTest extends AbstractFunctionalTest {
 
     DateObjectSource source = new DateObjectSource();
     source.setRecalledDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+
     DateObjectDest dest = mapper.map(source, DateObjectDest.class);
-    assertEquals(source.getRecalledDate(), dest.getRecDate());
+
+    assertEquals(source.getRecalledDate().getYear(), dest.getRecDate().getYear());
+    assertEquals(source.getRecalledDate().getMonth(), dest.getRecDate().getMonth());
+    assertEquals(source.getRecalledDate().getDay(), dest.getRecDate().getDay());
+    assertEquals(source.getRecalledDate().getHour(), dest.getRecDate().getHour());
+    assertEquals(source.getRecalledDate().getMinute(), dest.getRecDate().getMinute());
+    assertEquals(source.getRecalledDate().getSecond(), dest.getRecDate().getSecond());
 
     //Test when instance exist
     dest = new DateObjectDest();
     dest.setRecDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+
     mapper.map(source, dest);
+
     assertEquals(source.getRecalledDate(), dest.getRecDate());
   }
 
