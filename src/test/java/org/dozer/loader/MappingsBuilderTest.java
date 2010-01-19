@@ -23,20 +23,20 @@ import org.junit.Test;
 /**
  * @author dmitry.buzdin
  */
-public class MappingBuilderTest {
+public class MappingsBuilderTest {
 
   @Test
   public void testBuild() {
-    MappingBuilder builder = new MappingBuilder();
+    DozerBuilder builder = new DozerBuilder();
     MappingFileData result = builder.build();
     assertNotNull(result);
   }
 
   @Test
   public void testGetFieldNameOfIndexedField() {
-    assertEquals("aaa", MappingBuilder.getFieldNameOfIndexedField("aaa[0]"));
-    assertEquals("aaa[0].bbb", MappingBuilder.getFieldNameOfIndexedField("aaa[0].bbb[1]"));
-    assertEquals("aaa[0].bbb[1].ccc", MappingBuilder.getFieldNameOfIndexedField("aaa[0].bbb[1].ccc[2]"));
+    assertEquals("aaa", DozerBuilder.getFieldNameOfIndexedField("aaa[0]"));
+    assertEquals("aaa[0].bbb", DozerBuilder.getFieldNameOfIndexedField("aaa[0].bbb[1]"));
+    assertEquals("aaa[0].bbb[1].ccc", DozerBuilder.getFieldNameOfIndexedField("aaa[0].bbb[1].ccc[2]"));
   }
 
 

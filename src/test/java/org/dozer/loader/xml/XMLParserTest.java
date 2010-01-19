@@ -19,6 +19,7 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.fieldmap.FieldMap;
+import org.dozer.loader.MappingsSource;
 import org.dozer.util.ResourceLoader;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class XMLParserTest extends AbstractDozerTest {
 
-  private XMLParser parser = new XMLParser();
+  private MappingsSource parser;
 
   @Test
   public void testParse() throws Exception {
@@ -42,7 +43,9 @@ public class XMLParserTest extends AbstractDozerTest {
     URL url = loader.getResource("dozerBeanMapping.xml");
 
     Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
-    MappingFileData mappings = parser.parse(document);
+    parser = new XMLParser(document);
+
+    MappingFileData mappings = parser.load();
     assertNotNull(mappings);
   }
 
@@ -56,7 +59,9 @@ public class XMLParserTest extends AbstractDozerTest {
     URL url = loader.getResource("fieldCustomConverterParam.xml");
 
     Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
-    MappingFileData mappings = parser.parse(document);
+    parser = new XMLParser(document);
+    
+    MappingFileData mappings = parser.load();
 
     assertNotNull("The mappings should not be null", mappings);
 

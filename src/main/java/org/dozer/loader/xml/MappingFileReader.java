@@ -18,6 +18,7 @@ package org.dozer.loader.xml;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.loader.MappingsSource;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ResourceLoader;
 import org.w3c.dom.Document;
@@ -57,10 +58,10 @@ public class MappingFileReader {
       stream = url.openStream();
       Document document = documentBuilder.parse(stream);
       
-      XMLParser parser = new XMLParser();
-      result = parser.parse(document);
+      MappingsSource parser = new XMLParser(document);
+      result = parser.load();
     } catch (Throwable e) {
-      log.error("Error while loading dozer mapping file url: [" + url + "] : " + e);
+      log.error("Error while loading dozer mapping file url: [" + url + "]", e);
       MappingUtils.throwMappingException(e);
     } finally {
       try {

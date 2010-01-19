@@ -23,21 +23,23 @@ import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
-import org.dozer.loader.MappingBuilder;
-import org.dozer.util.DozerConstants;
+import org.dozer.loader.DozerBuilder;
+import org.dozer.loader.MappingsSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Internal class that parses a raw custom xml mapping file into raw ClassMap objects. Only intended for internal use.
+ * Internal class that parses a raw custom xml mapping file into ClassMap objects. 
+ *
+ * Only intended for internal use.
  *
  * @author garsombke.franz
  * @author johnsen.knut-erik
  * @author dmitry.buzdin
  */
-public class XMLParser {
+public class XMLParser implements MappingsSource {
 
   private static final Log log = LogFactory.getLog(XMLParser.class);
 
@@ -89,14 +91,23 @@ public class XMLParser {
   private static final String CUSTOM_CONVERTER_ID_ATTRIBUTE = "custom-converter-id";
   private static final String CUSTOM_CONVERTER_PARAM_ATTRIBUTE = "custom-converter-param";
 
+  private final Document document;
+
+  /**
+   *
+   * @param document Xml document containing valid mappings definition
+   */
+  public XMLParser(Document document) {
+    this.document = document;
+  }
+
   /**
    * Builds object representation of mappings based on content of Xml document
    *
-   * @param document Xml document containing valid mappings definition
    * @return mapping container
    */
-  public MappingFileData parse(Document document) {
-    MappingBuilder builder = new MappingBuilder();
+  public MappingFileData load() {
+    DozerBuilder builder = new DozerBuilder();
 
     Element theRoot = document.getDocumentElement();
     NodeList nl = theRoot.getChildNodes();
@@ -118,8 +129,8 @@ public class XMLParser {
     return builder.build();
   }
 
-  private void parseMapping(Element ele, MappingBuilder builder) {
-    MappingBuilder.MappingDefinitionBuilder definitionBuilder = builder.mapping();
+  private void parseMapping(Element ele, DozerBuilder builder) {
+    DozerBuilder.MappingBuilder definitionBuilder = builder.mapping();
 
     if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT))) {
       definitionBuilder.dateFormat(ele.getAttribute(DATE_FORMAT));
@@ -163,12 +174,12 @@ public class XMLParser {
         debugElement(element);
         if (CLASS_A_ELEMENT.equals(element.getNodeName())) {
           String typeName = element.getFirstChild().getNodeValue().trim();
-          MappingBuilder.ClassDefinitionBuilder classBuilder = definitionBuilder.classA(typeName);
+          DozerBuilder.ClassDefinitionBuilder classBuilder = definitionBuilder.classA(typeName);
           parseClass(element, classBuilder);
         }
         if (CLASS_B_ELEMENT.equals(element.getNodeName())) {
           String typeName = element.getFirstChild().getNodeValue().trim();
-          MappingBuilder.ClassDefinitionBuilder classBuilder = definitionBuilder.classB(typeName);
+          DozerBuilder.ClassDefinitionBuilder classBuilder = definitionBuilder.classB(typeName);
           parseClass(element, classBuilder);
         }
         if (FIELD_ELEMENT.equals(element.getNodeName())) {
@@ -180,7 +191,7 @@ public class XMLParser {
     }
   }
 
-  private void parseClass(Element element, MappingBuilder.ClassDefinitionBuilder classBuilder) {
+  private void parseClass(Element element, DozerBuilder.ClassDefinitionBuilder classBuilder) {
     if (StringUtils.isNotEmpty(element.getAttribute(MAP_GET_METHOD_ATTRIBUTE))) {
       classBuilder.mapGetMethod(element.getAttribute(MAP_GET_METHOD_ATTRIBUTE));
     }
@@ -204,8 +215,8 @@ public class XMLParser {
     }
   }
 
-  private void parseFieldExcludeMap(Element ele, MappingBuilder.MappingDefinitionBuilder definitionBuilder) {
-    MappingBuilder.ExcludeFieldBuilder fieldMapBuilder = definitionBuilder.fieldExclude();
+  private void parseFieldExcludeMap(Element ele, DozerBuilder.MappingBuilder definitionBuilder) {
+    DozerBuilder.FieldExclusionBuilder fieldMapBuilder = definitionBuilder.fieldExclude();
     if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
       String mappingDirection = ele.getAttribute(TYPE_ATTRIBUTE);
       MappingDirection direction = MappingDirection.valueOf(mappingDirection);
@@ -222,23 +233,23 @@ public class XMLParser {
     }
   }
 
-  private void parseFieldElements(Element element, MappingBuilder.FieldContainerBuider fieldMapBuilder) {
+  private void parseFieldElements(Element element, DozerBuilder.FieldBuider fieldMapBuilder) {
     if (A_ELEMENT.equals(element.getNodeName())) {
       String name = element.getFirstChild().getNodeValue().trim();
       String type = element.getAttribute(TYPE_ATTRIBUTE);
-      MappingBuilder.FieldBuilder fieldBuilder = fieldMapBuilder.a(name, type);
+      DozerBuilder.FieldDefinitionBuilder fieldBuilder = fieldMapBuilder.a(name, type);
       parseField(element, fieldBuilder);
     }
     if (B_ELEMENT.equals(element.getNodeName())) {
       String name = element.getFirstChild().getNodeValue().trim();
       String type = element.getAttribute(TYPE_ATTRIBUTE);
-      MappingBuilder.FieldBuilder fieldBuilder = fieldMapBuilder.b(name, type);
+      DozerBuilder.FieldDefinitionBuilder fieldBuilder = fieldMapBuilder.b(name, type);
       parseField(element, fieldBuilder);
     }
   }
 
-  private void parseGenericFieldMap(Element ele, MappingBuilder.MappingDefinitionBuilder definitionBuilder) {
-    MappingBuilder.FieldMapBuilder fieldMapBuilder = determineFieldMap(definitionBuilder, ele);
+  private void parseGenericFieldMap(Element ele, DozerBuilder.MappingBuilder definitionBuilder) {
+    DozerBuilder.FieldMappingBuilder fieldMapBuilder = determineFieldMap(definitionBuilder, ele);
 
     if (StringUtils.isNotEmpty(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE))) {
       fieldMapBuilder.copyByReference(BooleanUtils.toBoolean(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE)));
@@ -264,8 +275,8 @@ public class XMLParser {
     parseFieldMap(ele, fieldMapBuilder);
   }
 
-  private MappingBuilder.FieldMapBuilder determineFieldMap(MappingBuilder.MappingDefinitionBuilder definitionBuilder, Element ele) {
-    MappingBuilder.FieldMapBuilder fieldMapBuilder = definitionBuilder.field();
+  private DozerBuilder.FieldMappingBuilder determineFieldMap(DozerBuilder.MappingBuilder definitionBuilder, Element ele) {
+    DozerBuilder.FieldMappingBuilder fieldMapBuilder = definitionBuilder.field();
 
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
@@ -276,13 +287,13 @@ public class XMLParser {
         if (A_ELEMENT.equals(element.getNodeName())) {
           String name = element.getFirstChild().getNodeValue().trim();
           String type = element.getAttribute(TYPE_ATTRIBUTE);
-          MappingBuilder.FieldBuilder builder = fieldMapBuilder.a(name, type);
+          DozerBuilder.FieldDefinitionBuilder builder = fieldMapBuilder.a(name, type);
           parseField(element, builder);
         }
         if (B_ELEMENT.equals(element.getNodeName())) {
           String name = element.getFirstChild().getNodeValue().trim();
           String type = element.getAttribute(TYPE_ATTRIBUTE);
-          MappingBuilder.FieldBuilder builder = fieldMapBuilder.b(name, type);
+          DozerBuilder.FieldDefinitionBuilder builder = fieldMapBuilder.b(name, type);
           parseField(element, builder);
         }
       }
@@ -291,7 +302,7 @@ public class XMLParser {
     return fieldMapBuilder;
   }
 
-  private void parseFieldMap(Element ele, MappingBuilder.FieldMapBuilder fieldMapBuilder) {
+  private void parseFieldMap(Element ele, DozerBuilder.FieldMappingBuilder fieldMapBuilder) {
     setRelationshipType(ele, fieldMapBuilder);
 
     if (StringUtils.isNotEmpty(ele.getAttribute(REMOVE_ORPHANS))) {
@@ -326,7 +337,7 @@ public class XMLParser {
     }
   }
 
-  private void setRelationshipType(Element ele, MappingBuilder.FieldMapBuilder definitionBuilder) {
+  private void setRelationshipType(Element ele, DozerBuilder.FieldMappingBuilder definitionBuilder) {
     RelationshipType relationshipType = null;
     if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
       String relationshipTypeValue = ele.getAttribute(RELATIONSHIP_TYPE);
@@ -335,7 +346,7 @@ public class XMLParser {
     definitionBuilder.relationshipType(relationshipType);
   }
 
-  private void parseField(Element ele, MappingBuilder.FieldBuilder fieldBuilder) {
+  private void parseField(Element ele, DozerBuilder.FieldDefinitionBuilder fieldBuilder) {
     if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT))) {
       fieldBuilder.dateFormat(ele.getAttribute(DATE_FORMAT));
     }
@@ -362,8 +373,8 @@ public class XMLParser {
     }
   }
 
-  private void parseConfiguration(Element ele, MappingBuilder builder) {
-    MappingBuilder.MappingConfigurationBuilder configBuilder = builder.configuration();
+  private void parseConfiguration(Element ele, DozerBuilder builder) {
+    DozerBuilder.ConfigurationBuilder configBuilder = builder.configuration();
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -384,9 +395,6 @@ public class XMLParser {
           configBuilder.trimStrings(Boolean.valueOf(nodeValue.trim()));
         } else if (RELATIONSHIP_TYPE.equals(element.getNodeName())) {
           RelationshipType relationshipType = RelationshipType.valueOf(nodeValue.trim());
-          if (relationshipType == null) {
-            relationshipType = DozerConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY;
-          }
           configBuilder.relationshipType(relationshipType);
         } else if (BEAN_FACTORY.equals(element.getNodeName())) {
           configBuilder.beanFactory(nodeValue.trim());
@@ -401,7 +409,7 @@ public class XMLParser {
     }
   }
 
-  private void parseCustomConverters(Element ele, MappingBuilder.MappingConfigurationBuilder config) {
+  private void parseCustomConverters(Element ele, DozerBuilder.ConfigurationBuilder config) {
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -412,7 +420,7 @@ public class XMLParser {
 
         if (CONVERTER_ELEMENT.equals(element.getNodeName())) {
           String converterType = element.getAttribute(TYPE_ATTRIBUTE).trim();
-          MappingBuilder.CustomConverterBuilder customConverterBuilder = config.customConverter(converterType);
+          DozerBuilder.CustomConverterBuilder customConverterBuilder = config.customConverter(converterType);
 
           NodeList list = element.getChildNodes();
           for (int x = 0; x < list.getLength(); x++) {
@@ -438,7 +446,7 @@ public class XMLParser {
     }
   }
 
-  private void parseCopyByReferences(Element ele, MappingBuilder.MappingConfigurationBuilder config) {
+  private void parseCopyByReferences(Element ele, DozerBuilder.ConfigurationBuilder config) {
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -455,7 +463,7 @@ public class XMLParser {
     }
   }
 
-  private void parseAllowedExceptions(Element ele, MappingBuilder.MappingConfigurationBuilder config) {
+  private void parseAllowedExceptions(Element ele, DozerBuilder.ConfigurationBuilder config) {
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);

@@ -35,102 +35,109 @@ import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Builder API for achivieng the same effect as custom Xml mappings.
+ * Is intended to be used from application to prepare repetetive mappings programmatically.
+ * <p/>
+ * Note that some of the fail-fast checks from Xml validation has not yet been ported.
+ * Responsibility on filling all mandatory attributes is left to API user.
+ * <p/>
  * Not thread safe
  *
  * @author dmitry.buzdin
  */
-public class MappingBuilder {
+public class DozerBuilder {
 
   MappingFileData data = new MappingFileData();
-  private final List<MappingDefinitionBuilder> mappingBuilders = new ArrayList<MappingDefinitionBuilder>();
+  private final List<MappingBuilder> mappingBuilders = new ArrayList<MappingBuilder>();
 
   public MappingFileData build() {
-    for (MappingDefinitionBuilder builder : mappingBuilders) {
+    for (MappingBuilder builder : mappingBuilders) {
       builder.build();
     }
     return data;
   }
 
-  public MappingConfigurationBuilder configuration() {
+  public ConfigurationBuilder configuration() {
     Configuration configuration = new Configuration();
     configuration.setCustomConverters(new CustomConverterContainer());
     configuration.setCopyByReferences(new CopyByReferenceContainer());
     configuration.setAllowedExceptions(new AllowedExceptionContainer());
     data.setConfiguration(configuration);
-    return new MappingConfigurationBuilder(configuration);
+    return new ConfigurationBuilder(configuration);
   }
 
-  public MappingDefinitionBuilder mapping() {
+  public MappingBuilder mapping() {
     Configuration configuration = data.getConfiguration();
     ClassMap classMap = new ClassMap(configuration);
     data.getClassMaps().add(classMap);
-    MappingDefinitionBuilder mappingDefinitionBuilder = new MappingDefinitionBuilder(classMap);
+    MappingBuilder mappingDefinitionBuilder = new MappingBuilder(classMap);
     mappingBuilders.add(mappingDefinitionBuilder);
     return mappingDefinitionBuilder;
   }
 
-  public static class MappingDefinitionBuilder {
+  public static class MappingBuilder {
 
     private ClassMap classMap;
-    private final List<FieldContainerBuider> fieldBuilders = new ArrayList<FieldContainerBuider>();
+    private final List<FieldBuider> fieldBuilders = new ArrayList<FieldBuider>();
 
-    public MappingDefinitionBuilder(ClassMap classMap) {
+    public MappingBuilder(ClassMap classMap) {
       this.classMap = classMap;
     }
 
-    public MappingDefinitionBuilder dateFormat(String dateFormat) {
+    public MappingBuilder dateFormat(String dateFormat) {
       classMap.setDateFormat(dateFormat);
       return this;
     }
 
-    public MappingDefinitionBuilder mapNull(boolean value) {
+    public MappingBuilder mapNull(boolean value) {
       classMap.setMapNull(value);
       return this;
     }
 
-    public MappingDefinitionBuilder mapEmptyString(boolean value) {
+    public MappingBuilder mapEmptyString(boolean value) {
       classMap.setMapEmptyString(value);
       return this;
     }
 
     // TODO Load class ?
-    public MappingDefinitionBuilder beanFactory(String typeName) {
+    public MappingBuilder beanFactory(String typeName) {
       classMap.setBeanFactory(typeName);
       return this;
     }
 
-    public MappingDefinitionBuilder relationshipType(RelationshipType type) {
+    public MappingBuilder relationshipType(RelationshipType type) {
       classMap.setRelationshipType(type);
       return this;
     }
 
-    public MappingDefinitionBuilder wildcard(Boolean value) {
+    public MappingBuilder wildcard(Boolean value) {
       classMap.setWildcard(value);
       return this;
     }
 
-    public MappingDefinitionBuilder trimStrings(Boolean value) {
+    public MappingBuilder trimStrings(Boolean value) {
       classMap.setTrimStrings(value);
       return this;
     }
 
-    public MappingDefinitionBuilder stopOnErrors(Boolean value) {
+    public MappingBuilder stopOnErrors(Boolean value) {
       classMap.setStopOnErrors(value);
       return this;
     }
 
-    public MappingDefinitionBuilder mapId(String id) {
+    public MappingBuilder mapId(String id) {
       classMap.setMapId(id);
       return this;
     }
 
-    public MappingDefinitionBuilder type(MappingDirection type) {
+    public MappingBuilder type(MappingDirection type) {
       classMap.setType(type);
       return this;
     }
@@ -159,40 +166,40 @@ public class MappingBuilder {
       return new ClassDefinitionBuilder(classDefinition);
     }
 
-    public ExcludeFieldBuilder fieldExclude() {
+    public FieldExclusionBuilder fieldExclude() {
       ExcludeFieldMap excludeFieldMap = new ExcludeFieldMap(classMap);
-      ExcludeFieldBuilder builder = new ExcludeFieldBuilder(excludeFieldMap);
+      FieldExclusionBuilder builder = new FieldExclusionBuilder(excludeFieldMap);
       fieldBuilders.add(builder);
       return builder;
     }
 
-    public FieldMapBuilder field() {
-      FieldMapBuilder builder = new FieldMapBuilder(classMap);
+    public FieldMappingBuilder field() {
+      FieldMappingBuilder builder = new FieldMappingBuilder(classMap);
       fieldBuilders.add(builder);
       return builder;
     }
 
     public void build() {
-      for (FieldContainerBuider builder : fieldBuilders) {
+      for (FieldBuider builder : fieldBuilders) {
         builder.build();
       }
     }
 
   }
 
-  public interface FieldContainerBuider {
-    FieldBuilder a(String name, String type);
+  public interface FieldBuider {
+    FieldDefinitionBuilder a(String name, String type);
 
-    FieldBuilder b(String name, String type);
+    FieldDefinitionBuilder b(String name, String type);
 
     void build();
   }
 
-  public static class ExcludeFieldBuilder implements FieldContainerBuider {
+  public static class FieldExclusionBuilder implements FieldBuider {
 
     private ExcludeFieldMap fieldMap;
 
-    public ExcludeFieldBuilder(ExcludeFieldMap fieldMap) {
+    public FieldExclusionBuilder(ExcludeFieldMap fieldMap) {
       this.fieldMap = fieldMap;
     }
 
@@ -200,16 +207,16 @@ public class MappingBuilder {
       fieldMap.setType(type);
     }
 
-    public FieldBuilder a(String name, String type) {
+    public FieldDefinitionBuilder a(String name, String type) {
       DozerField field = prepareField(name, type);
       fieldMap.setSrcField(field);
-      return new FieldBuilder(field);
+      return new FieldDefinitionBuilder(field);
     }
 
-    public FieldBuilder b(String name, String type) {
+    public FieldDefinitionBuilder b(String name, String type) {
       DozerField field = prepareField(name, type);
       fieldMap.setDestField(field);
-      return new FieldBuilder(field);
+      return new FieldDefinitionBuilder(field);
     }
 
 
@@ -220,7 +227,7 @@ public class MappingBuilder {
 
   }
 
-  public static class FieldMapBuilder implements FieldContainerBuider {
+  public static class FieldMappingBuilder implements FieldBuider {
 
     private ClassMap classMap;
     private DozerField srcField;
@@ -239,91 +246,91 @@ public class MappingBuilder {
     private String customConverterParam;
     private boolean copyByReferenceSet;
 
-    public FieldMapBuilder(ClassMap classMap) {
+    public FieldMappingBuilder(ClassMap classMap) {
       this.classMap = classMap;
     }
 
-    public FieldBuilder a(String name, String type) {
-      DozerField field = MappingBuilder.prepareField(name, type);
+    public FieldDefinitionBuilder a(String name, String type) {
+      DozerField field = DozerBuilder.prepareField(name, type);
       this.srcField = field;
-      return new FieldBuilder(field);
+      return new FieldDefinitionBuilder(field);
     }
 
-    public FieldBuilder b(String name, String type) {
+    public FieldDefinitionBuilder b(String name, String type) {
       DozerField field = prepareField(name, type);
       this.destField = field;
-      return new FieldBuilder(field);
+      return new FieldDefinitionBuilder(field);
     }
 
-    public FieldMapBuilder type(MappingDirection type) {
+    public FieldMappingBuilder type(MappingDirection type) {
       this.type = type;
       return this;
     }
 
-    public FieldMapBuilder relationshipType(RelationshipType relationshipType) {
+    public FieldMappingBuilder relationshipType(RelationshipType relationshipType) {
       this.relationshipType = relationshipType;
       return this;
     }
 
-    public FieldMapBuilder removeOrphans(boolean value) {
+    public FieldMappingBuilder removeOrphans(boolean value) {
       this.removeOrphans = value;
       return this;
     }
 
-    public FieldMapBuilder srcHintContainer(String hint) {
+    public FieldMappingBuilder srcHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.srcHintContainer = hintContainer;
       return this;
     }
 
-    public FieldMapBuilder destHintContainer(String hint) {
+    public FieldMappingBuilder destHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.destHintContainer = hintContainer;
       return this;
     }
 
-    public FieldMapBuilder srcDeepIndexHintContainer(String hint) {
+    public FieldMappingBuilder srcDeepIndexHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.srcDeepIndexHintContainer = hintContainer;
       return this;
     }
 
-    public FieldMapBuilder destDeepIndexHintContainer(String hint) {
+    public FieldMappingBuilder destDeepIndexHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.destDeepIndexHintContainer = hintContainer;
       return this;
     }
 
-    public FieldMapBuilder copyByReference(boolean value) {
+    public FieldMappingBuilder copyByReference(boolean value) {
       this.copyByReferenceSet = true;
       this.copyByReference = value;
       return this;
     }
 
-    public FieldMapBuilder mapId(String attribute) {
+    public FieldMappingBuilder mapId(String attribute) {
       this.mapId = attribute;
       return this;
     }
 
-    public FieldMapBuilder customConverter(Class<? extends CustomConverter> type) {
+    public FieldMappingBuilder customConverter(Class<? extends CustomConverter> type) {
       return customConverter(type.getName());
     }
-    
-    public FieldMapBuilder customConverter(String typeName) {
+
+    public FieldMappingBuilder customConverter(String typeName) {
       this.customConverter = typeName;
       return this;
     }
 
-    public FieldMapBuilder customConverterId(String attribute) {
+    public FieldMappingBuilder customConverterId(String attribute) {
       this.customConverterId = attribute;
       return this;
     }
 
-    public FieldMapBuilder customConverterParam(String attribute) {
+    public FieldMappingBuilder customConverterParam(String attribute) {
       this.customConverterParam = attribute;
       return this;
     }
@@ -365,10 +372,10 @@ public class MappingBuilder {
 
   }
 
-  public static class FieldBuilder {
+  public static class FieldDefinitionBuilder {
     private DozerField field;
 
-    public FieldBuilder(DozerField field) {
+    public FieldDefinitionBuilder(DozerField field) {
       this.field = field;
     }
 
@@ -487,42 +494,46 @@ public class MappingBuilder {
 
   }
 
-  public static class MappingConfigurationBuilder {
+  public static class ConfigurationBuilder {
 
     private Configuration configuration;
 
     private CustomConverterDescription converterDescription;
 
-    public MappingConfigurationBuilder(Configuration configuration) {
+    public ConfigurationBuilder(Configuration configuration) {
       this.configuration = configuration;
     }
 
-    public MappingConfigurationBuilder stopOnErrors(Boolean value) {
+    public ConfigurationBuilder stopOnErrors(Boolean value) {
       configuration.setStopOnErrors(value);
       return this;
     }
 
-    public MappingConfigurationBuilder dateFormat(String format) {
+    public ConfigurationBuilder dateFormat(String format) {
       configuration.setDateFormat(format);
       return this;
     }
 
-    public MappingConfigurationBuilder wildcard(Boolean value) {
+    public ConfigurationBuilder wildcard(Boolean value) {
       configuration.setWildcard(value);
       return this;
     }
 
-    public MappingConfigurationBuilder trimStrings(Boolean value) {
+    public ConfigurationBuilder trimStrings(Boolean value) {
       configuration.setTrimStrings(value);
       return this;
     }
 
-    public MappingConfigurationBuilder relationshipType(RelationshipType value) {
-      configuration.setRelationshipType(value);
+    public ConfigurationBuilder relationshipType(RelationshipType value) {
+      if (value == null) {
+        configuration.setRelationshipType(DozerConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY);
+      } else {
+        configuration.setRelationshipType(value);
+      }
       return this;
     }
 
-    public MappingConfigurationBuilder beanFactory(String name) {
+    public ConfigurationBuilder beanFactory(String name) {
       configuration.setBeanFactory(name);
       return this;
     }
@@ -540,19 +551,19 @@ public class MappingBuilder {
       return new CustomConverterBuilder(converterDescription);
     }
 
-    public MappingConfigurationBuilder copyByReference(String typeMask) {
+    public ConfigurationBuilder copyByReference(String typeMask) {
       CopyByReference copyByReference = new CopyByReference(typeMask);
       configuration.getCopyByReferences().add(copyByReference);
       return this;
     }
 
-    public MappingConfigurationBuilder allowedException(String type) {
+    public ConfigurationBuilder allowedException(String type) {
       Class<?> exceptionType = MappingUtils.loadClass(type);
       return allowedException(exceptionType);
     }
 
     // TODO Restrict with generic
-    public MappingConfigurationBuilder allowedException(Class type) {
+    public ConfigurationBuilder allowedException(Class type) {
       if (!RuntimeException.class.isAssignableFrom(type)) {
         MappingUtils.throwMappingException("allowed-exception Type must extend java.lang.RuntimeException: "
             + type.getName());

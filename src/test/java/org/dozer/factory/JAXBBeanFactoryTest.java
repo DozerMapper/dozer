@@ -1,12 +1,10 @@
 package org.dozer.factory;
 
 import org.dozer.MappingException;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Vincent Jassogne
@@ -21,7 +19,6 @@ public class JAXBBeanFactoryTest {
   }
 
   @Test
-  @Ignore("org.dozer.vo.jaxb child packages missed")
   public void testCreateBeanForSimpleJaxbClass() {
     Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeType");
     assertNotNull("Object can not be null", obj);
@@ -34,7 +31,6 @@ public class JAXBBeanFactoryTest {
   }
 
   @Test
-  @Ignore("org.dozer.vo.jaxb child packages missed")
   public void testCreateBeanForInnerJaxbClass() {
     Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address");
     assertNotNull(obj);
@@ -42,7 +38,6 @@ public class JAXBBeanFactoryTest {
   }
 
   @Test
-  @Ignore("org.dozer.vo.jaxb child packages missed")
   public void testCreateBeanForNestedInnerJaxbClass() {
     Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State");
     assertNotNull(obj);

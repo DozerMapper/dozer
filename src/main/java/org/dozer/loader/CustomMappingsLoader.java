@@ -27,7 +27,6 @@ import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParserFactory;
-import org.dozer.util.DozerConstants;
 import org.dozer.util.InitLogger;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
@@ -53,41 +52,19 @@ public class CustomMappingsLoader {
   private final MappingFileReader mappingFileReader = new MappingFileReader(XMLParserFactory.getInstance());
 
   public LoadMappingsResult load(List<String> mappingFiles) {
+    
+    List<MappingFileData> mappingFileDataList = loadFromFiles(mappingFiles);
+
+    Configuration globalConfiguration = findConfiguration(mappingFileDataList);
+
     ClassMappings customMappings = new ClassMappings();
     ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList<CustomConverterDescription>());
-    Configuration globalConfiguration = null;
-    List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
-    if (mappingFiles != null && mappingFiles.size() > 0) {
-      InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
-      for (String mappingFileName : mappingFiles) {
-        InitLogger.log(log, "Trying to find xml mapping file: " + mappingFileName);
-        URL url = MappingValidator.validateURL(DozerConstants.DEFAULT_PATH_ROOT + mappingFileName);
-        InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
-        MappingFileData mappingFileData = mappingFileReader.read(url);
-        InitLogger.log(log, "Successfully loaded custom xml mappings from URL: [" + url + "]");
-
-        if (mappingFileData.getConfiguration() != null) {
-          //Only allow 1 global configuration          
-          if (globalConfiguration != null) {
-            MappingUtils
-                .throwMappingException("More than one global configuration found.  "
-                    + "Only one global configuration block (<configuration></configuration>) can be specified across all mapping files.  "
-                    + "You need to consolidate all global configuration blocks into a single one.");
-          }
-          globalConfiguration = mappingFileData.getConfiguration();
-        }
-        mappingFileDataList.add(mappingFileData);
-      }
-    }
-
-    //If global configuration was not specified, use defaults
-    if (globalConfiguration == null) {
-      globalConfiguration = new Configuration();
-    }
 
     // Decorate the raw ClassMap objects and create ClassMap "prime" instances
     for (MappingFileData mappingFileData : mappingFileDataList) {
-      customMappings.addAll(mappingsParser.processMappings(mappingFileData.getClassMaps(), globalConfiguration));
+      List<ClassMap> classMaps = mappingFileData.getClassMaps();
+      ClassMappings customMappingsPrime = mappingsParser.processMappings(classMaps, globalConfiguration);
+      customMappings.addAll(customMappingsPrime);
     }
 
     // Add default mappings using matching property names if wildcard policy
@@ -112,5 +89,45 @@ public class CustomMappingsLoader {
       }
     }
     return new LoadMappingsResult(customMappings, globalConfiguration);
+  }
+
+  private List<MappingFileData> loadFromFiles(List<String> mappingFiles) {
+    List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
+    if (mappingFiles != null && mappingFiles.size() > 0) {
+      InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
+      for (String mappingFileName : mappingFiles) {
+        InitLogger.log(log, "Trying to find xml mapping file: " + mappingFileName);
+        URL url = MappingValidator.validateURL(mappingFileName);
+        InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
+        MappingFileData mappingFileData = mappingFileReader.read(url);
+        InitLogger.log(log, "Successfully loaded custom xml mappings from URL: [" + url + "]");
+
+        mappingFileDataList.add(mappingFileData);
+      }
+    }
+    return mappingFileDataList;
+  }
+
+  private Configuration findConfiguration(List<MappingFileData> mappingFileDataList) {
+    Configuration globalConfiguration = null;
+    for (MappingFileData mappingFileData : mappingFileDataList) {
+      if (mappingFileData.getConfiguration() != null) {
+        //Only allow 1 global configuration
+        if (globalConfiguration != null) {
+          MappingUtils
+              .throwMappingException("More than one global configuration found.  "
+                  + "Only one global configuration block (<configuration></configuration>) can be specified across all mapping files.  "
+                  + "You need to consolidate all global configuration blocks into a single one.");
+        }
+        globalConfiguration = mappingFileData.getConfiguration();
+      }
+    }
+
+    //If global configuration was not specified, use defaults
+    if (globalConfiguration == null) {
+      globalConfiguration = new Configuration();
+    }
+
+    return globalConfiguration;
   }
 }
