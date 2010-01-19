@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.loader.api;
+package org.dozer.loader.annotation;
 
 import org.dozer.classmap.MappingFileData;
-import org.dozer.loader.DozerBuilder;
 import org.dozer.loader.MappingsSource;
 
 /**
  * @author dmitry.buzdin
  */
-public abstract class ApiLoader implements MappingsSource {
+public class AnnotationLoader implements MappingsSource {
 
   public MappingFileData load() {
-    DozerBuilder builder = new DozerBuilder();
-    build(builder);
-    return builder.build();
+    return new MappingFileData();
+    // TODO Scan classpath and find all Beans marked for mapping
   }
-
-  protected abstract void build(final DozerBuilder builder);
 
 }

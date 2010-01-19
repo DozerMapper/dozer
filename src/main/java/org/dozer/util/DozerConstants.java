@@ -45,11 +45,10 @@ public final class DozerConstants {
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";
   public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;
-  
-  public static final String XSD_NAME = "beanmapping.xsd";
-
-  public static final String FILE_PREFIX = "file:";
   public static final boolean DEFAULT_STATISTICS_ENABLED = false;
+
+  public static final String XSD_NAME = "beanmapping.xsd";
+  public static final String FILE_PREFIX = "file:";
   public static final String CONFIG_FILE_SYS_PROP = "dozer.configuration"; // i.e)-Ddozer.configuration=somefile.properties
   public static final String DEBUG_SYS_PROP = "dozer.debug";// i.e)-Ddozer.debug=true
   public static final String ITERATE = "iterate";
