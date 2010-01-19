@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping>
+    <class-a>org.dozer.functional_tests.TopLevelMappingTest$MyList</class-a>
+    <class-b>java.util.ArrayList</class-b>
+    <field>
+      <a>this</a>
+      <b>this</b>
+      <a-hint>java.lang.String</a-hint>
+      <b-hint>java.lang.Integer</b-hint>
+    </field>
+  </mapping>
+
+  <mapping map-id="2">
+    <class-a>org.dozer.functional_tests.TopLevelMappingTest$MyList</class-a>
+    <class-b>java.util.ArrayList</class-b>
+    <field>
+      <a>this</a>
+      <b>this</b>
+      <a-hint>org.dozer.functional_tests.TopLevelMappingTest$ItemA</a-hint>
+      <b-hint>org.dozer.functional_tests.TopLevelMappingTest$ItemB</b-hint>
+    </field>
+  </mapping>
+
+</mappings>

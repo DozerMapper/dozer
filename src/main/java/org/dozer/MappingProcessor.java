@@ -44,6 +44,7 @@ import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.CollectionUtils;
+import org.dozer.util.DozerConstants;
 import static org.dozer.util.DozerConstants.BASE_CLASS;
 import static org.dozer.util.DozerConstants.ITERATE;
 import org.dozer.util.LogMsgFactory;
@@ -329,11 +330,19 @@ public class MappingProcessor implements Mapper {
       return null;
     }
 
+
+    String srcFieldName = fieldMap.getSrcFieldName();
+    String destFieldName = fieldMap.getDestFieldName();
+
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop
-    Object alreadyMappedValue = mappedFields.getMappedValue(srcFieldValue, destFieldType);
-    if (alreadyMappedValue != null) {
-      return alreadyMappedValue;
+    // In case of "this->this" mapping this rule should be omitted as processing is done on objects, which has been
+    // just marked as mapped.
+    if (!(DozerConstants.SELF_KEYWORD.equals(srcFieldName) && DozerConstants.SELF_KEYWORD.equals(destFieldName))) {
+      Object alreadyMappedValue = mappedFields.getMappedValue(srcFieldValue, destFieldType);
+      if (alreadyMappedValue != null) {
+        return alreadyMappedValue;
+      }      
     }
 
     if (fieldMap.isCopyByReference()) {
@@ -983,7 +992,7 @@ public class MappingProcessor implements Mapper {
       // If mapId was specified and mapping was not found, then throw an
       // exception
       if (!MappingUtils.isBlankOrNull(mapId)) {
-        MappingUtils.throwMappingException("Class mapping not found for map-id: " + mapId);
+        MappingUtils.throwMappingException("Class mapping not found for map-id : " + mapId);
       }
 
       // If mapping not found in existing custom mapping collection, create

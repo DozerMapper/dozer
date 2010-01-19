@@ -50,7 +50,7 @@ public class KnownFailures extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper(new String[] { "knownFailures.xml" });
+
   }
 
   /*
@@ -59,6 +59,7 @@ public class KnownFailures extends AbstractFunctionalTest {
    */
   @Test
   public void testListOfCustomObjectsToStringArray() {
+    mapper = getMapper(new String[] { "knownFailures.xml" });
     MessageHeaderVO vo = new MessageHeaderVO();
     List<MessageIdVO> ids = new ArrayList<MessageIdVO>();
     ids.add(new MessageIdVO("1"));
@@ -71,6 +72,7 @@ public class KnownFailures extends AbstractFunctionalTest {
 
   @Test
   public void testObjectField() throws Exception {
+    mapper = getMapper("knownFailures.xml");
     Outer o = new Outer();
     Target t = mapper.map(o, Target.class);
 
@@ -85,7 +87,7 @@ public class KnownFailures extends AbstractFunctionalTest {
     Z z = new Z();
     z.setTest("testString");
 
-    mapper = getMapper(new String[] { "inheritanceBug.xml" });
+    mapper = getMapper("inheritanceBug.xml");
 
     C c = mapper.map(z, C.class);
     assertEquals("wrong value", "customConverter", c.getTest());
@@ -96,6 +98,7 @@ public class KnownFailures extends AbstractFunctionalTest {
    */
   @Test
   public void testMapWithList() {
+    mapper = getMapper("knownFailures.xml");
     Room room = new Room();
     room.setRoomName("some room name");
     House house = new House();
@@ -105,7 +108,7 @@ public class KnownFailures extends AbstractFunctionalTest {
     
     Map<String, Object> result = mapper.map(house, HashMap.class);
     assertNotNull("bathrooms should exist", result.containsKey("bathrooms"));
-    assertEquals("wrong bathrooms found", house.getBathrooms(),  (List<String>) result.get("bathrooms"));
+    assertEquals("wrong bathrooms found", house.getBathrooms(), result.get("bathrooms"));
         
   }
 
@@ -114,6 +117,8 @@ public class KnownFailures extends AbstractFunctionalTest {
    */
   @Test
   public void testIndexedGetFailure() {
+    mapper = getMapper("knownFailures.xml");
+
     CustomGetSource customGetSource = new CustomGetSource();
     customGetSource.setValue("some value");
 
