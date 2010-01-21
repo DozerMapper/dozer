@@ -61,7 +61,6 @@
         <item name="Custom Get/Set Methods" href="/documentation/custommethods.html" />
         <item name="Copy By Ref Mapping" href="/documentation/copybyreference.html" />
         <item name="Inheritance Mapping" href="/documentation/baseattributes.html" />
-        <item name="XMLBeans and JAXB" href="/documentation/xmlbeans.html" />
         <item name="Dozer Events" href="/documentation/events.html" />
       </item>
       <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
@@ -70,6 +69,7 @@
       <item name="Statistics" href="/documentation/configuration/statistics.html" />
       <item name="JMX Integration" href="/documentation/jmxintegration.html" />
       <item name="Spring Integration" href="/documentation/springintegration.html"/>
+      <item name="JAXB and XMLBeans" href="/documentation/xmlbeans.html" />
       <item name="FAQ" href="/documentation/faq.html" />
       <!-- Collapsed Submenu -->
       <item name="Support" href="/documentation/support.html" collapse="true">

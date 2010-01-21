@@ -35,6 +35,7 @@ import java.util.Map;
  * release global Dozer resources.
  *
  * @author S'ren Chittka
+ * @author dmitry.buzdin
  */
 public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean, DisposableBean {
 

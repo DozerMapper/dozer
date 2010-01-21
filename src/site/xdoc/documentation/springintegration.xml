@@ -12,10 +12,55 @@
     <meta http-equiv="EXPIRES" content="0"/>
   </head>
   <body>
+
     <section name="Spring Framework Integration">
+
+          <p>
+            Add the DozerBeanMapperFactoryBean to your Spring configuration file. The mappingFiles property is where
+            you should specify any custom dozer mapping files that you have created. This list can be empty if you
+            don't have any custom mappings. It is also possible to set custom event listeners and bean factories.
+          </p>
         <p>
-        This is the recommended way to configure a Dozer mapper. Be sure to set the singleton property =
-          "true".
+            Note that this Factory Bean supports Spring Resources, which means that you could load mapping Xml files
+            by classpath mask for example.
+        </p>
+
+        <source>
+  <![CDATA[  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+        <property name="mappingFiles" value="classpath*:/*mapping.xml"/>
+        <property name="customConverters">
+            <list>
+                <bean class="org.dozer.converters.CustomConverter"/>      
+            <list/>
+        </property>
+        <property name="eventListeners">
+            <list>
+                <bean class="org.dozer.listeners.EventListener"/>
+            <list/>
+        </property>
+        <property name="factories">
+            <map>
+                <entry key="id" value-ref="bean-factory-ref"/>
+            </map>
+        </property>
+    </bean>]]>
+            </source>
+
+          <p>
+            <b>IMPORTANT:</b>
+            You shoud define the Dozer mapper bean is defined as <b>singleton="true"</b>.
+            You should configure the Mapper instance(s) this way so that you do not have to reload and reinitialize
+            the mapping files for each individual mapping during the lifecycle of your app. Reinitializing the
+            mapping files for each mapping would be inefficent and unnecessary. The DozerBeanMapper class is
+            thread safe.
+          </p>
+          <p>
+            If you want to avoid clashing of mapping definitions for different functionality it is possible to
+            define own DozerBeanMapper instance for each such use case.
+          </p>
+          <br/>
+        <p>
+            A simpler way of registering mapper instance is without wrapping factory bean.
         </p>
 <source>
             <![CDATA[
@@ -29,54 +74,7 @@
   </property>
 </bean>
           ]]>
-          </source>
-
-        <subsection name="Spring Integration">
-          <p>
-            Add the Mapper bean to your Spring configuration file. The mappingFiles property is where you would
-            specify any custom dozer mapping files that you have created. This list can be empty if you didn't have
-            any custom mappings.
-          </p>
-          <source>
-            <![CDATA[
-  <bean id="mapper" class="org.dozer.DozerBeanMapper">
-    <property name="mappingFiles">
-      <list>
-        <value>dozer-global-configuration.xml</value>
-        <value>dozer-bean-mappings.xml</value>
-      </list>
-    </property>
-  </bean>
-            ]]>
-          </source>
-          <p>
-            <b>IMPORTANT:</b>
-            You shoud define the Dozer mapper bean is defined as
-            <b>singleton="true"</b>
-            . You should configure the Mapper instance(s) this way so that you do not have to reload and reinitialize
-            the mapping files for each individual mapping during the lifecycle of your app. Reinitializing the
-            mapping files for each mapping would be inefficent and unnecessary. The DozerBeanMapper.java class is
-            thread safe.
-          </p>
-          <br/>
-          <p>
-            A more convinient approach supporting proper deinitialization of global Dozer resources (such as JMX MBeans)
-            is to use DozerBeanMapperFactoryBean. It does implement Spring FactoryBean interface to serve as
-            a custom Mapper object factory. The properties of the factory bean are similar to DozerBeanMapper itself.
-          </p>
-          <source>
-            <![CDATA[
-  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-    <property name="mappingFiles">
-      <list>
-        <value>dozer-global-configuration.xml</value>
-        <value>dozer-bean-mappings.xml</value>
-      </list>
-    </property>
-  </bean>
-            ]]>
-          </source>
-
+</source>
           <br/>
           <p>Using Spring to retrieve the Dozer Mapper......</p>
           <source>
@@ -85,9 +83,6 @@
   DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
             ]]>
           </source>
-        </subsection>
-
-
 
     </section>
   </body>

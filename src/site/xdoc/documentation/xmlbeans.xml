@@ -14,6 +14,32 @@
   </head>
   <body>
     <section name="3rd Party Object Factories">
+
+        <subsection name="Mapping JAXB Objects">
+          <p>
+            Dozer has support for mapping POJOs to JAXB objects. Use the JAXBBeanFactory for any JAXB objects you
+            want create.
+          </p>
+
+        <source>
+<![CDATA[
+<mapping>
+  <class-a>org.dozer.vo.TestObject</class-a>
+  <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.Employee</class-b>
+
+  <field>
+    <a>name</a>
+    <b>firstName</b>
+  </field>
+
+  <field>
+    <a>street</a>
+    <b>address.street</b>
+  </field>
+
+</mapping> ]]></source>
+        </subsection>
+
       <subsection name="Mapping XMLBeans">
         <p>
           Dozer has support for mapping POJOs to XMLBeans objects. Use the XMLBeanFactory for any XMLBeans you want
@@ -54,12 +80,7 @@ assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
         ]]>
         </source>
       </subsection>
-      <subsection name="JAXB">
-        <p>
-          Dozer has support for mapping POJOs to JAXB objects. Use the JAXBBeanFactory for any JAXB objects you
-          want created.
-        </p>
-      </subsection>
+
     </section>
   </body>
 </document>
