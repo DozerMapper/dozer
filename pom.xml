@@ -141,6 +141,17 @@
     </dependency>
   </dependencies>
 
+  <pluginRepositories>
+    <pluginRepository>
+        <id>repo1</id>
+        <url>http://repo1.maven.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>snapshots</id>
+      <url>http://snapshots.maven.codehaus.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <build>
     <resources>
       <resource>

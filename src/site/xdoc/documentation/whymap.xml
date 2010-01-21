@@ -61,7 +61,7 @@
           </p>
           <p>
               Some frameworks impose Serialization constraints, which does not allow sending any Java objects through
-              the wire. One of the popular examples is <a href="http://code.google.com/webtoolkit/">Google Web Toolkit</a>
+              the wire. One of the popular examples is Google Web Toolkit
               (GWT) framework, which restricts developer to sending only objects compiled to JavaScript and marked as
               Serializable. Dozer helps to convert Rich Domain Model to Presentation Model, which satisfies GWT
               serialization requirements.
@@ -79,9 +79,6 @@
               levels of architecture. For example the same domain object could have different mappings dependant of the
               presentation layer requirements.
           </p>
-      </subsection>
-
-      <subsection name="Serializable Objects">
 
       </subsection>
 
