@@ -252,32 +252,16 @@
         <p>Yes.</p>
       </subsection>
 
-      <br></br>
-      <a name="is-spring-supported"></a>
+      <br/>
+      <a name="is-spring-supported"/>
       <subsection name="Can Dozer be configured via Spring?">
         <p>
-          Yes. This is the recommended way to configure a Dozer mapper. Be sure to set the singleton property =
-          "true".
-
-          <source>
-            <![CDATA[ 
-<bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
-  <property name="mappingFiles">
-    <list>
-      <value>dozer-global-configuration.xml</value>			   
-      <value>dozer-bean-mappings.xml</value>
-      <value>more-dozer-bean-mappings.xml</value>
-    </list>
-  </property>
-</bean>
-          ]]>
-          </source>
-
+          Yes. Refer to <a href="springintegration.html">Spring Integration</a> section of the documentation.
         </p>
       </subsection>
 
-      <br></br>
-      <a name="what-type-custom-mapping"></a>
+      <br/>
+      <a name="what-type-custom-mapping"/>
       <subsection name="Which types of data mappings do I need a custom xml mapping definition for?">
         <p>
           Only fields that can't be implicitly mapped by matching on field name, need a custom xml mapping

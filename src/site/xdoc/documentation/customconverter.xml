@@ -334,6 +334,45 @@ public class NewDozerConverter extends DozerConverter<String, Boolean> {
         </p>
       </subsection>
 
+      <subsection name="Data Structure Conversions">
+          <p>
+              There are cases where it is required to perform programmatic data structure conversion, say copy each odd
+              element in a list as map key, but each even as map value. In this case it is needed to define
+              transformation of the structure while relying on usual Dozer mapping support for individual values.
+              For this purposes it is possible to use <i>MapperAware</i> interface, which injects current mapper
+              instance inside custom converter.
+          </p>
+
+          <source>
+              <![CDATA[
+public static class Converter extends DozerConverter <List, Map> implements MapperAware {
+
+  private Mapper mapper;
+
+  public Converter() {
+    super(List.class, Map.class);
+  }
+
+  public Map convertTo(List source, Map destination) {
+    Map originalToMapped = new HashMap();
+    for (Source item : source) {
+      Target mappedItem = mapper.map(item, Target.class);
+      originalToMapped.put(item, mappedItem);
+    }
+    return originalToMapped;
+  }
+
+<...>
+
+  public void setMapper(Mapper mapper) {
+    this.mapper = mapper;
+  }
+
+} ]]>
+
+          </source>
+      </subsection>
+
     </section>
   </body>
 </document>

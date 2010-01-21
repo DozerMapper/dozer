@@ -14,7 +14,7 @@
   <body>
     <section name="Examples">
       <p>
-        There are some sample mapping files under {dozer.home}/src/main/mappings. These mapping files are used by
+        There are some sample mapping files under {dozer.home}/src/test/resources. These mapping files are used by
         the Dozer unit tests.
       </p>
     </section>
