@@ -33,7 +33,7 @@
     <section name="Dozer News">
       <p/>
 
-      <h3>Release 5.2.0 Now Available<font size="-3" color="gray"><i>1/20/2010</i></font></h3>
+      <h3>Release 5.2.0 Now Available<font size="-3" color="gray"><i>1/24/2010</i></font></h3>
       <p>
           Dozer team is happy to announce release 5.2.0. This version fixes fourteen bugs of different kind
           and provides several new features, such as referencing current mapper object inside a custom converter.

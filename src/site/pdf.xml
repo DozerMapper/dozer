@@ -42,6 +42,8 @@
 
     <item name="Statistics" ref="/documentation/configuration/statistics.html"/>
     <item name="JMX Integration" ref="/documentation/jmxintegration.html"/>
+    <item name="Spring Integration" ref="/documentation/springintegration.html"/>
+    <item name="JAXB and XMLBeans" ref="/documentation/xmlbeans.html" />
 
     <item name="FAQ" ref="/documentation/faq.html"/>
 

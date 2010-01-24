@@ -310,7 +310,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pdf-plugin</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
         <executions>
           <execution>
             <id>pdf</id>
@@ -318,6 +318,9 @@
             <goals>
               <goal>pdf</goal>
             </goals>
+            <configuration>
+              <outputDirectory>target/site</outputDirectory>
+            </configuration>
           </execution>
         </executions>
       </plugin>

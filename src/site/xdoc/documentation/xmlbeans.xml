@@ -14,6 +14,10 @@
   </head>
   <body>
     <section name="3rd Party Object Factories">
+      <p>
+        Dozer supports mapping of plain Java objects to frameworks that require instantiation of objects via certain
+        convention of calling factory methods. To reproduce the expected behavior custom bean factories should be used.
+      </p>
 
         <subsection name="Mapping JAXB Objects">
           <p>

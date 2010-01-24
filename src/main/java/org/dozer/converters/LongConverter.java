@@ -29,8 +29,8 @@ public class LongConverter implements Converter {
   public Object convert(Class destClass, Object srcObj) {
     // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
     if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
-      boolean value = ((Boolean) srcObj).booleanValue();
-      return (value ? new Long(1) : new Long(0));
+      boolean value = (Boolean) srcObj;
+      return (value ? (long) 1 : (long) 0);
     } else {
       return commonsConverter.convert(destClass, srcObj);
     }
