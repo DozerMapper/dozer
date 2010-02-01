@@ -15,7 +15,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sf.dozer</groupId>
-	<artifactId>dozer.osgi</artifactId>
+	<artifactId>dozer-osgi</artifactId>
 	<packaging>bundle</packaging>
 	<version>5.2.0</version>
 	<name>dozer.osgi</name>
