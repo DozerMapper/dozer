@@ -15,7 +15,6 @@
  */
 package org.dozer.loader;
 
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.ClassMap;
@@ -33,8 +32,10 @@ import org.dozer.util.MappingValidator;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned
@@ -58,8 +59,6 @@ public class CustomMappingsLoader {
     Configuration globalConfiguration = findConfiguration(mappingFileDataList);
 
     ClassMappings customMappings = new ClassMappings();
-    ListOrderedSet customConverterDescriptions = ListOrderedSet.decorate(new ArrayList<CustomConverterDescription>());
-
     // Decorate the raw ClassMap objects and create ClassMap "prime" instances
     for (MappingFileData mappingFileData : mappingFileDataList) {
       List<ClassMap> classMaps = mappingFileData.getClassMaps();
@@ -71,21 +70,23 @@ public class CustomMappingsLoader {
     // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
     ClassMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
 
+    Set<CustomConverterDescription> customConverterDescriptions = new LinkedHashSet<CustomConverterDescription>();
+
     // build up custom converter description objects
     if (globalConfiguration.getCustomConverters() != null && globalConfiguration.getCustomConverters().getConverters() != null) {
       for (CustomConverterDescription cc : globalConfiguration.getCustomConverters().getConverters()) {
         customConverterDescriptions.add(cc);
       }
-    }
+    }    
 
     // iterate through the classmaps and set all of the customconverters on them
     for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
       ClassMap classMap = entry.getValue();
       if (classMap.getCustomConverters() != null) {
-        classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
+        classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
       } else {
         classMap.setCustomConverters(new CustomConverterContainer());
-        classMap.getCustomConverters().setConverters(customConverterDescriptions.asList());
+        classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
       }
     }
     return new LoadMappingsResult(customMappings, globalConfiguration);

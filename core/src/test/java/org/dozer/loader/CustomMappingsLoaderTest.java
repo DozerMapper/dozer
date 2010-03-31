@@ -18,14 +18,14 @@ public class CustomMappingsLoaderTest {
 
   @Test
   public void testLoad() {
-    LoadMappingsResult result = loader.load(Arrays.asList(new String[] { "customMappingsLoaderTest.xml" }));
+    LoadMappingsResult result = loader.load(Arrays.asList("customMappingsLoaderTest.xml"));
     assertNotNull("result should not be null", result);
     assertEquals("wrong # of mappings", 4, result.getCustomMappings().size());
   }
 
   @Test
   public void testLoadWithGlobalConfig() {
-    LoadMappingsResult result = loader.load(Arrays.asList(new String[] { "customMappingsLoaderWithGlobalConfigTest.xml" }));
+    LoadMappingsResult result = loader.load(Arrays.asList("customMappingsLoaderWithGlobalConfigTest.xml"));
     assertNotNull("result should not be null", result);
     assertEquals("wrong # of mappings", 4, result.getCustomMappings().size());
     assertEquals("wrong value in global config", SampleDefaultBeanFactory.class.getName(), result.getGlobalConfiguration()
@@ -35,7 +35,7 @@ public class CustomMappingsLoaderTest {
   @Test
   public void testLoad_MultipleGlobalConfigsFound() {
     try {
-      loader.load(Arrays.asList(new String[] { "global-configuration.xml", "customMappingsLoaderWithGlobalConfigTest.xml" }));
+      loader.load(Arrays.asList("global-configuration.xml", "customMappingsLoaderWithGlobalConfigTest.xml"));
       fail("should have thrown exception");
     } catch (MappingException e) {
       assertTrue("invalid exception thrown", e.getMessage().contains("More than one global configuration found"));

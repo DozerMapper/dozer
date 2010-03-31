@@ -15,7 +15,6 @@
  */
 package org.dozer.cache;
 
-import org.apache.commons.collections.map.LRUMap;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.dozer.stats.GlobalStatistics;
@@ -23,31 +22,30 @@ import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- *
  * Map backed Cache implementation.
  *
  * @author tierney.matt
  * @author dmitry.buzdin
  */
-public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueType> {
+public class DozerCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
 
   private final String name;
 
-  // Via LRUMap implementation, order the map by which its entries were last accessed, from least-recently accessed to most-recently (access-order)
-  private Map<KeyType, CacheEntry<KeyType, ValueType> > cacheMap;
+  private final LRUMap cacheMap;
 
   StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
 
-  public DozerCache (String name, int maximumSize) {
+  public DozerCache(final String name, final int maximumSize) {
     if (maximumSize < 1) {
       throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
     }
     this.name = name;
-    this.cacheMap = new LRUMap(maximumSize) ; // TODO This should be in Collections.synchronizedMap()
+    this.cacheMap = new LRUMap(maximumSize); // TODO This should be in Collections.synchronizedMap()
   }
 
   public void clear() {
@@ -58,7 +56,7 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
     if (key == null) {
       throw new IllegalArgumentException("Cache entry key cannot be null");
     }
-    CacheEntry <KeyType, ValueType> cacheEntry = new CacheEntry <KeyType, ValueType> (key, value);
+    CacheEntry<KeyType, ValueType> cacheEntry = new CacheEntry<KeyType, ValueType>(key, value);
     cacheMap.put(cacheEntry.getKey(), cacheEntry);
   }
 
@@ -66,7 +64,7 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
     if (key == null) {
       throw new IllegalArgumentException("Key cannot be null");
     }
-    CacheEntry <KeyType, ValueType> result = cacheMap.get(key);
+    CacheEntry<KeyType, ValueType> result = cacheMap.get(key);
     if (result != null) {
       statMgr.increment(StatisticType.CACHE_HIT_COUNT, name);
       return result.getValue();
@@ -76,13 +74,13 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
     }
   }
 
-  public void addEntries(Collection<CacheEntry <KeyType, ValueType> > entries) {
-    for (CacheEntry <KeyType, ValueType> entry : entries) {
+  public void addEntries(Collection<CacheEntry<KeyType, ValueType>> entries) {
+    for (CacheEntry<KeyType, ValueType> entry : entries) {
       cacheMap.put(entry.getKey(), entry);
     }
   }
 
-  public Collection<CacheEntry <KeyType, ValueType> > getEntries() {
+  public Collection<CacheEntry<KeyType, ValueType>> getEntries() {
     return cacheMap.values();
   }
 
@@ -95,7 +93,7 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
   }
 
   public long getMaxSize() {
-    return ((LRUMap) cacheMap).maxSize();
+    return cacheMap.maximumSize;
   }
 
   public boolean containsKey(KeyType key) {
@@ -109,6 +107,21 @@ public class DozerCache <KeyType, ValueType> implements Cache <KeyType, ValueTyp
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
+
+  class LRUMap extends LinkedHashMap<KeyType, CacheEntry<KeyType, ValueType>> {
+
+    private int maximumSize;
+
+    LRUMap(int maximumSize) {
+      this.maximumSize = maximumSize;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<KeyType, CacheEntry<KeyType, ValueType>> eldest) {
+      return size() > maximumSize;
+    }
+    
   }
 
 }

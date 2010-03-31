@@ -31,6 +31,6 @@ import org.dozer.fieldmap.FieldMap;
  */
 public interface CustomFieldMapper {
 
-  public boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping);
+  boolean mapField(Object source, Object destination, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping);
 
 }

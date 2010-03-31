@@ -15,8 +15,6 @@
  */
 package org.dozer;
 
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,6 +49,7 @@ import org.dozer.util.LogMsgFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
 import org.dozer.util.ReflectionUtils;
+import org.dozer.util.IteratorUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -65,6 +64,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.LinkedHashSet;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
@@ -467,7 +467,7 @@ public class MappingProcessor implements Mapper {
     }
 
     // if it is an iterator object turn it into a List
-    if (srcCollectionValue instanceof Iterator) {
+    if (srcCollectionValue instanceof Iterator) {      
       srcCollectionValue = IteratorUtils.toList((Iterator<?>) srcCollectionValue);
     }
 
@@ -646,7 +646,7 @@ public class MappingProcessor implements Mapper {
     Set<Object> mappedElements = new HashSet<Object>();
     Class<?> destEntryType = null;
 
-    ListOrderedSet result = ListOrderedSet.decorate(new ArrayList<Object>());
+    LinkedHashSet<Object> result = new LinkedHashSet<Object>();
     // don't want to create the set if it already exists.
     Object field = fieldMap.getDestValue(destObj);
     if (field != null) {
@@ -668,9 +668,10 @@ public class MappingProcessor implements Mapper {
 
       if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
           && result.contains(destValue)) {
-        int index = result.indexOf(destValue);
+        List<Object> resultAsList = new ArrayList<Object>(result);
+        int index = resultAsList.indexOf(destValue);
         // perform an update if complex type - can't map strings
-        Object obj = result.get(index);
+        Object obj = resultAsList.get(index);
         // make sure it is not a String
         if (!obj.getClass().isAssignableFrom(String.class)) {
           map(null, srcValue, obj, false, null);
