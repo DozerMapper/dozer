@@ -53,6 +53,7 @@ public class GlobalSettingsTest extends AbstractDozerTest {
         .isAutoregisterJMXBeans());
     assertEquals(DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN, globalSettings.getProxyResolverName());
     assertEquals(DozerConstants.DEFAULT_CLASS_LOADER_BEAN, globalSettings.getClassLoaderName());
+    assertEquals(DozerConstants.DEFAULT_EL_ENABLED, globalSettings.isElEnabled());
   }
 
   @Test
@@ -70,6 +71,7 @@ public class GlobalSettingsTest extends AbstractDozerTest {
     assertEquals("invalid autoregister jmx beans", false, globalSettings.isAutoregisterJMXBeans());
     assertEquals("org.dozer.CustomLoader", globalSettings.getClassLoaderName());
     assertEquals("org.dozer.CustomResolver", globalSettings.getProxyResolverName());
+    assertEquals(true, globalSettings.isElEnabled());
   }
   
 }

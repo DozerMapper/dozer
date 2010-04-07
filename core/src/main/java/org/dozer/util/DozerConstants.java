@@ -46,6 +46,7 @@ public final class DozerConstants {
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";
   public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;
   public static final boolean DEFAULT_STATISTICS_ENABLED = false;
+  public static final boolean DEFAULT_EL_ENABLED = false;
 
   public static final String XSD_NAME = "beanmapping.xsd";
   public static final String FILE_PREFIX = "file:";

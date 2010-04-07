@@ -59,9 +59,10 @@
         <element ref='t:trim-strings' minOccurs='0'/>
         <element ref='t:bean-factory' minOccurs='0'/>
         <element ref='t:relationship-type' minOccurs='0'/>
-        <element ref='t:custom-converters' minOccurs='0' maxOccurs='unbounded'/>
-        <element ref='t:copy-by-references' minOccurs='0' maxOccurs='unbounded'/>
-        <element ref='t:allowed-exceptions' minOccurs='0' maxOccurs='unbounded'/>
+        <element ref='t:custom-converters' minOccurs='0'/>
+        <element ref='t:copy-by-references' minOccurs='0'/>
+        <element ref='t:allowed-exceptions' minOccurs='0'/>
+        <element ref='t:variables' minOccurs='0'/>
       </sequence>
     </complexType>
   </element>
@@ -329,6 +330,20 @@
   </element>
 
   <element name="exception" type="string"/>
+
+  <element name='variables'>
+    <complexType>
+      <sequence>
+        <element ref="t:variable" maxOccurs='unbounded'/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name="variable" type="t:variable"/>
+
+  <complexType name="variable" mixed="true">
+      <attribute name="name" type="string" use="required"/>
+  </complexType>
 
   <complexType name="converter-type">
     <sequence>

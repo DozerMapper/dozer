@@ -51,6 +51,7 @@ public class GlobalSettings {
   private int converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
   private int superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
   private boolean autoregisterJMXBeans = DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
+  private boolean elEnabled = DozerConstants.DEFAULT_EL_ENABLED;
 
   private String classLoaderBeanName = DozerConstants.DEFAULT_CLASS_LOADER_BEAN;
   private String proxyResolverBeanName = DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN;
@@ -98,6 +99,10 @@ public class GlobalSettings {
   public String getProxyResolverName() {
     return proxyResolverBeanName;
   }
+
+  public boolean isElEnabled() {
+    return elEnabled;
+  }  
 
   private synchronized void loadGlobalSettings() {
     // Determine prop file name
@@ -158,7 +163,6 @@ public class GlobalSettings {
     if (propValue != null) {
       autoregisterJMXBeans = Boolean.valueOf(propValue);
     }
-
     propValue = props.getProperty(PropertyConstants.CLASS_LOADER_BEAN);
     if (propValue != null) {
       classLoaderBeanName = propValue;
@@ -166,6 +170,10 @@ public class GlobalSettings {
     propValue = props.getProperty(PropertyConstants.PROXY_RESOLVER_BEAN);
     if (propValue != null) {
       proxyResolverBeanName = propValue;
+    }
+    propValue = props.getProperty(PropertyConstants.EL_ENABLED);
+    if (propValue != null) {
+      elEnabled = Boolean.valueOf(propValue);
     }
   }
 

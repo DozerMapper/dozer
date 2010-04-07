@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
+import org.dozer.config.BeanContainer;
 import org.dozer.loader.DozerBuilder;
 import org.dozer.loader.MappingsSource;
 import org.w3c.dom.Document;
@@ -31,8 +32,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Internal class that parses a raw custom xml mapping file into ClassMap objects. 
- *
+ * Internal class that parses a raw custom xml mapping file into ClassMap objects.
+ * <p/>
  * Only intended for internal use.
  *
  * @author garsombke.franz
@@ -71,9 +72,12 @@ public class XMLParser implements MappingsSource {
   private static final String DEST_TYPE_DEEP_INDEX_HINT_ELEMENT = "b-deep-index-hint";
   private static final String ALLOWED_EXCEPTIONS_ELEMENT = "allowed-exceptions";
   private static final String ALLOWED_EXCEPTION_ELEMENT = "exception";
+  private static final String VARIABLES_ELEMENT = "variables";
+  private static final String VARIABLE_ELEMENT = "variable";
 
   // Parsing Attributes
   private static final String TYPE_ATTRIBUTE = "type";
+  private static final String NAME_ATTRIBUTE = "name";
   private static final String COPY_BY_REFERENCE_ATTRIBUTE = "copy-by-reference";
   private static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
   private static final String THE_GET_METHOD_ATTRIBUTE = "get-method";
@@ -92,13 +96,29 @@ public class XMLParser implements MappingsSource {
   private static final String CUSTOM_CONVERTER_PARAM_ATTRIBUTE = "custom-converter-param";
 
   private final Document document;
+  private final ElementReader elementReader;
 
   /**
-   *
    * @param document Xml document containing valid mappings definition
    */
   public XMLParser(Document document) {
     this.document = document;
+    this.elementReader = BeanContainer.getInstance().getElementReader();
+  }
+
+  private String getAttribute(Element element, String attribute) {
+    return elementReader.getAttribute(element, attribute);
+  }
+
+  private String getNodeValue(Element element) {
+    return elementReader.getNodeValue(element);
+  }
+
+  private void debugElement(Element element) {
+    if (log.isDebugEnabled()) {
+      log.debug("config name: " + element.getNodeName());
+      log.debug("  value: " + element.getFirstChild().getNodeValue());
+    }
   }
 
   /**
@@ -132,37 +152,37 @@ public class XMLParser implements MappingsSource {
   private void parseMapping(Element ele, DozerBuilder builder) {
     DozerBuilder.MappingBuilder definitionBuilder = builder.mapping();
 
-    if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT))) {
-      definitionBuilder.dateFormat(ele.getAttribute(DATE_FORMAT));
+    if (StringUtils.isNotEmpty(getAttribute(ele, DATE_FORMAT))) {
+      definitionBuilder.dateFormat(getAttribute(ele, DATE_FORMAT));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(MAP_NULL_ATTRIBUTE))) {
-      definitionBuilder.mapNull(BooleanUtils.toBoolean(ele.getAttribute(MAP_NULL_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, MAP_NULL_ATTRIBUTE))) {
+      definitionBuilder.mapNull(BooleanUtils.toBoolean(getAttribute(ele, MAP_NULL_ATTRIBUTE)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE))) {
-      definitionBuilder.mapEmptyString(BooleanUtils.toBoolean(ele.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, MAP_EMPTY_STRING_ATTRIBUTE))) {
+      definitionBuilder.mapEmptyString(BooleanUtils.toBoolean(getAttribute(ele, MAP_EMPTY_STRING_ATTRIBUTE)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(BEAN_FACTORY))) {
-      definitionBuilder.beanFactory(ele.getAttribute(BEAN_FACTORY));
+    if (StringUtils.isNotEmpty(getAttribute(ele, BEAN_FACTORY))) {
+      definitionBuilder.beanFactory(getAttribute(ele, BEAN_FACTORY));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
-      String relationshipTypeValue = ele.getAttribute(RELATIONSHIP_TYPE);
+    if (StringUtils.isNotEmpty(getAttribute(ele, RELATIONSHIP_TYPE))) {
+      String relationshipTypeValue = getAttribute(ele, RELATIONSHIP_TYPE);
       RelationshipType relationshipType = RelationshipType.valueOf(relationshipTypeValue);
       definitionBuilder.relationshipType(relationshipType);
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(WILDCARD))) {
-      definitionBuilder.wildcard(Boolean.valueOf(ele.getAttribute(WILDCARD)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, WILDCARD))) {
+      definitionBuilder.wildcard(Boolean.valueOf(getAttribute(ele, WILDCARD)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(TRIM_STRINGS))) {
-      definitionBuilder.trimStrings(Boolean.valueOf(ele.getAttribute(TRIM_STRINGS)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, TRIM_STRINGS))) {
+      definitionBuilder.trimStrings(Boolean.valueOf(getAttribute(ele, TRIM_STRINGS)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE))) {
-      definitionBuilder.stopOnErrors(Boolean.valueOf(ele.getAttribute(STOP_ON_ERRORS_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, STOP_ON_ERRORS_ATTRIBUTE))) {
+      definitionBuilder.stopOnErrors(Boolean.valueOf(getAttribute(ele, STOP_ON_ERRORS_ATTRIBUTE)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(MAPID_ATTRIBUTE))) {
-      definitionBuilder.mapId(ele.getAttribute(MAPID_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, MAPID_ATTRIBUTE))) {
+      definitionBuilder.mapId(getAttribute(ele, MAPID_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      String mappingDirection = ele.getAttribute(TYPE_ATTRIBUTE);
+    if (StringUtils.isNotEmpty(getAttribute(ele, TYPE_ATTRIBUTE))) {
+      String mappingDirection = getAttribute(ele, TYPE_ATTRIBUTE);
       MappingDirection direction = MappingDirection.valueOf(mappingDirection);
       definitionBuilder.type(direction);
     }
@@ -173,12 +193,12 @@ public class XMLParser implements MappingsSource {
         Element element = (Element) node;
         debugElement(element);
         if (CLASS_A_ELEMENT.equals(element.getNodeName())) {
-          String typeName = element.getFirstChild().getNodeValue().trim();
+          String typeName = getNodeValue(element);
           DozerBuilder.ClassDefinitionBuilder classBuilder = definitionBuilder.classA(typeName);
           parseClass(element, classBuilder);
         }
         if (CLASS_B_ELEMENT.equals(element.getNodeName())) {
-          String typeName = element.getFirstChild().getNodeValue().trim();
+          String typeName = getNodeValue(element);
           DozerBuilder.ClassDefinitionBuilder classBuilder = definitionBuilder.classB(typeName);
           parseClass(element, classBuilder);
         }
@@ -192,33 +212,33 @@ public class XMLParser implements MappingsSource {
   }
 
   private void parseClass(Element element, DozerBuilder.ClassDefinitionBuilder classBuilder) {
-    if (StringUtils.isNotEmpty(element.getAttribute(MAP_GET_METHOD_ATTRIBUTE))) {
-      classBuilder.mapGetMethod(element.getAttribute(MAP_GET_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(element, MAP_GET_METHOD_ATTRIBUTE))) {
+      classBuilder.mapGetMethod(getAttribute(element, MAP_GET_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(element.getAttribute(MAP_SET_METHOD_ATTRIBUTE))) {
-      classBuilder.mapSetMethod(element.getAttribute(MAP_SET_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(element, MAP_SET_METHOD_ATTRIBUTE))) {
+      classBuilder.mapSetMethod(getAttribute(element, MAP_SET_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(element.getAttribute(BEAN_FACTORY))) {
-      classBuilder.beanFactory(element.getAttribute(BEAN_FACTORY));
+    if (StringUtils.isNotEmpty(getAttribute(element, BEAN_FACTORY))) {
+      classBuilder.beanFactory(getAttribute(element, BEAN_FACTORY));
     }
-    if (StringUtils.isNotEmpty(element.getAttribute(FACTORY_BEANID_ATTRIBUTE))) {
-      classBuilder.factoryBeanId(element.getAttribute(FACTORY_BEANID_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(element, FACTORY_BEANID_ATTRIBUTE))) {
+      classBuilder.factoryBeanId(getAttribute(element, FACTORY_BEANID_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(element.getAttribute(CREATE_METHOD_ATTRIBUTE))) {
-      classBuilder.createMethod(element.getAttribute(CREATE_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(element, CREATE_METHOD_ATTRIBUTE))) {
+      classBuilder.createMethod(getAttribute(element, CREATE_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(element.getAttribute(MAP_NULL_ATTRIBUTE))) {
-      classBuilder.mapNull(Boolean.valueOf(element.getAttribute(MAP_NULL_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(getAttribute(element, MAP_NULL_ATTRIBUTE))) {
+      classBuilder.mapNull(Boolean.valueOf(getAttribute(element, MAP_NULL_ATTRIBUTE)));
     }
-    if (StringUtils.isNotEmpty(element.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE))) {
-      classBuilder.mapEmptyString(Boolean.valueOf(element.getAttribute(MAP_EMPTY_STRING_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(getAttribute(element, MAP_EMPTY_STRING_ATTRIBUTE))) {
+      classBuilder.mapEmptyString(Boolean.valueOf(getAttribute(element, MAP_EMPTY_STRING_ATTRIBUTE)));
     }
   }
 
   private void parseFieldExcludeMap(Element ele, DozerBuilder.MappingBuilder definitionBuilder) {
     DozerBuilder.FieldExclusionBuilder fieldMapBuilder = definitionBuilder.fieldExclude();
-    if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      String mappingDirection = ele.getAttribute(TYPE_ATTRIBUTE);
+    if (StringUtils.isNotEmpty(getAttribute(ele, TYPE_ATTRIBUTE))) {
+      String mappingDirection = getAttribute(ele, TYPE_ATTRIBUTE);
       MappingDirection direction = MappingDirection.valueOf(mappingDirection);
       fieldMapBuilder.type(direction);
     }
@@ -235,14 +255,14 @@ public class XMLParser implements MappingsSource {
 
   private void parseFieldElements(Element element, DozerBuilder.FieldBuider fieldMapBuilder) {
     if (A_ELEMENT.equals(element.getNodeName())) {
-      String name = element.getFirstChild().getNodeValue().trim();
-      String type = element.getAttribute(TYPE_ATTRIBUTE);
+      String name = getNodeValue(element);
+      String type = getAttribute(element, TYPE_ATTRIBUTE);
       DozerBuilder.FieldDefinitionBuilder fieldBuilder = fieldMapBuilder.a(name, type);
       parseField(element, fieldBuilder);
     }
     if (B_ELEMENT.equals(element.getNodeName())) {
-      String name = element.getFirstChild().getNodeValue().trim();
-      String type = element.getAttribute(TYPE_ATTRIBUTE);
+      String name = getNodeValue(element);
+      String type = getAttribute(element, TYPE_ATTRIBUTE);
       DozerBuilder.FieldDefinitionBuilder fieldBuilder = fieldMapBuilder.b(name, type);
       parseField(element, fieldBuilder);
     }
@@ -251,25 +271,25 @@ public class XMLParser implements MappingsSource {
   private void parseGenericFieldMap(Element ele, DozerBuilder.MappingBuilder definitionBuilder) {
     DozerBuilder.FieldMappingBuilder fieldMapBuilder = determineFieldMap(definitionBuilder, ele);
 
-    if (StringUtils.isNotEmpty(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE))) {
-      fieldMapBuilder.copyByReference(BooleanUtils.toBoolean(ele.getAttribute(COPY_BY_REFERENCE_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, COPY_BY_REFERENCE_ATTRIBUTE))) {
+      fieldMapBuilder.copyByReference(BooleanUtils.toBoolean(getAttribute(ele, COPY_BY_REFERENCE_ATTRIBUTE)));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(MAPID_ATTRIBUTE))) {
-      fieldMapBuilder.mapId(ele.getAttribute(MAPID_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, MAPID_ATTRIBUTE))) {
+      fieldMapBuilder.mapId(getAttribute(ele, MAPID_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(TYPE_ATTRIBUTE))) {
-      String mappingDirection = ele.getAttribute(TYPE_ATTRIBUTE);
+    if (StringUtils.isNotEmpty(getAttribute(ele, TYPE_ATTRIBUTE))) {
+      String mappingDirection = getAttribute(ele, TYPE_ATTRIBUTE);
       MappingDirection direction = MappingDirection.valueOf(mappingDirection);
       fieldMapBuilder.type(direction);
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE))) {
-      fieldMapBuilder.customConverter(ele.getAttribute(CUSTOM_CONVERTER_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, CUSTOM_CONVERTER_ATTRIBUTE))) {
+      fieldMapBuilder.customConverter(getAttribute(ele, CUSTOM_CONVERTER_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE))) {
-      fieldMapBuilder.customConverterId(ele.getAttribute(CUSTOM_CONVERTER_ID_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, CUSTOM_CONVERTER_ID_ATTRIBUTE))) {
+      fieldMapBuilder.customConverterId(getAttribute(ele, CUSTOM_CONVERTER_ID_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(CUSTOM_CONVERTER_PARAM_ATTRIBUTE))) {
-      fieldMapBuilder.customConverterParam(ele.getAttribute(CUSTOM_CONVERTER_PARAM_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, CUSTOM_CONVERTER_PARAM_ATTRIBUTE))) {
+      fieldMapBuilder.customConverterParam(getAttribute(ele, CUSTOM_CONVERTER_PARAM_ATTRIBUTE));
     }
 
     parseFieldMap(ele, fieldMapBuilder);
@@ -285,14 +305,14 @@ public class XMLParser implements MappingsSource {
         Element element = (Element) node;
 
         if (A_ELEMENT.equals(element.getNodeName())) {
-          String name = element.getFirstChild().getNodeValue().trim();
-          String type = element.getAttribute(TYPE_ATTRIBUTE);
+          String name = getNodeValue(element);
+          String type = getAttribute(element, TYPE_ATTRIBUTE);
           DozerBuilder.FieldDefinitionBuilder builder = fieldMapBuilder.a(name, type);
           parseField(element, builder);
         }
         if (B_ELEMENT.equals(element.getNodeName())) {
-          String name = element.getFirstChild().getNodeValue().trim();
-          String type = element.getAttribute(TYPE_ATTRIBUTE);
+          String name = getNodeValue(element);
+          String type = getAttribute(element, TYPE_ATTRIBUTE);
           DozerBuilder.FieldDefinitionBuilder builder = fieldMapBuilder.b(name, type);
           parseField(element, builder);
         }
@@ -305,9 +325,10 @@ public class XMLParser implements MappingsSource {
   private void parseFieldMap(Element ele, DozerBuilder.FieldMappingBuilder fieldMapBuilder) {
     setRelationshipType(ele, fieldMapBuilder);
 
-    if (StringUtils.isNotEmpty(ele.getAttribute(REMOVE_ORPHANS))) {
-      fieldMapBuilder.removeOrphans(BooleanUtils.toBoolean(ele.getAttribute(REMOVE_ORPHANS)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, REMOVE_ORPHANS))) {
+      fieldMapBuilder.removeOrphans(BooleanUtils.toBoolean(getAttribute(ele, REMOVE_ORPHANS)));
     }
+
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);
@@ -318,19 +339,19 @@ public class XMLParser implements MappingsSource {
 
         parseFieldElements(element, fieldMapBuilder);
         if (SRC_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
-          String hint = element.getFirstChild().getNodeValue().trim();
+          String hint = getNodeValue(element);
           fieldMapBuilder.srcHintContainer(hint);
         }
         if (DEST_TYPE_HINT_ELEMENT.equals(element.getNodeName())) {
-          String hint = element.getFirstChild().getNodeValue().trim();
+          String hint = getNodeValue(element);
           fieldMapBuilder.destHintContainer(hint);
         }
         if (SRC_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
-          String hint = element.getFirstChild().getNodeValue().trim();
+          String hint = getNodeValue(element);
           fieldMapBuilder.srcDeepIndexHintContainer(hint);
         }
         if (DEST_TYPE_DEEP_INDEX_HINT_ELEMENT.equals(element.getNodeName())) {
-          String hint = element.getFirstChild().getNodeValue().trim();
+          String hint = getNodeValue(element);
           fieldMapBuilder.destDeepIndexHintContainer(hint);
         }
       }
@@ -339,37 +360,37 @@ public class XMLParser implements MappingsSource {
 
   private void setRelationshipType(Element ele, DozerBuilder.FieldMappingBuilder definitionBuilder) {
     RelationshipType relationshipType = null;
-    if (StringUtils.isNotEmpty(ele.getAttribute(RELATIONSHIP_TYPE))) {
-      String relationshipTypeValue = ele.getAttribute(RELATIONSHIP_TYPE);
+    if (StringUtils.isNotEmpty(getAttribute(ele, RELATIONSHIP_TYPE))) {
+      String relationshipTypeValue = getAttribute(ele, RELATIONSHIP_TYPE);
       relationshipType = RelationshipType.valueOf(relationshipTypeValue);
     }
     definitionBuilder.relationshipType(relationshipType);
   }
 
   private void parseField(Element ele, DozerBuilder.FieldDefinitionBuilder fieldBuilder) {
-    if (StringUtils.isNotEmpty(ele.getAttribute(DATE_FORMAT))) {
-      fieldBuilder.dateFormat(ele.getAttribute(DATE_FORMAT));
+    if (StringUtils.isNotEmpty(getAttribute(ele, DATE_FORMAT))) {
+      fieldBuilder.dateFormat(getAttribute(ele, DATE_FORMAT));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(THE_GET_METHOD_ATTRIBUTE))) {
-      fieldBuilder.theGetMethod(ele.getAttribute(THE_GET_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, THE_GET_METHOD_ATTRIBUTE))) {
+      fieldBuilder.theGetMethod(getAttribute(ele, THE_GET_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(THE_SET_METHOD_ATTRIBUTE))) {
-      fieldBuilder.theSetMethod(ele.getAttribute(THE_SET_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, THE_SET_METHOD_ATTRIBUTE))) {
+      fieldBuilder.theSetMethod(getAttribute(ele, THE_SET_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(MAP_GET_METHOD_ATTRIBUTE))) {
-      fieldBuilder.mapGetMethod(ele.getAttribute(MAP_GET_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, MAP_GET_METHOD_ATTRIBUTE))) {
+      fieldBuilder.mapGetMethod(getAttribute(ele, MAP_GET_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(MAP_SET_METHOD_ATTRIBUTE))) {
-      fieldBuilder.mapSetMethod(ele.getAttribute(MAP_SET_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, MAP_SET_METHOD_ATTRIBUTE))) {
+      fieldBuilder.mapSetMethod(getAttribute(ele, MAP_SET_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(KEY_ATTRIBUTE))) {
-      fieldBuilder.key(ele.getAttribute(KEY_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, KEY_ATTRIBUTE))) {
+      fieldBuilder.key(getAttribute(ele, KEY_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(CREATE_METHOD_ATTRIBUTE))) {
-      fieldBuilder.createMethod(ele.getAttribute(CREATE_METHOD_ATTRIBUTE));
+    if (StringUtils.isNotEmpty(getAttribute(ele, CREATE_METHOD_ATTRIBUTE))) {
+      fieldBuilder.createMethod(getAttribute(ele, CREATE_METHOD_ATTRIBUTE));
     }
-    if (StringUtils.isNotEmpty(ele.getAttribute(IS_ACCESSIBLE_ATTRIBUTE))) {
-      fieldBuilder.accessible(BooleanUtils.toBoolean(ele.getAttribute(IS_ACCESSIBLE_ATTRIBUTE)));
+    if (StringUtils.isNotEmpty(getAttribute(ele, IS_ACCESSIBLE_ATTRIBUTE))) {
+      fieldBuilder.accessible(BooleanUtils.toBoolean(getAttribute(ele, IS_ACCESSIBLE_ATTRIBUTE)));
     }
   }
 
@@ -383,30 +404,55 @@ public class XMLParser implements MappingsSource {
 
         debugElement(element);
 
-        final String nodeValue = element.getFirstChild().getNodeValue();
+        final String nodeValue = getNodeValue(element);
 
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
-          configBuilder.stopOnErrors(Boolean.valueOf(nodeValue.trim()));
+          configBuilder.stopOnErrors(Boolean.valueOf(nodeValue));
         } else if (DATE_FORMAT.equals(element.getNodeName())) {
-          configBuilder.dateFormat(nodeValue.trim());
+          configBuilder.dateFormat(nodeValue);
         } else if (WILDCARD.equals(element.getNodeName())) {
-          configBuilder.wildcard(Boolean.valueOf(nodeValue.trim()));
+          configBuilder.wildcard(Boolean.valueOf(nodeValue));
         } else if (TRIM_STRINGS.equals(element.getNodeName())) {
-          configBuilder.trimStrings(Boolean.valueOf(nodeValue.trim()));
+          configBuilder.trimStrings(Boolean.valueOf(nodeValue));
         } else if (RELATIONSHIP_TYPE.equals(element.getNodeName())) {
-          RelationshipType relationshipType = RelationshipType.valueOf(nodeValue.trim());
+          RelationshipType relationshipType = RelationshipType.valueOf(nodeValue);
           configBuilder.relationshipType(relationshipType);
         } else if (BEAN_FACTORY.equals(element.getNodeName())) {
-          configBuilder.beanFactory(nodeValue.trim());
+          configBuilder.beanFactory(nodeValue);
         } else if (CUSTOM_CONVERTERS_ELEMENT.equals(element.getNodeName())) {
           parseCustomConverters(element, configBuilder);
         } else if (COPY_BY_REFERENCES_ELEMENT.equals(element.getNodeName())) {
           parseCopyByReferences(element, configBuilder);
         } else if (ALLOWED_EXCEPTIONS_ELEMENT.equals(element.getNodeName())) {
           parseAllowedExceptions(element, configBuilder);
+        } else if (VARIABLES_ELEMENT.equals(element.getNodeName())) {
+          parseVariables(element);
         }
       }
     }
+  }
+
+  private void parseVariables(Element element) {
+    NodeList nl = element.getChildNodes();
+    for (int i = 0; i < nl.getLength(); i++) {
+      Node node = nl.item(i);
+      if (node instanceof Element) {
+        Element ele = (Element) node;
+
+        debugElement(ele);
+
+        if (VARIABLE_ELEMENT.equals(ele.getNodeName())) {
+          ELEngine engine = BeanContainer.getInstance().getElEngine();
+          if (engine != null) {
+            String name = getAttribute(ele, NAME_ATTRIBUTE);
+            String value = getNodeValue(ele);
+            
+            engine.setVariable(name, value);
+          }
+        }
+      }
+    }
+
   }
 
   private void parseCustomConverters(Element ele, DozerBuilder.ConfigurationBuilder config) {
@@ -419,7 +465,7 @@ public class XMLParser implements MappingsSource {
         debugElement(element);
 
         if (CONVERTER_ELEMENT.equals(element.getNodeName())) {
-          String converterType = element.getAttribute(TYPE_ATTRIBUTE).trim();
+          String converterType = getAttribute(element, TYPE_ATTRIBUTE);
           DozerBuilder.CustomConverterBuilder customConverterBuilder = config.customConverter(converterType);
 
           NodeList list = element.getChildNodes();
@@ -428,21 +474,14 @@ public class XMLParser implements MappingsSource {
             if (node1 instanceof Element) {
               Element element1 = (Element) node1;
               if (CLASS_A_ELEMENT.equals(element1.getNodeName())) {
-                customConverterBuilder.classA(element1.getFirstChild().getNodeValue().trim());
+                customConverterBuilder.classA(getNodeValue(element1));
               } else if (CLASS_B_ELEMENT.equals(element1.getNodeName())) {
-                customConverterBuilder.classB(element1.getFirstChild().getNodeValue().trim());
+                customConverterBuilder.classB(getNodeValue(element1));
               }
             }
           }
         }
       }
-    }
-  }
-
-  private void debugElement(Element element) {
-    if (log.isDebugEnabled()) {
-      log.debug("config name: " + element.getNodeName());
-      log.debug("  value: " + element.getFirstChild().getNodeValue());
     }
   }
 
@@ -456,7 +495,7 @@ public class XMLParser implements MappingsSource {
         debugElement(element);
 
         if (COPY_BY_REFERENCE.equals(element.getNodeName())) {
-          String typeMask = element.getFirstChild().getNodeValue().trim();
+          String typeMask = getNodeValue(element);
           config.copyByReference(typeMask);
         }
       }
@@ -473,7 +512,7 @@ public class XMLParser implements MappingsSource {
         debugElement(element);
 
         if (ALLOWED_EXCEPTION_ELEMENT.equals(element.getNodeName())) {
-          String exceptionType = element.getFirstChild().getNodeValue().trim();
+          String exceptionType = getNodeValue(element);
           config.allowedException(exceptionType);
         }
       }

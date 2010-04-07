@@ -30,6 +30,8 @@ import org.dozer.util.DozerProxyResolver;
 import org.dozer.util.InitLogger;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+import org.dozer.loader.xml.ExpressionElementReader;
+import org.dozer.loader.xml.ELEngine;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
@@ -42,6 +44,7 @@ import javax.management.NotCompliantMBeanException;
  * Registers internal JMX MBeans if those are enabled in the configuration.
  *
  * @author tierney.matt
+ * @author dmitry.buzdin
  */
 public final class DozerInitializer {
 
@@ -100,6 +103,13 @@ public final class DozerInitializer {
 
     beanContainer.setClassLoader(classLoaderBean);
     beanContainer.setProxyResolver(proxyResolverBean);
+
+    if (globalSettings.isElEnabled()) {
+      ELEngine engine = new ELEngine();
+      engine.init();
+      beanContainer.setElEngine(engine);
+      beanContainer.setElementReader(new ExpressionElementReader(engine));
+    }
   }
 
   private <T> Class<? extends T> loadBeanType(String classLoaderName, DefaultClassLoader classLoader, Class<T> iface) {
@@ -139,7 +149,7 @@ public final class DozerInitializer {
       platform.registerMBean(DOZER_STATISTICS_CONTROLLER, new DozerStatisticsController());
       platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
     } else {
-      InitLogger.log(log, "jdk1.5 management classes unavailable. Dozer JMX MBeans will not be auto registered.");
+      InitLogger.log(log, "jdk1.5 jmx management classes unavailable. Dozer JMX MBeans will not be auto registered.");
     }
   }
 
@@ -148,7 +158,7 @@ public final class DozerInitializer {
       platform.unregisterMBean(DOZER_ADMIN_CONTROLLER);
       platform.unregisterMBean(DOZER_STATISTICS_CONTROLLER);
     } else {
-      log.warn("jdk1.5 management classes unavailable.");
+      log.warn("jdk1.5 jmx management classes unavailable.");
     }
   }
 

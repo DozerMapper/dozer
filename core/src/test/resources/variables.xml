@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <configuration>
+        <wildcard>true</wildcard>
+        <variables>
+            <variable name="container">org.dozer.functional_tests.VariablesTest$Container</variable>
+
+            <variable name="child">org.dozer.functional_tests.VariablesTest$Child</variable>
+            <variable name="childClone">org.dozer.functional_tests.VariablesTest$ChildClone</variable>
+            
+            <variable name="parent">org.dozer.functional_tests.VariablesTest$Parent</variable>
+            <variable name="parentClone">org.dozer.functional_tests.VariablesTest$ParentClone</variable>
+        </variables>
+    </configuration>
+
+    <mapping map-id="from" type="one-way">
+        <class-a>${container}</class-a>
+        <class-b>${container}</class-b>
+        <field>
+            <a>this</a>
+            <b>this</b>
+            <a-hint>${child}</a-hint>
+            <b-hint>${childClone}</b-hint>
+        </field>
+    </mapping>
+
+    <mapping map-id="to" type="one-way">
+        <class-a>${container}</class-a>
+        <class-b>${container}</class-b>
+        <field>
+            <a>this</a>
+            <b>this</b>
+            <a-hint>${childClone}</a-hint>
+            <b-hint>${child}</b-hint>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>${parent}</class-a>
+        <class-b>${parentClone}</class-b>
+        <field-exclude>
+            <a>children</a>
+            <b>children</b>
+        </field-exclude>
+    </mapping>
+
+</mappings>
