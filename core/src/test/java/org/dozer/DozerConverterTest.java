@@ -17,6 +17,8 @@ package org.dozer;
 
 import junit.framework.TestCase;
 
+import java.math.BigDecimal;
+
 /**
  * @author dmitry.buzdin
  */
@@ -48,7 +50,7 @@ public class DozerConverterTest extends TestCase {
 
   public void test_convert_exception() {
     try {
-      converter.convert("", "", Boolean.class, String.class);
+      converter.convert(Boolean.TRUE, new BigDecimal(1), Boolean.class, BigDecimal.class);
       fail();
     } catch (MappingException e) {
       assertTrue(e.getMessage().contains(this.getClass().getName()));
@@ -71,6 +73,11 @@ public class DozerConverterTest extends TestCase {
   public void test_FullCycle() {
     assertEquals(1, converter.convert(null, "1", Integer.class, String.class));
     assertEquals("1", converter.convert(null, new Integer(1), String.class, Integer.class));
+  }
+
+  public void testObjectType() {
+    assertEquals(1, converter.convert(null, "1", Object.class, String.class));
+    assertEquals("1", converter.convert(null, new Integer(1), Object.class, Integer.class));
   }
 
   public void test_hierarchy() {
