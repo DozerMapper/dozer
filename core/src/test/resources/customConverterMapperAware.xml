@@ -12,4 +12,13 @@
         </custom-converters>
     </configuration>
 
+    <mapping>
+        <class-a>org.dozer.functional_tests.CustomConverterMapperAwareTest$Container</class-a>
+        <class-b>org.dozer.functional_tests.CustomConverterMapperAwareTest$Container</class-b>
+        <field custom-converter="org.dozer.functional_tests.CustomConverterMapperAwareTest$ConverterRecursion">
+            <a>beanA</a>
+            <b>beanA</b>
+        </field>
+    </mapping>
+
 </mappings>

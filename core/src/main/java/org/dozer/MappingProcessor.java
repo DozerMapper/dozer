@@ -45,11 +45,11 @@ import org.dozer.util.CollectionUtils;
 import org.dozer.util.DozerConstants;
 import static org.dozer.util.DozerConstants.BASE_CLASS;
 import static org.dozer.util.DozerConstants.ITERATE;
+import org.dozer.util.IteratorUtils;
 import org.dozer.util.LogMsgFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
 import org.dozer.util.ReflectionUtils;
-import org.dozer.util.IteratorUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -60,11 +60,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.LinkedHashSet;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
@@ -110,6 +110,7 @@ public class MappingProcessor implements Mapper {
     this.customConverterObjectsWithId = customConverterObjectsWithId;
   }
 
+  /* Mapper Interface Implementation */
   public <T> T map(final Object srcObj, final Class<T> destClass) {
     return map(srcObj, destClass, null);
   }
@@ -127,7 +128,18 @@ public class MappingProcessor implements Mapper {
     MappingValidator.validateMappingRequest(srcObj, destObj);
     map(srcObj, null, destObj, mapId);
   }
+  /* End of Mapper Interface Implementation */
 
+  /**
+   * Single point of entry for atomic mapping operations
+   *
+   * @param srcObj source object
+   * @param destClass destination class
+   * @param destObj destination object
+   * @param mapId mapping identifier
+   * @param <T> destination object type
+   * @return new or updated destination object
+   */
   private <T> T map(final Object srcObj, final Class<T> destClass, final T destObj, final String mapId) {
     Class<T> destType;
     T result;
@@ -144,13 +156,15 @@ public class MappingProcessor implements Mapper {
       Class<?> srcRealClass = MappingUtils.getRealClass(srcObj.getClass());
       classMap = getClassMap(srcRealClass, destType, mapId);
 
+      eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
+
       // TODO Check if any proxy issues are here
       // Check to see if custom converter has been specified for this mapping
       // combination. If so, just use it.
       Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
           .getClass(), destType);
+
       if (converterClass != null) {
-        eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
         return (T) mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destType, result, null, true);
       }
 
@@ -158,13 +172,12 @@ public class MappingProcessor implements Mapper {
         result = (T) DestBeanCreator.create(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType, classMap
             .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
       }
-
-      eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
       map(classMap, srcObj, result, false, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
     }
     eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_FINISHED, classMap, null, srcObj, result, null));
+
     return result;
   }
 

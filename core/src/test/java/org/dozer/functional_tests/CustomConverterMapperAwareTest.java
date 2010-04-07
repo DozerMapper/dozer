@@ -62,6 +62,25 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
     assertEquals(b3.getA(), ((BeanB) map.get(b3)).getA().toString());
   }
 
+
+  @Test
+  public void test_stackOverflow() {
+    BeanA a = new BeanA();
+    BeanB b = new BeanB();
+    a.setBeanB(b);
+    b.setBeanA(a);
+
+    Container container = new Container();
+    container.setBeanA(a);
+    container.setBeanB(b);
+
+    Container result = mapper.map(container, Container.class);
+
+    assertNotNull(result);
+    assertNotNull(result.getBeanA());
+    assertNotNull(result.getBeanB());
+  }
+
   public static class Converter extends DozerConverter <List, Map> implements MapperAware {
 
     private Mapper mapper;
@@ -89,11 +108,58 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
 
   }
 
+  public static class ConverterRecursion extends DozerConverter <BeanA, BeanA> implements MapperAware {
+
+    private Mapper mapper;
+    
+    public ConverterRecursion() {
+      super(BeanA.class, BeanA.class);
+    }
+
+    public void setMapper(Mapper mapper) {
+      this.mapper = mapper;
+    }
+
+    public BeanA convertTo(BeanA source, BeanA destination) {
+      return mapper.map(source, BeanA.class);
+    }
+
+    public BeanA convertFrom(BeanA source, BeanA destination) {
+      return mapper.map(source, BeanA.class);
+    }
+  }
+
+  public static class Container {
+    BeanA beanA;
+    BeanB beanB;
+
+    public BeanA getBeanA() {
+      return beanA;
+    }
+
+    public void setBeanA(BeanA beanA) {
+      this.beanA = beanA;
+    }
+
+    public BeanB getBeanB() {
+      return beanB;
+    }
+
+    public void setBeanB(BeanB beanB) {
+      this.beanB = beanB;
+    }
+  }
+
   public static class BeanA {
+
+    public BeanA() {
+    }
+
     public BeanA(String a) {
       this.a = a;
     }
 
+    private BeanB beanB;
     private String a;
 
     public String getA() {
@@ -103,9 +169,19 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
     public void setA(String a) {
       this.a = a;
     }
+
+    public BeanB getBeanB() {
+      return beanB;
+    }
+
+    public void setBeanB(BeanB beanB) {
+      this.beanB = beanB;
+    }
   }
 
   public static class BeanB {
+
+    private BeanA beanA;
     private Integer a;
 
     public Integer getA() {
@@ -114,6 +190,14 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
 
     public void setA(Integer a) {
       this.a = a;
+    }
+
+    public BeanA getBeanA() {
+      return beanA;
+    }
+
+    public void setBeanA(BeanA beanA) {
+      this.beanA = beanA;
     }
   }
 
