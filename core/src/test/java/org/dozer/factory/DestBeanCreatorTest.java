@@ -25,6 +25,12 @@ import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 import org.junit.Test;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.TreeMap;
+
+import static junit.framework.Assert.assertTrue;
+
 /**
  * @author tierney.matt
  */
@@ -46,6 +52,15 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
 
     assertNotNull(bean);
     assertEquals(factoryName, bean.getCreatedByFactoryName());
+  }
+
+  @Test
+  public void testMap() {
+    Map map = DestBeanCreator.create(Map.class);
+    assertTrue(map instanceof HashMap);
+
+    TreeMap treeMap = DestBeanCreator.create(TreeMap.class);
+    assertNotNull(treeMap);
   }
 
 }

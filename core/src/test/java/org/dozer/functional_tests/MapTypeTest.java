@@ -35,6 +35,7 @@ import org.dozer.vo.map.PropertyToMap;
 import org.dozer.vo.map.SimpleObj;
 import org.dozer.vo.map.SimpleObjPrime;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -45,6 +46,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author tierney.matt
@@ -549,6 +551,17 @@ public class MapTypeTest extends AbstractFunctionalTest {
     mapper.map(src, dest, "test-id");
 
     assertEquals("overwritten", dest.getField1());
+  }
+
+  @Test
+  public void testTreeMap() {
+    TreeMap map = new TreeMap();
+    map.put("a", "b");
+
+    TreeMap result = mapper.map(map, TreeMap.class);
+
+    assertNotNull(result);
+    assertEquals(1, result.size());
   }
 
 }

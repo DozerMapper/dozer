@@ -84,7 +84,7 @@ public final class DestBeanCreator {
 
     //Typical oject creation
     Object rvalue = null;
-    if (MappingUtils.isSupportedMap(classToCreate)) {
+    if (Map.class.equals(classToCreate)) {
       rvalue = new HashMap<Object, Object>();
     } else {
       try {
