@@ -15,18 +15,24 @@
  */
 package org.dozer.functional_tests;
 
-import static junit.framework.Assert.assertTrue;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.jaxb.employee.EmployeeType;
 import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author dmitry.buzdin
@@ -61,6 +67,26 @@ public class JAXBBeansMappingTest extends AbstractFunctionalTest {
     EmployeeWithInnerClass.Address.State result = mapper.map(source, EmployeeWithInnerClass.Address.State.class);
     assertNotNull(result);
     assertEquals("Name", result.getName());
+  }
+  
+  @Test
+  public void testDateToXMLGregorianCalendar() {
+      TestObject source = new TestObject();
+      Date now = new Date();
+      source.setDate(now);
+      EmployeeWithInnerClass result = mapper.map(source, EmployeeWithInnerClass.class);
+      assertNotNull(result);
+      assertEquals(now.getTime(), result.getBirthDate().toGregorianCalendar().getTimeInMillis());
+  }
+  
+  @Test
+  public void testXMLGregorianCalendarToDate() throws DatatypeConfigurationException {
+      Calendar cal = GregorianCalendar.getInstance();
+      EmployeeWithInnerClass source = new EmployeeWithInnerClass();
+      source.setBirthDate(DatatypeFactory.newInstance().newXMLGregorianCalendar((GregorianCalendar) cal));
+      TestObject result = mapper.map(source, TestObject.class);
+      assertNotNull(result);
+      assertEquals(cal.getTimeInMillis(), result.getDate().getTime());
   }
 
   @Test

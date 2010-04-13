@@ -16,18 +16,18 @@
 package org.dozer.converters;
 
 import junit.framework.TestCase;
-
-import org.dozer.converters.DateConverter;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.text.SimpleDateFormat;
-import java.sql.Timestamp;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Calendar;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author dmitry.buzdin
@@ -39,7 +39,7 @@ public class DateConverterTest extends TestCase {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    converter = new DateConverter(new SimpleDateFormat());
+    converter = new DateConverter(new SimpleDateFormat("dd.MM.yyyy"));
   }
 
   @Test
@@ -78,7 +78,35 @@ public class DateConverterTest extends TestCase {
     assertEquals(result, time);
   }
 
-  //TODO add from and to String conversion tests for each supported date/time type
-  //TODO Check XmlGregorianCalendar with Mocks
+  @Test
+  public void testEmptyString() {
+    assertNull(converter.convert(Date.class, ""));
+  }
+
+  @Test
+  public void testGoodString() {
+    GregorianCalendar calendar = new GregorianCalendar(2001, 1, 1);
+    java.util.Date expected = calendar.getTime();
+    assertEquals(expected, converter.convert(java.util.Date.class, "01.02.2001"));
+  }
+
+  @Test
+  public void testBadString() {
+    try {
+      converter.convert(Date.class, "xyz");
+      fail();
+    } catch (ConversionException e) {
+    }
+  }
+
+  @Test
+  public void testXmlGregorianCalendar() {
+    XMLGregorianCalendar xmlCalendar = mock(XMLGregorianCalendar.class);
+    GregorianCalendar expected = new GregorianCalendar();
+    when(xmlCalendar.toGregorianCalendar()).thenReturn(expected);
+    Date date = new Date(expected.getTimeInMillis());
+
+    assertEquals(date, converter.convert(Date.class, xmlCalendar));
+  }
 
 }

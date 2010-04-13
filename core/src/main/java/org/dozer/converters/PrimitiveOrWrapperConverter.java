@@ -81,8 +81,11 @@ public class PrimitiveOrWrapperConverter {
       if (java.util.Date.class.isAssignableFrom(destClass)) {
         result = new DateConverter(dateFormatContainer.getDateFormat());
       }
-      if (Calendar.class.isAssignableFrom(destClass) || XMLGregorianCalendar.class.isAssignableFrom(destClass)) {
+      if (Calendar.class.isAssignableFrom(destClass) ) {
         result = new CalendarConverter(dateFormatContainer.getDateFormat());
+      }
+      if (XMLGregorianCalendar.class.isAssignableFrom(destClass)){
+          result = new XMLGregorianCalendarConverter(dateFormatContainer.getDateFormat());
       }
     }
     return result == null ? new StringConstructorConverter(dateFormatContainer) : result;

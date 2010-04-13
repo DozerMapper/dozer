@@ -16,6 +16,12 @@
       <a>one</a>
       <b>address.street</b>
     </field>
+    
+    <field>
+      <a>date</a>
+      <b>birthDate</b>
+    </field>
+
   </mapping>
 
   <mapping wildcard="false">
