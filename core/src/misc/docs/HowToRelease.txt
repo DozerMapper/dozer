@@ -13,6 +13,7 @@
   -Run "mvn clean site:site assembly:assembly"
   -After this step is complete, you should see a /target/site directory containing all of the gererated html
       along with the /target/dozer-x.x-src.zip and /target/dozer-x.x-src.tar.gz files
+  -Generate PDF documentation with mvn pdf:pdf
 
 
 3.  DEPLOY WEB SITE
@@ -57,6 +58,3 @@
 
 7.  POST RELEASE
   -Create a tag for the release in SVN
-
-HELP
-  http://alexandria.wiki.sourceforge.net/File+Release+System+-+Offering+Files+for+Download

@@ -15,6 +15,47 @@
 
       <section name="Release Notes">
 
+          <h3>5.2.1 <font size="-3" color="gray"><i>4/28/2010</i></font></h3>
+          <p>Bug Fixes</p>
+            <ul>
+              <li>Forgotten Custom Converter Parameter in Map-backed Mappings
+                <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2877098&amp;group_id=133517&amp;atid=727368">link</a>
+              </li>
+            </ul>
+          <ul>
+              <li>DozerConverter does not Check for Runtime Types Properly
+                <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2919389&amp;group_id=133517&amp;atid=727368">link</a>
+              </li>
+            </ul>
+          <ul>
+              <li>Support for XMLGregorianCalendar
+                <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2954264&amp;group_id=133517&amp;atid=727368">link</a>
+              </li>
+            </ul>
+          <ul>
+              <li>Support of Map implementations other than HashMap
+                <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2968415&amp;group_id=133517&amp;atid=727368">link</a>
+              </li>
+            </ul>
+
+          <p>Feature Requests</p>
+            <ul>
+              <li>Dozer OSGi Bundle
+                <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2940487&amp;group_id=133517&amp;atid=727370">link</a>
+              </li>
+            </ul>
+            <ul>
+              <li>Expression Language Support (javax.el)
+                <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2986748&amp;group_id=133517&amp;atid=727371">link</a>
+              </li>
+            </ul>
+            <ul>
+              <li>Drop Dependency on Apache Commons Collections
+                <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2983057&amp;group_id=133517&amp;atid=727371">link</a>
+              </li>
+            </ul>
+
+
       <h3>5.2.0 <font size="-3" color="gray"><i>1/24/2010</i></font></h3>
       <p>Bug Fixes</p>
         <ul>

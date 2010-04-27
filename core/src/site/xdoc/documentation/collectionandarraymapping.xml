@@ -247,7 +247,7 @@ public class UserGroupPrime {
           default is &apos;cumulative&apos;. relationship-type can be specifed at the field mapping, class mapping,
           or global configuration level.
         </p>
-        <br></br>
+        <br/>
         <p>global configuration level....</p>
         <source>
           <![CDATA[ 
@@ -289,6 +289,12 @@ public class UserGroupPrime {
             ]]>
         </source>
 
+        <p><b>Note:</b> if you do not define custom <i>equals()</i> and <i>hashCode()</i> methods
+            non-cumulative option will not function 
+            properly, as Dozer will fail to determine object equality and will rely on JDK generated object Ids.
+            In default case two instances of a class are always treated as different and update will not occure.
+        </p>
+
       </subsection>
       <subsection name="Removing Orphans">
         <p>
@@ -297,7 +303,7 @@ public class UserGroupPrime {
 
           Dozer will remove orphans by calling the &apos;remove&apos; method on actual orphans of the underlying
           destination collection; it will not clear all. To determine elements which are orphans dozer uses the
-          contains() method to check if the results contains orphans. The default is false.
+          contains() method to check if the results contains orphans. The default setting value is false.
         </p>
         <source>
           <![CDATA[ 

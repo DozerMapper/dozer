@@ -170,7 +170,7 @@
           <url>http://repository.jboss.org/maven2</url>
       </repository>
   </repositories>
-
+  
   <build>
     <resources>
       <resource>

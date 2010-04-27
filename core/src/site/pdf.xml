@@ -11,9 +11,9 @@
   <toc name="Table of Contents">
     <item name="Why Map?" ref="/documentation/whymap.html"/>
     <item name="Getting Started" ref="/documentation/gettingstarted.html"/>
-    <item name="Usage" ref="/documentation/usage.html" collapse="true"/>
+    <item name="Usage" ref="/documentation/usage.html"/>
 
-    <item name="Custom Mappings via XML" ref="/documentation/mappings.html" collapse="true">
+    <item name="Custom Mappings via XML" ref="/documentation/mappings.html">
       <item name="Mapping Two Classes" ref="/documentation/mappingclasses.html"/>
       <item name="Basic Property Mapping" ref="/documentation/simpleproperty.html"/>
       <item name="String To Date Mapping" ref="/documentation/stringtodatemapping.html"/>
@@ -34,9 +34,10 @@
       <item name="Inheritance Mapping" ref="/documentation/baseattributes.html"/>
       <item name="XMLBeans and JAXB" ref="/documentation/xmlbeans.html"/>
       <item name="Dozer Events" ref="/documentation/events.html"/>
+      <item name="Expression Language" href="documentation/expressionlanguage.html" />
     </item>
 
-    <item name="Configuration" ref="/documentation/configuration/configuration.html" collapse="true">
+    <item name="Configuration" ref="/documentation/configuration/configuration.html">
       <item name="Logging" ref="/documentation/configuration/logging.html"/>
     </item>
 

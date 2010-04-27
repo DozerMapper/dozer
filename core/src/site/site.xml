@@ -62,6 +62,7 @@
         <item name="Copy By Ref Mapping" href="/documentation/copybyreference.html" />
         <item name="Inheritance Mapping" href="/documentation/baseattributes.html" />
         <item name="Dozer Events" href="/documentation/events.html" />
+        <item name="Expression Language" href="documentation/expressionlanguage.html" />
       </item>
       <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
         <item name="Logging" href="/documentation/configuration/logging.html" />

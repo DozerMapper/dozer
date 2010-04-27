@@ -33,6 +33,18 @@
     <section name="Dozer News">
       <p/>
 
+      <h3>Release 5.2.1 Now Available<font size="-3" color="gray"><i>4/28/2010</i></font></h3>
+      <p>
+          Release 5.2.1 is available for download. Important new features are Dozer OSGi bundle and
+          Expression Language support. Several bugs has been fixed as well.
+          Upgrade is recommended for all 5.x.x users.
+      </p>
+      <p>Thanks to everyone contributing for this release!</p>
+      <p>
+        Please check <a href="releasenotes.html">release notes</a> for more information.
+      </p>
+      <p/>
+
       <h3>Release 5.2.0 Now Available<font size="-3" color="gray"><i>1/24/2010</i></font></h3>
       <p>
           Dozer team is happy to announce release 5.2.0. This version fixes fourteen bugs of different kind
