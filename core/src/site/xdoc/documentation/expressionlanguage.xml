@@ -41,7 +41,7 @@
 
         <subsection name="Enabling">
             <p>EL support is an optional feature. If it is not enable it does not affect mapping performance neither it
-                requires additional Jar dependencies to your project.
+                requires additional Jar dependencies to your project.</p>
             <p>In order to enable EL expression execution <i>dozer.el.enabled</i> parameter should
                be set to true.</p>
         </subsection>

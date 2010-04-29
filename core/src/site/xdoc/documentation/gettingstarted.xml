@@ -14,20 +14,31 @@
   </head>
   <body>
     <section name="Getting Started">
+      <subsection name="Downloading the Distribution">
       <ul>
         <li>
           Download
           <a href="http://sourceforge.net/project/showfiles.php?group_id=133517" target="_blank">Dozer</a>
           and extract the archive.
         </li>
-        <li>Add ${dozer.home}/dist/dozer.jar to your classpath.</li>
+        <li>Add dozer.jar to your classpath.</li>
         <li>
           Add
           <a href="../dependencies.html">required thirdparty runtime jars</a>
           to your classpath.
         </li>
       </ul>
+          <p>If you are using Maven, simply copy-paste this dependency to your project</p>
+          <source>
+<![CDATA[
+<dependency>
+    <groupId>net.sf.dozer</groupId>
+    <artifactId>dozer</artifactId>
+</dependency>
+]]>
+          </source>
       <br/>
+      </subsection>
       <subsection name="1st Mapping">
         <p>For your first mapping lets assume that the two data objects share all common attribute names.</p>
         <source>
