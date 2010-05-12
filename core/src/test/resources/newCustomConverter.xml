@@ -21,4 +21,13 @@
     </field>
   </mapping>
 
+  <mapping type="one-way">
+      <class-a>java.util.Collection</class-a>
+      <class-b>org.dozer.functional_tests.NewCustomConverterTest$IntContainer</class-b>
+      <field custom-converter="org.dozer.functional_tests.NewCustomConverterTest$IntConverter">
+          <a>this</a>
+          <b>value</b>
+      </field>
+  </mapping>
+
 </mappings>

@@ -80,6 +80,27 @@ public class DozerConverterTest extends TestCase {
     assertEquals("1", converter.convert(null, new Integer(1), Object.class, Integer.class));
   }
 
+  public void testAutoboxing() {
+    assertEquals(1, converter.convert(null, "1", int.class, String.class));
+  }
+
+  public void testPrimitiveToPrimitive() {
+    DozerConverter<Integer, Double> converter = new DozerConverter<Integer, Double>(Integer.class, Double.class) {
+
+      @Override
+      public Double convertTo(Integer source, Double destination) {
+        return new Double(Integer.toString(source));
+      }
+
+      @Override
+      public Integer convertFrom(Double source, Integer destination) {
+        return new Integer(Double.toString(source));
+      }
+    };
+    
+    converter.convert(1d, 2, double.class, int.class);
+  }
+
   public void test_hierarchy() {
     DozerConverter<Number, Integer> converter = new DozerConverter<Number, Integer>(Number.class, Integer.class) {
 
