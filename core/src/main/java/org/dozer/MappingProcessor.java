@@ -43,8 +43,6 @@ import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.CollectionUtils;
 import org.dozer.util.DozerConstants;
-import static org.dozer.util.DozerConstants.BASE_CLASS;
-import static org.dozer.util.DozerConstants.ITERATE;
 import org.dozer.util.IteratorUtils;
 import org.dozer.util.LogMsgFactory;
 import org.dozer.util.MappingUtils;
@@ -65,6 +63,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import static org.dozer.util.DozerConstants.BASE_CLASS;
+import static org.dozer.util.DozerConstants.ITERATE;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
@@ -1003,12 +1004,6 @@ public class MappingProcessor implements Mapper {
     ClassMap mapping = classMappings.find(srcClass, destClass, mapId);
 
     if (mapping == null) {
-      // If mapId was specified and mapping was not found, then throw an
-      // exception
-      if (!MappingUtils.isBlankOrNull(mapId)) {
-        MappingUtils.throwMappingException("Class mapping not found for map-id : " + mapId);
-      }
-
       // If mapping not found in existing custom mapping collection, create
       // default as an explicit mapping must not
       // exist. The create default class map method will also add all default

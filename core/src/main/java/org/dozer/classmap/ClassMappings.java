@@ -18,10 +18,8 @@ package org.dozer.classmap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dozer.util.MappingUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -77,7 +75,8 @@ public class ClassMappings {
   }
 
   public ClassMap find(Class<?> srcClass, Class<?> destClass, String mapId) {
-    ClassMap mapping = classMappings.get(keyFactory.createKey(srcClass, destClass, mapId));
+    final String key = keyFactory.createKey(srcClass, destClass, mapId);
+    ClassMap mapping = classMappings.get(key);
 
     if (mapping == null) {
       mapping = findInterfaceMapping(destClass, srcClass, mapId);
@@ -85,7 +84,7 @@ public class ClassMappings {
 
     // one more try...
     // if the mapId is not null looking up a map is easy
-    if (mapId != null && mapping == null) {
+    if (!MappingUtils.isBlankOrNull(mapId) && mapping == null) {
       // probably a more efficient way to do this...
       for (Entry<String, ClassMap> entry : classMappings.entrySet()) {
         ClassMap classMap = entry.getValue();
@@ -96,43 +95,13 @@ public class ClassMappings {
         } else if (StringUtils.equals(classMap.getMapId(), mapId) && srcClass.equals(destClass)) {
           return classMap;
         }
-
       }
-      log.info("No ClassMap found for mapId:" + mapId);
+
+      // If map-id was specified and mapping was not found, then fail
+      MappingUtils.throwMappingException("Class mapping not found by map-id: " + key);
     }
 
     return mapping;
-  }
-
-  public List<ClassMap> findInterfaceMappings(Class<?> srcClass, Class<?> destClass) {
-    // If no existing cache entry is found, determine super type mapping and
-    // store in cache
-    // Get interfaces
-    Class<?>[] srcInterfaces = srcClass.getInterfaces();
-    Class<?>[] destInterfaces = destClass.getInterfaces();
-    List<ClassMap> interfaceMaps = new ArrayList<ClassMap>();
-    int size = destInterfaces.length;
-    for (int i = 0; i < size; i++) {
-      // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = classMappings.get(keyFactory.createKey(srcClass, destInterfaces[i]));
-      if (interfaceClassMap != null) {
-        interfaceMaps.add(interfaceClassMap);
-      }
-    }
-
-    for (Class<?> srcInterface : srcInterfaces) {
-      // see if the source class is mapped to the dest class
-      ClassMap interfaceClassMap = classMappings.get(keyFactory.createKey(srcInterface, destClass));
-      if (interfaceClassMap != null) {
-        interfaceMaps.add(interfaceClassMap);
-      }
-    }
-
-    // multiple levels of custom mapping processed in wrong order - need to
-    // reverse
-    Collections.reverse(interfaceMaps);
-
-    return interfaceMaps;
   }
 
   // Look for an interface mapping

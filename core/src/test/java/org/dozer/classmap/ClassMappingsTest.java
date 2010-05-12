@@ -15,10 +15,12 @@
  */
 package org.dozer.classmap;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.dozer.MappingException;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -50,6 +52,11 @@ public class ClassMappingsTest {
     classMappings.add(NestedClass.class, String.class, mock(ClassMap.class));
     ClassMap result = classMappings.find(NestedClass.class, String.class);
     assertNotNull(result);
+  }
+
+  @Test(expected = MappingException.class)
+  public void testNotFoundByMapid() {
+    classMappings.find(NestedClass.class, String.class, "A");
   }
 
   public static class NestedClass {
