@@ -12,7 +12,12 @@ public class SimpleElementReader implements ElementReader {
   }
 
   public String getNodeValue(Element element) {
-    return element.getFirstChild().getNodeValue().trim();
+    String nodeValue = element.getFirstChild().getNodeValue();
+    if (nodeValue != null) {
+      return nodeValue.trim();
+    } else {
+      return "";
+    }
   }
 
 }
