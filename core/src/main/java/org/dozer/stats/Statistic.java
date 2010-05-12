@@ -20,28 +20,48 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Internal class that provides an interface to a single statistic. Holds all of the statistic entries for the
  * statistic. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  * @author dmitry.buzdin
  */
-public class Statistic<T extends Enum<StatisticType>> {
+public class Statistic {
 
-  private final T type;
-  private final Map<Object, StatisticEntry> entriesMap = new ConcurrentHashMap<Object, StatisticEntry>();
+  private final StatisticType type;
+  private final ConcurrentMap<Object, StatisticEntry> entriesMap = new ConcurrentHashMap<Object, StatisticEntry>();
 
-  public Statistic(T type) {
+  public Statistic(StatisticType type) {
     this.type = type;
   }
 
-  public T getType() {
+  public StatisticType getType() {
     return type;
+  }
+
+  public StatisticEntry increment(Object statisticEntryKey, long value) {
+    if (statisticEntryKey == null) {
+      throw new IllegalArgumentException("statistic entry key must be specified");
+    }
+
+    // Get the StatisticEntry object which contains the actual value.
+    // If it doesn't already exist, create it so that it can be incremented
+    StatisticEntry statisticEntry = entriesMap.get(statisticEntryKey);
+    if (statisticEntry == null) {
+      StatisticEntry newStatisticEntry = new StatisticEntry(statisticEntryKey);
+      statisticEntry = entriesMap.putIfAbsent(statisticEntryKey, newStatisticEntry);
+      if (statisticEntry == null) {
+        statisticEntry = newStatisticEntry;
+      }
+    }
+    // Increment the actual value
+    statisticEntry.increment(value);
+    return statisticEntry;
   }
 
   public void clear() {
@@ -52,19 +72,13 @@ public class Statistic<T extends Enum<StatisticType>> {
     return new HashSet<StatisticEntry>(entriesMap.values());
   }
 
-  public void addEntry(StatisticEntry statEntry) {
-    if (statEntry == null) {
-      throw new IllegalArgumentException("Statistic Entry cannot be null");
-    }
-    entriesMap.put(statEntry.getKey(), statEntry);
-  }
-
-  public StatisticEntry getEntry() {
-    return getEntry(type);
-  }
-
   public StatisticEntry getEntry(Object entryKey) {
     return entriesMap.get(entryKey);
+  }
+
+  public long getStatisticValue(Object entryKey) {
+    StatisticEntry statisticEntry = entriesMap.get(entryKey);
+    return statisticEntry != null ? statisticEntry.getValue() : 0;
   }
 
   @Override
@@ -75,7 +89,7 @@ public class Statistic<T extends Enum<StatisticType>> {
     if (!(object instanceof Statistic)) {
       return false;
     }
-    Statistic<?> entry = (Statistic<?>) object;
+    Statistic entry = (Statistic) object;
     return new EqualsBuilder().append(this.getType(), entry.getType()).isEquals();
   }
 
@@ -88,5 +102,4 @@ public class Statistic<T extends Enum<StatisticType>> {
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
-
 }

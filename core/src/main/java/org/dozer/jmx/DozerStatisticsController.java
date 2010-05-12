@@ -27,7 +27,7 @@ import java.util.TreeSet;
 
 /**
  * Public Dozer JMX Bean
- * 
+ *
  * @author tierney.matt
  */
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
@@ -118,10 +118,8 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
 
   protected Set<String> getStatisticEntries(StatisticType statisticType) {
     Set<String> result = new TreeSet<String>();
-    if (statsMgr.statisticExists(statisticType)) {
-      for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
-        result.add(entry.getKey().toString() + ":Count " + entry.getValue());
-      }
+    for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
+      result.add(entry.getKey().toString() + ": Count " + entry.getValue());
     }
     return result;
   }
@@ -135,11 +133,7 @@ public class DozerStatisticsController implements DozerStatisticsControllerMBean
   }
 
   protected long getStatisticValue(StatisticType statisticType) {
-    long result = 0;
-    if (statsMgr.statisticExists(statisticType)) {
-      result = statsMgr.getStatisticValue(statisticType);
-    }
-    return result;
+    return statsMgr.getStatisticValue(statisticType);
   }
 
 }

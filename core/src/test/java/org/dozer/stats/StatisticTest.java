@@ -15,16 +15,10 @@
  */
 package org.dozer.stats;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.stats.Statistic;
-import org.dozer.stats.StatisticEntry;
-import org.dozer.stats.StatisticType;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * @author tierney.matt
@@ -55,8 +49,7 @@ public class StatisticTest extends AbstractDozerTest {
     int numEntriesToAdd = 5;
     for (int i = 0; i < numEntriesToAdd; i++) {
       String key = "testkey" + String.valueOf(i);
-      StatisticEntry entry = new StatisticEntry(key);
-      stat.addEntry(entry);
+      StatisticEntry entry= stat.increment(key, 1);
 
       assertEquals("invalid entry size", i + 1, stat.getEntries().size());
 
@@ -71,8 +64,7 @@ public class StatisticTest extends AbstractDozerTest {
   @Test
   public void testClear() throws Exception {
     Statistic stat = new Statistic(StatisticType.CUSTOM_CONVERTER_TIME);
-    StatisticEntry entry = new StatisticEntry(getRandomString());
-    stat.addEntry(entry);
+    stat.increment(getRandomString(), 1);
 
     assertEquals("stat should contain entry", 1, stat.getEntries().size());
     stat.clear();
@@ -84,23 +76,23 @@ public class StatisticTest extends AbstractDozerTest {
     StatisticType type = StatisticType.FIELD_MAPPING_SUCCESS_COUNT;
     Statistic stat = new Statistic(type);
     StatisticEntry entry = new StatisticEntry(type);
-    stat.addEntry(entry);
+    stat.increment(type, 1);
 
-    assertEquals("invalid entry found", entry, stat.getEntry());
+    assertEquals("invalid entry found", entry, stat.getEntry(type));
   }
 
   @Test
   public void testGetEntryWithDefaultKeyNotFound() throws Exception {
     Statistic stat = new Statistic(StatisticType.MAPPING_FAILURE_TYPE_COUNT);
     StatisticEntry entry = new StatisticEntry(getRandomString());
-    stat.addEntry(entry);
+    stat.increment(entry, 0);
 
-    assertNull("entry should not have been found", stat.getEntry());
+    assertNull("entry should not have been found", stat.getEntry(StatisticType.MAPPING_FAILURE_TYPE_COUNT));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testAddNull() {
     Statistic stat = new Statistic(StatisticType.CACHE_MISS_COUNT);
-    stat.addEntry(null);
+    stat.increment(null, 0);
   }
 }

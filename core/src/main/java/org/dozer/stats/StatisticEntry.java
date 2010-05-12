@@ -47,10 +47,6 @@ public class StatisticEntry {
     return value.get();
   }
 
-  public void increment() {
-    increment(1);
-  }
-
   public void increment(long value) {
     this.value.addAndGet(value);
   }

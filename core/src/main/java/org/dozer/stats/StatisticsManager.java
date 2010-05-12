@@ -24,13 +24,11 @@ import java.util.Set;
  */
 public interface StatisticsManager {
 
-  Set<Statistic<?>> getStatistics();
+  Set<Statistic> getStatistics();
 
   long getStatisticValue(StatisticType statisticType);
 
   long getStatisticValue(StatisticType statisticType, Object entryKey);
-
-  boolean statisticExists(StatisticType statisticType);
 
   void clearAll();
 
@@ -44,10 +42,10 @@ public interface StatisticsManager {
 
   void logStatistics();
 
-  void increment(StatisticType statisticType);
+  Statistic increment(StatisticType statisticType);
 
-  void increment(StatisticType statisticType, long value);
+  Statistic increment(StatisticType statisticType, long value);
 
-  void increment(StatisticType statisticType, Object statisticEntryKey);
+  Statistic increment(StatisticType statisticType, Object statisticEntryKey);
 
 }

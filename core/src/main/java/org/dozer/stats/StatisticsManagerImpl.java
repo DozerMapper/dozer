@@ -18,13 +18,13 @@ package org.dozer.stats;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dozer.config.GlobalSettings;
-import org.dozer.util.MappingUtils;
 
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Internal class that manages the Dozer runtime statistics. Only intended for internal use.
@@ -35,19 +35,21 @@ public final class StatisticsManagerImpl implements StatisticsManager {
 
   private static final Log log = LogFactory.getLog(StatisticsManagerImpl.class);
 
-  private final Map<StatisticType, Statistic<?>> statisticsMap = new ConcurrentHashMap<StatisticType, Statistic<?>>();
+  private final ConcurrentMap<StatisticType, Statistic> statisticsMap = new ConcurrentHashMap<StatisticType, Statistic>();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
 
   public void clearAll() {
     statisticsMap.clear();
   }
 
+  @SuppressWarnings("unchecked")
   public Set<StatisticEntry> getStatisticEntries(StatisticType statisticType) {
-    return getStatistic(statisticType).getEntries();
+    Statistic statistic = statisticsMap.get(statisticType);
+    return statistic != null ? statistic.getEntries() : Collections.EMPTY_SET;
   }
 
-  public Set<Statistic<?>> getStatistics() {
-    return new HashSet<Statistic<?>>(statisticsMap.values());
+  public Set<Statistic> getStatistics() {
+    return new HashSet<Statistic>(statisticsMap.values());
   }
 
   public boolean isStatisticsEnabled() {
@@ -59,18 +61,9 @@ public final class StatisticsManagerImpl implements StatisticsManager {
     GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
   }
 
-  @SuppressWarnings("unchecked")
-  protected <T extends Enum<StatisticType>> Statistic<T> getStatistic(T statisticType) {
-    Statistic<T> result = (Statistic<T>) statisticsMap.get(statisticType);
-    if (result == null) {
-      MappingUtils.throwMappingException("Unable to find statistic for type: " + statisticType);
-    }
-    return result;
-  }
-
   public Set<StatisticType> getStatisticTypes() {
     Set<StatisticType> results = new HashSet<StatisticType>();
-    for (Entry<StatisticType, Statistic<?>> entry : statisticsMap.entrySet()) {
+    for (Entry<StatisticType, Statistic> entry : statisticsMap.entrySet()) {
       results.add(entry.getKey());
     }
     return results;
@@ -78,83 +71,62 @@ public final class StatisticsManagerImpl implements StatisticsManager {
 
   /*
    * Convenience method that should only be used for statistic types that will only ever have 1 statistic entry(value).
-   * For stats that only have one entry, it is assumed that the single entrie's key is the same as the stat type name
+   * For stats that only have one entry, it is assumed that the single entry's key is the same as the stat type name
    */
-  public void increment(StatisticType statisticType) {
-    increment(statisticType, 1);
+
+  public Statistic increment(StatisticType statisticType) {
+    return increment(statisticType, 1);
   }
 
-  public void increment(StatisticType statisticType, long value) {
-    increment(statisticType, statisticType, value);
+  public Statistic increment(StatisticType statisticType, long value) {
+    return increment(statisticType, statisticType, value);
   }
 
-  public void increment(StatisticType statisticType, Object statisticEntryKey) {
-    increment(statisticType, statisticEntryKey, 1);
+  public Statistic increment(StatisticType statisticType, Object statisticEntryKey) {
+    return increment(statisticType, statisticEntryKey, 1);
   }
 
-  protected void increment(StatisticType statisticType, Object statisticEntryKey, long value) {
+  protected Statistic increment(StatisticType statisticType, Object statisticEntryKey, long value) {
     // If statistics are not enabled, just return and do nothing.
     if (!isStatisticsEnabled()) {
-      return;
+      return null;
     }
 
     if (statisticType == null) {
       throw new IllegalArgumentException("statistic type must be specified");
     }
 
-    if (statisticEntryKey == null) {
-      throw new IllegalArgumentException("statistic entry key must be specified");
-    }
-
-    // Get Statistic object for the specified type. If it doesnt aleady exist, create it
+    // Get Statistic object for the specified type. If it doesn't already exist, create it
     Statistic statistic = statisticsMap.get(statisticType);
     if (statistic == null) {
-      statistic = new Statistic(statisticType);
-      statistic = addStatistic(statistic);
+      Statistic newStatistic = new Statistic(statisticType);
+      statistic = statisticsMap.putIfAbsent(statisticType, newStatistic);
+      if (statistic == null) {
+        statistic = newStatistic;
+      }
     }
 
-    // Get the Statistic Entry object which contains the actual value.
-    // If it doesnt aleady exist, create it so that it can be incremented
-    StatisticEntry statisticEntry;
-    statisticEntry = statistic.getEntry(statisticEntryKey);
-    if (statisticEntry == null) {
-      statisticEntry = new StatisticEntry(statisticEntryKey);
-      statistic.addEntry(statisticEntry);
-    }
+    // increment the statistic
+    statistic.increment(statisticEntryKey, value);
+    return statistic;
+  }
 
-    // Increment the actual value
-    statisticEntry.increment(value);
+  protected Statistic getStatistic(StatisticType statisticType) {
+    return statisticsMap.get(statisticType);
   }
 
   /*
    * Convenience method that should only be used for statistic types that will only ever have 1 statistic entry(value).
    * getStatisticEntries() should be used for statistic types that have more than 1 statistic entry(value)
    */
+
   public long getStatisticValue(StatisticType statisticType) {
-    Set<StatisticEntry> entries = getStatistic(statisticType).getEntries();
-    if (entries.size() > 1) {
-      throw new IllegalArgumentException("More than one value entry found for stat type: " + statisticType);
-    }
-    return (entries.iterator().next()).getValue();
+    return getStatisticValue(statisticType, statisticType);
   }
 
   public long getStatisticValue(StatisticType statisticType, Object entryKey) {
-    StatisticEntry statisticEntry = getStatistic(statisticType).getEntry(entryKey);
-    if (statisticEntry == null) {
-      throw new IllegalStateException("Statistics entry not found: " + statisticType + " for key: " + entryKey);
-    }
-    return statisticEntry.getValue();
-  }
-
-  protected Statistic addStatistic(Statistic<?> statistic) {
-    if (!statisticExists((StatisticType) statistic.getType())) {
-      statisticsMap.put((StatisticType) statistic.getType(), statistic);
-    }
-    return statisticsMap.get((StatisticType) statistic.getType());
-  }
-
-  public boolean statisticExists(StatisticType statisticType) {
-    return statisticsMap.containsKey(statisticType);
+    Statistic statistic = statisticsMap.get(statisticType);
+    return statistic != null ? statistic.getStatisticValue(entryKey) : 0;
   }
 
   public void logStatistics() {

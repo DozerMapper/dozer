@@ -16,12 +16,13 @@
 package org.dozer.stats;
 
 import org.dozer.AbstractDozerTest;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.junit.Assert.*;
 
 /**
  * @author tierney.matt
@@ -39,8 +40,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   @Test
   public void testAddAndGetStatistic() {
     StatisticType type = StatisticType.FIELD_MAPPING_FAILURE_COUNT;
-    Statistic stat = new Statistic(type);
-    statMgr.addStatistic(stat);
+    Statistic stat = statMgr.increment(type, 1);
 
     assertEquals("invalid stat size", 1, statMgr.getStatistics().size());
     assertEquals("invalid stat found", stat, statMgr.getStatistic(type));
@@ -59,8 +59,8 @@ public class StatisticManagerTest extends AbstractDozerTest {
 
   @Test
   public void testClearAll() {
-    statMgr.addStatistic(new Statistic(StatisticType.MAPPING_FAILURE_TYPE_COUNT));
-    statMgr.addStatistic(new Statistic(StatisticType.CACHE_HIT_COUNT));
+    statMgr.increment(StatisticType.MAPPING_FAILURE_TYPE_COUNT, 1);
+    statMgr.increment(StatisticType.CACHE_HIT_COUNT, 1);
     assertEquals("invalid initial stat size", 2, statMgr.getStatistics().size());
     statMgr.clearAll();
     assertEquals("invalid stat size", 0, statMgr.getStatistics().size());
@@ -70,8 +70,8 @@ public class StatisticManagerTest extends AbstractDozerTest {
   public void testGetStatisticTypes() {
     StatisticType type = StatisticType.CUSTOM_CONVERTER_TIME;
     StatisticType type2 = StatisticType.CACHE_HIT_COUNT;
-    statMgr.addStatistic(new Statistic(type));
-    statMgr.addStatistic(new Statistic(type2));
+    statMgr.increment(type, 1);
+    statMgr.increment(type2, 1);
 
     Set<StatisticType> expected = new HashSet<StatisticType>();
     expected.add(type);
@@ -93,12 +93,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   @Test
   public void testGetStatisticValue() {
     StatisticType type = StatisticType.MAPPER_INSTANCES_COUNT;
-    Statistic stat = new Statistic(type);
-    String entryKey = getRandomString();
-    stat.addEntry(new StatisticEntry(entryKey));
-
-    statMgr.addStatistic(stat);
-    statMgr.increment(type, entryKey, 100);
+    statMgr.increment(type, 100);
 
     assertEquals("invalid entry value", 100, statMgr.getStatisticValue(type));
   }
@@ -107,10 +102,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   public void testGetStatisticValueByEntry() {
     final Object key1 = new Object();
     final Object key2 = new Object();
-    Statistic stat = new Statistic(StatisticType.CACHE_HIT_COUNT);
-    stat.addEntry(new StatisticEntry(key1));
 
-    statMgr.addStatistic(stat);
     statMgr.increment(StatisticType.CACHE_HIT_COUNT, key1, 100);
     statMgr.increment(StatisticType.CACHE_HIT_COUNT, key2, 1);
 
@@ -120,30 +112,14 @@ public class StatisticManagerTest extends AbstractDozerTest {
     result = statMgr.getStatisticValue(StatisticType.CACHE_HIT_COUNT, key2);
     assertEquals("invalid entry value", 1, result);
 
-    try {
-      statMgr.getStatisticValue(StatisticType.CACHE_HIT_COUNT, new Object());
-      fail();
-    } catch (IllegalStateException e) {
-    }
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testGetStatisticValueException() {
-    StatisticType type = StatisticType.MAPPING_FAILURE_COUNT;
-    Statistic stat = new Statistic(type);
-
-    stat.addEntry(new StatisticEntry(getRandomString()));
-    stat.addEntry(new StatisticEntry(getRandomString()));
-    statMgr.addStatistic(stat);
-    statMgr.getStatisticValue(type);
+    assertEquals("invalid entry value", 0, statMgr.getStatisticValue(StatisticType.CACHE_HIT_COUNT, new Object()));
   }
 
   @Test
   public void testAddDuplicateStatistic() {
     StatisticType type = StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT;
-    Statistic first = new Statistic(type);
-    statMgr.addStatistic(first);
-    Statistic statistic = statMgr.addStatistic(new Statistic(type));
+    Statistic first = statMgr.increment(type);
+    Statistic statistic = statMgr.increment(type);
     assertSame(first, statistic);
   }
 
@@ -154,7 +130,35 @@ public class StatisticManagerTest extends AbstractDozerTest {
     long incrementValue = 130;
     statMgr.increment(type, entryKey, incrementValue);
 
-    assertEquals("invalid stat entry value", incrementValue, statMgr.getStatisticValue(type));
+    assertEquals("invalid stat entry value", 0, statMgr.getStatisticValue(type));
+    assertEquals("invalid stat entry value", incrementValue, statMgr.getStatisticValue(type, entryKey));
   }
 
+  final static int NTHREADS = 200;
+
+  @Test
+  public void testMultiThread() throws InterruptedException {
+    final Thread[] tasks = new Thread[NTHREADS];
+    for (int i = 0; i < tasks.length; ++i) {
+      Thread task = new Thread("Round " + i) {
+        @Override
+        public void run() {
+          for (int i = 0; i < NTHREADS; ++i) {
+            statMgr.increment(StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT, tasks[i]);
+          }
+        }
+      };
+      tasks[i] = task;
+    }
+    for (Thread task : tasks) {
+      task.start();
+    }
+    for (Thread task : tasks) {
+      task.join(10000);
+      assertFalse("thread timeout", task.isAlive());
+    }
+    for (Thread task : tasks) {
+      assertEquals("invalid threading result " + task.getName(), NTHREADS, statMgr.getStatisticValue(StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT, task));
+    }
+  }
 }

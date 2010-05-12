@@ -15,11 +15,10 @@
  */
 package org.dozer.stats;
 
-import static org.junit.Assert.assertEquals;
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.stats.StatisticEntry;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author tierney.matt
@@ -50,11 +49,8 @@ public class StatisticEntryTest extends AbstractDozerTest {
     String key = "testkey";
     StatisticEntry entry = new StatisticEntry(key);
 
-    entry.increment();
-    assertEquals("invalid value after 1st increment", 1, entry.getValue());
-
     entry.increment(100);
-    assertEquals("invalid value after 2nd increment", 101, entry.getValue());
+    assertEquals("invalid value after 2nd increment", 100, entry.getValue());
   }
 
 }
