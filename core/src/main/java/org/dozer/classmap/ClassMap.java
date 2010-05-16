@@ -81,8 +81,7 @@ public class ClassMap {
     if (!allowedExceptions.isEmpty()) {
       return allowedExceptions;
     } else {
-      return globalConfiguration.getAllowedExceptions() != null ? globalConfiguration.getAllowedExceptions().getExceptions()
-          : allowedExceptions;
+      return globalConfiguration.getAllowedExceptions().getExceptions();
     }
   }
 

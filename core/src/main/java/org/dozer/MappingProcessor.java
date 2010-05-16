@@ -26,6 +26,7 @@ import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
+import org.dozer.classmap.CopyByReferenceContainer;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
@@ -112,6 +113,7 @@ public class MappingProcessor implements Mapper {
   }
 
   /* Mapper Interface Implementation */
+
   public <T> T map(final Object srcObj, final Class<T> destClass) {
     return map(srcObj, destClass, null);
   }
@@ -134,11 +136,11 @@ public class MappingProcessor implements Mapper {
   /**
    * Single point of entry for atomic mapping operations
    *
-   * @param srcObj source object
+   * @param srcObj    source object
    * @param destClass destination class
-   * @param destObj destination object
-   * @param mapId mapping identifier
-   * @param <T> destination object type
+   * @param destObj   destination object
+   * @param mapId     mapping identifier
+   * @param <T>       destination object type
    * @return new or updated destination object
    */
   private <T> T map(final Object srcObj, final Class<T> destClass, final T destObj, final String mapId) {
@@ -356,7 +358,7 @@ public class MappingProcessor implements Mapper {
       Object alreadyMappedValue = mappedFields.getMappedValue(srcFieldValue, destFieldType);
       if (alreadyMappedValue != null) {
         return alreadyMappedValue;
-      }      
+      }
     }
 
     if (fieldMap.isCopyByReference()) {
@@ -481,7 +483,7 @@ public class MappingProcessor implements Mapper {
     }
 
     // if it is an iterator object turn it into a List
-    if (srcCollectionValue instanceof Iterator) {      
+    if (srcCollectionValue instanceof Iterator) {
       srcCollectionValue = IteratorUtils.toList((Iterator<?>) srcCollectionValue);
     }
 
@@ -633,7 +635,13 @@ public class MappingProcessor implements Mapper {
     }
     // primitive arrays are ALWAYS cumulative
     for (int i = 0; i < size; i++) {
-      Object toValue = mapOrRecurseObject(srcObj, Array.get(srcCollectionValue, i), destEntryType, fieldMap, destObj);
+      CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
+      Object toValue;
+      if (srcCollectionValue != null && copyByReferences.contains(srcCollectionValue.getClass())) {
+        toValue = srcCollectionValue;
+      } else {
+        toValue = mapOrRecurseObject(srcObj, Array.get(srcCollectionValue, i), destEntryType, fieldMap, destObj);
+      }
       Array.set(result, arraySize, toValue);
       arraySize++;
     }
@@ -677,7 +685,12 @@ public class MappingProcessor implements Mapper {
           destEntryType = fieldMap.getDestHintType(srcValue.getClass());
         }
       }
-      destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
+      CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
+      if (srcValue != null && copyByReferences.contains(srcValue.getClass())) {
+        destValue = srcValue;
+      } else {
+        destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
+      }
       prevDestEntryType = destEntryType;
 
       if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
@@ -736,7 +749,12 @@ public class MappingProcessor implements Mapper {
           destEntryType = fieldMap.getDestHintType(srcValue.getClass());
         }
       }
-      destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
+      CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
+      if (srcValue != null && copyByReferences.contains(srcValue.getClass())) {
+        destValue = srcValue;
+      } else {
+        destValue = mapOrRecurseObject(srcObj, srcValue, destEntryType, fieldMap, destObj);
+      }
       prevDestEntryType = destEntryType;
 
       if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
@@ -897,6 +915,7 @@ public class MappingProcessor implements Mapper {
   }
 
   // TODO: possibly extract this to a separate class
+
   private Object mapUsingCustomConverter(Class<?> customConverterClass, Class<?> srcFieldClass, Object srcFieldValue,
                                          Class<?> destFieldClass, Object existingDestFieldValue, FieldMap fieldMap, boolean topLevel) {
     CustomConverter converterInstance = null;

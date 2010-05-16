@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class AllowedExceptionContainer {
 
-  private List<Class<RuntimeException>> exceptions = new ArrayList<Class<RuntimeException>>();
+  private final List<Class<RuntimeException>> exceptions = new ArrayList<Class<RuntimeException>>();
 
   public List<Class<RuntimeException>> getExceptions() {
     return exceptions;

@@ -17,16 +17,13 @@ package org.dozer.loader;
 
 import org.apache.commons.lang.StringUtils;
 import org.dozer.CustomConverter;
-import org.dozer.classmap.AllowedExceptionContainer;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.CopyByReference;
-import org.dozer.classmap.CopyByReferenceContainer;
 import org.dozer.classmap.DozerClass;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
-import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
 import org.dozer.fieldmap.DozerField;
@@ -66,9 +63,6 @@ public class DozerBuilder {
 
   public ConfigurationBuilder configuration() {
     Configuration configuration = new Configuration();
-    configuration.setCustomConverters(new CustomConverterContainer());
-    configuration.setCopyByReferences(new CopyByReferenceContainer());
-    configuration.setAllowedExceptions(new AllowedExceptionContainer());
     data.setConfiguration(configuration);
     return new ConfigurationBuilder(configuration);
   }

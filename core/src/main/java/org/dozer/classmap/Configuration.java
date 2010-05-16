@@ -38,24 +38,17 @@ public class Configuration {
   private String dateFormat;
   private String beanFactory;
   private RelationshipType relationshipType;
-  private CustomConverterContainer customConverters;
-  private CopyByReferenceContainer copyByReferences;
-  private AllowedExceptionContainer allowedExceptions;
+
+  private final CustomConverterContainer customConverters = new CustomConverterContainer();
+  private final CopyByReferenceContainer copyByReferences = new CopyByReferenceContainer();
+  private final AllowedExceptionContainer allowedExceptions = new AllowedExceptionContainer();
 
   public AllowedExceptionContainer getAllowedExceptions() {
     return allowedExceptions;
   }
 
-  public void setAllowedExceptions(AllowedExceptionContainer allowedExceptions) {
-    this.allowedExceptions = allowedExceptions;
-  }
-
   public CustomConverterContainer getCustomConverters() {
     return customConverters;
-  }
-
-  public void setCustomConverters(CustomConverterContainer customConverters) {
-    this.customConverters = customConverters;
   }
 
   public String getDateFormat() {
@@ -92,10 +85,6 @@ public class Configuration {
 
   public CopyByReferenceContainer getCopyByReferences() {
     return copyByReferences;
-  }
-
-  public void setCopyByReferences(CopyByReferenceContainer copyByReferenceContainer) {
-    this.copyByReferences = copyByReferenceContainer;
   }
 
   public Boolean getTrimStrings() {

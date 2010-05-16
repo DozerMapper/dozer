@@ -30,19 +30,28 @@ import java.util.List;
  */
 public class CopyByReferenceContainer {
 
-    private List<CopyByReference> copyByReferences = new ArrayList<CopyByReference>();
+  private List<CopyByReference> copyByReferences = new ArrayList<CopyByReference>();
 
-    public List<CopyByReference> getCopyByReferences() {
-        return copyByReferences;
-    }
+  public void add(CopyByReference copyByReference) {
+    copyByReferences.add(copyByReference);
+  }
 
-    public void add(CopyByReference copyByReference) {
-        copyByReferences.add(copyByReference);
-    }
+  public boolean contains(Class type) {
+    return contains(type.getName());
+  }
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  public boolean contains(String typeName) {
+    for (CopyByReference reference : copyByReferences) {
+      if (reference.matches(typeName)) {
+        return true;
+      }
     }
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 
 }

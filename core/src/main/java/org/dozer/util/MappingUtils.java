@@ -20,14 +20,12 @@ import org.dozer.MappingException;
 import org.dozer.cache.Cache;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.Configuration;
-import org.dozer.classmap.CopyByReference;
 import org.dozer.classmap.CopyByReferenceContainer;
 import org.dozer.classmap.DozerClass;
 import org.dozer.config.BeanContainer;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
-import static org.dozer.util.DozerConstants.BASE_CLASS;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -40,6 +38,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static org.dozer.util.DozerConstants.BASE_CLASS;
 
 /**
  * Internal class that provides various mapping utilities used throughout the code base. Only intended for internal use.
@@ -211,18 +211,14 @@ public final class MappingUtils {
   }
 
   public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
-    CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();
-    if (copyByReferenceContainer != null) {
-      String destFieldTypeName = null;
-      Class<?> clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
-      if (clazz != null) {
-        destFieldTypeName = clazz.getName();
-      }
-      for (CopyByReference copyByReference : copyByReferenceContainer.getCopyByReferences()) {
-        if (copyByReference.matches(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
-          fieldMap.setCopyByReference(true);
-        }
-      }
+    CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();    
+    String destFieldTypeName = null;
+    Class<?> clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
+    if (clazz != null) {
+      destFieldTypeName = clazz.getName();
+    }
+    if (copyByReferenceContainer.contains(destFieldTypeName) && !fieldMap.isCopyByReferenceOveridden()) {
+      fieldMap.setCopyByReference(true);
     }
   }
 
