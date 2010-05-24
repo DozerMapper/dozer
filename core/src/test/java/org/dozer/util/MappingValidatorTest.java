@@ -15,11 +15,8 @@
  */
 package org.dozer.util;
 
-import static org.junit.Assert.fail;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
-import org.dozer.util.MappingValidator;
 import org.junit.Test;
 
 /**
@@ -50,6 +47,16 @@ public class MappingValidatorTest extends AbstractDozerTest {
     } catch (MappingException e) {
       fail("Not expected");
     }
+  }
+
+  @Test(expected = MappingException.class)
+  public void testValidtateMappingURL_InvalidFileName() throws Exception{
+    MappingValidator.validateURL("hello");
+  }
+  
+  @Test(expected = MappingException.class)
+  public void testValidtateMappingURL_NullFileName() throws Exception{
+    MappingValidator.validateURL(null);
   }
 
 }

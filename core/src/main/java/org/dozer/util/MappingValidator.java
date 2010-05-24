@@ -22,7 +22,7 @@ import java.net.URL;
 /**
  * Internal class used to perform various validations. Validates mapping requests, field mappings, URL's, etc. Only
  * intended for internal use.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
  */
@@ -52,9 +52,13 @@ public final class MappingValidator {
 
   public static URL validateURL(String fileName) {
     ResourceLoader loader = new ResourceLoader();
+    if (fileName == null) {
+      MappingUtils.throwMappingException("File name is null");
+    }
+    loader.getResource(fileName);
     URL url = loader.getResource(fileName);
     if (url == null) {
-      MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!!!");
+      MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!");
     }
 
     InputStream stream = null;

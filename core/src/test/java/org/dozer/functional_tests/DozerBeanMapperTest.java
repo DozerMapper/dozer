@@ -15,17 +15,9 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.ArrayList;
-import java.util.List;
-
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerInitializer;
 import org.dozer.Mapper;
 import org.dozer.MappingException;
 import org.dozer.functional_tests.support.ApplicationBeanFactory;
@@ -46,15 +38,19 @@ import org.dozer.vo.deep.House;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Very high level tests of the DozerBeanMapper. This test class is not intended to provide in-depth testing of all the
  * possible mapping use cases. The more in-depth unit tests of the DozerBeanMapper and MappingProcessor can be found in
  * other test classes within this same package. i.e) GranularDozerBeanMapperTest, MapperTest, IndexMappingTest, etc
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
  */
 public class DozerBeanMapperTest extends AbstractDozerTest {
+
   private static Mapper mapper;
   private TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
 
@@ -62,7 +58,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   @Before
   public void setUp() throws Exception {
     if (mapper == null) {
-      mapper = getNewMapper(new String[] { "dozerBeanMapping.xml" });
+      mapper = getNewMapper(new String[]{"dozerBeanMapping.xml"});
     }
   }
 
@@ -185,7 +181,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     // custom bean factory
     // -----------------------------------------------------------
 
-    Mapper mapper = getNewMapper(new String[] { "customfactorymapping.xml" });
+    Mapper mapper = getNewMapper(new String[]{"customfactorymapping.xml"});
 
     TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = mapper.map(prime, TestObject.class);
@@ -220,6 +216,14 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
         .getClass());
     House src = testDataFactory.getHouse();
     eventMapper.map(src, HomeDescription.class);
+  }
+
+  @Test
+  public void testDestroy() throws Exception {
+    DozerBeanMapper mapper = new DozerBeanMapper();
+    assertTrue(DozerInitializer.getInstance().isInitialized());
+    mapper.destroy();
+    assertFalse(DozerInitializer.getInstance().isInitialized());
   }
 
   private void assertCommon(Mapper mapper) throws Exception {

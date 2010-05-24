@@ -15,18 +15,18 @@
  */
 package org.dozer;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.math.BigDecimal;
 
 /**
  * @author dmitry.buzdin
  */
-public class DozerConverterTest extends TestCase {
+public class DozerConverterTest extends AbstractDozerTest {
 
   private DozerConverter<String, Integer> converter;
 
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     converter = new DozerConverter<String, Integer>(String.class, Integer.class) {
 
@@ -40,6 +40,7 @@ public class DozerConverterTest extends TestCase {
     };
   }
 
+  @Test
   public void test_parameterNotSet() {
     try {
       converter.getParameter();
@@ -48,6 +49,7 @@ public class DozerConverterTest extends TestCase {
     }
   }
 
+  @Test
   public void test_convert_exception() {
     try {
       converter.convert(Boolean.TRUE, new BigDecimal(1), Boolean.class, BigDecimal.class);
@@ -57,11 +59,13 @@ public class DozerConverterTest extends TestCase {
     }
   }
 
+  @Test
   public void test_gettingParameter() {
     converter.setParameter("A");
     assertEquals("A", converter.getParameter());
   }
 
+  @Test
   public void test_convertFromTo() {
     assertEquals("1", converter.convertFrom(new Integer(1)));
     assertEquals(new Integer(2), converter.convertTo("2"));
@@ -70,20 +74,24 @@ public class DozerConverterTest extends TestCase {
     assertEquals(new Integer(2), converter.convertTo("2", new Integer(0)));
   }
 
+  @Test
   public void test_FullCycle() {
     assertEquals(1, converter.convert(null, "1", Integer.class, String.class));
     assertEquals("1", converter.convert(null, new Integer(1), String.class, Integer.class));
   }
 
+  @Test
   public void testObjectType() {
     assertEquals(1, converter.convert(null, "1", Object.class, String.class));
     assertEquals("1", converter.convert(null, new Integer(1), Object.class, Integer.class));
   }
 
+  @Test
   public void testAutoboxing() {
     assertEquals(1, converter.convert(null, "1", int.class, String.class));
   }
 
+  @Test
   public void testPrimitiveToPrimitive() {
     DozerConverter<Integer, Double> converter = new DozerConverter<Integer, Double>(Integer.class, Double.class) {
 
@@ -97,10 +105,11 @@ public class DozerConverterTest extends TestCase {
         return new Integer(Double.toString(source));
       }
     };
-    
+
     converter.convert(1d, 2, double.class, int.class);
   }
 
+  @Test
   public void test_hierarchy() {
     DozerConverter<Number, Integer> converter = new DozerConverter<Number, Integer>(Number.class, Integer.class) {
 
@@ -118,5 +127,44 @@ public class DozerConverterTest extends TestCase {
 
     assertEquals(new Integer(1), converter.convert(null, new Double(1), Integer.class, Number.class));
   }
+
+  @Test
+  public void testAssignments() {
+    DozerConverter<Number, Number> converter = new DozerConverter<Number, Number>(Number.class, Number.class) {
+
+      @Override
+      public Number convertFrom(Number source, Number destination) {
+        return source;
+      }
+
+      @Override
+      public Number convertTo(Number source, Number destination) {
+        return source;
+      }
+    };
+    assertEquals(new Integer(1), converter.convert(null, new Integer(1), Long.class, Integer.class));
+    assertEquals(new Integer(11), converter.convert(null, new Integer(11), Object.class, Integer.class));
+  }
+
+  @Test
+  public void testAssignments2() {
+    DozerConverter<String, Number> converter = new DozerConverter<String, Number>(String.class, Number.class) {
+
+      @Override
+      public String convertFrom(Number source, String destination) {
+        return source.toString();
+      }
+
+      @Override
+      public Number convertTo(String source, Number destination) {
+        return Long.parseLong(source);
+      }
+
+    };
+
+    assertEquals(new Long(1L), converter.convert(null, new String("1"), Long.class, Object.class));
+    assertEquals(new String("1"), converter.convert(null, new Integer(1), Object.class, Integer.class));
+  }
+
 
 }

@@ -15,18 +15,14 @@
  */
 package org.dozer.util;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import org.dozer.AbstractDozerTest;
+import org.dozer.MappingException;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-
-
-import org.dozer.AbstractDozerTest;
-import org.dozer.util.ResourceLoader;
-import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -67,6 +63,11 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     assertNotNull("input stream should not be null", is);
   }
 
+  @Test(expected = MappingException.class)
+  public void testGetResouce_MalformedUrl() throws Exception{
+    loader.getResource("foo:bar");
+  }
+
   @Test(expected = IOException.class)
   public void testGetResource_FileOutsideOfClasspath_NotFound() throws Exception {
     URL url = loader.getResource("file:" + System.currentTimeMillis());
@@ -80,4 +81,6 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     URL url = loader.getResource(String.valueOf(System.currentTimeMillis()));
     assertNull("URL should be null", url);
   }
+
+
 }
