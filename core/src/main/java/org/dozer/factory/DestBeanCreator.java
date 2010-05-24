@@ -15,178 +15,82 @@
  */
 package org.dozer.factory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.BeanFactory;
-import org.dozer.MappingException;
-import org.dozer.util.MappingUtils;
-import org.dozer.util.ReflectionUtils;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Internal class that contains the logic used to create a new instance of the destination object being mapped. Performs
  * various checks to determine how the destination object instance is created. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
+ * @author dmitry.buzdin
  */
 public final class DestBeanCreator {
-  
-  // only making public temporarily while refactoring. This static data should be relocated.
-  // The stored factories don't belong in MappingUtils and need to be relocated
-  public static final Map<String, BeanFactory> storedFactories = new ConcurrentHashMap<String, BeanFactory>();
 
+  private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
+  private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
+  private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
+  private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
+  private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
+  private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
 
   private DestBeanCreator() {
   }
-
-  private static final Log log = LogFactory.getLog(DestBeanCreator.class);
 
   public static <T> T create(Class<T> targetClass) {
     return (T) create(targetClass, null);
   }
 
   public static Object create(Class<?> targetClass, Class<?> alternateClass) {
-    return create(null, null, targetClass, alternateClass, null, null, null);
+    return create(new BeanCreationDirective(null, null, targetClass, alternateClass, null, null, null));
   }
 
-  public static Object create(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName,
-      String factoryId, String createMethod) {
-    Class<?> classToCreate = targetClass != null ? targetClass : alternateClass;
+  public static Object create(BeanCreationDirective directive) {
 
-    // If custom create method was specified, see if there are any static createMethods
-    if (!MappingUtils.isBlankOrNull(createMethod)) {
-      return createByStaticMethod(createMethod, classToCreate);
+    // TODO create method lookup by annotation/convention
+    // TODO support of fully qualified static create methods
+    // TODO Cache ConstructionStrategy (reuse caching infrastructure)
+    // TODO Resolve JAXB by XmlType Annotation
+    // TODO Check resulting type in each method
+    // TODO Create prioritized chain
+    // TODO Retries through the chain
+    // TODO Directive toString()
+    // TODO review and document
+    // TODO Analyze getInstance usage in JDK
+    // TODO Rename this class
+
+    if (byCreateMethod.isApplicable(directive)) {
+      return byCreateMethod.create(directive);
     }
 
-    // If factory name was specified, create using factory.  Otherwise just create a new instance
-    if (!MappingUtils.isBlankOrNull(factoryName)) {
-      Object factoryCreatedObj = createFromFactory(srcObject, srcClass, classToCreate, factoryName, factoryId);
-      // verify factory returned expected dest object type
-      if (!classToCreate.isAssignableFrom(factoryCreatedObj.getClass())) {
-        MappingUtils
-            .throwMappingException("Custom bean factory did not return correct type of destination data object.  Expected: "
-                + classToCreate + ", Actual: " + factoryCreatedObj.getClass());
-      }
-      return factoryCreatedObj;
+    if (byFactory.isApplicable(directive)) {
+      return byFactory.create(directive);
     }
 
-    if (Calendar.class.isAssignableFrom(classToCreate)) {
-      return createByStaticMethod("getInstance", classToCreate);
+    if (byGetInstance.isApplicable(directive)) {
+      return byGetInstance.create(directive);
     }
 
-    //Typical oject creation
-    Object rvalue = null;
-    if (Map.class.equals(classToCreate)) {
-      rvalue = new HashMap<Object, Object>();
-    } else {
-      try {
-        rvalue = newInstance(classToCreate);
-      } catch (Exception e) {
-        if (alternateClass != null) {
-          try {
-            rvalue = newInstance(alternateClass);
-          } catch (MappingException me) {
-            if (me.getCause() instanceof NoSuchMethodException) {
-              // let's see if it is an XMLBean
-              try {
-                rvalue = createFromFactory(srcObject, srcClass, classToCreate, "org.dozer.factory.XMLBeanFactory",
-                    factoryId);
-              } catch (MappingException e1) {
-                // well this was just a stab in the dark. log and rethrow the original exception
-                log.error("Error trying to use XMLBeanFactory.", e1);
-                throw me;
-              }
-            } else {
-              throw me;
-            }
-          }
-        } else {
-          MappingUtils.throwMappingException(e);
-        }
-      }
+    if (byInterface.isApplicable(directive)) {
+      return byInterface.create(directive);
     }
 
-    return rvalue;
+    if (xmlBeansBased.isApplicable(directive)) {
+      return xmlBeansBased.create(directive);
+    }
+
+    if (constructorBased.isApplicable(directive)) {
+      return constructorBased.create(directive);
+    }
+
+    return null;
   }
 
-  private static Object createByStaticMethod(String createMethod, Class<?> classToCreate) {
-    Method method = null;
-    try {
-      method = ReflectionUtils.getMethod(classToCreate, createMethod, null);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return ReflectionUtils.invoke(method, null, null);
-  }
 
-  private static Object createFromFactory(Object srcObject, Class<?> srcObjectClass, Class<?> destClass, String factoryName,
-      String factoryBeanId) {
-
-    // By default, use dest object class name for factory bean id
-    String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : destClass.getName();
-
-    BeanFactory factory = storedFactories.get(factoryName);
-
-    if (factory == null) {
-      Class<?> factoryClass = MappingUtils.loadClass(factoryName);
-      if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
-        MappingUtils.throwMappingException("Custom bean factory must implement the BeanFactoryIF interface.");
-      }
-      factory = (BeanFactory) newInstance(factoryClass);
-      // put the created factory in our factory map
-      storedFactories.put(factoryName, factory);
-    }
-    Object rvalue = factory.createBean(srcObject, srcObjectClass, beanId);
-
-    if (log.isDebugEnabled()) {
-      log.debug("Bean instance created with custom factory -->" + "\n  Bean Type: " + rvalue.getClass().getName()
-              + "\n  Factory Name: " + factoryName);
-    }
-    return rvalue;
-  }
-
-  private static <T> T newInstance(Class<T> clazz) {
-    //Create using public or private no-arg constructor
-    Constructor<T> constructor = null;
-    try {
-      constructor = clazz.getDeclaredConstructor(null);
-    } catch (SecurityException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (NoSuchMethodException e) {
-      MappingUtils.throwMappingException(e);
-    }
-
-    if (constructor == null) {
-      MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
-          + ".  Could not find a no-arg constructor for this class.");
-    }
-
-    // If private, make it accessible
-    if (!constructor.isAccessible()) {
-      constructor.setAccessible(true);
-    }
-
-    T result = null;
-    try {
-      result = constructor.newInstance(null);
-    } catch (IllegalArgumentException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (InstantiationException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (IllegalAccessException e) {
-      MappingUtils.throwMappingException(e);
-    } catch (InvocationTargetException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
+  public static void setStoredFactories(Map<String, BeanFactory> factories) {
+    byFactory.setStoredFactories(factories);
   }
 
 }

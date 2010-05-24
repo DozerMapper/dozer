@@ -15,16 +15,16 @@
  */
 package org.dozer;
 
-import java.util.Random;
-
-
 import org.dozer.util.DozerConstants;
+import org.junit.Assert;
 import org.junit.Before;
+
+import java.util.Random;
 
 /**
  * @author tierney.matt
  */
-public abstract class AbstractDozerTest {
+public abstract class AbstractDozerTest extends Assert {
   private static Random rand = new Random(System.currentTimeMillis());
 
   @Before

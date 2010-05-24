@@ -105,7 +105,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void setFactories(Map<String, BeanFactory> factories) {
-    DestBeanCreator.storedFactories.putAll(factories);
+    DestBeanCreator.setStoredFactories(factories);
   }
 
   public void setCustomConverters(List<CustomConverter> customConverters) {

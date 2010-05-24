@@ -34,6 +34,7 @@ import org.dozer.event.DozerEvent;
 import org.dozer.event.DozerEventManager;
 import org.dozer.event.DozerEventType;
 import org.dozer.event.EventManager;
+import org.dozer.factory.BeanCreationDirective;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
 import org.dozer.fieldmap.ExcludeFieldMap;
@@ -172,8 +173,8 @@ public class MappingProcessor implements Mapper {
       }
 
       if (result == null) {
-        result = (T) DestBeanCreator.create(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType, classMap
-            .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
+        result = (T) DestBeanCreator.create(new BeanCreationDirective(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType, classMap
+            .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod()));
       }
       map(classMap, srcObj, result, false, null);
     } catch (Throwable e) {
@@ -449,10 +450,11 @@ public class MappingProcessor implements Mapper {
       String mapId = fieldMap.getMapId();
       classMap = getClassMap(srcFieldValue.getClass(), destFieldType, mapId);
 
-      result = DestBeanCreator.create(srcFieldValue, classMap.getSrcClassToMap(),
-          fieldMap.getDestHintContainer() != null ? fieldMap.getDestHintContainer().getHint() : classMap.getDestClassToMap(),
-          destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), fieldMap
-              .getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod());
+      result = DestBeanCreator.create(
+          new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(),
+              fieldMap.getDestHintContainer() != null ? fieldMap.getDestHintContainer().getHint() : classMap.getDestClassToMap(), 
+              destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(),
+              fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod()));
     }
 
     map(classMap, srcFieldValue, result, false, fieldMap.getMapId());

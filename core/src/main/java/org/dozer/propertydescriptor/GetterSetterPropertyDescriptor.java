@@ -16,6 +16,7 @@
 package org.dozer.propertydescriptor;
 
 import org.dozer.MappingException;
+import org.dozer.factory.BeanCreationDirective;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
@@ -171,8 +172,8 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           } catch (Exception e) {
             //lets see if they have a factory we can try as a last ditch. If not...throw the exception:
             if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
-              o = DestBeanCreator.create(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, clazz, fieldMap.getClassMap()
-                  .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null);
+              o = DestBeanCreator.create(new BeanCreationDirective(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, clazz, fieldMap.getClassMap()
+                  .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null));
             } else {
               MappingUtils.throwMappingException(e);
             }
