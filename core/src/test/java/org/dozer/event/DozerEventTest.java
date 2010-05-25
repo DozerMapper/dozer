@@ -15,20 +15,23 @@
  */
 package org.dozer.event;
 
-import junit.framework.TestCase;
+import static org.mockito.Mockito.mock;
+
+import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
 import org.dozer.fieldmap.FieldMap;
-import static org.mockito.Mockito.mock;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
  */
-public class DozerEventTest extends TestCase {
+public class DozerEventTest extends AbstractDozerTest {
 
   private DozerEvent dozerEvent;
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     dozerEvent = new DozerEvent(DozerEventType.MAPPING_FINISHED,
         mock(ClassMap.class),
         mock(FieldMap.class),
