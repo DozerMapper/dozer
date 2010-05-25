@@ -15,15 +15,10 @@
  */
 package org.dozer.propertydescriptor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.lang.reflect.Method;
-
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.fieldmap.DozerField;
-import org.dozer.propertydescriptor.JavaBeanPropertyDescriptor;
 import org.dozer.vo.deep2.Dest;
 import org.junit.Test;
 

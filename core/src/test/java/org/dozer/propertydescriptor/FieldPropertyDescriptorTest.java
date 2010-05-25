@@ -15,28 +15,19 @@
  */
 package org.dozer.propertydescriptor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
-import org.dozer.propertydescriptor.FieldPropertyDescriptor;
 import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
  */
-public class FieldPropertyDescriptorTest {
+public class FieldPropertyDescriptorTest extends AbstractDozerTest{
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testNoSuchField() {
-    try {
       new FieldPropertyDescriptor(String.class, "nosuchfield", false, 0, null, null);
       fail();
-    } catch (MappingException e) {
-      assertTrue(e.getMessage().contains("java.lang.String.nosuchfield"));
-    }
   }
 
   @Test

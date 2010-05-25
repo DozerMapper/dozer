@@ -15,29 +15,26 @@
  */
 package org.dozer.propertydescriptor;
 
-import junit.framework.TestCase;
-
-import org.dozer.MappingException;
-import org.dozer.propertydescriptor.MapPropertyDescriptor;
-import org.junit.Test;
-import org.junit.Before;
-
 import java.lang.reflect.Method;
 import java.util.Arrays;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.MappingException;
+import org.junit.Before;
+import org.junit.Test;
 
 
 /**
  * @author dmitry.buzdin
  */
-public class MapPropertyDescriptorTest extends TestCase {
+public class MapPropertyDescriptorTest extends AbstractDozerTest {
 
   private MapPropertyDescriptor descriptor;
 
   @Before
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     descriptor = new MapPropertyDescriptor(MapStructure.class, "", false, 0, "set", "get", "key", null, null);
   }
-
 
   @Test
   public void testGetWriteMethod() throws NoSuchMethodException {
@@ -46,15 +43,11 @@ public class MapPropertyDescriptorTest extends TestCase {
     assertTrue(Arrays.equals(new Class[]{String.class, Object.class}, method.getParameterTypes()));
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testGetWriteMethod_NotFound() throws NoSuchMethodException {
     descriptor = new MapPropertyDescriptor(MapStructure.class, "", false, 0, "missing_set", "get", "key", null, null);
-    try {
       descriptor.getWriteMethod();
       fail();
-    } catch (MappingException e) {
-
-    }
   }
 
   @Test
@@ -88,6 +81,5 @@ public class MapPropertyDescriptorTest extends TestCase {
     }
 
   }
-
 
 }

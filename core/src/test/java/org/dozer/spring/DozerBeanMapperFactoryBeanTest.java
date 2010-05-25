@@ -15,9 +15,6 @@
  */
 package org.dozer.spring;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,11 +22,9 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
