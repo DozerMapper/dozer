@@ -15,17 +15,14 @@
  */
 package org.dozer.classmap;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-
+import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.CopyByReference;
 import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
-public class CopyByReferenceTest {
+public class CopyByReferenceTest extends AbstractDozerTest{
 
   @Test
   public void testMatches_OK() {

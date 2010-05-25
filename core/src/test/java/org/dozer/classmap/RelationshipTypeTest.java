@@ -15,17 +15,14 @@
  */
 package org.dozer.classmap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-
+import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.RelationshipType;
 import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
-public class RelationshipTypeTest {
+public class RelationshipTypeTest extends AbstractDozerTest{
 
   @Test
   public void testValueOf() {

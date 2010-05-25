@@ -15,16 +15,18 @@
  */
 package org.dozer.classmap;
 
-import junit.framework.TestCase;
+import org.dozer.AbstractDozerTest;
+import org.junit.Before;
 
 /**
  * @author dmitry.buzdin
  */
-public class ClassMapKeyFactoryTest extends TestCase {
+public class ClassMapKeyFactoryTest extends AbstractDozerTest {
 
   private ClassMapKeyFactory factory;
 
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     factory = new ClassMapKeyFactory();
   }
 

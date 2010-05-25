@@ -15,14 +15,13 @@
  */
 package org.dozer.classmap;
 
-import static junit.framework.Assert.assertSame;
-import static org.junit.Assert.assertNull;
+import org.dozer.AbstractDozerTest;
 import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
  */
-public class MappingDirectionTest {
+public class MappingDirectionTest extends AbstractDozerTest{
 
   @Test
   public void testValueOf() {

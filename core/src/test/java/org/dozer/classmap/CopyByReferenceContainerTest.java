@@ -1,17 +1,15 @@
 package org.dozer.classmap;
 
+import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 /**
  * @author Dmitry Buzdin
  */
-public class CopyByReferenceContainerTest {
+public class CopyByReferenceContainerTest extends AbstractDozerTest{
 
   private CopyByReferenceContainer container;
 

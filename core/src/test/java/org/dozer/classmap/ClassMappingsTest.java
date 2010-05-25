@@ -15,18 +15,17 @@
  */
 package org.dozer.classmap;
 
+import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 
 /**
  * @author dmitry.buzdin
  */
-public class ClassMappingsTest {
+public class ClassMappingsTest extends AbstractDozerTest{
 
   private ClassMappings classMappings;
 
