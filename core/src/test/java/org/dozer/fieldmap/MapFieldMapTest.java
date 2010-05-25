@@ -15,16 +15,19 @@
  */
 package org.dozer.fieldmap;
 
-import junit.framework.TestCase;
+import static org.mockito.Mockito.mock;
+
+import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
-import static org.mockito.Mockito.mock;
+import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
  */
-public class MapFieldMapTest extends TestCase {
+public class MapFieldMapTest extends AbstractDozerTest {
 
+  @Test
   public void testConstructor() {
     FieldMap fieldMap = mock(FieldMap.class);
     MapFieldMap source = new MapFieldMap(fieldMap);
