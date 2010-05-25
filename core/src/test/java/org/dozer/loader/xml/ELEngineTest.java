@@ -1,22 +1,23 @@
 package org.dozer.loader.xml;
 
-import junit.framework.TestCase;
-
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
-import java.lang.reflect.Method;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
-public class ELEngineTest extends TestCase {
+public class ELEngineTest extends AbstractDozerTest {
 
   private ELEngine elEngine;
   private Method method;
 
   @Override
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     elEngine = new ELEngine();
     elEngine.init();
@@ -24,11 +25,13 @@ public class ELEngineTest extends TestCase {
     method = ELEngineTest.class.getMethod("concat", String.class, String.class);
   }
 
+  @Test
   public void testSimple() {
     elEngine.setVariable("A", "B");
     assertEquals("*B*", elEngine.resolve("*${A}*"));
   }
-
+  
+  @Test
   public void testMap() {
     HashMap<String, Number> hashMap = new HashMap<String, Number>();
     hashMap.put("a", 1);
@@ -36,6 +39,7 @@ public class ELEngineTest extends TestCase {
     assertEquals("*1*", elEngine.resolve("*${A['a']}*"));
   }
 
+  @Test
   public void testList() {
     ArrayList<String> list = new ArrayList<String>();
     list.add("1");
@@ -44,6 +48,7 @@ public class ELEngineTest extends TestCase {
     assertEquals("*1*", elEngine.resolve("*${a[0]}*"));
   }
 
+  @Test
   public void testTwoExpressions() {
     elEngine.setVariable("A1", "B");
     elEngine.setVariable("A2", "C");
@@ -61,6 +66,7 @@ public class ELEngineTest extends TestCase {
     assertEquals("aabb", result);
   }
 
+  @Test
   public void testFunction_DefaultName() {
     assertNotNull(method);
     elEngine.setFunction("dozer", method);

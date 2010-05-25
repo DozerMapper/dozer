@@ -1,22 +1,24 @@
 package org.dozer.loader.xml;
 
-import junit.framework.TestCase;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 /**
  * @author Dmitry Buzdin
  */
-public class SimpleElementReaderTest extends TestCase {
+public class SimpleElementReaderTest extends AbstractDozerTest {
   
   private SimpleElementReader reader;
 
   @Override
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     super.setUp();
     reader = new SimpleElementReader();
   }

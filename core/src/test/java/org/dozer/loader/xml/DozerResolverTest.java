@@ -1,21 +1,19 @@
 package org.dozer.loader.xml;
 
-import junit.framework.TestCase;
-
-import org.dozer.loader.xml.DozerResolver;
-import org.junit.Test;
+import org.dozer.AbstractDozerTest;
 import org.junit.Before;
+import org.junit.Test;
 import org.xml.sax.InputSource;
 
 /**
  * @author Dmitry Buzdin
  */
-public class DozerResolverTest extends TestCase {
+public class DozerResolverTest extends AbstractDozerTest {
 
   private DozerResolver dozerResolver;
 
   @Before
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     dozerResolver = new DozerResolver();
   }
 
