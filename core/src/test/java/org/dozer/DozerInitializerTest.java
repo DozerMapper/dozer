@@ -1,6 +1,5 @@
 package org.dozer;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
@@ -10,12 +9,12 @@ import org.dozer.util.DozerConstants;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class DozerInitializerTest extends TestCase {
+public class DozerInitializerTest extends AbstractDozerTest {
 
   private DozerInitializer instance;
 
   @Before
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     instance = DozerInitializer.getInstance();
     instance.destroy();
   }
@@ -41,31 +40,24 @@ public class DozerInitializerTest extends TestCase {
     assertFalse(instance.isInitialized());
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testBeanisMissing() {
     GlobalSettings settings = mock(GlobalSettings.class);
     when(settings.getClassLoaderName()).thenReturn(DozerConstants.DEFAULT_CLASS_LOADER_BEAN);
     when(settings.getProxyResolverName()).thenReturn("no.such.class.Found");
 
-    try {
-      instance.initialize(settings);
-      fail();
-    } catch (MappingException e) {
-    }
+    instance.initialize(settings);
+    fail();
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testBeanIsNotAssignable() {
     GlobalSettings settings = mock(GlobalSettings.class);
     when(settings.getClassLoaderName()).thenReturn("java.lang.String");
     when(settings.getProxyResolverName()).thenReturn(DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN);
 
-    try {
-      instance.initialize(settings);
-      fail();
-    } catch (MappingException e) {
-    }
-
+    instance.initialize(settings);
+    fail();
   }
 
   @Test
@@ -78,7 +70,7 @@ public class DozerInitializerTest extends TestCase {
   }
 
   @After
-  protected void tearDown() throws Exception {
+  public void tearDown() throws Exception {
     instance.destroy();
   }
 }

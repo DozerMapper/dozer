@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * @author Dmitry Buzdin
  */
-public class MappingProcessorTest {
+public class MappingProcessorTest extends AbstractDozerTest{
 
   private ArrayList<Object> sourceList;
   private ArrayList<Object> destinationList;

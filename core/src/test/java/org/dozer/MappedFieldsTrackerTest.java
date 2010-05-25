@@ -26,7 +26,7 @@ import java.util.Set;
 /**
  * @author dmitry.buzdin
  */
-public class MappedFieldsTrackerTest {
+public class MappedFieldsTrackerTest extends AbstractDozerTest{
 
   private MappedFieldsTracker tracker;
 
