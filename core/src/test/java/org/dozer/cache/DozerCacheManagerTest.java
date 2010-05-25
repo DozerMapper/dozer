@@ -15,16 +15,8 @@
  */
 package org.dozer.cache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-
 import java.util.HashSet;
 import java.util.Set;
-
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.cache.Cache;
@@ -123,7 +115,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
   @Test
   public void testClearAllCacheEntries() {
     String name = getRandomString();
-    Cache cache = new DozerCache(name, 5);
+    Cache<String, String> cache = new DozerCache<String, String>(name, 5);
     cache.put(getRandomString(), "value");
     cacheMgr.addCache(cache);
 
@@ -135,8 +127,8 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
   @Test
   public void testGetCaches() {
     String name = getRandomString();
-    Cache cache = new DozerCache(name, 5);
-    Cache cache2 = new DozerCache(name + "2", 5);
+    Cache<String, String> cache = new DozerCache<String, String>(name, 5);
+    Cache<String, String> cache2 = new DozerCache<String, String>(name + "2", 5);
     cacheMgr.addCache(cache);
     cacheMgr.addCache(cache2);
 

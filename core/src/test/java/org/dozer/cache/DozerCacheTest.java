@@ -15,9 +15,6 @@
  */
 package org.dozer.cache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
@@ -70,7 +67,7 @@ public class DozerCacheTest extends AbstractDozerTest {
 
   @Test
   public void testClear() throws Exception {
-    Cache cache = new DozerCache(getRandomString(), 50);
+    Cache<Object, String> cache = new DozerCache<Object, String>(getRandomString(), 50);
     Object key = CacheKeyFactory.createKey(String.class, Integer.class);
     cache.put(key, "testvalue");
 
@@ -102,7 +99,7 @@ public class DozerCacheTest extends AbstractDozerTest {
   @Test
   public void testAddEntries() {
     DozerCache cache = new DozerCache(getRandomString(), 5);
-    DozerCache cache2 = new DozerCache(getRandomString(), 5);
+    DozerCache<String, String> cache2 = new DozerCache<String, String>(getRandomString(), 5);
 
     cache2.put("A", "B");
     cache2.put("B", "C");

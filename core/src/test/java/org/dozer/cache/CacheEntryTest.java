@@ -15,8 +15,6 @@
  */
 package org.dozer.cache;
 
-import static org.junit.Assert.assertEquals;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.cache.CacheEntry;
 import org.junit.Test;
@@ -30,7 +28,7 @@ public class CacheEntryTest extends AbstractDozerTest {
   public void testConstructor() throws Exception {
     String key = getRandomString();
     String value = getRandomString();
-    CacheEntry cacheEntry = new CacheEntry(key, value);
+    CacheEntry<String, String> cacheEntry = new CacheEntry<String, String>(key, value);
 
     assertEquals("invalid key", key, cacheEntry.getKey());
     assertEquals("invalid value", value, cacheEntry.getValue());
@@ -40,8 +38,8 @@ public class CacheEntryTest extends AbstractDozerTest {
   public void testHashCodeAndEquals() throws Exception {
     String key = getRandomString();
     String value = getRandomString();
-    CacheEntry cacheEntry = new CacheEntry(key, value);
-    CacheEntry cacheEntry2 = new CacheEntry(key, value);
+    CacheEntry<String, String> cacheEntry = new CacheEntry<String, String>(key, value);
+    CacheEntry<String, String> cacheEntry2 = new CacheEntry<String, String>(key, value);
 
     assertEquals("cache entries hash code should have been equal", cacheEntry.hashCode(), cacheEntry2.hashCode());
     assertEquals("cache entries should have been equal", cacheEntry, cacheEntry2);

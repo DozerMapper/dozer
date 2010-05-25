@@ -15,9 +15,6 @@
  */
 package org.dozer.cache;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.cache.CacheKeyFactory;
 import org.junit.Test;
