@@ -15,19 +15,20 @@
  */
 package org.dozer.jmx;
 
-import junit.framework.TestCase;
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
+import java.lang.management.ManagementFactory;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
-import java.lang.management.ManagementFactory;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
  */
-public class JMXPlatformImplTest extends TestCase {
+public class JMXPlatformImplTest extends AbstractDozerTest {
 
   private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
 
@@ -35,7 +36,7 @@ public class JMXPlatformImplTest extends TestCase {
   private JMXPlatformImpl platform;
 
   @Before
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     mbs = ManagementFactory.getPlatformMBeanServer();
     platform = new JMXPlatformImpl();
   }
@@ -68,7 +69,7 @@ public class JMXPlatformImplTest extends TestCase {
   }
 
   @After
-  protected void tearDown() throws Exception {
+  public void tearDown() throws Exception {
     try {
       mbs.unregisterMBean(new ObjectName(DOZER_ADMIN_CONTROLLER));
     } catch (Exception e) {

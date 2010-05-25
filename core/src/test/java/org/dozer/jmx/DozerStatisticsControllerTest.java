@@ -15,13 +15,9 @@
  */
 package org.dozer.jmx;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Set;
 
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.jmx.DozerStatisticsController;
 import org.dozer.stats.StatisticType;
 import org.junit.Before;
 import org.junit.Test;

@@ -15,10 +15,7 @@
  */
 package org.dozer.jmx;
 
-import static org.junit.Assert.assertEquals;
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.jmx.DozerAdminController;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
 import org.junit.Test;
