@@ -1,15 +1,14 @@
 package org.dozer.factory;
 
+import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author Vincent Jassogne
  */
-public class JAXBBeanFactoryTest {
+public class JAXBBeanFactoryTest extends AbstractDozerTest {
 
   private JAXBBeanFactory factory;
 
