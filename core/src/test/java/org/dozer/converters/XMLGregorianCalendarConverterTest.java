@@ -15,20 +15,19 @@
  */
 package org.dozer.converters;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
-public class XMLGregorianCalendarConverterTest {
+import org.dozer.AbstractDozerTest;
+import org.junit.Before;
+import org.junit.Test;
+
+public class XMLGregorianCalendarConverterTest extends AbstractDozerTest{
   private XMLGregorianCalendarConverter converter;
   private static final int YEAR = 1983;
   private static final int MONTH = 8;

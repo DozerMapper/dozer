@@ -1,8 +1,6 @@
 package org.dozer.converters;
 
-import static org.junit.Assert.assertEquals;
-
-
+import org.dozer.AbstractDozerTest;
 import org.dozer.converters.IntegerConverter;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +8,7 @@ import org.junit.Test;
 /**
  * @author Dmitry.Buzdin
  */
-public class IntegerConverterTest {
+public class IntegerConverterTest extends AbstractDozerTest{
 
   private IntegerConverter converter;
 

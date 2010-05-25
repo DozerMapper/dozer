@@ -15,18 +15,16 @@
  */
 package org.dozer.converters;
 
-import junit.framework.TestCase;
+import java.util.ArrayList;
+
+import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.apache.commons.lang.ClassUtils;
-
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 
 /**
  * @author dmitry.buzdin
  */
-public class StringConstructorConverterTest extends TestCase {
+public class StringConstructorConverterTest extends AbstractDozerTest {
 
   private StringConstructorConverter converter;
 
@@ -40,5 +38,4 @@ public class StringConstructorConverterTest extends TestCase {
     Object result = converter.convert(ArrayList.class, "A");
     assertEquals("A", result);
   }
-
 }

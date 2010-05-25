@@ -1,15 +1,12 @@
 package org.dozer.converters;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Calendar;
 import java.util.Date;
 
-
-import org.dozer.converters.StringConverter;
+import org.dozer.AbstractDozerTest;
 import org.junit.Test;
 
-public class StringConverterTest {
+public class StringConverterTest extends AbstractDozerTest{
 
   @Test
   public void testDateToString_NoDateFormatSpecified() {

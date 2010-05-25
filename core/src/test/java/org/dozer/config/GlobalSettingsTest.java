@@ -15,10 +15,6 @@
  */
 package org.dozer.config;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.config.GlobalSettings;
 import org.dozer.util.DozerConstants;

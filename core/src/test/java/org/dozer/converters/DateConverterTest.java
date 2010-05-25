@@ -16,6 +16,8 @@
 package org.dozer.converters;
 
 import junit.framework.TestCase;
+
+import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +34,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author dmitry.buzdin
  */
-public class DateConverterTest extends TestCase {
+public class DateConverterTest extends AbstractDozerTest {
 
   private DateConverter converter;
 

@@ -15,11 +15,7 @@
  */
 package org.dozer.converters;
 
-import static org.junit.Assert.assertEquals;
-
 import java.text.DateFormat;
-
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.converters.CalendarConverter;
 import org.dozer.converters.ConversionException;
