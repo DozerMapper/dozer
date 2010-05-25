@@ -15,11 +15,7 @@
  */
 package org.dozer.stats;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.stats.GlobalStatistics;
 import org.junit.Test;
 
 /**

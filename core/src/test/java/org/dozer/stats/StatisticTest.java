@@ -18,8 +18,6 @@ package org.dozer.stats;
 import org.dozer.AbstractDozerTest;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * @author tierney.matt
  */

@@ -1,20 +1,19 @@
 package org.dozer.stats;
 
-import junit.framework.TestCase;
-
-import org.dozer.stats.StatisticType;
-import org.dozer.stats.StatisticsInterceptor;
-import org.dozer.stats.StatisticsManager;
-import org.junit.Before;
-import org.junit.Test;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.lang.reflect.Proxy;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
  */
-public class StatisticsInterceptorTest extends TestCase {
+public class StatisticsInterceptorTest extends AbstractDozerTest {
 
   private StatisticsInterceptor interceptor;
 
@@ -22,7 +21,7 @@ public class StatisticsInterceptorTest extends TestCase {
   private StatisticsManager manager = mock(StatisticsManager.class);
 
   @Before
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     interceptor = new StatisticsInterceptor(service, manager);
   }
 

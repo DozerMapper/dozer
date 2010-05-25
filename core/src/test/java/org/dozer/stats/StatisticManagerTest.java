@@ -15,14 +15,12 @@
  */
 package org.dozer.stats;
 
-import org.dozer.AbstractDozerTest;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import org.dozer.AbstractDozerTest;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
