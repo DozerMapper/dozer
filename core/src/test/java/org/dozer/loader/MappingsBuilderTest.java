@@ -15,15 +15,17 @@
  */
 package org.dozer.loader;
 
-import org.dozer.classmap.MappingFileData;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.classmap.MappingFileData;
 import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
  */
-public class MappingsBuilderTest {
+public class MappingsBuilderTest extends AbstractDozerTest{
 
   @Test
   public void testBuild() {

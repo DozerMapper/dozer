@@ -1,19 +1,13 @@
 package org.dozer.loader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.Arrays;
 
-
+import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.functional_tests.support.SampleDefaultBeanFactory;
-import org.dozer.loader.CustomMappingsLoader;
 import org.junit.Test;
 
-public class CustomMappingsLoaderTest {
+public class CustomMappingsLoaderTest extends AbstractDozerTest{
   private CustomMappingsLoader loader = new CustomMappingsLoader();
 
   @Test
@@ -32,14 +26,10 @@ public class CustomMappingsLoaderTest {
         .getBeanFactory());
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testLoad_MultipleGlobalConfigsFound() {
-    try {
       loader.load(Arrays.asList("global-configuration.xml", "customMappingsLoaderWithGlobalConfigTest.xml"));
       fail("should have thrown exception");
-    } catch (MappingException e) {
-      assertTrue("invalid exception thrown", e.getMessage().contains("More than one global configuration found"));
-    }
   }
 
 }

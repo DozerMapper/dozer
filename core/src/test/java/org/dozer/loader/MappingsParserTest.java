@@ -15,16 +15,10 @@
  */
 package org.dozer.loader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
-import org.dozer.loader.MappingsParser;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.junit.Before;
@@ -43,29 +37,21 @@ public class MappingsParserTest extends AbstractDozerTest {
     parser = MappingsParser.getInstance();
   }
 
-  @Test
+  @Test(expected=IllegalArgumentException.class)
   public void testDuplicateMapIds() throws Exception {
     MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
     MappingFileData mappingFileData = fileReader.read("duplicateMapIdsMapping.xml");
 
-    try {
-      parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
-      fail("should have thrown exception");
-    } catch (Exception e) {
-      assertTrue("invalid exception thrown", e.getMessage().contains("Duplicate Map Id"));
-    }
+    parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
+    fail("should have thrown exception");
   }
 
-  @Test
+  @Test(expected=IllegalArgumentException.class)
   public void testDetectDuplicateMapping() throws Exception {
     MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
     MappingFileData mappingFileData = fileReader.read("duplicateMapping.xml");
-    try {
-      parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
-      fail("should have thrown exception");
-    } catch (Exception e) {
-      assertTrue("invalid exception", e.getMessage().contains("Duplicate Class Mapping Found"));
-    }
+    parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
+    fail("should have thrown exception");
   }
 
   @Test
