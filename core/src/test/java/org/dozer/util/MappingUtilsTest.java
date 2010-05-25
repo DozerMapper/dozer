@@ -15,6 +15,15 @@
  */
 package org.dozer.util;
 
+import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.classmap.ClassMap;
@@ -37,17 +46,7 @@ import org.dozer.vo.interfacerecursion.LevelTwo;
 import org.dozer.vo.interfacerecursion.LevelTwoImpl;
 import org.dozer.vo.interfacerecursion.User;
 import org.dozer.vo.interfacerecursion.UserSub;
-import static org.junit.Assert.*;
 import org.junit.Test;
-
-import java.io.Serializable;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 /**
  * @author tierney.matt
@@ -89,43 +88,27 @@ public class MappingUtilsTest extends AbstractDozerTest {
     assertEquals("invalid result value", "String", result);
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testThrowMappingException_MappingException() {
     MappingException ex = new MappingException(String.valueOf(System.currentTimeMillis()));
-    try {
       MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
-    } catch (MappingException e) {
-      assertEquals("invalid ex", ex, e);
-    }
   }
 
-  @Test
+  @Test(expected=NullPointerException.class)
   public void testThrowMappingException_RuntimeException() {
     // Runtime ex should not get wrapped in MappingException
     NullPointerException ex = new NullPointerException(String.valueOf(System.currentTimeMillis()));
-    try {
       MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
-    } catch (NullPointerException e) {
-      assertEquals("invalid ex", ex, e);
-    } catch (Throwable e) {
-      fail("NullPointerException should have been thrown");
-    }
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testThrowMappingException_CheckedException() {
     // Checked exception should get wrapped in MappingException
     NoSuchFieldException ex = new NoSuchFieldException(String.valueOf(System.currentTimeMillis()));
-    try {
       MappingUtils.throwMappingException(ex);
       fail("should have thrown exception");
-    } catch (MappingException e) {
-      assertEquals("invalid nested ex", ex, e.getCause());
-    } catch (Throwable e) {
-      fail("MappingException should have been thrown");
-    }
   }
 
   @Test
@@ -279,6 +262,4 @@ public class MappingUtilsTest extends AbstractDozerTest {
 
     assertEquals(expected, result);
   }
-
-
 }

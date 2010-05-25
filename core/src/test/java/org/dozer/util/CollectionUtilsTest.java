@@ -15,11 +15,6 @@
  */
 package org.dozer.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,9 +27,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
 
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.util.CollectionUtils;
 import org.dozer.vo.InsideTestObject;
 import org.dozer.vo.SimpleObj;
 import org.junit.Test;

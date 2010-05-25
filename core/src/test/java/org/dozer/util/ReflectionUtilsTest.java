@@ -15,22 +15,18 @@
  */
 package org.dozer.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
+import junit.framework.Assert;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
-import org.dozer.util.ReflectionUtils;
-import org.dozer.vo.SimpleObj;
 import org.dozer.vo.A;
 import org.dozer.vo.B;
+import org.dozer.vo.SimpleObj;
 import org.dozer.vo.inheritance.ChildChildIF;
 import org.junit.Test;
-import junit.framework.Assert;
 
 /**
  * @author tierney.matt

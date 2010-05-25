@@ -81,6 +81,4 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     URL url = loader.getResource(String.valueOf(System.currentTimeMillis()));
     assertNull("URL should be null", url);
   }
-
-
 }

@@ -1,17 +1,16 @@
 package org.dozer.util;
 
-import junit.framework.TestCase;
-import org.junit.Test;
-
-import java.util.HashSet;
-import java.util.List;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.Test;
 
 /**
  * @author <a href="dmitry.buzdin@ctco.lv">Dmitry Buzdin</a>
  */
-public class IteratorUtilsTest extends TestCase {
+public class IteratorUtilsTest extends AbstractDozerTest {
 
   @Test
   public void testToList() {
@@ -24,5 +23,4 @@ public class IteratorUtilsTest extends TestCase {
     assertEquals(2, result.size());
     assertEquals("A", result.get(0));
   }
-
 }
