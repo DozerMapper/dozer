@@ -1,9 +1,5 @@
 package org.dozer.functional_tests;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.beanutils.ConstructorUtils;
 
 /*

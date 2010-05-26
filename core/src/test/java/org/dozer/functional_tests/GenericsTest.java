@@ -12,7 +12,7 @@ import org.dozer.vo.generics.parameterized.GenericTestType;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class GenericsTest {
+public class GenericsTest extends AbstractFunctionalTest {
 
   /** test mapping of a generic field */
   @Test

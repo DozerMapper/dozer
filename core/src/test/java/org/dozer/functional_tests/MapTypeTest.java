@@ -15,6 +15,21 @@
  */
 package org.dozer.functional_tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.TestObject;
@@ -34,19 +49,8 @@ import org.dozer.vo.map.ParentDOM;
 import org.dozer.vo.map.PropertyToMap;
 import org.dozer.vo.map.SimpleObj;
 import org.dozer.vo.map.SimpleObjPrime;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * @author tierney.matt

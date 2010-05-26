@@ -32,15 +32,10 @@ public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
     mapper = getMapper("missingSetter.xml");
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void test_UnableToDetermineType() {
-    try {
       mapper.map("", NoNothing.class);
       fail();
-    } catch (MappingException e) {
-      assertTrue(e.getMessage().contains(NoNothing.class.getName()));
-      assertTrue(e.getMessage().contains("missingProperty"));
-    }
   }
 
   public static class NoNothing {

@@ -11,58 +11,39 @@ import org.xml.sax.SAXException;
  */
 public class InvalidMappingTest extends AbstractFunctionalTest {
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testWrongClassName() {
     mapper = getMapper("invalidmapping1.xml");
-    try {
-      mapper.map("1", Integer.class);
-      fail();
-    } catch (MappingException e) {
-      assertEquals(ClassNotFoundException.class, e.getCause().getClass());
-    }
+    mapper.map("1", Integer.class);
+    fail();
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testNoFieldB() {
     mapper = getMapper("invalidmapping2.xml");
-    try {
-      mapper.map("1", Integer.class);
-      fail();
-    } catch (MappingException e) {
-      assertEquals(SAXException.class, e.getCause().getClass());
-    }
+    mapper.map("1", Integer.class);
+    fail();
   }
 
-  @Test
+  @Test(expected=NullPointerException.class)
   public void testEmptyFieldB() {
     mapper = getMapper("invalidmapping3.xml");
-    try {
-      mapper.map("1", Integer.class);
-      fail();
-    } catch (NullPointerException e) {
-      //assertEquals(SAXException.class, e.getCause().getClass()); // TODO Fix NPE
-    }
+    mapper.map("1", Integer.class);
+    fail();
   }
 
-//  @Test
-//  public void testFieldDoesNotExist() {
-//    mapper = getMapper("invalidmapping4.xml");
-//    try {
-//      mapper.map("1", Integer.class);
-//      fail();
-//    } catch (MappingException e) {
-//    }
-//  }
+  @Test(expected=MappingException.class)
+  public void testFieldDoesNotExist() {
+    mapper = getMapper("invalidmapping4.xml");
+    mapper.map("1", Integer.class);
+    fail();
+  }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testNoClassA() {
     mapper = getMapper("invalidmapping5.xml");
-    try {
-      mapper.map("1", Integer.class);
-      fail();
-    } catch (MappingException e) {
-      assertEquals(SAXException.class, e.getCause().getClass());
-    }
+    mapper.map("1", Integer.class);
+    fail();
   }
 
 }

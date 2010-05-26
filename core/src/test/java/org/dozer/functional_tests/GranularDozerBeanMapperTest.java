@@ -87,14 +87,10 @@ import java.util.TreeSet;
  */
 public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testNoDefaultConstructor() throws Exception {
-    try {
-      mapper.map("test", NoDefaultConstructor.class);
-      fail("should have thrown exception");
-    } catch (MappingException e) {
-      assertEquals("java.lang.NoSuchMethodException: org.dozer.vo.NoDefaultConstructor.<init>()", e.getMessage());
-    }
+    mapper.map("test", NoDefaultConstructor.class);
+    fail("should have thrown exception");
   }
 
   @Test
@@ -421,21 +417,18 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("theKey"));
   }
 
-  @Test
-  public void testAllowedExceptions() throws Exception {
+  @Test(expected=TestException.class)
+  public void testAllowedExceptionsThrowException() throws Exception {
     Mapper mapper = getMapper(new String[] { "allowedExceptionsMapping.xml" });
     TestObject to = newInstance(TestObject.class);
     to.setThrowAllowedExceptionOnMap("throw me");
-    try {
-      mapper.map(to, TestObjectPrime.class);
-      fail("We should have thrown TestException");
-    } catch (RuntimeException e) {
-      if (e instanceof TestException) {
-        assertTrue(true);
-      } else {
-        fail("This should be an instance of TestException");
-      }
-    }
+    mapper.map(to, TestObjectPrime.class);
+    fail("We should have thrown TestException");
+
+  }
+
+  public void testAllowedExceptionsDoNotThrowException() throws Exception {
+    Mapper mapper = getMapper(new String[] { "allowedExceptionsMapping.xml" });
     TestObject to2 = newInstance(TestObject.class);
     to2.setThrowNonAllowedExceptionOnMap("do not throw me");
     try {
@@ -445,21 +438,18 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     }
   }
 
-  @Test
+  @Test(expected=TestException.class)
   public void testAllowedExceptions_Implicit() throws Exception {
     Mapper mapper = getMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
     ThrowException to = newInstance(ThrowException.class);
     to.setThrowAllowedException("throw me");
-    try {
-      mapper.map(to, ThrowExceptionPrime.class);
-      fail("We should have thrown TestException");
-    } catch (RuntimeException e) {
-      if (e instanceof TestException) {
-        assertTrue(true);
-      } else {
-        fail("This should be an instance of TestException");
-      }
-    }
+    mapper.map(to, ThrowExceptionPrime.class);
+    fail("We should have thrown TestException");
+
+
+  }
+
+  public void testAllowedExceptions_ImplicitDoNotThrow() throws Exception {
     ThrowException to2 = newInstance(ThrowException.class);
     to2.setThrowNotAllowedException("do not throw me");
     try {
@@ -468,6 +458,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
       fail("This should not have been thrown");
     }
   }
+
 
   @Test
   public void testPrimitiveArrayToList() throws Exception {

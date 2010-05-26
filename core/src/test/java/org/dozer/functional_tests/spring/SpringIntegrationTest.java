@@ -16,6 +16,8 @@
 package org.dozer.functional_tests.spring;
 
 import junit.framework.TestCase;
+
+import org.dozer.AbstractDozerTest;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.junit.Before;
@@ -27,12 +29,12 @@ import java.util.Map;
 /**
  * @author dmitry.buzdin
  */
-public class SpringIntegrationTest extends TestCase {
+public class SpringIntegrationTest extends AbstractDozerTest {
 
   private ClassPathXmlApplicationContext context;
 
   @Before
-  protected void setUp() throws Exception {
+  public void setUp() throws Exception {
     context = new ClassPathXmlApplicationContext("applicationContext.xml");
   }
 

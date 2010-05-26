@@ -25,8 +25,7 @@ import org.junit.Test;
  *
  * @author Vadim Shaigorodskiy
  */
-public class CollectionTest
-  extends AbstractFunctionalTest {
+public class CollectionTest extends AbstractFunctionalTest {
 
   @Override
   public void setUp() throws Exception {

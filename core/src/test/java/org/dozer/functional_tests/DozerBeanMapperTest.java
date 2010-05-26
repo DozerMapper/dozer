@@ -62,44 +62,29 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testNoSourceObject() throws Exception {
-    try {
-      mapper.map(null, TestObjectPrime.class);
-      fail("should have thrown exception");
-    } catch (MappingException e) {
-      assertEquals("source object must not be null", e.getMessage());
-    }
+    mapper.map(null, TestObjectPrime.class);
+    fail("should have thrown exception");
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testNoDestinationClass() throws Exception {
-    try {
-      mapper.map(new TestObjectPrime(), null);
-      fail("should have thrown exception");
-    } catch (MappingException e) {
-      assertEquals("destination class must not be null", e.getMessage());
-    }
+    mapper.map(new TestObjectPrime(), null);
+    fail("should have thrown exception");
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testNullDestObj() throws Exception {
-    try {
-      Object destObj = null;
-      mapper.map(new TestObject(), destObj);
-      fail("should have thrown mapping exception");
-    } catch (MappingException e) {
-    }
+    Object destObj = null;
+    mapper.map(new TestObject(), destObj);
+    fail("should have thrown mapping exception");
   }
 
-  @Test
+  @Test(expected=MappingException.class)
   public void testMapIdDoesNotExist() {
-    try {
-      mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
-      fail("should have thrown exception");
-    } catch (Exception e) {
-      // expected
-    }
+    mapper.map(new TestObject(), TestObjectPrime.class, "thisMapIdDoesNotExist");
+    fail("should have thrown exception");
   }
 
   @Test
@@ -158,20 +143,15 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertCommon(mapper);
   }
 
-  @Test
+  @Test(expected=IllegalArgumentException.class)
   public void testDetectDuplicateMapping() throws Exception {
     Mapper myMapper = null;
-    try {
+    List<String> mappingFiles = new ArrayList<String>();
+    mappingFiles.add("duplicateMapping.xml");
+    myMapper = new DozerBeanMapper(mappingFiles);
 
-      List<String> mappingFiles = new ArrayList<String>();
-      mappingFiles.add("duplicateMapping.xml");
-      myMapper = new DozerBeanMapper(mappingFiles);
-
-      myMapper.map(new org.dozer.vo.SuperSuperSuperClass(), org.dozer.vo.SuperSuperSuperClassPrime.class);
-      fail("should have thrown exception");
-    } catch (Exception e) {
-      assertTrue("invalid exception", e.getMessage().contains("Duplicate Class Mapping Found"));
-    }
+    myMapper.map(new org.dozer.vo.SuperSuperSuperClass(), org.dozer.vo.SuperSuperSuperClassPrime.class);
+    fail("should have thrown exception");
   }
 
   @Test
