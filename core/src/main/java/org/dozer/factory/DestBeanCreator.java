@@ -57,7 +57,6 @@ public final class DestBeanCreator {
   public static Object create(BeanCreationDirective directive) {
 
     // TODO create method lookup by annotation/convention
-    // TODO support of fully qualified static create methods
     // TODO Cache ConstructionStrategy (reuse caching infrastructure)
     // TODO Resolve JAXB by XmlType Annotation
     // TODO Check resulting type in each method

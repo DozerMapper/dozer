@@ -45,6 +45,20 @@
 </mapping>
          ]]>
       </source>
+
+        <p>
+         It is also possible to reference different class with static factory method. This is done by
+            providing fully qualified type name and method name separated by dot.
+        </p>
+
+      <source>
+        <![CDATA[
+...
+<b create-method="org.dozer.factory.Factory.create">field</b>
+...
+         ]]>
+      </source>
+
     </section>
   </body>
 </document>
