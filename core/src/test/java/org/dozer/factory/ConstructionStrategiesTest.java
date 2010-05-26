@@ -62,6 +62,14 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     assertEquals("a", result.getName());
   }
 
+  @Test
+  public void shouldUseFullyQualifiedStaticCreateMethod() {
+    directive.setTargetClass(String.class);
+    directive.setCreateMethod("org.dozer.factory.ConstructionStrategiesTest$ExternalFactory.create");
+    String result = (String) byCreateMethod.create(directive);
+    assertEquals("hello", result);
+  }
+
   @Test(expected = MappingException.class)
   public void shouldFailWithNoSuchMethod() {
     directive.setTargetClass(SelfFactory.class);
@@ -178,6 +186,12 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
       return "";
     }
 
+  }
+
+  public static class ExternalFactory {
+    public static String create() {
+      return "hello";
+    }
   }
 
 }

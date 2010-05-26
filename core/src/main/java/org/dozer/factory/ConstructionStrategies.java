@@ -4,6 +4,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xmlbeans.XmlObject;
 import org.dozer.BeanFactory;
+import org.dozer.config.BeanContainer;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
@@ -25,7 +27,38 @@ import java.util.concurrent.ConcurrentMap;
  */
 public final class ConstructionStrategies {
 
-  public static class ByCreateMethod implements BeanCreationStrategy {
+  private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
+  private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
+  private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
+  private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
+  private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
+  private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
+
+  public static BeanCreationStrategy byCreateMethod() {
+    return byCreateMethod;
+  }
+
+  public static BeanCreationStrategy byGetInstance() {
+    return byGetInstance;
+  }
+
+  public static BeanCreationStrategy byInterface() {
+    return byInterface;
+  }
+
+  public static BeanCreationStrategy xmlBeansBased() {
+    return xmlBeansBased;
+  }
+
+  public static BeanCreationStrategy byConstructor() {
+    return constructorBased;
+  }
+
+  public static ByFactory byFactory() {
+    return byFactory;
+  }
+
+  static class ByCreateMethod implements BeanCreationStrategy {
 
     public boolean isApplicable(BeanCreationDirective directive) {
       String createMethod = directive.getCreateMethod();
@@ -36,18 +69,32 @@ public final class ConstructionStrategies {
       Class<?> actualClass = directive.getActualClass();
       String createMethod = directive.getCreateMethod();
 
-      Method method = null;
-      try {
-        method = ReflectionUtils.getMethod(actualClass, createMethod, null); // empty args method
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
+      Method method;
+      if (createMethod.contains(".")) {
+        String methodName = createMethod.substring(createMethod.lastIndexOf(".") + 1, createMethod.length());
+        String typeName = createMethod.substring(0, createMethod.lastIndexOf("."));
+        DozerClassLoader loader = BeanContainer.getInstance().getClassLoader();
+        Class type = loader.loadClass(typeName);
+        method = findMethod(type, methodName);
+      } else {
+        method = findMethod(actualClass, createMethod);
       }
       return ReflectionUtils.invoke(method, null, null);
     }
 
+    private Method findMethod(Class<?> actualClass, String createMethod) {
+      Method method = null;
+      try {
+        method = ReflectionUtils.getMethod(actualClass, createMethod, null);
+      } catch (NoSuchMethodException e) {
+        MappingUtils.throwMappingException(e);
+      }
+      return method;
+    }
+
   }
 
-  public static class ByGetInstance extends ByCreateMethod {
+  static class ByGetInstance extends ByCreateMethod {
 
     @Override
     public boolean isApplicable(BeanCreationDirective directive) {
@@ -61,7 +108,7 @@ public final class ConstructionStrategies {
     }
   }
 
-  public static class ByFactory implements BeanCreationStrategy {
+  static class ByFactory implements BeanCreationStrategy {
 
     private static final Log log = LogFactory.getLog(ByFactory.class);
 
@@ -114,7 +161,7 @@ public final class ConstructionStrategies {
   }
 
 
-  public static class ByInterface implements BeanCreationStrategy {
+  static class ByInterface implements BeanCreationStrategy {
 
     public boolean isApplicable(BeanCreationDirective directive) {
       Class<?> actualClass = directive.getActualClass();
@@ -135,7 +182,7 @@ public final class ConstructionStrategies {
 
   }
 
-  public static class XMLBeansBased implements BeanCreationStrategy {
+  static class XMLBeansBased implements BeanCreationStrategy {
 
     BeanFactory xmlBeanFactory = new XMLBeanFactory();
 
@@ -154,7 +201,7 @@ public final class ConstructionStrategies {
 
   }
 
-  public static class ByConstructor implements BeanCreationStrategy {
+  static class ByConstructor implements BeanCreationStrategy {
 
     public boolean isApplicable(BeanCreationDirective directive) {
       return true;

@@ -17,6 +17,8 @@ package org.dozer.factory;
 
 import org.dozer.BeanFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,12 +31,17 @@ import java.util.Map;
  */
 public final class DestBeanCreator {
 
-  private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
-  private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
-  private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
-  private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
-  private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
-  private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
+  // order in this collection determines resolving priority
+  static final List<BeanCreationStrategy> availableStrategies = new ArrayList<BeanCreationStrategy>();
+
+  static {
+    availableStrategies.add(ConstructionStrategies.byCreateMethod());
+    availableStrategies.add(ConstructionStrategies.byGetInstance());
+    availableStrategies.add(ConstructionStrategies.byInterface());
+    availableStrategies.add(ConstructionStrategies.xmlBeansBased());
+    availableStrategies.add(ConstructionStrategies.byFactory());
+    availableStrategies.add(ConstructionStrategies.byConstructor());
+  }
 
   private DestBeanCreator() {
   }
@@ -54,35 +61,14 @@ public final class DestBeanCreator {
     // TODO Cache ConstructionStrategy (reuse caching infrastructure)
     // TODO Resolve JAXB by XmlType Annotation
     // TODO Check resulting type in each method
-    // TODO Create prioritized chain
-    // TODO Retries through the chain
     // TODO Directive toString()
     // TODO review and document
     // TODO Analyze getInstance usage in JDK
-    // TODO Rename this class
 
-    if (byCreateMethod.isApplicable(directive)) {
-      return byCreateMethod.create(directive);
-    }
-
-    if (byFactory.isApplicable(directive)) {
-      return byFactory.create(directive);
-    }
-
-    if (byGetInstance.isApplicable(directive)) {
-      return byGetInstance.create(directive);
-    }
-
-    if (byInterface.isApplicable(directive)) {
-      return byInterface.create(directive);
-    }
-
-    if (xmlBeansBased.isApplicable(directive)) {
-      return xmlBeansBased.create(directive);
-    }
-
-    if (constructorBased.isApplicable(directive)) {
-      return constructorBased.create(directive);
+    for (BeanCreationStrategy strategy : availableStrategies) {
+      if (strategy.isApplicable(directive)) {
+        return strategy.create(directive);
+      }
     }
 
     return null;
@@ -90,7 +76,7 @@ public final class DestBeanCreator {
 
 
   public static void setStoredFactories(Map<String, BeanFactory> factories) {
-    byFactory.setStoredFactories(factories);
+    ConstructionStrategies.byFactory().setStoredFactories(factories);
   }
 
 }
