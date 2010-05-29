@@ -131,7 +131,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
   @Test
   public void testConvertListToArray() {
     List<String> src = Arrays.asList("a", "b");
-    String[] result = CollectionUtils.convertListToArray(src, String.class);
+    String[] result = (String[]) CollectionUtils.convertListToArray(src, String.class);
     assertTrue("wrong result value", Arrays.equals(new String[] { "a", "b" }, result));
   }
 
