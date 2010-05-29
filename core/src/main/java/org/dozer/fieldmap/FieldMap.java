@@ -29,8 +29,8 @@ import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Internal class that represents a field mapping definition. Holds all of the information about a single field mapping
@@ -63,8 +63,8 @@ public abstract class FieldMap implements Cloneable {
   private RelationshipType relationshipType;
   private boolean removeOrphans;
 
-  private final Map<Class<?>, DozerPropertyDescriptor> srcPropertyDescriptorMap = new HashMap<Class<?>, DozerPropertyDescriptor>(); // For Caching Purposes
-  private final Map<Class<?>, DozerPropertyDescriptor> destPropertyDescriptorMap = new HashMap<Class<?>, DozerPropertyDescriptor>();
+  private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> srcPropertyDescriptorMap = new ConcurrentHashMap<Class<?>, DozerPropertyDescriptor>(); // For Caching Purposes
+  private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> destPropertyDescriptorMap = new ConcurrentHashMap<Class<?>, DozerPropertyDescriptor>();
 
   public FieldMap(ClassMap classMap) {
     this.classMap = classMap;
@@ -191,14 +191,6 @@ public abstract class FieldMap implements Cloneable {
 
   public String getSrcFieldType() {
     return srcField.getType();
-  }
-
-  public String getSrcFieldDateFormat() {
-    return getDateFormat();
-  }
-
-  public String getDestFieldDateFormat() {
-    return getDateFormat();
   }
 
   public String getDateFormat() {
@@ -378,7 +370,7 @@ public abstract class FieldMap implements Cloneable {
               srcFieldMapGetMethod, srcFieldMapSetMethod, isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
               getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
               getDestDeepIndexHintContainer(), classMap.getSrcClassBeanFactory());
-      this.srcPropertyDescriptorMap.put(runtimeSrcClass, descriptor);
+      this.srcPropertyDescriptorMap.putIfAbsent(runtimeSrcClass, descriptor);
       result = descriptor;
     }
     return result;
@@ -393,7 +385,7 @@ public abstract class FieldMap implements Cloneable {
             getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(), getSrcFieldName(),
             getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), classMap.getDestClassBeanFactory());
 
-      this.destPropertyDescriptorMap.put(runtimeDestClass, descriptor);
+      this.destPropertyDescriptorMap.putIfAbsent(runtimeDestClass, descriptor);
       result = descriptor;
     }
     return result;
