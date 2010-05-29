@@ -15,18 +15,20 @@
  */
 package org.dozer.functional_tests;
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
-import org.dozer.vo.DateContainer;
-import org.dozer.vo.DateObjectDest;
-import org.dozer.vo.DateObjectSource;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import javax.xml.datatype.DatatypeFactory;
+
+import org.dozer.vo.DateContainer;
+import org.dozer.vo.DateObjectDest;
+import org.dozer.vo.DateObjectSource;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author dmitry.buzdin
@@ -69,10 +71,10 @@ public class DateFormatTest extends AbstractFunctionalTest {
   }
 
   @Test
-  public void testGregorianCalendar() {
+  public void testGregorianCalendar() throws Exception{
 
     DateObjectSource source = new DateObjectSource();
-    source.setRecalledDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+    source.setRecalledDate(DatatypeFactory.newInstance().newXMLGregorianCalendar());
 
     DateObjectDest dest = mapper.map(source, DateObjectDest.class);
 
@@ -85,7 +87,7 @@ public class DateFormatTest extends AbstractFunctionalTest {
 
     //Test when instance exist
     dest = new DateObjectDest();
-    dest.setRecDate(new XMLGregorianCalendarImpl(new GregorianCalendar()));
+    dest.setRecDate(DatatypeFactory.newInstance().newXMLGregorianCalendar());
 
     mapper.map(source, dest);
 

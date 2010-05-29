@@ -16,7 +16,6 @@
 package org.dozer.vo;
 
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.Date;
 
 /**
  * XMLGregorianCalendar test object
