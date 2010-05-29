@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Internal class for holding custom converter definitions. Only intended for internal use.
- * 
+ *
  * @author sullins.ben
  * @author dmitry.buzdin
  */
@@ -49,22 +49,28 @@ public class CustomConverterContainer {
     getConverters().add(converter);
   }
 
-  public Class getCustomConverter(Class<?> srcClass, Class<?> destClass, Cache converterByDestTypeCache) {
+  public Class getCustomConverter(Class<?> srcClass, Class<?> destClass, Cache converterTypeCache) {
     if (converters.isEmpty()) {
       return null;
     }
 
     // Check cache first
     final Object cacheKey = CacheKeyFactory.createKey(destClass, srcClass);
-    Class result = (Class) converterByDestTypeCache.get(cacheKey);
-    if (result != null) {
-      return result;
+    if (converterTypeCache.containsKey(cacheKey)) { // even null
+      return (Class) converterTypeCache.get(cacheKey);
     }
 
     // Let's see if the incoming class is a primitive:
     final Class src = ClassUtils.primitiveToWrapper(srcClass);
     final Class dest = ClassUtils.primitiveToWrapper(destClass);
 
+    Class appropriateConverter = findConverter(src, dest);
+    converterTypeCache.put(cacheKey, appropriateConverter);
+
+    return appropriateConverter;
+  }
+
+  private Class findConverter(Class src, Class dest) {
     // Otherwise, loop through custom converters and look for a match. Also, store the result in the cache
     for (CustomConverterDescription customConverter : converters) {
       final Class classA = customConverter.getClassA();
@@ -75,12 +81,10 @@ public class CustomConverterContainer {
       // we also to check to see if it is assignable to either. We then perform these checks in the other direction for classB
       if ((classA.isAssignableFrom(dest) && classB.isAssignableFrom(src))
           || (classA.isAssignableFrom(src) && classB.isAssignableFrom(dest))) {
-        result = customConverter.getType();
+        return customConverter.getType();
       }
     }
-    converterByDestTypeCache.put(cacheKey, result);
-    
-    return result;
+    return null;
   }
 
   @Override

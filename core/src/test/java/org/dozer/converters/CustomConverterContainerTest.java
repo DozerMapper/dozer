@@ -15,16 +15,14 @@
  */
 package org.dozer.converters;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.DozerCache;
-import org.dozer.converters.CustomConverterContainer;
-import org.dozer.converters.CustomConverterDescription;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tierney.matt
@@ -102,6 +100,18 @@ public class CustomConverterContainerTest extends AbstractDozerTest {
     converters.clear();
     Class result = ccc.getCustomConverter(Integer.class, Double.class, cache);
     assertEquals(null, result);
+  }
+
+  @Test
+  public void shouldPutNullInCache() {
+    CustomConverterDescription description = new CustomConverterDescription();
+    description.setClassA(String.class);
+    description.setClassB(String.class);
+    ccc.addConverter(description);
+
+    assertNull(ccc.getCustomConverter(Integer.class, Double.class, cache));
+    
+    assertEquals(1, cache.getSize());
   }
 
 }
