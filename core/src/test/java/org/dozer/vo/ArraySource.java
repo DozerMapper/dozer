@@ -32,6 +32,8 @@ public class ArraySource {
   private List<String> list = new ArrayList<String>();
 
   private String value = null;
+  
+  private List<Integer> listOfIntegers = new ArrayList<Integer>();
 
   public String[] getPreInitializedArray() {
     return preInitializedArray;
@@ -56,4 +58,13 @@ public class ArraySource {
   public void setValue(String value) {
     this.value = value;
   }
+
+  public List<Integer> getListOfIntegers() {
+    return listOfIntegers;
+  }
+
+  public void setListOfIntegers(List<Integer> listOfIntegers) {
+    this.listOfIntegers = listOfIntegers;
+  }
+  
 }

@@ -22,6 +22,7 @@ import java.util.List;
  * Put comments here
  *
  * @author Vadim Shaigorodskiy
+ * @author Hee Tatt Ooi
  */
 public class ArrayDest {
 
@@ -32,6 +33,8 @@ public class ArrayDest {
   private List<String> destList = new ArrayList<String>(100);
 
   private String[] array = null;
+  
+  private int[] primitiveIntArray ;
 
   public ArrayDest() {
     for (int i = 0; i < 10; i++) {
@@ -66,4 +69,13 @@ public class ArrayDest {
   public void setArray(String[] array) {
     this.array = array;
   }
+
+  public int[] getPrimitiveIntArray() {
+    return primitiveIntArray;
+  }
+
+  public void setPrimitiveIntArray(int[] primitiveIntArray) {
+    this.primitiveIntArray = primitiveIntArray;
+  }
+  
 }

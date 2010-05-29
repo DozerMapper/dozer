@@ -21,4 +21,13 @@
     </field>
   </mapping>
 
+  <mapping>
+    <class-a>org.dozer.vo.ArraySource</class-a>
+    <class-b>org.dozer.vo.ArrayDest</class-b>
+    <field>
+      <a>listOfIntegers</a>
+      <b>primitiveIntArray</b>
+    </field>
+  </mapping>
+
 </mappings>
