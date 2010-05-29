@@ -650,7 +650,7 @@ public class MappingProcessor implements Mapper {
     return result;
   }
 
-  private Object[] mapListToArray(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
+  private Object mapListToArray(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
     Class destEntryType = fieldMap.getDestFieldType(destObj.getClass()).getComponentType();
     List list;
     if (!destEntryType.getName().equals(BASE_CLASS)) {
@@ -816,7 +816,7 @@ public class MappingProcessor implements Mapper {
     return addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj, null);
   }
 
-  private Object[] mapSetToArray(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
+  private Object mapSetToArray(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
     return mapListToArray(srcObj, srcCollectionValue, fieldMap, destObj);
   }
 

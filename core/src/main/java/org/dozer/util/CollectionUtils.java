@@ -89,7 +89,8 @@ public final class CollectionUtils {
     return result;
   }
 
-  public static <T> T[] convertListToArray(List<T> list, Class<T> destEntryType) {
+ public static <T> Object convertListToArray(List<T> list, Class<T> destEntryType) {
+    
     Object outArray = Array.newInstance(destEntryType, list.size());
     int count = 0;
     int size = list.size();
@@ -98,6 +99,9 @@ public final class CollectionUtils {
       Array.set(outArray, count, element);
       count++;
     }
+    if(destEntryType.isPrimitive())
+      return outArray;
+    else
     return (T[]) outArray;
   }
 
