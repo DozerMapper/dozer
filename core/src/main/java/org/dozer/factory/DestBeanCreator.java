@@ -17,8 +17,6 @@ package org.dozer.factory;
 
 import org.dozer.BeanFactory;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,17 +30,17 @@ import java.util.Map;
 public final class DestBeanCreator {
 
   // order in this collection determines resolving priority
-  static final List<BeanCreationStrategy> availableStrategies = new ArrayList<BeanCreationStrategy>();
+  static final BeanCreationStrategy[] availableStrategies = new BeanCreationStrategy[6];
 
   static {
-    availableStrategies.add(ConstructionStrategies.byCreateMethod());
-    availableStrategies.add(ConstructionStrategies.byGetInstance());
-    availableStrategies.add(ConstructionStrategies.byInterface());
-    availableStrategies.add(ConstructionStrategies.xmlBeansBased());
-    availableStrategies.add(ConstructionStrategies.byFactory());
-    availableStrategies.add(ConstructionStrategies.byConstructor());
+    availableStrategies[0] = ConstructionStrategies.byCreateMethod();
+    availableStrategies[1] = ConstructionStrategies.byGetInstance();
+    availableStrategies[2] = ConstructionStrategies.byInterface();
+    availableStrategies[3] = ConstructionStrategies.xmlBeansBased();
+    availableStrategies[4] = ConstructionStrategies.byFactory();
+    availableStrategies[5] = ConstructionStrategies.byConstructor();
   }
-
+                         
   private DestBeanCreator() {
   }
 
@@ -62,7 +60,6 @@ public final class DestBeanCreator {
     // TODO Check resulting type in each method
     // TODO Directive toString()
     // TODO review and document
-    // TODO Analyze getInstance usage in JDK
 
     for (BeanCreationStrategy strategy : availableStrategies) {
       if (strategy.isApplicable(directive)) {
@@ -72,7 +69,6 @@ public final class DestBeanCreator {
 
     return null;
   }
-
 
   public static void setStoredFactories(Map<String, BeanFactory> factories) {
     ConstructionStrategies.byFactory().setStoredFactories(factories);

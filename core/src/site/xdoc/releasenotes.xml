@@ -19,21 +19,21 @@
           <p>Bug Fixes</p>
 
 <ul>
-<li>CustomConverterContainer puts null results in cache <a href="/tracker/?func=detail&amp;aid=3007936&amp;group_id=133517&amp;atid=727368">link</a></li>
-<li>NPE in SimpleElementReader <a href="/tracker/?func=detail&amp;aid=2999293&amp;group_id=133517&amp;atid=727368">link</a></li>
-<li>DozerConverter fails on primitive to primitive map <a href="/tracker/?func=detail&amp;aid=2990408&amp;group_id=133517&amp;atid=727368">link</a></li>
-<li>T extends Enum&lt;StatisticType&gt; <a href="/tracker/?func=detail&amp;aid=2988471&amp;group_id=133517&amp;atid=727368">link</a></li>
-<li>Statistics are not mult-thread safe <a href="/tracker/?func=detail&amp;aid=2988467&amp;group_id=133517&amp;atid=727368">link</a></li>
-<li>Copy-by-reference ignored when object is in a Set <a href="/tracker/?func=detail&amp;aid=2967290&amp;group_id=133517&amp;atid=727368">link</a></li>
-<li>ConcurrentModificationException on first map <a href="/tracker/?func=detail&amp;aid=2928288&amp;group_id=133517&amp;atid=727368">link</a></li>
-<li>mapping primitive List -&gt;primitive array does not work <a href="/tracker/?func=detail&amp;aid=2721816&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>CustomConverterContainer puts null results in cache <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3007936&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>NPE in SimpleElementReader <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2999293&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>DozerConverter fails on primitive to primitive map <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2990408&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>T extends Enum&lt;StatisticType&gt; <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2988471&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Statistics are not thread safe <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2988467&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Copy-by-reference ignored when object is in a Set <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2967290&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>ConcurrentModificationException on the first map <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2928288&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Mapping primitive List -&gt; primitive array does not work <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2721816&amp;group_id=133517&amp;atid=727368">link</a></li>
 </ul>
 
 <p>Feature Requests</p>
 
 <ul>
-<li>Allow static createMethod on any class <a href="/tracker/?func=detail&amp;aid=3006592&amp;group_id=133517&amp;atid=727371">link</a></li>
-<li>Improve Debug Logging <a href="/tracker/?func=detail&amp;aid=2999898&amp;group_id=133517&amp;atid=727371">link</a></li>
+<li>Allow static createMethod on any class <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3006592&amp;group_id=133517&amp;atid=727371">link</a></li>
+<li>Improve debug logging <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2999898&amp;group_id=133517&amp;atid=727371">link</a></li>
 </ul>
 
           <h3>5.2.1 <font size="-3" color="gray"><i>4/28/2010</i></font></h3>

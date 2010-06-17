@@ -17,7 +17,7 @@ http://sourceforge.net/tracker/?limit=75&func=&group_id=133517&atid=727371&assig
 url
 
 page = open(url, 'User-Agent' => 'Ruby-Wget').read
-
+                     
 tickets = []
 
 page.each_line {|l|
@@ -36,6 +36,6 @@ page.each_line {|l|
 
 puts "<ul>"
 tickets.each {|i|
-  puts "<li>#{i[1]} <a href=\"#{i[2]}\">link</a></li>"
+  puts "<li>#{i[1]} <a href=\"https://sourceforge.net#{i[2]}\">link</a></li>"
 }
 puts "</ul>"
