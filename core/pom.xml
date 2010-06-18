@@ -158,6 +158,11 @@
       <id>snapshots</id>
       <url>http://snapshots.maven.codehaus.org/maven2</url>
     </pluginRepository>
+    <pluginRepository>
+       <id>twdata-m2-repository</id>
+       <name>twdata.org Maven 2 Repository</name>
+       <url>http://twdata-m2-repository.googlecode.com/svn/</url>
+    </pluginRepository>
   </pluginRepositories>
 
   <repositories>
@@ -170,7 +175,7 @@
           <url>http://repository.jboss.org/maven2</url>
       </repository>
   </repositories>
-  
+
   <build>
     <resources>
       <resource>
@@ -343,6 +348,30 @@
           </execution>
         </executions>
       </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>        
     </plugins>
   </build>
 
@@ -511,10 +540,10 @@
         <artifactId>maven-surefire-report-plugin</artifactId>
         <version>2.4.3</version>
       </plugin>
+        
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.4</version>
         <configuration>
           <aggregate>true</aggregate>
           <links>
@@ -528,6 +557,7 @@
             </reports>
           </reportSet>
         </reportSets>
+
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -566,6 +596,11 @@
       <name>SF.net repository mirror</name>
       <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs/m2repo</url>
     </repository>
+    <snapshotRepository>
+      <id>dozer.sf.net</id>
+      <name>Snapshots</name>
+      <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs/m2repo-snapshot</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <scm>
