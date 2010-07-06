@@ -164,7 +164,14 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     directive.setTargetClass(SelfFactory.class);
     byConstructor.create(directive);
   }
-
+  
+  @Test(expected = MappingException.class)
+  public void shouldFailToReturnCorrectType() {
+    directive.setFactoryName(MyBeanFactory.class.getName());
+    directive.setTargetClass(SelfFactory.class);
+    byFactory.create(directive);
+  }
+  
   public static class SelfFactory {
     private String name;
 
@@ -195,3 +202,4 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
   }
 
 }
+
