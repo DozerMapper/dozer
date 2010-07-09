@@ -1,6 +1,5 @@
 package org.dozer.factory;
 
-import org.apache.xmlbeans.XmlObject;
 import org.dozer.BeanFactory;
 import org.dozer.config.BeanContainer;
 import org.dozer.util.DozerClassLoader;
@@ -26,37 +25,6 @@ import java.util.concurrent.ConcurrentMap;
  * @author Dmitry Buzdin
  */
 public final class ConstructionStrategies {
-
-  private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
-  private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
-  private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
-  private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
-  private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
-  private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
-
-  public static BeanCreationStrategy byCreateMethod() {
-    return byCreateMethod;
-  }
-
-  public static BeanCreationStrategy byGetInstance() {
-    return byGetInstance;
-  }
-
-  public static BeanCreationStrategy byInterface() {
-    return byInterface;
-  }
-
-  public static BeanCreationStrategy xmlBeansBased() {
-    return xmlBeansBased;
-  }
-
-  public static BeanCreationStrategy byConstructor() {
-    return constructorBased;
-  }
-
-  public static ByFactory byFactory() {
-    return byFactory;
-  }
 
   static class ByCreateMethod implements BeanCreationStrategy {
 
@@ -182,11 +150,30 @@ public final class ConstructionStrategies {
 
   static class XMLBeansBased implements BeanCreationStrategy {
 
-    BeanFactory xmlBeanFactory = new XMLBeanFactory();
+    final BeanFactory xmlBeanFactory;
+    boolean xmlBeansAvailable;
+    private Class<?> xmlObjectType;
+
+    XMLBeansBased() {
+      this(new XMLBeanFactory());
+    }
+
+    XMLBeansBased(XMLBeanFactory xmlBeanFactory) {
+      this.xmlBeanFactory = xmlBeanFactory;
+      try {
+        xmlObjectType = Class.forName("org.apache.xmlbeans.XmlObject");
+        xmlBeansAvailable = true;
+      } catch (ClassNotFoundException e) {
+        xmlBeansAvailable = false;
+      }
+    }
 
     public boolean isApplicable(BeanCreationDirective directive) {
+      if (!xmlBeansAvailable) {
+        return false;
+      }
       Class<?> actualClass = directive.getActualClass();
-      return XmlObject.class.isAssignableFrom(actualClass);
+      return xmlObjectType.isAssignableFrom(actualClass);
     }
 
     public Object create(BeanCreationDirective directive) {
@@ -195,7 +182,6 @@ public final class ConstructionStrategies {
       String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : classToCreate.getName();
       return xmlBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
     }
-
 
   }
 
