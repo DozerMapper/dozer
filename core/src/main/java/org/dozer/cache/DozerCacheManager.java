@@ -15,9 +15,9 @@
  */
 package org.dozer.cache;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.util.MappingUtils;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ import java.util.Set;
  */
 public final class DozerCacheManager implements CacheManager {
 
-  private static final Log log = LogFactory.getLog(DozerCacheManager.class);
+  private static final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
 
   private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
 
@@ -85,7 +85,7 @@ public final class DozerCacheManager implements CacheManager {
   }
 
   public void logCaches() {
-    log.info(getCaches());
+    log.info(getCaches().toString());
   }
   
 }

@@ -16,20 +16,20 @@
 package org.dozer.functional_tests;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.vo.iface.ApplicationUser;
 import org.dozer.vo.iface.Subscriber;
 import org.dozer.vo.iface.UpdateMember;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InterfacePerformanceTest extends AbstractFunctionalTest {
-  private static Log log = LogFactory.getLog(InterfacePerformanceTest.class);
+  private static Logger log = LoggerFactory.getLogger(InterfacePerformanceTest.class);
 
   @Test
   public void testInterface() throws Exception {
     log.info("Starting");
-    mapper = getMapper(new String[] { "interfaceMapping.xml" });
+    mapper = getMapper("interfaceMapping.xml");
     { // warm up to load the config
       ApplicationUser source = new ApplicationUser();
       UpdateMember target = new UpdateMember();

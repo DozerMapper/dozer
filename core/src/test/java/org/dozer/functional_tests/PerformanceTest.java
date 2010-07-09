@@ -17,8 +17,6 @@ package org.dozer.functional_tests;
 
 
 import org.apache.commons.lang.time.StopWatch;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.Mapper;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.SimpleObjPrime;
@@ -34,6 +32,8 @@ import org.dozer.vo.perf.MyClassB;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author tierney.matt
@@ -42,7 +42,7 @@ import org.junit.Test;
  */
 public class PerformanceTest extends AbstractFunctionalTest {
 
-  private static Log log = LogFactory.getLog(PerformanceTest.class);
+  private static Logger log = LoggerFactory.getLogger(PerformanceTest.class);
   private static Mapper mapper;
 
   private int numIters = 1; // Set this attribute to 25000 to run performance regression

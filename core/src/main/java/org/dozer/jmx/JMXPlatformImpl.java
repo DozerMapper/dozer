@@ -15,9 +15,8 @@
  */
 package org.dozer.jmx;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.dozer.util.InitLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
@@ -36,7 +35,7 @@ import java.lang.management.ManagementFactory;
  */
 public class JMXPlatformImpl implements JMXPlatform {
 
-  private static final Log log = LogFactory.getLog(JMXPlatformImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(JMXPlatformImpl.class);
 
   public boolean isAvailable() {
     try {
@@ -64,9 +63,9 @@ public class JMXPlatformImpl implements JMXPlatform {
     MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
     try {
       mbs.registerMBean(bean, mbeanObjectName);
-      InitLogger.log(log, "Dozer JMX MBean [" + name + "] auto registered with the Platform MBean Server");
+      log.info("Dozer JMX MBean [" + name + "] auto registered with the Platform MBean Server");
     } catch (InstanceAlreadyExistsException e) {
-      InitLogger.log(log, "JMX MBean instance exists, unable to overwrite [" + name + "].");
+      log.info("JMX MBean instance exists, unable to overwrite [{}].", name);
     }
   }
 
@@ -74,11 +73,11 @@ public class JMXPlatformImpl implements JMXPlatform {
     MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
     boolean isMBeanRegistered = mbs.isRegistered(mbeanObjectName);
     if (isMBeanRegistered) {
-      InitLogger.log(log, "Unregistering existing Dozer JMX MBean [" + name + "].");
+      log.info("Unregistering existing Dozer JMX MBean [{}].", name);
       try {
         mbs.unregisterMBean(mbeanObjectName);
       } catch (InstanceNotFoundException e) {
-        InitLogger.log(log, "JMX MBean not found to unregister [" + name + "].");
+        log.info("JMX MBean not found to unregister [{}].", name);
       }
     }
   }

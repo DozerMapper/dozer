@@ -15,8 +15,6 @@
  */
 package org.dozer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.jmx.DozerAdminController;
@@ -27,11 +25,12 @@ import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.DozerProxyResolver;
-import org.dozer.util.InitLogger;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 import org.dozer.loader.xml.ExpressionElementReader;
 import org.dozer.loader.xml.ELEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
@@ -48,7 +47,7 @@ import javax.management.NotCompliantMBeanException;
  */
 public final class DozerInitializer {
 
-  private static final Log log = LogFactory.getLog(DozerInitializer.class);
+  private static final Logger log = LoggerFactory.getLogger(DozerInitializer.class);
 
   private static final String DOZER_STATISTICS_CONTROLLER = "org.dozer.jmx:type=DozerStatisticsController";
   private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
@@ -64,12 +63,12 @@ public final class DozerInitializer {
     // Multiple threads may try to initialize simultaniously
     synchronized (this) {
       if (isInitialized) {
-        log.debug("Tried to perform initialization when Dozer already started.");
+        log.debug("Tried to perform initialization when Dozer was already started.");
         return;
       }
 
-      InitLogger.log(log, "Initializing Dozer.  Version: " + DozerConstants.CURRENT_VERSION + ", Thread Name:"
-          + Thread.currentThread().getName());
+      log.info("Initializing Dozer. Version: {}, Thread Name: {}",
+              DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
       GlobalSettings globalSettings = GlobalSettings.getInstance();
       initialize(globalSettings);
@@ -149,7 +148,7 @@ public final class DozerInitializer {
       platform.registerMBean(DOZER_STATISTICS_CONTROLLER, new DozerStatisticsController());
       platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
     } else {
-      InitLogger.log(log, "jdk1.5 jmx management classes unavailable. Dozer JMX MBeans will not be auto registered.");
+      log.warn("jdk1.5 jmx management classes unavailable. Dozer JMX MBeans will not be auto registered.");
     }
   }
 

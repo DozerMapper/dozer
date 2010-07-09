@@ -15,8 +15,6 @@
  */
 package org.dozer.loader;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
@@ -26,9 +24,10 @@ import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParserFactory;
-import org.dozer.util.InitLogger;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ import java.util.Set;
  */
 public class CustomMappingsLoader {
 
-  private static final Log log = LogFactory.getLog(CustomMappingsLoader.class);
+  private static final Logger log = LoggerFactory.getLogger(CustomMappingsLoader.class);
 
   private static final MappingsParser mappingsParser = MappingsParser.getInstance();
   private final MappingFileReader mappingFileReader = new MappingFileReader(XMLParserFactory.getInstance());
@@ -95,13 +94,13 @@ public class CustomMappingsLoader {
   private List<MappingFileData> loadFromFiles(List<String> mappingFiles) {
     List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
     if (mappingFiles != null && mappingFiles.size() > 0) {
-      InitLogger.log(log, "Using the following xml files to load custom mappings for the bean mapper instance: " + mappingFiles);
+      log.info("Using the following xml files to load custom mappings for the bean mapper instance: {}", mappingFiles);
       for (String mappingFileName : mappingFiles) {
-        InitLogger.log(log, "Trying to find xml mapping file: " + mappingFileName);
+        log.info("Trying to find xml mapping file: {}", mappingFileName);
         URL url = MappingValidator.validateURL(mappingFileName);
-        InitLogger.log(log, "Using URL [" + url + "] to load custom xml mappings");
+        log.info("Using URL [" + url + "] to load custom xml mappings");
         MappingFileData mappingFileData = mappingFileReader.read(url);
-        InitLogger.log(log, "Successfully loaded custom xml mappings from URL: [" + url + "]");
+        log.info("Successfully loaded custom xml mappings from URL: [{}]", url);
 
         mappingFileDataList.add(mappingFileData);
       }

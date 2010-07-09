@@ -16,8 +16,6 @@
 package org.dozer;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.CacheManager;
@@ -50,6 +48,8 @@ import org.dozer.util.LogMsgFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
 import org.dozer.util.ReflectionUtils;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -83,7 +83,7 @@ import static org.dozer.util.DozerConstants.ITERATE;
  */
 public class MappingProcessor implements Mapper {
 
-  private static final Log log = LogFactory.getLog(MappingProcessor.class);
+  private static final Logger log = LoggerFactory.getLogger(MappingProcessor.class);
 
   private final ClassMappings classMappings;
   private final Configuration globalConfiguration;
@@ -475,7 +475,7 @@ public class MappingProcessor implements Mapper {
         Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
         genericType = ReflectionUtils.determineGenericsType(method, false);
       } catch (Throwable e) {
-        log.warn("The destination object: " + destObj + " does not have a write method");
+        log.warn("The destination object: {} does not have a write method", destObj);
       }
       if (genericType != null) {
         HintContainer destHintContainer = new HintContainer();

@@ -17,9 +17,9 @@ package org.dozer.util;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.fieldmap.FieldMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
@@ -31,7 +31,7 @@ import java.util.Collection;
  */
 public final class LogMsgFactory {
 
-  private static final Log log = LogFactory.getLog(LogMsgFactory.class);
+  private static final Logger log = LoggerFactory.getLogger(LogMsgFactory.class);
 
   private LogMsgFactory() {}
 
@@ -68,7 +68,7 @@ public final class LogMsgFactory {
         destFieldTypeName = fieldMapping.getDestFieldType(destObj.getClass()).getName();
       }
     } catch (Exception e) {
-      log.warn("unable to determine dest field type when build log.error message");
+      log.warn("Unable to determine dest field type when build log.error message");
     }
 
     return "Field mapping error -->" + "\n  MapId: " + fieldMapping.getMapId() + "\n  Type: " + fieldMapping.getType()

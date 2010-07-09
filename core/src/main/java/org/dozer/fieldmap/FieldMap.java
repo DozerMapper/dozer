@@ -17,8 +17,6 @@ package org.dozer.fieldmap;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
@@ -27,6 +25,8 @@ import org.dozer.propertydescriptor.GetterSetterPropertyDescriptor;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,7 +44,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public abstract class FieldMap implements Cloneable {
   
-  private static final Log log = LogFactory.getLog(FieldMap.class);
+  private static final Logger log = LoggerFactory.getLogger(FieldMap.class);
 
   private ClassMap classMap;
   private DozerField srcField;
@@ -84,8 +84,9 @@ public abstract class FieldMap implements Cloneable {
 
   public void writeDestValue(Object runtimeDestObj, Object destFieldValue) {
     if (log.isDebugEnabled()) {
-      log.debug("Getting ready to invoke write method on the destination object.  Dest Obj: "
-          + MappingUtils.getClassNameWithoutPackage(runtimeDestObj.getClass()) + ", Dest value: " + destFieldValue);
+      String className = MappingUtils.getClassNameWithoutPackage(runtimeDestObj.getClass());
+      log.debug("Getting ready to invoke write method on the destination object. Dest Obj: {}, Dest value: {}",
+              className, destFieldValue);
     }
     DozerPropertyDescriptor propDescriptor = getDestPropertyDescriptor(runtimeDestObj.getClass());
     propDescriptor.setPropertyValue(runtimeDestObj, destFieldValue, this);

@@ -15,11 +15,11 @@
  */
 package org.dozer.factory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.BeanFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  */
 public class JAXBBeanFactory implements BeanFactory {
 
-  private static final Log log = LogFactory.getLog(JAXBBeanFactory.class);
+  private static final Logger log = LoggerFactory.getLogger(JAXBBeanFactory.class);
   private static final char INNER_CLASS_DELIMETER = '$';
 
   /**
@@ -45,16 +45,12 @@ public class JAXBBeanFactory implements BeanFactory {
    * @return A implementation of the destination interface
    */
   public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
-    if (log.isDebugEnabled()) {
-      log.debug("createBean(Object, Class, String) - start [" + beanId + "]");
-    }
+    log.debug("createBean(Object, Class, String) - start [{}]", beanId);
 
     int indexOf = beanId.indexOf(INNER_CLASS_DELIMETER);
     while (indexOf > 0) {
       beanId = beanId.substring(0, indexOf) + beanId.substring(indexOf + 1);
-      if (log.isDebugEnabled()) {
-        log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  [" + beanId + "]");
-      }
+      log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  [{}]", beanId);
       indexOf = beanId.indexOf(INNER_CLASS_DELIMETER);
     }
     Object result;
@@ -68,9 +64,7 @@ public class JAXBBeanFactory implements BeanFactory {
       MappingUtils.throwMappingException(e);
     }
     Object returnObject = ReflectionUtils.invoke(method, factory, new Object[] {});
-    if (log.isDebugEnabled()) {
-      log.debug("createBean(Object, Class, String) - end [" + returnObject.getClass().getName() + "]");
-    }
+    log.debug("createBean(Object, Class, String) - end [{}]", returnObject.getClass().getName());    
     result = returnObject;
 
     return result;

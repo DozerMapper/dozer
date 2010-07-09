@@ -15,9 +15,9 @@
  */
 package org.dozer.stats;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.config.GlobalSettings;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public final class StatisticsManagerImpl implements StatisticsManager {
 
-  private static final Log log = LogFactory.getLog(StatisticsManagerImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(StatisticsManagerImpl.class);
 
   private final ConcurrentMap<StatisticType, Statistic> statisticsMap = new ConcurrentHashMap<StatisticType, Statistic>();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
@@ -130,7 +130,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
   }
 
   public void logStatistics() {
-    log.info(getStatistics());
+    log.info(getStatistics().toString());
   }
 
 }

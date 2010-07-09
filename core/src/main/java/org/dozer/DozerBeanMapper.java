@@ -15,8 +15,6 @@
  */
 package org.dozer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheManager;
 import org.dozer.cache.DozerCacheType;
@@ -30,7 +28,8 @@ import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
-import org.dozer.util.InitLogger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.lang.reflect.Proxy;
 import java.util.List;
@@ -51,7 +50,7 @@ import java.util.Map;
  */
 public class DozerBeanMapper implements Mapper {
 
-  private static final Log log = LogFactory.getLog(DozerBeanMapper.class);
+  private static final Logger log = LoggerFactory.getLogger(DozerBeanMapper.class);
   private static final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
 
   /*
@@ -115,7 +114,7 @@ public class DozerBeanMapper implements Mapper {
   private void init() {
     DozerInitializer.getInstance().init();
 
-    InitLogger.log(log, "Initializing a new instance of the dozer bean mapper.");
+    log.info("Initializing a new instance of dozer bean mapper.");
 
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.

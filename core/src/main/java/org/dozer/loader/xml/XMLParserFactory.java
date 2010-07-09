@@ -1,12 +1,12 @@
 package org.dozer.loader.xml;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.MappingException;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -74,13 +74,11 @@ public final class XMLParserFactory {
   }
 
   private static class DozerDefaultHandler extends DefaultHandler {
-    private static final Log log = LogFactory.getLog(DozerDefaultHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(DozerDefaultHandler.class);
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-      if (log.isDebugEnabled()) {
-        log.debug("tag: " + qName);
-      }
+      log.debug("tag: {}", qName);
     }
 
     @Override

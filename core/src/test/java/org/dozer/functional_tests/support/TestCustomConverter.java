@@ -16,8 +16,6 @@
 package org.dozer.functional_tests.support;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
 import org.dozer.vo.CustomDoubleObject;
@@ -28,12 +26,7 @@ import org.dozer.vo.CustomDoubleObjectIF;
  */
 public class TestCustomConverter implements CustomConverter {
 
-  private static final Log log = LogFactory.getLog(TestCustomConverter.class);
-
   public Object convert(Object destination, Object source, Class<?> destClass, Class<?> sourceClass) {
-    // show me the destClass and sourceClass
-    log.debug("Source Class is:" + sourceClass.getName());
-    log.debug("Dest Class is:" + destClass.getName());
 
     if (source == null) {
       return null;

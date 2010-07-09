@@ -18,8 +18,6 @@ package org.dozer.loader.xml;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
@@ -30,6 +28,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Internal class that parses a raw custom xml mapping file into ClassMap objects.
@@ -42,7 +42,7 @@ import org.w3c.dom.NodeList;
  */
 public class XMLParser implements MappingsSource {
 
-  private static final Log log = LogFactory.getLog(XMLParser.class);
+  private static final Logger log = LoggerFactory.getLogger(XMLParser.class);
 
   // Common Elements/Attributes
   private static final String WILDCARD = "wildcard";
@@ -115,10 +115,8 @@ public class XMLParser implements MappingsSource {
   }
 
   private void debugElement(Element element) {
-    if (log.isDebugEnabled()) {
-      log.debug("config name: " + element.getNodeName());
-      log.debug("  value: " + element.getFirstChild().getNodeValue());
-    }
+    log.debug("config name: {}",element.getNodeName());
+    log.debug("  value: {}", element.getFirstChild().getNodeValue());
   }
 
   /**
@@ -135,9 +133,7 @@ public class XMLParser implements MappingsSource {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element ele = (Element) node;
-        if (log.isDebugEnabled()) {
-          log.debug("name: " + ele.getNodeName());
-        }
+        log.debug("name: {}", ele.getNodeName());        
         if (CONFIGURATION_ELEMENT.equals(ele.getNodeName())) {
           parseConfiguration(ele, builder);
         } else if (MAPPING_ELEMENT.equals(ele.getNodeName())) {

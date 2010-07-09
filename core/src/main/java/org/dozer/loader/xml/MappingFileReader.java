@@ -15,13 +15,13 @@
  */
 package org.dozer.loader.xml;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.loader.MappingsSource;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ResourceLoader;
 import org.w3c.dom.Document;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import java.net.URL;
  */
 public class MappingFileReader {
 
-  private static final Log log = LogFactory.getLog(MappingFileReader.class);
+  private static final Logger log = LoggerFactory.getLogger(MappingFileReader.class);
 
   private final DocumentBuilder documentBuilder;
 

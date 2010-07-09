@@ -16,17 +16,17 @@
 package org.dozer.functional_tests.support;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.CustomConverter;
 import org.dozer.vo.HintedOnly;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * @author garsombke.franz
  */
 public class HintedOnlyConverter implements CustomConverter {
 
-  private static final Log log = LogFactory.getLog(HintedOnlyConverter.class);
+  private static final Logger log = LoggerFactory.getLogger(HintedOnlyConverter.class);
 
   public Object convert(Object destination, Object source, Class<?> destClass, Class<?> sourceClass) {
     log.debug("Source Class is:" + sourceClass.getName());

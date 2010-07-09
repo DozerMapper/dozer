@@ -16,9 +16,9 @@
 package org.dozer.classmap;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.util.MappingUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -33,8 +33,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author garsombke.franz
  */
 public class ClassMappings {
-  
-  private static final Log log = LogFactory.getLog(ClassMappings.class);
 
   // Cache key --> Mapping Structure
   private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();

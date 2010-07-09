@@ -15,12 +15,11 @@
  */
 package org.dozer.config;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.dozer.util.DozerConstants;
-import org.dozer.util.InitLogger;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ResourceLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +41,7 @@ import java.util.Properties;
  */
 public class GlobalSettings {
 
-  private static final Log log = LogFactory.getLog(GlobalSettings.class);
+  private static final Logger log = LoggerFactory.getLogger(GlobalSettings.class);
 
   private static final GlobalSettings instance = new GlobalSettings();
 
@@ -111,22 +110,21 @@ public class GlobalSettings {
       propFileName = DozerConstants.DEFAULT_CONFIG_FILE;
     }
 
-    InitLogger.log(log, "Trying to find Dozer configuration file: " + propFileName);
+    log.info("Trying to find Dozer configuration file: {}", propFileName);
     // Load prop file. Prop file is optional, so if it's not found just use defaults
     ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource(propFileName);
     if (url == null) {
-      InitLogger.log(log, "Dozer configuration file not found: " + propFileName
-          + ".  Using defaults for all Dozer global properties.");
+      log.warn("Dozer configuration file not found: {}.  Using defaults for all Dozer global properties.", propFileName);
       return;
     } else {
-      InitLogger.log(log, "Using URL [" + url + "] for Dozer global property configuration");
+      log.info("Using URL [{}] for Dozer global property configuration", url);
     }
 
     Properties props = new Properties();
     InputStream inputStream = null;
     try {
-      InitLogger.log(log, "Reading Dozer properties from URL [" + url + "]");
+      log.info("Reading Dozer properties from URL [{}]", url);
       inputStream = url.openStream();
       props.load(inputStream);
     } catch (IOException e) {
@@ -143,7 +141,7 @@ public class GlobalSettings {
     populateSettings(props);
 
     loadedByFileName = propFileName;
-    InitLogger.log(log, "Finished configuring Dozer global properties");
+    log.debug("Finished configuring Dozer global properties");
   }
 
   private void populateSettings(Properties props) {

@@ -1,13 +1,13 @@
 package org.dozer.factory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.xmlbeans.XmlObject;
 import org.dozer.BeanFactory;
 import org.dozer.config.BeanContainer;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -110,7 +110,7 @@ public final class ConstructionStrategies {
 
   static class ByFactory implements BeanCreationStrategy {
 
-    private static final Log log = LogFactory.getLog(ByFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(ByFactory.class);
 
     private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<String, BeanFactory>();
 
@@ -140,11 +140,9 @@ public final class ConstructionStrategies {
       }
 
       Object result = factory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
-
-      if (log.isDebugEnabled()) {
-        log.debug("Bean instance created with custom factory -->" + "\n  Bean Type: " + result.getClass().getName()
-            + "\n  Factory Name: " + factoryName);
-      }
+      
+      log.debug("Bean instance created with custom factory -->\n  Bean Type: {}\n  Factory Name: {}",
+              result.getClass().getName(), factoryName);
 
       if (!classToCreate.isAssignableFrom(result.getClass())) {
         MappingUtils.throwMappingException("Custom bean factory (" + factory.getClass() +
