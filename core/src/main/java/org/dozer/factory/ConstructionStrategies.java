@@ -26,6 +26,37 @@ import java.util.concurrent.ConcurrentMap;
  */
 public final class ConstructionStrategies {
 
+  private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
+  private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
+  private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
+  private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
+  private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
+  private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
+
+  public static BeanCreationStrategy byCreateMethod() {
+    return byCreateMethod;
+  }
+
+  public static BeanCreationStrategy byGetInstance() {
+    return byGetInstance;
+  }
+
+  public static BeanCreationStrategy byInterface() {
+    return byInterface;
+  }
+
+  public static BeanCreationStrategy xmlBeansBased() {
+    return xmlBeansBased;
+  }
+
+  public static BeanCreationStrategy byConstructor() {
+    return constructorBased;
+  }
+
+  public static ByFactory byFactory() {
+    return byFactory;
+  }  
+
   static class ByCreateMethod implements BeanCreationStrategy {
 
     public boolean isApplicable(BeanCreationDirective directive) {
