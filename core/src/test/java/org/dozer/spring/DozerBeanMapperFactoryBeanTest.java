@@ -29,6 +29,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 /**
  * @author <a href="mailto:buzdin@gmail.com">Dmitry Buzdin</a>
  */
@@ -47,6 +50,7 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
   @Test
   public void testOk() throws Exception {
     factory.setCustomConverters(Collections.EMPTY_LIST);
+    factory.setCustomConvertersWithId(Collections.EMPTY_MAP);
     factory.setEventListeners(Collections.EMPTY_LIST);
     factory.setFactories(Collections.EMPTY_MAP);
     factory.setMappingFiles(new Resource[] { mockResource });
@@ -68,6 +72,13 @@ public class DozerBeanMapperFactoryBeanTest extends AbstractDozerTest {
   @Test
   public void testEmpty() throws Exception {
     factory.afterPropertiesSet();
+  }
+
+  @Test
+  public void testDestroy() throws Exception {
+    factory.beanMapper = mock(DozerBeanMapper.class);
+    factory.destroy();
+    verify(factory.beanMapper).destroy();
   }
 
   private class MockResource implements Resource {

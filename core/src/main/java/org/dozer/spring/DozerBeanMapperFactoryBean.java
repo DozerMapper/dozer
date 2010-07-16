@@ -39,9 +39,10 @@ import java.util.Map;
  */
 public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean, DisposableBean {
 
-  private DozerBeanMapper beanMapper;
+  DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
   private List<CustomConverter> customConverters;
+  private Map<String, CustomConverter> customConvertersWithId;
   private List<DozerEventListener> eventListeners;
   private Map<String, BeanFactory> factories;
 
@@ -62,6 +63,10 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
 
   public final void setCustomConverters(final List<CustomConverter> customConverters) {
     this.customConverters = customConverters;
+  }
+
+  public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
+    this.customConvertersWithId = customConvertersWithId;
   }
 
   public final void setEventListeners(final List<DozerEventListener> eventListeners) {
@@ -102,6 +107,9 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     }
     if (this.customConverters != null) {
       this.beanMapper.setCustomConverters(this.customConverters);
+    }
+    if (this.customConvertersWithId != null) {
+      this.beanMapper.setCustomConvertersWithId(customConvertersWithId);
     }
     if (this.eventListeners != null) {
       this.beanMapper.setEventListeners(this.eventListeners);
