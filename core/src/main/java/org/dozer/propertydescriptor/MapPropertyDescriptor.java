@@ -82,7 +82,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   @Override
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
-    if (isDeepField()) {
+    if (MappingUtils.isDeepMapping(fieldName)) {
       writeDeepDestinationValue(bean, value, fieldMap);
     } else {
       if (!getPropertyType().isPrimitive() || value != null) {

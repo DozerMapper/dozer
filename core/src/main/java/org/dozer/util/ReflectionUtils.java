@@ -89,7 +89,7 @@ public final class ReflectionUtils {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
 
-    StringTokenizer toks = new StringTokenizer(field, DozerConstants.DEEP_FIELD_DELIMITOR);
+    StringTokenizer toks = new StringTokenizer(field, DozerConstants.DEEP_FIELD_DELIMITER);
     Class<?> latestClass = parentClass;
     DeepHierarchyElement[] hierarchy = new DeepHierarchyElement[toks.countTokens()];
     int index = 0;
@@ -253,14 +253,21 @@ public final class ReflectionUtils {
     return result;
   }
 
-  public static Field getFieldFromBean(Class<?> clazz, String fieldName) throws NoSuchFieldException {
+  public static Field getFieldFromBean(Class<?> clazz, String fieldName)  {
+    return getFieldFromBean(clazz, fieldName, clazz);
+  }
+
+  private static Field getFieldFromBean(Class<?> clazz, String fieldName, final Class<?> originalClass)  {
     try {
-      return clazz.getDeclaredField(fieldName);
+      Field field = clazz.getDeclaredField(fieldName);
+      // Allow access to private instance var's that dont have public setter.
+      field.setAccessible(true);
+      return field;
     } catch (NoSuchFieldException e) {
       if (clazz.getSuperclass() != null) {
-        return getFieldFromBean(clazz.getSuperclass(), fieldName);
+        return getFieldFromBean(clazz.getSuperclass(), fieldName, originalClass);
       }
-      throw e;
+      throw new MappingException("No such field found " + originalClass.getName() + "." + fieldName, e);
     }
   }
 

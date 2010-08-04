@@ -16,6 +16,7 @@
 package org.dozer.util;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import junit.framework.Assert;
@@ -93,6 +94,44 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
         Assert.fail("Wrong exception message");
       }
     }
+  }
+
+  @Test
+  public void shouldGetField() {
+    Field field = ReflectionUtils.getFieldFromBean(GrandChild.class, "c");
+    assertNotNull(field);
+  }
+
+  @Test
+  public void shouldGoToSuperclass() {
+    Field field = ReflectionUtils.getFieldFromBean(GrandChild.class, "a");
+    assertNotNull(field);
+
+    field = ReflectionUtils.getFieldFromBean(GrandChild.class, "b");
+    assertNotNull(field);
+  }
+
+  @Test
+  public void shouldModifyAccessor() {
+    Field field = ReflectionUtils.getFieldFromBean(String.class, "offset");
+    assertNotNull(field);
+  }
+
+  @Test(expected = MappingException.class)
+  public void shouldFailWhenFieldMissing() {
+    ReflectionUtils.getFieldFromBean(GrandChild.class, "d");
+  }
+
+  public static class BaseBean {
+    private String a;
+  }
+
+  public static class ChildBean extends BaseBean {
+    private String b;
+  }
+
+  public static class GrandChild extends ChildBean {
+    public String c;
   }
 
   private abstract static class TestClass implements TestIF1, TestIF2 {

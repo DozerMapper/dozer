@@ -16,6 +16,7 @@
 package org.dozer.propertydescriptor;
 
 import org.dozer.fieldmap.HintContainer;
+import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 import java.lang.ref.SoftReference;
@@ -48,7 +49,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
     if (writeMethod == null || writeMethod.get() == null) {
-      if (customSetMethod != null && !isDeepField()) {
+      if (customSetMethod != null && !MappingUtils.isDeepMapping(fieldName)) {
         Method method = ReflectionUtils.findAMethod(clazz, customSetMethod);
         writeMethod = new SoftReference<Method>(method);
       } else {

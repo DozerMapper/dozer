@@ -55,8 +55,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   protected abstract Method getReadMethod() throws NoSuchMethodException;
   protected abstract String getSetMethodName() throws NoSuchMethodException;
   protected abstract boolean isCustomSetMethod();
-
-  @Override
+  
   public Class<?> getPropertyType() {
     if (propertyType == null) {
       propertyType = determinePropertyType();
@@ -66,7 +65,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
   public Object getPropertyValue(Object bean) {
     Object result;
-    if (isDeepField()) {
+    if (MappingUtils.isDeepMapping(fieldName)) {
       result = getDeepSrcFieldValue(bean);
     } else {
       result = invokeReadMethod(bean);
@@ -78,7 +77,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   }
 
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
-    if (isDeepField()) {
+    if (MappingUtils.isDeepMapping(fieldName)) {
       writeDeepDestinationValue(bean, value, fieldMap);
     } else {
       if (!getPropertyType().isPrimitive() || value != null) {
@@ -257,7 +256,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
   private void writeIndexedValue(Object destObj, Object destFieldValue) {
     Object existingValue = invokeReadMethod(destObj);
-    Object indexedValue = prepareIndexedCollection(existingValue, destFieldValue);
+    Object indexedValue = MappingUtils.prepareIndexedCollection(getPropertyType(), existingValue, destFieldValue, index);
     invokeWriteMethod(destObj, indexedValue);
   }
 

@@ -261,7 +261,7 @@ public final class MappingUtils {
   }
 
   public static boolean isDeepMapping(String mapping) {
-    return mapping != null && mapping.contains(DozerConstants.DEEP_FIELD_DELIMITOR);
+    return mapping != null && mapping.contains(DozerConstants.DEEP_FIELD_DELIMITER);
   }
 
   @SuppressWarnings("unchecked")
