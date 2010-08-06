@@ -101,7 +101,14 @@ public final class TypeResolver {
     if (!(type instanceof TypeVariable<?>))
       return null;
 
-    Type targetType = getTypeMap(targetClass).get(type);
+      Type targetType = null;
+      Map<TypeVariable<?>, Type> typeMap = getTypeMap(targetClass);
+      for (TypeVariable<?> typeVariable : typeMap.keySet()) {
+          if (typeVariable.getName().equals(((TypeVariable) type).getName())) {
+              targetType = typeMap.get(typeVariable);
+              break;
+          }
+      }
     if (targetType instanceof Class) {
       return (Class<?>) targetType;
     }

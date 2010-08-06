@@ -8,7 +8,7 @@ public class A extends AbstractDto<Long> {
 
   private String comment;
 
-  /**
+  /**                                                                                      z
    * @return the comment
    */
   public String getComment() {
