@@ -51,9 +51,10 @@ public class CustomMappingsLoader {
   private static final MappingsParser mappingsParser = MappingsParser.getInstance();
   private final MappingFileReader mappingFileReader = new MappingFileReader(XMLParserFactory.getInstance());
 
-  public LoadMappingsResult load(List<String> mappingFiles) {
+  public LoadMappingsResult load(List<String> mappingFiles, List<MappingFileData> builderMappings) {
     
     List<MappingFileData> mappingFileDataList = loadFromFiles(mappingFiles);
+    mappingFileDataList.addAll(builderMappings);
 
     Configuration globalConfiguration = findConfiguration(mappingFileDataList);
 

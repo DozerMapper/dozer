@@ -1,34 +1,33 @@
 package org.dozer.functional_tests.builder;
 
+import org.dozer.classmap.RelationshipType;
+import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Test;
+
+import static org.dozer.loader.api.FieldsMappingOptions.collectionStrategy;
+import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
 
 public class DozerBuilderTest {
 
   @Test
   public void test() {
 
-//    DozerBeanMapper beanMapper = new DozerBeanMapper();
-//    DozerMappingBuilder mapping = new DozerMappingBuilder() {
-//
-//      protected void configure() {
-//        ContextMapping src = type(ContextMapping.class);
-//        ContextMappingPrime dest = type(ContextMappingPrime.class);
-//
-//        mapping(src, dest)
-//            .from(src.getLoanNo())
-//            .to(dest.getLoanNo());
-//      }
-//
-//      private <T> T type(Class<T> contextMappingClass) {
-//      }
-//
-//    };
-//
-//    mapping.apply(beanMapper);
+    BeanMappingBuilder builder = new BeanMappingBuilder() {
+      protected void configure() {
+        mapping(String.class, Integer.class)
+                .exclude("excluded")
+                .fields("src", "dest", 
+                        copyByReference(),
+                        collectionStrategy(true, RelationshipType.NON_CUMULATIVE)
+                );
 
+        mapping(Double.class, String.class)
+                .fields("a", "b");
+      }
+    };
 
   }
 
-  private class DozerMappingBuilder {
-  }
+
+
 }

@@ -8,7 +8,7 @@ import org.dozer.AbstractDozerTest;
 import org.junit.Test;
 
 /**
- * @author <a href="dmitry.buzdin@ctco.lv">Dmitry Buzdin</a>
+ * @author Dmitry Buzdin
  */
 public class IteratorUtilsTest extends AbstractDozerTest {
 

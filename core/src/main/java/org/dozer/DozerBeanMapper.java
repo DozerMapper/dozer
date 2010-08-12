@@ -18,12 +18,15 @@ package org.dozer;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheManager;
 import org.dozer.cache.DozerCacheType;
+import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
+import org.dozer.classmap.MappingFileData;
 import org.dozer.config.GlobalSettings;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
+import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
@@ -32,8 +35,10 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Public Dozer Mapper implementation. This should be used/defined as a singleton within your application. This class
@@ -53,6 +58,7 @@ public class DozerBeanMapper implements Mapper {
   private static final Logger log = LoggerFactory.getLogger(DozerBeanMapper.class);
   private static final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
 
+  private final AtomicBoolean initialized = new AtomicBoolean(false);
   /*
    * Accessible for custom injection
    */
@@ -61,6 +67,7 @@ public class DozerBeanMapper implements Mapper {
   private List<DozerEventListener> eventListeners;
   private CustomFieldMapper customFieldMapper;
   private Map<String, CustomConverter> customConvertersWithId;
+  private final List<MappingFileData> builderMappings = new ArrayList<MappingFileData>();
 
   /*
    * Not accessible for injection
@@ -131,9 +138,10 @@ public class DozerBeanMapper implements Mapper {
   }
 
   protected Mapper getMappingProcessor() {
-    if (customMappings == null) {
+    if (initialized.compareAndSet(false, true)) {
       loadCustomMappings();
     }
+
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
         getEventListeners(), getCustomFieldMapper(), customConvertersWithId);
 
@@ -146,13 +154,19 @@ public class DozerBeanMapper implements Mapper {
     return processor;
   }
 
-  private synchronized void loadCustomMappings() {
-    if (this.customMappings == null) {
-      CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
-      LoadMappingsResult loadMappingsResult = customMappingsLoader.load(mappingFiles);
-      this.customMappings = loadMappingsResult.getCustomMappings();
-      this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
+  void loadCustomMappings() {
+    CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
+    LoadMappingsResult loadMappingsResult = customMappingsLoader.load(mappingFiles, builderMappings);
+    this.customMappings = loadMappingsResult.getCustomMappings();
+    this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
+  }
+
+  public void addMapping(BeanMappingBuilder mappingBuilder) {
+    if (initialized.get()) {
+      throw new MappingException("Dozer Bean Mapper already initialized! Add custom mappings before calling map()");
     }
+    MappingFileData mappingFileData = mappingBuilder.build();
+    builderMappings.add(mappingFileData);
   }
 
   public List<DozerEventListener> getEventListeners() {

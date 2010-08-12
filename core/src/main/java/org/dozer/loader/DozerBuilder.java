@@ -244,10 +244,18 @@ public class DozerBuilder {
       this.classMap = classMap;
     }
 
+    public FieldDefinitionBuilder a(String name) {
+      return a(name, null);
+    }
+
     public FieldDefinitionBuilder a(String name, String type) {
       DozerField field = DozerBuilder.prepareField(name, type);
       this.srcField = field;
       return new FieldDefinitionBuilder(field);
+    }
+
+    public FieldDefinitionBuilder b(String name) {
+      return b(name, null);
     }
 
     public FieldDefinitionBuilder b(String name, String type) {

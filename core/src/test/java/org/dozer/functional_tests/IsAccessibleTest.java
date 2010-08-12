@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author <a href="dmitry.buzdin@ctco.lv">Dmitry Buzdin</a>
+ * @author Dmitry Buzdin
  */
 public class IsAccessibleTest extends AbstractFunctionalTest {
 
