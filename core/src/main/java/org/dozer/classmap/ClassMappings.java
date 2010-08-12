@@ -20,6 +20,7 @@ import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Internal class that determines the appropriate class mapping to be used for
  * the source and destination object being mapped. Only intended for internal
  * use.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
  */
@@ -43,20 +44,32 @@ public class ClassMappings {
   }
 
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
-    classMappings.put(keyFactory.createKey(srcClass, destClass), classMap);
+    ClassMap result = classMappings.put(keyFactory.createKey(srcClass, destClass), classMap);
+    failOnDuplicate(result, classMap);
   }
 
   public void add(Class<?> srcClass, Class<?> destClass, String mapId, ClassMap classMap) {
-    classMappings.put(keyFactory.createKey(srcClass, destClass, mapId), classMap);
+    ClassMap result = classMappings.put(keyFactory.createKey(srcClass, destClass, mapId), classMap);
+    failOnDuplicate(result, classMap);
   }
 
-  public void addAll(ClassMappings classMappings) {
-    this.classMappings.putAll(classMappings.getAll());
+  public void addAll(ClassMappings additionalClassMappings) {
+    Map<String, ClassMap> newMappings = additionalClassMappings.getAll();
+    for (Entry<String, ClassMap> entry : newMappings.entrySet()) {
+      ClassMap result = classMappings.put(entry.getKey(), entry.getValue());
+      failOnDuplicate(result, entry.getValue());
+    }
   }
 
-  // TODO: don't expose the internal datastore
+  public void failOnDuplicate(Object result, ClassMap classMap) {
+    if (result != null) {
+      throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: " + classMap.getSrcClassName()
+              + " Destination: " + classMap.getDestClassName() + " map-id: " + classMap.getMapId());
+    }
+  }
+
   public Map<String, ClassMap> getAll() {
-    return classMappings;
+    return new HashMap<String, ClassMap>(classMappings);
   }
 
   public long size() {
@@ -87,8 +100,8 @@ public class ClassMappings {
       for (Entry<String, ClassMap> entry : classMappings.entrySet()) {
         ClassMap classMap = entry.getValue();
         if (StringUtils.equals(classMap.getMapId(), mapId)
-            && classMap.getSrcClassToMap().isAssignableFrom(srcClass)
-            && classMap.getDestClassToMap().isAssignableFrom(destClass)) {
+                && classMap.getSrcClassToMap().isAssignableFrom(srcClass)
+                && classMap.getDestClassToMap().isAssignableFrom(destClass)) {
           return classMap;
         } else if (StringUtils.equals(classMap.getMapId(), mapId) && srcClass.equals(destClass)) {
           return classMap;
@@ -103,6 +116,7 @@ public class ClassMappings {
   }
 
   // Look for an interface mapping
+
   private ClassMap findInterfaceMapping(Class<?> destClass, Class<?> srcClass, String mapId) {
     // Use object array for keys to avoid any rare thread synchronization issues
     // while iterating over the custom mappings.
@@ -113,8 +127,7 @@ public class ClassMappings {
       Class<?> mappingDestClass = map.getDestClassToMap();
       Class<?> mappingSrcClass = map.getSrcClassToMap();
 
-      if ((mapId == null && map.getMapId() != null)
-          || (mapId != null && !mapId.equals(map.getMapId()))) {
+      if ((mapId == null && map.getMapId() != null) || (mapId != null && !mapId.equals(map.getMapId()))) {
         continue;
       }
 
@@ -127,7 +140,7 @@ public class ClassMappings {
       }
 
       if (destClass.isAssignableFrom(mappingDestClass) ||
-          (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass))) {
+              (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass))) {
         if (srcClass.equals(mappingSrcClass)) {
           return map;
         }

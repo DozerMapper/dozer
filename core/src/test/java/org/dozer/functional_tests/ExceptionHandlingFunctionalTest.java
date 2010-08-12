@@ -15,11 +15,13 @@
  */
 package org.dozer.functional_tests;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import org.dozer.DozerBeanMapper;
 import org.dozer.MappingException;
+import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Before;
 import org.junit.Test;
+
+import static junit.framework.Assert.fail;
 
 /**
  * @author dmitry.buzdin
@@ -32,10 +34,29 @@ public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
     mapper = getMapper("missingSetter.xml");
   }
 
-  @Test(expected=MappingException.class)
+  @Test(expected = MappingException.class)
   public void test_UnableToDetermineType() {
-      mapper.map("", NoNothing.class);
-      fail();
+    mapper.map("", NoNothing.class);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void shouldFailOnDuplicateMapping() {
+    DozerBeanMapper mapper = new DozerBeanMapper();
+    mapper.addMapping(new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(String.class, NoNothing.class);
+      }
+    });
+
+    mapper.addMapping(new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(String.class, NoNothing.class);
+      }
+    });
+    
+    mapper.map("A", NoNothing.class);
   }
 
   public static class NoNothing {

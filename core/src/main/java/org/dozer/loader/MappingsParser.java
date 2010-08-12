@@ -68,12 +68,6 @@ public final class MappingsParser {
       ReflectionUtils.findPropertyDescriptor(classMap.getSrcClassToMap(), "", null);
       ReflectionUtils.findPropertyDescriptor(classMap.getDestClassToMap(), "", null);
 
-      // Check to see if this is a duplicate mapping. If so, throw an Exception
-      if (result.contains(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap.getMapId())) {
-        throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: " + classMap.getSrcClassToMap().getName()
-            + " Destination: " + classMap.getDestClassToMap().getName());
-      }
-
       // Check to see if this is a duplicate map id, irregardless of src and dest class names. 
       // Duplicate map-ids are not allowed
       if (!MappingUtils.isBlankOrNull(classMap.getMapId())) {

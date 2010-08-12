@@ -16,11 +16,7 @@
 
 package org.dozer.loader.api;
 
-import org.apache.commons.lang.StringUtils;
-import org.dozer.CustomConverter;
-import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
-import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.DozerBuilder;
 import org.dozer.util.DozerConstants;
 

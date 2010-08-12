@@ -20,7 +20,10 @@ import org.dozer.MappingException;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Map;
+
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author dmitry.buzdin
@@ -56,6 +59,21 @@ public class ClassMappingsTest extends AbstractDozerTest{
   @Test(expected = MappingException.class)
   public void testNotFoundByMapid() {
     classMappings.find(NestedClass.class, String.class, "A");
+  }
+
+  @Test
+  public void shouldAdd() {
+    classMappings.add(String.class, Integer.class, mock(ClassMap.class));
+    classMappings.add(String.class, Integer.class, "id", mock(ClassMap.class));
+
+    Map<String,ClassMap> result = classMappings.getAll();
+    assertEquals(2, result.size());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void shouldFailOnDuplicate() {
+    classMappings.add(String.class, Integer.class, mock(ClassMap.class));
+    classMappings.add(String.class, Integer.class, mock(ClassMap.class));
   }
 
   public static class NestedClass {
