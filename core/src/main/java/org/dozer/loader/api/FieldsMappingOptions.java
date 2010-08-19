@@ -83,7 +83,7 @@ public class FieldsMappingOptions {
   public static FieldsMappingOption hintA(final Class<?> ... type) {
     return new FieldsMappingOption() {
       public void apply(DozerBuilder.FieldMappingBuilder fieldMappingBuilder) {
-        String declaration = StringUtils.join(type, ",");
+        String declaration = mergeTypeNames(type);
         fieldMappingBuilder.srcHintContainer(declaration);
       }
     };
@@ -92,10 +92,20 @@ public class FieldsMappingOptions {
   public static FieldsMappingOption hintB(final Class<?> ... type) {
     return new FieldsMappingOption() {
       public void apply(DozerBuilder.FieldMappingBuilder fieldMappingBuilder) {
-        String declaration = StringUtils.join(type, ",");
+        String declaration = mergeTypeNames(type);
         fieldMappingBuilder.destHintContainer(declaration);
       }
     };
+  }
+
+  private static String mergeTypeNames(Class<?>[] type) {
+    String[] typeNames = new String[type.length];
+    for (int i = 0; i < type.length; i++) {
+      Class<?> t = type[i];
+      typeNames[i] = t.getName();
+    }
+    String declaration = StringUtils.join(typeNames, ",");
+    return declaration;
   }
 
   public static FieldsMappingOption collectionStrategy(final boolean removeOrphans, final RelationshipType relationshipType) {
