@@ -62,7 +62,7 @@ public class ClassMappings {
   }
 
   public void failOnDuplicate(Object result, ClassMap classMap) {
-    if (result != null) {
+    if (result != null && !classMap.getSrcClassName().equals(classMap.getDestClassName())) {
       throw new IllegalArgumentException("Duplicate Class Mapping Found. Source: " + classMap.getSrcClassName()
               + " Destination: " + classMap.getDestClassName() + " map-id: " + classMap.getMapId());
     }

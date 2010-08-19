@@ -72,8 +72,24 @@ public class ClassMappingsTest extends AbstractDozerTest{
 
   @Test(expected = IllegalArgumentException.class)
   public void shouldFailOnDuplicate() {
-    classMappings.add(String.class, Integer.class, mock(ClassMap.class));
-    classMappings.add(String.class, Integer.class, mock(ClassMap.class));
+    ClassMap classMap = mock(ClassMap.class);
+
+    when(classMap.getSrcClassName()).thenReturn(String.class.getName());
+    when(classMap.getDestClassName()).thenReturn(Integer.class.getName());
+    
+    classMappings.add(String.class, Integer.class, classMap);
+    classMappings.add(String.class, Integer.class, classMap);
+  }
+
+  @Test
+  public void shouldNotFailOnDuplicatesForSameSrcAndDest() {
+    ClassMap classMap = mock(ClassMap.class);
+    
+    when(classMap.getSrcClassName()).thenReturn(String.class.getName());
+    when(classMap.getDestClassName()).thenReturn(String.class.getName());
+
+    classMappings.add(String.class, String.class, classMap);
+    classMappings.add(String.class, String.class, classMap);
   }
 
   public static class NestedClass {

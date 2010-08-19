@@ -535,6 +535,7 @@ public class MappingProcessor implements Mapper {
     return result;
   }
 
+  // TODO Remove orphans  
   private Object mapMap(Object srcObj, Map srcMapValue, FieldMap fieldMap, Object destObj) {
     Map result;
     Map destinationMap = (Map) fieldMap.getDestValue(destObj);
