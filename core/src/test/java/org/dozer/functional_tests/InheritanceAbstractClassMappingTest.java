@@ -15,12 +15,20 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.MappingException;
 import org.dozer.vo.abstractinheritance.A;
+import org.dozer.vo.abstractinheritance.AbstractAContainer;
 import org.dozer.vo.abstractinheritance.AbstractA;
 import org.dozer.vo.abstractinheritance.AbstractB;
+import org.dozer.vo.abstractinheritance.AbstractACollectionContainer;
 import org.dozer.vo.abstractinheritance.B;
+import org.dozer.vo.abstractinheritance.AbstractBContainer;
+import org.dozer.vo.abstractinheritance.AbstractBCollectionContainer;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -79,7 +87,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   }
   
   @Test
-  public void testCustomerMappingForAbstractDestClass() throws Exception {
+  public void testCustomMappingForAbstractDestClass() throws Exception {
 	  mapper = getMapper("abstractMapping.xml");
 	  A src = getA();
 	  AbstractB dest = mapper.map(src, AbstractB.class);
@@ -97,6 +105,44 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
 	  
 	  assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
   }
+  
+  @Test
+  public void testCustomMappingForAbstractDestClassLevelTwo() throws Exception {
+	  mapper = getMapper("abstractMapping.xml");
+	  AbstractAContainer src = getAWrapper();
+	  AbstractBContainer dest = mapper.map(src, AbstractBContainer.class);
+	  assertTrue(dest.getB() instanceof B);
+
+	  assertNull("abstractField1 should have been excluded", dest.getB().getAbstractField1());
+	  assertEquals("abstractBField not mapped correctly", src.getA().getAbstractAField(), dest.getB().getAbstractBField());
+	  assertEquals("field1 not mapped correctly", ((A)src.getA()).getField1(), ((B)dest.getB()).getField1());
+	  assertEquals("fieldB not mapped correctly", ((A)src.getA()).getFieldA(), ((B)dest.getB()).getFieldB());
+	  
+	  // Remap to each other to test bi-directional mapping
+	  AbstractAContainer mappedSrc = mapper.map(dest, AbstractAContainer.class);
+	  AbstractBContainer mappedDest = mapper.map(mappedSrc, AbstractBContainer.class);
+	  
+	  assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
+  }
+  
+  @Test
+  public void testCustomMappingForAsbstractDestClassCollection() throws Exception {
+	  mapper = getMapper("abstractMapping.xml");
+	  AbstractACollectionContainer src = getAsContainer();
+	  AbstractBCollectionContainer dest = mapper.map(src, AbstractBCollectionContainer.class);
+	  assertTrue(dest.getBs().get(0) instanceof B);
+
+	  assertNull("abstractField1 should have been excluded", dest.getBs().get(0).getAbstractField1());
+	  assertEquals("abstractBField not mapped correctly", src.getAs().get(0).getAbstractAField(), dest.getBs().get(0).getAbstractBField());
+	  assertEquals("field1 not mapped correctly", ((A)src.getAs().get(0)).getField1(), ((B)dest.getBs().get(0)).getField1());
+	  assertEquals("fieldB not mapped correctly", ((A)src.getAs().get(0)).getFieldA(), ((B)dest.getBs().get(0)).getFieldB());
+	  
+	  // Remap to each other to test bi-directional mapping
+	  AbstractACollectionContainer mappedSrc = mapper.map(dest, AbstractACollectionContainer.class);
+	  AbstractBCollectionContainer mappedDest = mapper.map(mappedSrc, AbstractBCollectionContainer.class);
+	  
+	  assertEquals("objects not mapped correctly bi-directional", dest, mappedDest);
+}
 
   @Test
   public void testNoCustomMappingForAbstractClasses_SubclassAttrsAppliedToAbstractClasses() throws Exception {
@@ -145,6 +191,20 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
     result.setAbstractAField("abstractAFieldValue");
     result.setAbstractField1("abstractField1Value");
     return result;
+  }
+  
+  private AbstractAContainer getAWrapper() {
+	  AbstractAContainer result = newInstance(AbstractAContainer.class);
+	  result.setA(getA());
+	  return result;
+  }
+  
+  private AbstractACollectionContainer getAsContainer() {
+	  AbstractACollectionContainer result = newInstance(AbstractACollectionContainer.class);
+	  List<AbstractA> list = new ArrayList<AbstractA>();
+	  list.add(getA());
+	  result.setAs(list);
+	  return result;
   }
 
 }

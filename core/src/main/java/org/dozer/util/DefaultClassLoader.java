@@ -28,6 +28,7 @@ public class DefaultClassLoader implements DozerClassLoader {
   public Class<?> loadClass(String className)  {
     Class<?> result = null;
     try {
+      //Class caller = Reflection.getCallerClass(3); TODO OSGi fix - Move to specific implementation
     	result = ClassUtils.getClass(className);
     } catch (ClassNotFoundException e) {
       MappingUtils.throwMappingException(e);

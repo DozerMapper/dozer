@@ -156,6 +156,13 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <dependency>
+       <groupId>org.hibernate</groupId>
+       <artifactId>hibernate-core</artifactId>
+       <version>3.5.0-Final</version>
+       <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <pluginRepositories>

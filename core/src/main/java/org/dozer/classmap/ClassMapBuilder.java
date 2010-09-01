@@ -114,8 +114,6 @@ public final class ClassMapBuilder {
     }
   }
 
-  // If CGLIB proxied class, dont add internal CGLIB field named "callbacks"
-
   static boolean shouldIgnoreField(String fieldName, Class<?> srcType, Class<?> destType) {
     if (CLASS.equals(fieldName)) {
       return true;

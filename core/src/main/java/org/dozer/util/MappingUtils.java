@@ -228,22 +228,24 @@ public final class MappingUtils {
     return loader.loadClass(name);
   }
 
-  public static boolean isProxy(Class<?> clazz) {
-    BeanContainer container = BeanContainer.getInstance();
-    DozerProxyResolver proxyResolver = container.getProxyResolver();
-    return proxyResolver.isProxy(clazz);
-  }
-
-  public static Class<?> getRealSuperclass(Class<?> clazz) {
-    BeanContainer container = BeanContainer.getInstance();
-    DozerProxyResolver proxyResolver = container.getProxyResolver();
-    return proxyResolver.getRealSuperclass(clazz);
-  }
-
   public static Class<?> getRealClass(Class<?> clazz) {
     BeanContainer container = BeanContainer.getInstance();
     DozerProxyResolver proxyResolver = container.getProxyResolver();
     return proxyResolver.getRealClass(clazz);
+  }
+
+  public static <T> T deProxy(T object) {
+    BeanContainer container = BeanContainer.getInstance();
+    DozerProxyResolver proxyResolver = container.getProxyResolver();
+    return proxyResolver.unenhanceObject(object);
+  }
+
+  public static boolean isProxy(Class<?> clazz) {
+    if (clazz.isInterface()) {
+      return false;
+    }
+    return clazz.getName().contains(DozerConstants.CGLIB_ID)
+            || clazz.getName().contains(DozerConstants.JAVASSIST_ID);
   }
 
   public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry,
@@ -349,15 +351,14 @@ public final class MappingUtils {
 
 
   public static List<Class<?>> getSuperClassesAndInterfaces(Class<?> srcClass) {
-
     List<Class<?>> superClasses = new ArrayList<Class<?>>();
     Class<?> realClass = getRealClass(srcClass);
 
     // Add all super classes first
-    Class<?> superClass = getRealSuperclass(realClass);
+    Class<?> superClass = getRealClass(realClass).getSuperclass();
     while (!isBaseClass(superClass)) {
       superClasses.add(superClass);
-      superClass = getRealSuperclass(superClass);
+      superClass = superClass.getSuperclass();
     }
 
     // Now add all interfaces of the passed in class and all it's super classes

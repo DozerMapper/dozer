@@ -15,41 +15,17 @@
  */
 package org.dozer.util;
 
-import org.apache.commons.lang.ClassUtils;
-
 /**
  * @author dmitry.buzdin
  */
 public class DefaultProxyResolver implements DozerProxyResolver {
 
-  public Class<?> loadClass(String name) {
-    Class<?> result = null;
-    try {
-    	//Class caller = Reflection.getCallerClass(3); TODO OSGi fix - Move to specific implementation
-    	result = ClassUtils.getClass(name);
-    } catch (ClassNotFoundException e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
-  }
-
-  public boolean isProxy(Class<?> clazz) {
-    if (clazz.isInterface()) {
-      return false;
-    }
-    return clazz.getName().contains(DozerConstants.CGLIB_ID)
-        || clazz.getName().contains(DozerConstants.JAVASSIST_ID);
-  }
-
-  public Class<?> getRealSuperclass(Class<?> clazz) {
-    if (isProxy(clazz)) {
-      return clazz.getSuperclass().getSuperclass();
-    }
-    return clazz.getSuperclass();
+  public <T> T unenhanceObject(T object) {
+    return object;
   }
 
   public Class<?> getRealClass(Class<?> clazz) {
-    if (isProxy(clazz)) {
+    if (MappingUtils.isProxy(clazz)) {
       Class<?> superclass = clazz.getSuperclass();
       // Proxy could be created based on set of interfaces. In this case we will rely on inheritance mappings.
       if (DozerConstants.BASE_CLASS.equals(superclass.getName())) {
@@ -59,6 +35,5 @@ public class DefaultProxyResolver implements DozerProxyResolver {
     }
     return clazz;
   }
-
 
 }

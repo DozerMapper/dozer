@@ -15,7 +15,25 @@
       <b>abstractField1</b>
     </field-exclude>
   </mapping>
+  
+  <mapping>
+  	<class-a>org.dozer.vo.abstractinheritance.AbstractAContainer</class-a>
+  	<class-b>org.dozer.vo.abstractinheritance.AbstractBContainer</class-b>
+  	<field>
+  		<a>a</a>
+  		<b>b</b>
+  	</field>
+  </mapping>
 
+  <mapping>
+  	<class-a>org.dozer.vo.abstractinheritance.AbstractACollectionContainer</class-a>
+  	<class-b>org.dozer.vo.abstractinheritance.AbstractBCollectionContainer</class-b>
+  	<field>
+  		<a>as</a>
+  		<b>bs</b>
+  	</field>
+  </mapping>
+  
   <mapping>
     <class-a>org.dozer.vo.abstractinheritance.A</class-a>
     <class-b>org.dozer.vo.abstractinheritance.B</class-b>

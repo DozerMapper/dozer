@@ -141,7 +141,7 @@ public class ClassMappings {
 
       if (destClass.isAssignableFrom(mappingDestClass) ||
               (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass))) {
-        if (srcClass.equals(mappingSrcClass)) {
+        if (MappingUtils.getRealClass(srcClass).equals(mappingSrcClass)) {
           return map;
         }
       }

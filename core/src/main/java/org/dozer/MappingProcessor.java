@@ -144,7 +144,9 @@ public class MappingProcessor implements Mapper {
    * @param <T>       destination object type
    * @return new or updated destination object
    */
-  private <T> T map(final Object srcObj, final Class<T> destClass, final T destObj, final String mapId) {
+  private <T> T map(Object srcObj, final Class<T> destClass, final T destObj, final String mapId) {
+    srcObj = MappingUtils.deProxy(srcObj);
+
     Class<T> destType;
     T result;
     if (destClass == null) {
@@ -156,9 +158,8 @@ public class MappingProcessor implements Mapper {
     }
 
     ClassMap classMap = null;
-    try {
-      Class<?> srcRealClass = MappingUtils.getRealClass(srcObj.getClass());
-      classMap = getClassMap(srcRealClass, destType, mapId);
+    try {      
+      classMap = getClassMap(srcObj.getClass(), destType, mapId);
 
       eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
 
@@ -186,6 +187,8 @@ public class MappingProcessor implements Mapper {
   }
 
   private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
+    srcObj = MappingUtils.deProxy(srcObj);
+
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop. Keep a record of mapped fields
     // by storing the id of the sourceObj and the destObj to be mapped. This can
@@ -429,6 +432,8 @@ public class MappingProcessor implements Mapper {
   }
 
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class<?> destFieldType, Object srcFieldValue) {
+    srcFieldValue = MappingUtils.deProxy(srcFieldValue);
+
     // Custom java bean. Need to make sure that the destination object is not
     // already instantiated.
     Object result = getExistingValue(fieldMap, destObj, destFieldType);
@@ -448,11 +453,17 @@ public class MappingProcessor implements Mapper {
       // Check to see if explicit map-id has been specified for the field
       // mapping
       String mapId = fieldMap.getMapId();
-      classMap = getClassMap(srcFieldValue.getClass(), destFieldType, mapId);
+
+      Class<? extends Object> targetClass;
+      if (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().getHint() != null) {
+        targetClass = fieldMap.getDestHintContainer().getHint();
+      } else {
+        targetClass = destFieldType;
+      }
+      classMap = getClassMap(srcFieldValue.getClass(), targetClass, mapId);
 
       result = DestBeanCreator.create(
-          new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(),
-              fieldMap.getDestHintContainer() != null ? fieldMap.getDestHintContainer().getHint() : classMap.getDestClassToMap(), 
+          new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(), classMap.getDestClassToMap(),
               destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(),
               fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod()));
     }
