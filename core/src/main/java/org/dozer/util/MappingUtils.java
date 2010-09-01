@@ -244,8 +244,10 @@ public final class MappingUtils {
     if (clazz.isInterface()) {
       return false;
     }
-    return clazz.getName().contains(DozerConstants.CGLIB_ID)
-            || clazz.getName().contains(DozerConstants.JAVASSIST_ID);
+    String className = clazz.getName();
+    return className.contains(DozerConstants.CGLIB_ID)
+            || className.startsWith(DozerConstants.JAVASSIST_PACKAGE)
+            || className.contains(DozerConstants.JAVASSIST_NAME);
   }
 
   public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry,

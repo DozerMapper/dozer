@@ -49,19 +49,20 @@ public final class DozerConstants {
   public static final boolean DEFAULT_EL_ENABLED = false;
 
   public static final String XSD_NAME = "beanmapping.xsd";
-  public static final String FILE_PREFIX = "file:";
   public static final String CONFIG_FILE_SYS_PROP = "dozer.configuration"; // i.e)-Ddozer.configuration=somefile.properties
   public static final String DEBUG_SYS_PROP = "dozer.debug";// i.e)-Ddozer.debug=true
   public static final String ITERATE = "iterate";
   public static final String DEEP_FIELD_DELIMITER = ".";
   public static final String DEEP_FIELD_DELIMITER_REGEXP = "\\.";
   public static final String SELF_KEYWORD = "this";
-  public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";
-  public static final String JAVASSIST_ID = "$$_javassist";
+  public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";  
   public static final String BASE_CLASS = Object.class.getName();
   public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.getName();
 
   public static final String DEFAULT_CLASS_LOADER_BEAN = DefaultClassLoader.class.getName();
   public static final String DEFAULT_PROXY_RESOLVER_BEAN = DefaultProxyResolver.class.getName();
+
+  public static final String JAVASSIST_PACKAGE = "org.javassist.tmp.";
+  public static final String JAVASSIST_NAME = "_$$_javassist_";
 
 }
