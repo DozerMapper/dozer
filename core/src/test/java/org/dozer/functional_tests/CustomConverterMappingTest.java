@@ -75,7 +75,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   // Defect #1728385
   @Test
   public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
-    mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
+    mapper = getMapper("simpleCustomConverter.xml");
 
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     src.setField3(String.valueOf(System.currentTimeMillis()));
@@ -95,7 +95,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testSimpleCustomConverter_ImplicitMappingWithInheritance() throws Exception {
-    mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
+    mapper = getMapper("simpleCustomConverter.xml");
 
     Car car = newInstance(Car.class);
     Van van = mapper.map(car, Van.class);
@@ -117,7 +117,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testSimpleCustomConverter_NullSrcValue() throws Exception {
     // Test that custom converter gets invoked even if the src field value is NULL
-    mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
+    mapper = getMapper("simpleCustomConverter.xml");
     SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(null);
 

@@ -98,6 +98,24 @@ public class FieldsMappingOptions {
     };
   }
 
+  public static FieldsMappingOption deepHintA(final Class<?> ... type) {
+    return new FieldsMappingOption() {
+      public void apply(DozerBuilder.FieldMappingBuilder fieldMappingBuilder) {
+        String declaration = mergeTypeNames(type);
+        fieldMappingBuilder.srcDeepIndexHintContainer(declaration);
+      }
+    };
+  }
+
+  public static FieldsMappingOption deepHintB(final Class<?> ... type) {
+    return new FieldsMappingOption() {
+      public void apply(DozerBuilder.FieldMappingBuilder fieldMappingBuilder) {
+        String declaration = mergeTypeNames(type);
+        fieldMappingBuilder.destDeepIndexHintContainer(declaration);
+      }
+    };
+  }
+
   private static String mergeTypeNames(Class<?>[] type) {
     String[] typeNames = new String[type.length];
     for (int i = 0; i < type.length; i++) {
