@@ -611,6 +611,7 @@
       <id>dozer.sf.net</id>
       <name>Snapshots</name>
       <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs/m2repo-snapshot</url>
+      <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>
 
