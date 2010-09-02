@@ -24,9 +24,14 @@ import org.dozer.loader.api.FieldsMappingOptions;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
+import static junit.framework.Assert.assertNotSame;
 import static org.dozer.loader.api.FieldsMappingOptions.collectionStrategy;
 import static org.dozer.loader.api.TypeMappingOptions.mapId;
 import static org.junit.Assert.assertEquals;
@@ -65,7 +70,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
     target.getMap().put("B", "2");
 
     beanMapper.map(source, target);
-    
+
     assertEquals(2, target.getMap().size());
   }
 
@@ -91,8 +96,8 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void shouldMapTopLevel() {
-    Map<String,String> src = new HashMap<String, String>();
-    Map<String,String> dest = new HashMap<String, String>();
+    Map<String, String> src = new HashMap<String, String>();
+    Map<String, String> dest = new HashMap<String, String>();
 
     src.put("A", "B");
     dest.put("B", "A");
@@ -102,9 +107,61 @@ public class MapMappingTest extends AbstractFunctionalTest {
     assertEquals(2, dest.size());
   }
 
+  @Test
+  public void testDozerMultiTypeMapContainingCollections() throws Exception {
+    DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+
+    // Setting up test data, multiple types in a single Map
+    DozerExampleEntry entry = new DozerExampleEntry();
+    {
+      entry.getMap().put("A", "foobar");
+      entry.getMap().put("B", new Date(0));
+      entry.getMap().put("C", Boolean.TRUE);
+      // This array list will produce the problem
+      // Remove it and the test case will succeed
+      ArrayList<String> genericList = new ArrayList<String>();
+      genericList.add("something");
+      entry.getMap().put("D", genericList);
+      entry.getMap().put("E", new BigDecimal("0.00"));
+    }
+
+    DozerExampleEntry mapped = dozerBeanMapper.map(entry, DozerExampleEntry.class);
+
+    // All the fields which are visited/mapped before the
+    // ArrayList are mapped successfully and to correct type
+    assertEquals("foobar", mapped.getMap().get("A"));
+    assertEquals(new Date(0), mapped.getMap().get("B"));
+    assertEquals(Boolean.TRUE, mapped.getMap().get("C"));
+    ArrayList<String> expectedList = new ArrayList<String>();
+    expectedList.add("something");
+    assertEquals(expectedList, mapped.getMap().get("D"));
+    assertNotSame(expectedList, mapped.getMap().get("D"));
+
+    // The BigDecimal was visited _after_ the ArrayList
+    // and thus converted to String due to the bug.
+    assertEquals(new BigDecimal("0.00"), mapped.getMap().get("E"));
+  }
+
+  public static class DozerExampleEntry {
+    /*
+    * Explicitly using a sorted TreeMap here to force the visiting order of the entries in the
+    * Map. A, B and C are converted successfully. D too, but this will trigger the
+    * setDestinationTypeHint(). And that will lead to the invalid mapping of entry E.
+    */
+    private Map<String, Object> map = new TreeMap<String, Object>();
+
+    public Map<String, Object> getMap() {
+      return this.map;
+    }
+
+    public void setMap(Map<String, Object> aMap) {
+      this.map = aMap;
+    }
+  }
+
   public static class MapContainer {
 
-    private Map<String,String> map = new HashMap<String,String>();
+    private Map<String, String> map = new HashMap<String, String>();
 
     public Map<String, String> getMap() {
       return map;

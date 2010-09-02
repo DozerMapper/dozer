@@ -158,7 +158,7 @@ public class MappingProcessor implements Mapper {
     }
 
     ClassMap classMap = null;
-    try {      
+    try {
       classMap = getClassMap(srcObj.getClass(), destType, mapId);
 
       eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
@@ -476,10 +476,7 @@ public class MappingProcessor implements Mapper {
   private Object mapCollection(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
     // since we are mapping some sort of collection now is a good time to decide
     // if they provided hints
-    // if no hint is provided then we will use
-    // generics to determine the mapping type
-    // this will only happen once on the dest hint. the next mapping will
-    // already have the hint
+    // if no hint is provided then we will use generics to determine the mapping type
     if (fieldMap.getDestHintContainer() == null) {
       Class<?> genericType = null;
       try {
@@ -491,7 +488,9 @@ public class MappingProcessor implements Mapper {
       if (genericType != null) {
         HintContainer destHintContainer = new HintContainer();
         destHintContainer.setHintName(genericType.getName());
-        fieldMap.setDestHintContainer(destHintContainer);
+        FieldMap cloneFieldMap = (FieldMap) fieldMap.clone();
+        cloneFieldMap.setDestHintContainer(destHintContainer); // should affect only this time as fieldMap is cloned
+        fieldMap = cloneFieldMap;
       }
     }
 
