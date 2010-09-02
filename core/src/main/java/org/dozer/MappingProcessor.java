@@ -546,7 +546,6 @@ public class MappingProcessor implements Mapper {
     return result;
   }
 
-  // TODO Remove orphans  
   private Object mapMap(Object srcObj, Map srcMapValue, FieldMap fieldMap, Object destObj) {
     Map result;
     Map destinationMap = (Map) fieldMap.getDestValue(destObj);
@@ -554,6 +553,9 @@ public class MappingProcessor implements Mapper {
       result = DestBeanCreator.create(srcMapValue.getClass());
     } else {
       result = destinationMap;
+      if (fieldMap.isRemoveOrphans()) {
+        result.clear();
+      }
     }
 
     for (Entry<?, Object> srcEntry : ((Map<?, Object>) srcMapValue).entrySet()) {

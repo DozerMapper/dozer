@@ -30,6 +30,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.dozer.util.MappingUtils.isSupportedMap;
+
 /**
  * Internal class that decorates raw ClassMap objects and performs various validations on the explicit field mappings.
  * It applies global configuration and class level attributes to raw class mappings. It also creates the ClassMap
@@ -92,11 +94,16 @@ public final class MappingsParser {
             fieldMap.validate();
 
             // If we are dealing with a Map data type, transform the field map into a MapFieldMap type
+            // only apply transformation if it is map to non-map mapping.
             if (!(fieldMap instanceof ExcludeFieldMap)) {
-              if (MappingUtils.isSupportedMap(classMap.getDestClassToMap())
-                  || MappingUtils.isSupportedMap(classMap.getSrcClassToMap())
-                  || MappingUtils.isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))
-                  || MappingUtils.isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap()))) {
+              if ((isSupportedMap(classMap.getDestClassToMap())
+                      && !isSupportedMap(classMap.getSrcClassToMap()))
+                  || (isSupportedMap(classMap.getSrcClassToMap())
+                      && !isSupportedMap(classMap.getDestClassToMap()))
+                  || (isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))
+                      && !isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap())))
+                  || (isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap())))
+                      && !isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))) {
                 FieldMap fm = new MapFieldMap(fieldMap);
                 classMap.removeFieldMapping(fieldMap);
                 classMap.addFieldMapping(fm);
