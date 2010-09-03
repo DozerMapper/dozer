@@ -16,6 +16,7 @@
 package org.dozer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,23 +31,25 @@ import java.util.Map;
 public class MappedFieldsTracker {
 
   // Hash Code is ignored as it can serve application specific needs 
-  private final Map<Object, List<Object>> mappedFields = new IdentityHashMap<Object, List<Object>>();
+  private final Map<Object, Map<Integer,Object>> mappedFields = new IdentityHashMap<Object, Map<Integer,Object>>();
 
   public void put(Object src, Object dest) {
-    List<Object> mappedTo = mappedFields.get(src);
+    int destId = System.identityHashCode(dest);
+
+    Map<Integer,Object> mappedTo = mappedFields.get(src);
     if (mappedTo == null) {
-      mappedTo = new ArrayList<Object>();
+      mappedTo = new HashMap<Integer, Object>();
       mappedFields.put(src, mappedTo);
     }
-    if (!mappedTo.contains(dest)) {
-      mappedTo.add(dest);
+    if (!mappedTo.containsKey(destId)) {
+      mappedTo.put(destId, dest);
     }
   }
 
   public Object getMappedValue(Object src, Class<?> destType) {
-    List<Object> alreadyMappedValues = mappedFields.get(src);
+    Map<Integer,Object> alreadyMappedValues = mappedFields.get(src);
     if (alreadyMappedValues != null) {
-      for (Object alreadyMappedValue : alreadyMappedValues) {
+      for (Object alreadyMappedValue : alreadyMappedValues.values()) {
         if (alreadyMappedValue != null) {
           // 1664984 - bi-directionnal mapping with sets & subclasses
           if (destType.isAssignableFrom(alreadyMappedValue.getClass())) {

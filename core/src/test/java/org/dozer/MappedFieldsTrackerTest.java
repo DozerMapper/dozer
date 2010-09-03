@@ -42,13 +42,6 @@ public class MappedFieldsTrackerTest extends AbstractDozerTest{
   }
 
   @Test
-  public void testPut_Multi() {
-    tracker.put("", "1");
-    tracker.put("", "2");
-    assertEquals("1", tracker.getMappedValue("", String.class));
-  }
-
-  @Test
   public void testPut_Interface() {
     tracker.put("", "1");
     tracker.put("", new HashSet());
@@ -58,6 +51,35 @@ public class MappedFieldsTrackerTest extends AbstractDozerTest{
   @Test
   public void testGetMappedValue() {
     assertNull(tracker.getMappedValue("", String.class));
+  }
+
+  @Test
+  public void testGetMappedValue_NoSuchType() {
+    tracker.put("", new HashSet());
+    assertNull(tracker.getMappedValue("", String.class));
+  }
+
+  @Test
+  public void doesNotCallEqualsOrHashCode() {
+    Boom src = new Boom();
+    Boom dest = new Boom();
+
+    tracker.put(src, dest);
+
+    Object result = tracker.getMappedValue(src, Boom.class);
+    assertSame(dest, result);
+  }
+
+  public static class Boom {
+    @Override
+    public int hashCode() {
+      throw new RuntimeException();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      throw new RuntimeException();
+    }
   }
 
 }
