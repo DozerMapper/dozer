@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -95,10 +96,12 @@ public final class ConstructionStrategies {
 
   static class ByGetInstance extends ByCreateMethod {
 
+    // TODO Investigate what else could be here
     @Override
     public boolean isApplicable(BeanCreationDirective directive) {
       Class<?> actualClass = directive.getActualClass();
-      return Calendar.class.isAssignableFrom(actualClass); // TODO Investigate what else could be here
+      return Calendar.class.isAssignableFrom(actualClass)
+              || DateFormat.class.isAssignableFrom(actualClass);
     }
 
     public Object create(BeanCreationDirective directive) {
