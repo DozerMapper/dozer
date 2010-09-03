@@ -22,12 +22,14 @@ import org.dozer.functional_tests.AbstractFunctionalTest;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -92,6 +94,38 @@ public class MapMappingTest extends AbstractFunctionalTest {
     beanMapper.map(source, target);
 
     assertEquals(1, target.getMap().size());
+  }
+
+  @Test
+  @Ignore("Backwards mapping does not work")
+  public void shouldMapEmbeddedList() {
+    beanMapper.addMapping(new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(Map.class, ListContainer.class)
+                .fields(this_().mapKey("embedded"), "list",
+                        collectionStrategy(true, RelationshipType.NON_CUMULATIVE)
+                );
+      }
+    });
+
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    List<String> list = new ArrayList<String>();
+    list.add("A");
+    map.put("embedded", list);
+
+    ListContainer container = new ListContainer();
+
+    beanMapper.map(map, container);
+
+    assertEquals(1, container.getList().size());
+    assertEquals("A", container.getList().get(0));
+
+    HashMap<String, Object> copy = new HashMap<String, Object>();
+    
+    beanMapper.map(container, copy);
+
+    assertEquals(map, copy);
   }
 
   @Test
@@ -169,6 +203,18 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
     public void setMap(Map<String, String> map) {
       this.map = map;
+    }
+  }
+
+  public static class ListContainer {
+    private List<String> list = new ArrayList<String>();
+
+    public List<String> getList() {
+      return list;
+    }
+
+    public void setList(List<String> list) {
+      this.list = list;
     }
   }
 
