@@ -17,6 +17,7 @@
 package org.dozer.util;
 
 import org.hibernate.proxy.HibernateProxy;
+import org.hibernate.proxy.HibernateProxyHelper;
 import org.hibernate.proxy.LazyInitializer;
 
 /**
@@ -36,13 +37,7 @@ public class HibernateProxyResolver extends DefaultProxyResolver {
   }
 
   public <T> Class<T> unenhanceClass(T object) {
-    if (object instanceof HibernateProxy) {
-      HibernateProxy hibernateProxy = (HibernateProxy) object;
-      LazyInitializer lazyInitializer = hibernateProxy.getHibernateLazyInitializer();
-
-      return lazyInitializer.getPersistentClass();
-    }
-    return (Class<T>) object.getClass();
+    return HibernateProxyHelper.getClassWithoutInitializingProxy(object);
   }
 
 }
