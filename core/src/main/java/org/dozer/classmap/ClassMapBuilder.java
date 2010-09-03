@@ -16,7 +16,6 @@
 package org.dozer.classmap;
 
 import org.apache.commons.lang.StringUtils;
-import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
@@ -160,11 +159,9 @@ public final class ClassMapBuilder {
       for (PropertyDescriptor property : properties) {
         String fieldName = property.getName();
 
-
         if (shouldIgnoreField(fieldName, srcClass, destClass)) {
           continue;
         }
-
 
         // already mapped
         if (destinationIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
@@ -176,7 +173,7 @@ public final class ClassMapBuilder {
           continue;
         }
 
-        FieldMap map = new MapFieldMap(classMap);
+        FieldMap fieldMap = new MapFieldMap(classMap);
         DozerField srcField = new DozerField(MappingUtils.isSupportedMap(srcClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
         srcField.setKey(fieldName);
 
@@ -196,10 +193,10 @@ public final class ClassMapBuilder {
           destField.setName(DozerConstants.SELF_KEYWORD);
         }
 
-        map.setSrcField(srcField);
-        map.setDestField(destField);
+        fieldMap.setSrcField(srcField);
+        fieldMap.setDestField(destField);
 
-        classMap.addFieldMapping(map);
+        classMap.addFieldMapping(fieldMap);
       }
       return true;
     }
@@ -241,18 +238,13 @@ public final class ClassMapBuilder {
           continue;
         }
 
-        FieldMap map;
-        DozerField field = new DozerField(fieldName, null);
-        if (field.isCustomGetterSetterField()) {
-          map = new CustomGetSetMethodFieldMap(classMap);
-        } else {
-          map = new GenericFieldMap(classMap);
-        }
-        map.setSrcField(new DozerField(fieldName, null));
-        map.setDestField(new DozerField(fieldName, null));
+        FieldMap fieldMap = new GenericFieldMap(classMap);
+        fieldMap.setSrcField(new DozerField(fieldName, null));
+        fieldMap.setDestField(new DozerField(fieldName, null));
+        
         // add CopyByReferences per defect #1728159
-        MappingUtils.applyGlobalCopyByReference(configuration, map, classMap);
-        classMap.addFieldMapping(map);
+        MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
+        classMap.addFieldMapping(fieldMap);
       }
       return false;
     }
