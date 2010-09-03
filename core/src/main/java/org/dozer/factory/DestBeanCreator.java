@@ -30,17 +30,16 @@ import java.util.Map;
 public final class DestBeanCreator {
 
   // order in this collection determines resolving priority
-  static final BeanCreationStrategy[] availableStrategies = new BeanCreationStrategy[6];
+  static final BeanCreationStrategy[] availableStrategies = new BeanCreationStrategy[]{
+          ConstructionStrategies.byCreateMethod(),
+          ConstructionStrategies.byGetInstance(),
+          ConstructionStrategies.xmlGregorianCalendar(),
+          ConstructionStrategies.byInterface(),
+          ConstructionStrategies.xmlBeansBased(),
+          ConstructionStrategies.byFactory(),
+          ConstructionStrategies.byConstructor()
+  };
 
-  static {
-    availableStrategies[0] = ConstructionStrategies.byCreateMethod();
-    availableStrategies[1] = ConstructionStrategies.byGetInstance();
-    availableStrategies[2] = ConstructionStrategies.byInterface();
-    availableStrategies[3] = ConstructionStrategies.xmlBeansBased();
-    availableStrategies[4] = ConstructionStrategies.byFactory();
-    availableStrategies[5] = ConstructionStrategies.byConstructor();
-  }
-                         
   private DestBeanCreator() {
   }
 

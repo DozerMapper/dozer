@@ -16,6 +16,7 @@
 
 package org.dozer.functional_tests;
 
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import org.dozer.DozerBeanMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,6 +56,19 @@ public class ConstructorTest extends AbstractFunctionalTest {
     assertNotSame(source.getDateFormat(), target.getDateFormat());
     assertNotNull(target.getDateFormat());
     assertEquals(calendar, target.getDateFormat().getCalendar());
+  }
+
+  @Test
+  public void xmlCalendar() {
+    Container source = new Container();
+    XMLGregorianCalendarImpl calendar = new XMLGregorianCalendarImpl();
+    source.setCalendar(calendar);
+    Container target = new Container();
+
+    beanMapper.map(source, target);
+
+    assertNotSame(source.getCalendar(), target.getCalendar());
+    assertEquals(calendar, target.getCalendar());
   }
 
   public static class Container {

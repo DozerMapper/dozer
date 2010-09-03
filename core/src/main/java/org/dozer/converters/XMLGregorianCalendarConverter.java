@@ -16,6 +16,7 @@
 package org.dozer.converters;
 
 import org.apache.commons.beanutils.Converter;
+import org.dozer.MappingException;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -70,7 +71,7 @@ public class XMLGregorianCalendarConverter implements Converter {
       try {
         dataTypeFactory = DatatypeFactory.newInstance();
       } catch (DatatypeConfigurationException e) {
-        throw new RuntimeException(e);
+        throw new MappingException(e);
       }
     }
     return dataTypeFactory;

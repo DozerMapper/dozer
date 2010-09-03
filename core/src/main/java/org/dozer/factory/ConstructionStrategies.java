@@ -1,6 +1,7 @@
 package org.dozer.factory;
 
 import org.dozer.BeanFactory;
+import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
@@ -8,6 +9,9 @@ import org.dozer.util.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -33,6 +37,7 @@ public final class ConstructionStrategies {
   private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
   private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
   private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
+  private static final BeanCreationStrategy xmlGregorianCalendar = new ConstructionStrategies.XmlGregorian();
 
   public static BeanCreationStrategy byCreateMethod() {
     return byCreateMethod;
@@ -56,7 +61,11 @@ public final class ConstructionStrategies {
 
   public static ByFactory byFactory() {
     return byFactory;
-  }  
+  }
+
+  public static BeanCreationStrategy xmlGregorianCalendar() {
+    return xmlGregorianCalendar;
+  }
 
   static class ByCreateMethod implements BeanCreationStrategy {
 
@@ -97,6 +106,7 @@ public final class ConstructionStrategies {
   static class ByGetInstance extends ByCreateMethod {
 
     // TODO Investigate what else could be here
+
     @Override
     public boolean isApplicable(BeanCreationDirective directive) {
       Class<?> actualClass = directive.getActualClass();
@@ -134,7 +144,7 @@ public final class ConstructionStrategies {
         Class<?> factoryClass = MappingUtils.loadClass(factoryName);
         if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
           MappingUtils.throwMappingException("Custom bean factory must implement "
-              + BeanFactory.class.getName() + " interface : " + factoryClass);
+                  + BeanFactory.class.getName() + " interface : " + factoryClass);
         }
         factory = (BeanFactory) ReflectionUtils.newInstance(factoryClass);
         // put the created factory in our factory map
@@ -142,14 +152,14 @@ public final class ConstructionStrategies {
       }
 
       Object result = factory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
-      
+
       log.debug("Bean instance created with custom factory -->\n  Bean Type: {}\n  Factory Name: {}",
               result.getClass().getName(), factoryName);
 
       if (!classToCreate.isAssignableFrom(result.getClass())) {
         MappingUtils.throwMappingException("Custom bean factory (" + factory.getClass() +
-            ") did not return correct type of destination data object. Expected : "
-            + classToCreate + ", Actual : " + result.getClass());
+                ") did not return correct type of destination data object. Expected : "
+                + classToCreate + ", Actual : " + result.getClass());
       }
       return result;
     }
@@ -253,7 +263,7 @@ public final class ConstructionStrategies {
 
       if (constructor == null) {
         MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
-            + ".  Could not find a no-arg constructor for this class.");
+                + ".  Could not find a no-arg constructor for this class.");
       }
 
       // If private, make it accessible
@@ -278,5 +288,23 @@ public final class ConstructionStrategies {
 
   }
 
+  private static class XmlGregorian implements BeanCreationStrategy {
+
+    public boolean isApplicable(BeanCreationDirective directive) {
+      Class<?> actualClass = directive.getActualClass();
+      return XMLGregorianCalendar.class.isAssignableFrom(actualClass);
+    }
+
+    public Object create(BeanCreationDirective directive) {
+      DatatypeFactory dataTypeFactory;
+      try {
+        dataTypeFactory = DatatypeFactory.newInstance();
+      } catch (DatatypeConfigurationException e) {
+        throw new MappingException(e);
+      }
+      return dataTypeFactory.newXMLGregorianCalendar();
+    }
+
+  }
 
 }
