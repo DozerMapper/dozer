@@ -21,6 +21,10 @@ import org.hibernate.proxy.HibernateProxyHelper;
 import org.hibernate.proxy.LazyInitializer;
 
 /**
+ *
+ * Hibernate specific implementation. Checks for HibernateProxy interface and uses Hibernate internal API
+ * to unwrap proxies. 
+ *
  * @author Dmitry Buzdin
  */
 public class HibernateProxyResolver extends DefaultProxyResolver {

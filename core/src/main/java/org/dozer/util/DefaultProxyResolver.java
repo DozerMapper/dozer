@@ -16,6 +16,10 @@
 package org.dozer.util;
 
 /**
+ *
+ * Default implementation. Supports only simple proxy cases of Cglib and Javassist.
+ * For more complicated scenarious consider using framework specific ProxyResolver.
+ *
  * @author dmitry.buzdin
  */
 public class DefaultProxyResolver implements DozerProxyResolver {

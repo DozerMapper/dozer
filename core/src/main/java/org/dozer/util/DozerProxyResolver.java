@@ -26,6 +26,6 @@ public interface DozerProxyResolver {
 
   <T> T unenhanceObject(T object);
 
-  Class<?> getRealClass(Class<?> object);
+  Class<?> getRealClass(Class<?> clazz);
   
 }

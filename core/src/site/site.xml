@@ -42,6 +42,7 @@
       <item name="Getting Started" href="/documentation/gettingstarted.html" />
       <item name="Usage" href="/documentation/usage.html" collapse="true"/>
       <!-- Collapsed Submenu -->
+      <item name="Custom Mappings via API" href="/documentation/apimappings.html"/>      
       <item name="Custom Mappings via XML" href="/documentation/mappings.html" collapse="true">
         <item name="Mapping Two Classes" href="/documentation/mappingclasses.html" />
         <item name="Basic Property Mapping" href="/documentation/simpleproperty.html" />
@@ -63,10 +64,10 @@
         <item name="Inheritance Mapping" href="/documentation/baseattributes.html" />
         <item name="Dozer Events" href="/documentation/events.html" />
         <item name="Expression Language" href="documentation/expressionlanguage.html" />
-        <item name="Proxy Handling" href="documentation/proxyhandling.html" />
       </item>
       <item name="Configuration" href="/documentation/configuration/configuration.html" collapse="true">
         <item name="Logging" href="/documentation/configuration/logging.html" />
+        <item name="Proxy Handling" href="documentation/proxyhandling.html" />
       </item>
       <item name="Statistics" href="/documentation/configuration/statistics.html" />
       <item name="JMX Integration" href="/documentation/jmxintegration.html" />

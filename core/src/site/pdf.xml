@@ -13,6 +13,8 @@
     <item name="Getting Started" ref="/documentation/gettingstarted.html"/>
     <item name="Usage" ref="/documentation/usage.html"/>
 
+    <item name="Custom Mappings via API" href="/documentation/apimappings.html"/>
+      
     <item name="Custom Mappings via XML" ref="/documentation/mappings.html">
       <item name="Mapping Two Classes" ref="/documentation/mappingclasses.html"/>
       <item name="Basic Property Mapping" ref="/documentation/simpleproperty.html"/>
@@ -39,6 +41,7 @@
 
     <item name="Configuration" ref="/documentation/configuration/configuration.html">
       <item name="Logging" ref="/documentation/configuration/logging.html"/>
+      <item name="Proxy Handling" href="documentation/proxyhandling.html"/>
     </item>
 
     <item name="Statistics" ref="/documentation/configuration/statistics.html"/>

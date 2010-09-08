@@ -2,8 +2,8 @@
 <document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>usage</title>
-    <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
+    <title>Logging</title>
+    <author>Dmitry Buzdin</author>
   </properties>
   <head>
     <title/>
@@ -14,11 +14,12 @@
   <body>
     <section name="Logging">
       <p>
-        Dozer logs various events using Jakarta Commons Logging.
-        <b/>
-        Please refer to the
-        <a href="http://jakarta.apache.org/commons/logging/">Jakarta Commons Logging</a>
-        documentation for more information.
+        The logging facade framework in Dozer is <a href="http://www.slf4j.org/">SLF4J</a>.
+        It replaced Commons Logging, which was used in project previously until version 5.3.
+      </p>
+      <p>
+        Please refer to <a href="http://www.slf4j.org/docs.html">SLF4J Documentation</a>
+        for more information on setting up and configuring different logging implementations.
       </p>
     </section>
   </body>

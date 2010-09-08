@@ -28,10 +28,40 @@
   </head>
   <body>
     <section name="Proxy Objects">
+        <subsection name="Overview">
         <p>
-            To Be Written
-            Javassist, CgLib, Custom Implementation, Configuring, Hibernate and JPA
+            Dozer supports mappings done on proxy objects. This is typically the case when using persistence
+            framework, which supports sophisticated features like lazy-loading. In this case application is working
+            with fake objects, containing the real objects encapsulated.
+
+            Implementation of proxies is dependant on the technology you use. Generally speaking, there are two popular
+            libraries for creating Java proxies (<a href="http://cglib.sourceforge.net/">Cglib</a> and
+            <a href="http://www.csg.is.titech.ac.jp/~chiba/javassist/">Javassist</a>). However, how particular
+            framework makes uses of them could also vary.
+
+            Dozer offers by default a generic way to handle simple proxy scenarios, both Javassist and Cglib. However it
+            is strongly recommended to tune proxy handling behavior for your particular scenario.
         </p>
+        </subsection>
+        <subsection name="Configuration">
+            <p>
+                Proxy implementation is set-up by modifying <a href="configuration/configuration.html">configuration file</a>.
+                Currently, besides of default behavior, Hibernate and No-Proxy modes are supported.
+                For the full list of the implementations, see the list of org.dozer.util.DozerProxyResolver
+                interface implementations. The list could be retrieved from JavaDocs.
+            </p>
+            <p>
+                In case you do not map proxied objects - use NoProxy resolver, which imposes minimum
+                performance overhead.
+            </p>
+        </subsection>
+        <subsection name="Custom Scenarios">
+            <p>
+                For custom scenarios it is possible to provide your own implementation of
+                org.dozer.util.DozerProxyResolver interface. It is configured in the same way as the
+                standard classes.
+            </p>
+        </subsection>
     </section>
   </body>
 </document>
