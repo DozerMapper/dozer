@@ -23,7 +23,7 @@ import org.dozer.util.DozerConstants;
 /**
  * @author Dmitry Buzdin
  */
-public abstract class BeanMappingBuilder {
+public abstract class BeanMappingBuilder extends FieldsMappingOptions {
 
   private DozerBuilder dozerBuilder;
 

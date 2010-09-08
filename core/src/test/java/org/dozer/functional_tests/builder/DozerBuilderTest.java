@@ -1,12 +1,11 @@
 package org.dozer.functional_tests.builder;
 
+import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.dozer.loader.api.FieldsMappingOptions.*;
 
 public class DozerBuilderTest {
 
@@ -18,19 +17,48 @@ public class DozerBuilderTest {
   }
 
   @Test
-  public void testAllOfTheApi() {
+  public void testApi() {
 
     BeanMappingBuilder builder = new BeanMappingBuilder() {
       protected void configure() {
-        mapping(Bean.class, Bean.class)
+        mapping(Bean.class, Bean.class,
+                oneWay(),
+                mapId("A"),
+                mapNull(true)
+        )
                 .exclude("excluded")
                 .fields("src", "dest",
                         copyByReference(),
                         collectionStrategy(true, RelationshipType.NON_CUMULATIVE),
                         hintA(String.class),
                         hintB(Integer.class),
-                        oneWay()
+                        fieldOneWay(),
+                        useMapId("A"),
+                        customConverterId("id")
+                )
+                .fields("src", "dest",
+                        customConverter("org.dozer.CustomConverter")
                 );
+
+        mapping(type(Bean.class), type("java.util.Map").mapNull(true),
+                trimStrings(true),
+                relationshipType(RelationshipType.CUMULATIVE),
+                stopOnErrors(true),
+                mapEmptyString(true)
+        )
+                .fields(field("src")
+                              .accessible(true),
+                        this_()
+                              .mapKey("value")
+                              .mapMethods("get", "put"),
+                        customConverter(CustomConverter.class)
+                )
+                .fields("src", this_(),
+                        deepHintA(Integer.class),
+                        deepHintB(String.class),
+                        customConverter(CustomConverter.class, "param")
+                );
+
       }
     };
 

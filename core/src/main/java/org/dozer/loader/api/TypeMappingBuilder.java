@@ -21,7 +21,7 @@ import org.dozer.loader.DozerBuilder;
 /**
  * @author Dmitry Buzdin
  */
-public class TypeMappingBuilder {
+public class TypeMappingBuilder extends FieldsMappingOptions {
 
   private DozerBuilder.MappingBuilder beanMappingBuilder;
 
