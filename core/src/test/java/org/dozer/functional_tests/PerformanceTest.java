@@ -160,7 +160,9 @@ public class PerformanceTest extends AbstractFunctionalTest {
    * jdk1.4 Good Bye
    * jdk1.5 #1 11128 #2 1396 #3 1389 #4 5646 #5 3980 #6 27703
    * jdk1.6 #1 6488 #2 1318 #3 599 #4 2440 #5 1704 #6 6003
-
+   *
+   * DBU Computer (Core 2 Duo 2,66GHZ) - 5.3 release
+   * jdk1.6 #1 7531 #2 938 #3 969 #4 3812 #5 2750 #6 15172 
    */
 
   @Test(timeout = 35000)
