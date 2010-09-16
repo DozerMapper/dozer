@@ -32,21 +32,21 @@ public final class MappingValidator {
 
   public static void validateMappingRequest(Object srcObj) {
     if (srcObj == null) {
-      MappingUtils.throwMappingException("source object must not be null");
+      MappingUtils.throwMappingException("Source object must not be null");
     }
   }
 
   public static void validateMappingRequest(Object srcObj, Object destObj) {
     validateMappingRequest(srcObj);
     if (destObj == null) {
-      MappingUtils.throwMappingException("destination object must not be null");
+      MappingUtils.throwMappingException("Destination object must not be null");
     }
   }
 
   public static void validateMappingRequest(Object srcObj, Class<?> destClass) {
     validateMappingRequest(srcObj);
     if (destClass == null) {
-      MappingUtils.throwMappingException("destination class must not be null");
+      MappingUtils.throwMappingException("Destination class must not be null");
     }
   }
 
@@ -55,7 +55,7 @@ public final class MappingValidator {
     if (fileName == null) {
       MappingUtils.throwMappingException("File name is null");
     }
-    loader.getResource(fileName);
+    
     URL url = loader.getResource(fileName);
     if (url == null) {
       MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!");
@@ -78,4 +78,5 @@ public final class MappingValidator {
 
     return url;
   }
+  
 }
