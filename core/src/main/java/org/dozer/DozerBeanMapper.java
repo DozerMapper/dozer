@@ -18,11 +18,11 @@ package org.dozer;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheManager;
 import org.dozer.cache.DozerCacheType;
-import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.config.GlobalSettings;
+import org.dozer.event.DozerEventManager;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
@@ -31,8 +31,8 @@ import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class DozerBeanMapper implements Mapper {
    */
   private List<String> mappingFiles; // String file names
   private List<CustomConverter> customConverters;
-  private List<DozerEventListener> eventListeners;
+  private List<? extends DozerEventListener> eventListeners;
   private CustomFieldMapper customFieldMapper;
   private Map<String, CustomConverter> customConvertersWithId;
   private final List<MappingFileData> builderMappings = new ArrayList<MappingFileData>();
@@ -76,6 +76,7 @@ public class DozerBeanMapper implements Mapper {
   private Configuration globalConfiguration;
   // There are no global caches. Caches are per bean mapper instance
   private final CacheManager cacheManager = new DozerCacheManager();
+  private DozerEventManager eventManager;
 
   public DozerBeanMapper() {
     this(null);
@@ -107,10 +108,12 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void setMappingFiles(List<String> mappingFiles) {
+    checkIfInitialized();
     this.mappingFiles = mappingFiles;
   }
 
   public void setFactories(Map<String, BeanFactory> factories) {
+    checkIfInitialized();
     DestBeanCreator.setStoredFactories(factories);
   }
 
@@ -125,9 +128,9 @@ public class DozerBeanMapper implements Mapper {
 
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
-    cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), GlobalSettings.getInstance()
-        .getConverterByDestTypeCacheMaxSize());
-    cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), GlobalSettings.getInstance().getSuperTypesCacheMaxSize());
+    GlobalSettings globalSettings = GlobalSettings.getInstance();
+    cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), globalSettings.getConverterByDestTypeCacheMaxSize());
+    cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), globalSettings.getSuperTypesCacheMaxSize());
 
     // stats
     statsMgr.increment(StatisticType.MAPPER_INSTANCES_COUNT);
@@ -140,10 +143,11 @@ public class DozerBeanMapper implements Mapper {
   protected Mapper getMappingProcessor() {
     if (initialized.compareAndSet(false, true)) {
       loadCustomMappings();
+      eventManager = new DozerEventManager(eventListeners);
     }
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
-        getEventListeners(), getCustomFieldMapper(), customConvertersWithId);
+        eventManager, getCustomFieldMapper(), customConvertersWithId);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
@@ -162,18 +166,17 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void addMapping(BeanMappingBuilder mappingBuilder) {
-    if (initialized.get()) {
-      throw new MappingException("Dozer Bean Mapper already initialized! Add custom mappings before calling map()");
-    }
+    checkIfInitialized();
     MappingFileData mappingFileData = mappingBuilder.build();
     builderMappings.add(mappingFileData);
   }
 
-  public List<DozerEventListener> getEventListeners() {
+  public List<? extends DozerEventListener> getEventListeners() {
     return eventListeners;
   }
 
-  public void setEventListeners(List<DozerEventListener> eventListeners) {
+  public void setEventListeners(List<? extends DozerEventListener> eventListeners) {
+    checkIfInitialized();
     this.eventListeners = eventListeners;
   }
 
@@ -182,15 +185,24 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void setCustomFieldMapper(CustomFieldMapper customFieldMapper) {
+    checkIfInitialized();
     this.customFieldMapper = customFieldMapper;
   }
 
-  public Map<String, CustomConverter> getCustomConvertersWithId() {
-    return customConvertersWithId;
-  }
-
+  /**
+   * Converters passed with this method could be further referenced in mappings via its unique id.
+   * Converter instances passed that way are considered stateful and will not be initialized for each mapping.
+   *
+   * @param customConvertersWithId converter id to converter instance map
+   */
   public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
     this.customConvertersWithId = customConvertersWithId;
+  }
+
+  private void checkIfInitialized() {
+    if (initialized.get()) {
+      throw new MappingException("Dozer Bean Mapper is already initialized! Modify settings before calling map()");
+    }
   }
 
 }

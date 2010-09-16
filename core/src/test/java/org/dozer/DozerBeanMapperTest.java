@@ -1,10 +1,13 @@
 package org.dozer;
 
+import org.dozer.event.DozerEvent;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -59,6 +62,27 @@ public class DozerBeanMapperTest extends Assert {
     public int getCalls() {
       return calls.get();
     }
+  }
+
+  @Test
+  public void shouldSetEventListeners() {
+    mapper.setEventListeners(Arrays.asList(new DozerEventListener() {
+      public void mappingStarted(DozerEvent event) {
+      }
+
+      public void preWritingDestinationValue(DozerEvent event) {
+      }
+
+      public void postWritingDestinationValue(DozerEvent event) {
+      }
+
+      public void mappingFinished(DozerEvent event) {
+      }
+    }));
+
+    List<? extends DozerEventListener> listeners = mapper.getEventListeners();
+    
+    assertEquals(1, listeners.size());
   }
 
 }

@@ -28,9 +28,9 @@ import java.util.List;
  */
 public final class DozerEventManager implements EventManager {
   
-  private final List<DozerEventListener> eventListeners;
+  private final List<? extends DozerEventListener> eventListeners;
 
-  public DozerEventManager(List<DozerEventListener> eventListeners) {
+  public DozerEventManager(List<? extends DozerEventListener> eventListeners) {
     this.eventListeners = eventListeners;
   }
 

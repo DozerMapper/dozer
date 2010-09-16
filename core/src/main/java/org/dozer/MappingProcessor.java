@@ -48,8 +48,8 @@ import org.dozer.util.LogMsgFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.MappingValidator;
 import org.dozer.util.ReflectionUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -100,13 +100,14 @@ public class MappingProcessor implements Mapper {
   private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
-                             StatisticsManager statsMgr, List<CustomConverter> customConverterObjects, List<DozerEventListener> eventListeners, CustomFieldMapper customFieldMapper,
+                             StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
+                             DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
                              Map<String, CustomConverter> customConverterObjectsWithId) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
     this.customConverterObjects = customConverterObjects;
-    this.eventMgr = new DozerEventManager(eventListeners); // TODO Should not create this each time
+    this.eventMgr = eventManager;
     this.customFieldMapper = customFieldMapper;
     this.converterByDestTypeCache = cacheMgr.getCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name());
     this.superTypeCache = cacheMgr.getCache(DozerCacheType.SUPER_TYPE_CHECK.name());
