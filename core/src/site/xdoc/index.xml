@@ -33,7 +33,7 @@
     <section name="Dozer News">
       <p/>
 
-        <h3>Release 5.3.0 Now Available<font size="-3" color="gray"> <i>6/9/2010</i></font></h3>
+        <h3>Release 5.3.0 Now Available<font size="-3" color="gray"> <i>10/10/2010</i></font></h3>
         <p>
             Release 5.3.0 is available for download. This release brings several major changes to Dozer.
             First is migration to SLF4J logging framework. Second is introduction of alternative way of
