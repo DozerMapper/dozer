@@ -150,7 +150,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         }
         Object o = null;
         if (clazz.isArray()) {
-          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(clazz.getComponentType()),
+          o = MappingUtils.prepareIndexedCollection(clazz, null, DestBeanCreator.create(clazz.getComponentType()),
               hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
           Class<?> collectionEntryType;
@@ -163,7 +163,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
             hintIndex += 1;
           }
 
-          o = MappingUtils.prepareIndexedCollection(clazz, value, DestBeanCreator.create(collectionEntryType), hierarchyElement
+          o = MappingUtils.prepareIndexedCollection(clazz, null, DestBeanCreator.create(collectionEntryType), hierarchyElement
               .getIndex());
         } else {
           try {

@@ -38,7 +38,7 @@ public final class TypeResolver {
    * container for the already resolved type mappings
    */
   private static Map<Class<?>, Map<TypeVariable<?>, Type>> typeMaps =
-      new ConcurrentHashMap<Class<?>, Map<TypeVariable<?>, Type>>();
+          new ConcurrentHashMap<Class<?>, Map<TypeVariable<?>, Type>>();
 
   /**
    * utility class constructor
@@ -98,17 +98,20 @@ public final class TypeResolver {
     if (type instanceof Class)
       return (Class<?>) type;
 
-    if (!(type instanceof TypeVariable<?>))
+    if (!(type instanceof TypeVariable<?>)) {
       return null;
+    }
 
-      Type targetType = null;
-      Map<TypeVariable<?>, Type> typeMap = getTypeMap(targetClass);
-      for (TypeVariable<?> typeVariable : typeMap.keySet()) {
-          if (typeVariable.getName().equals(((TypeVariable) type).getName())) {
-              targetType = typeMap.get(typeVariable);
-              break;
-          }
+    Type targetType = null;
+    Map<TypeVariable<?>, Type> typeMap = getTypeMap(targetClass);
+    for (Map.Entry<TypeVariable<?>, Type> typeVariableEntry : typeMap.entrySet()) {
+      TypeVariable<?> typeVariable = typeVariableEntry.getKey();
+      if (typeVariable.getName().equals(((TypeVariable) type).getName())) {
+        targetType = typeVariableEntry.getValue();
+        break;
       }
+    }
+    
     if (targetType instanceof Class) {
       return (Class<?>) targetType;
     }

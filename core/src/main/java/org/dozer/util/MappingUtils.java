@@ -277,10 +277,7 @@ public final class MappingUtils {
     } else {
       int originalLenth = ((Object[]) existingCollection).length;
       result = (T[]) Array.newInstance(collectionType.getComponentType(), Math.max(index + 1, originalLenth));
-
-      for (int i = 0; i < originalLenth; i++) {
-        result[i] = ((T[]) existingCollection)[i];
-      }
+      System.arraycopy(existingCollection, 0, result, 0, originalLenth);
     }
     result[index] = (T) collectionEntry;
     return result;
