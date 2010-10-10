@@ -28,15 +28,88 @@
   </head>
   <body>
     <section name="API Mappings">
-        <subsection name="">
+        <p>Since version 5.3 Dozer offers two ways for specifying explicit mappings. First is Xml-based and has
+        been there for years. Second is API-based and it is brand new. On the high level both approaches are
+        functionally equivalent, however there are major differences in using those described further on.</p>
+
+        <subsection name="XML Mapping Flaws">
+        <p>
+        XML-based approach is stable and is used in many production projects. However, it imposes several limitations.
+        </p>
+        <ul>
+            <li>
+                First, and most important, is that it can not be dynamically generated. All XML mappings should be present on
+            Dozer start-up and can not be modified afterwards. There are tricky ways, when you can generate and put
+            mappings to the file system by your own templating engine, but this approach is not supported by Dozer itself.
+                By generating custom mappings you are able to automate repetitive chunks of low-level Dozer language.
+            </li>
+            <li>
+                Second problem is that you re forced duplicate all of your Bean class names in Xml mappings. This
+                leads to lots of typing and copy-paste programming. This can be partly compensated by use of
+                Expression Language inside Xml, but it is not solving all of the problems.
+            </li>
+            <li>
+                Refactoring support is limited as IDE should keep track of class names in Xml files and change them
+                when you rename or move the referenced class. Auto-completion support is also not available in all IDEs.
+            </li>
+        </ul>
 
         </subsection>
-        <subsection name="">
 
-        </subsection>
-        <subsection name="">
+        <subsection name="API Mappings">
+            <p><b>WARNING</b> Currently API mappings functionality is in Beta stage!
+                Some API details may change over next releases.</p>
 
+             <p>
+                API mappings are intended to solve all of the mentioned problems. To preserve backwards compatibility
+                 API mappings can be combined with existing Xml mappings. In fact some parts of the configuration
+                 (e.g. global configuration block) is only possible to express in Xml.
+             </p>
+
+            <p>
+                To get a feeling of what are these mappings take a look at the following code example.
+            </p>
+
+            <source>
+              <![CDATA[
+BeanMappingBuilder builder = new BeanMappingBuilder() {
+      protected void configure() {
+        mapping(Bean.class, Bean.class,
+                oneWay(),
+                mapId("A"),
+                mapNull(true)
+        )
+                .exclude("excluded")
+                .fields("src", "dest",
+                        copyByReference(),
+                        collectionStrategy(true, RelationshipType.NON_CUMULATIVE),
+                        hintA(String.class),
+                        hintB(Integer.class),
+                        fieldOneWay(),
+                        useMapId("A"),
+                        customConverterId("id")
+                )
+                .fields("src", "dest",
+                        customConverter("org.dozer.CustomConverter")
+                );
+      }
+    };
+              ]]>
+            </source>
+
+            <p>Constructed bulider object should be then passed to DozerBeanMapper instance.</p>
+
+      <source>
+        <![CDATA[
+        DozerBeanMapper mapper = new DozerBeanMapper();
+        mapper.addMapping(builder);
+        ]]>
+      </source>
+            <p>
+                That's it.
+            </p>
         </subsection>
+
     </section>
   </body>
 </document>

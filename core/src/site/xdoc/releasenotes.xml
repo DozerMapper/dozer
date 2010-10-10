@@ -15,8 +15,38 @@
 
       <section name="Release Notes">
 
-          <h3>5.2.2 <font size="-3" color="gray"><i>6/9/2010</i></font></h3>
-          <p>Bug Fixes</p>
+<h3>5.3.0 <font size="-3" color="gray"><i>10/10/2010</i></font></h3>
+<p>Bug Fixes</p>
+
+<ul>
+<li>ReflectionUtils.findAMethod can escape by returning null <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3084022&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Unnecessary call to a method <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3061167&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>XMLGregorianCalendar instantiation fails <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3058383&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>DateFormat instantiation fails <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3058382&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Mixed-type values in Map are incorrectly converted  <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3057599&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Fail to map an object graph correctly <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3034762&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Semi-undocumented dependency on XMLBeans <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3023846&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Bug with Javassist <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2927310&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Bug in TypeResolver with generics/inheritance <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2919659&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Remove-orphans is not handled when mapping java.util.Map <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2788366&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Hard to use XML config when mapping from/to java.util.Map <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2725143&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Deep property mapping and is-accesssible=true incompatible <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=1824642&amp;group_id=133517&amp;atid=727368">link</a></li>
+</ul>
+
+
+<p>Feature Requests</p>
+
+<ul>
+    <li>Alternative Java API for mappings <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2346187&amp;group_id=133517&amp;atid=727371">link</a></li>
+    <li>Commons Logging replaced with SLF4J <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2986747&amp;group_id=133517&amp;atid=727371">link</a></li>
+    <li>Improved Hibernate proxy handling <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2993122&amp;group_id=133517&amp;atid=727370">link</a></li>
+    <li>Warning on duplicate mappings <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2931921&amp;group_id=133517&amp;atid=727371">link</a></li>
+    <li>Improved generics handling <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3065767&amp;group_id=133517&amp;atid=727371">link</a></li>
+</ul>
+
+
+<h3>5.2.2 <font size="-3" color="gray"><i>6/9/2010</i></font></h3>
+<p>Bug Fixes</p>
 
 <ul>
 <li>CustomConverterContainer puts null results in cache <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3007936&amp;group_id=133517&amp;atid=727368">link</a></li>

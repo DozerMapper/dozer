@@ -17,7 +17,7 @@
 	<groupId>net.sf.dozer</groupId>
 	<artifactId>dozer-osgi</artifactId>
 	<packaging>bundle</packaging>
-	<version>5.2.2</version>
+	<version>5.3.0</version>
 	<name>dozer.osgi</name>
 
 	<properties>
@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>net.sf.dozer</groupId>
 			<artifactId>dozer</artifactId>
-			<version>5.2.2</version>
+			<version>5.3.0</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

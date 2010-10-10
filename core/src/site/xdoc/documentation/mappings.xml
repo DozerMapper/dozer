@@ -3,7 +3,7 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>mappings</title>
+    <title>Mappings</title>
     <author email="fgarsombke@yahoo.com">Franz Garsombke</author>
   </properties>
   <head>
@@ -70,7 +70,8 @@
       </p>
     </section>
     <section name="How Custom Mapping Files Are Loaded">
-      <p>Dozer will search the entire classpath looking for the specified file.</p>
+      <p>Dozer will search the entire classpath looking for the specified file. The generally acceptable way of
+      distributing your mappings is to bundle them inside your application archive.</p>
       <p>
         Alternatively, you can load files from outside the classpath by prepending "file:" to the resource name.
         Ex) "file:c:\somedozermapping.xml"

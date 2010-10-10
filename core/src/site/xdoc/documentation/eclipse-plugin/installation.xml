@@ -1,7 +1,7 @@
 <document>
   <properties>
     <author email="mhielen@users.sourceforge.net">Markus Thielen</author>
-    <title>eclipse plugin installation</title>
+    <title>Eclipse Plugin Installation</title>
   </properties>
   <head>
     <title/>
@@ -11,6 +11,12 @@
   </head>
   <body>
     <section name="Prerequisites">
+      <p>
+          <b>Eclipse Plugin DOES NOT WORK with latest Eclipse versions!!!</b>
+          The plugin is waiting for the contributor to tune it and make it runnable. Please drop a message in developer
+          forum if you are interested.
+      </p>
+
       <p>
         The Plugin currently depends on<a href="http://springide.org/blog/">Spring IDE 2.2.3</a>. This way the plugin
         can
