@@ -166,16 +166,22 @@ public final class ReflectionUtils {
     return result;
   }
 
-  public static Method findAMethod(Class<?> parentDestClass, String methodName) throws NoSuchMethodException {
+  public static Method findAMethod(Class<?> clazz, String methodName) throws NoSuchMethodException {
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
+    Method result;
     // If tokenizer has more elements, it mean that parameters may have been specified
     if (tokenizer.hasMoreElements()) {
       StringTokenizer tokens = new StringTokenizer(tokenizer.nextToken(), ")");
       String params = (tokens.hasMoreTokens() ? tokens.nextToken() : null);
-      return findMethodWithParam(parentDestClass, m, params);
+      result = findMethodWithParam(clazz, m, params);
+    } else {
+      result = findMethod(clazz, methodName);
     }
-    return findMethod(parentDestClass, methodName);
+    if (result == null) {
+      throw new NoSuchMethodException(clazz.getName() + "." + methodName);
+    }
+    return result;
   }
 
   private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params) throws NoSuchMethodException {

@@ -29,6 +29,10 @@ import org.dozer.vo.SimpleObj;
 import org.dozer.vo.inheritance.ChildChildIF;
 import org.junit.Test;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.hamcrest.core.IsNull.nullValue;
+
 /**
  * @author tierney.matt
  */
@@ -120,6 +124,30 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   @Test(expected = MappingException.class)
   public void shouldFailWhenFieldMissing() {
     ReflectionUtils.getFieldFromBean(GrandChild.class, "d");
+  }
+
+  @Test
+  public void shouldThrowNoSuchMethodFound() throws NoSuchMethodException {
+    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC()");
+    assertThat(result, notNullValue());
+  }
+
+  @Test
+  public void shouldThrowNoSuchMethodFound_NoBrackets() throws NoSuchMethodException {
+    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC");
+    assertThat(result, notNullValue());
+  }
+
+  @Test(expected = NoSuchMethodException.class)
+  public void shouldThrowNoSuchMethodFound_Missing() throws Exception {
+    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod()");
+    fail();
+  }
+
+  @Test(expected = NoSuchMethodException.class)
+  public void shouldThrowNoSuchMethodFound_MissingNoBrackets() throws Exception {
+    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod");
+    fail();
   }
 
   public static class BaseBean {
