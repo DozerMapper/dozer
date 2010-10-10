@@ -35,7 +35,10 @@
 
         <h3>Release 5.3.0 Now Available<font size="-3" color="gray"> <i>6/9/2010</i></font></h3>
         <p>
-            Release 5.3.0 is available for download.
+            Release 5.3.0 is available for download. This release brings several major changes to Dozer.
+            First is migration to SLF4J logging framework. Second is introduction of alternative way of
+            providing custom mappings via Java API. In the meanwhile we reached 50000 downloads 
+            from the website. This is excluding Maven repository.
         </p>
         <p>
           Refer to <a href="releasenotes.html">release notes</a> for detailed information.
