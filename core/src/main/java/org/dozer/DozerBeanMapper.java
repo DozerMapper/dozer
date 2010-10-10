@@ -107,9 +107,17 @@ public class DozerBeanMapper implements Mapper {
     return mappingFiles;
   }
 
-  public void setMappingFiles(List<String> mappingFiles) {
+  /**
+   * Sets list of URLs for custom XML mapping files, which are loaded when mapper gets initialized.
+   * It is possible to load files from file system via file: prefix. If no prefix is given mapping files are
+   * loaded from classpath and can be packaged along with the application.
+   * 
+   * @param mappingFileUrls URLs referencing custom mapping files
+   * @see java.net.URL
+   */
+  public void setMappingFiles(List<String> mappingFileUrls) {
     checkIfInitialized();
-    this.mappingFiles = mappingFiles;
+    this.mappingFiles = mappingFileUrls;
   }
 
   public void setFactories(Map<String, BeanFactory> factories) {
