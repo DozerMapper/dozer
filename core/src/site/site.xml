@@ -74,20 +74,24 @@
       <item name="Spring Integration" href="/documentation/springintegration.html"/>
       <item name="JAXB and XMLBeans" href="/documentation/xmlbeans.html" />
       <item name="FAQ" href="/documentation/faq.html" />
-      <!-- Collapsed Submenu -->
+
+      <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />
+    </menu>
+
+    <menu name="Community">
+      <item name="Articles" href="/documentation/articles.html"/>
       <item name="Support" href="/documentation/support.html" collapse="true">
         <item name="Support Forum" href="http://sourceforge.net/forum/?group_id=133517" />
         <item name="Bug Tracker" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727368" />
-        <item name="Feature Request" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371" />
+        <item name="Feature Requests" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371" />
         <item name="Patches" href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370" />
       </item>
-      <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />
     </menu>
 
     <menu name="Release Notes">
       <!-- Standalone item -->
       <item name="Release Notes" href="/releasenotes.html" />
-      <item name="Unit Reports" href="surefire-report.html" />
+      <item name="Unit Test Reports" href="surefire-report.html" />
     </menu>
     ${reports}
 
