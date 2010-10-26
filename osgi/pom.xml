@@ -21,8 +21,24 @@
 	<name>dozer.osgi</name>
 
 	<properties>
-		<export.packages>org.dozer.*</export.packages>
-		<import.packages>*</import.packages>
+		<export.packages>org.dozer.*;version=${pom.version}</export.packages>
+		<import.packages>
+			!org.dozer*,
+			javax.management,
+			javax.xml.datatype,
+			javax.xml.parsers,
+			org.apache.commons.beanutils;version="[1.7,2)",
+			org.apache.commons.beanutils.converters;version="[1.7,2)",
+			org.apache.commons.lang;version="[2.4,3)",
+			org.apache.commons.lang.builder;version="[2.4,3)",
+			org.springframework.beans.factory;version="[2.0,4)";resolution:="optional",
+			org.springframework.core.io;version="[2.0,4)";resolution:="optional",
+			org.w3c.dom,
+			org.xml.sax,
+			org.xml.sax.helpers,
+			org.hibernate.proxy;version="[3.0,4)";resolution:=optional,
+        		*
+                </import.packages>
 		<private.packages>!*</private.packages>
 		<symbolic.name>${pom.groupId}.${pom.artifactId}</symbolic.name>
 		<embed-dep>*;scope=provided;type=!pom;inline=true</embed-dep>
