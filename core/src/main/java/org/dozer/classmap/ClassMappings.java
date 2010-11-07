@@ -43,6 +43,11 @@ public class ClassMappings {
     keyFactory = new ClassMapKeyFactory();
   }
 
+  // Default mappings. May be ovewritten due to multiple threads generating same mapping
+  public void addDefault(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
+    classMappings.put(keyFactory.createKey(srcClass, destClass), classMap);
+  }
+
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
     ClassMap result = classMappings.put(keyFactory.createKey(srcClass, destClass), classMap);
     failOnDuplicate(result, classMap);

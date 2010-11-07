@@ -35,39 +35,42 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Public Dozer Mapper implementation. This should be used/defined as a singleton within your application. This class
  * perfoms several one time initializations and loads the custom xml mappings, so you will not want to create many
  * instances of it for performance reasons. Typically a system will only have one DozerBeanMapper instance per VM. If
- * you are using an IOC framework(i.e Spring), define the Mapper as singleton="true". If you are not using an IOC
+ * you are using an IOC framework (i.e Spring), define the Mapper as singleton="true". If you are not using an IOC
  * framework, a DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
- *
+ * <p/>
  * It is technically possible to have multiple DozerBeanMapper instances initialized, but it will hinder internal
  * performance optimizations such as caching.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
+ * @author dmitry.buzdin
  */
 public class DozerBeanMapper implements Mapper {
 
   private static final Logger log = LoggerFactory.getLogger(DozerBeanMapper.class);
   private static final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
 
-  private final AtomicBoolean initialized = new AtomicBoolean(false);
+  private final AtomicBoolean initializing = new AtomicBoolean(false);
+  private final CountDownLatch ready = new CountDownLatch(1);
+
   /*
    * Accessible for custom injection
    */
-  private List<String> mappingFiles; // String file names
-  private List<CustomConverter> customConverters;
-  private List<? extends DozerEventListener> eventListeners;
-  private CustomFieldMapper customFieldMapper;
-  private Map<String, CustomConverter> customConvertersWithId;
+  private final List<String> mappingFiles = new ArrayList<String>();
+  private final List<CustomConverter> customConverters = new ArrayList<CustomConverter>();
   private final List<MappingFileData> builderMappings = new ArrayList<MappingFileData>();
+  private final Map<String, CustomConverter> customConvertersWithId = new HashMap<String, CustomConverter>();
+  private List<? extends DozerEventListener> eventListeners = new ArrayList<DozerEventListener>();
+
+  private CustomFieldMapper customFieldMapper;
 
   /*
    * Not accessible for injection
@@ -79,45 +82,63 @@ public class DozerBeanMapper implements Mapper {
   private DozerEventManager eventManager;
 
   public DozerBeanMapper() {
-    this(null);
+    this(Collections.<String>emptyList());
   }
 
   public DozerBeanMapper(List<String> mappingFiles) {
-    this.mappingFiles = mappingFiles;
+    this.mappingFiles.addAll(mappingFiles);
     init();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void map(Object source, Object destination, String mapId) throws MappingException {
     getMappingProcessor().map(source, destination, mapId);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException {
     return getMappingProcessor().map(source, destinationClass, mapId);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <T> T map(Object source, Class<T> destinationClass) throws MappingException {
     return getMappingProcessor().map(source, destinationClass);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void map(Object source, Object destination) throws MappingException {
     getMappingProcessor().map(source, destination);
   }
 
+  /**
+   * Returns list of provided mapping file URLs
+   *
+   * @return unmodifiable list of mapping files
+   */
   public List<String> getMappingFiles() {
-    return mappingFiles;
+    return Collections.unmodifiableList(mappingFiles);
   }
 
   /**
    * Sets list of URLs for custom XML mapping files, which are loaded when mapper gets initialized.
    * It is possible to load files from file system via file: prefix. If no prefix is given mapping files are
    * loaded from classpath and can be packaged along with the application.
-   * 
+   *
    * @param mappingFileUrls URLs referencing custom mapping files
    * @see java.net.URL
    */
   public void setMappingFiles(List<String> mappingFileUrls) {
     checkIfInitialized();
-    this.mappingFiles = mappingFileUrls;
+    this.mappingFiles.clear();
+    this.mappingFiles.addAll(mappingFileUrls);
   }
 
   public void setFactories(Map<String, BeanFactory> factories) {
@@ -126,7 +147,17 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void setCustomConverters(List<CustomConverter> customConverters) {
-    this.customConverters = customConverters;
+    checkIfInitialized();
+    this.customConverters.clear();
+    this.customConverters.addAll(customConverters);
+  }
+
+  public List<CustomConverter> getCustomConverters() {
+    return Collections.unmodifiableList(customConverters);
+  }
+
+  public Map<String, CustomConverter> getCustomConvertersWithId() {
+    return Collections.unmodifiableMap(customConvertersWithId);
   }
 
   private void init() {
@@ -149,18 +180,26 @@ public class DozerBeanMapper implements Mapper {
   }
 
   protected Mapper getMappingProcessor() {
-    if (initialized.compareAndSet(false, true)) {
+
+    if (initializing.compareAndSet(false, true)) {
       loadCustomMappings();
       eventManager = new DozerEventManager(eventListeners);
+      ready.countDown();
+    }
+
+    try {
+      ready.await();
+    } catch (InterruptedException e) {
+      log.error("Thread interrupted: ", e);
     }
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
-        eventManager, getCustomFieldMapper(), customConvertersWithId);
+            eventManager, getCustomFieldMapper(), customConvertersWithId);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
       processor = (Mapper) Proxy.newProxyInstance(processor.getClass().getClassLoader(), processor.getClass().getInterfaces(),
-          new StatisticsInterceptor(processor, statsMgr));
+              new StatisticsInterceptor(processor, statsMgr));
     }
 
     return processor;
@@ -180,7 +219,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public List<? extends DozerEventListener> getEventListeners() {
-    return eventListeners;
+    return Collections.unmodifiableList(eventListeners);
   }
 
   public void setEventListeners(List<? extends DozerEventListener> eventListeners) {
@@ -204,11 +243,13 @@ public class DozerBeanMapper implements Mapper {
    * @param customConvertersWithId converter id to converter instance map
    */
   public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
-    this.customConvertersWithId = customConvertersWithId;
+    checkIfInitialized();
+    this.customConvertersWithId.clear();
+    this.customConvertersWithId.putAll(customConvertersWithId);
   }
 
   private void checkIfInitialized() {
-    if (initialized.get()) {
+    if (ready.getCount() == 0) {
       throw new MappingException("Dozer Bean Mapper is already initialized! Modify settings before calling map()");
     }
   }

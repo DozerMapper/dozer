@@ -1044,7 +1044,7 @@ public class MappingProcessor implements Mapper {
       // exist. The create default class map method will also add all default
       // mappings that it can determine.
       mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass);
-      classMappings.add(srcClass, destClass, mapping);
+      classMappings.addDefault(srcClass, destClass, mapping);
     }
 
     return mapping;

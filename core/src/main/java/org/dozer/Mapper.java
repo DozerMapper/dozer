@@ -23,12 +23,46 @@ package org.dozer;
  */
 public interface Mapper {
 
-  public <T> T map(Object source, Class<T> destinationClass) throws MappingException;
+  /**
+   * Constructs new instance of destinationClass and performs mapping between from source
+   *
+   * @param source
+   * @param destinationClass
+   * @param <T>
+   * @return
+   * @throws MappingException
+   */
+  <T> T map(Object source, Class<T> destinationClass) throws MappingException;
 
-  public void map(Object source, Object destination) throws MappingException;
+  /**
+   * Performs mapping between source and destination objects
+   *
+   * @param source
+   * @param destination
+   * @throws MappingException
+   */
+  void map(Object source, Object destination) throws MappingException;
 
-  public <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException;
+  /**
+   * Constructs new instance of destinationClass and performs mapping between from source
+   *
+   * @param source
+   * @param destinationClass
+   * @param mapId
+   * @param <T>
+   * @return
+   * @throws MappingException
+   */
+  <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException;
 
-  public void map(Object source, Object destination, String mapId) throws MappingException;
+  /**
+   * Performs mapping between source and destination objects
+   *
+   * @param source
+   * @param destination
+   * @param mapId
+   * @throws MappingException
+   */
+  void map(Object source, Object destination, String mapId) throws MappingException;
 
 }
