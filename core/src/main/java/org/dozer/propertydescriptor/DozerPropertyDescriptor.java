@@ -31,4 +31,10 @@ public interface DozerPropertyDescriptor {
 
   void setPropertyValue(Object bean, Object value, FieldMap fieldMap);
 
+  /**
+   * Determines generic parameter type
+   * @return For Type<Parameter> returns Parameter class.
+   */
+  Class<?> genericType();
+
 }

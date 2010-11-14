@@ -39,6 +39,10 @@ public class SelfPropertyDescriptor implements DozerPropertyDescriptor {
     // do nothing
   }
 
+  public Class<?> genericType() {
+    return null;
+  }
+
   public Object getPropertyValue(Object bean) throws MappingException {
     return bean;
   }

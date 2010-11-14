@@ -23,6 +23,7 @@ import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 
 
 /**
@@ -57,6 +58,10 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
 
   public Class<?> getPropertyType() {
     return descriptorChain[descriptorChain.length - 1].getPropertyType();
+  }
+
+  public Class<?> genericType() {
+    return descriptorChain[descriptorChain.length - 1].genericType();
   }
 
   public Object getPropertyValue(Object bean) {
@@ -140,6 +145,11 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
       } catch (IllegalAccessException e) {
         MappingUtils.throwMappingException(e);
       }
+    }
+
+    public Class<?> genericType() {
+      Type type = field.getGenericType();
+      return ReflectionUtils.determineGenericsType(type);
     }
   }
 

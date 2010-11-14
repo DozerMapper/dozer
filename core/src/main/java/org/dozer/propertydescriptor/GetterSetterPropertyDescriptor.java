@@ -25,6 +25,8 @@ import org.dozer.util.CollectionUtils;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 import org.dozer.util.TypeResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
@@ -44,6 +46,9 @@ import java.util.Collection;
  * 
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
+
+  private static final Logger log = LoggerFactory.getLogger(GetterSetterPropertyDescriptor.class);
+
   private Class<?> propertyType;
 
   public GetterSetterPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
@@ -314,6 +319,18 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     } catch (Exception ignore) {
     }
     return null;
+  }
+
+  public Class<?> genericType() {
+    Class<?> genericType = null;
+    try {
+      Method method = getWriteMethod();
+      genericType = ReflectionUtils.determineGenericsType(method, false);
+    } catch (NoSuchMethodException e) {
+      log.warn("The destination object: {} does not have a write method for property : {}", e);
+    }
+
+    return genericType;
   }
 
 }

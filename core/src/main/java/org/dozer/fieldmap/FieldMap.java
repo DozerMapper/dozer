@@ -138,6 +138,11 @@ public abstract class FieldMap implements Cloneable {
     return result;
   }
 
+  public Class<?> getGenericType(Class<?> runtimeDestClass) {
+    DozerPropertyDescriptor propertyDescriptor = getDestPropertyDescriptor(runtimeDestClass);
+    return propertyDescriptor.genericType();
+  }
+
   public Object getDestValue(Object runtimeDestObj) {
     return getDestPropertyDescriptor(runtimeDestObj.getClass()).getPropertyValue(runtimeDestObj);
   }

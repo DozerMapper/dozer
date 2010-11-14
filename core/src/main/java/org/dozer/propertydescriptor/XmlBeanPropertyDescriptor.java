@@ -82,4 +82,9 @@ public class XmlBeanPropertyDescriptor implements DozerPropertyDescriptor {
     // yes - return the parent.child.setfield field name
     return fieldName.substring(0, lastDotIndex + 1) + IS_SET_PREFIX + fieldName.substring(lastDotIndex + 1);
   }
+
+  public Class<?> genericType() {
+    return null;
+  }
+  
 }

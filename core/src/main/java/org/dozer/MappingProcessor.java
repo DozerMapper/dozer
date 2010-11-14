@@ -479,13 +479,7 @@ public class MappingProcessor implements Mapper {
     // if they provided hints
     // if no hint is provided then we will use generics to determine the mapping type
     if (fieldMap.getDestHintContainer() == null) {
-      Class<?> genericType = null;
-      try {
-        Method method = fieldMap.getDestFieldWriteMethod(destObj.getClass());
-        genericType = ReflectionUtils.determineGenericsType(method, false);
-      } catch (Throwable e) {
-        log.warn("The destination object: {} does not have a write method", destObj);
-      }
+      Class<?> genericType = fieldMap.getGenericType(destObj.getClass());
       if (genericType != null) {
         HintContainer destHintContainer = new HintContainer();
         destHintContainer.setHintName(genericType.getName());

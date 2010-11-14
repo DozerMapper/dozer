@@ -36,7 +36,7 @@ import java.util.StringTokenizer;
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
  * base. Not intended for direct use by application code.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
  */
@@ -283,7 +283,7 @@ public final class ReflectionUtils {
       result = method.invoke(obj, args);
     } catch (IllegalArgumentException e) {
 
-      if (e.getMessage().equals(IAE_MESSAGE)) {                
+      if (e.getMessage().equals(IAE_MESSAGE)) {
         MappingUtils.throwMappingException(prepareExceptionMessage(method, args), e);
       }
       MappingUtils.throwMappingException(e);
@@ -341,26 +341,26 @@ public final class ReflectionUtils {
   public static Class<?> determineGenericsType(Method method, boolean isReadMethod) {
     Class<?> result = null;
     if (isReadMethod) {
-      Object parameterType = method.getGenericReturnType();
-
-      if (parameterType != null && ParameterizedType.class.isAssignableFrom(parameterType.getClass())) {
-      
-        Type genericType = ((ParameterizedType) parameterType).getActualTypeArguments()[0];
-        if (genericType != null) {
-          result = (Class<?>) genericType;
-        }
-      }
+      Type parameterType = method.getGenericReturnType();
+      result = determineGenericsType(parameterType);
     } else {
-      Object[] parameterTypes = method.getGenericParameterTypes();
-      
-      if (parameterTypes != null && ParameterizedType.class.isAssignableFrom(parameterTypes[0].getClass())) {
-        Type genericType = ((ParameterizedType) parameterTypes[0]).getActualTypeArguments()[0];
-        if (genericType != null) {
-          result = (Class<?>) genericType;
-        }
+      Type[] parameterTypes = method.getGenericParameterTypes();
+      if (parameterTypes != null) {
+        result = determineGenericsType(parameterTypes[0]);
       }
     }
 
+    return result;
+  }
+
+  public static Class<?> determineGenericsType(Type type) {
+    Class<?> result = null;
+    if (type != null && ParameterizedType.class.isAssignableFrom(type.getClass())) {
+      Type genericType = ((ParameterizedType) type).getActualTypeArguments()[0];
+      if (genericType != null) {
+        result = (Class<?>) genericType;
+      }
+    }
     return result;
   }
 
