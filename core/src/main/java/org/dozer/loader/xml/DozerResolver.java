@@ -15,14 +15,16 @@
  */
 package org.dozer.loader.xml;
 
+import org.dozer.config.BeanContainer;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
-import org.dozer.util.ResourceLoader;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Internal EntityResolver implementation to load Xml Schema from the dozer classpath resp. JAR file.
@@ -43,8 +45,9 @@ public class DozerResolver implements EntityResolver {
       String fileName = systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME));
       log.debug("Trying to locate [{}] in classpath", fileName);
       try {
-        ResourceLoader resourceLoader = new ResourceLoader();
-        InputStream stream = resourceLoader.getResource(fileName).openStream();
+        DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+        URL url = classLoader.loadResource(fileName);
+        InputStream stream = url.openStream();
         InputSource source = new InputSource(stream);
         source.setPublicId(publicId);
         source.setSystemId(systemId);

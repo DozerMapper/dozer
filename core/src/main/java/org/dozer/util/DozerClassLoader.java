@@ -15,11 +15,30 @@
  */
 package org.dozer.util;
 
+import java.net.URL;
+
 /**
+ * Service Provider Interface for control of Dozer Class and Resource loading behavior.
+ * Could be used in order to provide specific implementations for web-container, j2ee container and osgi environments.
+ *
  * @author dmitry.buzdin
  */
 public interface DozerClassLoader {
 
+  /**
+   * Loads class by provided name
+   *
+   * @param className fully qualified class name
+   * @return the class if found, null otherwise
+   */
   Class<?> loadClass(java.lang.String className);
+
+  /**
+   * Loads the resource by URI as an URL
+   *
+   * @param uri uri of the resource
+   * @return resource URL
+   */
+  URL loadResource(String uri);
 
 }

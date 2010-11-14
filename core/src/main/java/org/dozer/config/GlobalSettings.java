@@ -15,9 +15,9 @@
  */
 package org.dozer.config;
 
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
-import org.dozer.util.ResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,8 +112,8 @@ public class GlobalSettings {
 
     log.info("Trying to find Dozer configuration file: {}", propFileName);
     // Load prop file. Prop file is optional, so if it's not found just use defaults
-    ResourceLoader loader = new ResourceLoader();
-    URL url = loader.getResource(propFileName);
+    DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+    URL url = classLoader.loadResource(propFileName);
     if (url == null) {
       log.warn("Dozer configuration file not found: {}.  Using defaults for all Dozer global properties.", propFileName);
       return;

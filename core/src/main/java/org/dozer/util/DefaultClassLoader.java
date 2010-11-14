@@ -17,6 +17,8 @@ package org.dozer.util;
 
 import org.apache.commons.lang.ClassUtils;
 
+import java.net.URL;
+
 /**
  *
  *
@@ -24,6 +26,8 @@ import org.apache.commons.lang.ClassUtils;
  * @since 5.1
  */
 public class DefaultClassLoader implements DozerClassLoader {
+
+  private final ResourceLoader resourceLoader = new ResourceLoader();
 
   public Class<?> loadClass(String className)  {
     Class<?> result = null;
@@ -35,5 +39,9 @@ public class DefaultClassLoader implements DozerClassLoader {
     }
     return result;
   }
-  
+
+  public URL loadResource(String uri) {
+    return resourceLoader.getResource(uri);
+  }
+
 }

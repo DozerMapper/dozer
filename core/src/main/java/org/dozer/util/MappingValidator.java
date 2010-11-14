@@ -15,6 +15,8 @@
  */
 package org.dozer.util;
 
+import org.dozer.config.BeanContainer;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -51,12 +53,12 @@ public final class MappingValidator {
   }
 
   public static URL validateURL(String fileName) {
-    ResourceLoader loader = new ResourceLoader();
+    DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
     if (fileName == null) {
       MappingUtils.throwMappingException("File name is null");
     }
     
-    URL url = loader.getResource(fileName);
+    URL url = classLoader.loadResource(fileName);
     if (url == null) {
       MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!");
     }

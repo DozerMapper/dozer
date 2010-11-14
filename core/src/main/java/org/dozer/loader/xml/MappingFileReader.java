@@ -16,12 +16,13 @@
 package org.dozer.loader.xml;
 
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
 import org.dozer.loader.MappingsSource;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
-import org.dozer.util.ResourceLoader;
-import org.w3c.dom.Document;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.IOException;
@@ -46,8 +47,8 @@ public class MappingFileReader {
   }
 
   public MappingFileData read(String fileName) {
-    ResourceLoader loader = new ResourceLoader();
-    URL url = loader.getResource(fileName);
+    DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+    URL url = classLoader.loadResource(fileName);
     return read(url);
   }
 
