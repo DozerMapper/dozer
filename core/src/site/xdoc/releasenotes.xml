@@ -15,6 +15,20 @@
 
       <section name="Release Notes">
 
+<h3>5.3.1 <font size="-3" color="gray"><i>11/15/2010</i></font></h3>
+<p>Bug Fixes</p>
+
+<ul>
+<li>DozerBeanMapper initialization is not thread safe <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3102050&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Collection Generic type not resolved on field level<a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3066742&amp;group_id=133517&amp;atid=727368">link</a></li>
+</ul>
+
+<p>Feature Requests</p>
+
+<ul>
+<li>Apache Camel Integration Improvement <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3022810&amp;group_id=133517&amp;atid=727371">link</a></li>
+</ul>
+
 <h3>5.3.0 <font size="-3" color="gray"><i>10/10/2010</i></font></h3>
 <p>Bug Fixes</p>
 
