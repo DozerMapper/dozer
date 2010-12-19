@@ -182,9 +182,12 @@ public class DozerBeanMapper implements Mapper {
   protected Mapper getMappingProcessor() {
 
     if (initializing.compareAndSet(false, true)) {
-      loadCustomMappings();
-      eventManager = new DozerEventManager(eventListeners);
-      ready.countDown();
+      try {
+        loadCustomMappings();
+        eventManager = new DozerEventManager(eventListeners);
+      } finally {
+        ready.countDown();
+      }
     }
 
     try {
