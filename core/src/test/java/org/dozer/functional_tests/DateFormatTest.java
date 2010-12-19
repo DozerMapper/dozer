@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.dozer.vo.DateContainer;
 import org.dozer.vo.DateObjectDest;
@@ -74,7 +75,10 @@ public class DateFormatTest extends AbstractFunctionalTest {
   public void testGregorianCalendar() throws Exception{
 
     DateObjectSource source = new DateObjectSource();
-    source.setRecalledDate(DatatypeFactory.newInstance().newXMLGregorianCalendar());
+    DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
+    XMLGregorianCalendar xmlGregorianCalendar = datatypeFactory.newXMLGregorianCalendar();
+    xmlGregorianCalendar.setTimezone(2 * 60);
+    source.setRecalledDate(xmlGregorianCalendar);
 
     DateObjectDest dest = mapper.map(source, DateObjectDest.class);
 
@@ -84,6 +88,7 @@ public class DateFormatTest extends AbstractFunctionalTest {
     assertEquals(source.getRecalledDate().getHour(), dest.getRecDate().getHour());
     assertEquals(source.getRecalledDate().getMinute(), dest.getRecDate().getMinute());
     assertEquals(source.getRecalledDate().getSecond(), dest.getRecDate().getSecond());
+    assertEquals(source.getRecalledDate().getTimezone(), dest.getRecDate().getTimezone());
 
     //Test when instance exist
     dest = new DateObjectDest();

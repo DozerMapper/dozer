@@ -29,6 +29,9 @@ import org.dozer.vo.SimpleObj;
 import org.dozer.vo.inheritance.ChildChildIF;
 import org.junit.Test;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -67,9 +70,19 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   public void testFindPropertyDescriptor_InterfaceInheritance() throws Exception {
     // Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
     String fieldName = "parentField";
+
     PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(ChildChildIF.class, fieldName, null);
+
     assertNotNull("prop descriptor should not be null", pd);
     assertEquals("invalid prop descriptor name found", fieldName, pd.getName());
+  }
+
+  @Test
+  public void shouldReturnBestMatch_ambigousIgonreCase() {
+    // both timezone and timeZone properties exists on XMLGregorianCalendar
+    PropertyDescriptor result = ReflectionUtils.findPropertyDescriptor(XMLGregorianCalendar.class, "timezone", null);
+    
+    assertThat(result.getName(), equalTo("timezone"));
   }
 
   @Test
