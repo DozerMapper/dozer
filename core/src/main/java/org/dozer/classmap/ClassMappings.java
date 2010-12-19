@@ -17,9 +17,8 @@ package org.dozer.classmap;
 
 import org.apache.commons.lang.StringUtils;
 import org.dozer.util.MappingUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -121,7 +120,6 @@ public class ClassMappings {
   }
 
   // Look for an interface mapping
-
   private ClassMap findInterfaceMapping(Class<?> destClass, Class<?> srcClass, String mapId) {
     // Use object array for keys to avoid any rare thread synchronization issues
     // while iterating over the custom mappings.
@@ -136,16 +134,17 @@ public class ClassMappings {
         continue;
       }
 
-      if (mappingSrcClass.isInterface() && mappingSrcClass.isAssignableFrom(srcClass)) {
-        if (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass)) {
+      if (isInterfaceImplementation(srcClass, mappingSrcClass)) {
+        if (isInterfaceImplementation(destClass, mappingDestClass)) {
           return map;
         } else if (destClass.equals(mappingDestClass)) {
           return map;
         }
       }
 
-      if (destClass.isAssignableFrom(mappingDestClass) ||
-              (mappingDestClass.isInterface() && mappingDestClass.isAssignableFrom(destClass))) {
+      // Destination could be an abstract type. Picking up the best concrete type to use.
+      if ((destClass.isAssignableFrom(mappingDestClass) && isAbstract(destClass)) ||
+              (isInterfaceImplementation(destClass, mappingDestClass))) {
         if (MappingUtils.getRealClass(srcClass).equals(mappingSrcClass)) {
           return map;
         }
@@ -153,6 +152,14 @@ public class ClassMappings {
 
     }
     return null;
+  }
+
+  private boolean isInterfaceImplementation(Class<?> type, Class<?> mappingType) {
+    return mappingType.isInterface() && mappingType.isAssignableFrom(type);
+  }
+
+  private static boolean isAbstract(Class<?> destClass) {
+    return Modifier.isAbstract(destClass.getModifiers());
   }
 
 }
