@@ -44,7 +44,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   public Method getWriteMethod() throws NoSuchMethodException {
     Method writeMethod = getPropertyDescriptor(destDeepIndexHintContainer).getWriteMethod();
     if (writeMethod == null) {
-      throw new NoSuchMethodException("Unable to determine write method for Field: " + fieldName + " in Class: " + clazz);
+      throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
     }
 
     return writeMethod;
@@ -59,7 +59,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   protected Method getReadMethod() throws NoSuchMethodException {
     Method result = getPropertyDescriptor(srcDeepIndexHintContainer).getReadMethod();
     if (result == null) {
-      throw new NoSuchMethodException("Unable to determine read method for Field: " + fieldName + " in Class: " + clazz);
+      throw new NoSuchMethodException("Unable to determine read method for Field: '" + fieldName + "' in Class: " + clazz);
     }
     return result;
   }
@@ -73,7 +73,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     if (pd == null) {
       pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName, deepIndexHintContainer);
       if (pd == null) {
-        MappingUtils.throwMappingException("Property: " + fieldName + " not found in Class: " + clazz);
+        MappingUtils.throwMappingException("Property: '" + fieldName + "' not found in Class: " + clazz);
       }
     }
     return pd;

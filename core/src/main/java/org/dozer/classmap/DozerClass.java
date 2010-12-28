@@ -29,6 +29,7 @@ import org.dozer.util.MappingUtils;
  * 
  */
 public class DozerClass {
+
   private String name;
   private Class<?> classToMap;
   private String beanFactory;
@@ -38,20 +39,22 @@ public class DozerClass {
   private String createMethod;
   private Boolean mapNull;
   private Boolean mapEmptyString;
+  private Boolean accesible;
 
   public DozerClass() {
   }
 
   public DozerClass(String name, Class<?> classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
-      String mapSetMethod, boolean mapNull, boolean mapEmptyString) {
+      String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean isAccessible) {
     this.name = name;
     this.classToMap = classToMap;
     this.beanFactory = beanFactory;
     this.factoryBeanId = factoryBeanId;
     this.mapGetMethod = mapGetMethod;
     this.mapSetMethod = mapSetMethod;
-    this.mapNull = Boolean.valueOf(mapNull);
-    this.mapEmptyString = Boolean.valueOf(mapEmptyString);
+    this.createMethod = createMethod;
+    this.mapNull = mapNull;
+    this.mapEmptyString = mapEmptyString;
   }
 
   public String getBeanFactory() {
@@ -125,6 +128,14 @@ public class DozerClass {
 
   public boolean isMapTypeCustomGetterSetterClass() {
     return getMapGetMethod() != null || getMapSetMethod() != null;
+  }
+
+  public Boolean isAccesible() {
+    return accesible;
+  }
+
+  public void setAccesible(Boolean accesible) {
+    this.accesible = accesible;
   }
 
   @Override

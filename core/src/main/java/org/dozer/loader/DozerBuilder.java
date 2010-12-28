@@ -409,7 +409,7 @@ public class DozerBuilder {
       field.setCreateMethod(attribute);
     }
 
-    public void accessible(boolean b) {
+    public void accessible(Boolean b) {
       field.setAccessible(b);
     }
 
@@ -459,41 +459,37 @@ public class DozerBuilder {
       this.definition = definition;
     }
 
-    public ClassDefinitionBuilder mapGetMethod(String name) {
+    public void mapGetMethod(String name) {
       definition.setMapGetMethod(name);
-      return this;
     }
 
-    public ClassDefinitionBuilder mapSetMethod(String name) {
+    public void mapSetMethod(String name) {
       definition.setMapSetMethod(name);
-      return this;
     }
 
-    public ClassDefinitionBuilder beanFactory(String beanFactory) {
+    public void beanFactory(String beanFactory) {
       definition.setBeanFactory(beanFactory);
-      return this;
     }
 
-    public ClassDefinitionBuilder factoryBeanId(String id) {
+    public void factoryBeanId(String id) {
       definition.setFactoryBeanId(id);
-      return this;
     }
 
-    public ClassDefinitionBuilder createMethod(String name) {
+    public void createMethod(String name) {
       definition.setCreateMethod(name);
-      return this;
     }
 
-    public ClassDefinitionBuilder mapNull(Boolean value) {
+    public void mapNull(Boolean value) {
       definition.setMapNull(value);
-      return this;
     }
 
-    public ClassDefinitionBuilder mapEmptyString(Boolean value) {
+    public void mapEmptyString(Boolean value) {
       definition.setMapEmptyString(value);
-      return this;
     }
 
+    public void isAccessible(Boolean value) {
+      definition.setAccesible(value);
+    }
   }
 
   public static class ConfigurationBuilder {
@@ -506,38 +502,32 @@ public class DozerBuilder {
       this.configuration = configuration;
     }
 
-    public ConfigurationBuilder stopOnErrors(Boolean value) {
+    public void stopOnErrors(Boolean value) {
       configuration.setStopOnErrors(value);
-      return this;
     }
 
-    public ConfigurationBuilder dateFormat(String format) {
+    public void dateFormat(String format) {
       configuration.setDateFormat(format);
-      return this;
     }
 
-    public ConfigurationBuilder wildcard(Boolean value) {
+    public void wildcard(Boolean value) {
       configuration.setWildcard(value);
-      return this;
     }
 
-    public ConfigurationBuilder trimStrings(Boolean value) {
+    public void trimStrings(Boolean value) {
       configuration.setTrimStrings(value);
-      return this;
     }
 
-    public ConfigurationBuilder relationshipType(RelationshipType value) {
+    public void relationshipType(RelationshipType value) {
       if (value == null) {
         configuration.setRelationshipType(DozerConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY);
       } else {
         configuration.setRelationshipType(value);
       }
-      return this;
     }
 
-    public ConfigurationBuilder beanFactory(String name) {
+    public void beanFactory(String name) {
       configuration.setBeanFactory(name);
-      return this;
     }
 
     public CustomConverterBuilder customConverter(String type) {

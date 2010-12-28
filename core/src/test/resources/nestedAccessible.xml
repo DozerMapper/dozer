@@ -11,5 +11,27 @@
       <b is-accessible="true">child.child.value</b>
     </field>
   </mapping>
-    
+
+  <mapping map-id="class-level" >
+    <class-a >java.lang.String</class-a>
+    <class-b is-accessible="true">org.dozer.functional_tests.IsAccessibleTest$Node</class-b>
+    <field>
+      <a>this</a>
+      <b>value</b>
+    </field>
+    <field>
+      <a>this</a>
+      <b is-accessible="false">publicValue</b>
+    </field>
+  </mapping>
+
+  <mapping map-id="third" type="one-way">
+    <class-a is-accessible="true">org.dozer.functional_tests.IsAccessibleTest$Node</class-a>
+    <class-b is-accessible="true">org.dozer.functional_tests.IsAccessibleTest$Node</class-b>
+    <field>
+      <a is-accessible="false">publicValue</a>
+      <b>value</b>
+    </field>
+  </mapping>
+
 </mappings>

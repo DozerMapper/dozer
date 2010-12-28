@@ -32,6 +32,7 @@ public class TypeDefinition {
   private String mapGetMethod;
   private String mapSetMethod;
   private boolean mapNull;
+  private Boolean isAccessible;
 
   public TypeDefinition(Class<?> type) {
     this.name = type.getName();
@@ -51,6 +52,8 @@ public class TypeDefinition {
 
     typeBuilder.mapGetMethod(this.mapGetMethod);
     typeBuilder.mapSetMethod(this.mapSetMethod);
+
+    typeBuilder.isAccessible(this.isAccessible);
   }
 
   public TypeDefinition mapMethods(String getMethod, String setMethod) {
@@ -86,6 +89,11 @@ public class TypeDefinition {
 
   public TypeDefinition mapNull(boolean value) {
     this.mapNull = value;
+    return this;
+  }
+
+  public TypeDefinition isAccessible(boolean value) {
+    this.isAccessible = value;
     return this;
   }
 

@@ -171,11 +171,13 @@ public final class MappingUtils {
   public static void reverseFields(ClassMap source, ClassMap destination) {
     // reverse the fields
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
-        source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(), source
-            .isDestMapNull(), source.isDestMapEmptyString()));
+        source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
+            source.getDestClass().getCreateMethod(),
+            source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccesible()));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
-        source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(), source
-            .isSrcMapNull(), source.isSrcMapEmptyString()));
+        source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
+            source.getSrcClass().getCreateMethod(),
+            source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccesible()));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
     destination.setTrimStrings(source.isTrimStrings());

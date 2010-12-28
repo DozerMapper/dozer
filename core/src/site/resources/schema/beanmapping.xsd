@@ -162,6 +162,9 @@
         map-null Indicates whether null values are mapped. The default value is "true"
         
         map-empty-string Indicates whether empty string values are mapped. The default value is "true"
+
+        is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is "false". If set to "true", the
+        getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method.
       </documentation>
     </annotation>
     <attribute name='bean-factory' type='string'/>
@@ -171,6 +174,7 @@
     <attribute name='create-method' type='string'/>
     <attribute name='map-null' type='boolean'/>
     <attribute name='map-empty-string' type='boolean'/>
+    <attribute name='is-accessible' type='boolean'/>
   </complexType>
 
   <element name='field'>

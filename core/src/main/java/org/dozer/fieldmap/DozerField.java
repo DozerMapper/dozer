@@ -37,7 +37,7 @@ public class DozerField {
   private String key;
   private String mapSetMethod;
   private String mapGetMethod;
-  private boolean accessible;
+  private Boolean accessible;
   private String createMethod;
   private boolean indexed;
   private int index = -1;
@@ -103,11 +103,11 @@ public class DozerField {
     this.mapSetMethod = mapSetMethod;
   }
 
-  public boolean isAccessible() {
+  public Boolean isAccessible() {
     return accessible;
   }
 
-  public void setAccessible(boolean isAccessible) {
+  public void setAccessible(Boolean isAccessible) {
     this.accessible = isAccessible;
   }
 

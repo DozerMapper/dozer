@@ -325,6 +325,14 @@ public class ClassMap {
     this.relationshipType = relationshipType;
   }
 
+  public DozerClass getSrcClass() {
+    return srcClass;
+  }
+
+  public DozerClass getDestClass() {
+    return destClass;
+  }
+
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("source class", getSrcClassName()).append(

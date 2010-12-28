@@ -18,6 +18,7 @@ package org.dozer.fieldmap;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.DozerClass;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
@@ -258,11 +259,24 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public boolean isDestFieldAccessible() {
-    return destField.isAccessible();
+    return determineAccess(destField, classMap.getDestClass());
   }
 
   public boolean isSrcFieldAccessible() {
-    return srcField.isAccessible();
+    return determineAccess(srcField, classMap.getSrcClass());
+  }
+
+  private boolean determineAccess(DozerField field, DozerClass clazz) {
+    Boolean fieldLevel = field.isAccessible();
+    if (fieldLevel != null) {
+      return fieldLevel;
+    } else {
+      Boolean classLevel = clazz.isAccesible();
+      if (classLevel == null) {
+        return false;
+      }
+      return classLevel;
+    }
   }
 
   public void setSrcField(DozerField sourceField) {

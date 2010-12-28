@@ -229,6 +229,9 @@ public class XMLParser implements MappingsSource {
     if (StringUtils.isNotEmpty(getAttribute(element, MAP_EMPTY_STRING_ATTRIBUTE))) {
       classBuilder.mapEmptyString(Boolean.valueOf(getAttribute(element, MAP_EMPTY_STRING_ATTRIBUTE)));
     }
+    if (StringUtils.isNotEmpty(getAttribute(element, IS_ACCESSIBLE_ATTRIBUTE))) {
+      classBuilder.isAccessible(Boolean.valueOf(getAttribute(element, IS_ACCESSIBLE_ATTRIBUTE)));
+    }
   }
 
   private void parseFieldExcludeMap(Element ele, DozerBuilder.MappingBuilder definitionBuilder) {

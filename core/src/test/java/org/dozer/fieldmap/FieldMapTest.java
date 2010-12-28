@@ -2,6 +2,7 @@ package org.dozer.fieldmap;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.DozerClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,11 +22,16 @@ public class FieldMapTest extends AbstractDozerTest {
 
   private ClassMap classMap;
   private FieldMap fieldMap;
+  private DozerField field;
 
   @Before
   public void setUp() {
     classMap = mock(ClassMap.class);
     fieldMap = new FieldMap(classMap) {};
+    DozerClass dozerClass = mock(DozerClass.class);
+    when(classMap.getDestClass()).thenReturn(dozerClass);
+    field = mock(DozerField.class);
+    fieldMap.setDestField(field);
   }
 
   @Test
@@ -49,5 +55,62 @@ public class FieldMapTest extends AbstractDozerTest {
     Thread.sleep(1000);
     executorService.shutdown();
   }
+
+  @Test
+  public void shouldBeAccessible_ClassLevel() {
+    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(field.isAccessible()).thenReturn(Boolean.FALSE);
+
+    assertFalse(fieldMap.isDestFieldAccessible());
+  }
+
+  @Test
+  public void shouldBeAccessible_Both() {
+    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(field.isAccessible()).thenReturn(Boolean.TRUE);
+
+    assertTrue(fieldMap.isDestFieldAccessible());
+  }
+
+  @Test
+  public void shouldBeAccessible_FieldLevel() {
+    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.FALSE);
+    when(field.isAccessible()).thenReturn(Boolean.TRUE);
+
+    assertTrue(fieldMap.isDestFieldAccessible());
+  }
+
+  @Test
+  public void shouldBeAccessible_Override() {
+    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(field.isAccessible()).thenReturn(Boolean.FALSE);
+
+    assertFalse(fieldMap.isDestFieldAccessible());
+  }
+
+  @Test
+  public void shouldBeAccessible_Null() {
+    when(classMap.getDestClass().isAccesible()).thenReturn(null);
+    when(field.isAccessible()).thenReturn(Boolean.TRUE);
+
+    assertTrue(fieldMap.isDestFieldAccessible());
+  }
+
+  @Test
+  public void shouldBeAccessible_FieldLevelNull() {
+    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(field.isAccessible()).thenReturn(null);
+
+    assertTrue(fieldMap.isDestFieldAccessible());
+  }
+
+  @Test
+  public void shouldBeAccessible_Default() {
+    when(classMap.getDestClass().isAccesible()).thenReturn(null);
+    when(field.isAccessible()).thenReturn(null);
+
+    assertFalse(fieldMap.isDestFieldAccessible());
+  }
+
 
 }
