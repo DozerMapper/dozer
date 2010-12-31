@@ -4,8 +4,18 @@ import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.api.FieldsMappingOptions;
+import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.dozer.loader.api.FieldsMappingOptions.*;
+import static org.dozer.loader.api.TypeMappingOptions.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class DozerBuilderTest {
 
@@ -22,17 +32,18 @@ public class DozerBuilderTest {
     BeanMappingBuilder builder = new BeanMappingBuilder() {
       protected void configure() {
         mapping(Bean.class, Bean.class,
-                oneWay(),
+                TypeMappingOptions.oneWay(),
                 mapId("A"),
-                mapNull(true)
+                mapNull()
         )
                 .exclude("excluded")
                 .fields("src", "dest",
                         copyByReference(),
-                        collectionStrategy(true, RelationshipType.NON_CUMULATIVE),
+                        removeOrphans(),
+                        FieldsMappingOptions.relationshipType(RelationshipType.NON_CUMULATIVE),
                         hintA(String.class),
                         hintB(Integer.class),
-                        fieldOneWay(),
+                        FieldsMappingOptions.oneWay(),
                         useMapId("A"),
                         customConverterId("id")
                 )
@@ -41,10 +52,10 @@ public class DozerBuilderTest {
                 );
 
         mapping(type(Bean.class), type("java.util.Map").mapNull(true),
-                trimStrings(true),
-                relationshipType(RelationshipType.CUMULATIVE),
-                stopOnErrors(true),
-                mapEmptyString(true)
+                trimStrings(),
+                TypeMappingOptions.relationshipType(RelationshipType.CUMULATIVE),
+                stopOnErrors(),
+                mapEmptyString()
         )
                 .fields(field("src")
                               .accessible(true),
@@ -65,6 +76,30 @@ public class DozerBuilderTest {
     mapper.addMapping(builder);
          
     mapper.map(1, String.class);
+  }
+
+  @Test
+  public void shouldHaveIterateType() {
+    BeanMappingBuilder builder = new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(type(IterateBean.class), type(IterateBean2.class))
+                .fields(
+                        field("integers"),
+                        field("strings").iterate().setMethod("addString"),
+                        hintB(String.class)
+                );
+      }
+    };
+
+    mapper.addMapping(builder);
+
+    IterateBean bean = new IterateBean();
+    bean.getIntegers().add(new Integer("1"));
+
+    IterateBean2 result = mapper.map(bean, IterateBean2.class);
+
+    assertThat(result.strings.size(), equalTo(1));
   }
 
   public static class Bean {
@@ -95,6 +130,29 @@ public class DozerBuilderTest {
     public void setDest(Integer dest) {
       this.dest = dest;
     }
+  }
+
+  public static class IterateBean {
+
+    List<Integer> integers = new ArrayList<Integer>();
+    List<String> strings = new ArrayList<String>();
+
+    public List<Integer> getIntegers() {
+      return integers;
+    }
+
+    public List<String> getStrings() {
+      return strings;
+    }
+
+    public void addString(String string) {
+      strings.add(string);
+    }
+
+  }
+
+  public static class IterateBean2 extends IterateBean {
+
   }
 
 }

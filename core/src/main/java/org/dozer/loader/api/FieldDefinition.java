@@ -32,6 +32,7 @@ public class FieldDefinition {
   private String mapSetMethod;
   private String getMethod;
   private String setMethod;
+  private boolean iterate;
 
   public FieldDefinition(String value) {
     this.value = value;
@@ -47,6 +48,19 @@ public class FieldDefinition {
 
     builder.theGetMethod(this.getMethod);
     builder.theSetMethod(this.setMethod);
+
+    if (this.iterate) {
+      builder.iterate();
+    }
+  }
+
+  public FieldDefinition iterate() {
+    this.iterate = true;
+    return this;
+  }
+
+  public FieldDefinition accessible() {
+    return accessible(true);
   }
 
   public FieldDefinition accessible(boolean value) {
@@ -80,7 +94,7 @@ public class FieldDefinition {
     return this;
   }  
 
-  public String resolve() {
+  String resolve() {
     return value;
   }
 

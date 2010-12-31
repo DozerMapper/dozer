@@ -215,6 +215,12 @@ public class DozerBeanMapper implements Mapper {
     this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
   }
 
+  public void setMappings(List<? extends BeanMappingBuilder> mappingBuilder) {
+    for (BeanMappingBuilder builder : mappingBuilder) {
+      addMapping(builder);
+    }
+  }
+
   public void addMapping(BeanMappingBuilder mappingBuilder) {
     checkIfInitialized();
     MappingFileData mappingFileData = mappingBuilder.build();

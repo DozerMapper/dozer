@@ -82,9 +82,17 @@ public class TypeDefinition {
     return this;
   }
 
+  public TypeDefinition mapEmptyString() {
+    return mapEmptyString(true);
+  }
+
   public TypeDefinition mapEmptyString(boolean value) {
     this.mapEmptyString = value;
     return this;
+  }
+
+  public TypeDefinition mapNull() {
+    return mapNull(true);
   }
 
   public TypeDefinition mapNull(boolean value) {
@@ -92,7 +100,11 @@ public class TypeDefinition {
     return this;
   }
 
-  public TypeDefinition isAccessible(boolean value) {
+  public TypeDefinition accessible() {
+    return accessible(true);
+  }
+
+  public TypeDefinition accessible(boolean value) {
     this.isAccessible = value;
     return this;
   }

@@ -17,21 +17,9 @@ package org.dozer.loader;
 
 import org.apache.commons.lang.StringUtils;
 import org.dozer.CustomConverter;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.Configuration;
-import org.dozer.classmap.CopyByReference;
-import org.dozer.classmap.DozerClass;
-import org.dozer.classmap.MappingDirection;
-import org.dozer.classmap.MappingFileData;
-import org.dozer.classmap.RelationshipType;
+import org.dozer.classmap.*;
 import org.dozer.converters.CustomConverterDescription;
-import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
-import org.dozer.fieldmap.DozerField;
-import org.dozer.fieldmap.ExcludeFieldMap;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.fieldmap.GenericFieldMap;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.fieldmap.*;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
@@ -264,77 +252,65 @@ public class DozerBuilder {
       return new FieldDefinitionBuilder(field);
     }
 
-    public FieldMappingBuilder type(MappingDirection type) {
+    public void type(MappingDirection type) {
       this.type = type;
-      return this;
     }
 
-    public FieldMappingBuilder relationshipType(RelationshipType relationshipType) {
+    public void relationshipType(RelationshipType relationshipType) {
       this.relationshipType = relationshipType;
-      return this;
     }
 
-    public FieldMappingBuilder removeOrphans(boolean value) {
+    public void removeOrphans(boolean value) {
       this.removeOrphans = value;
-      return this;
     }
 
-    public FieldMappingBuilder srcHintContainer(String hint) {
+    public void srcHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.srcHintContainer = hintContainer;
-      return this;
     }
 
-    public FieldMappingBuilder destHintContainer(String hint) {
+    public void destHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.destHintContainer = hintContainer;
-      return this;
     }
 
-    public FieldMappingBuilder srcDeepIndexHintContainer(String hint) {
+    public void srcDeepIndexHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.srcDeepIndexHintContainer = hintContainer;
-      return this;
     }
 
-    public FieldMappingBuilder destDeepIndexHintContainer(String hint) {
+    public void destDeepIndexHintContainer(String hint) {
       HintContainer hintContainer = new HintContainer();
       hintContainer.setHintName(hint);
       this.destDeepIndexHintContainer = hintContainer;
-      return this;
     }
 
-    public FieldMappingBuilder copyByReference(boolean value) {
+    public void copyByReference(boolean value) {
       this.copyByReferenceSet = true;
       this.copyByReference = value;
-      return this;
     }
 
-    public FieldMappingBuilder mapId(String attribute) {
+    public void mapId(String attribute) {
       this.mapId = attribute;
-      return this;
     }
 
-    public FieldMappingBuilder customConverter(Class<? extends CustomConverter> type) {
-      return customConverter(type.getName());
+    public void customConverter(Class<? extends CustomConverter> type) {
+      customConverter(type.getName());
     }
 
-    public FieldMappingBuilder customConverter(String typeName) {
+    public void customConverter(String typeName) {
       this.customConverter = typeName;
-      return this;
     }
 
-    public FieldMappingBuilder customConverterId(String attribute) {
+    public void customConverterId(String attribute) {
       this.customConverterId = attribute;
-      return this;
     }
 
-    public FieldMappingBuilder customConverterParam(String attribute) {
+    public void customConverterParam(String attribute) {
       this.customConverterParam = attribute;
-      return this;
     }
 
     public void build() {
@@ -411,6 +387,10 @@ public class DozerBuilder {
 
     public void accessible(Boolean b) {
       field.setAccessible(b);
+    }
+
+    public void iterate() {
+      field.setType(DozerConstants.ITERATE);
     }
 
     public DozerField build() {

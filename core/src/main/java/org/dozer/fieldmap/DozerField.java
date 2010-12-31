@@ -29,7 +29,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class DozerField {
 
-  private final String type;
+  private String type;
   private String name;
   private String dateFormat;
   private String theGetMethod;
@@ -45,6 +45,10 @@ public class DozerField {
   public DozerField(String name, String type) {
     this.type = type;
     this.name = name;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public String getType() {
