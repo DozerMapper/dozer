@@ -20,7 +20,12 @@ import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheType;
-import org.dozer.classmap.*;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.ClassMappings;
+import org.dozer.classmap.Configuration;
+import org.dozer.classmap.CopyByReferenceContainer;
+import org.dozer.classmap.RelationshipType;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
 import org.dozer.event.DozerEvent;
@@ -29,17 +34,36 @@ import org.dozer.event.DozerEventType;
 import org.dozer.event.EventManager;
 import org.dozer.factory.BeanCreationDirective;
 import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.*;
+import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
+import org.dozer.fieldmap.ExcludeFieldMap;
+import org.dozer.fieldmap.FieldMap;
+import org.dozer.fieldmap.HintContainer;
+import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
-import org.dozer.util.*;
+import org.dozer.util.CollectionUtils;
+import org.dozer.util.DozerConstants;
+import org.dozer.util.IteratorUtils;
+import org.dozer.util.LogMsgFactory;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.MappingValidator;
+import org.dozer.util.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import static org.dozer.util.DozerConstants.BASE_CLASS;
 import static org.dozer.util.DozerConstants.ITERATE;
@@ -72,7 +96,7 @@ public class MappingProcessor implements Mapper {
 
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
-  private final PrimitiveOrWrapperConverter primitiveOrWrapperConverter = new PrimitiveOrWrapperConverter();
+  private final PrimitiveOrWrapperConverter primitiveConverter = new PrimitiveOrWrapperConverter();
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
                              StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
@@ -356,7 +380,7 @@ public class MappingProcessor implements Mapper {
       destFieldType = fieldMap.getDestHintContainer() != null ? fieldMap.getDestHintContainer().getHint() : srcFieldClass;
     }
 
-    if (MappingUtils.isPrimitiveOrWrapper(srcFieldClass) || MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
+    if (primitiveConverter.accepts(srcFieldClass) || primitiveConverter.accepts(destFieldType)) {
       // Primitive or Wrapper conversion
       if (fieldMap.getDestHintContainer() != null) {
         destFieldType = fieldMap.getDestHintContainer().getHint();
@@ -370,7 +394,7 @@ public class MappingProcessor implements Mapper {
 
       DateFormatContainer dfContainer = new DateFormatContainer(fieldMap.getDateFormat());
 
-      if (fieldMap instanceof MapFieldMap && !MappingUtils.isPrimitiveOrWrapper(destFieldType)) {
+      if (fieldMap instanceof MapFieldMap && !primitiveConverter.accepts(destFieldType)) {
         // This handles a very special/rare use case(see indexMapping.xml + unit
         // test
         // testStringToIndexedSet_UsingMapSetMethod). If the destFieldType is a
@@ -382,9 +406,9 @@ public class MappingProcessor implements Mapper {
         // destination map backed custom object would contain a value that is
         // the custom object dest type instead of the
         // desired src value.
-        return primitiveOrWrapperConverter.convert(convertSrcFieldValue, convertSrcFieldValue.getClass(), dfContainer);
+        return primitiveConverter.convert(convertSrcFieldValue, convertSrcFieldValue.getClass(), dfContainer);
       } else {
-        return primitiveOrWrapperConverter.convert(convertSrcFieldValue, destFieldType, dfContainer);
+        return primitiveConverter.convert(convertSrcFieldValue, destFieldType, dfContainer);
       }
     }
     if (MappingUtils.isSupportedCollection(srcFieldClass) && (MappingUtils.isSupportedCollection(destFieldType))) {
@@ -589,21 +613,6 @@ public class MappingProcessor implements Mapper {
 
         Object result = mapOrRecurseObject(srcObj, value, destinationHint, fieldMapping, destObj);
 
-//        // check for custom converters
-//        Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, fieldMapping.getClassMap()
-//            .getCustomConverters(), value.getClass(), destinationHint);
-//
-//        if (converterClass != null) {
-//          Class<?> srcFieldClass = srcFieldValue.getClass();
-//          value = mapUsingCustomConverter(converterClass, srcFieldClass, value, destinationHint, null, fieldMapping, false);
-//        } else {
-//          Object alreadyMappedValue = mappedFields.getMappedValue(value, destinationHint);
-//          if (alreadyMappedValue != null) {
-//            value = alreadyMappedValue;
-//          } else {
-//            Object result = map(value, destinationHint);
-//          }
-//        }
         if (value != null) {
           writeDestinationValue(destObj, result, fieldMapping, srcObj);
         }

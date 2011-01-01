@@ -21,8 +21,10 @@ import org.junit.Test;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -30,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
  * @author tierney.matt
@@ -537,17 +541,30 @@ public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
   @Test(expected = ConversionException.class)
   public void testConvertStringNegativeScalar() {
-    Object value = value = converter.convert("foo", Boolean.TYPE, null);
+    converter.convert("foo", Boolean.TYPE, null);
   }
 
   @Test(expected = ConversionException.class)
   public void testConvertStringNegativeScalar2() {
-    Object value = converter.convert("foo", Boolean.class, null);
+    converter.convert("foo", Boolean.class, null);
   }
 
   @Test
-  public void testConvertStringNegativeScalar_Undefined() {
-    Object value = converter.convert("org.apache.commons.beanutils.Undefined", Class.class, null);
-    assertEquals("org.apache.commons.beanutils.Undefined", value);
+  public void shouldConvertUrl() throws Exception {
+    URL result = (URL) converter.convert("http://hello", URL.class, null);
+    assertThat(result, equalTo(new URL("http://hello")));
   }
+
+  @Test
+  public void shouldConvertFile() throws Exception {
+    File result = (File) converter.convert("hello", File.class, null);
+    assertThat(result, equalTo(new File("hello")));
+  }
+
+  @Test
+  public void shouldConvertClass() throws Exception {
+    Class<Date> result = (Class<Date>) converter.convert("java.util.Date", Class.class, null);
+    assertThat(result, equalTo(Date.class));
+  }
+
 }

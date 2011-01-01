@@ -71,12 +71,6 @@ public final class MappingUtils {
     return Map.class.isAssignableFrom(aClass);
   }
 
-  public static boolean isPrimitiveOrWrapper(Class<?> aClass) {
-    return (aClass.isPrimitive() || Number.class.isAssignableFrom(aClass) || aClass.equals(String.class)
-        || aClass.equals(Character.class) || aClass.equals(Boolean.class) || java.util.Date.class.isAssignableFrom(aClass) || java.util.Calendar.class
-        .isAssignableFrom(aClass));
-  }
-
   public static void throwMappingException(Throwable e) throws MappingException {
     if (e instanceof MappingException) {
       // in this case we do not want to re-wrap an existing mapping exception

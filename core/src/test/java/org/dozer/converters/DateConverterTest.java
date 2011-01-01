@@ -15,8 +15,6 @@
  */
 package org.dozer.converters;
 
-import junit.framework.TestCase;
-
 import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;

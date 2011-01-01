@@ -21,6 +21,7 @@ import org.apache.commons.beanutils.converters.BigIntegerConverter;
 import org.apache.commons.beanutils.converters.BooleanConverter;
 import org.apache.commons.beanutils.converters.ByteConverter;
 import org.apache.commons.beanutils.converters.CharacterConverter;
+import org.apache.commons.beanutils.converters.ClassConverter;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
@@ -43,7 +44,7 @@ import java.util.Map;
  */
 public class PrimitiveOrWrapperConverter {
 
-  private static final Map CONVERTER_MAP = new HashMap(10);
+  private static final Map<Class, Converter> CONVERTER_MAP = new HashMap<Class, Converter>();
 
   static {
     CONVERTER_MAP.put(Integer.class, new IntegerConverter());
@@ -56,6 +57,7 @@ public class PrimitiveOrWrapperConverter {
     CONVERTER_MAP.put(Float.class, new FloatConverter());
     CONVERTER_MAP.put(BigDecimal.class, new BigDecimalConverter());
     CONVERTER_MAP.put(BigInteger.class, new BigIntegerConverter());
+    CONVERTER_MAP.put(Class.class, new ClassConverter());
   }
 
   public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
@@ -75,20 +77,28 @@ public class PrimitiveOrWrapperConverter {
       return new StringConverter(dateFormatContainer);
     }
 
-    Converter result = (Converter) CONVERTER_MAP.get(ClassUtils.primitiveToWrapper(destClass));
+    Converter result = CONVERTER_MAP.get(ClassUtils.primitiveToWrapper(destClass));
 
     if (result == null) {
       if (java.util.Date.class.isAssignableFrom(destClass)) {
         result = new DateConverter(dateFormatContainer.getDateFormat());
-      }
-      if (Calendar.class.isAssignableFrom(destClass) ) {
+      } else if (Calendar.class.isAssignableFrom(destClass) ) {
         result = new CalendarConverter(dateFormatContainer.getDateFormat());
-      }
-      if (XMLGregorianCalendar.class.isAssignableFrom(destClass)){
-          result = new XMLGregorianCalendarConverter(dateFormatContainer.getDateFormat());
+      } else if (XMLGregorianCalendar.class.isAssignableFrom(destClass)){
+        result = new XMLGregorianCalendarConverter(dateFormatContainer.getDateFormat());
       }
     }
     return result == null ? new StringConstructorConverter(dateFormatContainer) : result;
+  }
+
+  public boolean accepts(Class<?> aClass) {
+    return aClass.isPrimitive()
+            || Number.class.isAssignableFrom(aClass)
+            || String.class.equals(aClass)
+            || Character.class.equals(aClass)
+            || Boolean.class.equals(aClass)
+            || java.util.Date.class.isAssignableFrom(aClass)
+            || java.util.Calendar.class.isAssignableFrom(aClass);
   }
 
 }
