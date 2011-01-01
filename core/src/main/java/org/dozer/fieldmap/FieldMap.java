@@ -17,6 +17,7 @@ package org.dozer.fieldmap;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.dozer.MappingException;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.DozerClass;
 import org.dozer.classmap.MappingDirection;
@@ -412,11 +413,19 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public DozerField getSrcFieldCopy() {
-    return srcField.copyOf();
+    try {
+      return (DozerField) srcField.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new MappingException(e);
+    }
   }
 
   public DozerField getDestFieldCopy() {
-    return destField.copyOf();
+    try {
+      return (DozerField) destField.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new MappingException(e);
+    }
   }
 
   protected DozerField getSrcField() {

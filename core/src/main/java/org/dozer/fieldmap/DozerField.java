@@ -27,7 +27,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author dmitry.buzdin
  * 
  */
-public class DozerField {
+public class DozerField implements Cloneable {
 
   private String type;
   private String name;
@@ -156,19 +156,9 @@ public class DozerField {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 
-  public DozerField copyOf() {
-    DozerField copy = new DozerField(name, type);
-    copy.setDateFormat(dateFormat);
-    copy.setTheGetMethod(theGetMethod);
-    copy.setTheSetMethod(theSetMethod);
-    copy.setKey(key);
-    copy.setMapSetMethod(mapSetMethod);
-    copy.setMapGetMethod(mapGetMethod);
-    copy.setAccessible(accessible);
-    copy.setCreateMethod(createMethod);
-    copy.setIndexed(indexed);
-    copy.setIndex(index);
-    return copy;
+  @Override
+  protected Object clone() throws CloneNotSupportedException {
+    return super.clone();
   }
 
 }
