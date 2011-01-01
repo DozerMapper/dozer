@@ -1,6 +1,8 @@
 package org.dozer.functional_tests.builder;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +41,38 @@ public class PrimitiveTest extends Assert {
     assertThat(result.myDouble, equalTo(new BigDecimal("1.0")));
   }
 
+  @Test
+  public void shouldMapOneWayOnly() {
+    mapper.addMapping(new BeanMappingBuilder() {
+      @Override
+      protected void configure() {
+        mapping(type(Source.class),
+                type(Destination.class)
+                 , TypeMappingOptions.oneWay()
+        );
+
+        mapping(type(Destination.class),
+                type(Source.class)
+                 , TypeMappingOptions.oneWay(), TypeMappingOptions.wildcard(false)
+        );
+
+      }
+    });
+
+    {
+      Source source = new Source();
+      source.bigDecimal = new BigDecimal(1);
+      Destination result = mapper.map(source, Destination.class);
+      assertThat(result.bigDecimal, equalTo(new Double(1)));
+    }
+
+    {
+      Destination destination = new Destination();
+      destination.bigDecimal = new Double(1);
+      Source result = mapper.map(destination, Source.class);
+      assertThat(result.bigDecimal, equalTo(null));
+    }
+  }
 
   public static class Source {
     String url;
@@ -46,6 +80,26 @@ public class PrimitiveTest extends Assert {
     String file;
     BigDecimal bigDecimal;
     Double myDouble;
+
+    public void setUrl(String url) {
+      this.url = url;
+    }
+
+    public void setType(String type) {
+      this.type = type;
+    }
+
+    public void setFile(String file) {
+      this.file = file;
+    }
+
+    public void setBigDecimal(BigDecimal bigDecimal) {
+      this.bigDecimal = bigDecimal;
+    }
+
+    public void setMyDouble(Double myDouble) {
+      this.myDouble = myDouble;
+    }
 
     public String getUrl() {
       return url;
@@ -74,6 +128,26 @@ public class PrimitiveTest extends Assert {
     File file;
     Double bigDecimal;
     BigDecimal myDouble;
+
+    public URL getUrl() {
+      return url;
+    }
+
+    public Class<String> getType() {
+      return type;
+    }
+
+    public File getFile() {
+      return file;
+    }
+
+    public Double getBigDecimal() {
+      return bigDecimal;
+    }
+
+    public BigDecimal getMyDouble() {
+      return myDouble;
+    }
 
     public void setUrl(URL url) {
       this.url = url;

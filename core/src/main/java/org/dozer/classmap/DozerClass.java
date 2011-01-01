@@ -39,13 +39,13 @@ public class DozerClass {
   private String createMethod;
   private Boolean mapNull;
   private Boolean mapEmptyString;
-  private Boolean accesible;
+  private Boolean accessible;
 
   public DozerClass() {
   }
 
   public DozerClass(String name, Class<?> classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
-      String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean isAccessible) {
+      String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean accessible) {
     this.name = name;
     this.classToMap = classToMap;
     this.beanFactory = beanFactory;
@@ -55,6 +55,7 @@ public class DozerClass {
     this.createMethod = createMethod;
     this.mapNull = mapNull;
     this.mapEmptyString = mapEmptyString;
+    this.accessible = accessible;
   }
 
   public String getBeanFactory() {
@@ -131,11 +132,11 @@ public class DozerClass {
   }
 
   public Boolean isAccesible() {
-    return accesible;
+    return accessible;
   }
 
-  public void setAccesible(Boolean accesible) {
-    this.accesible = accesible;
+  public void setAccessible(Boolean accessible) {
+    this.accessible = accessible;
   }
 
   @Override

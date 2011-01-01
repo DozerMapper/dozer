@@ -25,7 +25,7 @@ public class FieldDefinition {
 
   private String value;
 
-  private boolean accessible;
+  private Boolean accessible;
   private String createMethod;
   private String key;
   private String mapGetMethod;
