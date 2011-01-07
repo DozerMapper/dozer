@@ -80,6 +80,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.9.0.GA</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>asm</groupId>
       <artifactId>asm</artifactId>
       <version>1.5.3</version>

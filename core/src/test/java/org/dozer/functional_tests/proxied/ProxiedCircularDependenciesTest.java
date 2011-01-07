@@ -1,5 +1,3 @@
-package org.dozer.functional_tests;
-
 /*
  * Copyright 2005-2010 the original author or authors.
  *
@@ -7,7 +5,7 @@ package org.dozer.functional_tests;
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,12 +14,16 @@ package org.dozer.functional_tests;
  * limitations under the License.
  */
 
-public interface DataObjectInstantiator {
+package org.dozer.functional_tests.proxied;
 
-  <T> T newInstance(Class<T> classToInstantiate);
-  
-  <T> T newInstance(Class<T> classToInstantiate, Object[] args);
+import org.dozer.functional_tests.CircularDependenciesTest;
+import org.dozer.functional_tests.DataObjectInstantiator;
 
-  Object newInstance(Class<?>[] interfacesToProxy, Object target);
+public class ProxiedCircularDependenciesTest extends CircularDependenciesTest {
+
+  @Override
+  protected DataObjectInstantiator getDataObjectInstantiator() {
+    return JavassistDataObjectInstantiator.INSTANCE;
+  }
 
 }
