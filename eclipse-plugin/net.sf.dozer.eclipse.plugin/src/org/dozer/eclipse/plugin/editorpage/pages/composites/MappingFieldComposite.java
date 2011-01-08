@@ -3,7 +3,6 @@ package org.dozer.eclipse.plugin.editorpage.pages.composites;
 import org.dozer.eclipse.plugin.editorpage.DozerModelManager;
 import org.dozer.eclipse.plugin.editorpage.utils.DozerUiUtils;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.AbstractListViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -17,16 +16,16 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
 public class MappingFieldComposite extends Composite {
 
-	private IObservableValue fieldName;
 	private IObservableValue dateFormat;
 	private IObservableValue type;
-	private IObservableValue setMethod;
-	private IObservableValue getMethod;
 	private IObservableValue key;
 	private IObservableValue isAccessible;
-	private IObservableValue mapSetMethod;
-	private IObservableValue mapGetMethod;
-	private IObservableValue createMethod;
+	private ObservableSingleSelectionObject fieldName;
+	private ObservableSingleSelectionObject setMethod;
+	private ObservableSingleSelectionObject getMethod;
+	private ObservableSingleSelectionObject mapSetMethod;
+	private ObservableSingleSelectionObject mapGetMethod;
+	private ObservableSingleSelectionObject createMethod;
 	
 	private AbstractListViewer fieldComboViewer;
 	private AbstractListViewer getComboViewer;
@@ -50,7 +49,7 @@ public class MappingFieldComposite extends Composite {
 		fieldComboViewer = DozerUiUtils.createLabelFieldCombobox(
 				this, 
 				"MappingSection.fieldName"); //$NON-NLS-1$		
-		fieldName = ViewersObservables.observeSingleSelection(fieldComboViewer);
+		fieldName = new ObservableSingleSelectionObject(fieldComboViewer);
 
 		optionSection = toolkit.createSection(this, ExpandableComposite.TWISTIE | ExpandableComposite.SHORT_TITLE_BAR);
 		optionSection.setText("Field Options");
@@ -95,38 +94,38 @@ public class MappingFieldComposite extends Composite {
 		getComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.getMethod"); //$NON-NLS-1$
-		getMethod = ViewersObservables.observeSingleSelection(getComboViewer);
+		getMethod = new ObservableSingleSelectionObject(getComboViewer);
 		
 		setComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.setMethod"); //$NON-NLS-1$	
-		setMethod = ViewersObservables.observeSingleSelection(setComboViewer);
+		setMethod = new ObservableSingleSelectionObject(setComboViewer);
 		
 		mapGetComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.mapGetMethod"); //$NON-NLS-1$
-		mapGetMethod = ViewersObservables.observeSingleSelection(mapGetComboViewer);
+		mapGetMethod = new ObservableSingleSelectionObject(mapGetComboViewer);
 		
 		mapSetComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.mapSetMethod"); //$NON-NLS-1$	
-		mapSetMethod = ViewersObservables.observeSingleSelection(mapSetComboViewer);
+		mapSetMethod = new ObservableSingleSelectionObject(mapSetComboViewer);
 
 		createComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.createMethod"); //$NON-NLS-1$
-		createMethod =  ViewersObservables.observeSingleSelection(createComboViewer);	
+		createMethod =  new ObservableSingleSelectionObject(createComboViewer);	
 	}
 	
-	public IObservableValue getMapSetMethod() {
+	public ObservableSingleSelectionObject getMapSetMethod() {
 		return mapSetMethod;
 	}
 
-	public IObservableValue getMapGetMethod() {
+	public ObservableSingleSelectionObject getMapGetMethod() {
 		return mapGetMethod;
 	}
 
-	public IObservableValue getCreateMethod() {
+	public ObservableSingleSelectionObject getCreateMethod() {
 		return createMethod;
 	}
 
@@ -134,7 +133,7 @@ public class MappingFieldComposite extends Composite {
 		return optionSection;
 	}
 
-	public IObservableValue getFieldName() {
+	public ObservableSingleSelectionObject getFieldName() {
 		return fieldName;
 	}
 
@@ -146,11 +145,11 @@ public class MappingFieldComposite extends Composite {
 		return type;
 	}
 
-	public IObservableValue getSetMethod() {
+	public ObservableSingleSelectionObject getSetMethod() {
 		return setMethod;
 	}
 
-	public IObservableValue getGetMethod() {
+	public ObservableSingleSelectionObject getGetMethod() {
 		return getMethod;
 	}
 

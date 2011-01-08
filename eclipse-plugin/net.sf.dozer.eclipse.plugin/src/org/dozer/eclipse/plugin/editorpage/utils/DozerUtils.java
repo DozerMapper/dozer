@@ -7,10 +7,10 @@ public class DozerUtils {
 	public static String getBeanFactoryInterfaceName(IDOMModel model) {    
 		String modelId = model.getContentTypeIdentifier();
 		
-		if ("net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4".equals(modelId))
-			return "net.sf.dozer.util.mapping.BeanFactoryIF";
-		else if ("net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5".equals(modelId))
-			return "net.sf.dozer.util.mapping.BeanFactory";
+		if ("org.dozer.eclipse.plugin.contenttype.dozerMapping4".equals(modelId))
+			return "org.dozer.util.mapping.BeanFactoryIF";
+		else if ("org.dozer.eclipse.plugin.contenttype.dozerMapping5".equals(modelId))
+			return "org.dozer.util.mapping.BeanFactory";
 		
 		return null;
 	}
@@ -18,9 +18,9 @@ public class DozerUtils {
 	public static String getCustomConverterInterfaceName(IDOMModel model) {
 		String modelId = model.getContentTypeIdentifier();
 		
-		if ("net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4".equals(modelId))
-			return "net.sf.dozer.util.mapping.converters.CustomConverter";
-		else if ("net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5".equals(modelId))
+		if ("org.dozer.eclipse.plugin.contenttype.dozerMapping4".equals(modelId))
+			return "org.dozer.util.mapping.converters.CustomConverter";
+		else if ("org.dozer.eclipse.plugin.contenttype.dozerMapping5".equals(modelId))
 			return "org.dozer.CustomConverter";
 		
 		return null;

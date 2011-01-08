@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dozer Editor Plugin
-Bundle-SymbolicName: net.sf.dozer.eclipse.plugin;singleton:=true
+Bundle-SymbolicName: org.dozer.eclipse.plugin;singleton:=true
 Bundle-Version: 0.8.0
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
@@ -23,13 +23,18 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.forms,
  org.eclipse.jface.databinding,
  org.eclipse.core.databinding,
- org.eclipse.core.databinding.beans,
- org.eclipse.core.databinding.dom;bundle-version="1.0.0",
- org.eclipse.ufacekit.core.databinding.instance;bundle-version="1.0.0",
- org.eclipse.ufacekit.core.databinding.sse;bundle-version="1.0.0",
- org.eclipse.ufacekit.core.databinding.sse.dom;bundle-version="1.0.0"
+ org.eclipse.core.databinding.beans
 Bundle-Vendor: http://dozer.sourceforge.net/
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-Activator: net.sf.dozer.eclipse.plugin.DozerPlugin
+Bundle-Activator: org.dozer.eclipse.plugin.DozerPlugin
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/org.eclipse.ufacekit.core.databinding.instance_1.0.0.jar,
+ lib/org.eclipse.ufacekit.core.databinding.sse_1.0.0.jar,
+ lib/org.eclipse.ufacekit.core.databinding.sse.dom_1.0.0.jar,
+ lib/org.springframework.beans_3.0.5.RELEASE.jar,
+ lib/org.springframework.ide.eclipse.beans.core_2.5.1.201011101000-RELEASE.jar,
+ lib/org.springframework.ide.eclipse.beans.ui_2.5.1.201011101000-RELEASE.jar,
+ lib/org.springframework.ide.eclipse.beans.ui.editor_2.5.1.201011101000-RELEASE.jar,
+ lib/org.springframework.ide.eclipse.core_2.5.1.201011101000-RELEASE.jar,
+ lib/org.eclipse.core.databinding.dom_1.0.0.jar

@@ -11,7 +11,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 public class DozerMappingEditorPage extends FormPage {
 	
-	public static final String PAGE_ID = "net.sf.dozer.eclipse.plugin.mapping.page";
+	public static final String PAGE_ID = "org.dozer.eclipse.plugin.mapping.page";
 	private MappingMasterPage dozerMappingListBlock;
 	private FormToolkit toolkit;
 	private ScrolledForm form;

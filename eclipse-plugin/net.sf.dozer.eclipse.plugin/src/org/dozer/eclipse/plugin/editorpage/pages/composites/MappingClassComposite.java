@@ -4,7 +4,6 @@ import org.dozer.eclipse.plugin.editorpage.DozerModelManager;
 import org.dozer.eclipse.plugin.editorpage.utils.DozerUiUtils;
 import org.dozer.eclipse.plugin.editorpage.utils.DozerUtils;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.viewers.AbstractListViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -23,9 +22,9 @@ public class MappingClassComposite extends Composite {
 	private IObservableValue beanFactoryId;
 	private IObservableValue mapNull;
 	private IObservableValue mapEmpty;
-	private IObservableValue mapSetMethod;
-	private IObservableValue mapGetMethod;
-	private IObservableValue createMethod;
+	private ObservableSingleSelectionObject mapSetMethod;
+	private ObservableSingleSelectionObject mapGetMethod;
+	private ObservableSingleSelectionObject createMethod;
 	
 	private AbstractListViewer mapGetComboViewer;
 	private AbstractListViewer mapSetComboViewer;
@@ -96,17 +95,17 @@ public class MappingClassComposite extends Composite {
 		mapGetComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.mapGetMethod"); //$NON-NLS-1$
-		mapGetMethod = ViewersObservables.observeSingleSelection(mapGetComboViewer);
+		mapGetMethod = new ObservableSingleSelectionObject(mapGetComboViewer);
 		
 		mapSetComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.mapSetMethod"); //$NON-NLS-1$	
-		mapSetMethod = ViewersObservables.observeSingleSelection(mapSetComboViewer);
+		mapSetMethod = new ObservableSingleSelectionObject(mapSetComboViewer);
 
 		createComboViewer = DozerUiUtils.createLabelMethodCombobox(
 				sectionComposite, 
 				"MappingSection.createMethod"); //$NON-NLS-1$
-		createMethod =  ViewersObservables.observeSingleSelection(createComboViewer);		
+		createMethod =  new ObservableSingleSelectionObject(createComboViewer);		
 	}
 	
 	public IObservableValue getClassName() {
@@ -129,15 +128,15 @@ public class MappingClassComposite extends Composite {
 		return mapEmpty;
 	}
 
-	public IObservableValue getMapSetMethod() {
+	public ObservableSingleSelectionObject getMapSetMethod() {
 		return mapSetMethod;
 	}
 
-	public IObservableValue getMapGetMethod() {
+	public ObservableSingleSelectionObject getMapGetMethod() {
 		return mapGetMethod;
 	}
 
-	public IObservableValue getCreateMethod() {
+	public ObservableSingleSelectionObject getCreateMethod() {
 		return createMethod;
 	}
 

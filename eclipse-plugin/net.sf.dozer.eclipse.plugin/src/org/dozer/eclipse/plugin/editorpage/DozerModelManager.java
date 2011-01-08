@@ -1,11 +1,16 @@
 package org.dozer.eclipse.plugin.editorpage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.dozer.eclipse.plugin.editorpage.pages.DozerConfigurationEditorPage;
 import org.dozer.eclipse.plugin.editorpage.pages.DozerMappingEditorPage;
 import org.dozer.eclipse.plugin.editorpage.pages.composites.ConfigurationOptionComposite;
 import org.dozer.eclipse.plugin.editorpage.pages.composites.FieldOptionComposite;
 import org.dozer.eclipse.plugin.editorpage.pages.composites.MappingClassComposite;
 import org.dozer.eclipse.plugin.editorpage.pages.composites.MappingFieldComposite;
+import org.dozer.eclipse.plugin.editorpage.pages.composites.ObservableSingleSelectionObject;
 import org.dozer.eclipse.plugin.editorpage.utils.DOMUtils;
 import org.dozer.eclipse.plugin.editorpage.utils.ObservableUtils;
 import org.dozer.eclipse.plugin.editorpage.utils.StringToFieldConverter;
@@ -31,7 +36,6 @@ import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
-import org.eclipse.jface.internal.databinding.viewers.ViewerSingleSelectionObservableValue;
 import org.eclipse.jface.viewers.AbstractTableViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.ufacekit.core.databinding.instance.IInstanceObservedContainer;
@@ -54,10 +58,6 @@ import org.springframework.ide.eclipse.core.java.Introspector;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class DozerModelManager {
@@ -438,13 +438,13 @@ public class DozerModelManager {
 			mappingPage.getDozerMappingListBlock().getMappings().refresh();
 		//dataBindingContext.updateTargets();
 	}		
-	
-	private Binding bindFieldValue(IDOMDocument document, final IObservableValue observedElement, IObservableValue observedView, List<IField> existingFields) {
+
+	private Binding bindFieldValue(IDOMDocument document, final IObservableValue observedElement, ObservableSingleSelectionObject observedView, List<IField> existingFields) {
 		IObservableValue observedValue = SSEDOMObservables.observeDetailCharacterData(Realm.getDefault(), observedElement);
 		
 		//do the binding
 		return dataBindingContext.bindValue(
-				observedView,
+				observedView.getValue(),
 				observedValue,
 				new UpdateValueStrategy().setConverter(new Converter(IMethod.class, String.class) {
 					
@@ -469,18 +469,18 @@ public class DozerModelManager {
 				}),
 				new UpdateValueStrategy().setConverter(
 						new StringToFieldConverter(
-								existingFields, 
-								((ViewerSingleSelectionObservableValue)observedView).getViewer()
+								existingFields,
+								observedView.getViewer()
 								)
 						));			
 	}
-	
-	private Binding bindMethodAttr(IDOMDocument document, final IObservableValue parent, final String attrName, IObservableValue observedView, List<IMethod> existingMethods) {
+
+	private Binding bindMethodAttr(IDOMDocument document, final IObservableValue parent, final String attrName, ObservableSingleSelectionObject observedView, List<IMethod> existingMethods) {
 		IObservableValue observedValue = SSEDOMObservables.observeDetailAttrValue(Realm.getDefault(), parent, attrName);
 		
 		//do the binding
 		return dataBindingContext.bindValue(
-				observedView,
+				observedView.getValue(),
 				observedValue,
 				new UpdateValueStrategy().setConverter(new Converter(IMethod.class, String.class) {
 					
@@ -512,9 +512,7 @@ public class DozerModelManager {
 				}),
 				new UpdateValueStrategy().setConverter(new StringToMethodConverter(
 						existingMethods, 
-						((ViewerSingleSelectionObservableValue)observedView).getViewer()
-						)
-				));		
+						observedView.getViewer())));		
 	}
 	
 	private Binding bindAttr(IDOMDocument document, final IObservableValue parent, final String attrName, IObservableValue observedView) {

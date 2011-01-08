@@ -4,7 +4,7 @@
 
 	<!-- ContentType for Dozer 4 -->
 	<extension point="org.eclipse.core.runtime.contentTypes">
-		<content-type id="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4" name="Dozer 4 Mapping File"
+		<content-type id="org.dozer.eclipse.plugin.contenttype.dozerMapping4" name="Dozer 4 Mapping File"
 			base-type="org.eclipse.core.runtime.xml" 
 			priority="normal"
 			file-extensions="xml"
@@ -15,7 +15,7 @@
 			</describer>
 		</content-type>
 	<!-- ContentType for Dozer 5 -->
-		<content-type id="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5" name="Dozer 5 Mapping File"
+		<content-type id="org.dozer.eclipse.plugin.contenttype.dozerMapping5" name="Dozer 5 Mapping File"
 			base-type="org.eclipse.core.runtime.xml" 
 			priority="normal"
 			file-extensions="xml"
@@ -34,10 +34,10 @@
             class="org.dozer.eclipse.plugin.DozerMultiPageEditor"
             contributorClass="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorActionBarContributor"
             icon="icons/dozer.gif"
-            id="net.sf.dozer.eclipse.plugin.editor.dozerEditor"
+            id="org.dozer.eclipse.plugin.editor.dozerEditor"
             name="Dozer Mapping Editor">
-         <contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4" />
-         <contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5" />
+         <contentTypeBinding contentTypeId="org.dozer.eclipse.plugin.contenttype.dozerMapping4" />
+         <contentTypeBinding contentTypeId="org.dozer.eclipse.plugin.contenttype.dozerMapping5" />
       </editor>
    </extension>
    	
@@ -65,10 +65,10 @@
 	<extension point="org.eclipse.wst.sse.ui.editorConfiguration">
 		<sourceViewerConfiguration
 			class="org.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
-			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4" />
+			target="org.dozer.eclipse.plugin.contenttype.dozerMapping4" />
 		<sourceViewerConfiguration
 			class="org.dozer.eclipse.plugin.sourcepage.DozerStructuredTextViewerConfiguration"
-			target="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5" />
+			target="org.dozer.eclipse.plugin.contenttype.dozerMapping5" />
 	</extension>	
 	
 	<!-- Hyperlink Detector -->
@@ -77,7 +77,7 @@
       	<hyperlinkDetector
       		targetId="org.eclipse.core.runtime.xml"
             class="org.dozer.eclipse.plugin.sourcepage.hyperlink.DozerClassHyperlinkDetector"
-            id="net.sf.dozer.eclipse.plugin.DozerClassHyperinkDetector"
+            id="org.dozer.eclipse.plugin.DozerClassHyperinkDetector"
             name="DozerClassHyperinkDetector"/>        
 	</extension>
 	
@@ -91,8 +91,8 @@
 				objectClass="org.eclipse.core.resources.IFile"
 				nameFilter="*.xml">
 			</filter>
-         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping4"/>			
-         	<contentTypeBinding contentTypeId="net.sf.dozer.eclipse.plugin.contenttype.dozerMapping5"/>			
+         	<contentTypeBinding contentTypeId="org.dozer.eclipse.plugin.contenttype.dozerMapping4"/>			
+         	<contentTypeBinding contentTypeId="org.dozer.eclipse.plugin.contenttype.dozerMapping5"/>			
 			<helper class="org.eclipse.wst.xml.core.internal.validation.core.Helper"/>
 			<run
 				async="true"

@@ -124,7 +124,7 @@ public class DozerPluginUtils {
 		//get first bean that uses our mapping file
 		for (IBean bean : beans) {
 			String className = BeansModelUtils.getBeanClass(bean, null);			
-			if ("net.sf.dozer.util.mapping.DozerBeanMapper".equals(className)) {
+			if ("org.dozer.util.mapping.DozerBeanMapper".equals(className)) {
 				//get mappingFiles-property
 				IBeanProperty mappingFilesProperty = bean.getProperty("mappingFiles");
 				if (mappingFilesProperty == null)

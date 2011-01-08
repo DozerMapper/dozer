@@ -44,7 +44,7 @@ import org.w3c.dom.NodeList;
 
 public class DozerConfigurationEditorPage extends FormPage {
 
-	public static final String PAGE_ID = "net.sf.dozer.eclipse.plugin.configuration.page";
+	public static final String PAGE_ID = "org.dozer.eclipse.plugin.configuration.page";
 
 	private FormToolkit toolkit;
 	private ScrolledForm form;
