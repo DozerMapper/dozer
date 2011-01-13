@@ -177,6 +177,13 @@ public class MappingProcessor implements Mapper {
         result = (T) DestBeanCreator.create(new BeanCreationDirective(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType, classMap
             .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod()));
       }
+
+      // If this is a nested MapperAware conversion this mapping can be already processed
+      Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destClass);
+      if (alreadyMappedValue != null) {
+        return (T) alreadyMappedValue;
+      }
+
       map(classMap, srcObj, result, false, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
