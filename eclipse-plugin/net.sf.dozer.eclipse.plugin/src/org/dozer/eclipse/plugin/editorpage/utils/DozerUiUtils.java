@@ -4,7 +4,6 @@ import org.dozer.eclipse.plugin.DozerMultiPageEditor;
 import org.dozer.eclipse.plugin.DozerPlugin;
 import org.dozer.eclipse.plugin.editorpage.Messages;
 import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.core.databinding.observable.value.AbstractObservableValue;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -274,7 +273,8 @@ public class DozerUiUtils {
 			public void widgetSelected(SelectionEvent e) {
 				String className = DozerUiUtils.getInstance().doOpenClassSelectionDialog(superType, allowInterfaces);
 				if (className != null) {
-					((AbstractObservableValue)text).setValue(className);
+					text.setValue(className);
+					
 				}
 			}
 		});
