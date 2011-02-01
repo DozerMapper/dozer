@@ -326,7 +326,9 @@ public class DozerModelManager {
 		observedModel.addValueChangeListener(jmvcl);
 		
 		//initial refresh
-		jmvcl.refresh(observedModel.getValue().toString());
+		if(observedModel.getValue()!=null){
+			jmvcl.refresh(observedModel.getValue().toString());
+		}
 		
 		mappingBindingList.add(classBinding);
 		mappingBindingList.add(bindAttr(document, observedElement, "bean-factory", classComposite.getBeanFactory()));
