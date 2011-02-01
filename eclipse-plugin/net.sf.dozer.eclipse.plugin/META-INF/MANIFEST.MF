@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dozer Editor Plugin
 Bundle-SymbolicName: org.dozer.eclipse.plugin;singleton:=true
-Bundle-Version: 0.8.0
+Bundle-Version: 0.8.1
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.jdt.ui,
