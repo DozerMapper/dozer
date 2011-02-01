@@ -439,7 +439,7 @@ public class MappingMasterPage extends MasterDetailsBlock {
 		Element mappingsNode = page.getModelManager().getModel().getDocument().getDocumentElement();
 		Element mapping = mappingsNode.getOwnerDocument().createElement("mapping");
 			
-		if ("mapping".equals(selected.getNodeName())) {
+		if (selected!=null && "mapping".equals(selected.getNodeName())) {
 			mappingsNode.insertBefore(mapping, selected);
 		} else
 			mappingsNode.appendChild(mapping);
