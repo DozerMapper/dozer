@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.dozer.eclipse.feature_0.8.1.jar" id="org.dozer.eclipse.feature" version="0.8.1" os="">
+      <category name="Core"/>
+   </feature>
+   <category-def name="Core" label="Core"/>
+</site>
