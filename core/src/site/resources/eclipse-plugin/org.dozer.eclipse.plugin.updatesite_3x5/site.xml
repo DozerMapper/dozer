@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
+   <description url="http://dozer.sourceforge.net/eclipse-plugin/3.5">
+      Update Site for Eclipse Dozer Plugin
+   </description>
    <feature url="features/org.dozer.eclipse.feature_0.8.1.jar" id="org.dozer.eclipse.feature" version="0.8.1" os="">
       <category name="Core"/>
    </feature>
