@@ -100,9 +100,7 @@ public class ClassMap {
 
     FieldMap result = null;
 
-    int size = fieldMaps.size();
-    for (int i = 0; i < size; i++) {
-      FieldMap fieldMap = fieldMaps.get(i);
+    for (FieldMap fieldMap : fieldMaps) {
       String fieldName = fieldMap.getDestFieldName();
 
       if (isMap && MappingUtils.isDeepMapping(fieldName)) {
