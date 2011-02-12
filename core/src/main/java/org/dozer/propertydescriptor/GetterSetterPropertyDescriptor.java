@@ -35,15 +35,15 @@ import java.util.Collection;
 
 
 /**
- * 
+ *
  * Internal class used to read and write values for fields that have a getter and setter method. This class encapsulates
  * underlying dozer specific logic such as index mapping and deep mapping for reading and writing field values. Only
  * intended for internal use.
- * 
+ *
  * @author garsombke.franz
  * @author tierney.matt
  * @author dmitry.buzdin
- * 
+ *
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
 
@@ -60,7 +60,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   protected abstract Method getReadMethod() throws NoSuchMethodException;
   protected abstract String getSetMethodName() throws NoSuchMethodException;
   protected abstract boolean isCustomSetMethod();
-  
+
   public Class<?> getPropertyType() {
     if (propertyType == null) {
       propertyType = determinePropertyType();
@@ -146,6 +146,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       PropertyDescriptor pd = hierarchyElement.getPropDescriptor();
       Object value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       Class<?> clazz;
+      Class<?> collectionEntryType;
       if (value == null) {
         clazz = pd.getPropertyType();
         if (clazz.isInterface() && (i + 1) == hierarchyLength && fieldMap.getDestHintContainer() != null) {
@@ -158,7 +159,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           o = MappingUtils.prepareIndexedCollection(clazz, null, DestBeanCreator.create(clazz.getComponentType()),
               hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
-          Class<?> collectionEntryType;
+
           Class<?> genericType = ReflectionUtils.determineGenericsType(pd);
           if (genericType != null) {
             collectionEntryType = genericType;
@@ -192,8 +193,14 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       if (MappingUtils.isSupportedCollection(value.getClass())) {
         int currentSize = CollectionUtils.getLengthOfCollection(value);
         if (currentSize < hierarchyElement.getIndex() + 1) {
-          value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(pd.getPropertyType()
-              .getComponentType()), hierarchyElement.getIndex());
+        	collectionEntryType = pd.getPropertyType().getComponentType(); 
+
+        	if (collectionEntryType == null){
+        		collectionEntryType = ReflectionUtils.determineGenericsType(pd);
+        	}
+
+        	value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
+          //value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
           ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { value });
         }
       }
@@ -294,7 +301,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         // let us try the set method - the field might have inacessible 'get' method
         return determineByWriteMethod(writeMethod);
       }
-    }    
+    }
   }
 
   private Class determineByWriteMethod(Method writeMethod) {
