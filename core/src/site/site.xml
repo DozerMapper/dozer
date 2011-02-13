@@ -41,9 +41,10 @@
       <item name="Why Map?" href="/documentation/whymap.html" />
       <item name="Getting Started" href="/documentation/gettingstarted.html" />
       <item name="Usage" href="/documentation/usage.html" collapse="true"/>
+      <item name="Mappings via Annotations" href="/documentation/annotations.html"/>
+      <item name="Mappings via API" href="/documentation/apimappings.html"/>
       <!-- Collapsed Submenu -->
-      <item name="Custom Mappings via API" href="/documentation/apimappings.html"/>      
-      <item name="Custom Mappings via XML" href="/documentation/mappings.html" collapse="true">
+      <item name="Mappings via XML" href="/documentation/mappings.html" collapse="true">
         <item name="Mapping Two Classes" href="/documentation/mappingclasses.html" />
         <item name="Basic Property Mapping" href="/documentation/simpleproperty.html" />
         <item name="String To Date Mapping" href="/documentation/stringtodatemapping.html" />

@@ -8,7 +8,7 @@
     <meta http-equiv="Description" name="Description"
           content="Dozer is a powerful, yet simple Java Bean to Java Bean mapper."/>
     <meta http-equiv="Keywords" name="Keywords"
-          content="Java Bean Mapper, Java, Mapper, Complex Mapping, Dozer, bean utils"/>
+          content="Java Bean Mapper, Java, Mapper, Complex Mapping, Dozer, bean utils, DTO"/>
     <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
     <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
     <meta http-equiv="EXPIRES" content="-1"/>
@@ -33,12 +33,16 @@
     <section name="Dozer News">
       <p/>
 
-        <h3>Release 5.3.1 Now Available<font size="-3" color="gray"> <i>02/15/2011</i></font></h3>
+        <h3>Release 5.3.2 Now Available<font size="-3" color="gray"> <i>02/15/2011</i></font></h3>
         <p>
           Release 5.3.2 is available for download. This is maintenance release, which finalizes internal builder API
           implementation and delivers several bugfixes. Annotation support for simple mappings has been added.
           Upgrade is recommended for 5.3.x users.
         </p>
+        <p>
+          Refer to <a href="releasenotes.html">release notes</a> for detailed information.
+        </p>
+        <p/>
 
         <h3>Release 5.3.1 Now Available<font size="-3" color="gray"> <i>11/15/2010</i></font></h3>
         <p>
@@ -209,7 +213,7 @@
         Please check here for more
         <a href="releasenotes.html">release notes</a>
       </p>
-      <p></p>
+      <p/>
 
       <h3>
         Release 4.3 Now Available

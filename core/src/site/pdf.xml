@@ -13,9 +13,11 @@
     <item name="Getting Started" ref="/documentation/gettingstarted.html"/>
     <item name="Usage" ref="/documentation/usage.html"/>
 
-    <item name="Custom Mappings via API" href="/documentation/apimappings.html"/>
+    <item name="Mappings via Annotations" href="/documentation/annotations.html"/>
+    
+    <item name="Mappings via API" href="/documentation/apimappings.html"/>
       
-    <item name="Custom Mappings via XML" ref="/documentation/mappings.html">
+    <item name="Mappings via XML" ref="/documentation/mappings.html">
       <item name="Mapping Two Classes" ref="/documentation/mappingclasses.html"/>
       <item name="Basic Property Mapping" ref="/documentation/simpleproperty.html"/>
       <item name="String To Date Mapping" ref="/documentation/stringtodatemapping.html"/>
