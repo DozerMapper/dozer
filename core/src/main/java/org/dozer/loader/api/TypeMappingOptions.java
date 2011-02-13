@@ -21,6 +21,8 @@ import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.DozerBuilder;
 
 /**
+ * Mapping options applie on Type level.
+ *
  * @author Dmitry Buzdin
  */
 public final class TypeMappingOptions {

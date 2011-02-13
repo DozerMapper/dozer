@@ -18,7 +18,7 @@
         Requirements for running Dozer:
       </p>
       <ul>
-        <li>Dozer uses Jakarta Commons Logging.</li>
+        <li>Dozer uses SLF4J for logging purposes.</li>
         <li>Dozer needs a few thirdparty runtime jars.</li>
         <li>
           All of the
@@ -35,14 +35,12 @@
           object with all of its mapped fields.
         </p>
         <source>
-          <![CDATA[        
-Mapper mapper = new DozerBeanMapper();
+          <![CDATA[Mapper mapper = new DozerBeanMapper();
 
 DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
              or
 DestinationObject destObject = new DestinationObject();
-mapper.map(sourceObject, destObject);
-          ]]>
+mapper.map(sourceObject, destObject);    ]]>
         </source>
 
         <p>
@@ -52,6 +50,20 @@ mapper.map(sourceObject, destObject);
           using an IOC framework where you can define the Mapper as singleton="true", a
           DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
         </p>
+
+        <p>Dozer operates in two general modes: implicit and explicit. Implicit mode is activated by default and
+        tries to resolve mappings for you. It uses simple assumptions that if two objects are passed for mapping
+        then bean properties with the same names should be mapped. If there are additional mappings needed,
+        which can not be derived by the naming you should add those eaither via Xml, Annotations or API.</p>
+
+        <p>
+          Explicit mode assumes that no mappings should be performed or "guessed" until you have specified those
+          specifically. The amount of coding is higher in expliit mode, but sometimes you would like to have full
+          conrol on what is going on during the mappings process and this approach is also used in many of the
+          productive applications. Implicit/Explicit mapping switch is called <i>"wildcard"</i> in Dozer. Whenever you
+          encounter that in configuration you know what behavior to expect from now on.
+        </p>
+
       </subsection>
       <subsection name="Injecting Custom Mapping Files">
         <p>

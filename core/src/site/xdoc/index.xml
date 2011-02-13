@@ -33,12 +33,20 @@
     <section name="Dozer News">
       <p/>
 
+        <h3>Release 5.3.1 Now Available<font size="-3" color="gray"> <i>02/15/2011</i></font></h3>
+        <p>
+          Release 5.3.2 is available for download. This is maintenance release, which finalizes internal builder API
+          implementation and delivers several bugfixes. Annotation support for simple mappings has been added.
+          Upgrade is recommended for 5.3.x users.
+        </p>
+
         <h3>Release 5.3.1 Now Available<font size="-3" color="gray"> <i>11/15/2010</i></font></h3>
         <p>
             Release 5.3.1 is available for download. This is maintenance release bringing compatibility with
             Apache Camel framework and fixing a few bugs found in 5.3.0.
             Upgrade is highly recommended for 5.3.0 users.
         </p>
+
         <h3>Release 5.3.0 Now Available<font size="-3" color="gray"> <i>10/10/2010</i></font></h3>
         <p>
             Release 5.3.0 is available for download. This release brings several major changes to Dozer.

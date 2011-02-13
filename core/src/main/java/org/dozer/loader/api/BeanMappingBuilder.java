@@ -21,6 +21,9 @@ import org.dozer.loader.DozerBuilder;
 import org.dozer.util.DozerConstants;
 
 /**
+ *
+ * Programmatic Builder of Dozer mappings.
+ *
  * @author Dmitry Buzdin
  */
 public abstract class BeanMappingBuilder {
@@ -30,6 +33,10 @@ public abstract class BeanMappingBuilder {
   public BeanMappingBuilder() {
   }
 
+  /**
+   * For internal use
+   * @return mappings created with given builder
+   */
   public MappingFileData build() {
     dozerBuilder = new DozerBuilder();
     configure();
@@ -87,6 +94,10 @@ public abstract class BeanMappingBuilder {
     return new FieldDefinition(name);
   }
 
+  /**
+   * References current object in mapping process.
+   * @return field definition
+   */
   public FieldDefinition this_() {
     return new FieldDefinition(DozerConstants.SELF_KEYWORD);
   }

@@ -28,17 +28,22 @@
           to your classpath.
         </li>
       </ul>
-          <p>If you are using Maven, simply copy-paste this dependency to your project</p>
+          <p>If you are using Maven, simply copy-paste this dependency to your project.</p>
           <source>
-<![CDATA[
-<dependency>
+<![CDATA[<dependency>
     <groupId>net.sf.dozer</groupId>
     <artifactId>dozer</artifactId>
-</dependency>
-]]>
+    <version>last version</version>
+</dependency>]]>
           </source>
+
+        <p>Apache Ivy users can copy-paste the following line instead.</p>
+        <source>
+<![CDATA[<dependency org="net.sf.dozer" name="dozer" rev="5.3.1"/>]]>
+        </source>
       <br/>
       </subsection>
+            
       <subsection name="1st Mapping">
         <p>For your first mapping lets assume that the two data objects share all common attribute names.</p>
         <source>

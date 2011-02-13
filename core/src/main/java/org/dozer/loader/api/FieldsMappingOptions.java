@@ -23,6 +23,8 @@ import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.DozerBuilder;
 
 /**
+ * Mapping options applied on Field level.
+ *
  * @author Dmitry Buzdin
  */
 public final class FieldsMappingOptions {

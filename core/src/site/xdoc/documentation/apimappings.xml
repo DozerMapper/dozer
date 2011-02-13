@@ -57,8 +57,6 @@
         </subsection>
 
         <subsection name="API Mappings">
-            <p><b>WARNING</b> Currently API mappings functionality is in Beta stage!
-                Some API details may change over next releases.</p>
 
              <p>
                 API mappings are intended to solve all of the mentioned problems. To preserve backwards compatibility
