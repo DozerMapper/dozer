@@ -36,8 +36,8 @@
         <h3>Release 5.3.2 Now Available<font size="-3" color="gray"> <i>02/15/2011</i></font></h3>
         <p>
           Release 5.3.2 is available for download. This is maintenance release, which finalizes internal builder API
-          implementation and delivers several bugfixes. Annotation support for simple mappings has been added.
-          Upgrade is recommended for 5.3.x users.
+          implementation and delivers several bugfixes. Experimental annotations support for simple mappings has been
+          added.
         </p>
         <p>
           Refer to <a href="releasenotes.html">release notes</a> for detailed information.

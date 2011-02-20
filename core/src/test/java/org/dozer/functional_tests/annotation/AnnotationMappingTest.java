@@ -67,7 +67,7 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
     Short age;
 
     @Mapping("username")
-    String name;
+    private String name;
 
     String freeText;
 

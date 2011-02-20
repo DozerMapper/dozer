@@ -15,6 +15,29 @@
 
       <section name="Release Notes">
 
+<h3>5.3.2 <font size="-3" color="gray"><i>02/15/2011</i></font></h3>
+<p>Bug Fixes</p>
+
+<ul>
+<li>NullPointerException when mapping single field to List <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3157966&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>StackOverFlow when using MapperAware Custom Converters <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3151273&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>ClassMappings get wrong ClassMap in polymorphism case <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3136650&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Mapping of XMLGregorianCalendar not working <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3134335&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Thread hang during initialization <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3134120&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Add ability to define is-accessible at the type level <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3124339&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>one-way doesn't work at the mapping level <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3097462&amp;group_id=133517&amp;atid=727368">link</a></li>
+<li>Mapping String collections with "iterate" fails <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2856035&amp;group_id=133517&amp;atid=727368">link</a></li>
+</ul>
+
+<p>Feature Requests</p>
+
+<ul>
+<li>Get a handle on mappedFields property from CustomConverter. <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3017589&amp;group_id=133517&amp;atid=727371">link</a></li>
+<li>BigDecimal and Double mapping <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2848458&amp;group_id=133517&amp;atid=727371">link</a></li>
+<li>Integrate BeanUtils 1.8 converters <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2476388&amp;group_id=133517&amp;atid=727371">link</a></li>
+</ul>
+
+
 <h3>5.3.1 <font size="-3" color="gray"><i>11/15/2010</i></font></h3>
 <p>Bug Fixes</p>
 

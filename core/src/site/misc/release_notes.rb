@@ -13,7 +13,7 @@ include REXML
 #url
 
 url = <<url
-http://sourceforge.net/tracker/?limit=75&func=&group_id=133517&atid=727371&assignee=&status=&category=&artgroup=&keyword=&submitter=&artifact_id=&assignee=&status=2&category=&artgroup=1129212&submitter=&keyword=&artifact_id=&submit=Filter
+http://sourceforge.net/tracker/?limit=25&func=&group_id=133517&atid=727371&assignee=&status=&category=&artgroup=&keyword=&submitter=&artifact_id=&assignee=&status=2&category=&artgroup=1335462&submitter=&keyword=&artifact_id=&submit=Filter
 url
 
 page = open(url, 'User-Agent' => 'Ruby-Wget').read

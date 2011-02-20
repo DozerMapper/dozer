@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Defines non-standard mappings on property or field levels.
- * If property level is considered this annotation should be put on valid getter method.
+ * If property level is considered this annotation should be put on valid bean property getter method.
  * 
  * @author dmitry.buzdin
  */
