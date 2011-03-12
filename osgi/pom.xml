@@ -17,7 +17,7 @@
 	<groupId>net.sf.dozer</groupId>
 	<artifactId>dozer-osgi</artifactId>
 	<packaging>bundle</packaging>
-	<version>5.3.2</version>
+	<version>5.3.3-SNAPSHOT</version>
 	<name>dozer.osgi</name>
 
 	<properties>
@@ -82,7 +82,7 @@
 		<repository>
 			<id>dozer.sf.net</id>
 			<name>SF.net repository mirror</name>
-			<url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs/m2repo</url>
+			<url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo</url>
 		</repository>
 	</distributionManagement>
 

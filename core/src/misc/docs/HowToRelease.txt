@@ -57,4 +57,6 @@
 - -Open task to upload latest Dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
 
 7.  POST RELEASE
-  -Create a tag for the release in SVN
+- Create a tag for the release in SVN
+svn copy https://dozer.svn.sourceforge.net/svnroot/dozer/trunk/ https://dozer.svn.sourceforge.net/svnroot/dozer/tags/X.X.X_RELEASE -m "Creating release tag;"
+- Change current version to SNAPSHOT
