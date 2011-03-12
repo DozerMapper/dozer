@@ -609,20 +609,22 @@
     <url>http://sourceforge.net/tracker/?group_id=133517</url>
   </issueManagement>
 
+  <!--scp://shell.sourceforge.net//home/frs/d/do/dozer-->
+
   <distributionManagement>
     <site>
       <id>dozer.sf.net</id>
-      <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs</url>
+      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
     </site>
     <repository>
       <id>dozer.sf.net</id>
       <name>SF.net repository mirror</name>
-      <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs/m2repo</url>
+      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo</url>
     </repository>
     <snapshotRepository>
       <id>dozer.sf.net</id>
       <name>Snapshots</name>
-      <url>scp://shell.sourceforge.net//home/groups/d/do/dozer/htdocs/m2repo-snapshot</url>
+      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo-snapshot</url>
       <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>

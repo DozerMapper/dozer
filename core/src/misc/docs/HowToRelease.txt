@@ -11,7 +11,7 @@
 
 2.  BUILD
   -Run "mvn clean site:site assembly:assembly"
-  -After this step is complete, you should see a /target/site directory containing all of the gererated html
+  -After this step is complete, you should see a /target/site directory containing all of the generated html
       along with the /target/dozer-x.x-src.zip and /target/dozer-x.x-src.tar.gz files
   -Generate PDF documentation with mvn pdf:pdf
 
@@ -50,11 +50,11 @@
 - Run "mvn source:jar javadoc:jar repository:bundle-create"
 - Check the results in target directory
 - Run "mvn deploy" to upload to local Maven repository mirror via scp
-    Daily syncronization process will pick up released version and publish it globaly.
+    Daily synchronization process will pick up released version and publish it globaly.
 
 6.1  MANUAL UPLOAD (IN EMERGENCY CASE ONLY)
 - -Login to http://jira.codehaus.org/secure/Dashboard.jspa
-- -Open task to upload latest dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
+- -Open task to upload latest Dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
 
 7.  POST RELEASE
   -Create a tag for the release in SVN
