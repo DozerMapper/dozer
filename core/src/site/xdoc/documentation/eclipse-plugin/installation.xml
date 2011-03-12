@@ -1,6 +1,7 @@
 <document>
   <properties>
     <author email="mhielen@users.sourceforge.net">Markus Thielen</author>
+    <author email="lenkhwi@users.sourceforge.net">Lenkwe Makhubela</author>
     <title>Eclipse Plugin Installation</title>
   </properties>
   <head>
@@ -12,49 +13,53 @@
   <body>
     <section name="Prerequisites">
       <p>
-          <b>Eclipse Plugin DOES NOT WORK with latest Eclipse versions!!!</b>
-          The plugin is waiting for the contributor to tune it and make it runnable. Please drop a message in developer
-          forum if you are interested.
-      </p>
-
-      <p>
-        The Plugin currently depends on<a href="http://springide.org/blog/">Spring IDE 2.2.3</a>. This way the plugin
-        can
-        find out if the mapping.xml is used within a spring context and therefore can propose definied custom converters
-        that are defined there. See also Custom Converter<a href="../customconverter.html">configuration
-        documentation</a>.
-        <b>It is planned to remove this dependency.</b>
-      </p>
-      <p>
+        The Plugin currently depends on
         <ul>
           <li>
-            <a href="http://www.eclipse.org">Eclipse 3.4.2</a>
-            (might work with lower versions, too)
+            <a href="http://www.eclipse.org/webtools/">WTP 3.0.2 or latest</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+    <section name="Compatibility">
+      <p>
+        Plugin is supported and been tested on the following IDEs
+        <ul>
+          <li>
+            <a href="http://www.eclipse.org">Eclipse 3.6</a>
           </li>
           <li>
-            <a href="http://www.eclipse.org/webtools/">WTP 3.0.2</a>
-          </li>
-          <li>
-            <a href="http://springide.org/blog/">Spring IDE 2.2.3</a>
+            <a href="http://www.ibm.com/developerworks/rational/library/10/whats-new-in-rational-software-architect-8/">
+              RAD RSA 8.0.1
+            </a>
           </li>
         </ul>
       </p>
     </section>
     <section name="Installation">
       <p>
-        The Dozer Plugin-feature can be installed and updated using the Eclipse Update Manager. Add a new Update-URL:
-        <source><![CDATA[http://dozer.sourceforge.net/eclipse-plugin]]></source>
+        The Dozer Plugin-feature can be installed and updated using the
+        Eclipse Update Manager.
+        <ul>
+          <li>
+            Add a new Update-URL:
+            <source><![CDATA[http://dozer.sourceforge.net/eclipse-plugin]]></source>
+          </li>
+        </ul>
         Select all required dependencies and install the plugin.
       </p>
       <p>
         Alternatively you can download the package at
         <a href="https://sourceforge.net/project/showfiles.php?group_id=133517">sourceforge</a>
-        and unzip it in your eclipse installation folder. You might have to enable the Plugin after starting Eclipse.
+        and unzip it in your eclipse installation folder. You might have to
+        enable the Plugin after starting Eclipse.
         This can be done at
-        Help > Software Updates > Manage Configuration.
+        Help >
+        Software Updates > Manage Configuration.
       </p>
       <p>
-        After installation is done you should see a little red dozer-icon on all your mapping-xml files.
+        After installation is done you should see a little red dozer-icon on
+        all your mapping-xml files.
         <br/>
         <img src="../../images/eclipse-dozerfile.gif"/>
       </p>
