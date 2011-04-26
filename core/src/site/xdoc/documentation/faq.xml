@@ -364,7 +364,7 @@
         <source>
           <![CDATA[ 
     <dependency>
-      <groupId>net.sf.dozer<groupId>
+      <groupId>net.sf.dozer</groupId>
       <artifactId>dozer</artifactId>
       <version>${project.version}</version>
     </dependency>
