@@ -18,6 +18,7 @@ package org.dozer.loader.api;
 
 import org.dozer.BeanFactory;
 import org.dozer.loader.DozerBuilder;
+import org.dozer.util.DozerConstants;
 
 /**
  * @author Dmitry Buzdin
@@ -28,10 +29,10 @@ public class TypeDefinition {
   private String beanFactory;
   private String createMethod;
   private String factoryBeanId;
-  private boolean mapEmptyString;
+  private boolean mapEmptyString = DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY;
   private String mapGetMethod;
   private String mapSetMethod;
-  private boolean mapNull;
+  private boolean mapNull = DozerConstants.DEFAULT_MAP_NULL_POLICY;
   private Boolean isAccessible;
 
   public TypeDefinition(Class<?> type) {
