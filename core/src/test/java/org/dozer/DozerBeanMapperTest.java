@@ -16,6 +16,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.mockito.Mockito.mock;
+
 /**
  * @author Dmitry Buzdin
  */
@@ -164,25 +166,13 @@ public class DozerBeanMapperTest extends Assert {
       }
       fail();
     } catch (UnsupportedOperationException e) {
-
     }
   }
 
   @Test
   public void shouldSetEventListeners() {
-    mapper.setEventListeners(Arrays.asList(new DozerEventListener() {
-      public void mappingStarted(DozerEvent event) {
-      }
-
-      public void preWritingDestinationValue(DozerEvent event) {
-      }       
-
-      public void postWritingDestinationValue(DozerEvent event) {
-      }
-
-      public void mappingFinished(DozerEvent event) {
-      }
-    }));
+    DozerEventListener listener = mock(DozerEventListener.class);
+    mapper.setEventListeners(Arrays.asList(listener));
 
     List<? extends DozerEventListener> listeners = mapper.getEventListeners();
 

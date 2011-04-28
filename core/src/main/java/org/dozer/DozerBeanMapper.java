@@ -67,8 +67,8 @@ public class DozerBeanMapper implements Mapper {
   private final List<String> mappingFiles = new ArrayList<String>();
   private final List<CustomConverter> customConverters = new ArrayList<CustomConverter>();
   private final List<MappingFileData> builderMappings = new ArrayList<MappingFileData>();
+  private final List<DozerEventListener> eventListeners = new ArrayList<DozerEventListener>();
   private final Map<String, CustomConverter> customConvertersWithId = new HashMap<String, CustomConverter>();
-  private List<? extends DozerEventListener> eventListeners = new ArrayList<DozerEventListener>();
 
   private CustomFieldMapper customFieldMapper;
 
@@ -215,12 +215,22 @@ public class DozerBeanMapper implements Mapper {
     this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
   }
 
+  /**
+   * Adds multiple API mappings to given mapper instance.
+   *
+   * @param mappingBuilder mappings to be added
+   */
   public void setMappings(List<? extends BeanMappingBuilder> mappingBuilder) {
     for (BeanMappingBuilder builder : mappingBuilder) {
       addMapping(builder);
     }
   }
 
+  /**
+   * Adds API mapping to given mapper instance.
+   *
+   * @param mappingBuilder mappings to be added
+   */
   public void addMapping(BeanMappingBuilder mappingBuilder) {
     checkIfInitialized();
     MappingFileData mappingFileData = mappingBuilder.build();
@@ -233,7 +243,8 @@ public class DozerBeanMapper implements Mapper {
 
   public void setEventListeners(List<? extends DozerEventListener> eventListeners) {
     checkIfInitialized();
-    this.eventListeners = eventListeners;
+    this.eventListeners.clear();
+    this.eventListeners.addAll(eventListeners);
   }
 
   public CustomFieldMapper getCustomFieldMapper() {
