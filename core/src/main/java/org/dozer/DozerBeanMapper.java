@@ -27,6 +27,8 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
 import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.metadata.DozerMappingMetadata;
+import org.dozer.metadata.MappingMetadata;
 import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
@@ -180,28 +182,15 @@ public class DozerBeanMapper implements Mapper {
   }
 
   protected Mapper getMappingProcessor() {
-
-    if (initializing.compareAndSet(false, true)) {
-      try {
-        loadCustomMappings();
-        eventManager = new DozerEventManager(eventListeners);
-      } finally {
-        ready.countDown();
-      }
-    }
-
-    try {
-      ready.await();
-    } catch (InterruptedException e) {
-      log.error("Thread interrupted: ", e);
-    }
+    initMappings();
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
             eventManager, getCustomFieldMapper(), customConvertersWithId);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
-      processor = (Mapper) Proxy.newProxyInstance(processor.getClass().getClassLoader(), processor.getClass().getInterfaces(),
+      processor = (Mapper) Proxy.newProxyInstance(processor.getClass().getClassLoader(),
+              processor.getClass().getInterfaces(),
               new StatisticsInterceptor(processor, statsMgr));
     }
 
@@ -257,6 +246,17 @@ public class DozerBeanMapper implements Mapper {
   }
 
   /**
+   * The {@link org.dozer.metadata.MappingMetadata} interface can be used to query information about the current
+   * mapping definitions. It provides read only access to all important class and field
+   * mapping properties. When first called, initializes all mappings if map() has not yet been called.
+   * @return TODO describe
+   */
+  public MappingMetadata getMappingMetadata() {
+    initMappings();
+    return new DozerMappingMetadata(customMappings);
+  }
+
+  /**
    * Converters passed with this method could be further referenced in mappings via its unique id.
    * Converter instances passed that way are considered stateful and will not be initialized for each mapping.
    *
@@ -271,6 +271,23 @@ public class DozerBeanMapper implements Mapper {
   private void checkIfInitialized() {
     if (ready.getCount() == 0) {
       throw new MappingException("Dozer Bean Mapper is already initialized! Modify settings before calling map()");
+    }
+  }
+
+  private void initMappings() {
+    if (initializing.compareAndSet(false, true)) {
+      try {
+        loadCustomMappings();
+        eventManager = new DozerEventManager(eventListeners);
+      } finally {
+        ready.countDown();
+      }
+    }
+
+    try {
+      ready.await();
+    } catch (InterruptedException e) {
+      log.error("Thread interrupted: ", e);
     }
   }
 
