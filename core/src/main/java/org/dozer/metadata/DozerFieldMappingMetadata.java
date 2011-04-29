@@ -20,8 +20,8 @@ import org.dozer.classmap.MappingDirection;
 import org.dozer.fieldmap.FieldMap;
 
 /**
- * <brief_description>
- * @author  florian.kunz
+ * Internal use only.
+ * @author  Florian Kunz
  */
 public final class DozerFieldMappingMetadata implements FieldMappingMetadata {
 
@@ -29,14 +29,6 @@ public final class DozerFieldMappingMetadata implements FieldMappingMetadata {
 	
 	public DozerFieldMappingMetadata(FieldMap fieldMap) {
 		this.fieldMap = fieldMap;
-	}
-
-	public String getSourceType() {
-		return fieldMap.getSrcFieldType();
-	}
-	
-	public String getDestinationType() {
-		return fieldMap.getDestFieldType();
 	}
 
 	public String getSourceName() {

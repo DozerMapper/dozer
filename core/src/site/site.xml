@@ -74,6 +74,7 @@
       <item name="JMX Integration" href="/documentation/jmxintegration.html" />
       <item name="Spring Integration" href="/documentation/springintegration.html"/>
       <item name="JAXB and XMLBeans" href="/documentation/xmlbeans.html" />
+      <item name="Metadata Query Interface" href="/documentation/metadata.html" />
       <item name="FAQ" href="/documentation/faq.html" />
 
       <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />

@@ -247,9 +247,10 @@ public class DozerBeanMapper implements Mapper {
 
   /**
    * The {@link org.dozer.metadata.MappingMetadata} interface can be used to query information about the current
-   * mapping definitions. It provides read only access to all important class and field
+   * mapping definitions. It provides read only access to all important classes and field
    * mapping properties. When first called, initializes all mappings if map() has not yet been called.
-   * @return TODO describe
+   * @return An instance of {@line org.dozer.metadata.MappingMetadata} which serves starting point 
+   * for querying mapping information. 
    */
   public MappingMetadata getMappingMetadata() {
     initMappings();

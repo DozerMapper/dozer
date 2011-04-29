@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping>
+    <class-a>org.dozer.vo.metadata.ClassA</class-a>
+    <class-b>org.dozer.vo.metadata.ClassB</class-b>
+    <field>
+      <a>customFieldA</a>
+      <b>customFieldB</b>
+    </field>
+    <field>
+      <a>classC</a>
+      <b>classD</b>
+    </field>
+  </mapping>
+  
+    <mapping>
+    <class-a>org.dozer.vo.metadata.ClassC</class-a>
+    <class-b>org.dozer.vo.metadata.ClassD</class-b>
+    <field>
+      <a>customFieldC</a>
+      <b>customFieldD</b>
+    </field>
+  </mapping>
+  
+</mappings>

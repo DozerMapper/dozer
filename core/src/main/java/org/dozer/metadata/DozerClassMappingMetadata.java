@@ -24,9 +24,8 @@ import org.dozer.classmap.MappingDirection;
 import org.dozer.fieldmap.FieldMap;
 
 /**
- * <brief_description>
- *
- * @author  florian.kunz
+ * Internal use only.
+ * @author Florian Kunz
  */
 public final class DozerClassMappingMetadata implements ClassMappingMetadata {
 	
@@ -97,16 +96,25 @@ public final class DozerClassMappingMetadata implements ClassMappingMetadata {
 		for(FieldMap fieldMap : classMap.getFieldMaps()) {
 			fieldMapCats.add(new DozerFieldMappingMetadata(fieldMap));
 		}
+		
 		return fieldMapCats;
 	}
 
 	public FieldMappingMetadata getFieldMappingBySource(String sourceFieldName) {
 		FieldMap fieldMap = classMap.getFieldMapUsingSrc(sourceFieldName);
+		if (fieldMap == null) {
+			throw new MetadataLookupException("Field " + sourceFieldName + " could not be found in class " + classMap.getSrcClassName());
+		}
+		
 		return new DozerFieldMappingMetadata(fieldMap);
 	}
 
 	public FieldMappingMetadata getFieldMappingByDestination(String destinationFieldName) {
 		FieldMap fieldMap = classMap.getFieldMapUsingDest(destinationFieldName);
+		if (fieldMap == null) {
+			throw new MetadataLookupException("Field " + destinationFieldName + " could not be found in class " + classMap.getDestClassName());
+		}
+		
 		return new DozerFieldMappingMetadata(fieldMap);
 	}
 

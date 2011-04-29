@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>Metadata interface</title>
+    <author email="florian.kunz@sourceforge.net">Florian Kunz</author>
+  </properties>
+  <head>
+    <title/>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
+  </head>
+  <body>
+    <section name="Querying mapping metadata">
+      <p>
+        This section will cover the mapping metadata interface. It provides easy to use read-only access 
+        to all important properties or aspects of the currently active mapping definitions.
+      </p>
+      <p>
+        The following sections will give some code examples how to use the mapping query interfaces. 
+        The most important interface in the whole process is org.dozer.metadata.MappingMetadata. An instance 
+        can be acquired by calling the getMappingMetadata() method of the DozerBeanMapper class. This call will 
+        initialize the mappings if the map method has not been called yet. 
+      </p>
+      <p>Consider the following mapping file:</p>
+      <source>
+        <![CDATA[ 
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+          
+  <mapping> 
+    <class-a>org.dozer.vo.ClassA</class-a>
+    <class-b>org.dozer.vo.ClassB</class-b>   
+    <field>
+      <a>fieldA</a>
+      <b>fieldB</b>
+    </field>
+  </mapping>  
+
+</mappings>
+        ]]>
+      </source>
+      <p>To begin querying the mapping definitions the following code is needed:</p>
+      <source>
+        <![CDATA[ 
+DozerBeanMapper mapper = new DozerBeanMapper();
+mapper.setMappingFiles(listOfFiles);
+MappingMetadata mapMetadata = beanMapper.getMappingMetadata();
+        ]]>
+      </source>
+      <p>Now that a reference to MappingMetadata is obtained we can start querying for a certain class mapping definition:</p>
+      <source>
+        <![CDATA[
+try {
+  ClassMappingMetadata classMappingMetadata = mapMetadata.getClassMapping(ClassA.class, ClassB.class);
+} catch (MetadataLookupException e) {
+  // couldn't find it
+}
+        ]]>
+      </source>
+      <p>When holding a reference to a ClassMappingMetadata interface, queries for individual field mappings can be executed:</p>
+      <source>
+        <![CDATA[
+try {
+  FieldMappingMetadata fieldMetadata = classMetadata.getFieldMappingBySource("fieldA");
+  // Destination: fieldB
+  System.out.println("Destination: " + fieldMetadata.getDestinationName());
+} catch (MetadataLookupException e) {
+  // couldn't find it
+}
+        ]]>
+      </source>
+      <p>For extensive documentation on the different interfaces please refer to the JavaDoc.</p>
+    </section>
+  </body>
+</document>

@@ -23,8 +23,8 @@ import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
 
 /**
- * <br>
- * @author  florian.kunz
+ * Internal use only.
+ * @author  Florian Kunz
  */
 public final class DozerMappingMetadata implements MappingMetadata {
 	
@@ -35,54 +35,93 @@ public final class DozerMappingMetadata implements MappingMetadata {
 	}
 
 	public List<ClassMappingMetadata> getClassMappings() {
-		List<ClassMappingMetadata> classMapCats = new ArrayList<ClassMappingMetadata>();
+		List<ClassMappingMetadata> classMapMetadata = new ArrayList<ClassMappingMetadata>();
 		
 		for(ClassMap classMap : classMappings.getAll().values()) {
-			classMapCats.add(new DozerClassMappingMetadata(classMap));
+			classMapMetadata.add(new DozerClassMappingMetadata(classMap));
 		}
-		return classMapCats;
+		return classMapMetadata;
 	}
 
-	public List<ClassMappingMetadata> getClassMappingsBySource(String sourceClassName) {
-		List<ClassMappingMetadata> classMapCats = new ArrayList<ClassMappingMetadata>();
+	public List<ClassMappingMetadata> getClassMappingsBySourceName(String sourceClassName) {
 		if (sourceClassName == null) {
-			return classMapCats;
+			throw new IllegalArgumentException("The source class name cannot be null.");
 		}
 		
+		return buildMappingListBySourceName(sourceClassName);
+	}
+
+	public List<ClassMappingMetadata> getClassMappingsByDestinationName(String destinationClassName) {
+		if (destinationClassName == null) {
+			throw new IllegalArgumentException("The destination class name cannot be null.");
+		}
+		
+		return buildMappingListByDestinationName(destinationClassName);
+	}
+
+
+	public ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName) {
+		if (sourceClassName == null || destinationClassName == null) {
+			throw new IllegalArgumentException("The source and destination class names need to be specified.");
+		}
+		
+		return findMappingByName(sourceClassName, destinationClassName);
+	}
+
+
+	public List<ClassMappingMetadata> getClassMappingsBySource(Class<?> sourceClass) {
+		if (sourceClass == null) {
+			throw new IllegalArgumentException("The source class cannt be null.");
+		}
+		
+		return buildMappingListBySourceName(sourceClass.getName());
+	}
+
+	public List<ClassMappingMetadata> getClassMappingsByDestination(Class<?> destinationClass) {
+		if (destinationClass == null) {
+			throw new IllegalArgumentException("The destination class cannot be null.");
+		}
+		
+		return buildMappingListByDestinationName(destinationClass.getName());
+	}
+
+	public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass) {
+		if (sourceClass == null || destinationClass == null) {
+			throw new IllegalArgumentException("The source and destination classes need to be specified.");
+		}
+		
+		return findMappingByName(sourceClass.getName(), destinationClass.getName());
+	}
+
+	private List<ClassMappingMetadata> buildMappingListBySourceName(String sourceClassName) {
+		List<ClassMappingMetadata> classMapMetadata = new ArrayList<ClassMappingMetadata>();
 		for(ClassMap classMap : classMappings.getAll().values()) {
 			if (classMap.getSrcClassName().equals(sourceClassName)) {
-				classMapCats.add(new DozerClassMappingMetadata(classMap));
+				classMapMetadata.add(new DozerClassMappingMetadata(classMap));
 			}
 		}
-		return classMapCats;
+		return classMapMetadata;
 	}
-
-	public List<ClassMappingMetadata> getClassMappingsByDestination(String destinationClassName) {
-		List<ClassMappingMetadata> classMapCats = new ArrayList<ClassMappingMetadata>();
-		if (destinationClassName == null) {
-			return classMapCats;
-		}
-		
+	
+	private List<ClassMappingMetadata> buildMappingListByDestinationName(String destinationClassName) {
+		List<ClassMappingMetadata> classMapMetadata = new ArrayList<ClassMappingMetadata>();
 		for(ClassMap classMap : classMappings.getAll().values()) {
 			if (classMap.getDestClassName().equals(destinationClassName)) {
-				classMapCats.add(new DozerClassMappingMetadata(classMap));
+				classMapMetadata.add(new DozerClassMappingMetadata(classMap));
 			}
 		}
-		return classMapCats;
+		return classMapMetadata;
 	}
-
-	public ClassMappingMetadata getClassMapping(String sourceClassName, String destinationClassName) {
-		if (sourceClassName == null || destinationClassName == null) {
-			return null; // TODO Throw exception instead
-		}
-		
+	
+	private ClassMappingMetadata findMappingByName(String sourceClassName, String destinationClassName) {
 		for(ClassMap classMap : classMappings.getAll().values()) {
 			if (classMap.getSrcClassName().equals(sourceClassName)
-					|| classMap.getDestClassName().equals(destinationClassName)) {
+					&& classMap.getDestClassName().equals(destinationClassName)) {
 				return new DozerClassMappingMetadata(classMap);
 			}
 		}
-		return null; // TODO Throw exception instead
+		throw new MetadataLookupException("No mapping definition found for: " + sourceClassName 
+				+ " -> " + destinationClassName + "." );
 	}
-
+	
 }
