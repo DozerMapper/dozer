@@ -27,13 +27,8 @@ import org.dozer.MappingException;
  */
 public class MetadataLookupException extends MappingException {
 
-	private static final long serialVersionUID = 1L;
-
-	public MetadataLookupException(String description, Throwable throwable) {
-		super(description, throwable);
-	}
-
 	public MetadataLookupException(String description) {
 		super(description);
 	}
+  
 }

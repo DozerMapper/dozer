@@ -103,7 +103,7 @@ public final class DozerClassMappingMetadata implements ClassMappingMetadata {
 	public FieldMappingMetadata getFieldMappingBySource(String sourceFieldName) {
 		FieldMap fieldMap = classMap.getFieldMapUsingSrc(sourceFieldName);
 		if (fieldMap == null) {
-			throw new MetadataLookupException("Field " + sourceFieldName + " could not be found in class " + classMap.getSrcClassName());
+			throw new MetadataLookupException("Field mapping " + sourceFieldName + " not found for class " + classMap.getSrcClassName());
 		}
 		
 		return new DozerFieldMappingMetadata(fieldMap);
@@ -112,7 +112,7 @@ public final class DozerClassMappingMetadata implements ClassMappingMetadata {
 	public FieldMappingMetadata getFieldMappingByDestination(String destinationFieldName) {
 		FieldMap fieldMap = classMap.getFieldMapUsingDest(destinationFieldName);
 		if (fieldMap == null) {
-			throw new MetadataLookupException("Field " + destinationFieldName + " could not be found in class " + classMap.getDestClassName());
+			throw new MetadataLookupException("Field mapping " + destinationFieldName + " not found for class " + classMap.getDestClassName());
 		}
 		
 		return new DozerFieldMappingMetadata(fieldMap);

@@ -50,6 +50,7 @@
     <item name="JMX Integration" ref="/documentation/jmxintegration.html"/>
     <item name="Spring Integration" ref="/documentation/springintegration.html"/>
     <item name="JAXB and XMLBeans" ref="/documentation/xmlbeans.html" />
+    <item name="JAXB and XMLBeans" ref="/documentation/metadata.html" />
 
     <item name="FAQ" ref="/documentation/faq.html"/>
 
