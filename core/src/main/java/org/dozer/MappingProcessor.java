@@ -680,7 +680,6 @@ public class MappingProcessor implements Mapper {
   private Set<?> addToSet(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj) {
     // create a list here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
     Set<Object> mappedElements = new HashSet<Object>();
-    Class<?> destEntryType = null;
 
     LinkedHashSet<Object> result = new LinkedHashSet<Object>();
     // don't want to create the set if it already exists.
@@ -689,16 +688,15 @@ public class MappingProcessor implements Mapper {
       result.addAll((Collection<?>) field);
     }
     Object destValue;
+
+    Class<?> destEntryType = null;
     Class<?> prevDestEntryType = null;
     for (Object srcValue : srcCollectionValue) {
       if (destEntryType == null
-          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
-        if (srcValue == null) {
-          destEntryType = prevDestEntryType;
-        } else {
-          destEntryType = fieldMap.getDestHintType(srcValue.getClass());
-        }
+              || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
+        destEntryType = determineCollectionItemType(fieldMap, destObj, srcValue, prevDestEntryType);
       }
+
       CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
       if (srcValue != null && copyByReferences.contains(srcValue.getClass())) {
         destValue = srcValue;
@@ -719,7 +717,9 @@ public class MappingProcessor implements Mapper {
           mappedElements.add(obj);
         }
       } else {
-        result.add(destValue);
+        if (destValue != null || fieldMap.isDestMapNull()) {
+          result.add(destValue);
+        }
         mappedElements.add(destValue);
       }
     }
@@ -756,13 +756,10 @@ public class MappingProcessor implements Mapper {
     Class<?> prevDestEntryType = null;
     for (Object srcValue : srcCollectionValue) {
       if (destEntryType == null
-          || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
-        if (srcValue == null) {
-          destEntryType = prevDestEntryType;
-        } else {
-          destEntryType = fieldMap.getDestHintType(srcValue.getClass());
-        }
+              || (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().hasMoreThanOneHint())) {
+        destEntryType = determineCollectionItemType(fieldMap, destObj, srcValue, prevDestEntryType);
       }
+
       CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
       if (srcValue != null && copyByReferences.contains(srcValue.getClass())) {
         destValue = srcValue;
@@ -782,10 +779,12 @@ public class MappingProcessor implements Mapper {
           mappedElements.add(obj);
         }
       } else {
-        result.add(destValue);
+        // respect null mappings
+        if (destValue != null || fieldMap.isDestMapNull()) {
+          result.add(destValue);
+        }
         mappedElements.add(destValue);
       }
-
     }
 
     // If remove orphans - we only want to keep the objects we've mapped from the src collection
@@ -794,6 +793,20 @@ public class MappingProcessor implements Mapper {
     }
 
     return result;
+  }
+
+  private Class<?> determineCollectionItemType(FieldMap fieldMap, Object destObj, Object srcValue, Class<?> prevDestEntryType) {
+    if (srcValue == null && fieldMap.getDestHintType(destObj.getClass()) != null) {
+      // try to get a possible configured dest hint for the dest obj
+      return fieldMap.getDestHintType(destObj.getClass());
+    } else if (srcValue == null && prevDestEntryType != null) {
+      // if we already evaluated the dest type, use it
+      return prevDestEntryType;
+    } else if (srcValue != null) {
+      // if there's no dest hint for the dest obj, take the src hint
+      return fieldMap.getDestHintType(srcValue.getClass());
+    }
+    throw new MappingException("Unable to determine type for value '" + srcValue + "'. Use hints or generic collections.");
   }
 
   static void removeOrphans(Collection<?> mappedElements, List<Object> result) {
