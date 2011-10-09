@@ -194,6 +194,10 @@ public class MappingProcessor implements Mapper {
   }
 
   private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
+    map(classMap, srcObj, destObj, bypassSuperMappings, new ArrayList<String>(), mapId);
+  }
+
+  private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, List<String> mappedParentFields, String mapId) {
     srcObj = MappingUtils.deProxy(srcObj);
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
@@ -221,7 +225,6 @@ public class MappingProcessor implements Mapper {
     }
 
     // Now check for super class mappings.  Process super class mappings first.
-    List<String> mappedParentFields = null;
     if (!bypassSuperMappings) {
       Collection<ClassMap> superMappings = new ArrayList<ClassMap>();
 
@@ -231,7 +234,7 @@ public class MappingProcessor implements Mapper {
       superMappings.addAll(superClasses);
       //superMappings.addAll(interfaceMappings);
       if (!superMappings.isEmpty()) {
-        mappedParentFields = processSuperTypeMapping(superMappings, srcObj, destObj, mapId);
+        processSuperTypeMapping(superMappings, srcObj, destObj, mappedParentFields, mapId);
       }
     }
 
@@ -993,16 +996,14 @@ public class MappingProcessor implements Mapper {
     }
   }
 
-  private List<String> processSuperTypeMapping(Collection<ClassMap> superClasses, Object srcObj, Object destObj, String mapId) {
-    List<String> mappedFields = new ArrayList<String>();
+  private void processSuperTypeMapping(Collection<ClassMap> superClasses, Object srcObj, Object destObj, List<String> mappedParentFields, String mapId) {
     for (ClassMap map : superClasses) {
-      map(map, srcObj, destObj, true, mapId);
+      map(map, srcObj, destObj, true, mappedParentFields ,mapId);
       for (FieldMap fieldMapping : map.getFieldMaps()) {
         String key = MappingUtils.getMappedParentFieldKey(destObj, fieldMapping);
-        mappedFields.add(key);
+        mappedParentFields.add(key);
       }
     }
-    return mappedFields;
   }
 
   private static Object getExistingValue(FieldMap fieldMap, Object destObj, Class<?> destFieldType) {
