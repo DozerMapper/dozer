@@ -31,12 +31,12 @@
         <property name="customConverters">
             <list>
                 <bean class="org.dozer.converters.CustomConverter"/>      
-            <list/>
+            </list>
         </property>
         <property name="eventListeners">
             <list>
                 <bean class="org.dozer.listeners.EventListener"/>
-            <list/>
+            </list>
         </property>
         <property name="factories">
             <map>
