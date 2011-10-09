@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <configuration>
+    <stop-on-errors>true</stop-on-errors>
+    <date-format>MM/dd/yyyy</date-format>
+    <wildcard>false</wildcard>
+  </configuration>
+
+  <mapping map-null="false">
+  	<class-a>org.dozer.functional_tests.UntypedCollectionTest$Foo</class-a>
+  	<class-b>java.util.Map</class-b>
+
+  	<field>
+  		<a>name</a>
+  		<b key="name">this</b>
+  	</field>
+
+  	<field>
+  		<a>bars[0].id</a>
+  		<b key="bars[0]_id">this</b>
+  		<a-deep-index-hint>org.dozer.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
+  	</field>
+
+  	<field>
+  		<a>bars[1].id</a>
+  		<b key="bars[1]_id">this</b>
+  		<a-deep-index-hint>org.dozer.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
+  	</field>
+
+  </mapping>
+
+</mappings>

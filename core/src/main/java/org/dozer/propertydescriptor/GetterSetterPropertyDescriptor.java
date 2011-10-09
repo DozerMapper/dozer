@@ -35,7 +35,6 @@ import java.util.Collection;
 
 
 /**
- *
  * Internal class used to read and write values for fields that have a getter and setter method. This class encapsulates
  * underlying dozer specific logic such as index mapping and deep mapping for reading and writing field values. Only
  * intended for internal use.
@@ -43,7 +42,6 @@ import java.util.Collection;
  * @author garsombke.franz
  * @author tierney.matt
  * @author dmitry.buzdin
- *
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
 
@@ -52,13 +50,16 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   private Class<?> propertyType;
 
   public GetterSetterPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
-      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+                                        HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
   public abstract Method getWriteMethod() throws NoSuchMethodException;
+
   protected abstract Method getReadMethod() throws NoSuchMethodException;
+
   protected abstract String getSetMethodName() throws NoSuchMethodException;
+
   protected abstract boolean isCustomSetMethod();
 
   public Class<?> getPropertyType() {
@@ -116,7 +117,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       // If any fields in the deep hierarchy are indexed, get actual value within the collection at the specified index
       if (hierarchyElement.getIndex() > -1) {
         hierarchyValue = MappingUtils.getIndexedValue(ReflectionUtils.invoke(pd.getReadMethod(), hierarchyValue, null),
-            hierarchyElement.getIndex());
+                hierarchyElement.getIndex());
       } else {
         hierarchyValue = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       }
@@ -157,7 +158,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         Object o = null;
         if (clazz.isArray()) {
           o = MappingUtils.prepareIndexedCollection(clazz, null, DestBeanCreator.create(clazz.getComponentType()),
-              hierarchyElement.getIndex());
+                  hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
 
           Class<?> genericType = ReflectionUtils.determineGenericsType(pd);
@@ -170,7 +171,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           }
 
           o = MappingUtils.prepareIndexedCollection(clazz, null, DestBeanCreator.create(collectionEntryType), hierarchyElement
-              .getIndex());
+                  .getIndex());
         } else {
           try {
             o = DestBeanCreator.create(clazz);
@@ -178,14 +179,14 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
             //lets see if they have a factory we can try as a last ditch. If not...throw the exception:
             if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
               o = DestBeanCreator.create(new BeanCreationDirective(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, clazz, fieldMap.getClassMap()
-                  .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null));
+                      .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null));
             } else {
               MappingUtils.throwMappingException(e);
             }
           }
         }
 
-        ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { o });
+        ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[]{o});
         value = ReflectionUtils.invoke(pd.getReadMethod(), parentObj, null);
       }
 
@@ -193,15 +194,33 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       if (MappingUtils.isSupportedCollection(value.getClass())) {
         int currentSize = CollectionUtils.getLengthOfCollection(value);
         if (currentSize < hierarchyElement.getIndex() + 1) {
-        	collectionEntryType = pd.getPropertyType().getComponentType(); 
+          collectionEntryType = pd.getPropertyType().getComponentType();
 
-        	if (collectionEntryType == null){
-        		collectionEntryType = ReflectionUtils.determineGenericsType(pd);
-        	}
+          if (collectionEntryType == null) {
+            collectionEntryType = ReflectionUtils.determineGenericsType(pd);
 
-        	value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
+            // if the target list is a List that doesn't have type specified, we can
+            // try to use the deep-index-hint.  If the list has more than 1 element, there is no
+            // way to tell which class to use, so we'll just try the first one.
+            if (collectionEntryType == null) {
+              if (log.isWarnEnabled()) {
+                log.warn(fieldName + " is in a Collection with an unspecified type.");
+              }
+              if (destDeepIndexHintContainer != null && destDeepIndexHintContainer.getHints() != null
+                      && destDeepIndexHintContainer.getHints().size() > 0) {
+                collectionEntryType = destDeepIndexHintContainer.getHints().get(0);
+                if (log.isWarnEnabled()) {
+                  log.warn("Using deep-index-hint to predict containing Collection type for field "
+                          + fieldName + " to be " + collectionEntryType);
+                }
+              }
+            }
+          }
+
+
+          value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
           //value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
-          ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[] { value });
+          ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[]{value});
         }
       }
 
@@ -237,7 +256,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           }
         }
 
-        ReflectionUtils.invoke(method, parentObj, new Object[] { destFieldValue });
+        ReflectionUtils.invoke(method, parentObj, new Object[]{destFieldValue});
       } else {
         writeIndexedValue(parentObj, destFieldValue);
       }
@@ -256,7 +275,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
   protected void invokeWriteMethod(Object target, Object value) {
     try {
-      ReflectionUtils.invoke(getWriteMethod(), target, new Object[] { value });
+      ReflectionUtils.invoke(getWriteMethod(), target, new Object[]{value});
     } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
@@ -289,7 +308,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
 
     if (readMethod == null && writeMethod == null) {
       throw new MappingException("No read or write method found for field (" + fieldName
-          + ") in class (" + clazz + ")");
+              + ") in class (" + clazz + ")");
     }
 
     if (readMethod == null) {
