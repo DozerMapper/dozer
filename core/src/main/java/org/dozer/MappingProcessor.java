@@ -619,7 +619,7 @@ public class MappingProcessor implements Mapper {
           MappingUtils.throwMappingException("<field type=\"iterate\"> must have a source or destination type hint");
         }
 
-        Class<?> destinationHint = fieldMapping.getDestHintContainer().getHint();
+        Class<?> destinationHint = fieldMapping.getDestHintType(value.getClass());
 
         Object result = mapOrRecurseObject(srcObj, value, destinationHint, fieldMapping, destObj);
 

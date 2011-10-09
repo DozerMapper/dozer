@@ -1,0 +1,18 @@
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping>
+    <class-a>org.dozer.functional_tests.MultipleHintsTest$SourceClass</class-a>
+    <class-b>org.dozer.functional_tests.MultipleHintsTest$DestinationClass</class-b>
+    <field>
+      <a>listOfSrcA</a>
+      <b set-method="addA" type="iterate">listOfA</b>
+      <a-hint>org.dozer.functional_tests.MultipleHintsTest$SrcA$SrcB,
+              org.dozer.functional_tests.MultipleHintsTest$SrcA$SrcC</a-hint>
+      <b-hint>org.dozer.functional_tests.MultipleHintsTest$A$B,
+              org.dozer.functional_tests.MultipleHintsTest$A$C</b-hint>
+    </field>
+  </mapping>
+
+</mappings>
