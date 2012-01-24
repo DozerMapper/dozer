@@ -28,29 +28,52 @@
   <version>5.3.3-SNAPSHOT</version>
   <name>dozer</name>
   <inceptionYear>2005</inceptionYear>
+ 
+  <repositories>
+    <repository>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/2</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>snapshots</id>
+      <url>http://snapshots.maven.codehaus.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
       <version>1.8.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.5</version>
+      <version>2.6</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.5.10</version>
+      <version>1.6.4</version>
     </dependency>
-      
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-jdk14</artifactId>
-      <version>1.5.8</version>
-      <scope>test</scope>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.6.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.6.4</version>
     </dependency>
 
     <dependency>
@@ -62,19 +85,19 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.5</version>
+      <version>4.9</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
-      <version>1.8.4</version>
+      <version>1.8.5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-      <version>2.1_3</version>
+      <artifactId>cglib-nodep</artifactId>
+      <version>2.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -86,7 +109,7 @@
     <dependency>
       <groupId>asm</groupId>
       <artifactId>asm</artifactId>
-      <version>1.5.3</version>
+      <version>3.3.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -97,31 +120,37 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>juel</groupId>
-      <artifactId>juel</artifactId>
-      <version>2.2.1</version>
-      <scope>test</scope>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>el-impl</artifactId>
+      <version>2.2</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.xmlbeans</groupId>
       <artifactId>xmlbeans</artifactId>
-      <version>2.4.0</version>
+      <version>2.5.0</version>
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.apache.xmlbeans</groupId>
       <artifactId>xmlbeans-xpath</artifactId>
-      <version>2.3.0</version>
+      <version>2.5.0</version>
       <scope>provided</scope>
       <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>net.sf.saxon</groupId>
+          <artifactId>saxon</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
-      <version>2.0</version>
+      <version>2.2.6</version>
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
@@ -135,7 +164,7 @@
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
-      <version>2.0.3</version>
+      <version>2.2.4</version>
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
@@ -164,32 +193,10 @@
     <dependency>
        <groupId>org.hibernate</groupId>
        <artifactId>hibernate-core</artifactId>
-       <version>3.5.0-Final</version>
+       <version>3.6.9.Final</version>
        <scope>provided</scope>
     </dependency>
   </dependencies>
-
-  <pluginRepositories>
-    <pluginRepository>
-        <id>repo1</id>
-        <url>http://repo1.maven.org/maven2</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>snapshots</id>
-      <url>http://snapshots.maven.codehaus.org/maven2</url>
-    </pluginRepository>
-  </pluginRepositories>
-
-  <repositories>
-      <repository>
-        <id>repo1</id>
-        <url>http://repo1.maven.org/maven2</url>
-      </repository>
-      <repository>
-          <id>jboss</id>
-          <url>http://repository.jboss.org/maven2</url>
-      </repository>
-  </repositories>
 
   <build>
     <resources>
@@ -229,20 +236,20 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
         <configuration>
           <templateFile>site.vm</templateFile>
         </configuration>
-        <version>2.1.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.5.1</version>
+        <version>2.8</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.2.2</version>
         <configuration>
           <descriptors>
             <descriptor>src/assembly/src.xml</descriptor>
@@ -252,7 +259,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.3</version>
+        <version>1.7</version>
         <executions>
           <execution>
             <id>add-test-sources</id>
@@ -305,7 +312,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.4.3</version>
+        <version>2.9</version>
         <configuration>
           <testClassesDirectory>target/test-classes</testClassesDirectory>
           <excludes>
@@ -316,7 +323,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.1</version>
+        <version>2.3.2</version>
         <configuration>
           <source>1.5</source>
           <target>1.5</target>
@@ -386,7 +393,7 @@
                     </goals>
                 </execution>
             </executions>
-        </plugin>        
+        </plugin>
     </plugins>
   </build>
 
@@ -416,6 +423,15 @@
       <timezone>+2</timezone>
       <roles>
         <role>Project Lead</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Alan Stewart</name>
+      <id>alankstewart</id>
+      <email>alankstewart@gmail.com</email>
+      <timezone>+10</timezone>
+      <roles>
+        <role>Developer</role>
       </roles>
     </developer>
   </developers>
@@ -554,7 +570,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.5.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -578,12 +594,12 @@
             </reports>
           </reportSet>
         </reportSets>
-
       </plugin>
+      <!-- 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.6</version>
         <configuration>
           <targetJdk>1.5</targetJdk>
           <rulesets>
@@ -594,10 +610,11 @@
           </rulesets>
         </configuration>
       </plugin>
+      -->
       <plugin>
          <groupId>org.codehaus.mojo</groupId>
          <artifactId>findbugs-maven-plugin</artifactId>
-         <version>2.0.1</version>
+         <version>2.4.0</version>
       </plugin>
     </plugins>
   </reporting>
@@ -606,8 +623,6 @@
     <system>Sourceforge</system>
     <url>http://sourceforge.net/tracker/?group_id=133517</url>
   </issueManagement>
-
-  <!--scp://shell.sourceforge.net//home/frs/d/do/dozer-->
 
   <distributionManagement>
     <site>
@@ -628,9 +643,9 @@
   </distributionManagement>
 
   <scm>
-    <connection>scm:svn:https://dozer.svn.sourceforge.net/svnroot/dozer/trunk</connection>
+    <connection>scm:https://github.com/DozerMapper/Dozer</connection>
     <tag>HEAD</tag>
-    <url>http://dozer.svn.sourceforge.net/viewvc/dozer/</url>
+    <url>https://github.com/DozerMapper/Dozer</url>
   </scm>
 
 </project>
