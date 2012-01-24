@@ -15,9 +15,14 @@
  */
 package org.dozer.util;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
+
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import junit.framework.Assert;
 
@@ -25,16 +30,11 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.vo.A;
 import org.dozer.vo.B;
+import org.dozer.vo.NoReadMethod;
+import org.dozer.vo.NoVoidSetters;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.inheritance.ChildChildIF;
 import org.junit.Test;
-
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.hamcrest.core.IsNull.nullValue;
 
 /**
  * @author tierney.matt
@@ -54,8 +54,8 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
   @Test(expected = MappingException.class)
   public void testGetDeepFieldHierarchy_NotExists() throws Exception {
-    ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, String.valueOf(System.currentTimeMillis()) + "."
-        + String.valueOf(System.currentTimeMillis()), null);
+    ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class,
+        String.valueOf(System.currentTimeMillis()) + "." + String.valueOf(System.currentTimeMillis()), null);
   }
 
   @Test
@@ -81,7 +81,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   public void shouldReturnBestMatch_ambigousIgonreCase() {
     // both timezone and timeZone properties exists on XMLGregorianCalendar
     PropertyDescriptor result = ReflectionUtils.findPropertyDescriptor(XMLGregorianCalendar.class, "timezone", null);
-    
+
     assertThat(result.getName(), equalTo("timezone"));
   }
 
@@ -103,14 +103,23 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     String methodName = "setB";
     try {
       Method method = a.getClass().getMethod(methodName, B.class);
-      ReflectionUtils.invoke(method, a, new Object[] {"wrong param"});
+      ReflectionUtils.invoke(method, a, new Object[] { "wrong param" });
     } catch (NoSuchMethodException e) {
       Assert.fail("Method " + methodName + "missed");
     } catch (MappingException e) {
-      if(!e.getMessage().contains("Illegal object type for the method '" + methodName +"'")) {
+      if (!e.getMessage().contains("Illegal object type for the method '" + methodName + "'")) {
         Assert.fail("Wrong exception message");
       }
     }
+  }
+
+  @Test
+  public void testGetNonVoidSetterMethod() {
+    Method method = ReflectionUtils.getNonVoidSetter(new NoVoidSetters().getClass(), "description");
+    assertNotNull(method);
+
+    method = ReflectionUtils.getNonVoidSetter(new NoReadMethod().getClass(), "noReadMethod");
+    assertNull(method);
   }
 
   @Test
