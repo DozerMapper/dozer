@@ -17,4 +17,24 @@
     </field-exclude>
   </mapping>
 
+  <!-- key 'first' in HashMap will be mapped to SimpleObjPrime.field1 property -->
+  <mapping map-id="caseC">
+    <class-a>java.util.HashMap</class-a>
+    <class-b>org.dozer.vo.map.SimpleObjPrime</class-b>
+    <field>
+    	<a>first</a>
+    	<b>field1</b>
+    </field>
+  </mapping>
+
+  <!-- same as case C, but reversed (should have no effect on usage) -->
+  <mapping map-id="caseD">
+    <class-a>org.dozer.vo.map.SimpleObjPrime</class-a>
+    <class-b>java.util.HashMap</class-b>
+    <field>
+    	<a>field1</a>
+    	<b>first</b>
+    </field>
+  </mapping>
+
 </mappings>

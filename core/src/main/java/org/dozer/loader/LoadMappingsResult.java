@@ -30,7 +30,7 @@ public class LoadMappingsResult {
   private ClassMappings customMappings;
   private Configuration globalConfiguration;
 
-  public LoadMappingsResult(ClassMappings customMappings, Configuration globalConfiguration) {
+  public LoadMappingsResult(ClassMappings customMappings, Configuration globalConfiguration, RuntimeException exception) {
     this.customMappings = customMappings;
     this.globalConfiguration = globalConfiguration;
   }

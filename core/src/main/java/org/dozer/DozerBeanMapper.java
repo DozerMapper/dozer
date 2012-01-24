@@ -280,6 +280,10 @@ public class DozerBeanMapper implements Mapper {
       try {
         loadCustomMappings();
         eventManager = new DozerEventManager(eventListeners);
+      } catch (RuntimeException e) {
+        // reset initialized state if error happens
+        initializing.set(false);
+        throw e;
       } finally {
         ready.countDown();
       }

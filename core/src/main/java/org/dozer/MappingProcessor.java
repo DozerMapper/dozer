@@ -249,6 +249,15 @@ public class MappingProcessor implements Mapper {
     }
   }
 
+  /**
+   * Perform mapping of a field.
+   * Uses {@link #mapFromFieldMap(Object, Object, Object, FieldMap)} to do the real work, unless
+   * if iterate, where {@link #mapFromIterateMethodFieldMap(Object, Object, Object, FieldMap)} is used. 
+   * 
+   * @param fieldMapping Field mapping.
+   * @param srcObj Source object.
+   * @param destObj Destination object.
+   */
   private void mapField(FieldMap fieldMapping, Object srcObj, Object destObj) {
 
     // The field has been explicitly excluded from mapping. So just return, as
