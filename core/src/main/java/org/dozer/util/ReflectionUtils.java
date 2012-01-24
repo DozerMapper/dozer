@@ -16,6 +16,7 @@
 package org.dozer.util;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
@@ -373,7 +374,7 @@ public final class ReflectionUtils {
   }
 
   public static Method getNonVoidSetter(Class<?> clazz, String fieldName) {
-    String methodName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+    String methodName = "set" + StringUtils.capitalize(fieldName);
     for (Method method : clazz.getMethods()) {
       if (method.getName().equals(methodName) && method.getParameterTypes().length == 1 && method.getReturnType() != Void.TYPE) {
         return method;

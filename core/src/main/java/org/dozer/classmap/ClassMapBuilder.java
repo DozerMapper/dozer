@@ -15,7 +15,7 @@
  */
 package org.dozer.classmap;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapping;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.DozerField;

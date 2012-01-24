@@ -15,7 +15,7 @@
  */
 package org.dozer;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * This class should be extended in order to implement new Custom Converters for value transformation.

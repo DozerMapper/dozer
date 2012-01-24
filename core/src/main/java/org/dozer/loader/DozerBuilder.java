@@ -15,7 +15,7 @@
  */
 package org.dozer.loader;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.CustomConverter;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.Configuration;

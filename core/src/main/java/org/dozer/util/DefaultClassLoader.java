@@ -15,7 +15,7 @@
  */
 package org.dozer.util;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 
 import java.net.URL;
 

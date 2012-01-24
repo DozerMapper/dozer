@@ -16,7 +16,7 @@
 package org.dozer.functional_tests;
 
 
-import org.apache.commons.lang.time.StopWatch;
+import org.apache.commons.lang3.time.StopWatch;
 import org.dozer.Mapper;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.SimpleObjPrime;

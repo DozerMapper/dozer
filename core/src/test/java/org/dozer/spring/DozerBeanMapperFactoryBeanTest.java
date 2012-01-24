@@ -15,6 +15,9 @@
  */
 package org.dozer.spring;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,9 +31,6 @@ import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 /**
  * @author <a href="mailto:buzdin@gmail.com">Dmitry Buzdin</a>

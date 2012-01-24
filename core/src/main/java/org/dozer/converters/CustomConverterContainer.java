@@ -15,9 +15,9 @@
  */
 package org.dozer.converters;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
 
