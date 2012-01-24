@@ -32,6 +32,7 @@ import org.dozer.vo.MethodFieldTestObject2;
 import org.dozer.vo.NoDefaultConstructor;
 import org.dozer.vo.NoReadMethod;
 import org.dozer.vo.NoReadMethodPrime;
+import org.dozer.vo.NoVoidSetters;
 import org.dozer.vo.NoWriteMethod;
 import org.dozer.vo.NoWriteMethodPrime;
 import org.dozer.vo.PrimitiveArrayObj;
@@ -87,7 +88,7 @@ import java.util.TreeSet;
  */
 public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
-  @Test(expected=MappingException.class)
+  @Test(expected = MappingException.class)
   public void testNoDefaultConstructor() throws Exception {
     mapper.map("test", NoDefaultConstructor.class);
     fail("should have thrown exception");
@@ -417,7 +418,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("theKey"));
   }
 
-  @Test(expected=TestException.class)
+  @Test(expected = TestException.class)
   public void testAllowedExceptionsThrowException() throws Exception {
     Mapper mapper = getMapper(new String[] { "allowedExceptionsMapping.xml" });
     TestObject to = newInstance(TestObject.class);
@@ -438,14 +439,13 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     }
   }
 
-  @Test(expected=TestException.class)
+  @Test(expected = TestException.class)
   public void testAllowedExceptions_Implicit() throws Exception {
     Mapper mapper = getMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
     ThrowException to = newInstance(ThrowException.class);
     to.setThrowAllowedException("throw me");
     mapper.map(to, ThrowExceptionPrime.class);
     fail("We should have thrown TestException");
-
 
   }
 
@@ -458,7 +458,6 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
       fail("This should not have been thrown");
     }
   }
-
 
   @Test
   public void testPrimitiveArrayToList() throws Exception {
@@ -666,7 +665,6 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
     NoWriteMethodPrime dest = mapper.map(src, NoWriteMethodPrime.class);
     assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
-
   }
 
   @Test
@@ -681,6 +679,18 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
     NoWriteMethod dest = mapper.map(src, NoWriteMethod.class);
     assertNull("field should be null because no write method exists for field", dest.getNoWriteMethod());
+  }
+
+  @Test
+  public void testNoVoidSetters() throws Exception {
+    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    NoVoidSetters src = newInstance(NoVoidSetters.class);
+    src.setDescription("someValue");
+    src.setI(1);
+
+    NoVoidSetters dest = mapper.map(src, NoVoidSetters.class);
+    assertEquals("invalid dest field value", src.getDescription(), dest.getDescription());
+    assertEquals("invalid dest field value", src.getI(), dest.getI());
   }
 
   @Test

@@ -44,9 +44,11 @@ public final class ReflectionUtils {
 
   private static final String IAE_MESSAGE = "argument type mismatch";
 
-  private ReflectionUtils() {}
+  private ReflectionUtils() {
+  }
 
-  public static PropertyDescriptor findPropertyDescriptor(Class<?> objectClass, String fieldName, HintContainer deepIndexHintContainer) {
+  public static PropertyDescriptor findPropertyDescriptor(Class<?> objectClass, String fieldName,
+      HintContainer deepIndexHintContainer) {
     PropertyDescriptor result = null;
     if (MappingUtils.isDeepMapping(fieldName)) {
       DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
@@ -68,9 +70,9 @@ public final class ReflectionUtils {
             See KnownFailures.testIndexedGetFailure()
           */
           // TODO Disables for now as it breaks indexed array mapping
-//          if (descriptors[i] instanceof IndexedPropertyDescriptor) {
-//            continue;
-//          }
+          //          if (descriptors[i] instanceof IndexedPropertyDescriptor) {
+          //            continue;
+          //          }
 
           String propertyName = descriptors[i].getName();
           if (fieldName.equals(propertyName)) {
@@ -87,7 +89,8 @@ public final class ReflectionUtils {
     return result;
   }
 
-  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field, HintContainer deepIndexHintContainer) {
+  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field,
+      HintContainer deepIndexHintContainer) {
     if (!MappingUtils.isDeepMapping(field)) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
     }
@@ -187,7 +190,8 @@ public final class ReflectionUtils {
     return result;
   }
 
-  private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params) throws NoSuchMethodException {
+  private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params)
+      throws NoSuchMethodException {
     List<Class<?>> list = new ArrayList<Class<?>>();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
@@ -221,7 +225,8 @@ public final class ReflectionUtils {
     Class<?>[] interfaces = interfaceClass.getInterfaces();
     if (interfaces != null) {
       for (Class<?> superInterfaceClass : interfaces) {
-        List<PropertyDescriptor> superInterfacePropertyDescriptors = Arrays.asList(getInterfacePropertyDescriptors(superInterfaceClass));
+        List<PropertyDescriptor> superInterfacePropertyDescriptors = Arrays
+            .asList(getInterfacePropertyDescriptors(superInterfaceClass));
         /*
          * #1814758 
          * Check for existing descriptor with the same name to prevent 2 property descriptors with the same name being added
@@ -262,11 +267,11 @@ public final class ReflectionUtils {
     return result;
   }
 
-  public static Field getFieldFromBean(Class<?> clazz, String fieldName)  {
+  public static Field getFieldFromBean(Class<?> clazz, String fieldName) {
     return getFieldFromBean(clazz, fieldName, clazz);
   }
 
-  private static Field getFieldFromBean(Class<?> clazz, String fieldName, final Class<?> originalClass)  {
+  private static Field getFieldFromBean(Class<?> clazz, String fieldName, final Class<?> originalClass) {
     try {
       Field field = clazz.getDeclaredField(fieldName);
       // Allow access to private instance var's that dont have public setter.
@@ -305,7 +310,7 @@ public final class ReflectionUtils {
       message.append(type.getName());
     }
     message.append("\n Actual types: \n");
-    for (Object param: args) {
+    for (Object param : args) {
       message.append(param.getClass().getName());
     }
     return message.toString();
@@ -315,7 +320,7 @@ public final class ReflectionUtils {
     return clazz.getMethod(name, parameterTypes);
   }
 
-  public static <T> T newInstance (Class<T> clazz) {
+  public static <T> T newInstance(Class<T> clazz) {
     T result = null;
     try {
       result = clazz.newInstance();
@@ -365,6 +370,16 @@ public final class ReflectionUtils {
       }
     }
     return result;
+  }
+
+  public static Method getNonVoidSetter(Class<?> clazz, String fieldName) {
+    String methodName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+    for (Method method : clazz.getMethods()) {
+      if (method.getName().equals(methodName) && method.getParameterTypes().length == 1 && method.getReturnType() != Void.TYPE) {
+        return method;
+      }
+    }
+    return null;
   }
 
 }

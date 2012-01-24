@@ -22,7 +22,6 @@ import org.dozer.util.ReflectionUtils;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
-
 /**
  * 
  * Internal class used to read and write values for fields that follow the java bean spec and have corresponding
@@ -42,12 +41,12 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
-    Method writeMethod = getPropertyDescriptor(destDeepIndexHintContainer).getWriteMethod();
-    if (writeMethod == null) {
+    Method result = getPropertyDescriptor(destDeepIndexHintContainer).getWriteMethod();
+    result = result == null ? ReflectionUtils.getNonVoidSetter(clazz, fieldName) : result;
+    if (result == null) {
       throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
     }
-
-    return writeMethod;
+    return result;
   }
 
   @Override
@@ -63,7 +62,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
     return result;
   }
-  
+
   @Override
   protected boolean isCustomSetMethod() {
     return false;

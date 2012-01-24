@@ -85,10 +85,10 @@ public final class ClassMapBuilder {
    */
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
     ClassMap classMap = new ClassMap(globalConfiguration);
-    classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null,
-            null, DozerConstants.DEFAULT_MAP_NULL_POLICY, DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY, false));
+    classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null, null,
+        DozerConstants.DEFAULT_MAP_NULL_POLICY, DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY, false));
     classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
-            null, DozerConstants.DEFAULT_MAP_NULL_POLICY, DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY, false));
+        null, DozerConstants.DEFAULT_MAP_NULL_POLICY, DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY, false));
 
     generateMapping(classMap, globalConfiguration, buildTimeGenerators);
     return classMap;
@@ -127,7 +127,7 @@ public final class ClassMapBuilder {
       return true;
     }
     if ((CALLBACK.equals(fieldName) || CALLBACKS.equals(fieldName))
-            && (MappingUtils.isProxy(srcType) || MappingUtils.isProxy(destType))) {
+        && (MappingUtils.isProxy(srcType) || MappingUtils.isProxy(destType))) {
       return true;
     }
     return false;
@@ -136,8 +136,6 @@ public final class ClassMapBuilder {
   public static interface ClassMappingGenerator {
 
     boolean accepts(ClassMap classMap);
-
-    // returns true if last in the chain
 
     boolean apply(ClassMap classMap, Configuration configuration);
 
@@ -150,7 +148,7 @@ public final class ClassMapBuilder {
       Class<?> destClass = classMap.getDestClassToMap();
 
       return MappingUtils.isSupportedMap(srcClass) || classMap.getSrcClassMapGetMethod() != null
-              || MappingUtils.isSupportedMap(destClass) || classMap.getDestClassMapGetMethod() != null;
+          || MappingUtils.isSupportedMap(destClass) || classMap.getDestClassMapGetMethod() != null;
     }
 
     public boolean apply(ClassMap classMap, Configuration configuration) {
@@ -187,17 +185,19 @@ public final class ClassMapBuilder {
         DozerField srcField = new DozerField(MappingUtils.isSupportedMap(srcClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
         srcField.setKey(fieldName);
 
-        if (StringUtils.isNotEmpty(classMap.getSrcClassMapGetMethod()) || StringUtils.isNotEmpty(classMap.getSrcClassMapSetMethod())) {
+        if (StringUtils.isNotEmpty(classMap.getSrcClassMapGetMethod())
+            || StringUtils.isNotEmpty(classMap.getSrcClassMapSetMethod())) {
           srcField.setMapGetMethod(classMap.getSrcClassMapGetMethod());
           srcField.setMapSetMethod(classMap.getSrcClassMapSetMethod());
           srcField.setName(DozerConstants.SELF_KEYWORD);
         }
 
-        DozerField destField = new DozerField(MappingUtils.isSupportedMap(destClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
+        DozerField destField = new DozerField(MappingUtils.isSupportedMap(destClass) ? DozerConstants.SELF_KEYWORD : fieldName,
+            null);
         srcField.setKey(fieldName);
 
         if (StringUtils.isNotEmpty(classMap.getDestClassMapGetMethod())
-                || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
+            || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
           destField.setMapGetMethod(classMap.getDestClassMapGetMethod());
           destField.setMapSetMethod(classMap.getDestClassMapSetMethod());
           destField.setName(DozerConstants.SELF_KEYWORD);
@@ -231,13 +231,12 @@ public final class ClassMapBuilder {
         }
 
         // If field has already been accounted for, then skip
-        if (classMap.getFieldMapUsingDest(fieldName) != null
-                || classMap.getFieldMapUsingSrc(fieldName) != null) {
+        if (classMap.getFieldMapUsingDest(fieldName) != null || classMap.getFieldMapUsingSrc(fieldName) != null) {
           continue;
         }
 
         // If destination field does not have a write method, then skip
-        if (destPropertyDescriptor.getWriteMethod() == null) {
+        if (destPropertyDescriptor.getWriteMethod() == null && ReflectionUtils.getNonVoidSetter(destClass, fieldName) == null) {
           continue;
         }
 
@@ -253,7 +252,6 @@ public final class ClassMapBuilder {
       }
       return false;
     }
-
   }
 
   public static class CollectionMappingGenerator implements ClassMappingGenerator {
@@ -272,7 +270,6 @@ public final class ClassMapBuilder {
       classMap.addFieldMapping(fieldMap);
       return true;
     }
-
   }
 
   public static class AnnotationPropertiesGenerator implements ClassMappingGenerator {
@@ -314,7 +311,6 @@ public final class ClassMapBuilder {
 
       return false;
     }
-
   }
 
   public static class AnnotationFieldsGenerator implements ClassMappingGenerator {
@@ -352,8 +348,7 @@ public final class ClassMapBuilder {
     }
   }
 
-  private static void addFieldMapping(ClassMap classMap, Configuration configuration,
-                                      String srcName, String destName) {
+  private static void addFieldMapping(ClassMap classMap, Configuration configuration, String srcName, String destName) {
     FieldMap fieldMap = new GenericFieldMap(classMap);
 
     DozerField sourceField = new DozerField(srcName, null);
@@ -370,8 +365,7 @@ public final class ClassMapBuilder {
     classMap.addFieldMapping(fieldMap);
   }
 
-  private static void addGenericMapping(ClassMap classMap, Configuration configuration,
-                                        String srcName, String destName) {
+  private static void addGenericMapping(ClassMap classMap, Configuration configuration, String srcName, String destName) {
     FieldMap fieldMap = new GenericFieldMap(classMap);
 
     fieldMap.setSrcField(new DozerField(srcName, null));
@@ -384,8 +378,8 @@ public final class ClassMapBuilder {
 
   private static void validate(Mapping annotation, Member member) {
     if (annotation.value().trim().equals("")) {
-      throw new MappingException("Mapping annotation value missing at "
-              + member.getDeclaringClass().getName() + "." + member.getName());
+      throw new MappingException("Mapping annotation value missing at " + member.getDeclaringClass().getName() + "."
+          + member.getName());
     }
   }
 
