@@ -15,8 +15,8 @@
  */
 package org.dozer.converters;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Internal class that contains the custom converter definition information. Only intended for internal use.

@@ -15,7 +15,7 @@
  */
 package org.dozer.classmap;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.util.MappingUtils;
 
 /**

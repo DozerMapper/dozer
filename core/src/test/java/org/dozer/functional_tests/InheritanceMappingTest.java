@@ -15,7 +15,7 @@
  */
 package org.dozer.functional_tests;
 
-import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.vo.NoSuperClass;

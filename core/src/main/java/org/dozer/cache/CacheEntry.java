@@ -15,8 +15,8 @@
  */
 package org.dozer.cache;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Internal class that represents one entry in the cache. Holds the cache value, unique key for lookup, and creation
@@ -25,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author tierney.matt
  * @author dmitry.buzdin
  */
-public class CacheEntry <KeyType, ValueType> {
+public class CacheEntry<KeyType, ValueType> {
 
   private final KeyType key;
   private final ValueType value;

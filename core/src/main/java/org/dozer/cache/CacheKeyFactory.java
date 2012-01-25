@@ -15,8 +15,8 @@
  */
 package org.dozer.cache;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Internal class that is responsible for producing cache keys. Only intended for internal use.
@@ -55,7 +55,7 @@ public final class CacheKeyFactory {
     }
 
     @Override
-    public boolean equals(Object o) {      
+    public boolean equals(Object o) {
       CacheKey cacheKey = (CacheKey) o;
 
       if (destClass != null ? !destClass.equals(cacheKey.destClass) : cacheKey.destClass != null)
@@ -81,7 +81,6 @@ public final class CacheKeyFactory {
     public String toString() {
       return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-    
   }
 
 }

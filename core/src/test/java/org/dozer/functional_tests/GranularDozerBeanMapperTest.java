@@ -96,7 +96,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testFieldAccessible() throws Exception {
-    Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
+    Mapper mapper = getMapper("fieldAttributeMapping.xml");
     TestObject to = newInstance(TestObject.class);
     to.setFieldAccessible("fieldAccessible");
     to.setFieldAccessiblePrimInt(2);
@@ -123,7 +123,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testOverloadGetSetMethods() throws Exception {
-    Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
+    Mapper mapper = getMapper("fieldAttributeMapping.xml");
     TestObject to = newInstance(TestObject.class);
     Date date = new Date();
     to.setOverloadGetField(new Date());
@@ -137,7 +137,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testFieldCreateMethod() throws Exception {
-    Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
+    Mapper mapper = getMapper("fieldAttributeMapping.xml");
     TestObject to = newInstance(TestObject.class);
     InsideTestObject ito = newInstance(InsideTestObject.class);
     // we did not set any values. this will be set in the 'createMethod'
@@ -152,7 +152,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testIntegerToString() throws Exception {
-    Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
+    Mapper mapper = getMapper("fieldAttributeMapping.xml");
     TestObject to = newInstance(TestObject.class);
     Integer[] array = new Integer[] { new Integer(1), new Integer(2) };
     to.setArrayForLists(array);
@@ -162,7 +162,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapNull_MappingLevel() throws Exception {
-    Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
+    Mapper mapper = getMapper("nullFieldMapping.xml");
     // check that null does not override an existing value when map-null="false"
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     src.setField3(null);
@@ -180,7 +180,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapNull_MappingLevel2() throws Exception {
-    Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
+    Mapper mapper = getMapper("nullFieldMapping.xml");
     // Reverse mapping
     AnotherTestObjectPrime src = newInstance(AnotherTestObjectPrime.class);
     src.setTo(newInstance(TestObject.class));
@@ -198,7 +198,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapEmptyString_MappingLevel() throws Exception {
-    Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
+    Mapper mapper = getMapper("nullFieldMapping.xml");
     // check that "" does not override an existing value when
     // map-empty-string="false"
     AnotherTestObject src = newInstance(AnotherTestObject.class);
@@ -217,7 +217,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapEmptyString_MappingLevel2() throws Exception {
-    Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
+    Mapper mapper = getMapper("nullFieldMapping.xml");
     // reverse mapping
     AnotherTestObjectPrime src = newInstance(AnotherTestObjectPrime.class);
     src.setTo(newInstance(TestObject.class));
@@ -235,7 +235,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapNull_ClassLevel() throws Exception {
-    Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
+    Mapper mapper = getMapper("nullFieldMapping.xml");
     // check that null does not override an existing value when map-null="false"
     TestObject src = newInstance(TestObject.class);
     src.setOne(null);
@@ -260,7 +260,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapEmptyString_ClassLevel() throws Exception {
-    Mapper mapper = getMapper(new String[] { "nullFieldMapping.xml" });
+    Mapper mapper = getMapper("nullFieldMapping.xml");
     // check that "" does not override an existing value when
     // map-empty-string="false"
     TestObject src = newInstance(TestObject.class);
@@ -288,7 +288,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testContextMappingWithNestedContext() throws Exception {
-    Mapper mapper = getMapper(new String[] { "contextMapping.xml" });
+    Mapper mapper = getMapper("contextMapping.xml");
 
     ContextMappingNested cmn = newInstance(ContextMappingNested.class);
     cmn.setLoanNo("loanNoNested");
@@ -391,7 +391,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testSetPrivateField() {
-    mapper = super.getMapper(new String[] { "isaccessiblemapping.xml" });
+    mapper = getMapper("isaccessiblemapping.xml");
     Foo src = newInstance(Foo.class);
     List<String> list = (ArrayList<String>) newInstance(ArrayList.class);
     list.add("test1");
@@ -404,7 +404,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testStringToIndexedSet_UsingHint() {
-    mapper = getMapper(new String[] { "indexMapping.xml" });
+    mapper = getMapper("indexMapping.xml");
     Mccoy src = newInstance(Mccoy.class);
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
     src.setField2("someValue");
@@ -420,7 +420,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test(expected = TestException.class)
   public void testAllowedExceptionsThrowException() throws Exception {
-    Mapper mapper = getMapper(new String[] { "allowedExceptionsMapping.xml" });
+    Mapper mapper = getMapper("allowedExceptionsMapping.xml");
     TestObject to = newInstance(TestObject.class);
     to.setThrowAllowedExceptionOnMap("throw me");
     mapper.map(to, TestObjectPrime.class);
@@ -429,7 +429,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   }
 
   public void testAllowedExceptionsDoNotThrowException() throws Exception {
-    Mapper mapper = getMapper(new String[] { "allowedExceptionsMapping.xml" });
+    Mapper mapper = getMapper("allowedExceptionsMapping.xml");
     TestObject to2 = newInstance(TestObject.class);
     to2.setThrowNonAllowedExceptionOnMap("do not throw me");
     try {
@@ -441,7 +441,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test(expected = TestException.class)
   public void testAllowedExceptions_Implicit() throws Exception {
-    Mapper mapper = getMapper(new String[] { "implicitAllowedExceptionsMapping.xml" });
+    Mapper mapper = getMapper("implicitAllowedExceptionsMapping.xml");
     ThrowException to = newInstance(ThrowException.class);
     to.setThrowAllowedException("throw me");
     mapper.map(to, ThrowExceptionPrime.class);
@@ -461,7 +461,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testPrimitiveArrayToList() throws Exception {
-    mapper = getMapper(new String[] { "primitiveArrayToListMapping.xml" });
+    mapper = getMapper("primitiveArrayToListMapping.xml");
 
     int[] i = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = newInstance(PrimitiveArrayObj.class);
@@ -478,7 +478,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testPrimitiveArrayToList_UsingHint() throws Exception {
-    mapper = getMapper(new String[] { "primitiveArrayToListMapping.xml" });
+    mapper = getMapper("primitiveArrayToListMapping.xml");
 
     int[] srcArray = new int[] { 1, 2, 3 };
     PrimitiveArrayObj src = newInstance(PrimitiveArrayObj.class);
@@ -498,7 +498,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testInterface() throws Exception {
-    mapper = getMapper(new String[] { "interfaceMapping.xml" });
+    mapper = getMapper("interfaceMapping.xml");
     ApplicationUser user = newInstance(ApplicationUser.class);
     user.setSubscriberNumber("123");
 
@@ -556,7 +556,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     // should only contain 2 SomeOtherVO's. It has something to do with specifying the field name starting with cap in
     // the mapping file. If
     // you change the field mapping to start with lower case it seems to map correctly.
-    Mapper mapper = getMapper(new String[] { "setMappingWithUpperCaseFieldName.xml" });
+    Mapper mapper = getMapper("setMappingWithUpperCaseFieldName.xml");
 
     SomeDTO someDto = newInstance(SomeDTO.class);
     someDto.setField1(new Integer("1"));
@@ -583,7 +583,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testGlobalBeanFactoryAppliedToDefaultMappings() throws Exception {
-    mapper = getMapper(new String[] { "global-configuration.xml" });
+    mapper = getMapper("global-configuration.xml");
     TestObjectPrime dest = mapper.map(newInstance(TestObject.class), TestObjectPrime.class);
 
     assertNotNull("created by factory name should not be null", dest.getCreatedByFactoryName());
@@ -592,7 +592,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testStringToDateMapping() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS");
     String dateStr = "01/29/1975 10:45:13:25";
     TestObject sourceObj = newInstance(TestObject.class);
@@ -608,7 +608,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMethodMapping() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     MethodFieldTestObject sourceObj = newInstance(MethodFieldTestObject.class);
     sourceObj.setIntegerStr("1500");
     sourceObj.setPriceItem("3500");
@@ -627,7 +627,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   @Test
   public void testNoReadMethod() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     NoReadMethod src = newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
@@ -638,7 +638,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   @Test
   public void testNoReadMethodSameClassTypes() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     NoReadMethod src = newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
@@ -649,7 +649,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   @Test
   public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
     // Dont use getter methods that have a param when discovering default fields to be mapped.
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     NoReadMethod src = newInstance(NoReadMethod.class);
     src.setOtherNoReadMethod("someValue");
 
@@ -659,7 +659,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNoWriteMethod() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     NoWriteMethod src = newInstance(NoWriteMethod.class);
     src.setXXXXXX("someValue");
 
@@ -671,7 +671,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   public void testNoWriteMethodSameClassTypes() throws Exception {
     // When mapping between identical types, if the field doesnt have a getter/setter, dont
     // add it is a default field to be mapped.
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     NoWriteMethod src = newInstance(NoWriteMethod.class);
     src.setXXXXXX("someValue");
 
@@ -683,7 +683,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNoVoidSetters() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     NoVoidSetters src = newInstance(NoVoidSetters.class);
     src.setDescription("someValue");
     src.setI(1);
@@ -695,7 +695,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNullField() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     src.setField2(null);
     AnotherTestObjectPrime dest = newInstance(AnotherTestObjectPrime.class);
@@ -707,7 +707,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNullField2() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     // Test that String --> String with an empty String input value results
     // in the destination field being an empty String and not null.
     String input = "";
@@ -721,7 +721,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNullToPrimitive() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     AnotherTestObjectPrime prime = newInstance(AnotherTestObjectPrime.class);
     TestObject to = newInstance(TestObject.class);
@@ -736,7 +736,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testGlobalRelationshipType() throws Exception {
-    mapper = getMapper(new String[] { "relationship-type-global-configuration.xml" });
+    mapper = getMapper("relationship-type-global-configuration.xml");
     TestObject src = new TestObject();
     src.setHintList(new ArrayList<String>(Arrays.asList(new String[] { "a" })));
 
@@ -750,7 +750,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testClassMapRelationshipType() throws Exception {
-    mapper = getMapper(new String[] { "relationshipTypeMapping.xml" });
+    mapper = getMapper("relationshipTypeMapping.xml");
     TestObject src = new TestObject();
     src.setHintList(new ArrayList<String>(Arrays.asList(new String[] { "a" })));
 
@@ -764,7 +764,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testRemoveOrphans() {
-    mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
+    mapper = getMapper("removeOrphansMapping.xml");
 
     MyClassA myClassA = new MyClassA();
     MyClassB myClassB = new MyClassB();
@@ -805,7 +805,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testOrphanRemovalSet() {
-    mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
+    mapper = getMapper("removeOrphansMapping.xml");
     Parent parent = new Parent(new Long(1), "parent");
     Child child1 = new Child(new Long(1), "child1");
     Set<Child> childrenSet = new HashSet<Child>();
@@ -830,7 +830,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testOrphanRemovalList() {
-    mapper = getMapper(new String[] { "removeOrphansMapping.xml" });
+    mapper = getMapper("removeOrphansMapping.xml");
     Parent parent = new Parent(new Long(1), "parent");
     Child child1 = new Child(new Long(1), "child1");
     List<Child> childrenList = new ArrayList<Child>();

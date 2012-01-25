@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.dozer.functional_tests.DataObjectInstantiator;
 import org.dozer.vo.Apple;
 import org.dozer.vo.AppleComputer;

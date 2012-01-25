@@ -15,8 +15,8 @@
  */
 package org.dozer.classmap;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.util.DozerConstants;

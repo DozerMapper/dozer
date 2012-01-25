@@ -30,7 +30,7 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
