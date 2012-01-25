@@ -75,6 +75,51 @@ public class MapTypeTest extends AbstractFunctionalTest {
   }
 
   @Test
+  public void testMapToVoSimple() throws Exception {
+    mapper = getMapper(new String[] { });
+
+    NestedObj nestedObj = newInstance(NestedObj.class);
+    nestedObj.setField1("nestedfield1value");
+    Map<String, Serializable> src = newInstance(HashMap.class);
+    src.put("field1", "mapnestedfield1value");
+
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class);
+    assertEquals(src.get("field1"), result.getField1());
+  }
+
+  @Test
+  public void testMapToVoWithRenameField() throws Exception {
+    // Test simple Map --> Vo with custom mappings defined.
+    mapper = getMapper(new String[] { "mapMapping2.xml" });
+
+    NestedObj nestedObj = newInstance(NestedObj.class);
+    nestedObj.setField1("nestedfield1value");
+    Map<String, Object> src = new HashMap<String, Object>();
+    src.put("first", "mapnestedfield1value");
+    src.put("nested", nestedObj);
+
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class, "caseC");
+    assertEquals(src.get("first"), result.getField1());
+    assertEquals(nestedObj.getField1(), result.getNested().getField1());
+  }
+
+  @Test
+  public void testMapToVoWithRenameFieldReverse() throws Exception {
+    // Test simple Map --> Vo with custom mappings defined.
+    mapper = getMapper(new String[] { "mapMapping2.xml" });
+
+    NestedObj nestedObj = newInstance(NestedObj.class);
+    nestedObj.setField1("nestedfield1value");
+    Map<String, Object> src = new HashMap<String, Object>();
+    src.put("first", "mapnestedfield1value");
+    src.put("nested", nestedObj);
+
+    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class, "caseD");
+    assertEquals(src.get("first"), result.getField1());
+    assertEquals(nestedObj.getField1(), result.getNested().getField1());
+  }
+
+  @Test
   public void testMapToVo_CustomMappings() throws Exception {
     // Test simple Map --> Vo with custom mappings defined.
     mapper = getMapper(new String[] { "mapMapping2.xml" });

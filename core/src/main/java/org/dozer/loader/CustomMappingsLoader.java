@@ -53,7 +53,17 @@ public class CustomMappingsLoader {
 
   public LoadMappingsResult load(List<String> mappingFiles, List<MappingFileData> builderMappings) {
     
-    List<MappingFileData> mappingFileDataList = loadFromFiles(mappingFiles);
+    RuntimeException exception = null;
+    
+    List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
+    try {
+      mappingFileDataList = loadFromFiles(mappingFiles);
+    } catch (RuntimeException ex) {
+      log.error("Error during loadFromFiles()", ex);
+      // capture the exception
+      exception = ex;
+    }
+    
     mappingFileDataList.addAll(builderMappings);
 
     Configuration globalConfiguration = findConfiguration(mappingFileDataList);
@@ -89,7 +99,7 @@ public class CustomMappingsLoader {
         classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
       }
     }
-    return new LoadMappingsResult(customMappings, globalConfiguration);
+    return new LoadMappingsResult(customMappings, globalConfiguration, exception);
   }
 
   private List<MappingFileData> loadFromFiles(List<String> mappingFiles) {

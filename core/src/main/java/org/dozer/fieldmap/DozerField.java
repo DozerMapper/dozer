@@ -55,6 +55,10 @@ public class DozerField implements Cloneable {
     return type;
   }
 
+  /**
+   * Name of the field, which is the property name. Except if mapping a {@link java.util.Map}, the value is "this".
+   * @return
+   */
   public String getName() {
     return name;
   }
@@ -83,6 +87,10 @@ public class DozerField implements Cloneable {
     this.theSetMethod = theSetMethod;
   }
 
+  /**
+   * Key of the field, used if mapping a {@link java.util.Map} "field", otherwise null.
+   * @return
+   */
   public String getKey() {
     return key;
   }

@@ -19,14 +19,17 @@ import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingDirection;
+import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -51,6 +54,13 @@ public final class MappingsParser {
   private MappingsParser() {
   }
 
+  /**
+   * Decorates raw ClassMap objects and performs various validations on the explicit field mappings.
+   * It applies global configuration and class level attributes to raw class mappings.
+   * @param classMaps Input class maps.
+   * @param globalConfiguration Global configuration.
+   * @return Resulting class mappings.
+   */
   public ClassMappings processMappings(List<ClassMap> classMaps, Configuration globalConfiguration) {
     if (globalConfiguration == null) {
       throw new IllegalArgumentException("Global configuration parameter cannot be null");
@@ -85,12 +95,11 @@ public final class MappingsParser {
       MappingUtils.reverseFields(classMap, classMapPrime);
 
       if (classMap.getFieldMaps() != null) {
-        Object[] fms = classMap.getFieldMaps().toArray();
+        List<FieldMap> fms = classMap.getFieldMaps();
         // iterate through the fields and see wether or not they should be mapped
         // one way class mappings we do not need to add any fields
         if (!MappingDirection.ONE_WAY.equals(classMap.getType())) {
-          for (Object fm1 : fms) {
-            FieldMap fieldMap = (FieldMap) fm1;
+          for (FieldMap fieldMap : fms.toArray(new FieldMap[]{})) {
             fieldMap.validate();
 
             // If we are dealing with a Map data type, transform the field map into a MapFieldMap type
@@ -109,6 +118,24 @@ public final class MappingsParser {
                 classMap.addFieldMapping(fm);
                 fieldMap = fm;
               }
+            }
+            
+            // if the source is a java.util.Map, and not already mapped as key=>value,
+            // map the field as key=>value, not as bean property
+            if (isSupportedMap(classMap.getSrcClassToMap()) && fieldMap.getSrcFieldKey() == null) {
+              DozerField newSrcField = fieldMap.getSrcFieldCopy();
+              newSrcField.setName(DozerConstants.SELF_KEYWORD);
+              newSrcField.setKey(fieldMap.getSrcFieldName());
+              fieldMap.setSrcField(newSrcField);
+            }
+            // like above but the reverse: 
+            // if the destination is a java.util.Map, and not already mapped as key=>value,
+            // map the field as key=>value, not as bean property
+            if (isSupportedMap(classMap.getDestClassToMap()) && fieldMap.getDestFieldKey() == null) {
+              DozerField newDestField = fieldMap.getDestFieldCopy();
+              newDestField.setName(DozerConstants.SELF_KEYWORD);
+              newDestField.setKey(fieldMap.getDestFieldName());
+              fieldMap.setDestField(newDestField);
             }
 
             if (!(MappingDirection.ONE_WAY.equals(fieldMap.getType()) && !(fieldMap instanceof ExcludeFieldMap))) {
@@ -140,8 +167,7 @@ public final class MappingsParser {
         } else {
           // since it is one-way...we still need to validate if it has some type of method mapping and validate the
           // field maps
-          for (Object fm : fms) {
-            FieldMap oneWayFieldMap = (FieldMap) fm;
+          for (FieldMap oneWayFieldMap : fms.toArray(new FieldMap[]{})) {
             oneWayFieldMap.validate();
 
             MappingUtils.applyGlobalCopyByReference(globalConfiguration, oneWayFieldMap, classMap);
