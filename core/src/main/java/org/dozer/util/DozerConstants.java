@@ -17,6 +17,7 @@ package org.dozer.util;
 
 import org.dozer.classmap.RelationshipType;
 import org.dozer.factory.XMLBeanFactory;
+import org.dozer.fieldmap.DozerField;
 
 /**
  * Internal constants file containing a variety of constants used throughout the code base. Only intended for internal
@@ -54,6 +55,10 @@ public final class DozerConstants {
   public static final String ITERATE = "iterate";
   public static final String DEEP_FIELD_DELIMITER = ".";
   public static final String DEEP_FIELD_DELIMITER_REGEXP = "\\.";
+  /**
+   * Constant used in {@link DozerField#getName()} to mark the field as belonging to a {@link java.util.Map} instead of
+   * an ordinary class. The name of the Key is then set in {@link DozerField#getKey()}.
+   */
   public static final String SELF_KEYWORD = "this";
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";  
   public static final String BASE_CLASS = Object.class.getName();
