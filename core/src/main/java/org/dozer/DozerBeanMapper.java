@@ -27,6 +27,8 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
 import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.xml.MappingStreamReader;
+import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
 import org.dozer.stats.GlobalStatistics;
@@ -36,6 +38,7 @@ import org.dozer.stats.StatisticsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.InputStream;
 import java.lang.reflect.Proxy;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
@@ -54,6 +57,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author tierney.matt
  * @author garsombke.franz
  * @author dmitry.buzdin
+ * @author suwarnaratana.arm
  */
 public class DozerBeanMapper implements Mapper {
 
@@ -214,6 +218,33 @@ public class DozerBeanMapper implements Mapper {
       addMapping(builder);
     }
   }
+  
+	/**
+	 * Add mapping XML from InputStream resources for mapping not stored in
+	 * files (e.g. from database.) The InputStream will be read immediately to
+	 * internally create MappingFileData objects so that the InputStreams may be
+	 * closed after the call to this method.
+	 * 
+	 * @param mappingStreams List of Dozer mapping XML InputStreams
+	 */
+	public void addMappingXMLStreams(List<InputStream> mappingStreams) {
+		checkIfInitialized();
+		MappingStreamReader fileReader = new MappingStreamReader(XMLParserFactory.getInstance());
+		for (InputStream xmlStream : mappingStreams) {
+			MappingFileData mappingFileData = fileReader.read(xmlStream);
+			builderMappings.add(mappingFileData);
+		}
+	}
+
+	/**
+	 * @see DozerBeanMapper#addMappingXMLStreams(List)
+	 * @param mappingStream Dozer mapping XML InputStream
+	 */
+	public void addMappingXMLStream(InputStream mappingStream) {
+		List<InputStream> singleInputStream = new LinkedList<InputStream>();
+		singleInputStream.add(mappingStream);
+		addMappingXMLStreams(singleInputStream);
+	}
 
   /**
    * Adds API mapping to given mapper instance.
