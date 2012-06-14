@@ -23,16 +23,8 @@ import org.dozer.propertydescriptor.DeepHierarchyElement;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.lang.reflect.*;
+import java.util.*;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -76,8 +68,9 @@ public final class ReflectionUtils {
           //          }
 
           String propertyName = descriptors[i].getName();
+          Method readMethod = descriptors[i].getReadMethod();
           if (fieldName.equals(propertyName)) {
-            return descriptors[i];
+            return fixGenericDescriptor(objectClass, descriptors[i]);
           }
 
           if (fieldName.equalsIgnoreCase(propertyName)) {
@@ -90,7 +83,45 @@ public final class ReflectionUtils {
     return result;
   }
 
-  public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field,
+	/**
+	 * There are some nasty bugs for introspection with generics. This method addresses those nasty bugs and tries to find proper methods if available
+	 *  http://bugs.sun.com/view_bug.do?bug_id=6788525
+	 *  http://bugs.sun.com/view_bug.do?bug_id=6528714
+	 * @param descriptor
+	 * @return
+	 */
+	private static PropertyDescriptor fixGenericDescriptor(Class<?> clazz, PropertyDescriptor descriptor) {
+		Method readMethod = descriptor.getReadMethod();
+		Method writeMethod = descriptor.getWriteMethod();
+
+		if(readMethod != null && (readMethod.isBridge() || readMethod.isSynthetic())) {
+		  String propertyName = descriptor.getName();
+		  //capitalize the first letter of the string;
+		  String baseName = Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
+		  String setMethodName = "set" + baseName;
+		  String getMethodName = "get" + baseName;
+		  Method[] methods = clazz.getMethods();
+			for (Method method : methods) {
+			  if(method.getName().equals(getMethodName) && !method.isBridge() && !method.isSynthetic() ) {
+					try {
+						descriptor.setReadMethod(method);
+					} catch (IntrospectionException e) {
+						//move on
+					}
+				}
+				if(method.getName().equals(setMethodName) && !method.isBridge() && !method.isSynthetic() ) {
+					try {
+						descriptor.setWriteMethod(method);
+					} catch (IntrospectionException e) {
+						//move on
+					}
+				}
+			}
+		}
+		return descriptor;
+	}
+
+	public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field,
       HintContainer deepIndexHintContainer) {
     if (!MappingUtils.isDeepMapping(field)) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
@@ -229,9 +260,9 @@ public final class ReflectionUtils {
         List<PropertyDescriptor> superInterfacePropertyDescriptors = Arrays
             .asList(getInterfacePropertyDescriptors(superInterfaceClass));
         /*
-         * #1814758 
+         * #1814758
          * Check for existing descriptor with the same name to prevent 2 property descriptors with the same name being added
-         * to the result list.  This caused issues when getter and setter of an attribute on different interfaces in 
+         * to the result list.  This caused issues when getter and setter of an attribute on different interfaces in
          * an inheritance hierarchy
          */
         for (PropertyDescriptor superPropDescriptor : superInterfacePropertyDescriptors) {
