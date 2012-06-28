@@ -33,6 +33,22 @@
     <section name="Dozer News">
       <p/>
 
+        <h3>Dozer is on GitHub<font size="-3" color="gray"> <i>06/28/2012</i></font></h3>
+        <p>
+            After some inactivity period Dozer has finally moved to
+            <a href="https://github.com/DozerMapper/dozer/">GitHub</a>.
+            Source code will be maintained there from now on. This transition is a huge step forward for the project
+            as the barrier for contribution is significantly lower on GitHub compared to SourceForge.
+            It is really easy to create a Pull request and merge it afterwards. Transition of the issue trackers
+            and support forums will be performed as well. We are looking forward to accept contributions from
+            developers in forms of patches and help on migration to GitHub. Write to buzdin at gmail if you are
+            interested.
+        </p>
+        <p>
+          Release 5.4.0 is currently in development and will be released this summer.
+        </p>
+        <p/>
+
         <h3>Release 5.3.2 Now Available<font size="-3" color="gray"> <i>02/15/2011</i></font></h3>
         <p>
           Release 5.3.2 is available for download. This is maintenance release, which finalizes internal builder API
