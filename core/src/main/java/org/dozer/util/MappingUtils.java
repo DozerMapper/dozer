@@ -324,6 +324,21 @@ public final class MappingUtils {
   }
 
   /**
+   * Used to test if {@code srcFieldClass} is enum.
+   * @param srcFieldClass the source field to be tested.
+   * @return {@code true} if and only if current running JRE is 1.5 or above, and
+   * {@code srcFieldClass} is enum; otherwise return {@code false}.
+   */
+  public static boolean isEnumType(Class<?> srcFieldClass) {
+    if (srcFieldClass.isAnonymousClass()) {
+      //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
+      //This is used to ensure Dozer can get correct Enum type.
+      srcFieldClass = srcFieldClass.getEnclosingClass();
+    }
+    return srcFieldClass.isEnum();
+  }
+
+  /**
    * Used to test if both {@code srcFieldClass} and {@code destFieldType} are enum.
    * @param srcFieldClass the source field to be tested.
    * @param destFieldType the destination field to be tested.
@@ -331,19 +346,8 @@ public final class MappingUtils {
    * {@code srcFieldClass} and {@code destFieldType} are enum; otherwise return {@code false}.
    */
   public static boolean isEnumType(Class<?> srcFieldClass, Class<?> destFieldType) {
-    if (srcFieldClass.isAnonymousClass()) {
-      //If srcFieldClass is anonymous class, replace srcFieldClass with its enclosing class.
-      //This is used to ensure Dozer can get correct Enum type.
-      srcFieldClass = srcFieldClass.getEnclosingClass();
-    }
-    if (destFieldType.isAnonymousClass()) {
-      //Just like srcFieldClass, if destFieldType is anonymous class, replace destFieldType with 
-      //its enclosing class. This is used to ensure Dozer can get correct Enum type.
-      destFieldType = destFieldType.getEnclosingClass();
-    }
-    return srcFieldClass.isEnum() && destFieldType.isEnum();
+    return isEnumType(srcFieldClass) && isEnumType(destFieldType);
   }
-
 
   public static List<Class<?>> getSuperClassesAndInterfaces(Class<?> srcClass) {
     List<Class<?>> superClasses = new ArrayList<Class<?>>();
