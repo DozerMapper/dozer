@@ -225,7 +225,12 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
       }
 
       if (value != null && value.getClass().isArray()) {
-        parentObj = Array.get(value, hierarchyElement.getIndex());
+        Method method = null;
+        if((method = getXmlBeansCollectionAwareMethod(parentObj, hierarchyElement.getPropDescriptor().getReadMethod().getName()))!=null){
+          parentObj = ReflectionUtils.invoke(method, parentObj, new Object[]{hierarchyElement.getIndex()});
+        } else {
+          parentObj = Array.get(value, hierarchyElement.getIndex());
+        }
       } else if (value != null && Collection.class.isAssignableFrom(value.getClass())) {
         parentObj = MappingUtils.getIndexedValue(value, hierarchyElement.getIndex());
       } else {
@@ -279,6 +284,18 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
+  }
+  
+  private Method getXmlBeansCollectionAwareMethod(Object parentObj, String methodName) {
+    Method method = null;
+    try {
+      method = parentObj.getClass().getMethod(methodName, int.class);
+    } catch(SecurityException exc) {
+      log.debug("There is an SecurityException on attempt to get array aware method.", exc);
+    } catch(NoSuchMethodException exc) {
+      log.debug("There is an NoSuchMethodException on attempt to get array aware method.", exc);
+    }
+    return method;
   }
 
   private DeepHierarchyElement[] getDeepFieldHierarchy(Object obj, HintContainer deepIndexHintContainer) {
