@@ -15,8 +15,10 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.MappingException;
 import org.dozer.vo.enumtest.MyBean;
 import org.dozer.vo.enumtest.MyBeanPrime;
+import org.dozer.vo.enumtest.MyBeanPrimeString;
 import org.dozer.vo.enumtest.SrcType;
 import org.dozer.vo.enumtest.SrcTypeWithOverride;
 import static org.junit.Assert.assertEquals;
@@ -120,4 +122,40 @@ public class EnumMappingTest extends AbstractFunctionalTest {
     mapper.map(src, MyBeanPrime.class);
   }
 
+  /**
+   * Test on a mapping from enum to {@link String}.
+   */
+  @Test
+  public void testEnumMapsToString() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    MyBeanPrimeString dest = mapper.map(src, MyBeanPrimeString.class);
+    assertEquals("FOO", dest.getDestType());
+  }
+
+  /**
+   * Test on a mapping from {@link String} to enum.
+   */
+  @Test
+  public void testStringMapsToEnum() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeString src = new MyBeanPrimeString();
+    src.setDestType("FOO");
+    src.setDestTypeWithOverride("BAR");
+    MyBean dest = mapper.map(src, MyBean.class);
+    assertEquals(SrcType.FOO, dest.getSrcType());
+    assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
+  }
+
+  /**
+   * Test on a mapping from {@link String} to enum with non-existing enum value.
+   */
+  @Test(expected = MappingException.class)
+  public void testStringMapsToEnumNonexistEnumValue() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeString src = new MyBeanPrimeString();
+    src.setDestType("BAZ");
+    MyBean dest = mapper.map(src, MyBean.class);
+  }
 }

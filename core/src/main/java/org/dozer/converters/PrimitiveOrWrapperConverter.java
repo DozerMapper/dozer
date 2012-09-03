@@ -26,6 +26,7 @@ import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.lang3.ClassUtils;
+import org.dozer.util.MappingUtils;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
@@ -86,6 +87,8 @@ public class PrimitiveOrWrapperConverter {
         result = new CalendarConverter(dateFormatContainer.getDateFormat());
       } else if (XMLGregorianCalendar.class.isAssignableFrom(destClass)){
         result = new XMLGregorianCalendarConverter(dateFormatContainer.getDateFormat());
+      } else if (MappingUtils.isEnumType(destClass)){
+        result = new EnumConverter();
       }
     }
     return result == null ? new StringConstructorConverter(dateFormatContainer) : result;

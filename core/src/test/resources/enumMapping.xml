@@ -14,4 +14,17 @@
       <b>destTypeWithOverride</b>
     </field>
   </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.enumtest.MyBean</class-a>
+    <class-b>org.dozer.vo.enumtest.MyBeanPrimeString</class-b>
+    <field>
+      <a>srcType</a>
+      <b>destType</b>
+    </field>
+	<field>
+      <a>srcTypeWithOverride</a>
+      <b>destTypeWithOverride</b>
+    </field>
+  </mapping>
 </mappings>
