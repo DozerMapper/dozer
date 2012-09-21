@@ -25,9 +25,7 @@
   <mapping>
     <class-a>org.dozer.vo.TestObject</class-a>
     <class-b>org.dozer.vo.TestObjectPrime</class-b>
- 
-    Any custom field mapping xml would go here........
-
+    <!-- Any custom field mapping xml would go here -->
   </mapping>
 
         ]]>
