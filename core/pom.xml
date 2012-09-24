@@ -230,6 +230,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
         <configuration>
           <excludes>
             <exclude>**/org/dozer/vo/**</exclude>
@@ -247,9 +248,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.1</version>
-        <configuration>
-          <templateFile>site.vm</templateFile>
-        </configuration>
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.wagon</groupId>
@@ -564,7 +562,7 @@
   <licenses>
     <license>
       <name>Apache 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
       <distribution>repo</distribution>
       <comments>A business-friendly Open Source license</comments>
     </license>
@@ -575,6 +573,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.5.1</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -596,6 +595,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.8.1</version>
         <configuration>
           <aggregate>true</aggregate>
           <links>

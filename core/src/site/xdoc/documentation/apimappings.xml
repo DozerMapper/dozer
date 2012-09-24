@@ -100,8 +100,8 @@ BeanMappingBuilder builder = new BeanMappingBuilder() {
 
       <source>
         <![CDATA[
-        DozerBeanMapper mapper = new DozerBeanMapper();
-        mapper.addMapping(builder);
+DozerBeanMapper mapper = new DozerBeanMapper();
+mapper.addMapping(builder);
         ]]>
       </source>
             <p>

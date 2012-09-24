@@ -74,9 +74,11 @@
     <b>to.one</b>
   </field>
 </mapping>   
-
+          ]]>
+        </source>
 OR...
-
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>org.dozer.vo.AnotherTestObject</class-a>
   <class-b map-null="false">org.dozer.vo.AnotherTestObjectPrime</class-b>    
@@ -106,9 +108,11 @@ OR...
     <b>to.one</b>
   </field>
 </mapping>   
-
+          ]]>
+        </source>
 OR...
-
+        <source>
+          <![CDATA[ 
 <mapping>
   <class-a>org.dozer.vo.AnotherTestObject</class-a>
   <class-b map-empty-string="false">org.dozer.vo.AnotherTestObjectPrime</class-b>    
