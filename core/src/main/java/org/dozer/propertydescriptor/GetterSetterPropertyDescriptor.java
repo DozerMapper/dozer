@@ -161,7 +161,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
                   hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
 
-          Class<?> genericType = ReflectionUtils.determineGenericsType(pd);
+          Class<?> genericType = ReflectionUtils.determineGenericsType(parentObj.getClass(), pd);
           if (genericType != null) {
             collectionEntryType = genericType;
           } else {
@@ -197,7 +197,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           collectionEntryType = pd.getPropertyType().getComponentType();
 
           if (collectionEntryType == null) {
-            collectionEntryType = ReflectionUtils.determineGenericsType(pd);
+            collectionEntryType = ReflectionUtils.determineGenericsType(parentObj.getClass(), pd);
 
             // if the target list is a List that doesn't have type specified, we can
             // try to use the deep-index-hint.  If the list has more than 1 element, there is no
@@ -351,7 +351,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     Class<?> genericType = null;
     try {
       Method method = getWriteMethod();
-      genericType = ReflectionUtils.determineGenericsType(method, false);
+      genericType = ReflectionUtils.determineGenericsType(clazz, method, false);
     } catch (NoSuchMethodException e) {
       log.warn("The destination object: {} does not have a write method for property : {}", e);
     }
