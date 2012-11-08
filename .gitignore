@@ -1,6 +1,17 @@
-.settings
+# Eclipse #
+###########
 .classpath
 .project
-target
+.settings
 */bin
+
+# Maven #
+#########
+target
+
+# IntelliJ IDEA #
+#################
 .idea
+*.iml
+*.ipr
+*.iws

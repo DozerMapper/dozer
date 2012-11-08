@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<!--
+ Copyright 2005-2010 the original author or authors.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.sf.dozer</groupId>
+  <artifactId>dozer-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>5.4.0-SNAPSHOT</version>
+  <url>http://dozer.sourceforge.net</url>
+  <name>Dozer Parent Project</name>
+  <description>Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to
+    another
+  </description>
+  <inceptionYear>2005</inceptionYear>
+
+  <modules>
+    <module>core</module>
+    <module>osgi</module>
+  </modules>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.3.2</version>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-idea-plugin</artifactId>
+          <version>2.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <organization>
+    <name>dozer</name>
+    <url>http://dozer.sourceforge.net</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly Open Source license</comments>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Franz Garsombke</name>
+      <id>fgarsombke</id>
+      <email>fgarsombke@yahoo.com</email>
+      <roles>
+        <role>Project Lead/Co-Founder</role>
+      </roles>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <name>Matt Tierney</name>
+      <id>mhtierney</id>
+      <email>mhtierney@comcast.net</email>
+      <timezone>-7</timezone>
+      <roles>
+        <role>Project Lead/Co-Founder</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Dmitry Buzdin</name>
+      <id>buzdin</id>
+      <email>buzdin@gmail.com</email>
+      <timezone>+2</timezone>
+      <roles>
+        <role>Project Lead</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Alan Stewart</name>
+      <id>alankstewart</id>
+      <email>alankstewart@gmail.com</email>
+      <timezone>+10</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <!-- List of contributors is in alphabetical order -->
+  <contributors>
+    <contributor>
+      <name>Alan Stewart</name>
+    </contributor>
+    <contributor>
+      <name>Ben Sullins</name>
+    </contributor>
+    <contributor>
+      <name>Bruno Guedes</name>
+    </contributor>
+    <contributor>
+      <name>Chia-Chou Hung</name>
+    </contributor>
+    <contributor>
+      <name>Christoph Goldner</name>
+    </contributor>
+    <contributor>
+      <name>David Baker</name>
+    </contributor>
+    <contributor>
+      <name>Ed Bras</name>
+    </contributor>
+    <contributor>
+      <name>Florian Kammermann</name>
+    </contributor>
+    <contributor>
+      <name>Gerard Toonstra</name>
+    </contributor>
+    <contributor>
+      <name>Hee Tatt Ooi</name>
+    </contributor>
+    <contributor>
+      <name>Joachim Korittky</name>
+    </contributor>
+    <contributor>
+      <name>Kiersztyn Wojtek</name>
+    </contributor>
+    <contributor>
+      <name>Knut-Erik Johnsen</name>
+    </contributor>
+    <contributor>
+      <name>Lenkwe Makhubela</name>
+    </contributor>
+    <contributor>
+      <name>Luke Robinson</name>
+    </contributor>
+    <contributor>
+      <name>Mariusz Pala</name>
+    </contributor>
+    <contributor>
+      <name>Markus Thielen</name>
+    </contributor>
+    <contributor>
+      <name>Matt Benson</name>
+    </contributor>
+    <contributor>
+      <name>Mickael Morier</name>
+    </contributor>
+    <contributor>
+      <name>Nhat Vo</name>
+    </contributor>
+    <contributor>
+      <name>Ozzie Gurkan</name>
+    </contributor>
+    <contributor>
+      <name>Peciuch Dominic</name>
+    </contributor>
+    <contributor>
+      <name>Peter Monks</name>
+    </contributor>
+    <contributor>
+      <name>Rob Volden</name>
+    </contributor>
+    <contributor>
+      <name>Rohan Hart</name>
+    </contributor>
+    <contributor>
+      <name>Sachin Katakdound</name>
+    </contributor>
+    <contributor>
+      <name>Soren Chittka</name>
+    </contributor>
+    <contributor>
+      <name>Tim Nee</name>
+    </contributor>
+    <contributor>
+      <name>Tom Rigole</name>
+    </contributor>
+    <contributor>
+      <name>Vadim Shaigorodskiy</name>
+    </contributor>
+    <contributor>
+      <name>Vincent Jassogne</name>
+    </contributor>
+    <contributor>
+      <name>Wing Tung Leung</name>
+    </contributor>
+  </contributors>
+
+  <scm>
+    <connection>scm:https://github.com/DozerMapper/Dozer</connection>
+    <tag>HEAD</tag>
+    <url>https://github.com/DozerMapper/Dozer</url>
+  </scm>
+
+</project>
