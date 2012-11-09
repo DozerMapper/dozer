@@ -16,7 +16,7 @@
 package org.dozer.vo.recursive;
 
 /** */
-public class ClassB {
+public class ClassB implements Comparable<ClassB> {
   /** */
   private String rue;
 
@@ -89,4 +89,9 @@ public class ClassB {
   public void setVille(final String ville) {
     this.ville = ville;
   }
+
+  public int compareTo(ClassB o) {
+    return 0;
+  }
+
 }

@@ -38,36 +38,36 @@ public class FieldPropertyDescriptorTest extends AbstractDozerTest{
 
   @Test
   public void testConstructor() {
-    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(String.class, "offset", false, 0, null, null);
+    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "hidden", false, 0, null, null);
     assertNotNull(descriptor);
     assertEquals(Integer.TYPE, descriptor.getPropertyType());
-    assertNotNull(descriptor.getPropertyValue(""));
+    assertNotNull(descriptor.getPropertyValue(new Container()));
   }
 
   @Test
   public void getPropertyType() {
-    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(String.class, "offset", false, 0, null, null);
+    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "hidden", false, 0, null, null);
     assertEquals(Integer.TYPE, descriptor.getPropertyType());
   }
 
   @Test
   public void getPropertyTypeChained() {
-    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "value.offset", false, 0, null, null);
-    assertEquals(Integer.TYPE, descriptor.getPropertyType());
+    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "container.value", false, 0, null, null);
+    assertEquals(String.class, descriptor.getPropertyType());
   }
 
   @Test
   public void getPropertyValue() {
-    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(String.class, "offset", false, 0, null, null);
-    Object result = descriptor.getPropertyValue("A");
-    assertEquals(0, result);
+    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "hidden", false, 0, null, null);
+    Object result = descriptor.getPropertyValue(new Container());
+    assertEquals(42, result);
   }
 
   @Test
   public void getPropertyValueChained() {
-    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "value.offset", false, 0, null, null);
+    FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "container.hidden", false, 0, null, null);
     Object result = descriptor.getPropertyValue(new Container("A"));
-    assertEquals(0, result);
+    assertEquals(42, result);
   }
 
   @Test
@@ -116,7 +116,7 @@ public class FieldPropertyDescriptorTest extends AbstractDozerTest{
     FieldPropertyDescriptor descriptor = new FieldPropertyDescriptor(Container.class, "container.value", false, 0, null, null);
     Container bean = new Container("");
     Object value = descriptor.getPropertyValue(bean);
-    assertNull(value);
+    assertEquals("", value);
   }
 
   @Test
@@ -138,6 +138,7 @@ public class FieldPropertyDescriptorTest extends AbstractDozerTest{
   }
 
   public static class Container {
+
     public Container() {
     }
 
@@ -145,9 +146,11 @@ public class FieldPropertyDescriptorTest extends AbstractDozerTest{
       this.value = value;
     }
 
+    private int hidden = 42;
     String value;
-    Container container;
+    Container container = this;
     List<String> values = new ArrayList<String>();
+
   }
 
 }

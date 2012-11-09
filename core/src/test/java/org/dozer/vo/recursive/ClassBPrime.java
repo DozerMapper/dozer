@@ -17,7 +17,7 @@ package org.dozer.vo.recursive;
 
 /**
  */
-public class ClassBPrime {
+public class ClassBPrime implements Comparable<ClassBPrime> {
   /** */
   private String rue;
 
@@ -89,5 +89,9 @@ public class ClassBPrime {
       return false;
     }
     return true;
+  }
+
+  public int compareTo(ClassBPrime o) {
+    return 0;
   }
 }

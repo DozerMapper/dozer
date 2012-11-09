@@ -65,23 +65,6 @@ public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
     mapper.map("A", NoNothing.class);
   }
 
-  @Test
-  public void shouldRecoverOnInvalidMappingFile() {
-    DozerBeanMapper mapper = new DozerBeanMapper(Arrays.asList(new String[]{ "invalidmapping1.xml" }));
-//    DozerBeanMapper mapper = new DozerBeanMapper(Arrays.asList(new String[]{  }));
-    Map<String, Serializable> src = new HashMap<String, Serializable>();
-    src.put("field1", "mapnestedfield1value");
-
-    try {
-      SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class);
-    } catch (MappingException ex) {
-      // ok, got the first exception
-    }
-    
-    SimpleObjPrime result = mapper.map(src, SimpleObjPrime.class);
-    assertEquals(src.get("field1"), result.getField1());
-  }
-
   public static class NoNothing {
   }
 
