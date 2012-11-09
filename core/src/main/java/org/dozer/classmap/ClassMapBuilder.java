@@ -86,9 +86,9 @@ public final class ClassMapBuilder {
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
     ClassMap classMap = new ClassMap(globalConfiguration);
     classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null, null,
-        DozerConstants.DEFAULT_MAP_NULL_POLICY, DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY, false));
+        globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false));
     classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
-        null, DozerConstants.DEFAULT_MAP_NULL_POLICY, DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY, false));
+        null, globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false));
 
     generateMapping(classMap, globalConfiguration, buildTimeGenerators);
     return classMap;

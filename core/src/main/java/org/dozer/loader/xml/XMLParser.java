@@ -51,6 +51,8 @@ public class XMLParser implements MappingsSource {
   private static final String DATE_FORMAT = "date-format";
   private static final String RELATIONSHIP_TYPE = "relationship-type";
   private static final String REMOVE_ORPHANS = "remove-orphans";
+  private static final String MAP_NULL = "map-null";
+  private static final String MAP_EMPTY_STRING = "map-empty-string";
 
   // Parsing Elements
   private static final String CONFIGURATION_ELEMENT = "configuration";
@@ -133,7 +135,7 @@ public class XMLParser implements MappingsSource {
       Node node = nl.item(i);
       if (node instanceof Element) {
         Element ele = (Element) node;
-        log.debug("name: {}", ele.getNodeName());        
+        log.debug("name: {}", ele.getNodeName());
         if (CONFIGURATION_ELEMENT.equals(ele.getNodeName())) {
           parseConfiguration(ele, builder);
         } else if (MAPPING_ELEMENT.equals(ele.getNodeName())) {
@@ -413,6 +415,10 @@ public class XMLParser implements MappingsSource {
           configBuilder.wildcard(Boolean.valueOf(nodeValue));
         } else if (TRIM_STRINGS.equals(element.getNodeName())) {
           configBuilder.trimStrings(Boolean.valueOf(nodeValue));
+        } else if (MAP_NULL.equals(element.getNodeName())) {
+          configBuilder.mapNull(Boolean.valueOf(nodeValue));
+        } else if (MAP_EMPTY_STRING.equals(element.getNodeName())) {
+          configBuilder.mapEmptyString(Boolean.valueOf(nodeValue));
         } else if (RELATIONSHIP_TYPE.equals(element.getNodeName())) {
           RelationshipType relationshipType = RelationshipType.valueOf(nodeValue);
           configBuilder.relationshipType(relationshipType);
@@ -445,7 +451,7 @@ public class XMLParser implements MappingsSource {
           if (engine != null) {
             String name = getAttribute(ele, NAME_ATTRIBUTE);
             String value = getNodeValue(ele);
-            
+
             engine.setVariable(name, value);
           }
         }
