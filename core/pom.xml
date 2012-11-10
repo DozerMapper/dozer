@@ -365,6 +365,7 @@
             </goals>
             <configuration>
               <outputDirectory>target/site</outputDirectory>
+              <includeReports>false</includeReports>
             </configuration>
           </execution>
         </executions>

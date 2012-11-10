@@ -29,7 +29,9 @@
 <![CDATA[
 <mapping>
   <class-a>org.dozer.vo.TestObject</class-a>
-  <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.Employee</class-b>
+  <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">
+    org.dozer.vo.jaxb.employee.Employee
+  </class-b>
 
   <field>
     <a>name</a>
@@ -72,15 +74,20 @@
 // Map from TestObject to XMLBeans
 TestObject to = new TestObject();
 to.setOne("one");
-GetWeatherByZipCodeDocument doc = mapper.map(to, GetWeatherByZipCodeDocument.class);
-assertEquals(to.getOne(), doc.getGetWeatherByZipCode().getZipCode());
+GetWeatherByZipCodeDocument doc = 
+    mapper.map(to, GetWeatherByZipCodeDocument.class);
+assertEquals(to.getOne(), 
+    doc.getGetWeatherByZipCode().getZipCode());
 
 // Map from XMLBeans to TestObject
-GetWeatherByZipCodeDocument res = GetWeatherByZipCodeDocument.Factory.newInstance();
-GetWeatherByZipCode zipCode = res.addNewGetWeatherByZipCode();
+GetWeatherByZipCodeDocument res = 
+    GetWeatherByZipCodeDocument.Factory.newInstance();
+GetWeatherByZipCode zipCode = 
+    res.addNewGetWeatherByZipCode();
 zipCode.setZipCode("one");
 TestObject to2 = mapper.map(res, TestObject.class);
-assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
+assertEquals(res.getGetWeatherByZipCode().getZipCode(), 
+    to2.getOne());
         ]]>
         </source>
       </subsection>

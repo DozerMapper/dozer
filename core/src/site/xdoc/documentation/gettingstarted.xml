@@ -49,7 +49,8 @@
         <source>
           <![CDATA[ 
 Mapper mapper = new DozerBeanMapper();
-DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class);
+DestinationObject destObject =  
+    mapper.map(sourceObject, DestinationObject.class);
           ]]>
         </source>
         <p>

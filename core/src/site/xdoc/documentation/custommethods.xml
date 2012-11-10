@@ -48,7 +48,9 @@
         </p>
         <source>
           <![CDATA[ 
-<field type="one-way"> <!-- we can not map a ArrayList to a String, hence the one-way mapping -->        
+<!-- we can not map a ArrayList to a String, 
+     hence the one-way mapping -->
+<field type="one-way">         
   <a>integerStr</a>
   <b set-method="addIntegerToList">integerList</b>
 </field>       
@@ -64,7 +66,9 @@
           <![CDATA[ 
 <field>
   <a>overloadGetField</a>
-  <b set-method="setOverloadSetField(java.util.Date)">overloadSetField</b>
+  <b set-method="setOverloadSetField(java.util.Date)">
+    overloadSetField
+  </b>
 </field>    
             ]]>
         </source>
@@ -88,7 +92,8 @@
         <source>
           <![CDATA[ 
 <field> 
-  <a set-method="addCar" get-method="myIterateCars" type="iterate">iterateCars</a> 
+  <a set-method="addCar" get-method="myIterateCars" 
+     type="iterate">iterateCars</a> 
   <b set-method="addIterateCar" type="iterate">iterateCars</b> 
   <a-hint>org.dozer.vo.Car</a-hint>       
   <b-hint>org.dozer.vo.Car</b-hint>       

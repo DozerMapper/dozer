@@ -27,10 +27,12 @@
 
         <source>
   <![CDATA[  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-        <property name="mappingFiles" value="classpath*:/*mapping.xml"/>
+        <property name="mappingFiles" 
+                  value="classpath*:/*mapping.xml"/>
         <property name="customConverters">
             <list>
-                <bean class="org.dozer.converters.CustomConverter"/>      
+                <bean class=
+                      "org.dozer.converters.CustomConverter"/>      
             </list>
         </property>
         <property name="eventListeners">
@@ -80,7 +82,8 @@
           <source>
             <![CDATA[
   Mapper mapper = yourSpringBeanFactory.getBean("mapperBeanName");
-  DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+  DestinationObject destObject = 
+      mapper.map(sourceObject, DestinationObject.class);
             ]]>
           </source>
 

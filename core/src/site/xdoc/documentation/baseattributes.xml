@@ -34,7 +34,8 @@
   <class-b>org.dozer.vo.SubClassPrime</class-b>
     
   <field>
-    <a>superAttribute</a> <!-- this is the same for all sub classes -->
+    <!-- this is the same for all sub classes -->
+    <a>superAttribute</a> 
     <b>superAttr</b>
   </field>
     
@@ -49,7 +50,8 @@
  <class-b>org.dozer.vo.SubClassPrime2</class-b>
      
  <field>
-   <a>superAttribute</a> <!-- this is the same for all sub classes -->
+   <!-- this is the same for all sub classes -->
+   <a>superAttribute</a> 
    <b>superAttr</b>
  </field>
      
