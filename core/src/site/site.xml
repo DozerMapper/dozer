@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <project name="Dozer">
-	<skin>
-		<groupId>org.apache.maven.skins</groupId>
-		<artifactId>maven-fluido-skin</artifactId>
-		<version>1.3.0</version>
-	</skin>
-	<custom>
-		<fluidoSkin>
-			<topBarEnabled>false</topBarEnabled>
-			<sideBarEnabled>true</sideBarEnabled>
-			<googleSearch />
-			<googlePlusOne />
-			<facebookLike />
-		</fluidoSkin>
-	</custom>
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.3.0</version>
+  </skin>
+  <custom>
+    <fluidoSkin>
+      <topBarEnabled>false</topBarEnabled>
+      <sideBarEnabled>true</sideBarEnabled>
+      <googleSearch />
+      <googlePlusOne />
+      <facebookLike />
+    </fluidoSkin>
+  </custom>
   <!-- Page Title -->
   <bannerLeft>
     <name>Dozer</name>
@@ -40,13 +40,13 @@
       <item name="License" href="/license.html" />
     </menu>
 
-	<!-- Menu for the Eclipse plugin -->
+  <!-- Menu for the Eclipse plugin -->
     <menu name="Eclipse Plugin">
-    	<item name="Installation" href="/documentation/eclipse-plugin/installation.html" />
-    	<item name="Usage" href="/documentation/eclipse-plugin/usage.html" collapse="true">
-			<item name="Mapping via Editor" href="/documentation/eclipse-plugin/usage-editor.html" />
-			<item name="Mapping via XML" href="/documentation/eclipse-plugin/usage-xml.html" />
-		</item>
+      <item name="Installation" href="/documentation/eclipse-plugin/installation.html" />
+      <item name="Usage" href="/documentation/eclipse-plugin/usage.html" collapse="true">
+      <item name="Mapping via Editor" href="/documentation/eclipse-plugin/usage-editor.html" />
+      <item name="Mapping via XML" href="/documentation/eclipse-plugin/usage-xml.html" />
+    </item>
     </menu>
 
     <menu name="User's Guide">
@@ -89,8 +89,8 @@
       <item name="JAXB and XMLBeans" href="/documentation/xmlbeans.html" />
       <item name="Metadata Query Interface" href="/documentation/metadata.html" />
       <item name="FAQ" href="/documentation/faq.html" />
-
       <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />
+      <item name="User's Guide PDF" href="/dozer-user-guide.pdf" />
     </menu>
 
     <menu name="Community">

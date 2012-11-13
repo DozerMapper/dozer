@@ -30,7 +30,8 @@
     <configuration>
         <wildcard>true</wildcard>
         <variables>
-            <variable name="type_name">org.dozer.sample.MyType</variable>
+            <variable name="type_name">org.dozer.sample.MyType
+            </variable>
         </variables>
         <mapping>
             <class-a>${type_name}</class-a>

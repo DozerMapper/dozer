@@ -28,7 +28,8 @@
       <source>
         <![CDATA[ 
 public interface BeanFactory {
-  public Object createBean(Object source, Class sourceClass, String targetBeanId);
+  public Object createBean(Object source, Class sourceClass, 
+      String targetBeanId);
 }         
            ]]>
       </source>
@@ -44,7 +45,8 @@ public interface BeanFactory {
         <![CDATA[ 
 <mapping>
   <class-a>com.example.vo.InsideTestObject</class-a>
-  <class-b bean-factory="com.example.factories.SomeCustomBeanFactory">
+  <class-b bean-factory=
+      "com.example.factories.SomeCustomBeanFactory">
     com.example.vo.InsideTestObjectPrime
   </class-b>
 </mapping>  
@@ -59,8 +61,9 @@ public interface BeanFactory {
         <![CDATA[ 
 <mapping>
   <class-a>com.example.vo.InsideTestObject</class-a>
-  <class-b bean-factory="com.example.factories.SomeCustomBeanFactory"
-          factory-bean-id="someBeanLookupId">
+  <class-b bean-factory=
+           "com.example.factories.SomeCustomBeanFactory"
+           factory-bean-id="someBeanLookupId">
     com.example.vo.InsideTestObjectPrime
   </class-b>
 </mapping>  
@@ -77,7 +80,8 @@ public interface BeanFactory {
 <configuration>
   <stop-on-errors>true</stop-on-errors>
   <wildcard>true</wildcard>
-  <bean-factory>com.example.factories.SomeDefaultBeanFactory</bean-factory>
+  <bean-factory>com.example.factories.SomeDefaultBeanFactory
+  </bean-factory>
 </configuration>
          ]]>
         </source>
@@ -87,7 +91,8 @@ public interface BeanFactory {
         </p>
         <source>
           <![CDATA[ 
-<mapping bean-factory="com.example.factories.SomeCustomBeanFactory">
+<mapping bean-factory=
+         "com.example.factories.SomeCustomBeanFactory">
   <class-a>com.example.vo.TestObject</class-a>
   <class-b>com.example.vo.TestObjectPrime</class-b>
 </mapping>
@@ -108,16 +113,19 @@ public interface BeanFactory {
     </property>
     <property name="factories">
       <map>
-        <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
+        <!-- the key matches the name of the factory in the 
+             dozerBeanMapping.xml file -->
        <entry key="org.dozer.factories.SampleCustomBeanFactory">
          <ref bean="sampleCustomBeanFactory"/>
        </entry>
-        <!-- more factories can be supplied with additional entry's -->
+        <!-- more factories can be supplied with additional 
+             entry's -->
       </map>
     </property>    
   </bean>
 
-  <bean id="sampleCustomBeanFactory" class="org.dozer.factories.SampleCustomBeanFactory"/>
+  <bean id="sampleCustomBeanFactory" 
+        class="org.dozer.factories.SampleCustomBeanFactory"/>
 </beans>
 
 ]]>

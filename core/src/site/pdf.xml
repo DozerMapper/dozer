@@ -1,7 +1,7 @@
 <document xmlns="http://maven.apache.org/DOCUMENT/1.0.1"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/DOCUMENT/1.0.1 http://maven.apache.org/xsd/document-1.0.1.xsd"
-          outputName="dozer-${project.version}">
+          outputName="dozer-user-guide">
 
   <meta>
     <title>Dozer Reference Manual</title>
@@ -13,9 +13,9 @@
     <item name="Getting Started" ref="/documentation/gettingstarted.html"/>
     <item name="Usage" ref="/documentation/usage.html"/>
 
-    <item name="Mappings via Annotations" href="/documentation/annotations.html"/>
+    <item name="Mappings via Annotations" ref="/documentation/annotations.html"/>
     
-    <item name="Mappings via API" href="/documentation/apimappings.html"/>
+    <item name="Mappings via API" ref="/documentation/apimappings.html"/>
       
     <item name="Mappings via XML" ref="/documentation/mappings.html">
       <item name="Mapping Two Classes" ref="/documentation/mappingclasses.html"/>
@@ -36,21 +36,20 @@
       <item name="Custom Get/Set Methods" ref="/documentation/custommethods.html"/>
       <item name="Copy By Ref Mapping" ref="/documentation/copybyreference.html"/>
       <item name="Inheritance Mapping" ref="/documentation/baseattributes.html"/>
-      <item name="XMLBeans and JAXB" ref="/documentation/xmlbeans.html"/>
       <item name="Dozer Events" ref="/documentation/events.html"/>
-      <item name="Expression Language" href="documentation/expressionlanguage.html" />
+      <item name="Expression Language" ref="documentation/expressionlanguage.html" />
     </item>
 
     <item name="Configuration" ref="/documentation/configuration/configuration.html">
       <item name="Logging" ref="/documentation/configuration/logging.html"/>
-      <item name="Proxy Handling" href="documentation/proxyhandling.html"/>
+      <item name="Proxy Handling" ref="documentation/proxyhandling.html"/>
     </item>
 
     <item name="Statistics" ref="/documentation/configuration/statistics.html"/>
     <item name="JMX Integration" ref="/documentation/jmxintegration.html"/>
     <item name="Spring Integration" ref="/documentation/springintegration.html"/>
     <item name="JAXB and XMLBeans" ref="/documentation/xmlbeans.html" />
-    <item name="JAXB and XMLBeans" ref="/documentation/metadata.html" />
+    <item name="Metadata Query Interface" ref="/documentation/metadata.html" />
 
     <item name="FAQ" ref="/documentation/faq.html"/>
 
@@ -63,7 +62,7 @@
     <projectName>Dozer</projectName>
     <projectLogo>http://maven.apache.org/images/maventxt_logo_200.gif</projectLogo>
     <companyName>Franz Garsombke, Matt Tierney, Dmitry Buzdin</companyName>
-    <companyLogo>images/dozer.jpeg</companyLogo>
+    <companyLogo>images/dozer.png</companyLogo>
   </cover>
 
 </document>

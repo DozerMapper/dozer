@@ -29,7 +29,8 @@
    <field map-id="caseC">
      <a>contextList</a>
      <b>contextList</b>
-     <b-hint>org.dozer.vo.context.ContextMappingNestedPrime</b-hint>
+     <b-hint>org.dozer.vo.context.ContextMappingNestedPrime
+     </b-hint>
    </field>
 </mapping>
 
@@ -40,7 +41,8 @@
 
 <mapping map-id="caseC">
   <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
-  <class-b>org.dozer.vo.context.ContextMappingNestedPrime</class-b>
+  <class-b>org.dozer.vo.context.ContextMappingNestedPrime
+  </class-b>
    <field-exclude>
      <a>loanNo</a>
      <b>loanNo</b>
@@ -49,7 +51,8 @@
 
 <mapping map-id="caseD">
   <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
-  <class-b>org.dozer.vo.context.ContextMappingNestedPrime</class-b>
+  <class-b>org.dozer.vo.context.ContextMappingNestedPrime
+  </class-b>
 </mapping>
 </mappings>
   ]]>
@@ -59,7 +62,8 @@
       </p>
       <source>
         <![CDATA[ 
-ContextMappingPrime cmpA = mapper.map(cm, ContextMappingPrime.class, "caseA");
+ContextMappingPrime cmpA = 
+    mapper.map(cm, ContextMappingPrime.class, "caseA");
                 ]]>
       </source>
     </section>

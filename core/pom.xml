@@ -364,7 +364,8 @@
               <goal>pdf</goal>
             </goals>
             <configuration>
-              <outputDirectory>target/site</outputDirectory>
+              <outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
+              <includeReports>false</includeReports>
             </configuration>
           </execution>
         </executions>
