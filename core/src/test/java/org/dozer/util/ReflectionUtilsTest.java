@@ -139,7 +139,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
   @Test
   public void shouldModifyAccessor() {
-    Field field = ReflectionUtils.getFieldFromBean(String.class, "offset");
+    Field field = ReflectionUtils.getFieldFromBean(BaseBean.class, "a");
     assertNotNull(field);
   }
 

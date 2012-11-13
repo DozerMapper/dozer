@@ -18,12 +18,18 @@ package org.dozer.config;
 import org.dozer.AbstractDozerTest;
 import org.dozer.config.GlobalSettings;
 import org.dozer.util.DozerConstants;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author tierney.matt
  */
 public class GlobalSettingsTest extends AbstractDozerTest {
+
+  @Before
+  public void setUp() {
+    System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, "");
+  }
 
   @Test
   public void testLoadDefaultPropFile_Default() {
