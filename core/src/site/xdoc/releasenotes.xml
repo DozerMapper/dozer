@@ -15,7 +15,28 @@
 
       <section name="Release Notes">
 
-<h3>5.3.2 <font size="-3" color="gray"><i>02/15/2011</i></font></h3>
+        <h3>5.4.0 <font size="-3" color="gray"><i>11/11/2012</i></font></h3>
+        <p>Bug Fixes</p>
+
+        <ul>
+          <li>Mapping null values within List to List mapping causes NPE <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3409577&amp;group_id=133517&amp;atid=727368">link</a></li>
+          <li>Multiple superclass mappings, fields mapped over and over <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3385226&amp;group_id=133517&amp;atid=727368">link</a></li>
+          <li>Deep index mapping for untyped Collection <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3200805&amp;group_id=133517&amp;atid=727368">link</a></li>
+          <li>Iterate mapping with more than one hint fails <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3008059&amp;group_id=133517&amp;atid=727368">link</a></li>
+          <li>Inheritance problems with custom-converters on fields <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=1953410&amp;group_id=133517&amp;atid=727368">link</a></li>
+          <li>Fix for generic introspection issues <a href="https://github.com/DozerMapper/dozer/pull/4">link</a></li>
+        </ul>
+
+        <p>Feature Requests</p>
+
+        <ul>
+          <li>Migration to GitHub</li>
+          <li>Web Site Update</li>
+          <li>Mapping Metadata Introspection <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3420968&amp;group_id=133517&amp;atid=727371">link</a></li>
+          <li>Added possibility to convert Enums from Strings <a href="https://github.com/DozerMapper/dozer/pull/14">link</a></li>
+        </ul>
+
+        <h3>5.3.2 <font size="-3" color="gray"><i>02/15/2011</i></font></h3>
 <p>Bug Fixes</p>
 
 <ul>

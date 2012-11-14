@@ -37,6 +37,20 @@
     <module>osgi</module>
   </modules>
 
+  <repositories>
+    <repository>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/2</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>snapshots</id>
+      <url>http://snapshots.maven.codehaus.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <build>
     <pluginManagement>
       <plugins>
@@ -215,6 +229,29 @@
       <name>Wing Tung Leung</name>
     </contributor>
   </contributors>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/DozerMapper/dozer/issues</url>
+  </issueManagement>
+
+  <distributionManagement>
+    <site>
+      <id>dozer.sf.net</id>
+      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
+    </site>
+    <repository>
+      <id>dozer.sf.net</id>
+      <name>SF.net repository mirror</name>
+      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo</url>
+    </repository>
+    <snapshotRepository>
+      <id>dozer.sf.net</id>
+      <name>Snapshots</name>
+      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo-snapshot</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
 
   <scm>
     <connection>scm:https://github.com/DozerMapper/Dozer</connection>
