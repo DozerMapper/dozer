@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -20,6 +22,7 @@ import static org.mockito.Mockito.mock;
 
 /**
  * @author Dmitry Buzdin
+ * @author Arm Suwarnaratana
  */
 public class DozerBeanMapperTest extends Assert {
 
@@ -143,6 +146,16 @@ public class DozerBeanMapperTest extends Assert {
       fail();
     } catch (MappingException e) {
     }
+	try {
+		mapper.addMappingXMLStream(null);
+		fail();
+	} catch (MappingException e) {
+	}
+	try {
+		mapper.addMappingXMLStreams(null);
+		fail();
+	} catch (MappingException e) {
+	}
   }
 
   @Test
@@ -179,4 +192,54 @@ public class DozerBeanMapperTest extends Assert {
     assertEquals(1, listeners.size());
   }
 
+  @Test
+  public void loadFromStreamTest() throws IOException {
+	  InputStream xmlStream = getClass().getClassLoader().getResourceAsStream("dozerBeanMapping.xml");
+	  mapper.addMappingXMLStream(xmlStream);
+	  xmlStream.close();
+	  
+	  mapper.map(new TestObject(), TestObjectPrime.class);
+	  
+	  assertTrue(exceptions.isEmpty());  
+  }
+  
+  @Test
+  public void loadFromStreamsTest() throws IOException {
+	  List<String> fileList = new ArrayList<String>(Arrays.asList("dozerBeanMapping.xml", "oneWayMapping.xml", "mapMapping.xml"));
+	  List<InputStream> xmlStreamList = new ArrayList<InputStream>();
+	  for(String streamName : fileList){
+		  InputStream xmlStream = getClass().getClassLoader().getResourceAsStream(streamName);
+		  xmlStreamList.add(xmlStream);
+	  }
+	  
+	  mapper.addMappingXMLStreams(xmlStreamList);
+	  
+	  for(InputStream xmlStream : xmlStreamList){
+		  xmlStream.close();
+	  }
+	  
+	  mapper.map(new TestObject(), TestObjectPrime.class);
+	  
+	  assertTrue(exceptions.isEmpty());
+  }
+  
+  @Test(expected=IllegalArgumentException.class)
+  public void nullLoadFromStreamsTest() throws IOException{
+	  List<String> fileList = new ArrayList<String>(Arrays.asList("dozerBeanMapping.xml", "oneWayMapping.xml", "mapMapping.xml"));
+	  List<InputStream> xmlStreamList = new ArrayList<InputStream>();
+	  for(String streamName : fileList){
+		  InputStream xmlStream = getClass().getClassLoader().getResourceAsStream(streamName);
+		  xmlStreamList.add(xmlStream);
+	  }
+	  xmlStreamList.add(null);
+	  
+	  mapper.addMappingXMLStreams(xmlStreamList);
+	  
+	  for(InputStream xmlStream : xmlStreamList){
+		  xmlStream.close();
+	  }
+	  
+	  mapper.map(new TestObject(), TestObjectPrime.class);
+	  fail("Expected IllegalArgumentException for null InputStream");
+  }
 }
