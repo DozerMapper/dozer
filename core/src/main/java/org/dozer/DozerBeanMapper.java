@@ -293,6 +293,8 @@ public class DozerBeanMapper implements Mapper {
       ready.await();
     } catch (InterruptedException e) {
       log.error("Thread interrupted: ", e);
+      // Restore the interrupted status:
+      Thread.currentThread().interrupt();
     }
   }
 
