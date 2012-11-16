@@ -560,6 +560,10 @@ public class MappingProcessor implements Mapper {
     else if (CollectionUtils.isCollection(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
       result = mapListToList(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
     }
+    // Collection to List value. Fix for 3378952, http://sourceforge.net/tracker/index.php?func=detail&aid=3378952&group_id=133517&atid=727368
+    else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
+      result = mapListToList(srcObj, (Collection<?>) srcCollectionValue, fieldMap, destObj);
+    }
     return result;
   }
 
