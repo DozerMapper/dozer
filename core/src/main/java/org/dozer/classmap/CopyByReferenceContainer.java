@@ -54,4 +54,11 @@ public class CopyByReferenceContainer {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
 
+    /**
+	 * @return the copyByReferences
+	 */
+	public List<CopyByReference> getCopyByReferences() {
+		return copyByReferences;
+	}
+
 }
