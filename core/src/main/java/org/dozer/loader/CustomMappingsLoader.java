@@ -110,26 +110,36 @@ public class CustomMappingsLoader {
     return mappingFileDataList;
   }
 
-  private Configuration findConfiguration(List<MappingFileData> mappingFileDataList) {
-    Configuration globalConfiguration = null;
-    for (MappingFileData mappingFileData : mappingFileDataList) {
-      if (mappingFileData.getConfiguration() != null) {
-        //Only allow 1 global configuration
-        if (globalConfiguration != null) {
-          MappingUtils
-              .throwMappingException("More than one global configuration found.  "
-                  + "Only one global configuration block (<configuration></configuration>) can be specified across all mapping files.  "
-                  + "You need to consolidate all global configuration blocks into a single one.");
-        }
-        globalConfiguration = mappingFileData.getConfiguration();
-      }
-    }
-
-    //If global configuration was not specified, use defaults
-    if (globalConfiguration == null) {
-      globalConfiguration = new Configuration();
-    }
-
-    return globalConfiguration;
-  }
+  /**
+	 * Merge all found configurations. All conflicted single settings will be
+	 * resolved randomly (from last read configuration), all other settings will
+	 * grouped
+	 * 
+	 * @param mappingFileDataList
+	 * @return
+	 */
+	private static Configuration findConfiguration(List<MappingFileData> mappingFileDataList) {
+		Configuration globalConfiguration = new Configuration();
+		for (MappingFileData mappingFileData : mappingFileDataList) {
+			Configuration configuration = mappingFileData.getConfiguration();
+			if (configuration != null) {
+				globalConfiguration.setBeanFactory(configuration.getBeanFactory());
+				globalConfiguration.setDateFormat(configuration.getDateFormat());
+				globalConfiguration.setRelationshipType(configuration.getRelationshipType());
+				globalConfiguration.setStopOnErrors(configuration.getStopOnErrors());
+				globalConfiguration.setTrimStrings(configuration.getTrimStrings());
+				globalConfiguration.setWildcard(configuration.getWildcard());
+				if (configuration.getAllowedExceptions().getExceptions() != null) {
+					globalConfiguration.getAllowedExceptions().getExceptions().addAll(configuration.getAllowedExceptions().getExceptions());
+				}
+				if (configuration.getCopyByReferences().getCopyByReferences() != null) {
+					globalConfiguration.getCopyByReferences().getCopyByReferences().addAll(configuration.getCopyByReferences().getCopyByReferences());
+				}
+				if (configuration.getCustomConverters().getConverters() != null) {
+					globalConfiguration.getCustomConverters().getConverters().addAll(configuration.getCustomConverters().getConverters());
+				}
+			}
+		}
+		return globalConfiguration;
+	}
 }
