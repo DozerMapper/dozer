@@ -206,6 +206,21 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertFalse(DozerInitializer.getInstance().isInitialized());
   }
 
+  @Test
+  public void testGlobalNullAndEmptyString() throws Exception {
+    DozerBeanMapper mapperMapNull = new DozerBeanMapper();
+    DozerBeanMapper mapperNotMapNull = (DozerBeanMapper) getNewMapper(new String[]{"customGlobalConfigWithNullAndEmptyStringTest.xml"});
+    Van src = new Van();
+	Van dest = new Van();
+	dest.setName("not null or empty");
+
+	mapperNotMapNull.map(src, dest);
+	assertEquals("not null or empty", dest.getName());
+
+	mapperMapNull.map(src, dest);
+	assertNull(dest.getName());
+  }
+
   private void assertCommon(Mapper mapper) throws Exception {
     TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = mapper.map(prime, TestObject.class);
