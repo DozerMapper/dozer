@@ -398,7 +398,11 @@ public final class ReflectionUtils {
     if (type != null && ParameterizedType.class.isAssignableFrom(type.getClass())) {
       Type genericType = ((ParameterizedType) type).getActualTypeArguments()[0];
       if (genericType != null) {
-        result = (Class<?>) genericType;
+	try {
+		result = (Class<?>) genericType;
+	} catch (ClassCastException e) {
+		return (Class<?>) ((ParameterizedType) genericType).getRawType();
+	}
       }
     }
     return result;
