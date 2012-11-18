@@ -15,16 +15,25 @@
  */
 package org.dozer.util;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.WildcardType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.StringTokenizer;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
-
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.*;
-import java.util.*;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -397,16 +406,34 @@ public final class ReflectionUtils {
     Class<?> result = null;
     if (type != null && ParameterizedType.class.isAssignableFrom(type.getClass())) {
       Type genericType = ((ParameterizedType) type).getActualTypeArguments()[0];
-      if (genericType != null) {
-	try {
-		result = (Class<?>) genericType;
-	} catch (ClassCastException e) {
-		return (Class<?>) ((ParameterizedType) genericType).getRawType();
-	}
-      }
+			result = determineClassOfType(genericType);
     }
     return result;
   }
+  
+	public static Class<?> determineClassOfType(Type type) {
+		Class<?> result = null;
+		if (type != null) {
+			Class<? extends Type> typeClass = type.getClass();
+			if (ParameterizedType.class.isAssignableFrom(typeClass)) {
+				result = (Class<?>) ((ParameterizedType) type).getRawType();
+			} else if (Class.class.isAssignableFrom(typeClass)) {
+				result = (Class<?>) type;
+			} else if (WildcardType.class.isAssignableFrom(typeClass)) {
+				WildcardType wildcardType = (WildcardType) type;
+				Type[] lowerBounds = wildcardType.getLowerBounds();
+				Type[] upperBounds = wildcardType.getUpperBounds();
+				if (lowerBounds.length != 0) {
+					result = determineClassOfType(lowerBounds[0]);
+				} else if (upperBounds.length != 0) {
+					result = determineClassOfType(upperBounds[0]);
+				} else {
+					result = Object.class;
+				}
+			}
+		}
+		return result;
+	}
 
   public static Method getNonVoidSetter(Class<?> clazz, String fieldName) {
     String methodName = "set" + StringUtils.capitalize(fieldName);
