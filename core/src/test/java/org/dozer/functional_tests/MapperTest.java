@@ -15,6 +15,13 @@
  */
 package org.dozer.functional_tests;
 
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.SerializationUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -23,6 +30,7 @@ import org.dozer.vo.Car;
 import org.dozer.vo.CustomConverterWrapper;
 import org.dozer.vo.CustomConverterWrapperPrime;
 import org.dozer.vo.DehydrateTestObject;
+import org.dozer.vo.Fruit;
 import org.dozer.vo.FurtherTestObject;
 import org.dozer.vo.FurtherTestObjectPrime;
 import org.dozer.vo.HintedOnly;
@@ -50,15 +58,9 @@ import org.dozer.vo.deep.Room;
 import org.dozer.vo.deep.SrcNestedDeepObj;
 import org.dozer.vo.self.Account;
 import org.dozer.vo.self.SimpleAccount;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author garsombke.franz
@@ -236,7 +238,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
     // By reference
     src = testDataFactory.getHouse();
-    House houseClone = (House) SerializationUtils.clone(src);
+    House houseClone = SerializationUtils.clone(src);
     dest = mapper.map(src, HomeDescription.class);
     mapper.map(dest, House.class);
     assertEquals(houseClone, src);
@@ -246,7 +248,7 @@ public class MapperTest extends AbstractFunctionalTest {
   public void testGeneralMappingPassByReference() throws Exception {
     // Map
     TestObject to = testDataFactory.getInputGeneralMappingTestObject();
-    TestObject toClone = (TestObject) SerializationUtils.clone(to);
+    TestObject toClone = SerializationUtils.clone(to);
     TestObjectPrime prime = mapper.map(to, TestObjectPrime.class);
     mapper.map(prime, to);
     // more objects should be added to the clone from the ArrayList
@@ -325,7 +327,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
     // By reference
     src = testDataFactory.getHouse();
-    House houseClone = (House) SerializationUtils.clone(src);
+    House houseClone = SerializationUtils.clone(src);
     dest = mapper.map(src, HomeDescription.class);
     mapper.map(dest, src);
     // cumulative relationship
@@ -414,7 +416,7 @@ public class MapperTest extends AbstractFunctionalTest {
     List<Car> vehicles = newInstance(ArrayList.class);
     vehicles.add(car2);
     tro.setVehicles(vehicles);
-    TestReferenceObject toClone = (TestReferenceObject) SerializationUtils.clone(tro);
+    TestReferenceObject toClone = SerializationUtils.clone(tro);
     TestReferencePrimeObject trop = mapper.map(tro, TestReferencePrimeObject.class);
     assertEquals("myName", (trop.getVans()[0]).getName());
     assertEquals("myName", (trop.getMoreVans()[0]).getName());
@@ -569,5 +571,29 @@ public class MapperTest extends AbstractFunctionalTest {
     assertTrue(toDest.getSetToListWithValues().contains(orange3));
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
   }
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testListOfListToListOfLis() throws Exception {
+		// Orange orange1 = newInstance(Orange.class);
+		//		orange1.setName("orange1"); //$NON-NLS-1$
+		// Orange orange2 = newInstance(Orange.class);
+		//		orange2.setName("orange2"); //$NON-NLS-1$
+		// List<Orange> orangeList = newInstance(ArrayList.class);
+		List<Class<? extends Fruit>> listList = newInstance(ArrayList.class);
+		// listList.add(orangeList);
+		listList.add(Orange.class);
+		listList.add(Apple.class);
+		TestObject to = newInstance(TestObject.class);
+		to.setListOfClassToListOfClass(listList);
+		TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
+		assertEquals(Orange.class, top.getListOfClassToListOfClass().get(0));
+		assertEquals(Apple.class, top.getListOfClassToListOfClass().get(1));
+
+		// Map back
+		TestObject toDest = mapper.map(top, TestObject.class);
+		assertEquals(Orange.class, toDest.getListOfClassToListOfClass().get(0));
+		assertEquals(Apple.class, toDest.getListOfClassToListOfClass().get(1));
+	}
 
 }

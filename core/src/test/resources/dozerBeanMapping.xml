@@ -34,6 +34,7 @@
 
     <copy-by-references>
       <copy-by-reference>org.dozer.vo.NoExtendBaseObjectGlobalCopyByReference</copy-by-reference>
+      <copy-by-reference>java.lang.Class</copy-by-reference>
     </copy-by-references>
 
   </configuration>

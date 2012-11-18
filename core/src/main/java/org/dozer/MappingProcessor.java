@@ -15,6 +15,22 @@
  */
 package org.dozer;
 
+import static org.dozer.util.DozerConstants.*;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
@@ -50,23 +66,6 @@ import org.dozer.util.MappingValidator;
 import org.dozer.util.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import static org.dozer.util.DozerConstants.BASE_CLASS;
-import static org.dozer.util.DozerConstants.ITERATE;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
@@ -503,7 +502,7 @@ public class MappingProcessor implements Mapper {
     // if no hint is provided then we will use generics to determine the mapping type
     if (fieldMap.getDestHintContainer() == null) {
       Class<?> genericType = fieldMap.getGenericType(destObj.getClass());
-      if (genericType != null) {
+			if (genericType != null && !genericType.equals(Object.class)) {
         HintContainer destHintContainer = new HintContainer();
         destHintContainer.setHintName(genericType.getName());
         FieldMap cloneFieldMap = (FieldMap) fieldMap.clone();

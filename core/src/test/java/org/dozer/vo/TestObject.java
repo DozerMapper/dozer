@@ -17,6 +17,7 @@ package org.dozer.vo;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -76,6 +77,7 @@ public class TestObject extends BaseTestObject {
   private String throwAllowedExceptionOnMap;
   private String throwNonAllowedExceptionOnMap;
   private Set setToArrayWithIterate = new HashSet();
+	private List<Class<? extends Fruit>> listOfClassToListOfClass = new ArrayList<Class<? extends Fruit>>();
 
   public int[] getPrimArray() {
     return primArray;
@@ -560,4 +562,13 @@ public class TestObject extends BaseTestObject {
   public void addAnotherTestObject(AnotherTestObject ato) {
     getSetToArrayWithIterate().add(ato);
   }
+
+	public List<Class<? extends Fruit>> getListOfClassToListOfClass() {
+		return listOfClassToListOfClass;
+	}
+
+	public void setListOfClassToListOfClass(List<Class<? extends Fruit>> listOfClassToListOfClass) {
+		this.listOfClassToListOfClass = listOfClassToListOfClass;
+	}
+
 }
