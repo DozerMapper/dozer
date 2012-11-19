@@ -13,12 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.factory;
+package org.dozer;
 
-import org.dozer.BeanGeneralCreationStrategy;
+import org.dozer.factory.BeanCreationDirective;
 
 /**
-* @author Dmitry Buzdin
+* @author Dmitry Spikhalskiy
 */
-public interface BeanCreationStrategy extends BeanGeneralCreationStrategy<Object> {
+public interface BeanGeneralCreationStrategy<T> {
+
+  boolean isApplicable(BeanCreationDirective directive);
+
+  T create(BeanCreationDirective directive);
+
 }

@@ -105,14 +105,9 @@ public final class MappingsParser {
             // If we are dealing with a Map data type, transform the field map into a MapFieldMap type
             // only apply transformation if it is map to non-map mapping.
             if (!(fieldMap instanceof ExcludeFieldMap)) {
-              if ((isSupportedMap(classMap.getDestClassToMap())
-                      && !isSupportedMap(classMap.getSrcClassToMap()))
-                  || (isSupportedMap(classMap.getSrcClassToMap())
-                      && !isSupportedMap(classMap.getDestClassToMap()))
-                  || (isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))
-                      && !isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap())))
-                  || (isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap())))
-                      && !isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))) {
+              if ( ( isSupportedMap(classMap.getDestClassToMap()) ^ isSupportedMap(classMap.getSrcClassToMap()) )
+               || ( isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))
+                    ^ isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap())) ) ) {
                 FieldMap fm = new MapFieldMap(fieldMap);
                 classMap.removeFieldMapping(fieldMap);
                 classMap.addFieldMapping(fm);

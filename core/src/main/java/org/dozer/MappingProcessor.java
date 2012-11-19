@@ -16,16 +16,13 @@
 package org.dozer;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dozer.builder.BuilderUtil;
+import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheType;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.ClassMapBuilder;
-import org.dozer.classmap.ClassMappings;
-import org.dozer.classmap.Configuration;
-import org.dozer.classmap.CopyByReferenceContainer;
-import org.dozer.classmap.RelationshipType;
+import org.dozer.classmap.*;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
 import org.dozer.event.DozerEvent;
@@ -34,36 +31,17 @@ import org.dozer.event.DozerEventType;
 import org.dozer.event.EventManager;
 import org.dozer.factory.BeanCreationDirective;
 import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
-import org.dozer.fieldmap.ExcludeFieldMap;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.fieldmap.*;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
-import org.dozer.util.CollectionUtils;
-import org.dozer.util.DozerConstants;
-import org.dozer.util.IteratorUtils;
-import org.dozer.util.LogMsgFactory;
-import org.dozer.util.MappingUtils;
-import org.dozer.util.MappingValidator;
-import org.dozer.util.ReflectionUtils;
+import org.dozer.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import static org.dozer.util.DozerConstants.BASE_CLASS;
 import static org.dozer.util.DozerConstants.ITERATE;
@@ -121,7 +99,7 @@ public class MappingProcessor implements Mapper {
 
   public <T> T map(final Object srcObj, final Class<T> destClass, final String mapId) {
     MappingValidator.validateMappingRequest(srcObj, destClass);
-    return map(srcObj, destClass, null, mapId);
+    return mapGeneral(srcObj, destClass, null, mapId);
   }
 
   public void map(final Object srcObj, final Object destObj) {
@@ -130,7 +108,7 @@ public class MappingProcessor implements Mapper {
 
   public void map(final Object srcObj, final Object destObj, final String mapId) {
     MappingValidator.validateMappingRequest(srcObj, destObj);
-    map(srcObj, null, destObj, mapId);
+    mapGeneral(srcObj, null, destObj, mapId);
   }
   /* End of Mapper Interface Implementation */
 
@@ -144,7 +122,7 @@ public class MappingProcessor implements Mapper {
    * @param <T>       destination object type
    * @return new or updated destination object
    */
-  private <T> T map(Object srcObj, final Class<T> destClass, final T destObj, final String mapId) {
+  private <T> T mapGeneral(Object srcObj, final Class<T> destClass, final T destObj, final String mapId) {
     srcObj = MappingUtils.deProxy(srcObj);
 
     Class<T> destType;
@@ -169,22 +147,21 @@ public class MappingProcessor implements Mapper {
       Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
           .getClass(), destType);
 
-      if (converterClass != null) {
-        return (T) mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destType, result, null, true);
-      }
-
-      if (result == null) {
-        result = (T) DestBeanCreator.create(new BeanCreationDirective(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType, classMap
-            .getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod()));
-      }
-
       // If this is a nested MapperAware conversion this mapping can be already processed
       Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destClass);
       if (alreadyMappedValue != null) {
         return (T) alreadyMappedValue;
       }
 
-      map(classMap, srcObj, result, false, null);
+      if (converterClass != null) {
+        return (T) mapUsingCustomConverter(converterClass, srcObj.getClass(), srcObj, destType, result, null, true);
+      }
+
+      BeanCreationDirective creationDirective =
+              new BeanCreationDirective(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType,
+              classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
+
+      result = createByCreationDirectiveAndMap(creationDirective, classMap, srcObj, result, false, null);
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
     }
@@ -193,7 +170,43 @@ public class MappingProcessor implements Mapper {
     return result;
   }
 
-  private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
+  /**
+   * Create builder or target object if needed and call
+   * {@link MappingProcessor#mapToDestObject(org.dozer.classmap.ClassMap, Object, Object, boolean, String)} function with
+   * arguments {@code classMap}, {@code srcObj}, {@code result}, {@code bypassSuperMappings}, {@code mapId}
+   * @param creationDirective   directive for concrete mapping (based mostly on {@code classMap})
+   * @param classMap            class map information for concrete class
+   * @param srcObj              source object
+   * @param result              target entity for mapping
+   * @param bypassSuperMappings //TODO
+   * @param mapId               mapping identifier
+   * @return                    result or created target entity for mapping
+   */
+  private <T> T createByCreationDirectiveAndMap(BeanCreationDirective creationDirective, ClassMap classMap, Object srcObj, T result, boolean bypassSuperMappings, String mapId) {
+    if (result == null) {
+      BeanBuilder beanBuilder = DestBeanBuilderCreator.create(creationDirective);
+      if (beanBuilder == null) {
+        result = (T) DestBeanCreator.create(creationDirective);
+        mapToDestObject(classMap, srcObj, result, bypassSuperMappings, mapId);
+      } else {
+        mapToDestObject(classMap, srcObj, beanBuilder, bypassSuperMappings, mapId);
+        result = (T) beanBuilder.build();
+      }
+    } else {
+      mapToDestObject(classMap, srcObj, result, bypassSuperMappings, mapId);
+    }
+    return result;
+  }
+
+  /**
+   * This function used to map into created instance of destination class
+   * @param classMap            object with mapping configuration
+   * @param srcObj              source object
+   * @param destObj             destination object
+   * @param bypassSuperMappings //TODO
+   * @param mapId               mapping identifier
+   */
+  private void mapToDestObject(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
     map(classMap, srcObj, destObj, bypassSuperMappings, new ArrayList<String>(), mapId);
   }
 
@@ -316,13 +329,13 @@ public class MappingProcessor implements Mapper {
     Class<?> destFieldType;
     if (fieldMapping instanceof CustomGetSetMethodFieldMap) {
       try {
-        destFieldType = fieldMapping.getDestFieldWriteMethod(destObj.getClass()).getParameterTypes()[0];
+        destFieldType = fieldMapping.getDestFieldWriteMethodParameter(destObj.getClass());
       } catch (Throwable e) {
         // try traditional way
-        destFieldType = fieldMapping.getDestFieldType(destObj.getClass());
+        destFieldType = fieldMapping.getDestFieldType(BuilderUtil.unwrapDestClassFromBuilder(destObj));
       }
     } else {
-      destFieldType = fieldMapping.getDestFieldType(destObj.getClass());
+      destFieldType = fieldMapping.getDestFieldType(BuilderUtil.unwrapDestClassFromBuilder(destObj));
     }
 
     // 1476780 - 12/2006 mht - Add support for field level custom converters
@@ -478,7 +491,7 @@ public class MappingProcessor implements Mapper {
       // mapping
       String mapId = fieldMap.getMapId();
 
-      Class<? extends Object> targetClass;
+      Class<?> targetClass;
       if (fieldMap.getDestHintContainer() != null && fieldMap.getDestHintContainer().getHint() != null) {
         targetClass = fieldMap.getDestHintContainer().getHint();
       } else {
@@ -486,13 +499,14 @@ public class MappingProcessor implements Mapper {
       }
       classMap = getClassMap(srcFieldValue.getClass(), targetClass, mapId);
 
-      result = DestBeanCreator.create(
-          new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(), classMap.getDestClassToMap(),
+      BeanCreationDirective creationDirective = new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(), classMap.getDestClassToMap(),
               destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(),
-              fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod()));
-    }
+              fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod());
 
-    map(classMap, srcFieldValue, result, false, fieldMap.getMapId());
+      result = createByCreationDirectiveAndMap(creationDirective, classMap, srcFieldValue, result, false, fieldMap.getMapId());
+    } else {
+      mapToDestObject(classMap, srcFieldValue, result, false, fieldMap.getMapId());
+    }
 
     return result;
   }
@@ -502,7 +516,7 @@ public class MappingProcessor implements Mapper {
     // if they provided hints
     // if no hint is provided then we will use generics to determine the mapping type
     if (fieldMap.getDestHintContainer() == null) {
-      Class<?> genericType = fieldMap.getGenericType(destObj.getClass());
+      Class<?> genericType = fieldMap.getGenericType(BuilderUtil.unwrapDestClassFromBuilder(destObj));
       if (genericType != null) {
         HintContainer destHintContainer = new HintContainer();
         destHintContainer.setHintName(genericType.getName());
@@ -517,7 +531,7 @@ public class MappingProcessor implements Mapper {
       srcCollectionValue = IteratorUtils.toList((Iterator<?>) srcCollectionValue);
     }
 
-    Class<?> destCollectionType = fieldMap.getDestFieldType(destObj.getClass());
+    Class<?> destCollectionType = fieldMap.getDestFieldType(BuilderUtil.unwrapDestClassFromBuilder(destObj));
     Class<?> srcFieldType = srcCollectionValue.getClass();
     Object result = null;
 
@@ -586,7 +600,7 @@ public class MappingProcessor implements Mapper {
       Object destEntryValue = mapOrRecurseObject(srcObj, srcEntryValue, srcEntryValue.getClass(), fieldMap, destObj);
       Object obj = result.get(srcEntry.getKey());
       if (obj != null && obj.equals(destEntryValue) && fieldMap.isNonCumulativeRelationship()) {
-        map(null, srcEntryValue, obj, false, null);
+        mapToDestObject(null, srcEntryValue, obj, false, null);
       } else {
         result.put(srcEntry.getKey(), destEntryValue);
       }
@@ -722,7 +736,7 @@ public class MappingProcessor implements Mapper {
         Object obj = resultAsList.get(index);
         // make sure it is not a String
         if (!obj.getClass().isAssignableFrom(String.class)) {
-          map(null, srcValue, obj, false, null);
+          mapToDestObject(null, srcValue, obj, false, null);
           mappedElements.add(obj);
         }
       } else {
@@ -784,7 +798,7 @@ public class MappingProcessor implements Mapper {
         Object obj = result.get(index);
         // make sure it is not a String
         if (obj != null && !obj.getClass().isAssignableFrom(String.class)) {
-          map(null, srcValue, obj, false, null);
+          mapToDestObject(null, srcValue, obj, false, null);
           mappedElements.add(obj);
         }
       } else {

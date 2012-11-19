@@ -204,6 +204,13 @@ public final class ReflectionUtils {
     return result;
   }
 
+  /**
+   * Find a method with concrete string representation of it's parameters
+   * @param clazz clazz to search
+   * @param methodName name of method with representation of it's parameters
+   * @return found method
+   * @throws NoSuchMethodException
+   */
   public static Method findAMethod(Class<?> clazz, String methodName) throws NoSuchMethodException {
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
