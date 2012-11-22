@@ -22,6 +22,7 @@ import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.util.CollectionUtils;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
@@ -31,6 +32,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -137,6 +139,10 @@ public final class ClassMapBuilder {
 
     boolean accepts(ClassMap classMap);
 
+    /**
+     *
+     * @return true if we should stop after applied
+     */
     boolean apply(ClassMap classMap, Configuration configuration);
 
   }
@@ -222,29 +228,40 @@ public final class ClassMapBuilder {
       Class<?> srcClass = classMap.getSrcClassToMap();
       Class<?> destClass = classMap.getDestClassToMap();
 
+      Set<String> destFieldNames = new HashSet<String>();
       PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(destClass);
       for (PropertyDescriptor destPropertyDescriptor : destProperties) {
         String fieldName = destPropertyDescriptor.getName();
-
-        if (shouldIgnoreField(fieldName, srcClass, destClass)) {
-          continue;
-        }
-
-        // If field has already been accounted for, then skip
-        if (classMap.getFieldMapUsingDest(fieldName) != null || classMap.getFieldMapUsingSrc(fieldName) != null) {
-          continue;
-        }
 
         // If destination field does not have a write method, then skip
         if (destPropertyDescriptor.getWriteMethod() == null && ReflectionUtils.getNonVoidSetter(destClass, fieldName) == null) {
           continue;
         }
 
-        PropertyDescriptor srcProperty = ReflectionUtils.findPropertyDescriptor(srcClass, fieldName, null);
+        destFieldNames.add(fieldName);
+      }
 
-        // If the sourceProperty is null we know that there is not a corresponding property to map to.
-        // If source property does not have a read method, then skip
-        if (srcProperty == null || srcProperty.getReadMethod() == null) {
+      Set<String> srcFieldNames = new HashSet<String>();
+      PropertyDescriptor[] srcProperties = ReflectionUtils.getPropertyDescriptors(srcClass);
+      for (PropertyDescriptor srcPropertyDescriptor : srcProperties) {
+        String fieldName = srcPropertyDescriptor.getName();
+
+        if (srcPropertyDescriptor.getReadMethod() == null) {
+          continue;
+        }
+
+        srcFieldNames.add(fieldName);
+      }
+
+      Set<String> commonFieldNames = CollectionUtils.intersection(srcFieldNames, destFieldNames);
+
+      for (String fieldName : commonFieldNames) {
+        if (shouldIgnoreField(fieldName, srcClass, destClass)) {
+          continue;
+        }
+
+        // If field has already been accounted for, then skip
+        if (classMap.getFieldMapUsingDest(fieldName) != null || classMap.getFieldMapUsingSrc(fieldName) != null) {
           continue;
         }
 
