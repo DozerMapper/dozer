@@ -66,6 +66,24 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
   }
 
   @Test
+  public void testSimple_wildcard_toProto() {
+    LiteTestObject source = new LiteTestObject();
+    source.setOne("ABC");
+    SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
+    assertNotNull(protoResult);
+    assertEquals("ABC", protoResult.getOne());
+  }
+
+  @Test
+  public void testSimple_wildcard_toSimple() {
+    LiteTestObject source = new LiteTestObject();
+    source.setOne("ABC");
+    LiteTestObject protoResult = mapper.map(source, LiteTestObject.class);
+    assertNotNull(protoResult);
+    assertEquals("ABC", protoResult.getOne());
+  }
+
+  @Test
   public void testSimple_fromProtoWithNull() {
     SimpleProtoTestObjectWithoutRequired.Builder builder = SimpleProtoTestObjectWithoutRequired.newBuilder();
     SimpleProtoTestObjectWithoutRequired source = builder.build();
