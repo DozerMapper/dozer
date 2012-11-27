@@ -4,10 +4,9 @@ import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
 import org.dozer.util.CollectionUtils;
-import org.dozer.util.ReflectionUtils;
 
-import java.beans.PropertyDescriptor;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,6 +14,11 @@ import java.util.Set;
 * @since 27.11.12
 */
 public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerator {
+
+  static final List<BeanFieldsDetector> fieldDetectors = new ArrayList<BeanFieldsDetector>() {{
+    add(new JavaBeanFieldsDetector());
+  }};
+
 
   public boolean accepts(ClassMap classMap) {
     return true;
@@ -24,31 +28,8 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
     Class<?> srcClass = classMap.getSrcClassToMap();
     Class<?> destClass = classMap.getDestClassToMap();
 
-    Set<String> destFieldNames = new HashSet<String>();
-    PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(destClass);
-    for (PropertyDescriptor destPropertyDescriptor : destProperties) {
-      String fieldName = destPropertyDescriptor.getName();
-
-      // If destination field does not have a write method, then skip
-      if (destPropertyDescriptor.getWriteMethod() == null && ReflectionUtils.getNonVoidSetter(destClass, fieldName) == null) {
-        continue;
-      }
-
-      destFieldNames.add(fieldName);
-    }
-
-    Set<String> srcFieldNames = new HashSet<String>();
-    PropertyDescriptor[] srcProperties = ReflectionUtils.getPropertyDescriptors(srcClass);
-    for (PropertyDescriptor srcPropertyDescriptor : srcProperties) {
-      String fieldName = srcPropertyDescriptor.getName();
-
-      if (srcPropertyDescriptor.getReadMethod() == null) {
-        continue;
-      }
-
-      srcFieldNames.add(fieldName);
-    }
-
+    Set<String> destFieldNames = getAcceptsFieldsDetector(destClass).getWritableFieldNames(destClass);
+    Set<String> srcFieldNames = getAcceptsFieldsDetector(srcClass).getReadableFieldNames(srcClass);
     Set<String> commonFieldNames = CollectionUtils.intersection(srcFieldNames, destFieldNames);
 
     for (String fieldName : commonFieldNames) {
@@ -64,5 +45,18 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
       GeneratorUtils.addGenericMapping(classMap, configuration, fieldName, fieldName);
     }
     return false;
+  }
+
+  private static BeanFieldsDetector getAcceptsFieldsDetector(Class<?> clazz) {
+    for (BeanFieldsDetector detector : fieldDetectors) {
+      if (detector.accepts(clazz)) return detector;
+    }
+    return null;
+  }
+
+  protected interface BeanFieldsDetector {
+    boolean accepts(Class<?> clazz);
+    Set<String> getReadableFieldNames(Class<?> clazz);
+    Set<String> getWritableFieldNames(Class<?> clazz);
   }
 }
