@@ -18,11 +18,12 @@ package org.dozer.classmap;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapping;
 import org.dozer.MappingException;
+import org.dozer.classmap.generator.BeanMappingGenerator;
+import org.dozer.classmap.generator.GeneratorUtils;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.MapFieldMap;
-import org.dozer.util.CollectionUtils;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
@@ -32,7 +33,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -45,10 +45,6 @@ import java.util.Set;
  * @author garsombke.franz
  */
 public final class ClassMapBuilder {
-
-  private static final String CLASS = "class";
-  private static final String CALLBACK = "callback";
-  private static final String CALLBACKS = "callbacks";
 
   static final List<ClassMappingGenerator> buildTimeGenerators = new ArrayList<ClassMappingGenerator>();
   static final List<ClassMappingGenerator> runTimeGenerators = new ArrayList<ClassMappingGenerator>();
@@ -124,17 +120,6 @@ public final class ClassMapBuilder {
     }
   }
 
-  static boolean shouldIgnoreField(String fieldName, Class<?> srcType, Class<?> destType) {
-    if (CLASS.equals(fieldName)) {
-      return true;
-    }
-    if ((CALLBACK.equals(fieldName) || CALLBACKS.equals(fieldName))
-        && (MappingUtils.isProxy(srcType) || MappingUtils.isProxy(destType))) {
-      return true;
-    }
-    return false;
-  }
-
   public static interface ClassMappingGenerator {
 
     boolean accepts(ClassMap classMap);
@@ -173,7 +158,7 @@ public final class ClassMapBuilder {
       for (PropertyDescriptor property : properties) {
         String fieldName = property.getName();
 
-        if (shouldIgnoreField(fieldName, srcClass, destClass)) {
+        if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass)) {
           continue;
         }
 
@@ -218,59 +203,6 @@ public final class ClassMapBuilder {
     }
   }
 
-  public static class BeanMappingGenerator implements ClassMappingGenerator {
-
-    public boolean accepts(ClassMap classMap) {
-      return true;
-    }
-
-    public boolean apply(ClassMap classMap, Configuration configuration) {
-      Class<?> srcClass = classMap.getSrcClassToMap();
-      Class<?> destClass = classMap.getDestClassToMap();
-
-      Set<String> destFieldNames = new HashSet<String>();
-      PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(destClass);
-      for (PropertyDescriptor destPropertyDescriptor : destProperties) {
-        String fieldName = destPropertyDescriptor.getName();
-
-        // If destination field does not have a write method, then skip
-        if (destPropertyDescriptor.getWriteMethod() == null && ReflectionUtils.getNonVoidSetter(destClass, fieldName) == null) {
-          continue;
-        }
-
-        destFieldNames.add(fieldName);
-      }
-
-      Set<String> srcFieldNames = new HashSet<String>();
-      PropertyDescriptor[] srcProperties = ReflectionUtils.getPropertyDescriptors(srcClass);
-      for (PropertyDescriptor srcPropertyDescriptor : srcProperties) {
-        String fieldName = srcPropertyDescriptor.getName();
-
-        if (srcPropertyDescriptor.getReadMethod() == null) {
-          continue;
-        }
-
-        srcFieldNames.add(fieldName);
-      }
-
-      Set<String> commonFieldNames = CollectionUtils.intersection(srcFieldNames, destFieldNames);
-
-      for (String fieldName : commonFieldNames) {
-        if (shouldIgnoreField(fieldName, srcClass, destClass)) {
-          continue;
-        }
-
-        // If field has already been accounted for, then skip
-        if (classMap.getFieldMapUsingDest(fieldName) != null || classMap.getFieldMapUsingSrc(fieldName) != null) {
-          continue;
-        }
-
-        addGenericMapping(classMap, configuration, fieldName, fieldName);
-      }
-      return false;
-    }
-  }
-
   public static class CollectionMappingGenerator implements ClassMappingGenerator {
 
     public boolean accepts(ClassMap classMap) {
@@ -306,7 +238,7 @@ public final class ClassMapBuilder {
           if (mapping != null) {
             validate(mapping, readMethod);
             String pairName = mapping.value();
-            addGenericMapping(classMap, configuration, propertyName, pairName);
+            GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName);
           }
         }
       }
@@ -321,7 +253,7 @@ public final class ClassMapBuilder {
           if (mapping != null) {
             validate(mapping, readMethod);
             String pairName = mapping.value();
-            addGenericMapping(classMap, configuration, pairName, propertyName);
+            GeneratorUtils.addGenericMapping(classMap, configuration, pairName, propertyName);
           }
         }
       }
@@ -376,17 +308,6 @@ public final class ClassMapBuilder {
 
     fieldMap.setSrcField(sourceField);
     fieldMap.setDestField(destField);
-
-    // add CopyByReferences per defect #1728159
-    MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
-    classMap.addFieldMapping(fieldMap);
-  }
-
-  private static void addGenericMapping(ClassMap classMap, Configuration configuration, String srcName, String destName) {
-    FieldMap fieldMap = new GenericFieldMap(classMap);
-
-    fieldMap.setSrcField(new DozerField(srcName, null));
-    fieldMap.setDestField(new DozerField(destName, null));
 
     // add CopyByReferences per defect #1728159
     MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
