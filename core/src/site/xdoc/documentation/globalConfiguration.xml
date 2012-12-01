@@ -71,7 +71,8 @@
       </p>
       <source>
         <![CDATA[ 
-<mapping date-format="MM-dd-yyyy HH:mm:ss"> <!-- Override top level date format default  -->
+<!-- Override top level date format default  -->
+<mapping date-format="MM-dd-yyyy HH:mm:ss"> 
   <class-a>org.dozer.vo.TestObject</class-a>
   <class-b>org.dozer.vo.TestObjectPrime</class-b>
     
@@ -88,7 +89,8 @@
       <p>You can override the error handling policy for a particular mapping. For example:</p>
       <source>
         <![CDATA[ 
-<mapping stop-on-errors="false"> <!-- Override top level defaults -->
+<!-- Override top level defaults -->
+<mapping stop-on-errors="false"> 
   <class-a>org.dozer.vo.TestObject</class-a>
   <class-b>org.dozer.vo.TestObjectPrime</class-b>
     
@@ -106,7 +108,8 @@
       <p>You can override the trim strings policy for a particular mapping. For example:</p>
       <source>
         <![CDATA[ 
-<mapping trim-strings="true"> <!-- Override top level defaults -->
+<!-- Override top level defaults -->
+<mapping trim-strings="true"> 
   <class-a>org.dozer.vo.TestObject</class-a>
   <class-b>org.dozer.vo.TestObjectPrime</class-b>
     

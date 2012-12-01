@@ -15,14 +15,14 @@
     <section name="Downloading Dozer">
       <ul>
         <li>
-          <a href="http://sourceforge.net/project/showfiles.php?group_id=133517" target="_blank">
-            Latest Release of Dozer
+          <a href="https://github.com/DozerMapper/dozer/downloads" target="_blank">
+            Latest release of Dozer Mapper
           </a>
         </li>
         <li>
           <a href="http://sourceforge.net/project/showfiles.php?group_id=133517&amp;package_id=146610"
              target="_blank">
-            Older Releases
+            Older Releases hosted on SourceForge
           </a>
         </li>
       </ul>

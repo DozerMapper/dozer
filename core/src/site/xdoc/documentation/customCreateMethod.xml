@@ -21,7 +21,9 @@
       <source>
         <![CDATA[ 
 <mapping>
-  <class-a create-method="someCreateMethod">org.dozer.vo.InsideTestObject</class-a>
+  <class-a create-method="someCreateMethod">
+    org.dozer.vo.InsideTestObject
+  </class-a>
   <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
 
   <field>

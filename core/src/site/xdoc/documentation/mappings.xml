@@ -53,8 +53,7 @@
       </field>
   </mapping>  
 
-</mappings>
-        ]]>
+</mappings> ]]>
       </source>
       <p>
         A mappings element has multiple mapping elements, each with class mapping declarations and field level
@@ -77,6 +76,9 @@
         Ex) "file:c:\somedozermapping.xml"
       </p>
     </section>
-
+    <section name="Loading Files from Input Stream">
+      <p>Since version 5.4.0 it is possible to load XML mapping files from provided InputStream object.
+      Check DozerMapper class for the corresponding API calls.</p>
+    </section>
   </body>
 </document>

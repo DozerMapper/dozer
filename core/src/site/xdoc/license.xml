@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <head>
+    <title>Project License</title>
+    <meta http-equiv="CACHE-CONTROL" name="CACHE-CONTROL" content="NO-CACHE"/>
+    <meta http-equiv="PRAGMA" name="PRAGMA" content="NO-CACHE"/>
+    <meta http-equiv="EXPIRES" content="0"/>
+  </head>
+  <body>
+    <section name="License">
+      <p>
+        <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>
+      </p>
+    </section>
+  </body>
+</document>

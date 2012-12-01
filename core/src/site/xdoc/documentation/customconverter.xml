@@ -48,10 +48,16 @@
         <class-b>java.lang.Double</class-b>
       </converter>
 
-      <!-- You are responsible for mapping everything between ClassA and ClassB -->
-      <converter type="org.dozer.converters.TestCustomHashMapConverter" >
-        <class-a>org.dozer.vo.TestCustomConverterHashMapObject</class-a>
-        <class-b>org.dozer.vo.TestCustomConverterHashMapPrimeObject</class-b>
+      <!-- You are responsible for mapping everything between 
+           ClassA and ClassB -->
+      <converter 
+        type="org.dozer.converters.TestCustomHashMapConverter" >
+        <class-a>
+          org.dozer.vo.TestCustomConverterHashMapObject
+        </class-a>
+        <class-b>
+          org.dozer.vo.TestCustomConverterHashMapPrimeObject
+        </class-b>
       </converter>
      
     </custom-converters>     
@@ -73,7 +79,8 @@
 <mapping>
   <class-a>org.dozer.vo.SimpleObj</class-a>
   <class-b>org.dozer.vo.SimpleObjPrime2</class-b>    
-  <field custom-converter="org.dozer.converters.StringAppendCustomConverter">
+  <field custom-converter=
+    "org.dozer.converters.StringAppendCustomConverter">
     <a>field1</a>
     <b>field1Prime</b>
   </field>
@@ -121,8 +128,10 @@
     </property>
     <property name="customConvertersWithId"> 
       <map> 
-        <entry key="CustomConverterWithId" ref="configurableConverterBeanInstance1"/> 
-        <entry key="CustomConverterWithId2" ref="configurableConverterBeanInstance2"/> 
+        <entry key="CustomConverterWithId" 
+               ref="configurableConverterBeanInstance1"/> 
+        <entry key="CustomConverterWithId2" 
+               ref="configurableConverterBeanInstance2"/> 
       </map> 
     </property>   
 </bean>
@@ -142,7 +151,8 @@
         <![CDATA[
 public class TestCustomConverter implements CustomConverter {
   
-  public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
+  public Object convert(Object destination, Object source, 
+      Class destClass, Class sourceClass) {
     if (source == null) {
       return null;
     }
@@ -157,10 +167,12 @@ public class TestCustomConverter implements CustomConverter {
       dest.setTheDouble(((Double) source).doubleValue());
       return dest;
     } else if (source instanceof CustomDoubleObject) {
-      double sourceObj = ((CustomDoubleObject) source).getTheDouble();
+      double sourceObj = 
+        ((CustomDoubleObject) source).getTheDouble();
       return new Double(sourceObj);
     } else {
-      throw new MappingException("Converter TestCustomConverter used incorrectly. Arguments passed in were:"
+      throw new MappingException("Converter TestCustomConverter "
+          + "used incorrectly. Arguments passed in were:"
           + destination + " and " + source);
     }
   } ]]>
@@ -194,8 +206,11 @@ public class TestCustomConverter implements CustomConverter {
   </bean>
 
   <!-- custom converter -->
-  <bean id="customConverterTest" class="org.dozer.converters.InjectedCustomConverter">
-    <property name="injectedName"><value>injectedName</value></property>
+  <bean id="customConverterTest" 
+        class="org.dozer.converters.InjectedCustomConverter">
+    <property name="injectedName">
+      <value>injectedName</value>
+    </property>
   </bean>
 
 </beans> ]]>
@@ -213,7 +228,8 @@ public class TestCustomConverter implements CustomConverter {
 
         <source>
           <![CDATA[
-<converter type="org.dozer.converters.StringAppendCustomConverter" > 
+<converter 
+    type="org.dozer.converters.StringAppendCustomConverter" > 
   <class-a>[Lorg.dozer.vo.SimpleObj;</class-a> 
   <class-b>java.lang.String</class-b> 
 </converter> 
@@ -253,7 +269,8 @@ public class TestCustomConverter implements CustomConverter {
 <mapping>
   <class-a>org.dozer.vo.BeanA</class-a>
   <class-b>org.dozer.vo.BeanB</class-b>
-  <field custom-converter="org.dozer.converters.MathOperationConverter"
+  <field custom-converter=
+         "org.dozer.converters.MathOperationConverter"
          custom-converter-param="+">
     <a>amount</a>
     <b>amount</b>
@@ -268,10 +285,13 @@ public class TestCustomConverter implements CustomConverter {
 
         <source>
           <![CDATA[
-public class MathOperationConverter implements ConfigurableCustomConverter {
+public class MathOperationConverter 
+    implements ConfigurableCustomConverter {
   
-  public Object convert(Object destinationFieldValue, Object sourceFieldValue,
-                        Class destinationClass, Class sourceClass, String param) {
+  public Object convert(Object destinationFieldValue, 
+                        Object sourceFieldValue,
+                        Class destinationClass, 
+                        Class sourceClass, String param) {
     Integer source = (Integer) sourceFieldValue;
     Integer destination = (Integer) destinationFieldValue;
     if ("+".equals(param)) {
@@ -302,7 +322,8 @@ public class MathOperationConverter implements ConfigurableCustomConverter {
         </p>
         <source>
           <![CDATA[
-public class NewDozerConverter extends DozerConverter<String, Boolean> {
+public class NewDozerConverter 
+    extends DozerConverter<String, Boolean> {
 
   public NewDozerConverter() {
     super(String.class, Boolean.class);
@@ -345,7 +366,8 @@ public class NewDozerConverter extends DozerConverter<String, Boolean> {
 
           <source>
               <![CDATA[
-public static class Converter extends DozerConverter <List, Map> implements MapperAware {
+public static class Converter 
+    extends DozerConverter <List, Map> implements MapperAware {
 
   private Mapper mapper;
 

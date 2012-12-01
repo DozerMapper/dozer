@@ -38,7 +38,8 @@
           <![CDATA[
 Mapper mapper = new DozerBeanMapper();
 
-DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+DestinationObject destObject = 
+    mapper.map(sourceObject, DestinationObject.class);
              or
 DestinationObject destObject = new DestinationObject();
 mapper.map(sourceObject, destObject);
@@ -89,7 +90,8 @@ myMappingFiles.add("dozerBeanMapping.xml");
 myMappingFiles.add("someOtherDozerBeanMappings.xml");
 DozerBeanMapper mapper = new DozerBeanMapper();
 mapper.setMappingFiles(myMappingFiles);
-DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+DestinationObject destObject = 
+    mapper.map(sourceObject, DestinationObject.class);
           ]]>
           </source>
           <b>IMPORTANT:</b>
@@ -149,7 +151,8 @@ DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class)
         </p>
         <source>
 Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
-DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+DestinationObject destObject = 
+    mapper.map(sourceObject, DestinationObject.class);
 
 or
 
