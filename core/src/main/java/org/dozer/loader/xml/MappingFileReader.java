@@ -15,16 +15,17 @@
  */
 package org.dozer.loader.xml;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-
 import org.dozer.classmap.MappingFileData;
 import org.dozer.config.BeanContainer;
+import org.dozer.loader.MappingsSource;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * Internal class that reads and parses a single custom mapping xml file into raw ClassMap objects. Only intended for
@@ -33,12 +34,14 @@ import org.slf4j.LoggerFactory;
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class MappingFileReader extends MappingStreamReader{
+public class MappingFileReader implements MappingsSource<URL> {
 
   private static final Logger log = LoggerFactory.getLogger(MappingFileReader.class);
 
+  private final MappingStreamReader streamReader;
+
   public MappingFileReader(XMLParserFactory parserFactory) {
-    super(parserFactory);
+    streamReader = new MappingStreamReader(parserFactory);
   }
 
   public MappingFileData read(String fileName) {
@@ -46,17 +49,13 @@ public class MappingFileReader extends MappingStreamReader{
     URL url = classLoader.loadResource(fileName);
     return read(url);
   }
- 
 
   public MappingFileData read(URL url) {
     MappingFileData result = null;
     InputStream stream = null;
     try {
       stream = url.openStream();
-
-      /* call the stream reading version */
-      result = read(stream);
-      
+      result = streamReader.read(stream);
     } catch (IOException e) {
 	      log.error("Error while loading dozer mapping file url: [" + url + "]", e);
 	      MappingUtils.throwMappingException(e);

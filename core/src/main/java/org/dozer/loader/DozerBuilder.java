@@ -17,21 +17,10 @@ package org.dozer.loader;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.CustomConverter;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.Configuration;
-import org.dozer.classmap.CopyByReference;
-import org.dozer.classmap.DozerClass;
-import org.dozer.classmap.MappingDirection;
-import org.dozer.classmap.MappingFileData;
-import org.dozer.classmap.RelationshipType;
+import org.dozer.MappingException;
+import org.dozer.classmap.*;
 import org.dozer.converters.CustomConverterDescription;
-import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
-import org.dozer.fieldmap.DozerField;
-import org.dozer.fieldmap.ExcludeFieldMap;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.fieldmap.GenericFieldMap;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.fieldmap.*;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
@@ -249,7 +238,7 @@ public class DozerBuilder {
     }
 
     public FieldDefinitionBuilder a(String name, String type) {
-      DozerField field = DozerBuilder.prepareField(name, type);
+      DozerField field = prepareField(name, type);
       this.srcField = field;
       return new FieldDefinitionBuilder(field);
     }
@@ -412,6 +401,9 @@ public class DozerBuilder {
   }
 
   private static DozerField prepareField(String name, String type) {
+    if (MappingUtils.isBlankOrNull(name)) {
+      throw new MappingException("Field name can not be empty");
+    }
     String fieldName;
     String fieldType = null;
     if (isIndexed(name)) {
