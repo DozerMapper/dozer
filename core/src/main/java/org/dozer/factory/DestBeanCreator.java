@@ -17,6 +17,9 @@ package org.dozer.factory;
 
 import org.dozer.BeanFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +31,8 @@ import java.util.Map;
  * @author dmitry.buzdin
  */
 public final class DestBeanCreator {
+
+  static final List<BeanCreationStrategy> pluggedStrategies = new ArrayList<BeanCreationStrategy>();
 
   // order in this collection determines resolving priority
   static final BeanCreationStrategy[] availableStrategies = new BeanCreationStrategy[]{
@@ -52,7 +57,13 @@ public final class DestBeanCreator {
   }
 
   public static Object create(BeanCreationDirective directive) {
+    //TODO Spikhalskiy add copy on write collection
+    Object result = applyStrategies(directive, pluggedStrategies);
+    if (result == null) result = applyStrategies(directive, Arrays.asList(availableStrategies));
+    return result;
+  }
 
+  private static Object applyStrategies(BeanCreationDirective directive, List<BeanCreationStrategy> strategies) {
     // TODO create method lookup by annotation/convention
     // TODO Cache ConstructionStrategy (reuse caching infrastructure)
     // TODO Resolve JAXB by XmlType Annotation
@@ -60,17 +71,20 @@ public final class DestBeanCreator {
     // TODO Directive toString()
     // TODO review and document
 
-    for (BeanCreationStrategy strategy : availableStrategies) {
+    for (BeanCreationStrategy strategy : strategies) {
       if (strategy.isApplicable(directive)) {
         return strategy.create(directive);
       }
     }
-
     return null;
   }
 
   public static void setStoredFactories(Map<String, BeanFactory> factories) {
     ConstructionStrategies.byFactory().setStoredFactories(factories);
+  }
+
+  public static void addPluggedStrategy(BeanCreationStrategy strategy) {
+    pluggedStrategies.add(strategy);
   }
 
 }

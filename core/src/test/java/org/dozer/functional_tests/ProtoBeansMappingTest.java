@@ -15,6 +15,7 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.ProtobufSupportModule;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.proto.*;
@@ -24,7 +25,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -37,6 +38,7 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
   public void setUp() throws Exception {
     super.setUp();
     mapper = getMapper("protoBeansMapping.xml");
+    new ProtobufSupportModule().init();
   }
 
   @Test

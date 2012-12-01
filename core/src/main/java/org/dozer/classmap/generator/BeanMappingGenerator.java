@@ -29,11 +29,11 @@ import java.util.Set;
 */
 public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerator {
 
-  static final List<BeanFieldsDetector> fieldDetectors = new ArrayList<BeanFieldsDetector>() {{
-    add(new ProtobufBeanFieldsDetector());
+  static final List<BeanFieldsDetector> pluggedFieldDetectors = new ArrayList<BeanFieldsDetector>();
+
+  static final List<BeanFieldsDetector> availableFieldDetectors = new ArrayList<BeanFieldsDetector>() {{
     add(new JavaBeanFieldsDetector());
   }};
-
 
   public boolean accepts(ClassMap classMap) {
     return true;
@@ -63,10 +63,20 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
   }
 
   private static BeanFieldsDetector getAcceptsFieldsDetector(Class<?> clazz) {
-    for (BeanFieldsDetector detector : fieldDetectors) {
+    BeanFieldsDetector detector = getAcceptsFieldDetector(clazz, pluggedFieldDetectors);
+    if (detector == null) detector = getAcceptsFieldDetector(clazz, availableFieldDetectors);
+    return detector;
+  }
+
+  private static BeanFieldsDetector getAcceptsFieldDetector(Class<?> clazz, List<BeanFieldsDetector> detectors) {
+    for (BeanFieldsDetector detector : detectors) {
       if (detector.accepts(clazz)) return detector;
     }
     return null;
+  }
+
+  public static void addPluggedFieldDetector(ProtobufBeanFieldsDetector protobufBeanFieldsDetector) {
+    pluggedFieldDetectors.add(protobufBeanFieldsDetector);
   }
 
   protected interface BeanFieldsDetector {

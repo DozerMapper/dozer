@@ -18,26 +18,32 @@ package org.dozer.builder;
 import org.dozer.BeanBuilder;
 import org.dozer.factory.BeanCreationDirective;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Dmitry Spikhalskiy
  */
 public class DestBeanBuilderCreator {
 
   // order in this collection determines resolving priority
-  static final BeanBuilderCreationStrategy[] availableStrategies = new BeanBuilderCreationStrategy[]{
-          BeanBuilderCreationStrategies.byProtobufBuilder()
-  };
+  static final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
 
   private DestBeanBuilderCreator() {
   }
 
   public static BeanBuilder create(BeanCreationDirective directive) {
-    for (BeanBuilderCreationStrategy strategy : availableStrategies) {
+    //TODO Spikhalskiy make copy on write for thread safe
+    for (BeanBuilderCreationStrategy strategy : pluggedStrategies) {
       if (strategy.isApplicable(directive)) {
         return strategy.create(directive);
       }
     }
 
     return null;
+  }
+
+  public static void addPluggedStrategy(BeanBuilderCreationStrategy beanBuilderCreationStrategy) {
+    pluggedStrategies.add(beanBuilderCreationStrategy);
   }
 }
