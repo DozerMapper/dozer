@@ -1,4 +1,4 @@
-  1.  PREBUILD
+1.  PREBUILD
   -Add to the releasenotes.xml file
   -Update downloading.xml file with latest version number
   -Add to the index.xml file
@@ -8,20 +8,18 @@
   -Update DozerConstants.java CURRENT_VERSION
   -Run PerformanceTest with num iterations set to 25000 to make sure performance timings are still inbounds
 
-
 2.  BUILD
   -Run "mvn clean site:site assembly:assembly"
   -After this step is complete, you should see a /target/site directory containing all of the generated html
       along with the /target/dozer-x.x-src.zip and /target/dozer-x.x-src.tar.gz files
   -Generate PDF documentation with mvn pdf:pdf
 
-
 3.  DEPLOY WEB SITE
+  -Open shell on SourceForge "ssh -t USER,dozer@shell.sourceforge.net create"
   -Run "mvn site:deploy"
   -Note: Prior to deploying the web site, verify that the html pages in /target/site look good
       after generating those with mvn site:site command.
   -After this step is complete, you should be able to login to the public website and see the website mods.....http://dozer.sourceforge.net/
-
 
 4.  SFTP DOZER BUILD ASSETS TO SF
   -Upload the following assets to SF....
@@ -34,27 +32,25 @@
     Username: Your SourceForge.net Username
     Password: Your SourceForge.net Password
 
-
 5.  SF ADMIN FILE RELEASE
-  -Login to the SF project    http://sourceforge.net/projects/dozer/
-  -Click "Admin" Tab then "File Releases"
-  -Click "Add Release" on the row with package name =  Dozer
-  -Type in new release name (i.e. 4.3) and click "Create this Release"
-  -Under "Add Files to this Release" select the two dozer files that were uploaded by SFTP. (i.e. dozer-x.x-src.tar.gz and dozer-x.x-src.zip). Click on "Add Files and/or Refresh View"
-  -For each file added select "Platform-Independent" for the processor type. For the file type select "Source .gz" and "Source .zip" respectively. Note that the "Update/Refresh" button only works on ONE file at a time.
-  -Under "Email Release Notice" click on "I'm Sure" and then click on "Send Notice"
-  -Create post in "Open Discussion" forum that new release is available
-
+- Login to the SF project    http://sourceforge.net/projects/dozer/
+- Click "Admin" Tab then "File Releases"
+- Click "Add Release" on the row with package name =  Dozer
+- Type in new release name (i.e. 4.3) and click "Create this Release"
+- Under "Add Files to this Release" select the two dozer files that were uploaded by SFTP. (i.e. dozer-x.x-src.tar.gz and dozer-x.x-src.zip). Click on "Add Files and/or Refresh View"
+- For each file added select "Platform-Independent" for the processor type. For the file type select "Source .gz" and "Source .zip" respectively. Note that the "Update/Refresh" button only works on ONE file at a time.
+- Under "Email Release Notice" click on "I'm Sure" and then click on "Send Notice"
+- Create post in "Open Discussion" forum that new release is available
 
 6.  REQUEST MAVEN UPLOAD
 - Run "mvn source:jar javadoc:jar repository:bundle-create"
 - Check the results in target directory
-- Run "mvn deploy" to upload to local Maven repository mirror via scp
-    Daily synchronization process will pick up released version and publish it globaly.
+- Run "mvn deploy" to upload to SF hosted Maven repository mirror via scp
+    Daily synchronization process will pick up released version and publish it to global Repo.
 
 6.1  MANUAL UPLOAD (IN EMERGENCY CASE ONLY)
-- -Login to http://jira.codehaus.org/secure/Dashboard.jspa
-- -Open task to upload latest Dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
+- Login to http://jira.codehaus.org/secure/Dashboard.jspa
+- Open task to upload latest Dozer assets.......Sample ticket  http://jira.codehaus.org/browse/MAVENUPLOAD-2117
 
 7.  POST RELEASE
 - Create a tag for the release in SVN

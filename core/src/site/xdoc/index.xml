@@ -33,14 +33,14 @@
     <section name="Dozer News">
       <p/>
 
-      <h3>Dozer 5.4.0 is out <font size="-3" color="gray"> <i>11/11/2012</i></font></h3>
+      <h3>Dozer 5.4.0 is out <font size="-3" color="gray"> <i>12/01/2012</i></font></h3>
       <p>
         Release 5.4.0 is available for download. This is the first release after moving project to GitHub and already
         few new contributors have joined.
       </p>
       <p>
-        For discussions about new features post here <a href="https://groups.google.com/forum/?fromgroups#!forum/dozer-mapper">Google Group</a>
-        For technical issues <a href="http://stackoverflow.com/questions/tagged/dozer">StackOverflow</a>
+        For discussions about new features post here <a href="https://groups.google.com/forum/?fromgroups#!forum/dozer-mapper">Google Group</a>.
+        For technical questions use <a href="http://stackoverflow.com/questions/tagged/dozer">StackOverflow</a>
         All issue tracking will be done here <a href="https://github.com/DozerMapper/dozer/issues">GitHub</a>
         Old SourceForge Forums and Issue tracker will not be active anymore. They will be disabled once migration is finished.
       </p>
