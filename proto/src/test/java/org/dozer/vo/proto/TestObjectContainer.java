@@ -1,6 +1,6 @@
 package org.dozer.vo.proto;
 
-import org.dozer.vo.TestObject;
+import org.dozer.vo.proto.TestObject;
 
 /**
  * @author Dmitry Spikhalskiy

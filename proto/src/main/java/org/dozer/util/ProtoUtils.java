@@ -119,7 +119,8 @@ public class ProtoUtils {
     if (value instanceof ProtocolMessageEnum) {
       return ((ProtocolMessageEnum) value).getValueDescriptor();
     }
-    if (value instanceof Collection) {
+    //there is no other collections using in proto, only list
+    if (value instanceof List) {
       List modifiedList = new ArrayList(((List) value).size());
       for (Object element : (List)value) {
         modifiedList.add(wrapEnums(element));

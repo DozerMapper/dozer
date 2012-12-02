@@ -75,7 +75,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
     return null;
   }
 
-  public static void addPluggedFieldDetector(ProtobufBeanFieldsDetector protobufBeanFieldsDetector) {
+  public static void addPluggedFieldDetector(BeanFieldsDetector protobufBeanFieldsDetector) {
     pluggedFieldDetectors.add(protobufBeanFieldsDetector);
   }
 
