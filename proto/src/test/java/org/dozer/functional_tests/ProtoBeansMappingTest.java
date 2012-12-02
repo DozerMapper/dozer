@@ -42,8 +42,6 @@ public class ProtoBeansMappingTest {
     System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
     mapper = new DozerBeanMapper();
     mapper.setMappingFiles(Arrays.asList("protoBeansMapping.xml"));
-
-    new ProtobufSupportModule().init();
   }
 
   @Test

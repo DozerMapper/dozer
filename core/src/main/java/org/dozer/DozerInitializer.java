@@ -37,6 +37,7 @@ import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
+import java.util.ServiceLoader;
 
 /**
  * Internal class that performs one time Dozer initializations. Only intended for internal use.
@@ -108,6 +109,10 @@ public final class DozerInitializer {
       engine.init();
       beanContainer.setElEngine(engine);
       beanContainer.setElementReader(new ExpressionElementReader(engine));
+    }
+
+    for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
+      module.init();
     }
   }
 
