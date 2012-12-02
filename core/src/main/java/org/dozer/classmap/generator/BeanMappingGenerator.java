@@ -23,6 +23,7 @@ import org.dozer.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
 * @author Dmitry Spikhalskiy
@@ -69,7 +70,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
   }
 
   private static BeanFieldsDetector getAcceptsFieldDetector(Class<?> clazz, List<BeanFieldsDetector> detectors) {
-    for (BeanFieldsDetector detector : detectors) {
+    for (BeanFieldsDetector detector : new CopyOnWriteArrayList<BeanFieldsDetector>(detectors)) {
       if (detector.accepts(clazz)) return detector;
     }
     return null;

@@ -20,21 +20,22 @@ import org.dozer.factory.BeanCreationDirective;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Dmitry Spikhalskiy
  */
 public class DestBeanBuilderCreator {
 
-  // order in this collection determines resolving priority
+  //elements of this collections should have very specific isApplicable method to avoid application to class,
+  //which should be processed by another builder
   static final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
 
   private DestBeanBuilderCreator() {
   }
 
   public static BeanBuilder create(BeanCreationDirective directive) {
-    //TODO Spikhalskiy make copy on write for thread safe
-    for (BeanBuilderCreationStrategy strategy : pluggedStrategies) {
+    for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
       if (strategy.isApplicable(directive)) {
         return strategy.create(directive);
       }

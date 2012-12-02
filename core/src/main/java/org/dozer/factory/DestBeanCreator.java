@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Internal class that contains the logic used to create a new instance of the destination object being mapped. Performs
@@ -57,7 +58,6 @@ public final class DestBeanCreator {
   }
 
   public static Object create(BeanCreationDirective directive) {
-    //TODO Spikhalskiy add copy on write collection
     Object result = applyStrategies(directive, pluggedStrategies);
     if (result == null) result = applyStrategies(directive, Arrays.asList(availableStrategies));
     return result;
@@ -71,7 +71,7 @@ public final class DestBeanCreator {
     // TODO Directive toString()
     // TODO review and document
 
-    for (BeanCreationStrategy strategy : strategies) {
+    for (BeanCreationStrategy strategy : new CopyOnWriteArrayList<BeanCreationStrategy>(strategies)) {
       if (strategy.isApplicable(directive)) {
         return strategy.create(directive);
       }

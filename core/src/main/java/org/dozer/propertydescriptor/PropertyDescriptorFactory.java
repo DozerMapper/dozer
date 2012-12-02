@@ -21,6 +21,7 @@ import org.dozer.util.MappingUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Internal factory responsible for determining which property descriptor should
@@ -74,8 +75,8 @@ public class PropertyDescriptorFactory {
 
     if (desc != null) return desc;
 
-    //TODO Spikhalskiy add copy on write collection
-    for (PropertyDescriptorCreationStrategy propertyDescriptorBuilder : pluggedDescriptorCreationStrategies) {
+    for (PropertyDescriptorCreationStrategy propertyDescriptorBuilder :
+            new CopyOnWriteArrayList<PropertyDescriptorCreationStrategy>(pluggedDescriptorCreationStrategies)) {
       if (propertyDescriptorBuilder.isAssignable(clazz, name)) {
         desc = propertyDescriptorBuilder.buildFor(
                 clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
