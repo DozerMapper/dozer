@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping wildcard="true">
+    <class-a>org.dozer.vo.proto.LiteTestObject</class-a>
+    <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
+
+    <field>
+      <a>one</a>
+      <b>one</b>
+    </field>
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired</class-b>
+
+    <field>
+      <a>one</a>
+      <b>one</b>
+    </field>
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.proto.TestObjectContainer</class-a>
+    <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-b>
+
+    <field>
+      <a>one</a>
+      <b>one</b>
+    </field>
+
+    <field>
+      <a>nested</a>
+      <b>nestedObject</b>
+    </field>
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.proto.ObjectWithEnumField</class-a>
+    <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField</class-b>
+
+    <field>
+      <a>enumField</a>
+      <b>enumField</b>
+    </field>
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.proto.ObjectWithCollection</class-a>
+    <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-b>
+
+    <field>
+      <a>objects</a>
+      <b>object</b>
+    </field>
+  </mapping>
+
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.proto.ObjectWithEnumCollection</class-a>
+    <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection</class-b>
+
+    <field>
+      <a>enums</a>
+      <b>object</b>
+    </field>
+  </mapping>
+</mappings>

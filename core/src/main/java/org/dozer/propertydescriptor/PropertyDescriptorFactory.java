@@ -64,10 +64,11 @@ public class PropertyDescriptorFactory {
       // If this object is an XML Bean - then use the XmlBeanPropertyDescriptor  
     } else if (beanFactory != null && beanFactory.equals(DozerConstants.XML_BEAN_FACTORY)) {
       desc = new XmlBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
-
+    } else if (ProtoFieldPropertyDescriptor.isAssignable(clazz, name)) {
+      desc = new ProtoFieldPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+    } else {
       // Everything else. It must be a normal bean with normal custom get/set
       // methods
-    } else {
       desc = new JavaBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     }
     return desc;

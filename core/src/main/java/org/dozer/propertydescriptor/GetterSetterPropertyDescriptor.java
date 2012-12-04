@@ -54,13 +54,22 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
-  public abstract Method getWriteMethod() throws NoSuchMethodException;
+  protected abstract Method getWriteMethod() throws NoSuchMethodException;
 
   protected abstract Method getReadMethod() throws NoSuchMethodException;
 
   protected abstract String getSetMethodName() throws NoSuchMethodException;
 
   protected abstract boolean isCustomSetMethod();
+
+  public Class<?> getWriteMethodPropertyType() {
+    try {
+      return getWriteMethod().getParameterTypes()[0];
+    } catch (Exception e) {
+      MappingUtils.throwMappingException(e);
+      return null;
+    }
+  }
 
   public Class<?> getPropertyType() {
     if (propertyType == null) {

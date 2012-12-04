@@ -1,6 +1,7 @@
 package org.dozer.classmap;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
 import org.dozer.util.DozerConstants;
@@ -16,14 +17,14 @@ public class ClassMapBuilderTest extends AbstractDozerTest {
 
   private ClassMapBuilder.CollectionMappingGenerator collectionMappingGenerator;
   private ClassMapBuilder.MapMappingGenerator mapMappingGenerator;
-  private ClassMapBuilder.BeanMappingGenerator beanMappingGenerator;
+  private BeanMappingGenerator beanMappingGenerator;
   private Configuration configuration;
 
   @Before
   public void setUp() throws Exception {
     collectionMappingGenerator = new ClassMapBuilder.CollectionMappingGenerator();
     mapMappingGenerator = new ClassMapBuilder.MapMappingGenerator();
-    beanMappingGenerator = new ClassMapBuilder.BeanMappingGenerator();
+    beanMappingGenerator = new BeanMappingGenerator();
 
     configuration = new Configuration();
   }
@@ -39,18 +40,4 @@ public class ClassMapBuilderTest extends AbstractDozerTest {
     assertEquals(DozerConstants.SELF_KEYWORD, fieldMaps.get(0).getSrcFieldName());
     assertEquals(DozerConstants.SELF_KEYWORD, fieldMaps.get(0).getDestFieldName());
   }
-
-  @Test
-  public void ignoreTechnicalFields() throws Exception {
-    Object proxy = ProxyDataObjectInstantiator.INSTANCE.newInstance(Object.class);
-
-    assertTrue(ClassMapBuilder.shouldIgnoreField("callback", proxy.getClass(), Object.class));
-    assertFalse(ClassMapBuilder.shouldIgnoreField("callback", Object.class, Object.class));
-    assertTrue(ClassMapBuilder.shouldIgnoreField("callbacks", proxy.getClass(), Object.class));
-    assertFalse(ClassMapBuilder.shouldIgnoreField("callbacks", Object.class, Object.class));
-    assertTrue(ClassMapBuilder.shouldIgnoreField("class", Object.class, Object.class));
-    assertFalse(ClassMapBuilder.shouldIgnoreField("a", proxy.getClass(), Object.class));
-  }
-
-
 }
