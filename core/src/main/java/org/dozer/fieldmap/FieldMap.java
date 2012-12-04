@@ -17,7 +17,9 @@ package org.dozer.fieldmap;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.dozer.BeanBuilder;
 import org.dozer.MappingException;
+import org.dozer.builder.BuilderUtil;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.DozerClass;
 import org.dozer.classmap.MappingDirection;
@@ -90,7 +92,7 @@ public abstract class FieldMap implements Cloneable {
       log.debug("Getting ready to invoke write method on the destination object. Dest Obj: {}, Dest value: {}",
               className, destFieldValue);
     }
-    DozerPropertyDescriptor propDescriptor = getDestPropertyDescriptor(runtimeDestObj.getClass());
+    DozerPropertyDescriptor propDescriptor = getDestPropertyDescriptor(BuilderUtil.unwrapDestClassFromBuilder(runtimeDestObj));
     propDescriptor.setPropertyValue(runtimeDestObj, destFieldValue, this);
   }
 
@@ -125,19 +127,13 @@ public abstract class FieldMap implements Cloneable {
    * @deprecated As of 3.2 release
    */
   @Deprecated
-  public Method getDestFieldWriteMethod(Class<?> runtimeDestClass) {
+  public Class<?> getDestFieldWriteMethodParameter(Class<?> runtimeDestClass) {
     // 4-07 mht: The getWriteMethod was removed from the prop descriptor interface. This was done as part of
     // refactoring effort to clean up the prop descriptor stuff. The underlying write method should not be exposed.
     // For now, just explicitly cast to the only prop descriptor(getter/setter) that could have been used in this
     // context. The other types of prop descriptors would have failed.
     DozerPropertyDescriptor dpd = getDestPropertyDescriptor(runtimeDestClass);
-    Method result = null;
-    try {
-      result = ((GetterSetterPropertyDescriptor) dpd).getWriteMethod();
-    } catch (Exception e) {
-      MappingUtils.throwMappingException(e);
-    }
-    return result;
+    return ((GetterSetterPropertyDescriptor) dpd).getWriteMethodPropertyType();
   }
 
   public Class<?> getGenericType(Class<?> runtimeDestClass) {
@@ -146,7 +142,7 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public Object getDestValue(Object runtimeDestObj) {
-    return getDestPropertyDescriptor(runtimeDestObj.getClass()).getPropertyValue(runtimeDestObj);
+    return getDestPropertyDescriptor(BuilderUtil.unwrapDestClassFromBuilder(runtimeDestObj)).getPropertyValue(runtimeDestObj);
   }
 
   public HintContainer getDestHintContainer() {
@@ -398,6 +394,12 @@ public abstract class FieldMap implements Cloneable {
   }
 
   protected DozerPropertyDescriptor getDestPropertyDescriptor(Class<?> runtimeDestClass) {
+    if (BeanBuilder.class.isAssignableFrom(runtimeDestClass)) {
+      MappingUtils.throwMappingException(
+              "getDestPropertyDescriptor received builder instead of concrete class - it's a bug, please post stack trace at https://github.com/DozerMapper/dozer or directly to dmitry@spikhalskiy.com ");
+      return null;
+    }
+
     DozerPropertyDescriptor result = this.destPropertyDescriptorMap.get(runtimeDestClass);
     if (result == null) {
       DozerPropertyDescriptor descriptor = PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass,

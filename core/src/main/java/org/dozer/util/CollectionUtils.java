@@ -116,4 +116,10 @@ public final class CollectionUtils {
     return result;
   }
 
+
+  public static <E> Set<E> intersection(final Set<E> set1, final Set<?> set2) {
+    Set<E> intersection = new HashSet<E>(set1);
+    intersection.retainAll(set2);
+    return intersection;
+  }
 }
