@@ -32,6 +32,10 @@
   </description>
   <inceptionYear>2005</inceptionYear>
 
+  <properties>
+    <slf4j.version>1.6.6</slf4j.version>
+  </properties>
+
   <modules>
     <module>core</module>
     <module>osgi</module>

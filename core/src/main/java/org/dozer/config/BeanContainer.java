@@ -35,7 +35,7 @@ public class BeanContainer {
     return instance;
   }
 
-  DozerClassLoader classLoader = new DefaultClassLoader();
+  DozerClassLoader classLoader = new DefaultClassLoader(getClass().getClassLoader());
   DozerProxyResolver proxyResolver = new DefaultProxyResolver();
   ElementReader elementReader = new SimpleElementReader();
   ELEngine elEngine;

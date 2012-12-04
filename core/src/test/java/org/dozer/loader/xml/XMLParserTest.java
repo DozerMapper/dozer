@@ -21,6 +21,7 @@ import org.dozer.classmap.MappingFileData;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.loader.MappingsSource;
 import org.dozer.util.ResourceLoader;
+import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -33,11 +34,16 @@ import java.util.List;
  */
 public class XMLParserTest extends AbstractDozerTest {
 
-  private MappingsSource<Document> parser;
+  MappingsSource<Document> parser;
+  ResourceLoader loader;
+
+  @Before
+  public void setUp() {
+    loader = new ResourceLoader(getClass().getClassLoader());
+  }
 
   @Test
   public void testParse() throws Exception {
-    ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("dozerBeanMapping.xml");
 
     Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
@@ -53,7 +59,6 @@ public class XMLParserTest extends AbstractDozerTest {
    */
   @Test
   public void testParseCustomConverterParam() throws Exception {
-    ResourceLoader loader = new ResourceLoader();
     URL url = loader.getResource("fieldCustomConverterParam.xml");
 
     Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());

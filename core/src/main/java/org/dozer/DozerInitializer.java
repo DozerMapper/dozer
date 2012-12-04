@@ -60,6 +60,10 @@ public final class DozerInitializer {
   }
 
   public void init() {
+    init(getClass().getClassLoader());
+  }
+
+  public void init(ClassLoader classLoader) {
     // Multiple threads may try to initialize simultaniously
     synchronized (this) {
       if (isInitialized) {
@@ -71,13 +75,13 @@ public final class DozerInitializer {
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
       GlobalSettings globalSettings = GlobalSettings.getInstance();
-      initialize(globalSettings);
+      initialize(globalSettings, classLoader);
 
       isInitialized = true;
     }
   }
 
-  void initialize(GlobalSettings globalSettings) {
+  void initialize(GlobalSettings globalSettings, ClassLoader classLoader) {
     if (globalSettings.isAutoregisterJMXBeans()) {
       // Register JMX MBeans. If an error occurs, don't propagate exception
       try {
@@ -91,13 +95,15 @@ public final class DozerInitializer {
     String classLoaderName = globalSettings.getClassLoaderName();
     String proxyResolverName = globalSettings.getProxyResolverName();
 
-    DefaultClassLoader defaultClassLoader = new DefaultClassLoader();
+    DefaultClassLoader defaultClassLoader = new DefaultClassLoader(classLoader);
     BeanContainer beanContainer = BeanContainer.getInstance();
 
     Class<? extends DozerClassLoader> classLoaderType = loadBeanType(classLoaderName, defaultClassLoader, DozerClassLoader.class);
     Class<? extends DozerProxyResolver> proxyResolverType = loadBeanType(proxyResolverName, defaultClassLoader, DozerProxyResolver.class);
 
-    DozerClassLoader classLoaderBean = ReflectionUtils.newInstance(classLoaderType);
+    // TODO Chicken-egg problem - investigate
+//    DozerClassLoader classLoaderBean = ReflectionUtils.newInstance(classLoaderType);
+    DozerClassLoader classLoaderBean = defaultClassLoader;
     DozerProxyResolver proxyResolverBean = ReflectionUtils.newInstance(proxyResolverType);
 
     beanContainer.setClassLoader(classLoaderBean);
@@ -111,7 +117,7 @@ public final class DozerInitializer {
     }
   }
 
-  private <T> Class<? extends T> loadBeanType(String classLoaderName, DefaultClassLoader classLoader, Class<T> iface) {
+  private <T> Class<? extends T> loadBeanType(String classLoaderName, DozerClassLoader classLoader, Class<T> iface) {
     Class<?> beanType = classLoader.loadClass(classLoaderName);
     if (beanType != null && !iface.isAssignableFrom(beanType)) {
       MappingUtils.throwMappingException("Incompatible types: " + iface.getName() + " and " + classLoaderName);

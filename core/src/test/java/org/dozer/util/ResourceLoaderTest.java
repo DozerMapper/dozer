@@ -28,7 +28,8 @@ import java.net.URL;
  * @author tierney.matt
  */
 public class ResourceLoaderTest extends AbstractDozerTest {
-  private ResourceLoader loader = new ResourceLoader();
+
+  private ResourceLoader loader = new ResourceLoader(getClass().getClassLoader());
 
   @Test
   public void testResourceNotFound() throws Exception {
