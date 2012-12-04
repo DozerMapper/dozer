@@ -15,21 +15,11 @@
  */
 package org.dozer.loader;
 
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.ClassMapBuilder;
-import org.dozer.classmap.ClassMappings;
-import org.dozer.classmap.Configuration;
-import org.dozer.classmap.MappingFileData;
+import org.dozer.classmap.*;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
-import org.dozer.loader.xml.MappingFileReader;
-import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.util.MappingUtils;
-import org.dozer.util.MappingValidator;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -46,22 +36,15 @@ import java.util.Set;
  */
 public class CustomMappingsLoader {
 
-  private static final Logger log = LoggerFactory.getLogger(CustomMappingsLoader.class);
-
   private static final MappingsParser mappingsParser = MappingsParser.getInstance();
-  private final MappingFileReader mappingFileReader = new MappingFileReader(XMLParserFactory.getInstance());
 
-  public LoadMappingsResult load(List<String> mappingFiles, List<MappingFileData> builderMappings) {
-    
-    List<MappingFileData> mappingFileDataList = loadFromFiles(mappingFiles);
+  public LoadMappingsResult load(List<MappingFileData> mappings) {
 
-    mappingFileDataList.addAll(builderMappings);
-
-    Configuration globalConfiguration = findConfiguration(mappingFileDataList);
+    Configuration globalConfiguration = findConfiguration(mappings);
 
     ClassMappings customMappings = new ClassMappings();
     // Decorate the raw ClassMap objects and create ClassMap "prime" instances
-    for (MappingFileData mappingFileData : mappingFileDataList) {
+    for (MappingFileData mappingFileData : mappings) {
       List<ClassMap> classMaps = mappingFileData.getClassMaps();
       ClassMappings customMappingsPrime = mappingsParser.processMappings(classMaps, globalConfiguration);
       customMappings.addAll(customMappingsPrime);
@@ -80,7 +63,7 @@ public class CustomMappingsLoader {
       }
     }    
 
-    // iterate through the classmaps and set all of the customconverters on them
+    // iterate through the classmaps and set all of the custom converters on them
     for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
       ClassMap classMap = entry.getValue();
       if (classMap.getCustomConverters() != null) {
@@ -91,23 +74,6 @@ public class CustomMappingsLoader {
       }
     }
     return new LoadMappingsResult(customMappings, globalConfiguration);
-  }
-
-  private List<MappingFileData> loadFromFiles(List<String> mappingFiles) {
-    List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
-    if (mappingFiles != null && mappingFiles.size() > 0) {
-      log.info("Using the following xml files to load custom mappings for the bean mapper instance: {}", mappingFiles);
-      for (String mappingFileName : mappingFiles) {
-        log.info("Trying to find xml mapping file: {}", mappingFileName);
-        URL url = MappingValidator.validateURL(mappingFileName);
-        log.info("Using URL [" + url + "] to load custom xml mappings");
-        MappingFileData mappingFileData = mappingFileReader.read(url);
-        log.info("Successfully loaded custom xml mappings from URL: [{}]", url);
-
-        mappingFileDataList.add(mappingFileData);
-      }
-    }
-    return mappingFileDataList;
   }
 
   private Configuration findConfiguration(List<MappingFileData> mappingFileDataList) {
@@ -132,4 +98,5 @@ public class CustomMappingsLoader {
 
     return globalConfiguration;
   }
+
 }

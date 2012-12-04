@@ -87,7 +87,9 @@
 <field>
   <a>someField</a>
   <b>someList[1].someOtherList[0].someOtherField</b>
-  <b-deep-index-hint>org.dozer.vo.TestObject, org.dozer.vo.AnotherTestObject</b-deep-index-hint>      
+  <b-deep-index-hint>org.dozer.vo.TestObject, 
+      org.dozer.vo.AnotherTestObject
+  </b-deep-index-hint>      
 </field>
              ]]>
       </source>

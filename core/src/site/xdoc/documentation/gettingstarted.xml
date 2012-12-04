@@ -33,13 +33,13 @@
 <![CDATA[<dependency>
     <groupId>net.sf.dozer</groupId>
     <artifactId>dozer</artifactId>
-    <version>last version</version>
+    <version>5.4.0</version>
 </dependency>]]>
           </source>
 
         <p>Apache Ivy users can copy-paste the following line instead.</p>
         <source>
-<![CDATA[<dependency org="net.sf.dozer" name="dozer" rev="5.3.1"/>]]>
+<![CDATA[<dependency org="net.sf.dozer" name="dozer" rev="5.4.0"/>]]>
         </source>
       <br/>
       </subsection>
@@ -49,8 +49,8 @@
         <source>
           <![CDATA[ 
 Mapper mapper = new DozerBeanMapper();
-DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class);
-          ]]>
+DestinationObject destObject =  
+    mapper.map(sourceObject, DestinationObject.class);]]>
         </source>
         <p>
           After performing the Dozer mapping, the result will be a new instance of the destination object that
@@ -94,8 +94,7 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
       <A>yourSourceFieldName</A>
       <B>yourDestinationFieldName</B>
     </field>
-</mapping> 
-          ]]>
+</mapping> ]]>
         </source>
         <p>
           The complete Dozer mapping xml file would look like the following. The
@@ -128,8 +127,7 @@ DestinationObject destObject =  mapper.map(sourceObject, DestinationObject.class
             
   other custom class mappings would go here.......   
                    
-</mappings>
-          ]]>
+</mappings>  ]]>
         </source>
       </subsection>
 

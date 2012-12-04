@@ -16,7 +16,7 @@
       <subsection name="Looking for support or want to propose an enhancement for the dozer Framework?">
         <p>
           For community support or dozer enhancement requests check out the
-          <a href="http://sourceforge.net/forum/?group_id=133517" target="_blank">Support Forums</a>
+          <a href="https://groups.google.com/forum/?fromgroups#!forum/dozer-mapper">Google Group</a>
           . We value your enhancement suggestions and want to build something of value to the Java community. When
           submitting bug and feature requests, it is really helpful if you are able to submit a simplified unit
           test case(s) that reproduce the issue. We understand this is not possible for every request, but if you
@@ -26,26 +26,21 @@
       <subsection name="Think you've found a bug?">
         <p>
           Please enter a bug in the
-          <a href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727368" target="_blank">bug tracker</a>
+          <a href="https://github.com/DozerMapper/dozer/issues">GitHub Issue Tracker</a>
           . We value your support there. We can't fix bugs we don't know about!
         </p>
       </subsection>
       <subsection name="Have a feature request?">
         <p>
           Please enter a feature request in the
-          <a href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727371" target="_blank">
-            feature request tracker
-          </a>
-          . It helps if you attach a patch :)
+          <a href="https://github.com/DozerMapper/dozer/issues">GitHub Issue Tracker</a>
+          . It helps if you attach a pull request :)
         </p>
       </subsection>
       <subsection name="Got a patch?">
         <p>
-          Please submit a patch in the
-          <a href="http://sourceforge.net/tracker/?group_id=133517&amp;atid=727370" target="_blank">
-            patch tracker
-          </a>
-          . Along with your patch we need a unit test and any supporting objects and mapping file.
+          Please submit a pull request for Dozer GirHub project.
+          Along with your pull request we need a unit test and any supporting objects and mapping file.
         </p>
       </subsection>
     </section>

@@ -94,18 +94,21 @@
 
   <field>
     <a>stringProperty3</a>
-    <b map-get-method="getValue" map-set-method="putValue" key="myCustomProperty">customMap</b>
+    <b map-get-method="getValue" map-set-method="putValue" 
+       key="myCustomProperty">customMap</b>
   </field>
 
   <field>
     <a>stringProperty4</a>
-    <b map-get-method="getValue" map-set-method="putValue" key="myCustomNullProperty">nullCustomMap</b>
+    <b map-get-method="getValue" map-set-method="putValue" 
+       key="myCustomNullProperty">nullCustomMap</b>
     <b-hint>org.dozer.vo.map.CustomMap</b-hint>
   </field>
 
   <field>
     <a>stringProperty5</a>
-    <b map-get-method="getValue" map-set-method="putValue">customMap</b>
+    <b map-get-method="getValue" 
+       map-set-method="putValue">customMap</b>
   </field>
 </mapping>   
 
@@ -146,7 +149,9 @@
 
 <mapping map-id="myCustomTestMapping">
   <class-a>org.dozer.vo.map.PropertyToMap</class-a>
-  <class-b map-set-method="putValue" map-get-method="getValue">org.dozer.vo.map.CustomMap</class-b>
+  <class-b map-set-method="putValue" map-get-method="getValue">
+      org.dozer.vo.map.CustomMap
+  </class-b>
   <field>
     <a set-method="addStringProperty2">stringProperty2</a>
     <b key="myStringProperty">this</b>
@@ -203,7 +208,8 @@ ptm.addStringProperty2("stringProperty2Value");
 Map map = Mapper.map(ptm, HashMap.class, "myTestMapping");
 
 // Example 2
-CustomMap customMap = mapper.map(ptm, CustomMap.class, "myCustomTestMapping");
+CustomMap customMap = mapper.map(ptm, CustomMap.class, 
+    "myCustomTestMapping");
 
 // Example 3
 CustomMap custom = new CustomMap();
@@ -213,7 +219,8 @@ Mapper.map(ptm, custom, "myCustomTestMapping");
 // Example 4 - Map Back
 Map map = new HashMap();
 map.put("stringProperty", "stringPropertyValue");
-PropertyToMap property = mapper.map(map, PropertyToMap.class, "myTestMapping");
+PropertyToMap property = mapper.map(map, PropertyToMap.class, 
+    "myTestMapping");
 assertEquals("stringPropertyValue", property.getStringProperty());
 
             ]]>

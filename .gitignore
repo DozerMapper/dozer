@@ -15,3 +15,7 @@ target
 *.iml
 *.ipr
 *.iws
+
+# OS X #
+########
+.DS_Store

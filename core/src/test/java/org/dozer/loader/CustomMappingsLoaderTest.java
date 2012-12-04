@@ -1,37 +1,45 @@
 package org.dozer.loader;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
-import org.dozer.functional_tests.support.SampleDefaultBeanFactory;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.mock;
+
 public class CustomMappingsLoaderTest extends AbstractDozerTest{
-  private CustomMappingsLoader loader = new CustomMappingsLoader();
 
-  @Test
-  public void testLoad() {
-    LoadMappingsResult result = loader.load(Arrays.asList("customMappingsLoaderTest.xml"), Collections.<MappingFileData>emptyList());
-    assertNotNull("result should not be null", result);
-    assertEquals("wrong # of mappings", 4, result.getCustomMappings().size());
-  }
+  CustomMappingsLoader loader;
+  ArrayList<MappingFileData> data;
 
-  @Test
-  public void testLoadWithGlobalConfig() {
-    LoadMappingsResult result = loader.load(Arrays.asList("customMappingsLoaderWithGlobalConfigTest.xml"), Collections.<MappingFileData>emptyList());
-    assertNotNull("result should not be null", result);
-    assertEquals("wrong # of mappings", 4, result.getCustomMappings().size());
-    assertEquals("wrong value in global config", SampleDefaultBeanFactory.class.getName(), result.getGlobalConfiguration()
-        .getBeanFactory());
+  @Before
+  public void setUp() {
+    loader = new CustomMappingsLoader();
+    data = new ArrayList<MappingFileData>();
   }
 
   @Test(expected=MappingException.class)
   public void testLoad_MultipleGlobalConfigsFound() {
-      loader.load(Arrays.asList("global-configuration.xml", "customMappingsLoaderWithGlobalConfigTest.xml"), Collections.<MappingFileData>emptyList());
+      data.add(createMappingData(true));
+      data.add(createMappingData(true));
+
+      loader.load(data);
+
       fail("should have thrown exception");
+  }
+
+  private MappingFileData createMappingData(boolean hasConfiguration) {
+    MappingFileData mappingFileData = new MappingFileData();
+    if (hasConfiguration) {
+      mappingFileData.setConfiguration(new Configuration());
+    }
+    mappingFileData.addClassMap(mock(ClassMap.class));
+    return mappingFileData;
   }
 
 }

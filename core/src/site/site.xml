@@ -10,6 +10,11 @@
 		<fluidoSkin>
 			<topBarEnabled>false</topBarEnabled>
 			<sideBarEnabled>true</sideBarEnabled>
+      <gitHub>
+        <projectId>DozerMapper/dozer</projectId>
+        <ribbonOrientation>left</ribbonOrientation>
+        <ribbonColor>orange</ribbonColor>
+      </gitHub>
 			<googleSearch />
 			<googlePlusOne />
 			<facebookLike />
@@ -89,8 +94,8 @@
       <item name="JAXB and XMLBeans" href="/documentation/xmlbeans.html" />
       <item name="Metadata Query Interface" href="/documentation/metadata.html" />
       <item name="FAQ" href="/documentation/faq.html" />
-
       <item name="Dozer Mapping XSD" href="/schema/beanmapping.xsd" />
+      <item name="User's Guide PDF" href="/dozer-user-guide.pdf" />
     </menu>
 
     <menu name="Community">

@@ -25,7 +25,7 @@ public class InvalidMappingTest extends AbstractFunctionalTest {
     fail();
   }
 
-  @Test(expected=NullPointerException.class)
+  @Test(expected=MappingException.class)
   public void testEmptyFieldB() {
     mapper = getMapper("invalidmapping3.xml");
     mapper.map("1", Integer.class);

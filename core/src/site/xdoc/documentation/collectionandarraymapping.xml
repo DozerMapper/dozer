@@ -39,9 +39,11 @@
         </p>
         <br/>
         <source>
-          <![CDATA[ 
+          <![CDATA[
+<!-- converting TheFirstSubClass List to 
+     TheFirstSubClassPrime List --> 
 <field>
-  <a>hintList</a> <!-- converting TheFirstSubClass List to TheFirstSubClassPrime List -->
+  <a>hintList</a> 
   <b>hintList</b> 
   <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint> 
 </field>    
@@ -203,9 +205,10 @@ public class UserGroupPrime {
           type as the source Array.
         </p>
         <source>
-          <![CDATA[ 
+          <![CDATA[
+<!-- changing an Integer [] to List and back again -->
 <field>
-  <a>arrayForLists</a><!-- changing an Integer [] to List and back again -->
+  <a>arrayForLists</a>
   <b>listForArray</b>
 </field>    
             ]]>
@@ -215,9 +218,10 @@ public class UserGroupPrime {
           String elements instead of Integers.
         </p>
         <source>
-          <![CDATA[ 
+          <![CDATA[
+<!-- changing an Integer [] to List and back again -->
 <field>
-  <a>arrayForLists</a><!-- changing an Integer [] to List and back again -->
+  <a>arrayForLists</a>
   <b>listForArray</b>
   <b-hint>java.lang.String</b-hint> 
 </field>    
@@ -230,9 +234,10 @@ public class UserGroupPrime {
           type as the source Array.
         </p>
         <source>
-          <![CDATA[ 
+          <![CDATA[
+<!-- converting int[] to int [] by name only --> 
 <field>
-  <a>anArray</a> <!-- converting int[] to int [] by name only -->
+  <a>anArray</a> 
   <b>theMappedArray</b>
 </field>      
             ]]>
@@ -274,16 +279,19 @@ public class UserGroupPrime {
         </source>
         <p>field mapping level....</p>
         <source>
-          <![CDATA[ 
+          <![CDATA[
+<!-- objects will always be added to an existing List --> 
 <field relationship-type="cumulative">
-  <a>hintList</a> <!-- objects will always be added to an existing List -->
+  <a>hintList</a>
   <b>hintList</b> 
   <a-hint>org.dozer.vo.TheFirstSubClass</a-hint> 
   <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint> 
 </field>    
 
+<!-- objects will updated if already exist in List, 
+     added if they are not present -->
 <field relationship-type="non-cumulative">
-  <a>unequalNamedList</a> <!-- objects will updated if already exist in List, added if they are not present -->
+  <a>unequalNamedList</a> 
   <b>theMappedUnequallyNamedList</b> 
 </field>    
             ]]>
@@ -306,10 +314,12 @@ public class UserGroupPrime {
           contains() method to check if the results contains orphans. The default setting value is false.
         </p>
         <source>
-          <![CDATA[ 
+          <![CDATA[
+<!-- orphan objects will always be removed from an existing 
+     destination List --> 
 <field remove-orphans="true">
   <a>srcList</a> 
-  <b>destList</b>  <!-- orphan objects will always be removed from an existing destination List -->
+  <b>destList</b>  
 </field>    
             ]]>
         </source>
