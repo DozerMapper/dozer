@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.factory;
+package org.dozer.builder;
 
-import org.dozer.BeanGeneralCreationStrategy;
+import org.dozer.BeanBuilder;
 
 /**
-* @author Dmitry Buzdin
-*/
-public interface BeanCreationStrategy extends BeanGeneralCreationStrategy<Object> {
+ * @author Dmitry Spikhalskiy
+ */
+public class BuilderUtil {
+  public static Class<?> unwrapDestClassFromBuilder(Object dest) {
+    if (dest instanceof BeanBuilder) return ((BeanBuilder) dest).beanClass();
+    return dest.getClass();
+  }
 }
