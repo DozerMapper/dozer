@@ -73,7 +73,8 @@ MappingMetadata mapMetadata = beanMapper.getMappingMetadata();
       <source>
         <![CDATA[
 try {
-  ClassMappingMetadata classMappingMetadata = mapMetadata.getClassMapping(ClassA.class, ClassB.class);
+  ClassMappingMetadata classMappingMetadata = 
+      mapMetadata.getClassMapping(ClassA.class, ClassB.class);
 } catch (MetadataLookupException e) {
   // couldn't find it
 }
@@ -83,9 +84,11 @@ try {
       <source>
         <![CDATA[
 try {
-  FieldMappingMetadata fieldMetadata = classMetadata.getFieldMappingBySource("fieldA");
+  FieldMappingMetadata fieldMetadata = 
+      classMetadata.getFieldMappingBySource("fieldA");
   // Destination: fieldB
-  System.out.println("Destination: " + fieldMetadata.getDestinationName());
+  System.out.println("Destination: " + 
+      fieldMetadata.getDestinationName());
 } catch (MetadataLookupException e) {
   // couldn't find it
 }

@@ -27,13 +27,18 @@ import java.net.URL;
  */
 public class DefaultClassLoader implements DozerClassLoader {
 
-  private final ResourceLoader resourceLoader = new ResourceLoader();
+  private final ClassLoader classLoader;
+  private final ResourceLoader resourceLoader;
+
+  public DefaultClassLoader(ClassLoader classLoader) {
+    this.classLoader = classLoader;
+    this.resourceLoader = new ResourceLoader(classLoader);
+  }
 
   public Class<?> loadClass(String className)  {
     Class<?> result = null;
     try {
-      //Class caller = Reflection.getCallerClass(3); TODO OSGi fix - Move to specific implementation
-    	result = ClassUtils.getClass(className);
+    	result = ClassUtils.getClass(classLoader, className);
     } catch (ClassNotFoundException e) {
       MappingUtils.throwMappingException(e);
     }

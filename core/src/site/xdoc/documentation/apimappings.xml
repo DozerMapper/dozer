@@ -80,7 +80,8 @@ BeanMappingBuilder builder = new BeanMappingBuilder() {
                 .exclude("excluded")
                 .fields("src", "dest",
                         copyByReference(),
-                        collectionStrategy(true, RelationshipType.NON_CUMULATIVE),
+                        collectionStrategy(true, 
+                            RelationshipType.NON_CUMULATIVE),
                         hintA(String.class),
                         hintB(Integer.class),
                         fieldOneWay(),
@@ -88,7 +89,7 @@ BeanMappingBuilder builder = new BeanMappingBuilder() {
                         customConverterId("id")
                 )
                 .fields("src", "dest",
-                        customConverter("org.dozer.CustomConverter")
+                    customConverter("org.dozer.CustomConverter")
                 );
       }
     };

@@ -19,12 +19,12 @@ import org.dozer.classmap.MappingFileData;
 
 /**
  * Source of mapping definition. Mappings could be provided in various ways,
- * either from Xml document or programmatically.
+ * either from XML document or from DSL code.
  *
  * @author dmitry.buzdin
  */
-public interface MappingsSource {
+public interface MappingsSource<T> {
 
-  MappingFileData load();
+  MappingFileData read(T source);
 
 }

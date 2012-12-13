@@ -1,3 +1,3 @@
-[![Build Status](https://api.travis-ci.org/DozerMapper/dozer.png)](https://api.travis-ci.org/DozerMapper/dozer.png)
+[![Build Status](https://api.travis-ci.org/DozerMapper/dozer.png)](https://travis-ci.org/DozerMapper/dozer)
 
 http://dozer.sf.net

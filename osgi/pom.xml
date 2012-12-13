@@ -26,30 +26,31 @@
   <name>Dozer OSGi Bundle</name>
 
   <properties>
-    <export.packages>org.dozer.*;version=${pom.version}</export.packages>
+    <export.packages>org.dozer.*;version=${project.version}</export.packages>
     <import.packages>
-      !org.dozer*,
+      org.dozer.*,
+      org.osgi.framework,
+      javax.el;resolution:=optional,
       javax.management,
       javax.xml.datatype,
       javax.xml.parsers,
-      javax.el.*;resolution:=optional,
       org.apache.commons.beanutils;version="[1.8,2)",
       org.apache.commons.beanutils.converters;version="[1.8,2)",
-      org.apache.commons.collections.comparators;version="[3.2.1,4)",
-      org.apache.commons.lang3;version="[3.0,4)",
-      org.apache.commons.lang3.builder;version="[3.0,4)",
-      org.springframework.beans.factory;version="[1.2.8,4)";resolution:=optional,
-      org.springframework.core.io;version="[1.2.8,4)";resolution:=optional,
+      org.apache.commons.lang3;version="[3.1,4)",
+      org.apache.commons.lang3.builder;version="[3.1,4)",
+      org.hibernate.proxy.*;resolution:=optional,
+      org.slf4j;version="[1.6,2)",
+      org.springframework.beans.factory;resolution:=optional,
+      org.springframework.core.io;resolution:=optional,
       org.w3c.dom,
       org.xml.sax,
-      org.xml.sax.helpers,
-      org.hibernate.proxy;version="[3.0,4)";resolution:=optional,
-      *
+      org.xml.sax.helpers
     </import.packages>
     <private.packages>!*</private.packages>
-    <symbolic.name>${pom.groupId}.${pom.artifactId}</symbolic.name>
+    <symbolic.name>${project.groupId}.${project.artifactId}</symbolic.name>
     <embed-dep>*;scope=provided;type=!pom;inline=true</embed-dep>
     <unpack-bundle>false</unpack-bundle>
+    <exam.version>2.5.0</exam.version>
   </properties>
 
   <build>
@@ -59,19 +60,32 @@
         <artifactId>maven-bundle-plugin</artifactId>
         <version>2.3.5</version>
         <configuration>
-          <unpackBundle>${unpack.bundle}</unpackBundle>
+          <unpackBundle>${unpack-bundle}</unpackBundle>
           <instructions>
-            <Bundle-Name>${artifactId}</Bundle-Name>
+            <Bundle-Activator>org.dozer.osgi.Activator</Bundle-Activator>
+            <Bundle-Name>${project.artifactId}</Bundle-Name>
             <Bundle-SymbolicName>${symbolic.name}</Bundle-SymbolicName>
-            <Bundle-Description>${pom.name}</Bundle-Description>
-            <Import-Package>${import.packages}</Import-Package>
+            <Bundle-Description>${project.name}</Bundle-Description>
             <Private-Package>${private.packages}</Private-Package>
-            <Include-Resource>${include.resources}</Include-Resource>
             <Embed-Dependency>${embed-dep}</Embed-Dependency>
-            <_exportcontents>${export.packages}</_exportcontents>
+            <Import-Package>${import.packages}</Import-Package>
+            <DynamicImport-Package>*</DynamicImport-Package>
+            <Export-Package>${export.packages}</Export-Package>
           </instructions>
         </configuration>
         <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.servicemix.tooling</groupId>
+        <artifactId>depends-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-depends-file</id>
+            <goals>
+              <goal>generate-depends-file</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -83,6 +97,51 @@
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.felix</groupId>
+      <artifactId>org.apache.felix.framework</artifactId>
+      <version>4.0.3</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.ops4j.pax.exam</groupId>
+      <artifactId>pax-exam-container-native</artifactId>
+      <version>${exam.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.exam</groupId>
+      <artifactId>pax-exam-junit4</artifactId>
+      <version>${exam.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.exam</groupId>
+      <artifactId>pax-exam-link-mvn</artifactId>
+      <version>${exam.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.ops4j.pax.url</groupId>
+      <artifactId>pax-url-aether</artifactId>
+      <version>1.5.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <distributionManagement>

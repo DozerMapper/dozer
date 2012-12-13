@@ -24,12 +24,12 @@ import org.dozer.classmap.RelationshipType;
 import org.dozer.config.BeanContainer;
 import org.dozer.loader.DozerBuilder;
 import org.dozer.loader.MappingsSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Internal class that parses a raw custom xml mapping file into ClassMap objects.
@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * @author johnsen.knut-erik
  * @author dmitry.buzdin
  */
-public class XMLParser implements MappingsSource {
+public class XMLParser implements MappingsSource<Document> {
 
   private static final Logger log = LoggerFactory.getLogger(XMLParser.class);
 
@@ -95,14 +95,9 @@ public class XMLParser implements MappingsSource {
   private static final String CUSTOM_CONVERTER_ID_ATTRIBUTE = "custom-converter-id";
   private static final String CUSTOM_CONVERTER_PARAM_ATTRIBUTE = "custom-converter-param";
 
-  private final Document document;
   private final ElementReader elementReader;
 
-  /**
-   * @param document Xml document containing valid mappings definition
-   */
-  public XMLParser(Document document) {
-    this.document = document;
+  public XMLParser() {
     this.elementReader = BeanContainer.getInstance().getElementReader();
   }
 
@@ -124,7 +119,7 @@ public class XMLParser implements MappingsSource {
    *
    * @return mapping container
    */
-  public MappingFileData load() {
+  public MappingFileData read(Document document) {
     DozerBuilder builder = new DozerBuilder();
 
     Element theRoot = document.getDocumentElement();

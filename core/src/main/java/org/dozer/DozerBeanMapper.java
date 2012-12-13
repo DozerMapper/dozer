@@ -27,23 +27,29 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
 import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.xml.MappingFileReader;
+import org.dozer.loader.xml.MappingStreamReader;
+import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
 import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
+import org.dozer.util.MappingValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.InputStream;
 import java.lang.reflect.Proxy;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Public Dozer Mapper implementation. This should be used/defined as a singleton within your application. This class
- * perfoms several one time initializations and loads the custom xml mappings, so you will not want to create many
+ * performs several one-time initializations and loads the custom xml mappings, so you will not want to create many
  * instances of it for performance reasons. Typically a system will only have one DozerBeanMapper instance per VM. If
  * you are using an IOC framework (i.e Spring), define the Mapper as singleton="true". If you are not using an IOC
  * framework, a DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
@@ -54,6 +60,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author tierney.matt
  * @author garsombke.franz
  * @author dmitry.buzdin
+ * @author suwarnaratana.arm
  */
 public class DozerBeanMapper implements Mapper {
 
@@ -199,20 +206,46 @@ public class DozerBeanMapper implements Mapper {
 
   void loadCustomMappings() {
     CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
-    LoadMappingsResult loadMappingsResult = customMappingsLoader.load(mappingFiles, builderMappings);
+    List<MappingFileData> xmlMappings = loadFromFiles(mappingFiles);
+    ArrayList<MappingFileData> allMappings = new ArrayList<MappingFileData>();
+    allMappings.addAll(xmlMappings);
+    allMappings.addAll(builderMappings);
+    LoadMappingsResult loadMappingsResult = customMappingsLoader.load(allMappings);
     this.customMappings = loadMappingsResult.getCustomMappings();
     this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
   }
 
-  /**
-   * Adds multiple API mappings to given mapper instance.
-   *
-   * @param mappingBuilder mappings to be added
-   */
-  public void setMappings(List<? extends BeanMappingBuilder> mappingBuilder) {
-    for (BeanMappingBuilder builder : mappingBuilder) {
-      addMapping(builder);
+  private List<MappingFileData> loadFromFiles(List<String> mappingFiles) {
+    MappingFileReader mappingFileReader = new MappingFileReader(XMLParserFactory.getInstance());
+    List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
+    if (mappingFiles != null && mappingFiles.size() > 0) {
+      log.info("Using the following xml files to load custom mappings for the bean mapper instance: {}", mappingFiles);
+      for (String mappingFileName : mappingFiles) {
+        log.info("Trying to find xml mapping file: {}", mappingFileName);
+        URL url = MappingValidator.validateURL(mappingFileName);
+        log.info("Using URL [" + url + "] to load custom xml mappings");
+        MappingFileData mappingFileData = mappingFileReader.read(url);
+        log.info("Successfully loaded custom xml mappings from URL: [{}]", url);
+
+        mappingFileDataList.add(mappingFileData);
+      }
     }
+    return mappingFileDataList;
+  }
+
+  /**
+   * Add mapping XML from InputStream resources for mapping not stored in
+   * files (e.g. from database.) The InputStream will be read immediately to
+   * internally create MappingFileData objects so that the InputStreams may be
+   * closed after the call to this method.
+   *
+	 * @param xmlStream Dozer mapping XML InputStream
+	 */
+	public void addMapping(InputStream xmlStream) {
+    checkIfInitialized();
+    MappingStreamReader fileReader = new MappingStreamReader(XMLParserFactory.getInstance());
+    MappingFileData mappingFileData = fileReader.read(xmlStream);
+    builderMappings.add(mappingFileData);
   }
 
   /**
@@ -249,6 +282,7 @@ public class DozerBeanMapper implements Mapper {
    * The {@link org.dozer.metadata.MappingMetadata} interface can be used to query information about the current
    * mapping definitions. It provides read only access to all important classes and field
    * mapping properties. When first called, initializes all mappings if map() has not yet been called.
+   *
    * @return An instance of {@line org.dozer.metadata.MappingMetadata} which serves starting point 
    * for querying mapping information. 
    */

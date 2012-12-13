@@ -1,7 +1,7 @@
 package org.dozer;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.dozer.event.DozerEvent;
+import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.generics.deepindex.TestObjectPrime;
 import org.junit.After;
@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.mock;
 
 /**
  * @author Dmitry Buzdin
+ * @author Arm Suwarnaratana
  */
 public class DozerBeanMapperTest extends Assert {
 
@@ -139,7 +141,12 @@ public class DozerBeanMapperTest extends Assert {
     } catch (MappingException e) {
     }
     try {
-      mapper.addMapping(null);
+      mapper.addMapping(mock(InputStream.class));
+      fail();
+    } catch (MappingException e) {
+    }
+    try {
+      mapper.addMapping(mock(BeanMappingBuilder.class));
       fail();
     } catch (MappingException e) {
     }

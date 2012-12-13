@@ -31,6 +31,12 @@ import java.net.URL;
  */
 public class ResourceLoader {
 
+  private final ClassLoader classLoader;
+
+  public ResourceLoader(ClassLoader classLoader) {
+    this.classLoader = classLoader;
+  }
+
   public URL getResource(String resource) {
     resource = resource.trim();
     
