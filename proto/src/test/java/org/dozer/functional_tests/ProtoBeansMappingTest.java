@@ -16,7 +16,6 @@
 package org.dozer.functional_tests;
 
 import org.dozer.DozerBeanMapper;
-import org.dozer.ProtobufSupportModule;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.proto.*;
@@ -27,6 +26,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -65,9 +65,9 @@ public class ProtoBeansMappingTest {
     builder.setOne("ABC");
     SimpleProtoTestObject source = builder.build();
 
-    TestObject protoResult = mapper.map(source, TestObject.class);
-    assertNotNull(protoResult);
-    Assert.assertEquals("ABC", protoResult.getOne());
+    TestObject pojoResult = mapper.map(source, TestObject.class);
+    assertNotNull(pojoResult);
+    Assert.assertEquals("ABC", pojoResult.getOne());
   }
 
   @Test
@@ -80,12 +80,12 @@ public class ProtoBeansMappingTest {
   }
 
   @Test
-  public void testSimple_wildcard_toSimple() {
-    LiteTestObject source = new LiteTestObject();
-    source.setOne("ABC");
-    LiteTestObject protoResult = mapper.map(source, LiteTestObject.class);
-    assertNotNull(protoResult);
-    Assert.assertEquals("ABC", protoResult.getOne());
+  public void testSimple_wildcard_fromProto() {
+    SimpleProtoTestObject.Builder sourceBuilder = SimpleProtoTestObject.newBuilder();
+    sourceBuilder.setOne("ABC");
+    LiteTestObject pojoResult = mapper.map(sourceBuilder.build(), LiteTestObject.class);
+    assertNotNull(pojoResult);
+    Assert.assertEquals("ABC", pojoResult.getOne());
   }
 
   @Test
@@ -93,9 +93,18 @@ public class ProtoBeansMappingTest {
     SimpleProtoTestObjectWithoutRequired.Builder builder = SimpleProtoTestObjectWithoutRequired.newBuilder();
     SimpleProtoTestObjectWithoutRequired source = builder.build();
 
-    TestObject protoResult = mapper.map(source, TestObject.class);
+    TestObject pojoResult = mapper.map(source, TestObject.class);
+    assertNotNull(pojoResult);
+    assertNull(pojoResult.getOne());
+  }
+
+  @Test
+  public void testSimple_toProtoWithNull() {
+    TestObject source = new TestObject();
+
+    SimpleProtoTestObjectWithoutRequired protoResult = mapper.map(source, SimpleProtoTestObjectWithoutRequired.class);
     assertNotNull(protoResult);
-    assertNull(protoResult.getOne());
+    assertFalse(protoResult.hasOne());
   }
 
   @Test
