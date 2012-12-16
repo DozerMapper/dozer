@@ -148,6 +148,11 @@
       <b>listToSet</b>
     </field>
 
+    <field>
+      <a>collectionToList</a>
+      <b>listToCollection</b>
+    </field>
+
     <field relationship-type="non-cumulative">
       <a>setToListWithValues</a>
       <b>setToListWithValues</b>
