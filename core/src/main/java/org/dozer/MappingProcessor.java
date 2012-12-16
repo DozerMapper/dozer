@@ -550,9 +550,6 @@ public class MappingProcessor implements Mapper {
     // List to Array
     else if (CollectionUtils.isList(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
       result = mapListToArray(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
-      // List to List
-    } else if (CollectionUtils.isList(srcFieldType) && (CollectionUtils.isList(destCollectionType))) {
-      result = mapListToList(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
     }
     // Set to Array
     else if (CollectionUtils.isSet(srcFieldType) && CollectionUtils.isArray(destCollectionType)) {
@@ -562,10 +559,6 @@ public class MappingProcessor implements Mapper {
     else if (CollectionUtils.isArray(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
       result = addToSet(srcObj, fieldMap, Arrays.asList((Object[]) srcCollectionValue), destObj);
     }
-    // Set to List
-    else if (CollectionUtils.isSet(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
-      result = mapListToList(srcObj, (Set<?>) srcCollectionValue, fieldMap, destObj);
-    }
     // Collection to Set
     else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
       result = addToSet(srcObj, fieldMap, (Collection<?>) srcCollectionValue, destObj);
@@ -574,6 +567,12 @@ public class MappingProcessor implements Mapper {
     else if (CollectionUtils.isCollection(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
       result = mapListToList(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
     }
+	// List to List
+	// Set to List
+	// Collection to List. Fix for 3378952, http://sourceforge.net/tracker/index.php?func=detail&aid=3378952&group_id=133517&atid=727368
+	else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
+		result = mapListToList(srcObj, (Collection<?>) srcCollectionValue, fieldMap, destObj);
+	}
     return result;
   }
 

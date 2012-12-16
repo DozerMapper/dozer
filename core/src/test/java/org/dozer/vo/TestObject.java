@@ -17,6 +17,7 @@ package org.dozer.vo;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -64,6 +65,7 @@ public class TestObject extends BaseTestObject {
   private Set setToObjectArray;
   private Set setToArrayWithValues;
   private Set setToList;
+	private Collection collectionToList;
   private Set setToListWithValues;
   private String fieldAccessible;
   private int fieldAccessiblePrimInt;
@@ -560,4 +562,13 @@ public class TestObject extends BaseTestObject {
   public void addAnotherTestObject(AnotherTestObject ato) {
     getSetToArrayWithIterate().add(ato);
   }
+
+	public Collection getCollectionToList() {
+		return collectionToList;
+	}
+
+	public void setCollectionToList(Collection collectionToList) {
+		this.collectionToList = collectionToList;
+	}
+
 }
