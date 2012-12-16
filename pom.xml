@@ -39,6 +39,7 @@
   <modules>
     <module>core</module>
     <module>osgi</module>
+    <module>proto</module>
   </modules>
 
   <repositories>

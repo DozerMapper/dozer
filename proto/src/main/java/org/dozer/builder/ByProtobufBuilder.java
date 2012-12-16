@@ -23,7 +23,7 @@ import org.dozer.util.ProtoUtils;
 /**
  * @author Dmitry Spikhalskiy
  */
-class ByProtobufBuilder implements BeanBuilderCreationStrategy {
+public class ByProtobufBuilder implements BeanBuilderCreationStrategy {
 
   public boolean isApplicable(BeanCreationDirective directive) {
     return Message.class.isAssignableFrom(directive.getActualClass());

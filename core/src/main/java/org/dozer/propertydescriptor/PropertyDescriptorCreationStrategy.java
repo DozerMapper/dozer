@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.builder;
+package org.dozer.propertydescriptor;
+
+import org.dozer.fieldmap.HintContainer;
 
 /**
  * @author Dmitry Spikhalskiy
  */
-public class BeanBuilderCreationStrategies {
-  private static final BeanBuilderCreationStrategy byProtobufBuilder = new ByProtobufBuilder();
-
-  public static BeanBuilderCreationStrategy byProtobufBuilder() {
-    return byProtobufBuilder;
-  }
+public interface PropertyDescriptorCreationStrategy {
+  DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
+                                   HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer);
+  boolean isAssignable(Class<?> clazz, String fieldName);
 }
