@@ -9,7 +9,7 @@
   </mapping>
 
   <mapping wildcard="false">
-    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-a>org.dozer.vo.proto.TestObject</class-a>
     <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
 
     <field>
@@ -19,7 +19,7 @@
   </mapping>
 
   <mapping wildcard="false">
-    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-a>org.dozer.vo.proto.TestObject</class-a>
     <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired</class-b>
 
     <field>

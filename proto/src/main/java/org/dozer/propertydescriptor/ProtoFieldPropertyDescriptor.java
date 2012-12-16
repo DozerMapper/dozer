@@ -61,18 +61,14 @@ public class ProtoFieldPropertyDescriptor implements DozerPropertyDescriptor {
     ProtoBeanBuilder builder = (ProtoBeanBuilder)bean;
 
     value = ProtoUtils.wrapEnums(value);
-    builder.internalProtoBuilder().setField(fieldDescriptor, value);
+    if (value != null) {
+      builder.internalProtoBuilder().setField(fieldDescriptor, value);
+    } else {
+      builder.internalProtoBuilder().clearField(fieldDescriptor);
+    }
 }
 
   public Class<?> genericType() {
     return ProtoUtils.getJavaGenericClassForCollection(fieldDescriptor);
-  }
-
-  public static boolean isAssignable(Class<?> clazz, String fieldName) {
-    if (!Message.class.isAssignableFrom(clazz)) return false;
-    Class<? extends Message> messageClass = (Class<? extends Message>)clazz;
-    Descriptors.FieldDescriptor foundDescriptor = ProtoUtils.getFieldDescriptor(messageClass, fieldName);
-    if (foundDescriptor == null) return false;
-    return true;
   }
 }

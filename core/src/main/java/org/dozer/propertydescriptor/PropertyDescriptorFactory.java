@@ -19,6 +19,10 @@ import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * Internal factory responsible for determining which property descriptor should
  * be used. Only intended for internal use.
@@ -27,6 +31,9 @@ import org.dozer.util.MappingUtils;
  */
 public class PropertyDescriptorFactory {
 
+  private static final List<PropertyDescriptorCreationStrategy> pluggedDescriptorCreationStrategies =
+          new ArrayList<PropertyDescriptorCreationStrategy>();
+
   private PropertyDescriptorFactory() {
   }
 
@@ -34,7 +41,7 @@ public class PropertyDescriptorFactory {
       String mapGetMethod, String mapSetMethod, boolean isAccessible, boolean isIndexed, int index, String name, String key,
       boolean isSelfReferencing, String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
       HintContainer destDeepIndexHintContainer, String beanFactory) {
-    DozerPropertyDescriptor desc;
+    DozerPropertyDescriptor desc = null;
 
     // Raw Map types or custom map-get-method/set specified
     boolean isMapProperty = MappingUtils.isSupportedMap(clazz);
@@ -64,13 +71,28 @@ public class PropertyDescriptorFactory {
       // If this object is an XML Bean - then use the XmlBeanPropertyDescriptor  
     } else if (beanFactory != null && beanFactory.equals(DozerConstants.XML_BEAN_FACTORY)) {
       desc = new XmlBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
-    } else if (ProtoFieldPropertyDescriptor.isAssignable(clazz, name)) {
-      desc = new ProtoFieldPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
-    } else {
-      // Everything else. It must be a normal bean with normal custom get/set
-      // methods
+    }
+
+    if (desc != null) return desc;
+
+    for (PropertyDescriptorCreationStrategy propertyDescriptorBuilder :
+            new CopyOnWriteArrayList<PropertyDescriptorCreationStrategy>(pluggedDescriptorCreationStrategies)) {
+      if (propertyDescriptorBuilder.isAssignable(clazz, name)) {
+        desc = propertyDescriptorBuilder.buildFor(
+                clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+        if (desc != null) break;
+      }
+    }
+
+    if (desc == null) {
+      // Everything else. It must be a normal bean with normal custom get/set methods
       desc = new JavaBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     }
+
     return desc;
+  }
+
+  public static void addPluggedPropertyDescriptorCreationStrategy(PropertyDescriptorCreationStrategy strategy) {
+    pluggedDescriptorCreationStrategies.add(strategy);
   }
 }

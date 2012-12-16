@@ -15,28 +15,33 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
-import org.dozer.vo.TestObject;
 import org.dozer.vo.proto.*;
 import org.dozer.vo.proto.ProtoTestObjects.*;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 /**
  * @author Dmitry Spikhalskiy
  */
-public class ProtoBeansMappingTest extends AbstractFunctionalTest {
+public class ProtoBeansMappingTest {
+  protected DozerBeanMapper mapper;
 
   @Before
   public void setUp() throws Exception {
-    super.setUp();
-    mapper = getMapper("protoBeansMapping.xml");
+    System.setProperty("log4j.debug", "true");
+    System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
+    mapper = new DozerBeanMapper();
+    mapper.setMappingFiles(Arrays.asList("protoBeansMapping.xml"));
   }
 
   @Test
@@ -51,7 +56,7 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     source.setOne("ABC");
     SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
     assertNotNull(protoResult);
-    assertEquals("ABC", protoResult.getOne());
+    Assert.assertEquals("ABC", protoResult.getOne());
   }
 
   @Test
@@ -60,9 +65,9 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     builder.setOne("ABC");
     SimpleProtoTestObject source = builder.build();
 
-    TestObject protoResult = mapper.map(source, TestObject.class);
-    assertNotNull(protoResult);
-    assertEquals("ABC", protoResult.getOne());
+    TestObject pojoResult = mapper.map(source, TestObject.class);
+    assertNotNull(pojoResult);
+    Assert.assertEquals("ABC", pojoResult.getOne());
   }
 
   @Test
@@ -71,16 +76,16 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     source.setOne("ABC");
     SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
     assertNotNull(protoResult);
-    assertEquals("ABC", protoResult.getOne());
+    Assert.assertEquals("ABC", protoResult.getOne());
   }
 
   @Test
-  public void testSimple_wildcard_toSimple() {
-    LiteTestObject source = new LiteTestObject();
-    source.setOne("ABC");
-    LiteTestObject protoResult = mapper.map(source, LiteTestObject.class);
-    assertNotNull(protoResult);
-    assertEquals("ABC", protoResult.getOne());
+  public void testSimple_wildcard_fromProto() {
+    SimpleProtoTestObject.Builder sourceBuilder = SimpleProtoTestObject.newBuilder();
+    sourceBuilder.setOne("ABC");
+    LiteTestObject pojoResult = mapper.map(sourceBuilder.build(), LiteTestObject.class);
+    assertNotNull(pojoResult);
+    Assert.assertEquals("ABC", pojoResult.getOne());
   }
 
   @Test
@@ -88,9 +93,18 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     SimpleProtoTestObjectWithoutRequired.Builder builder = SimpleProtoTestObjectWithoutRequired.newBuilder();
     SimpleProtoTestObjectWithoutRequired source = builder.build();
 
-    TestObject protoResult = mapper.map(source, TestObject.class);
+    TestObject pojoResult = mapper.map(source, TestObject.class);
+    assertNotNull(pojoResult);
+    assertNull(pojoResult.getOne());
+  }
+
+  @Test
+  public void testSimple_toProtoWithNull() {
+    TestObject source = new TestObject();
+
+    SimpleProtoTestObjectWithoutRequired protoResult = mapper.map(source, SimpleProtoTestObjectWithoutRequired.class);
     assertNotNull(protoResult);
-    assertNull(protoResult.getOne());
+    assertFalse(protoResult.hasOne());
   }
 
   @Test
@@ -101,9 +115,9 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
 
     ProtoTestObjectWithNestedProtoObject result = mapper.map(source, ProtoTestObjectWithNestedProtoObject.class);
     assertNotNull(result);
-    assertEquals("Name", result.getOne());
+    Assert.assertEquals("Name", result.getOne());
     assertNotNull(result.getNestedObject());
-    assertEquals("InnerName", result.getNestedObject().getOne());
+    Assert.assertEquals("InnerName", result.getNestedObject().getOne());
   }
 
   @Test
@@ -117,9 +131,9 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
 
     TestObjectContainer result = mapper.map(source, TestObjectContainer.class);
     assertNotNull(result);
-    assertEquals("Name", result.getOne());
+    Assert.assertEquals("Name", result.getOne());
     assertNotNull(result.getNested());
-    assertEquals("InnerName", result.getNested().getOne());
+    Assert.assertEquals("InnerName", result.getNested().getOne());
   }
 
   @Test
@@ -130,7 +144,7 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     ProtoObjectWithEnumField result = mapper.map(source, ProtoObjectWithEnumField.class);
     assertNotNull(result);
     assertNotNull(result.getEnumField());
-    assertEquals(ProtoEnum.VALUE1, result.getEnumField());
+    Assert.assertEquals(ProtoEnum.VALUE1, result.getEnumField());
   }
 
   @Test
@@ -142,7 +156,7 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     ObjectWithEnumField result = mapper.map(source, ObjectWithEnumField.class);
     assertNotNull(result);
     assertNotNull(result.getEnumField());
-    assertEquals(SimpleEnum.VALUE1, result.getEnumField());
+    Assert.assertEquals(SimpleEnum.VALUE1, result.getEnumField());
   }
 
   @Test
@@ -156,8 +170,8 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     ProtobufWithSimpleCollection result = mapper.map(source, ProtobufWithSimpleCollection.class);
     assertNotNull(result);
     assertNotNull(result.getObjectList());
-    assertEquals(1, result.getObjectCount());
-    assertEquals("One", result.getObject(0).getOne());
+    Assert.assertEquals(1, result.getObjectCount());
+    Assert.assertEquals("One", result.getObject(0).getOne());
   }
 
   @Test
@@ -171,8 +185,8 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     ObjectWithCollection result = mapper.map(sourceBuilder.build(), ObjectWithCollection.class);
     assertNotNull(result);
     assertNotNull(result.getObjects());
-    assertEquals(1, result.getObjects().size());
-    assertEquals("One", result.getObjects().get(0).getOne());
+    Assert.assertEquals(1, result.getObjects().size());
+    Assert.assertEquals("One", result.getObjects().get(0).getOne());
   }
 
   @Test
@@ -183,8 +197,8 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     ProtobufWithEnumCollection result = mapper.map(source, ProtobufWithEnumCollection.class);
     assertNotNull(result);
     assertNotNull(result.getObjectList());
-    assertEquals(1, result.getObjectCount());
-    assertEquals(ProtoEnum.VALUE1, result.getObject(0));
+    Assert.assertEquals(1, result.getObjectCount());
+    Assert.assertEquals(ProtoEnum.VALUE1, result.getObject(0));
   }
 
   @Test
@@ -195,7 +209,7 @@ public class ProtoBeansMappingTest extends AbstractFunctionalTest {
     ObjectWithEnumCollection result = mapper.map(sourceBuilder.build(), ObjectWithEnumCollection.class);
     assertNotNull(result);
     assertNotNull(result.getEnums());
-    assertEquals(1, result.getEnums().size());
-    assertEquals(SimpleEnum.VALUE1, result.getEnums().get(0));
+    Assert.assertEquals(1, result.getEnums().size());
+    Assert.assertEquals(SimpleEnum.VALUE1, result.getEnums().get(0));
   }
 }

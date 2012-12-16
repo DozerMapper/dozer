@@ -30,12 +30,7 @@
   <artifactId>dozer</artifactId>
   <packaging>jar</packaging>
   <name>Dozer</name>
-
-  <properties>
-    <slf4j.version>1.6.6</slf4j.version>
-    <protobuf.version>2.4.1</protobuf.version>
-  </properties>
-
+ 
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -182,13 +177,6 @@
           <artifactId>xmlbeans-jsr173-api</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java</artifactId>
-      <version>${protobuf.version}</version>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
