@@ -20,12 +20,16 @@ import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +41,7 @@ import java.util.Map;
  * @author S'ren Chittka
  * @author dmitry.buzdin
  */
-public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean, DisposableBean {
+public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean, DisposableBean, ApplicationContextAware {
 
   DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
@@ -45,6 +49,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   private Map<String, CustomConverter> customConvertersWithId;
   private List<DozerEventListener> eventListeners;
   private Map<String, BeanFactory> factories;
+  private ApplicationContext context;
 
   /**
    * Spring resources definition for providing mapping file location.
@@ -105,12 +110,17 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
       }
       this.beanMapper.setMappingFiles(mappings);
     }
-    if (this.customConverters != null) {
-      this.beanMapper.setCustomConverters(this.customConverters);
+    Map<String, CustomConverter> converters = context.getBeansOfType(CustomConverter.class);
+    if (customConverters == null) {
+        customConverters = new ArrayList<CustomConverter>();
     }
-    if (this.customConvertersWithId != null) {
-      this.beanMapper.setCustomConvertersWithId(customConvertersWithId);
+    customConverters.addAll(converters.values());
+    this.beanMapper.setCustomConverters(this.customConverters);
+    if (this.customConvertersWithId == null) {
+    	customConvertersWithId = new HashMap<String, CustomConverter>();
     }
+    customConvertersWithId.putAll(converters);
+    this.beanMapper.setCustomConvertersWithId(customConvertersWithId);
     if (this.eventListeners != null) {
       this.beanMapper.setEventListeners(this.eventListeners);
     }
@@ -129,6 +139,10 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     if (this.beanMapper != null) {
       this.beanMapper.destroy();
     }
+  }
+
+  public void setApplicationContext(ApplicationContext context) throws BeansException {
+	this.context = context;
   }
 
 }
