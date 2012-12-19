@@ -96,7 +96,7 @@ BeanMappingBuilder builder = new BeanMappingBuilder() {
               ]]>
             </source>
 
-            <p>Constructed bulider object should be then passed to DozerBeanMapper instance.
+            <p>Constructed builder object should be then passed to DozerBeanMapper instance.
                 It is possible to add multiple Builder classes.</p>
 
       <source>
@@ -105,6 +105,9 @@ DozerBeanMapper mapper = new DozerBeanMapper();
 mapper.addMapping(builder);
         ]]>
       </source>
+          <p>
+            Don't forget to make a static import of FieldsMappingOptions and TypeMappingOptions classes.
+          </p>
             <p>
                 That's it.
             </p>
