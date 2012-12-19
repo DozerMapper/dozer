@@ -87,6 +87,19 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
@@ -143,13 +156,5 @@
     </dependency>
 
   </dependencies>
-
-  <distributionManagement>
-    <repository>
-      <id>dozer.sf.net</id>
-      <name>SF.net repository mirror</name>
-      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo</url>
-    </repository>
-  </distributionManagement>
 
 </project>

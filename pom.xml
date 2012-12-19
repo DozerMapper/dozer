@@ -80,6 +80,21 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -259,14 +274,14 @@
       <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
     </site>
     <repository>
-      <id>dozer.sf.net</id>
-      <name>SF.net repository mirror</name>
-      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo</url>
+      <id>sonatype-nexus-staging</id>
+      <name>Sonatype Staging</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
     <snapshotRepository>
-      <id>dozer.sf.net</id>
-      <name>Snapshots</name>
-      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs/m2repo-snapshot</url>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
       <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>
