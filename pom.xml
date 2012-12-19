@@ -80,21 +80,6 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -103,6 +88,36 @@
       </extension>
     </extensions>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <organization>
     <name>dozer</name>
@@ -291,5 +306,17 @@
     <tag>HEAD</tag>
     <url>https://github.com/DozerMapper/Dozer</url>
   </scm>
+
+  <ciManagement>
+    <system>travis-ci</system>
+    <url>https://travis-ci.org/DozerMapper/dozer</url>
+  </ciManagement>
+
+  <mailingLists>
+    <mailingList>
+      <name>google-groups</name>
+      <subscribe>https://groups.google.com/forum/?fromgroups=#!forum/dozer-mapper</subscribe>
+    </mailingList>
+  </mailingLists>
 
 </project>
