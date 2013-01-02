@@ -15,26 +15,15 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.AbstractDozerTest;
-import org.dozer.DozerBeanMapper;
-import org.dozer.DozerInitializer;
-import org.dozer.Mapper;
-import org.dozer.MappingException;
-import org.dozer.functional_tests.support.ApplicationBeanFactory;
-import org.dozer.functional_tests.support.EventTestListener;
+import org.dozer.*;
 import org.dozer.functional_tests.support.SampleCustomBeanFactory;
 import org.dozer.functional_tests.support.SampleCustomBeanFactory2;
 import org.dozer.functional_tests.support.SampleDefaultBeanFactory;
 import org.dozer.functional_tests.support.TestDataFactory;
-import org.dozer.vo.Bus;
-import org.dozer.vo.Car;
 import org.dozer.vo.MetalThingyIF;
-import org.dozer.vo.Moped;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 import org.dozer.vo.Van;
-import org.dozer.vo.deep.HomeDescription;
-import org.dozer.vo.deep.House;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -101,48 +90,6 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     assertCommon(mapper);
   }
 
-  @Test
-  public void testInjectMapperUsingSpring() throws Exception {
-    // Try to get mapper from spring. Mapping files are injected via Spring config.
-    Mapper mapper = (Mapper) ApplicationBeanFactory.getBean(Mapper.class);
-    DozerBeanMapper mapperImpl = (DozerBeanMapper) mapper;
-
-    Mapper cleanMapper = (Mapper) ApplicationBeanFactory.getBean("cleanMapper");
-
-    assertNotNull("mapper should not be null", mapper);
-    assertNotNull("mapping file names should not be null", mapperImpl.getMappingFiles());
-    assertTrue("mapping file names should not be empty", mapperImpl.getMappingFiles().size() > 0);
-
-    // Do some mapping so that the mapping files are actually loaded
-    assertCommon(mapper);
-
-    // make sure that the customconverter was injected
-    Car car = new Car();
-    Van van = cleanMapper.map(car, Van.class);
-    assertEquals("injectedName", van.getName());
-    // map back
-    Car carDest = cleanMapper.map(van, Car.class);
-    assertEquals("injectedName", carDest.getName());
-
-    // test that we get customconverter even though it wasn't defined in the mapping file
-    Moped moped = new Moped();
-    Bus bus = cleanMapper.map(moped, Bus.class);
-    assertEquals("injectedName", bus.getName());
-
-    // map back
-    Moped mopedDest = cleanMapper.map(bus, Moped.class);
-    assertEquals("injectedName", mopedDest.getName());
-  }
-
-  @Test
-  public void testSpringNoMappingFilesSpecified() throws Exception {
-    // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
-    // automatically.
-    Mapper mapper = (Mapper) ApplicationBeanFactory.getBean("NoExplicitMappingsMapperIF");
-
-    assertCommon(mapper);
-  }
-
   @Test(expected=IllegalArgumentException.class)
   public void testDetectDuplicateMapping() throws Exception {
     Mapper myMapper = null;
@@ -185,17 +132,6 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     van.setName("testName");
     MetalThingyIF car = mapper.map(van, MetalThingyIF.class);
     assertEquals("testName", car.getName());
-  }
-
-  @Test
-  public void testEventListeners() throws Exception {
-    DozerBeanMapper eventMapper = (DozerBeanMapper) ApplicationBeanFactory.getBean("EventMapper");
-    assertNotNull("event listenter list should not be null", eventMapper.getEventListeners());
-    assertEquals("event listenter list should contain 1 element", 1, eventMapper.getEventListeners().size());
-    assertEquals("event listenter list should contain 1 element", EventTestListener.class, eventMapper.getEventListeners().get(0)
-        .getClass());
-    House src = testDataFactory.getHouse();
-    eventMapper.map(src, HomeDescription.class);
   }
 
   @Test

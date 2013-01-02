@@ -13,32 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.functional_tests.support;
+package org.dozer.spring.functional_tests.support;
 
 
 import org.dozer.DozerEventListener;
 import org.dozer.event.DozerEvent;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EventTestListener implements DozerEventListener {
 
   private static final Logger log = LoggerFactory.getLogger(EventTestListener.class);
 
+  private final AtomicInteger invocationCount = new AtomicInteger();
+
   public void mappingStarted(DozerEvent event) {
     log.debug("mappingStarted Called with:" + event.getClassMap().getDestClassToMap());
+    invocationCount.incrementAndGet();
   }
 
   public void preWritingDestinationValue(DozerEvent event) {
     log.debug("preWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
+    invocationCount.incrementAndGet();
   }
 
   public void postWritingDestinationValue(DozerEvent event) {
     log.debug("postWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
+    invocationCount.incrementAndGet();
   }
 
   public void mappingFinished(DozerEvent event) {
     log.debug("mappingFinished Called with:" + event.getClassMap().getDestClassToMap());
+    invocationCount.incrementAndGet();
+  }
+
+  public int getInvocationCount() {
+    return invocationCount.intValue();
   }
 
 }

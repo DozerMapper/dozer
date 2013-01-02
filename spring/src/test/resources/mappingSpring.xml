@@ -7,9 +7,9 @@
     <stop-on-errors>true</stop-on-errors>
     <wildcard>true</wildcard>
     <custom-converters>
-      <converter type="org.dozer.functional_tests.support.InjectedCustomConverter">
-        <class-a>org.dozer.vo.Vehicle</class-a>
-        <class-b>org.dozer.vo.Vehicle</class-b>
+      <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
+        <class-a>org.dozer.spring.vo.Source</class-a>
+        <class-b>org.dozer.spring.vo.Destination</class-b>
       </converter>
     </custom-converters>
   </configuration>

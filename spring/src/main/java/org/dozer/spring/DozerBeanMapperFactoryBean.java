@@ -15,16 +15,13 @@
  */
 package org.dozer.spring;
 
-import org.dozer.BeanFactory;
-import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
-import org.dozer.DozerEventListener;
-import org.dozer.Mapper;
+import org.dozer.*;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +98,8 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     if (this.mappingFiles != null) {
       final List<String> mappings = new ArrayList<String>(this.mappingFiles.length);
       for (Resource mappingFile : this.mappingFiles) {
-        mappings.add(mappingFile.getURL().toString());
+        URL url = mappingFile.getURL();
+        mappings.add(url.toString());
       }
       this.beanMapper.setMappingFiles(mappings);
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+  <!-- Semi-Manual Solution -->
+  <bean id="mapperWithConverter" class="org.dozer.DozerBeanMapper">
+    <property name="customConverters">
+      <list>
+        <ref bean="converter"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="converter" class="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
+    <property name="parameter" value="injectedName"/>
+  </bean>
+
+</beans>

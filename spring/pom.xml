@@ -27,12 +27,12 @@
     <version>5.5.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>dozer-proto</artifactId>
+  <artifactId>dozer-spring</artifactId>
   <packaging>jar</packaging>
-  <name>Dozer-Proto</name>
- 
+  <name>Dozer-Spring</name>
+
   <properties>
-    <protobuf.version>2.4.1</protobuf.version>
+    <spring.version>3.0.0.RELEASE</spring.version>
   </properties>
 
   <dependencies>
@@ -40,17 +40,30 @@
       <groupId>net.sf.dozer</groupId>
       <artifactId>dozer</artifactId>
       <version>${project.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java</artifactId>
-      <version>${protobuf.version}</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -118,7 +131,7 @@
           </descriptors>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -199,9 +212,9 @@
         </reportSets>
       </plugin>
       <plugin>
-         <groupId>org.codehaus.mojo</groupId>
-         <artifactId>findbugs-maven-plugin</artifactId>
-         <version>2.4.0</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>2.4.0</version>
       </plugin>
     </plugins>
   </reporting>
