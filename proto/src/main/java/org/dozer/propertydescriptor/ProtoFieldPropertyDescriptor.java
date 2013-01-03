@@ -17,45 +17,61 @@ package org.dozer.propertydescriptor;
 
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
-import com.google.protobuf.MessageLite;
 import org.dozer.BeanBuilder;
 import org.dozer.builder.ProtoBeanBuilder;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
+import org.dozer.propertydescriptor.deep.DeepHierarchyUtils;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ProtoUtils;
 
 /**
  * @author Dmitry Spikhalskiy
  */
-public class ProtoFieldPropertyDescriptor implements DozerPropertyDescriptor {
+public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
   private Descriptors.FieldDescriptor fieldDescriptor;
-  private String fieldName;
 
   public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    this.fieldName = fieldName;
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     this.fieldDescriptor = ProtoUtils.getFieldDescriptor((Class<? extends Message>) clazz, fieldName);
     if (this.fieldDescriptor == null) {
       MappingUtils.throwMappingException("No field descriptor for field with name: " + fieldName);
     }
   }
 
+  @Override
   public Class<?> getPropertyType() {
     return ProtoUtils.getJavaClass(fieldDescriptor);
   }
 
+  @Override
   public Object getPropertyValue(Object bean) {
+    Object result;
+    if (MappingUtils.isDeepMapping(fieldName)) {
+      result = DeepHierarchyUtils.getDeepSrcFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer);
+    } else {
+      result = getSimplePropertyValue(bean);
+      if (isIndexed) {
+        result = MappingUtils.getIndexedValue(result, index);
+      }
+    }
+    return result;
+  }
+
+  private Object getSimplePropertyValue(Object bean) {
     //proto builder can't contains already created object and even if contain - it's fields can't be changed
     if (bean instanceof BeanBuilder) return null;
-    if (!(bean instanceof MessageLite)) {
+    if (!(bean instanceof Message)) {
       MappingUtils.throwMappingException("Try to pass non proto object to ProtoFieldPropertyDescriptor");
     }
     Message message = (Message)bean;
 
     Object value = ProtoUtils.getFieldValue(message, fieldName);
     return ProtoUtils.unwrapEnums(value);
+
   }
 
+  @Override
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
     if (!(bean instanceof ProtoBeanBuilder)) MappingUtils.throwMappingException("should be a ProtoBeanBuilder instance");
     ProtoBeanBuilder builder = (ProtoBeanBuilder)bean;
@@ -68,6 +84,7 @@ public class ProtoFieldPropertyDescriptor implements DozerPropertyDescriptor {
     }
 }
 
+  @Override
   public Class<?> genericType() {
     return ProtoUtils.getJavaGenericClassForCollection(fieldDescriptor);
   }
