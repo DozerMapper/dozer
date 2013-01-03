@@ -11,12 +11,12 @@ import org.junit.Test;
  */
 public class MappingProcessorTest extends AbstractDozerTest {
   private DozerBeanMapper mapper;
-  private MappingProcessor mappingProcessor;
+  private Mapper mappingProcessor;
 
   @Before
   public void setUp() {
     mapper = new DozerBeanMapper();
-    mappingProcessor = (MappingProcessor) mapper.getMappingProcessor();
+    mappingProcessor = mapper.getMappingProcessor();
   }
 
   @Test
