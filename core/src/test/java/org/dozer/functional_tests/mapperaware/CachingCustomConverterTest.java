@@ -89,6 +89,7 @@ public class CachingCustomConverterTest extends Assert {
       this.mapper = mapper;
     }
 
+    @Override
     public BidirectionalOneConvert convertFrom(BidirectionalOne arg0, BidirectionalOneConvert arg1) {
       return mapper.map(arg0, BidirectionalOneConvert.class);
     }
