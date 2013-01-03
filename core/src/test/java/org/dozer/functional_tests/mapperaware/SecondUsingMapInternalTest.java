@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Spikhalskiy
+ * @see <a href="https://github.com/DozerMapper/dozer/issues/45">issue</a>
  */
 public class SecondUsingMapInternalTest {
   DozerBeanMapper mapper;
@@ -31,7 +32,7 @@ public class SecondUsingMapInternalTest {
     mappingFileUrls.add("mapper-aware.xml");
 
     Map<String, CustomConverter> customConvertersWithId = new HashMap<String, CustomConverter>();
-    customConvertersWithId.put("issue45Converter", new TwiceInnerMapperAwareConverter());
+    customConvertersWithId.put("oneConverter", new TwiceInnerMapperAwareConverter());
 
     mapper.setCustomConvertersWithId(customConvertersWithId);
     mapper.setMappingFiles(mappingFileUrls);
