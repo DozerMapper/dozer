@@ -147,10 +147,14 @@ public class MappingProcessor implements Mapper {
       Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcObj
           .getClass(), destType);
 
-      // If this is a nested MapperAware conversion this mapping can be already processed
-      Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destClass);
-      if (alreadyMappedValue != null) {
-        return (T) alreadyMappedValue;
+
+      if (destObj == null) {
+        // If this is a nested MapperAware conversion this mapping can be already processed
+        // but we can do this optimization only in case of no destObject, instead we must copy to the dest object
+        Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destType);
+        if (alreadyMappedValue != null) {
+          return (T) alreadyMappedValue;
+        }
       }
 
       if (converterClass != null) {
@@ -219,7 +223,7 @@ public class MappingProcessor implements Mapper {
     // be referred to later to avoid recursive mapping loops
     mappedFields.put(srcObj, destObj);
 
-    // If class map hasnt already been determined, find the appropriate one for
+    // If class map hasn't already been determined, find the appropriate one for
     // the src/dest object combination
     if (classMap == null) {
       classMap = getClassMap(srcObj.getClass(), destObj.getClass(), mapId);
