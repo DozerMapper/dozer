@@ -1,29 +1,41 @@
 package org.dozer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import org.dozer.vo.A;
+import org.dozer.vo.B;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-import org.dozer.MappingProcessor;
-import org.junit.Before;
-import org.junit.Test;
-
 /**
- * @author Dmitry Buzdin
+ * @author Dmitry Spikhalskiy
+ * @since 03.01.13
  */
-public class MappingProcessorTest extends AbstractDozerTest{
-
+public class MappingProcessorTest extends AbstractDozerTest {
   private ArrayList<Object> sourceList;
   private ArrayList<Object> destinationList;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     sourceList = new ArrayList<Object>();
     destinationList = new ArrayList<Object>();
+  }
+
+  @Test
+  public void testTwiceObjectToObjectConvert() {
+    DozerBeanMapper mapper = new DozerBeanMapper();
+    Mapper mappingProcessor = mapper.getMappingProcessor();
+
+    A src = new A();
+    src.setB(new B());
+
+    A dest1 = new A();
+    mappingProcessor.map(src, dest1);
+    A dest2 = new A();
+    mappingProcessor.map(src, dest2);
+
+    assertSame(dest1.getB(), dest2.getB());
   }
 
   @Test
@@ -123,5 +135,4 @@ public class MappingProcessorTest extends AbstractDozerTest{
       return id;
     }
   }
-
 }
