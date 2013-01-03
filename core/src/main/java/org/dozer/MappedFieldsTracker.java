@@ -30,7 +30,8 @@ import java.util.Map;
  */
 public class MappedFieldsTracker {
 
-  // Hash Code is ignored as it can serve application specific needs 
+  // Hash Code is ignored as it can serve application specific needs
+  // <srcObject, <hashCodeOfDestination, mappedDestinationObject>>
   private final Map<Object, Map<Integer,Object>> mappedFields = new IdentityHashMap<Object, Map<Integer,Object>>();
 
   public void put(Object src, Object dest) {
