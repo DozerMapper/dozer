@@ -24,7 +24,7 @@
   <mapping>
       <class-a>org.dozer.vo.mapperaware.MapperAwareSimpleSrc</class-a>
       <class-b>org.dozer.vo.mapperaware.MapperAwareSimpleDest</class-b>
-      <field custom-converter-id="issue45Converter">
+      <field custom-converter-id="oneConverter">
           <a>one</a>
           <b>one</b>
       </field>
