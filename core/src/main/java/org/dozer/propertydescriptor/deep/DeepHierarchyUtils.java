@@ -20,9 +20,8 @@ public class DeepHierarchyUtils {
     Object parentObj = srcObj;
     Object hierarchyValue = parentObj;
     DozerDeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(srcObj.getClass(), fieldName, srcDeepIndexHintContainer);
-    int size = hierarchy.length;
-    for (int i = 0; i < size; i++) {
-      DozerDeepHierarchyElement hierarchyElement = hierarchy[i];
+
+    for (DozerDeepHierarchyElement hierarchyElement : hierarchy) {
       DozerPropertyDescriptor pd = hierarchyElement.getPropDescriptor();
       // If any fields in the deep hierarchy are indexed, get actual value within the collection at the specified index
       if (hierarchyElement.getIndex() > -1) {
@@ -65,7 +64,7 @@ public class DeepHierarchyUtils {
       }
 
       DozerPropertyDescriptor propDescriptor = PropertyDescriptorFactory.getPropertyDescriptor(latestClass, null, null, null, null, false,
-              collectionIndex != -1, collectionIndex, theFieldName, null,
+              false, 0, theFieldName, null,
               false, null, null, null, null); //null as hint containers now
 
       DozerDeepHierarchyElement r = new DozerDeepHierarchyElement(propDescriptor, collectionIndex);
@@ -81,7 +80,7 @@ public class DeepHierarchyUtils {
         if (latestClass.isArray()) {
           latestClass = latestClass.getComponentType();
         } else if (Collection.class.isAssignableFrom(latestClass)) {
-          Class<?> genericType = determineGenericsType(propDescriptor);
+          Class<?> genericType = propDescriptor.genericType();
 
           if (genericType == null && deepIndexHintContainer == null) {
             MappingUtils
