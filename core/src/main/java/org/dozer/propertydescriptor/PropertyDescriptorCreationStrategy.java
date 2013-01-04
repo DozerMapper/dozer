@@ -23,5 +23,5 @@ import org.dozer.fieldmap.HintContainer;
 public interface PropertyDescriptorCreationStrategy {
   DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
                                    HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer);
-  boolean isAssignable(Class<?> clazz, String fieldName);
+  boolean isApplicable(Class<?> clazz, String fieldName);
 }

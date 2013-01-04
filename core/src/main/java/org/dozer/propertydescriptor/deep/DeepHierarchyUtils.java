@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
  */
 public class DeepHierarchyUtils {
   // Copy-paste from GetterSetterPropertyDescriptor
-  public static Object getDeepSrcFieldValue(Object srcObj, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer) {
+  public static Object getDeepFieldValue(Object srcObj, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer) {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = parentObj;
@@ -43,9 +43,15 @@ public class DeepHierarchyUtils {
     return hierarchyValue;
   }
 
+  public static Class<?> getDeepFieldClass(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer) {
+    // follow deep field hierarchy. If any values are null along the way, then return null
+    DozerDeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer);
+    return hierarchy[hierarchy.length - 1].getPropDescriptor().getPropertyType();
+  }
+
   private static DozerDeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field, HintContainer deepIndexHintContainer) {
     if (!MappingUtils.isDeepMapping(field)) {
-      MappingUtils.throwMappingException("Field does not contain deep field delimitor");
+      MappingUtils.throwMappingException("Field does not contain deep field delimiter");
     }
 
     StringTokenizer toks = new StringTokenizer(field, DozerConstants.DEEP_FIELD_DELIMITER);

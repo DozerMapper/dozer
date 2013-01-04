@@ -24,31 +24,57 @@ import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.deep.DeepHierarchyUtils;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ProtoUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Dmitry Spikhalskiy
  */
 public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
+  private final  static Logger logger = LoggerFactory.getLogger(ProtoFieldPropertyDescriptor.class);
+
   private Descriptors.FieldDescriptor fieldDescriptor;
+  private Class<?> propertyType;
 
   public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     this.fieldDescriptor = ProtoUtils.getFieldDescriptor((Class<? extends Message>) clazz, fieldName);
-    if (this.fieldDescriptor == null) {
+    if (this.fieldDescriptor == null && !MappingUtils.isDeepMapping(fieldName)) {
       MappingUtils.throwMappingException("No field descriptor for field with name: " + fieldName);
     }
   }
 
   @Override
   public Class<?> getPropertyType() {
-    return ProtoUtils.getJavaClass(fieldDescriptor);
+    if (this.propertyType != null) return this.propertyType;
+
+    Class<?> result;
+    if (MappingUtils.isDeepMapping(fieldName)) {
+      try {
+        result = DeepHierarchyUtils.getDeepFieldClass(clazz, fieldName, srcDeepIndexHintContainer);
+      } catch (Exception ignore) {
+        logger.info("Determine field type by srcDeepIndexHintContainer failed");
+        try {
+          result = DeepHierarchyUtils.getDeepFieldClass(clazz, fieldName, destDeepIndexHintContainer);
+        } catch (Exception secondIgnore) {
+          logger.info("Determine field type by destDeepIndexHintContainer failed");
+          result = null;
+        }
+      }
+    } else {
+      result = ProtoUtils.getJavaClass(fieldDescriptor);
+    }
+
+    this.propertyType = result;
+
+    return result;
   }
 
   @Override
   public Object getPropertyValue(Object bean) {
     Object result;
     if (MappingUtils.isDeepMapping(fieldName)) {
-      result = DeepHierarchyUtils.getDeepSrcFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer);
+      result = DeepHierarchyUtils.getDeepFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer);
     } else {
       result = getSimplePropertyValue(bean);
       if (isIndexed) {

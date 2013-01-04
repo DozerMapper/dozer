@@ -21,13 +21,15 @@ import org.dozer.vo.proto.ProtoTestObjects.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 /**
  * @author tierney.matt
  * @author garsombke.franz
  */
-public class DeepMappingTest extends ProtoAbstractTest {
+public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
   private DozerBeanMapper mapper;
 
   @Before
@@ -42,9 +44,24 @@ public class DeepMappingTest extends ProtoAbstractTest {
     ProtoTestObjectWithNestedProtoObject.Builder builder = ProtoTestObjectWithNestedProtoObject.newBuilder();
     SimpleProtoTestObject.Builder nestedObjectBuilder = SimpleProtoTestObject.newBuilder();
     nestedObjectBuilder.setOne(ONE_VALUE);
-    builder.setNestedObject(nestedObjectBuilder.build());
+    builder.setNestedObject(nestedObjectBuilder);
     builder.setOne("smthAnother-neverMind");
     ProtoTestObjectWithNestedProtoObject src = builder.build();
+    LiteTestObject result = mapper.map(src, LiteTestObject.class);
+    assertEquals(ONE_VALUE, result.getOne());
+  }
+
+  @Test
+  public void protoSrc_copyFieldFromListElement() {
+    final String ONE_VALUE = "smthOne";
+
+    ProtobufWithSimpleCollection.Builder builder = ProtobufWithSimpleCollection.newBuilder();
+    SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
+    nestedObjectBuilder1.setOne("smthAnother");
+    SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
+    nestedObjectBuilder2.setOne(ONE_VALUE);
+    builder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
+    ProtobufWithSimpleCollection src = builder.build();
     LiteTestObject result = mapper.map(src, LiteTestObject.class);
     assertEquals(ONE_VALUE, result.getOne());
   }

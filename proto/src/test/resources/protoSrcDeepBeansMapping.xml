@@ -13,4 +13,14 @@
     </field>
   </mapping>
 
+  <mapping wildcard="false">
+    <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
+    <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
+
+    <field>
+      <a>object[1].one</a>
+      <b>one</b>
+    </field>
+  </mapping>
+
 </mappings>
