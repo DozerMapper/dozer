@@ -1,4 +1,19 @@
-package org.dozer.propertydescriptor.deep;
+/*
+ * Copyright 2005-2013 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.dozer.util;
 
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
@@ -11,52 +26,46 @@ import java.util.StringTokenizer;
 
 /**
  * @author Dmitry Spikhalskiy
- * @since 04.01.13
  */
 public class DeepHierarchyUtils {
   // Copy-paste from GetterSetterPropertyDescriptor
-  public static Object getDeepFieldValue(Object srcObj, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer) {
+  public static Object getDeepFieldValue(Object srcObj, String fieldName, HintContainer srcDeepIndexHintContainer) {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = parentObj;
-    DozerDeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(srcObj.getClass(), fieldName, srcDeepIndexHintContainer);
+    DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(srcObj.getClass(), fieldName, srcDeepIndexHintContainer);
 
-    for (DozerDeepHierarchyElement hierarchyElement : hierarchy) {
-      DozerPropertyDescriptor pd = hierarchyElement.getPropDescriptor();
-      // If any fields in the deep hierarchy are indexed, get actual value within the collection at the specified index
-      if (hierarchyElement.getIndex() > -1) {
-        hierarchyValue = MappingUtils.getIndexedValue(pd.getPropertyValue(hierarchyValue), hierarchyElement.getIndex());
-      } else {
-        hierarchyValue = pd.getPropertyValue(parentObj);
-      }
+    for (DozerPropertyDescriptor hierarchyElement : hierarchy) {
+      hierarchyValue = hierarchyElement.getPropertyValue(parentObj);
       parentObj = hierarchyValue;
       if (hierarchyValue == null) {
         break;
-      }
-
-      // If dest field is indexed, get actual value within the collection at the specified index
-      if (isIndexed) {
-        hierarchyValue = MappingUtils.getIndexedValue(hierarchyValue, index);
       }
     }
 
     return hierarchyValue;
   }
 
-  public static Class<?> getDeepFieldClass(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer) {
+  public static Class<?> getDeepFieldType(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer) {
     // follow deep field hierarchy. If any values are null along the way, then return null
-    DozerDeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer);
-    return hierarchy[hierarchy.length - 1].getPropDescriptor().getPropertyType();
+    DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer);
+    return hierarchy[hierarchy.length - 1].getPropertyType();
   }
 
-  private static DozerDeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field, HintContainer deepIndexHintContainer) {
+  public static Class<?> getDeepGenericType(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer) {
+    // follow deep field hierarchy. If any values are null along the way, then return null
+    DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer);
+    return hierarchy[hierarchy.length - 1].genericType();
+  }
+
+  private static DozerPropertyDescriptor[] getDeepFieldHierarchy(Class<?> parentClass, String field, HintContainer deepIndexHintContainer) {
     if (!MappingUtils.isDeepMapping(field)) {
       MappingUtils.throwMappingException("Field does not contain deep field delimiter");
     }
 
     StringTokenizer toks = new StringTokenizer(field, DozerConstants.DEEP_FIELD_DELIMITER);
     Class<?> latestClass = parentClass;
-    DozerDeepHierarchyElement[] hierarchy = new DozerDeepHierarchyElement[toks.countTokens()];
+    DozerPropertyDescriptor[] hierarchy = new DozerPropertyDescriptor[toks.countTokens()];
     int index = 0;
     int hintIndex = 0;
     while (toks.hasMoreTokens()) {
@@ -70,10 +79,8 @@ public class DeepHierarchyUtils {
       }
 
       DozerPropertyDescriptor propDescriptor = PropertyDescriptorFactory.getPropertyDescriptor(latestClass, null, null, null, null, false,
-              false, 0, theFieldName, null,
+              collectionIndex > -1, collectionIndex, theFieldName, null,
               false, null, null, null, null); //null as hint containers now
-
-      DozerDeepHierarchyElement r = new DozerDeepHierarchyElement(propDescriptor, collectionIndex);
 
       if (propDescriptor == null) {
         MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "
@@ -105,7 +112,7 @@ public class DeepHierarchyUtils {
           }
         }
       }
-      hierarchy[index++] = r;
+      hierarchy[index++] = propDescriptor;
     }
 
     return hierarchy;

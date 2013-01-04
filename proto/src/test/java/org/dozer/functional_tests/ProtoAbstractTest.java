@@ -24,7 +24,6 @@ import java.util.List;
 
 /**
  * @author Dmitry Spikhalskiy
- * @since 04.01.13
  */
 @Ignore
 public class ProtoAbstractTest {
