@@ -80,7 +80,7 @@ public class DeepHierarchyUtils {
 
       DozerPropertyDescriptor propDescriptor = PropertyDescriptorFactory.getPropertyDescriptor(latestClass, null, null, null, null, false,
               collectionIndex > -1, collectionIndex, theFieldName, null,
-              false, null, null, null, null); //null as hint containers now
+              false, null, null, null, null); //we can pass null as a hint container - if genericType return null - we will use hintContainer in the underlying if
 
       if (propDescriptor == null) {
         MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "
