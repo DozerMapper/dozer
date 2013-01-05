@@ -15,18 +15,21 @@
  */
 package org.dozer.spring;
 
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
+import org.dozer.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 
 import java.net.URL;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 /**
@@ -36,11 +39,14 @@ public class DozerBeanMapperFactoryBeanTest {
 
   DozerBeanMapperFactoryBean factory;
   Resource mockResource;
+  ApplicationContext mockContext;
 
   @Before
   public void setUp() throws Exception {
     factory = new DozerBeanMapperFactoryBean();
     mockResource = mock(Resource.class);
+    mockContext = mock(ApplicationContext.class);
+    factory.setApplicationContext(mockContext);
   }
 
   @Test
@@ -75,6 +81,28 @@ public class DozerBeanMapperFactoryBeanTest {
     factory.beanMapper = mock(DozerBeanMapper.class);
     factory.destroy();
     verify(factory.beanMapper).destroy();
+  }
+
+  @Test
+  public void shouldInjectBeans() throws Exception {
+    HashMap<String, CustomConverter> converterHashMap = new HashMap<String, CustomConverter>();
+    converterHashMap.put("a", mock(CustomConverter.class));
+    HashMap<String, BeanFactory> beanFactoryMap = new HashMap<String, BeanFactory>();
+    beanFactoryMap.put("a", mock(BeanFactory.class));
+    HashMap<String, DozerEventListener> eventListenerMap = new HashMap<String, DozerEventListener>();
+    eventListenerMap.put("a", mock(DozerEventListener.class));
+
+    when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);
+    when(mockContext.getBeansOfType(BeanFactory.class)).thenReturn(beanFactoryMap);
+    when(mockContext.getBeansOfType(DozerEventListener.class)).thenReturn(eventListenerMap);
+
+    factory.afterPropertiesSet();
+
+    DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
+    assertThat(mapper.getCustomConverters().size(), equalTo(1));
+    assertThat(mapper.getCustomConverters().size(), equalTo(1));
+    assertThat(mapper.getCustomConvertersWithId().size(), equalTo(1));
+    assertThat(mapper.getEventListeners().size(), equalTo(1));
   }
 
 }

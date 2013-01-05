@@ -16,13 +16,18 @@
 package org.dozer.spring;
 
 import org.dozer.*;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +39,8 @@ import java.util.Map;
  * @author S'ren Chittka
  * @author dmitry.buzdin
  */
-public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean, DisposableBean {
+public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
+    InitializingBean, DisposableBean, ApplicationContextAware {
 
   DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
@@ -42,6 +48,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   private Map<String, CustomConverter> customConvertersWithId;
   private List<DozerEventListener> eventListeners;
   private Map<String, BeanFactory> factories;
+  private ApplicationContext applicationContext;
 
   /**
    * Spring resources definition for providing mapping file location.
@@ -77,7 +84,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   // ==================================================================================================================================
   // interface 'FactoryBean'
   // ==================================================================================================================================
-  public final Object getObject() throws Exception {
+  public final Mapper getObject() throws Exception {
     return this.beanMapper;
   }
 
@@ -95,6 +102,50 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
   public final void afterPropertiesSet() throws Exception {
     this.beanMapper = new DozerBeanMapper();
 
+    loadMappingFiles();
+
+    List<CustomConverter> allConverters = new ArrayList<CustomConverter>();
+    Map<String, CustomConverter> allIdConverters = new HashMap<String, CustomConverter>();
+    Map<String, BeanFactory> allFactories = new HashMap<String, BeanFactory>();
+    List<DozerEventListener> allListeners = new ArrayList<DozerEventListener>();
+
+    Map<String, CustomConverter> contextConverters = applicationContext.getBeansOfType(CustomConverter.class);
+    Map<String, BeanFactory> contextBeanFactories = applicationContext.getBeansOfType(BeanFactory.class);
+    Map<String, DozerEventListener> contextEventListeners = applicationContext.getBeansOfType(DozerEventListener.class);
+
+    allConverters.addAll(contextConverters.values());
+    allIdConverters.putAll(contextConverters);
+    allFactories.putAll(contextBeanFactories);
+    allListeners.addAll(contextEventListeners.values());
+
+    if (this.customConverters != null) {
+      allConverters.addAll(this.customConverters);
+    }
+    if (this.customConvertersWithId != null) {
+      allIdConverters.putAll(this.customConvertersWithId);
+    }
+    if (this.eventListeners != null) {
+      allListeners.addAll(this.eventListeners);
+    }
+    if (this.factories != null) {
+      allFactories.putAll(this.factories);
+    }
+
+    if (!allConverters.isEmpty()) {
+      this.beanMapper.setCustomConverters(allConverters);
+    }
+    if (!allIdConverters.isEmpty()) {
+      this.beanMapper.setCustomConvertersWithId(allIdConverters);
+    }
+    if (!allFactories.isEmpty()) {
+      this.beanMapper.setFactories(allFactories);
+    }
+    if (!allListeners.isEmpty()) {
+      this.beanMapper.setEventListeners(allListeners);
+    }
+  }
+
+  private void loadMappingFiles() throws IOException {
     if (this.mappingFiles != null) {
       final List<String> mappings = new ArrayList<String>(this.mappingFiles.length);
       for (Resource mappingFile : this.mappingFiles) {
@@ -103,22 +154,10 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
       }
       this.beanMapper.setMappingFiles(mappings);
     }
-    if (this.customConverters != null) {
-      this.beanMapper.setCustomConverters(this.customConverters);
-    }
-    if (this.customConvertersWithId != null) {
-      this.beanMapper.setCustomConvertersWithId(customConvertersWithId);
-    }
-    if (this.eventListeners != null) {
-      this.beanMapper.setEventListeners(this.eventListeners);
-    }
-    if (this.factories != null) {
-      this.beanMapper.setFactories(this.factories);
-    }
   }
 
   /**
-   * Spring DisposableBean method implemention. Triggered when application context is stopped.
+   * Spring DisposableBean method implementation. Triggered when application context is stopped.
    * Used to release global Dozer resources for hot redeployment without stopping the JVM.
    *
    * @throws Exception
@@ -127,6 +166,10 @@ public class DozerBeanMapperFactoryBean implements FactoryBean, InitializingBean
     if (this.beanMapper != null) {
       this.beanMapper.destroy();
     }
+  }
+
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    this.applicationContext = applicationContext;
   }
 
 }
