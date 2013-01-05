@@ -27,6 +27,10 @@ message ProtobufWithSimpleCollection {
     repeated SimpleProtoTestObject object       = 1;
 }
 
+message ProtobufWithSimpleCollectionContainer {
+    required ProtobufWithSimpleCollection object       = 1;
+}
+
 message ProtobufWithEnumCollection {
     repeated ProtoEnum object                   = 1;
 }

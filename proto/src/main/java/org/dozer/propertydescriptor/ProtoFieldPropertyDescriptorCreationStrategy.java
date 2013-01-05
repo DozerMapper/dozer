@@ -18,21 +18,24 @@ package org.dozer.propertydescriptor;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 import org.dozer.fieldmap.HintContainer;
+import org.dozer.util.MappingUtils;
 import org.dozer.util.ProtoUtils;
 
 /**
  * @author Dmitry Spikhalskiy
  */
 public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDescriptorCreationStrategy {
+  @Override
   public DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     return new ProtoFieldPropertyDescriptor(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
-  public boolean isAssignable(Class<?> clazz, String fieldName) {
+  @Override
+  public boolean isApplicable(Class<?> clazz, String fieldName) {
     if (!Message.class.isAssignableFrom(clazz)) return false;
     Class<? extends Message> messageClass = (Class<? extends Message>)clazz;
     Descriptors.FieldDescriptor foundDescriptor = ProtoUtils.getFieldDescriptor(messageClass, fieldName);
-    if (foundDescriptor == null) return false;
-    return true;
+
+    return foundDescriptor != null || MappingUtils.isDeepMapping(fieldName);
   }
 }

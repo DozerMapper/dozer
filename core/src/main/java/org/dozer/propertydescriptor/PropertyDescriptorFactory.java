@@ -77,7 +77,7 @@ public class PropertyDescriptorFactory {
 
     for (PropertyDescriptorCreationStrategy propertyDescriptorBuilder :
             new CopyOnWriteArrayList<PropertyDescriptorCreationStrategy>(pluggedDescriptorCreationStrategies)) {
-      if (propertyDescriptorBuilder.isAssignable(clazz, name)) {
+      if (propertyDescriptorBuilder.isApplicable(clazz, name)) {
         desc = propertyDescriptorBuilder.buildFor(
                 clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
         if (desc != null) break;
