@@ -17,6 +17,7 @@ package org.dozer.functional_tests;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.vo.proto.LiteTestObject;
+import org.dozer.vo.proto.LiteTestObjectContainer;
 import org.dozer.vo.proto.ObjectWithCollection;
 import org.dozer.vo.proto.ProtoTestObjects.*;
 import org.junit.Before;
@@ -82,5 +83,21 @@ public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
     ProtobufWithSimpleCollectionContainer src = builder.build();
     ObjectWithCollection result = mapper.map(src, ObjectWithCollection.class);
     assertEquals(2, result.getObjects().size());
+  }
+
+  @Test
+  public void protoSrc_copyListElement() {
+    final String ONE_VALUE = "smthOne";
+
+    ProtobufWithSimpleCollection.Builder builder = ProtobufWithSimpleCollection.newBuilder();
+    SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
+    nestedObjectBuilder1.setOne("smthAnother");
+    SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
+    nestedObjectBuilder2.setOne(ONE_VALUE);
+    builder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
+    ProtobufWithSimpleCollection src = builder.build();
+
+    LiteTestObjectContainer result = mapper.map(src, LiteTestObjectContainer.class);
+    assertEquals(ONE_VALUE, result.getObject().getOne());
   }
 }
