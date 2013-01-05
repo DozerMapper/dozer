@@ -16,7 +16,6 @@
 package org.dozer.functional_tests;
 
 import org.dozer.DozerBeanMapper;
-import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.proto.*;
 import org.dozer.vo.proto.ProtoTestObjects.*;
@@ -33,15 +32,12 @@ import static org.junit.Assert.assertNull;
 /**
  * @author Dmitry Spikhalskiy
  */
-public class ProtoBeansMappingTest {
+public class ProtoBeansMappingTest extends ProtoAbstractTest {
   protected DozerBeanMapper mapper;
 
   @Before
   public void setUp() throws Exception {
-    System.setProperty("log4j.debug", "true");
-    System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
-    mapper = new DozerBeanMapper();
-    mapper.setMappingFiles(Arrays.asList("protoBeansMapping.xml"));
+    mapper = getMapper("protoBeansMapping.xml");
   }
 
   @Test
