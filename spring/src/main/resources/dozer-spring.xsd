@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://dozer.sourceforge.net/schema/dozer-spring"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:beans="http://www.springframework.org/schema/beans"
+           targetNamespace="http://dozer.sourceforge.net/schema/dozer-spring"
+           elementFormDefault="qualified">
+
+  <xs:import namespace="http://www.springframework.org/schema/beans"/>
+
+  <xs:element name="mapper">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="beans:identifiedType"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SpringIntegrationTest {
 
-  private ClassPathXmlApplicationContext context;
+  ClassPathXmlApplicationContext context;
 
   @Before
   public void setUp() throws Exception {
