@@ -37,7 +37,6 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
-
   private Class<?> _propertyType;
 
   @Override
@@ -71,7 +70,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
   public Object getPropertyValue(Object bean) {
     Object result;
     if (MappingUtils.isDeepMapping(fieldName)) {
-      result = DeepHierarchyUtils.getDeepFieldValue(bean, fieldName, srcDeepIndexHintContainer);
+      result = DeepHierarchyUtils.getDeepFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer);
     } else {
       result = getSimplePropertyValue(bean);
       if (isIndexed) {

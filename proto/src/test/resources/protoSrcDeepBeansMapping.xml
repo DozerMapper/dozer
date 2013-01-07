@@ -34,6 +34,16 @@
   </mapping>
 
   <mapping wildcard="false">
+    <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
+    <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
+
+    <field>
+      <a>object.object[0]</a>
+      <b>object</b>
+    </field>
+  </mapping>
+
+  <mapping wildcard="false">
     <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
     <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
 
