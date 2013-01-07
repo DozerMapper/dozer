@@ -100,4 +100,21 @@ public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
     LiteTestObjectContainer result = mapper.map(src, LiteTestObjectContainer.class);
     assertEquals(ONE_VALUE, result.getObject().getOne());
   }
+
+  @Test
+  public void protoSrc_copyDeepListElement() {
+    final String ONE_VALUE = "smthOne";
+
+    ProtobufWithSimpleCollectionContainer.Builder srcBuilder = ProtobufWithSimpleCollectionContainer.newBuilder();
+    ProtobufWithSimpleCollection.Builder innerBuilder = ProtobufWithSimpleCollection.newBuilder();
+    SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
+    nestedObjectBuilder1.setOne(ONE_VALUE);
+    SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
+    nestedObjectBuilder2.setOne("smthAnother");
+    innerBuilder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
+    srcBuilder.setObject(innerBuilder);
+
+    LiteTestObjectContainer result = mapper.map(srcBuilder.build(), LiteTestObjectContainer.class);
+    assertEquals(ONE_VALUE, result.getObject().getOne());
+  }
 }

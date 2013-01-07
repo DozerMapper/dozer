@@ -18,8 +18,6 @@ package org.dozer.util;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.util.DozerConstants;
-import org.dozer.util.MappingUtils;
 
 import java.util.Collection;
 import java.util.StringTokenizer;
@@ -29,7 +27,7 @@ import java.util.StringTokenizer;
  */
 public class DeepHierarchyUtils {
   // Copy-paste from GetterSetterPropertyDescriptor
-  public static Object getDeepFieldValue(Object srcObj, String fieldName, HintContainer srcDeepIndexHintContainer) {
+  public static Object getDeepFieldValue(Object srcObj, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer) {
     // follow deep field hierarchy. If any values are null along the way, then return null
     Object parentObj = srcObj;
     Object hierarchyValue = parentObj;
@@ -41,6 +39,10 @@ public class DeepHierarchyUtils {
       if (hierarchyValue == null) {
         break;
       }
+    }
+
+    if (isIndexed) {
+      hierarchyValue = MappingUtils.getIndexedValue(hierarchyValue, index);
     }
 
     return hierarchyValue;
