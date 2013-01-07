@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
  * @author Dmitry Buzdin
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/springNamespace.xml")
+@ContextConfiguration(locations = "/springNameSpace.xml")
 public class NamespaceTest {
 
   @Autowired
