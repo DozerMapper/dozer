@@ -60,17 +60,33 @@
     </field>
   </mapping>
 
+  <mapping wildcard="true">
+    <class-a>org.dozer.vo.deepindex.HeadOfHouseHold</class-a>
+    <class-b>org.dozer.vo.deepindex.PersonalDetails</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.deepindex.HeadOfHouseHoldsContainer</class-a>
+    <class-b>org.dozer.vo.deepindex.Family</class-b>
+    <field>
+      <a>headOfHouseHolds.headOfHouseHoldsList[0]</a>
+      <b>familyMembers[0]</b>
+      <b-hint>org.dozer.vo.deepindex.PersonalDetails</b-hint>
+    </field>
+  </mapping>
+
+
   <mapping>
     <class-a>org.dozer.vo.deepindex.A</class-a>
     <class-b>org.dozer.vo.deepindex.B</class-b>
-      <field> 
-        <a>id1</a> 
-        <b>foo[0].id</b> 
-      </field> 
-      <field> 
-        <a>id2</a> 
-        <b>foo[1].id</b> 
+      <field>
+        <a>id1</a>
+        <b>foo[0].id</b>
       </field>
-  </mapping>          
+      <field>
+        <a>id2</a>
+        <b>foo[1].id</b>
+      </field>
+  </mapping>
 
 </mappings>
