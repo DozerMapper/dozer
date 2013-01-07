@@ -23,12 +23,7 @@ import org.dozer.vo.deep.DestDeepObj;
 import org.dozer.vo.deep.SrcDeepObj;
 import org.dozer.vo.deep.SrcNestedDeepObj;
 import org.dozer.vo.deep.SrcNestedDeepObj2;
-import org.dozer.vo.deepindex.A;
-import org.dozer.vo.deepindex.B;
-import org.dozer.vo.deepindex.Family;
-import org.dozer.vo.deepindex.HeadOfHouseHold;
-import org.dozer.vo.deepindex.PersonalDetails;
-import org.dozer.vo.deepindex.Pet;
+import org.dozer.vo.deepindex.*;
 import org.dozer.vo.deepindex.customconverter.First;
 import org.dozer.vo.deepindex.customconverter.Last;
 import org.dozer.vo.deepindex.isaccessible.FlatPerson;
@@ -40,6 +35,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Vector;
 
 /**
@@ -142,6 +138,30 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     assertEquals(dest.getPets()[1].getPetName(), source.getPetName());
     assertEquals(String.valueOf(dest.getPets()[1].getPetAge()), source.getPetAge());
     assertEquals(dest.getPets()[1].getOffSpring()[2].getPetName(), source.getOffSpringName());
+  }
+
+  @Test
+  public void testDeepMappingWithIndexOnTheEnd() throws Exception {
+    HeadOfHouseHold sourceHouseHold = newInstance(HeadOfHouseHold.class);
+    sourceHouseHold.setFirstName("Tom");
+    sourceHouseHold.setLastName("Roy");
+    sourceHouseHold.setPetName("Ronny");
+    sourceHouseHold.setSalary(new Integer(15000));
+    sourceHouseHold.setPetAge("2");
+    sourceHouseHold.setOffSpringName("Ronny2");
+
+    HeadOfHouseHolds sourceHouseHolds = new HeadOfHouseHolds();
+    sourceHouseHolds.setHeadOfHouseHoldsList(Collections.singletonList(sourceHouseHold));
+
+    HeadOfHouseHoldsContainer source = new HeadOfHouseHoldsContainer();
+    source.setHeadOfHouseHolds(sourceHouseHolds);
+
+    Family dest = newInstance(Family.class);
+    mapper.map(source, dest);
+
+    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getFirstName(), sourceHouseHold.getFirstName());
+    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getLastName(), sourceHouseHold.getLastName());
+    assertEquals(((PersonalDetails) dest.getFamilyMembers().get(0)).getSalary(), sourceHouseHold.getSalary());
   }
 
   @Test
