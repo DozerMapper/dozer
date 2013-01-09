@@ -21,6 +21,7 @@ import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
 import org.dozer.spring.functional_tests.support.EventTestListener;
 import org.dozer.spring.functional_tests.support.InjectedCustomConverter;
+import org.dozer.spring.functional_tests.support.SampleBeanMappingBuilder;
 import org.dozer.spring.vo.Destination;
 import org.dozer.spring.vo.Source;
 import org.junit.Before;
@@ -92,6 +93,18 @@ public class SpringIntegrationTest {
     assertBasicMapping(eventMapper);
 
     assertEquals(4, listener.getInvocationCount());
+  }
+
+  @Test
+  public void testBeanMappingBuilder() throws Exception {
+    DozerBeanMapper mapper = (DozerBeanMapper) context.getBean("factoryWithMappingBuilder", DozerBeanMapper.class);
+
+    Source source = new Source();
+    source.setName("John");
+    source.setId(2L);
+    Destination destination = mapper.map(source, Destination.class);
+    assertEquals("John", destination.getValue());
+    assertEquals(2L, destination.getId());
   }
 
   private void assertBasicMapping(Mapper mapper) {
