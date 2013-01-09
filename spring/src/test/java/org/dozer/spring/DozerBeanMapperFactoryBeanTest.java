@@ -16,6 +16,7 @@
 package org.dozer.spring;
 
 import org.dozer.*;
+import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +57,7 @@ public class DozerBeanMapperFactoryBeanTest {
     factory.setEventListeners(Collections.EMPTY_LIST);
     factory.setFactories(Collections.EMPTY_MAP);
     factory.setMappingFiles(new Resource[] { mockResource });
+    factory.setMappingBuilders(Collections.EMPTY_LIST);
 
     URL url = this.getClass().getClassLoader().getResource("mappingSpring.xml");
     when(mockResource.getURL()).thenReturn(url);
@@ -91,10 +93,13 @@ public class DozerBeanMapperFactoryBeanTest {
     beanFactoryMap.put("a", mock(BeanFactory.class));
     HashMap<String, DozerEventListener> eventListenerMap = new HashMap<String, DozerEventListener>();
     eventListenerMap.put("a", mock(DozerEventListener.class));
+    HashMap<String, BeanMappingBuilder> mappingBuilders = new HashMap<String, BeanMappingBuilder>();
+    mappingBuilders.put("a", mock(BeanMappingBuilder.class));
 
     when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);
     when(mockContext.getBeansOfType(BeanFactory.class)).thenReturn(beanFactoryMap);
     when(mockContext.getBeansOfType(DozerEventListener.class)).thenReturn(eventListenerMap);
+    when(mockContext.getBeansOfType(BeanMappingBuilder.class)).thenReturn(mappingBuilders);
 
     factory.afterPropertiesSet();
 
@@ -103,6 +108,8 @@ public class DozerBeanMapperFactoryBeanTest {
     assertThat(mapper.getCustomConverters().size(), equalTo(1));
     assertThat(mapper.getCustomConvertersWithId().size(), equalTo(1));
     assertThat(mapper.getEventListeners().size(), equalTo(1));
+    // FIXME: there's no mapper.getMappings() method,
+    // so there's no (easy) way to verify whether BeanMappingBuilder was injected!
   }
 
 }

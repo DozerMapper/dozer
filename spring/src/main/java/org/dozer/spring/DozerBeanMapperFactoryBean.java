@@ -16,6 +16,7 @@
 package org.dozer.spring;
 
 import org.dozer.*;
+import org.dozer.loader.api.BeanMappingBuilder;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
@@ -44,6 +45,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
 
   DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
+  private List<BeanMappingBuilder> mappingBuilders;
   private List<CustomConverter> customConverters;
   private Map<String, CustomConverter> customConvertersWithId;
   private List<DozerEventListener> eventListeners;
@@ -63,6 +65,10 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
    */
   public final void setMappingFiles(final Resource[] mappingFiles) {
     this.mappingFiles = mappingFiles;
+  }
+
+  public final void setMappingBuilders(final List<BeanMappingBuilder> mappingBuilders) {
+      this.mappingBuilders = mappingBuilders;
   }
 
   public final void setCustomConverters(final List<CustomConverter> customConverters) {
@@ -108,15 +114,18 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
     Map<String, CustomConverter> allIdConverters = new HashMap<String, CustomConverter>();
     Map<String, BeanFactory> allFactories = new HashMap<String, BeanFactory>();
     List<DozerEventListener> allListeners = new ArrayList<DozerEventListener>();
+    List<BeanMappingBuilder> allMappingBuilders = new ArrayList<BeanMappingBuilder>();
 
     Map<String, CustomConverter> contextConverters = applicationContext.getBeansOfType(CustomConverter.class);
     Map<String, BeanFactory> contextBeanFactories = applicationContext.getBeansOfType(BeanFactory.class);
     Map<String, DozerEventListener> contextEventListeners = applicationContext.getBeansOfType(DozerEventListener.class);
+    Map<String, BeanMappingBuilder> contextMappingBuilders = applicationContext.getBeansOfType(BeanMappingBuilder.class);
 
     allConverters.addAll(contextConverters.values());
     allIdConverters.putAll(contextConverters);
     allFactories.putAll(contextBeanFactories);
     allListeners.addAll(contextEventListeners.values());
+    allMappingBuilders.addAll(contextMappingBuilders.values());
 
     if (this.customConverters != null) {
       allConverters.addAll(this.customConverters);
@@ -130,6 +139,9 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
     if (this.factories != null) {
       allFactories.putAll(this.factories);
     }
+    if (this.mappingBuilders != null) {
+      allMappingBuilders.addAll(this.mappingBuilders);
+    }
 
     if (!allConverters.isEmpty()) {
       this.beanMapper.setCustomConverters(allConverters);
@@ -142,6 +154,11 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
     }
     if (!allListeners.isEmpty()) {
       this.beanMapper.setEventListeners(allListeners);
+    }
+    if (!allMappingBuilders.isEmpty()) {
+      for (BeanMappingBuilder mappingBuilder : allMappingBuilders) {
+        this.beanMapper.addMapping(mappingBuilder);
+      }
     }
   }
 
