@@ -58,7 +58,7 @@ public class ClassMappingsTest extends AbstractDozerTest{
 
   @Test(expected = MappingException.class)
   public void testNotFoundByMapid() {
-    classMappings.find(NestedClass.class, String.class, "A");
+    classMappings.find(NestedClass.class, String.class, "A", true);
   }
 
   @Test

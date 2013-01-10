@@ -421,4 +421,14 @@ public final class ReflectionUtils {
     return null;
   }
 
+  public static boolean onTheOneHierarchy(Class<?> oneType, Class<?> anotherType) {
+    return anotherType.isAssignableFrom(oneType) || oneType.isAssignableFrom(anotherType);
+  }
+
+  public static Class<?> getChild(Class<?> oneType, Class<?> anotherType) {
+    if (anotherType.isAssignableFrom(oneType)) return oneType;
+    if (oneType.isAssignableFrom(anotherType)) return anotherType;
+    return null;
+  }
+
 }

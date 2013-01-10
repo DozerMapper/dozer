@@ -6,15 +6,15 @@ import org.dozer.vo.inheritance.autopoly.C;
 import org.dozer.vo.inheritance.autopoly.XContainer;
 import org.dozer.vo.inheritance.autopoly.Z;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-/** Test suite for automatic polymorphic resolving and convertion
+/** Test suite for automatic polymorphic resolving and conversion
  * @author Dmitry Spikhalskiy
- * @since 10.01.13
  */
 public class InheritanceAutoPolyMappingTest extends AbstractFunctionalTest {
   private Mapper mapper;

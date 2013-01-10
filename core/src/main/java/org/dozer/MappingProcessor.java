@@ -137,7 +137,13 @@ public class MappingProcessor implements Mapper {
 
     ClassMap classMap = null;
     try {
-      classMap = getClassMap(srcObj.getClass(), destType, mapId);
+      boolean canDestObjectBeSubclassOfDestClass = result == null; //if destObj == null we can create object of any class
+
+      classMap = getClassMap(srcObj.getClass(), destType, mapId, canDestObjectBeSubclassOfDestClass);
+
+      if (canDestObjectBeSubclassOfDestClass) {
+        destType = (Class<T>)ReflectionUtils.getChild(destType, classMap.getDestClassToMap());
+      }
 
       eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
 
@@ -226,7 +232,7 @@ public class MappingProcessor implements Mapper {
     // If class map hasn't already been determined, find the appropriate one for
     // the src/dest object combination
     if (classMap == null) {
-      classMap = getClassMap(srcObj.getClass(), destObj.getClass(), mapId);
+      classMap = getClassMap(srcObj.getClass(), destObj.getClass(), mapId, false);
     }
 
     Class<?> srcClass = srcObj.getClass();
@@ -501,7 +507,7 @@ public class MappingProcessor implements Mapper {
       } else {
         targetClass = destFieldType;
       }
-      classMap = getClassMap(srcFieldValue.getClass(), targetClass, mapId);
+      classMap = getClassMap(srcFieldValue.getClass(), targetClass, mapId, true);
 
       BeanCreationDirective creationDirective = new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(), classMap.getDestClassToMap(),
               destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(),
@@ -1070,8 +1076,8 @@ public class MappingProcessor implements Mapper {
     return result;
   }
 
-  private ClassMap getClassMap(Class<?> srcClass, Class<?> destClass, String mapId) {
-    ClassMap mapping = classMappings.find(srcClass, destClass, mapId);
+  private ClassMap getClassMap(Class<?> srcClass, Class<?> destClass, String mapId, boolean canResultDestClassBeSubClass) {
+    ClassMap mapping = classMappings.find(srcClass, destClass, mapId, canResultDestClassBeSubClass);
 
     if (mapping == null) {
       // If mapping not found in existing custom mapping collection, create
