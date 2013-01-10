@@ -18,7 +18,6 @@ package org.dozer.functional_tests;
 import org.dozer.Mapper;
 import org.dozer.vo.inheritance.autopoly.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -34,12 +33,12 @@ public class InheritanceAutoPolyMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper(new String[] {"autoPolyInheritanceMapping.xml"});
+    mapper = getMapper(new String[] {"autoPolymorphicInheritanceMapping.xml"});
   }
 
   @Test
   public void testAutoPolymorphicMappingWithContainer() throws Exception {
-    mapper = getMapper(new String[] {"autoPolyInheritanceMapping.xml"});
+    mapper = getMapper(new String[] {"autoPolymorphicInheritanceMapping.xml"});
 
     AContainer aContainer = new AContainer();
     aContainer.setField(new C());
@@ -50,7 +49,7 @@ public class InheritanceAutoPolyMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testAutoPolymorphicDirectMapping() throws Exception {
-    mapper = getMapper(new String[] {"autoPolyInheritanceMapping.xml"});
+    mapper = getMapper(new String[] {"autoPolymorphicInheritanceMapping.xml"});
 
     X result = mapper.map(new C(), X.class);
 
@@ -59,7 +58,7 @@ public class InheritanceAutoPolyMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testAutoPolymorphicMappingForAlreadyExistedClassMapButUndefinedByUser() throws Exception {
-    mapper = getMapper(new String[] {"autoPolyInheritanceMapping.xml"});
+    mapper = getMapper(new String[] {"autoPolymorphicInheritanceMapping.xml"});
 
     mapper.map(new C(), Zz.class);
 
