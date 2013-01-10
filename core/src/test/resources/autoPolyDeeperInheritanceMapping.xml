@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.autopoly.AContainer</class-a>
+    <class-b>org.dozer.vo.inheritance.autopoly.XContainer</class-b>
+    <field>
+      <a>field</a>
+      <b>field</b>
+    </field>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.autopoly.A</class-a>
+    <class-b>org.dozer.vo.inheritance.autopoly.X</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.autopoly.B</class-a>
+    <class-b>org.dozer.vo.inheritance.autopoly.Y</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.autopoly.C</class-a>
+    <class-b>org.dozer.vo.inheritance.autopoly.Z</class-b>
+  </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.inheritance.autopoly.C</class-a>
+    <class-b>org.dozer.vo.inheritance.autopoly.Zz</class-b>
+  </mapping>
+
+</mappings>

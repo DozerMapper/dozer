@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2012 the original author or authors.
+ * Copyright 2005-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -145,6 +145,10 @@ public class ClassMappings {
     ClassMap interfaceMappingClassMap = null;
     ClassMap bestSubclassMappingClassMap = null;
 
+    //polymorphic search has more priority, so if bestSubclassMappingClassMap is found - interface search is not needed
+    //if one result for interface search found - interface mapping is not needed anymore, only polymorphic
+    boolean interfaceSearchActive = true;
+
     String[] keys = classMappings.keySet().toArray(new String[classMappings.keySet().size()]);
     for (String key : keys) {
       ClassMap map = classMappings.get(key);
@@ -155,14 +159,11 @@ public class ClassMappings {
         continue;
       }
 
-      //polymorphic search has more priority, so if bestSubclassMappingClassMap is found - interface search is not needed
-      //if one result for interface search found - interface mapping is not needed anymore, only polymorphic
-      boolean interfaceSearchActive = bestSubclassMappingClassMap == null && interfaceMappingClassMap == null;
-
       if (interfaceSearchActive) {
         if (isInterfaceImplementation(srcClass, mappingSrcClass)) {
           if (isInterfaceImplementation(destClass, mappingDestClass) || destClass.equals(mappingDestClass)) {
             interfaceMappingClassMap = map;
+            interfaceSearchActive = false;
           }
         }
       }
@@ -170,12 +171,10 @@ public class ClassMappings {
       if (MappingUtils.getRealClass(srcClass).equals(mappingSrcClass)) {
         if (interfaceSearchActive) {
 
-          if (isInterfaceImplementation(destClass, mappingDestClass)) {
+          if (isInterfaceImplementation(destClass, mappingDestClass) ||
+                  isAbstract(destClass) && destClass.isAssignableFrom(mappingDestClass)) {
             interfaceMappingClassMap = map;
-          }
-
-          if (isAbstract(destClass) && destClass.isAssignableFrom(mappingDestClass)) {
-            interfaceMappingClassMap = map;
+            interfaceSearchActive = false;
           }
 
         }
@@ -188,6 +187,7 @@ public class ClassMappings {
             }
           } else {
             bestSubclassMappingClassMap = map;
+            interfaceSearchActive = false;
           }
         }
       }
