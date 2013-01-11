@@ -156,7 +156,7 @@ public final class ReflectionUtils {
         if (latestClass.isArray()) {
           latestClass = latestClass.getComponentType();
         } else if (Collection.class.isAssignableFrom(latestClass)) {
-          Class<?> genericType = determineGenericsType(propDescriptor);
+          Class<?> genericType = determineGenericsType(parentClass.getClass(), propDescriptor);
 
           if (genericType == null && deepIndexHintContainer == null) {
             MappingUtils
@@ -371,21 +371,21 @@ public final class ReflectionUtils {
     return result;
   }
 
-  public static Class<?> determineGenericsType(PropertyDescriptor propDescriptor) {
+  public static Class<?> determineGenericsType(Class<?> parentClazz, PropertyDescriptor propDescriptor) {
     Class<?> result = null;
     //Try getter and setter to determine the Generics type in case one does not exist
     if (propDescriptor.getWriteMethod() != null) {
-      result = determineGenericsType(propDescriptor.getWriteMethod(), false);
+      result = determineGenericsType(parentClazz, propDescriptor.getWriteMethod(), false);
     }
 
     if (result == null && propDescriptor.getReadMethod() != null) {
-      result = determineGenericsType(propDescriptor.getReadMethod(), true);
+      result = determineGenericsType(parentClazz, propDescriptor.getReadMethod(), true);
     }
 
     return result;
   }
 
-  public static Class<?> determineGenericsType(Method method, boolean isReadMethod) {
+  public static Class<?> determineGenericsType(Class<?> clazz, Method method, boolean isReadMethod) {
     Class<?> result = null;
     if (isReadMethod) {
       Type parameterType = method.getGenericReturnType();
@@ -397,6 +397,14 @@ public final class ReflectionUtils {
       }
     }
 
+    if(result == null) {
+      // Have a look at generic superclass
+      Type genericSuperclass = clazz.getGenericSuperclass();
+      if (genericSuperclass != null) {
+        result = determineGenericsType(genericSuperclass);
+      }
+    }
+
     return result;
   }
 
@@ -405,7 +413,9 @@ public final class ReflectionUtils {
     if (type != null && ParameterizedType.class.isAssignableFrom(type.getClass())) {
       Type genericType = ((ParameterizedType) type).getActualTypeArguments()[0];
       if (genericType != null) {
-        result = (Class<?>) genericType;
+         if(! (genericType instanceof TypeVariable)) {
+            result = (Class<?>) genericType;
+         }
       }
     }
     return result;
