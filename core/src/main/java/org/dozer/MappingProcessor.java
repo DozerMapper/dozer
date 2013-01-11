@@ -188,7 +188,7 @@ public class MappingProcessor implements Mapper {
    * @param classMap            class map information for concrete class
    * @param srcObj              source object
    * @param result              target entity for mapping
-   * @param bypassSuperMappings //TODO
+   * @param bypassSuperMappings true if it is mapping for src super class
    * @param mapId               mapping identifier
    * @return                    result or created target entity for mapping
    */
@@ -231,6 +231,7 @@ public class MappingProcessor implements Mapper {
 
     // If class map hasn't already been determined, find the appropriate one for
     // the src/dest object combination
+    // canResultDestClassBeSubClass is false because destination instance already exists here
     if (classMap == null) {
       classMap = getClassMap(srcObj.getClass(), destObj.getClass(), mapId, false);
     }
