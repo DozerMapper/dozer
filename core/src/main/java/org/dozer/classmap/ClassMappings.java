@@ -17,7 +17,6 @@ package org.dozer.classmap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.util.MappingUtils;
-import org.dozer.util.ReflectionUtils;
 
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -112,7 +111,7 @@ public class ClassMappings {
     ClassMap mapping = classMappings.get(key);
 
     if (mapping == null) {
-      mapping = findInterfaceMapping(destClass, srcClass, mapId, canResultDestClassBeSubClass);
+      mapping = findInterfaceAndInheritanceMapping(destClass, srcClass, mapId, canResultDestClassBeSubClass);
     }
 
     // one more try...
@@ -138,17 +137,18 @@ public class ClassMappings {
   }
 
   // Look for an interface mapping
-  private ClassMap findInterfaceMapping(Class<?> destClass, Class<?> srcClass, String mapId, boolean canResultDestClassBeSubClass) {
-    // Use object array for keys to avoid any rare thread synchronization issues
-    // while iterating over the custom mappings.
-    // See bug #1550275.
+  private ClassMap findInterfaceAndInheritanceMapping(Class<?> destClass, Class<?> srcClass, String mapId, boolean canResultDestClassBeSubClass) {
     ClassMap interfaceMappingClassMap = null;
-    ClassMap bestSubclassMappingClassMap = null;
+    ClassMap bestDefaultSubclassMappingClassMapForAbstractClass = null;
+    ClassMap bestUserDefinedSubclassMappingClassMap = null;
 
     //polymorphic search has more priority, so if bestSubclassMappingClassMap is found - interface search is not needed
     //if one result for interface search found - interface mapping is not needed anymore, only polymorphic
     boolean interfaceSearchActive = true;
 
+    // Use object array for keys to avoid any rare thread synchronization issues
+    // while iterating over the custom mappings.
+    // See bug #1550275.
     String[] keys = classMappings.keySet().toArray(new String[classMappings.keySet().size()]);
     for (String key : keys) {
       ClassMap map = classMappings.get(key);
@@ -159,41 +159,51 @@ public class ClassMappings {
         continue;
       }
 
+      boolean isSrcClassEqualsMappingSrcClass = MappingUtils.getRealClass(srcClass).equals(mappingSrcClass);
+
       if (interfaceSearchActive) {
-        if (isInterfaceImplementation(srcClass, mappingSrcClass)) {
-          if (isInterfaceImplementation(destClass, mappingDestClass) || destClass.equals(mappingDestClass)) {
+        //find interface mapping
+        if (isSrcClassEqualsMappingSrcClass || isInterfaceImplementation(srcClass, mappingSrcClass)) {
+          if (destClass.equals(mappingDestClass) || isInterfaceImplementation(destClass, mappingDestClass)) {
             interfaceMappingClassMap = map;
             interfaceSearchActive = false;
           }
         }
       }
 
-      if (MappingUtils.getRealClass(srcClass).equals(mappingSrcClass)) {
-        if (interfaceSearchActive) {
-
-          if (isInterfaceImplementation(destClass, mappingDestClass) ||
-                  isAbstract(destClass) && destClass.isAssignableFrom(mappingDestClass)) {
-            interfaceMappingClassMap = map;
-            interfaceSearchActive = false;
-          }
-
-        }
-
-        //if exists better polymorphic class map which defined by user - use it
-        if (canResultDestClassBeSubClass && isNonDefault(key) && destClass.isAssignableFrom(mappingDestClass)) {
-          if (bestSubclassMappingClassMap != null) {
-            if (bestSubclassMappingClassMap.getDestClassToMap().isAssignableFrom(mappingDestClass)) {
-              bestSubclassMappingClassMap = map; //find the reached element in hierarchy
+      if (isSrcClassEqualsMappingSrcClass) {
+        //find the best inheritance mapping
+        if (canResultDestClassBeSubClass && destClass.isAssignableFrom(mappingDestClass)) {
+          if (isNonDefault(key)) {
+            //if exists better polymorphic class map which defined by user - use it
+            if (bestUserDefinedSubclassMappingClassMap != null) {
+              if (bestUserDefinedSubclassMappingClassMap.getDestClassToMap().isAssignableFrom(mappingDestClass)) {
+                bestUserDefinedSubclassMappingClassMap = map; //find the reached element in hierarchy
+              }
+            } else {
+              bestUserDefinedSubclassMappingClassMap = map;
+              interfaceSearchActive = false;
             }
-          } else {
-            bestSubclassMappingClassMap = map;
-            interfaceSearchActive = false;
+
+          } else if (isAbstract(destClass)) {
+            //even if it is not user defined - use it if we need to map to an abstract class
+            if (bestDefaultSubclassMappingClassMapForAbstractClass != null) {
+              if (bestDefaultSubclassMappingClassMapForAbstractClass.getDestClassToMap().isAssignableFrom(mappingDestClass)) {
+                bestDefaultSubclassMappingClassMapForAbstractClass = map; //find the reached element in hierarchy
+              }
+            } else {
+              bestDefaultSubclassMappingClassMapForAbstractClass = map;
+              interfaceSearchActive = false; //it is useless to make interface mapping for object we can't instantiate
+            }
+
           }
         }
       }
     }
 
-    return bestSubclassMappingClassMap != null ? bestSubclassMappingClassMap : interfaceMappingClassMap;
+    if (bestUserDefinedSubclassMappingClassMap != null) return bestUserDefinedSubclassMappingClassMap;
+    if (bestDefaultSubclassMappingClassMapForAbstractClass != null) return bestDefaultSubclassMappingClassMapForAbstractClass;
+    return interfaceMappingClassMap;
   }
 
   private boolean isInterfaceImplementation(Class<?> type, Class<?> mappingType) {
