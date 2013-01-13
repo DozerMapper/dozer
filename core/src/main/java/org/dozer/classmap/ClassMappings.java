@@ -19,9 +19,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.util.MappingUtils;
 
 import java.lang.reflect.Modifier;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -36,7 +38,7 @@ public class ClassMappings {
 
   // Cache key --> Mapping Structure
   private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
-  private Map<String, ClassMap> defaultMappings = new ConcurrentHashMap<String, ClassMap>();
+  private Set<String> defaultMappingIds = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
   private ClassMapKeyFactory keyFactory;
 
   public ClassMappings() {
@@ -47,7 +49,7 @@ public class ClassMappings {
   public void addDefault(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
     String key = keyFactory.createKey(srcClass, destClass);
     classMappings.put(key, classMap);
-    defaultMappings.put(key, classMap);
+    defaultMappingIds.add(key);
   }
 
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
@@ -70,7 +72,7 @@ public class ClassMappings {
   private void addDefined(String key, ClassMap classMap) {
     ClassMap result = classMappings.put(key, classMap);
     failOnDuplicate(result, classMap);
-    defaultMappings.remove(key);
+    defaultMappingIds.remove(key);
   }
 
   public void failOnDuplicate(Object result, ClassMap classMap) {
@@ -98,7 +100,7 @@ public class ClassMappings {
   }
 
   private boolean isNonDefault(String key) {
-    return classMappings.containsKey(key) && !defaultMappings.containsKey(key);
+    return !defaultMappingIds.contains(key);
   }
 
   /**
