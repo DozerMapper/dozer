@@ -26,7 +26,7 @@
          custom-converters   The custom converters to be registered with Dozer.
         copy-by-references   Indicates which class types should always be copied by reference
 -->
-<!ELEMENT configuration ( stop-on-errors?, date-format?, wildcard?, trim-strings?, bean-factory?, relationship-type?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
+<!ELEMENT configuration ( stop-on-errors?, date-format?, wildcard?, trim-strings?, map-null?, map-empty-string?, bean-factory?, relationship-type?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
 
 
 <!--
