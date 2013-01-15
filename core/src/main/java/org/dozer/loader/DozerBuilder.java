@@ -502,6 +502,14 @@ public class DozerBuilder {
       configuration.setTrimStrings(value);
     }
 
+    public void mapNull(Boolean value) {
+      configuration.setMapNull(value);
+    }
+
+    public void mapEmptyString(Boolean value) {
+      configuration.setMapEmptyString(value);
+    }
+
     public void relationshipType(RelationshipType value) {
       if (value == null) {
         configuration.setRelationshipType(DozerConstants.DEFAULT_RELATIONSHIP_TYPE_POLICY);

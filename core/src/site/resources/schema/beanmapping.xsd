@@ -57,6 +57,8 @@
         <element ref='t:date-format' minOccurs='0'/>
         <element ref='t:wildcard' minOccurs='0'/>
         <element ref='t:trim-strings' minOccurs='0'/>
+        <element ref='t:map-null' minOccurs='0'/>
+        <element ref='t:map-empty-string' minOccurs='0'/>
         <element ref='t:bean-factory' minOccurs='0'/>
         <element ref='t:relationship-type' minOccurs='0'/>
         <element ref='t:custom-converters' minOccurs='0'/>

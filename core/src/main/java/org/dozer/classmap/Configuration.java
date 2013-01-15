@@ -35,6 +35,8 @@ public class Configuration {
   private Boolean wildcard;
   private Boolean stopOnErrors;
   private Boolean trimStrings;
+  private Boolean mapNull;
+  private Boolean mapEmptyString;
   private String dateFormat;
   private String beanFactory;
   private RelationshipType relationshipType;
@@ -73,6 +75,22 @@ public class Configuration {
 
   public void setStopOnErrors(Boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
+  }
+
+  public Boolean getMapNull() {
+    return mapNull != null ? mapNull : Boolean .valueOf(DozerConstants.DEFAULT_MAP_NULL_POLICY);
+  }
+
+  public void setMapNull(Boolean globalMapNullPolicy) {
+    mapNull = globalMapNullPolicy;
+  }
+
+  public Boolean getMapEmptyString() {
+    return mapEmptyString != null ? mapEmptyString : Boolean.valueOf(DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY);
+  }
+
+  public void setMapEmptyString(Boolean globalMapEmptyStringPolicy) {
+    mapEmptyString = globalMapEmptyStringPolicy;
   }
 
   public String getBeanFactory() {
