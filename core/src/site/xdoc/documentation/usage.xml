@@ -19,7 +19,7 @@
       </p>
       <ul>
         <li>Dozer uses SLF4J for logging purposes.</li>
-        <li>Dozer needs a few thirdparty runtime jars.</li>
+        <li>Dozer needs a few third-party runtime jars.</li>
         <li>
           All of the
           <a href="../dependencies.html">required runtime jars</a>
@@ -57,12 +57,12 @@ mapper.map(sourceObject, destObject);
         <p>Dozer operates in two general modes: implicit and explicit. Implicit mode is activated by default and
         tries to resolve mappings for you. It uses simple assumptions that if two objects are passed for mapping
         then bean properties with the same names should be mapped. If there are additional mappings needed,
-        which can not be derived by the naming you should add those eaither via Xml, Annotations or API.</p>
+        which can not be derived by the naming you should add those either via Xml, Annotations or API.</p>
 
         <p>
           Explicit mode assumes that no mappings should be performed or "guessed" until you have specified those
-          specifically. The amount of coding is higher in expliit mode, but sometimes you would like to have full
-          conrol on what is going on during the mappings process and this approach is also used in many of the
+          specifically. The amount of coding is higher in explicit mode, but sometimes you would like to have full
+          control on what is going on during the mappings process and this approach is also used in many of the
           productive applications. Implicit/Explicit mapping switch is called <i>"wildcard"</i> in Dozer. Whenever you
           encounter that in configuration you know what behavior to expect from now on.
         </p>
@@ -77,7 +77,7 @@ mapper.map(sourceObject, destObject);
         </p>
         <p>
           Preferably, you will be using an IOC framework such as Spring for these Dozer injection requirements.
-          Alternatively, the injection of mapping files can be done programatically. Below is a programmatic
+          Alternatively, the injection of mapping files can be done programmatically. Below is a programmatic
           approach to creating a bean mapper. Note that this is
           <b>NOT the recommended way to retrieve the bean mapper</b>
           . Each new instance needs to be initialized and this consumes time as well as resources. If you are using
@@ -98,7 +98,7 @@ DestinationObject destObject =
           Mapper instance(s) should be setup as a Singleton regardless of how you choose to inject the Mapper
           instance(s). You should configure the Mapper this way so that you do not have to reload and reinitialize
           the mapping files for each individual mapping during the lifecycle of your app. Reinitializing the
-          mapping files for each mapping would be inefficent and unnecessary. The DozerBeanMapper.java class is
+          mapping files for each mapping would be inefficient and unnecessary. The DozerBeanMapper.java class is
           thread safe.
         </p>
       </subsection>
