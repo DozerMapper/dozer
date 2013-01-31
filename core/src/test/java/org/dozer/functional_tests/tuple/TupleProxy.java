@@ -19,10 +19,6 @@ public class TupleProxy implements Tuple {
     public TupleProxy() {
     }
 
-    public TupleProxy(String... ss) {
-        this();
-        this.tuples = ss;
-    }
     public TupleProxy(Object[] tuples) {
         this();
         if ( tuples.length != tupleElements.size() ) {
@@ -43,10 +39,6 @@ public class TupleProxy implements Tuple {
         }
         // index should be "in range" by nature of size check in ctor
         return (X) get( index );
-    }
-
-    public Object getFieldValue(String alias) {
-        return get(alias);
     }
 
     private int find(String alias) {
