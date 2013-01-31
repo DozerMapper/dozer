@@ -44,7 +44,7 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   private final String setMethodName;
   private final String getMethodName;
-  private final String key;
+  protected final String key;
 
   private SoftReference<Method> writeMethod;
   private SoftReference<Method> readMethod;
