@@ -207,7 +207,8 @@ public final class ClassMapBuilder {
       srcField.setKey(fieldName);
       fieldMap.setSrcField(srcField);
       DozerField destField = new DozerField(MappingUtils.isSupportedMap(destClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
-      srcField.setKey(fieldName);
+      destField.setKey(fieldName);
+      fieldMap.setDestField(destField);
       return fieldMap;
     }
   }
