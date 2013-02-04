@@ -20,14 +20,14 @@ import org.dozer.Mapping;
 import org.dozer.MappingException;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.classmap.generator.GeneratorUtils;
-import org.dozer.fieldmap.DozerField;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.fieldmap.GenericFieldMap;
-import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.fieldmap.*;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
+import javax.persistence.Tuple;
+import javax.persistence.TupleElement;
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
@@ -59,6 +59,7 @@ public final class ClassMapBuilder {
     runTimeGenerators.add(new AnnotationPropertiesGenerator());
     runTimeGenerators.add(new AnnotationFieldsGenerator());
     runTimeGenerators.add(new MapMappingGenerator());
+    runTimeGenerators.add(new TupleMappingGenerator());
     runTimeGenerators.add(new BeanMappingGenerator());
   }
 
@@ -155,6 +156,11 @@ public final class ClassMapBuilder {
         destinationIsMap = true;
       }
 
+      prepareProperties(classMap, srcClass, destClass, properties, destinationIsMap, false);
+      return true;
+    }
+
+    protected void prepareProperties(ClassMap classMap, Class<?> srcClass, Class<?> destClass, PropertyDescriptor[] properties, boolean destinationIsMap, boolean isTuple) {
       for (PropertyDescriptor property : properties) {
         String fieldName = property.getName();
 
@@ -172,9 +178,8 @@ public final class ClassMapBuilder {
           continue;
         }
 
-        FieldMap fieldMap = new MapFieldMap(classMap);
-        DozerField srcField = new DozerField(MappingUtils.isSupportedMap(srcClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
-        srcField.setKey(fieldName);
+        FieldMap fieldMap = createFieldMap(classMap, srcClass, destClass, fieldName);
+        DozerField srcField = fieldMap.getSrcField();
 
         if (StringUtils.isNotEmpty(classMap.getSrcClassMapGetMethod())
             || StringUtils.isNotEmpty(classMap.getSrcClassMapSetMethod())) {
@@ -183,9 +188,7 @@ public final class ClassMapBuilder {
           srcField.setName(DozerConstants.SELF_KEYWORD);
         }
 
-        DozerField destField = new DozerField(MappingUtils.isSupportedMap(destClass) ? DozerConstants.SELF_KEYWORD : fieldName,
-            null);
-        srcField.setKey(fieldName);
+        DozerField destField = fieldMap.getDestField();
 
         if (StringUtils.isNotEmpty(classMap.getDestClassMapGetMethod())
             || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
@@ -194,11 +197,54 @@ public final class ClassMapBuilder {
           destField.setName(DozerConstants.SELF_KEYWORD);
         }
 
-        fieldMap.setSrcField(srcField);
-        fieldMap.setDestField(destField);
-
         classMap.addFieldMapping(fieldMap);
       }
+    }
+
+    protected FieldMap createFieldMap(ClassMap classMap, Class<?> srcClass, Class<?> destClass, String fieldName) {
+      FieldMap fieldMap = new MapFieldMap(classMap);
+      DozerField srcField = new DozerField(MappingUtils.isSupportedMap(srcClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
+      srcField.setKey(fieldName);
+      fieldMap.setSrcField(srcField);
+      DozerField destField = new DozerField(MappingUtils.isSupportedMap(destClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
+      srcField.setKey(fieldName);
+      return fieldMap;
+    }
+  }
+
+  public static class TupleMappingGenerator extends MapMappingGenerator {
+
+    public boolean accepts(ClassMap classMap) {
+      return Tuple.class.isAssignableFrom(classMap.getSrcClassToMap())
+              || Tuple.class.isAssignableFrom(classMap.getDestClassToMap());
+    }
+
+    @Override
+    protected FieldMap createFieldMap(ClassMap classMap, Class<?> srcClass, Class<?> destClass, String fieldName) {
+      FieldMap fieldMap = new TupleFieldMap(classMap);
+      DozerField srcField = new DozerField(Tuple.class.isAssignableFrom(srcClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
+      srcField.setKey(fieldName);
+      fieldMap.setSrcField(srcField);
+      DozerField destField = new DozerField(Tuple.class.isAssignableFrom(destClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
+      destField.setKey(fieldName);
+      fieldMap.setDestField(destField);
+      return fieldMap;
+    }
+
+    public boolean apply(ClassMap classMap, Configuration configuration) {
+      Class<?> srcClass = classMap.getSrcClassToMap();
+      Class<?> destClass = classMap.getDestClassToMap();
+      PropertyDescriptor[] properties;
+      boolean destinationIsMap = false;
+
+      if (Tuple.class.isAssignableFrom(srcClass)) {
+        properties = ReflectionUtils.getPropertyDescriptors(destClass);
+      } else {
+        properties = ReflectionUtils.getPropertyDescriptors(srcClass);
+        destinationIsMap = true;
+      }
+
+      prepareProperties(classMap, srcClass, destClass, properties, destinationIsMap, true);
       return true;
     }
   }

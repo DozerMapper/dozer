@@ -430,11 +430,11 @@ public abstract class FieldMap implements Cloneable {
     }
   }
 
-  protected DozerField getSrcField() {
+  public DozerField getSrcField() {
     return srcField;
   }
 
-  protected DozerField getDestField() {
+  public DozerField getDestField() {
     return destField;
   }
 

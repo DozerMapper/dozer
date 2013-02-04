@@ -37,10 +37,4 @@ public class TupleFieldMap extends MapFieldMap {
   public TupleFieldMap(ClassMap classMap) {
     super(classMap);
   }
-
-  public TupleFieldMap(FieldMap fieldMap) {
-    //Create from existing field map
-    super(fieldMap.getClassMap());
-  }
-
 }

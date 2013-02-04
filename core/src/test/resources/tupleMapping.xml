@@ -10,14 +10,6 @@
       <a>field1</a>
       <b>this</b>
     </field>
-    <field>
-      <a>field2</a>
-      <b>this</b>
-    </field>
-    <field>
-      <a>field3</a>
-      <b>this</b>
-    </field>
   </mapping>
 
 </mappings>

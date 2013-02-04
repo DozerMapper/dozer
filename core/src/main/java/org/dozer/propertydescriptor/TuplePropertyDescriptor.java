@@ -30,10 +30,10 @@ import java.lang.reflect.Method;
  * Internal class used to read and write values for Map backed objects that use key/value pairs. The specified "key" is
  * used when invoking getter/setter. It is assumed that Map setter method has two parameters (for "key" and "value"),
  * but getter method one parameter (for "key").
- *
+ * <p/>
  * Overloaded methods are supported. Map class can have two set methods with different signatures, but class will
  * choose the one with appropriate number of parameters.
- *
+ * <p/>
  * <p/>
  * Only intended for internal use.
  *
@@ -41,33 +41,37 @@ import java.lang.reflect.Method;
  */
 public class TuplePropertyDescriptor extends MapPropertyDescriptor {
 
-    public TuplePropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
-        String setMethod, String getMethod, String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-        super(clazz, fieldName, false, 0, null, null, key, null, null);
-    }
-
-    public TuplePropertyDescriptor(Class<?> clazz, String fieldName, String key) {
-        super(clazz, fieldName, false, 0, null, "get", key, null, null);
+  public TuplePropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
+                                 String setMethod, String getMethod, String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+    super(clazz, fieldName, false, 0, null, null, key, null, null);
   }
 
-    @Override
-    public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) throws MappingException {
-        // do nothing
-    }
+  public TuplePropertyDescriptor(Class<?> clazz, String fieldName, String key) {
+    super(clazz, fieldName, false, 0, null, "get", key, null, null);
+  }
 
-    @Override
-    public Class<?> genericType() {
-        return null;
-    }
+  @Override
+  public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) throws MappingException {
+    // do nothing
+  }
 
-    @Override
-    public Class<?> getPropertyType() {
-        return super.getPropertyType();
-    }
+  @Override
+  public Class<?> genericType() {
+    return null;
+  }
 
-    @Override
-    public Object getPropertyValue(Object bean) throws MappingException {
-        return ((Tuple )bean).get(key);
+  @Override
+  public Class<?> getPropertyType() {
+    return super.getPropertyType();
+  }
+
+  @Override
+  public Object getPropertyValue(Object bean) throws MappingException {
+    try {
+      return ((Tuple) bean).get(key);
+    } catch (Exception dummy) {
+      return null;
     }
+  }
 
 }
