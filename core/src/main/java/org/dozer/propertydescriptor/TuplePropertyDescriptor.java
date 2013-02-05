@@ -22,8 +22,11 @@ import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 import javax.persistence.Tuple;
+import javax.persistence.TupleElement;
 import java.lang.ref.SoftReference;
 import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -67,11 +70,13 @@ public class TuplePropertyDescriptor extends MapPropertyDescriptor {
 
   @Override
   public Object getPropertyValue(Object bean) throws MappingException {
-    try {
-      return ((Tuple) bean).get(key);
-    } catch (Exception dummy) {
-      return null;
+    int i = 0;
+    for (Iterator<TupleElement<?>> it = ((Tuple) bean).getElements().iterator(); it.hasNext(); i++) {
+      if (key.equals(it.next().getAlias())) {
+        return ((Tuple) bean).get(i);
+      }
     }
+    return null;
   }
 
 }
