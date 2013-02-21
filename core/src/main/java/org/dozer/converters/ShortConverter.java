@@ -19,22 +19,22 @@ import org.apache.commons.beanutils.Converter;
 import org.dozer.util.MappingUtils;
 
 /**
- * Internal class for converting Supported Data Types --> Integer. Only intended for internal use.
+ * Internal class for converting Supported Data Types --> Short. Only intended for internal use.
  * 
- * @author tierney.matt
+ * @author siarhei.krukau
  */
-public class IntegerConverter implements Converter {
+public class ShortConverter implements Converter {
 
-  private static org.apache.commons.beanutils.converters.IntegerConverter commonsConverter = new org.apache.commons.beanutils.converters.IntegerConverter();
+  private static org.apache.commons.beanutils.converters.ShortConverter commonsConverter = new org.apache.commons.beanutils.converters.ShortConverter();
 
   @SuppressWarnings("rawtypes")
   public Object convert(Class destClass, Object srcObj) {
     // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
     if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
       boolean value = (Boolean) srcObj;
-      return (value ? 1 : 0);
+      return (value ? (short) 1 : (short) 0);
     } else if (MappingUtils.isEnumType(srcObj.getClass())) {
-      return ((Enum) srcObj).ordinal();
+      return ((Integer) ((Enum) srcObj).ordinal()).shortValue();
     } else {
       return commonsConverter.convert(destClass, srcObj);
     }

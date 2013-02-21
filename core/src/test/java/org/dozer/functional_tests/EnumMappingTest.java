@@ -209,6 +209,61 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   }
 
   /**
+   * Test on a mapping from enum types to byte.
+   */
+  @Test
+  public void testEnumMapsToByte() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeByte dest = mapper.map(src, MyBeanPrimeByte.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Byte.valueOf((byte) 1), dest.getSecond());
+  }
+  /**
+   * Test on a mapping from enum types to short.
+   */
+  @Test
+  public void testEnumMapsToShort() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeShort dest = mapper.map(src, MyBeanPrimeShort.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Short.valueOf((short) 1), dest.getSecond());
+  }
+
+  /**
+   * Test on a mapping from enum types to integer.
+   */
+  @Test
+  public void testEnumMapsToInteger() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeInteger dest = mapper.map(src, MyBeanPrimeInteger.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Integer.valueOf(1), dest.getSecond());
+  }
+
+  /**
+   * Test on a mapping from enum types to long.
+   */
+  @Test
+  public void testEnumMapsToLong() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeLong dest = mapper.map(src, MyBeanPrimeLong.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Long.valueOf(1L), dest.getSecond());
+  }
+
+  /**
    * Test on a mapping from byte types to enum.
    */
   @SuppressWarnings("unused")
