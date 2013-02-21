@@ -27,4 +27,53 @@
       <b>destTypeWithOverride</b>
     </field>
   </mapping>
+
+  <mapping>
+    <class-a>org.dozer.vo.enumtest.MyBean</class-a>
+    <class-b>org.dozer.vo.enumtest.MyBeanPrimeByte</class-b>
+    <field>
+      <a>srcType</a>
+      <b>first</b>
+    </field>
+	<field>
+      <a>srcTypeWithOverride</a>
+      <b>second</b>
+    </field>
+  </mapping>
+  <mapping>
+    <class-a>org.dozer.vo.enumtest.MyBean</class-a>
+    <class-b>org.dozer.vo.enumtest.MyBeanPrimeShort</class-b>
+    <field>
+      <a>srcType</a>
+      <b>first</b>
+    </field>
+	<field>
+      <a>srcTypeWithOverride</a>
+      <b>second</b>
+    </field>
+  </mapping>
+  <mapping>
+    <class-a>org.dozer.vo.enumtest.MyBean</class-a>
+    <class-b>org.dozer.vo.enumtest.MyBeanPrimeInteger</class-b>
+    <field>
+      <a>srcType</a>
+      <b>first</b>
+    </field>
+	<field>
+      <a>srcTypeWithOverride</a>
+      <b>second</b>
+    </field>
+  </mapping>
+  <mapping>
+    <class-a>org.dozer.vo.enumtest.MyBean</class-a>
+    <class-b>org.dozer.vo.enumtest.MyBeanPrimeLong</class-b>
+    <field>
+      <a>srcType</a>
+      <b>first</b>
+    </field>
+	<field>
+      <a>srcTypeWithOverride</a>
+      <b>second</b>
+    </field>
+  </mapping>
 </mappings>

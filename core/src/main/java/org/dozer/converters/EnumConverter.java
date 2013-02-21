@@ -16,6 +16,7 @@
 package org.dozer.converters;
 
 import org.apache.commons.beanutils.Converter;
+import org.apache.commons.lang3.EnumUtils;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -25,9 +26,24 @@ import org.dozer.util.MappingUtils;
  */
 public class EnumConverter implements Converter {
 
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public Object convert(Class destClass, Object srcObj) {
+    if (null == srcObj) {
+      MappingUtils.throwMappingException("Cannot convert null to enum of type " + destClass);
+    }
+
     try {
-      return Enum.valueOf(destClass, srcObj.toString());
+      if ((srcObj.getClass().equals(Byte.class)) || (srcObj.getClass().equals(Byte.TYPE))) {
+        return EnumUtils.getEnumList(destClass).get(((Byte) srcObj).intValue());
+      } else if ((srcObj.getClass().equals(Short.class)) || (srcObj.getClass().equals(Short.TYPE))) {
+        return EnumUtils.getEnumList(destClass).get(((Short) srcObj).intValue());
+      } else if ((srcObj.getClass().equals(Integer.class)) || (srcObj.getClass().equals(Integer.TYPE))) {
+        return EnumUtils.getEnumList(destClass).get((Integer) srcObj);
+      } else if ((srcObj.getClass().equals(Long.class)) || (srcObj.getClass().equals(Long.TYPE))) {
+        return EnumUtils.getEnumList(destClass).get(((Long) srcObj).intValue());
+      } else {
+        return Enum.valueOf(destClass, srcObj.toString());
+      }
     } catch (Exception e) {
       MappingUtils.throwMappingException("Cannot convert [" + srcObj + "] to enum of type " + destClass, e);
     }
