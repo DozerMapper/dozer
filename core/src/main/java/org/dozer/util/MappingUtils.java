@@ -28,6 +28,7 @@ import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -80,6 +81,14 @@ public final class MappingUtils {
       throw (RuntimeException) e;
     } else {
       throw new MappingException(e);
+    }
+  }
+  
+  public static Throwable getThrownException(Throwable e) {
+    if (e.getCause() instanceof InvocationTargetException) {
+      return ((InvocationTargetException) e.getCause()).getTargetException();
+    } else {
+      return e;
     }
   }
 
@@ -178,6 +187,7 @@ public final class MappingUtils {
     destination.setDateFormat(source.getDateFormat());
     destination.setRelationshipType(source.getRelationshipType());
     destination.setStopOnErrors(source.isStopOnErrors());
+    destination.setCollectErrors(source.isCollectErrors());
     destination.setAllowedExceptions(source.getAllowedExceptions());
     destination.setSrcClassCreateMethod(source.getDestClassCreateMethod());
     destination.setDestClassCreateMethod(source.getSrcClassCreateMethod());

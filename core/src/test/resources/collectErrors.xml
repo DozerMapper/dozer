@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+  <configuration>
+    <stop-on-errors>false</stop-on-errors>
+    <collect-errors>true</collect-errors>
+  </configuration>
+
+  <mapping>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+
+    <field>
+      <a>one</a>
+      <b>throwAllowedExceptionOnMapPrime</b>
+    </field>
+
+    <field custom-converter="org.dozer.functional_tests.support.ThrowExceptionCustomConverter">
+      <a>two</a>
+      <b>twoPrime</b>
+    </field>
+    
+    <field>
+      <a>three</a>
+      <b>threePrime</b>
+    </field>
+
+  </mapping>
+
+</mappings>
