@@ -27,8 +27,14 @@
         Optional Attributes:
 
         stop-on-errors Indicates whether Dozer should stop mapping fields and throw the Exception if an error is
-        encountered while performing a field mapping. It is recommended that this is set to "true". If set to "false", 
-        Dozer will trap the exception, log the error, and then continue mapping subsequent fields. The default value is "true".
+        encountered while performing a field mapping. It is recommended that this is set to "true".
+        If set to "false", the behavior depends on the collect-errors parameter. The default value is "true"
+        
+        collect-errors Indicates whether Dozer should log or collect the exceptions.
+        If set to "true", Dozer will trap the exception, log the error, and then continue mapping subsequent fields.
+        If set to "false", Dozer will continue mapping subsequent fields without logging the error. After all fields are
+        mapped, Dozer will throw a CompositeMappingException which contains all collected exceptions and the partially
+        filled result object. Default value is "false"
         
         date-format The string format of Date fields. This is used for field mapping between Strings and Dates
         
@@ -54,6 +60,7 @@
     <complexType>
       <sequence>
         <element ref='t:stop-on-errors' minOccurs='0'/>
+        <element ref="t:collect-errors" minOccurs='0'/>
         <element ref='t:date-format' minOccurs='0'/>
         <element ref='t:wildcard' minOccurs='0'/>
         <element ref='t:trim-strings' minOccurs='0'/>
@@ -84,8 +91,13 @@
         
         stop-on-errors Indicates whether Dozer should stop mapping fields and throw the Exception if an error is
         encountered while performing a field mapping. It is recommended that this is set to "true".
-        If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
-        The default value is "true"
+        If set to "false", the behavior depends on the collect-errors parameter. The default value is "true"
+        
+        collect-errors Indicates whether Dozer should log or collect the exceptions.
+        If set to "true", Dozer will trap the exception, log the error, and then continue mapping subsequent fields.
+        If set to "false", Dozer will continue mapping subsequent fields without logging the error. After all fields are
+        mapped, Dozer will throw a CompositeMappingException which contains all collected exceptions and the partially
+        filled result object. Default value is "false"
         
         wildcard Indicates whether Dozer automatically map fields that have the same name. The default value is "true"
         
@@ -123,6 +135,7 @@
       </sequence>
       <attribute name="date-format" type="string"/>
       <attribute name="stop-on-errors" type="boolean"/>
+      <attribute name="collect-errors" type="boolean"/>
       <attribute name="wildcard" type="boolean"/>
       <attribute name="trim-strings" type="boolean"/>
       <attribute name="map-null" type="boolean"/>
@@ -364,6 +377,7 @@
   <element name='a-deep-index-hint' type="string"/>
   <element name='b-deep-index-hint' type="string"/>
   <element name='stop-on-errors' type="boolean"/>
+  <element name='collect-errors' type="boolean"/>
   <element name='date-format' type="string"/>
   <element name='map-null' type="boolean"/>
   <element name='map-empty-string' type="boolean"/>

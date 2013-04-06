@@ -489,6 +489,10 @@ public class DozerBuilder {
     public void stopOnErrors(Boolean value) {
       configuration.setStopOnErrors(value);
     }
+    
+    public void collectErrors(Boolean value) {
+      configuration.setCollectErrors(value);
+    }
 
     public void dateFormat(String format) {
       configuration.setDateFormat(format);

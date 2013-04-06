@@ -469,6 +469,10 @@ public abstract class FieldMap implements Cloneable {
   public boolean isStopOnErrors() {
     return classMap.isStopOnErrors();
   }
+  
+  public boolean isCollectErrors() {
+    return classMap.isCollectErrors();
+  }
 
   public boolean isNonCumulativeRelationship() {
     return RelationshipType.NON_CUMULATIVE.equals(relationshipType);

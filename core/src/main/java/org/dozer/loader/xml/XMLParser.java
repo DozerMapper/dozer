@@ -57,6 +57,7 @@ public class XMLParser implements MappingsSource<Document> {
   // Parsing Elements
   private static final String CONFIGURATION_ELEMENT = "configuration";
   private static final String STOP_ON_ERRORS_ELEMENT = "stop-on-errors";
+  private static final String COLLECT_ERRORS_ELEMENT = "collect-errors";
   private static final String CUSTOM_CONVERTERS_ELEMENT = "custom-converters";
   private static final String COPY_BY_REFERENCES_ELEMENT = "copy-by-references";
   private static final String COPY_BY_REFERENCE = "copy-by-reference";
@@ -84,6 +85,7 @@ public class XMLParser implements MappingsSource<Document> {
   private static final String THE_SET_METHOD_ATTRIBUTE = "set-method";
   private static final String THE_GET_METHOD_ATTRIBUTE = "get-method";
   private static final String STOP_ON_ERRORS_ATTRIBUTE = "stop-on-errors";
+  private static final String COLLECT_ERRORS_ATTRIBUTE = "collect-errors";
   private static final String MAPID_ATTRIBUTE = "map-id";
   private static final String MAP_SET_METHOD_ATTRIBUTE = "map-set-method";
   private static final String MAP_GET_METHOD_ATTRIBUTE = "map-get-method";
@@ -170,6 +172,9 @@ public class XMLParser implements MappingsSource<Document> {
     }
     if (StringUtils.isNotEmpty(getAttribute(ele, STOP_ON_ERRORS_ATTRIBUTE))) {
       definitionBuilder.stopOnErrors(Boolean.valueOf(getAttribute(ele, STOP_ON_ERRORS_ATTRIBUTE)));
+    }
+    if (StringUtils.isNotEmpty(getAttribute(ele, COLLECT_ERRORS_ATTRIBUTE))) {
+      definitionBuilder.stopOnErrors(Boolean.valueOf(getAttribute(ele, COLLECT_ERRORS_ATTRIBUTE)));
     }
     if (StringUtils.isNotEmpty(getAttribute(ele, MAPID_ATTRIBUTE))) {
       definitionBuilder.mapId(getAttribute(ele, MAPID_ATTRIBUTE));
@@ -404,7 +409,9 @@ public class XMLParser implements MappingsSource<Document> {
 
         if (STOP_ON_ERRORS_ELEMENT.equals(element.getNodeName())) {
           configBuilder.stopOnErrors(Boolean.valueOf(nodeValue));
-        } else if (DATE_FORMAT.equals(element.getNodeName())) {
+        } else if (COLLECT_ERRORS_ELEMENT.equals(element.getNodeName())) {
+          configBuilder.collectErrors(Boolean.valueOf(nodeValue));
+        }else if (DATE_FORMAT.equals(element.getNodeName())) {
           configBuilder.dateFormat(nodeValue);
         } else if (WILDCARD.equals(element.getNodeName())) {
           configBuilder.wildcard(Boolean.valueOf(nodeValue));
