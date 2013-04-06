@@ -94,6 +94,18 @@ public final class TypeMappingOptions {
       }
     };
   }
+  
+  public static TypeMappingOption collectErrors() {
+    return collectErrors(true);
+  }
+
+  public static TypeMappingOption collectErrors(final boolean value) {
+    return new TypeMappingOption() {
+      public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {
+        fieldMappingBuilder.collectErrors(value);
+      }
+    };
+  }
 
   public static TypeMappingOption trimStrings() {
     return trimStrings(true);

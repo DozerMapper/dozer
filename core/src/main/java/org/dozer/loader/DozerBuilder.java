@@ -114,6 +114,11 @@ public class DozerBuilder {
       classMap.setStopOnErrors(value);
       return this;
     }
+    
+    public MappingBuilder collectErrors(Boolean value) {
+      classMap.setCollectErrors(value);
+      return this;
+    }
 
     public MappingBuilder mapId(String id) {
       classMap.setMapId(id);
