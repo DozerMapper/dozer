@@ -270,29 +270,33 @@ public final class ClassMapBuilder {
 
     public boolean apply(ClassMap classMap, Configuration configuration) {
       Class<?> srcType = classMap.getSrcClassToMap();
-      Field[] srcFields = srcType.getDeclaredFields();
-      for (Field field : srcFields) {
-        Mapping mapping = field.getAnnotation(Mapping.class);
-        String fieldName = field.getName();
-        if (mapping != null) {
-          validate(mapping, field);
-          String pairName = mapping.value();
-          addFieldMapping(classMap, configuration, fieldName, pairName);
+      do {
+        for (Field field : srcType.getDeclaredFields()) {
+          Mapping mapping = field.getAnnotation(Mapping.class);
+          String fieldName = field.getName();
+          if (mapping != null) {
+            validate(mapping, field);
+            String pairName = mapping.value();
+            addFieldMapping(classMap, configuration, fieldName, pairName);
+          }
         }
-      }
-
+        srcType = srcType.getSuperclass();
+      } while (srcType != null);
+      
       Class<?> destType = classMap.getDestClassToMap();
-      Field[] destFields = destType.getDeclaredFields();
-      for (Field field : destFields) {
-        Mapping mapping = field.getAnnotation(Mapping.class);
-        String fieldName = field.getName();
-        if (mapping != null) {
-          validate(mapping, field);
-          String pairName = mapping.value();
-          addFieldMapping(classMap, configuration, pairName, fieldName);
+      do {
+        for (Field field : destType.getDeclaredFields()) {
+          Mapping mapping = field.getAnnotation(Mapping.class);
+          String fieldName = field.getName();
+          if (mapping != null) {
+            validate(mapping, field);
+            String pairName = mapping.value();
+            addFieldMapping(classMap, configuration, pairName, fieldName);
+          }
         }
-      }
-
+        destType = destType.getSuperclass();
+      } while (destType != null);
+      
       return false;
     }
   }
