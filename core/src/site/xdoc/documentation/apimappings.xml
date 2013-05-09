@@ -70,10 +70,15 @@
 
             <source>
               <![CDATA[
+import static org.dozer.loader.api.FieldsMappingOptions.*;
+import static org.dozer.loader.api.TypeMappingOptions.*;
+
+...
+
 BeanMappingBuilder builder = new BeanMappingBuilder() {
       protected void configure() {
         mapping(Bean.class, Bean.class,
-                oneWay(),
+                TypeMappingOptions.oneWay(),
                 mapId("A"),
                 mapNull(true)
         )
@@ -84,7 +89,7 @@ BeanMappingBuilder builder = new BeanMappingBuilder() {
                             RelationshipType.NON_CUMULATIVE),
                         hintA(String.class),
                         hintB(Integer.class),
-                        fieldOneWay(),
+                        FieldsMappingOptions.oneWay(),
                         useMapId("A"),
                         customConverterId("id")
                 )
