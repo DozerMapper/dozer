@@ -15,12 +15,14 @@ import static org.junit.Assert.assertThat;
 public class AnnotationMappingTest extends AbstractFunctionalTest {
 
   private User source;
+  private SubUser subSource;
   private UserDto destination;
 
   @Before
   public void setUp() throws Exception {
     super.setUp();
     source = new User();
+    subSource = new SubUser();
     destination = new UserDto();
   }
 
@@ -45,7 +47,7 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void shouldMapFields() {
-    source.name = "name";
+    source.setName("name");
 
     UserDto result = mapper.map(source, UserDto.class);
 
@@ -58,6 +60,25 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
     source.freeText = "text";
 
     UserDto result = mapper.map(source, UserDto.class);
+
+    assertThat(result.comment, equalTo("text"));
+  }
+
+  @Test
+  public void shouldMapFields_Inherited() {
+    subSource.setName("name");
+
+    UserDto result = mapper.map(subSource, UserDto.class);
+
+    assertThat(result.username, equalTo("name"));
+    assertThat(result.name, nullValue());
+  }
+
+  @Test
+  public void shouldMapFields_Backwards_Inherited() {
+    subSource.freeText = "text";
+
+    UserDto result = mapper.map(subSource, UserDto.class);
 
     assertThat(result.comment, equalTo("text"));
   }
@@ -87,7 +108,13 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
     public void setAge(Short age) {
       this.age = age;
     }
+
+    public void setName(String name) {
+      this.name = name;
+    }
   }
+
+  public static class SubUser extends User {}
 
   public static class UserDto {
     String id;
