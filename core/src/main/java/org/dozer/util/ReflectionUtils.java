@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 the original author or authors.
+ * Copyright 2005-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -428,6 +428,16 @@ public final class ReflectionUtils {
         return method;
       }
     }
+    return null;
+  }
+
+  public static boolean onTheOneHierarchy(Class<?> oneType, Class<?> anotherType) {
+    return anotherType.isAssignableFrom(oneType) || oneType.isAssignableFrom(anotherType);
+  }
+
+  public static Class<?> getChild(Class<?> oneType, Class<?> anotherType) {
+    if (anotherType.isAssignableFrom(oneType)) return oneType;
+    if (oneType.isAssignableFrom(anotherType)) return anotherType;
     return null;
   }
 

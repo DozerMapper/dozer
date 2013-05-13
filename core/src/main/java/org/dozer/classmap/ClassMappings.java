@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2007 the original author or authors.
+ * Copyright 2005-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.util.MappingUtils;
 
 import java.lang.reflect.Modifier;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -36,33 +38,41 @@ public class ClassMappings {
 
   // Cache key --> Mapping Structure
   private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
+  private Set<String> defaultMappingIds = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
   private ClassMapKeyFactory keyFactory;
 
   public ClassMappings() {
     keyFactory = new ClassMapKeyFactory();
   }
 
-  // Default mappings. May be ovewritten due to multiple threads generating same mapping
+  // Default mappings. May be overwritten due to multiple threads generating same mapping
   public void addDefault(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
-    classMappings.put(keyFactory.createKey(srcClass, destClass), classMap);
+    String key = keyFactory.createKey(srcClass, destClass);
+    classMappings.put(key, classMap);
+    defaultMappingIds.add(key);
   }
 
   public void add(Class<?> srcClass, Class<?> destClass, ClassMap classMap) {
-    ClassMap result = classMappings.put(keyFactory.createKey(srcClass, destClass), classMap);
-    failOnDuplicate(result, classMap);
+    String key = keyFactory.createKey(srcClass, destClass);
+    addDefined(key, classMap);
   }
 
   public void add(Class<?> srcClass, Class<?> destClass, String mapId, ClassMap classMap) {
-    ClassMap result = classMappings.put(keyFactory.createKey(srcClass, destClass, mapId), classMap);
-    failOnDuplicate(result, classMap);
+    String key = keyFactory.createKey(srcClass, destClass, mapId);
+    addDefined(key, classMap);
   }
 
   public void addAll(ClassMappings additionalClassMappings) {
     Map<String, ClassMap> newMappings = additionalClassMappings.getAll();
     for (Entry<String, ClassMap> entry : newMappings.entrySet()) {
-      ClassMap result = classMappings.put(entry.getKey(), entry.getValue());
-      failOnDuplicate(result, entry.getValue());
+      addDefined(entry.getKey(), entry.getValue());
     }
+  }
+
+  private void addDefined(String key, ClassMap classMap) {
+    ClassMap result = classMappings.put(key, classMap);
+    failOnDuplicate(result, classMap);
+    defaultMappingIds.remove(key);
   }
 
   public void failOnDuplicate(Object result, ClassMap classMap) {
@@ -89,12 +99,21 @@ public class ClassMappings {
     return classMappings.containsKey(key);
   }
 
-  public ClassMap find(Class<?> srcClass, Class<?> destClass, String mapId) {
+  private boolean isNonDefault(String key) {
+    return !defaultMappingIds.contains(key);
+  }
+
+  /**
+   * This method should not return ClassMap for superclass of srcClass because it hierarchy is processed in the main code,
+   * But could return for it's interface or concrete class
+   * @return ClassMap
+   */
+  public ClassMap find(Class<?> srcClass, Class<?> destClass, String mapId, boolean canResultDestClassBeSubClass) {
     final String key = keyFactory.createKey(srcClass, destClass, mapId);
     ClassMap mapping = classMappings.get(key);
 
     if (mapping == null) {
-      mapping = findInterfaceMapping(destClass, srcClass, mapId);
+      mapping = findInterfaceAndInheritanceMapping(destClass, srcClass, mapId, canResultDestClassBeSubClass);
     }
 
     // one more try...
@@ -120,12 +139,20 @@ public class ClassMappings {
   }
 
   // Look for an interface mapping
-  private ClassMap findInterfaceMapping(Class<?> destClass, Class<?> srcClass, String mapId) {
+  private ClassMap findInterfaceAndInheritanceMapping(Class<?> destClass, Class<?> srcClass, String mapId, boolean canResultDestClassBeSubClass) {
+    ClassMap interfaceMappingClassMap = null;
+    ClassMap bestDefaultSubclassMappingClassMapForAbstractClass = null;
+    ClassMap bestUserDefinedSubclassMappingClassMap = null;
+
+    //polymorphic search has more priority, so if bestSubclassMappingClassMap is found - interface search is not needed
+    //if one result for interface search found - interface mapping is not needed anymore, only polymorphic
+    boolean interfaceSearchActive = true;
+
     // Use object array for keys to avoid any rare thread synchronization issues
     // while iterating over the custom mappings.
     // See bug #1550275.
-    Object[] keys = classMappings.keySet().toArray();
-    for (Object key : keys) {
+    String[] keys = classMappings.keySet().toArray(new String[classMappings.keySet().size()]);
+    for (String key : keys) {
       ClassMap map = classMappings.get(key);
       Class<?> mappingDestClass = map.getDestClassToMap();
       Class<?> mappingSrcClass = map.getSrcClassToMap();
@@ -134,24 +161,51 @@ public class ClassMappings {
         continue;
       }
 
-      if (isInterfaceImplementation(srcClass, mappingSrcClass)) {
-        if (isInterfaceImplementation(destClass, mappingDestClass)) {
-          return map;
-        } else if (destClass.equals(mappingDestClass)) {
-          return map;
+      boolean isSrcClassEqualsMappingSrcClass = MappingUtils.getRealClass(srcClass).equals(mappingSrcClass);
+
+      if (interfaceSearchActive) {
+        //find interface mapping
+        if (isSrcClassEqualsMappingSrcClass || isInterfaceImplementation(srcClass, mappingSrcClass)) {
+          if (destClass.equals(mappingDestClass) || isInterfaceImplementation(destClass, mappingDestClass)) {
+            interfaceMappingClassMap = map;
+            interfaceSearchActive = false;
+          }
         }
       }
 
-      // Destination could be an abstract type. Picking up the best concrete type to use.
-      if ((destClass.isAssignableFrom(mappingDestClass) && isAbstract(destClass)) ||
-              (isInterfaceImplementation(destClass, mappingDestClass))) {
-        if (MappingUtils.getRealClass(srcClass).equals(mappingSrcClass)) {
-          return map;
+      if (isSrcClassEqualsMappingSrcClass) {
+        //find the best inheritance mapping
+        if (canResultDestClassBeSubClass && destClass.isAssignableFrom(mappingDestClass)) {
+          if (isNonDefault(key)) {
+            //if exists better polymorphic class map which defined by user - use it
+            if (bestUserDefinedSubclassMappingClassMap != null) {
+              if (bestUserDefinedSubclassMappingClassMap.getDestClassToMap().isAssignableFrom(mappingDestClass)) {
+                bestUserDefinedSubclassMappingClassMap = map; //find the reached element in hierarchy
+              }
+            } else {
+              bestUserDefinedSubclassMappingClassMap = map;
+              interfaceSearchActive = false;
+            }
+
+          } else if (isAbstract(destClass)) {
+            //even if it is not user defined - use it if we need to map to an abstract class
+            if (bestDefaultSubclassMappingClassMapForAbstractClass != null) {
+              if (bestDefaultSubclassMappingClassMapForAbstractClass.getDestClassToMap().isAssignableFrom(mappingDestClass)) {
+                bestDefaultSubclassMappingClassMapForAbstractClass = map; //find the reached element in hierarchy
+              }
+            } else {
+              bestDefaultSubclassMappingClassMapForAbstractClass = map;
+              interfaceSearchActive = false; //it is useless to make interface mapping for object we can't instantiate
+            }
+
+          }
         }
       }
-
     }
-    return null;
+
+    if (bestUserDefinedSubclassMappingClassMap != null) return bestUserDefinedSubclassMappingClassMap;
+    if (bestDefaultSubclassMappingClassMapForAbstractClass != null) return bestDefaultSubclassMappingClassMapForAbstractClass;
+    return interfaceMappingClassMap;
   }
 
   private boolean isInterfaceImplementation(Class<?> type, Class<?> mappingType) {
