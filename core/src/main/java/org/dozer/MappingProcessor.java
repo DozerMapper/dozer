@@ -239,7 +239,7 @@ public class MappingProcessor implements Mapper {
   private void mapToDestObject(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
 	Object result = destObj;
 	if(javax.xml.bind.JAXBElement.class.isAssignableFrom(destObj.getClass())){
-	  classMap = getClassMap(srcObj.getClass(), javax.xml.bind.JAXBElement.class.cast(destObj).getDeclaredType(), mapId, true);
+	  classMap = getClassMap(srcObj.getClass(), javax.xml.bind.JAXBElement.class.cast(destObj).getDeclaredType(), mapId);
 	  result = javax.xml.bind.JAXBElement.class.cast(destObj).getValue();
 	}
 
