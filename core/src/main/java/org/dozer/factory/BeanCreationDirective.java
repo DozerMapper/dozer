@@ -17,89 +17,113 @@ package org.dozer.factory;
 
 public class BeanCreationDirective {
 
-  private Object srcObject;
-  private Class<?> srcClass;
-  private Class<?> targetClass;
-  private Class<?> alternateClass;
-  private String factoryName;
-  private String factoryId;
-  private String createMethod;
+	private Object   srcObject;
+	private Class<?> srcClass;
+	private Class<?> targetClass;
+	private Class<?> alternateClass;
+	private String   factoryName;
+	private String   factoryId;
+	private String   createMethod;
+	private Object   destObj;
+	private String   destFieldName;
 
-  public BeanCreationDirective() {
-  }
+	public BeanCreationDirective() {
+		super();
+	}
 
-  public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod) {
-    this.srcObject = srcObject;
-    this.srcClass = srcClass;
-    this.targetClass = targetClass;
-    this.alternateClass = alternateClass;
-    this.factoryName = factoryName;
-    this.factoryId = factoryId;
-    this.createMethod = createMethod;
-  }
+	public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod) {
+		this(srcObject, srcClass, targetClass, alternateClass, factoryName, factoryId, createMethod, null, null);
+	}
 
-  public Object getSrcObject() {
-    return srcObject;
-  }
+	public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod, Object destObj, String destFieldName) {
+		this.srcObject = srcObject;
+		this.srcClass = srcClass;
+		this.targetClass = targetClass;
+		this.alternateClass = alternateClass;
+		this.factoryName = factoryName;
+		this.factoryId = factoryId;
+		this.createMethod = createMethod;
+		this.destObj = destObj;
+		this.destFieldName = destFieldName;
+	}
 
-  public Class<?> getSrcClass() {
-    return srcClass;
-  }
+	public Object getSrcObject() {
+		return srcObject;
+	}
 
-  public Class<?> getTargetClass() {
-    return targetClass;
-  }
+	public Class<?> getSrcClass() {
+		return srcClass;
+	}
 
-  public Class<?> getAlternateClass() {
-    return alternateClass;
-  }
+	public Class<?> getTargetClass() {
+		return targetClass;
+	}
 
-  public String getFactoryName() {
-    return factoryName;
-  }
+	public Class<?> getAlternateClass() {
+		return alternateClass;
+	}
 
-  public String getFactoryId() {
-    return factoryId;
-  }
+	public String getFactoryName() {
+		return factoryName;
+	}
 
-  public String getCreateMethod() {
-    return createMethod;
-  }
+	public String getFactoryId() {
+		return factoryId;
+	}
 
-  public void setSrcObject(Object srcObject) {
-    this.srcObject = srcObject;
-  }
+	public String getCreateMethod() {
+		return createMethod;
+	}
 
-  public void setSrcClass(Class<?> srcClass) {
-    this.srcClass = srcClass;
-  }
+	public void setSrcObject(Object srcObject) {
+		this.srcObject = srcObject;
+	}
 
-  public void setTargetClass(Class<?> targetClass) {
-    this.targetClass = targetClass;
-  }
+	public void setSrcClass(Class<?> srcClass) {
+		this.srcClass = srcClass;
+	}
 
-  public void setAlternateClass(Class<?> alternateClass) {
-    this.alternateClass = alternateClass;
-  }
+	public void setTargetClass(Class<?> targetClass) {
+		this.targetClass = targetClass;
+	}
 
-  public void setFactoryName(String factoryName) {
-    this.factoryName = factoryName;
-  }
+	public void setAlternateClass(Class<?> alternateClass) {
+		this.alternateClass = alternateClass;
+	}
 
-  public void setFactoryId(String factoryId) {
-    this.factoryId = factoryId;
-  }
+	public void setFactoryName(String factoryName) {
+		this.factoryName = factoryName;
+	}
 
-  public void setCreateMethod(String createMethod) {
-    this.createMethod = createMethod;
-  }
+	public void setFactoryId(String factoryId) {
+		this.factoryId = factoryId;
+	}
 
-  public Class<?> getActualClass() {
-    if (targetClass != null) {
-      return targetClass;
-    } else {
-      return alternateClass;
-    }
-  }
+	public void setCreateMethod(String createMethod) {
+		this.createMethod = createMethod;
+	}
 
+	public Class<?> getActualClass() {
+		if (targetClass != null) {
+			return targetClass;
+		} else {
+			return alternateClass;
+		}
+	}
+
+	public Object getDestObj() {
+		return destObj;
+	}
+
+	public void setDestObj(Object destObj) {
+		this.destObj = destObj;
+	}
+
+	public String getDestFieldName() {
+		return destFieldName;
+	}
+
+	public void setDestFieldName(String destFieldName) {
+		this.destFieldName = destFieldName;
+	}
 }
