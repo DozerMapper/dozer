@@ -237,7 +237,13 @@ public class MappingProcessor implements Mapper {
    * @param mapId               mapping identifier
    */
   private void mapToDestObject(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
-    map(classMap, srcObj, destObj, bypassSuperMappings, new ArrayList<String>(), mapId);
+	Object result = destObj;
+	if(javax.xml.bind.JAXBElement.class.isAssignableFrom(destObj.getClass())){
+	  classMap = getClassMap(srcObj.getClass(), javax.xml.bind.JAXBElement.class.cast(destObj).getDeclaredType(), mapId, true);
+	  result = javax.xml.bind.JAXBElement.class.cast(destObj).getValue();
+	}
+
+	map(classMap, srcObj, result, bypassSuperMappings, new ArrayList<String>(), mapId);
   }
 
   private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, List<String> mappedParentFields, String mapId) {
@@ -486,7 +492,7 @@ public class MappingProcessor implements Mapper {
     }
 
     // Default: Map from one custom data object to another custom data object
-    return mapCustomObject(fieldMap, destObj, destFieldType, srcFieldValue);
+    return mapCustomObject(fieldMap, destObj, destFieldType, destFieldName, srcFieldValue);
   }
 
   private <T extends Enum<T>> T mapEnum(Enum<T> srcFieldValue, Class<T> destFieldType) {
@@ -494,7 +500,7 @@ public class MappingProcessor implements Mapper {
     return Enum.valueOf(destFieldType, name);
   }
 
-  private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class<?> destFieldType, Object srcFieldValue) {
+  private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class<?> destFieldType, String destFieldName, Object srcFieldValue) {
     srcFieldValue = MappingUtils.deProxy(srcFieldValue);
 
     // Custom java bean. Need to make sure that the destination object is not
@@ -531,7 +537,7 @@ public class MappingProcessor implements Mapper {
 
       BeanCreationDirective creationDirective = new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(), classMap.getDestClassToMap(),
               destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(),
-              fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod());
+              fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod(), destObj, destFieldName);
 
       result = createByCreationDirectiveAndMap(creationDirective, classMap, srcFieldValue, null, false, fieldMap.getMapId());
     } else {
