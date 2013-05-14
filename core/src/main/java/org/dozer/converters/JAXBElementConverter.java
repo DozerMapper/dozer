@@ -74,8 +74,8 @@ public class JAXBElementConverter implements Converter {
 		try {
 			method = ReflectionUtils.findAMethod(factoryClass, methodName);
 			Class<?>[] parameterTypes = method.getParameterTypes();
-			for(Class<?> parameterClass : parameterTypes){
-				if(!valueClass.equals(parameterClass)){
+			for (Class<?> parameterClass : parameterTypes) {
+				if (!valueClass.equals(parameterClass)) {
 					destClass = parameterClass;
 					break;
 				}
@@ -103,5 +103,29 @@ public class JAXBElementConverter implements Converter {
 		result = returnObject;
 
 		return result;
+	}
+
+	/**
+	 * Resolve the beanId associated to destination field name
+	 *
+	 * @return
+	 */
+	public String getBeanId() {
+		Class<?> factoryClass = objectFactory(destObjClass).getClass();
+		Class<?> destClass = null;
+		String methodName = "create" + destObjClass.substring(destObjClass.lastIndexOf(".") + 1) + StringUtils.capitalize(destFieldName);
+
+		try {
+			Method method = ReflectionUtils.findAMethod(factoryClass, methodName);
+			Class<?>[] parameterTypes = method.getParameterTypes();
+			for (Class<?> parameterClass : parameterTypes) {
+				destClass = parameterClass;
+				break;
+			}
+		} catch (NoSuchMethodException e) {
+			MappingUtils.throwMappingException(e);
+		}
+
+		return destClass.getCanonicalName();
 	}
 }
