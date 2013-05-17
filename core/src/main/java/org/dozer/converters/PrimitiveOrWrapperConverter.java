@@ -71,7 +71,7 @@ public class PrimitiveOrWrapperConverter {
 		}
 		Converter converter = getPrimitiveOrWrapperConverter(destFieldClass, dateFormatContainer, destFieldName,  destObj);
 		try {
-			return converter.convert(destFieldClass, srcFieldValue);
+			return converter.convert(destFieldClass, (JAXBElement.class.isAssignableFrom(srcFieldValue.getClass())) ? JAXBElement.class.cast(srcFieldValue).getValue() : srcFieldValue);
 		} catch (org.apache.commons.beanutils.ConversionException e) {
 			throw new org.dozer.converters.ConversionException(e);
 		}
