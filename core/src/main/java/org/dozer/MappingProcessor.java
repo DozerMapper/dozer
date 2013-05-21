@@ -179,7 +179,7 @@ public class MappingProcessor implements Mapper {
       }
 
       // If this is a nested MapperAware conversion this mapping can be already processed
-      Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destClass);
+      Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destType);
       if (alreadyMappedValue != null) {
         return (T) alreadyMappedValue;
       }
