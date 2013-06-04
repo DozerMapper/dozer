@@ -27,7 +27,7 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
   }
 
   @Test
-  public void shouldMapProperies() {
+  public void shouldMapProperties() {
     source.setId(1L);
 
     UserDto result = mapper.map(source, UserDto.class);
@@ -37,7 +37,7 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
   }
 
   @Test
-  public void shouldMapProperies_Backwards() {
+  public void shouldMapProperties_Backwards() {
     source.setAge(new Short("1"));
 
     UserDto result = mapper.map(source, UserDto.class);
@@ -46,7 +46,7 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
   }
 
   @Test
-  public void shouldMapFields() {
+  public void shouldMapFields_Custom() {
     source.setName("name");
 
     UserDto result = mapper.map(source, UserDto.class);
@@ -56,7 +56,7 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
   }
 
   @Test
-  public void shouldMapFields_Backwards() {
+  public void shouldMapFields_Custom_Backwards() {
     source.freeText = "text";
 
     UserDto result = mapper.map(source, UserDto.class);
@@ -65,27 +65,56 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
   }
 
   @Test
+  public void shouldMapFields_Default() {
+    source.setRole("role");
+
+    UserDto result = mapper.map(source, UserDto.class);
+
+    assertThat(result.role, equalTo("role"));
+  }
+
+  @Test
+  public void shouldMapFields_Default_Backwards() {
+    source.setZip("12345");
+
+    UserDto result = mapper.map(source, UserDto.class);
+
+    assertThat(result.zip, equalTo("12345"));
+  }
+
+  @Test
   public void shouldMapFields_Inherited() {
     subSource.setName("name");
+    subSource.setRole("role");
 
     UserDto result = mapper.map(subSource, UserDto.class);
 
     assertThat(result.username, equalTo("name"));
+    assertThat(result.role, equalTo("role"));
     assertThat(result.name, nullValue());
   }
 
   @Test
   public void shouldMapFields_Backwards_Inherited() {
     subSource.freeText = "text";
+    subSource.setZip("12345");
 
     UserDto result = mapper.map(subSource, UserDto.class);
 
     assertThat(result.comment, equalTo("text"));
+    assertThat(result.zip, equalTo("12345"));
   }
 
   public static class User {
+
     Long id;
+
     Short age;
+
+    private String zip;
+
+    @Mapping
+    private String role;
 
     @Mapping("username")
     private String name;
@@ -112,16 +141,35 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
     public void setName(String name) {
       this.name = name;
     }
+
+    public void setRole(String role) {
+      this.role = role;
+    }
+
+    public void setZip(String zip) {
+      this.zip = zip;
+    }
   }
 
   public static class SubUser extends User {}
 
   public static class UserDto {
+
     String id;
+
     String years;
+
     String pk;
+
+    @Mapping
+    String zip;
+
+    String role;
+
     String name;
+
     String username;
+
     @Mapping("freeText")
     String comment;
 
@@ -150,5 +198,4 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
       this.years = years;
     }
   }
-
 }
