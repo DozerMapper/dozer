@@ -71,10 +71,17 @@ public class PrimitiveOrWrapperConverter {
 		}
 		Converter converter = getPrimitiveOrWrapperConverter(destFieldClass, dateFormatContainer, destFieldName,  destObj);
 		try {
-			return converter.convert(destFieldClass, (JAXBElement.class.isAssignableFrom(srcFieldValue.getClass())) ? JAXBElement.class.cast(srcFieldValue).getValue() : srcFieldValue);
+			return converter.convert(destFieldClass, unwrapSrcFieldValue(srcFieldValue));
 		} catch (org.apache.commons.beanutils.ConversionException e) {
 			throw new org.dozer.converters.ConversionException(e);
 		}
+	}
+
+	private Object unwrapSrcFieldValue(Object srcFieldValue) {
+		if(JAXBElement.class.isAssignableFrom(srcFieldValue.getClass())){
+			return JAXBElement.class.cast(srcFieldValue).getValue();
+		}
+		return srcFieldValue;
 	}
 
 	private Converter getPrimitiveOrWrapperConverter(Class destClass, DateFormatContainer dateFormatContainer, String destFieldName, Object destObj) {
