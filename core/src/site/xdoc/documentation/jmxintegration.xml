@@ -18,7 +18,7 @@
         be found in the org.dozer.jmx package.
       </p>
       <p>
-        Dozer auto registers these JMX Beans with the PlatformMDBServer. You can suppress this behavior
+        Dozer auto registers these JMX Beans with the PlatformMBeanServer. You can suppress this behavior
         with the following Dozer configuration property:
       </p>
       <p>dozer.autoregister.jmx.beans = false</p>
