@@ -172,6 +172,37 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     fail();
   }
 
+  @Test
+  public void shouldHandleBeanWithGenericInterface() throws Exception {
+    PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(Y.class, "x", null);
+    assertEquals("org.dozer.util.ReflectionUtilsTest$ClassInheritsClassX", propertyDescriptor.getReadMethod().getReturnType().getName());
+  }
+
+  public class Y implements HasX<ClassInheritsClassX> {
+    private ClassInheritsClassX x;
+
+    @Override
+    public void setX(ClassInheritsClassX x) {
+      this.x = x;
+    }
+
+    @Override
+    public ClassInheritsClassX getX() {
+      return x;
+    }
+  }
+
+  public interface HasX<X extends ClassX> {
+    void setX(X x);
+    X getX();
+  }
+
+  public class ClassInheritsClassX extends ClassX {
+  }
+
+  public class ClassX {
+  }
+
   public static class BaseBean {
     private String a;
   }
