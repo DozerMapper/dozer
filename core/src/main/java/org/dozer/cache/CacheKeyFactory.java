@@ -55,29 +55,38 @@ public final class CacheKeyFactory {
     }
 
     @Override
-    public boolean equals(Object o) {
-      CacheKey cacheKey = (CacheKey) o;
-
-      if (destClass != null ? !destClass.equals(cacheKey.destClass) : cacheKey.destClass != null)
+    public boolean equals(final Object o) {
+      if(this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
         return false;
-      if (srcClass != null ? !srcClass.equals(cacheKey.srcClass) : cacheKey.srcClass != null)
+      }
+      final CacheKey cacheKey = (CacheKey) o;
+      if (destClass != null ? !destClass.equals(cacheKey.destClass) : cacheKey.destClass != null) {
         return false;
-      if (mapId != null ? !mapId.equals(cacheKey.mapId) : cacheKey.mapId != null)
+      }
+      if (srcClass != null ? !srcClass.equals(cacheKey.srcClass) : cacheKey.srcClass != null) {
         return false;
-
+      }
+      if (mapId != null ? !mapId.equals(cacheKey.mapId) : cacheKey.mapId != null) {
+        return false;
+      }
       return true;
     }
 
-    @Override
-    public int hashCode() {
-      int result;
-      result = (srcClass != null ? srcClass.hashCode() : 0);
-      result = 31 * result + (destClass != null ? destClass.hashCode() : 0);
-      result = 31 * result + (mapId != null ? mapId.hashCode() : 0);
-      return result;
-    }
 
     @Override
+    public int hashCode() {
+        int result;
+        result = (srcClass != null ? srcClass.hashCode() : 0);
+        result = 31 * result + (destClass != null ? destClass.hashCode() : 0);
+        result = 31 * result + (mapId != null ? mapId.hashCode() : 0);
+        return result;
+    }
+
+
+      @Override
     public String toString() {
       return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
