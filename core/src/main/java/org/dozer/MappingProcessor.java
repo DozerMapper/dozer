@@ -1060,7 +1060,7 @@ public class MappingProcessor implements Mapper {
       if (CollectionUtils.isList(result.getClass()) || CollectionUtils.isArray(result.getClass())
           || CollectionUtils.isSet(result.getClass()) || MappingUtils.isSupportedMap(result.getClass())) {
         if (!CollectionUtils.isList(destFieldType) && !CollectionUtils.isArray(destFieldType)
-            && !CollectionUtils.isSet(destFieldType) && !MappingUtils.isSupportedMap(destFieldType)) {
+            && !CollectionUtils.isSet(destFieldType) && !CollectionUtils.isCollection(destFieldType) && !MappingUtils.isSupportedMap(destFieldType)) {
           // this means the getXX field is a List but we are actually trying to
           // map one of its elements
           result = null;
