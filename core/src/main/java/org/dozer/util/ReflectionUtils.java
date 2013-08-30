@@ -90,38 +90,37 @@ public final class ReflectionUtils {
 	 * @param descriptor
 	 * @return
 	 */
-	private static PropertyDescriptor fixGenericDescriptor(Class<?> clazz, PropertyDescriptor descriptor) {
-		Method readMethod = descriptor.getReadMethod();
-		Method writeMethod = descriptor.getWriteMethod();
+    private static PropertyDescriptor fixGenericDescriptor(Class<?> clazz, PropertyDescriptor descriptor) {
+      Method readMethod = descriptor.getReadMethod();
 
-		if(readMethod != null && (readMethod.isBridge() || readMethod.isSynthetic())) {
-		  String propertyName = descriptor.getName();
-		  //capitalize the first letter of the string;
-		  String baseName = Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
-		  String setMethodName = "set" + baseName;
-		  String getMethodName = "get" + baseName;
-		  Method[] methods = clazz.getMethods();
-			for (Method method : methods) {
-			  if(method.getName().equals(getMethodName) && !method.isBridge() && !method.isSynthetic() ) {
-					try {
-						descriptor.setReadMethod(method);
-					} catch (IntrospectionException e) {
-						//move on
-					}
-				}
-				if(method.getName().equals(setMethodName) && !method.isBridge() && !method.isSynthetic() ) {
-					try {
-						descriptor.setWriteMethod(method);
-					} catch (IntrospectionException e) {
-						//move on
-					}
-				}
-			}
-		}
-		return descriptor;
-	}
+      if(readMethod != null && (readMethod.isBridge() || readMethod.isSynthetic())) {
+        String propertyName = descriptor.getName();
+        //capitalize the first letter of the string;
+        String baseName = Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
+        String setMethodName = "set" + baseName;
+        String getMethodName = "get" + baseName;
+        Method getMethod = findNonSyntheticMethod(getMethodName, clazz);
+        Method setMethod = findNonSyntheticMethod(setMethodName, clazz);
+        try {
+          return new PropertyDescriptor(propertyName, getMethod, setMethod);
+        } catch (IntrospectionException e) {
+          //move on
+        }
+      }
+      return descriptor;
+    }
 
-	public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field,
+    private static Method findNonSyntheticMethod(String methodName, Class<?> clazz) {
+      Method[] methods = clazz.getMethods();
+      for (Method method : methods) {
+        if(method.getName().equals(methodName) && !method.isBridge() && !method.isSynthetic() ) {
+          return method;
+        }
+      }
+      return null;
+    }
+
+    public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field,
       HintContainer deepIndexHintContainer) {
     if (!MappingUtils.isDeepMapping(field)) {
       MappingUtils.throwMappingException("Field does not contain deep field delimitor");
