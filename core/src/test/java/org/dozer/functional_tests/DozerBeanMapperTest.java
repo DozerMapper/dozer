@@ -16,6 +16,7 @@
 package org.dozer.functional_tests;
 
 import org.dozer.*;
+import org.dozer.functional_tests.runner.NoProxyDataObjectInstantiator;
 import org.dozer.functional_tests.support.SampleCustomBeanFactory;
 import org.dozer.functional_tests.support.SampleCustomBeanFactory2;
 import org.dozer.functional_tests.support.SampleDefaultBeanFactory;

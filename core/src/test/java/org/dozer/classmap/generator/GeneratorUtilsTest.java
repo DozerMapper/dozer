@@ -15,7 +15,7 @@
  */
 package org.dozer.classmap.generator;
 
-import org.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
+import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertFalse;

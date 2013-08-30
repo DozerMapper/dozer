@@ -33,6 +33,8 @@ package org.dozer.functional_tests;
 
 public interface DataObjectInstantiator {
 
+  String getName();
+
   <T> T newInstance(Class<T> classToInstantiate);
   
   <T> T newInstance(Class<T> classToInstantiate, Object[] args);

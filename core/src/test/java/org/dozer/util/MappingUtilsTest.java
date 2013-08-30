@@ -16,7 +16,6 @@
 package org.dozer.util;
 
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,7 +27,7 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.MappingFileData;
-import org.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
+import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.dozer.loader.MappingsParser;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParserFactory;
