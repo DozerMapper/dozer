@@ -53,4 +53,17 @@ public class CacheKeyFactoryTest extends AbstractDozerTest {
     assertFalse(cacheKey.hashCode() == cacheKey2.hashCode());
   }
 
+  @Test
+  public void testCreateKey_handlesNullGracefullyInEquals() throws Exception {
+      Object nullCacheKey = null;
+      Object normalCacheKey = CacheKeyFactory.createKey(String.class, Long.class);
+
+      assertFalse("Null isn't handled properly!", normalCacheKey.equals(nullCacheKey));
+  }
+
+  @Test
+  public void testCreateKey_equivalenceOfSelf() throws Exception {
+    Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class);
+    assertTrue("Key isn't equivalent to self!", cacheKey.equals(cacheKey));
+  }
 }
