@@ -1,4 +1,21 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
+<!--
+
+    Copyright 2005-2013 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
 <!DOCTYPE project_export SYSTEM "http://sourceforge.net/export/sf_project_export_0.1.dtd">
 <project_export>
 
@@ -22479,7 +22496,7 @@ Caused by: java.lang.ClassNotFoundException: org.dozer.util.DefaultClassLoader
 	<field name="artifact_type">Bugs</field>
 	<field name="category">Mapping Issue</field>
 	<field name="artifact_group_id">Dozer v5.3.1</field>
-	<field name="details">&#208;&#353;&#208;&#190;&#208;&#179;&#208;&#180;&#208;&#176; &#208;&#8221;&#208;&#190;&#208;&#183;&#208;&#181;&#209;&#8364; &#208;&#188;&#208;&#176;&#208;&#191;&#208;&#191;&#208;&#184;&#209;&#8364;&#209;&#402;&#208;&#181;&#209;&#8218; &#208;&#190;&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218; &#209; &#208;&#191;&#208;&#190;&#208;&#187;&#208;&#181;&#208;&#188; &#209;&#8218;&#208;&#184;&#208;&#191;&#208;&#176; LIST &#209;&#208;&#190;&#208;&#180;&#208;&#181;&#209;&#8364;&#208;&#182;&#208;&#176;&#209;&#8240;&#208;&#184;&#208;&#188; 1 &#208;&#190;&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218; &#208;&#178; &#209;&#8364;&#208;&#181;&#208;&#183;&#209;&#402;&#208;&#187;&#209;&#338;&#209;&#8218;&#208;&#176;&#209;&#8218;&#208;&#181; &#208;&#191;&#208;&#190;&#208;&#187;&#209;&#402;&#209;&#8225;&#208;&#176;&#208;&#181;&#209;&#8218;&#209;&#209; &#208;ž&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218; &#209; &#208;&#191;&#208;&#190;&#208;&#187;&#208;&#181;&#208;&#188; &#209;&#8218;&#208;&#184;&#208;&#191;&#208;&#176; List &#208;&#189;&#208;&#190; &#209;&#402;&#208;&#182;&#208;&#181; &#209; &#208;&#180;&#208;&#178;&#209;&#402;&#208;&#188;&#209; &#208;&#190;&#208;&#180;&#208;&#184;&#208;&#189;&#208;&#176;&#208;&#186;&#208;&#190;&#208;&#178;&#209;&#8249;&#208;&#188;&#208;&#184; &#208;&#190;&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218;&#208;&#176;&#208;&#188;&#208;&#184;? &#208;&#8217; &#209;&#8225;&#208;&#181;&#208;&#188; &#208;&#188;&#208;&#190;&#208;&#182;&#208;&#181;&#209;&#8218; &#208;&#177;&#209;&#8249;&#209;&#8218;&#209;&#338; &#208;&#180;&#208;&#181;&#208;&#187;&#208;&#190;?</field>
+	<field name="details">&#208;&#353;&#208;&#190;&#208;&#179;&#208;&#180;&#208;&#176; &#208;&#8221;&#208;&#190;&#208;&#183;&#208;&#181;&#209;&#8364; &#208;&#188;&#208;&#176;&#208;&#191;&#208;&#191;&#208;&#184;&#209;&#8364;&#209;&#402;&#208;&#181;&#209;&#8218; &#208;&#190;&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218; &#209;ï¿½ &#208;&#191;&#208;&#190;&#208;&#187;&#208;&#181;&#208;&#188; &#209;&#8218;&#208;&#184;&#208;&#191;&#208;&#176; LIST &#209;ï¿½&#208;&#190;&#208;&#180;&#208;&#181;&#209;&#8364;&#208;&#182;&#208;&#176;&#209;&#8240;&#208;&#184;&#208;&#188; 1 &#208;&#190;&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218; &#208;&#178; &#209;&#8364;&#208;&#181;&#208;&#183;&#209;&#402;&#208;&#187;&#209;&#338;&#209;&#8218;&#208;&#176;&#209;&#8218;&#208;&#181; &#208;&#191;&#208;&#190;&#208;&#187;&#209;&#402;&#209;&#8225;&#208;&#176;&#208;&#181;&#209;&#8218;&#209;ï¿½&#209;ï¿½ &#208;ï¿½&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218; &#209;ï¿½ &#208;&#191;&#208;&#190;&#208;&#187;&#208;&#181;&#208;&#188; &#209;&#8218;&#208;&#184;&#208;&#191;&#208;&#176; List &#208;&#189;&#208;&#190; &#209;&#402;&#208;&#182;&#208;&#181; &#209;ï¿½ &#208;&#180;&#208;&#178;&#209;&#402;&#208;&#188;&#209;ï¿½ &#208;&#190;&#208;&#180;&#208;&#184;&#208;&#189;&#208;&#176;&#208;&#186;&#208;&#190;&#208;&#178;&#209;&#8249;&#208;&#188;&#208;&#184; &#208;&#190;&#208;&#177;&#209;&#352;&#208;&#181;&#208;&#186;&#209;&#8218;&#208;&#176;&#208;&#188;&#208;&#184;? &#208;&#8217; &#209;&#8225;&#208;&#181;&#208;&#188; &#208;&#188;&#208;&#190;&#208;&#182;&#208;&#181;&#209;&#8218; &#208;&#177;&#209;&#8249;&#209;&#8218;&#209;&#338; &#208;&#180;&#208;&#181;&#208;&#187;&#208;&#190;?</field>
 	<field name="artifact_messages">
 <message>
 		<field name="adddate">1316404542</field>
@@ -41049,8 +41066,8 @@ is(are) null :
 Exactly, when the source &#226;&#8364;&#732;deep-field&#226;&#8364;&#8482; value don&#226;&#8364;&#8482;t exist
 in database, 
 Even if I recognize that the first reason of my problem
-is du to our &#226;&#8364;&#339;pretty&#226;&#8364; bad database&#226;&#8364;&#8482;s integrity (Cf. 1),
-we still have critical &#226;&#8364;&#339;NullPointerException&#226;&#8364; when the
+is du to our &#226;&#8364;&#339;pretty&#226;&#8364;ï¿½ bad database&#226;&#8364;&#8482;s integrity (Cf. 1),
+we still have critical &#226;&#8364;&#339;NullPointerException&#226;&#8364;ï¿½ when the
 &#60;a&#62;x.y&#60;/a&#62; is map with a z attribute
 
 Of course, if I &#226;&#8364;&#732;m asking for you help, it&#226;&#8364;&#8482;s because
@@ -41066,7 +41083,7 @@ Services, or Rich-Client ap&#195;&#174;).
 
 So, now, I&#226;&#8364;&#8482;ll try to explain better my problem :
 
-&#226;&#8364;&#162;	Description of our &#226;&#8364;&#339;env.&#226;&#8364; &#239;&#402;&#168;
+&#226;&#8364;&#162;	Description of our &#226;&#8364;&#339;env.&#226;&#8364;ï¿½ &#239;&#402;&#168;
 
 3 projects : 
 1.	service_layer project =&#62; Beans Publics POJO and IF
@@ -41131,13 +41148,13 @@ Private String Libel;
 		&#60;/field&#62;
 
 &#226;&#8364;&#162;	If in database, the Devise&#226;&#8364;&#8482;s id is corresponding with
-the Client&#226;&#8364;&#8482;s &#226;&#8364;&#339;devise&#226;&#8364;, it&#226;&#8364;&#8482;s OK =&#62; It always must be
+the Client&#226;&#8364;&#8482;s &#226;&#8364;&#339;devise&#226;&#8364;ï¿½, it&#226;&#8364;&#8482;s OK =&#62; It always must be
 like this ! Imagine that this application, a Client can
 not be stored without Devise&#226;&#8364;&#8482;s reference !!
 It&#226;&#8364;&#8482;s the reason why I spoke about the bad integrity of
 Datas
 
-&#226;&#8364;&#162;	When devise (from Client) is &#226;&#8364;&#339;call&#226;&#8364; and in the
+&#226;&#8364;&#162;	When devise (from Client) is &#226;&#8364;&#339;call&#226;&#8364;ï¿½ and in the
 physical table that represent Client&#226;&#8364;&#8482;s class, and we
 have an id (from Devise), BUT IN TABLE OF DEVISE NO ID
 CORRESPONDING, OR A ZERO (eg: pkPUB=0), we always have
@@ -41310,7 +41327,7 @@ ClientPublic.class);
     }
 
 ps: &#226;&#8364;&#339;Notice I do not set the attribute label on
-InsideTestObject&#226;&#8364; : maybe, you might ?
+InsideTestObject&#226;&#8364;ï¿½ : maybe, you might ?
 </field>
 	<field name="artifact_messages">
 <message>
@@ -41325,7 +41342,7 @@ Ok, tomorrow, at the office, I&#226;&#8364;&#8482;ll make a set of Tests for you
 We also use Eclipse,.
 
 But, I&#226;&#8364;&#8482;m sure that our jdo layer (Lido) is ok (its request
-send us the &#226;&#8364;&#339;correct&#226;&#8364; database value).
+send us the &#226;&#8364;&#339;correct&#226;&#8364;ï¿½ database value).
 It&#226;&#8364;&#8482;s only when the dozer map() method is call that with have
 a dozer&#226;&#8364;&#8482;s NPE.
 
@@ -41341,24 +41358,24 @@ Please, Have you test this case :
       &#60;b&#62;Libel1&#60;/b&#62;
     &#60;/field&#62;
 
-If mapping for &#226;&#8364;&#339;srcNestedObj.src1&#226;&#8364; is OK, but at a second
-level, just after, we do a &#226;&#8364;&#339;srcNestedObj.Libel1&#226;&#8364; and the
-&#226;&#8364;&#339;Libel1&#226;&#8364; has no corresponding &#226;&#8364;&#339;srcNestedObj. src1&#226;&#8364; ?
+If mapping for &#226;&#8364;&#339;srcNestedObj.src1&#226;&#8364;ï¿½ is OK, but at a second
+level, just after, we do a &#226;&#8364;&#339;srcNestedObj.Libel1&#226;&#8364;ï¿½ and the
+&#226;&#8364;&#339;Libel1&#226;&#8364;ï¿½ has no corresponding &#226;&#8364;&#339;srcNestedObj. src1&#226;&#8364;ï¿½ ?
 
 Please, try this case :
 
--         1&#194;&#176; : first, we find good &#226;&#8364;&#339;dest1&#226;&#8364;&#226;&#8364;&#8482;s value
+-         1&#194;&#176; : first, we find good &#226;&#8364;&#339;dest1&#226;&#8364;ï¿½&#226;&#8364;&#8482;s value
 (destination) provide by dozer mapping
 
--         2&#194;&#176; : But, for the &#226;&#8364;&#339;srcNestedObj&#226;&#8364;(the same object
-uses in the first mapping for &#226;&#8364;&#339;dest1&#226;&#8364;) there is NO libel (no
+-         2&#194;&#176; : But, for the &#226;&#8364;&#339;srcNestedObj&#226;&#8364;ï¿½(the same object
+uses in the first mapping for &#226;&#8364;&#339;dest1&#226;&#8364;ï¿½) there is NO libel (no
 corresponding in database), we have a NPE
  
 
 Thank your for your tests (Cf. 2&#194;&#176; :).
  
 
-Best regards and thank you &#226;&#8364;&#339;for Dozer&#226;&#8364;
+Best regards and thank you &#226;&#8364;&#339;for Dozer&#226;&#8364;ï¿½
 
 Nicolas
 
@@ -41375,7 +41392,7 @@ Franz,
 
 I recognize that I&#226;&#8364;&#8482;ve send a maybe too &#226;&#8364;&#732;big&#226;&#8364;&#8482; set of  data.
 But it&#226;&#8364;&#8482;s hard cause if you want to reproduce this
-&#226;&#8364;&#339;NullPointer&#226;&#8364;, you have to change data&#226;&#8364;&#8482;s value in database.
+&#226;&#8364;&#339;NullPointer&#226;&#8364;ï¿½, you have to change data&#226;&#8364;&#8482;s value in database.
 
 Anyway, I&#226;&#8364;&#8482;ll try to give you more information (or lighter J
 ), but you still have them (and more &#226;&#8364;&#166;)  :
@@ -41401,28 +41418,28 @@ As you can see, it&#226;&#8364;&#8482;s &#195;&#168;
 
  
 
-Mapping &#226;&#8364;&#339;attacheCommercial.IdAttacheCommercial&#226;&#8364; &#195;&#168;
+Mapping &#226;&#8364;&#339;attacheCommercial.IdAttacheCommercial&#226;&#8364;ï¿½ &#195;&#168;
 
 
    attacheCommercial is an Object reference of
 AttacheCommercial class use in Client bean.
 
 It&#226;&#8364;&#8482;s represent the ID attribute&#226;&#8364;&#8482;s value of AttacheCommercial
-table expected (find in &#226;&#8364;&#339;AttacheCommercial&#226;&#8364; table in database)
+table expected (find in &#226;&#8364;&#339;AttacheCommercial&#226;&#8364;ï¿½ table in database)
 
 For example, if this ID value in Client bean is equal to
 Zero (0), so there is no corresponding value in
-&#226;&#8364;&#339;AttacheCommercial&#226;&#8364; table, and we have this MappingException.
+&#226;&#8364;&#339;AttacheCommercial&#226;&#8364;ï¿½ table, and we have this MappingException.
 
-But, if we have a good ID, that exist in &#226;&#8364;&#339;AttacheCommercial&#226;&#8364;
+But, if we have a good ID, that exist in &#226;&#8364;&#339;AttacheCommercial&#226;&#8364;ï¿½
 table, with its libel, all is OK
 
-This example is the same if you use &#226;&#8364;&#339;apporteur&#226;&#8364; instance
+This example is the same if you use &#226;&#8364;&#339;apporteur&#226;&#8364;ï¿½ instance
 from Apporteur class (and table with Id and corresponding
 Libel values)
 
 As you can see, we have try to avoid this problem with the
-use of &#226;&#8364;&#339;customs setter/getter&#226;&#8364;, with &#226;&#8364;&#339;apporteur&#226;&#8364; object and
+use of &#226;&#8364;&#339;customs setter/getter&#226;&#8364;ï¿½, with &#226;&#8364;&#339;apporteur&#226;&#8364;ï¿½ object and
 no results L
 
 1. Your mapping file with the mapping that gives you the
@@ -41545,7 +41562,7 @@ produce this at runtime with all of your other layers (i.e.
 JDO, etc) it will be extremely difficult to fix this bug &#195;&#168;
 
 When the attacheCommercial &#226;&#8364;&#732;s ID in Client&#226;&#8364;&#8482;s Table is = 0,
-then &#226;&#8364;&#339;field-deep&#226;&#8364;  
+then &#226;&#8364;&#339;field-deep&#226;&#8364;ï¿½  
 
             &#60;field&#62;
                 &#60;a&#62;attacheCommercial.IdAttacheCommercial&#60;/a&#62;
@@ -41742,7 +41759,7 @@ well-organized (integrity of SGBD is ok), we have no
 troubles and Dozer do its work correctly.
 
 We have this problem only when datas are not organized as a
-&#226;&#8364;&#339;Java developer&#226;&#8364; or sgbd&#226;&#8364;&#8482;s &#226;&#8364;&#339;best-practices&#226;&#8364; can expect
+&#226;&#8364;&#339;Java developer&#226;&#8364;ï¿½ or sgbd&#226;&#8364;&#8482;s &#226;&#8364;&#339;best-practices&#226;&#8364;ï¿½ can expect
 (about data&#226;&#8364;&#8482;s INTEGRITY) : 
 
 For the business (and honestly, we have to do with them,
