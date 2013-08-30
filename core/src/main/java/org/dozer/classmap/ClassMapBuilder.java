@@ -236,9 +236,8 @@ public final class ClassMapBuilder {
           Mapping mapping = readMethod.getAnnotation(Mapping.class);
           String propertyName = property.getName();
           if (mapping != null) {
-            validate(mapping, readMethod);
-            String pairName = mapping.value();
-            GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName);
+            String pairName = mapping.value().trim();
+            GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
           }
         }
       }
@@ -251,9 +250,8 @@ public final class ClassMapBuilder {
           Mapping mapping = readMethod.getAnnotation(Mapping.class);
           String propertyName = property.getName();
           if (mapping != null) {
-            validate(mapping, readMethod);
-            String pairName = mapping.value();
-            GeneratorUtils.addGenericMapping(classMap, configuration, pairName, propertyName);
+            String pairName = mapping.value().trim();
+            GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
           }
         }
       }
@@ -270,29 +268,31 @@ public final class ClassMapBuilder {
 
     public boolean apply(ClassMap classMap, Configuration configuration) {
       Class<?> srcType = classMap.getSrcClassToMap();
-      Field[] srcFields = srcType.getDeclaredFields();
-      for (Field field : srcFields) {
-        Mapping mapping = field.getAnnotation(Mapping.class);
-        String fieldName = field.getName();
-        if (mapping != null) {
-          validate(mapping, field);
-          String pairName = mapping.value();
-          addFieldMapping(classMap, configuration, fieldName, pairName);
+      do {
+        for (Field field : srcType.getDeclaredFields()) {
+          Mapping mapping = field.getAnnotation(Mapping.class);
+          String fieldName = field.getName();
+          if (mapping != null) {
+            String pairName = mapping.value().trim();
+            addFieldMapping(classMap, configuration, fieldName, pairName.isEmpty() ? fieldName : pairName);
+          }
         }
-      }
-
+        srcType = srcType.getSuperclass();
+      } while (srcType != null);
+      
       Class<?> destType = classMap.getDestClassToMap();
-      Field[] destFields = destType.getDeclaredFields();
-      for (Field field : destFields) {
-        Mapping mapping = field.getAnnotation(Mapping.class);
-        String fieldName = field.getName();
-        if (mapping != null) {
-          validate(mapping, field);
-          String pairName = mapping.value();
-          addFieldMapping(classMap, configuration, pairName, fieldName);
+      do {
+        for (Field field : destType.getDeclaredFields()) {
+          Mapping mapping = field.getAnnotation(Mapping.class);
+          String fieldName = field.getName();
+          if (mapping != null) {
+            String pairName = mapping.value().trim();
+            addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldName);
+          }
         }
-      }
-
+        destType = destType.getSuperclass();
+      } while (destType != null);
+      
       return false;
     }
   }
@@ -313,12 +313,4 @@ public final class ClassMapBuilder {
     MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
     classMap.addFieldMapping(fieldMap);
   }
-
-  private static void validate(Mapping annotation, Member member) {
-    if (annotation.value().trim().equals("")) {
-      throw new MappingException("Mapping annotation value missing at " + member.getDeclaringClass().getName() + "."
-          + member.getName());
-    }
-  }
-
 }
