@@ -75,7 +75,7 @@
   <field copy-by-reference="true">
     <a>srcNestedObj.hintList3</a>
     <b>hintList3</b>
-  </field-deep>
+  </field>
 
 </mapping>  
             ]]>
