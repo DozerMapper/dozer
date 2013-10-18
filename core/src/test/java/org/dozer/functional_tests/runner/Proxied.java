@@ -35,7 +35,7 @@ public class Proxied extends Suite {
     ArrayList<Runner> runners = new ArrayList<Runner>();
     runners.add(new ProxyRunner(klass, NoProxyDataObjectInstantiator.INSTANCE));
     runners.add(new ProxyRunner(klass, ProxyDataObjectInstantiator.INSTANCE));
-    runners.add(new ProxyRunner(klass, JavassistDataObjectInstantiator.INSTANCE));
+    //runners.add(new ProxyRunner(klass, JavassistDataObjectInstantiator.INSTANCE));
     return runners;
   }
 

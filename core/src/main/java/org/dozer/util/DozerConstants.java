@@ -68,6 +68,6 @@ public final class DozerConstants {
   public static final String DEFAULT_PROXY_RESOLVER_BEAN = DefaultProxyResolver.class.getName();
 
   public static final String JAVASSIST_PACKAGE = "org.javassist.tmp.";
-  public static final String JAVASSIST_NAME = "_$$_javassist_";
+  public static final String JAVASSIST_SYMBOL = "_$$_javassist_";
 
 }
