@@ -621,8 +621,7 @@ public class MappingProcessor implements Mapper {
     boolean isPrimitiveArray = CollectionUtils.isPrimitiveArray(srcCollectionValue.getClass());
     boolean isFinal = Modifier.isFinal(srcEntryType.getModifiers());
     boolean isCopyByReference = copyByReferences.contains(srcEntryType);
-    
-    // TODO: what about custom converters?
+
     if (destEntryType.isAssignableFrom(srcEntryType) && isFinal && (isPrimitiveArray || isCopyByReference)) {
       return addArrayContentCopy(fieldMap, size, srcCollectionValue, destObj, destEntryType);
     } else if (isPrimitiveArray) {

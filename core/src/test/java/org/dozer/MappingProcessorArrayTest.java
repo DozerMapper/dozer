@@ -1,5 +1,7 @@
 package org.dozer;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.Date;
 
@@ -47,6 +49,7 @@ public class MappingProcessorArrayTest extends AbstractDozerTest {
     }
   }
 
+  @Test
   public void testPrimitiveArrayCopy() {
 
     PrimitiveArray test = new PrimitiveArray();
@@ -58,14 +61,15 @@ public class MappingProcessorArrayTest extends AbstractDozerTest {
     DozerBeanMapper dozer = new DozerBeanMapper();
     PrimitiveArray result = dozer.map(test, PrimitiveArray.class);
 
-    // long start = System.currentTimeMillis();
-    //   result = dozer.map(test, PrimitiveArray.class);
-    //  System.out.println(System.currentTimeMillis() - start);
+    long start = System.currentTimeMillis();
+    result = dozer.map(test, PrimitiveArray.class);
+    System.out.println(System.currentTimeMillis() - start);
 
     assertNotSame(test.getData(), result.getData());
     assertTrue(Arrays.equals(test.getData(), result.getData()));
   }
 
+  @Test
   public void testReferenceCopy() {
 
     FinalCopyByReferenceArray test = new FinalCopyByReferenceArray();
@@ -77,9 +81,9 @@ public class MappingProcessorArrayTest extends AbstractDozerTest {
     DozerBeanMapper dozer = new DozerBeanMapper(Arrays.asList("mappingProcessorArrayTest.xml"));
     FinalCopyByReferenceDest result = dozer.map(test, FinalCopyByReferenceDest.class);
 
-    // long start = System.currentTimeMillis();
-    // result = dozer.map(test, FinalCopyByReferenceDest.class);
-    // System.out.println(System.currentTimeMillis() - start);
+    long start = System.currentTimeMillis();
+    result = dozer.map(test, FinalCopyByReferenceDest.class);
+    System.out.println(System.currentTimeMillis() - start);
 
     assertNotSame(test.getData(), result.getData());
     assertTrue(Arrays.equals(test.getData(), result.getData()));
