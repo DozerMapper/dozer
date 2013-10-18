@@ -15,6 +15,7 @@
  */
 package org.dozer.functional_tests;
 
+import org.dozer.functional_tests.runner.Proxied;
 import org.dozer.vo.A;
 import org.dozer.vo.Aliases;
 import org.dozer.vo.B;
@@ -29,6 +30,7 @@ import org.dozer.vo.index.MccoyPrime;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,6 +42,7 @@ import java.util.Set;
  * @author dominic.peciuch
  * 
  */
+@RunWith(Proxied.class)
 public class IndexMappingTest extends AbstractFunctionalTest {
 
   @Override

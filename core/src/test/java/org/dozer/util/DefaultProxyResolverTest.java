@@ -15,12 +15,11 @@
  */
 package org.dozer.util;
 
-import org.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
+import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.util.Calendar;
 
 /**

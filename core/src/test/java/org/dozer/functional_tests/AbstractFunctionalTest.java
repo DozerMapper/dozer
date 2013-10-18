@@ -17,18 +17,25 @@ package org.dozer.functional_tests;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.dozer.functional_tests.runner.InstantiatorHolder;
+import org.dozer.functional_tests.runner.Proxied;
 import org.dozer.functional_tests.support.TestDataFactory;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
+ * This class should be inherited by all functional tests
+ *
  * @author tierney.matt
  * @author garsombke.franz
+ * @author dmitry.buzdin
  */
+@RunWith(Proxied.class)
 public abstract class AbstractFunctionalTest {
 
   protected Mapper mapper;
@@ -36,7 +43,7 @@ public abstract class AbstractFunctionalTest {
 
   // Provides default non-proxy instantiation behavior
   protected DataObjectInstantiator getDataObjectInstantiator() {
-    return NoProxyDataObjectInstantiator.INSTANCE;
+    return InstantiatorHolder.get();
   }
 
   @Before

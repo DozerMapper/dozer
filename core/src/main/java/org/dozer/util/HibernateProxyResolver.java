@@ -29,6 +29,11 @@ import org.hibernate.proxy.LazyInitializer;
 public class HibernateProxyResolver extends DefaultProxyResolver {
 
   @Override
+  public boolean isProxy(Class<?> clazz) {
+    return HibernateProxy.class.isAssignableFrom(clazz);
+  }
+
+  @Override
   public <T> T unenhanceObject(T object) {
     if (object instanceof HibernateProxy) {
       HibernateProxy hibernateProxy = (HibernateProxy) object;
@@ -37,10 +42,6 @@ public class HibernateProxyResolver extends DefaultProxyResolver {
       return (T) lazyInitializer.getImplementation();
     }
     return object;
-  }
-
-  public <T> Class<T> unenhanceClass(T object) {
-    return HibernateProxyHelper.getClassWithoutInitializingProxy(object);
   }
 
 }

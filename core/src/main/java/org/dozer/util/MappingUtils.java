@@ -237,13 +237,9 @@ public final class MappingUtils {
   }
 
   public static boolean isProxy(Class<?> clazz) {
-    if (clazz.isInterface()) {
-      return false;
-    }
-    String className = clazz.getName();
-    return className.contains(DozerConstants.CGLIB_ID)
-            || className.startsWith(DozerConstants.JAVASSIST_PACKAGE)
-            || className.contains(DozerConstants.JAVASSIST_NAME);
+    BeanContainer container = BeanContainer.getInstance();
+    DozerProxyResolver proxyResolver = container.getProxyResolver();
+    return proxyResolver.isProxy(clazz);
   }
 
   public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry,

@@ -265,7 +265,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testComplexSuperClassMapping() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("dozerBeanMapping.xml");
     SubClass obj = testDataFactory.getSubClass();
     SubClassPrime objPrime = mapper.map(obj, SubClassPrime.class);
     SubClass obj2 = mapper.map(objPrime, SubClass.class);
@@ -280,7 +280,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
     // Pass by reference
     obj = testDataFactory.getSubClass();
-    SubClass subClassClone = (SubClass) SerializationUtils.clone(obj);
+    SubClass subClassClone = SerializationUtils.clone(obj);
     objPrime = mapper.map(obj, SubClassPrime.class);
     mapper.map(objPrime, obj);
     obj.setCustomConvert(null);

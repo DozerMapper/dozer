@@ -22,7 +22,9 @@ package org.dozer.util;
  *
  * @author dmitry.buzdin
  */
-public interface DozerProxyResolver {     
+public interface DozerProxyResolver {
+
+  boolean isProxy(Class<?> clazz);
 
   <T> T unenhanceObject(T object);
 

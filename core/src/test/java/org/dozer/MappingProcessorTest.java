@@ -28,6 +28,7 @@ import java.util.List;
  * @since 03.01.13
  */
 public class MappingProcessorTest extends AbstractDozerTest {
+
   private ArrayList<Object> sourceList;
   private ArrayList<Object> destinationList;
 
@@ -150,4 +151,5 @@ public class MappingProcessorTest extends AbstractDozerTest {
       return id;
     }
   }
+
 }

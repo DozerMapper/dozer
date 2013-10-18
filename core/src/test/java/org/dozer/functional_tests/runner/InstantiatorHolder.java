@@ -13,20 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.functional_tests.proxied;
+package org.dozer.functional_tests.runner;
 
 import org.dozer.functional_tests.DataObjectInstantiator;
-import org.dozer.functional_tests.MapTypeTest;
 
 /**
- * @author tierney.matt
- * @author garsombke.franz
+ * @author Dmitry Buzdin
  */
-public class ProxiedMapTypeTest extends MapTypeTest {
+public final class InstantiatorHolder {
 
-  @Override
-  protected DataObjectInstantiator getDataObjectInstantiator() {
-    return ProxyDataObjectInstantiator.INSTANCE;
+  private InstantiatorHolder() {}
+
+  private static final ThreadLocal<DataObjectInstantiator> value
+      = new ThreadLocal<DataObjectInstantiator>() {{
+    set(NoProxyDataObjectInstantiator.INSTANCE);
+  }};
+
+  public static void set(DataObjectInstantiator instance) {
+    value.set(instance);
+  }
+
+  public static DataObjectInstantiator get() {
+    return value.get();
   }
 
 }

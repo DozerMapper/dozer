@@ -24,10 +24,17 @@ package org.dozer.util;
  */
 public class NoProxyResolver implements DozerProxyResolver {
 
+  @Override
+  public boolean isProxy(Class<?> clazz) {
+    return false;
+  }
+
+  @Override
   public <T> T unenhanceObject(T object) {
     return object;
   }
 
+  @Override
   public Class<?> getRealClass(Class<?> clazz) {
     return clazz;
   }

@@ -17,7 +17,7 @@ package org.dozer.functional_tests;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
-import org.dozer.functional_tests.proxied.ProxyDataObjectInstantiator;
+import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.dozer.config.GlobalSettings;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
