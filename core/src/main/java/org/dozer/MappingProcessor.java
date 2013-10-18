@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Map.Entry;
@@ -613,8 +614,18 @@ public class MappingProcessor implements Mapper {
 
   private Object mapArrayToArray(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
     Class destEntryType = fieldMap.getDestFieldType(destObj.getClass()).getComponentType();
+    Class srcEntryType = srcCollectionValue.getClass().getComponentType();
     int size = Array.getLength(srcCollectionValue);
-    if (CollectionUtils.isPrimitiveArray(srcCollectionValue.getClass())) {
+    
+    CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
+    boolean isPrimitiveArray = CollectionUtils.isPrimitiveArray(srcCollectionValue.getClass());
+    boolean isFinal = Modifier.isFinal(srcEntryType.getModifiers());
+    boolean isCopyByReference = copyByReferences.contains(srcEntryType);
+    
+    // TODO: what about custom converters?
+    if (destEntryType.isAssignableFrom(srcEntryType) && isFinal && (isPrimitiveArray || isCopyByReference)) {
+      return addArrayContentCopy(fieldMap, size, srcCollectionValue, destObj, destEntryType);
+    } else if (isPrimitiveArray) {
       return addToPrimitiveArray(srcObj, fieldMap, size, srcCollectionValue, destObj, destEntryType);
     } else {
       List<?> list = Arrays.asList((Object[]) srcCollectionValue);
@@ -658,6 +669,22 @@ public class MappingProcessor implements Mapper {
       log.debug(LogMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
           fieldMapping.getDestFieldName(), srcFieldValue, null, fieldMapping.getClassMap().getMapId()));
     }
+  }
+  
+  private Object addArrayContentCopy(FieldMap fieldMap, int size, Object srcCollectionValue, Object destObj,
+          Class destEntryType) {
+      Object result;
+      Object field = fieldMap.getDestValue(destObj);
+      int arraySize = 0;
+      if (field == null) {
+          result = Array.newInstance(destEntryType, size);
+      } else {
+          result = Array.newInstance(destEntryType, size + Array.getLength(field));
+          arraySize = Array.getLength(field);
+          System.arraycopy(field, 0, result, 0, arraySize);
+      }
+      System.arraycopy(srcCollectionValue, 0, result, arraySize, size);
+      return result;
   }
 
   private Object addToPrimitiveArray(Object srcObj, FieldMap fieldMap, int size, Object srcCollectionValue, Object destObj,

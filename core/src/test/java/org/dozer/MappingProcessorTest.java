@@ -23,6 +23,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import org.dozer.MappingProcessor;
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Dmitry Spikhalskiy
  * @since 03.01.13
@@ -150,4 +155,5 @@ public class MappingProcessorTest extends AbstractDozerTest {
       return id;
     }
   }
+
 }
