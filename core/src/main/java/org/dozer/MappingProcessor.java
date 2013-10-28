@@ -765,7 +765,7 @@ public class MappingProcessor implements Mapper {
         Object obj = resultAsList.get(index);
         // make sure it is not a String
         if (!obj.getClass().isAssignableFrom(String.class)) {
-          mapToDestObject(null, srcValue, obj, false, null);
+          mapToDestObject(null, srcValue, obj, false, fieldMap.getMapId());
           mappedElements.add(obj);
         }
       } else {
@@ -827,7 +827,7 @@ public class MappingProcessor implements Mapper {
         Object obj = result.get(index);
         // make sure it is not a String
         if (obj != null && !obj.getClass().isAssignableFrom(String.class)) {
-          mapToDestObject(null, srcValue, obj, false, null);
+          mapToDestObject(null, srcValue, obj, false, fieldMap.getMapId());
           mappedElements.add(obj);
         }
       } else {
