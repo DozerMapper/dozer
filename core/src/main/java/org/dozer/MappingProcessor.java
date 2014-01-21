@@ -1001,7 +1001,7 @@ public class MappingProcessor implements Mapper {
     // search our injected customconverters for a match
     if (customConverterObjects != null) {
       for (CustomConverter customConverterObject : customConverterObjects) {
-        if (customConverterObject.getClass().isAssignableFrom(customConverterClass)) {
+        if (customConverterClass.isInstance(customConverterObject)) {
           // we have a match
           converterInstance = customConverterObject;
         }
