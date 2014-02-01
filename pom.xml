@@ -34,16 +34,18 @@
   </description>
   <inceptionYear>2005</inceptionYear>
 
-  <properties>
-    <slf4j.version>1.6.6</slf4j.version>
-  </properties>
-
   <modules>
     <module>core</module>
     <module>spring</module>
     <module>proto</module>
     <module>osgi</module>
+    <module>osgi-test</module>
   </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <slf4j.version>1.7.5</slf4j.version>
+  </properties>
 
   <dependencyManagement>
     <dependencies>

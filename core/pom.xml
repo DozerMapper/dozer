@@ -32,7 +32,7 @@
   <artifactId>dozer</artifactId>
   <packaging>jar</packaging>
   <name>Dozer</name>
- 
+
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>

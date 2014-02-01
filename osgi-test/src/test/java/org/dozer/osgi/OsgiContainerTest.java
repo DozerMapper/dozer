@@ -40,7 +40,6 @@ import static org.ops4j.pax.exam.MavenUtils.asInProject;
  */
 @RunWith(JUnit4TestRunner.class)
 @ExamReactorStrategy(AllConfinedStagedReactorFactory.class)
-
 public class OsgiContainerTest {
 
   @Inject
