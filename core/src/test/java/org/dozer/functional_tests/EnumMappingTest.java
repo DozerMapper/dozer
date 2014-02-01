@@ -18,6 +18,10 @@ package org.dozer.functional_tests;
 import org.dozer.MappingException;
 import org.dozer.vo.enumtest.MyBean;
 import org.dozer.vo.enumtest.MyBeanPrime;
+import org.dozer.vo.enumtest.MyBeanPrimeByte;
+import org.dozer.vo.enumtest.MyBeanPrimeInteger;
+import org.dozer.vo.enumtest.MyBeanPrimeLong;
+import org.dozer.vo.enumtest.MyBeanPrimeShort;
 import org.dozer.vo.enumtest.MyBeanPrimeString;
 import org.dozer.vo.enumtest.SrcType;
 import org.dozer.vo.enumtest.SrcTypeWithOverride;
@@ -149,8 +153,172 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   }
 
   /**
+   * Test on a mapping from byte types to enum.
+   */
+  @Test
+  public void testByteMapsToEnum() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeByte src = new MyBeanPrimeByte();
+    src.setFirst((byte) 0);
+    src.setSecond((byte) 1);
+    MyBean dest = mapper.map(src, MyBean.class);
+    assertEquals(SrcType.FOO, dest.getSrcType());
+    assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
+  }
+
+  /**
+   * Test on a mapping from short types to enum.
+   */
+  @Test
+  public void testShortMapsToEnum() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeShort src = new MyBeanPrimeShort();
+    src.setFirst((short) 0);
+    src.setSecond((short) 1);
+    MyBean dest = mapper.map(src, MyBean.class);
+    assertEquals(SrcType.FOO, dest.getSrcType());
+    assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
+  }
+
+  /**
+   * Test on a mapping from integer types to enum.
+   */
+  @Test
+  public void testIntegerMapsToEnum() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeInteger src = new MyBeanPrimeInteger();
+    src.setFirst(0);
+    src.setSecond(1);
+    MyBean dest = mapper.map(src, MyBean.class);
+    assertEquals(SrcType.FOO, dest.getSrcType());
+    assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
+  }
+
+  /**
+   * Test on a mapping from long types to enum.
+   */
+  @Test
+  public void testLongMapsToEnum() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeLong src = new MyBeanPrimeLong();
+    src.setFirst(0L);
+    src.setSecond(1L);
+    MyBean dest = mapper.map(src, MyBean.class);
+    assertEquals(SrcType.FOO, dest.getSrcType());
+    assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
+  }
+
+  /**
+   * Test on a mapping from enum types to byte.
+   */
+  @Test
+  public void testEnumMapsToByte() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeByte dest = mapper.map(src, MyBeanPrimeByte.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Byte.valueOf((byte) 1), dest.getSecond());
+  }
+  /**
+   * Test on a mapping from enum types to short.
+   */
+  @Test
+  public void testEnumMapsToShort() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeShort dest = mapper.map(src, MyBeanPrimeShort.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Short.valueOf((short) 1), dest.getSecond());
+  }
+
+  /**
+   * Test on a mapping from enum types to integer.
+   */
+  @Test
+  public void testEnumMapsToInteger() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeInteger dest = mapper.map(src, MyBeanPrimeInteger.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Integer.valueOf(1), dest.getSecond());
+  }
+
+  /**
+   * Test on a mapping from enum types to long.
+   */
+  @Test
+  public void testEnumMapsToLong() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBean src = new MyBean();
+    src.setSrcType(SrcType.FOO);
+    src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
+    MyBeanPrimeLong dest = mapper.map(src, MyBeanPrimeLong.class);
+    assertEquals(0, dest.getFirst());
+    assertEquals(Long.valueOf(1L), dest.getSecond());
+  }
+
+  /**
+   * Test on a mapping from byte types to enum.
+   */
+  @SuppressWarnings("unused")
+  @Test(expected = MappingException.class)
+  public void testByteMapsToEnumOutOfOrdinalRange() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeByte src = new MyBeanPrimeByte();
+    src.setFirst((byte) 0);
+    src.setSecond((byte) 3);
+    MyBean dest = mapper.map(src, MyBean.class);
+  }
+
+  /**
+   * Test on a mapping from short types to enum.
+   */
+  @SuppressWarnings("unused")
+  @Test(expected = MappingException.class)
+  public void testShortMapsToEnumOutOfOrdinalRange() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeShort src = new MyBeanPrimeShort();
+    src.setFirst((short) 0);
+    src.setSecond((short) 3);
+    MyBean dest = mapper.map(src, MyBean.class);
+  }
+
+  /**
+   * Test on a mapping from integer types to enum.
+   */
+  @SuppressWarnings("unused")
+  @Test(expected = MappingException.class)
+  public void testIntegerMapsToEnumOutOfOrdinalRange() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeInteger src = new MyBeanPrimeInteger();
+    src.setFirst(0);
+    src.setSecond(3);
+    MyBean dest = mapper.map(src, MyBean.class);
+  }
+
+  /**
+   * Test on a mapping from long types to enum.
+   */
+  @SuppressWarnings("unused")
+  @Test(expected = MappingException.class)
+  public void testLongMapsToEnumOutOfOrdinalRange() {
+    mapper = getMapper(new String[] { "enumMapping.xml" });
+    MyBeanPrimeLong src = new MyBeanPrimeLong();
+    src.setFirst(0L);
+    src.setSecond(3L);
+    MyBean dest = mapper.map(src, MyBean.class);
+  }
+
+  /**
    * Test on a mapping from {@link String} to enum with non-existing enum value.
    */
+  @SuppressWarnings("unused")
   @Test(expected = MappingException.class)
   public void testStringMapsToEnumNonexistEnumValue() {
     mapper = getMapper(new String[] { "enumMapping.xml" });

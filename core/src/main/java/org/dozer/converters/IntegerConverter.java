@@ -16,6 +16,7 @@
 package org.dozer.converters;
 
 import org.apache.commons.beanutils.Converter;
+import org.dozer.util.MappingUtils;
 
 /**
  * Internal class for converting Supported Data Types --> Integer. Only intended for internal use.
@@ -26,11 +27,14 @@ public class IntegerConverter implements Converter {
 
   private static org.apache.commons.beanutils.converters.IntegerConverter commonsConverter = new org.apache.commons.beanutils.converters.IntegerConverter();
 
+  @SuppressWarnings("rawtypes")
   public Object convert(Class destClass, Object srcObj) {
     // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
     if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
       boolean value = (Boolean) srcObj;
       return (value ? 1 : 0);
+    } else if (MappingUtils.isEnumType(srcObj.getClass())) {
+      return ((Enum) srcObj).ordinal();
     } else {
       return commonsConverter.convert(destClass, srcObj);
     }

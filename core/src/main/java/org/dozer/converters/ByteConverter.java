@@ -1,5 +1,5 @@
-/**
- * Copyright 2005-2013 Dozer Project
+/*
+ * Copyright 2005-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +19,22 @@ import org.apache.commons.beanutils.Converter;
 import org.dozer.util.MappingUtils;
 
 /**
- * Internal class for converting Supported Data Types --> Long. Only intended for internal use.
+ * Internal class for converting Supported Data Types --> Byte. Only intended for internal use.
  * 
- * @author tierney.matt
+ * @author siarhei.krukau
  */
-public class LongConverter implements Converter {
+public class ByteConverter implements Converter {
 
-  private static org.apache.commons.beanutils.converters.LongConverter commonsConverter = new org.apache.commons.beanutils.converters.LongConverter();
+  private static org.apache.commons.beanutils.converters.ByteConverter commonsConverter = new org.apache.commons.beanutils.converters.ByteConverter();
 
   @SuppressWarnings("rawtypes")
   public Object convert(Class destClass, Object srcObj) {
     // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
     if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
       boolean value = (Boolean) srcObj;
-      return (value ? (long) 1 : (long) 0);
+      return (value ? (byte) 1 : (byte) 0);
     } else if (MappingUtils.isEnumType(srcObj.getClass())) {
-      return ((Integer) ((Enum) srcObj).ordinal()).longValue();
+      return ((Integer) ((Enum) srcObj).ordinal()).byteValue();
     } else {
       return commonsConverter.convert(destClass, srcObj);
     }
