@@ -16,7 +16,7 @@
 package org.dozer.vo.enumtest;
 
 /**
- * Overrided Enum for enum mapping test
+ * Overridden Enum for enum mapping test
  * @author cchou.hung
  *
  */
