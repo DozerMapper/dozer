@@ -46,6 +46,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
   DozerBeanMapper beanMapper;
   private Resource[] mappingFiles;
   private List<BeanMappingBuilder> mappingBuilders;
+  private CustomFieldMapper customFieldMapper;
   private List<CustomConverter> customConverters;
   private Map<String, CustomConverter> customConvertersWithId;
   private List<DozerEventListener> eventListeners;
@@ -71,6 +72,10 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
       this.mappingBuilders = mappingBuilders;
   }
 
+  public void setCustomFieldMapper(CustomFieldMapper customFieldMapper) {
+      this.customFieldMapper = customFieldMapper;
+  }
+  
   public final void setCustomConverters(final List<CustomConverter> customConverters) {
     this.customConverters = customConverters;
   }
@@ -127,6 +132,9 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
     allListeners.addAll(contextEventListeners.values());
     allMappingBuilders.addAll(contextMappingBuilders.values());
 
+    if(customFieldMapper != null){
+        this.beanMapper.setCustomFieldMapper(customFieldMapper);
+    }
     if (this.customConverters != null) {
       allConverters.addAll(this.customConverters);
     }
