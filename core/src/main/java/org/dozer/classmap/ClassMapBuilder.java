@@ -237,7 +237,9 @@ public final class ClassMapBuilder {
           String propertyName = property.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
+            String fieldKey= mapping.key().trim();
+            if (!fieldKey.isEmpty() && pairName.isEmpty()) pairName="this";
+            addFieldMapping(classMap, configuration, propertyName, "", pairName.isEmpty() ? propertyName : pairName, fieldKey);
           }
         }
       }
@@ -251,7 +253,9 @@ public final class ClassMapBuilder {
           String propertyName = property.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
+            String fieldKey= mapping.key().trim();
+            if (!fieldKey.isEmpty() && pairName.isEmpty()) pairName="this";
+            addFieldMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, fieldKey, propertyName, "");
           }
         }
       }

@@ -30,7 +30,7 @@ import org.junit.Test;
  */
 public class AnnotationMappingMapsTest extends AbstractFunctionalTest
 {
-    public static class AnnotatedObject
+    public static class AnnotatedObjectWithFields
     {
         @Mapping(key="prop1")
         public String prop1;
@@ -38,11 +38,38 @@ public class AnnotationMappingMapsTest extends AbstractFunctionalTest
         @Mapping(key="otherNameForProp2")
         public String prop2;
     }
+
+    public static class AnnotatedObjectWithProperties
+    {
+        private String prop1;
+        
+        private String prop2;
+        
+        @Mapping(key="prop1")
+        public String getProp1()
+        {
+            return prop1;
+        }
+        public void setProp1(String prop1)
+        {
+            this.prop1 = prop1;
+        }
+        @Mapping(key="otherNameForProp2")
+        public String getProp2()
+        {
+            return prop2;
+        }
+        public void setProp2(String prop2)
+        {
+            this.prop2 = prop2;
+        }
+        
+    }
     
     @Test
-    public void testMapForwardMapping()
+    public void testMapForwardMapping_Fields()
     {
-        AnnotatedObject source=new AnnotatedObject();
+        AnnotatedObjectWithFields source=new AnnotatedObjectWithFields();
         source.prop1="value1";
         source.prop2="value2";
         
@@ -55,16 +82,46 @@ public class AnnotationMappingMapsTest extends AbstractFunctionalTest
     }
 
     @Test
-    public void testMapReverseMapping()
+    public void testMapReverseMapping_Fields()
     {
         Map<String,String> source=new HashMap<String, String>();
         source.put("prop1", "value1");
         source.put("otherNameForProp2", "value2");
         source.put("prop2", "value3");
         
-        AnnotatedObject result=mapper.map(source, AnnotatedObject.class);
+        AnnotatedObjectWithFields result=mapper.map(source, AnnotatedObjectWithFields.class);
         assertThat(result.prop1, equalTo("value1"));
         assertThat(result.prop2, equalTo("value2"));
     }
+    
+    
+    @Test
+    public void testMapForwardMapping_Properties()
+    {
+        AnnotatedObjectWithProperties source=new AnnotatedObjectWithProperties();
+        source.prop1="value1";
+        source.prop2="value2";
+        
+        @SuppressWarnings("unchecked")
+        Map<String,String> result=mapper.map(source, HashMap.class);
+        
+        assertThat(result.get("prop1"), equalTo("value1"));
+        assertThat(result.get("otherNameForProp2"), equalTo("value2"));
+        assertThat(result.size(), equalTo(2));
+    }
+
+    @Test
+    public void testMapReverseMapping_Properties()
+    {
+        Map<String,String> source=new HashMap<String, String>();
+        source.put("prop1", "value1");
+        source.put("otherNameForProp2", "value2");
+        source.put("prop2", "value3");
+        
+        AnnotatedObjectWithProperties result=mapper.map(source, AnnotatedObjectWithProperties.class);
+        assertThat(result.getProp1(), equalTo("value1"));
+        assertThat(result.getProp2(), equalTo("value2"));
+    }
+    
     
 }
