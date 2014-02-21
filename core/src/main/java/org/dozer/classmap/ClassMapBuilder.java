@@ -274,7 +274,9 @@ public final class ClassMapBuilder {
           String fieldName = field.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            addFieldMapping(classMap, configuration, fieldName, pairName.isEmpty() ? fieldName : pairName);
+            String fieldKey= mapping.key().trim();
+            if (!fieldKey.isEmpty() && pairName.isEmpty()) pairName="this";
+            addFieldMapping(classMap, configuration, fieldName, "", pairName.isEmpty() ? fieldName : pairName, fieldKey);
           }
         }
         srcType = srcType.getSuperclass();
@@ -287,7 +289,9 @@ public final class ClassMapBuilder {
           String fieldName = field.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldName);
+            String fieldKey= mapping.key().trim();
+            if (!fieldKey.isEmpty() && pairName.isEmpty()) pairName="this";
+            addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldKey, fieldName, "");
           }
         }
         destType = destType.getSuperclass();
@@ -297,11 +301,14 @@ public final class ClassMapBuilder {
     }
   }
 
-  private static void addFieldMapping(ClassMap classMap, Configuration configuration, String srcName, String destName) {
+  private static void addFieldMapping(ClassMap classMap, Configuration configuration, String srcName, String srcKey, String destName, String destKey) {
     FieldMap fieldMap = new GenericFieldMap(classMap);
 
     DozerField sourceField = new DozerField(srcName, null);
     DozerField destField = new DozerField(destName, null);
+    
+    if (!srcKey.isEmpty()) sourceField.setKey(srcKey);
+    if (!destKey.isEmpty()) destField.setKey(destKey);
 
     sourceField.setAccessible(true);
     destField.setAccessible(true);
