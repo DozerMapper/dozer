@@ -8,6 +8,8 @@
 # Maven #
 #########
 target
+release.properties
+*.releaseBackup
 
 # IntelliJ IDEA #
 #################
