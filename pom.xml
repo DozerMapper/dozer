@@ -89,6 +89,15 @@
           </configuration>
         </plugin>
         <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.4.1</version>
+          <configuration>
+            <useReleaseProfile>false</useReleaseProfile>
+            <releaseProfiles>release</releaseProfiles>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+          </configuration>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
           <version>2.2</version>
@@ -325,10 +334,15 @@
       <id>dozer.sf.net</id>
       <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
     </site>
+    <!--<repository>-->
+      <!--<id>sonatype-nexus-staging</id>-->
+      <!--<name>Sonatype Staging</name>-->
+      <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+    <!--</repository>-->
     <repository>
-      <id>sonatype-nexus-staging</id>
-      <name>Sonatype Staging</name>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <id>bintray</id>
+      <name>Bintray</name>
+      <url>https://api.bintray.com/maven/buzdin/dozer-mapper/dozer</url>
     </repository>
     <snapshotRepository>
       <id>sonatype-nexus-snapshots</id>
@@ -339,9 +353,10 @@
   </distributionManagement>
 
   <scm>
-    <connection>scm:https://github.com/DozerMapper/Dozer</connection>
-    <tag>HEAD</tag>
+    <connection>scm:git:https//github.com/DozerMapper/dozer</connection>
+    <developerConnection>scm:git:git@github.com:DozerMapper/dozer.git</developerConnection>
     <url>https://github.com/DozerMapper/Dozer</url>
+    <tag>HEAD</tag>
   </scm>
 
   <ciManagement>
