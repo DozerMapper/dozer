@@ -27,6 +27,10 @@ import org.osgi.framework.BundleContext;
 
 import javax.inject.Inject;
 
+import java.util.Collections;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.*;
@@ -58,6 +62,21 @@ public class OsgiContainerTest {
   public void shouldInstantiate() {
     DozerBeanMapper beanMapper = new DozerBeanMapper();
     assertThat(beanMapper, notNullValue());
+  }
+
+  @Test
+  public void shouldMap() {
+    DozerBeanMapper beanMapper = new DozerBeanMapper();
+    Object result = beanMapper.map(new Object(), Object.class);
+    assertThat(result, notNullValue());
+  }
+
+  @Test
+  public void shouldLoadMappingFile() {
+    List<String> mappingFiles = Collections.singletonList("mapping.xml");
+    DozerBeanMapper beanMapper = new DozerBeanMapper(mappingFiles);
+    Object result = beanMapper.map(new Object(), Object.class);
+    assertThat(result, notNullValue());
   }
 
 }
