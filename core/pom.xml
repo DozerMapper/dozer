@@ -30,6 +30,10 @@
   <packaging>jar</packaging>
   <name>Dozer</name>
 
+  <properties>
+    <osgi.version>4.3.0</osgi.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -103,6 +107,12 @@
       <groupId>org.glassfish.web</groupId>
       <artifactId>el-impl</artifactId>
       <version>2.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <version>${osgi.version}</version>
       <scope>provided</scope>
     </dependency>
 
