@@ -39,6 +39,10 @@
     <module>osgi-test</module>
   </modules>
 
+  <prerequisites>
+    <maven>2.2.1</maven>
+  </prerequisites>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>1.7.5</slf4j.version>
