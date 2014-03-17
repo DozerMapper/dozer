@@ -75,15 +75,6 @@ public class DozerInitializerTest extends AbstractDozerTest {
     fail();
   }
 
-  @Test
-  public void testBeanInstantiated() {
-    BeanContainer.getInstance().setClassLoader(null);
-    BeanContainer.getInstance().setProxyResolver(null);
-    instance.init();
-    assertNotNull(BeanContainer.getInstance().getClassLoader());
-    assertNotNull(BeanContainer.getInstance().getProxyResolver());
-  }
-
   @After
   public void tearDown() throws Exception {
     instance.destroy();

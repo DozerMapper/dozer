@@ -35,7 +35,7 @@ import java.lang.management.ManagementFactory;
  */
 public class JMXPlatformImpl implements JMXPlatform {
 
-  private static final Logger log = LoggerFactory.getLogger(JMXPlatformImpl.class);
+  private final Logger log = LoggerFactory.getLogger(JMXPlatformImpl.class);
 
   public boolean isAvailable() {
     try {

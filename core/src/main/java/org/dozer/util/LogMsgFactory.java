@@ -31,11 +31,9 @@ import java.util.Collection;
  */
 public final class LogMsgFactory {
 
-  private static final Logger log = LoggerFactory.getLogger(LogMsgFactory.class);
+  private final Logger log = LoggerFactory.getLogger(LogMsgFactory.class);
 
-  private LogMsgFactory() {}
-
-  public static String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object srcFieldValue, Object destObj) {
+  public String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object srcFieldValue, Object destObj) {
     String srcClassName = null;
     if (srcObj != null) {
       srcClassName = srcObj.getClass().getName();
@@ -76,7 +74,7 @@ public final class LogMsgFactory {
         + destClassName + "\n  Dest field name: " + fieldMapping.getDestFieldName() + "\n  Dest field type: " + destFieldTypeName;
   }
 
-  public static String createFieldMappingSuccessMsg(Class<?> srcClass, Class<?> destClass, String srcFieldName, String destFieldName,
+  public String createFieldMappingSuccessMsg(Class<?> srcClass, Class<?> destClass, String srcFieldName, String destFieldName,
       Object srcFieldValue, Object destFieldValue, String classMapId) {
     String srcClassStr = MappingUtils.getClassNameWithoutPackage(srcClass);
     String destClassStr = MappingUtils.getClassNameWithoutPackage(destClass);
@@ -86,7 +84,7 @@ public final class LogMsgFactory {
         + (classMapId != null ? classMapId : "");
   }
 
-  private static String getLogOutput(Object object) {
+  private String getLogOutput(Object object) {
     String output = "NULL";
     if (object == null) {
       return output;

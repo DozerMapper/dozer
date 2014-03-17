@@ -36,7 +36,7 @@ import java.net.URL;
  */
 public class MappingFileReader implements MappingsSource<URL> {
 
-  private static final Logger log = LoggerFactory.getLogger(MappingFileReader.class);
+  private final Logger log = LoggerFactory.getLogger(MappingFileReader.class);
 
   private final MappingStreamReader streamReader;
 

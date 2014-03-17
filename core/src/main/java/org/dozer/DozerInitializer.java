@@ -48,7 +48,7 @@ import java.util.ServiceLoader;
  */
 public final class DozerInitializer {
 
-  private static final Logger log = LoggerFactory.getLogger(DozerInitializer.class);
+  private final Logger log = LoggerFactory.getLogger(DozerInitializer.class);
 
   private static final String DOZER_STATISTICS_CONTROLLER = "org.dozer.jmx:type=DozerStatisticsController";
   private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
@@ -65,7 +65,7 @@ public final class DozerInitializer {
   }
 
   public void init(ClassLoader classLoader) {
-    // Multiple threads may try to initialize simultaniously
+    // Multiple threads may try to initialize simultaneously
     synchronized (this) {
       if (isInitialized) {
         log.debug("Tried to perform initialization when Dozer was already started.");
@@ -93,22 +93,10 @@ public final class DozerInitializer {
       }
     }
 
-    String classLoaderName = globalSettings.getClassLoaderName();
-    String proxyResolverName = globalSettings.getProxyResolverName();
-
-    DefaultClassLoader defaultClassLoader = new DefaultClassLoader(classLoader);
     BeanContainer beanContainer = BeanContainer.getInstance();
 
-    Class<? extends DozerClassLoader> classLoaderType = loadBeanType(classLoaderName, defaultClassLoader, DozerClassLoader.class);
-    Class<? extends DozerProxyResolver> proxyResolverType = loadBeanType(proxyResolverName, defaultClassLoader, DozerProxyResolver.class);
-
-    // TODO Chicken-egg problem - investigate
-//    DozerClassLoader classLoaderBean = ReflectionUtils.newInstance(classLoaderType);
-    DozerClassLoader classLoaderBean = defaultClassLoader;
-    DozerProxyResolver proxyResolverBean = ReflectionUtils.newInstance(proxyResolverType);
-
-    beanContainer.setClassLoader(classLoaderBean);
-    beanContainer.setProxyResolver(proxyResolverBean);
+    registerClassLoader(globalSettings, classLoader, beanContainer);
+    registerProxyResolver(globalSettings, beanContainer);
 
     if (globalSettings.isElEnabled()) {
       ELEngine engine = new ELEngine();
@@ -119,6 +107,26 @@ public final class DozerInitializer {
 
     for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
       module.init();
+    }
+  }
+
+  private void registerClassLoader(GlobalSettings globalSettings, ClassLoader classLoader, BeanContainer beanContainer) {
+    String classLoaderName = globalSettings.getClassLoaderName();
+    if (!DozerConstants.DEFAULT_CLASS_LOADER_BEAN.equals(classLoaderName)) {
+      DefaultClassLoader defaultClassLoader = new DefaultClassLoader(classLoader);
+      Class<? extends DozerClassLoader> classLoaderType = loadBeanType(classLoaderName, defaultClassLoader, DozerClassLoader.class);
+      DozerClassLoader classLoaderBean = ReflectionUtils.newInstance(classLoaderType);
+      beanContainer.setClassLoader(classLoaderBean);
+    }
+  }
+
+  private void registerProxyResolver(GlobalSettings globalSettings, BeanContainer beanContainer) {
+    String proxyResolverName = globalSettings.getProxyResolverName();
+    if (!DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN.equals(proxyResolverName)) {
+      DozerClassLoader initializedClassLoader = beanContainer.getClassLoader();
+      Class<? extends DozerProxyResolver> proxyResolverType = loadBeanType(proxyResolverName, initializedClassLoader, DozerProxyResolver.class);
+      DozerProxyResolver proxyResolverBean = ReflectionUtils.newInstance(proxyResolverType);
+      beanContainer.setProxyResolver(proxyResolverBean);
     }
   }
 

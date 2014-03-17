@@ -61,7 +61,7 @@ import static org.dozer.util.DozerConstants.ITERATE;
  */
 public class MappingProcessor implements Mapper {
 
-  private static final Logger log = LoggerFactory.getLogger(MappingProcessor.class);
+  private final Logger log = LoggerFactory.getLogger(MappingProcessor.class);
 
   private final ClassMappings classMappings;
   private final Configuration globalConfiguration;
@@ -76,6 +76,7 @@ public class MappingProcessor implements Mapper {
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
   private final PrimitiveOrWrapperConverter primitiveConverter = new PrimitiveOrWrapperConverter();
+  private final LogMsgFactory logMsgFactory = new LogMsgFactory();
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
                              StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
@@ -310,7 +311,7 @@ public class MappingProcessor implements Mapper {
       statsMgr.increment(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
 
     } catch (Throwable e) {
-      log.error(LogMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj), e);
+      log.error(logMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj), e);
       statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
@@ -367,7 +368,7 @@ public class MappingProcessor implements Mapper {
     writeDestinationValue(destObj, destFieldValue, fieldMapping, srcObj);
 
     if (log.isDebugEnabled()) {
-      log.debug(LogMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
+      log.debug(logMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
           fieldMapping.getDestFieldName(), srcFieldValue, destFieldValue, fieldMapping.getClassMap().getMapId()));
     }
   }
@@ -479,7 +480,7 @@ public class MappingProcessor implements Mapper {
     if (!DozerConstants.ITERATE.equals(fieldMap.getDestFieldType())) {
       result = getExistingValue(fieldMap, destObj, destFieldType);
     }
-    ClassMap classMap = null;
+
     // if the field is not null than we don't want a new instance
     if (result == null) {
       // first check to see if this plain old field map has hints to the actual
@@ -502,15 +503,15 @@ public class MappingProcessor implements Mapper {
       } else {
         targetClass = destFieldType;
       }
-      classMap = getClassMap(srcFieldValue.getClass(), targetClass, mapId);
+      ClassMap classMap = getClassMap(srcFieldValue.getClass(), targetClass, mapId);
 
       BeanCreationDirective creationDirective = new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(), classMap.getDestClassToMap(),
               destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(),
               fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod());
 
-      result = createByCreationDirectiveAndMap(creationDirective, classMap, srcFieldValue, result, false, fieldMap.getMapId());
+      result = createByCreationDirectiveAndMap(creationDirective, classMap, srcFieldValue, null, false, fieldMap.getMapId());
     } else {
-      mapToDestObject(classMap, srcFieldValue, result, false, fieldMap.getMapId());
+      mapToDestObject(null, srcFieldValue, result, false, fieldMap.getMapId());
     }
 
     return result;
@@ -665,7 +666,7 @@ public class MappingProcessor implements Mapper {
       }
     }
     if (log.isDebugEnabled()) {
-      log.debug(LogMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
+      log.debug(logMsgFactory.createFieldMappingSuccessMsg(srcObj.getClass(), destObj.getClass(), fieldMapping.getSrcFieldName(),
           fieldMapping.getDestFieldName(), srcFieldValue, null, fieldMapping.getClassMap().getMapId()));
     }
   }

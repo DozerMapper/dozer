@@ -33,7 +33,7 @@ import java.util.Set;
  */
 public final class DozerCacheManager implements CacheManager {
 
-  private static final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
+  private final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
 
   private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
 

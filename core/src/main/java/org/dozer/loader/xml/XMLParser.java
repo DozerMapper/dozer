@@ -42,7 +42,7 @@ import org.w3c.dom.NodeList;
  */
 public class XMLParser implements MappingsSource<Document> {
 
-  private static final Logger log = LoggerFactory.getLogger(XMLParser.class);
+  private final Logger log = LoggerFactory.getLogger(XMLParser.class);
 
   // Common Elements/Attributes
   private static final String WILDCARD = "wildcard";

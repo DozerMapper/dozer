@@ -45,7 +45,7 @@ import java.util.Collection;
  */
 public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDescriptor {
 
-  private static final Logger log = LoggerFactory.getLogger(GetterSetterPropertyDescriptor.class);
+  private final Logger log = LoggerFactory.getLogger(GetterSetterPropertyDescriptor.class);
 
   private Class<?> propertyType;
 

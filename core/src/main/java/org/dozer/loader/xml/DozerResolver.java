@@ -37,7 +37,7 @@ import java.net.URL;
  */
 public class DozerResolver implements EntityResolver {
 
-  private static final Logger log = LoggerFactory.getLogger(DozerResolver.class);
+  private final Logger log = LoggerFactory.getLogger(DozerResolver.class);
 
   public InputSource resolveEntity(String publicId, String systemId) {
     log.debug("Trying to resolve XML entity with public ID [{}] and system ID [{}]", publicId, systemId);

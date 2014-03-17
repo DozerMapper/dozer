@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author Dmitry Spikhalskiy
  */
 public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
-  private final  static Logger logger = LoggerFactory.getLogger(ProtoFieldPropertyDescriptor.class);
+  private final Logger logger = LoggerFactory.getLogger(ProtoFieldPropertyDescriptor.class);
 
   public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);

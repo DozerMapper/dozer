@@ -48,7 +48,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public abstract class FieldMap implements Cloneable {
   
-  private static final Logger log = LoggerFactory.getLogger(FieldMap.class);
+  private final Logger log = LoggerFactory.getLogger(FieldMap.class);
 
   private ClassMap classMap;
   private DozerField srcField;

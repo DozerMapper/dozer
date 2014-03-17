@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 public final class StatisticsManagerImpl implements StatisticsManager {
 
-  private static final Logger log = LoggerFactory.getLogger(StatisticsManagerImpl.class);
+  private final Logger log = LoggerFactory.getLogger(StatisticsManagerImpl.class);
 
   private final ConcurrentMap<StatisticType, Statistic> statisticsMap = new ConcurrentHashMap<StatisticType, Statistic>();
   private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();

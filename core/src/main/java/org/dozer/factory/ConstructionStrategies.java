@@ -137,7 +137,7 @@ public final class ConstructionStrategies {
 
   static class ByFactory implements BeanCreationStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(ByFactory.class);
+    private final Logger log = LoggerFactory.getLogger(ByFactory.class);
 
     private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<String, BeanFactory>();
 

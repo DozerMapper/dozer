@@ -41,7 +41,7 @@ import java.util.Properties;
  */
 public class GlobalSettings {
 
-  private static final Logger log = LoggerFactory.getLogger(GlobalSettings.class);
+  private final Logger log = LoggerFactory.getLogger(GlobalSettings.class);
 
   private static final GlobalSettings instance = new GlobalSettings();
 

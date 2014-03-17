@@ -89,7 +89,8 @@ public final class XMLParserFactory {
   }
 
   private static class DozerDefaultHandler extends DefaultHandler {
-    private static final Logger log = LoggerFactory.getLogger(DozerDefaultHandler.class);
+
+    private final Logger log = LoggerFactory.getLogger(DozerDefaultHandler.class);
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {

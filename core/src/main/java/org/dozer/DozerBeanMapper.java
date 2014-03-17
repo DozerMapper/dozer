@@ -64,9 +64,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class DozerBeanMapper implements Mapper {
 
-  private static final Logger log = LoggerFactory.getLogger(DozerBeanMapper.class);
-  private static final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+  private final Logger log = LoggerFactory.getLogger(DozerBeanMapper.class);
 
+  private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
   private final AtomicBoolean initializing = new AtomicBoolean(false);
   private final CountDownLatch ready = new CountDownLatch(1);
 

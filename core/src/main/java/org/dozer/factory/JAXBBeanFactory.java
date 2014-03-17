@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  */
 public class JAXBBeanFactory implements BeanFactory {
 
-  private static final Logger log = LoggerFactory.getLogger(JAXBBeanFactory.class);
+  private final Logger log = LoggerFactory.getLogger(JAXBBeanFactory.class);
   private static final char INNER_CLASS_DELIMETER = '$';
 
   /**
