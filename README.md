@@ -36,12 +36,12 @@ If you are using Maven, simply copy-paste this dependency to your project.
     <dependency>
         <groupId>net.sf.dozer</groupId>
         <artifactId>dozer</artifactId>
-        <version>5.4.0</version>
+        <version>5.5.1</version>
     </dependency>
 
 Apache Ivy users can copy-paste the following line instead.
 
-    <dependency org="net.sf.dozer" name="dozer" rev="5.4.0"/>
+    <dependency org="net.sf.dozer" name="dozer" rev="5.5.1"/>
 
 Simple Example
 --------------------------------
