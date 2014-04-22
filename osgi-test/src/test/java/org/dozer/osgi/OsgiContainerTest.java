@@ -16,6 +16,7 @@
 package org.dozer.osgi;
 
 import org.dozer.DozerBeanMapper;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -71,6 +72,7 @@ public class OsgiContainerTest {
     assertThat(result, notNullValue());
   }
 
+  @Ignore
   @Test
   public void shouldLoadMappingFile() {
     List<String> mappingFiles = Collections.singletonList("mapping.xml");
