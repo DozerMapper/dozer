@@ -2,6 +2,7 @@
 
 [![Build Status](https://api.travis-ci.org/DozerMapper/dozer.png)](https://travis-ci.org/DozerMapper/dozer)
 [![Dependency Status](https://www.versioneye.com/user/projects/5325a858ec137554460002e1/badge.png)](https://www.versioneye.com/user/projects/5325a858ec137554460002e1)
+[ ![Download](https://api.bintray.com/packages/buzdin/dozer-mapper/dozer/images/download.png) ](https://bintray.com/buzdin/dozer-mapper/dozer/_latestVersion)
 ================================
 
 
