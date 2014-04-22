@@ -10,6 +10,7 @@
 target
 release.properties
 *.releaseBackup
+*.versionsBackup
 
 # IntelliJ IDEA #
 #################

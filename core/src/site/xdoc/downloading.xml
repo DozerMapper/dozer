@@ -32,14 +32,14 @@
     <section name="Downloading Dozer">
       <ul>
         <li>
-          <a href="https://github.com/DozerMapper/dozer/downloads" target="_blank">
-            Latest release of Dozer Mapper
+          <a href="https://bintray.com/buzdin/dozer-mapper/dozer/_latestVersion" target="_blank">
+            Latest release of Dozer Mapper.
           </a>
         </li>
         <li>
           <a href="http://sourceforge.net/project/showfiles.php?group_id=133517&amp;package_id=146610"
              target="_blank">
-            Older Releases hosted on SourceForge
+            Older Releases hosted on SourceForge.
           </a>
         </li>
       </ul>
