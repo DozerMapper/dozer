@@ -49,16 +49,14 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   public Method getWriteMethod() throws NoSuchMethodException {
     PropertyDescriptorBean descBean = getPropertyDescriptorBean(srcDeepIndexHintContainer);
     Method writeMethod = descBean.getPd().getWriteMethod();
-    if (writeMethod == null) {
-      if (writeMethodName != null) {
-        writeMethod = MethodUtils.getAccessibleMethod(descBean.getParentClass(), writeMethodName,
-            descBean.getPd().getPropertyType());
-        if (writeMethod != null) {
-          try {
-            descBean.getPd().setWriteMethod(writeMethod);
-          } catch (IntrospectionException e) {
-            // ignore, in this case the method is not cached
-          }
+    if (writeMethod == null && writeMethodName != null) {
+      writeMethod = MethodUtils.getAccessibleMethod(descBean.getParentClass(), writeMethodName,
+          descBean.getPd().getPropertyType());
+      if (writeMethod != null) {
+        try {
+          descBean.getPd().setWriteMethod(writeMethod);
+        } catch (IntrospectionException e) {
+          // ignore, in this case the method is not cached
         }
       }
     }
