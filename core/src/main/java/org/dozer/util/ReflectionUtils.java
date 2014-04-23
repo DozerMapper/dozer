@@ -20,11 +20,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
+import org.dozer.propertydescriptor.PropertyDescriptorBean;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.*;
 import java.util.*;
+
+import static org.dozer.propertydescriptor.PropertyDescriptorBean.wrap;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -40,12 +43,15 @@ public final class ReflectionUtils {
   private ReflectionUtils() {
   }
 
-  public static PropertyDescriptor findPropertyDescriptor(Class<?> objectClass, String fieldName,
+  public static PropertyDescriptorBean findPropertyDescriptor(Class<?> objectClass, String fieldName,
       HintContainer deepIndexHintContainer) {
     PropertyDescriptor result = null;
+    Class<?> parentClass = objectClass;
     if (MappingUtils.isDeepMapping(fieldName)) {
       DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
-      result = hierarchy[hierarchy.length - 1].getPropDescriptor();
+      DeepHierarchyElement lastHierarchy = hierarchy[hierarchy.length - 1];
+      result = lastHierarchy.getPropDescriptor();
+      parentClass = lastHierarchy.getParentClass();
     } else {
       PropertyDescriptor[] descriptors = getPropertyDescriptors(objectClass);
 
@@ -68,9 +74,8 @@ public final class ReflectionUtils {
           //          }
 
           String propertyName = descriptors[i].getName();
-          Method readMethod = descriptors[i].getReadMethod();
           if (fieldName.equals(propertyName)) {
-            return fixGenericDescriptor(objectClass, descriptors[i]);
+            return wrap(fixGenericDescriptor(objectClass, descriptors[i]), parentClass);
           }
 
           if (fieldName.equalsIgnoreCase(propertyName)) {
@@ -80,7 +85,7 @@ public final class ReflectionUtils {
       }
     }
 
-    return result;
+    return wrap(result, parentClass);
   }
 
 	/**
@@ -141,8 +146,8 @@ public final class ReflectionUtils {
         collectionIndex = Integer.parseInt(aFieldName.substring(aFieldName.indexOf("[") + 1, aFieldName.indexOf("]")));
       }
 
-      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, theFieldName, deepIndexHintContainer);
-      DeepHierarchyElement r = new DeepHierarchyElement(propDescriptor, collectionIndex);
+      PropertyDescriptor propDescriptor = findPropertyDescriptor(latestClass, theFieldName, deepIndexHintContainer).getPd();
+      DeepHierarchyElement r = new DeepHierarchyElement(propDescriptor, latestClass, collectionIndex);
 
       if (propDescriptor == null) {
         MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "

@@ -15,12 +15,14 @@
  */
 package org.dozer.propertydescriptor;
 
-import java.lang.reflect.Method;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.vo.deep2.Dest;
 import org.junit.Test;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author tierney.matt
@@ -37,5 +39,28 @@ public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
 
     assertNotNull("method should not be null", method);
     assertEquals("incorrect method found", "getDestField", method.getName());
+  }
+
+  @Test
+  public void testGetWriteMethod() throws Exception {
+    DozerField dozerField = new DozerField("destField", "generic");
+
+    JavaBeanPropertyDescriptor pd = new JavaBeanPropertyDescriptor(Dest.class, dozerField.getName(), dozerField.isIndexed(),
+        dozerField.getIndex(), null, null);
+
+    // Write method available initially
+    Method method = pd.getWriteMethod();
+    assertNotNull("method should not be null", method);
+
+    // Clear write method on GC
+    Field pdField = pd.getClass().getDeclaredField("pd");
+    pdField.setAccessible(true);
+    PropertyDescriptor propertyDescriptor = ((PropertyDescriptorBean) pdField.get(pd)).getPd();
+    propertyDescriptor.setWriteMethod(null);
+
+    method = pd.getWriteMethod();
+
+    assertNotNull("method should not be null", method);
+    assertEquals("incorrect method found", "setDestField", method.getName());
   }
 }
