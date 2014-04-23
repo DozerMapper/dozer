@@ -43,8 +43,8 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
-    Method writeMethod = (MethodUtils.getAccessibleMethod(clazz,
-        getWriteMethod(clazz, getPropertyDescriptor(srcDeepIndexHintContainer))));
+    Method writeMethod = MethodUtils.getAccessibleMethod(clazz,
+        getWriteMethod(clazz, getPropertyDescriptor(srcDeepIndexHintContainer)));
     writeMethod = writeMethod == null ? ReflectionUtils.getNonVoidSetter(clazz, fieldName) : writeMethod;
     if (writeMethod == null) {
       throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
@@ -84,6 +84,13 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return pd;
   }
 
+  /**
+   * See {@link org.apache.commons.beanutils.PropertyUtilsBean#getWriteMethod(Class, java.beans.PropertyDescriptor)}
+   *
+   * @param beanCls the bean class
+   * @param desc    the property descriptor
+   * @return the write method
+   */
   private Method getWriteMethod(Class<?> beanCls, PropertyDescriptor desc) {
     Method method = desc.getWriteMethod();
     if (method == null) {
