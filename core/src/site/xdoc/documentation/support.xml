@@ -43,20 +43,20 @@
       <subsection name="Think you've found a bug?">
         <p>
           Please enter a bug in the
-          <a href="https://github.com/DozerMapper/dozer/issues">GitHub Issue Tracker</a>
-          . We value your support there. We can't fix bugs we don't know about!
+          <a href="https://github.com/DozerMapper/dozer/issues">GitHub Issue Tracker</a>.
+          We value your support there. We can't fix bugs we don't know about!
         </p>
       </subsection>
       <subsection name="Have a feature request?">
         <p>
           Please enter a feature request in the
-          <a href="https://github.com/DozerMapper/dozer/issues">GitHub Issue Tracker</a>
-          . It helps if you attach a pull request :)
+          <a href="https://github.com/DozerMapper/dozer/issues">GitHub Issue Tracker</a>.
+          It helps if you attach a pull request :)
         </p>
       </subsection>
       <subsection name="Got a patch?">
         <p>
-          Please submit a pull request for Dozer GirHub project.
+          Please submit a pull request for Dozer GitHub project.
           Along with your pull request we need a unit test and any supporting objects and mapping file.
         </p>
       </subsection>

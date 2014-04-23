@@ -50,6 +50,13 @@
     <section name="Dozer News">
       <p/>
 
+      <h3>Dozer 5.5.1 is out <font size="-3" color="gray"> <i>22/04/2014</i></font></h3>
+      <p>
+        Release 5.5.1 is available for download and should appear in Maven Central shortly.
+        Project has migrated to bintray for hosting binary releases and as an alternative repository location.
+        Check release notes for the list of issues closed.
+      </p>
+
       <h3>Dozer 5.4.0 is out <font size="-3" color="gray"> <i>12/01/2012</i></font></h3>
       <p>
         Release 5.4.0 is available for download. This is the first release after moving project to GitHub and already

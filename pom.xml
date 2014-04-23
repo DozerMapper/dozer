@@ -121,6 +121,11 @@
           </configuration>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <version>2.3</version>
@@ -134,6 +139,15 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <skipAssembly>true</skipAssembly>
+        </configuration>
+      </plugin>
+    </plugins>
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -342,11 +356,6 @@
       <id>dozer.sf.net</id>
       <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
     </site>
-    <!--<repository>-->
-      <!--<id>sonatype-nexus-staging</id>-->
-      <!--<name>Sonatype Staging</name>-->
-      <!--<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-    <!--</repository>-->
     <repository>
       <id>bintray</id>
       <name>Bintray</name>
@@ -364,7 +373,7 @@
     <connection>scm:git:https//github.com/DozerMapper/dozer</connection>
     <developerConnection>scm:git:git@github.com:DozerMapper/dozer.git</developerConnection>
     <url>https://github.com/DozerMapper/Dozer</url>
-    <tag>dozer-5.5.0</tag>
+    <tag>dozer-5.5.1</tag>
   </scm>
 
   <ciManagement>
