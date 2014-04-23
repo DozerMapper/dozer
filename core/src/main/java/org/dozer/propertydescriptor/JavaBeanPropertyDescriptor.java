@@ -15,47 +15,49 @@
  */
 package org.dozer.propertydescriptor;
 
+import org.apache.commons.beanutils.MethodUtils;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 /**
- * 
  * Internal class used to read and write values for fields that follow the java bean spec and have corresponding
  * getter/setter methods for the field that are name accordingly. If the field does not have the necessary
  * getter/setter, an exception will be thrown. Only intended for internal use.
- * 
+ *
  * @author garsombke.franz
  * @author tierney.matt
  */
 public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private PropertyDescriptor pd;
-  private Method writeMethod;
+  private String writeMethodName;
 
   public JavaBeanPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
-      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+                                    HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
-    // Store writeMethod internally as {@code PropertyDescriptor} stores it as {@code SoftReference}. This may be lost during GC.
+    Method writeMethod = (MethodUtils.getAccessibleMethod(clazz,
+        getWriteMethod(clazz, getPropertyDescriptor(srcDeepIndexHintContainer))));
+    writeMethod = writeMethod == null ? ReflectionUtils.getNonVoidSetter(clazz, fieldName) : writeMethod;
     if (writeMethod == null) {
-      writeMethod = getPropertyDescriptor(destDeepIndexHintContainer).getWriteMethod();
-      writeMethod = writeMethod == null ? ReflectionUtils.getNonVoidSetter(clazz, fieldName) : writeMethod;
-      if (writeMethod == null) {
-        throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
-      }
+      throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
     }
     return writeMethod;
   }
 
   @Override
   protected String getSetMethodName() throws NoSuchMethodException {
-    return getWriteMethod().getName();
+    if (writeMethodName == null) {
+      writeMethodName = getWriteMethod().getName();
+    }
+    return writeMethodName;
   }
 
   @Override
@@ -80,6 +82,27 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
       }
     }
     return pd;
+  }
+
+  private Method getWriteMethod(Class<?> beanCls, PropertyDescriptor desc) {
+    Method method = desc.getWriteMethod();
+    if (method == null) {
+      if (writeMethodName != null) {
+        method = MethodUtils.getAccessibleMethod(beanCls, writeMethodName,
+            desc.getPropertyType());
+        if (method != null) {
+          try {
+            desc.setWriteMethod(method);
+          } catch (IntrospectionException e) {
+            // ignore, in this case the method is not cached
+          }
+        }
+      }
+    } else {
+      writeMethodName = method.getName();
+    }
+
+    return method;
   }
 
 }
