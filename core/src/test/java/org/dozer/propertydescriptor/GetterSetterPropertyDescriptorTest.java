@@ -55,7 +55,7 @@ public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
     // Clear write method on GC
     Field pdField = pd.getClass().getDeclaredField("pd");
     pdField.setAccessible(true);
-    PropertyDescriptor propertyDescriptor = (PropertyDescriptor) pdField.get(pd);
+    PropertyDescriptor propertyDescriptor = ((PropertyDescriptorBean) pdField.get(pd)).getPd();
     propertyDescriptor.setWriteMethod(null);
 
     method = pd.getWriteMethod();

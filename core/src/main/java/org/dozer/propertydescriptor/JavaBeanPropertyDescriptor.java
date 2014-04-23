@@ -21,7 +21,6 @@ import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 /**
@@ -33,7 +32,7 @@ import java.lang.reflect.Method;
  * @author tierney.matt
  */
 public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
-  private PropertyDescriptor pd;
+  private PropertyDescriptorBean pd;
   private String writeMethodName;
 
   public JavaBeanPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
@@ -41,13 +40,33 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
   }
 
+  /**
+   * See {@link org.apache.commons.beanutils.PropertyUtilsBean#getWriteMethod(Class, java.beans.PropertyDescriptor)}
+   *
+   * @return the write method
+   */
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
-    Method writeMethod = MethodUtils.getAccessibleMethod(clazz,
-        getWriteMethod(clazz, getPropertyDescriptor(srcDeepIndexHintContainer)));
+    PropertyDescriptorBean descBean = getPropertyDescriptorBean(srcDeepIndexHintContainer);
+    Method writeMethod = descBean.getPd().getWriteMethod();
+    if (writeMethod == null) {
+      if (writeMethodName != null) {
+        writeMethod = MethodUtils.getAccessibleMethod(descBean.getParentClass(), writeMethodName,
+            descBean.getPd().getPropertyType());
+        if (writeMethod != null) {
+          try {
+            descBean.getPd().setWriteMethod(writeMethod);
+          } catch (IntrospectionException e) {
+            // ignore, in this case the method is not cached
+          }
+        }
+      }
+    }
     writeMethod = writeMethod == null ? ReflectionUtils.getNonVoidSetter(clazz, fieldName) : writeMethod;
     if (writeMethod == null) {
       throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
+    } else {
+      writeMethodName = writeMethod.getName();
     }
     return writeMethod;
   }
@@ -62,7 +81,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
 
   @Override
   protected Method getReadMethod() throws NoSuchMethodException {
-    Method result = getPropertyDescriptor(srcDeepIndexHintContainer).getReadMethod();
+    Method result = getPropertyDescriptorBean(srcDeepIndexHintContainer).getPd().getReadMethod();
     if (result == null) {
       throw new NoSuchMethodException("Unable to determine read method for Field: '" + fieldName + "' in Class: " + clazz);
     }
@@ -74,7 +93,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
     return false;
   }
 
-  private PropertyDescriptor getPropertyDescriptor(HintContainer deepIndexHintContainer) {
+  private PropertyDescriptorBean getPropertyDescriptorBean(HintContainer deepIndexHintContainer) {
     if (pd == null) {
       pd = ReflectionUtils.findPropertyDescriptor(clazz, fieldName, deepIndexHintContainer);
       if (pd == null) {
@@ -82,34 +101,6 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
       }
     }
     return pd;
-  }
-
-  /**
-   * See {@link org.apache.commons.beanutils.PropertyUtilsBean#getWriteMethod(Class, java.beans.PropertyDescriptor)}
-   *
-   * @param beanCls the bean class
-   * @param desc    the property descriptor
-   * @return the write method
-   */
-  private Method getWriteMethod(Class<?> beanCls, PropertyDescriptor desc) {
-    Method method = desc.getWriteMethod();
-    if (method == null) {
-      if (writeMethodName != null) {
-        method = MethodUtils.getAccessibleMethod(beanCls, writeMethodName,
-            desc.getPropertyType());
-        if (method != null) {
-          try {
-            desc.setWriteMethod(method);
-          } catch (IntrospectionException e) {
-            // ignore, in this case the method is not cached
-          }
-        }
-      }
-    } else {
-      writeMethodName = method.getName();
-    }
-
-    return method;
   }
 
 }

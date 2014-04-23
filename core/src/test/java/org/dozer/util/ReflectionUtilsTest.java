@@ -15,26 +15,20 @@
  */
 package org.dozer.util;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.IsNull.notNullValue;
+import junit.framework.Assert;
+import org.dozer.AbstractDozerTest;
+import org.dozer.MappingException;
+import org.dozer.vo.*;
+import org.dozer.vo.inheritance.ChildChildIF;
+import org.junit.Test;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import junit.framework.Assert;
-
-import org.dozer.AbstractDozerTest;
-import org.dozer.MappingException;
-import org.dozer.vo.A;
-import org.dozer.vo.B;
-import org.dozer.vo.NoReadMethod;
-import org.dozer.vo.NoVoidSetters;
-import org.dozer.vo.SimpleObj;
-import org.dozer.vo.inheritance.ChildChildIF;
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
  * @author tierney.matt
@@ -71,7 +65,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     // Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
     String fieldName = "parentField";
 
-    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(ChildChildIF.class, fieldName, null);
+    PropertyDescriptor pd = ReflectionUtils.findPropertyDescriptor(ChildChildIF.class, fieldName, null).getPd();
 
     assertNotNull("prop descriptor should not be null", pd);
     assertEquals("invalid prop descriptor name found", fieldName, pd.getName());
@@ -80,7 +74,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   @Test
   public void shouldReturnBestMatch_ambigousIgonreCase() {
     // both timezone and timeZone properties exists on XMLGregorianCalendar
-    PropertyDescriptor result = ReflectionUtils.findPropertyDescriptor(XMLGregorianCalendar.class, "timezone", null);
+    PropertyDescriptor result = ReflectionUtils.findPropertyDescriptor(XMLGregorianCalendar.class, "timezone", null).getPd();
 
     assertThat(result.getName(), equalTo("timezone"));
   }
@@ -174,7 +168,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
   @Test
   public void shouldHandleBeanWithGenericInterface() throws Exception {
-    PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(Y.class, "x", null);
+    PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(Y.class, "x", null).getPd();
     assertEquals("org.dozer.util.ReflectionUtilsTest$ClassInheritsClassX", propertyDescriptor.getReadMethod().getReturnType().getName());
   }
 
