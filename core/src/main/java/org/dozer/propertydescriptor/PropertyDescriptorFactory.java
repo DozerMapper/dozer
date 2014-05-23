@@ -19,6 +19,7 @@ import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
+import javax.persistence.Tuple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -56,6 +57,10 @@ public class PropertyDescriptorFactory {
 
       // Copy by reference(Not mapped backed properties which also use 'this'
       // identifier for a different purpose)
+    } else if (Tuple.class.isAssignableFrom(clazz)) {
+      desc = new TuplePropertyDescriptor(clazz, name, key != null ? key : oppositeFieldName);
+
+      // Access field directly and bypass getter/setters
     } else if (isSelfReferencing) {
       desc = new SelfPropertyDescriptor(clazz);
 

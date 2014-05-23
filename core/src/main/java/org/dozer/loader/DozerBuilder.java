@@ -24,6 +24,7 @@ import org.dozer.fieldmap.*;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
+import javax.persistence.Tuple;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -320,6 +321,9 @@ public class DozerBuilder {
       if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField()
           || classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
         result = new MapFieldMap(classMap);
+      } else if (classMap.getSrcClassToMap().isAssignableFrom(Tuple.class)
+          || classMap.getDestClassToMap().isAssignableFrom(Tuple.class)) {
+        result = new TupleFieldMap(classMap);
       } else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
         result = new CustomGetSetMethodFieldMap(classMap);
       } else {
