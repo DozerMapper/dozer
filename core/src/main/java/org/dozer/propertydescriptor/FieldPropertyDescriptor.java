@@ -18,6 +18,8 @@ package org.dozer.propertydescriptor;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
+import org.dozer.loader.DozerBuilder;
+import org.dozer.util.CollectionUtils;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
