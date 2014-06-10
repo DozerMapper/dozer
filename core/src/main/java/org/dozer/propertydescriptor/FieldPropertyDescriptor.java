@@ -47,11 +47,21 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
 
     Class<?> currentType = clazz;
     for (int i = 0, tokensLength = tokens.length; i < tokensLength; i++) {
-      String token = tokens[i];
-      descriptorChain[i] = new ChainedPropertyDescriptor(currentType, token, isIndexed, index);
+	  String hierarchyFieldName = tokens[i] ;
+	  boolean heirarchyIndexInd = isIndexed ;
+	  int heirarchyIndex = index ;
+	  if(DozerBuilder.isIndexed(hierarchyFieldName)){
+		heirarchyIndexInd = true ;
+		hierarchyFieldName = DozerBuilder.getFieldNameOfIndexedField(tokens[i]) ;
+		heirarchyIndex = DozerBuilder.getIndexOfIndexedField(tokens[i]) ;
+	  }
+      descriptorChain[i] = new ChainedPropertyDescriptor(currentType, hierarchyFieldName, heirarchyIndexInd, heirarchyIndex);
       if (i < tokensLength) {
-        Field field = ReflectionUtils.getFieldFromBean(currentType, tokens[i]);
+        Field field = ReflectionUtils.getFieldFromBean(currentType, hierarchyFieldName);
         currentType = field.getType();
+		if(CollectionUtils.isCollection(field.getType())){
+			currentType = ReflectionUtils.determineGenericsType(field.getGenericType()) ;
+		}
       }
     }
   }
@@ -81,8 +91,14 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
       DozerPropertyDescriptor descriptor = descriptorChain[i];
       if (i != descriptorChain.length - 1) {
         Object currentValue = descriptor.getPropertyValue(intermediateResult);
+		Class<?> clazz = null ;
         if (currentValue == null) {
-          currentValue = DestBeanCreator.create(descriptor.getPropertyType());
+		  if(CollectionUtils.isCollection(descriptor.getPropertyType())){
+			clazz = descriptor.genericType() ;
+		  }else{
+			clazz = descriptor.getPropertyType() ;
+		  }
+          currentValue = DestBeanCreator.create(clazz);
           descriptor.setPropertyValue(intermediateResult, currentValue, fieldMap);          
         }
         intermediateResult = currentValue;
