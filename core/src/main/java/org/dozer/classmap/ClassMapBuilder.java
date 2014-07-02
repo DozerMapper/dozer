@@ -17,7 +17,7 @@ package org.dozer.classmap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapping;
-import org.dozer.MappingException;
+import org.dozer.OptionValue;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.classmap.generator.GeneratorUtils;
 import org.dozer.fieldmap.DozerField;
@@ -25,12 +25,15 @@ import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.util.DozerConstants;
+import org.dozer.util.MappingOptions;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,18 +49,22 @@ import java.util.Set;
  */
 public final class ClassMapBuilder {
 
+  private static final Logger log = LoggerFactory.getLogger(ClassMapBuilder.class);
+
   static final List<ClassMappingGenerator> buildTimeGenerators = new ArrayList<ClassMappingGenerator>();
   static final List<ClassMappingGenerator> runTimeGenerators = new ArrayList<ClassMappingGenerator>();
 
   static {
     buildTimeGenerators.add(new AnnotationPropertiesGenerator());
     buildTimeGenerators.add(new AnnotationFieldsGenerator());
+    buildTimeGenerators.add(new AnnotationClassesGenerator());
     buildTimeGenerators.add(new MapMappingGenerator());
     buildTimeGenerators.add(new BeanMappingGenerator());
     buildTimeGenerators.add(new CollectionMappingGenerator());
 
     runTimeGenerators.add(new AnnotationPropertiesGenerator());
     runTimeGenerators.add(new AnnotationFieldsGenerator());
+    runTimeGenerators.add(new AnnotationClassesGenerator());
     runTimeGenerators.add(new MapMappingGenerator());
     runTimeGenerators.add(new BeanMappingGenerator());
   }
@@ -221,6 +228,109 @@ public final class ClassMapBuilder {
     }
   }
 
+  public static class AnnotationClassesGenerator implements ClassMappingGenerator {
+
+    public boolean accepts(ClassMap classMap) {
+        return true;
+    }
+
+    public boolean apply(ClassMap classMap, Configuration configuration) {
+      Class<?> srcType = classMap.getSrcClassToMap();
+      Class<?> dstType = classMap.getDestClassToMap();
+      applyClassMappingOptions(classMap, reconcileOptions(srcType, dstType));
+
+      return false;
+    }
+
+    private static MappingOptions reconcileOptions(final Class<?> srcClass, final Class<?> dstClass) {
+      final MappingOptions srcOpts = srcClass.getAnnotation(MappingOptions.class);
+      final MappingOptions dstOpts = dstClass.getAnnotation(MappingOptions.class);
+      if (srcOpts == null) {
+        return dstOpts;
+      }
+      if (dstOpts == null) {
+        return srcOpts;
+      }
+
+      return new MappingOptions() {
+
+        private OptionValue reconcile(String fieldName, OptionValue srcOption, OptionValue dstOption) {
+          if (srcOption==dstOption) {
+              return srcOption;
+          }
+          if (srcOption==OptionValue.INHERITED) {
+              return dstOption;
+          }
+          if (dstOption==OptionValue.INHERITED) {
+              return srcOption;
+          }
+          log.info("Conflicting class annotations for "+fieldName+" on src class "+srcClass.getCanonicalName()+" and dst class "+dstClass.getCanonicalName());
+          return dstOption;
+        }
+
+        private String reconcile(String fieldName, String srcOption, String dstOption) {
+          if (srcOption.equals(dstOption)) {
+              return srcOption;
+          }
+          if (srcOption.isEmpty()) {
+              return dstOption;
+          }
+          if (dstOption.isEmpty()) {
+              return srcOption;
+          }
+          log.info("Conflicting class annotations for "+fieldName+" on src class "+srcClass.getCanonicalName()+" and dst class "+dstClass.getCanonicalName());
+          return dstOption;
+        }
+
+        @Override
+        public OptionValue wildCard() {
+          return reconcile("wildCard", srcOpts.wildCard(), dstOpts.wildCard());
+        }
+
+        @Override
+        public OptionValue stopOnErrors() {
+          return reconcile("stopOnErrors", srcOpts.stopOnErrors(), dstOpts.stopOnErrors());
+        }
+
+        @Override public OptionValue mapNull() {
+          return reconcile("mapNull", srcOpts.mapNull(), dstOpts.mapNull());
+        }
+
+        @Override public OptionValue mapEmptyString() {
+          return reconcile("mapEmptyString", srcOpts.mapEmptyString(), dstOpts.mapEmptyString());
+        }
+
+        @Override public String dateFormat() {
+          return reconcile("dateFormat", srcOpts.dateFormat(), dstOpts.dateFormat());
+        }
+
+        @Override public Class<? extends Annotation> annotationType() {
+          return MappingOptions.class;
+        }
+      };
+    }
+
+    private static void applyClassMappingOptions(ClassMap classMap, MappingOptions mappingOptions) {
+      if (mappingOptions != null) {
+        classMap.setWildcard(mappingOptions.wildCard().toBoolean());
+        classMap.setStopOnErrors(mappingOptions.stopOnErrors().toBoolean());
+
+        Boolean mapNull = mappingOptions.mapNull().toBoolean();
+        classMap.getDestClass().setMapNull(mapNull);
+        classMap.getSrcClass().setMapNull(mapNull);
+
+        Boolean mapEmptyString = mappingOptions.mapEmptyString().toBoolean();
+        classMap.getDestClass().setMapEmptyString(mapEmptyString);
+        classMap.getSrcClass().setMapEmptyString(mapEmptyString);
+
+        String dateFormat = mappingOptions.dateFormat();
+        if (!dateFormat.isEmpty()) {
+          classMap.setDateFormat(dateFormat);
+        }
+      }
+    }
+  }
+
   public static class AnnotationPropertiesGenerator implements ClassMappingGenerator {
 
     public boolean accepts(ClassMap classMap) {
@@ -229,13 +339,14 @@ public final class ClassMapBuilder {
 
     public boolean apply(ClassMap classMap, Configuration configuration) {
       Class<?> srcType = classMap.getSrcClassToMap();
+
       PropertyDescriptor[] srcProperties = ReflectionUtils.getPropertyDescriptors(srcType);
       for (PropertyDescriptor property : srcProperties) {
         Method readMethod = property.getReadMethod();
         if (readMethod != null) {
           Mapping mapping = readMethod.getAnnotation(Mapping.class);
-          String propertyName = property.getName();
           if (mapping != null) {
+            String propertyName = property.getName();
             String pairName = mapping.value().trim();
             GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
           }
@@ -243,13 +354,14 @@ public final class ClassMapBuilder {
       }
 
       Class<?> destType = classMap.getDestClassToMap();
+
       PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(destType);
       for (PropertyDescriptor property : destProperties) {
         Method readMethod = property.getReadMethod();
         if (readMethod != null) {
           Mapping mapping = readMethod.getAnnotation(Mapping.class);
-          String propertyName = property.getName();
           if (mapping != null) {
+            String propertyName = property.getName();
             String pairName = mapping.value().trim();
             GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
           }
@@ -279,7 +391,7 @@ public final class ClassMapBuilder {
         }
         srcType = srcType.getSuperclass();
       } while (srcType != null);
-      
+
       Class<?> destType = classMap.getDestClassToMap();
       do {
         for (Field field : destType.getDeclaredFields()) {
@@ -292,7 +404,7 @@ public final class ClassMapBuilder {
         }
         destType = destType.getSuperclass();
       } while (destType != null);
-      
+
       return false;
     }
   }
