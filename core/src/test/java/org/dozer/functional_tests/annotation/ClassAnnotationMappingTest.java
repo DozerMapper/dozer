@@ -16,125 +16,107 @@
 package org.dozer.functional_tests.annotation;
 
 import org.dozer.Mapping;
+import org.dozer.OptionValue;
 import org.dozer.functional_tests.AbstractFunctionalTest;
+import org.dozer.util.MappingOptions;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * @author dmitry.buzdin
+ * @author dmitry.buzdin, chas
  */
 public class ClassAnnotationMappingTest extends AbstractFunctionalTest {
 
   private User source;
-  private SubUser subSource;
   private UserDto destination;
 
   @Before
   public void setUp() throws Exception {
     super.setUp();
     source = new User();
-    subSource = new SubUser();
     destination = new UserDto();
   }
 
   @Test
-  public void shouldMapProperties() {
-    source.setId(1L);
-
-    UserDto result = mapper.map(source, UserDto.class);
-
-    assertThat(result.getPk(), equalTo("1"));
-    assertThat(result.getId(), nullValue());
-  }
-
-  @Test
-  public void shouldMapProperties_Backwards() {
-    source.setAge(new Short("1"));
-
-    UserDto result = mapper.map(source, UserDto.class);
-
-    assertThat(result.getYears(), equalTo("1"));
-  }
-
-  @Test
-  public void shouldMapFields_Custom() {
-    source.setName("name");
+  public void shouldMapNonEmptyString() {
+    source.name = "name";
 
     UserDto result = mapper.map(source, UserDto.class);
 
     assertThat(result.username, equalTo("name"));
-    assertThat(result.name, nullValue());
   }
 
   @Test
-  public void shouldMapFields_Custom_Backwards() {
+  public void shouldNotMapEmptyString() {
+    destination.username = "name";
+
+    mapper.map(source, destination);
+
+    assertThat(destination.username, equalTo("name"));
+  }
+
+  @Test
+  public void shouldMapNonEmptyString_Backwards() {
     source.freeText = "text";
+    source.zip = "12345";
 
     UserDto result = mapper.map(source, UserDto.class);
-
-    assertThat(result.comment, equalTo("text"));
-  }
-
-  @Test
-  public void shouldMapFields_Default() {
-    source.setRole("role");
-
-    UserDto result = mapper.map(source, UserDto.class);
-
-    assertThat(result.role, equalTo("role"));
-  }
-
-  @Test
-  public void shouldMapFields_Default_Backwards() {
-    source.setZip("12345");
-
-    UserDto result = mapper.map(source, UserDto.class);
-
-    assertThat(result.zip, equalTo("12345"));
-  }
-
-  @Test
-  public void shouldMapFields_Inherited() {
-    subSource.setName("name");
-    subSource.setRole("role");
-
-    UserDto result = mapper.map(subSource, UserDto.class);
-
-    assertThat(result.username, equalTo("name"));
-    assertThat(result.role, equalTo("role"));
-    assertThat(result.name, nullValue());
-  }
-
-  @Test
-  public void shouldMapFields_Backwards_Inherited() {
-    subSource.freeText = "text";
-    subSource.setZip("12345");
-
-    UserDto result = mapper.map(subSource, UserDto.class);
 
     assertThat(result.comment, equalTo("text"));
     assertThat(result.zip, equalTo("12345"));
   }
 
+  @Test
+  public void shouldNotMapEmptyString_Backwards() {
+    destination.comment = "text";
+    destination.zip = "12345";
+
+    mapper.map(source, destination);
+
+    assertThat(destination.comment, equalTo("text"));
+    assertThat(destination.zip, equalTo("12345"));
+  }
+
+  @Test
+  public void shouldMapNonNull() {
+    source.id = 4L;
+    source.age = 64;
+    destination.pk = "1064";
+    destination.years = "531";
+
+    mapper.map(source, destination);
+
+    assertThat(destination.pk, equalTo("4"));
+    assertThat(destination.years, equalTo("64"));
+  }
+
+  @Test
+  public void shouldNotMapNull() {
+    destination.pk = "4310";
+    destination.years = "4353";
+
+    mapper.map(source, destination);
+
+    assertThat(destination.pk, equalTo("4310"));
+    assertThat(destination.years, equalTo("4353"));
+  }
+
+  @MappingOptions(mapNull = OptionValue.OFF)
   public static class User {
 
     Long id;
 
     Short age;
 
-    private String zip;
-
-    @Mapping
-    private String role;
-
     @Mapping("username")
-    private String name;
+    String name;
 
     String freeText;
+
+    String zip;
 
     @Mapping("pk")
     public Long getId() {
@@ -152,25 +134,10 @@ public class ClassAnnotationMappingTest extends AbstractFunctionalTest {
     public void setAge(Short age) {
       this.age = age;
     }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public void setRole(String role) {
-      this.role = role;
-    }
-
-    public void setZip(String zip) {
-      this.zip = zip;
-    }
   }
 
-  public static class SubUser extends User {}
-
+  @MappingOptions(mapEmptyString = OptionValue.OFF)
   public static class UserDto {
-
-    String id;
 
     String years;
 
@@ -178,10 +145,6 @@ public class ClassAnnotationMappingTest extends AbstractFunctionalTest {
 
     @Mapping
     String zip;
-
-    String role;
-
-    String name;
 
     String username;
 
@@ -194,14 +157,6 @@ public class ClassAnnotationMappingTest extends AbstractFunctionalTest {
 
     public void setPk(String pk) {
       this.pk = pk;
-    }
-
-    public String getId() {
-      return id;
-    }
-
-    public void setId(String id) {
-      this.id = id;
     }
 
     @Mapping("age")

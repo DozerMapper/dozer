@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2014 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,45 @@
  */
 package org.dozer.util;
 
+import org.dozer.OptionValue;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Defines non-standard mappings on property or field levels.
- * If property level is considered this annotation should be put on valid bean property getter method.
- *
- * @author dmitry.buzdin
+ * Override mapping options at class level.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.TYPE})
 public @interface MappingOptions {
+  /**
+   * The wildcard policy for the class mapping
+   */
+  OptionValue wildCard() default OptionValue.INHERITED;
 
-  String value() default "";
+  /**
+   * The error handling policy for the class mapping
+   */
+  OptionValue stopOnErrors() default OptionValue.INHERITED;
 
+  /**
+   * The bypass null policy for the class mapping.
+   * If this policy is OFF, the dest field mapping is bypassed at runtime and the destination value
+   * setter method will not be called if the src value is null.
+   */
+  OptionValue mapNull() default OptionValue.INHERITED;
+
+  /**
+   * The bypass empty string policy for the class mapping.
+   * If this policy is OFF, the dest field mapping is bypassed at runtime and the destination value
+   * setter method will not be called if the src value is an empty String.
+   */
+  OptionValue mapEmptyString() default OptionValue.INHERITED;
+
+  /**
+   * The date format for the class mapping.
+   */
+  String dateFormat() default "";
 }
