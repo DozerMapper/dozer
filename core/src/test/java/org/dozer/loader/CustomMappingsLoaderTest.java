@@ -16,14 +16,18 @@
 package org.dozer.loader;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.CustomConverter;
 import org.dozer.MappingException;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.converters.CustomConverterDescription;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.Mockito.mock;
 
@@ -48,6 +52,33 @@ public class CustomMappingsLoaderTest extends AbstractDozerTest{
       fail("should have thrown exception");
   }
 
+  @Test
+  public void testLoad_DoesNotAddDefaultUUIDConverter_IfCustomConverterSpecified() {
+    // Arrange: The user has already configured a custom converter for mapping an UUID to UUID
+    Configuration configuration = new Configuration();
+    CustomConverterDescription userSpecifiedConverter = new CustomConverterDescription();
+    userSpecifiedConverter.setClassA(UUID.class);
+    userSpecifiedConverter.setClassB(UUID.class);
+    userSpecifiedConverter.setType(CustomConverter.class);
+    configuration.getCustomConverters().addConverter(userSpecifiedConverter);
+
+    MappingFileData mappingFileData = new MappingFileData();
+    mappingFileData.setConfiguration(configuration);
+    data.add(mappingFileData);
+
+    // Act
+    loader.load(data);
+
+    // Assert
+    List<CustomConverterDescription> customConverters =
+            configuration.getCustomConverters().getConverters();
+    assertEquals("User-specified converter should be in list of converters.",
+            1, customConverters.size());
+    assertFalse("User-specified converter should override default by reference " +
+            "converter for UUID to UUID mapping.",
+            customConverters.get(0).getType().equals(CustomMappingsLoader.ByReferenceConverter.class));
+  }
+
   private MappingFileData createMappingData(boolean hasConfiguration) {
     MappingFileData mappingFileData = new MappingFileData();
     if (hasConfiguration) {
@@ -56,5 +87,4 @@ public class CustomMappingsLoaderTest extends AbstractDozerTest{
     mappingFileData.addClassMap(mock(ClassMap.class));
     return mappingFileData;
   }
-
 }
