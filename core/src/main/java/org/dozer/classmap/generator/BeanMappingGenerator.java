@@ -58,7 +58,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
         continue;
       }
 
-      GeneratorUtils.addGenericMapping(classMap, configuration, fieldName, fieldName);
+      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName);
     }
     return false;
   }

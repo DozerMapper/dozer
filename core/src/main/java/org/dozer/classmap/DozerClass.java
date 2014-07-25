@@ -131,8 +131,8 @@ public class DozerClass {
     return getMapGetMethod() != null || getMapSetMethod() != null;
   }
 
-  public Boolean isAccesible() {
-    return accessible;
+  public boolean isAccessible() {
+    return accessible != null && accessible;
   }
 
   public void setAccessible(Boolean accessible) {

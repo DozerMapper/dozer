@@ -28,16 +28,7 @@ import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.dozer.util.DozerConstants.BASE_CLASS;
 
@@ -167,11 +158,11 @@ public final class MappingUtils {
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
         source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
             source.getDestClass().getCreateMethod(),
-            source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccesible()));
+            source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccessible()));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
         source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
             source.getSrcClass().getCreateMethod(),
-            source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccesible()));
+            source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccessible()));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
     destination.setTrimStrings(source.isTrimStrings());
