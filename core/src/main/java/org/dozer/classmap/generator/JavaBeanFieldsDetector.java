@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2014 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public class JavaBeanFieldsDetector implements BeanMappingGenerator.BeanFieldsDe
       String fieldName = destPropertyDescriptor.getName();
 
       // If destination field does not have a write method, then skip
-      if (destPropertyDescriptor.getWriteMethod() == null && ReflectionUtils.getNonVoidSetter(clazz, fieldName) == null) {
+      if (destPropertyDescriptor.getWriteMethod() == null && ReflectionUtils.getNonStandardSetter(clazz, fieldName) == null) {
         continue;
       }
 

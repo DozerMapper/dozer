@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2014 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
     Method result = getPropertyDescriptor(destDeepIndexHintContainer).getWriteMethod();
-    result = result == null ? ReflectionUtils.getNonVoidSetter(clazz, fieldName) : result;
+    result = result == null ? ReflectionUtils.getNonStandardSetter(clazz, fieldName) : result;
     if (result == null) {
       throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
     }
