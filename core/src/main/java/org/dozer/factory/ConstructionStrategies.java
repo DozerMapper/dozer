@@ -103,15 +103,19 @@ public final class ConstructionStrategies {
       } else {
         method = findMethod(actualClass, createMethod);
       }
-      return ReflectionUtils.invoke(method, null, null);
+      return ReflectionUtils.invoke(method, null, new Object[]{actualClass});
     }
 
-    private Method findMethod(Class<?> actualClass, String createMethod) {
+    private static final Method findMethod(Class<?> actualClass, String createMethod) {
       Method method = null;
       try {
         method = ReflectionUtils.getMethod(actualClass, createMethod, null);
       } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
+          try {
+              method = ReflectionUtils.getMethod(actualClass, createMethod, new Class[] {Class.class});
+          } catch (NoSuchMethodException subE) {
+              MappingUtils.throwMappingException(subE);
+          }
       }
       return method;
     }
