@@ -27,7 +27,7 @@ import org.dozer.util.DozerConstants;
  */
 public abstract class BeanMappingBuilder {
 
-  private DozerBuilder dozerBuilder;
+  protected DozerBuilder dozerBuilder;
 
   public BeanMappingBuilder() {
   }

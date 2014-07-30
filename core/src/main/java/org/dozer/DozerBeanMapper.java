@@ -269,6 +269,11 @@ public class DozerBeanMapper implements Mapper {
     this.eventListeners.addAll(eventListeners);
   }
 
+  public void addEventListener(DozerEventListener eventListener) {
+      checkIfInitialized();
+      this.eventListeners.add(eventListener);
+  }
+
   public CustomFieldMapper getCustomFieldMapper() {
     return customFieldMapper;
   }

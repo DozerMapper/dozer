@@ -183,7 +183,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
                   .getIndex());
         } else {
           try {
-            o = DestBeanCreator.create(clazz);
+            o = DestBeanCreator.create(clazz, fieldMap.getDestFieldCreateMethod());
           } catch (Exception e) {
             //lets see if they have a factory we can try as a last ditch. If not...throw the exception:
             if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {

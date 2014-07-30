@@ -880,9 +880,18 @@ public class MappingProcessor implements Mapper {
     if (field == null) {
       return new ArrayList<Object>(srcCollectionValue.size());
     } else {
-      if (CollectionUtils.isList(field.getClass())) {
-        return (List<?>) field;
-      } else if (CollectionUtils.isArray(field.getClass())) {
+      final Class< ? extends Object > fieldClass= field.getClass();
+
+      if (CollectionUtils.isList(fieldClass)) {
+        final List<?> collection= (List<?>)field;
+        if (ReflectionUtils.isModifiableCollection( collection ))
+        {
+          return collection;
+        } else {
+          return new ArrayList<Object>(collection);
+        }
+        
+      } else if (CollectionUtils.isArray(fieldClass)) {
         return new ArrayList<Object>(Arrays.asList((Object[]) field));
       } else { // assume it is neither - safest way is to create new List
         return new ArrayList<Object>(srcCollectionValue.size());

@@ -50,11 +50,15 @@ public final class DestBeanCreator {
   }
 
   public static <T> T create(Class<T> targetClass) {
-    return (T) create(targetClass, null);
+    return (T) create(targetClass, (Class)null);
   }
 
   public static Object create(Class<?> targetClass, Class<?> alternateClass) {
     return create(new BeanCreationDirective(null, null, targetClass, alternateClass, null, null, null));
+  }
+  
+  public static Object create(Class<?> targetClass, String createMethod) {
+      return create(new BeanCreationDirective(null, null, targetClass, null, null, null, createMethod));
   }
 
   public static Object create(BeanCreationDirective directive) {
