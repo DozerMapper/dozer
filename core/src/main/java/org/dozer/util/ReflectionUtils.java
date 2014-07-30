@@ -347,7 +347,7 @@ public final class ReflectionUtils {
   public static Object invoke(Method method, Object obj, Object[] args) {
     Object result = null;
     try {
-      result = method.invoke(obj, args);
+      result = method.invoke(obj, (method.getParameterTypes().length > 0 ? args : null));
     } catch (IllegalArgumentException e) {
 
       if (e.getMessage().equals(IAE_MESSAGE)) {
