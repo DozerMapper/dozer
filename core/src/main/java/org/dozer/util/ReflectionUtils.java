@@ -15,6 +15,20 @@
  */
 package org.dozer.util;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.StringTokenizer;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
@@ -34,6 +48,13 @@ import java.util.*;
  * @author garsombke.franz
  */
 public final class ReflectionUtils {
+
+  private static final Class<?> UNMODIFIABLE_COLLECTION = getClass( "java.util.Collections$UnmodifiableCollection" );
+  private static final Class<?> EMPTY_LIST = getClass( "java.util.Collections$EmptyList" );
+  private static final Class<?> EMPTY_SET = getClass( "java.util.Collections$EmptySet" );
+  private static final Class<?> SINGLETON_SET = getClass( "java.util.Collections$SingletonSet" );
+  private static final Class<?> SINGLETON_LIST = getClass( "java.util.Collections$SingletonList" );
+
 
   private static final String IAE_MESSAGE = "argument type mismatch";
 
@@ -420,6 +441,26 @@ public final class ReflectionUtils {
     return result;
   }
 
+  /**
+   * Get class for name
+   *
+   * @param pClass Name of class which is wanted
+   * @return Class or null if class was not found
+   */
+  public static Class<?> getClass(final String pClass) {
+      Class<?> obj = null;
+      if (pClass!=null) {
+          try {
+              obj = ReflectionUtils.class.getClassLoader().loadClass(pClass);
+          } catch (final ClassNotFoundException ex) {
+              MappingUtils.throwMappingException("Class not found: "+pClass);
+          } catch (final Exception ex) {
+              MappingUtils.throwMappingException("Failed to load the class: "+pClass);
+          }
+      }
+      return obj;
+  }
+
   public static Method getNonVoidSetter(Class<?> clazz, String fieldName) {
     String methodName = "set" + StringUtils.capitalize(fieldName);
     for (Method method : clazz.getMethods()) {
@@ -429,5 +470,22 @@ public final class ReflectionUtils {
     }
     return null;
   }
-
+  
+  public static final boolean isModifiableCollection( final Collection<?> pCollection )
+  {
+      boolean isModifiable= true;
+      
+      final Class<?> collectionClass= pCollection.getClass();
+      
+      if (   UNMODIFIABLE_COLLECTION.isAssignableFrom( collectionClass )
+          || EMPTY_LIST.isAssignableFrom( collectionClass )
+          || EMPTY_SET.isAssignableFrom( collectionClass )
+          || SINGLETON_LIST.isAssignableFrom( collectionClass )
+          || SINGLETON_SET.isAssignableFrom( collectionClass ) )
+      {
+          isModifiable= false;
+      }            
+      
+      return isModifiable;
+  }
 }
