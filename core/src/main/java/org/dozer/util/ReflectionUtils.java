@@ -171,7 +171,7 @@ public final class ReflectionUtils {
             + latestClass.getName() + ", Field Name: " + aFieldName);
       }
 
-      latestClass = propDescriptor.getPropertyType();
+      latestClass = propDescriptor.getReadMethod().getReturnType();
       if (toks.hasMoreTokens()) {
         if (latestClass.isArray()) {
           latestClass = latestClass.getComponentType();
