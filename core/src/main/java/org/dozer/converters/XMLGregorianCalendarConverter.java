@@ -48,6 +48,7 @@ import org.dozer.MappingException;
  *
  * @author pnyheim
  * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public class XMLGregorianCalendarConverter implements Converter {
 

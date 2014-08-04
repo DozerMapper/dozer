@@ -82,6 +82,7 @@ import org.slf4j.LoggerFactory;
  * @author tierney.matt
  * @author dmitry.buzdin
  * @author johnsen.knut-erik
+ * @author jose.barragan
  */
 public class MappingProcessor implements Mapper {
 

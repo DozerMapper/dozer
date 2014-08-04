@@ -30,6 +30,9 @@ import org.apache.commons.beanutils.Converter;
  * String, Objects that return a long from their toString(). Only intended for internal use.
  *
  * @author tierney.matt
+ * @author garsombke.franz
+ * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public class CalendarConverter implements Converter {
 

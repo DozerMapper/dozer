@@ -15,6 +15,11 @@
  */
 package org.dozer.factory;
 
+import java.text.DateFormat;
+/**
+ * @author Dmitry Buzdin
+ * @author Jose Barragan
+ */
 public class BeanCreationDirective {
 
 	private Object   srcObject;
@@ -125,5 +130,13 @@ public class BeanCreationDirective {
 
 	public void setDestFieldName(String destFieldName) {
 		this.destFieldName = destFieldName;
+	}
+
+	public String getFieldName() {
+		if (destFieldName != null) {
+			return destFieldName;
+		} else {
+			return factoryName;
+		}
 	}
 }

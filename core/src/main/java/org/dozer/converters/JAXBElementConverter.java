@@ -11,11 +11,7 @@ import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 /**
- * Created by IntelliJ IDEA.
- *
- * @author pepebarragan
- *         Date: 5/10/13
- *         Time: 2:52 PM
+ * @author Jose Barragan
  */
 public class JAXBElementConverter implements Converter {
 
@@ -32,8 +28,8 @@ public class JAXBElementConverter implements Converter {
 	/**
 	 * Cache the ObjectFactory because newInstance is very expensive.
 	 */
-	private static Object   objectFactory;
-	private static Class<?> objectFactoryClass;
+	private static Object   objectFactory      = null;
+	private static Class<?> objectFactoryClass = null;
 
 	/**
 	 * Returns a new instance of ObjectFactory, or the cached one if previously created.
@@ -87,21 +83,21 @@ public class JAXBElementConverter implements Converter {
 			MappingUtils.throwMappingException(e);
 		}
 
+		Object param = value;
+		Converter converter;
 		if (java.util.Date.class.isAssignableFrom(valueClass) && !destClass.equals(XMLGregorianCalendar.class)) {
-			DateConverter dateConverter = new DateConverter(dateFormat);
-			value = dateConverter.convert(destClass, value);
+			converter = new DateConverter(dateFormat);
+			param = converter.convert(destClass, param);
 		} else if (java.util.Calendar.class.isAssignableFrom(valueClass) && !destClass.equals(XMLGregorianCalendar.class)) {
-			CalendarConverter calendarConverter = new CalendarConverter(dateFormat);
-			value = calendarConverter.convert(destClass, value);
+			converter = new CalendarConverter(dateFormat);
+			param = converter.convert(destClass, param);
 		} else if (XMLGregorianCalendar.class.isAssignableFrom(valueClass) || XMLGregorianCalendar.class.isAssignableFrom(destClass)) {
-			XMLGregorianCalendarConverter xmlGregorianCalendarConverter = new XMLGregorianCalendarConverter(dateFormat);
-			value = xmlGregorianCalendarConverter.convert(destClass, value);
+			converter = new XMLGregorianCalendarConverter(dateFormat);
+			param = converter.convert(destClass, param);
 		}
 
-		Object[] paramValues = {value};
-		Object returnObject = ReflectionUtils.invoke(method, factory, paramValues);
-		result = returnObject;
-
+		Object[] paramValues = {param};
+		result = ReflectionUtils.invoke(method, factory, paramValues);
 		return result;
 	}
 
@@ -126,6 +122,6 @@ public class JAXBElementConverter implements Converter {
 			MappingUtils.throwMappingException(e);
 		}
 
-		return destClass.getCanonicalName();
+		return (destClass != null) ? destClass.getCanonicalName() : null;
 	}
 }

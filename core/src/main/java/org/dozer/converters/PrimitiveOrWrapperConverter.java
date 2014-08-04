@@ -42,6 +42,7 @@ import org.dozer.util.MappingUtils;
  * @author garsombke.franz
  * @author benson.matt
  * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public class PrimitiveOrWrapperConverter {
 

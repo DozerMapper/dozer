@@ -33,6 +33,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.BeanFactory;
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
@@ -45,6 +46,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author Dmitry Buzdin
+ * @author Jose Barragan
  */
 public final class ConstructionStrategies {
 
@@ -144,7 +146,7 @@ public final class ConstructionStrategies {
 
 	static class ByFactory implements BeanCreationStrategy {
 
-    		private final Logger log = LoggerFactory.getLogger(ByFactory.class);
+    	private final Logger log = LoggerFactory.getLogger(ByFactory.class);
 
 		private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<String, BeanFactory>();
 
@@ -280,12 +282,11 @@ public final class ConstructionStrategies {
 		}
 
 		public Object create(BeanCreationDirective directive) {
-			JAXBElementConverter jaxbElementConverter = new JAXBElementConverter(directive.getDestObj().getClass().getCanonicalName(), directive.getDestFieldName(), null);
+			JAXBElementConverter jaxbElementConverter = new JAXBElementConverter((directive.getDestObj() != null) ? directive.getDestObj().getClass().getCanonicalName() : directive.getActualClass().getCanonicalName(), directive.getFieldName(), null);
 			String beanId = jaxbElementConverter.getBeanId();
 			Object destValue = jaxbBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
-		    return jaxbElementConverter.convert(jaxbObjectType, destValue);
+			return jaxbElementConverter.convert(jaxbObjectType, (destValue != null) ? destValue : directive.getSrcObject());
 		}
-
 	}
 
 

@@ -40,6 +40,7 @@ import org.apache.commons.beanutils.Converter;
  *
  * @author tierney.matt
  * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public class DateConverter implements Converter {
 

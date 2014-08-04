@@ -27,11 +27,13 @@ import org.slf4j.LoggerFactory;
  * Public custom bean factory that can be used by application code when mapping JAXB data objects
  *
  * @author Vincent Jassogne
+ * @author Jose Barragan
  */
 public class JAXBBeanFactory implements BeanFactory {
 
-	private final Logger log                          = LoggerFactory.getLogger(JAXBBeanFactory.class);
-	private static final char   INNER_CLASS_DELIMITER = '$';
+	private static final char INNER_CLASS_DELIMITER = '$';
+
+	private final Logger log = LoggerFactory.getLogger(JAXBBeanFactory.class);
 
 	/**
 	 * Create a bean implementation of a JAXB interface.
@@ -41,6 +43,7 @@ public class JAXBBeanFactory implements BeanFactory {
 	 * @param beanId      the name of the destination interface class
 	 * @return A implementation of the destination interface
 	 */
+	@Override
 	public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
 		log.debug("createBean(Object, Class, String) - start [{}]", beanId);
 

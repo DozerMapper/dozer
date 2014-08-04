@@ -19,6 +19,10 @@ import org.apache.commons.lang3.ClassUtils;
 
 /**
  * This class should be extended in order to implement new Custom Converters for value transformation.
+ *
+ * @author Dmitry Buzdin
+ * @author Alan Stewart
+ * @author Jose Barragan
  */
 public abstract class DozerConverter<A, B> implements ConfigurableCustomConverter {
 

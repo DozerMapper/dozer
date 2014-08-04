@@ -30,6 +30,7 @@ import org.dozer.BeanFactory;
  * @author tierney.matt
  * @author garsombke.franz
  * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public final class DestBeanCreator {
 
@@ -42,7 +43,7 @@ public final class DestBeanCreator {
           ConstructionStrategies.xmlGregorianCalendar(),
           ConstructionStrategies.byInterface(),
           ConstructionStrategies.xmlBeansBased(),
-		  ConstructionStrategies.jaxbBeansBased(),
+          ConstructionStrategies.jaxbBeansBased(),
           ConstructionStrategies.byFactory(),
           ConstructionStrategies.byConstructor()
   };
@@ -67,7 +68,6 @@ public final class DestBeanCreator {
   private static Object applyStrategies(BeanCreationDirective directive, List<BeanCreationStrategy> strategies) {
     // TODO create method lookup by annotation/convention
     // TODO Cache ConstructionStrategy (reuse caching infrastructure)
-    //--> TODO Resolve JAXB by XmlType Annotation
     // TODO Check resulting type in each method
     // TODO Directive toString()
     // TODO review and document
