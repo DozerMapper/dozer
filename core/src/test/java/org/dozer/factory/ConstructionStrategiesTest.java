@@ -15,11 +15,13 @@
  */
 package org.dozer.factory;
 
-import org.apache.xmlbeans.XmlObject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.impl.xb.xsdschema.impl.UniqueDocumentImpl;
 import org.dozer.AbstractDozerTest;
 import org.dozer.BeanFactory;
 import org.dozer.MappingException;
+import org.dozer.converters.JAXBElementConverter;
+import org.dozer.vo.jaxb.employee.ObjectFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,8 +37,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import javax.xml.bind.JAXBElement;
+
+import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
+
 /**
  * @author Dmitry Buzdin
+ * @author Jose Barragan
  */
 public class ConstructionStrategiesTest extends AbstractDozerTest {
 
@@ -48,13 +55,17 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
   private ConstructionStrategies.ByInterface byInterface;
   private ConstructionStrategies.ByConstructor byConstructor;
   private ConstructionStrategies.XMLBeansBased xmlBeansBased;
+  private ConstructionStrategies.JAXBBeansBased jaxbBeansBased;
+
   private XMLBeanFactory xmlBeanFactory;
+  private JAXBBeanFactory jaxbBeanFactory;
 
   @Before
   @Override
   public void setUp() throws Exception {
     super.setUp();
     xmlBeanFactory = mock(XMLBeanFactory.class);
+    jaxbBeanFactory = mock(JAXBBeanFactory.class);
 
     byCreateMethod = new ConstructionStrategies.ByCreateMethod();
     byGetInstance = new ConstructionStrategies.ByGetInstance();
@@ -62,6 +73,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     byInterface = new ConstructionStrategies.ByInterface();
     byConstructor = new ConstructionStrategies.ByConstructor();
     xmlBeansBased = new ConstructionStrategies.XMLBeansBased(xmlBeanFactory);
+    jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased(jaxbBeanFactory);
 
     directive = new BeanCreationDirective();
   }
@@ -176,7 +188,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     assertTrue(byInterface.create(directive) instanceof HashMap);
 
     directive.setTargetClass(Set.class);
-    assertTrue(byInterface.create(directive) instanceof HashSet);    
+    assertTrue(byInterface.create(directive) instanceof HashSet);
   }
 
   @Test
@@ -190,7 +202,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     directive.setTargetClass(SelfFactory.class);
     byConstructor.create(directive);
   }
-  
+
   @Test(expected = MappingException.class)
   public void shouldFailToReturnCorrectType() {
     directive.setFactoryName(MyBeanFactory.class.getName());
@@ -208,6 +220,18 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     xmlBeansBased.create(directive);
 
     verify(xmlBeanFactory, times(1)).createBean("", String.class, "id");
+  }
+
+  @Test
+  public void shouldInstantiateByJaxbBeansFactory() {
+    directive.setSrcObject("dummy");
+    directive.setSrcClass(String.class);
+    directive.setFactoryName("parentName");
+    directive.setTargetClass(EmployeeWithInnerClass.class);
+
+    jaxbBeansBased.create(directive);
+
+    verify(jaxbBeanFactory, times(1)).createBean("dummy", String.class, String.class.getCanonicalName());
   }
 
   public static class SelfFactory {
