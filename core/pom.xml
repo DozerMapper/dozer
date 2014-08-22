@@ -23,12 +23,13 @@
   <parent>
     <groupId>net.sf.dozer</groupId>
     <artifactId>dozer-parent</artifactId>
-    <version>5.5.1.dorsale</version>
+    <version>5.5.1</version>
   </parent>
 
   <artifactId>dozer</artifactId>
   <packaging>jar</packaging>
   <name>Dozer</name>
+  <version>5.5.1.dorsale</version>
 
   <properties>
     <osgi.version>4.3.0</osgi.version>
