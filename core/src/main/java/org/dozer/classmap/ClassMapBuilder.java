@@ -15,9 +15,16 @@
  */
 package org.dozer.classmap;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapping;
-import org.dozer.MappingException;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.classmap.generator.GeneratorUtils;
 import org.dozer.fieldmap.DozerField;
@@ -27,15 +34,6 @@ import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * Internal class for adding implicit field mappings to a ClassMap. Also, builds implicit ClassMap for class mappings
@@ -237,7 +235,11 @@ public final class ClassMapBuilder {
           String propertyName = property.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
+            if (!mapping.optional()) {
+              GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
+            } else if (mapping.optional() && fieldExists(classMap.getDestClassToMap(), propertyName, pairName)) {
+              GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
+            }
           }
         }
       }
@@ -251,7 +253,11 @@ public final class ClassMapBuilder {
           String propertyName = property.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
+            if (!mapping.optional()) {
+              GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
+            } else if (mapping.optional() && fieldExists(classMap.getSrcClassToMap(), propertyName, pairName)) {
+              GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
+            }
           }
         }
       }
@@ -274,7 +280,11 @@ public final class ClassMapBuilder {
           String fieldName = field.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            addFieldMapping(classMap, configuration, fieldName, pairName.isEmpty() ? fieldName : pairName);
+            if (!mapping.optional()) {
+              addFieldMapping(classMap, configuration, fieldName, pairName.isEmpty() ? fieldName : pairName);
+            } else if (mapping.optional() && fieldExists(classMap.getDestClassToMap(), fieldName, pairName)) {
+              addFieldMapping(classMap, configuration, fieldName, pairName.isEmpty() ? fieldName : pairName);
+            }
           }
         }
         srcType = srcType.getSuperclass();
@@ -287,12 +297,24 @@ public final class ClassMapBuilder {
           String fieldName = field.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldName);
+            if (!mapping.optional()) {
+              addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldName);
+            } else if (mapping.optional() && fieldExists(classMap.getSrcClassToMap(), fieldName, pairName)) {
+              addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldName);
+            }
           }
         }
         destType = destType.getSuperclass();
       } while (destType != null);
       
+      return false;
+    }
+  }
+
+  private static boolean fieldExists(Class<?> clazz, String fieldName, String pairName) {
+    try {
+      return clazz.getDeclaredField(pairName.isEmpty() ? fieldName : pairName) != null;
+    } catch (NoSuchFieldException e) {
       return false;
     }
   }

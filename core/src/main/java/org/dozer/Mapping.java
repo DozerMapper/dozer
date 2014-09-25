@@ -32,4 +32,5 @@ public @interface Mapping {
 
   String value() default "";
 
+  boolean optional() default false;
 }
