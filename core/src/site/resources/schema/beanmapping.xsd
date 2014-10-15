@@ -148,6 +148,9 @@
       <attribute name="type" type="t:type"/>
       <attribute name="relationship-type" type="t:relationship"/>
       <attribute name='map-id' type='string'/>
+      <attribute name='custom-converter' type='string'/>
+      <attribute name='custom-converter-id' type='string'/>
+      <attribute name='custom-converter-param' type='string'/>
     </complexType>
   </element>
 

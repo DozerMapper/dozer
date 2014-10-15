@@ -52,26 +52,6 @@ public class CustomMappingsLoader {
     // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
     ClassMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
 
-    Set<CustomConverterDescription> customConverterDescriptions = new LinkedHashSet<CustomConverterDescription>();
-
-    // build up custom converter description objects
-    if (globalConfiguration.getCustomConverters() != null && globalConfiguration.getCustomConverters().getConverters() != null) {
-      for (CustomConverterDescription cc : globalConfiguration.getCustomConverters().getConverters()) {
-        customConverterDescriptions.add(cc);
-      }
-    }    
-
-    // iterate through the classmaps and set all of the custom converters on them
-    for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
-      ClassMap classMap = entry.getValue();
-      if (classMap.getCustomConverters() != null) {
-        classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
-      } else {
-        classMap.setCustomConverters(new CustomConverterContainer());
-        classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
-      }
-    }
-
     addDefaultCustomConverters(globalConfiguration);
 
     return new LoadMappingsResult(customMappings, globalConfiguration);
@@ -101,24 +81,24 @@ public class CustomMappingsLoader {
   }
 
   private void addDefaultCustomConverters(Configuration globalConfiguration) {
-      if (globalConfiguration.getCustomConverters() != null &&
-              globalConfiguration.getCustomConverters().findConverter(UUID.class, UUID.class) == null) {
-          CustomConverterDescription defaultUUIDConverter = new CustomConverterDescription();
-          defaultUUIDConverter.setClassA(UUID.class);
-          defaultUUIDConverter.setClassB(UUID.class);
-          defaultUUIDConverter.setType(ByReferenceConverter.class);
-          globalConfiguration.getCustomConverters().addConverter(defaultUUIDConverter);
-      }
+    if (globalConfiguration.getCustomConverters() != null &&
+            globalConfiguration.getCustomConverters().findConverter(UUID.class, UUID.class) == null) {
+      CustomConverterDescription defaultUUIDConverter = new CustomConverterDescription();
+      defaultUUIDConverter.setClassA(UUID.class);
+      defaultUUIDConverter.setClassB(UUID.class);
+      defaultUUIDConverter.setType(ByReferenceConverter.class);
+      globalConfiguration.getCustomConverters().addConverter(defaultUUIDConverter);
+    }
   }
 
   /**
    *  Returns the source field value as a reference, regardless of other parameters.
    *  Only intended for internal use. */
   public static class ByReferenceConverter implements CustomConverter {
-      @Override
-      public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
-          return sourceFieldValue;
-      }
+    @Override
+    public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
+      return sourceFieldValue;
+    }
   }
 
 }

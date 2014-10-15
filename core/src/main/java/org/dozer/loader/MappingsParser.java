@@ -92,6 +92,9 @@ public final class MappingsParser {
       result.add(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap.getMapId(), classMap);
       // now create class map prime
       classMapPrime = new ClassMap(globalConfiguration);
+      classMapPrime.setCustomConverter(classMap.getCustomConverter());
+      classMapPrime.setCustomConverterId(classMap.getCustomConverterId());
+      classMapPrime.setCustomConverterParam(classMap.getCustomConverterParam());
       MappingUtils.reverseFields(classMap, classMapPrime);
 
       if (classMap.getFieldMaps() != null) {
