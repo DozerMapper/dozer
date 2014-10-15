@@ -367,6 +367,9 @@
                     <goals>
                         <goal>jar</goal>
                     </goals>
+                    <configuration>
+                      <additionalparam>-Xdoclint:none</additionalparam>
+                    </configuration>
                 </execution>
             </executions>
         </plugin>
@@ -405,6 +408,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.9</version>
+        <configuration>
+          <additionalparam>-Xdoclint:none</additionalparam>
+        </configuration>
       </plugin>
       <!-- 
       <plugin>
