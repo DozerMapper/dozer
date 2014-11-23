@@ -327,6 +327,7 @@ public final class ReflectionUtils {
   public static Object invoke(Method method, Object obj, Object[] args) {
     Object result = null;
     try {
+      method.setAccessible(true);
       result = method.invoke(obj, args);
     } catch (IllegalArgumentException e) {
 
