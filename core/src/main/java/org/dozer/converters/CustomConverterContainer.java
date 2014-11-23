@@ -70,7 +70,7 @@ public class CustomConverterContainer {
     return appropriateConverter;
   }
 
-  private Class findConverter(Class src, Class dest) {
+  public Class findConverter(Class src, Class dest) {
     // Otherwise, loop through custom converters and look for a match. Also, store the result in the cache
     for (CustomConverterDescription customConverter : converters) {
       final Class classA = customConverter.getClassA();
