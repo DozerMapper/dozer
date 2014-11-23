@@ -449,7 +449,7 @@ public final class ReflectionUtils {
     String methodName = "set" + StringUtils.capitalize(fieldName);
 
     for (Method method : clazz.getMethods()) {
-      if (isVoidSetter(method, methodName) || isAutoboxingSetter(method, methodName, field)) {
+      if (isNonVoidSetter(method, methodName) || isAutoboxingSetter(method, methodName, field)) {
         return method;
       }
     }
@@ -457,7 +457,7 @@ public final class ReflectionUtils {
     return null;
   }
 
-  private static boolean isVoidSetter(Method method, String setterMethodName) {
+  private static boolean isNonVoidSetter(Method method, String setterMethodName) {
     return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1 &&
             method.getReturnType() != Void.TYPE;
   }
@@ -465,7 +465,6 @@ public final class ReflectionUtils {
   private static boolean isAutoboxingSetter(Method method, String setterMethodName, Field field) {
     return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1 &&
            canBeAutoboxed(method.getParameterTypes()[0], field.getType());
-
   }
 
 /**
