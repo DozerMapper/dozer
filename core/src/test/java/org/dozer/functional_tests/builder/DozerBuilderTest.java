@@ -60,10 +60,10 @@ public class DozerBuilderTest {
                         hintB(Integer.class),
                         FieldsMappingOptions.oneWay(),
                         useMapId("A"),
-                        customConverterId("id")
+                        FieldsMappingOptions.customConverterId( "id" )
                 )
                 .fields("src", "dest",
-                        customConverter("org.dozer.CustomConverter")
+                        FieldsMappingOptions.customConverter( "org.dozer.CustomConverter" )
                 );
 
         mapping(type(Bean.class), type("java.util.Map").mapNull(true),
