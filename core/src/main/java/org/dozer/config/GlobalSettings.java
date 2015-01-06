@@ -54,6 +54,7 @@ public class GlobalSettings {
 
   private String classLoaderBeanName = DozerConstants.DEFAULT_CLASS_LOADER_BEAN;
   private String proxyResolverBeanName = DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN;
+  private String instantiatorName = DozerConstants.DEFAULT_INSTANTIATOR;
 
   public static GlobalSettings getInstance() {
     return instance;
@@ -97,6 +98,10 @@ public class GlobalSettings {
 
   public String getProxyResolverName() {
     return proxyResolverBeanName;
+  }
+
+  public String getInstantiatorName() {
+    return instantiatorName;
   }
 
   public boolean isElEnabled() {
@@ -168,6 +173,10 @@ public class GlobalSettings {
     propValue = props.getProperty(PropertyConstants.PROXY_RESOLVER_BEAN);
     if (propValue != null) {
       proxyResolverBeanName = propValue;
+    }
+    propValue = props.getProperty(PropertyConstants.INSTANTIATOR);
+    if (propValue != null) {
+      instantiatorName = propValue;
     }
     propValue = props.getProperty(PropertyConstants.EL_ENABLED);
     if (propValue != null) {

@@ -33,5 +33,6 @@ public final class PropertyConstants {
   // Bean Implementations
   public static final String CLASS_LOADER_BEAN = "org.dozer.util.DozerClassLoader";
   public static final String PROXY_RESOLVER_BEAN = "org.dozer.util.DozerProxyResolver";
+  public static final String INSTANTIATOR = "org.dozer.util.DozerInstantiator";
 
 }

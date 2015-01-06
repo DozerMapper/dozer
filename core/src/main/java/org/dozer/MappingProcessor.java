@@ -1002,7 +1002,7 @@ public class MappingProcessor implements Mapper {
     // search our injected customconverters for a match
     if (customConverterObjects != null) {
       for (CustomConverter customConverterObject : customConverterObjects) {
-        if (customConverterClass.isInstance(customConverterObject)) {
+        if (customConverterClass.isInstance(MappingUtils.getRealObject(customConverterObject))) {
           // we have a match
           converterInstance = customConverterObject;
         }
@@ -1012,7 +1012,7 @@ public class MappingProcessor implements Mapper {
     // of the converter for each conversion
     // TODO : Should we really create it each time?
     if (converterInstance == null) {
-      converterInstance = (CustomConverter) ReflectionUtils.newInstance(customConverterClass);
+      converterInstance = (CustomConverter) MappingUtils.newInstance(customConverterClass);
     }
     return mapUsingCustomConverterInstance(converterInstance, srcFieldClass, srcFieldValue, destFieldClass, existingDestFieldValue,
         fieldMap, topLevel);

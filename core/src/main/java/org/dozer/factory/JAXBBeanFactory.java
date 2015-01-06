@@ -56,7 +56,7 @@ public class JAXBBeanFactory implements BeanFactory {
     Object result;
 
     Class<?> objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
-    Object factory = ReflectionUtils.newInstance(objectFactory);
+    Object factory = MappingUtils.newInstance(objectFactory);
     Method method = null;
     try {
       method = ReflectionUtils.getMethod(objectFactory, "create" + beanId.substring(beanId.lastIndexOf(".") + 1), new Class[] {});

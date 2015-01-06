@@ -16,6 +16,7 @@
 package org.dozer.inject;
 
 import org.dozer.MappingException;
+import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -62,7 +63,7 @@ public class DozerBeanContainer implements BeanRegistry {
   }
 
   private <T> T wireBean(Class<T> type) {
-    final T bean = ReflectionUtils.newInstance(type);
+    final T bean = (T) MappingUtils.newInstance(type);
 
     Field[] destFields = type.getDeclaredFields();
     for (Field field : destFields) {
