@@ -29,6 +29,8 @@ import org.junit.Test;
 
 public class XMLGregorianCalendarConverterTest extends AbstractDozerTest{
   private XMLGregorianCalendarConverter converter;
+  private XMLGregorianCalendarConverter converterISO8601;
+  private XMLGregorianCalendarConverter converterISO8601Z;
   private static final int YEAR = 1983;
   private static final int MONTH = 8;
   private static final int DAY = 4;
@@ -36,6 +38,8 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest{
   @Before
   public void setUp() throws Exception {
     converter = new XMLGregorianCalendarConverter(new SimpleDateFormat("dd.MM.yyyy"));
+    converterISO8601 = new XMLGregorianCalendarConverter(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
+    converterISO8601Z = new XMLGregorianCalendarConverter(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
   }
 
   @Test
@@ -94,5 +98,32 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest{
     assertNull(result);
   }
 
+  /**
+   * Test conversion of ISO8601 date with colon in time zone field.
+   * @throws Exception ISO 8601 date cannot be converted.
+   */
+  @Test
+  public void testConvert_ISO8601() throws Exception {
+    Object result = converterISO8601.convert(XMLGregorianCalendar.class, "1983-07-04T12:08:56.235-07:00");
+    XMLGregorianCalendar xmlCalendar = (XMLGregorianCalendar) result;
+
+    assertEquals(YEAR, xmlCalendar.getYear());
+    assertEquals(MONTH - 1, xmlCalendar.getMonth());
+    assertEquals(DAY, xmlCalendar.getDay());
+  }
+
+  /**
+   * Test conversion of ISO8601 date without colon in time zone field.
+   * @throws Exception ISO 8601 date cannot be converted.
+   */
+  @Test
+  public void testConvert_ISO8601Z() throws Exception {
+    Object result = converterISO8601Z.convert(XMLGregorianCalendar.class, "1983-07-04T12:08:56.235-0700");
+    XMLGregorianCalendar xmlCalendar = (XMLGregorianCalendar) result;
+
+    assertEquals(YEAR, xmlCalendar.getYear());
+    assertEquals(MONTH - 1, xmlCalendar.getMonth());
+    assertEquals(DAY, xmlCalendar.getDay());
+  }
 
 }
