@@ -22,6 +22,7 @@ import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.config.GlobalSettings;
+import org.dozer.converters.CustomConverterDescription;
 import org.dozer.event.DozerEventManager;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
@@ -309,10 +310,25 @@ public class DozerBeanMapper implements Mapper {
     }
   }
 
+  private void addDozerConverters() {
+      for (CustomConverter customConverter : customConverters) {
+          if (customConverter instanceof DozerConverter<?, ?>) {
+              DozerConverter<?, ?> dozerConverter = (DozerConverter<?, ?>) customConverter;
+              CustomConverterDescription converterDescription = new CustomConverterDescription();
+              converterDescription.setType(customConverter.getClass());
+              converterDescription.setClassA(dozerConverter.getPrototypeA());
+              converterDescription.setClassB(dozerConverter.getPrototypeB());
+              globalConfiguration.getCustomConverters().addConverter(converterDescription);
+
+          }
+      }
+  }
+
   private void initMappings() {
     if (initializing.compareAndSet(false, true)) {
       try {
         loadCustomMappings();
+        addDozerConverters();
         eventManager = new DozerEventManager(eventListeners);
       } catch (RuntimeException e) {
         // reset initialized state if error happens

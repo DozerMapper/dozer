@@ -23,8 +23,8 @@ import org.apache.commons.lang3.ClassUtils;
 public abstract class DozerConverter<A, B> implements ConfigurableCustomConverter {
 
   private String parameter;
-  private Class<A> prototypeA;
-  private Class<B> prototypeB;
+  private final Class<A> prototypeA;
+  private final Class<B> prototypeB;
 
   /**
    * Defines two types, which will take part transformation.
@@ -135,4 +135,11 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
     return parameter;
   }
 
+    public Class<A> getPrototypeA() {
+        return prototypeA;
+    }
+    
+    public Class<B> getPrototypeB() {
+        return prototypeB;
+    }
 }
