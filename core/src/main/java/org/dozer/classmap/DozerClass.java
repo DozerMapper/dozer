@@ -15,7 +15,6 @@
  */
 package org.dozer.classmap;
 
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dozer.util.MappingUtils;
@@ -28,124 +27,148 @@ import org.dozer.util.MappingUtils;
  * @author tierney.matt
  * 
  */
-public class DozerClass {
+public class DozerClass
+{
 
-  private String name;
-  private Class<?> classToMap;
-  private String beanFactory;
-  private String factoryBeanId;
-  private String mapGetMethod;
-  private String mapSetMethod;
-  private String createMethod;
-  private Boolean mapNull;
-  private Boolean mapEmptyString;
-  private Boolean accessible;
+    private String name;
+    private Class<?> classToMap;
+    private String beanFactory;
+    private String factoryBeanId;
+    private String mapGetMethod;
+    private String mapSetMethod;
+    private String createMethod;
+    private Boolean mapNull;
+    private Boolean mapEmptyString;
+    private Boolean accessible;
 
-  public DozerClass() {
-  }
+    public DozerClass()
+    {
+    }
 
-  public DozerClass(String name, Class<?> classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
-      String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean accessible) {
-    this.name = name;
-    this.classToMap = classToMap;
-    this.beanFactory = beanFactory;
-    this.factoryBeanId = factoryBeanId;
-    this.mapGetMethod = mapGetMethod;
-    this.mapSetMethod = mapSetMethod;
-    this.createMethod = createMethod;
-    this.mapNull = mapNull;
-    this.mapEmptyString = mapEmptyString;
-    this.accessible = accessible;
-  }
+    public DozerClass(String name, Class<?> classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
+            String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean accessible)
+    {
+        this.name = name;
+        this.classToMap = classToMap;
+        this.beanFactory = beanFactory;
+        this.factoryBeanId = factoryBeanId;
+        this.mapGetMethod = mapGetMethod;
+        this.mapSetMethod = mapSetMethod;
+        this.createMethod = createMethod;
+        this.mapNull = mapNull;
+        this.mapEmptyString = mapEmptyString;
+        this.accessible = accessible;
+    }
 
-  public String getBeanFactory() {
-    return beanFactory;
-  }
+    public String getBeanFactory()
+    {
+        return beanFactory;
+    }
 
-  public void setBeanFactory(String beanFactory) {
-    this.beanFactory = beanFactory;
-  }
+    public void setBeanFactory(String beanFactory)
+    {
+        this.beanFactory = beanFactory;
+    }
 
-  public Class<?> getClassToMap() {
-    return classToMap;
-  }
+    public Class<?> getClassToMap()
+    {
+        return classToMap;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName()
+    {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-    classToMap = MappingUtils.loadClass(name);
-  }
+    public void setName(String name)
+    {
+        this.name = name;
+        classToMap = MappingUtils.loadClass(name);
+    }
 
-  public void setName(Class<?> type) {
-      this.name = type.getName();
-      classToMap = type;
-  }
-  
-  public String getFactoryBeanId() {
-    return factoryBeanId;
-  }
+    public void setName(Class<?> type)
+    {
+        this.name = type.getName();
+    }
 
-  public void setFactoryBeanId(String factoryBeanId) {
-    this.factoryBeanId = factoryBeanId;
-  }
+    public String getFactoryBeanId()
+    {
+        return factoryBeanId;
+    }
 
-  public String getMapGetMethod() {
-    return mapGetMethod;
-  }
+    public void setFactoryBeanId(String factoryBeanId)
+    {
+        this.factoryBeanId = factoryBeanId;
+    }
 
-  public void setMapGetMethod(String mapGetMethod) {
-    this.mapGetMethod = mapGetMethod;
-  }
+    public String getMapGetMethod()
+    {
+        return mapGetMethod;
+    }
 
-  public String getMapSetMethod() {
-    return mapSetMethod;
-  }
+    public void setMapGetMethod(String mapGetMethod)
+    {
+        this.mapGetMethod = mapGetMethod;
+    }
 
-  public void setMapSetMethod(String mapSetMethod) {
-    this.mapSetMethod = mapSetMethod;
-  }
+    public String getMapSetMethod()
+    {
+        return mapSetMethod;
+    }
 
-  public String getCreateMethod() {
-    return createMethod;
-  }
+    public void setMapSetMethod(String mapSetMethod)
+    {
+        this.mapSetMethod = mapSetMethod;
+    }
 
-  public void setCreateMethod(String createMethod) {
-    this.createMethod = createMethod;
-  }
+    public String getCreateMethod()
+    {
+        return createMethod;
+    }
 
-  public Boolean getMapNull() {
-    return mapNull;
-  }
+    public void setCreateMethod(String createMethod)
+    {
+        this.createMethod = createMethod;
+    }
 
-  public void setMapNull(Boolean mapNull) {
-    this.mapNull = mapNull;
-  }
+    public Boolean getMapNull()
+    {
+        return mapNull;
+    }
 
-  public Boolean getMapEmptyString() {
-    return mapEmptyString;
-  }
+    public void setMapNull(Boolean mapNull)
+    {
+        this.mapNull = mapNull;
+    }
 
-  public void setMapEmptyString(Boolean mapEmptyString) {
-    this.mapEmptyString = mapEmptyString;
-  }
+    public Boolean getMapEmptyString()
+    {
+        return mapEmptyString;
+    }
 
-  public boolean isMapTypeCustomGetterSetterClass() {
-    return getMapGetMethod() != null || getMapSetMethod() != null;
-  }
+    public void setMapEmptyString(Boolean mapEmptyString)
+    {
+        this.mapEmptyString = mapEmptyString;
+    }
 
-  public boolean isAccessible() {
-    return accessible != null && accessible;
-  }
+    public boolean isMapTypeCustomGetterSetterClass()
+    {
+        return getMapGetMethod() != null || getMapSetMethod() != null;
+    }
 
-  public void setAccessible(Boolean accessible) {
-    this.accessible = accessible;
-  }
+    public boolean isAccessible()
+    {
+        return accessible != null && accessible;
+    }
 
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+    public void setAccessible(Boolean accessible)
+    {
+        this.accessible = accessible;
+    }
+
+    @Override
+    public String toString()
+    {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }
