@@ -36,12 +36,17 @@ public class BeanContainer {
   }
 
   DozerClassLoader classLoader = new DefaultClassLoader(getClass().getClassLoader());
+  DozerClassLoader tccl = new DefaultClassLoader(Thread.currentThread().getContextClassLoader());
   DozerProxyResolver proxyResolver = new DefaultProxyResolver();
   ElementReader elementReader = new SimpleElementReader();
   ELEngine elEngine;
 
   public DozerClassLoader getClassLoader() {
     return classLoader;
+  }
+  
+  public DozerClassLoader getTCCL() {
+	  return tccl;
   }
 
   public void setClassLoader(DozerClassLoader classLoader) {
