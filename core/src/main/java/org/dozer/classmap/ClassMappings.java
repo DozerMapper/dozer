@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Internal class that determines the appropriate class mapping to be used for
@@ -35,7 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ClassMappings {
 
   // Cache key --> Mapping Structure
-  private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
+  private ConcurrentMap<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
   private ClassMapKeyFactory keyFactory;
 
   public ClassMappings() {
@@ -95,6 +96,12 @@ public class ClassMappings {
 
     if (mapping == null) {
       mapping = findInterfaceMapping(destClass, srcClass, mapId);
+      if (mapping != null) {
+        ClassMap previous = classMappings.putIfAbsent(keyFactory.createKey(srcClass, destClass, mapId), mapping);
+        if (previous != null) {
+          mapping = previous;
+        }
+      }
     }
 
     // one more try...
