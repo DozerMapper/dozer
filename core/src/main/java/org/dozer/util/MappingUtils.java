@@ -210,9 +210,16 @@ public final class MappingUtils {
   }
 
   public static Class<?> loadClass(String name) {
-    BeanContainer container = BeanContainer.getInstance();
-    DozerClassLoader loader = container.getClassLoader();
-    return loader.loadClass(name);
+    return loadClass(name, null);
+  }
+
+  public static Class<?> loadClass(String name, DozerClassLoader classLoader){
+    if(classLoader == null){
+      BeanContainer container = BeanContainer.getInstance();
+      DozerClassLoader loader = container.getClassLoader();
+      return loader.loadClass(name);
+    }
+    return classLoader.loadClass(name);
   }
 
   public static Class<?> getRealClass(Class<?> clazz) {

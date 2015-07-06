@@ -27,6 +27,7 @@ import org.dozer.classmap.RelationshipType;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.GetterSetterPropertyDescriptor;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
@@ -95,12 +96,16 @@ public abstract class FieldMap implements Cloneable {
     propDescriptor.setPropertyValue(runtimeDestObj, destFieldValue, this);
   }
 
-  public Class<?> getDestHintType(Class<?> runtimeSrcClass) {
+  public Class<?> getDestHintType(Class<?> runtimeSrcClass){
+    return getDestHintType(runtimeSrcClass, null);
+  }
+
+  public Class<?> getDestHintType(Class<?> runtimeSrcClass, DozerClassLoader classLoader) {
     if (getDestHintContainer() != null) {
       if (getSrcHintContainer() != null) {
-        return getDestHintContainer().getHint(runtimeSrcClass, getSrcHintContainer().getHints());
+        return getDestHintContainer().getHint(runtimeSrcClass, getSrcHintContainer().getHints(classLoader));
       } else {
-        return getDestHintContainer().getHint();
+        return getDestHintContainer().getHint(classLoader);
       }
     } else {
       return runtimeSrcClass;

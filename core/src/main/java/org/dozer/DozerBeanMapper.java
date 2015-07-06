@@ -36,6 +36,7 @@ import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,6 +80,8 @@ public class DozerBeanMapper implements Mapper {
   private final List<DozerEventListener> eventListeners = new ArrayList<DozerEventListener>();
   private final Map<String, CustomConverter> customConvertersWithId = new HashMap<String, CustomConverter>();
 
+  private DozerClassLoader classLoader;
+
   private CustomFieldMapper customFieldMapper;
 
   /*
@@ -103,28 +106,28 @@ public class DozerBeanMapper implements Mapper {
    * {@inheritDoc}
    */
   public void map(Object source, Object destination, String mapId) throws MappingException {
-    getMappingProcessor().map(source, destination, mapId);
+    getMappingProcessor(this.classLoader).map(source, destination, mapId);
   }
 
   /**
    * {@inheritDoc}
    */
   public <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException {
-    return getMappingProcessor().map(source, destinationClass, mapId);
+    return getMappingProcessor(this.classLoader).map(source, destinationClass, mapId);
   }
 
   /**
    * {@inheritDoc}
    */
   public <T> T map(Object source, Class<T> destinationClass) throws MappingException {
-    return getMappingProcessor().map(source, destinationClass);
+    return getMappingProcessor(this.classLoader).map(source, destinationClass);
   }
 
   /**
    * {@inheritDoc}
    */
   public void map(Object source, Object destination) throws MappingException {
-    getMappingProcessor().map(source, destination);
+    getMappingProcessor(this.classLoader).map(source, destination);
   }
 
   /**
@@ -189,10 +192,14 @@ public class DozerBeanMapper implements Mapper {
   }
 
   protected Mapper getMappingProcessor() {
+    return getMappingProcessor(null);
+  }
+
+  protected Mapper getMappingProcessor(DozerClassLoader classLoader){
     initMappings();
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
-            eventManager, getCustomFieldMapper(), customConvertersWithId);
+            eventManager, getCustomFieldMapper(), customConvertersWithId, classLoader);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
@@ -307,6 +314,14 @@ public class DozerBeanMapper implements Mapper {
     if (ready.getCount() == 0) {
       throw new MappingException("Dozer Bean Mapper is already initialized! Modify settings before calling map()");
     }
+  }
+
+  public DozerClassLoader getClassLoader() {
+    return classLoader;
+  }
+
+  public void setClassLoader(DozerClassLoader classLoader) {
+    this.classLoader = classLoader;
   }
 
   private void initMappings() {
