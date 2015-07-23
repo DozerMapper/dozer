@@ -10,9 +10,9 @@ Why Map?
 --------------------------------
 A mapping framework is useful in a layered architecture where you are creating layers of abstraction by encapsulating changes to particular data objects vs. propagating these objects to other layers (i.e. external service data objects, domain objects, data transfer objects, internal service data objects).
 
-Mapping between data objects has been traditionally addressed by hand coding value object assemblers (or converters) that copy data between the objects. Most programmers will develop some sort of custom mapping framework and spend countless hours and thousands of lines of code mapping to and from their different data object.
+Mapping between data objects has traditionally been addressed by hand coding value object assemblers (or converters) that copy data between the objects. Most programmers will develop some sort of custom mapping framework and spend countless hours and thousands of lines of code mapping to and from their different data object.
 
-This type of code for such conversions is rather boring to write, so why don't do it automatically?
+This type of code for such conversions is rather boring to write, so why not do it automatically?
 
 
 What is Dozer?
