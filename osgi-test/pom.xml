@@ -31,7 +31,7 @@
   <name>Dozer OSGi Bundle Tests</name>
 
   <properties>
-    <exam.version>3.4.0</exam.version>
+    <exam.version>3.5.0</exam.version>
     <felix.version>4.2.1</felix.version>
   </properties>
 
