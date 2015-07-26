@@ -153,7 +153,7 @@ public class MappingProcessor implements Mapper {
       if (destObj == null) {
         // If this is a nested MapperAware conversion this mapping can be already processed
         // but we can do this optimization only in case of no destObject, instead we must copy to the dest object
-        Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destType);
+        Object alreadyMappedValue = mappedFields.getMappedValue(srcObj, destType, mapId);
         if (alreadyMappedValue != null) {
           return (T) alreadyMappedValue;
         }
@@ -223,7 +223,7 @@ public class MappingProcessor implements Mapper {
     // infinite loop. Keep a record of mapped fields
     // by storing the id of the sourceObj and the destObj to be mapped. This can
     // be referred to later to avoid recursive mapping loops
-    mappedFields.put(srcObj, destObj);
+    mappedFields.put(srcObj, destObj, mapId);
 
     // If class map hasn't already been determined, find the appropriate one for
     // the src/dest object combination
@@ -397,7 +397,7 @@ public class MappingProcessor implements Mapper {
     // In case of "this->this" mapping this rule should be omitted as processing is done on objects, which has been
     // just marked as mapped.
     if (!(DozerConstants.SELF_KEYWORD.equals(srcFieldName) && DozerConstants.SELF_KEYWORD.equals(destFieldName))) {
-      Object alreadyMappedValue = mappedFields.getMappedValue(srcFieldValue, destFieldType);
+      Object alreadyMappedValue = mappedFields.getMappedValue(srcFieldValue, destFieldType, fieldMap.getMapId());
       if (alreadyMappedValue != null) {
         return alreadyMappedValue;
       }

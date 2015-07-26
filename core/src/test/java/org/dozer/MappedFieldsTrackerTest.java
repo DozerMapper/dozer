@@ -15,8 +15,6 @@
  */
 package org.dozer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -68,6 +66,14 @@ public class MappedFieldsTrackerTest extends AbstractDozerTest{
 
     Object result = tracker.getMappedValue(src, Boom.class);
     assertSame(dest, result);
+  }
+
+  @Test
+  public void testGetMappedValue_honorsMapId() {
+    tracker.put("", "42", "someId");
+    assertNull(tracker.getMappedValue("", String.class));
+    assertEquals("42", tracker.getMappedValue("", String.class, "someId"));
+    assertNull(tracker.getMappedValue("", String.class, "brandNewMapId"));
   }
 
   public static class Boom {

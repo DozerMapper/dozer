@@ -15,10 +15,8 @@
  */
 package org.dozer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,35 +29,50 @@ import java.util.Map;
 public class MappedFieldsTracker {
 
   // Hash Code is ignored as it can serve application specific needs
-  // <srcObject, <hashCodeOfDestination, mappedDestinationObject>>
-  private final Map<Object, Map<Integer,Object>> mappedFields = new IdentityHashMap<Object, Map<Integer,Object>>();
+  // <srcObject, <hashCodeOfDestination, mappedDestinationMapIdField>>
+  private final Map<Object, Map<Integer, MapIdField>> mappedFields = new IdentityHashMap<Object, Map<Integer, MapIdField>>();
 
-  public void put(Object src, Object dest) {
+
+  public void put(Object src, Object dest, String mapId) {
     int destId = System.identityHashCode(dest);
 
-    Map<Integer,Object> mappedTo = mappedFields.get(src);
+    Map<Integer, MapIdField> mappedTo = mappedFields.get(src);
     if (mappedTo == null) {
-      mappedTo = new HashMap<Integer, Object>();
+      mappedTo = new HashMap<Integer, MapIdField>();
       mappedFields.put(src, mappedTo);
     }
-    if (!mappedTo.containsKey(destId)) {
-      mappedTo.put(destId, dest);
+
+    MapIdField destMapIdField = mappedTo.get(destId);
+    if (destMapIdField == null) {
+      destMapIdField = new MapIdField();
+      mappedTo.put(destId, destMapIdField);
+    }
+
+    if (!destMapIdField.containsMapId(mapId)) {
+      destMapIdField.put(mapId, dest);
     }
   }
 
-  public Object getMappedValue(Object src, Class<?> destType) {
-    Map<Integer,Object> alreadyMappedValues = mappedFields.get(src);
-    if (alreadyMappedValues != null) {
-      for (Object alreadyMappedValue : alreadyMappedValues.values()) {
-        if (alreadyMappedValue != null) {
-          // 1664984 - bi-directionnal mapping with sets & subclasses
-          if (destType.isAssignableFrom(alreadyMappedValue.getClass())) {
-            // Source value has already been mapped to the required destFieldType.
-            return alreadyMappedValue;
-          }
+  public void put(Object src, Object dest) {
+    put(src, dest, null);
+  }
+
+  public Object getMappedValue(Object src, Class<?> destType, String mapId) {
+    Map<Integer, MapIdField> alreadyMappedFields = mappedFields.get(src);
+    if (alreadyMappedFields != null) {
+      for (MapIdField alreadyMappedField : alreadyMappedFields.values()) {
+        Object mappedValue = alreadyMappedField.get(mapId);
+        // 1664984 - bi-directionnal mapping with sets & subclasses
+        if (mappedValue != null && destType.isAssignableFrom(mappedValue.getClass())) {
+          // Source value has already been mapped to the required destFieldType.
+          return mappedValue;
         }
       }
     }
     return null;
+  }
+
+  public Object getMappedValue(Object src, Class<?> destType) {
+    return getMappedValue(src, destType, null);
   }
 }
