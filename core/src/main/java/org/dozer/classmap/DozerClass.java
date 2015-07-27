@@ -79,6 +79,11 @@ public class DozerClass {
     classToMap = MappingUtils.loadClass(name);
   }
 
+  public void setName(Class<?> type) {
+      this.name = type.getName();
+      classToMap = type;
+  }
+  
   public String getFactoryBeanId() {
     return factoryBeanId;
   }

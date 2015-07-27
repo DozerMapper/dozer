@@ -130,11 +130,12 @@ public class DozerBuilder {
       return classA(type);
     }
 
-    public ClassDefinitionBuilder classA(Class type) {
-      DozerClass classDefinition = new DozerClass();
-      classDefinition.setName(type.getName());
-      classMap.setSrcClass(classDefinition);
-      return new ClassDefinitionBuilder(classDefinition);
+    public ClassDefinitionBuilder classA(Class type)
+    {
+        DozerClass classDefinition = new DozerClass();
+        classDefinition.setName(type);
+        classMap.setSrcClass(classDefinition);
+        return new ClassDefinitionBuilder(classDefinition);
     }
 
     public ClassDefinitionBuilder classB(String typeName) {

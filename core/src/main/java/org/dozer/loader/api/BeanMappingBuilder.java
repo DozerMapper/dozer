@@ -54,10 +54,6 @@ public abstract class BeanMappingBuilder {
     return mapping(new TypeDefinition(typeA), typeB, typeMappingOption);
   }
 
-  public TypeMappingBuilder mapping(Class<?> typeA, Class<?> typeB, TypeMappingOption ... typeMappingOption) {
-    return mapping(new TypeDefinition(typeA), new TypeDefinition(typeB), typeMappingOption);
-  }
-
   public TypeMappingBuilder mapping(TypeDefinition typeA, Class<?> typeB, TypeMappingOption ... typeMappingOption) {
     return mapping(typeA, new TypeDefinition(typeB), typeMappingOption);
   }
@@ -66,6 +62,24 @@ public abstract class BeanMappingBuilder {
     return mapping(new TypeDefinition(typeA), typeB, typeMappingOption);
   }
 
+  public TypeMappingBuilder mapping(Class<?> typeA, Class<?> typeB, TypeMappingOption... typeMappingOption)
+  {
+      DozerBuilder.MappingBuilder mappingBuilder = dozerBuilder.mapping();
+      DozerBuilder.ClassDefinitionBuilder typeBuilderA = mappingBuilder.classA(typeA);
+      DozerBuilder.ClassDefinitionBuilder typeBuilderB = mappingBuilder.classB(typeB);
+
+      new TypeDefinition(typeA).build(typeBuilderA);
+      new TypeDefinition(typeB).build(typeBuilderB);
+
+      for (TypeMappingOption option : typeMappingOption)
+      {
+          option.apply(mappingBuilder);
+      }
+
+      return new TypeMappingBuilder(mappingBuilder);
+  }
+
+  
   public TypeMappingBuilder mapping(TypeDefinition typeA, TypeDefinition typeB, TypeMappingOption ... typeMappingOption) {
     DozerBuilder.MappingBuilder mappingBuilder = dozerBuilder.mapping();
     DozerBuilder.ClassDefinitionBuilder typeBuilderA = mappingBuilder.classA(typeA.getName());
