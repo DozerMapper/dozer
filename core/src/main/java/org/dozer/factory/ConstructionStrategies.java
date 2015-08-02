@@ -15,18 +15,6 @@
  */
 package org.dozer.factory;
 
-import org.dozer.BeanFactory;
-import org.dozer.MappingException;
-import org.dozer.config.BeanContainer;
-import org.dozer.util.DozerClassLoader;
-import org.dozer.util.MappingUtils;
-import org.dozer.util.ReflectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -41,285 +29,343 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dozer.BeanFactory;
+import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
+import org.dozer.converters.JAXBElementConverter;
+import org.dozer.util.DozerClassLoader;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Dmitry Buzdin
+ * @author Jose Barragan
  */
 public final class ConstructionStrategies {
 
-  private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
-  private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
-  private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
-  private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
-  private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
-  private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
-  private static final BeanCreationStrategy xmlGregorianCalendar = new ConstructionStrategies.XmlGregorian();
+	private static final BeanCreationStrategy             byCreateMethod       = new ConstructionStrategies.ByCreateMethod();
+	private static final BeanCreationStrategy             byGetInstance        = new ConstructionStrategies.ByGetInstance();
+	private static final BeanCreationStrategy             byInterface          = new ConstructionStrategies.ByInterface();
+	private static final BeanCreationStrategy             xmlBeansBased        = new ConstructionStrategies.XMLBeansBased();
+	private static final BeanCreationStrategy             jaxbBeansBased       = new ConstructionStrategies.JAXBBeansBased();
+	private static final BeanCreationStrategy             constructorBased     = new ConstructionStrategies.ByConstructor();
+	private static final ConstructionStrategies.ByFactory byFactory            = new ConstructionStrategies.ByFactory();
+	private static final BeanCreationStrategy             xmlGregorianCalendar = new ConstructionStrategies.XmlGregorian();
 
-  public static BeanCreationStrategy byCreateMethod() {
-    return byCreateMethod;
-  }
+	public static BeanCreationStrategy byCreateMethod() {
+		return byCreateMethod;
+	}
 
-  public static BeanCreationStrategy byGetInstance() {
-    return byGetInstance;
-  }
+	public static BeanCreationStrategy byGetInstance() {
+		return byGetInstance;
+	}
 
-  public static BeanCreationStrategy byInterface() {
-    return byInterface;
-  }
+	public static BeanCreationStrategy byInterface() {
+		return byInterface;
+	}
 
-  public static BeanCreationStrategy xmlBeansBased() {
-    return xmlBeansBased;
-  }
+	public static BeanCreationStrategy xmlBeansBased() {
+		return xmlBeansBased;
+	}
 
-  public static BeanCreationStrategy byConstructor() {
-    return constructorBased;
-  }
+	public static BeanCreationStrategy jaxbBeansBased() {
+		return jaxbBeansBased;
+	}
 
-  public static ByFactory byFactory() {
-    return byFactory;
-  }
+	public static BeanCreationStrategy byConstructor() {
+		return constructorBased;
+	}
 
-  public static BeanCreationStrategy xmlGregorianCalendar() {
-    return xmlGregorianCalendar;
-  }
+	public static ByFactory byFactory() {
+		return byFactory;
+	}
 
-  static class ByCreateMethod implements BeanCreationStrategy {
+	public static BeanCreationStrategy xmlGregorianCalendar() {
+		return xmlGregorianCalendar;
+	}
 
-    public boolean isApplicable(BeanCreationDirective directive) {
-      String createMethod = directive.getCreateMethod();
-      return !MappingUtils.isBlankOrNull(createMethod);
-    }
+	static class ByCreateMethod implements BeanCreationStrategy {
 
-    public Object create(BeanCreationDirective directive) {
-      Class<?> actualClass = directive.getActualClass();
-      String createMethod = directive.getCreateMethod();
+		public boolean isApplicable(BeanCreationDirective directive) {
+			String createMethod = directive.getCreateMethod();
+			return !MappingUtils.isBlankOrNull(createMethod);
+		}
 
-      Method method;
-      if (createMethod.contains(".")) {
-        String methodName = createMethod.substring(createMethod.lastIndexOf(".") + 1, createMethod.length());
-        String typeName = createMethod.substring(0, createMethod.lastIndexOf("."));
-        DozerClassLoader loader = BeanContainer.getInstance().getClassLoader();
-        Class type = loader.loadClass(typeName);
-        method = findMethod(type, methodName);
-      } else {
-        method = findMethod(actualClass, createMethod);
-      }
-      return ReflectionUtils.invoke(method, null, null);
-    }
+		public Object create(BeanCreationDirective directive) {
+			Class<?> actualClass = directive.getActualClass();
+			String createMethod = directive.getCreateMethod();
 
-    private Method findMethod(Class<?> actualClass, String createMethod) {
-      Method method = null;
-      try {
-        method = ReflectionUtils.getMethod(actualClass, createMethod, null);
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
-      return method;
-    }
+			Method method;
+			if (createMethod.contains(".")) {
+				String methodName = createMethod.substring(createMethod.lastIndexOf(".") + 1, createMethod.length());
+				String typeName = createMethod.substring(0, createMethod.lastIndexOf("."));
+				DozerClassLoader loader = BeanContainer.getInstance().getClassLoader();
+				Class type = loader.loadClass(typeName);
+				method = findMethod(type, methodName);
+			} else {
+				method = findMethod(actualClass, createMethod);
+			}
+			return ReflectionUtils.invoke(method, null, null);
+		}
 
-  }
+		private Method findMethod(Class<?> actualClass, String createMethod) {
+			Method method = null;
+			try {
+				method = ReflectionUtils.getMethod(actualClass, createMethod, null);
+			} catch (NoSuchMethodException e) {
+				MappingUtils.throwMappingException(e);
+			}
+			return method;
+		}
 
-  static class ByGetInstance extends ByCreateMethod {
+	}
 
-    // TODO Investigate what else could be here
+	static class ByGetInstance extends ByCreateMethod {
 
-    @Override
-    public boolean isApplicable(BeanCreationDirective directive) {
-      Class<?> actualClass = directive.getActualClass();
-      return Calendar.class.isAssignableFrom(actualClass)
-              || DateFormat.class.isAssignableFrom(actualClass);
-    }
+		// TODO Investigate what else could be here
 
-    public Object create(BeanCreationDirective directive) {
-      directive.setCreateMethod("getInstance");
-      return super.create(directive);
-    }
-  }
+		@Override
+		public boolean isApplicable(BeanCreationDirective directive) {
+			Class<?> actualClass = directive.getActualClass();
+			return Calendar.class.isAssignableFrom(actualClass)
+					       || DateFormat.class.isAssignableFrom(actualClass);
+		}
 
-  static class ByFactory implements BeanCreationStrategy {
+		public Object create(BeanCreationDirective directive) {
+			directive.setCreateMethod("getInstance");
+			return super.create(directive);
+		}
+	}
 
-    private final Logger log = LoggerFactory.getLogger(ByFactory.class);
+	static class ByFactory implements BeanCreationStrategy {
 
-    private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<String, BeanFactory>();
+    	private final Logger log = LoggerFactory.getLogger(ByFactory.class);
 
-    public boolean isApplicable(BeanCreationDirective directive) {
-      String factoryName = directive.getFactoryName();
-      return !MappingUtils.isBlankOrNull(factoryName);
-    }
+		private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<String, BeanFactory>();
 
-    public Object create(BeanCreationDirective directive) {
-      Class<?> classToCreate = directive.getActualClass();
-      String factoryName = directive.getFactoryName();
-      String factoryBeanId = directive.getFactoryId();
+		public boolean isApplicable(BeanCreationDirective directive) {
+			String factoryName = directive.getFactoryName();
+			return !MappingUtils.isBlankOrNull(factoryName);
+		}
 
-      // By default, use dest object class name for factory bean id
-      String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : classToCreate.getName();
+		public Object create(BeanCreationDirective directive) {
+			Class<?> classToCreate = directive.getActualClass();
+			String factoryName = directive.getFactoryName();
+			String factoryBeanId = directive.getFactoryId();
 
-      BeanFactory factory = factoryCache.get(factoryName);
-      if (factory == null) {
-        Class<?> factoryClass = MappingUtils.loadClass(factoryName);
-        if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
-          MappingUtils.throwMappingException("Custom bean factory must implement "
-                  + BeanFactory.class.getName() + " interface : " + factoryClass);
-        }
-        factory = (BeanFactory) ReflectionUtils.newInstance(factoryClass);
-        // put the created factory in our factory map
-        factoryCache.put(factoryName, factory);
-      }
+			// By default, use dest object class name for factory bean id
+			String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : classToCreate.getName();
 
-      Object result = factory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
+			BeanFactory factory = factoryCache.get(factoryName);
+			if (factory == null) {
+				Class<?> factoryClass = MappingUtils.loadClass(factoryName);
+				if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
+					MappingUtils.throwMappingException("Custom bean factory must implement "
+							                                   + BeanFactory.class.getName() + " interface : " + factoryClass);
+				}
+				factory = (BeanFactory) ReflectionUtils.newInstance(factoryClass);
+				// put the created factory in our factory map
+				factoryCache.put(factoryName, factory);
+			}
 
-      log.debug("Bean instance created with custom factory -->\n  Bean Type: {}\n  Factory Name: {}",
-              result.getClass().getName(), factoryName);
+			Object result = factory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
 
-      if (!classToCreate.isAssignableFrom(result.getClass())) {
-        MappingUtils.throwMappingException("Custom bean factory (" + factory.getClass() +
-                ") did not return correct type of destination data object. Expected : "
-                + classToCreate + ", Actual : " + result.getClass());
-      }
-      return result;
-    }
+			log.debug("Bean instance created with custom factory -->\n  Bean Type: {}\n  Factory Name: {}",
+			          result.getClass().getName(), factoryName);
 
-    public void setStoredFactories(Map<String, BeanFactory> factories) {
-      this.factoryCache.putAll(factories);
-    }
+			if (!classToCreate.isAssignableFrom(result.getClass())) {
+				MappingUtils.throwMappingException("Custom bean factory (" + factory.getClass() +
+						                                   ") did not return correct type of destination data object. Expected : "
+						                                   + classToCreate + ", Actual : " + result.getClass());
+			}
+			return result;
+		}
 
-  }
+		public void setStoredFactories(Map<String, BeanFactory> factories) {
+			this.factoryCache.putAll(factories);
+		}
+
+	}
 
 
-  static class ByInterface implements BeanCreationStrategy {
+	static class ByInterface implements BeanCreationStrategy {
 
-    public boolean isApplicable(BeanCreationDirective directive) {
-      Class<?> actualClass = directive.getActualClass();
-      return Map.class.equals(actualClass) || List.class.equals(actualClass) || Set.class.equals(actualClass);
-    }
+		public boolean isApplicable(BeanCreationDirective directive) {
+			Class<?> actualClass = directive.getActualClass();
+			return Map.class.equals(actualClass) || List.class.equals(actualClass) || Set.class.equals(actualClass);
+		}
 
-    public Object create(BeanCreationDirective directive) {
-      Class<?> actualClass = directive.getActualClass();
-      if (Map.class.equals(actualClass)) {
-        return new HashMap();
-      } else if (List.class.equals(actualClass)) {
-        return new ArrayList();
-      } else if (Set.class.equals(actualClass)) {
-        return new HashSet();
-      }
-      throw new IllegalStateException("Type not expected : " + actualClass);
-    }
+		public Object create(BeanCreationDirective directive) {
+			Class<?> actualClass = directive.getActualClass();
+			if (Map.class.equals(actualClass)) {
+				return new HashMap();
+			} else if (List.class.equals(actualClass)) {
+				return new ArrayList();
+			} else if (Set.class.equals(actualClass)) {
+				return new HashSet();
+			}
+			throw new IllegalStateException("Type not expected : " + actualClass);
+		}
 
-  }
+	}
 
-  static class XMLBeansBased implements BeanCreationStrategy {
+	static class XMLBeansBased implements BeanCreationStrategy {
 
-    final BeanFactory xmlBeanFactory;
-    boolean xmlBeansAvailable;
-    private Class<?> xmlObjectType;
+		final BeanFactory xmlBeanFactory;
+		boolean xmlBeansAvailable;
+		private Class<?> xmlObjectType;
 
-    XMLBeansBased() {
-      this(new XMLBeanFactory());
-    }
+		XMLBeansBased() {
+			this(new XMLBeanFactory());
+		}
 
-    XMLBeansBased(XMLBeanFactory xmlBeanFactory) {
-      this.xmlBeanFactory = xmlBeanFactory;
-      try {
-        xmlObjectType = Class.forName("org.apache.xmlbeans.XmlObject");
-        xmlBeansAvailable = true;
-      } catch (ClassNotFoundException e) {
-        xmlBeansAvailable = false;
-      }
-    }
+		XMLBeansBased(XMLBeanFactory xmlBeanFactory) {
+			this.xmlBeanFactory = xmlBeanFactory;
+			try {
+				xmlObjectType = Class.forName("org.apache.xmlbeans.XmlObject");
+				xmlBeansAvailable = true;
+			} catch (ClassNotFoundException e) {
+				xmlBeansAvailable = false;
+			}
+		}
 
-    public boolean isApplicable(BeanCreationDirective directive) {
-      if (!xmlBeansAvailable) {
-        return false;
-      }
-      Class<?> actualClass = directive.getActualClass();
-      return xmlObjectType.isAssignableFrom(actualClass);
-    }
+		public boolean isApplicable(BeanCreationDirective directive) {
+			if (!xmlBeansAvailable) {
+				return false;
+			}
+			Class<?> actualClass = directive.getActualClass();
+			return xmlObjectType.isAssignableFrom(actualClass);
+		}
 
-    public Object create(BeanCreationDirective directive) {
-      Class<?> classToCreate = directive.getActualClass();
-      String factoryBeanId = directive.getFactoryId();
-      String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : classToCreate.getName();
-      return xmlBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
-    }
+		public Object create(BeanCreationDirective directive) {
+			Class<?> classToCreate = directive.getActualClass();
+			String factoryBeanId = directive.getFactoryId();
+			String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : classToCreate.getName();
+			return xmlBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
+		}
 
-  }
+	}
 
-  static class ByConstructor implements BeanCreationStrategy {
+	static class JAXBBeansBased implements BeanCreationStrategy {
 
-    public boolean isApplicable(BeanCreationDirective directive) {
-      return true;
-    }
+		final BeanFactory jaxbBeanFactory;
+		boolean jaxbBeansAvailable;
+		private Class<?> jaxbObjectType;
 
-    public Object create(BeanCreationDirective directive) {
-      Class<?> classToCreate = directive.getActualClass();
+		JAXBBeansBased() {
+			this(new JAXBBeanFactory());
+		}
 
-      try {
-        return newInstance(classToCreate);
-      } catch (Exception e) {
-        if (directive.getAlternateClass() != null) {
-          return newInstance(directive.getAlternateClass());
-        } else {
-          MappingUtils.throwMappingException(e);
-        }
-      }
-      return null;
-    }
+		JAXBBeansBased(JAXBBeanFactory jaxbBeanFactory) {
+			this.jaxbBeanFactory = jaxbBeanFactory;
+			try {
+				jaxbObjectType = Class.forName("javax.xml.bind.JAXBElement");
+				jaxbBeansAvailable = true;
+			} catch (ClassNotFoundException e) {
+				jaxbBeansAvailable = false;
+			}
+		}
 
-    private static <T> T newInstance(Class<T> clazz) {
-      //Create using public or private no-arg constructor
-      Constructor<T> constructor = null;
-      try {
-        constructor = clazz.getDeclaredConstructor(null);
-      } catch (SecurityException e) {
-        MappingUtils.throwMappingException(e);
-      } catch (NoSuchMethodException e) {
-        MappingUtils.throwMappingException(e);
-      }
+		public boolean isApplicable(BeanCreationDirective directive) {
+			if (!jaxbBeansAvailable) {
+				return false;
+			}
+			Class<?> actualClass = directive.getActualClass();
+			return jaxbObjectType.isAssignableFrom(actualClass);
+		}
 
-      if (constructor == null) {
-        MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
-                + ".  Could not find a no-arg constructor for this class.");
-      }
+		public Object create(BeanCreationDirective directive) {
+			JAXBElementConverter jaxbElementConverter = new JAXBElementConverter((directive.getDestObj() != null) ? directive.getDestObj().getClass().getCanonicalName() : directive.getActualClass().getCanonicalName(), directive.getFieldName(), null);
+			String beanId = jaxbElementConverter.getBeanId();
+			Object destValue = jaxbBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
+			return jaxbElementConverter.convert(jaxbObjectType, (destValue != null) ? destValue : directive.getSrcObject());
+		}
+	}
 
-      // If private, make it accessible
-      if (!constructor.isAccessible()) {
-        constructor.setAccessible(true);
-      }
 
-      T result = null;
-      try {
-        result = constructor.newInstance(null);
-      } catch (IllegalArgumentException e) {
-        MappingUtils.throwMappingException(e);
-      } catch (InstantiationException e) {
-        MappingUtils.throwMappingException(e);
-      } catch (IllegalAccessException e) {
-        MappingUtils.throwMappingException(e);
-      } catch (InvocationTargetException e) {
-        MappingUtils.throwMappingException(e);
-      }
-      return result;
-    }
+	static class ByConstructor implements BeanCreationStrategy {
 
-  }
+		public boolean isApplicable(BeanCreationDirective directive) {
+			return true;
+		}
 
-  private static class XmlGregorian implements BeanCreationStrategy {
+		public Object create(BeanCreationDirective directive) {
+			Class<?> classToCreate = directive.getActualClass();
 
-    public boolean isApplicable(BeanCreationDirective directive) {
-      Class<?> actualClass = directive.getActualClass();
-      return XMLGregorianCalendar.class.isAssignableFrom(actualClass);
-    }
+			try {
+				return newInstance(classToCreate);
+			} catch (Exception e) {
+				if (directive.getAlternateClass() != null) {
+					return newInstance(directive.getAlternateClass());
+				} else {
+					MappingUtils.throwMappingException(e);
+				}
+			}
+			return null;
+		}
 
-    public Object create(BeanCreationDirective directive) {
-      DatatypeFactory dataTypeFactory;
-      try {
-        dataTypeFactory = DatatypeFactory.newInstance();
-      } catch (DatatypeConfigurationException e) {
-        throw new MappingException(e);
-      }
-      return dataTypeFactory.newXMLGregorianCalendar();
-    }
+		private static <T> T newInstance(Class<T> clazz) {
+			//Create using public or private no-arg constructor
+			Constructor<T> constructor = null;
+			try {
+				constructor = clazz.getDeclaredConstructor(null);
+			} catch (SecurityException e) {
+				MappingUtils.throwMappingException(e);
+			} catch (NoSuchMethodException e) {
+				MappingUtils.throwMappingException(e);
+			}
 
-  }
+			if (constructor == null) {
+				MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
+						                                   + ".  Could not find a no-arg constructor for this class.");
+			}
+
+			// If private, make it accessible
+			if (!constructor.isAccessible()) {
+				constructor.setAccessible(true);
+			}
+
+			T result = null;
+			try {
+				result = constructor.newInstance(null);
+			} catch (IllegalArgumentException e) {
+				MappingUtils.throwMappingException(e);
+			} catch (InstantiationException e) {
+				MappingUtils.throwMappingException(e);
+			} catch (IllegalAccessException e) {
+				MappingUtils.throwMappingException(e);
+			} catch (InvocationTargetException e) {
+				MappingUtils.throwMappingException(e);
+			}
+			return result;
+		}
+
+	}
+
+	private static class XmlGregorian implements BeanCreationStrategy {
+
+		public boolean isApplicable(BeanCreationDirective directive) {
+			Class<?> actualClass = directive.getActualClass();
+			return XMLGregorianCalendar.class.isAssignableFrom(actualClass);
+		}
+
+		public Object create(BeanCreationDirective directive) {
+			DatatypeFactory dataTypeFactory;
+			try {
+				dataTypeFactory = DatatypeFactory.newInstance();
+			} catch (DatatypeConfigurationException e) {
+				throw new MappingException(e);
+			}
+			return dataTypeFactory.newXMLGregorianCalendar();
+		}
+
+	}
 
 }

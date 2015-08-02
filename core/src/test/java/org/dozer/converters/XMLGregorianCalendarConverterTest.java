@@ -27,6 +27,10 @@ import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * @author Dmitry Buzdin
+ * @author Jose Barragan
+ */
 public class XMLGregorianCalendarConverterTest extends AbstractDozerTest{
   private XMLGregorianCalendarConverter converter;
   private static final int YEAR = 1983;
@@ -94,5 +98,12 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest{
     assertNull(result);
   }
 
-
+  @Test
+  public void testConvert_Format() throws Exception {
+    DatatypeFactory instance = DatatypeFactory.newInstance();
+    XMLGregorianCalendar calendar = instance.newXMLGregorianCalendar(new GregorianCalendar(YEAR, MONTH, DAY));
+    Object result = converter.convert(String.class, calendar);
+    String stringCalendar = (String) result;
+    assertEquals(stringCalendar, "04.09.1983");
+  }
 }
