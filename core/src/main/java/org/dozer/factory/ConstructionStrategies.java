@@ -161,7 +161,7 @@ public final class ConstructionStrategies {
           MappingUtils.throwMappingException("Custom bean factory must implement "
                   + BeanFactory.class.getName() + " interface : " + factoryClass);
         }
-        factory = (BeanFactory) ReflectionUtils.newInstance(factoryClass);
+        factory = (BeanFactory) MappingUtils.newInstance(factoryClass);
         // put the created factory in our factory map
         factoryCache.put(factoryName, factory);
       }

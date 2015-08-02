@@ -24,6 +24,7 @@ import org.dozer.jmx.JMXPlatformImpl;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
+import org.dozer.util.DozerInstantiator;
 import org.dozer.util.DozerProxyResolver;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
@@ -95,6 +96,7 @@ public final class DozerInitializer {
 
     BeanContainer beanContainer = BeanContainer.getInstance();
 
+    registerInstantiator(globalSettings, classLoader, beanContainer);
     registerClassLoader(globalSettings, classLoader, beanContainer);
     registerProxyResolver(globalSettings, beanContainer);
 
@@ -115,7 +117,7 @@ public final class DozerInitializer {
     if (!DozerConstants.DEFAULT_CLASS_LOADER_BEAN.equals(classLoaderName)) {
       DefaultClassLoader defaultClassLoader = new DefaultClassLoader(classLoader);
       Class<? extends DozerClassLoader> classLoaderType = loadBeanType(classLoaderName, defaultClassLoader, DozerClassLoader.class);
-      DozerClassLoader classLoaderBean = ReflectionUtils.newInstance(classLoaderType);
+      DozerClassLoader classLoaderBean = (DozerClassLoader) MappingUtils.newInstance(classLoaderType);
       beanContainer.setClassLoader(classLoaderBean);
     }
   }
@@ -125,8 +127,18 @@ public final class DozerInitializer {
     if (!DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN.equals(proxyResolverName)) {
       DozerClassLoader initializedClassLoader = beanContainer.getClassLoader();
       Class<? extends DozerProxyResolver> proxyResolverType = loadBeanType(proxyResolverName, initializedClassLoader, DozerProxyResolver.class);
-      DozerProxyResolver proxyResolverBean = ReflectionUtils.newInstance(proxyResolverType);
+      DozerProxyResolver proxyResolverBean = (DozerProxyResolver) MappingUtils.newInstance(proxyResolverType);
       beanContainer.setProxyResolver(proxyResolverBean);
+    }
+  }
+
+  private void registerInstantiator(GlobalSettings globalSettings, ClassLoader classLoader, BeanContainer beanContainer) {
+    String instantiatorName = globalSettings.getInstantiatorName();
+    if (!DozerConstants.DEFAULT_INSTANTIATOR.equals(instantiatorName)) {
+      DefaultClassLoader defaultClassLoader = new DefaultClassLoader(classLoader);
+      Class<? extends DozerInstantiator> instantiatorType = loadBeanType(instantiatorName, defaultClassLoader, DozerInstantiator.class);
+      DozerInstantiator instantiatorBean = ReflectionUtils.newInstance(instantiatorType);
+      beanContainer.setInstantiator(instantiatorBean);
     }
   }
 

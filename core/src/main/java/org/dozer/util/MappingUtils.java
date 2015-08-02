@@ -209,6 +209,18 @@ public final class MappingUtils {
     }
   }
 
+  public static Object newInstance(Class<?> name) {
+    BeanContainer container = BeanContainer.getInstance();
+    DozerInstantiator instantiator = container.getInstantiator();
+    return instantiator.newInstance(name);
+  }
+
+  public static Object getRealObject(Object object) {
+    BeanContainer container = BeanContainer.getInstance();
+    DozerInstantiator instantiator = container.getInstantiator();
+    return instantiator.getRealObject(object);
+  }
+
   public static Class<?> loadClass(String name) {
     BeanContainer container = BeanContainer.getInstance();
     DozerClassLoader loader = container.getClassLoader();
