@@ -48,28 +48,32 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
 
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
-    if (writeMethod == null || writeMethod.get() == null) {
-      if (customSetMethod != null && !MappingUtils.isDeepMapping(fieldName)) {
-        Method method = ReflectionUtils.findAMethod(clazz, customSetMethod);
-        writeMethod = new SoftReference<Method>(method);
-      } else {
-        return super.getWriteMethod();
-      }
-    }
-    return writeMethod.get();
+    Method method = writeMethod == null ? null : writeMethod.get();
+		if (method == null) {
+			if (customSetMethod != null && !MappingUtils.isDeepMapping(fieldName)) {
+				method = ReflectionUtils.findAMethod(clazz, customSetMethod);
+				writeMethod = new SoftReference<Method>(method);
+			}
+			else {
+				method = super.getWriteMethod();
+			}
+		}
+		return method;
   }
 
   @Override
   protected Method getReadMethod() throws NoSuchMethodException {
-    if (readMethod == null || readMethod.get() == null) {
-      if (customGetMethod != null) {
-        Method method = ReflectionUtils.findAMethod(clazz, customGetMethod);
-        readMethod = new SoftReference<Method>(method);
-      } else {
-        return super.getReadMethod();
-      }
-    }
-    return readMethod.get();
+    Method method = readMethod == null ? null : readMethod.get();
+		if(method == null){
+			if (customGetMethod != null) {
+				method = ReflectionUtils.findAMethod(clazz, customGetMethod);
+				readMethod = new SoftReference<Method>(method);
+			}
+			else {
+				method = super.getReadMethod();
+			}
+		}
+		return method;
   }
 
   @Override
