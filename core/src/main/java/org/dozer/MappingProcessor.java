@@ -336,22 +336,31 @@ public class MappingProcessor implements Mapper {
       // custom field mapper returns false(indicating the
       // field was not actually mapped by the custom field mapper), proceed as
       // normal(use Dozer to map the field)
-      srcFieldValue = fieldMapping.getSrcFieldValue(srcObj);
-      boolean fieldMapped = false;
-      if (customFieldMapper != null) {
-        fieldMapped = customFieldMapper.mapField(srcObj, destObj, srcFieldValue, fieldMapping.getClassMap(), fieldMapping);
-      }
 
-      if (!fieldMapped) {
-        if (fieldMapping.getDestFieldType() != null && ITERATE.equals(fieldMapping.getDestFieldType())) {
-          // special logic for iterate feature
-          mapFromIterateMethodFieldMap(srcObj, destObj, srcFieldValue, fieldMapping);
-        } else {
-          // either deep field map or generic map. The is the most likely
-          // scenario
-          mapFromFieldMap(srcObj, destObj, srcFieldValue, fieldMapping);
-        }
-      }
+	    boolean canMapField = true;
+	    if (customFieldMapper != null && customFieldMapper instanceof CustomFieldMapperAndValidator) {
+		    canMapField = ((CustomFieldMapperAndValidator)customFieldMapper).canMapField(srcObj, destObj, fieldMapping.getClassMap(), fieldMapping);
+	    }
+
+	    if (canMapField) {
+		    boolean fieldMapped = false;
+
+		    srcFieldValue = fieldMapping.getSrcFieldValue(srcObj);
+		    if (customFieldMapper != null) {
+			    fieldMapped = customFieldMapper.mapField(srcObj, destObj, srcFieldValue, fieldMapping.getClassMap(), fieldMapping);
+		    }
+
+		    if (!fieldMapped) {
+			    if (fieldMapping.getDestFieldType() != null && ITERATE.equals(fieldMapping.getDestFieldType())) {
+				    // special logic for iterate feature
+				    mapFromIterateMethodFieldMap(srcObj, destObj, srcFieldValue, fieldMapping);
+			    } else {
+				    // either deep field map or generic map. The is the most likely
+				    // scenario
+				    mapFromFieldMap(srcObj, destObj, srcFieldValue, fieldMapping);
+			    }
+		    }
+	    }
 
       statsMgr.increment(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
 
