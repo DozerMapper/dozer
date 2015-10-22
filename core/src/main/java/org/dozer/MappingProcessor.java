@@ -575,7 +575,11 @@ public class MappingProcessor implements Mapper {
     // if they use a standard Collection we have to assume it is a List...better
     // way to handle this?
     if (destCollectionType.getName().equals(Collection.class.getName())) {
+      // dont!!
       destCollectionType = List.class;
+        if (Set.class.isAssignableFrom(srcFieldType)) {
+            destCollectionType = Set.class;
+        }
     }
     // Array to Array
     if (CollectionUtils.isArray(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
