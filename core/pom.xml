@@ -23,7 +23,7 @@
   <parent>
     <groupId>net.sf.dozer</groupId>
     <artifactId>dozer-parent</artifactId>
-    <version>5.5.1.1-infobip-SNAPSHOT</version>
+    <version>5.5.1.1-infobip</version>
   </parent>
 
   <artifactId>dozer</artifactId>
