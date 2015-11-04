@@ -903,7 +903,7 @@ public class MappingProcessor implements Mapper {
   private List<?> mapArrayToList(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
     Class<?> destEntryType;
     if (fieldMap.getDestHintContainer() != null) {
-      destEntryType = fieldMap.getDestHintContainer().getHint();
+      destEntryType = fieldMap.getDestHintContainer().getHint(classLoader);
     } else {
       destEntryType = srcCollectionValue.getClass().getComponentType();
     }
