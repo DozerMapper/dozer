@@ -69,7 +69,7 @@ public class MetadataTest extends AbstractFunctionalTest {
 
 	@Test
 	public void testGetClassMapping() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMapping(ClassA.class, ClassB.class);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMapping(ClassA.class, ClassB.class, mapId);
 		assertNotNull(classMetadata);
 	}
 	
@@ -85,17 +85,17 @@ public class MetadataTest extends AbstractFunctionalTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNull1() {
-		mapMetadata.getClassMapping(ClassA.class, null);
+		mapMetadata.getClassMapping(ClassA.class, null, mapId);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNull2() {
-		mapMetadata.getClassMapping(null, ClassB.class);
+		mapMetadata.getClassMapping(null, ClassB.class, mapId);
 	}
 	
 	@Test(expected=MetadataLookupException.class)
 	public void testGetClassMappingByNonExistent() {
-		mapMetadata.getClassMapping(DozerBeanMapper.class, ClassB.class);
+		mapMetadata.getClassMapping(DozerBeanMapper.class, ClassB.class, mapId);
 	}
 	
 	
@@ -113,7 +113,7 @@ public class MetadataTest extends AbstractFunctionalTest {
 
 	@Test
 	public void testGetClassMappingByName() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		assertNotNull(classMetadata);
 	}
 	
@@ -129,17 +129,17 @@ public class MetadataTest extends AbstractFunctionalTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNameNull1() {
-		mapMetadata.getClassMappingByName(CLASS_A, null);
+		mapMetadata.getClassMappingByName(CLASS_A, null, mapId);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNameNull2() {
-		mapMetadata.getClassMappingByName(null, CLASS_B);
+		mapMetadata.getClassMappingByName(null, CLASS_B, mapId);
 	}
 	
 	@Test(expected=MetadataLookupException.class)
 	public void testGetClassMappingByNameNonExistent() {
-		mapMetadata.getClassMappingByName(CLASS_NONEXISTENT, CLASS_B);
+		mapMetadata.getClassMappingByName(CLASS_NONEXISTENT, CLASS_B, mapId);
 	}
 	
 }

@@ -53,47 +53,47 @@ public class MetadataFieldTest extends AbstractFunctionalTest {
 	
 	@Test
 	public void testFieldMaps() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		List<FieldMappingMetadata> fieldMetadata = classMetadata.getFieldMappings();
 		assertTrue(AUTOFIELD, fieldMetadata.size() == 3);
 	}
 	
 	@Test
 	public void testAutoFieldMap() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		FieldMappingMetadata fieldMetadata = classMetadata.getFieldMappingBySource(AUTOFIELD);
 		assertEquals(AUTOFIELD, fieldMetadata.getDestinationName());
 	}
 	
 	@Test
 	public void testCustomFieldMap() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		FieldMappingMetadata fieldMetadata = classMetadata.getFieldMappingBySource(CUSTOM_FIELD_A);
 		assertEquals(CUSTOM_FIELD_B, fieldMetadata.getDestinationName());
 	}
 	
 	@Test
 	public void testFieldMapByDestination() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		classMetadata.getFieldMappingByDestination(CUSTOM_FIELD_B);
 	}
 	
 	@Test
 	public void testCustomFieldMapBack() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		FieldMappingMetadata fieldMetadata = classMetadata.getFieldMappingByDestination(CUSTOM_FIELD_B);
 		assertEquals(CUSTOM_FIELD_A, fieldMetadata.getSourceName());
 	}
 	
 	@Test(expected=MetadataLookupException.class)
 	public void testFieldMapNonExistantSource() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		classMetadata.getFieldMappingBySource(NONEXISTENTFIELD);
 	}
 	
 	@Test(expected=MetadataLookupException.class)
 	public void testFieldMapNonExistantDestination() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
 		classMetadata.getFieldMappingByDestination(NONEXISTENTFIELD);
 	}
 

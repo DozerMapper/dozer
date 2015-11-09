@@ -58,13 +58,16 @@ public final class DozerMappingMetadata implements MappingMetadata {
 		return buildMappingListByDestinationName(destinationClassName);
 	}
 
+    public ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName) {
+        return getClassMappingByName(sourceClassName, destinationClassName, null);
+    }
 
-	public ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName) {
+	public ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName, String mapId) {
 		if (sourceClassName == null || destinationClassName == null) {
 			throw new IllegalArgumentException("The source and destination class names need to be specified.");
 		}
 		
-		return findMappingByName(sourceClassName, destinationClassName);
+		return findMappingByName(sourceClassName, destinationClassName, mapId);
 	}
 
 
@@ -84,12 +87,16 @@ public final class DozerMappingMetadata implements MappingMetadata {
 		return buildMappingListByDestinationName(destinationClass.getName());
 	}
 
-	public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass) {
+    public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass) {
+        return getClassMapping(sourceClass, destinationClass, null);
+    }
+
+	public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass, String mapId) {
 		if (sourceClass == null || destinationClass == null) {
 			throw new IllegalArgumentException("The source and destination classes need to be specified.");
 		}
 		
-		return findMappingByName(sourceClass.getName(), destinationClass.getName());
+		return findMappingByName(sourceClass.getName(), destinationClass.getName(), mapId);
 	}
 
 	private List<ClassMappingMetadata> buildMappingListBySourceName(String sourceClassName) {
@@ -111,16 +118,17 @@ public final class DozerMappingMetadata implements MappingMetadata {
 		}
 		return classMapMetadata;
 	}
-	
-	private ClassMappingMetadata findMappingByName(String sourceClassName, String destinationClassName) {
-		for(ClassMap classMap : classMappings.getAll().values()) {
-			if (classMap.getSrcClassName().equals(sourceClassName)
-					&& classMap.getDestClassName().equals(destinationClassName)) {
-				return new DozerClassMappingMetadata(classMap);
-			}
-		}
-		throw new MetadataLookupException("No mapping definition found for: " + sourceClassName 
-				+ " -> " + destinationClassName + "." );
-	}
-	
+
+    private ClassMappingMetadata findMappingByName(String sourceClassName, String destinationClassName, String mapId) {
+        for (ClassMap classMap : classMappings.getAll().values()) {
+            if (classMap.getSrcClassName().equals(sourceClassName)
+                    && classMap.getDestClassName().equals(destinationClassName)
+                    && classMap.getMapId() != null && mapId != null && classMap.getMapId().equals(mapId)) {
+                return new DozerClassMappingMetadata(classMap);
+            }
+        }
+        throw new MetadataLookupException("No mapping definition found for: " + sourceClassName
+                + " -> " + destinationClassName + ".");
+    }
+
 }
