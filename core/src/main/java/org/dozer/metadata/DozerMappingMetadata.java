@@ -15,11 +15,11 @@
  */
 package org.dozer.metadata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Internal use only.
@@ -84,12 +84,16 @@ public final class DozerMappingMetadata implements MappingMetadata {
 		return buildMappingListByDestinationName(destinationClass.getName());
 	}
 
-	public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass) {
+    public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass) {
+        return getClassMapping(sourceClass, destinationClass, null);
+    }
+
+	public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass, String mapId) {
 		if (sourceClass == null || destinationClass == null) {
 			throw new IllegalArgumentException("The source and destination classes need to be specified.");
 		}
 		
-		return findMappingByName(sourceClass.getName(), destinationClass.getName());
+		return findMappingByClass(sourceClass, destinationClass, mapId);
 	}
 
 	private List<ClassMappingMetadata> buildMappingListBySourceName(String sourceClassName) {
@@ -111,7 +115,16 @@ public final class DozerMappingMetadata implements MappingMetadata {
 		}
 		return classMapMetadata;
 	}
-	
+
+    private ClassMappingMetadata findMappingByClass(Class<?> sourceClassName, Class<?> destinationClassName, String mapId) {
+        ClassMap classMap = classMappings.find(sourceClassName, destinationClassName, mapId);
+        if (classMap != null) {
+            return new DozerClassMappingMetadata(classMap);
+        }
+        throw new MetadataLookupException("No mapping definition found for: " + sourceClassName
+                + " -> " + destinationClassName + ".");
+    }
+
 	private ClassMappingMetadata findMappingByName(String sourceClassName, String destinationClassName) {
 		for(ClassMap classMap : classMappings.getAll().values()) {
 			if (classMap.getSrcClassName().equals(sourceClassName)
@@ -119,8 +132,8 @@ public final class DozerMappingMetadata implements MappingMetadata {
 				return new DozerClassMappingMetadata(classMap);
 			}
 		}
-		throw new MetadataLookupException("No mapping definition found for: " + sourceClassName 
+		throw new MetadataLookupException("No mapping definition found for: " + sourceClassName
 				+ " -> " + destinationClassName + "." );
 	}
-	
+
 }

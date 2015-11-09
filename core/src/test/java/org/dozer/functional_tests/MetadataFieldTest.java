@@ -15,18 +15,22 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import org.dozer.DozerBeanMapper;
+import org.dozer.MappingException;
+import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.api.TypeMappingOptions;
 import org.dozer.metadata.ClassMappingMetadata;
 import org.dozer.metadata.FieldMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
 import org.dozer.metadata.MetadataLookupException;
+import org.dozer.vo.A;
+import org.dozer.vo.B;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 
 /**
@@ -34,7 +38,7 @@ import org.junit.Test;
  * @author  florian.kunz
  */
 public class MetadataFieldTest extends AbstractFunctionalTest {
-	
+
 	private static final String MAPPING_FILE = "metadataTest.xml";
 	private static final String CLASS_A = "org.dozer.vo.metadata.ClassA";
 	private static final String CLASS_B = "org.dozer.vo.metadata.ClassB";
@@ -42,9 +46,10 @@ public class MetadataFieldTest extends AbstractFunctionalTest {
 	private static final String AUTOFIELD = "autoField";
 	private static final String CUSTOM_FIELD_A = "customFieldA";
 	private static final String CUSTOM_FIELD_B = "customFieldB";
-	
-	private MappingMetadata mapMetadata;
-	
+    private static final String MAP_ID = "mapId";
+
+    private MappingMetadata mapMetadata;
+
 	@Before
 	public void setup() {
 		DozerBeanMapper beanMapper = (DozerBeanMapper) getMapper(MAPPING_FILE);
@@ -96,5 +101,34 @@ public class MetadataFieldTest extends AbstractFunctionalTest {
 		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
 		classMetadata.getFieldMappingByDestination(NONEXISTENTFIELD);
 	}
+
+    @Test
+    public void testClassMappingMetadataWithMapId() throws Exception {
+        DozerBeanMapper beanMapper = new DozerBeanMapper();
+        beanMapper.addMapping(new BeanMappingBuilder() {
+            @Override
+            protected void configure() {
+                mapping(A.class, B.class);
+                mapping(A.class, B.class, TypeMappingOptions.mapId(MAP_ID));
+            }
+        });
+        mapMetadata = beanMapper.getMappingMetadata();
+        ClassMappingMetadata classMapping = mapMetadata.getClassMapping(A.class, B.class, MAP_ID);
+        assertNotNull(classMapping);
+        assertNotNull(classMapping.getMapId());
+    }
+
+    @Test(expected=MappingException.class)
+    public void testClassMappingMetadataWithoutMapId() throws Exception {
+        DozerBeanMapper beanMapper = new DozerBeanMapper();
+        beanMapper.addMapping(new BeanMappingBuilder() {
+            @Override
+            protected void configure() {
+                mapping(A.class, B.class);
+            }
+        });
+        mapMetadata = beanMapper.getMappingMetadata();
+        mapMetadata.getClassMapping(A.class, B.class, MAP_ID);
+    }
 
 }
