@@ -42,8 +42,9 @@ public class MetadataTest extends AbstractFunctionalTest {
 	private static final String CLASS_NONEXISTENT = "org.dozer.vo.metadata.ClassNonExistent";
 	
 	private MappingMetadata mapMetadata;
-	
-	@Before
+    private String mapId = null;
+
+    @Before
 	public void setup() {
 		DozerBeanMapper beanMapper = (DozerBeanMapper) getMapper(MAPPING_FILE);
 		mapMetadata = beanMapper.getMappingMetadata();
