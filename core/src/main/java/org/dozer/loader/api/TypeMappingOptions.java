@@ -18,6 +18,7 @@ package org.dozer.loader.api;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.DozerBuilder;
+import org.dozer.util.DozerClassLoader;
 
 /**
  * Mapping options applie on Type level.
@@ -118,6 +119,15 @@ public final class TypeMappingOptions {
     return new TypeMappingOption() {
       public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {
         fieldMappingBuilder.wildcard(value);
+      }
+    };
+  }
+
+  public static TypeMappingOption customClassLoader(final DozerClassLoader classLoader){
+    return new TypeMappingOption() {
+      @Override
+      public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {
+        fieldMappingBuilder.customClassLoader(classLoader);
       }
     };
   }

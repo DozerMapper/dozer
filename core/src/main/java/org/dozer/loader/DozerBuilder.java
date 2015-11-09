@@ -21,6 +21,7 @@ import org.dozer.MappingException;
 import org.dozer.classmap.*;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.fieldmap.*;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
@@ -42,6 +43,15 @@ public class DozerBuilder {
 
   MappingFileData data = new MappingFileData();
   private final List<MappingBuilder> mappingBuilders = new ArrayList<MappingBuilder>();
+  private DozerClassLoader classLoader;
+
+  public DozerClassLoader getClassLoader() {
+    return classLoader;
+  }
+
+  public void setClassLoader(DozerClassLoader classLoader) {
+    this.classLoader = classLoader;
+  }
 
   public MappingFileData build() {
     for (MappingBuilder builder : mappingBuilders) {
@@ -68,10 +78,20 @@ public class DozerBuilder {
   public static class MappingBuilder {
 
     private ClassMap classMap;
+    private DozerClassLoader classLoader;
     private final List<FieldBuider> fieldBuilders = new ArrayList<FieldBuider>();
+
+    public DozerClassLoader getClassLoader() {
+      return classLoader;
+    }
 
     public MappingBuilder(ClassMap classMap) {
       this.classMap = classMap;
+    }
+
+    public MappingBuilder customClassLoader(final DozerClassLoader classLoader){
+      this.classLoader = classLoader;
+      return this;
     }
 
     public MappingBuilder dateFormat(String dateFormat) {
@@ -126,25 +146,25 @@ public class DozerBuilder {
     }
 
     public ClassDefinitionBuilder classA(String typeName) {
-      Class<?> type = MappingUtils.loadClass(typeName);
+      Class<?> type = MappingUtils.loadClass(typeName, this.classLoader);
       return classA(type);
     }
 
     public ClassDefinitionBuilder classA(Class type) {
       DozerClass classDefinition = new DozerClass();
-      classDefinition.setName(type.getName());
+      classDefinition.setName(type.getName(), this.classLoader);
       classMap.setSrcClass(classDefinition);
       return new ClassDefinitionBuilder(classDefinition);
     }
 
     public ClassDefinitionBuilder classB(String typeName) {
-      Class<?> type = MappingUtils.loadClass(typeName);
+      Class<?> type = MappingUtils.loadClass(typeName, this.classLoader);
       return classB(type);
     }
 
     public ClassDefinitionBuilder classB(Class type) {
       DozerClass classDefinition = new DozerClass();
-      classDefinition.setName(type.getName());
+      classDefinition.setName(type.getName(), this.classLoader);
       classMap.setDestClass(classDefinition);
       return new ClassDefinitionBuilder(classDefinition);
     }

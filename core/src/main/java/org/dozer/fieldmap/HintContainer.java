@@ -17,6 +17,7 @@ package org.dozer.fieldmap;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 
 import java.util.ArrayList;
@@ -36,11 +37,24 @@ public class HintContainer {
   private List<Class<?>> hints;
 
   public Class<?> getHint() {
+    return getHint(null);
+  }
+
+  public Class<?> getHint(DozerClassLoader customClassLoader) {
+    if (customClassLoader == null){
+      Class<?> result;
+      if (hasMoreThanOneHint()) {
+        return null;
+      } else {
+        result = getHints().get(0);
+      }
+      return result;
+    }
     Class<?> result;
-    if (hasMoreThanOneHint()) {
+    if (hasMoreThanOneHint(customClassLoader)) {
       return null;
     } else {
-      result = getHints().get(0);
+      result = getHints(customClassLoader).get(0);
     }
     return result;
   }
@@ -50,17 +64,28 @@ public class HintContainer {
   }
 
   public boolean hasMoreThanOneHint() {
-    return getHints().size() > 1;
+    return hasMoreThanOneHint(null);
+  }
+
+  public boolean hasMoreThanOneHint(DozerClassLoader customClassLoader) {
+    if(customClassLoader == null){
+      return getHints().size() > 1;
+    }
+    return getHints(customClassLoader).size() > 1;
   }
 
   public List<Class<?>> getHints() {
+    return getHints(null);
+  }
+
+  public List<Class<?>> getHints(DozerClassLoader customLoader){
     if (hints == null) {
       List<Class<?>> list = new ArrayList<Class<?>>();
       StringTokenizer st = new StringTokenizer(this.hintName, ",");
       while (st.hasMoreElements()) {
         String theHintName = st.nextToken().trim();
 
-        Class<?> clazz = MappingUtils.loadClass(theHintName);
+        Class<?> clazz = MappingUtils.loadClass(theHintName, customLoader);
         list.add(clazz);
       }
       hints = list;

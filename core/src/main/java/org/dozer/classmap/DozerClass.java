@@ -18,6 +18,7 @@ package org.dozer.classmap;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -74,9 +75,9 @@ public class DozerClass {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(String name, DozerClassLoader classLoader) {
     this.name = name;
-    classToMap = MappingUtils.loadClass(name);
+    classToMap = MappingUtils.loadClass(name, classLoader);
   }
 
   public String getFactoryBeanId() {

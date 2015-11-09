@@ -95,6 +95,7 @@ public class MappingProcessor implements Mapper {
   private final StatisticsManager statsMgr;
   private final EventManager eventMgr;
   private final CustomFieldMapper customFieldMapper;
+  private final DozerClassLoader classLoader;
 
   private final MappedFieldsTracker mappedFields = new MappedFieldsTracker();
 
@@ -106,7 +107,7 @@ public class MappingProcessor implements Mapper {
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
                              StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
                              DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
-                             Map<String, CustomConverter> customConverterObjectsWithId) {
+                             Map<String, CustomConverter> customConverterObjectsWithId, DozerClassLoader classLoader) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -116,6 +117,7 @@ public class MappingProcessor implements Mapper {
     this.converterByDestTypeCache = cacheMgr.getCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name());
     this.superTypeCache = cacheMgr.getCache(DozerCacheType.SUPER_TYPE_CHECK.name());
     this.customConverterObjectsWithId = customConverterObjectsWithId;
+    this.classLoader = classLoader;
   }
 
   /* Mapper Interface Implementation */
@@ -392,7 +394,7 @@ public class MappingProcessor implements Mapper {
       destFieldValue = mapOrRecurseObject(srcObj, srcFieldValue, destFieldType, fieldMapping, destObj);
     } else {
       Class<?> srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMapping.getSrcFieldType(srcObj.getClass());
-      destFieldValue = mapUsingCustomConverter(MappingUtils.loadClass(fieldMapping.getCustomConverter()), srcFieldClass,
+      destFieldValue = mapUsingCustomConverter(MappingUtils.loadClass(fieldMapping.getCustomConverter(), this.classLoader), srcFieldClass,
           srcFieldValue, destFieldType, destObj, fieldMapping, false);
     }
 
@@ -888,7 +890,7 @@ public class MappingProcessor implements Mapper {
       return prevDestEntryType;
     } else if (srcValue != null) {
       // if there's no dest hint for the dest obj, take the src hint
-      return fieldMap.getDestHintType(srcValue.getClass());
+      return fieldMap.getDestHintType(srcValue.getClass(), this.classLoader);
     }
     throw new MappingException("Unable to determine type for value '" + srcValue + "'. Use hints or generic collections.");
   }
@@ -932,7 +934,7 @@ public class MappingProcessor implements Mapper {
   private List<?> mapArrayToList(Object srcObj, Object srcCollectionValue, FieldMap fieldMap, Object destObj) {
     Class<?> destEntryType;
     if (fieldMap.getDestHintContainer() != null) {
-      destEntryType = fieldMap.getDestHintContainer().getHint();
+      destEntryType = fieldMap.getDestHintContainer().getHint(classLoader);
     } else {
       destEntryType = srcCollectionValue.getClass().getComponentType();
     }
