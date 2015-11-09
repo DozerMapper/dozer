@@ -55,17 +55,16 @@ public interface MappingMetadata {
 	List<ClassMappingMetadata> getClassMappingsByDestinationName(String destinationClassName);
 
 	/**
-	 * 
+	 *
 	 * This method retrieves class mapping metadata based on the class names.
-	 * 
+	 *
 	 * @param sourceClassName The fully qualified class name of the source class.
 	 * @param destinationClassName The fully qualified class name of the destination class.
 	 *
-	 * @param mapId
-     * @return A list of mapping metadata which defines how to map a class with the name
+	 * @return A list of mapping metadata which defines how to map a class with the name
 	 * {@code sourceClassName} to a class with the name {@code destinationClassName}.
 	 */
-	ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName, String mapId);
+	ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName);
 
 	/**
 	 * 

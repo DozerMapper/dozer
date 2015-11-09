@@ -15,11 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import org.dozer.DozerBeanMapper;
 import org.dozer.metadata.ClassMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
@@ -28,6 +23,11 @@ import org.dozer.vo.metadata.ClassA;
 import org.dozer.vo.metadata.ClassB;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -42,9 +42,8 @@ public class MetadataTest extends AbstractFunctionalTest {
 	private static final String CLASS_NONEXISTENT = "org.dozer.vo.metadata.ClassNonExistent";
 	
 	private MappingMetadata mapMetadata;
-    private String mapId = null;
 
-    @Before
+	@Before
 	public void setup() {
 		DozerBeanMapper beanMapper = (DozerBeanMapper) getMapper(MAPPING_FILE);
 		mapMetadata = beanMapper.getMappingMetadata();
@@ -70,7 +69,7 @@ public class MetadataTest extends AbstractFunctionalTest {
 
 	@Test
 	public void testGetClassMapping() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMapping(ClassA.class, ClassB.class, mapId);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMapping(ClassA.class, ClassB.class, null);
 		assertNotNull(classMetadata);
 	}
 	
@@ -86,17 +85,17 @@ public class MetadataTest extends AbstractFunctionalTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNull1() {
-		mapMetadata.getClassMapping(ClassA.class, null, mapId);
+		mapMetadata.getClassMapping(ClassA.class, null, null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNull2() {
-		mapMetadata.getClassMapping(null, ClassB.class, mapId);
+		mapMetadata.getClassMapping(null, ClassB.class, null);
 	}
 	
 	@Test(expected=MetadataLookupException.class)
 	public void testGetClassMappingByNonExistent() {
-		mapMetadata.getClassMapping(DozerBeanMapper.class, ClassB.class, mapId);
+		mapMetadata.getClassMapping(DozerBeanMapper.class, ClassB.class, null);
 	}
 	
 	
@@ -114,7 +113,7 @@ public class MetadataTest extends AbstractFunctionalTest {
 
 	@Test
 	public void testGetClassMappingByName() {
-		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B, mapId);
+		ClassMappingMetadata classMetadata = mapMetadata.getClassMappingByName(CLASS_A, CLASS_B);
 		assertNotNull(classMetadata);
 	}
 	
@@ -130,17 +129,17 @@ public class MetadataTest extends AbstractFunctionalTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNameNull1() {
-		mapMetadata.getClassMappingByName(CLASS_A, null, mapId);
+		mapMetadata.getClassMappingByName(CLASS_A, null);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetClassMappingByNameNull2() {
-		mapMetadata.getClassMappingByName(null, CLASS_B, mapId);
+		mapMetadata.getClassMappingByName(null, CLASS_B);
 	}
 	
 	@Test(expected=MetadataLookupException.class)
 	public void testGetClassMappingByNameNonExistent() {
-		mapMetadata.getClassMappingByName(CLASS_NONEXISTENT, CLASS_B, mapId);
+		mapMetadata.getClassMappingByName(CLASS_NONEXISTENT, CLASS_B);
 	}
 	
 }
