@@ -452,7 +452,12 @@ public class MappingProcessor implements Mapper {
     if (primitiveConverter.accepts(srcFieldClass) || primitiveConverter.accepts(destFieldType)) {
       // Primitive or Wrapper conversion
       if (fieldMap.getDestHintContainer() != null) {
-        destFieldType = fieldMap.getDestHintContainer().getHint();
+        Class<?> destHintType = fieldMap.getDestHintType(srcFieldValue.getClass());
+        // if the destType is null this means that there was more than one hint.
+        // we must have already set the destType then.
+        if (destHintType != null) {
+          destFieldType = destHintType;
+        }
       }
 
       //#1841448 - if trim-strings=true, then use a trimmed src string value when converting to dest value
