@@ -103,7 +103,7 @@ public class ProtoUtils {
         return MappingUtils.loadClass(StringUtils.join(new String[]{
                 descriptor.getMessageType().getFile().getOptions().getJavaPackage(),
                 descriptor.getMessageType().getFile().getOptions().getJavaOuterClassname(),
-                descriptor.getMessageType().getFullName()}, '.'));
+                descriptor.getMessageType().getName()}, '.'));
       default         : throw new RuntimeException();
     }
   }
@@ -112,7 +112,7 @@ public class ProtoUtils {
     return (Class<? extends Enum>)MappingUtils.loadClass(StringUtils.join(new String[]{
             descriptor.getFile().getOptions().getJavaPackage(),
             descriptor.getFile().getOptions().getJavaOuterClassname(),
-            descriptor.getFullName()}, '.'));
+            descriptor.getName()}, '.'));
   }
 
   public static Object wrapEnums(Object value) {
