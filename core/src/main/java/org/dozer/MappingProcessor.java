@@ -488,7 +488,7 @@ public class MappingProcessor implements Mapper {
       // first check to see if this plain old field map has hints to the actual
       // type.
       if (fieldMap.getDestHintContainer() != null) {
-        Class<?> destHintType = fieldMap.getDestHintType(srcFieldValue.getClass());
+        Class<?> destHintType = fieldMap.getDestHintType(srcFieldValue.getClass(), classLoader);
         // if the destType is null this means that there was more than one hint.
         // we must have already set the destType then.
         if (destHintType != null) {

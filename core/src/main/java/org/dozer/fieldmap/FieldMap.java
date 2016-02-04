@@ -103,7 +103,7 @@ public abstract class FieldMap implements Cloneable {
   public Class<?> getDestHintType(Class<?> runtimeSrcClass, DozerClassLoader classLoader) {
     if (getDestHintContainer() != null) {
       if (getSrcHintContainer() != null) {
-        return getDestHintContainer().getHint(runtimeSrcClass, getSrcHintContainer().getHints(classLoader));
+        return getDestHintContainer().getHint(runtimeSrcClass, getSrcHintContainer().getHints(classLoader), classLoader);
       } else {
         return getDestHintContainer().getHint(classLoader);
       }

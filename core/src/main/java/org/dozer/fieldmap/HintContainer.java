@@ -94,8 +94,8 @@ public class HintContainer {
   }
 
   //TODO: Refactor/Relocate.  This method doesn't seem to belong in this class
-  public Class<?> getHint(Class<?> clazz, List<Class<?>> clazzHints) {
-    List<Class<?>> hints = getHints();
+  public Class<?> getHint(Class<?> clazz, List<Class<?>> clazzHints, DozerClassLoader classLoader) {
+    List<Class<?>> hints = getHints(classLoader);
     int hintsSize = hints.size();
     if (hintsSize == 1) {
       return getHint();
