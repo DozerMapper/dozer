@@ -413,6 +413,14 @@ public final class ReflectionUtils {
     Class<?> result = null;
     if (type != null && ParameterizedType.class.isAssignableFrom(type.getClass())) {
       Type genericType = ((ParameterizedType) type).getActualTypeArguments()[0];
+      if (genericType instanceof WildcardType) {
+        WildcardType wildcardType = (WildcardType) genericType;
+        Type[] bounds = wildcardType.getLowerBounds();
+        if (bounds.length == 0) {
+          bounds = wildcardType.getUpperBounds();
+        }
+        genericType = bounds[0];
+      }
       if (genericType != null) {
          if(! (genericType instanceof TypeVariable)) {
             result = (Class<?>) genericType;
