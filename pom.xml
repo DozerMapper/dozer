@@ -70,13 +70,6 @@
     </repository>
   </repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>snapshots</id>
-      <url>http://snapshots.maven.codehaus.org/maven2</url>
-    </pluginRepository>
-  </pluginRepositories>
-
   <build>
     <pluginManagement>
       <plugins>
