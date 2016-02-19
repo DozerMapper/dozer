@@ -966,7 +966,7 @@ public class MappingProcessor implements Mapper {
 
       // Converter could be not configured for this particular case
       if (fieldMap != null) {
-        String param = fieldMap.getCustomConverterParam();
+        Object param = fieldMap.getCustomConverterParam();
         theConverter.setParameter(param);
       }
 

@@ -246,7 +246,7 @@ public class DozerBuilder {
     private String mapId;
     private String customConverter;
     private String customConverterId;
-    private String customConverterParam;
+    private Object customConverterParam;
     private boolean copyByReferenceSet;
 
     public FieldMappingBuilder(ClassMap classMap) {
@@ -330,7 +330,7 @@ public class DozerBuilder {
       this.customConverterId = attribute;
     }
 
-    public void customConverterParam(String attribute) {
+    public void customConverterParam(Object attribute) {
       this.customConverterParam = attribute;
     }
 

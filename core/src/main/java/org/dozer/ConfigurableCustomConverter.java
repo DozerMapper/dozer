@@ -39,7 +39,7 @@ public interface ConfigurableCustomConverter extends CustomConverter {
    *
    * @param parameter - converter instance, which is injected via custom-converter-param attribute
    */
-  void setParameter(String parameter);
+  void setParameter(Object parameter);
 
   
 }

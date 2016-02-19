@@ -22,7 +22,7 @@ import org.apache.commons.lang3.ClassUtils;
  */
 public abstract class DozerConverter<A, B> implements ConfigurableCustomConverter {
 
-  private String parameter;
+  private Object parameter;
   private Class<A> prototypeA;
   private Class<B> prototypeB;
 
@@ -117,7 +117,7 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    *
    * @param parameter configured parameter value
    */
-  public void setParameter(String parameter) {
+  public void setParameter(Object parameter) {
     this.parameter = parameter;
   }
 
@@ -128,7 +128,7 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    * @return parameter value
    * @throws IllegalStateException if parameter has not been set yet.
    */
-  public String getParameter() {
+  public Object getParameter() {
     if (parameter == null) {
       throw new IllegalStateException("Custom Converter Parameter has not yet been set!");
     }

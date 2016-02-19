@@ -63,7 +63,7 @@ public abstract class FieldMap implements Cloneable {
   private String mapId;
   private String customConverter;
   private String customConverterId;
-  private String customConverterParam;
+  private Object customConverterParam;
   private RelationshipType relationshipType;
   private boolean removeOrphans;
 
@@ -483,11 +483,11 @@ public abstract class FieldMap implements Cloneable {
             destHintContainer).toString();
   }
 
-  public String getCustomConverterParam() {
+  public Object getCustomConverterParam() {
 	  return customConverterParam;
   }
 
-  public void setCustomConverterParam(String customConverterParam) {
+  public void setCustomConverterParam(Object customConverterParam) {
 	  this.customConverterParam = customConverterParam;
   }
 
