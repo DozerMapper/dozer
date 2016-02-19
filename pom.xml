@@ -35,8 +35,6 @@
     <module>core</module>
     <module>spring</module>
     <module>proto</module>
-    <module>osgi</module>
-    <module>osgi-test</module>
   </modules>
 
   <prerequisites>
@@ -69,13 +67,6 @@
       <url>http://download.java.net/maven/2</url>
     </repository>
   </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>snapshots</id>
-      <url>http://snapshots.maven.codehaus.org/maven2</url>
-    </pluginRepository>
-  </pluginRepositories>
 
   <build>
     <pluginManagement>

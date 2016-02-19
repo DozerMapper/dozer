@@ -22,7 +22,7 @@ import org.dozer.ConfigurableCustomConverter;
  */
 public class CustomConverterParamConverter implements ConfigurableCustomConverter {
 
-  private String param;
+  private Object param;
 
   public Object convert(Object existingDestinationFieldValue,
                         Object sourceFieldValue,
@@ -41,7 +41,7 @@ public class CustomConverterParamConverter implements ConfigurableCustomConverte
     return dest;
   }
 
-  public void setParameter(String parameter) {
+  public void setParameter(Object parameter) {
     param = parameter;
   }
 

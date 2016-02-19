@@ -43,7 +43,7 @@ public class MyDozerConverter extends DozerConverter<String, Boolean> {
     } else if (Boolean.FALSE.equals(source)) {
       return "no";
     } else if (source == null) {
-      return getParameter();
+      return getParameter().toString();
     }
     throw new IllegalStateException("Unknown value!");
   }

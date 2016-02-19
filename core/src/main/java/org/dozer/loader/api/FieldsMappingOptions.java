@@ -43,12 +43,15 @@ public final class FieldsMappingOptions {
   public static FieldsMappingOption customConverter(final Class<? extends CustomConverter> type, final String parameter) {
     return customConverter(type.getName(), parameter);
   }
+    public static FieldsMappingOption customConverter(final Class<? extends CustomConverter> type, final Object parameter) {
+        return customConverter(type.getName(), parameter);
+    }
 
   public static FieldsMappingOption customConverter(final String type) {
     return customConverter(type, null);
   }
 
-  public static FieldsMappingOption customConverter(final String type, final String parameter) {
+  public static FieldsMappingOption customConverter(final String type, final Object parameter) {
     return new FieldsMappingOption() {
       public void apply(DozerBuilder.FieldMappingBuilder fieldMappingBuilder) {
         fieldMappingBuilder.customConverter(type);
