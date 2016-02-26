@@ -851,7 +851,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private Class<?> determineCollectionItemType(FieldMap fieldMap, Object destObj, Object srcValue, Class<?> prevDestEntryType) {
-    if (srcValue == null && fieldMap.getDestHintType(destObj.getClass()) != null) {
+    if (srcValue == null && fieldMap.getDestHintType(destObj.getClass(), this.classLoader) != null) {
       // try to get a possible configured dest hint for the dest obj
       return fieldMap.getDestHintType(destObj.getClass());
     } else if (srcValue == null && prevDestEntryType != null) {
