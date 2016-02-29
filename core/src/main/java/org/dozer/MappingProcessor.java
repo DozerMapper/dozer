@@ -313,7 +313,7 @@ public class MappingProcessor implements Mapper {
       statsMgr.increment(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
 
     } catch (Throwable e) {
-      log.error(logMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj), e);
+      log.warn(logMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj), e);
       statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
