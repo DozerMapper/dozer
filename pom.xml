@@ -62,7 +62,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
+<!--
   <repositories>
     <repository>
       <id>snapshots.sonatype.org</id>
@@ -112,7 +112,7 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
-
+-->
   <build>
     <pluginManagement>
       <plugins>

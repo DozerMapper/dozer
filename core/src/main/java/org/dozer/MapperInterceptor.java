@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2017 Dozer Project
+ * Copyright 2005-2013 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.event;
+package org.dozer;
+
+import org.dozer.event.DozerEvent;
 
 /**
- * 
- * @author Don Corleone
  *
+ * @author Sergey Sarabun &lt;sergey.sarabun@gmail.com&gt;
  */
-public enum DozerEventType {
-  MAPPING_STARTED,
-  MAPPING_PRE_WRITING_DEST_VALUE,
-  MAPPING_PROCESS_WRITING_DEST_VALUE,
-  MAPPING_POST_WRITING_DEST_VALUE,
-  MAPPING_FINISHED
+public interface MapperInterceptor {
+
+    boolean processWritingDestinationValue(DozerEvent event);
 }

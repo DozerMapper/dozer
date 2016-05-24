@@ -58,7 +58,7 @@ public class RecursiveTest extends AbstractFunctionalTest {
     // itself
     ClassB testClassB = testAA.getSubs().iterator().next();
     assertTrue(testClassB.getParent() == testAA);
-    ClassAAPrime testAAPrime = mapper.map(testAA, ClassAAPrime.class, null);
+    ClassAAPrime testAAPrime = mapper.map(testAA, ClassAAPrime.class);
     // testing the new dozer3.0 bi-directionnal reference through a set
     assertEquals(testAA.getSubs().size(), testAAPrime.getSubs().size());
     // the equality is true at the data level

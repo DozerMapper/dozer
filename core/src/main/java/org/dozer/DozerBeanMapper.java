@@ -127,6 +127,16 @@ public class DozerBeanMapper implements Mapper {
     getMappingProcessor().map(source, destination);
   }
 
+  @Override
+  public <T> T map(Object source, Class<T> destClass, MapperInterceptor interceptor) throws MappingException {
+    return getMappingProcessor().map(source, destClass, interceptor);
+  }
+
+  @Override
+  public void map(Object source, Object destination, MapperInterceptor interceptor) throws MappingException {
+    getMappingProcessor().map(source, destination, interceptor);
+  }
+
   /**
    * Returns list of provided mapping file URLs
    *
