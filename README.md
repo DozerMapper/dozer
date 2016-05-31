@@ -5,6 +5,12 @@
 [ ![Download](https://api.bintray.com/packages/buzdin/dozer-mapper/dozer/images/download.png) ](https://bintray.com/buzdin/dozer-mapper/dozer/_latestVersion)
 ================================
 
+Fork Notes
+--------------------------------
+What are the additional features and bug fixes of this fork of Dozer project?
+
+- Improvement [#271](https://github.com/DozerMapper/dozer/issues/271): Dozer configuration provides an additional property to control property access globally.
+- Bug fix [#287](https://github.com/DozerMapper/dozer/issues/287): Dozer did
 
 Why Map?
 --------------------------------
