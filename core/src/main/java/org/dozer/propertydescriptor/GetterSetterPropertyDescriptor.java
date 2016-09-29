@@ -145,6 +145,10 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   }
 
   protected void writeDeepDestinationValue(Object destObj, Object destFieldValue, FieldMap fieldMap) {
+    // Do not create empty objects in destination hierarchy
+    if (destFieldValue == null) {
+  		return;
+  	}
     // follow deep field hierarchy. If any values are null along the way, then create a new instance
     DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(destObj, fieldMap.getDestDeepIndexHintContainer());
     // first, iteratate through hierarchy and instantiate any objects that are null
