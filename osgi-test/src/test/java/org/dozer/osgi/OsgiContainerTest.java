@@ -15,8 +15,10 @@
  */
 package org.dozer.osgi;
 
+import java.util.Collections;
+import java.util.List;
+import javax.inject.Inject;
 import org.dozer.DozerBeanMapper;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -26,14 +28,12 @@ import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerMethod;
 import org.osgi.framework.BundleContext;
 
-import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.ops4j.pax.exam.CoreOptions.*;
-import static org.ops4j.pax.exam.MavenUtils.asInProject;
+import static org.ops4j.pax.exam.CoreOptions.junitBundles;
+import static org.ops4j.pax.exam.CoreOptions.options;
+import static org.ops4j.pax.exam.CoreOptions.systemPackages;
+import static org.ops4j.pax.exam.CoreOptions.url;
 
 /**
  * @author Dmitry Buzdin
@@ -49,10 +49,11 @@ public class OsgiContainerTest {
   public Option[] config() {
 
     return options(
-        mavenBundle().groupId("net.sf.dozer").artifactId("dozer-osgi").version(asInProject()),
-        mavenBundle().groupId("commons-beanutils").artifactId("commons-beanutils").version(asInProject()),
-        mavenBundle().groupId("commons-collections").artifactId("commons-collections").version("3.2.1"),
-        mavenBundle().groupId("org.apache.commons").artifactId("commons-lang3").version(asInProject()),
+        url("link:classpath:net.sf.dozer.dozer.link"),
+        url("link:classpath:org.apache.commons.beanutils.link"),
+        url("link:classpath:org.apache.commons.collections.link"),
+        url("link:classpath:org.apache.commons.lang3.link"),
+        url("link:classpath:jaxb-api.link"),
         junitBundles(),
         systemPackages("javax.net.ssl", "javax.xml.parsers", "javax.management", "javax.xml.datatype",
                        "org.w3c.dom", "org.xml.sax", "org.xml.sax.helpers")
@@ -72,7 +73,6 @@ public class OsgiContainerTest {
     assertThat(result, notNullValue());
   }
 
-  @Ignore
   @Test
   public void shouldLoadMappingFile() {
     List<String> mappingFiles = Collections.singletonList("mapping.xml");

@@ -31,17 +31,11 @@
   <name>Dozer OSGi Bundle Tests</name>
 
   <properties>
-    <exam.version>3.5.0</exam.version>
-    <felix.version>4.2.1</felix.version>
+    <exam.version>4.10.0</exam.version>
+    <felix.version>5.6.2</felix.version>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>dozer-osgi</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>dozer</artifactId>
@@ -53,7 +47,7 @@
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.framework</artifactId>
       <version>${felix.version}</version>
-      <scope>provided</scope>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -62,34 +56,32 @@
       <version>${exam.version}</version>
       <scope>test</scope>
     </dependency>
+    
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
       <artifactId>pax-exam-junit4</artifactId>
       <version>${exam.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j.version}</version>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>org.ops4j.pax.exam</groupId>
-      <artifactId>pax-exam-link-mvn</artifactId>
+      <artifactId>pax-exam-link-assembly</artifactId>
       <version>${exam.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.ops4j.pax.url</groupId>
-      <artifactId>pax-url-aether</artifactId>
-      <version>1.5.2</version>
-      <scope>test</scope>
-    </dependency>
+    
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
       <version>1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.2.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -115,6 +107,26 @@
         <configuration>
           <skip>true</skip>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.veithen.alta</groupId>
+        <artifactId>alta-maven-plugin</artifactId>
+        <version>0.5</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-test-resources</goal>
+            </goals>
+            <configuration>
+              <name>%bundle.symbolicName%.link</name>
+              <value>%url%</value>
+              <dependencySet>
+                <scope>test</scope>
+              </dependencySet>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
