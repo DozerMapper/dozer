@@ -1,7 +1,13 @@
+dist: trusty
 language: java
-
 jdk:
-  - openjdk6
-  - openjdk7
-  - oraclejdk7
-  - oraclejdk8
+- oraclejdk8
+install:
+- java -version && javac -version && mvn -version -B
+before_script:
+- mvn dependency:resolve-plugins -B
+script:
+- mvn clean install -B
+cache:
+  directories:
+  - $HOME/.m2

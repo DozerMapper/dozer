@@ -5,6 +5,10 @@
 [ ![Download](https://api.bintray.com/packages/buzdin/dozer-mapper/dozer/images/download.png) ](https://bintray.com/buzdin/dozer-mapper/dozer/_latestVersion)
 ================================
 
+Looking for HELP
+--------------------------------
+We are actively looking for people who want to help with the Dozer project!
+
 
 Why Map?
 --------------------------------
