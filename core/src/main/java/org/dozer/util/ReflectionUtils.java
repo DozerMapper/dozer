@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package org.dozer.util;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
@@ -326,6 +327,7 @@ public final class ReflectionUtils {
   public static Object invoke(Method method, Object obj, Object[] args) {
     Object result = null;
     try {
+      method.setAccessible(true);
       result = method.invoke(obj, args);
     } catch (IllegalArgumentException e) {
 
@@ -420,14 +422,66 @@ public final class ReflectionUtils {
     return result;
   }
 
-  public static Method getNonVoidSetter(Class<?> clazz, String fieldName) {
+ /**
+  * Finds non-standard setters {@link PropertyUtils#getPropertyDescriptors} does
+  * not find. The non-standard setters include
+  * <p>
+  *     <ul>
+  *         <li>Setters that return something instead of {@code void}</li>
+  *         <li>Setters that take a wrapper argument (e.g. Boolean) when the
+  *             field is of primitive type (e.g. boolean) - or the other way
+  *             around.</li>
+  *     </ul>
+  * </p>
+  *
+  * @param clazz The class to find non-standard setters from
+  * @param fieldName The field to find a non-standard setter for
+  * @return The non-standard setter or {@code null}
+  */
+  public static Method getNonStandardSetter(Class<?> clazz, String fieldName) {
+    Field field;
+
+    try {
+      field = getFieldFromBean(clazz, fieldName);
+    } catch (MappingException me) {
+      return null;
+    }
+
     String methodName = "set" + StringUtils.capitalize(fieldName);
+
     for (Method method : clazz.getMethods()) {
-      if (method.getName().equals(methodName) && method.getParameterTypes().length == 1 && method.getReturnType() != Void.TYPE) {
+      if (isNonVoidSetter(method, methodName) || isAutoboxingSetter(method, methodName, field)) {
         return method;
       }
     }
+
     return null;
   }
+
+  private static boolean isNonVoidSetter(Method method, String setterMethodName) {
+    return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1 &&
+            method.getReturnType() != Void.TYPE;
+  }
+
+  private static boolean isAutoboxingSetter(Method method, String setterMethodName, Field field) {
+    return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1 &&
+           canBeAutoboxed(method.getParameterTypes()[0], field.getType());
+  }
+
+/**
+ * @return {@code true}, if both classes are either primitive or wrapper classes and
+ *         autoboxing is possible between {@code classA} and {@code classB}
+ */
+  private static boolean canBeAutoboxed(Class<?> classA, Class<?> classB) {
+      return ClassUtils.isPrimitiveOrWrapper(classA) &&
+             ClassUtils.isPrimitiveOrWrapper(classB) &&
+             // Same types
+             (classB.equals(classA) ||
+             // Matching primitive-wrapper pair, e.g. double - Double
+             ClassUtils.primitiveToWrapper(classB).equals(classA) ||
+             // Matching wrapper-primitive pair, e.g. Long - long
+             ClassUtils.primitiveToWrapper(classA).equals(classB));
+  }
+
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import org.junit.Test;
 
 /**
  * @author Vincent Jassogne
+ * @author Jose Barragan
  */
 public class JAXBBeanFactoryTest extends AbstractDozerTest {
 
@@ -57,5 +58,4 @@ public class JAXBBeanFactoryTest extends AbstractDozerTest {
     assertNotNull(obj);
     assertEquals("org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State", obj.getClass().getName());
   }
-
 }

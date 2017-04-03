@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ public class FieldMapTest extends AbstractDozerTest {
 
   @Test
   public void shouldBeAccessible_ClassLevel() {
-    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(classMap.getDestClass().isAccessible()).thenReturn(Boolean.TRUE);
     when(field.isAccessible()).thenReturn(Boolean.FALSE);
 
     assertFalse(fieldMap.isDestFieldAccessible());
@@ -81,7 +81,7 @@ public class FieldMapTest extends AbstractDozerTest {
 
   @Test
   public void shouldBeAccessible_Both() {
-    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(classMap.getDestClass().isAccessible()).thenReturn(Boolean.TRUE);
     when(field.isAccessible()).thenReturn(Boolean.TRUE);
 
     assertTrue(fieldMap.isDestFieldAccessible());
@@ -89,7 +89,7 @@ public class FieldMapTest extends AbstractDozerTest {
 
   @Test
   public void shouldBeAccessible_FieldLevel() {
-    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.FALSE);
+    when(classMap.getDestClass().isAccessible()).thenReturn(Boolean.FALSE);
     when(field.isAccessible()).thenReturn(Boolean.TRUE);
 
     assertTrue(fieldMap.isDestFieldAccessible());
@@ -97,7 +97,7 @@ public class FieldMapTest extends AbstractDozerTest {
 
   @Test
   public void shouldBeAccessible_Override() {
-    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(classMap.getDestClass().isAccessible()).thenReturn(Boolean.TRUE);
     when(field.isAccessible()).thenReturn(Boolean.FALSE);
 
     assertFalse(fieldMap.isDestFieldAccessible());
@@ -105,7 +105,7 @@ public class FieldMapTest extends AbstractDozerTest {
 
   @Test
   public void shouldBeAccessible_Null() {
-    when(classMap.getDestClass().isAccesible()).thenReturn(null);
+    when(classMap.getDestClass().isAccessible()).thenReturn(false);
     when(field.isAccessible()).thenReturn(Boolean.TRUE);
 
     assertTrue(fieldMap.isDestFieldAccessible());
@@ -113,7 +113,7 @@ public class FieldMapTest extends AbstractDozerTest {
 
   @Test
   public void shouldBeAccessible_FieldLevelNull() {
-    when(classMap.getDestClass().isAccesible()).thenReturn(Boolean.TRUE);
+    when(classMap.getDestClass().isAccessible()).thenReturn(Boolean.TRUE);
     when(field.isAccessible()).thenReturn(null);
 
     assertTrue(fieldMap.isDestFieldAccessible());
@@ -121,7 +121,7 @@ public class FieldMapTest extends AbstractDozerTest {
 
   @Test
   public void shouldBeAccessible_Default() {
-    when(classMap.getDestClass().isAccesible()).thenReturn(null);
+    when(classMap.getDestClass().isAccessible()).thenReturn(false);
     when(field.isAccessible()).thenReturn(null);
 
     assertFalse(fieldMap.isDestFieldAccessible());

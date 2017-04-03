@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ public class CustomConverterContainer {
     return appropriateConverter;
   }
 
-  private Class findConverter(Class src, Class dest) {
+  public Class findConverter(Class src, Class dest) {
     // Otherwise, loop through custom converters and look for a match. Also, store the result in the cache
     for (CustomConverterDescription customConverter : converters) {
       final Class classA = customConverter.getClassA();

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,12 @@
  */
 package org.dozer.classmap;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapping;
 import org.dozer.classmap.generator.BeanMappingGenerator;
+import org.dozer.classmap.generator.ClassLevelFieldMappingGenerator;
 import org.dozer.classmap.generator.GeneratorUtils;
+import org.dozer.classmap.generator.MappingType;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
@@ -34,6 +28,14 @@ import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Internal class for adding implicit field mappings to a ClassMap. Also, builds implicit ClassMap for class mappings
@@ -48,12 +50,14 @@ public final class ClassMapBuilder {
   static final List<ClassMappingGenerator> runTimeGenerators = new ArrayList<ClassMappingGenerator>();
 
   static {
+    buildTimeGenerators.add(new ClassLevelFieldMappingGenerator());
     buildTimeGenerators.add(new AnnotationPropertiesGenerator());
     buildTimeGenerators.add(new AnnotationFieldsGenerator());
     buildTimeGenerators.add(new MapMappingGenerator());
     buildTimeGenerators.add(new BeanMappingGenerator());
     buildTimeGenerators.add(new CollectionMappingGenerator());
 
+    runTimeGenerators.add(new ClassLevelFieldMappingGenerator());
     runTimeGenerators.add(new AnnotationPropertiesGenerator());
     runTimeGenerators.add(new AnnotationFieldsGenerator());
     runTimeGenerators.add(new MapMappingGenerator());
@@ -236,10 +240,11 @@ public final class ClassMapBuilder {
           if (mapping != null) {
             String pairName = mapping.value().trim();
             if (!mapping.optional()) {
-              GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
+              GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                      propertyName, pairName.isEmpty() ? propertyName : pairName);
             } else if (mapping.optional() && fieldExists(classMap.getDestClassToMap(), propertyName, pairName)) {
-              GeneratorUtils.addGenericMapping(classMap, configuration, propertyName, pairName.isEmpty() ? propertyName : pairName);
-            }
+              GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                      propertyName, pairName.isEmpty() ? propertyName : pairName);
           }
         }
       }
@@ -254,9 +259,11 @@ public final class ClassMapBuilder {
           if (mapping != null) {
             String pairName = mapping.value().trim();
             if (!mapping.optional()) {
-              GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
+              GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                      pairName.isEmpty() ? propertyName : pairName, propertyName);
             } else if (mapping.optional() && fieldExists(classMap.getSrcClassToMap(), propertyName, pairName)) {
-              GeneratorUtils.addGenericMapping(classMap, configuration, pairName.isEmpty() ? propertyName : pairName, propertyName);
+              GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                      pairName.isEmpty() ? propertyName : pairName, propertyName);
             }
           }
         }
@@ -281,9 +288,11 @@ public final class ClassMapBuilder {
           if (mapping != null) {
             String pairName = mapping.value().trim();
             if (!mapping.optional()) {
-              addFieldMapping(classMap, configuration, fieldName, pairName.isEmpty() ? fieldName : pairName);
+              GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
+                      fieldName, pairName.isEmpty() ? fieldName : pairName);
             } else if (mapping.optional() && fieldExists(classMap.getDestClassToMap(), fieldName, pairName)) {
-              addFieldMapping(classMap, configuration, fieldName, pairName.isEmpty() ? fieldName : pairName);
+              GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
+                      fieldName, pairName.isEmpty() ? fieldName : pairName);
             }
           }
         }
@@ -298,9 +307,11 @@ public final class ClassMapBuilder {
           if (mapping != null) {
             String pairName = mapping.value().trim();
             if (!mapping.optional()) {
-              addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldName);
+              GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
+                      pairName.isEmpty() ? fieldName : pairName, fieldName);
             } else if (mapping.optional() && fieldExists(classMap.getSrcClassToMap(), fieldName, pairName)) {
-              addFieldMapping(classMap, configuration, pairName.isEmpty() ? fieldName : pairName, fieldName);
+              GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
+                      pairName.isEmpty() ? fieldName : pairName, fieldName);
             }
           }
         }
@@ -317,22 +328,5 @@ public final class ClassMapBuilder {
     } catch (NoSuchFieldException e) {
       return false;
     }
-  }
-
-  private static void addFieldMapping(ClassMap classMap, Configuration configuration, String srcName, String destName) {
-    FieldMap fieldMap = new GenericFieldMap(classMap);
-
-    DozerField sourceField = new DozerField(srcName, null);
-    DozerField destField = new DozerField(destName, null);
-
-    sourceField.setAccessible(true);
-    destField.setAccessible(true);
-
-    fieldMap.setSrcField(sourceField);
-    fieldMap.setDestField(destField);
-
-    // add CopyByReferences per defect #1728159
-    MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
-    classMap.addFieldMapping(fieldMap);
   }
 }

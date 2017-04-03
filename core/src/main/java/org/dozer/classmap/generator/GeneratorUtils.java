@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,14 +43,28 @@ public final class GeneratorUtils {
     return false;
   }
 
-  public static void addGenericMapping(ClassMap classMap, Configuration configuration, String srcName, String destName) {
-    FieldMap fieldMap = new GenericFieldMap(classMap);
+  public static void addGenericMapping(MappingType mappingType, ClassMap classMap,
+                                       Configuration configuration, String srcName, String destName) {
+      FieldMap fieldMap = new GenericFieldMap(classMap);
+      DozerField srcField = new DozerField(srcName, null);
+      DozerField destField = new DozerField(destName, null);
+      fieldMap.setSrcField(srcField);
+      fieldMap.setDestField(destField);
 
-    fieldMap.setSrcField(new DozerField(srcName, null));
-    fieldMap.setDestField(new DozerField(destName, null));
+      switch (mappingType) {
+          case FIELD_TO_FIELD:
+              srcField.setAccessible(true);
+              destField.setAccessible(true);
+              break;
+          case FIELD_TO_SETTER:
+              srcField.setAccessible(true);
+              break;
+          case GETTER_TO_SETTER:
+              break;
+      }
 
-    // add CopyByReferences per defect #1728159
-    MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
-    classMap.addFieldMapping(fieldMap);
+      // add CopyByReferences per defect #1728159
+      MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
+      classMap.addFieldMapping(fieldMap);
   }
 }

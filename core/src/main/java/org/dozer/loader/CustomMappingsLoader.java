@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,14 @@
  */
 package org.dozer.loader;
 
+import org.dozer.CustomConverter;
 import org.dozer.classmap.*;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.util.MappingUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned
@@ -73,6 +71,9 @@ public class CustomMappingsLoader {
         classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
       }
     }
+
+    addDefaultCustomConverters(globalConfiguration);
+
     return new LoadMappingsResult(customMappings, globalConfiguration);
   }
 
@@ -97,6 +98,27 @@ public class CustomMappingsLoader {
     }
 
     return globalConfiguration;
+  }
+
+  private void addDefaultCustomConverters(Configuration globalConfiguration) {
+      if (globalConfiguration.getCustomConverters() != null &&
+              globalConfiguration.getCustomConverters().findConverter(UUID.class, UUID.class) == null) {
+          CustomConverterDescription defaultUUIDConverter = new CustomConverterDescription();
+          defaultUUIDConverter.setClassA(UUID.class);
+          defaultUUIDConverter.setClassB(UUID.class);
+          defaultUUIDConverter.setType(ByReferenceConverter.class);
+          globalConfiguration.getCustomConverters().addConverter(defaultUUIDConverter);
+      }
+  }
+
+  /**
+   *  Returns the source field value as a reference, regardless of other parameters.
+   *  Only intended for internal use. */
+  public static class ByReferenceConverter implements CustomConverter {
+      @Override
+      public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
+          return sourceFieldValue;
+      }
   }
 
 }

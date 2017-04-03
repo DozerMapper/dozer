@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package org.dozer.propertydescriptor;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
@@ -33,6 +34,7 @@ import java.lang.reflect.Method;
  */
 public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private PropertyDescriptor pd;
+  private boolean propertyDescriptorsRefreshed;
 
   public JavaBeanPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
       HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
@@ -42,10 +44,12 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   @Override
   public Method getWriteMethod() throws NoSuchMethodException {
     Method result = getPropertyDescriptor(destDeepIndexHintContainer).getWriteMethod();
-    result = result == null ? ReflectionUtils.getNonVoidSetter(clazz, fieldName) : result;
+    result = result == null ? ReflectionUtils.getNonStandardSetter(clazz, fieldName) : result;
     if (result == null) {
-      throw new NoSuchMethodException("Unable to determine write method for Field: '" + fieldName + "' in Class: " + clazz);
+      result = retryMissingMethod(true);
     }
+
+    propertyDescriptorsRefreshed = false;
     return result;
   }
 
@@ -58,14 +62,50 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   protected Method getReadMethod() throws NoSuchMethodException {
     Method result = getPropertyDescriptor(srcDeepIndexHintContainer).getReadMethod();
     if (result == null) {
-      throw new NoSuchMethodException("Unable to determine read method for Field: '" + fieldName + "' in Class: " + clazz);
+      result = retryMissingMethod(false);
     }
+
+    propertyDescriptorsRefreshed = false;
     return result;
   }
 
   @Override
   protected boolean isCustomSetMethod() {
     return false;
+  }
+
+  /**
+   * PropertyDescriptor may lose the references to the write and read methods during
+   * garbage collection. If the methods can't be found, we should retry once to
+   * ensure that our PropertyDescriptor hasn't gone bad and the method really
+   * isn't there.
+   *
+   * @param writeMethod {@code true} to look for the write method for a property,
+   *                    {@code false} to look for the read method
+   * @return the method or {@code null}
+   * @throws NoSuchMethodException if we've already retried finding the method once
+   * @see <a href="https://github.com/DozerMapper/dozer/issues/118">Dozer mapping stops working</a>
+   */
+  private Method retryMissingMethod(boolean writeMethod) throws NoSuchMethodException {
+    if (propertyDescriptorsRefreshed) {
+      throw new NoSuchMethodException(
+              "Unable to determine " + (writeMethod ? "write" : "read") +
+              " method for Field: '" + fieldName + "' in Class: " + clazz);
+    } else {
+      refreshPropertyDescriptors();
+      return writeMethod ? getWriteMethod() : getReadMethod();
+    }
+  }
+
+  /**
+   * Cleans out the {@link PropertyDescriptor} cache; when suspecting that
+   * our PropertyDescriptor has lost its references, we want it to be re-built
+   * (instead of getting the same instance from the cache).
+   */
+  private void refreshPropertyDescriptors() {
+    PropertyUtils.clearDescriptors();
+    pd = null;
+    propertyDescriptorsRefreshed = true;
   }
 
   private PropertyDescriptor getPropertyDescriptor(HintContainer deepIndexHintContainer) {
