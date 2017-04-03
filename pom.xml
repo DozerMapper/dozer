@@ -40,7 +40,7 @@
   </modules>
 
   <prerequisites>
-    <maven>2.2.1</maven>
+    <maven>3.3.1</maven>
   </prerequisites>
 
   <properties>
