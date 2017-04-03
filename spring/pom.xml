@@ -84,7 +84,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>2.2.1</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -97,7 +96,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -111,7 +109,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.9</version>
         <configuration>
           <testClassesDirectory>target/test-classes</testClassesDirectory>
           <excludes>
@@ -122,7 +119,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.5.1</version>
         <configuration>
           <instrumentation>
             <excludes>
@@ -151,7 +147,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.5.1</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -167,12 +162,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.9</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9</version>
         <configuration>
           <aggregate>true</aggregate>
           <links>
@@ -190,7 +183,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>2.4.0</version>
       </plugin>
     </plugins>
   </reporting>
@@ -209,7 +201,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.1</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
