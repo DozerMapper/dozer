@@ -79,6 +79,9 @@
             <goals>
               <goal>jar</goal>
             </goals>
+            <configuration>
+              <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -153,6 +156,7 @@
           <links>
             <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
           </links>
+          <additionalparam>-Xdoclint:none</additionalparam>
         </configuration>
         <reportSets>
           <reportSet>
