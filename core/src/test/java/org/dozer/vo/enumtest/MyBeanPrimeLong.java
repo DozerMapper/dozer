@@ -16,7 +16,7 @@
 package org.dozer.vo.enumtest;
 
 /**
- * Bean for long <-> enum mapping test.
+ * Bean for long from/to enum mapping test.
  * 
  * @author siarhei.krukau
  */

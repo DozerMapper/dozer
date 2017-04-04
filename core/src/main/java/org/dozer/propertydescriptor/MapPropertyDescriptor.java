@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
  * Overloaded methods are supported. Map class can have two set methods with different signatures, but class will
  * choose the one with appropriate number of parameters.
  *
- * <p/>
+ * <p>
  * Only intended for internal use.
  *
  * @author garsombke.franz

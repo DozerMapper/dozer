@@ -432,7 +432,7 @@ public final class ReflectionUtils {
   *             field is of primitive type (e.g. boolean) - or the other way
   *             around.</li>
   *     </ul>
-  * </p>
+  * <p>
   *
   * @param clazz The class to find non-standard setters from
   * @param fieldName The field to find a non-standard setter for

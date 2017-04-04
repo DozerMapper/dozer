@@ -30,10 +30,10 @@ import java.util.List;
 /**
  * Builder API for achivieng the same effect as custom Xml mappings.
  * Is intended to be used from application to prepare repetetive mappings programmatically.
- * <p/>
+ * <p>
  * Note that some of the fail-fast checks from Xml validation has not yet been ported.
  * Responsibility on filling all mandatory attributes is left to API user.
- * <p/>
+ * <p>
  * Not thread safe
  *
  * @author dmitry.buzdin

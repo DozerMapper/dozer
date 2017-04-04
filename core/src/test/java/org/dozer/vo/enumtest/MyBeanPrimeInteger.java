@@ -16,7 +16,7 @@
 package org.dozer.vo.enumtest;
 
 /**
- * Bean for integer <-> enum mapping test.
+ * Bean for integer from/to enum mapping test.
  * 
  * @author siarhei.krukau
  */
