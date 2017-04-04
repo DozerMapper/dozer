@@ -239,12 +239,10 @@ public final class ClassMapBuilder {
           String propertyName = property.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            if (!mapping.optional()) {
+            if (requireMapping(mapping, classMap.getDestClassToMap(), propertyName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
                       propertyName, pairName.isEmpty() ? propertyName : pairName);
-            } else if (mapping.optional() && fieldExists(classMap.getDestClassToMap(), propertyName, pairName)) {
-              GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
-                      propertyName, pairName.isEmpty() ? propertyName : pairName);
+            }
           }
         }
       }
@@ -258,10 +256,7 @@ public final class ClassMapBuilder {
           String propertyName = property.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            if (!mapping.optional()) {
-              GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
-                      pairName.isEmpty() ? propertyName : pairName, propertyName);
-            } else if (mapping.optional() && fieldExists(classMap.getSrcClassToMap(), propertyName, pairName)) {
+            if (requireMapping(mapping, classMap.getSrcClassToMap(), propertyName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
                       pairName.isEmpty() ? propertyName : pairName, propertyName);
             }
@@ -287,10 +282,7 @@ public final class ClassMapBuilder {
           String fieldName = field.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            if (!mapping.optional()) {
-              GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
-                      fieldName, pairName.isEmpty() ? fieldName : pairName);
-            } else if (mapping.optional() && fieldExists(classMap.getDestClassToMap(), fieldName, pairName)) {
+            if (requireMapping(mapping, classMap.getDestClassToMap(), fieldName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
                       fieldName, pairName.isEmpty() ? fieldName : pairName);
             }
@@ -306,10 +298,7 @@ public final class ClassMapBuilder {
           String fieldName = field.getName();
           if (mapping != null) {
             String pairName = mapping.value().trim();
-            if (!mapping.optional()) {
-              GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
-                      pairName.isEmpty() ? fieldName : pairName, fieldName);
-            } else if (mapping.optional() && fieldExists(classMap.getSrcClassToMap(), fieldName, pairName)) {
+            if (requireMapping(mapping, classMap.getSrcClassToMap(), fieldName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
                       pairName.isEmpty() ? fieldName : pairName, fieldName);
             }
@@ -322,9 +311,10 @@ public final class ClassMapBuilder {
     }
   }
 
-  private static boolean fieldExists(Class<?> clazz, String fieldName, String pairName) {
+  private static boolean requireMapping(Mapping mapping, Class<?> clazz, String fieldName, String pairName) {
     try {
-      return clazz.getDeclaredField(pairName.isEmpty() ? fieldName : pairName) != null;
+      return !mapping.optional()
+        || (mapping.optional() && clazz.getDeclaredField(pairName.isEmpty() ? fieldName : pairName) != null);
     } catch (NoSuchFieldException e) {
       return false;
     }
