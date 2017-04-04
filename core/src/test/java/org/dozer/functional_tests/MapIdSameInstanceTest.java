@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
  * Regression-tests to ensure that mapid is respected even when
  * the same instance is mapped.
  *
- * @see <a href="https://github.com/DozerMapper/dozer/issues/238>MappedFieldsTracker does not consider map-id #238</a>
+ * @see <a href="https://github.com/DozerMapper/dozer/issues/238">MappedFieldsTracker does not consider map-id 238</a>
  */
 public class MapIdSameInstanceTest extends AbstractFunctionalTest {
 

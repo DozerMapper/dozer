@@ -26,7 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting Supported Data Types --> Calendar. Supported source data types include Date, Calendar,
+ * Internal class for converting Supported Data Types to Calendar. Supported source data types include Date, Calendar,
  * String, Objects that return a long from their toString(). Only intended for internal use.
  *
  * @author tierney.matt

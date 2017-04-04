@@ -35,20 +35,20 @@ import org.junit.Test;
  * In this functional test, Enum is categorized into two types: Based Enum and Overrided Enum.
  * Based Enum refers to those enum without any overrided methods, including constructors.  A 
  * typical Based Enum would look as below.
- * <code><pre>
+ * <code>
  * public enum SrcType {
  *   FOO , BAR;
  * }
- * </pre></code>
+ * </code>
  * On the contrary, Overrided Enum refers to those enum with overrided methods, including 
  * constructors. A typical Overrided Enum would look as below.
- * <code><pre>
+ * <code>
  * public enum SrcTypeWithOverride {
  *   FOO { public String display() { return "Src.FOO"; } },
  *   BAR { public String display() { return "Src.BAR"; } };
  *   public abstract String display();
  * }
- * </pre></code>
+ * </code>
  * 
  * @author cchou.hung
  *

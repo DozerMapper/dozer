@@ -19,7 +19,7 @@ import org.apache.commons.beanutils.Converter;
 import org.dozer.util.MappingUtils;
 
 /**
- * Internal class for converting Supported Data Types --> Short. Only intended for internal use.
+ * Internal class for converting Supported Data Types to Short. Only intended for internal use.
  * 
  * @author siarhei.krukau
  */

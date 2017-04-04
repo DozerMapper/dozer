@@ -15,9 +15,6 @@
  */
 package org.dozer.vo.recursive;
 
-/**
- * @return .
- */
 public class ClassAAPrime extends ClassAPrime {
 
 }

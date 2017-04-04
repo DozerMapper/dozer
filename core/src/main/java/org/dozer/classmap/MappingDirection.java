@@ -26,11 +26,11 @@ public final class MappingDirection {
   private static final String ONE_WAY_VALUE = "one-way";
 
   /**
-   * Default mapping approach when a -> b -> a' then a == a'
+   * Default mapping approach when a to b to a' then a == a'
    */
   public static final MappingDirection BI_DIRECTIONAL = new MappingDirection();
   /**
-   * Unidirectional mapping when a -> b -> a' then a != a'
+   * Unidirectional mapping when a to b to a' then a != a'
    */
   public static final MappingDirection ONE_WAY = new MappingDirection();
 

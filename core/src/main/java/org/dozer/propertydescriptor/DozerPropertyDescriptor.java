@@ -33,7 +33,7 @@ public interface DozerPropertyDescriptor {
 
   /**
    * Determines generic parameter type
-   * @return For Type<Parameter> returns Parameter class, should return null if can't determine type
+   * @return For Type returns Parameter class, should return null if can't determine type
    */
   Class<?> genericType();
 

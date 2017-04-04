@@ -16,7 +16,7 @@
 package org.dozer.vo.enumtest;
 
 /**
- * Bean for enum <-> {@link String} mapping test.
+ * Bean for enum from/to {@link String} mapping test.
  * 
  * @author siarhei.krukau
  */

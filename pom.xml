@@ -127,6 +127,7 @@
             <compilerArgs>
               <compilerArg>-Xlint:all</compilerArg>
               <compilerArg>-Xlint:-processing</compilerArg>
+              <compilerArg>-Xdoclint:all</compilerArg>
               <!--<compilerArg>-Werror</compilerArg>-->
             </compilerArgs>
           </configuration>
@@ -304,15 +305,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>java8-disable-strict-javadoc</id>
-      <activation>
-        <jdk>[1.8,)</jdk>
-      </activation>
-      <properties>
-        <javadoc.doclint.none>-Xdoclint:none</javadoc.doclint.none>
-      </properties>
     </profile>
   </profiles>
 

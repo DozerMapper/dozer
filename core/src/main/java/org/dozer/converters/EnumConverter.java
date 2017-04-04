@@ -20,7 +20,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.dozer.util.MappingUtils;
 
 /**
- * Internal class for converting Supported Data Types --> Enum. Only intended for internal use.
+ * Internal class for converting Supported Data Types to Enum. Only intended for internal use.
  * 
  * @author siarhei.krukau
  */

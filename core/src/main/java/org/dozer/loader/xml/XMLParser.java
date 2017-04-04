@@ -33,7 +33,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * Internal class that parses a raw custom xml mapping file into ClassMap objects.
- * <p/>
+ * <p>
  * Only intended for internal use.
  *
  * @author garsombke.franz

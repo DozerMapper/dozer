@@ -74,7 +74,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
  * This class does most of the heavy lifting and is very recursive in nature.
- * <p/>
+ * <p>
  * This class is not threadsafe and is instantiated for each new mapping request.
  *
  * @author garsombke.franz

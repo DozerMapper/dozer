@@ -32,7 +32,7 @@ public class ClassD {
 
 	/**
 	 * customFieldD setter
-	 * @param customFieldC the customFieldC to set
+	 * @param customFieldD the customFieldC to set
 	 */
 	public void setCustomFieldC(String customFieldD) {
 		this.customFieldD = customFieldD;
