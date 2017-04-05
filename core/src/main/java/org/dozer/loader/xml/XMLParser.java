@@ -179,6 +179,16 @@ public class XMLParser implements MappingsSource<Document> {
       MappingDirection direction = MappingDirection.valueOf(mappingDirection);
       definitionBuilder.type(direction);
     }
+    if (StringUtils.isNotEmpty(getAttribute(ele, CUSTOM_CONVERTER_ATTRIBUTE))) {
+      definitionBuilder.customConverter(getAttribute(ele, CUSTOM_CONVERTER_ATTRIBUTE));
+    }
+    if (StringUtils.isNotEmpty(getAttribute(ele, CUSTOM_CONVERTER_ID_ATTRIBUTE))) {
+      definitionBuilder.customConverterId(getAttribute(ele, CUSTOM_CONVERTER_ID_ATTRIBUTE));
+    }
+    if (StringUtils.isNotEmpty(getAttribute(ele, CUSTOM_CONVERTER_PARAM_ATTRIBUTE))) {
+      definitionBuilder.customConverterParam(getAttribute(ele, CUSTOM_CONVERTER_PARAM_ATTRIBUTE));
+    }
+
     NodeList nl = ele.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node node = nl.item(i);

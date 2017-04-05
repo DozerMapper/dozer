@@ -120,6 +120,18 @@ public class DozerBuilder {
       return this;
     }
 
+    public void customConverter(String customConverter) {
+      classMap.setCustomConverter(customConverter);
+    }
+
+    public void customConverterId(String customConverterId) {
+      classMap.setCustomConverterId(customConverterId);
+    }
+
+    public void customConverterParam(String customConverterParam) {
+      classMap.setCustomConverterParam(customConverterParam);
+    }
+
     public MappingBuilder type(MappingDirection type) {
       classMap.setType(type);
       return this;

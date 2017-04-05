@@ -34,6 +34,30 @@ public final class TypeMappingOptions {
     };
   }
 
+  public static TypeMappingOption customConverter(final String converter) {
+    return new TypeMappingOption() {
+      public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {
+        fieldMappingBuilder.customConverter(converter);
+      }
+    };
+  }
+
+  public static TypeMappingOption customConverterId(final String converterId) {
+    return new TypeMappingOption() {
+      public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {
+        fieldMappingBuilder.customConverterId( converterId );
+      }
+    };
+  }
+
+  public static TypeMappingOption customConverterParam(final String converterParam) {
+    return new TypeMappingOption() {
+      public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {
+        fieldMappingBuilder.customConverterParam(converterParam);
+      }
+    };
+  }
+
   public static TypeMappingOption beanFactory(final String value) {
     return new TypeMappingOption() {
       public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {

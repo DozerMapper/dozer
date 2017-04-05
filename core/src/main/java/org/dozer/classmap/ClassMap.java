@@ -49,7 +49,9 @@ public class ClassMap {
   private Boolean wildcard;
   private Boolean stopOnErrors;
   private Boolean trimStrings;
-  private CustomConverterContainer customConverters;
+  private String customConverter;
+  private String customConverterId;
+  private String customConverterParam;
   private String mapId;
   private RelationshipType relationshipType;
 
@@ -179,12 +181,28 @@ public class ClassMap {
     this.dateFormat = dateFormat;
   }
 
-  public CustomConverterContainer getCustomConverters() {
-    return customConverters != null ? customConverters : globalConfiguration.getCustomConverters();
+  public String getCustomConverter() {
+    return customConverter;
   }
 
-  public void setCustomConverters(CustomConverterContainer customConverters) {
-    this.customConverters = customConverters;
+  public void setCustomConverter(String customConverter) {
+    this.customConverter = customConverter;
+  }
+
+  public String getCustomConverterId() {
+    return customConverterId;
+  }
+
+  public void setCustomConverterId(String customConverterId) {
+    this.customConverterId = customConverterId;
+  }
+
+  public String getCustomConverterParam() {
+    return customConverterParam;
+  }
+
+  public void setCustomConverterParam(String customConverterParam) {
+    this.customConverterParam = customConverterParam;
   }
 
   public Class<?> getSrcClassToMap() {
