@@ -15,7 +15,7 @@
  */
 package org.dozer.util;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.vo.*;

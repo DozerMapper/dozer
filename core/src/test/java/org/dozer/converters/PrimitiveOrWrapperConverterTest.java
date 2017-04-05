@@ -15,7 +15,7 @@
  */
 package org.dozer.converters;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.dozer.AbstractDozerTest;
 import org.junit.Test;
 

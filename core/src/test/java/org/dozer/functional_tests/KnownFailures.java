@@ -15,7 +15,7 @@
  */
 package org.dozer.functional_tests;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.dozer.vo.CustomGetDest;
 import org.dozer.vo.CustomGetSource;
 import org.dozer.vo.MessageHeaderDTO;
