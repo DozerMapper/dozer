@@ -416,21 +416,4 @@ public final class ClassMapBuilder {
       return false;
     }
   }
-
-  private static void addFieldMapping(ClassMap classMap, Configuration configuration, String srcName, String destName) {
-    FieldMap fieldMap = new GenericFieldMap(classMap);
-
-    DozerField sourceField = new DozerField(srcName, null);
-    DozerField destField = new DozerField(destName, null);
-
-    sourceField.setAccessible(true);
-    destField.setAccessible(true);
-
-    fieldMap.setSrcField(sourceField);
-    fieldMap.setDestField(destField);
-
-    // add CopyByReferences per defect #1728159
-    MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
-    classMap.addFieldMapping(fieldMap);
-  }
 }
