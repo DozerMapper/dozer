@@ -64,12 +64,12 @@ import org.dozer.vo.orphan.ParentPrime;
 import org.dozer.vo.perf.MyClassA;
 import org.dozer.vo.perf.MyClassB;
 import org.dozer.vo.set.NamesArray;
+import org.dozer.vo.set.NamesCollection;
 import org.dozer.vo.set.NamesSet;
 import org.dozer.vo.set.NamesSortedSet;
 import org.dozer.vo.set.SomeDTO;
 import org.dozer.vo.set.SomeOtherDTO;
 import org.dozer.vo.set.SomeVO;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.text.DateFormat;
@@ -82,6 +82,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author garsombke.franz
@@ -366,6 +375,31 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     to = mapper.map(from, NamesSortedSet.class);
 
     assertNotNull(to);
+    assertEquals(names.size(), to.getNames().size());
+  }
+
+  /**
+   * When the source type is a Set and the destination is a Collection we expect that the
+   * mapper narrows to the Set type instead of using a List by default.
+   *
+   * issue https://github.com/DozerMapper/dozer/issues/287
+   */
+  @Test
+  public void testSetToCollection() {
+    NamesSet from = newInstance(NamesSet.class);
+    NamesCollection to;
+    Set<String> names = newInstance(HashSet.class);
+    names.add("Red");
+    names.add("Blue");
+    names.add("Green");
+    names.add("Green");
+    from.setNames(names);
+
+    to = mapper.map(from, NamesCollection.class);
+
+    assertNotNull(to);
+    assertTrue(to.getNames() instanceof Set);
+    assertThat(to.getNames().size(), is(3));
     assertEquals(names.size(), to.getNames().size());
   }
 
