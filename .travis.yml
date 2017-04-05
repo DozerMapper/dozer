@@ -8,6 +8,8 @@ before_script:
 - mvn dependency:resolve-plugins -B
 script:
 - mvn clean install -B
+after_success:
+- mvn test -Dtest=PerformanceTest -DfailIfNoTests=false -DargLine="-DnumIters=25000"
 cache:
   directories:
   - $HOME/.m2
