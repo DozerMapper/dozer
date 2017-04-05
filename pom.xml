@@ -46,6 +46,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>1.7.5</slf4j.version>
+
+    <license.failIfMissing>true</license.failIfMissing>
+    <license.failIfUnknown>true</license.failIfUnknown>
   </properties>
 
   <dependencyManagement>
@@ -155,9 +158,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.10.4</version>
-          <configuration>
-            <additionalparam>${javadoc.doclint.none}</additionalparam>
-          </configuration>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -180,13 +180,6 @@
           <groupId>com.mycila</groupId>
           <artifactId>license-maven-plugin</artifactId>
           <version>3.0</version>
-          <configuration>
-            <header>LICENSE.md</header>
-            <excludes>
-              <exclude>LICENSE.md</exclude>
-              <exclude>README.md</exclude>
-            </excludes>
-          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -268,6 +261,37 @@
         <configuration>
           <skipAssembly>true</skipAssembly>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <header>LICENSE-HEADER.txt</header>
+          <excludes>
+            <exclude>LICENSE-HEADER.txt</exclude>
+            <exclude>LICENSE.md</exclude>
+            <exclude>README.md</exclude>
+            <exclude>**/*.jpeg</exclude>
+            <exclude>**/*.proto</exclude>
+            <exclude>**/spring.schemas</exclude>
+            <exclude>**/spring.handlers</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.mycila</groupId>
+            <artifactId>license-maven-plugin-git</artifactId>
+            <!-- make sure you use the same version as license-maven-plugin -->
+            <version>3.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
     <extensions>
