@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,20 +35,20 @@ import org.junit.Test;
  * In this functional test, Enum is categorized into two types: Based Enum and Overrided Enum.
  * Based Enum refers to those enum without any overrided methods, including constructors.  A 
  * typical Based Enum would look as below.
- * <code><pre>
+ * <code>
  * public enum SrcType {
  *   FOO , BAR;
  * }
- * </pre></code>
+ * </code>
  * On the contrary, Overrided Enum refers to those enum with overrided methods, including 
  * constructors. A typical Overrided Enum would look as below.
- * <code><pre>
+ * <code>
  * public enum SrcTypeWithOverride {
  *   FOO { public String display() { return "Src.FOO"; } },
  *   BAR { public String display() { return "Src.BAR"; } };
  *   public abstract String display();
  * }
- * </pre></code>
+ * </code>
  * 
  * @author cchou.hung
  *

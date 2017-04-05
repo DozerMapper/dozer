@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ public final class XMLParserFactory {
   }
 
   public DocumentBuilder createParser() {
-    DocumentBuilderFactory factory = createDocumentBuilderFactory();
     try {
+      DocumentBuilderFactory factory = createDocumentBuilderFactory();
       return createDocumentBuilder(factory);
     } catch (ParserConfigurationException e) {
       throw new MappingException("Failed to create XML Parser !", e);
@@ -63,7 +63,7 @@ public final class XMLParserFactory {
    * @throws javax.xml.parsers.ParserConfigurationException
    *          if thrown by JAXP methods
    */
-  private DocumentBuilderFactory createDocumentBuilderFactory() {
+  private DocumentBuilderFactory createDocumentBuilderFactory() throws ParserConfigurationException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setValidating(true);
     factory.setNamespaceAware(true);

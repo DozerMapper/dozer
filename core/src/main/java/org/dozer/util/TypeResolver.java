@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,7 +119,7 @@ public final class TypeResolver {
   }
 
   /**
-   * returns an already cached [TypeVariable -> Type] map for the targetClass or build a new one.
+   * returns an already cached [TypeVariable to Type] map for the targetClass or build a new one.
    */
   private static Map<TypeVariable<?>, Type> getTypeMap(final Class<?> targetClass) {
     // check if a TypeMap already exists for this class
@@ -145,7 +145,7 @@ public final class TypeResolver {
   }
 
   /**
-   * collects all TypeVariable -> Type mappings from the generic interfaces
+   * collects all TypeVariable to Type mappings from the generic interfaces
    */
   private static void collectActualTypeArguments(final Type[] genericInterfaces,
                                                  final Map<TypeVariable<?>, Type> map) {
@@ -173,7 +173,7 @@ public final class TypeResolver {
   }
 
   /**
-   * collects all TypeVariable -> Type mappings from a parameterizedType
+   * collects all TypeVariable to Type mappings from a parameterizedType
    */
   private static void collectActualTypeArguments(final ParameterizedType parameterizedType,
                                                  final Map<TypeVariable<?>, Type> map) {

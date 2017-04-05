@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,8 +131,8 @@ public class DozerClass {
     return getMapGetMethod() != null || getMapSetMethod() != null;
   }
 
-  public Boolean isAccesible() {
-    return accessible;
+  public boolean isAccessible() {
+    return accessible != null && accessible;
   }
 
   public void setAccessible(Boolean accessible) {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package org.dozer.converters;
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting Supported Data Types --> String. Uses date formatter for Date and Calendar source
+ * Internal class for converting Supported Data Types to String. Uses date formatter for Date and Calendar source
  * objects. Calls toString() on the source object for all other types. Only intended for internal use.
  * 
  * @author tierney.matt

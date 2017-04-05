@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 package org.dozer.factory;
 
-import org.dozer.BeanFactory;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.dozer.BeanFactory;
 
 /**
  * Internal class that contains the logic used to create a new instance of the destination object being mapped. Performs
@@ -30,6 +30,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author tierney.matt
  * @author garsombke.franz
  * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public final class DestBeanCreator {
 
@@ -42,6 +43,7 @@ public final class DestBeanCreator {
           ConstructionStrategies.xmlGregorianCalendar(),
           ConstructionStrategies.byInterface(),
           ConstructionStrategies.xmlBeansBased(),
+          ConstructionStrategies.jaxbBeansBased(),
           ConstructionStrategies.byFactory(),
           ConstructionStrategies.byConstructor()
   };
@@ -66,7 +68,6 @@ public final class DestBeanCreator {
   private static Object applyStrategies(BeanCreationDirective directive, List<BeanCreationStrategy> strategies) {
     // TODO create method lookup by annotation/convention
     // TODO Cache ConstructionStrategy (reuse caching infrastructure)
-    // TODO Resolve JAXB by XmlType Annotation
     // TODO Check resulting type in each method
     // TODO Directive toString()
     // TODO review and document

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,10 @@
  */
 package org.dozer.util;
 
-import com.google.protobuf.ByteString;
-import com.google.protobuf.Descriptors;
-import com.google.protobuf.Message;
-import com.google.protobuf.ProtocolMessageEnum;
+import com.google.protobuf.*;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.Enum;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -100,19 +98,22 @@ public class ProtoUtils {
       //code duplicate, but GenericDescriptor interface is private in protobuf
       case ENUM       : return getEnumClassByEnumDescriptor(descriptor.getEnumType());
       case MESSAGE    :
-        return MappingUtils.loadClass(StringUtils.join(new String[]{
-                descriptor.getMessageType().getFile().getOptions().getJavaPackage(),
-                descriptor.getMessageType().getFile().getOptions().getJavaOuterClassname(),
-                descriptor.getMessageType().getFullName()}, '.'));
+        return MappingUtils.loadClass(StringUtils.join(
+                getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'));
       default         : throw new RuntimeException();
     }
   }
 
+  private static String[] getFullyQualifiedClassName(DescriptorProtos.FileOptions options, String name) {
+      return new String[]{
+            options.getJavaPackage(),
+            options.getJavaOuterClassname(),
+            name};
+  }
+
   private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor) {
-    return (Class<? extends Enum>)MappingUtils.loadClass(StringUtils.join(new String[]{
-            descriptor.getFile().getOptions().getJavaPackage(),
-            descriptor.getFile().getOptions().getJavaOuterClassname(),
-            descriptor.getFullName()}, '.'));
+    return (Class<? extends Enum>)MappingUtils.loadClass(StringUtils.join(
+            getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.'));
   }
 
   public static Object wrapEnums(Object value) {

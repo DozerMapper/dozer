@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
         continue;
       }
 
-      GeneratorUtils.addGenericMapping(classMap, configuration, fieldName, fieldName);
+      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName);
     }
     return false;
   }

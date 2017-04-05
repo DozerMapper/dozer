@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,10 +30,10 @@ import java.util.List;
 /**
  * Builder API for achivieng the same effect as custom Xml mappings.
  * Is intended to be used from application to prepare repetetive mappings programmatically.
- * <p/>
+ * <p>
  * Note that some of the fail-fast checks from Xml validation has not yet been ported.
  * Responsibility on filling all mandatory attributes is left to API user.
- * <p/>
+ * <p>
  * Not thread safe
  *
  * @author dmitry.buzdin

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,11 @@ public final class MappingDirection {
   private static final String ONE_WAY_VALUE = "one-way";
 
   /**
-   * Default mapping approach when a -> b -> a' then a == a'
+   * Default mapping approach when a to b to a' then a == a'
    */
   public static final MappingDirection BI_DIRECTIONAL = new MappingDirection();
   /**
-   * Unidirectional mapping when a -> b -> a' then a != a'
+   * Unidirectional mapping when a to b to a' then a != a'
    */
   public static final MappingDirection ONE_WAY = new MappingDirection();
 

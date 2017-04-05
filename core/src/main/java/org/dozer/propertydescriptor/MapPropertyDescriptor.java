@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
  * Overloaded methods are supported. Map class can have two set methods with different signatures, but class will
  * choose the one with appropriate number of parameters.
  *
- * <p/>
+ * <p>
  * Only intended for internal use.
  *
  * @author garsombke.franz

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -268,11 +267,7 @@ public abstract class FieldMap implements Cloneable {
     if (fieldLevel != null) {
       return fieldLevel;
     } else {
-      Boolean classLevel = clazz.isAccesible();
-      if (classLevel == null) {
-        return false;
-      }
-      return classLevel;
+      return clazz.isAccessible();
     }
   }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,20 @@
  */
 package org.dozer.util;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.IsNull.notNullValue;
+import junit.framework.Assert;
+import org.dozer.AbstractDozerTest;
+import org.dozer.MappingException;
+import org.dozer.vo.*;
+import org.dozer.vo.inheritance.ChildChildIF;
+import org.junit.Test;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import junit.framework.Assert;
-
-import org.dozer.AbstractDozerTest;
-import org.dozer.MappingException;
-import org.dozer.vo.A;
-import org.dozer.vo.B;
-import org.dozer.vo.NoReadMethod;
-import org.dozer.vo.NoVoidSetters;
-import org.dozer.vo.SimpleObj;
-import org.dozer.vo.inheritance.ChildChildIF;
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
  * @author tierney.matt
@@ -115,10 +109,10 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
   @Test
   public void testGetNonVoidSetterMethod() {
-    Method method = ReflectionUtils.getNonVoidSetter(new NoVoidSetters().getClass(), "description");
+    Method method = ReflectionUtils.getNonStandardSetter(new NoVoidSetters().getClass(), "description");
     assertNotNull(method);
 
-    method = ReflectionUtils.getNonVoidSetter(new NoReadMethod().getClass(), "noReadMethod");
+    method = ReflectionUtils.getNonStandardSetter(new NoReadMethod().getClass(), "noReadMethod");
     assertNull(method);
   }
 

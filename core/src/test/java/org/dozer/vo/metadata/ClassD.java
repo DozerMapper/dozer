@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ public class ClassD {
 
 	/**
 	 * customFieldD setter
-	 * @param customFieldC the customFieldC to set
+	 * @param customFieldD the customFieldC to set
 	 */
 	public void setCustomFieldC(String customFieldD) {
 		this.customFieldD = customFieldD;

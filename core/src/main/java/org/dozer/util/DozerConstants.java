@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public final class DozerConstants {
 
   private DozerConstants() {}
 
-  public static final String CURRENT_VERSION = "5.5.1";
+  public static final String CURRENT_VERSION = "6.0.0-SNAPSHOT";
 
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_ERROR_POLICY = true;
@@ -69,5 +69,6 @@ public final class DozerConstants {
 
   public static final String JAVASSIST_PACKAGE = "org.javassist.tmp.";
   public static final String JAVASSIST_SYMBOL = "_$$_javassist_";
+  public static final String JAVASSIST_SYMBOL_2 = "_$$_jvst";
 
 }

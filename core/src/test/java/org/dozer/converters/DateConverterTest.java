@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public class DateConverterTest extends AbstractDozerTest {
 
@@ -108,5 +109,13 @@ public class DateConverterTest extends AbstractDozerTest {
 
     assertEquals(date, converter.convert(Date.class, xmlCalendar));
   }
+
+	@Test
+	public void testConvert_Format() throws Exception {
+		GregorianCalendar calendar = new GregorianCalendar(2001, 1, 1);
+		Object result = converter.convert(String.class, calendar);
+		String stringCalendar = (String) result;
+		assertEquals(stringCalendar, "01.02.2001");
+	}
 
 }

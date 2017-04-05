@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,11 +30,9 @@ import java.util.Properties;
  * Internal singleton class that holds the global settings used by Dozer. Most of these settings are configurable via an
  * optional Dozer properties file. By default, Dozer will look for a file named dozer.properties to load these
  * configuration properties. If a properties file is not found or specified, default values will be used.
- * <p/>
- * <p/>
+ * <p>
  * An alternative Dozer properties file can be specified via the dozer.configuration system property.
- * <p/>
- * <p/>
+ * <p>
  * ex) -Ddozer.configuration=someDozerConfigurationFile.properties
  *
  * @author tierney.matt

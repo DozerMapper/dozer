@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2013 Dozer Project
+    Copyright 2005-2017 Dozer Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -24,14 +24,14 @@
   <parent>
     <groupId>net.sf.dozer</groupId>
     <artifactId>dozer-parent</artifactId>
-    <version>5.5.1</version>
+    <version>6.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>dozer-osgi-test</artifactId>
   <name>Dozer OSGi Bundle Tests</name>
 
   <properties>
-    <exam.version>3.4.0</exam.version>
+    <exam.version>3.5.0</exam.version>
     <felix.version>4.2.1</felix.version>
   </properties>
 
@@ -112,7 +112,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.7</version>
         <configuration>
           <skip>true</skip>
         </configuration>

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import org.apache.commons.beanutils.Converter;
 import java.lang.reflect.Constructor;
 
 /**
- * Internal class for converting String --> Complex Data Types with a String constructor. Only intended for internal
+ * Internal class for converting String to Complex Data Types with a String constructor. Only intended for internal
  * use.
  * 
  * @author tierney.matt

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,11 +27,9 @@ import org.ops4j.pax.exam.spi.reactors.PerMethod;
 import org.osgi.framework.BundleContext;
 
 import javax.inject.Inject;
-
 import java.util.Collections;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.ops4j.pax.exam.CoreOptions.*;
@@ -55,7 +53,9 @@ public class OsgiContainerTest {
         mavenBundle().groupId("commons-beanutils").artifactId("commons-beanutils").version(asInProject()),
         mavenBundle().groupId("commons-collections").artifactId("commons-collections").version("3.2.1"),
         mavenBundle().groupId("org.apache.commons").artifactId("commons-lang3").version(asInProject()),
-        junitBundles()
+        junitBundles(),
+        systemPackages("javax.net.ssl", "javax.xml.parsers", "javax.management", "javax.xml.datatype",
+                       "org.w3c.dom", "org.xml.sax", "org.xml.sax.helpers")
     );
   }
 

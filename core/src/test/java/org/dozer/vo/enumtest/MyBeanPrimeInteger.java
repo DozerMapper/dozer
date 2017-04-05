@@ -1,5 +1,5 @@
-/*
- * Copyright 2005-2010 the original author or authors.
+/**
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package org.dozer.vo.enumtest;
 
 /**
- * Bean for integer <-> enum mapping test.
+ * Bean for integer from/to enum mapping test.
  * 
  * @author siarhei.krukau
  */

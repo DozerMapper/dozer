@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,10 @@ import org.apache.commons.lang3.ClassUtils;
 
 /**
  * This class should be extended in order to implement new Custom Converters for value transformation.
+ *
+ * @author Dmitry Buzdin
+ * @author Alan Stewart
+ * @author Jose Barragan
  */
 public abstract class DozerConverter<A, B> implements ConfigurableCustomConverter {
 
@@ -74,8 +78,8 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    * value.
    *
    * @param source      the value of the source field
-   * @param destination the current value of the desitinatino field (or null)
-   * @return the resulting value for the destinatino field
+   * @param destination the current value of the destination field (or null)
+   * @return the resulting value for the destination field
    */
   abstract public B convertTo(A source, B destination);
 
@@ -84,7 +88,7 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    * value.
    *
    * @param source the value of the source field
-   * @return the resulting value for the destinatino field
+   * @return the resulting value for the destination field
    */
   public B convertTo(A source) {
     return convertTo(source, null);
@@ -95,8 +99,8 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    * value
    *
    * @param source      the value of the source field
-   * @param destination the current value of the desitinatino field (or null)
-   * @return the resulting value for the destinatino field
+   * @param destination the current value of the destination field (or null)
+   * @return the resulting value for the destination field
    */
   abstract public A convertFrom(B source, A destination);
 
@@ -105,7 +109,7 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    * value
    *
    * @param source the value of the source field
-   * @return the resulting value for the destinatino field
+   * @return the resulting value for the destination field
    */
   public A convertFrom(B source) {
     return convertFrom(source, null);
@@ -113,7 +117,7 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
 
   /**
    * Sets the configured parameter value for this converter instance.
-   * Should be called by Dozer internaly before actual mapping.
+   * Should be called by Dozer internally before actual mapping.
    *
    * @param parameter configured parameter value
    */

@@ -1,5 +1,5 @@
-/*
- * Copyright 2005-2010 the original author or authors.
+/**
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import org.apache.commons.beanutils.Converter;
 import org.dozer.util.MappingUtils;
 
 /**
- * Internal class for converting Supported Data Types --> Short. Only intended for internal use.
+ * Internal class for converting Supported Data Types to Short. Only intended for internal use.
  * 
  * @author siarhei.krukau
  */

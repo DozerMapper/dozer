@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ public interface Mapper {
   /**
    * Constructs new instance of destinationClass and performs mapping between from source
    *
-   * @param source
+   * @param source source object
    * @param destinationClass
    * @param <T>
    * @return
@@ -37,8 +37,8 @@ public interface Mapper {
   /**
    * Performs mapping between source and destination objects
    *
-   * @param source
-   * @param destination
+   * @param source source object
+   * @param destination destination object
    * @throws MappingException
    */
   void map(Object source, Object destination) throws MappingException;
@@ -46,8 +46,8 @@ public interface Mapper {
   /**
    * Constructs new instance of destinationClass and performs mapping between from source
    *
-   * @param source
-   * @param destinationClass
+   * @param source source object
+   * @param destinationClass  destination class
    * @param mapId
    * @param <T>
    * @return
@@ -58,8 +58,8 @@ public interface Mapper {
   /**
    * Performs mapping between source and destination objects
    *
-   * @param source
-   * @param destination
+   * @param source source object
+   * @param destination destination object
    * @param mapId
    * @throws MappingException
    */

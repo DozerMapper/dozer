@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2013 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,21 @@
  */
 package org.dozer.converters;
 
-import org.apache.commons.beanutils.Converter;
-import org.dozer.MappingException;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.apache.commons.beanutils.Converter;
+import org.dozer.MappingException;
+
 /**
- * Internal class for converting Supported Data Types --> XMLGregorianCalendar.
+ * Internal class for converting Supported Data Types to XMLGregorianCalendar.
  * <p>
  * Supported source data types include
  * <ul>
@@ -40,79 +41,84 @@ import java.util.GregorianCalendar;
  * <li>java.lang.String</li>
  * <li>any objects that return a number of milliseconds applicable to java.lang.Long format in their toString() form</li>
  * </ul>
- * </p>
- * <p/>
+ * <p>
  * Only intended for internal use.
- * <p/>
+ * <p>
  *
  * @author pnyheim
  * @author dmitry.buzdin
+ * @author jose.barragan
  */
 public class XMLGregorianCalendarConverter implements Converter {
 
-  private DateFormat dateFormat;
+	private DateFormat dateFormat;
 
-  public XMLGregorianCalendarConverter(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
-  }
+	public XMLGregorianCalendarConverter(DateFormat dateFormat) {
+		this.dateFormat = dateFormat;
+	}
 
-  /**
-   * Cache the DatatypeFactory because newInstance is very expensive.
-   */
-  private static DatatypeFactory dataTypeFactory;
+	/**
+	 * Cache the DatatypeFactory because newInstance is very expensive.
+	 */
+	private static DatatypeFactory dataTypeFactory;
 
-  /**
-   * Returns a new instance of DatatypeFactory, or the cached one if previously created.
-   *
-   * @return instance of DatatypeFactory
-   */
-  private static DatatypeFactory dataTypeFactory() {
-    if (dataTypeFactory == null) {
-      try {
-        dataTypeFactory = DatatypeFactory.newInstance();
-      } catch (DatatypeConfigurationException e) {
-        throw new MappingException(e);
-      }
-    }
-    return dataTypeFactory;
-  }
+	/**
+	 * Returns a new instance of DatatypeFactory, or the cached one if previously created.
+	 *
+	 * @return instance of DatatypeFactory
+	 */
+	private static DatatypeFactory dataTypeFactory() {
+		if (dataTypeFactory == null) {
+			try {
+				dataTypeFactory = DatatypeFactory.newInstance();
+			} catch (DatatypeConfigurationException e) {
+				throw new MappingException(e);
+			}
+		}
+		return dataTypeFactory;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  public Object convert(Class destClass, Object srcObj) {
-    Class sourceClass = srcObj.getClass();
-    Calendar result = new GregorianCalendar();
+	/**
+	 * {@inheritDoc}
+	 */
+	public Object convert(Class destClass, Object srcObj) {
+		Class sourceClass = srcObj.getClass();
+		Calendar result = new GregorianCalendar();
 
-    if (java.util.Date.class.isAssignableFrom(sourceClass)) {
-      // Date --> XMLGregorianCalendar
-      result.setTime((java.util.Date) srcObj);
-    } else if (Calendar.class.isAssignableFrom(sourceClass)) {
-      // Calendar --> XMLGregorianCalendar
-      Calendar c = (Calendar) srcObj;
-      result.setTime(c.getTime());
-      result.setTimeZone(c.getTimeZone());
-    } else if (XMLGregorianCalendar.class.isAssignableFrom(sourceClass)) {
-      result = ((XMLGregorianCalendar) srcObj).toGregorianCalendar();
-    } else if (dateFormat != null && String.class.isAssignableFrom(sourceClass)) {
-      if ("".equals(srcObj)) {
-        return null;
-      }
-      try {
-        long time = dateFormat.parse((String) srcObj).getTime();
-        result.setTime(new Date(time));
-      } catch (ParseException e) {
-        throw new ConversionException("Unable to parse source object using specified date format", e);
-      }
-    } else {
-      try {
-        long time = Long.parseLong(srcObj.toString());
-        result.setTime(new Date(time));
-      } catch (NumberFormatException e) {
-        throw new ConversionException("Unable to determine time in millis of source object", e);
-      }
-    }
+		if (java.util.Date.class.isAssignableFrom(sourceClass)) {
+			// Date --> XMLGregorianCalendar
+			result.setTime(java.util.Date.class.cast(srcObj));
+		} else if (Calendar.class.isAssignableFrom(sourceClass)) {
+			// Calendar --> XMLGregorianCalendar
+			Calendar c = Calendar.class.cast(srcObj);
+			result.setTime(c.getTime());
+			result.setTimeZone(c.getTimeZone());
+		} else if (XMLGregorianCalendar.class.isAssignableFrom(sourceClass)) {
+			result = XMLGregorianCalendar.class.cast(srcObj).toGregorianCalendar();
+		} else if (dateFormat != null && String.class.isAssignableFrom(sourceClass)) {
+			if ("".equals(String.class.cast(srcObj))) {
+				return null;
+			}
 
-    return dataTypeFactory().newXMLGregorianCalendar((GregorianCalendar) result);
-  }
+			try {
+				long time = dateFormat.parse(String.class.cast(srcObj)).getTime();
+				result.setTime(new Date(time));
+			} catch (ParseException e) {
+				throw new ConversionException("Unable to parse source object using specified date format", e);
+			}
+		} else {
+			try {
+				long time = Long.parseLong(srcObj.toString());
+				result.setTime(new Date(time));
+			} catch (NumberFormatException e) {
+				throw new ConversionException("Unable to determine time in millis of source object", e);
+			}
+		}
+
+		if (dateFormat != null && String.class.isAssignableFrom(destClass)) {
+			return dateFormat.format(result.getTime());
+		}
+
+		return dataTypeFactory().newXMLGregorianCalendar(GregorianCalendar.class.cast(result));
+	}
 }
