@@ -270,7 +270,7 @@ public class MappingProcessor implements Mapper {
     Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcClass,
         destClass);
     if (converterClass != null) {
-      mapUsingCustomConverter(converterClass, srcClass, srcObj, destClass, destObj, null, true);
+      destObj = mapUsingCustomConverter(converterClass, srcClass, srcObj, destClass, destObj, null, true);
       return;
     }
 
