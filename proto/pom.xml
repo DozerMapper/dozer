@@ -31,7 +31,7 @@
   <name>Dozer-Proto</name>
  
   <properties>
-    <protobuf.version>2.5.0</protobuf.version>
+    <protobuf.version>2.6.1</protobuf.version>
   </properties>
 
   <dependencies>
