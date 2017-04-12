@@ -148,6 +148,7 @@ public final class DozerInitializer {
         return;
       }
 
+      GlobalSettings globalSettings = GlobalSettings.getInstance();
       if (globalSettings.isAutoregisterJMXBeans()) {
         try {
           unregisterJMXBeans(new JMXPlatformImpl());
