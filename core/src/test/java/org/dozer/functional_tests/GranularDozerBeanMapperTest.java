@@ -97,12 +97,6 @@ import static org.junit.Assert.fail;
  */
 public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
-  @Test(expected = MappingException.class)
-  public void testNoDefaultConstructor() throws Exception {
-    mapper.map("test", NoDefaultConstructor.class);
-    fail("should have thrown exception");
-  }
-
   @Test
   public void testFieldAccessible() throws Exception {
     Mapper mapper = getMapper("fieldAttributeMapping.xml");
@@ -452,16 +446,6 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("theKey"));
   }
 
-  @Test(expected = TestException.class)
-  public void testAllowedExceptionsThrowException() throws Exception {
-    Mapper mapper = getMapper("allowedExceptionsMapping.xml");
-    TestObject to = newInstance(TestObject.class);
-    to.setThrowAllowedExceptionOnMap("throw me");
-    mapper.map(to, TestObjectPrime.class);
-    fail("We should have thrown TestException");
-
-  }
-
   public void testAllowedExceptionsDoNotThrowException() throws Exception {
     Mapper mapper = getMapper("allowedExceptionsMapping.xml");
     TestObject to2 = newInstance(TestObject.class);
@@ -471,16 +455,6 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     } catch (RuntimeException e) {
       fail("This should not have been thrown");
     }
-  }
-
-  @Test(expected = TestException.class)
-  public void testAllowedExceptions_Implicit() throws Exception {
-    Mapper mapper = getMapper("implicitAllowedExceptionsMapping.xml");
-    ThrowException to = newInstance(ThrowException.class);
-    to.setThrowAllowedException("throw me");
-    mapper.map(to, ThrowExceptionPrime.class);
-    fail("We should have thrown TestException");
-
   }
 
   public void testAllowedExceptions_ImplicitDoNotThrow() throws Exception {
