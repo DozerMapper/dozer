@@ -45,10 +45,4 @@ public class MappingStreamReaderTest {
 
     assertThat(data, notNullValue());
   }
-
-  @Test(expected=IllegalArgumentException.class)
-  public void nullLoadFromStreamsTest() throws IOException{
-    streamReader.read(null);
-  }
-
 }
