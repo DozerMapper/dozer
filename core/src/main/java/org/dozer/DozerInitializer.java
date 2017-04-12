@@ -148,10 +148,13 @@ public final class DozerInitializer {
         return;
       }
 
-      try {
-        unregisterJMXBeans(new JMXPlatformImpl());
-      } catch (Throwable e) {
-        log.warn("Exception caught while disposing Dozer JMX MBeans.", e);
+      GlobalSettings globalSettings = GlobalSettings.getInstance();
+      if (globalSettings.isAutoregisterJMXBeans()) {
+        try {
+          unregisterJMXBeans(new JMXPlatformImpl());
+        } catch (Throwable e) {
+          log.warn("Exception caught while disposing Dozer JMX MBeans.", e);
+        }
       }
       isInitialized = false;
     }
