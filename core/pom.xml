@@ -29,6 +29,7 @@
   <artifactId>dozer</artifactId>
   <packaging>jar</packaging>
   <name>Dozer</name>
+  <version>5.5.1.dorsale</version>
 
   <properties>
     <osgi.version>4.3.0</osgi.version>
