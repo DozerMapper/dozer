@@ -15,6 +15,11 @@
  */
 package org.dozer.eclipse.plugin.sourcepage.hyperlink;
 
+import java.util.Set;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Node;
+
 import org.dozer.eclipse.plugin.sourcepage.util.DozerPluginUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IMethod;
@@ -37,10 +42,6 @@ import org.springframework.ide.eclipse.core.StringUtils;
 import org.springframework.ide.eclipse.core.java.Introspector;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
 import org.springframework.ide.eclipse.core.model.ISourceModelElement;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Node;
-
-import java.util.Set;
 
 public class DozerClassHyperlinkDetector extends AbstractHyperlinkDetector {
 

@@ -21,8 +21,6 @@ import org.dozer.vo.deep3.Dest;
 import org.dozer.vo.deep3.NestedDest;
 import org.junit.Test;
 
-import java.lang.reflect.Method;
-
 /**
  * GetterSetterPropertyDescriptorWithGenericSuperClassTest
  *

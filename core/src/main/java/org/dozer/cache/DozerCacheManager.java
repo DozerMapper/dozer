@@ -15,16 +15,16 @@
  */
 package org.dozer.cache;
 
-import org.dozer.util.MappingUtils;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import org.dozer.util.MappingUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Internal class that manages the Dozer caches. Only intended for internal use.

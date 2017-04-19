@@ -15,12 +15,12 @@
  */
 package org.dozer.util;
 
-import org.dozer.OptionValue;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
+import org.dozer.OptionValue;
 
 /**
  * Override mapping options at class level.

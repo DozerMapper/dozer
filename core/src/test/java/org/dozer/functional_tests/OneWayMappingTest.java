@@ -19,9 +19,10 @@ import org.dozer.Mapper;
 import org.dozer.vo.oneway.DestClass;
 import org.dozer.vo.oneway.Holder;
 import org.dozer.vo.oneway.SourceClass;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin

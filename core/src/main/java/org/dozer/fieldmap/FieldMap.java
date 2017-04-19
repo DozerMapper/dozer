@@ -15,6 +15,9 @@
  */
 package org.dozer.fieldmap;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dozer.BeanBuilder;
@@ -31,9 +34,6 @@ import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Internal class that represents a field mapping definition. Holds all of the information about a single field mapping

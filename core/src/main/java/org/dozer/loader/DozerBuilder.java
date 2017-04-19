@@ -15,17 +15,29 @@
  */
 package org.dozer.loader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-import org.dozer.classmap.*;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.Configuration;
+import org.dozer.classmap.CopyByReference;
+import org.dozer.classmap.DozerClass;
+import org.dozer.classmap.MappingDirection;
+import org.dozer.classmap.MappingFileData;
+import org.dozer.classmap.RelationshipType;
 import org.dozer.converters.CustomConverterDescription;
-import org.dozer.fieldmap.*;
+import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
+import org.dozer.fieldmap.DozerField;
+import org.dozer.fieldmap.ExcludeFieldMap;
+import org.dozer.fieldmap.FieldMap;
+import org.dozer.fieldmap.GenericFieldMap;
+import org.dozer.fieldmap.HintContainer;
+import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Builder API for achivieng the same effect as custom Xml mappings.

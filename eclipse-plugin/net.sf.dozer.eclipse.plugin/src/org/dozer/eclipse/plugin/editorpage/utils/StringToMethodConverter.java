@@ -15,12 +15,12 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import java.util.List;
+
 import org.eclipse.core.databinding.conversion.Converter;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.internal.core.SourceMethod;
 import org.eclipse.jface.viewers.Viewer;
-
-import java.util.List;
 
 public class StringToMethodConverter extends Converter {
 

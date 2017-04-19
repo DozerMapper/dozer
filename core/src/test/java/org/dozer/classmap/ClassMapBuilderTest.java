@@ -15,14 +15,14 @@
  */
 package org.dozer.classmap;
 
+import java.util.List;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * @author Dmitry Buzdin

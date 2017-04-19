@@ -15,18 +15,19 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import org.eclipse.ufacekit.core.databinding.instance.observable.ILazyObserving;
 import org.eclipse.wst.xml.core.internal.contentmodel.CMElementDeclaration;
 import org.eclipse.wst.xml.core.internal.contentmodel.CMNode;
 import org.eclipse.wst.xml.core.internal.contentmodel.modelquery.ModelQuery;
 import org.eclipse.wst.xml.core.internal.modelquery.ModelQueryUtil;
 import org.eclipse.wst.xml.ui.internal.Logger;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 abstract public class LocatedLazyObserving implements ILazyObserving {
 

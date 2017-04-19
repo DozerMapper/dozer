@@ -15,16 +15,19 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.dozer.DozerConverter;
 import org.dozer.Mapper;
 import org.dozer.vo.SimpleObj;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin

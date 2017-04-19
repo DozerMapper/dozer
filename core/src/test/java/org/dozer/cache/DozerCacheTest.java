@@ -16,9 +16,6 @@
 package org.dozer.cache;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.cache.Cache;
-import org.dozer.cache.CacheKeyFactory;
-import org.dozer.cache.DozerCache;
 import org.junit.Test;
 
 /**

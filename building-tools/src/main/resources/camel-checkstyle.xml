@@ -44,4 +44,28 @@ It also enforces a bunch of other "BestPractices like method
 lengths, if/try depths, etc...
 -->
 
-<module name="Checker"/>
+<module name="Checker">
+
+    <module name="Translation"/>
+
+    <module name="TreeWalker">
+        <!-- Checks for imports                              -->
+        <!-- See http://checkstyle.sf.net/config_import.html -->
+        <module name="AvoidStarImport">
+            <property name="excludes" value="java.io,java.util,java.net,java.nio,java.nio.channels,java.lang.reflect,org.w3c.dom,org.xml.sax,java.awt,javax.swing,junit.framework"/>
+        </module>
+        <!--
+        <module name="ConstantName"/>
+         -->
+        <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
+        <module name="RedundantImport"/>
+        <!-- When you javadoc {@link } an import is added that checkstyle thinks is unused import.
+        <module name="UnusedImports"/>
+        -->
+        <module name="ImportOrder">
+            <property name="groups" value="java,javax,org.w3c,org.xml,junit"/>
+            <property name="ordered" value="true"/>
+        </module>
+    </module>
+    <module name="SuppressionCommentFilter"/>
+</module>

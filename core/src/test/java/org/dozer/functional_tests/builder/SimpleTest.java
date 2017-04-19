@@ -15,14 +15,14 @@
  */
 package org.dozer.functional_tests.builder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Dmitry Buzdin

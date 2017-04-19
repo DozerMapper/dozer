@@ -15,13 +15,12 @@
  */
 package org.dozer.spring.functional_tests.support;
 
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.dozer.DozerEventListener;
 import org.dozer.event.DozerEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class EventTestListener implements DozerEventListener {
 

@@ -15,14 +15,14 @@
  */
 package org.dozer.classmap;
 
-import org.apache.commons.lang3.StringUtils;
-import org.dozer.util.MappingUtils;
-
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dozer.util.MappingUtils;
 
 /**
  * Internal class that determines the appropriate class mapping to be used for

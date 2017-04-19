@@ -36,6 +36,7 @@
         <bom-dependencies-version>6.0.0-SNAPSHOT</bom-dependencies-version>
 
         <!-- Maven Plugins versions; alphabetical order -->
+        <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
         <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
@@ -109,6 +110,11 @@
         <pluginManagement>
             <plugins>
                 <!-- Maven Plugins; alphabetical order -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -318,6 +324,64 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.dozer</groupId>
+                        <artifactId>building-tools</artifactId>
+                        <version>${building-tools.version}</version>
+                        <scope>compile</scope>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
+            <!-- -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.dozer</groupId>
+                        <artifactId>building-tools</artifactId>
+                        <version>${building-tools.version}</version>
+                        <scope>compile</scope>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <configLocation>camel-checkstyle.xml</configLocation>
+                            <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
+                            <consoleOutput>true</consoleOutput>
+                            <failOnViolation>true</failOnViolation>
+                            <failsOnError>true</failsOnError>
+                            <encoding>UTF-8</encoding>
+                            <sourceDirectory>${basedir}/src</sourceDirectory>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

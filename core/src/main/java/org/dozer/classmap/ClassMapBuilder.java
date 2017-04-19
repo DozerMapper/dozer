@@ -15,6 +15,15 @@
  */
 package org.dozer.classmap;
 
+import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.Mapping;
 import org.dozer.OptionValue;
@@ -32,15 +41,6 @@ import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.beans.PropertyDescriptor;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * Internal class for adding implicit field mappings to a ClassMap. Also, builds implicit ClassMap for class mappings

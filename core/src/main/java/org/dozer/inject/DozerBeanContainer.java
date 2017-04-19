@@ -15,14 +15,14 @@
  */
 package org.dozer.inject;
 
-import org.dozer.MappingException;
-import org.dozer.util.ReflectionUtils;
-
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.dozer.MappingException;
+import org.dozer.util.ReflectionUtils;
 
 /**
  * @author Dmitry Buzdin

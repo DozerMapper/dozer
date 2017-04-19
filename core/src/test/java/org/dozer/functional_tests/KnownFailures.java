@@ -15,7 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import org.junit.Assert;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.dozer.vo.CustomGetDest;
 import org.dozer.vo.CustomGetSource;
 import org.dozer.vo.MessageHeaderDTO;
@@ -26,14 +31,9 @@ import org.dozer.vo.inheritance.Outer;
 import org.dozer.vo.inheritance.Target;
 import org.dozer.vo.map.House;
 import org.dozer.vo.map.Room;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -15,16 +15,16 @@
  */
 package org.dozer.classmap.generator;
 
+import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.util.CollectionUtils;
-
-import java.lang.reflect.Field;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Provides default field mappings when either the source class, destination class or both

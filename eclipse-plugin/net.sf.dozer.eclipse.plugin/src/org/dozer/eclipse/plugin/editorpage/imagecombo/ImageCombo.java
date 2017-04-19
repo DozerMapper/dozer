@@ -15,6 +15,7 @@
  */
 package org.dozer.eclipse.plugin.editorpage.imagecombo;
 
+import java.util.Arrays;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -48,8 +49,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TypedListener;
 import org.eclipse.swt.widgets.Widget;
-
-import java.util.Arrays;
 
 /**
  * The ImageCombo class represents a selectable user interface object

@@ -15,6 +15,12 @@
  */
 package org.dozer.eclipse.plugin.sourcepage.contentassist;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+
 import org.dozer.eclipse.plugin.sourcepage.util.DozerPluginUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -44,11 +50,6 @@ import org.springframework.ide.eclipse.core.java.FlagsMethodFilter;
 import org.springframework.ide.eclipse.core.java.IMethodFilter;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
 import org.springframework.ide.eclipse.core.model.IModelElement;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DozerContentAssistProcessor extends XMLContentAssistProcessor {
 	

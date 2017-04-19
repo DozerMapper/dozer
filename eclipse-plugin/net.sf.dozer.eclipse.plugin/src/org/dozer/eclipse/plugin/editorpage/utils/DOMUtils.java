@@ -15,6 +15,10 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,10 +26,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class DOMUtils {
 

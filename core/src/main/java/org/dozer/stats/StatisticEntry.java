@@ -15,11 +15,11 @@
  */
 package org.dozer.stats;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Internal class that represents one entry in the statistic. Holds the statistic value and unique key for lookup.

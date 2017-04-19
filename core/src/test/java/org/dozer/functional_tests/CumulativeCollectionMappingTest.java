@@ -21,9 +21,10 @@ import org.dozer.vo.collections.UserGroup;
 import org.dozer.vo.collections.UserGroupImpl;
 import org.dozer.vo.collections.UserGroupPrime;
 import org.dozer.vo.collections.UserImpl;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
 

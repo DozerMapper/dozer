@@ -15,10 +15,20 @@
  */
 package org.dozer.functional_tests;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.dozer.CustomFieldMapper;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.MappingException;
 import org.dozer.functional_tests.support.SampleDefaultBeanFactory;
 import org.dozer.functional_tests.support.TestCustomFieldMapper;
 import org.dozer.util.CollectionUtils;
@@ -29,7 +39,6 @@ import org.dozer.vo.Fruit;
 import org.dozer.vo.InsideTestObject;
 import org.dozer.vo.MethodFieldTestObject;
 import org.dozer.vo.MethodFieldTestObject2;
-import org.dozer.vo.NoDefaultConstructor;
 import org.dozer.vo.NoReadMethod;
 import org.dozer.vo.NoReadMethodPrime;
 import org.dozer.vo.NoVoidSetters;
@@ -42,7 +51,6 @@ import org.dozer.vo.SimpleObjPrime;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 import org.dozer.vo.TestObjectPrime2;
-import org.dozer.vo.allowedexceptions.TestException;
 import org.dozer.vo.allowedexceptions.ThrowException;
 import org.dozer.vo.allowedexceptions.ThrowExceptionPrime;
 import org.dozer.vo.context.ContextMapping;
@@ -71,17 +79,6 @@ import org.dozer.vo.set.SomeDTO;
 import org.dozer.vo.set.SomeOtherDTO;
 import org.dozer.vo.set.SomeVO;
 import org.junit.Test;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;

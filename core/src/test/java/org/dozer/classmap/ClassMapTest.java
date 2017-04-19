@@ -18,10 +18,7 @@ package org.dozer.classmap;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.Configuration;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.junit.Before;

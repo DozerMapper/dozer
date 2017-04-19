@@ -15,12 +15,6 @@
  */
 package org.dozer.converters;
 
-import org.junit.Assert;
-import org.dozer.AbstractDozerTest;
-import org.junit.Test;
-
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -32,6 +26,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.Assert;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 

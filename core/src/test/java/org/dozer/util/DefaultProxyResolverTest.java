@@ -15,12 +15,12 @@
  */
 package org.dozer.util;
 
+import java.util.Calendar;
+
 import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Calendar;
 
 /**
  * @author Dmitry Buzdin

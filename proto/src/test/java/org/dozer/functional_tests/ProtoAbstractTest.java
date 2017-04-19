@@ -15,12 +15,12 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.util.DozerConstants;
 import org.junit.Ignore;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Dmitry Spikhalskiy

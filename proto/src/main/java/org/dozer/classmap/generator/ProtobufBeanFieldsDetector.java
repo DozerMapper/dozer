@@ -15,13 +15,14 @@
  */
 package org.dozer.classmap.generator;
 
-import com.google.protobuf.Descriptors;
-import com.google.protobuf.Message;
-import org.dozer.util.ProtoUtils;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.google.protobuf.Descriptors;
+import com.google.protobuf.Message;
+
+import org.dozer.util.ProtoUtils;
 
 /**
  * @author Dmitry Spikhalskiy

@@ -15,14 +15,18 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.HashSet;
+
 import org.dozer.vo.direction.ContentItemGroup;
 import org.dozer.vo.direction.ContentItemGroupDTO;
 import org.dozer.vo.direction.ContentItemGroupDefault;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin

@@ -15,7 +15,12 @@
  */
 package org.dozer.functional_tests;
 
+import java.math.BigInteger;
+import java.util.HashSet;
+import java.util.Set;
+
 import net.pmonks.xml.dozer.test.ChildType;
+
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.Child;
 import org.dozer.vo.GetWeatherByZipCodeDocument;
@@ -23,12 +28,11 @@ import org.dozer.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
 import org.dozer.vo.GetWeatherByZipCodeResponseDocument;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.WeatherData;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.math.BigInteger;
-import java.util.HashSet;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author tierney.matt

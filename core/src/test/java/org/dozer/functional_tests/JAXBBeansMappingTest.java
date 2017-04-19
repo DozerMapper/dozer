@@ -15,22 +15,21 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.util.MappingUtils;
-import org.dozer.vo.TestObject;
-import org.dozer.vo.jaxb.employee.EmployeeType;
-import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+
+import org.dozer.util.MappingUtils;
+import org.dozer.vo.TestObject;
+import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

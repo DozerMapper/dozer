@@ -16,7 +16,6 @@
 package org.dozer.converters;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.converters.IntegerConverter;
 import org.junit.Before;
 import org.junit.Test;
 
