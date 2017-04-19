@@ -15,17 +15,17 @@
  */
 package org.dozer.fieldmap;
 
-import org.dozer.AbstractDozerTest;
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.DozerClass;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.DozerClass;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

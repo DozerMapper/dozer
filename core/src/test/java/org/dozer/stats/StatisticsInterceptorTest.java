@@ -15,15 +15,15 @@
  */
 package org.dozer.stats;
 
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
 import java.lang.reflect.Proxy;
 
 import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author dmitry.buzdin

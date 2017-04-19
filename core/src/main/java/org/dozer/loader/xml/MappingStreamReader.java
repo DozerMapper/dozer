@@ -15,15 +15,17 @@
  */
 package org.dozer.loader.xml;
 
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+
+import org.w3c.dom.Document;
+
 import org.dozer.classmap.MappingFileData;
 import org.dozer.loader.MappingsSource;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-
-import javax.xml.parsers.DocumentBuilder;
-import java.io.InputStream;
 
 /**
  * Internal class that reads and parses a single custom mapping XML stream into

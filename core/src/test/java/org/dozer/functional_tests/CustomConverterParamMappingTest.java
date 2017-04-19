@@ -15,15 +15,18 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.StringTokenizer;
+
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.Fruit;
 import org.dozer.vo.Individual;
 import org.dozer.vo.SimpleObj;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.StringTokenizer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author johnsen.knut-erik

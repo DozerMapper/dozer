@@ -15,6 +15,11 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.dozer.functional_tests.runner.Proxied;
 import org.dozer.vo.A;
 import org.dozer.vo.Aliases;
@@ -27,15 +32,14 @@ import org.dozer.vo.Individual;
 import org.dozer.vo.Individuals;
 import org.dozer.vo.index.Mccoy;
 import org.dozer.vo.index.MccoyPrime;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author wojtek.kiersztyn

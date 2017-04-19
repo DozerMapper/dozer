@@ -15,6 +15,9 @@
  */
 package org.dozer.functional_tests.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.classmap.RelationshipType;
@@ -24,11 +27,20 @@ import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.dozer.loader.api.FieldsMappingOptions.*;
-import static org.dozer.loader.api.TypeMappingOptions.*;
+import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
+import static org.dozer.loader.api.FieldsMappingOptions.customConverter;
+import static org.dozer.loader.api.FieldsMappingOptions.customConverterId;
+import static org.dozer.loader.api.FieldsMappingOptions.deepHintA;
+import static org.dozer.loader.api.FieldsMappingOptions.deepHintB;
+import static org.dozer.loader.api.FieldsMappingOptions.hintA;
+import static org.dozer.loader.api.FieldsMappingOptions.hintB;
+import static org.dozer.loader.api.FieldsMappingOptions.removeOrphans;
+import static org.dozer.loader.api.FieldsMappingOptions.useMapId;
+import static org.dozer.loader.api.TypeMappingOptions.mapEmptyString;
+import static org.dozer.loader.api.TypeMappingOptions.mapId;
+import static org.dozer.loader.api.TypeMappingOptions.mapNull;
+import static org.dozer.loader.api.TypeMappingOptions.stopOnErrors;
+import static org.dozer.loader.api.TypeMappingOptions.trimStrings;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 

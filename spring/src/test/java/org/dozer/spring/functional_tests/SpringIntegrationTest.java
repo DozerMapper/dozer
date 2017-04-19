@@ -15,22 +15,22 @@
  */
 package org.dozer.spring.functional_tests;
 
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
+
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
 import org.dozer.spring.functional_tests.support.EventTestListener;
 import org.dozer.spring.functional_tests.support.InjectedCustomConverter;
-import org.dozer.spring.functional_tests.support.SampleBeanMappingBuilder;
 import org.dozer.spring.vo.Destination;
 import org.dozer.spring.vo.Source;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 

@@ -15,15 +15,16 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.Mapper;
 import org.dozer.MappingException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * @author dmitry.buzdin

@@ -17,6 +17,7 @@ package org.dozer.propertydescriptor;
 
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
+
 import org.dozer.BeanBuilder;
 import org.dozer.builder.ProtoBeanBuilder;
 import org.dozer.fieldmap.FieldMap;

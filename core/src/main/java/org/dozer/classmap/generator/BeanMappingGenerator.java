@@ -15,15 +15,15 @@
  */
 package org.dozer.classmap.generator;
 
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.ClassMapBuilder;
-import org.dozer.classmap.Configuration;
-import org.dozer.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.Configuration;
+import org.dozer.util.CollectionUtils;
 
 /**
 * @author Dmitry Spikhalskiy

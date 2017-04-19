@@ -16,7 +16,6 @@
 package org.dozer.functional_tests.builder;
 
 import org.dozer.DozerBeanMapper;
-import org.dozer.functional_tests.AbstractFunctionalTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -15,12 +15,12 @@
  */
 package org.dozer.loader.xml;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.dozer.classmap.MappingFileData;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;

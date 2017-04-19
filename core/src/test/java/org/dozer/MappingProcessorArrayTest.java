@@ -15,10 +15,10 @@
  */
 package org.dozer;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Date;
+
+import org.junit.Test;
 
 public class MappingProcessorArrayTest extends AbstractDozerTest {
 

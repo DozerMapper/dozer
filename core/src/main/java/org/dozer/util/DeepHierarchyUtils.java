@@ -15,12 +15,12 @@
  */
 package org.dozer.util;
 
+import java.util.Collection;
+import java.util.StringTokenizer;
+
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-
-import java.util.Collection;
-import java.util.StringTokenizer;
 
 /**
  * @author Dmitry Spikhalskiy

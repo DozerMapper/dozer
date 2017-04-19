@@ -15,12 +15,12 @@
  */
 package org.dozer.classmap;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Only intended for internal use.

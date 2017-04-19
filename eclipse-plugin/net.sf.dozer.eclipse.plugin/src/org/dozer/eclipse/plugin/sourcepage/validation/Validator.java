@@ -15,6 +15,17 @@
  */
 package org.dozer.eclipse.plugin.sourcepage.validation;
 
+import java.io.InputStream;
+import java.net.URI;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.UserDataHandler;
+
+import org.xml.sax.InputSource;
+
 import org.apache.xerces.dom.NodeImpl;
 import org.apache.xerces.parsers.DOMParser;
 import org.apache.xerces.xni.Augmentations;
@@ -35,15 +46,6 @@ import org.eclipse.wst.xml.core.internal.validation.core.NestedValidatorContext;
 import org.eclipse.wst.xml.core.internal.validation.core.ValidationInfo;
 import org.eclipse.wst.xml.core.internal.validation.core.ValidationReport;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.UserDataHandler;
-import org.xml.sax.InputSource;
-
-import java.io.InputStream;
-import java.net.URI;
 
 @SuppressWarnings("restriction")
 public class Validator extends AbstractNestedValidator {

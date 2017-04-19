@@ -16,8 +16,6 @@
 package org.dozer.functional_tests;
 
 import org.dozer.DozerBeanMapper;
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

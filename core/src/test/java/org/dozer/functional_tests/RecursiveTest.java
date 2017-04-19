@@ -19,8 +19,11 @@ import org.dozer.vo.recursive.ClassAA;
 import org.dozer.vo.recursive.ClassAAPrime;
 import org.dozer.vo.recursive.ClassB;
 import org.dozer.vo.recursive.ClassBPrime;
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test the dozer behaviour when confronted with structures similar to ours. As of now (dozer 3.0) the behaviour is not

@@ -15,15 +15,6 @@
  */
 package org.dozer.functional_tests.builder;
 
-import org.dozer.DozerBeanMapper;
-import org.dozer.classmap.RelationshipType;
-import org.dozer.functional_tests.AbstractFunctionalTest;
-import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.loader.api.FieldsMappingOptions;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,8 +24,16 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static junit.framework.Assert.assertNotSame;
+
+import org.dozer.DozerBeanMapper;
+import org.dozer.classmap.RelationshipType;
+import org.dozer.functional_tests.AbstractFunctionalTest;
+import org.dozer.loader.api.BeanMappingBuilder;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import static org.dozer.loader.api.FieldsMappingOptions.collectionStrategy;
-import static org.dozer.loader.api.TypeMappingOptions.mapId;
 import static org.junit.Assert.assertEquals;
 
 /**

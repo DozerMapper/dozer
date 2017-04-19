@@ -15,11 +15,10 @@
  */
 package org.dozer.functional_tests.support;
 
-
 import org.dozer.CustomConverter;
 import org.dozer.vo.HintedOnly;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author garsombke.franz

@@ -15,11 +15,11 @@
  */
 package org.dozer.factory;
 
+import java.lang.reflect.Method;
+
 import org.dozer.BeanFactory;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-
-import java.lang.reflect.Method;
 
 
 /**

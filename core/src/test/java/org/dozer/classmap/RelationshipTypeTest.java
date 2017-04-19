@@ -16,7 +16,6 @@
 package org.dozer.classmap;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.classmap.RelationshipType;
 import org.junit.Test;
 
 /**

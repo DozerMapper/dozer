@@ -15,12 +15,12 @@
  */
 package org.dozer.fieldmap;
 
-import static org.mockito.Mockito.mock;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
 import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * @author dmitry.buzdin

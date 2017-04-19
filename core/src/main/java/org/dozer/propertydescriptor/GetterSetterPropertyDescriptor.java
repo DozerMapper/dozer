@@ -15,6 +15,11 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Array;
+import java.lang.reflect.Method;
+import java.util.Collection;
+
 import org.dozer.MappingException;
 import org.dozer.factory.BeanCreationDirective;
 import org.dozer.factory.DestBeanCreator;
@@ -27,11 +32,6 @@ import org.dozer.util.ReflectionUtils;
 import org.dozer.util.TypeResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
-import java.util.Collection;
 
 
 /**

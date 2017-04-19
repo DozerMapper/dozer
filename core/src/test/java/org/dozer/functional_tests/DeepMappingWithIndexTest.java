@@ -15,6 +15,10 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Vector;
+
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.TestObject;
@@ -23,20 +27,24 @@ import org.dozer.vo.deep.DestDeepObj;
 import org.dozer.vo.deep.SrcDeepObj;
 import org.dozer.vo.deep.SrcNestedDeepObj;
 import org.dozer.vo.deep.SrcNestedDeepObj2;
-import org.dozer.vo.deepindex.*;
+import org.dozer.vo.deepindex.A;
+import org.dozer.vo.deepindex.B;
+import org.dozer.vo.deepindex.Family;
+import org.dozer.vo.deepindex.HeadOfHouseHold;
+import org.dozer.vo.deepindex.HeadOfHouseHolds;
+import org.dozer.vo.deepindex.HeadOfHouseHoldsContainer;
+import org.dozer.vo.deepindex.PersonalDetails;
+import org.dozer.vo.deepindex.Pet;
 import org.dozer.vo.deepindex.customconverter.First;
 import org.dozer.vo.deepindex.customconverter.Last;
 import org.dozer.vo.deepindex.isaccessible.FlatPerson;
 import org.dozer.vo.deepindex.isaccessible.Person;
 import org.dozer.vo.deepindex.isaccessible.Phone;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Vector;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author tierney.matt

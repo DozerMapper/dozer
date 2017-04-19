@@ -15,17 +15,20 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Arrays;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.vo.proto.LiteTestObject;
 import org.dozer.vo.proto.LiteTestObjectContainer;
 import org.dozer.vo.proto.ObjectWithCollection;
-import org.dozer.vo.proto.ProtoTestObjects.*;
+import org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject;
+import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection;
+import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer;
+import org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Dmitry Spikhalskiy

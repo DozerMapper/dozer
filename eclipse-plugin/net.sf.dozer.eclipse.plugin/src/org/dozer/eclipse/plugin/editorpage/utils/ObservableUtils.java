@@ -15,14 +15,15 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import org.eclipse.core.databinding.observable.IObserving;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.ufacekit.core.databinding.instance.IInstanceObservedContainer;
 import org.eclipse.ufacekit.core.databinding.instance.InstanceObservables;
 import org.eclipse.ufacekit.core.databinding.instance.observable.ILazyObserving;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 public class ObservableUtils {
 

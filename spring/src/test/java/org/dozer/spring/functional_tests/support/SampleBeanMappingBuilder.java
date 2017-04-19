@@ -19,7 +19,7 @@ import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.spring.vo.Destination;
 import org.dozer.spring.vo.Source;
 
-import static org.dozer.loader.api.FieldsMappingOptions.*;
+import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
 
 /**
  * @author Maurus Cuelenaere

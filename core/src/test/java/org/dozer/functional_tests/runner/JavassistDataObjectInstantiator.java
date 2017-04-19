@@ -15,14 +15,15 @@
  */
 package org.dozer.functional_tests.runner;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
 import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyFactory;
+
 import org.dozer.MappingException;
 import org.dozer.functional_tests.DataObjectInstantiator;
 import org.dozer.util.MappingUtils;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 
 public class JavassistDataObjectInstantiator implements DataObjectInstantiator {
 

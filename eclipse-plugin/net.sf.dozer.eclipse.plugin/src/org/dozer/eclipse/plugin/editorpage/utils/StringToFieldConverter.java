@@ -15,12 +15,12 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import java.util.List;
+
 import org.eclipse.core.databinding.conversion.Converter;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.internal.core.SourceField;
 import org.eclipse.jface.viewers.Viewer;
-
-import java.util.List;
 
 public class StringToFieldConverter extends Converter {
 

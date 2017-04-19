@@ -15,10 +15,11 @@
  */
 package org.dozer.loader.xml;
 
+import org.xml.sax.InputSource;
+
 import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.InputSource;
 
 /**
  * @author Dmitry Buzdin

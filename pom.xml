@@ -96,6 +96,8 @@
         <maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <license-maven-plugin.version>3.0</license-maven-plugin.version>
+
+        <building-tools.version>6.0.0-SNAPSHOT</building-tools.version>
     </properties>
 
     <build>

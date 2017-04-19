@@ -15,11 +15,9 @@
  */
 package org.dozer.loader.api;
 
-import junit.framework.TestCase;
 import org.dozer.loader.DozerBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-
 
 import static org.dozer.loader.api.FieldsMappingOptions.hintA;
 import static org.mockito.Mockito.mock;

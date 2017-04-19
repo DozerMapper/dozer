@@ -20,13 +20,13 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dozer.functional_tests.DataObjectInstantiator;
-import org.dozer.util.MappingUtils;
-
 import net.sf.cglib.proxy.Dispatcher;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
+
+import org.dozer.functional_tests.DataObjectInstantiator;
+import org.dozer.util.MappingUtils;
 
 /**
  * Quick and dirty class used to create test data objects that are wrapped with a proxy.  Right now use CGLIB to proxy

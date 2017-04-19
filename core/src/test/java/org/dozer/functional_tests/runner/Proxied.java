@@ -15,12 +15,12 @@
  */
 package org.dozer.functional_tests.runner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.runner.Runner;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Dmitry Buzdin

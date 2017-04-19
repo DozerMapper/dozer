@@ -15,19 +15,11 @@
  */
 package org.dozer.functional_tests;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.dozer.DozerBeanMapper;
 import org.dozer.MappingException;
 import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.vo.map.SimpleObjPrime;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author dmitry.buzdin

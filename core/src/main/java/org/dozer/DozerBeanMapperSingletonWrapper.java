@@ -15,10 +15,10 @@
  */
 package org.dozer;
 
-import org.dozer.util.DozerConstants;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.dozer.util.DozerConstants;
 
 
 /**

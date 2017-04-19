@@ -15,13 +15,13 @@
  */
 package org.dozer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.vo.A;
 import org.dozer.vo.B;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Dmitry Spikhalskiy

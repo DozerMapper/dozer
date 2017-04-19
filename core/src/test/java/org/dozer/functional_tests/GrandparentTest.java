@@ -17,10 +17,11 @@ package org.dozer.functional_tests;
 
 import org.dozer.vo.excluded.TwoA;
 import org.dozer.vo.excluded.TwoB;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin

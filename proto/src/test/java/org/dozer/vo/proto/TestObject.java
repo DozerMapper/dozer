@@ -15,10 +15,6 @@
  */
 package org.dozer.vo.proto;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.*;
-
 /**
  * @author garsombke.franz
  * @author sullins.ben

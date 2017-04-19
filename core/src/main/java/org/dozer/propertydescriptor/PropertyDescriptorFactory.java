@@ -15,13 +15,13 @@
  */
 package org.dozer.propertydescriptor;
 
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.util.DozerConstants;
-import org.dozer.util.MappingUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.dozer.fieldmap.HintContainer;
+import org.dozer.util.DozerConstants;
+import org.dozer.util.MappingUtils;
 
 /**
  * Internal factory responsible for determining which property descriptor should

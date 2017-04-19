@@ -16,7 +16,6 @@
 package org.dozer.cache;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.cache.CacheEntry;
 import org.junit.Test;
 
 /**

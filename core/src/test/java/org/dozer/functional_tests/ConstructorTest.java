@@ -15,19 +15,24 @@
  */
 package org.dozer.functional_tests;
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
-import org.dozer.DozerBeanMapper;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNotSame;
+
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+
+import org.dozer.DozerBeanMapper;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
+
+
 
 /**
  * @author Dmitry Buzdin

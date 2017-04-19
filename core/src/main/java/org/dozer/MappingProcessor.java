@@ -15,9 +15,6 @@
  */
 package org.dozer;
 
-import static org.dozer.util.DozerConstants.BASE_CLASS;
-import static org.dozer.util.DozerConstants.ITERATE;
-
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -70,6 +67,9 @@ import org.dozer.util.MappingValidator;
 import org.dozer.util.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.dozer.util.DozerConstants.BASE_CLASS;
+import static org.dozer.util.DozerConstants.ITERATE;
 
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.

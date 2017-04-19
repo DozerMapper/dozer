@@ -20,9 +20,12 @@ import org.dozer.vo.runtimesubclass.SpecialUserGroupPrime;
 import org.dozer.vo.runtimesubclass.User;
 import org.dozer.vo.runtimesubclass.UserGroup;
 import org.dozer.vo.runtimesubclass.UserPrime;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin

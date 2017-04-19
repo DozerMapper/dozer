@@ -15,11 +15,12 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+
 import org.dozer.DozerBeanMapper;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin

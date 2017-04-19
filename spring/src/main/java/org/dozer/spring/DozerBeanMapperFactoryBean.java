@@ -15,7 +15,19 @@
  */
 package org.dozer.spring;
 
-import org.dozer.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.dozer.BeanFactory;
+import org.dozer.CustomConverter;
+import org.dozer.CustomFieldMapper;
+import org.dozer.DozerBeanMapper;
+import org.dozer.DozerEventListener;
+import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
@@ -24,13 +36,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Public Spring FactoryBean that can be used by application code.

@@ -15,16 +15,16 @@
  */
 package org.dozer.functional_tests.builder;
 
+import java.io.File;
+import java.math.BigDecimal;
+import java.net.URL;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.net.URL;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.sameInstance;

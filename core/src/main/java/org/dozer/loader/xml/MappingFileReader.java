@@ -15,6 +15,10 @@
  */
 package org.dozer.loader.xml;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import org.dozer.classmap.MappingFileData;
 import org.dozer.config.BeanContainer;
 import org.dozer.loader.MappingsSource;
@@ -22,10 +26,6 @@ import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 /**
  * Internal class that reads and parses a single custom mapping xml file into raw ClassMap objects. Only intended for

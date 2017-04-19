@@ -15,14 +15,15 @@
  */
 package org.dozer.loader.xml;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import org.dozer.AbstractDozerTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Dmitry Buzdin

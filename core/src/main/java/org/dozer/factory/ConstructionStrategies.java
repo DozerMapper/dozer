@@ -33,7 +33,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.commons.lang3.StringUtils;
 import org.dozer.BeanFactory;
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;

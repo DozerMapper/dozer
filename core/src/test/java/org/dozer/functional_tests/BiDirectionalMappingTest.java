@@ -22,9 +22,10 @@ import org.dozer.vo.LoopObjectParent;
 import org.dozer.vo.LoopObjectParentPrime;
 import org.dozer.vo.bidirectional.A;
 import org.dozer.vo.bidirectional.B;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 /**
  * @author tierney.matt

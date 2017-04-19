@@ -21,16 +21,18 @@ import java.util.List;
 import org.dozer.DozerBeanMapper;
 import org.dozer.MappingException;
 import org.dozer.vo.abstractinheritance.A;
-import org.dozer.vo.abstractinheritance.AbstractAContainer;
 import org.dozer.vo.abstractinheritance.AbstractA;
-import org.dozer.vo.abstractinheritance.AbstractB;
 import org.dozer.vo.abstractinheritance.AbstractACollectionContainer;
-import org.dozer.vo.abstractinheritance.B;
-import org.dozer.vo.abstractinheritance.AbstractBContainer;
+import org.dozer.vo.abstractinheritance.AbstractAContainer;
+import org.dozer.vo.abstractinheritance.AbstractB;
 import org.dozer.vo.abstractinheritance.AbstractBCollectionContainer;
-
-import static org.junit.Assert.*;
+import org.dozer.vo.abstractinheritance.AbstractBContainer;
+import org.dozer.vo.abstractinheritance.B;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for data objects that have Abstract Class(s) in their object hierarchy

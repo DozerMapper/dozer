@@ -15,20 +15,21 @@
  */
 package org.dozer.loader.xml;
 
-import javax.el.ExpressionFactory;
-import javax.el.CompositeELResolver;
-import javax.el.ArrayELResolver;
-import javax.el.ListELResolver;
-import javax.el.MapELResolver;
-import javax.el.BeanELResolver;
-import javax.el.ELContext;
-import javax.el.ValueExpression;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.reflect.Method;
+
+import javax.el.ArrayELResolver;
+import javax.el.BeanELResolver;
+import javax.el.CompositeELResolver;
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.el.ExpressionFactory;
+import javax.el.FunctionMapper;
+import javax.el.ListELResolver;
+import javax.el.MapELResolver;
+import javax.el.ValueExpression;
+import javax.el.VariableMapper;
 
 /**
  * @author Dmitry Buzdin

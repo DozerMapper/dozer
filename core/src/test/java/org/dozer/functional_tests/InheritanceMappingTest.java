@@ -15,6 +15,9 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.SerializationUtils;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -50,11 +53,12 @@ import org.dozer.vo.km.Property;
 import org.dozer.vo.km.PropertyB;
 import org.dozer.vo.km.SomeVo;
 import org.dozer.vo.km.Super;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author tierney.matt

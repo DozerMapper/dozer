@@ -15,6 +15,9 @@
  */
 package org.dozer.eclipse.plugin.editorpage.pages;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import org.dozer.eclipse.plugin.DozerPlugin;
 import org.dozer.eclipse.plugin.editorpage.DozerFormEditor;
 import org.dozer.eclipse.plugin.editorpage.Messages;
@@ -38,7 +41,6 @@ import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -54,8 +56,6 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 public class DozerConfigurationEditorPage extends FormPage {
 

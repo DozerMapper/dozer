@@ -15,18 +15,23 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.dozer.vo.A;
 import org.dozer.vo.B;
 import org.dozer.vo.set.NamesArray;
 import org.dozer.vo.set.NamesList;
 import org.dozer.vo.set.NamesSet;
 import org.junit.Assert;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin

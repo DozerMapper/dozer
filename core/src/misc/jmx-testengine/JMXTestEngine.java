@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.util.DozerConstants;
 import org.dozer.functional_tests.NoProxyDataObjectInstantiator;
 import org.dozer.functional_tests.support.TestDataFactory;
+import org.dozer.util.DozerConstants;
 import org.dozer.vo.ArrayCustConverterObj;
 import org.dozer.vo.ArrayCustConverterObjPrime;
 import org.dozer.vo.SimpleObj;

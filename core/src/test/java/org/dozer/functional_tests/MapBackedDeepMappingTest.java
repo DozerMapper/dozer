@@ -15,12 +15,15 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.HashMap;
+
 import org.dozer.vo.DeepObject;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Dmitry Buzdin

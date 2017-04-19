@@ -15,11 +15,11 @@
  */
 package org.dozer.osgi;
 
+import java.net.URL;
+
 import org.dozer.MappingException;
 import org.dozer.util.DozerClassLoader;
 import org.osgi.framework.BundleContext;
-
-import java.net.URL;
 
 /**
  * @author Dmitry Buzdin

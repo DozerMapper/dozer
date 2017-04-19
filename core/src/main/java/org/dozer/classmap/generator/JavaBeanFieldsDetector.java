@@ -15,11 +15,11 @@
  */
 package org.dozer.classmap.generator;
 
-import org.dozer.util.ReflectionUtils;
-
 import java.beans.PropertyDescriptor;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.dozer.util.ReflectionUtils;
 
 /**
  * @author Dmitry Spikhalskiy

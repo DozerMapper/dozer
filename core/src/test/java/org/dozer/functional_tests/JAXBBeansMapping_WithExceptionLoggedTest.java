@@ -15,13 +15,14 @@
  */
 package org.dozer.functional_tests;
 
+import static junit.framework.Assert.assertTrue;
+
 import org.dozer.vo.jaxb.employee.EmployeeType;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
