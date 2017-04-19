@@ -1,8 +1,10 @@
 <a href="http://dozer.sf.net"><img src="http://dozer.sourceforge.net/images/dozer.png" alt="Dozer" width="58" height="42"></a>
 
-[![Build Status](https://api.travis-ci.org/DozerMapper/dozer.png)](https://travis-ci.org/DozerMapper/dozer)
-[![Dependency Status](https://www.versioneye.com/user/projects/5325a858ec137554460002e1/badge.png)](https://www.versioneye.com/user/projects/5325a858ec137554460002e1)
-[ ![Download](https://api.bintray.com/packages/buzdin/dozer-mapper/dozer/images/download.png) ](https://bintray.com/buzdin/dozer-mapper/dozer/_latestVersion)
+[![Build Status](https://travis-ci.org/DozerMapper/dozer.svg?branch=master)](https://travis-ci.org/DozerMapper/dozer)
+[![Dependency Status](https://www.versioneye.com/java/net.sf.dozer:dozer/badge?style=flat-square)](https://www.versioneye.com/java/net.sf.dozer:dozer)
+[![Release Version](https://img.shields.io/maven-central/v/net.sf.dozer/dozer.svg?maxAge=2592000)](https://mvnrepository.com/artifact/net.sf.dozer/dozer)
+[![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
+
 ================================
 
 Looking for HELP
