@@ -26,6 +26,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -172,6 +174,18 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     assertEquals("org.dozer.util.ReflectionUtilsTest$ClassInheritsClassX", propertyDescriptor.getReadMethod().getReturnType().getName());
   }
 
+  @Test
+  public void shouldDetermineGenericTypeForSimpleGenericType() throws Exception {
+    Class<?> clazz = ReflectionUtils.determineGenericsType(ClassWithGenericFields.class.getField("simpleGenericListString").getGenericType());
+    assertEquals("java.lang.String", clazz.getCanonicalName());
+  }
+
+  @Test
+  public void shouldDetermineGenericTypeForNestedGenericType() throws Exception {
+    Class<?> clazz = ReflectionUtils.determineGenericsType(ClassWithGenericFields.class.getField("nestedGenericListMapStringString").getGenericType());
+    assertEquals("java.util.Map", clazz.getCanonicalName());
+  }
+
   public class Y implements HasX<ClassInheritsClassX> {
     private ClassInheritsClassX x;
 
@@ -189,6 +203,11 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   public interface HasX<X extends ClassX> {
     void setX(X x);
     X getX();
+  }
+
+  public class ClassWithGenericFields {
+    public List<String> simpleGenericListString;
+    public List<Map<String, String>> nestedGenericListMapStringString;
   }
 
   public class ClassInheritsClassX extends ClassX {
