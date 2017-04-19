@@ -32,10 +32,10 @@
 
       <section name="Release Notes">
 
-        <h3>5.5.1 <font size="-3" color="gray"><i>22/04/2014</i></font></h3>
+        <h3>5.5.1 <font size="-3" color="gray"><i>2014-04-22</i></font></h3>
         <p><a href="https://github.com/DozerMapper/dozer/issues?milestone=3&amp;state=closed">Release Notes on GitHub</a></p>
 
-        <h3>5.4.0 <font size="-3" color="gray"><i>12/01/2012</i></font></h3>
+        <h3>5.4.0 <font size="-3" color="gray"><i>2012-12-01</i></font></h3>
         <p>Bug Fixes</p>
 
         <ul>
@@ -58,7 +58,7 @@
           <li>Load mappings via InputStream <a href="https://github.com/DozerMapper/dozer/pull/2">link</a></li>
         </ul>
 
-<h3>5.3.2 <font size="-3" color="gray"><i>02/15/2011</i></font></h3>
+<h3>5.3.2 <font size="-3" color="gray"><i>2011-02-15</i></font></h3>
 <p>Bug Fixes</p>
 
 <ul>
@@ -81,7 +81,7 @@
 </ul>
 
 
-<h3>5.3.1 <font size="-3" color="gray"><i>11/15/2010</i></font></h3>
+<h3>5.3.1 <font size="-3" color="gray"><i>2010-11-15</i></font></h3>
 <p>Bug Fixes</p>
 
 <ul>
@@ -95,7 +95,7 @@
 <li>Apache Camel Integration Improvement <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=3022810&amp;group_id=133517&amp;atid=727371">link</a></li>
 </ul>
 
-<h3>5.3.0 <font size="-3" color="gray"><i>10/10/2010</i></font></h3>
+<h3>5.3.0 <font size="-3" color="gray"><i>2010-10-10</i></font></h3>
 <p>Bug Fixes</p>
 
 <ul>
@@ -125,7 +125,7 @@
 </ul>
 
 
-<h3>5.2.2 <font size="-3" color="gray"><i>6/9/2010</i></font></h3>
+<h3>5.2.2 <font size="-3" color="gray"><i>2010-06-09</i></font></h3>
 <p>Bug Fixes</p>
 
 <ul>
@@ -146,7 +146,7 @@
 <li>Improve debug logging <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2999898&amp;group_id=133517&amp;atid=727371">link</a></li>
 </ul>
 
-          <h3>5.2.1 <font size="-3" color="gray"><i>4/28/2010</i></font></h3>
+          <h3>5.2.1 <font size="-3" color="gray"><i>2010-04-28</i></font></h3>
           <p>Bug Fixes</p>
             <ul>
               <li>Forgotten Custom Converter Parameter in Map-backed Mappings
@@ -177,7 +177,7 @@
             </ul>
 
 
-      <h3>5.2.0 <font size="-3" color="gray"><i>1/24/2010</i></font></h3>
+      <h3>5.2.0 <font size="-3" color="gray"><i>2010-01-24</i></font></h3>
       <p>Bug Fixes</p>
         <ul>
           <li>Failing Top Level Mapping (this -> this)
@@ -231,7 +231,7 @@
           </li>
         </ul>
 
-      <h3>5.1 <font size="-3" color="gray"><i>8/25/2009</i></font></h3>
+      <h3>5.1 <font size="-3" color="gray"><i>2009-08-25</i></font></h3>
       <p>Bug Fixes</p>
         <ul>
           <li>JAXBBeanFactory can not create bean for nested type
@@ -284,7 +284,7 @@
 
       <h3>5.0
         <font size="-3" color="gray">
-          <i>3/3/2009</i>
+          <i>2009-03-03</i>
         </font>
       </h3>
       <p>Migration Guide</p>
@@ -465,7 +465,7 @@
 
       <h3>4.4.1
         <font size="-3" color="gray">
-          <i>1/31/2009</i>
+          <i>2009-01-31</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -479,7 +479,7 @@
 
       <h3>4.4
         <font size="-3" color="gray">
-          <i>12/27/2008</i>
+          <i>2008-12-27</i>
         </font>
       </h3>
       <p>Bug Fixes and Patches</p>
@@ -555,7 +555,7 @@
         </ul>
       <h3>4.3
         <font size="-3" color="gray">
-          <i>12/03/2008</i>
+          <i>2008-12-03</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -651,7 +651,7 @@
         </ul>
       <h3>4.2.1
         <font size="-3" color="gray">
-          <i>6/22/2008</i>
+          <i>2008-06-22</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -665,7 +665,7 @@
 
       <h3>4.2
         <font size="-3" color="gray">
-          <i>12/16/2007</i>
+          <i>2007-12-16</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -718,7 +718,7 @@
         </ul>
       <h3>4.1
         <font size="-3" color="gray">
-          <i>09/22/2007</i>
+          <i>2007-09-22</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -799,7 +799,7 @@
         </ul>
       <h3>4.0
         <font size="-3" color="gray">
-          <i>07/15/2007</i>
+          <i>2007-07-15</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -911,7 +911,7 @@
 
       <h3>3.4
         <font size="-3" color="gray">
-          <i>05/19/2007</i>
+          <i>2007-05-19</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -993,7 +993,7 @@
 
       <h3>3.3.1
         <font size="-3" color="gray">
-          <i>04/28/2007</i>
+          <i>2007-04-28</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -1007,7 +1007,7 @@
 
       <h3>3.3
         <font size="-3" color="gray">
-          <i>04/26/2007</i>
+          <i>2007-04-26</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -1064,12 +1064,12 @@
 
       <h3>3.2.1
         <font size="-3" color="gray">
-          <i>04/08/2007</i>
+          <i>2007-04-08</i>
         </font>
       </h3>
       <p>Feature Requests</p>
         <ul>
-          <li>Boolean to number auto converstion
+          <li>Boolean to number auto conversion
             <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1695408&amp;group_id=133517&amp;atid=727371">
               1695408
             </a>
@@ -1088,7 +1088,7 @@
 
       <h3>3.2
         <font size="-3" color="gray">
-          <i>04/03/2007</i>
+          <i>2007-04-03</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -1154,7 +1154,7 @@
         </ul>
       <h3>3.1
         <font size="-3" color="gray">
-          <i>03/25/2007</i>
+          <i>2007-03-25</i>
         </font>
       </h3>
       <p>Patches</p>
@@ -1198,7 +1198,7 @@
         </ul>
       <h3>3.0
         <font size="-3" color="gray">
-          <i>02/08/2007</i>
+          <i>2007-02-08</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -1295,7 +1295,7 @@
 
       <h3>2.4
         <font size="-3" color="gray">
-          <i>10/14/2006</i>
+          <i>2006-10-14</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -1356,7 +1356,7 @@
         </ul>
       <h3>2.3
         <font size="-3" color="gray">
-          <i>09/01/2006</i>
+          <i>2006-09-01</i>
         </font>
       </h3>
       <p>Bug Fixes</p>
@@ -1462,7 +1462,7 @@
         </ul>
       <h3>2.2
         <font size="-3" color="gray">
-          <i>04/29/2006</i>
+          <i>2006-04-29</i>
         </font>
       </h3>
         <ul>
@@ -1534,7 +1534,7 @@
         </ul>
       <h3>2.1.1
         <font size="-3" color="gray">
-          <i>04/18/2006</i>
+          <i>2006-04-18</i>
         </font>
       </h3>
         <ul>
@@ -1542,7 +1542,7 @@
         </ul>
       <h3>2.1
         <font size="-3" color="gray">
-          <i>03/15/2006</i>
+          <i>2006-03-15</i>
         </font>
       </h3>
         <ul>
@@ -1585,7 +1585,7 @@
         </ul>
       <h3>2.0.2
         <font size="-3" color="gray">
-          <i>02/29/2006</i>
+          <i>2006-02-29</i>
         </font>
       </h3>
         <ul>
@@ -1603,7 +1603,7 @@
         </ul>
       <h3>2.0.1
         <font size="-3" color="gray">
-          <i>02/02/2006</i>
+          <i>2006-02-02</i>
         </font>
       </h3>
         <ul>
@@ -1641,7 +1641,7 @@
         </ul>
       <h3>2.0
         <font size="-3" color="gray">
-          <i>01/16/2006</i>
+          <i>2006-01-16</i>
         </font>
       </h3>
         <ul>
@@ -1693,7 +1693,7 @@
         </ul>
       <h3>1.5.8.1
         <font size="-3" color="gray">
-          <i>12/08/2005</i>
+          <i>2005-12-08</i>
         </font>
       </h3>
         <ul>
@@ -1743,7 +1743,7 @@
         </ul>
       <h3>1.5.8
         <font size="-3" color="gray">
-          <i>11/29/2005</i>
+          <i>2005-11-29</i>
         </font>
       </h3>
         <ul>
@@ -1785,7 +1785,7 @@
         </ul>
       <h3>1.5.7
         <font size="-3" color="gray">
-          <i>11/15/2005</i>
+          <i>2005-11-15</i>
         </font>
       </h3>
         <ul>
@@ -1839,7 +1839,7 @@
         </ul>
       <h3>1.5.6
         <font size="-3" color="gray">
-          <i>10/30/2005</i>
+          <i>2005-10-30</i>
         </font>
       </h3>
         <ul>
@@ -1891,7 +1891,7 @@
         </ul>
       <h3>1.5.5
         <font size="-3" color="gray">
-          <i>10/13/2005</i>
+          <i>2005-10-13</i>
         </font>
       </h3>
         <ul>
@@ -1927,7 +1927,7 @@
         </ul>
       <h3>1.5.4
         <font size="-3" color="gray">
-          <i>09/20/2005</i>
+          <i>2005-09-20</i>
         </font>
       </h3>
         <ul>
@@ -1942,7 +1942,7 @@
         </ul>
       <h3>1.5.3
         <font size="-3" color="gray">
-          <i>09/16/2005</i>
+          <i>2005-09-16</i>
         </font>
       </h3>
         <ul>
@@ -1957,19 +1957,19 @@
         </ul>
       <h3>1.5.2
         <font size="-3" color="gray">
-          <i>09/14/2005</i>
+          <i>2005-09-14</i>
         </font>
       </h3>
         <ul>
           <li>Added support for multiple source and destination hints in Collection and Array mapping</li>
-          <li>Fixed Mapping iheritance
+          <li>Fixed Mapping inheritance
             <a href="http://sourceforge.net/forum/forum.php?thread_id=1340715&amp;forum_id=452530">issue(s)</a>
           </li>
           <li>Iterate type methods can now return an Iterator for their get() method.</li>
         </ul>
       <h3>1.5.1
         <font size="-3" color="gray">
-          <i>09/07/2005</i>
+          <i>2005-09-07</i>
         </font>
       </h3>
         <ul>
@@ -1984,7 +1984,7 @@
         </ul>
       <h3>1.5.0.1
         <font size="-3" color="gray">
-          <i>08/31/2005</i>
+          <i>2005-08-31</i>
         </font>
       </h3>
         <ul>
@@ -1994,7 +1994,7 @@
         </ul>
       <h3>1.5.0
         <font size="-3" color="gray">
-          <i>08/30/2005</i>
+          <i>2005-08-30</i>
         </font>
       </h3>
         <ul>
@@ -2012,7 +2012,7 @@
         </ul>
       <h3>1.4.6
         <font size="-3" color="gray">
-          <i>08/19/2005</i>
+          <i>2005-08-19</i>
         </font>
       </h3>
         <ul>
@@ -2034,7 +2034,7 @@
         </ul>
       <h3>1.4.5
         <font size="-3" color="gray">
-          <i>08/18/2005</i>
+          <i>2005-08-18</i>
         </font>
       </h3>
         <ul>
@@ -2050,7 +2050,7 @@
         </ul>
       <h3>1.4.4
         <font size="-3" color="gray">
-          <i>08/16/2005</i>
+          <i>2005-08-16</i>
         </font>
       </h3>
         <ul>
@@ -2062,7 +2062,7 @@
         </ul>
       <h3>1.4.3
         <font size="-3" color="gray">
-          <i>08/15/2005</i>
+          <i>2005-08-15</i>
         </font>
       </h3>
         <ul>
@@ -2081,7 +2081,7 @@
         </ul>
       <h3>1.4.2
         <font size="-3" color="gray">
-          <i>08/10/2005</i>
+          <i>2005-08-10</i>
         </font>
       </h3>
         <ul>
@@ -2089,7 +2089,7 @@
         </ul>
       <h3>1.4.1
         <font size="-3" color="gray">
-          <i>07/28/2005</i>
+          <i>2005-07-28</i>
         </font>
       </h3>
         <ul>
@@ -2098,7 +2098,7 @@
         </ul>
       <h3>1.4
         <font size="-3" color="gray">
-          <i>07/11/2005</i>
+          <i>2005-07-11</i>
         </font>
       </h3>
         <ul>
@@ -2111,7 +2111,7 @@
         </ul>
       <h3>1.3.3
         <font size="-3" color="gray">
-          <i>06/07/2005</i>
+          <i>2005-06-07</i>
         </font>
       </h3>
         <ul>
@@ -2120,7 +2120,7 @@
         </ul>
       <h3>1.3.2
         <font size="-3" color="gray">
-          <i>06/03/2005</i>
+          <i>2005-06-03</i>
         </font>
       </h3>
         <ul>
@@ -2129,7 +2129,7 @@
         </ul>
       <h3>1.3.1
         <font size="-3" color="gray">
-          <i>06/02/2005</i>
+          <i>2005-06-02</i>
         </font>
       </h3>
         <ul>
@@ -2139,7 +2139,7 @@
         </ul>
       <h3>1.3
         <font size="-3" color="gray">
-          <i>06/01/2005</i>
+          <i>2005-06-01</i>
         </font>
       </h3>
         <ul>
@@ -2164,7 +2164,7 @@
         </ul>
       <h3>1.2
         <font size="-3" color="gray">
-          <i>05/03/2005</i>
+          <i>2005-05-03</i>
         </font>
       </h3>
         <ul>
@@ -2184,7 +2184,7 @@
         </ul>
       <h3>1.1
         <font size="-3" color="gray">
-          <i>04/06/2005</i>
+          <i>2005-04-06</i>
         </font>
       </h3>
         <ul>

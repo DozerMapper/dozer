@@ -23,15 +23,15 @@ import java.lang.reflect.Method;
 
 
 /**
- * Public custom bean factory that can be used by applition code when mapping XMLBean data objects
- * 
+ * Public custom bean factory that can be used by application code when mapping XMLBean data objects
+ *
  * @author garsombke.franz
  */
 public class XMLBeanFactory implements BeanFactory {
-  private static final Class<?>[] emptyArglist = new Class[0];
+  private static final Class<?>[] emptyArgList = new Class[0];
   /**
    * Creat a bean implementation of a xml bean interface.
-   * 
+   *
    * @param srcObj
    *          The source object
    * @param srcObjClass
@@ -55,11 +55,11 @@ public class XMLBeanFactory implements BeanFactory {
     }
     Method newInstanceMethod = null;
     try {
-      newInstanceMethod = ReflectionUtils.getMethod(factory, "newInstance", emptyArglist);
+      newInstanceMethod = ReflectionUtils.getMethod(factory, "newInstance", emptyArgList);
     } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
-    result = ReflectionUtils.invoke(newInstanceMethod, null, emptyArglist);
+    result = ReflectionUtils.invoke(newInstanceMethod, null, emptyArgList);
     return result;
   }
 }
