@@ -1,0 +1,8 @@
+== Logging
+The logging facade framework in Dozer is link:http://www.slf4j.org/[SLF4J].
+It replaced Commons Logging, which was used in project previously until
+version 5.3.
+
+Please refer to link:http://www.slf4j.org/docs.html[SLF4J Documentation] for
+more information on setting up and configuring different logging
+implementations.

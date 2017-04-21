@@ -1,0 +1,97 @@
+== Global Configuration
+The configuration block is used to set the global default settings.
+Also, any Custom Converters are defined in this section. The
+configuration block is entirely "optional".
+
+Dozer supports the ability to have multiple mapping files, but only one
+global configuration across the multiple mapping files. We recommend
+having a separate mapping xml file for specifying the single global
+configuration. *Implicit mappings will inherit the default values for
+configuration.*
+
+The following is the sample configuration block:
+
+[source,xml,prettyprint]
+----
+<configuration>
+    <date-format>MM/dd/yyyy HH:mm</date-format>
+    <stop-on-errors>true</stop-on-errors>
+    <wildcard>true</wildcard>
+    <trim-strings>false</trim-strings>
+    <custom-converters>
+        <!-- these are always bi-directional -->
+        <converter type="org.dozer.converters.TestCustomConverter">
+            <class-a>org.dozer.vo.TestCustomConverterObject</class-a>
+            <class-b>another.type.to.Associate</class-b>
+        </converter>
+    </custom-converters>
+</configuration>
+----
+
+=== Overriding Wildcards
+Each individual mapping section can set its own wildcard policy even if
+there is a global wildcard policy defined using the configuration block.
+For example, the following mapping does not allow wildcards:
+
+[source,xml,prettyprint]
+----
+<mapping wildcard="false">
+    <class-a>org.dozer.vo.SpringBean</class-a>
+    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <field>
+        <a>anAttributeToMap</a>
+        <b>anAttributeToMapPrime</b>
+    </field>
+</mapping>
+----
+
+=== Overriding Date Format
+The same is true for date format values. Each individual mapping section
+can set its own date format rules. For example:
+
+[source,xml,prettyprint]
+----
+<!-- Override top level date format default  -->
+<mapping date-format="MM-dd-yyyy HH:mm:ss">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <field>
+        <a>one</a>
+        <b>onePrime</b>
+    </field>
+</mapping>
+----
+
+=== Overriding Error Handling
+You can override the error handling policy for a particular mapping. For
+example:
+
+[source,xml,prettyprint]
+----
+<!-- Override top level defaults -->
+<mapping stop-on-errors="false">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <field>
+        <a>one</a>
+        <b>onePrime</b>
+    </field>
+</mapping>
+----
+
+=== Overriding Trim Strings Policy
+You can override the trim strings policy for a particular mapping. For
+example:
+
+[source,xml,prettyprint]
+----
+<!-- Override top level defaults -->
+<mapping trim-strings="true">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <field>
+        <a>one</a>
+        <b>onePrime</b>
+    </field>
+</mapping>
+----

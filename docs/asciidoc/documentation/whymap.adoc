@@ -1,0 +1,65 @@
+== Why Map?
+A mapping framework is useful in a layered architecture where you are
+creating layers of abstraction by encapsulating changes to particular
+data objects vs. propagating these objects to other layers (i.e.
+external service data objects, domain objects, data transfer objects,
+internal service data objects). A mapping framework is ideal for using
+within Mapper type classes that are responsible for mapping data from
+one data object to another.
+
+For distributed systems, a side effect is the passing of domain objects
+between different systems. Typically, you won't want internal domain
+objects exposed externally and won't allow for external domain objects
+to bleed into your system.
+
+Mapping between data objects has been traditionally addressed by hand
+coding value object assemblers (or converters) that copy data between
+the objects. Most programmers will develop some sort of custom mapping
+framework and spend countless hours and thousands of lines of code
+mapping to and from their different data object.
+
+A generic mapping framework solves these problems. Dozer is an open
+source mapping framework that is robust, generic, flexible, reusable,
+and configurable.
+
+Data object mapping is an important part of layered service oriented
+architectures. Pick and choose the layers you use mapping carefully. Do
+not go overboard as there is maintenance and performance costs
+associated with mapping data objects between layers.
+
+=== Parallel Object Hierarchies
+There could be different reasons of why application should support
+parallel object hierarhchies. To name a few:
+
+* Integration with External Code
+* Serialization Requirements
+* Framework Integration
+* Separation of Architectural Layers
+
+In some cases it is efficient to guard your code base from frequently
+changing object hierarchy, which you do not control directly. In this
+case Dozer serves as a bridge between application and external objects.
+As mapping is performed in reflective manner not all changes break your
+API. For example if object changes from Number to String the code will
+keep working as this is resolved automatically.
+
+Some frameworks impose Serialization constraints, which does not allow
+sending any Java objects through the wire. One of the popular examples
+is Google Web Toolkit (GWT) framework, which restricts developer to
+sending only objects compiled to JavaScript and marked as Serializable.
+Dozer helps to convert Rich Domain Model to Presentation Model, which
+satisfies GWT serialization requirements.
+
+Dozer integrates nicely with frameworks such as Apache XmlBeans and JAXB
+implementations. With help of provided factory classes, conversion
+between domain model and Xml objects is defined in the same way as plain
+object to object mappings.
+
+In complex enterprise application it is often valuable to separate
+design to several architectural layers. Each of them would reside on its
+own abstraction level. A typical simplified example would be
+presentation, domain and persistence layers. Each of this layers could
+have own set of Java Beans representing data relevant for this layer. It
+is not necessary that all data will travel to the upper levels of
+architecture. For example the same domain object could have different
+mappings dependant of the presentation layer requirements.

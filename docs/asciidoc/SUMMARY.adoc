@@ -1,0 +1,75 @@
+= Summary
+
+== News
+.. link:about/news.adoc[News]
+... link:about/archived-news.adoc[Archived News]
+
+== About
+.. link:about/about.adoc[About]
+.. link:about/downloading.adoc[Downloading]
+.. link:about/license.adoc[License]
+
+== User Guide
+.. link:documentation/whymap.adoc[Why Map?]
+.. link:documentation/gettingstarted.adoc[Getting Started]
+... link:documentation/dependencies.adoc[Dependencies]
+.. link:documentation/usage.adoc[Usage]
+.. link:documentation/annotations.adoc[Mappings via Annotations]
+.. link:documentation/apimappings.adoc[Mappings via API]
+.. link:documentation/mappings.adoc[Mappings via XML]
+.. link:documentation/configuration/configuration.adoc[Configuration]
+.. link:documentation/configuration/logging.adoc[Logging]
+.. link:documentation/configuration/statistics.adoc[Statistics]
+.. link:documentation/jmxintegration.adoc[JMX Integration]
+.. link:documentation/springintegration.adoc[Spring Integration]
+.. link:documentation/xmlbeans.adoc[JAXB and XMLBeans]
+.. link:documentation/metadata.adoc[Metadata Query Interface]
+.. link:documentation/faq.adoc[FAQ]
+
+todo
+
+.. link:documentation/advancedConfiguration.adoc[advancedConfiguration]
+.. link:documentation/advancedproperty.adoc[advancedproperty]
+.. link:documentation/baseattributes.adoc[baseattributes]
+.. link:documentation/collectionandarraymapping.adoc[collectionandarraymapping]
+.. link:documentation/contextmapping.adoc[contextmapping]
+.. link:documentation/copybyreference.adoc[copybyreference]
+.. link:documentation/custombeanfactories.adoc[custombeanfactories]
+.. link:documentation/customconverter.adoc[customconverter]
+.. link:documentation/customCreateMethod.adoc[customCreateMethod]
+.. link:documentation/custommethods.adoc[custommethods]
+.. link:documentation/deepmapping.adoc[deepmapping]
+.. link:documentation/enum.adoc[enum]
+.. link:documentation/events.adoc[events]
+.. link:documentation/exclude.adoc[exclude]
+.. link:documentation/expressionlanguage.adoc[expressionlanguage]
+.. link:documentation/globalConfiguration.adoc[globalConfiguration]
+.. link:documentation/indexmapping.adoc[indexmapping]
+.. link:documentation/mapbackedproperty.adoc[mapbackedproperty]
+.. link:documentation/mappingclasses.adoc[mappingclasses]
+.. link:documentation/oneway.adoc[oneway]
+.. link:documentation/proxyhandling.adoc[proxyhandling]
+.. link:documentation/simpleproperty.adoc[simpleproperty]
+.. link:documentation/stringtodatemapping.adoc[stringtodatemapping]
+.. link:documentation/examples.adoc[examples]
+
+== Schema
+.. schema/beanmapping.xsd[Dozer Mapping XSD]
+.. dozer-user-guide.pdf[User's Guide PDF]
+
+== Eclipse Plugin
+.. link:documentation/eclipse-plugin/installation.adoc[Installation]
+.. link:documentation/eclipse-plugin/usage.adoc[Usage]
+... link:documentation/eclipse-plugin/usage-xml.adoc[via XML]
+... link:documentation/eclipse-plugin/usage-editor.adoc[via Editor]
+
+== Community
+.. link:community/articles.adoc[Articles]
+.. link:community/support.adoc[Support]
+.. link:community/team-list.adoc[Team List]
+.. link:community/issue-tracking.adoc[Issue Tracking]
+.. link:community/source-repository.adoc[Source Repository]
+
+== Release Notes
+.. link:releasenotes/releasenotes.adoc[Release Notes]
+... link:releasenotes/archived-releasenotes.adoc[Archived Release Notes]

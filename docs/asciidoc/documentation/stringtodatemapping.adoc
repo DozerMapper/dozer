@@ -1,0 +1,56 @@
+== String to Date Mapping
+A date format for the String can be specified at the field level so that
+the necessary data type conversion can be performed.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a date-format="MM/dd/yyyy HH:mm:ss:SS">dateString</a>
+    <b>dateObject</b>
+</field>
+----
+
+A default date format can also be specified at the class mapping level.
+This default date format will be applied to all field mappings unless it
+is overridden at the field level.
+
+[source,xml,prettyprint]
+----
+<mapping date-format="MM-dd-yyyy HH:mm:ss">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <field>
+        <a>dateString</a>
+        <b>dateObject</b>
+    </field>
+</mapping>
+----
+
+A default date format can also be specified at the very top mappings
+level. This default date format will be applied to all field mapppings
+unless it is overridden at a lower level
+
+[source,xml,prettyprint]
+----
+<mappings>
+    <configuration>
+        <date-format>MM/dd/yyyy HH:mm</date-format>
+    </configuration>
+    <mapping wildcard="true">
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <field>
+            <a>dateString</a>
+            <b>dateObject</b>
+        </field>
+    </mapping>
+    <mapping>
+        <class-a>org.dozer.vo.SomeObject</class-a>
+        <class-b>org.dozer.vo.SomeOtherObject</class-b>
+        <field>
+            <a>srcField</a>
+            <b>destField</b>
+        </field>
+    </mapping>
+</mappings>
+----

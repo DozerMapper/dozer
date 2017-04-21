@@ -1,0 +1,30 @@
+== Proxy Objects
+=== Overview
+Dozer supports mappings done on proxy objects. This is typically the
+case when using persistence framework, which supports sophisticated
+features like lazy-loading. In this case application is working with
+fake objects, containing the real objects encapsulated. Implementation
+of proxies is dependant on the technology you use. Generally speaking,
+there are two popular libraries for creating Java proxies
+(http://cglib.sourceforge.net/[Cglib] and
+http://www.csg.is.titech.ac.jp/~chiba/javassist/[Javassist]). However,
+how particular framework makes uses of them could also vary. Dozer
+offers by default a generic way to handle simple proxy scenarios, both
+Javassist and Cglib. However it is strongly recommended to tune proxy
+handling behavior for your particular scenario.
+
+=== Configuration
+Proxy implementation is set-up by modifying
+link:configuration/configuration.adoc[configuration file]. Currently,
+besides of default behavior, Hibernate and No-Proxy modes are supported.
+For the full list of the implementations, see the list of
+org.dozer.util.DozerProxyResolver interface implementations. The list
+could be retrieved from JavaDocs.
+
+In case you do not map proxied objects - use NoProxy resolver, which
+imposes minimum performance overhead.
+
+=== Custom Scenarios
+For custom scenarios it is possible to provide your own implementation
+of org.dozer.util.DozerProxyResolver interface. It is configured in the
+same way as the standard classes.

@@ -1,0 +1,9 @@
+== Create new Mapping files
+The plugin provides a simple wizard for creating new mapping-xml files.
+A new mapping-xml file can be created using File > New > Other > Dozer
+Mapping Framework > Dozer Mapping File. Select the correct dozer version
+(4, DTD or 5, XSD) in the wizard and create the file.
+
+=== Configure the Mapping
+* link:usage-xml.adoc[via XML]
+* link:usage-editor.adoc[via the Editor]
