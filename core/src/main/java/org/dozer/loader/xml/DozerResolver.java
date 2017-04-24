@@ -15,16 +15,17 @@
  */
 package org.dozer.loader.xml;
 
+import java.io.InputStream;
+import java.net.URL;
+
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+
 import org.dozer.config.BeanContainer;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-
-import java.io.InputStream;
-import java.net.URL;
 
 /**
  * Internal EntityResolver implementation to load Xml Schema from the dozer classpath resp. JAR file.

@@ -15,26 +15,24 @@
  */
 package org.dozer.config;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Properties;
+
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Properties;
-
 /**
  * Internal singleton class that holds the global settings used by Dozer. Most of these settings are configurable via an
  * optional Dozer properties file. By default, Dozer will look for a file named dozer.properties to load these
  * configuration properties. If a properties file is not found or specified, default values will be used.
- * <p/>
- * <p/>
+ * <p>
  * An alternative Dozer properties file can be specified via the dozer.configuration system property.
- * <p/>
- * <p/>
+ * <p>
  * ex) -Ddozer.configuration=someDozerConfigurationFile.properties
  *
  * @author tierney.matt

@@ -15,10 +15,20 @@
  */
 package org.dozer.functional_tests;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.dozer.CustomFieldMapper;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.MappingException;
 import org.dozer.functional_tests.support.SampleDefaultBeanFactory;
 import org.dozer.functional_tests.support.TestCustomFieldMapper;
 import org.dozer.util.CollectionUtils;
@@ -29,7 +39,6 @@ import org.dozer.vo.Fruit;
 import org.dozer.vo.InsideTestObject;
 import org.dozer.vo.MethodFieldTestObject;
 import org.dozer.vo.MethodFieldTestObject2;
-import org.dozer.vo.NoDefaultConstructor;
 import org.dozer.vo.NoReadMethod;
 import org.dozer.vo.NoReadMethodPrime;
 import org.dozer.vo.NoVoidSetters;
@@ -42,7 +51,6 @@ import org.dozer.vo.SimpleObjPrime;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 import org.dozer.vo.TestObjectPrime2;
-import org.dozer.vo.allowedexceptions.TestException;
 import org.dozer.vo.allowedexceptions.ThrowException;
 import org.dozer.vo.allowedexceptions.ThrowExceptionPrime;
 import org.dozer.vo.context.ContextMapping;
@@ -64,35 +72,27 @@ import org.dozer.vo.orphan.ParentPrime;
 import org.dozer.vo.perf.MyClassA;
 import org.dozer.vo.perf.MyClassB;
 import org.dozer.vo.set.NamesArray;
+import org.dozer.vo.set.NamesCollection;
 import org.dozer.vo.set.NamesSet;
 import org.dozer.vo.set.NamesSortedSet;
 import org.dozer.vo.set.SomeDTO;
 import org.dozer.vo.set.SomeOtherDTO;
 import org.dozer.vo.set.SomeVO;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author garsombke.franz
  */
 public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
-
-  @Test(expected = MappingException.class)
-  public void testNoDefaultConstructor() throws Exception {
-    mapper.map("test", NoDefaultConstructor.class);
-    fail("should have thrown exception");
-  }
 
   @Test
   public void testFieldAccessible() throws Exception {
@@ -369,6 +369,31 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     assertEquals(names.size(), to.getNames().size());
   }
 
+  /**
+   * When the source type is a Set and the destination is a Collection we expect that the
+   * mapper narrows to the Set type instead of using a List by default.
+   *
+   * issue https://github.com/DozerMapper/dozer/issues/287
+   */
+  @Test
+  public void testSetToCollection() {
+    NamesSet from = newInstance(NamesSet.class);
+    NamesCollection to;
+    Set<String> names = newInstance(HashSet.class);
+    names.add("Red");
+    names.add("Blue");
+    names.add("Green");
+    names.add("Green");
+    from.setNames(names);
+
+    to = mapper.map(from, NamesCollection.class);
+
+    assertNotNull(to);
+    assertTrue(to.getNames() instanceof Set);
+    assertThat(to.getNames().size(), is(3));
+    assertEquals(names.size(), to.getNames().size());
+  }
+
   @Test
   public void testSortedSetToSet() {
     NamesSortedSet from = newInstance(NamesSortedSet.class);
@@ -418,16 +443,6 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     assertEquals("invalid value for dest object", src.getStringProperty(), ((FieldValue) entry).getValue("theKey"));
   }
 
-  @Test(expected = TestException.class)
-  public void testAllowedExceptionsThrowException() throws Exception {
-    Mapper mapper = getMapper("allowedExceptionsMapping.xml");
-    TestObject to = newInstance(TestObject.class);
-    to.setThrowAllowedExceptionOnMap("throw me");
-    mapper.map(to, TestObjectPrime.class);
-    fail("We should have thrown TestException");
-
-  }
-
   public void testAllowedExceptionsDoNotThrowException() throws Exception {
     Mapper mapper = getMapper("allowedExceptionsMapping.xml");
     TestObject to2 = newInstance(TestObject.class);
@@ -437,16 +452,6 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     } catch (RuntimeException e) {
       fail("This should not have been thrown");
     }
-  }
-
-  @Test(expected = TestException.class)
-  public void testAllowedExceptions_Implicit() throws Exception {
-    Mapper mapper = getMapper("implicitAllowedExceptionsMapping.xml");
-    ThrowException to = newInstance(ThrowException.class);
-    to.setThrowAllowedException("throw me");
-    mapper.map(to, ThrowExceptionPrime.class);
-    fail("We should have thrown TestException");
-
   }
 
   public void testAllowedExceptions_ImplicitDoNotThrow() throws Exception {

@@ -16,8 +16,6 @@
 package org.dozer.propertydescriptor;
 
 import org.dozer.fieldmap.HintContainer;
-import org.dozer.util.DozerConstants;
-import org.dozer.util.MappingUtils;
 
 /**
  * Internal abstract property descriptor containing common property descriptor logic. Only intended for internal use.

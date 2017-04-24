@@ -20,11 +20,10 @@ import org.dozer.vo.mapid.AContainer;
 import org.dozer.vo.mapid.AListContainer;
 import org.dozer.vo.mapid.BContainer;
 import org.dozer.vo.mapid.BContainer2;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import org.junit.Test;
 
 public class MapIdTest extends AbstractFunctionalTest {
 

@@ -15,12 +15,12 @@
  */
 package org.dozer;
 
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
-import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.util.DozerConstants;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -15,11 +15,11 @@
  */
 package org.dozer.util;
 
-import org.dozer.config.BeanContainer;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import org.dozer.config.BeanContainer;
 
 /**
  * Internal class used to perform various validations. Validates mapping requests, field mappings, URL's, etc. Only

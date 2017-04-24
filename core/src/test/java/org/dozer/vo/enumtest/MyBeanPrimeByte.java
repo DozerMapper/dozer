@@ -16,7 +16,7 @@
 package org.dozer.vo.enumtest;
 
 /**
- * Bean for byte <-> enum mapping test.
+ * Bean for byte from/to enum mapping test.
  * 
  * @author siarhei.krukau
  */

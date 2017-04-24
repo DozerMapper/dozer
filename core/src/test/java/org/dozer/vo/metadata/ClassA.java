@@ -16,7 +16,6 @@
 package org.dozer.vo.metadata;
 
 /**
- * <brief_description>
  * @author  florian.kunz
  */
 public class ClassA {

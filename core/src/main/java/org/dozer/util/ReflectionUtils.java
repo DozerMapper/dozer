@@ -15,17 +15,26 @@
  */
 package org.dozer.util;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.StringTokenizer;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
-
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.*;
-import java.util.*;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -432,7 +441,7 @@ public final class ReflectionUtils {
   *             field is of primitive type (e.g. boolean) - or the other way
   *             around.</li>
   *     </ul>
-  * </p>
+  * <p>
   *
   * @param clazz The class to find non-standard setters from
   * @param fieldName The field to find a non-standard setter for

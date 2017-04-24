@@ -15,7 +15,14 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.DozerBeanMapper;
+import org.dozer.DozerInitializer;
+import org.dozer.Mapper;
+import org.dozer.MappingException;
 import org.dozer.functional_tests.runner.NoProxyDataObjectInstantiator;
 import org.dozer.functional_tests.support.SampleCustomBeanFactory;
 import org.dozer.functional_tests.support.SampleCustomBeanFactory2;
@@ -27,9 +34,6 @@ import org.dozer.vo.TestObjectPrime;
 import org.dozer.vo.Van;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Very high level tests of the DozerBeanMapper. This test class is not intended to provide in-depth testing of all the

@@ -15,9 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
@@ -28,6 +25,9 @@ import org.dozer.vo.metadata.ClassA;
 import org.dozer.vo.metadata.ClassB;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**

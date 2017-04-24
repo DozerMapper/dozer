@@ -15,15 +15,15 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 
 
 /**

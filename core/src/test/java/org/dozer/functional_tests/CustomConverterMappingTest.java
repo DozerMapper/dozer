@@ -15,6 +15,12 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.functional_tests.support.StringAppendCustomConverter;
@@ -38,14 +44,13 @@ import org.dozer.vo.TestObjectPrime;
 import org.dozer.vo.Van;
 import org.dozer.vo.map.CustomMap;
 import org.dozer.vo.map.MapToProperty;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author tierney.matt

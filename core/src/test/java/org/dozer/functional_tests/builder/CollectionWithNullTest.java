@@ -15,6 +15,12 @@
  */
 package org.dozer.functional_tests.builder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerConverter;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -22,12 +28,6 @@ import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 

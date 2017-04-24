@@ -15,13 +15,13 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.fieldmap.FieldMap;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
 

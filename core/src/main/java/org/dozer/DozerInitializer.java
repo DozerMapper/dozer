@@ -15,29 +15,30 @@
  */
 package org.dozer;
 
-import org.dozer.config.BeanContainer;
-import org.dozer.config.GlobalSettings;
-import org.dozer.jmx.DozerAdminController;
-import org.dozer.jmx.DozerStatisticsController;
-import org.dozer.jmx.JMXPlatform;
-import org.dozer.jmx.JMXPlatformImpl;
-import org.dozer.util.DefaultClassLoader;
-import org.dozer.util.DozerClassLoader;
-import org.dozer.util.DozerConstants;
-import org.dozer.util.DozerProxyResolver;
-import org.dozer.util.MappingUtils;
-import org.dozer.util.ReflectionUtils;
-import org.dozer.loader.xml.ExpressionElementReader;
-import org.dozer.loader.xml.ELEngine;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.ServiceLoader;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
-import java.util.ServiceLoader;
+
+import org.dozer.config.BeanContainer;
+import org.dozer.config.GlobalSettings;
+import org.dozer.jmx.DozerAdminController;
+import org.dozer.jmx.DozerStatisticsController;
+import org.dozer.jmx.JMXPlatform;
+import org.dozer.jmx.JMXPlatformImpl;
+import org.dozer.loader.xml.ELEngine;
+import org.dozer.loader.xml.ExpressionElementReader;
+import org.dozer.util.DefaultClassLoader;
+import org.dozer.util.DozerClassLoader;
+import org.dozer.util.DozerConstants;
+import org.dozer.util.DozerProxyResolver;
+import org.dozer.util.MappingUtils;
+import org.dozer.util.ReflectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Internal class that performs one time Dozer initializations. Only intended for internal use.
@@ -148,10 +149,13 @@ public final class DozerInitializer {
         return;
       }
 
-      try {
-        unregisterJMXBeans(new JMXPlatformImpl());
-      } catch (Throwable e) {
-        log.warn("Exception caught while disposing Dozer JMX MBeans.", e);
+      GlobalSettings globalSettings = GlobalSettings.getInstance();
+      if (globalSettings.isAutoregisterJMXBeans()) {
+        try {
+          unregisterJMXBeans(new JMXPlatformImpl());
+        } catch (Throwable e) {
+          log.warn("Exception caught while disposing Dozer JMX MBeans.", e);
+        }
       }
       isInitialized = false;
     }

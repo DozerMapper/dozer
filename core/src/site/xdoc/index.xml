@@ -50,14 +50,14 @@
     <section name="Dozer News">
       <p/>
 
-      <h3>Dozer 5.5.1 is out <font size="-3" color="gray"> <i>22/04/2014</i></font></h3>
+      <h3>Dozer 5.5.1 is out <font size="-3" color="gray"> <i>2014-04-22</i></font></h3>
       <p>
         Release 5.5.1 is available for download and should appear in Maven Central shortly.
         Project has migrated to bintray for hosting binary releases and as an alternative repository location.
         Check release notes for the list of issues closed.
       </p>
 
-      <h3>Dozer 5.4.0 is out <font size="-3" color="gray"> <i>12/01/2012</i></font></h3>
+      <h3>Dozer 5.4.0 is out <font size="-3" color="gray"> <i>2012-12-01</i></font></h3>
       <p>
         Release 5.4.0 is available for download. This is the first release after moving project to GitHub and already
         few new contributors have joined.
@@ -69,7 +69,7 @@
         Old SourceForge Forums and Issue tracker will not be active anymore. They will be disabled once migration is finished.
       </p>
 
-      <h3>Dozer is on GitHub<font size="-3" color="gray"> <i>06/28/2012</i></font></h3>
+      <h3>Dozer is on GitHub<font size="-3" color="gray"> <i>2012-06-28</i></font></h3>
         <p>
             After some inactivity period Dozer has finally moved to
             <a href="https://github.com/DozerMapper/dozer/">GitHub</a>.
@@ -85,7 +85,7 @@
         </p>
         <p/>
 
-        <h3>Release 5.3.2 Now Available<font size="-3" color="gray"> <i>02/15/2011</i></font></h3>
+        <h3>Release 5.3.2 Now Available<font size="-3" color="gray"> <i>2011-02-15</i></font></h3>
         <p>
           Release 5.3.2 is available for download. This is maintenance release, which finalizes internal builder API
           implementation and delivers several bugfixes. Experimental annotations support for simple mappings has been
@@ -99,18 +99,18 @@
         </p>
         <p/>
 
-        <h3>Release 5.3.1 Now Available<font size="-3" color="gray"> <i>11/15/2010</i></font></h3>
+        <h3>Release 5.3.1 Now Available<font size="-3" color="gray"> <i>2010-11-15</i></font></h3>
         <p>
             Release 5.3.1 is available for download. This is maintenance release bringing compatibility with
             Apache Camel framework and fixing a few bugs found in 5.3.0.
             Upgrade is highly recommended for 5.3.0 users.
         </p>
 
-        <h3>Release 5.3.0 Now Available<font size="-3" color="gray"> <i>10/10/2010</i></font></h3>
+        <h3>Release 5.3.0 Now Available<font size="-3" color="gray"> <i>2010-10-10</i></font></h3>
         <p>
             Release 5.3.0 is available for download. This release brings several major changes to Dozer.
             First is migration to SLF4J logging framework. Second is introduction of alternative way of
-            providing custom mappings via Java API. In the meanwhile we reached 50000 downloads 
+            providing custom mappings via Java API. In the meanwhile we reached 50000 downloads
             from the website. This is excluding Maven repository.
         </p>
         <p>
@@ -118,7 +118,7 @@
         </p>
         <p/>
 
-        <h3>Release 5.2.2 Now Available<font size="-3" color="gray"> <i>6/9/2010</i></font></h3>
+        <h3>Release 5.2.2 Now Available<font size="-3" color="gray"> <i>2010-06-09</i></font></h3>
         <p>
             Release 5.2.2 is available for download. This is a maintenance release fixing
             several issues.
@@ -131,7 +131,7 @@
         <p/>
 
 
-      <h3>Release 5.2.1 Now Available<font size="-3" color="gray"> <i>4/28/2010</i></font></h3>
+      <h3>Release 5.2.1 Now Available<font size="-3" color="gray"> <i>2010-04-28</i></font></h3>
       <p>
           Release 5.2.1 is available for download. Important new features are Dozer OSGi bundle and
           Expression Language support. Several bugs has been fixed as well.
@@ -143,7 +143,7 @@
       </p>
       <p/>
 
-      <h3>Release 5.2.0 Now Available<font size="-3" color="gray"> <i>1/24/2010</i></font></h3>
+      <h3>Release 5.2.0 Now Available<font size="-3" color="gray"> <i>2010-01-24</i></font></h3>
       <p>
           Dozer team is happy to announce release 5.2.0. This version fixes fourteen bugs of different kind
           and provides several new features, such as referencing current mapper object inside a custom converter.
@@ -158,7 +158,7 @@
       <h3>
         Release 5.1 Now Available
         <font size="-3" color="gray">
-          <i>8/25/2009</i>
+          <i>2009-08-25</i>
         </font>
       </h3>
       <p>
@@ -176,7 +176,7 @@
       <h3>
         Dozer Eclipse Plugin 0.8.0 Now Available
         <font size="-3" color="gray">
-          <i>6/24/2009</i>
+          <i>2009-06-24</i>
         </font>
       </h3>
       <p>
@@ -208,7 +208,7 @@
       <h3>
         Release 5.0 Now Available
         <font size="-3" color="gray">
-          <i>3/3/2009</i>
+          <i>2009-03-03</i>
         </font>
       </h3>
       <p>
@@ -241,7 +241,7 @@
       <h3>
         Release 4.4.1 Now Available
         <font size="-3" color="gray">
-          <i>1/31/2009</i>
+          <i>2009-01-31</i>
         </font>
       </h3>
       <p>This release fixes classloading issues for custom ClassLoaders. These classloading issues were introduced in
@@ -256,7 +256,7 @@
       <h3>
         Release 4.4 Now Available
         <font size="-3" color="gray">
-          <i>12/27/2008</i>
+          <i>2008-12-27</i>
         </font>
       </h3>
       <p>This release contains various bug fixes and feature requests.</p>
@@ -273,7 +273,7 @@
       <h3>
         Release 4.3 Now Available
         <font size="-3" color="gray">
-          <i>12/03/2008</i>
+          <i>2008-12-03</i>
         </font>
       </h3>
       <p>
@@ -297,7 +297,7 @@
       <h3>
         Release 4.2.1 Now Available
         <font size="-3" color="gray">
-          <i>6/22/2008</i>
+          <i>2008-06-22</i>
         </font>
       </h3>
       <p>This minor release contains a fix for the stop-on-error bug.</p>
@@ -310,7 +310,7 @@
       <h3>
         Release 4.2 Now Available
         <font size="-3" color="gray">
-          <i>12/16/2007</i>
+          <i>2007-12-16</i>
         </font>
       </h3>
       <p>This release contains various bug fixes.</p>
@@ -326,7 +326,7 @@
       <h3>
         Release 4.1 Now Available
         <font size="-3" color="gray">
-          <i>09/22/2007</i>
+          <i>2007-09-22</i>
         </font>
       </h3>
       <p>This release contains bug fixes and feature requests, along with internal refactoring.</p>
@@ -343,7 +343,7 @@
       <h3>
         Release 4.0 Now Available
         <font size="-3" color="gray">
-          <i>07/15/2007</i>
+          <i>2007-07-15</i>
         </font>
       </h3>
       <p>
@@ -373,7 +373,7 @@
       <h3>
         Dozer hits 10,000 Downloads
         <font size="-3" color="gray">
-          <i>05/19/2007</i>
+          <i>2007-05-19</i>
         </font>
       </h3>
       <p>
@@ -384,7 +384,7 @@
       <h3>
         Release 3.4 Now Available
         <font size="-3" color="gray">
-          <i>05/19/2007</i>
+          <i>2007-05-19</i>
         </font>
       </h3>
       <p>This release contains bug fixes and feature requests.</p>
@@ -397,7 +397,7 @@
       <h3>
         Release 3.3.1 Now Available
         <font size="-3" color="gray">
-          <i>04/28/2007</i>
+          <i>2007-04-28</i>
         </font>
       </h3>
       <p>
@@ -412,7 +412,7 @@
       <h3>
         1,000,000 Project Web Hits
         <font size="-3" color="gray">
-          <i>04/08/2007</i>
+          <i>2007-04-08</i>
         </font>
       </h3>
       <p>The Dozer project recently eclipsed the 1 million hit mark. Thanks everyone! It's been fun.</p>
@@ -420,7 +420,7 @@
       <h3>
         Release 3.2.1 Now Available
         <font size="-3" color="gray">
-          <i>04/08/2007</i>
+          <i>2007-04-08</i>
         </font>
       </h3>
       <p>
@@ -435,7 +435,7 @@
       <h3>
         Release 3.2 Now Available
         <font size="-3" color="gray">
-          <i>04/03/2007</i>
+          <i>2007-04-03</i>
         </font>
       </h3>
       <p>This minor release contains bug fixes and feature requests.</p>
@@ -449,7 +449,7 @@
       <h3>
         Release 3.1 Now Available
         <i>
-          <font size="-2" color="gray">03/25/2007</font>
+          <font size="-2" color="gray">2007-03-25</font>
         </i>
       </h3>
       <p>
@@ -471,7 +471,7 @@
       <h3>
         Release 3.0 Now Available
         <i>
-          <font size="-2" color="gray">02/09/2007</font>
+          <font size="-2" color="gray">2007-02-09</font>
         </i>
       </h3>
       <p>
@@ -498,7 +498,7 @@
       <h3>
         Release 2.4 Now Available
         <i>
-          <font size="-2" color="gray">10/16/2006</font>
+          <font size="-2" color="gray">2006-10-16</font>
         </i>
       </h3>
       <p>
@@ -515,7 +515,7 @@
       <h3>
         Release 2.3 Now Available
         <i>
-          <font size="-2" color="gray">09/01/2006</font>
+          <font size="-2" color="gray">2006-09-01</font>
         </i>
       </h3>
       <p>
@@ -532,7 +532,7 @@
       <h3>
         Release 2.2 Now Available
         <i>
-          <font size="-2" color="gray">04/29/2006</font>
+          <font size="-2" color="gray">2006-04-29</font>
         </i>
       </h3>
       <p>
@@ -548,7 +548,7 @@
       <h3>
         Release 2.1 Now Available
         <i>
-          <font size="-2" color="gray">04/18/2006</font>
+          <font size="-2" color="gray">2006-04-18</font>
         </i>
       </h3>
       <p>
@@ -564,7 +564,7 @@
       <h3>
         Release 2.0.1 Now Available
         <i>
-          <font size="-2" color="gray">02/02/2006</font>
+          <font size="-2" color="gray">2006-02-02</font>
         </i>
       </h3>
       <p>This release had a few new features and a few bug fixes.</p>
@@ -576,7 +576,7 @@
       <h3>
         Release 2.0 Now Available
         <i>
-          <font size="-2" color="gray">01/16/2006</font>
+          <font size="-2" color="gray">2006-01-16</font>
         </i>
       </h3>
       <p>
@@ -593,7 +593,7 @@
       <h3>
         Release 1.5.8 Now Available
         <i>
-          <font size="-2" color="gray">11/30/2005</font>
+          <font size="-2" color="gray">2005-11-30</font>
         </i>
       </h3>
       <p>Removed dependency on Castor. We also added a few more features.</p>
@@ -605,7 +605,7 @@
       <h3>
         Release 1.5.7 Now Available
         <i>
-          <font size="-2" color="gray">11/15/2005</font>
+          <font size="-2" color="gray">2005-11-15</font>
         </i>
       </h3>
       <p>
@@ -620,7 +620,7 @@
       <h3>
         Release 1.5.6 Now Available
         <i>
-          <font size="-2" color="gray">10/31/2005</font>
+          <font size="-2" color="gray">2005-10-31</font>
         </i>
       </h3>
       <p>
@@ -631,7 +631,7 @@
       <h3>
         Dozer in the Java Developer's Journal!
         <i>
-          <font size="-2" color="gray">10/15/2005</font>
+          <font size="-2" color="gray">2005-10-15</font>
         </i>
       </h3>
       <p>

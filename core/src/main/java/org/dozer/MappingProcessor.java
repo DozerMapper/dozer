@@ -15,9 +15,6 @@
  */
 package org.dozer;
 
-import static org.dozer.util.DozerConstants.BASE_CLASS;
-import static org.dozer.util.DozerConstants.ITERATE;
-
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -71,10 +68,13 @@ import org.dozer.util.ReflectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.dozer.util.DozerConstants.BASE_CLASS;
+import static org.dozer.util.DozerConstants.ITERATE;
+
 /**
  * Internal Mapping Engine. Not intended for direct use by Application code.
  * This class does most of the heavy lifting and is very recursive in nature.
- * <p/>
+ * <p>
  * This class is not threadsafe and is instantiated for each new mapping request.
  *
  * @author garsombke.franz
@@ -270,7 +270,7 @@ public class MappingProcessor implements Mapper {
     Class<?> converterClass = MappingUtils.findCustomConverter(converterByDestTypeCache, classMap.getCustomConverters(), srcClass,
         destClass);
     if (converterClass != null) {
-      mapUsingCustomConverter(converterClass, srcClass, srcObj, destClass, destObj, null, true);
+      destObj = mapUsingCustomConverter(converterClass, srcClass, srcObj, destClass, destObj, null, true);
       return;
     }
 
@@ -452,7 +452,12 @@ public class MappingProcessor implements Mapper {
     if (primitiveConverter.accepts(srcFieldClass) || primitiveConverter.accepts(destFieldType)) {
       // Primitive or Wrapper conversion
       if (fieldMap.getDestHintContainer() != null) {
-        destFieldType = fieldMap.getDestHintContainer().getHint();
+        Class<?> destHintType = fieldMap.getDestHintType(srcFieldValue.getClass());
+        // if the destType is null this means that there was more than one hint.
+        // we must have already set the destType then.
+        if (destHintType != null) {
+          destFieldType = destHintType;
+        }
       }
 
       //#1841448 - if trim-strings=true, then use a trimmed src string value when converting to dest value
@@ -575,7 +580,11 @@ public class MappingProcessor implements Mapper {
     // if they use a standard Collection we have to assume it is a List...better
     // way to handle this?
     if (destCollectionType.getName().equals(Collection.class.getName())) {
+      // dont!!
       destCollectionType = List.class;
+        if (Set.class.isAssignableFrom(srcFieldType)) {
+            destCollectionType = Set.class;
+        }
     }
     // Array to Array
     if (CollectionUtils.isArray(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {

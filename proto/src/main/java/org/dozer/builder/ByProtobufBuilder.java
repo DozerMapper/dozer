@@ -16,6 +16,7 @@
 package org.dozer.builder;
 
 import com.google.protobuf.Message;
+
 import org.dozer.BeanBuilder;
 import org.dozer.factory.BeanCreationDirective;
 import org.dozer.util.ProtoUtils;

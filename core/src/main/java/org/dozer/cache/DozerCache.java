@@ -15,16 +15,16 @@
  */
 package org.dozer.cache;
 
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
-
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Map backed Cache implementation.

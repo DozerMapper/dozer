@@ -15,19 +15,20 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.dozer.vo.cumulative.Author;
 import org.dozer.vo.cumulative.AuthorPrime;
 import org.dozer.vo.cumulative.Book;
 import org.dozer.vo.cumulative.BookPrime;
 import org.dozer.vo.cumulative.Library;
 import org.dozer.vo.cumulative.LibraryPrime;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Dmitry Buzdin

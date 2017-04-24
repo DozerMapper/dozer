@@ -15,15 +15,19 @@
  */
 package org.dozer.util;
 
-import com.google.protobuf.*;
-import org.apache.commons.lang3.StringUtils;
-
-import java.lang.Enum;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import com.google.protobuf.ByteString;
+import com.google.protobuf.DescriptorProtos;
+import com.google.protobuf.Descriptors;
+import com.google.protobuf.Message;
+import com.google.protobuf.ProtocolMessageEnum;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Dmitry Spikhalskiy

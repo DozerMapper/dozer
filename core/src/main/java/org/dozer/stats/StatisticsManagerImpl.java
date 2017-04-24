@@ -15,16 +15,16 @@
  */
 package org.dozer.stats;
 
-import org.dozer.config.GlobalSettings;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import org.dozer.config.GlobalSettings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Internal class that manages the Dozer runtime statistics. Only intended for internal use.

@@ -15,10 +15,10 @@
  */
 package org.dozer;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import java.math.BigDecimal;
 
 /**
  * @author dmitry.buzdin

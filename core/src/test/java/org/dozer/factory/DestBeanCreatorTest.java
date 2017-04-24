@@ -15,14 +15,14 @@
  */
 package org.dozer.factory;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * @author tierney.matt

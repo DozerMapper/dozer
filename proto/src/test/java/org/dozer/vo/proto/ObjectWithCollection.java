@@ -15,8 +15,6 @@
  */
 package org.dozer.vo.proto;
 
-import org.dozer.vo.proto.TestObject;
-
 import java.util.List;
 
 /**

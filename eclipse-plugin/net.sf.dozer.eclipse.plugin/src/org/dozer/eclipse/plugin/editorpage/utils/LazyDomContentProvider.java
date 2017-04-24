@@ -15,6 +15,8 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import org.w3c.dom.Element;
+
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -25,7 +27,6 @@ import org.eclipse.ufacekit.core.databinding.instance.IInstanceObservedContainer
 import org.eclipse.ufacekit.core.databinding.instance.observable.ILazyObserving;
 import org.eclipse.ufacekit.core.databinding.sse.dom.SSEDOMObservables;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
-import org.w3c.dom.Element;
 
 /**
  * ContentProvider for SWT.Table and SWT.Tree that supports LazyObservedValues. 

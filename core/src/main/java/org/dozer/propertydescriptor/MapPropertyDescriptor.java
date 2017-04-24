@@ -15,14 +15,14 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.lang.ref.SoftReference;
+import java.lang.reflect.Method;
+
 import org.dozer.MappingException;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-
-import java.lang.ref.SoftReference;
-import java.lang.reflect.Method;
 
 
 /**
@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
  * Overloaded methods are supported. Map class can have two set methods with different signatures, but class will
  * choose the one with appropriate number of parameters.
  *
- * <p/>
+ * <p>
  * Only intended for internal use.
  *
  * @author garsombke.franz

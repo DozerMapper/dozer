@@ -15,17 +15,30 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Arrays;
+
+import static junit.framework.Assert.assertFalse;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.util.MappingUtils;
-import org.dozer.vo.proto.*;
-import org.dozer.vo.proto.ProtoTestObjects.*;
+import org.dozer.vo.proto.LiteTestObject;
+import org.dozer.vo.proto.ObjectWithCollection;
+import org.dozer.vo.proto.ObjectWithEnumCollection;
+import org.dozer.vo.proto.ObjectWithEnumField;
+import org.dozer.vo.proto.ProtoTestObjects.ProtoEnum;
+import org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField;
+import org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject;
+import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection;
+import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection;
+import org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject;
+import org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired;
+import org.dozer.vo.proto.SimpleEnum;
+import org.dozer.vo.proto.TestObject;
+import org.dozer.vo.proto.TestObjectContainer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
-import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 

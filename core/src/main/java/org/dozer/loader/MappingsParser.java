@@ -15,6 +15,10 @@
  */
 package org.dozer.loader;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
@@ -27,11 +31,6 @@ import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import static org.dozer.util.MappingUtils.isSupportedMap;
 

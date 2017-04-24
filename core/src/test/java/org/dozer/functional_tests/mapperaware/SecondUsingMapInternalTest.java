@@ -15,6 +15,11 @@
  */
 package org.dozer.functional_tests.mapperaware;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -24,11 +29,6 @@ import org.dozer.vo.mapperaware.MapperAwareSimpleInternal;
 import org.dozer.vo.mapperaware.MapperAwareSimpleSrc;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 

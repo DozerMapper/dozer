@@ -15,14 +15,13 @@
  */
 package org.dozer.config;
 
+import org.dozer.loader.xml.ELEngine;
+import org.dozer.loader.xml.ElementReader;
+import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DefaultProxyResolver;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerProxyResolver;
-import org.dozer.loader.xml.ElementReader;
-import org.dozer.loader.xml.ExpressionElementReader;
-import org.dozer.loader.xml.SimpleElementReader;
-import org.dozer.loader.xml.ELEngine;
 
 /**
  * @author dmitry.buzdin

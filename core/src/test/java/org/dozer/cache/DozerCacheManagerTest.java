@@ -17,11 +17,9 @@ package org.dozer.cache;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
-import org.dozer.cache.Cache;
-import org.dozer.cache.DozerCache;
-import org.dozer.cache.DozerCacheManager;
 import org.junit.Before;
 import org.junit.Test;
 

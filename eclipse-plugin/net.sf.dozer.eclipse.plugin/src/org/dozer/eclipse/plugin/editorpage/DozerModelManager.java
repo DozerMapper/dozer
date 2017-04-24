@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import org.dozer.eclipse.plugin.editorpage.pages.DozerConfigurationEditorPage;
 import org.dozer.eclipse.plugin.editorpage.pages.DozerMappingEditorPage;
 import org.dozer.eclipse.plugin.editorpage.pages.composites.ConfigurationOptionComposite;
@@ -71,8 +74,6 @@ import org.springframework.ide.eclipse.core.java.FlagsMethodFilter;
 import org.springframework.ide.eclipse.core.java.IMethodFilter;
 import org.springframework.ide.eclipse.core.java.Introspector;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 
 public class DozerModelManager {

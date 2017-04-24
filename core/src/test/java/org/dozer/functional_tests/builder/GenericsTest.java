@@ -15,14 +15,14 @@
  */
 package org.dozer.functional_tests.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;

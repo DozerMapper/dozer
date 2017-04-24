@@ -15,14 +15,22 @@
  */
 package org.dozer.loader;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.UUID;
+
 import org.dozer.CustomConverter;
-import org.dozer.classmap.*;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.ClassMappings;
+import org.dozer.classmap.Configuration;
+import org.dozer.classmap.MappingFileData;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.util.MappingUtils;
-
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned

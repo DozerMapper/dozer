@@ -20,7 +20,11 @@ package org.dozer.functional_tests;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.vo.generics.parameterized.*;
+import org.dozer.vo.generics.parameterized.A;
+import org.dozer.vo.generics.parameterized.AA;
+import org.dozer.vo.generics.parameterized.B;
+import org.dozer.vo.generics.parameterized.C;
+import org.dozer.vo.generics.parameterized.GenericTestType;
 import org.junit.Assert;
 import org.junit.Test;
 

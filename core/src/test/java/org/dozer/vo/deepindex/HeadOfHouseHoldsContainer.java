@@ -15,8 +15,6 @@
  */
 package org.dozer.vo.deepindex;
 
-import java.util.List;
-
 /**
  * @author Dmitry Spikhalskiy
  * @since 06.01.13

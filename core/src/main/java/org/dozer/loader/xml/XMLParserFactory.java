@@ -15,17 +15,18 @@
  */
 package org.dozer.loader.xml;
 
-import org.dozer.MappingException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import org.dozer.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  *
@@ -47,8 +48,8 @@ public final class XMLParserFactory {
   }
 
   public DocumentBuilder createParser() {
-    DocumentBuilderFactory factory = createDocumentBuilderFactory();
     try {
+      DocumentBuilderFactory factory = createDocumentBuilderFactory();
       return createDocumentBuilder(factory);
     } catch (ParserConfigurationException e) {
       throw new MappingException("Failed to create XML Parser !", e);
@@ -63,7 +64,7 @@ public final class XMLParserFactory {
    * @throws javax.xml.parsers.ParserConfigurationException
    *          if thrown by JAXP methods
    */
-  private DocumentBuilderFactory createDocumentBuilderFactory() {
+  private DocumentBuilderFactory createDocumentBuilderFactory() throws ParserConfigurationException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setValidating(true);
     factory.setNamespaceAware(true);

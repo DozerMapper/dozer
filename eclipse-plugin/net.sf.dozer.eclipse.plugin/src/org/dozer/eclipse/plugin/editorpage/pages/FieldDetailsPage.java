@@ -15,6 +15,8 @@
  */
 package org.dozer.eclipse.plugin.editorpage.pages;
 
+import org.w3c.dom.Element;
+
 import org.dozer.eclipse.plugin.editorpage.DozerModelManager;
 import org.dozer.eclipse.plugin.editorpage.Messages;
 import org.dozer.eclipse.plugin.editorpage.pages.composites.FieldOptionComposite;
@@ -34,7 +36,6 @@ import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.w3c.dom.Element;
 
 public class FieldDetailsPage implements IDetailsPage {
 	

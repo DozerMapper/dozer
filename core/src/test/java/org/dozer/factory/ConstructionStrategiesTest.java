@@ -15,16 +15,6 @@
  */
 package org.dozer.factory;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.xmlbeans.impl.xb.xsdschema.impl.UniqueDocumentImpl;
-import org.dozer.AbstractDozerTest;
-import org.dozer.BeanFactory;
-import org.dozer.MappingException;
-import org.dozer.converters.JAXBElementConverter;
-import org.dozer.vo.jaxb.employee.ObjectFactory;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -33,13 +23,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.impl.UniqueDocumentImpl;
+import org.dozer.AbstractDozerTest;
+import org.dozer.BeanFactory;
+import org.dozer.MappingException;
+import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-import javax.xml.bind.JAXBElement;
-
-import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
 
 /**
  * @author Dmitry Buzdin

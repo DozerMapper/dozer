@@ -15,20 +15,24 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.vo.TestObject;
-import org.dozer.vo.map.MapToMap;
-import org.dozer.vo.map.MapToMapPrime;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.dozer.vo.TestObject;
+import org.dozer.vo.map.MapToMap;
+import org.dozer.vo.map.MapToMapPrime;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Dmitry Buzdin

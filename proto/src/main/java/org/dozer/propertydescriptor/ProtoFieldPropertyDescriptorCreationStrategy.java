@@ -17,6 +17,7 @@ package org.dozer.propertydescriptor;
 
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
+
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ProtoUtils;

@@ -15,9 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
@@ -27,6 +24,9 @@ import org.dozer.metadata.MappingMetadata;
 import org.dozer.metadata.MetadataLookupException;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 /**

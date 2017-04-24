@@ -15,6 +15,10 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.vo.interfacerecursion.User;
@@ -23,12 +27,12 @@ import org.dozer.vo.interfacerecursion.UserGroupImpl;
 import org.dozer.vo.interfacerecursion.UserGroupPrime;
 import org.dozer.vo.interfacerecursion.UserImpl;
 import org.dozer.vo.interfacerecursion.UserPrime;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Christoph Goldner

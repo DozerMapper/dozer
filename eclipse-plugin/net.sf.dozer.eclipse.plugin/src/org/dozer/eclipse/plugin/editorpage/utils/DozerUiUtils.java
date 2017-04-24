@@ -15,6 +15,10 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import java.util.List;
+
+import org.w3c.dom.Element;
+
 import org.dozer.eclipse.plugin.DozerMultiPageEditor;
 import org.dozer.eclipse.plugin.DozerPlugin;
 import org.dozer.eclipse.plugin.editorpage.Messages;
@@ -73,9 +77,6 @@ import org.eclipse.wst.xml.core.internal.provisional.document.IDOMDocument;
 import org.eclipse.wst.xml.core.internal.provisional.document.IDOMModel;
 import org.springframework.ide.eclipse.beans.ui.editor.Activator;
 import org.springframework.ide.eclipse.core.java.JdtUtils;
-import org.w3c.dom.Element;
-
-import java.util.List;
 
 public class DozerUiUtils {
 

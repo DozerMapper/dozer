@@ -15,7 +15,6 @@
  */
 package org.dozer.factory;
 
-import java.text.DateFormat;
 /**
  * @author Dmitry Buzdin
  * @author Jose Barragan

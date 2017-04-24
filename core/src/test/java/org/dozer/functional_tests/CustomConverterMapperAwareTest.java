@@ -15,21 +15,23 @@
  */
 package org.dozer.functional_tests;
 
-import static junit.framework.Assert.assertTrue;
-import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
-import org.dozer.DozerConverter;
-import org.dozer.Mapper;
-import org.dozer.MapperAware;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static junit.framework.Assert.assertTrue;
+
+import org.dozer.CustomConverter;
+import org.dozer.DozerBeanMapper;
+import org.dozer.DozerConverter;
+import org.dozer.Mapper;
+import org.dozer.MapperAware;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author dmitry.buzdin

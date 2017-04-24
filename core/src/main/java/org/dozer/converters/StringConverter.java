@@ -19,7 +19,7 @@ package org.dozer.converters;
 import org.apache.commons.beanutils.Converter;
 
 /**
- * Internal class for converting Supported Data Types --> String. Uses date formatter for Date and Calendar source
+ * Internal class for converting Supported Data Types to String. Uses date formatter for Date and Calendar source
  * objects. Calls toString() on the source object for all other types. Only intended for internal use.
  * 
  * @author tierney.matt

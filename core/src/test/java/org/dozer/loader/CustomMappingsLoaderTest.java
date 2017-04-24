@@ -15,6 +15,10 @@
  */
 package org.dozer.loader;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
@@ -24,10 +28,6 @@ import org.dozer.classmap.MappingFileData;
 import org.dozer.converters.CustomConverterDescription;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.Mockito.mock;
 

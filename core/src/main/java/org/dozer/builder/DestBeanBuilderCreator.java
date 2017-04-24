@@ -15,12 +15,12 @@
  */
 package org.dozer.builder;
 
-import org.dozer.BeanBuilder;
-import org.dozer.factory.BeanCreationDirective;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.dozer.BeanBuilder;
+import org.dozer.factory.BeanCreationDirective;
 
 /**
  * @author Dmitry Spikhalskiy

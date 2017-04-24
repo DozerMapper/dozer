@@ -15,12 +15,13 @@
  */
 package org.dozer.eclipse.plugin.editorpage.utils;
 
+import org.w3c.dom.Element;
+
 import org.eclipse.core.dom.utils.DOMUtils;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.w3c.dom.Element;
 
 public class ElementAsClassLabelProvider extends LabelProvider implements ILabelProvider, ITableLabelProvider {
 	

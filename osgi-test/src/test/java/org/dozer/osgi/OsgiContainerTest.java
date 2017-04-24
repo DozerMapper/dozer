@@ -15,6 +15,11 @@
  */
 package org.dozer.osgi;
 
+import java.util.Collections;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.dozer.DozerBeanMapper;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,13 +31,12 @@ import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerMethod;
 import org.osgi.framework.BundleContext;
 
-import javax.inject.Inject;
-import java.util.Collections;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.ops4j.pax.exam.CoreOptions.*;
+import static org.ops4j.pax.exam.CoreOptions.junitBundles;
+import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
+import static org.ops4j.pax.exam.CoreOptions.options;
+import static org.ops4j.pax.exam.CoreOptions.systemPackages;
 import static org.ops4j.pax.exam.MavenUtils.asInProject;
 
 /**

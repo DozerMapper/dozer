@@ -21,10 +21,11 @@ import org.dozer.vo.excluded.TwoA;
 import org.dozer.vo.excluded.TwoB;
 import org.dozer.vo.excluded.ZeroA;
 import org.dozer.vo.excluded.ZeroB;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Dmitry Buzdin

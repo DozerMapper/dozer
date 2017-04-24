@@ -15,16 +15,17 @@
  */
 package org.dozer.converters;
 
-import org.dozer.AbstractDozerTest;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

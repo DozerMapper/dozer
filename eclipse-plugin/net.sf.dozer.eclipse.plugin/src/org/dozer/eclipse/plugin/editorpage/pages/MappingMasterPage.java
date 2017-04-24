@@ -15,6 +15,8 @@
  */
 package org.dozer.eclipse.plugin.editorpage.pages;
 
+import org.w3c.dom.Element;
+
 import org.dozer.eclipse.plugin.DozerPlugin;
 import org.dozer.eclipse.plugin.editorpage.Messages;
 import org.dozer.eclipse.plugin.editorpage.actions.CollapseAllAction;
@@ -73,7 +75,6 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
-import org.w3c.dom.Element;
 
 /**
  *

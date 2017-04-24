@@ -15,10 +15,10 @@
  */
 package org.dozer.functional_tests;
 
+import java.io.Serializable;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.Serializable;
 
 /**
  * 

@@ -16,7 +16,6 @@
 package org.dozer.config;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.config.GlobalSettings;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
 import org.junit.Test;

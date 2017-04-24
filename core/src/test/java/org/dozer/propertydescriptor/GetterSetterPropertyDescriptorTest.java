@@ -15,15 +15,15 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.vo.deep2.Dest;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.internal.util.reflection.Whitebox;
-
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 
 /**
  * @author tierney.matt

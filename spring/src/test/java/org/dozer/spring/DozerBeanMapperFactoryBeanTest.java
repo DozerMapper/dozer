@@ -15,7 +15,16 @@
  */
 package org.dozer.spring;
 
-import org.dozer.*;
+import java.net.URL;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+
+import org.dozer.BeanFactory;
+import org.dozer.CustomConverter;
+import org.dozer.DozerBeanMapper;
+import org.dozer.DozerEventListener;
+import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,15 +32,12 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 
-import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author <a href="mailto:buzdin@gmail.com">Dmitry Buzdin</a>

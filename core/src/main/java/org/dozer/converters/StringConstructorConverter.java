@@ -15,12 +15,12 @@
  */
 package org.dozer.converters;
 
-import org.apache.commons.beanutils.Converter;
-
 import java.lang.reflect.Constructor;
 
+import org.apache.commons.beanutils.Converter;
+
 /**
- * Internal class for converting String --> Complex Data Types with a String constructor. Only intended for internal
+ * Internal class for converting String to Complex Data Types with a String constructor. Only intended for internal
  * use.
  * 
  * @author tierney.matt

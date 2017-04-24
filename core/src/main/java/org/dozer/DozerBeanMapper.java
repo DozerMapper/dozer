@@ -15,6 +15,17 @@
  */
 package org.dozer;
 
+import java.io.InputStream;
+import java.lang.reflect.Proxy;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheManager;
 import org.dozer.cache.DozerCacheType;
@@ -40,20 +51,13 @@ import org.dozer.util.MappingValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
-import java.lang.reflect.Proxy;
-import java.net.URL;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
  * Public Dozer Mapper implementation. This should be used/defined as a singleton within your application. This class
  * performs several one-time initializations and loads the custom xml mappings, so you will not want to create many
  * instances of it for performance reasons. Typically a system will only have one DozerBeanMapper instance per VM. If
  * you are using an IOC framework (i.e Spring), define the Mapper as singleton="true". If you are not using an IOC
  * framework, a DozerBeanMapperSingletonWrapper convenience class has been provided in the Dozer jar.
- * <p/>
+ * <p>
  * It is technically possible to have multiple DozerBeanMapper instances initialized, but it will hinder internal
  * performance optimizations such as caching.
  *
@@ -283,7 +287,7 @@ public class DozerBeanMapper implements Mapper {
    * mapping definitions. It provides read only access to all important classes and field
    * mapping properties. When first called, initializes all mappings if map() has not yet been called.
    *
-   * @return An instance of {@line org.dozer.metadata.MappingMetadata} which serves starting point 
+   * @return An instance of {@link org.dozer.metadata.MappingMetadata} which serves starting point
    * for querying mapping information. 
    */
   public MappingMetadata getMappingMetadata() {

@@ -21,9 +21,10 @@ import org.dozer.vo.SimpleObj;
 import org.dozer.vo.SimpleObjPrime;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TrimStringsTest extends AbstractFunctionalTest {
 
