@@ -120,6 +120,33 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
     assertThat(result.zip, equalTo("12345"));
   }
 
+  @Test(expected = NoSuchFieldException.class)
+  public void shouldMapFields_Optional() throws NoSuchFieldException {
+    source.setPassword("some value");
+
+    UserDto result = mapper.map(source, UserDto.class);
+
+    result.getClass().getField("password");
+  }
+
+  @Test
+  public void shouldMapFields_Optional_Exists() {
+    source.setToken("some value");
+
+    UserDto result = mapper.map(source, UserDto.class);
+
+    assertThat(result.token, equalTo("some value"));
+  }
+
+  @Test
+  public void shouldMapFields_Optional_Exists_Backwards() {
+    source.token = "some value";
+
+    UserDto result = mapper.map(source, UserDto.class);
+
+    assertThat(result.token, equalTo("some value"));
+  }
+
   public static class User {
 
     Long id;
@@ -135,6 +162,12 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
     private String name;
 
     String freeText;
+
+    @Mapping(optional = true)
+    private String password;
+
+    @Mapping(optional = true)
+    private String token;
 
     @Mapping("pk")
     public Long getId() {
@@ -164,6 +197,14 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
     public void setZip(String zip) {
       this.zip = zip;
     }
+
+    public void setPassword(String password) {
+      this.password = password;
+    }
+
+    public void setToken(String token) {
+      this.token = token;
+    }
   }
 
   public static class SubUser extends User {}
@@ -187,6 +228,8 @@ public class AnnotationMappingTest extends AbstractFunctionalTest {
 
     @Mapping("freeText")
     String comment;
+
+    String token;
 
     public String getPk() {
       return pk;
