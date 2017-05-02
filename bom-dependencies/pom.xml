@@ -53,7 +53,7 @@
         <pax-url-aether.version>1.5.2</pax-url-aether.version>
         <protobuf-java.version>2.6.1</protobuf-java.version>
         <relaxngDatatype.version>20020414</relaxngDatatype.version>
-        <osgi.version>4.3.0</osgi.version>
+        <osgi.version>6.0.0</osgi.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.0.8.RELEASE</spring.version>
         <stax.version>1.2.0</stax.version>
