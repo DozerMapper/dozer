@@ -34,11 +34,6 @@
     <dependencies>
         <dependency>
             <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer-osgi</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
