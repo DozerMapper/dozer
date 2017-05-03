@@ -34,7 +34,6 @@
 
     <properties>
         <!-- Dependency versions; alphabetical order -->
-        <asm.version>3.3.1</asm.version>
         <cglib-nodep.version>2.2.2</cglib-nodep.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-lang3.version>3.5</commons-lang3.version>
@@ -63,11 +62,6 @@
     <dependencyManagement>
         <!-- Dependency; alphabetical order -->
         <dependencies>
-            <dependency>
-                <groupId>asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>

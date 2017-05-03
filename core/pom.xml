@@ -144,11 +144,6 @@
 
         <!-- Testing -->
         <dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
             <scope>test</scope>
