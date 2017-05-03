@@ -53,7 +53,7 @@ public class OsgiContainerTest {
   public Option[] config() {
 
     return options(
-        mavenBundle().groupId("net.sf.dozer").artifactId("dozer-osgi").version(asInProject()),
+        mavenBundle().groupId("net.sf.dozer").artifactId("dozer").version(asInProject()),
         mavenBundle().groupId("commons-beanutils").artifactId("commons-beanutils").version(asInProject()),
         mavenBundle().groupId("commons-collections").artifactId("commons-collections").version("3.2.1"),
         mavenBundle().groupId("org.apache.commons").artifactId("commons-lang3").version(asInProject()),

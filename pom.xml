@@ -78,7 +78,6 @@
         <module>core</module>
         <module>spring</module>
         <module>proto</module>
-        <module>osgi</module>
         <module>osgi-test</module>
     </modules>
 
