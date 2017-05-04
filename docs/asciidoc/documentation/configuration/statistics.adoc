@@ -1,0 +1,61 @@
+== Statistics
+If you enable statistics, Dozer will collect a number of runtime mapping
+metrics. These statistics are global and can be accessed via the
+GlobalStatistics object. The statistics are also available via JMX.
+Dozer is distributed with a fully functional JMX
+DozerStatisticsControllerMBean.
+
+Based on our profiling numbers, the overhead of enabling statistics is
+roughly 3-5%.
+
+[cols="2*", options="header"]
+.Dozer Statistics
+|===
+|Statistic Type
+|Description
+
+|Mapping Success Count
+|# of successful mappings
+
+|Mapping Failure Count
+|# of failed mappings
+
+|Mapping Overall Time
+|Overall time(ms) of successful mappings
+
+|Mapping Avg Time
+|Average time(ms) of successful mappings
+
+|Mapping Failure Exception Types
+|# of failures per exception type. This statistic shows what specific exceptions are being thrown when mappings fail
+
+|Mapping Failure Type
+|# of failures per source and destination class names. This statistic shows which specific mappings have failed per unique src class name and dest class name
+
+|Mapper Instances Count
+|# of DozerBeanMapper objects created. This should be a low number
+
+|Field Mapping Success Count
+|# of successful field mappings
+
+|Field Mapping Failure Count
+|# of failed field mappings
+
+|Field Mapping Failure Ignored Count
+|# of failed field mappings that were ignored during the mapping process. By default, Dozer throws an exception when any field mappings fail. But this behavior can be overridden. This statistic is useful to understand the impacts of setting stop-on-errors to false
+
+|Cache Hit Count
+|# of hits per internal Dozer cache type
+
+|Cache Miss Count
+|# of misses per internal Dozer cache type
+
+|Custom Converter Overall Time
+|Overall time(ms) of successful custom converter mappings
+
+|Custom Converter Success Count
+|# of successful custom converter mappings
+
+|Custom Converter Percentage of Overall Time
+|Percentage of overall time spent in custom converter mappings
+|===

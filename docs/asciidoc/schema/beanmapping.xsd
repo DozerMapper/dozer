@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<schema xmlns='http://www.w3.org/2001/XMLSchema'
+        targetNamespace='http://dozer.sourceforge.net'
+        xmlns:t='http://dozer.sourceforge.net'>
+
+  <element name='mappings'>
+    <annotation>
+      <documentation>
+        The document root.
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element ref='t:configuration' minOccurs='0'/>
+        <element ref='t:mapping' minOccurs='0' maxOccurs='unbounded'/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name='configuration'>
+    <annotation>
+      <documentation>
+        Default values that are applied to all mappings. Global Configuration.
+
+        Required Attributes:
+
+        Optional Attributes:
+
+        stop-on-errors Indicates whether Dozer should stop mapping fields and throw the Exception if an error is
+        encountered while performing a field mapping. It is recommended that this is set to "true". If set to "false", 
+        Dozer will trap the exception, log the error, and then continue mapping subsequent fields. The default value is "true".
+        
+        date-format The string format of Date fields. This is used for field mapping between Strings and Dates
+        
+        wildcard Indicates whether Dozer automatically map fields that have the same name.
+        This will typically be set to "true". The default value is "true"
+        
+        trim-strings Indicates whether Dozer automatically trims String values prior to setting the destination value.
+        The default value is "false"
+        
+        bean-factory The factory class to create data objects. This typically will not be specified.
+        By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+        
+        relationship-type Indications whether collections are mapped cumulative or non-cumulative. cumulative indicates
+        the element is added to the collection.
+        
+        non-cumulative indicates the element will be added or an existing entry will be updated.
+        
+        custom-converters The custom converters to be registered with Dozer.
+        
+        copy-by-references Indicates which class types should always be copied by reference
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element ref='t:stop-on-errors' minOccurs='0'/>
+        <element ref='t:date-format' minOccurs='0'/>
+        <element ref='t:wildcard' minOccurs='0'/>
+        <element ref='t:trim-strings' minOccurs='0'/>
+        <element ref='t:map-null' minOccurs='0'/>
+        <element ref='t:map-empty-string' minOccurs='0'/>
+        <element ref='t:bean-factory' minOccurs='0'/>
+        <element ref='t:relationship-type' minOccurs='0'/>
+        <element ref='t:custom-converters' minOccurs='0'/>
+        <element ref='t:copy-by-references' minOccurs='0'/>
+        <element ref='t:allowed-exceptions' minOccurs='0'/>
+        <element ref='t:variables' minOccurs='0'/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name='mapping'>
+    <annotation>
+      <documentation>
+        Specifies a custom mapping definition between two classes(data types). All Mapping definitions are
+        bi-directional by default.
+        Global configuration element values are inherited
+
+        Required Attributes:
+
+        Optional Attributes:
+
+        date-format The string format of Date fields. This is used for field mapping between Strings and Dates
+        
+        stop-on-errors Indicates whether Dozer should stop mapping fields and throw the Exception if an error is
+        encountered while performing a field mapping. It is recommended that this is set to "true".
+        If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
+        The default value is "true"
+        
+        wildcard Indicates whether Dozer automatically map fields that have the same name. The default value is "true"
+        
+        trim-strings Indicates whether Dozer automatically trims String values prior to setting the destination value.
+        The default value is "false"
+        
+        map-null Indicates whether null values are mapped. The default value is "true"
+        
+        map-empty-string Indicates whether empty string values are mapped. The default value is "true"
+        
+        bean-factory The factory class to create data objects. This typically will not be specified.
+        By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+        
+        type Indicates whether this mapping is bi-directional or only one-way. Typically this will be set to
+        bi-directional. The default is "bi-directional".
+        
+        map-id The id that uniquely identifies this mapping definition. This typically will not be specified.
+        You would only need to specify this for only need this for special context based mapping
+        and when mapping between Map objects and Custom Data Objects.
+        
+        relationship-type Indications whether collections are mapped cumulative or non-cumulative. cumulative indicates
+        the element is added to the collection.
+        
+        non-cumulative indicates the element will be added or an existing entry will be updated.
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence minOccurs='0' maxOccurs='1'>
+        <element ref="t:class-a"/>
+        <element ref="t:class-b"/>
+        <choice minOccurs='0' maxOccurs='unbounded'>
+          <element ref='t:field' maxOccurs="unbounded"/>
+          <element ref='t:field-exclude' minOccurs="0" maxOccurs="unbounded"/>
+        </choice>
+      </sequence>
+      <attribute name="date-format" type="string"/>
+      <attribute name="stop-on-errors" type="boolean"/>
+      <attribute name="wildcard" type="boolean"/>
+      <attribute name="trim-strings" type="boolean"/>
+      <attribute name="map-null" type="boolean"/>
+      <attribute name="map-empty-string" type="boolean"/>
+      <attribute name="bean-factory" type="string"/>
+      <attribute name="type" type="t:type"/>
+      <attribute name="relationship-type" type="t:relationship"/>
+      <attribute name='map-id' type='string'/>
+    </complexType>
+  </element>
+
+  <element name="class-a" type="t:class"/>
+  <element name="class-b" type="t:class"/>
+
+  <complexType name="class" mixed="true">
+    <annotation>
+      <documentation>
+        Specifies one of the classes in the mapping definition. All Mapping definitions are bi-directional by default.
+        Global configuration and Mapping element values are inherited
+
+        Required Attributes:
+
+        Optional Attributes:
+
+        bean-factory The factory class to create data objects. This typically will not be specified.
+        By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+        
+        factory-bean-id The id passed to the specified bean factory
+        
+        map-set-method For Map backed objects, this indicates which setter method should be used to retrieve field
+        values. This should only be used of Map backed objects.
+        
+        map-get-method For Map backed objects, this indicates which getter method should be used to retrieve field values.
+        This should only be used of Map backed objects.
+        
+        create-method Which method to invoke to create a new instance of the class. This is typically not specified.
+        By default, the no arg constructor(public or private) is used
+        
+        map-null Indicates whether null values are mapped. The default value is "true"
+        
+        map-empty-string Indicates whether empty string values are mapped. The default value is "true"
+
+        is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is "false". If set to "true", the
+        getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method.
+      </documentation>
+    </annotation>
+    <attribute name='bean-factory' type='string'/>
+    <attribute name='factory-bean-id' type='string'/>
+    <attribute name='map-set-method' type='string'/>
+    <attribute name='map-get-method' type='string'/>
+    <attribute name='create-method' type='string'/>
+    <attribute name='map-null' type='boolean'/>
+    <attribute name='map-empty-string' type='boolean'/>
+    <attribute name='is-accessible' type='boolean'/>
+  </complexType>
+
+  <element name='field'>
+    <annotation>
+      <documentation>
+        Specifies a custom field mapping. Fields that share the same attribute name do not need to be defined.
+        Dozer automatically maps fields that match on attribute name. All Field Mapping definitions are bi-directional
+        by default.
+        Global configuration, Mapping, and Class element values are inherited.
+
+        Hints are used for mapping Collection types. A hint indicates which type of destination object should be created
+        and added to the
+        destination Collection.
+
+        Required Attributes:
+
+        Optional Attributes:
+
+        relationship-type For collections, indicates whether to add to existing values or to always replace any existing
+        entries
+        
+        remove-orphans For collections, indicates whether items that did not exist in the source collection should be
+        removed from the destination collection.
+        
+        type Indicates whether this mapping is bi-directional or only one-way. Typically this will be set to bi-directional. The default is "bi-directional".
+        
+        map-id The id that uniquely identifies this mapping definition. This typically will not be specified.
+        You would only need to specify this for only need this for special context based mapping
+        and when mapping between Map objects and Custom Data Objects.
+        
+        
+        copy-by-reference Indicates whether the source field value is copied by reference or by value when populating the destination field. The default value is "false"
+
+        custom-converter Indicates that a specific custom converter should be used for mapping this field. Typically
+        this will not be specified.
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element ref='t:a'/>
+        <element ref='t:b'/>
+        <element ref='t:a-hint' minOccurs='0'/>
+        <element ref='t:b-hint' minOccurs='0'/>
+        <element ref='t:a-deep-index-hint' minOccurs='0'/>
+        <element ref='t:b-deep-index-hint' minOccurs='0'/>
+      </sequence>
+      <attribute name='relationship-type' type='t:relationship'/>
+      <attribute name='remove-orphans' type='boolean'/>
+      <attribute name='type' type='t:type'/>
+      <attribute name='map-id' type='string'/>
+      <attribute name='copy-by-reference' type='boolean'/>
+      <attribute name='custom-converter' type='string'/>
+      <attribute name='custom-converter-id' type='string'/>
+      <attribute name='custom-converter-param' type='string'/>
+    </complexType>
+  </element>
+
+
+  <element name='field-exclude'>
+    <annotation>
+      <documentation>
+        Exclude a particular field from being mapped
+      </documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element ref='t:a'/>
+        <element ref='t:b'/>
+      </sequence>
+      <attribute name='type' type="t:type" default='bi-directional'/>
+    </complexType>
+  </element>
+
+  <element name='a' type="t:fieldDefinition"/>
+  <element name='b' type="t:fieldDefinition"/>
+
+  <complexType name="fieldDefinition" mixed="true">
+    <annotation>
+      <documentation>
+        Specifies one of the fields in the field mapping definition. Global configuration, mapping, class, and field
+        element values are inherited
+
+        Required Attributes:
+
+        Optional Attributes:
+
+        date-format The string format of Date fields. This is used for field mapping between Strings and Dates
+        
+        set-method Indicates which set method to invoke when setting the destination value. Typically this will not be specified.
+        By default, the beans attribute setter is used.
+        
+        get-method Indicates which get method to invoke on the src object to get the field value Typically this will not be specified.
+        By default, the beans attribute getter is used.
+        
+        is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is "false". If set to "true", the
+        getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method.
+      </documentation>
+    </annotation>
+    <attribute name='date-format' type='string'/>
+    <attribute name='type' type='t:field-type'/>
+    <attribute name='set-method' type='string'/>
+    <attribute name='get-method' type='string'/>
+    <attribute name='key' type='string'/>
+    <attribute name='map-set-method' type='string'/>
+    <attribute name='map-get-method' type='string'/>
+    <attribute name='is-accessible' type='boolean'/>
+    <attribute name='create-method' type='string'/>
+  </complexType>
+
+  <simpleType name="relationship">
+    <restriction base="NMTOKEN">
+      <enumeration value="cumulative"/>
+      <enumeration value="non-cumulative"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="type">
+    <restriction base="NMTOKEN">
+      <enumeration value="one-way"/>
+      <enumeration value="bi-directional"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="field-type">
+    <restriction base="NMTOKEN">
+      <enumeration value="iterate"/>
+      <enumeration value="generic"/>
+    </restriction>
+  </simpleType>
+
+  <element name='custom-converters'>
+    <complexType>
+      <sequence>
+        <element ref='t:converter' maxOccurs="unbounded"/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name='converter' type="t:converter-type"/>
+
+  <element name='copy-by-references'>
+    <complexType>
+      <sequence>
+        <element ref='t:copy-by-reference' maxOccurs='unbounded'/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name='copy-by-reference' type="string"/>
+
+  <element name='allowed-exceptions'>
+    <complexType>
+      <sequence>
+        <element ref="t:exception" maxOccurs='unbounded'/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name="exception" type="string"/>
+
+  <element name='variables'>
+    <complexType>
+      <sequence>
+        <element ref="t:variable" maxOccurs='unbounded'/>
+      </sequence>
+    </complexType>
+  </element>
+
+  <element name="variable" type="t:variable"/>
+
+  <complexType name="variable" mixed="true">
+      <attribute name="name" type="string" use="required"/>
+  </complexType>
+
+  <complexType name="converter-type">
+    <sequence>
+      <element ref='t:class-a'/>
+      <element ref='t:class-b'/>
+    </sequence>
+    <attribute name='type' type='string' use='required'/>
+  </complexType>
+
+  <element name='a-hint' type="string"/>
+  <element name='b-hint' type="string"/>
+  <element name='a-deep-index-hint' type="string"/>
+  <element name='b-deep-index-hint' type="string"/>
+  <element name='stop-on-errors' type="boolean"/>
+  <element name='date-format' type="string"/>
+  <element name='map-null' type="boolean"/>
+  <element name='map-empty-string' type="boolean"/>
+  <element name='wildcard' type="boolean"/>
+  <element name='trim-strings' type="boolean"/>
+  <element name='bean-factory' type="string"/>
+  <element name='relationship-type' type="t:relationship"/>
+
+</schema>

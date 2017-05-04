@@ -1,0 +1,105 @@
+== Excluding Fields
+Dozer supports excluding fields from a mapping using the field-exclude
+tag. We also support field excludes going one-way as shown in the
+example.
+
+[source,xml,prettyprint]
+----
+<field-exclude>
+    <a>fieldToExclude</a>
+    <b>fieldToExclude</b>
+</field-exclude>
+
+<field-exclude type="one-way">
+    <a>fieldToExclude</a>
+    <b>fieldToExclude</b>
+</field-exclude>
+----
+
+=== Wildcard - excluding default field mappings
+There's also a flag (`wildcard`) set on class mapping which controls
+whether the default mapping (which applies to pair of properties of the
+same name) should be done. The default value is true. For example:
+
+[source,xml,prettyprint]
+----
+<mapping wildcard="false">
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+        <a>field1</a>
+        <b>field1</b>
+    </field>
+</mapping>
+----
+
+This configuration would cause only the fields `field1` in both classes
+to be mapped, even if both classes share a property with the same name
+called`field2`.
+
+=== Exclude Mapping Null Values
+You can bypass the mapping of null values. If this is specified, the
+dest field mapping is bypassed at runtime and the destination value
+setter method will not be called if the src value is null. This can be
+specified at the mapping or class level. For example:
+
+[source,xml,prettyprint]
+----
+<mapping map-null="false">
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----
+
+OR...
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b map-null="false">org.dozer.vo.AnotherTestObjectPrime
+  </class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----
+
+=== Exclude Mapping Empty Strings
+You can bypass the mapping of empty String values. If this is specified,
+the dest field mapping is bypassed at runtime and the destination value
+setter method will not be called if the src value is an empty String.
+This can be specified at the mapping or class level. For example:
+
+[source,xml,prettyprint]
+----
+<mapping map-empty-string="false">
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----
+
+OR...
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b map-empty-string="false">
+      org.dozer.vo.AnotherTestObjectPrime
+  </class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----

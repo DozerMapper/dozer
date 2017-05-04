@@ -1,0 +1,83 @@
+== Custom get() set() Methods
+=== Mapping a field with no get() or set() methods
+Use the attribute is-accessible to declare that the field can be
+accessed directly. Dozer is able to access private properties that do
+not have getter or setter methods.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>fieldAccessible</a>
+    <b is-accessible="true">fieldAccessible</b>
+</field>
+----
+
+=== Custom Set() and Get() methods (bi-directional)
+For those beans that might have unorthodox getter and setter methods,
+Dozer support user specified setter and getter methods. To make a
+bi-directional mapping in this case, look at the following example
+below. The source field in element A specifies a custom setter method
+and getter method using attributes.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a set-method="placeValue" get-method="buildValue">value</a>
+    <b>value</b>
+</field>
+----
+
+In this case we are mapping a String to an ArrayList by calling the
+addIntegerToList() method. Note that this is defined as a one-way field
+type since we can not map an ArrayList to a String.
+
+[source,xml,prettyprint]
+----
+<!-- we can not map a ArrayList to a String, hence the one-way mapping -->
+<field type="one-way">
+    <a>integerStr</a>
+    <b set-method="addIntegerToList">integerList</b>
+</field>
+----
+
+=== Overloaded Set() methods (bi-directional)
+Sometimes set() methods can be overloaded. In order to chose the correct
+one you can add the class type as a parameter.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>overloadGetField</a>
+    <b set-method="setOverloadSetField(java.util.Date)">
+        overloadSetField
+    </b>
+</field>
+----
+
+=== Iterate Method Mapping (bi-directional)
+Dozer also supports iterate method level mapping. In the following
+example the List appleComputers will be iterated through and for each
+object the method addComptuer will be called. Any field that is denoted
+as type=iterate requires a hint. The get() method can return an Array,
+List, or Iterator.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>appleComputers</a>
+    <b set-method="addComputer" type="iterate">computers</b>
+    <b-hint>org.dozer.vo.AppleComputer</b-hint>
+</field>
+----
+
+Below is an example with iterate methods on both fields.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a set-method="addCar" get-method="myIterateCars" type="iterate">iterateCars</a>
+    <b set-method="addIterateCar" type="iterate">iterateCars</b>
+    <a-hint>org.dozer.vo.Car</a-hint>
+    <b-hint>org.dozer.vo.Car</b-hint>
+</field>
+----

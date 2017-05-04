@@ -1,0 +1,69 @@
+== 3rd Party Object Factories
+Dozer supports mapping of plain Java objects to frameworks that require
+instantiation of objects via certain convention of calling factory
+methods. To reproduce the expected behavior custom bean factories should
+be used.
+
+=== Mapping JAXB Objects
+Dozer has support for mapping POJOs to JAXB objects. Use the
+JAXBBeanFactory for any JAXB objects you want create.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">
+    org.dozer.vo.jaxb.employee.Employee
+  </class-b>
+    <field>
+        <a>name</a>
+        <b>firstName</b>
+    </field>
+    <field>
+        <a>street</a>
+        <b>address.street</b>
+    </field>
+</mapping>
+----
+
+=== Mapping XMLBeans
+Dozer has support for mapping POJOs to XMLBeans objects. Use the
+XMLBeanFactory for any XMLBeans you want created. This factory will also
+be used for mapping any fields that need to be instantiated in a deep
+mapping that are not regular POJOs but are XMLBeans.
+
+[source,xml,prettyprint]
+----
+<mapping wildcard="false">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b bean-factory="org.dozer.factory.XMLBeanFactory">
+    org.dozer.vo.GetWeatherByZipCodeDocument
+  </class-b>
+    <field>
+        <a>one</a>
+        <b>GetWeatherByZipCode.zipCode</b>
+    </field>
+</mapping>
+----
+
+The unit test:
+
+[source,java,prettyprint]
+----
+// Map from TestObject to XMLBeans
+TestObject to = new TestObject();
+to.setOne("one");
+
+GetWeatherByZipCodeDocument doc = mapper.map(to, GetWeatherByZipCodeDocument.class);
+
+assertEquals(to.getOne(), doc.getGetWeatherByZipCode().getZipCode());
+
+// Map from XMLBeans to TestObject
+GetWeatherByZipCodeDocument res = GetWeatherByZipCodeDocument.Factory.newInstance();
+GetWeatherByZipCode zipCode = res.addNewGetWeatherByZipCode();
+zipCode.setZipCode("one");
+
+TestObject to2 = mapper.map(res, TestObject.class);
+
+assertEquals(res.getGetWeatherByZipCode().getZipCode(), to2.getOne());
+----

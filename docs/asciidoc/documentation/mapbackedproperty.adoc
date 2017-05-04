@@ -1,0 +1,188 @@
+== Map Backed Property Mapping
+=== Map to Map
+Dozer will map a java.util.Map to a java.util.Map. If there are complex
+types with hints it will do deep recursion mapping as well. If the
+destination map exists it will add elements to the existing map.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.map.MapToMap</class-a>
+    <class-b>org.dozer.vo.map.MapToMapPrime</class-b>
+    <field>
+        <a>standardMapWithHint</a>
+        <b>standardMapWithHint</b>
+        <a-hint>org.dozer.vo.TestObject</a-hint>
+        <b-hint>org.dozer.vo.TestObjectPrime</b-hint>
+    </field>
+</mapping>
+----
+
+=== Mapping Field Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods
+Dozer supports mapping map backed properties at the field level. The map
+can either implement the java.util.Map Interface or be a custom map with
+a set of unique Get/Set methods.
+
+In this example Field A is a basic String and it is mapped to Field B
+which is a HashMap. The key in the HashMap will be "stringProperty" (the
+attribute name) and the value will be whatever value is stored in that
+attribute.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+    <class-b>org.dozer.vo.map.MapToProperty</class-b>
+    <field>
+        <a>stringProperty</a>
+        <b>hashMap</b>
+    </field>
+</mapping>
+----
+
+This example shows Field A is a basic String and it is mapped to Field B
+which is a HashMap. The key in the HashMap will be "myStringProperty"
+and the value will be whatever value is stored in that attribute. Also
+notice that Field A has a unique setter() method name.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+    <class-b>org.dozer.vo.map.MapToProperty</class-b>
+    <field>
+        <a set-method="addStringProperty2">stringProperty2</a>
+        <b key="myStringProperty">hashMap</b>
+    </field>
+</mapping>
+----
+
+This example shows Field A is a basic String and it is mapped to Field B
+which is a custom map. The key in the custom map will be
+"myCustomProperty" and the value will be whatever value is stored in
+that attribute. Notice that Field B has unique map getter() and map
+setter() method names. If you are using a custom map you must explicitly
+set the map Get/Set method names. A destination hint can also be
+provided if your custom map implements an Interface or is an Abstract
+class.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+    <class-b>org.dozer.vo.map.MapToProperty</class-b>
+    <field>
+        <a>stringProperty3</a>
+        <b map-get-method="getValue" map-set-method="putValue" key="myCustomProperty">customMap</b>
+    </field>
+    <field>
+        <a>stringProperty4</a>
+        <b map-get-method="getValue" map-set-method="putValue" key="myCustomNullProperty">nullCustomMap</b>
+        <b-hint>org.dozer.vo.map.CustomMap</b-hint>
+    </field>
+    <field>
+        <a>stringProperty5</a>
+        <b map-get-method="getValue" map-set-method="putValue">customMap</b>
+    </field>
+</mapping>
+----
+
+=== Mapping Class Level Properties to a java.util.Map or a Custom Map with unique Get/Set methods
+Dozer can also map entire complex objects directly to a java.util.Map or
+a custom map object. This example shows the declaration of a mapping
+between a complex object (PropertyToMap) and a java.util.Map. When doing
+this you need to explicitly define a unique map-id for the mapping. This
+is used when determining which map to use at run-time. Every attribute
+on the PropertyToMap class will be mapped to the java.util.Map. You DO
+NOT need to explicitly define these mappings. Field exclude mappings can
+be used to exclude fields at run-time. If the attribute name is not the
+same as the map key just set the key attribute for a custom field
+mapping. The mapping to stringProperty2 shows an example of this.
+
+The second example shows how to setup a custom map object. The only
+difference here is that you need to explicitly define map-set-method and
+map-get-method values. These correspond to the java.util.Map get() and
+put() methods.
+
+[source,xml,prettyprint]
+----
+<mapping map-id="myTestMapping">
+    <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+    <class-b>java.util.Map</class-b>
+    <field>
+        <a set-method="addStringProperty2">stringProperty2</a>
+        <b key="myStringProperty">this</b>
+    </field>
+    <field-exclude>
+        <a>excludeMe</a>
+        <b>this</b>
+    </field-exclude>
+</mapping>
+<mapping map-id="myCustomTestMapping">
+    <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+    <class-b map-set-method="putValue" map-get-method="getValue">
+      org.dozer.vo.map.CustomMap
+  </class-b>
+    <field>
+        <a set-method="addStringProperty2">stringProperty2</a>
+        <b key="myStringProperty">this</b>
+    </field>
+    <field-exclude>
+        <a>excludeMe</a>
+        <b>this</b>
+    </field-exclude>
+</mapping>
+----
+
+The example below shows how to use these mappings. Notice that the field
+mappings reference a map-id. The first field mapping will use the
+myTestMapping defined mapping and map accordingly. Same goes with the
+custom mapping.
+
+[source,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.map.MapTestObject</class-a>
+    <class-b>org.dozer.vo.map.MapTestObjectPrime</class-b>
+    <field map-id="myTestMapping">
+        <a>propertyToMap</a>
+        <b>propertyToMapMap</b>
+    </field>
+    <field map-id="myTestMapping">
+        <a>propertyToMapToNullMap</a>
+        <b>nullPropertyToMapMap</b>
+        <b-hint>java.util.HashMap</b-hint>
+    </field>
+    <field map-id="myCustomTestMapping">
+        <a>propertyToCustomMap</a>
+        <b>propertyToCustomMapMap</b>
+    </field>
+</mapping>
+----
+
+The Class Level map backed mappings can also be used as a standard
+mapping. For this dozer has a new API. In addition to the source and
+destination classes you can now pass in the map reference Id.
+
+[source,java,prettyprint]
+----
+// Example 1
+PropertyToMap ptm = new PropertyToMap();
+ptm.setStringProperty("stringPropertyValue");
+ptm.addStringProperty2("stringProperty2Value");
+Map map = Mapper.map(ptm, HashMap.class, "myTestMapping");
+
+// Example 2
+CustomMap customMap = mapper.map(ptm, CustomMap.class, "myCustomTestMapping");
+
+// Example 3
+CustomMap custom = new CustomMap();
+custom.putValue("myKey", "myValue");
+Mapper.map(ptm, custom, "myCustomTestMapping");
+
+// Example 4 - Map Back
+Map map = new HashMap();
+map.put("stringProperty", "stringPropertyValue");
+PropertyToMap property = mapper.map(map, PropertyToMap.class, "myTestMapping");
+assertEquals("stringPropertyValue", property.getStringProperty());
+----

@@ -1,0 +1,76 @@
+== Copying By Object Reference
+Dozer supports copying an object by reference. No
+conversion/transformation is done for such objects. This approach allows
+to decrease a number of object allocations, but is applicable only when
+Java Beans are to be thrown away (Garbage Collected) after
+transformation. This approach is generally recommended for performance
+tuning of the mapping process when possible. Make sure that both object
+types are the same or you will run into casting problems. The default
+value is 'false'.
+
+[source,xml,prettyprint]
+----
+<field copy-by-reference="true">
+    <a>copyByReference</a>
+    <b>copyByReferencePrime</b>
+</field>
+----
+
+This is also supported at the class level. Just define the classes you
+want to be copied by reference in the configuration block.
+
+[source,xml,prettyprint]
+----
+<configuration>
+    <copy-by-references>
+        <copy-by-reference>
+       org.dozer.vo.NoExtendBaseObjectGlobalCopyByReference
+     </copy-by-reference>
+    </copy-by-references>
+</configuration>
+----
+
+On the class level wildcard expressions are allowed. Copy by reference
+is applied via mask, which can inlcude multiple wildcard (*) characters.
+
+[source,xml,prettyprint]
+----
+<configuration>
+    <copy-by-references>
+        <copy-by-reference>
+       org.dozer.vo.*
+     </copy-by-reference>
+        <copy-by-reference>
+       org.dozer.*.vo.*DTO
+     </copy-by-reference>
+    </copy-by-references>
+</configuration>
+----
+
+=== Referencing self (this) in a field mapping
+Using a field mapping it is possible to map where N == 0 (self, or
+this). In the following example SimpleAccount is mapped to Address. It
+is also mapped to Account. Suppose Address was an attribute on Account.
+How could we map the values on SimpleAccount to that property? The
+answer is to use the keyword (this) to denote using the class being
+mapped as the source object.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <classa>org.dozer.vo.self.SimpleAccount</classa>
+    <classb>org.dozer.vo.self.Account</classb>
+    <field>
+        <a>this</a>
+        <b>address</b>
+    </field>
+</mapping>
+<mapping>
+    <classa>org.dozer.vo.self.SimpleAccount</classa>
+    <classb>org.dozer.vo.self.Address</classb>
+    <field>
+        <a>streetName</a>
+        <b>street</b>
+    </field>
+</mapping>
+----
