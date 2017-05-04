@@ -49,7 +49,6 @@
         <junit.version>4.12</junit.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <pax-exam.version>4.10.0</pax-exam.version>
-        <pax-url-aether.version>1.5.2</pax-url-aether.version>
         <protobuf-java.version>2.6.1</protobuf-java.version>
         <relaxngDatatype.version>20020414</relaxngDatatype.version>
         <osgi.version>6.0.0</osgi.version>
@@ -166,13 +165,8 @@
             </dependency>
             <dependency>
                 <groupId>org.ops4j.pax.exam</groupId>
-                <artifactId>pax-exam-link-mvn</artifactId>
+                <artifactId>pax-exam-link-assembly</artifactId>
                 <version>${pax-exam.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ops4j.pax.url</groupId>
-                <artifactId>pax-url-aether</artifactId>
-                <version>${pax-url-aether.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
