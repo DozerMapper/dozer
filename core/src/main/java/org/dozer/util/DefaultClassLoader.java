@@ -40,7 +40,11 @@ public class DefaultClassLoader implements DozerClassLoader {
     try {
     	result = ClassUtils.getClass(classLoader, className);
     } catch (ClassNotFoundException e) {
-      MappingUtils.throwMappingException(e);
+    	try {
+    		result = ClassUtils.getClass(Thread.currentThread().getContextClassLoader(), className);
+    	} catch (ClassNotFoundException cnfe) {
+    		MappingUtils.throwMappingException(e);
+    	}
     }
     return result;
   }
