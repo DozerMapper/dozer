@@ -36,6 +36,7 @@
         <bom-dependencies-version>6.0.0-SNAPSHOT</bom-dependencies-version>
 
         <!-- Maven Plugins versions; alphabetical order -->
+        <alta-maven-plugin.version>0.5</alta-maven-plugin.version>
         <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
         <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
@@ -108,6 +109,11 @@
         <pluginManagement>
             <plugins>
                 <!-- Maven Plugins; alphabetical order -->
+                <plugin>
+                    <groupId>com.github.veithen.alta</groupId>
+                    <artifactId>alta-maven-plugin</artifactId>
+                    <version>${alta-maven-plugin.version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
