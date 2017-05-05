@@ -60,7 +60,11 @@ public final class MappingValidator {
     
     URL url = classLoader.loadResource(fileName);
     if (url == null) {
-      MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!");
+      DozerClassLoader tccl = BeanContainer.getInstance().getTCCL();
+      url = tccl.loadResource(fileName);
+      if (url == null) {
+        MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!");
+      }
     }
 
     InputStream stream = null;
