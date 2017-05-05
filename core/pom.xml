@@ -159,30 +159,15 @@
                 <configuration>
                     <unpackBundle>false</unpackBundle>
                     <instructions>
-                        <Bundle-Activator>org.dozer.osgi.Activator</Bundle-Activator>
-                        <Bundle-Name>${project.artifactId}</Bundle-Name>
+                        <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Description>${project.name}</Bundle-Description>
-                        <Import-Package>
-                            org.osgi.framework,
-                            javax.el;resolution:=optional,
-                            javax.management,
-                            javax.xml.datatype,
-                            javax.xml.parsers,
-                            org.apache.commons.beanutils;version="[1.8,2)",
-                            org.apache.commons.beanutils.converters;version="[1.8,2)",
-                            org.apache.commons.lang3;version="[3.1,4)",
-                            org.apache.commons.lang3.builder;version="[3.1,4)",
-                            org.hibernate.proxy.*;resolution:=optional,
-                            org.slf4j;version="[1.6,2)",
-                            org.springframework.beans.factory;resolution:=optional,
-                            org.springframework.core.io;resolution:=optional,
-                            org.w3c.dom,
-                            org.xml.sax,
-                            org.xml.sax.helpers
-                        </Import-Package>
+                        <Bundle-Activator>org.dozer.osgi.Activator</Bundle-Activator>
                         <DynamicImport-Package>*</DynamicImport-Package>
                         <Export-Package>org.dozer.*;version=${project.version}</Export-Package>
+                        <Import-Package>*</Import-Package>
+                        <Implementation-Title>${project.name}</Implementation-Title>
+                        <Implementation-Version>${project.version}</Implementation-Version>
+                        <Karaf-Info>${project.groupId}.${project.artifactId}=${project.version}</Karaf-Info>
                     </instructions>
                 </configuration>
                 <extensions>true</extensions>
