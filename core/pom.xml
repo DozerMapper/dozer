@@ -52,6 +52,7 @@
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- EL -->
@@ -59,11 +60,12 @@
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>el-impl</artifactId>
-            <scope>provided</scope>
+            <scope>test</scope>
         </dependency>
 
         <!-- XML -->
@@ -91,6 +93,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <scope>provided</scope>
+            <optional>true</optional>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
