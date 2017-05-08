@@ -22,7 +22,10 @@ import org.dozer.BeanBuilder;
  */
 public class BuilderUtil {
   public static Class<?> unwrapDestClassFromBuilder(Object dest) {
-    if (dest instanceof BeanBuilder) return ((BeanBuilder) dest).beanClass();
+    if (dest instanceof BeanBuilder) {
+      return ((BeanBuilder)dest).beanClass();
+    }
+
     return dest.getClass();
   }
 }

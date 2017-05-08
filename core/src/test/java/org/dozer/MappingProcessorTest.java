@@ -136,13 +136,19 @@ public class MappingProcessorTest extends AbstractDozerTest {
 
     @Override
     public boolean equals(Object o) {
-      if (this == o)
+      if (this == o) {
         return true;
-      if (o == null || getClass() != o.getClass())
+      }
+
+      if (o == null || getClass() != o.getClass()) {
         return false;
+      }
+
       Ordered ordered = (Ordered) o;
-      if (id != ordered.id)
+      if (id != ordered.id) {
         return false;
+      }
+
       return true;
     }
 

@@ -589,34 +589,28 @@ public class MappingProcessor implements Mapper {
     // Array to Array
     if (CollectionUtils.isArray(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
       result = mapArrayToArray(srcObj, srcCollectionValue, fieldMap, destObj);
-      // Array to List
     } else if (CollectionUtils.isArray(srcFieldType) && (CollectionUtils.isList(destCollectionType))) {
+      // Array to List
       result = mapArrayToList(srcObj, srcCollectionValue, fieldMap, destObj);
-    }
-    // List to Array
-    else if (CollectionUtils.isList(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
+    } else if (CollectionUtils.isList(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
+      // List to Array
       result = mapListToArray(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
-    }
-    // Set to Array
-    else if (CollectionUtils.isSet(srcFieldType) && CollectionUtils.isArray(destCollectionType)) {
+    } else if (CollectionUtils.isSet(srcFieldType) && CollectionUtils.isArray(destCollectionType)) {
+      // Set to Array
       result = mapSetToArray(srcObj, (Set<?>) srcCollectionValue, fieldMap, destObj);
-    }
-    // Array to Set
-    else if (CollectionUtils.isArray(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
+    } else if (CollectionUtils.isArray(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
+      // Array to Set
       result = addToSet(srcObj, fieldMap, Arrays.asList((Object[]) srcCollectionValue), destObj);
-    }
-    // Collection to Set
-    else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
+    } else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
+      // Collection to Set
       result = addToSet(srcObj, fieldMap, (Collection<?>) srcCollectionValue, destObj);
-    }
-    // List to Map value
-    else if (CollectionUtils.isCollection(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
+    } else if (CollectionUtils.isCollection(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
+      // List to Map value
       result = mapListToList(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
-    }
-    // List to List
-    // Set to List
-    // Collection to List. Fix for 3378952, http://sourceforge.net/tracker/index.php?func=detail&aid=3378952&group_id=133517&atid=727368
-    else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
+    } else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
+        // List to List
+        // Set to List
+        // Collection to List. Fix for 3378952, http://sourceforge.net/tracker/index.php?func=detail&aid=3378952&group_id=133517&atid=727368
         result = mapListToList(srcObj, (Collection<?>) srcCollectionValue, fieldMap, destObj);
     }
     return result;

@@ -61,7 +61,10 @@ public final class DestBeanCreator {
 
   public static Object create(BeanCreationDirective directive) {
     Object result = applyStrategies(directive, pluggedStrategies);
-    if (result == null) result = applyStrategies(directive, Arrays.asList(availableStrategies));
+    if (result == null) {
+      result = applyStrategies(directive, Arrays.asList(availableStrategies));
+    }
+
     return result;
   }
 

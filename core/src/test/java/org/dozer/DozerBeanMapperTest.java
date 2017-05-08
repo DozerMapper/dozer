@@ -101,8 +101,7 @@ public class DozerBeanMapperTest extends Assert {
         public void run() {
           try {
             mapper.map(new TestObject(), TestObjectPrime.class);
-          }
-          finally {
+          } finally {
             latch.countDown();
           }
         }
