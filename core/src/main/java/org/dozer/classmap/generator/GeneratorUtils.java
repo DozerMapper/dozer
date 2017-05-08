@@ -60,6 +60,7 @@ public final class GeneratorUtils {
               srcField.setAccessible(true);
               break;
           case GETTER_TO_SETTER:
+          default:
               break;
       }
 
