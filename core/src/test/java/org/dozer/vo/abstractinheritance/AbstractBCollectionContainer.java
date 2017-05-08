@@ -20,16 +20,16 @@ import java.util.List;
 import org.dozer.vo.BaseTestObject;
 
 public class AbstractBCollectionContainer extends BaseTestObject {
-	
-	List<AbstractB> bs;
+    
+    List<AbstractB> bs;
 
-	public List<AbstractB> getBs() {
-		return bs;
-	}
+    public List<AbstractB> getBs() {
+        return bs;
+    }
 
-	public void setBs(List<AbstractB> bs) {
-		this.bs = bs;
-	}
-	
+    public void setBs(List<AbstractB> bs) {
+        this.bs = bs;
+    }
+    
 
 }

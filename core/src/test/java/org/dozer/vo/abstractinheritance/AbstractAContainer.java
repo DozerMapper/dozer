@@ -18,17 +18,17 @@ package org.dozer.vo.abstractinheritance;
 import org.dozer.vo.BaseTestObject;
 
 public class AbstractAContainer extends BaseTestObject {
-	
-	private AbstractA a;
+    
+    private AbstractA a;
 
-	public void setA(AbstractA a) {
-		this.a = a;
-	}
+    public void setA(AbstractA a) {
+        this.a = a;
+    }
 
-	public AbstractA getA() {
-		return a;
-	}
-	
-	
+    public AbstractA getA() {
+        return a;
+    }
+    
+    
 
 }

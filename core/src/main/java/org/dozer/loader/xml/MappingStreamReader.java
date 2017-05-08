@@ -35,28 +35,28 @@ import org.slf4j.LoggerFactory;
  */
 public class MappingStreamReader implements MappingsSource<InputStream> {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(MappingStreamReader.class);
+    private static final Logger log = LoggerFactory
+            .getLogger(MappingStreamReader.class);
 
-	private final DocumentBuilder documentBuilder;
+    private final DocumentBuilder documentBuilder;
   private final MappingsSource<Document> parser;
 
-	public MappingStreamReader(XMLParserFactory parserFactory) {
+    public MappingStreamReader(XMLParserFactory parserFactory) {
     this.documentBuilder = parserFactory.createParser();
     this.parser = new XMLParser();
-	}
+    }
 
-	public MappingFileData read(InputStream xmlStream) {
-		MappingFileData result = null;
-		try {
-			Document document = documentBuilder.parse(xmlStream);
-			result = parser.read(document);
-		} catch (Throwable e) {
-			log.error("Error while loading dozer mapping InputStream: ["
-					+ xmlStream + "]", e);
-			MappingUtils.throwMappingException(e);
-		}
-		return result;
-	}
+    public MappingFileData read(InputStream xmlStream) {
+        MappingFileData result = null;
+        try {
+            Document document = documentBuilder.parse(xmlStream);
+            result = parser.read(document);
+        } catch (Throwable e) {
+            log.error("Error while loading dozer mapping InputStream: ["
+                    + xmlStream + "]", e);
+            MappingUtils.throwMappingException(e);
+        }
+        return result;
+    }
 
 }

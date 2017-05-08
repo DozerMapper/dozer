@@ -26,8 +26,8 @@ import org.dozer.MappingException;
  */
 public class MetadataLookupException extends MappingException {
 
-	public MetadataLookupException(String description) {
-		super(description);
-	}
+    public MetadataLookupException(String description) {
+        super(description);
+    }
   
 }

@@ -479,11 +479,11 @@ public abstract class FieldMap implements Cloneable {
   }
 
   public String getCustomConverterParam() {
-	  return customConverterParam;
+      return customConverterParam;
   }
 
   public void setCustomConverterParam(String customConverterParam) {
-	  this.customConverterParam = customConverterParam;
+      this.customConverterParam = customConverterParam;
   }
 
 }

@@ -238,13 +238,13 @@ public class MappingProcessor implements Mapper {
    * @param mapId               mapping identifier
    */
   private void mapToDestObject(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, String mapId) {
-	Object result = destObj;
-	if(javax.xml.bind.JAXBElement.class.isAssignableFrom(destObj.getClass())){
-	  classMap = getClassMap(srcObj.getClass(), javax.xml.bind.JAXBElement.class.cast(destObj).getDeclaredType(), mapId);
-	  result = javax.xml.bind.JAXBElement.class.cast(destObj).getValue();
-	}
+    Object result = destObj;
+    if(javax.xml.bind.JAXBElement.class.isAssignableFrom(destObj.getClass())){
+      classMap = getClassMap(srcObj.getClass(), javax.xml.bind.JAXBElement.class.cast(destObj).getDeclaredType(), mapId);
+      result = javax.xml.bind.JAXBElement.class.cast(destObj).getValue();
+    }
 
-	map(classMap, srcObj, result, bypassSuperMappings, new ArrayList<String>(), mapId);
+    map(classMap, srcObj, result, bypassSuperMappings, new ArrayList<String>(), mapId);
   }
 
   private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, List<String> mappedParentFields, String mapId) {
@@ -613,12 +613,12 @@ public class MappingProcessor implements Mapper {
     else if (CollectionUtils.isCollection(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
       result = mapListToList(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
     }
-	// List to List
-	// Set to List
-	// Collection to List. Fix for 3378952, http://sourceforge.net/tracker/index.php?func=detail&aid=3378952&group_id=133517&atid=727368
-	else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
-		result = mapListToList(srcObj, (Collection<?>) srcCollectionValue, fieldMap, destObj);
-	}
+    // List to List
+    // Set to List
+    // Collection to List. Fix for 3378952, http://sourceforge.net/tracker/index.php?func=detail&aid=3378952&group_id=133517&atid=727368
+    else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
+        result = mapListToList(srcObj, (Collection<?>) srcCollectionValue, fieldMap, destObj);
+    }
     return result;
   }
 

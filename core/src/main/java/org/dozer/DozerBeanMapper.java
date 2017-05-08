@@ -243,9 +243,9 @@ public class DozerBeanMapper implements Mapper {
    * internally create MappingFileData objects so that the InputStreams may be
    * closed after the call to this method.
    *
-	 * @param xmlStream Dozer mapping XML InputStream
-	 */
-	public void addMapping(InputStream xmlStream) {
+     * @param xmlStream Dozer mapping XML InputStream
+     */
+    public void addMapping(InputStream xmlStream) {
     checkIfInitialized();
     MappingStreamReader fileReader = new MappingStreamReader(XMLParserFactory.getInstance());
     MappingFileData mappingFileData = fileReader.read(xmlStream);

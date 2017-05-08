@@ -31,43 +31,43 @@ import org.slf4j.LoggerFactory;
  */
 public class JAXBBeanFactory implements BeanFactory {
 
-	private static final char INNER_CLASS_DELIMITER = '$';
+    private static final char INNER_CLASS_DELIMITER = '$';
 
-	private final Logger log = LoggerFactory.getLogger(JAXBBeanFactory.class);
+    private final Logger log = LoggerFactory.getLogger(JAXBBeanFactory.class);
 
-	/**
-	 * Create a bean implementation of a JAXB interface.
-	 *
-	 * @param srcObj      The source object
-	 * @param srcObjClass The source object class
-	 * @param beanId      the name of the destination interface class
-	 * @return A implementation of the destination interface
-	 */
-	@Override
-	public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
-		log.debug("createBean(Object, Class, String) - start [{}]", beanId);
+    /**
+     * Create a bean implementation of a JAXB interface.
+     *
+     * @param srcObj      The source object
+     * @param srcObjClass The source object class
+     * @param beanId      the name of the destination interface class
+     * @return A implementation of the destination interface
+     */
+    @Override
+    public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
+        log.debug("createBean(Object, Class, String) - start [{}]", beanId);
 
-		int indexOf = beanId.indexOf(INNER_CLASS_DELIMITER);
-		while (indexOf > 0) {
-			beanId = beanId.substring(0, indexOf) + beanId.substring(indexOf + 1);
-			log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  [{}]", beanId);
-			indexOf = beanId.indexOf(INNER_CLASS_DELIMITER);
-		}
-		Object result;
+        int indexOf = beanId.indexOf(INNER_CLASS_DELIMITER);
+        while (indexOf > 0) {
+            beanId = beanId.substring(0, indexOf) + beanId.substring(indexOf + 1);
+            log.debug("createBean(Object, Class, String) - HAS BEEN CHANGED TO  [{}]", beanId);
+            indexOf = beanId.indexOf(INNER_CLASS_DELIMITER);
+        }
+        Object result;
 
-		Class<?> objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
-		Object factory = ReflectionUtils.newInstance(objectFactory);
-		Method method = null;
-		try {
-			method = ReflectionUtils.getMethod(objectFactory, "create" + beanId.substring(beanId.lastIndexOf(".") + 1), new Class[]{});
-		} catch (NoSuchMethodException e) {
-			MappingUtils.throwMappingException(e);
-		}
-		Object returnObject = ReflectionUtils.invoke(method, factory, new Object[]{});
-		log.debug("createBean(Object, Class, String) - end [{}]", returnObject.getClass().getName());
-		result = returnObject;
+        Class<?> objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
+        Object factory = ReflectionUtils.newInstance(objectFactory);
+        Method method = null;
+        try {
+            method = ReflectionUtils.getMethod(objectFactory, "create" + beanId.substring(beanId.lastIndexOf(".") + 1), new Class[]{});
+        } catch (NoSuchMethodException e) {
+            MappingUtils.throwMappingException(e);
+        }
+        Object returnObject = ReflectionUtils.invoke(method, factory, new Object[]{});
+        log.debug("createBean(Object, Class, String) - end [{}]", returnObject.getClass().getName());
+        result = returnObject;
 
-		return result;
-	}
+        return result;
+    }
 
 }

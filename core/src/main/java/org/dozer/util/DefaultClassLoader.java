@@ -38,7 +38,7 @@ public class DefaultClassLoader implements DozerClassLoader {
   public Class<?> loadClass(String className)  {
     Class<?> result = null;
     try {
-    	result = ClassUtils.getClass(classLoader, className);
+        result = ClassUtils.getClass(classLoader, className);
     } catch (ClassNotFoundException e) {
       try {
         result = ClassUtils.getClass(Thread.currentThread().getContextClassLoader(), className);
