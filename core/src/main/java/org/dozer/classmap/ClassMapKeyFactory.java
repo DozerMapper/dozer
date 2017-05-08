@@ -35,8 +35,8 @@ public final class ClassMapKeyFactory {
   }
 
   public String createKey(Class<?> srcClass, Class<?> destClass, String mapId) {
-	  Class<?> srcRealClass = MappingUtils.getRealClass(srcClass);
-	  Class<?> destRealClass = MappingUtils.getRealClass(destClass);
+      Class<?> srcRealClass = MappingUtils.getRealClass(srcClass);
+      Class<?> destRealClass = MappingUtils.getRealClass(destClass);
 
 
     StringBuilder result = new StringBuilder(140);

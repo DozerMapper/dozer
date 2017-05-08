@@ -57,9 +57,9 @@ public class MappingFileReader implements MappingsSource<URL> {
       stream = url.openStream();
       result = streamReader.read(stream);
     } catch (IOException e) {
-	      log.error("Error while loading dozer mapping file url: [" + url + "]", e);
-	      MappingUtils.throwMappingException(e);
-	} finally {
+          log.error("Error while loading dozer mapping file url: [" + url + "]", e);
+          MappingUtils.throwMappingException(e);
+    } finally {
       try {
         if (stream != null) {
           stream.close();

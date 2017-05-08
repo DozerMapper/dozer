@@ -65,7 +65,7 @@ public class TestObject extends BaseTestObject {
   private Set setToObjectArray;
   private Set setToArrayWithValues;
   private Set setToList;
-	private Collection collectionToList;
+    private Collection collectionToList;
   private Set setToListWithValues;
   private String fieldAccessible;
   private int fieldAccessiblePrimInt;
@@ -563,12 +563,12 @@ public class TestObject extends BaseTestObject {
     getSetToArrayWithIterate().add(ato);
   }
 
-	public Collection getCollectionToList() {
-		return collectionToList;
-	}
+    public Collection getCollectionToList() {
+        return collectionToList;
+    }
 
-	public void setCollectionToList(Collection collectionToList) {
-		this.collectionToList = collectionToList;
-	}
+    public void setCollectionToList(Collection collectionToList) {
+        this.collectionToList = collectionToList;
+    }
 
 }

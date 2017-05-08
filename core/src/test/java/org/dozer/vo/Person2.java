@@ -19,16 +19,16 @@ import java.util.List;
 
 public class Person2
 {
-	private List<PersonName> personNames;
+    private List<PersonName> personNames;
 
-	public List<PersonName> getPersonNames()
-	{
-		return personNames;
-	}
+    public List<PersonName> getPersonNames()
+    {
+        return personNames;
+    }
 
-	public void setPersonNames(List<PersonName> personNames)
-	{
-		this.personNames = personNames;
-	}
+    public void setPersonNames(List<PersonName> personNames)
+    {
+        this.personNames = personNames;
+    }
 }
 

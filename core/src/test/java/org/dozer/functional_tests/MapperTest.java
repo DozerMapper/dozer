@@ -576,21 +576,21 @@ public class MapperTest extends AbstractFunctionalTest {
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
   }
 
-	// one way
-	@Test
-	public void testMapValuesToList() throws Exception {
-		Orange orange1 = newInstance(Orange.class);
-		orange1.setName("orange1");
-		Orange orange2 = newInstance(Orange.class);
-		orange2.setName("orange2");
-		Map<String, Orange> map = newInstance(HashMap.class);
-		map.put(orange1.getName(), orange1);
-		map.put(orange2.getName(), orange2);
-		TestObject to = newInstance(TestObject.class);
-		to.setCollectionToList(map.values());
-		TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
-		assertTrue(top.getListToCollection().contains(orange1));
-		assertTrue(top.getListToCollection().contains(orange2));
-	}
+    // one way
+    @Test
+    public void testMapValuesToList() throws Exception {
+        Orange orange1 = newInstance(Orange.class);
+        orange1.setName("orange1");
+        Orange orange2 = newInstance(Orange.class);
+        orange2.setName("orange2");
+        Map<String, Orange> map = newInstance(HashMap.class);
+        map.put(orange1.getName(), orange1);
+        map.put(orange2.getName(), orange2);
+        TestObject to = newInstance(TestObject.class);
+        to.setCollectionToList(map.values());
+        TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
+        assertTrue(top.getListToCollection().contains(orange1));
+        assertTrue(top.getListToCollection().contains(orange2));
+    }
 
 }

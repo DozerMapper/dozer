@@ -93,13 +93,13 @@ public final class ReflectionUtils {
     return result;
   }
 
-	/**
-	 * There are some nasty bugs for introspection with generics. This method addresses those nasty bugs and tries to find proper methods if available
-	 *  http://bugs.sun.com/view_bug.do?bug_id=6788525
-	 *  http://bugs.sun.com/view_bug.do?bug_id=6528714
-	 * @param descriptor
-	 * @return
-	 */
+    /**
+     * There are some nasty bugs for introspection with generics. This method addresses those nasty bugs and tries to find proper methods if available
+     *  http://bugs.sun.com/view_bug.do?bug_id=6788525
+     *  http://bugs.sun.com/view_bug.do?bug_id=6528714
+     * @param descriptor
+     * @return
+     */
     private static PropertyDescriptor fixGenericDescriptor(Class<?> clazz, PropertyDescriptor descriptor) {
       Method readMethod = descriptor.getReadMethod();
 
