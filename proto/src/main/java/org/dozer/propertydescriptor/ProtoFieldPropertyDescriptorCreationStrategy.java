@@ -33,7 +33,10 @@ public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDes
 
   @Override
   public boolean isApplicable(Class<?> clazz, String fieldName) {
-    if (!Message.class.isAssignableFrom(clazz)) return false;
+    if (!Message.class.isAssignableFrom(clazz)) {
+      return false;
+    }
+
     Class<? extends Message> messageClass = (Class<? extends Message>)clazz;
     Descriptors.FieldDescriptor foundDescriptor = ProtoUtils.getFieldDescriptor(messageClass, fieldName);
 

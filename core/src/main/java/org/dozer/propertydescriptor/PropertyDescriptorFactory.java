@@ -73,14 +73,18 @@ public class PropertyDescriptorFactory {
       desc = new XmlBeanPropertyDescriptor(clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     }
 
-    if (desc != null) return desc;
+    if (desc != null) {
+      return desc;
+    }
 
     for (PropertyDescriptorCreationStrategy propertyDescriptorBuilder :
             new CopyOnWriteArrayList<PropertyDescriptorCreationStrategy>(pluggedDescriptorCreationStrategies)) {
       if (propertyDescriptorBuilder.isApplicable(clazz, name)) {
         desc = propertyDescriptorBuilder.buildFor(
                 clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
-        if (desc != null) break;
+        if (desc != null) {
+          break;
+        }
       }
     }
 

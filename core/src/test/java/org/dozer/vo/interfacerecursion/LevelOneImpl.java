@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * 
+ *
  */
 package org.dozer.vo.interfacerecursion;
 
@@ -25,34 +25,29 @@ import java.io.Serializable;
  *
  */
 @SuppressWarnings("serial")
-public class LevelOneImpl extends BaseImpl implements LevelOne, Serializable
-{
+public class LevelOneImpl extends BaseImpl implements LevelOne, Serializable {
 
-  public String getFirstName()
-  {
-    return null;
-  }
+    public String getFirstName() {
+        return null;
+    }
 
-  public String getLastName()
-  {
-    return null;
-  }
+    public String getLastName() {
+        return null;
+    }
 
-  public UserGroup getUserGroup()
-  {
-    return null;
-  }
+    public UserGroup getUserGroup() {
+        return null;
+    }
 
-  public void setFirstName( String firstName )
-  {
-  }
+    public void setFirstName(String firstName) {
 
-  public void setLastName( String lastName )
-  {
-  }
+    }
 
-  public void setUserGroup( UserGroup userGroup )
-  {
-  }
+    public void setLastName(String lastName) {
 
+    }
+
+    public void setUserGroup(UserGroup userGroup) {
+
+    }
 }

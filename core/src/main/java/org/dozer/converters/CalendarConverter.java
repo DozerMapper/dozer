@@ -48,9 +48,8 @@ public class CalendarConverter implements Converter {
         // Convert from Date to Calendar
         if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
             result.setTime((java.util.Date) srcObj);
-        }
-        //  Convert from Calendar to Calendar
-        else if (Calendar.class.isAssignableFrom(srcFieldClass)) {
+        } else if (Calendar.class.isAssignableFrom(srcFieldClass)) {
+            //  Convert from Calendar to Calendar
             Calendar c = (Calendar) srcObj;
             result.setTime(c.getTime());
             result.setTimeZone(c.getTimeZone());
@@ -58,16 +57,15 @@ public class CalendarConverter implements Converter {
             Calendar c = ((XMLGregorianCalendar) srcObj).toGregorianCalendar();
             result.setTime(c.getTime());
             result.setTimeZone(c.getTimeZone());
-        }
-        // String to Calendar
-        else if (dateFormat != null && String.class.isAssignableFrom(srcFieldClass)) {
+        } else if (dateFormat != null && String.class.isAssignableFrom(srcFieldClass)) {
+            // String to Calendar
             try {
                 result.setTime(new Date(dateFormat.parse((String) srcObj).getTime()));
             } catch (ParseException e) {
                 throw new ConversionException("Unable to parse source object using specified date format", e);
             }
-            // Default conversion
         } else {
+            // Default conversion
             try {
                 result.setTime(new Date(Long.parseLong(srcObj.toString())));
             } catch (NumberFormatException e) {

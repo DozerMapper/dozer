@@ -55,8 +55,10 @@ public class BookPrime {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof BookPrime))
+    if (!(obj instanceof BookPrime)) {
       return false;
+    }
+
     BookPrime other = (BookPrime) obj;
     return id == null ? (this == other) : id.equals(other.id);
   }

@@ -65,14 +65,20 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
 
   private static BeanFieldsDetector getAcceptsFieldsDetector(Class<?> clazz) {
     BeanFieldsDetector detector = getAcceptsFieldDetector(clazz, pluggedFieldDetectors);
-    if (detector == null) detector = getAcceptsFieldDetector(clazz, availableFieldDetectors);
+    if (detector == null) {
+      detector = getAcceptsFieldDetector(clazz, availableFieldDetectors);
+    }
+
     return detector;
   }
 
   private static BeanFieldsDetector getAcceptsFieldDetector(Class<?> clazz, List<BeanFieldsDetector> detectors) {
     for (BeanFieldsDetector detector : new CopyOnWriteArrayList<BeanFieldsDetector>(detectors)) {
-      if (detector.accepts(clazz)) return detector;
+      if (detector.accepts(clazz)) {
+        return detector;
+      }
     }
+
     return null;
   }
 

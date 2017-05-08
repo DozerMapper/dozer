@@ -81,12 +81,18 @@ public class ProtoUtils {
   }
 
   public static Class<?> getJavaClass(final Descriptors.FieldDescriptor descriptor) {
-    if (descriptor.isRepeated()) return List.class;
+    if (descriptor.isRepeated()) {
+      return List.class;
+    }
+
     return getJavaClassIgnoreRepeated(descriptor);
   }
 
   public static Class<?> getJavaGenericClassForCollection(final Descriptors.FieldDescriptor descriptor) {
-    if (!descriptor.isRepeated()) return null;
+    if (!descriptor.isRepeated()) {
+      return null;
+    }
+
     return getJavaClassIgnoreRepeated(descriptor);
   }
 
@@ -141,7 +147,9 @@ public class ProtoUtils {
       Class<? extends Enum> enumClass = getEnumClassByEnumDescriptor(descriptor.getType());
       Enum[] enumValues = enumClass.getEnumConstants();
       for (Enum enumValue : enumValues) {
-        if (((Descriptors.EnumValueDescriptor) value).getName().equals(enumValue.name())) return enumValue;
+        if (((Descriptors.EnumValueDescriptor) value).getName().equals(enumValue.name())) {
+          return enumValue;
+        }
       }
       return null;
     }

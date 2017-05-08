@@ -99,10 +99,12 @@ public final class CollectionUtils {
       Array.set(outArray, count, element);
       count++;
     }
-    if(destEntryType.isPrimitive())
+
+    if (destEntryType.isPrimitive()) {
       return outArray;
-    else
-    return (T[]) outArray;
+    } else {
+      return (T[])outArray;
+    }
   }
 
   public static List<Object> convertPrimitiveArrayToList(Object primitiveArray) {

@@ -83,10 +83,14 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
 
   private Object getSimplePropertyValue(Object bean) {
     //proto builder can't contains already created object and even if contain - it's fields can't be changed
-    if (bean instanceof BeanBuilder) return null;
+    if (bean instanceof BeanBuilder) {
+      return null;
+    }
+
     if (!(bean instanceof Message)) {
       MappingUtils.throwMappingException("Try to pass non proto object to ProtoFieldPropertyDescriptor");
     }
+
     Message message = (Message)bean;
 
     Object value = ProtoUtils.getFieldValue(message, fieldName);
@@ -95,7 +99,10 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
 
   @Override
   public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
-    if (!(bean instanceof ProtoBeanBuilder)) MappingUtils.throwMappingException("should be a ProtoBeanBuilder instance");
+    if (!(bean instanceof ProtoBeanBuilder)) {
+      MappingUtils.throwMappingException("should be a ProtoBeanBuilder instance");
+    }
+
     ProtoBeanBuilder builder = (ProtoBeanBuilder)bean;
 
     value = ProtoUtils.wrapEnums(value);

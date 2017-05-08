@@ -311,9 +311,8 @@ public final class MappingUtils {
         result.add(null);
       }
       ((List) result).set(index, collectionEntry);
-    }
-    //for an unordered Collection (index has no use here)
-    else {
+    } else {
+      //for an unordered Collection (index has no use here)
       result.add(collectionEntry);
     }
     return result;

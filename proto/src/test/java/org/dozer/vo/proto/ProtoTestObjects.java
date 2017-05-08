@@ -33,7 +33,9 @@ public final class ProtoTestObjects {
     public static final int VALUE2_VALUE = 2;
 
 
-    public final int getNumber() { return value; }
+    public final int getNumber() {
+      return value;
+    }
 
     public static ProtoEnum valueOf(int value) {
       switch (value) {
@@ -166,7 +168,9 @@ public final class ProtoTestObjects {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized != -1) {
+          return isInitialized == 1;
+      }
 
       if (!hasOne()) {
         memoizedIsInitialized = 0;
@@ -188,7 +192,9 @@ public final class ProtoTestObjects {
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+          return size;
+      }
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -274,12 +280,20 @@ public final class ProtoTestObjects {
               .buildParsed();
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return Builder.create();
+    }
+
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public Builder toBuilder() {
+      return newBuilder(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -378,7 +392,9 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance()) return this;
+        if (other == org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance()) {
+            return this;
+        }
         if (other.hasOne()) {
           setOne(other.getOne());
         }
@@ -549,7 +565,9 @@ public final class ProtoTestObjects {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized != -1) {
+          return isInitialized == 1;
+      }
 
       memoizedIsInitialized = 1;
       return true;
@@ -567,7 +585,9 @@ public final class ProtoTestObjects {
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+          return size;
+      }
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -653,12 +673,21 @@ public final class ProtoTestObjects {
               .buildParsed();
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return Builder.create();
+    }
+
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+    public Builder toBuilder() {
+      return newBuilder(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -666,6 +695,7 @@ public final class ProtoTestObjects {
       Builder builder = new Builder(parent);
       return builder;
     }
+
     public static final class Builder extends
             com.google.protobuf.GeneratedMessage.Builder<Builder>
             implements org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequiredOrBuilder {
@@ -757,7 +787,9 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.getDefaultInstance()) return this;
+        if (other == org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.getDefaultInstance()) {
+            return this;
+        }
         if (other.hasOne()) {
           setOne(other.getOne());
         }
@@ -944,7 +976,9 @@ public final class ProtoTestObjects {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized != -1) {
+        return isInitialized == 1;
+      }
 
       if (!hasOne()) {
         memoizedIsInitialized = 0;
@@ -977,7 +1011,9 @@ public final class ProtoTestObjects {
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+        return size;
+      }
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1067,12 +1103,21 @@ public final class ProtoTestObjects {
               .buildParsed();
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return Builder.create();
+    }
+
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+    public Builder toBuilder() {
+      return newBuilder(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -1186,7 +1231,9 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.getDefaultInstance()) return this;
+        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.getDefaultInstance()) {
+          return this;
+        }
         if (other.hasOne()) {
           setOne(other.getOne());
         }
@@ -1445,7 +1492,9 @@ public final class ProtoTestObjects {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized != -1) {
+        return isInitialized == 1;
+      }
 
       if (!hasEnumField()) {
         memoizedIsInitialized = 0;
@@ -1467,7 +1516,9 @@ public final class ProtoTestObjects {
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+        return size;
+      }
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1553,12 +1604,21 @@ public final class ProtoTestObjects {
               .buildParsed();
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return Builder.create();
+    }
+
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+    public Builder toBuilder() {
+      return newBuilder(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -1657,7 +1717,9 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.getDefaultInstance()) return this;
+        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.getDefaultInstance()) {
+          return this;
+        }
         if (other.hasEnumField()) {
           setEnumField(other.getEnumField());
         }
@@ -1816,7 +1878,9 @@ public final class ProtoTestObjects {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized != -1) {
+        return isInitialized == 1;
+      }
 
       for (int i = 0; i < getObjectCount(); i++) {
         if (!getObject(i).isInitialized()) {
@@ -1840,7 +1904,9 @@ public final class ProtoTestObjects {
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+        return size;
+      }
 
       size = 0;
       for (int i = 0; i < object_.size(); i++) {
@@ -1926,12 +1992,21 @@ public final class ProtoTestObjects {
               .buildParsed();
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return Builder.create();
+    }
+
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+    public Builder toBuilder() {
+      return newBuilder(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -2038,7 +2113,10 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance()) return this;
+        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance()) {
+          return this;
+        }
+
         if (objectBuilder_ == null) {
           if (!other.object_.isEmpty()) {
             if (object_.isEmpty()) {
@@ -2260,7 +2338,8 @@ public final class ProtoTestObjects {
       public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder getObjectOrBuilder(
               int index) {
         if (objectBuilder_ == null) {
-          return object_.get(index);  } else {
+          return object_.get(index);
+        } else {
           return objectBuilder_.getMessageOrBuilder(index);
         }
       }
@@ -2367,7 +2446,9 @@ public final class ProtoTestObjects {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized != -1) {
+        return isInitialized == 1;
+      }
 
       if (!hasObject()) {
         memoizedIsInitialized = 0;
@@ -2393,7 +2474,9 @@ public final class ProtoTestObjects {
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+        return size;
+      }
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -2479,12 +2562,21 @@ public final class ProtoTestObjects {
               .buildParsed();
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return Builder.create();
+    }
+
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+    public Builder toBuilder() {
+      return newBuilder(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -2592,7 +2684,9 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.getDefaultInstance()) return this;
+        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.getDefaultInstance()) {
+          return this;
+        }
         if (other.hasObject()) {
           mergeObject(other.getObject());
         }
@@ -2806,7 +2900,9 @@ public final class ProtoTestObjects {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized != -1) {
+        return isInitialized == 1;
+      }
 
       memoizedIsInitialized = 1;
       return true;
@@ -2824,7 +2920,9 @@ public final class ProtoTestObjects {
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
-      if (size != -1) return size;
+      if (size != -1) {
+        return size;
+      }
 
       size = 0;
       {
@@ -2915,12 +3013,21 @@ public final class ProtoTestObjects {
               .buildParsed();
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return Builder.create();
+    }
+
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
     public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+    public Builder toBuilder() {
+      return newBuilder(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -3018,7 +3125,9 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.getDefaultInstance()) return this;
+        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.getDefaultInstance()) {
+          return this;
+        }
         if (!other.object_.isEmpty()) {
           if (object_.isEmpty()) {
             object_ = other.object_;
