@@ -86,6 +86,20 @@ lengths, if/try depths, etc...
 	 -->
 
     <module name="TreeWalker">
+
+        <!-- Checks for Javadoc comments.                     -->
+        <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+        <!--
+        <module name="PackageHtml"/>
+        <module name="JavadocMethod"/>
+        <module name="JavadocType"/>
+        <module name="JavadocVariable"/>
+        <module name="JavadocStyle"/>
+        -->
+
+        <!-- <module name="RegexpHeader"/> -->
+
+
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
         <module name="AvoidStarImport">
@@ -103,6 +117,145 @@ lengths, if/try depths, etc...
             <property name="groups" value="java,javax,org.w3c,org.xml,junit"/>
             <property name="ordered" value="true"/>
         </module>
+        <!--
+        <module name="ImportControl">
+            <property name="file" value="etc/import-control.xml"/>
+        </module>
+        -->
+
+        <!--
+        <module name="GenericWhitespace"/>
+         -->
+
+        <!-- Checks for blocks. You know, those {}'s         -->
+        <!-- See http://checkstyle.sf.net/config_blocks.html -->
+        <!--
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="true"/>
+        </module>
+        -->
+        <!-- We use alot of emply blocks..  they can be good too.
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+        -->
+
+        <!--
+        <module name="OuterTypeNumber"/>
+         -->
+
+
+        <!-- Checks for common coding problems               -->
+        <!-- See http://checkstyle.sf.net/config_coding.html -->
+        <!--<module name="ArrayTrailingComma"/>-->
+        <!--<module name="AvoidInlineConditionals"/>-->
+        <module name="CovariantEquals"/>
+        <module name="EmptyStatement"/>
+        <module name="EqualsHashCode"/>
+        <!--<module name="FinalLocalVariable"/>-->
+        <!--
+        <module name="HiddenField">
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
+        </module>
+        -->
+        <!--
+        <module name="EqualsAvoidNull"/>
+         -->
+        <module name="IllegalInstantiation"/>
+        <!--<module name="IllegalToken"/>-->
+        <!--<module name="IllegalTokenText"/>-->
+        <!--<module name="InnerAssignment"/>-->
+        <!--<module name="MagicNumber"/>-->
+        <module name="MissingSwitchDefault"/>
+        <!--module name="ModifiedControlVariable"/-->
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="NestedIfDepth">
+            <property name="max" value="8"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="8"/>
+        </module>
+        <!--<module name="SuperClone"/>-->
+        <module name="SuperFinalize"/>
+        <!--<module name="IllegalCatch"/>-->
+        <!--<module name="RedundantThrows"/>-->
+        <!--
+        <module name="JUnitTestCase"/>
+        -->
+        <module name="ReturnCount">
+            <property name="max" value="25"/>
+        </module>
+
+        <!-- Um.. we tend to use these alot.. perhaps enable this check later.
+        <module name="IllegalType">
+            <property name="format" value="^xxx$"/>
+            <property name="illegalClassNames" value="java.util.GregorianCalendar, java.util.Hashtable, java.util.HashSet, java.util.HashMap, java.util.ArrayList, java.util.LinkedList, java.util.LinkedHashMap, java.util.LinkedHashSet, java.util.TreeSet, java.util.TreeMap"/> We use alot of emply blocks..  they can be good too.
+        </module>
+        -->
+        <!--<module name="ParameterAssignment"/>-->
+        <!-- <module name="AnnotationUseStyle"/> -->
+        <!-- <module name="MissingDeprecated"/> -->
+        <!--
+		<module name="MissingOverride">
+			<property name="javaFiveCompatibility" value="true"/>
+		</module>
+         -->
+        <!-- <module name="PackageAnnotation"/> -->
+        <!-- <module name="SuppressWarnings"/> -->
+        <module name="DefaultComesLast"/>
+        <!--<module name="MissingCtor"/>-->
+        <module name="FallThrough"/>
+        <!--<module name="MultipleStringLiterals"/>-->
+        <module name="MultipleVariableDeclarations"/>
+        <!--<module name="RequireThis"/>-->
+
+        <!-- Metrics checks.                   -->
+        <!-- See http://checkstyle.sf.net/config_metrics.html -->
+        <module name="BooleanExpressionComplexity">
+            <property name="max" value="6"/>
+        </module>
+        <!--<module name="ClassDataAbstractionCoupling"/>-->
+        <!--<module name="ClassFanOutComplexity"/>-->
+        <!--<module name="CyclomaticComplexity"/>-->
+        <!--<module name="NPathComplexity"/>-->
+        <!-- Ah big methods aint so bad! :)
+        <module name="JavaNCSS">
+            <property name="methodMaximum" value="75"/>
+        </module>
+        -->
+
+
+        <!-- Miscellaneous other checks.                   -->
+        <!-- See http://checkstyle.sf.net/config_misc.html -->
+        <!--
+        <module name="ArrayTypeStyle"/>
+        <module name="FinalParameters"/>
+        -->
+        <!--
+        <module name="GenericIllegalRegexp">
+            <property name="format" value="\s+$"/>
+            <property name="message" value="Line has trailing spaces."/>
+        </module>
+        -->
+        <module name="TodoComment">
+            <property name="format" value="WARNING"/>
+        </module>
+
+        <module name="UpperEll"/>
+
+        <!--Assert statement may have side effects:-->
+        <module name="DescendantToken">
+            <property name="tokens" value="LITERAL_ASSERT"/>
+            <property name="limitedTokens" value="ASSIGN,DEC,INC,POST_DEC,POST_INC,PLUS_ASSIGN,MINUS_ASSIGN,STAR_ASSIGN,DIV_ASSIGN,MOD_ASSIGN,BSR_ASSIGN,SR_ASSIGN,SL_ASSIGN,BAND_ASSIGN,BXOR_ASSIGN,BOR_ASSIGN"/>
+            <property name="maximumNumber" value="0"/>
+        </module>
+
+        <!--<module name="UncommentedMain"/>-->
+        <!--module name="TrailingComment"/-->
+        <!--<module name="RequiredRegexp">-->
     </module>
     <module name="SuppressionCommentFilter"/>
 </module>

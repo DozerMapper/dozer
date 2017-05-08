@@ -30,11 +30,7 @@ public class TestReferenceFoo extends BaseTestObject {
     }
 
     TestReferenceFoo foo = (TestReferenceFoo) obj;
-    if (foo.getA().equals(this.a)) {
-      return true;
-    } else {
-      return false;
-    }
+    return foo.getA().equals(this.a);
   }
 
   @Override

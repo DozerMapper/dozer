@@ -408,6 +408,11 @@ public final class ProtoTestObjects {
               this.setUnknownFields(unknownFields.build());
               onChanged();
               return this;
+            case 10: {
+              bitField0_ |= 0x00000001;
+              one_ = input.readBytes();
+              break;
+            }
             default: {
               if (!parseUnknownField(input, unknownFields,
                       extensionRegistry, tag)) {
@@ -415,11 +420,6 @@ public final class ProtoTestObjects {
                 onChanged();
                 return this;
               }
-              break;
-            }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              one_ = input.readBytes();
               break;
             }
           }
@@ -783,6 +783,11 @@ public final class ProtoTestObjects {
               this.setUnknownFields(unknownFields.build());
               onChanged();
               return this;
+            case 10: {
+              bitField0_ |= 0x00000001;
+              one_ = input.readBytes();
+              break;
+            }
             default: {
               if (!parseUnknownField(input, unknownFields,
                       extensionRegistry, tag)) {
@@ -792,11 +797,7 @@ public final class ProtoTestObjects {
               }
               break;
             }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              one_ = input.readBytes();
-              break;
-            }
+
           }
         }
       }
@@ -1226,15 +1227,6 @@ public final class ProtoTestObjects {
               this.setUnknownFields(unknownFields.build());
               onChanged();
               return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
             case 10: {
               bitField0_ |= 0x00000001;
               one_ = input.readBytes();
@@ -1247,6 +1239,15 @@ public final class ProtoTestObjects {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setNestedObject(subBuilder.buildPartial());
+              break;
+            }
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
               break;
             }
           }
@@ -1686,15 +1687,6 @@ public final class ProtoTestObjects {
               this.setUnknownFields(unknownFields.build());
               onChanged();
               return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
             case 8: {
               int rawValue = input.readEnum();
               org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.valueOf(rawValue);
@@ -1703,6 +1695,15 @@ public final class ProtoTestObjects {
               } else {
                 bitField0_ |= 0x00000001;
                 enumField_ = value;
+              }
+              break;
+            }
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
               }
               break;
             }
@@ -2092,6 +2093,12 @@ public final class ProtoTestObjects {
               this.setUnknownFields(unknownFields.build());
               onChanged();
               return this;
+            case 10: {
+              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder subBuilder = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addObject(subBuilder.buildPartial());
+              break;
+            }
             default: {
               if (!parseUnknownField(input, unknownFields,
                       extensionRegistry, tag)) {
@@ -2099,12 +2106,6 @@ public final class ProtoTestObjects {
                 onChanged();
                 return this;
               }
-              break;
-            }
-            case 10: {
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder subBuilder = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addObject(subBuilder.buildPartial());
               break;
             }
           }
@@ -2625,15 +2626,6 @@ public final class ProtoTestObjects {
               this.setUnknownFields(unknownFields.build());
               onChanged();
               return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
             case 10: {
               org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder subBuilder = org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.newBuilder();
               if (hasObject()) {
@@ -2641,6 +2633,15 @@ public final class ProtoTestObjects {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setObject(subBuilder.buildPartial());
+              break;
+            }
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
               break;
             }
           }
@@ -3050,15 +3051,6 @@ public final class ProtoTestObjects {
               this.setUnknownFields(unknownFields.build());
               onChanged();
               return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
             case 8: {
               int rawValue = input.readEnum();
               org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.valueOf(rawValue);
@@ -3082,6 +3074,15 @@ public final class ProtoTestObjects {
                 }
               }
               input.popLimit(oldLimit);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
               break;
             }
           }
