@@ -19,29 +19,34 @@ package org.dozer;
  * A mapping option value
  */
 public enum OptionValue {
+
     /**
      * Turn on the option
      */
     ON(Boolean.TRUE),
+
     /**
      * Turn off the option
      */
     OFF(Boolean.FALSE),
+
     /**
      * Use the inherited option value
      */
     INHERITED(null);
 
     private final Boolean value;
-    private OptionValue(Boolean value) {
+
+    OptionValue(Boolean value) {
         this.value = value;
     }
 
     /**
      * Get the equivalent Boolean value.
+     *
      * @return Boolean.TRUE for ON, Boolean.FALSE for OFF, null for INHERITED.
      */
     public Boolean toBoolean() {
-       return value;
+        return value;
     }
 }

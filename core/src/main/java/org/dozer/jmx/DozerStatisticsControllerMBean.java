@@ -19,29 +19,50 @@ import java.util.Set;
 
 /**
  * Public Dozer JMX Bean interface
- * 
+ *
  * @author tierney.matt
  */
 public interface DozerStatisticsControllerMBean {
-  public double getMappingAverageTimeInMillis();
-  public long getMappingSuccessCount();
-  public long getMappingFailureCount();
-  public Set<String> getMappingFailureExceptionTypes();
-  public Set<String> getMappingFailureTypes();
-  public long getMappingOverallTimeInMillis();
-  public Set<String> getCacheHitCount();
-  public Set<String> getCacheMissCount();
-  public long getMapperInstancesCount();
-  public long getFieldMappingSuccessCount();
-  public long getFieldMappingFailureCount();
-  public long getFieldMappingFailureIgnoredCount();
-  public long getCustomConverterOverallTimeInMillis();
-  public long getCustomConverterSuccessCount();
-  public double getCustomConverterPercentageOfMappingTime();
-  public double getCustomConverterAverageTimeInMillis();
-  public String dumpStatistics();
-  public void clearAll();
-  public boolean isStatisticsEnabled();
-  public void setStatisticsEnabled(boolean statisticsEnabled);
-  public void logStatistics();
+
+    double getMappingAverageTimeInMillis();
+
+    long getMappingSuccessCount();
+
+    long getMappingFailureCount();
+
+    Set<String> getMappingFailureExceptionTypes();
+
+    Set<String> getMappingFailureTypes();
+
+    long getMappingOverallTimeInMillis();
+
+    Set<String> getCacheHitCount();
+
+    Set<String> getCacheMissCount();
+
+    long getMapperInstancesCount();
+
+    long getFieldMappingSuccessCount();
+
+    long getFieldMappingFailureCount();
+
+    long getFieldMappingFailureIgnoredCount();
+
+    long getCustomConverterOverallTimeInMillis();
+
+    long getCustomConverterSuccessCount();
+
+    double getCustomConverterPercentageOfMappingTime();
+
+    double getCustomConverterAverageTimeInMillis();
+
+    String dumpStatistics();
+
+    void clearAll();
+
+    boolean isStatisticsEnabled();
+
+    void setStatisticsEnabled(boolean statisticsEnabled);
+
+    void logStatistics();
 }

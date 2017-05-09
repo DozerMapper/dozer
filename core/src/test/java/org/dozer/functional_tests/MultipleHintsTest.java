@@ -96,7 +96,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
 
   }
 
-  public static abstract class A {
+  public abstract static class A {
 
     public static class B extends A {
     }
@@ -106,7 +106,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
 
   }
 
-  public static abstract class SrcA {
+  public abstract static class SrcA {
 
     public static class SrcB extends SrcA {
     }

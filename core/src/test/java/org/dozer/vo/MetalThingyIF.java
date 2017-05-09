@@ -17,9 +17,10 @@ package org.dozer.vo;
 
 /**
  * @author garsombke.franz
- * 
  */
 public interface MetalThingyIF {
-  public String getName();
-  public void setName(String name);
+    
+    String getName();
+
+    void setName(String name);
 }

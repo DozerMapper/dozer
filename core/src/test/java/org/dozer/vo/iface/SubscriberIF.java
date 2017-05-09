@@ -20,6 +20,5 @@ package org.dozer.vo.iface;
  */
 public interface SubscriberIF {
 
-  public String getSubscriberNumber();
-
+    String getSubscriberNumber();
 }

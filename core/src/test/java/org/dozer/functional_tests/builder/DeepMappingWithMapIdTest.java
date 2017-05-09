@@ -203,11 +203,11 @@ public class DeepMappingWithMapIdTest {
         }
     }
 
-    public static interface Parent<T extends Collection<Child>> {
-        
-        public T getChildren();
+    public interface Parent<T extends Collection<Child>> {
 
-        public void setChildren(T children);
+        T getChildren();
+
+        void setChildren(T children);
     }
     
     public static class Child implements Comparable<Child>{

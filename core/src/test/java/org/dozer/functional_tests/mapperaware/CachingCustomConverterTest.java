@@ -80,7 +80,7 @@ public class CachingCustomConverterTest extends Assert {
 
     private Mapper mapper;
 
-    public AssociatedEntityConverter() {
+    AssociatedEntityConverter() {
       super(BidirectionalOneConvert.class, BidirectionalOne.class);
     }
 
@@ -104,7 +104,7 @@ public class CachingCustomConverterTest extends Assert {
 
     private Mapper mapper;
 
-    public CollectionConverter() {
+    CollectionConverter() {
       super(Set.class, Set.class);
     }
 

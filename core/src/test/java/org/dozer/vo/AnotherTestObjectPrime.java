@@ -19,55 +19,55 @@ package org.dozer.vo;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
+ *
  */
 public class AnotherTestObjectPrime extends BaseTestObject {
-  public final static int DEFAULT_FIELD1 = Integer.MAX_VALUE;
 
-  private int field1 = DEFAULT_FIELD1;
-  private Integer field2;
-  private String field3;
-  private TestObject to;
-  private Integer field5;
+    public static final int DEFAULT_FIELD1 = Integer.MAX_VALUE;
 
-  public int getField1() {
-    return field1;
-  }
+    private int field1 = DEFAULT_FIELD1;
+    private Integer field2;
+    private String field3;
+    private TestObject to;
+    private Integer field5;
 
-  public void setField1(int field1) {
-    this.field1 = field1;
-  }
+    public int getField1() {
+        return field1;
+    }
 
-  public Integer getField2() {
-    return field2;
-  }
+    public void setField1(int field1) {
+        this.field1 = field1;
+    }
 
-  public void setField2(Integer field2) {
-    this.field2 = field2;
-  }
+    public Integer getField2() {
+        return field2;
+    }
 
-  public TestObject getTo() {
-    return to;
-  }
+    public void setField2(Integer field2) {
+        this.field2 = field2;
+    }
 
-  public void setTo(TestObject to) {
-    this.to = to;
-  }
+    public TestObject getTo() {
+        return to;
+    }
 
-  public String getField3() {
-    return field3;
-  }
+    public void setTo(TestObject to) {
+        this.to = to;
+    }
 
-  public void setField3(String field3) {
-    this.field3 = field3;
-  }
+    public String getField3() {
+        return field3;
+    }
 
-  public Integer getField5() {
-    return field5;
-  }
+    public void setField3(String field3) {
+        this.field3 = field3;
+    }
 
-  public void setField5(Integer field5) {
-    this.field5 = field5;
-  }
+    public Integer getField5() {
+        return field5;
+    }
 
+    public void setField5(Integer field5) {
+        this.field5 = field5;
+    }
 }

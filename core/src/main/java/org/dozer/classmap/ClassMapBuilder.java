@@ -131,7 +131,7 @@ public final class ClassMapBuilder {
     }
   }
 
-  public static interface ClassMappingGenerator {
+  public interface ClassMappingGenerator {
 
     boolean accepts(ClassMap classMap);
 

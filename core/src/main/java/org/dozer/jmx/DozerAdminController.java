@@ -20,21 +20,20 @@ import org.dozer.util.DozerConstants;
 
 /**
  * Public Dozer JMX Bean
- * 
+ *
  * @author tierney.matt
  */
 public class DozerAdminController implements DozerAdminControllerMBean {
 
-  public String getCurrentVersion() {
-    return DozerConstants.CURRENT_VERSION;
-  }
+    public String getCurrentVersion() {
+        return DozerConstants.CURRENT_VERSION;
+    }
 
-  public boolean isStatisticsEnabled() {
-    return GlobalSettings.getInstance().isStatisticsEnabled();
-  }
+    public boolean isStatisticsEnabled() {
+        return GlobalSettings.getInstance().isStatisticsEnabled();
+    }
 
-  public void setStatisticsEnabled(boolean statisticsEnabled) {
-    GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
-  }
-
+    public void setStatisticsEnabled(boolean statisticsEnabled) {
+        GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
+    }
 }
