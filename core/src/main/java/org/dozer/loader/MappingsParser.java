@@ -155,6 +155,7 @@ public final class MappingsParser {
               // make a prime field map
               fieldMapPrime = new ExcludeFieldMap(classMapPrime);
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
+              MappingUtils.applyGlobalCopyByReference(globalConfiguration, fieldMap, classMap);
             }
             classMapPrime.addFieldMapping(fieldMapPrime);
           }
