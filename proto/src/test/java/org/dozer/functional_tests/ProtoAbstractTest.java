@@ -27,15 +27,18 @@ import org.junit.Ignore;
  */
 @Ignore
 public class ProtoAbstractTest {
-  protected DozerBeanMapper getMapper(List<String> fileNames) {
-    System.setProperty("log4j.debug", "true");
-    System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
-    DozerBeanMapper mapper = new DozerBeanMapper();
-    mapper.setMappingFiles(fileNames);
-    return mapper;
-  }
 
-  protected DozerBeanMapper getMapper(String fileName) {
-    return getMapper(Arrays.asList(fileName));
-  }
+    protected DozerBeanMapper getMapper(List<String> fileNames) {
+        System.setProperty("log4j.debug", "true");
+        System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
+
+        DozerBeanMapper mapper = new DozerBeanMapper();
+        mapper.setMappingFiles(fileNames);
+
+        return mapper;
+    }
+
+    protected DozerBeanMapper getMapper(String fileName) {
+        return getMapper(Arrays.asList(fileName));
+    }
 }

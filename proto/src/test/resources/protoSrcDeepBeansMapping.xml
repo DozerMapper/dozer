@@ -20,54 +20,54 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-  <mapping wildcard="false">
-    <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-a>
-    <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-a>
+        <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
 
-    <field>
-      <a>nestedObject.one</a>
-      <b>one</b>
-    </field>
-  </mapping>
+        <field>
+            <a>nestedObject.one</a>
+            <b>one</b>
+        </field>
+    </mapping>
 
-  <mapping wildcard="false">
-    <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
-    <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
+        <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
 
-    <field>
-      <a>object[1].one</a>
-      <b>one</b>
-    </field>
-  </mapping>
+        <field>
+            <a>object[1].one</a>
+            <b>one</b>
+        </field>
+    </mapping>
 
-  <mapping wildcard="false">
-    <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
-    <class-b>org.dozer.vo.proto.ObjectWithCollection</class-b>
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
+        <class-b>org.dozer.vo.proto.ObjectWithCollection</class-b>
 
-    <field>
-      <a>object.object</a>
-      <b>objects</b>
-    </field>
-  </mapping>
+        <field>
+            <a>object.object</a>
+            <b>objects</b>
+        </field>
+    </mapping>
 
-  <mapping wildcard="false">
-    <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
-    <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
+        <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
 
-    <field>
-      <a>object.object[0]</a>
-      <b>object</b>
-    </field>
-  </mapping>
+        <field>
+            <a>object.object[0]</a>
+            <b>object</b>
+        </field>
+    </mapping>
 
-  <mapping wildcard="false">
-    <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
-    <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
+        <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
 
-    <field>
-      <a>object[1]</a>
-      <b>object</b>
-    </field>
-  </mapping>
+        <field>
+            <a>object[1]</a>
+            <b>object</b>
+        </field>
+    </mapping>
 
 </mappings>

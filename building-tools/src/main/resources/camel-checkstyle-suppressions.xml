@@ -50,4 +50,7 @@
     <suppress checks=".*"
               files=".+[\\\/]contrib[\\\/].+\.java"
     />
+    <suppress checks=".*"
+              files=".+[\\\/]proto[\\\/]ProtoTestObjects.java"
+    />
 </suppressions>

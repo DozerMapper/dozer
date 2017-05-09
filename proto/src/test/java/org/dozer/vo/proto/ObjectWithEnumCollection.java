@@ -21,20 +21,21 @@ import java.util.List;
  * @author Dmitry Spikhalskiy
  */
 public class ObjectWithEnumCollection {
-  private List<SimpleEnum> enums;
 
-  public ObjectWithEnumCollection() {
-  }
+    private List<SimpleEnum> enums;
 
-  public ObjectWithEnumCollection(List<SimpleEnum> enums) {
-    this.enums = enums;
-  }
+    public ObjectWithEnumCollection() {
+    }
 
-  public List<SimpleEnum> getEnums() {
-    return enums;
-  }
+    public ObjectWithEnumCollection(List<SimpleEnum> enums) {
+        this.enums = enums;
+    }
 
-  public void setEnums(List<SimpleEnum> enums) {
-    this.enums = enums;
-  }
+    public List<SimpleEnum> getEnums() {
+        return enums;
+    }
+
+    public void setEnums(List<SimpleEnum> enums) {
+        this.enums = enums;
+    }
 }
