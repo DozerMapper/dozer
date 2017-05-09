@@ -17,7 +17,7 @@ package org.dozer.vo.inheritance;
 
 public interface ParentIF {
 
-  public String getParentField();
-  public void setParentField(String parentField);
+    String getParentField();
 
+    void setParentField(String parentField);
 }

@@ -171,9 +171,11 @@ public class MapFieldMap extends FieldMap {
   }
 
   private static class PrepareTargetObjectResult {
+
     private Object targetObject;
     private MapPropertyDescriptor propDescriptor;
-    public PrepareTargetObjectResult(Object targetObject, MapPropertyDescriptor propDescriptor) {
+
+    PrepareTargetObjectResult(Object targetObject, MapPropertyDescriptor propDescriptor) {
       this.targetObject = targetObject;
       this.propDescriptor = propDescriptor;
     }

@@ -19,16 +19,14 @@ package org.dozer.vo;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
  */
 public interface CustomDoubleObjectIF {
 
-  public abstract double getTheDouble();
+    double getTheDouble();
 
-  public abstract void setTheDouble(double theDouble);
+    void setTheDouble(double theDouble);
 
-  public abstract String getName();
+    String getName();
 
-  public abstract void setName(String name);
-
+    void setName(String name);
 }

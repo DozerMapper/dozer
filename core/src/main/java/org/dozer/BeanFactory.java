@@ -17,28 +17,27 @@ package org.dozer;
 
 /**
  * Public custom bean factory interface.
- * 
+ *
  * You can configure Dozer to use custom bean factories to create new instances of destination data objects during the
  * mapping process. By default Dozer just creates a new instance of any destination objects using a default constructor.
  * This is sufficient for most use cases, but if you need more flexibility you can specify your own bean factories to
  * instantiate the data objects.
- * 
+ *
  * <p>
  * Your custom bean factory must implement the org.dozer.BeanFactory interface.
- * 
+ *
  * <p>
  * Note: By default the Dozer mapping engine will use the destination object class name for the bean id when invoking
  * the factory.
- * 
+ *
  * <p>
  * <a
  * href="http://dozer.sourceforge.net/documentation/custombeanfactories.html">http://dozer.sourceforge.net/documentation/custombeanfactories.html</a>
- * 
+ *
  * @author tierney.matt
  */
 public interface BeanFactory {
 
-  // Need sourceObjClass in case sourceObj is null
-  public Object createBean(Object source, Class<?> sourceClass, String targetBeanId);
-
+    // Need sourceObjClass in case sourceObj is null
+    Object createBean(Object source, Class<?> sourceClass, String targetBeanId);
 }

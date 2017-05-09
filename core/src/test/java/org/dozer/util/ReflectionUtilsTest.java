@@ -220,12 +220,12 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     }
   }
 
-  private static interface TestIF1 {
+  private interface TestIF1 {
     String getA();
     void setA(String a);
   }
 
-  private static interface TestIF2 {
+  private interface TestIF2 {
     Integer getB();
   }
 

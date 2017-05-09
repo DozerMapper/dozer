@@ -16,20 +16,19 @@
 package org.dozer.vo.interfacerecursion;
 
 /**
- * @author Christoph Goldner 
+ * @author Christoph Goldner
  */
 public interface UserPrime {
 
-  public String getFirstName();
+    String getFirstName();
 
-  public void setFirstName(String aFirstName);
+    void setFirstName(String aFirstName);
 
-  public String getLastName();
+    String getLastName();
 
-  public void setLastName(String aLastName);
+    void setLastName(String aLastName);
 
-  public UserGroupPrime getUserGroup();
+    UserGroupPrime getUserGroup();
 
-  public void setUserGroup(UserGroupPrime aUserGroup);
-
+    void setUserGroup(UserGroupPrime aUserGroup);
 }

@@ -132,7 +132,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
     assertEquals("invalid stat entry value", incrementValue, statMgr.getStatisticValue(type, entryKey));
   }
 
-  final static int NTHREADS = 200;
+  final int NTHREADS = 200;
 
   @Test
   public void testMultiThread() throws InterruptedException {

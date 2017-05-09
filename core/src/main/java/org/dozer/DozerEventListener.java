@@ -20,26 +20,26 @@ import org.dozer.event.DozerEvent;
 /**
  * Public event listener interface. By implementing the DozerEventListener interface Dozer allows you to listen to 4
  * different events: mappingStarted, mappingFinished, preWritingDestinationValue, postWritingDestinationValue.
- * 
+ *
  * <p>
  * A DozerEvent object is passed into these callback methods which stores information about the ClassMap, FieldMap,
  * Source object, destination object, and destination value. This will allow you to extend dozer and manipulate mapped
  * objects at run-time.
- * 
+ *
  * <p>
  * <a
  * href="http://dozer.sourceforge.net/documentation/events.html">http://dozer.sourceforge.net/documentation/events.html</a>
- * 
+ *
  * @author garsombke.franz
- * 
+ *
  */
 public interface DozerEventListener {
 
-  public void mappingStarted(DozerEvent event);
+    void mappingStarted(DozerEvent event);
 
-  public void preWritingDestinationValue(DozerEvent event);
+    void preWritingDestinationValue(DozerEvent event);
 
-  public void postWritingDestinationValue(DozerEvent event);
+    void postWritingDestinationValue(DozerEvent event);
 
-  public void mappingFinished(DozerEvent event);
+    void mappingFinished(DozerEvent event);
 }

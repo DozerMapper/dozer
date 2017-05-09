@@ -24,7 +24,6 @@ import org.dozer.stats.StatisticEntry;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 
-
 /**
  * Public Dozer JMX Bean
  *
@@ -32,108 +31,108 @@ import org.dozer.stats.StatisticsManager;
  */
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
 
-  private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+    private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
 
-  public void clearAll() {
-    statsMgr.clearAll();
-  }
-
-  public boolean isStatisticsEnabled() {
-    return GlobalSettings.getInstance().isStatisticsEnabled();
-  }
-
-  public void setStatisticsEnabled(boolean statisticsEnabled) {
-    GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
-  }
-
-  public long getMappingSuccessCount() {
-    return getStatisticValue(StatisticType.MAPPING_SUCCESS_COUNT);
-  }
-
-  public long getMappingFailureCount() {
-    return getStatisticValue(StatisticType.MAPPING_FAILURE_COUNT);
-  }
-
-  public long getMapperInstancesCount() {
-    return getStatisticValue(StatisticType.MAPPER_INSTANCES_COUNT);
-  }
-
-  public long getMappingOverallTimeInMillis() {
-    return getStatisticValue(StatisticType.MAPPING_TIME);
-  }
-
-  public Set<String> getMappingFailureExceptionTypes() {
-    return getStatisticEntries(StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT);
-  }
-
-  public Set<String> getMappingFailureTypes() {
-    return getStatisticEntries(StatisticType.MAPPING_FAILURE_TYPE_COUNT);
-  }
-
-  public Set<String> getCacheHitCount() {
-    return getStatisticEntries(StatisticType.CACHE_HIT_COUNT);
-  }
-
-  public Set<String> getCacheMissCount() {
-    return getStatisticEntries(StatisticType.CACHE_MISS_COUNT);
-  }
-
-  public long getFieldMappingSuccessCount() {
-    return getStatisticValue(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
-  }
-
-  public long getFieldMappingFailureCount() {
-    return getStatisticValue(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
-  }
-
-  public long getFieldMappingFailureIgnoredCount() {
-    return getStatisticValue(StatisticType.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
-  }
-
-  public long getCustomConverterSuccessCount() {
-    return getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
-  }
-
-  public long getCustomConverterOverallTimeInMillis() {
-    return getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
-  }
-
-  public double getMappingAverageTimeInMillis() {
-    double totalTime = getStatisticValue(StatisticType.MAPPING_TIME);
-    double totalCount = getStatisticValue(StatisticType.MAPPING_SUCCESS_COUNT);
-    return totalTime / totalCount;
-  }
-
-  public double getCustomConverterAverageTimeInMillis() {
-    double totalTime = getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
-    double totalCount = getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
-    return totalTime / totalCount;
-  }
-
-  public double getCustomConverterPercentageOfMappingTime() {
-    double ccTotalTime = getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
-    double overallTime = getStatisticValue(StatisticType.MAPPING_TIME);
-    return (ccTotalTime / overallTime) * 100;
-  }
-
-  protected Set<String> getStatisticEntries(StatisticType statisticType) {
-    Set<String> result = new TreeSet<String>();
-    for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
-      result.add(entry.getKey().toString() + ": Count " + entry.getValue());
+    public void clearAll() {
+        statsMgr.clearAll();
     }
-    return result;
-  }
 
-  public void logStatistics() {
-    statsMgr.logStatistics();
-  }
+    public boolean isStatisticsEnabled() {
+        return GlobalSettings.getInstance().isStatisticsEnabled();
+    }
 
-  public String dumpStatistics() {
-    return statsMgr.getStatistics().toString();
-  }
+    public void setStatisticsEnabled(boolean statisticsEnabled) {
+        GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
+    }
 
-  protected long getStatisticValue(StatisticType statisticType) {
-    return statsMgr.getStatisticValue(statisticType);
-  }
+    public long getMappingSuccessCount() {
+        return getStatisticValue(StatisticType.MAPPING_SUCCESS_COUNT);
+    }
 
+    public long getMappingFailureCount() {
+        return getStatisticValue(StatisticType.MAPPING_FAILURE_COUNT);
+    }
+
+    public long getMapperInstancesCount() {
+        return getStatisticValue(StatisticType.MAPPER_INSTANCES_COUNT);
+    }
+
+    public long getMappingOverallTimeInMillis() {
+        return getStatisticValue(StatisticType.MAPPING_TIME);
+    }
+
+    public Set<String> getMappingFailureExceptionTypes() {
+        return getStatisticEntries(StatisticType.MAPPING_FAILURE_EX_TYPE_COUNT);
+    }
+
+    public Set<String> getMappingFailureTypes() {
+        return getStatisticEntries(StatisticType.MAPPING_FAILURE_TYPE_COUNT);
+    }
+
+    public Set<String> getCacheHitCount() {
+        return getStatisticEntries(StatisticType.CACHE_HIT_COUNT);
+    }
+
+    public Set<String> getCacheMissCount() {
+        return getStatisticEntries(StatisticType.CACHE_MISS_COUNT);
+    }
+
+    public long getFieldMappingSuccessCount() {
+        return getStatisticValue(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
+    }
+
+    public long getFieldMappingFailureCount() {
+        return getStatisticValue(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
+    }
+
+    public long getFieldMappingFailureIgnoredCount() {
+        return getStatisticValue(StatisticType.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
+    }
+
+    public long getCustomConverterSuccessCount() {
+        return getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
+    }
+
+    public long getCustomConverterOverallTimeInMillis() {
+        return getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
+    }
+
+    public double getMappingAverageTimeInMillis() {
+        double totalTime = getStatisticValue(StatisticType.MAPPING_TIME);
+        double totalCount = getStatisticValue(StatisticType.MAPPING_SUCCESS_COUNT);
+        return totalTime / totalCount;
+    }
+
+    public double getCustomConverterAverageTimeInMillis() {
+        double totalTime = getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
+        double totalCount = getStatisticValue(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
+        return totalTime / totalCount;
+    }
+
+    public double getCustomConverterPercentageOfMappingTime() {
+        double ccTotalTime = getStatisticValue(StatisticType.CUSTOM_CONVERTER_TIME);
+        double overallTime = getStatisticValue(StatisticType.MAPPING_TIME);
+        return (ccTotalTime / overallTime) * 100;
+    }
+
+    protected Set<String> getStatisticEntries(StatisticType statisticType) {
+        Set<String> result = new TreeSet<String>();
+        for (StatisticEntry entry : statsMgr.getStatisticEntries(statisticType)) {
+            result.add(entry.getKey().toString() + ": Count " + entry.getValue());
+        }
+
+        return result;
+    }
+
+    public void logStatistics() {
+        statsMgr.logStatistics();
+    }
+
+    public String dumpStatistics() {
+        return statsMgr.getStatistics().toString();
+    }
+
+    protected long getStatisticValue(StatisticType statisticType) {
+        return statsMgr.getStatisticValue(statisticType);
+    }
 }

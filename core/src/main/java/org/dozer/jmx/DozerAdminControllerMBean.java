@@ -17,11 +17,14 @@ package org.dozer.jmx;
 
 /**
  * Public Dozer JMX Bean interface
- * 
+ *
  * @author tierney.matt
  */
 public interface DozerAdminControllerMBean {
-  public String getCurrentVersion();
-  public boolean isStatisticsEnabled();
-  public void setStatisticsEnabled(boolean statisticsEnabled);
+
+    String getCurrentVersion();
+
+    boolean isStatisticsEnabled();
+
+    void setStatisticsEnabled(boolean statisticsEnabled);
 }

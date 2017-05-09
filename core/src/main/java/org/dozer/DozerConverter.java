@@ -81,7 +81,7 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    * @param destination the current value of the destination field (or null)
    * @return the resulting value for the destination field
    */
-  abstract public B convertTo(A source, B destination);
+  public abstract B convertTo(A source, B destination);
 
   /**
    * Converts the source field to the destination field and return the resulting destination
@@ -102,7 +102,7 @@ public abstract class DozerConverter<A, B> implements ConfigurableCustomConverte
    * @param destination the current value of the destination field (or null)
    * @return the resulting value for the destination field
    */
-  abstract public A convertFrom(B source, A destination);
+  public abstract A convertFrom(B source, A destination);
 
   /**
    * Converts the source field to the destination field and return the resulting destination
