@@ -19,25 +19,26 @@ package org.dozer.vo.proto;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
+ *
  */
 public class TestObject {
-  private String one;
-  private Integer two;
 
-  public String getOne() {
-    return one;
-  }
+    private String one;
+    private Integer two;
 
-  public void setOne(String one) {
-    this.one = one;
-  }
+    public String getOne() {
+        return one;
+    }
 
-  public Integer getTwo() {
-    return two;
-  }
+    public void setOne(String one) {
+        this.one = one;
+    }
 
-  public void setTwo(Integer two) {
-    this.two = two;
-  }
+    public Integer getTwo() {
+        return two;
+    }
+
+    public void setTwo(Integer two) {
+        this.two = two;
+    }
 }

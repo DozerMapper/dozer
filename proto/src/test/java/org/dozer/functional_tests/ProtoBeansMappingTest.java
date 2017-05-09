@@ -41,184 +41,186 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Dmitry Spikhalskiy
  */
 public class ProtoBeansMappingTest extends ProtoAbstractTest {
-  protected DozerBeanMapper mapper;
 
-  @Before
-  public void setUp() throws Exception {
-    mapper = getMapper("protoBeansMapping.xml");
-  }
+    protected DozerBeanMapper mapper;
 
-  @Test
-  public void testTrivial() {
-    Class<?> type = MappingUtils.loadClass("org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject");
-    assertNotNull(type);
-  }
+    @Before
+    public void setUp() throws Exception {
+        mapper = getMapper("protoBeansMapping.xml");
+    }
 
-  @Test
-  public void testSimple_toProto() {
-    TestObject source = new TestObject();
-    source.setOne("ABC");
-    SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
-    assertNotNull(protoResult);
-    Assert.assertEquals("ABC", protoResult.getOne());
-  }
+    @Test
+    public void testTrivial() {
+        Class<?> type = MappingUtils.loadClass("org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject");
+        assertNotNull(type);
+    }
 
-  @Test
-  public void testSimple_fromProto() {
-    SimpleProtoTestObject.Builder builder = SimpleProtoTestObject.newBuilder();
-    builder.setOne("ABC");
-    SimpleProtoTestObject source = builder.build();
+    @Test
+    public void testSimple_toProto() {
+        TestObject source = new TestObject();
+        source.setOne("ABC");
+        SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
+        assertNotNull(protoResult);
+        Assert.assertEquals("ABC", protoResult.getOne());
+    }
 
-    TestObject pojoResult = mapper.map(source, TestObject.class);
-    assertNotNull(pojoResult);
-    Assert.assertEquals("ABC", pojoResult.getOne());
-  }
+    @Test
+    public void testSimple_fromProto() {
+        SimpleProtoTestObject.Builder builder = SimpleProtoTestObject.newBuilder();
+        builder.setOne("ABC");
+        SimpleProtoTestObject source = builder.build();
 
-  @Test
-  public void testSimple_wildcard_toProto() {
-    LiteTestObject source = new LiteTestObject();
-    source.setOne("ABC");
-    SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
-    assertNotNull(protoResult);
-    Assert.assertEquals("ABC", protoResult.getOne());
-  }
+        TestObject pojoResult = mapper.map(source, TestObject.class);
+        assertNotNull(pojoResult);
+        Assert.assertEquals("ABC", pojoResult.getOne());
+    }
 
-  @Test
-  public void testSimple_wildcard_fromProto() {
-    SimpleProtoTestObject.Builder sourceBuilder = SimpleProtoTestObject.newBuilder();
-    sourceBuilder.setOne("ABC");
-    LiteTestObject pojoResult = mapper.map(sourceBuilder.build(), LiteTestObject.class);
-    assertNotNull(pojoResult);
-    Assert.assertEquals("ABC", pojoResult.getOne());
-  }
+    @Test
+    public void testSimple_wildcard_toProto() {
+        LiteTestObject source = new LiteTestObject();
+        source.setOne("ABC");
+        SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
+        assertNotNull(protoResult);
+        Assert.assertEquals("ABC", protoResult.getOne());
+    }
 
-  @Test
-  public void testSimple_fromProtoWithNull() {
-    SimpleProtoTestObjectWithoutRequired.Builder builder = SimpleProtoTestObjectWithoutRequired.newBuilder();
-    SimpleProtoTestObjectWithoutRequired source = builder.build();
+    @Test
+    public void testSimple_wildcard_fromProto() {
+        SimpleProtoTestObject.Builder sourceBuilder = SimpleProtoTestObject.newBuilder();
+        sourceBuilder.setOne("ABC");
+        LiteTestObject pojoResult = mapper.map(sourceBuilder.build(), LiteTestObject.class);
+        assertNotNull(pojoResult);
+        Assert.assertEquals("ABC", pojoResult.getOne());
+    }
 
-    TestObject pojoResult = mapper.map(source, TestObject.class);
-    assertNotNull(pojoResult);
-    assertNull(pojoResult.getOne());
-  }
+    @Test
+    public void testSimple_fromProtoWithNull() {
+        SimpleProtoTestObjectWithoutRequired.Builder builder = SimpleProtoTestObjectWithoutRequired.newBuilder();
+        SimpleProtoTestObjectWithoutRequired source = builder.build();
 
-  @Test
-  public void testSimple_toProtoWithNull() {
-    TestObject source = new TestObject();
+        TestObject pojoResult = mapper.map(source, TestObject.class);
+        assertNotNull(pojoResult);
+        assertNull(pojoResult.getOne());
+    }
 
-    SimpleProtoTestObjectWithoutRequired protoResult = mapper.map(source, SimpleProtoTestObjectWithoutRequired.class);
-    assertNotNull(protoResult);
-    assertFalse(protoResult.hasOne());
-  }
+    @Test
+    public void testSimple_toProtoWithNull() {
+        TestObject source = new TestObject();
 
-  @Test
-  public void testNestedProtoField_toProto() {
-    TestObject innerSource = new TestObject();
-    innerSource.setOne("InnerName");
-    TestObjectContainer source = new TestObjectContainer(innerSource, "Name");
+        SimpleProtoTestObjectWithoutRequired protoResult = mapper.map(source, SimpleProtoTestObjectWithoutRequired.class);
+        assertNotNull(protoResult);
+        assertTrue(protoResult.getOne().length() == 0);
+    }
 
-    ProtoTestObjectWithNestedProtoObject result = mapper.map(source, ProtoTestObjectWithNestedProtoObject.class);
-    assertNotNull(result);
-    Assert.assertEquals("Name", result.getOne());
-    assertNotNull(result.getNestedObject());
-    Assert.assertEquals("InnerName", result.getNestedObject().getOne());
-  }
+    @Test
+    public void testNestedProtoField_toProto() {
+        TestObject innerSource = new TestObject();
+        innerSource.setOne("InnerName");
+        TestObjectContainer source = new TestObjectContainer(innerSource, "Name");
 
-  @Test
-  public void testNestedProtoField_fromProto() {
-    SimpleProtoTestObject.Builder nestedBuilder = SimpleProtoTestObject.newBuilder();
-    nestedBuilder.setOne("InnerName");
-    ProtoTestObjectWithNestedProtoObject.Builder builder = ProtoTestObjectWithNestedProtoObject.newBuilder();
-    builder.setNestedObject(nestedBuilder.build());
-    builder.setOne("Name");
-    ProtoTestObjectWithNestedProtoObject source = builder.build();
+        ProtoTestObjectWithNestedProtoObject result = mapper.map(source, ProtoTestObjectWithNestedProtoObject.class);
+        assertNotNull(result);
+        Assert.assertEquals("Name", result.getOne());
+        assertNotNull(result.getNestedObject());
+        Assert.assertEquals("InnerName", result.getNestedObject().getOne());
+    }
 
-    TestObjectContainer result = mapper.map(source, TestObjectContainer.class);
-    assertNotNull(result);
-    Assert.assertEquals("Name", result.getOne());
-    assertNotNull(result.getNested());
-    Assert.assertEquals("InnerName", result.getNested().getOne());
-  }
+    @Test
+    public void testNestedProtoField_fromProto() {
+        SimpleProtoTestObject.Builder nestedBuilder = SimpleProtoTestObject.newBuilder();
+        nestedBuilder.setOne("InnerName");
+        ProtoTestObjectWithNestedProtoObject.Builder builder = ProtoTestObjectWithNestedProtoObject.newBuilder();
+        builder.setNestedObject(nestedBuilder.build());
+        builder.setOne("Name");
+        ProtoTestObjectWithNestedProtoObject source = builder.build();
 
-  @Test
-  public void testEnumProtoField_toProto() {
-    ObjectWithEnumField source = new ObjectWithEnumField();
-    source.setEnumField(SimpleEnum.VALUE1);
+        TestObjectContainer result = mapper.map(source, TestObjectContainer.class);
+        assertNotNull(result);
+        Assert.assertEquals("Name", result.getOne());
+        assertNotNull(result.getNested());
+        Assert.assertEquals("InnerName", result.getNested().getOne());
+    }
 
-    ProtoObjectWithEnumField result = mapper.map(source, ProtoObjectWithEnumField.class);
-    assertNotNull(result);
-    assertNotNull(result.getEnumField());
-    Assert.assertEquals(ProtoEnum.VALUE1, result.getEnumField());
-  }
+    @Test
+    public void testEnumProtoField_toProto() {
+        ObjectWithEnumField source = new ObjectWithEnumField();
+        source.setEnumField(SimpleEnum.VALUE1);
 
-  @Test
-  public void testEnumProtoField_fromProto() {
-    ProtoObjectWithEnumField.Builder builder = ProtoObjectWithEnumField.newBuilder();
-    builder.setEnumField(ProtoEnum.VALUE1);
-    ProtoObjectWithEnumField source = builder.build();
+        ProtoObjectWithEnumField result = mapper.map(source, ProtoObjectWithEnumField.class);
+        assertNotNull(result);
+        assertNotNull(result.getEnumField());
+        Assert.assertEquals(ProtoEnum.VALUE1, result.getEnumField());
+    }
 
-    ObjectWithEnumField result = mapper.map(source, ObjectWithEnumField.class);
-    assertNotNull(result);
-    assertNotNull(result.getEnumField());
-    Assert.assertEquals(SimpleEnum.VALUE1, result.getEnumField());
-  }
+    @Test
+    public void testEnumProtoField_fromProto() {
+        ProtoObjectWithEnumField.Builder builder = ProtoObjectWithEnumField.newBuilder();
+        builder.setEnumField(ProtoEnum.VALUE1);
+        ProtoObjectWithEnumField source = builder.build();
 
-  @Test
-  public void testRepeatedField_toProto() {
-    ObjectWithCollection source = new ObjectWithCollection();
-    TestObject innerTestObject = new TestObject();
-    innerTestObject.setOne("One");
+        ObjectWithEnumField result = mapper.map(source, ObjectWithEnumField.class);
+        assertNotNull(result);
+        assertNotNull(result.getEnumField());
+        Assert.assertEquals(SimpleEnum.VALUE1, result.getEnumField());
+    }
 
-    source.setObjects(Arrays.<TestObject>asList(innerTestObject));
+    @Test
+    public void testRepeatedField_toProto() {
+        ObjectWithCollection source = new ObjectWithCollection();
+        TestObject innerTestObject = new TestObject();
+        innerTestObject.setOne("One");
 
-    ProtobufWithSimpleCollection result = mapper.map(source, ProtobufWithSimpleCollection.class);
-    assertNotNull(result);
-    assertNotNull(result.getObjectList());
-    Assert.assertEquals(1, result.getObjectCount());
-    Assert.assertEquals("One", result.getObject(0).getOne());
-  }
+        source.setObjects(Arrays.<TestObject>asList(innerTestObject));
 
-  @Test
-  public void testRepeatedField_fromProto() {
-    SimpleProtoTestObject.Builder innerTestObjectBuilder = SimpleProtoTestObject.newBuilder();
-    innerTestObjectBuilder.setOne("One");
+        ProtobufWithSimpleCollection result = mapper.map(source, ProtobufWithSimpleCollection.class);
+        assertNotNull(result);
+        assertNotNull(result.getObjectList());
+        Assert.assertEquals(1, result.getObjectCount());
+        Assert.assertEquals("One", result.getObject(0).getOne());
+    }
 
-    ProtobufWithSimpleCollection.Builder sourceBuilder = ProtobufWithSimpleCollection.newBuilder();
-    sourceBuilder.addAllObject(Arrays.asList(innerTestObjectBuilder.build()));
+    @Test
+    public void testRepeatedField_fromProto() {
+        SimpleProtoTestObject.Builder innerTestObjectBuilder = SimpleProtoTestObject.newBuilder();
+        innerTestObjectBuilder.setOne("One");
 
-    ObjectWithCollection result = mapper.map(sourceBuilder.build(), ObjectWithCollection.class);
-    assertNotNull(result);
-    assertNotNull(result.getObjects());
-    Assert.assertEquals(1, result.getObjects().size());
-    Assert.assertEquals("One", result.getObjects().get(0).getOne());
-  }
+        ProtobufWithSimpleCollection.Builder sourceBuilder = ProtobufWithSimpleCollection.newBuilder();
+        sourceBuilder.addAllObject(Arrays.asList(innerTestObjectBuilder.build()));
 
-  @Test
-  public void testRepeatedEnumField_toProto() {
-    ObjectWithEnumCollection source = new ObjectWithEnumCollection();
-    source.setEnums(Arrays.asList(SimpleEnum.VALUE1));
+        ObjectWithCollection result = mapper.map(sourceBuilder.build(), ObjectWithCollection.class);
+        assertNotNull(result);
+        assertNotNull(result.getObjects());
+        Assert.assertEquals(1, result.getObjects().size());
+        Assert.assertEquals("One", result.getObjects().get(0).getOne());
+    }
 
-    ProtobufWithEnumCollection result = mapper.map(source, ProtobufWithEnumCollection.class);
-    assertNotNull(result);
-    assertNotNull(result.getObjectList());
-    Assert.assertEquals(1, result.getObjectCount());
-    Assert.assertEquals(ProtoEnum.VALUE1, result.getObject(0));
-  }
+    @Test
+    public void testRepeatedEnumField_toProto() {
+        ObjectWithEnumCollection source = new ObjectWithEnumCollection();
+        source.setEnums(Arrays.asList(SimpleEnum.VALUE1));
 
-  @Test
-  public void testRepeatedEnumField_fromProto() {
-    ProtobufWithEnumCollection.Builder sourceBuilder = ProtobufWithEnumCollection.newBuilder();
-    sourceBuilder.addAllObject(Arrays.asList(ProtoEnum.VALUE1));
+        ProtobufWithEnumCollection result = mapper.map(source, ProtobufWithEnumCollection.class);
+        assertNotNull(result);
+        assertNotNull(result.getObjectList());
+        Assert.assertEquals(1, result.getObjectCount());
+        Assert.assertEquals(ProtoEnum.VALUE1, result.getObject(0));
+    }
 
-    ObjectWithEnumCollection result = mapper.map(sourceBuilder.build(), ObjectWithEnumCollection.class);
-    assertNotNull(result);
-    assertNotNull(result.getEnums());
-    Assert.assertEquals(1, result.getEnums().size());
-    Assert.assertEquals(SimpleEnum.VALUE1, result.getEnums().get(0));
-  }
+    @Test
+    public void testRepeatedEnumField_fromProto() {
+        ProtobufWithEnumCollection.Builder sourceBuilder = ProtobufWithEnumCollection.newBuilder();
+        sourceBuilder.addAllObject(Arrays.asList(ProtoEnum.VALUE1));
+
+        ObjectWithEnumCollection result = mapper.map(sourceBuilder.build(), ObjectWithEnumCollection.class);
+        assertNotNull(result);
+        assertNotNull(result.getEnums());
+        Assert.assertEquals(1, result.getEnums().size());
+        Assert.assertEquals(SimpleEnum.VALUE1, result.getEnums().get(0));
+    }
 }

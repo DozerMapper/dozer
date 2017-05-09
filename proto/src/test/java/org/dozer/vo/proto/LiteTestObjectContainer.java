@@ -20,13 +20,14 @@ package org.dozer.vo.proto;
  * @since 05.01.13
  */
 public class LiteTestObjectContainer {
-  private LiteTestObject object;
 
-  public LiteTestObject getObject() {
-    return object;
-  }
+    private LiteTestObject object;
 
-  public void setObject(LiteTestObject object) {
-    this.object = object;
-  }
+    public LiteTestObject getObject() {
+        return object;
+    }
+
+    public void setObject(LiteTestObject object) {
+        this.object = object;
+    }
 }

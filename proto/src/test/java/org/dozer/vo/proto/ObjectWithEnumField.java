@@ -19,20 +19,21 @@ package org.dozer.vo.proto;
  * @author Dmitry Spikhalskiy
  */
 public class ObjectWithEnumField {
-  private SimpleEnum enumField;
 
-  public ObjectWithEnumField() {
-  }
+    private SimpleEnum enumField;
 
-  public ObjectWithEnumField(SimpleEnum enumField) {
-    this.enumField = enumField;
-  }
+    public ObjectWithEnumField() {
+    }
 
-  public SimpleEnum getEnumField() {
-    return enumField;
-  }
+    public ObjectWithEnumField(SimpleEnum enumField) {
+        this.enumField = enumField;
+    }
 
-  public void setEnumField(SimpleEnum enumField) {
-    this.enumField = enumField;
-  }
+    public SimpleEnum getEnumField() {
+        return enumField;
+    }
+
+    public void setEnumField(SimpleEnum enumField) {
+        this.enumField = enumField;
+    }
 }

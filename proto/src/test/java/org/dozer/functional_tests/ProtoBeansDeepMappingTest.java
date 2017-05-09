@@ -34,90 +34,91 @@ import static org.junit.Assert.assertEquals;
  * @author Dmitry Spikhalskiy
  */
 public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
-  private DozerBeanMapper mapper;
 
-  @Before
-  public void setUp() throws Exception {
-    mapper = getMapper("protoSrcDeepBeansMapping.xml");
-  }
+    private DozerBeanMapper mapper;
 
-  @Test
-  public void protoSrc_copySimpleOneLevelField() {
-    final String ONE_VALUE = "smthOne";
+    @Before
+    public void setUp() throws Exception {
+        mapper = getMapper("protoSrcDeepBeansMapping.xml");
+    }
 
-    ProtoTestObjectWithNestedProtoObject.Builder builder = ProtoTestObjectWithNestedProtoObject.newBuilder();
-    SimpleProtoTestObject.Builder nestedObjectBuilder = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder.setOne(ONE_VALUE);
-    builder.setNestedObject(nestedObjectBuilder);
-    builder.setOne("smthAnother-neverMind");
-    ProtoTestObjectWithNestedProtoObject src = builder.build();
-    LiteTestObject result = mapper.map(src, LiteTestObject.class);
-    assertEquals(ONE_VALUE, result.getOne());
-  }
+    @Test
+    public void protoSrc_copySimpleOneLevelField() {
+        final String ONE_VALUE = "smthOne";
 
-  @Test
-  public void protoSrc_copyFieldFromListElement() {
-    final String ONE_VALUE = "smthOne";
+        ProtoTestObjectWithNestedProtoObject.Builder builder = ProtoTestObjectWithNestedProtoObject.newBuilder();
+        SimpleProtoTestObject.Builder nestedObjectBuilder = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder.setOne(ONE_VALUE);
+        builder.setNestedObject(nestedObjectBuilder);
+        builder.setOne("smthAnother-neverMind");
+        ProtoTestObjectWithNestedProtoObject src = builder.build();
+        LiteTestObject result = mapper.map(src, LiteTestObject.class);
+        assertEquals(ONE_VALUE, result.getOne());
+    }
 
-    ProtobufWithSimpleCollection.Builder builder = ProtobufWithSimpleCollection.newBuilder();
-    SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder1.setOne("smthAnother");
-    SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder2.setOne(ONE_VALUE);
-    builder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
-    ProtobufWithSimpleCollection src = builder.build();
-    LiteTestObject result = mapper.map(src, LiteTestObject.class);
-    assertEquals(ONE_VALUE, result.getOne());
-  }
+    @Test
+    public void protoSrc_copyFieldFromListElement() {
+        final String ONE_VALUE = "smthOne";
 
-  @Test
-  public void protoSrc_copyList() {
-    final String ONE_VALUE = "smthOne";
+        ProtobufWithSimpleCollection.Builder builder = ProtobufWithSimpleCollection.newBuilder();
+        SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder1.setOne("smthAnother");
+        SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder2.setOne(ONE_VALUE);
+        builder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
+        ProtobufWithSimpleCollection src = builder.build();
+        LiteTestObject result = mapper.map(src, LiteTestObject.class);
+        assertEquals(ONE_VALUE, result.getOne());
+    }
 
-    ProtobufWithSimpleCollectionContainer.Builder builder = ProtobufWithSimpleCollectionContainer.newBuilder();
-    ProtobufWithSimpleCollection.Builder protoWithCollectionBuilder = ProtobufWithSimpleCollection.newBuilder();
-    SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder1.setOne("smthAnother");
-    SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder2.setOne(ONE_VALUE);
-    protoWithCollectionBuilder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
-    builder.setObject(protoWithCollectionBuilder);
+    @Test
+    public void protoSrc_copyList() {
+        final String ONE_VALUE = "smthOne";
 
-    ProtobufWithSimpleCollectionContainer src = builder.build();
-    ObjectWithCollection result = mapper.map(src, ObjectWithCollection.class);
-    assertEquals(2, result.getObjects().size());
-  }
+        ProtobufWithSimpleCollectionContainer.Builder builder = ProtobufWithSimpleCollectionContainer.newBuilder();
+        ProtobufWithSimpleCollection.Builder protoWithCollectionBuilder = ProtobufWithSimpleCollection.newBuilder();
+        SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder1.setOne("smthAnother");
+        SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder2.setOne(ONE_VALUE);
+        protoWithCollectionBuilder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
+        builder.setObject(protoWithCollectionBuilder);
 
-  @Test
-  public void protoSrc_copyListElement() {
-    final String ONE_VALUE = "smthOne";
+        ProtobufWithSimpleCollectionContainer src = builder.build();
+        ObjectWithCollection result = mapper.map(src, ObjectWithCollection.class);
+        assertEquals(2, result.getObjects().size());
+    }
 
-    ProtobufWithSimpleCollection.Builder builder = ProtobufWithSimpleCollection.newBuilder();
-    SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder1.setOne("smthAnother");
-    SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder2.setOne(ONE_VALUE);
-    builder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
-    ProtobufWithSimpleCollection src = builder.build();
+    @Test
+    public void protoSrc_copyListElement() {
+        final String ONE_VALUE = "smthOne";
 
-    LiteTestObjectContainer result = mapper.map(src, LiteTestObjectContainer.class);
-    assertEquals(ONE_VALUE, result.getObject().getOne());
-  }
+        ProtobufWithSimpleCollection.Builder builder = ProtobufWithSimpleCollection.newBuilder();
+        SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder1.setOne("smthAnother");
+        SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder2.setOne(ONE_VALUE);
+        builder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
+        ProtobufWithSimpleCollection src = builder.build();
 
-  @Test
-  public void protoSrc_copyDeepListElement() {
-    final String ONE_VALUE = "smthOne";
+        LiteTestObjectContainer result = mapper.map(src, LiteTestObjectContainer.class);
+        assertEquals(ONE_VALUE, result.getObject().getOne());
+    }
 
-    ProtobufWithSimpleCollectionContainer.Builder srcBuilder = ProtobufWithSimpleCollectionContainer.newBuilder();
-    ProtobufWithSimpleCollection.Builder innerBuilder = ProtobufWithSimpleCollection.newBuilder();
-    SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder1.setOne(ONE_VALUE);
-    SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
-    nestedObjectBuilder2.setOne("smthAnother");
-    innerBuilder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
-    srcBuilder.setObject(innerBuilder);
+    @Test
+    public void protoSrc_copyDeepListElement() {
+        final String ONE_VALUE = "smthOne";
 
-    LiteTestObjectContainer result = mapper.map(srcBuilder.build(), LiteTestObjectContainer.class);
-    assertEquals(ONE_VALUE, result.getObject().getOne());
-  }
+        ProtobufWithSimpleCollectionContainer.Builder srcBuilder = ProtobufWithSimpleCollectionContainer.newBuilder();
+        ProtobufWithSimpleCollection.Builder innerBuilder = ProtobufWithSimpleCollection.newBuilder();
+        SimpleProtoTestObject.Builder nestedObjectBuilder1 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder1.setOne(ONE_VALUE);
+        SimpleProtoTestObject.Builder nestedObjectBuilder2 = SimpleProtoTestObject.newBuilder();
+        nestedObjectBuilder2.setOne("smthAnother");
+        innerBuilder.addAllObject(Arrays.asList(nestedObjectBuilder1.build(), nestedObjectBuilder2.build()));
+        srcBuilder.setObject(innerBuilder);
+
+        LiteTestObjectContainer result = mapper.map(srcBuilder.build(), LiteTestObjectContainer.class);
+        assertEquals(ONE_VALUE, result.getObject().getOne());
+    }
 }

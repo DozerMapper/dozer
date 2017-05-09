@@ -21,24 +21,67 @@ package org.dozer.vo.proto;
 public final class ProtoTestObjects {
   private ProtoTestObjects() {}
   public static void registerAllExtensions(
-          com.google.protobuf.ExtensionRegistry registry) {
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
+
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  /**
+   * Protobuf enum {@code ProtoEnum}
+   */
   public enum ProtoEnum
-          implements com.google.protobuf.ProtocolMessageEnum {
-    VALUE1(0, 1),
-    VALUE2(1, 2),
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>VALUE0 = 0;</code>
+     */
+    VALUE0(0),
+    /**
+     * <code>VALUE1 = 1;</code>
+     */
+    VALUE1(1),
+    /**
+     * <code>VALUE2 = 2;</code>
+     */
+    VALUE2(2),
+    UNRECOGNIZED(-1),
     ;
 
+    /**
+     * <code>VALUE0 = 0;</code>
+     */
+    public static final int VALUE0_VALUE = 0;
+    /**
+     * <code>VALUE1 = 1;</code>
+     */
     public static final int VALUE1_VALUE = 1;
+    /**
+     * <code>VALUE2 = 2;</code>
+     */
     public static final int VALUE2_VALUE = 2;
 
 
     public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
       return value;
     }
 
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @Deprecated
     public static ProtoEnum valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static ProtoEnum forNumber(int value) {
       switch (value) {
+        case 0: return VALUE0;
         case 1: return VALUE1;
         case 2: return VALUE2;
         default: return null;
@@ -46,115 +89,163 @@ public final class ProtoTestObjects {
     }
 
     public static com.google.protobuf.Internal.EnumLiteMap<ProtoEnum>
-    internalGetValueMap() {
+        internalGetValueMap() {
       return internalValueMap;
     }
-    private static com.google.protobuf.Internal.EnumLiteMap<ProtoEnum>
-            internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<ProtoEnum>() {
-              public ProtoEnum findValueByNumber(int number) {
-                return ProtoEnum.valueOf(number);
-              }
-            };
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        ProtoEnum> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<ProtoEnum>() {
+            public ProtoEnum findValueByNumber(int number) {
+              return ProtoEnum.forNumber(number);
+            }
+          };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
-    getValueDescriptor() {
-      return getDescriptor().getValues().get(index);
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
-    getDescriptorForType() {
+        getDescriptorForType() {
       return getDescriptor();
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.getDescriptor().getEnumTypes().get(0);
+        getDescriptor() {
+      return ProtoTestObjects.getDescriptor().getEnumTypes().get(0);
     }
 
-    private static final ProtoEnum[] VALUES = {
-            VALUE1, VALUE2,
-    };
+    private static final ProtoEnum[] VALUES = values();
 
     public static ProtoEnum valueOf(
-            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-                "EnumValueDescriptor is not for this type.");
+        throw new IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
       }
       return VALUES[desc.getIndex()];
     }
 
-    private final int index;
     private final int value;
 
-    private ProtoEnum(int index, int value) {
-      this.index = index;
+    private ProtoEnum(int value) {
       this.value = value;
     }
 
     // @@protoc_insertion_point(enum_scope:ProtoEnum)
   }
 
-  public interface SimpleProtoTestObjectOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
+  public interface SimpleProtoTestObjectOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:SimpleProtoTestObject)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string one = 1;
-    boolean hasOne();
+    /**
+     * <code>string one = 1;</code>
+     */
     String getOne();
+    /**
+     * <code>string one = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getOneBytes();
   }
-  public static final class SimpleProtoTestObject extends
-          com.google.protobuf.GeneratedMessage
-          implements SimpleProtoTestObjectOrBuilder {
+  /**
+   * Protobuf type {@code SimpleProtoTestObject}
+   */
+  public  static final class SimpleProtoTestObject extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:SimpleProtoTestObject)
+      SimpleProtoTestObjectOrBuilder {
     // Use SimpleProtoTestObject.newBuilder() to construct.
-    private SimpleProtoTestObject(Builder builder) {
+    private SimpleProtoTestObject(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private SimpleProtoTestObject(boolean noInit) {}
-
-    private static final SimpleProtoTestObject defaultInstance;
-    public static SimpleProtoTestObject getDefaultInstance() {
-      return defaultInstance;
+    private SimpleProtoTestObject() {
+      one_ = "";
     }
 
-    public SimpleProtoTestObject getDefaultInstanceForType() {
-      return defaultInstance;
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
+    private SimpleProtoTestObject(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              String s = input.readStringRequireUtf8();
 
+              one_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObject_descriptor;
+        getDescriptor() {
+      return ProtoTestObjects.internal_static_SimpleProtoTestObject_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObject_fieldAccessorTable;
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoTestObjects.internal_static_SimpleProtoTestObject_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoTestObjects.SimpleProtoTestObject.class, ProtoTestObjects.SimpleProtoTestObject.Builder.class);
     }
 
-    private int bitField0_;
-    // required string one = 1;
     public static final int ONE_FIELD_NUMBER = 1;
-    private java.lang.Object one_;
-    public boolean hasOne() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
+    private volatile Object one_;
+    /**
+     * <code>string one = 1;</code>
+     */
     public String getOne() {
-      java.lang.Object ref = one_;
+      Object ref = one_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
         com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
+            (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          one_ = s;
-        }
+        one_ = s;
         return s;
       }
     }
-    private com.google.protobuf.ByteString getOneBytes() {
-      java.lang.Object ref = one_;
+    /**
+     * <code>string one = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOneBytes() {
+      Object ref = one_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
         one_ = b;
         return b;
       } else {
@@ -162,156 +253,160 @@ public final class ProtoTestObjects {
       }
     }
 
-    private void initFields() {
-      one_ = "";
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) {
-          return isInitialized == 1;
-      }
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
-      if (!hasOne()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getOneBytes());
+                        throws java.io.IOException {
+      if (!getOneBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, one_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) {
-          return size;
-      }
+      int size = memoizedSize;
+      if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-                .computeBytesSize(1, getOneBytes());
+      if (!getOneBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, one_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoTestObjects.SimpleProtoTestObject)) {
+        return super.equals(obj);
+      }
+      ProtoTestObjects.SimpleProtoTestObject other = (ProtoTestObjects.SimpleProtoTestObject) obj;
+
+      boolean result = true;
+      result = result && getOne()
+          .equals(other.getOne());
+      return result;
     }
 
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ONE_FIELD_NUMBER;
+      hash = (53 * hash) + getOne().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObject parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
-      return Builder.create();
+      return DEFAULT_INSTANCE.toBuilder();
     }
-
-    public Builder newBuilderForType() {
-      return newBuilder();
-    }
-
-    public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder(ProtoTestObjects.SimpleProtoTestObject prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
-      return newBuilder(this);
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code SimpleProtoTestObject}
+     */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-            implements org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:SimpleProtoTestObject)
+        ProtoTestObjects.SimpleProtoTestObjectOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObject_descriptor;
+          getDescriptor() {
+        return ProtoTestObjects.internal_static_SimpleProtoTestObject_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObject_fieldAccessorTable;
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoTestObjects.internal_static_SimpleProtoTestObject_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoTestObjects.SimpleProtoTestObject.class, ProtoTestObjects.SimpleProtoTestObject.Builder.class);
       }
 
       // Construct using org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.newBuilder()
@@ -319,239 +414,341 @@ public final class ProtoTestObjects {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(BuilderParent parent) {
+      private Builder(
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         one_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDescriptor();
+          getDescriptorForType() {
+        return ProtoTestObjects.internal_static_SimpleProtoTestObject_descriptor;
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject getDefaultInstanceForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance();
+      public ProtoTestObjects.SimpleProtoTestObject getDefaultInstanceForType() {
+        return ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance();
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject build() {
-        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject result = buildPartial();
+      public ProtoTestObjects.SimpleProtoTestObject build() {
+        ProtoTestObjects.SimpleProtoTestObject result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      private org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-                  result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject buildPartial() {
-        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject result = new org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
+      public ProtoTestObjects.SimpleProtoTestObject buildPartial() {
+        ProtoTestObjects.SimpleProtoTestObject result = new ProtoTestObjects.SimpleProtoTestObject(this);
         result.one_ = one_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject) {
-          return mergeFrom((org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject)other);
+        if (other instanceof ProtoTestObjects.SimpleProtoTestObject) {
+          return mergeFrom((ProtoTestObjects.SimpleProtoTestObject)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance()) {
-            return this;
+      public Builder mergeFrom(ProtoTestObjects.SimpleProtoTestObject other) {
+        if (other == ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance()) return this;
+        if (!other.getOne().isEmpty()) {
+          one_ = other.one_;
+          onChanged();
         }
-        if (other.hasOne()) {
-          setOne(other.getOne());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasOne()) {
-
-          return false;
-        }
         return true;
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                com.google.protobuf.UnknownFieldSet.newBuilder(
-                        this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            case 10: {
-              bitField0_ |= 0x00000001;
-              one_ = input.readBytes();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoTestObjects.SimpleProtoTestObject parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoTestObjects.SimpleProtoTestObject) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
 
-      private int bitField0_;
-
-      // required string one = 1;
-      private java.lang.Object one_ = "";
-      public boolean hasOne() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
+      private Object one_ = "";
+      /**
+       * <code>string one = 1;</code>
+       */
       public String getOne() {
-        java.lang.Object ref = one_;
+        Object ref = one_;
         if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
           one_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
-      public Builder setOne(String value) {
-        if (value == null) {
-          throw new NullPointerException();
+      /**
+       * <code>string one = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOneBytes() {
+        Object ref = one_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          one_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
         }
-        bitField0_ |= 0x00000001;
+      }
+      /**
+       * <code>string one = 1;</code>
+       */
+      public Builder setOne(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+
         one_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>string one = 1;</code>
+       */
       public Builder clearOne() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         one_ = getDefaultInstance().getOne();
         onChanged();
         return this;
       }
-      void setOne(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>string one = 1;</code>
+       */
+      public Builder setOneBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
         one_ = value;
         onChanged();
+        return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:SimpleProtoTestObject)
     }
 
+    // @@protoc_insertion_point(class_scope:SimpleProtoTestObject)
+    private static final ProtoTestObjects.SimpleProtoTestObject DEFAULT_INSTANCE;
     static {
-      defaultInstance = new SimpleProtoTestObject(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new ProtoTestObjects.SimpleProtoTestObject();
     }
 
-    // @@protoc_insertion_point(class_scope:SimpleProtoTestObject)
+    public static ProtoTestObjects.SimpleProtoTestObject getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SimpleProtoTestObject>
+        PARSER = new com.google.protobuf.AbstractParser<SimpleProtoTestObject>() {
+      public SimpleProtoTestObject parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new SimpleProtoTestObject(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SimpleProtoTestObject> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<SimpleProtoTestObject> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoTestObjects.SimpleProtoTestObject getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface SimpleProtoTestObjectWithoutRequiredOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
+  public interface SimpleProtoTestObjectWithoutRequiredOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:SimpleProtoTestObjectWithoutRequired)
+      com.google.protobuf.MessageOrBuilder {
 
-    // optional string one = 1;
-    boolean hasOne();
+    /**
+     * <code>string one = 1;</code>
+     */
     String getOne();
+    /**
+     * <code>string one = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getOneBytes();
   }
-  public static final class SimpleProtoTestObjectWithoutRequired extends
-          com.google.protobuf.GeneratedMessage
-          implements SimpleProtoTestObjectWithoutRequiredOrBuilder {
+  /**
+   * Protobuf type {@code SimpleProtoTestObjectWithoutRequired}
+   */
+  public  static final class SimpleProtoTestObjectWithoutRequired extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:SimpleProtoTestObjectWithoutRequired)
+      SimpleProtoTestObjectWithoutRequiredOrBuilder {
     // Use SimpleProtoTestObjectWithoutRequired.newBuilder() to construct.
-    private SimpleProtoTestObjectWithoutRequired(Builder builder) {
+    private SimpleProtoTestObjectWithoutRequired(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private SimpleProtoTestObjectWithoutRequired(boolean noInit) {}
-
-    private static final SimpleProtoTestObjectWithoutRequired defaultInstance;
-    public static SimpleProtoTestObjectWithoutRequired getDefaultInstance() {
-      return defaultInstance;
+    private SimpleProtoTestObjectWithoutRequired() {
+      one_ = "";
     }
 
-    public SimpleProtoTestObjectWithoutRequired getDefaultInstanceForType() {
-      return defaultInstance;
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
+    private SimpleProtoTestObjectWithoutRequired(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              String s = input.readStringRequireUtf8();
 
+              one_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_descriptor;
+        getDescriptor() {
+      return ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable;
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.class, ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.Builder.class);
     }
 
-    private int bitField0_;
-    // optional string one = 1;
     public static final int ONE_FIELD_NUMBER = 1;
-    private java.lang.Object one_;
-    public boolean hasOne() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
+    private volatile Object one_;
+    /**
+     * <code>string one = 1;</code>
+     */
     public String getOne() {
-      java.lang.Object ref = one_;
+      Object ref = one_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
         com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
+            (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          one_ = s;
-        }
+        one_ = s;
         return s;
       }
     }
-    private com.google.protobuf.ByteString getOneBytes() {
-      java.lang.Object ref = one_;
+    /**
+     * <code>string one = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOneBytes() {
+      Object ref = one_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
         one_ = b;
         return b;
       } else {
@@ -559,154 +756,160 @@ public final class ProtoTestObjects {
       }
     }
 
-    private void initFields() {
-      one_ = "";
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) {
-          return isInitialized == 1;
-      }
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getOneBytes());
+                        throws java.io.IOException {
+      if (!getOneBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, one_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) {
-          return size;
-      }
+      int size = memoizedSize;
+      if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-                .computeBytesSize(1, getOneBytes());
+      if (!getOneBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, one_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoTestObjects.SimpleProtoTestObjectWithoutRequired)) {
+        return super.equals(obj);
+      }
+      ProtoTestObjects.SimpleProtoTestObjectWithoutRequired other = (ProtoTestObjects.SimpleProtoTestObjectWithoutRequired) obj;
+
+      boolean result = true;
+      result = result && getOne()
+          .equals(other.getOne());
+      return result;
     }
 
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ONE_FIELD_NUMBER;
+      hash = (53 * hash) + getOne().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
-      return Builder.create();
+      return DEFAULT_INSTANCE.toBuilder();
     }
-
-    public Builder newBuilderForType() {
-      return newBuilder();
+    public static Builder newBuilder(ProtoTestObjects.SimpleProtoTestObjectWithoutRequired prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
-    public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-
     public Builder toBuilder() {
-      return newBuilder(this);
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-
+    /**
+     * Protobuf type {@code SimpleProtoTestObjectWithoutRequired}
+     */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-            implements org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequiredOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:SimpleProtoTestObjectWithoutRequired)
+        ProtoTestObjects.SimpleProtoTestObjectWithoutRequiredOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_descriptor;
+          getDescriptor() {
+        return ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable;
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.class, ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.Builder.class);
       }
 
       // Construct using org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.newBuilder()
@@ -714,86 +917,89 @@ public final class ProtoTestObjects {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(BuilderParent parent) {
+      private Builder(
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         one_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.getDescriptor();
+          getDescriptorForType() {
+        return ProtoTestObjects.internal_static_SimpleProtoTestObjectWithoutRequired_descriptor;
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired getDefaultInstanceForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.getDefaultInstance();
+      public ProtoTestObjects.SimpleProtoTestObjectWithoutRequired getDefaultInstanceForType() {
+        return ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.getDefaultInstance();
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired build() {
-        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired result = buildPartial();
+      public ProtoTestObjects.SimpleProtoTestObjectWithoutRequired build() {
+        ProtoTestObjects.SimpleProtoTestObjectWithoutRequired result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      private org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-                  result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired buildPartial() {
-        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired result = new org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
+      public ProtoTestObjects.SimpleProtoTestObjectWithoutRequired buildPartial() {
+        ProtoTestObjects.SimpleProtoTestObjectWithoutRequired result = new ProtoTestObjects.SimpleProtoTestObjectWithoutRequired(this);
         result.one_ = one_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired) {
-          return mergeFrom((org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired)other);
+        if (other instanceof ProtoTestObjects.SimpleProtoTestObjectWithoutRequired) {
+          return mergeFrom((ProtoTestObjects.SimpleProtoTestObjectWithoutRequired)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.getDefaultInstance()) {
-            return this;
+      public Builder mergeFrom(ProtoTestObjects.SimpleProtoTestObjectWithoutRequired other) {
+        if (other == ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.getDefaultInstance()) return this;
+        if (!other.getOne().isEmpty()) {
+          one_ = other.one_;
+          onChanged();
         }
-        if (other.hasOne()) {
-          setOne(other.getOne());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
@@ -802,153 +1008,276 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                com.google.protobuf.UnknownFieldSet.newBuilder(
-                        this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            case 10: {
-              bitField0_ |= 0x00000001;
-              one_ = input.readBytes();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoTestObjects.SimpleProtoTestObjectWithoutRequired parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoTestObjects.SimpleProtoTestObjectWithoutRequired) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
 
-      private int bitField0_;
-
-      // optional string one = 1;
-      private java.lang.Object one_ = "";
-      public boolean hasOne() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
+      private Object one_ = "";
+      /**
+       * <code>string one = 1;</code>
+       */
       public String getOne() {
-        java.lang.Object ref = one_;
+        Object ref = one_;
         if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
           one_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
-      public Builder setOne(String value) {
-        if (value == null) {
-          throw new NullPointerException();
+      /**
+       * <code>string one = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOneBytes() {
+        Object ref = one_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          one_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
         }
-        bitField0_ |= 0x00000001;
+      }
+      /**
+       * <code>string one = 1;</code>
+       */
+      public Builder setOne(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+
         one_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>string one = 1;</code>
+       */
       public Builder clearOne() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         one_ = getDefaultInstance().getOne();
         onChanged();
         return this;
       }
-      void setOne(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>string one = 1;</code>
+       */
+      public Builder setOneBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
         one_ = value;
         onChanged();
+        return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:SimpleProtoTestObjectWithoutRequired)
     }
 
+    // @@protoc_insertion_point(class_scope:SimpleProtoTestObjectWithoutRequired)
+    private static final ProtoTestObjects.SimpleProtoTestObjectWithoutRequired DEFAULT_INSTANCE;
     static {
-      defaultInstance = new SimpleProtoTestObjectWithoutRequired(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new ProtoTestObjects.SimpleProtoTestObjectWithoutRequired();
     }
 
-    // @@protoc_insertion_point(class_scope:SimpleProtoTestObjectWithoutRequired)
+    public static ProtoTestObjects.SimpleProtoTestObjectWithoutRequired getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SimpleProtoTestObjectWithoutRequired>
+        PARSER = new com.google.protobuf.AbstractParser<SimpleProtoTestObjectWithoutRequired>() {
+      public SimpleProtoTestObjectWithoutRequired parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new SimpleProtoTestObjectWithoutRequired(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SimpleProtoTestObjectWithoutRequired> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<SimpleProtoTestObjectWithoutRequired> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoTestObjects.SimpleProtoTestObjectWithoutRequired getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ProtoTestObjectWithNestedProtoObjectOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
+  public interface ProtoTestObjectWithNestedProtoObjectOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtoTestObjectWithNestedProtoObject)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string one = 1;
-    boolean hasOne();
+    /**
+     * <code>string one = 1;</code>
+     */
     String getOne();
+    /**
+     * <code>string one = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getOneBytes();
 
-    // required .SimpleProtoTestObject nestedObject = 2;
+    /**
+     * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+     */
     boolean hasNestedObject();
-    org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject getNestedObject();
-    org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder getNestedObjectOrBuilder();
+    /**
+     * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+     */
+    ProtoTestObjects.SimpleProtoTestObject getNestedObject();
+    /**
+     * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+     */
+    ProtoTestObjects.SimpleProtoTestObjectOrBuilder getNestedObjectOrBuilder();
   }
-  public static final class ProtoTestObjectWithNestedProtoObject extends
-          com.google.protobuf.GeneratedMessage
-          implements ProtoTestObjectWithNestedProtoObjectOrBuilder {
+  /**
+   * Protobuf type {@code ProtoTestObjectWithNestedProtoObject}
+   */
+  public  static final class ProtoTestObjectWithNestedProtoObject extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ProtoTestObjectWithNestedProtoObject)
+      ProtoTestObjectWithNestedProtoObjectOrBuilder {
     // Use ProtoTestObjectWithNestedProtoObject.newBuilder() to construct.
-    private ProtoTestObjectWithNestedProtoObject(Builder builder) {
+    private ProtoTestObjectWithNestedProtoObject(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ProtoTestObjectWithNestedProtoObject(boolean noInit) {}
-
-    private static final ProtoTestObjectWithNestedProtoObject defaultInstance;
-    public static ProtoTestObjectWithNestedProtoObject getDefaultInstance() {
-      return defaultInstance;
+    private ProtoTestObjectWithNestedProtoObject() {
+      one_ = "";
     }
 
-    public ProtoTestObjectWithNestedProtoObject getDefaultInstanceForType() {
-      return defaultInstance;
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
+    private ProtoTestObjectWithNestedProtoObject(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              String s = input.readStringRequireUtf8();
 
+              one_ = s;
+              break;
+            }
+            case 18: {
+              ProtoTestObjects.SimpleProtoTestObject.Builder subBuilder = null;
+              if (nestedObject_ != null) {
+                subBuilder = nestedObject_.toBuilder();
+              }
+              nestedObject_ = input.readMessage(ProtoTestObjects.SimpleProtoTestObject.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(nestedObject_);
+                nestedObject_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_descriptor;
+        getDescriptor() {
+      return ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable;
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.class, ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.Builder.class);
     }
 
-    private int bitField0_;
-    // required string one = 1;
     public static final int ONE_FIELD_NUMBER = 1;
-    private java.lang.Object one_;
-    public boolean hasOne() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
+    private volatile Object one_;
+    /**
+     * <code>string one = 1;</code>
+     */
     public String getOne() {
-      java.lang.Object ref = one_;
+      Object ref = one_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
         com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
+            (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          one_ = s;
-        }
+        one_ = s;
         return s;
       }
     }
-    private com.google.protobuf.ByteString getOneBytes() {
-      java.lang.Object ref = one_;
+    /**
+     * <code>string one = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOneBytes() {
+      Object ref = one_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b =
-                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
         one_ = b;
         return b;
       } else {
@@ -956,186 +1285,197 @@ public final class ProtoTestObjects {
       }
     }
 
-    // required .SimpleProtoTestObject nestedObject = 2;
     public static final int NESTEDOBJECT_FIELD_NUMBER = 2;
-    private org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject nestedObject_;
+    private ProtoTestObjects.SimpleProtoTestObject nestedObject_;
+    /**
+     * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+     */
     public boolean hasNestedObject() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return nestedObject_ != null;
     }
-    public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject getNestedObject() {
-      return nestedObject_;
+    /**
+     * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+     */
+    public ProtoTestObjects.SimpleProtoTestObject getNestedObject() {
+      return nestedObject_ == null ? ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance() : nestedObject_;
     }
-    public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder getNestedObjectOrBuilder() {
-      return nestedObject_;
+    /**
+     * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+     */
+    public ProtoTestObjects.SimpleProtoTestObjectOrBuilder getNestedObjectOrBuilder() {
+      return getNestedObject();
     }
 
-    private void initFields() {
-      one_ = "";
-      nestedObject_ = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) {
-        return isInitialized == 1;
-      }
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
-      if (!hasOne()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasNestedObject()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getNestedObject().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getOneBytes());
+                        throws java.io.IOException {
+      if (!getOneBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, one_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, nestedObject_);
+      if (nestedObject_ != null) {
+        output.writeMessage(2, getNestedObject());
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) {
-        return size;
-      }
+      int size = memoizedSize;
+      if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-                .computeBytesSize(1, getOneBytes());
+      if (!getOneBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, one_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (nestedObject_ != null) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(2, nestedObject_);
+          .computeMessageSize(2, getNestedObject());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoTestObjects.ProtoTestObjectWithNestedProtoObject)) {
+        return super.equals(obj);
+      }
+      ProtoTestObjects.ProtoTestObjectWithNestedProtoObject other = (ProtoTestObjects.ProtoTestObjectWithNestedProtoObject) obj;
+
+      boolean result = true;
+      result = result && getOne()
+          .equals(other.getOne());
+      result = result && (hasNestedObject() == other.hasNestedObject());
+      if (hasNestedObject()) {
+        result = result && getNestedObject()
+            .equals(other.getNestedObject());
+      }
+      return result;
     }
 
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ONE_FIELD_NUMBER;
+      hash = (53 * hash) + getOne().hashCode();
+      if (hasNestedObject()) {
+        hash = (37 * hash) + NESTEDOBJECT_FIELD_NUMBER;
+        hash = (53 * hash) + getNestedObject().hashCode();
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
-      return Builder.create();
+      return DEFAULT_INSTANCE.toBuilder();
     }
-
-    public Builder newBuilderForType() {
-      return newBuilder();
+    public static Builder newBuilder(ProtoTestObjects.ProtoTestObjectWithNestedProtoObject prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
-    public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-
     public Builder toBuilder() {
-      return newBuilder(this);
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ProtoTestObjectWithNestedProtoObject}
+     */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-            implements org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObjectOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ProtoTestObjectWithNestedProtoObject)
+        ProtoTestObjects.ProtoTestObjectWithNestedProtoObjectOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_descriptor;
+          getDescriptor() {
+        return ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable;
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.class, ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.Builder.class);
       }
 
       // Construct using org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.newBuilder()
@@ -1143,217 +1483,220 @@ public final class ProtoTestObjects {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(BuilderParent parent) {
+      private Builder(
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getNestedObjectFieldBuilder();
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         one_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         if (nestedObjectBuilder_ == null) {
-          nestedObject_ = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance();
+          nestedObject_ = null;
         } else {
-          nestedObjectBuilder_.clear();
+          nestedObject_ = null;
+          nestedObjectBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.getDescriptor();
+          getDescriptorForType() {
+        return ProtoTestObjects.internal_static_ProtoTestObjectWithNestedProtoObject_descriptor;
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject getDefaultInstanceForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.getDefaultInstance();
+      public ProtoTestObjects.ProtoTestObjectWithNestedProtoObject getDefaultInstanceForType() {
+        return ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.getDefaultInstance();
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject build() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject result = buildPartial();
+      public ProtoTestObjects.ProtoTestObjectWithNestedProtoObject build() {
+        ProtoTestObjects.ProtoTestObjectWithNestedProtoObject result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      private org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-                  result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject buildPartial() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject result = new org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
+      public ProtoTestObjects.ProtoTestObjectWithNestedProtoObject buildPartial() {
+        ProtoTestObjects.ProtoTestObjectWithNestedProtoObject result = new ProtoTestObjects.ProtoTestObjectWithNestedProtoObject(this);
         result.one_ = one_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         if (nestedObjectBuilder_ == null) {
           result.nestedObject_ = nestedObject_;
         } else {
           result.nestedObject_ = nestedObjectBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject) {
-          return mergeFrom((org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject)other);
+        if (other instanceof ProtoTestObjects.ProtoTestObjectWithNestedProtoObject) {
+          return mergeFrom((ProtoTestObjects.ProtoTestObjectWithNestedProtoObject)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.getDefaultInstance()) {
-          return this;
-        }
-        if (other.hasOne()) {
-          setOne(other.getOne());
+      public Builder mergeFrom(ProtoTestObjects.ProtoTestObjectWithNestedProtoObject other) {
+        if (other == ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.getDefaultInstance()) return this;
+        if (!other.getOne().isEmpty()) {
+          one_ = other.one_;
+          onChanged();
         }
         if (other.hasNestedObject()) {
           mergeNestedObject(other.getNestedObject());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasOne()) {
-
-          return false;
-        }
-        if (!hasNestedObject()) {
-
-          return false;
-        }
-        if (!getNestedObject().isInitialized()) {
-
-          return false;
-        }
         return true;
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                com.google.protobuf.UnknownFieldSet.newBuilder(
-                        this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            case 10: {
-              bitField0_ |= 0x00000001;
-              one_ = input.readBytes();
-              break;
-            }
-            case 18: {
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder subBuilder = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.newBuilder();
-              if (hasNestedObject()) {
-                subBuilder.mergeFrom(getNestedObject());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setNestedObject(subBuilder.buildPartial());
-              break;
-            }
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoTestObjects.ProtoTestObjectWithNestedProtoObject parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoTestObjects.ProtoTestObjectWithNestedProtoObject) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
 
-      private int bitField0_;
-
-      // required string one = 1;
-      private java.lang.Object one_ = "";
-      public boolean hasOne() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
+      private Object one_ = "";
+      /**
+       * <code>string one = 1;</code>
+       */
       public String getOne() {
-        java.lang.Object ref = one_;
+        Object ref = one_;
         if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
           one_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
-      public Builder setOne(String value) {
-        if (value == null) {
-          throw new NullPointerException();
+      /**
+       * <code>string one = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOneBytes() {
+        Object ref = one_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          one_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
         }
-        bitField0_ |= 0x00000001;
+      }
+      /**
+       * <code>string one = 1;</code>
+       */
+      public Builder setOne(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+
         one_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>string one = 1;</code>
+       */
       public Builder clearOne() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         one_ = getDefaultInstance().getOne();
         onChanged();
         return this;
       }
-      void setOne(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>string one = 1;</code>
+       */
+      public Builder setOneBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
         one_ = value;
         onChanged();
+        return this;
       }
 
-      // required .SimpleProtoTestObject nestedObject = 2;
-      private org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject nestedObject_ = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder> nestedObjectBuilder_;
+      private ProtoTestObjects.SimpleProtoTestObject nestedObject_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          SimpleProtoTestObject, SimpleProtoTestObject.Builder, SimpleProtoTestObjectOrBuilder> nestedObjectBuilder_;
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
       public boolean hasNestedObject() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return nestedObjectBuilder_ != null || nestedObject_ != null;
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject getNestedObject() {
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObject getNestedObject() {
         if (nestedObjectBuilder_ == null) {
-          return nestedObject_;
+          return nestedObject_ == null ? ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance() : nestedObject_;
         } else {
           return nestedObjectBuilder_.getMessage();
         }
       }
-      public Builder setNestedObject(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject value) {
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
+      public Builder setNestedObject(ProtoTestObjects.SimpleProtoTestObject value) {
         if (nestedObjectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1363,26 +1706,31 @@ public final class ProtoTestObjects {
         } else {
           nestedObjectBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
       public Builder setNestedObject(
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
+          ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
         if (nestedObjectBuilder_ == null) {
           nestedObject_ = builderForValue.build();
           onChanged();
         } else {
           nestedObjectBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
-      public Builder mergeNestedObject(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject value) {
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
+      public Builder mergeNestedObject(ProtoTestObjects.SimpleProtoTestObject value) {
         if (nestedObjectBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-                  nestedObject_ != org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance()) {
+          if (nestedObject_ != null) {
             nestedObject_ =
-                    org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.newBuilder(nestedObject_).mergeFrom(value).buildPartial();
+              ProtoTestObjects.SimpleProtoTestObject.newBuilder(nestedObject_).mergeFrom(value).buildPartial();
           } else {
             nestedObject_ = value;
           }
@@ -1390,253 +1738,359 @@ public final class ProtoTestObjects {
         } else {
           nestedObjectBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
       public Builder clearNestedObject() {
         if (nestedObjectBuilder_ == null) {
-          nestedObject_ = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance();
+          nestedObject_ = null;
           onChanged();
         } else {
-          nestedObjectBuilder_.clear();
+          nestedObject_ = null;
+          nestedObjectBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
+
         return this;
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder getNestedObjectBuilder() {
-        bitField0_ |= 0x00000002;
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObject.Builder getNestedObjectBuilder() {
+
         onChanged();
         return getNestedObjectFieldBuilder().getBuilder();
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder getNestedObjectOrBuilder() {
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObjectOrBuilder getNestedObjectOrBuilder() {
         if (nestedObjectBuilder_ != null) {
           return nestedObjectBuilder_.getMessageOrBuilder();
         } else {
-          return nestedObject_;
+          return nestedObject_ == null ?
+              ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance() : nestedObject_;
         }
       }
-      private com.google.protobuf.SingleFieldBuilder<
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder>
-      getNestedObjectFieldBuilder() {
+      /**
+       * <code>.SimpleProtoTestObject nestedObject = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          SimpleProtoTestObject, SimpleProtoTestObject.Builder, SimpleProtoTestObjectOrBuilder>
+          getNestedObjectFieldBuilder() {
         if (nestedObjectBuilder_ == null) {
-          nestedObjectBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-                  org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder>(
-                  nestedObject_,
+          nestedObjectBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              SimpleProtoTestObject, SimpleProtoTestObject.Builder, SimpleProtoTestObjectOrBuilder>(
+                  getNestedObject(),
                   getParentForChildren(),
                   isClean());
           nestedObject_ = null;
         }
         return nestedObjectBuilder_;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:ProtoTestObjectWithNestedProtoObject)
     }
 
+    // @@protoc_insertion_point(class_scope:ProtoTestObjectWithNestedProtoObject)
+    private static final ProtoTestObjects.ProtoTestObjectWithNestedProtoObject DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ProtoTestObjectWithNestedProtoObject(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new ProtoTestObjects.ProtoTestObjectWithNestedProtoObject();
     }
 
-    // @@protoc_insertion_point(class_scope:ProtoTestObjectWithNestedProtoObject)
+    public static ProtoTestObjects.ProtoTestObjectWithNestedProtoObject getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ProtoTestObjectWithNestedProtoObject>
+        PARSER = new com.google.protobuf.AbstractParser<ProtoTestObjectWithNestedProtoObject>() {
+      public ProtoTestObjectWithNestedProtoObject parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ProtoTestObjectWithNestedProtoObject(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ProtoTestObjectWithNestedProtoObject> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<ProtoTestObjectWithNestedProtoObject> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoTestObjects.ProtoTestObjectWithNestedProtoObject getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ProtoObjectWithEnumFieldOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
+  public interface ProtoObjectWithEnumFieldOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtoObjectWithEnumField)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .ProtoEnum enumField = 1;
-    boolean hasEnumField();
-    org.dozer.vo.proto.ProtoTestObjects.ProtoEnum getEnumField();
+    /**
+     * <code>.ProtoEnum enumField = 1;</code>
+     */
+    int getEnumFieldValue();
+    /**
+     * <code>.ProtoEnum enumField = 1;</code>
+     */
+    ProtoTestObjects.ProtoEnum getEnumField();
   }
-  public static final class ProtoObjectWithEnumField extends
-          com.google.protobuf.GeneratedMessage
-          implements ProtoObjectWithEnumFieldOrBuilder {
+  /**
+   * Protobuf type {@code ProtoObjectWithEnumField}
+   */
+  public  static final class ProtoObjectWithEnumField extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ProtoObjectWithEnumField)
+      ProtoObjectWithEnumFieldOrBuilder {
     // Use ProtoObjectWithEnumField.newBuilder() to construct.
-    private ProtoObjectWithEnumField(Builder builder) {
+    private ProtoObjectWithEnumField(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ProtoObjectWithEnumField(boolean noInit) {}
-
-    private static final ProtoObjectWithEnumField defaultInstance;
-    public static ProtoObjectWithEnumField getDefaultInstance() {
-      return defaultInstance;
+    private ProtoObjectWithEnumField() {
+      enumField_ = 0;
     }
 
-    public ProtoObjectWithEnumField getDefaultInstanceForType() {
-      return defaultInstance;
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
+    private ProtoObjectWithEnumField(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
 
+              enumField_ = rawValue;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoObjectWithEnumField_descriptor;
+        getDescriptor() {
+      return ProtoTestObjects.internal_static_ProtoObjectWithEnumField_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoObjectWithEnumField_fieldAccessorTable;
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoTestObjects.internal_static_ProtoObjectWithEnumField_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoTestObjects.ProtoObjectWithEnumField.class, ProtoTestObjects.ProtoObjectWithEnumField.Builder.class);
     }
 
-    private int bitField0_;
-    // required .ProtoEnum enumField = 1;
     public static final int ENUMFIELD_FIELD_NUMBER = 1;
-    private org.dozer.vo.proto.ProtoTestObjects.ProtoEnum enumField_;
-    public boolean hasEnumField() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public org.dozer.vo.proto.ProtoTestObjects.ProtoEnum getEnumField() {
+    private int enumField_;
+    /**
+     * <code>.ProtoEnum enumField = 1;</code>
+     */
+    public int getEnumFieldValue() {
       return enumField_;
     }
-
-    private void initFields() {
-      enumField_ = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.VALUE1;
+    /**
+     * <code>.ProtoEnum enumField = 1;</code>
+     */
+    public ProtoTestObjects.ProtoEnum getEnumField() {
+      ProtoTestObjects.ProtoEnum result = ProtoTestObjects.ProtoEnum.valueOf(enumField_);
+      return result == null ? ProtoTestObjects.ProtoEnum.UNRECOGNIZED : result;
     }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) {
-        return isInitialized == 1;
-      }
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
-      if (!hasEnumField()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, enumField_.getNumber());
+                        throws java.io.IOException {
+      if (enumField_ != ProtoTestObjects.ProtoEnum.VALUE0.getNumber()) {
+        output.writeEnum(1, enumField_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) {
-        return size;
-      }
+      int size = memoizedSize;
+      if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (enumField_ != ProtoTestObjects.ProtoEnum.VALUE0.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-                .computeEnumSize(1, enumField_.getNumber());
+          .computeEnumSize(1, enumField_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoTestObjects.ProtoObjectWithEnumField)) {
+        return super.equals(obj);
+      }
+      ProtoTestObjects.ProtoObjectWithEnumField other = (ProtoTestObjects.ProtoObjectWithEnumField) obj;
+
+      boolean result = true;
+      result = result && enumField_ == other.enumField_;
+      return result;
     }
 
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ENUMFIELD_FIELD_NUMBER;
+      hash = (53 * hash) + enumField_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtoObjectWithEnumField parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
-      return Builder.create();
+      return DEFAULT_INSTANCE.toBuilder();
     }
-
-    public Builder newBuilderForType() {
-      return newBuilder();
+    public static Builder newBuilder(ProtoTestObjects.ProtoObjectWithEnumField prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
-    public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-
     public Builder toBuilder() {
-      return newBuilder(this);
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ProtoObjectWithEnumField}
+     */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-            implements org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumFieldOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ProtoObjectWithEnumField)
+        ProtoTestObjects.ProtoObjectWithEnumFieldOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoObjectWithEnumField_descriptor;
+          getDescriptor() {
+        return ProtoTestObjects.internal_static_ProtoObjectWithEnumField_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtoObjectWithEnumField_fieldAccessorTable;
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoTestObjects.internal_static_ProtoObjectWithEnumField_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoTestObjects.ProtoObjectWithEnumField.class, ProtoTestObjects.ProtoObjectWithEnumField.Builder.class);
       }
 
       // Construct using org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.newBuilder()
@@ -1644,387 +2098,500 @@ public final class ProtoTestObjects {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(BuilderParent parent) {
+      private Builder(
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
-        enumField_ = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.VALUE1;
-        bitField0_ = (bitField0_ & ~0x00000001);
+        enumField_ = 0;
+
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.getDescriptor();
+          getDescriptorForType() {
+        return ProtoTestObjects.internal_static_ProtoObjectWithEnumField_descriptor;
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField getDefaultInstanceForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.getDefaultInstance();
+      public ProtoTestObjects.ProtoObjectWithEnumField getDefaultInstanceForType() {
+        return ProtoTestObjects.ProtoObjectWithEnumField.getDefaultInstance();
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField build() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField result = buildPartial();
+      public ProtoTestObjects.ProtoObjectWithEnumField build() {
+        ProtoTestObjects.ProtoObjectWithEnumField result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      private org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-                  result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField buildPartial() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField result = new org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
+      public ProtoTestObjects.ProtoObjectWithEnumField buildPartial() {
+        ProtoTestObjects.ProtoObjectWithEnumField result = new ProtoTestObjects.ProtoObjectWithEnumField(this);
         result.enumField_ = enumField_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField) {
-          return mergeFrom((org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField)other);
+        if (other instanceof ProtoTestObjects.ProtoObjectWithEnumField) {
+          return mergeFrom((ProtoTestObjects.ProtoObjectWithEnumField)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.getDefaultInstance()) {
-          return this;
+      public Builder mergeFrom(ProtoTestObjects.ProtoObjectWithEnumField other) {
+        if (other == ProtoTestObjects.ProtoObjectWithEnumField.getDefaultInstance()) return this;
+        if (other.enumField_ != 0) {
+          setEnumFieldValue(other.getEnumFieldValue());
         }
-        if (other.hasEnumField()) {
-          setEnumField(other.getEnumField());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasEnumField()) {
-
-          return false;
-        }
         return true;
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                com.google.protobuf.UnknownFieldSet.newBuilder(
-                        this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            case 8: {
-              int rawValue = input.readEnum();
-              org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                enumField_ = value;
-              }
-              break;
-            }
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoTestObjects.ProtoObjectWithEnumField parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoTestObjects.ProtoObjectWithEnumField) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
 
-      private int bitField0_;
-
-      // required .ProtoEnum enumField = 1;
-      private org.dozer.vo.proto.ProtoTestObjects.ProtoEnum enumField_ = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.VALUE1;
-      public boolean hasEnumField() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoEnum getEnumField() {
+      private int enumField_ = 0;
+      /**
+       * <code>.ProtoEnum enumField = 1;</code>
+       */
+      public int getEnumFieldValue() {
         return enumField_;
       }
-      public Builder setEnumField(org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>.ProtoEnum enumField = 1;</code>
+       */
+      public Builder setEnumFieldValue(int value) {
         enumField_ = value;
         onChanged();
         return this;
       }
-      public Builder clearEnumField() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        enumField_ = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.VALUE1;
+      /**
+       * <code>.ProtoEnum enumField = 1;</code>
+       */
+      public ProtoTestObjects.ProtoEnum getEnumField() {
+        ProtoTestObjects.ProtoEnum result = ProtoTestObjects.ProtoEnum.valueOf(enumField_);
+        return result == null ? ProtoTestObjects.ProtoEnum.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.ProtoEnum enumField = 1;</code>
+       */
+      public Builder setEnumField(ProtoTestObjects.ProtoEnum value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+
+        enumField_ = value.getNumber();
         onChanged();
         return this;
       }
+      /**
+       * <code>.ProtoEnum enumField = 1;</code>
+       */
+      public Builder clearEnumField() {
+
+        enumField_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:ProtoObjectWithEnumField)
     }
 
+    // @@protoc_insertion_point(class_scope:ProtoObjectWithEnumField)
+    private static final ProtoTestObjects.ProtoObjectWithEnumField DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ProtoObjectWithEnumField(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new ProtoTestObjects.ProtoObjectWithEnumField();
     }
 
-    // @@protoc_insertion_point(class_scope:ProtoObjectWithEnumField)
+    public static ProtoTestObjects.ProtoObjectWithEnumField getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ProtoObjectWithEnumField>
+        PARSER = new com.google.protobuf.AbstractParser<ProtoObjectWithEnumField>() {
+      public ProtoObjectWithEnumField parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ProtoObjectWithEnumField(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ProtoObjectWithEnumField> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<ProtoObjectWithEnumField> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoTestObjects.ProtoObjectWithEnumField getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ProtobufWithSimpleCollectionOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
+  public interface ProtobufWithSimpleCollectionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtobufWithSimpleCollection)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated .SimpleProtoTestObject object = 1;
-    java.util.List<org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject>
-    getObjectList();
-    org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject getObject(int index);
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    java.util.List<SimpleProtoTestObject>
+        getObjectList();
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    ProtoTestObjects.SimpleProtoTestObject getObject(int index);
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
     int getObjectCount();
-    java.util.List<? extends org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder>
-    getObjectOrBuilderList();
-    org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder getObjectOrBuilder(
-            int index);
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    java.util.List<? extends SimpleProtoTestObjectOrBuilder>
+        getObjectOrBuilderList();
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    ProtoTestObjects.SimpleProtoTestObjectOrBuilder getObjectOrBuilder(
+        int index);
   }
-  public static final class ProtobufWithSimpleCollection extends
-          com.google.protobuf.GeneratedMessage
-          implements ProtobufWithSimpleCollectionOrBuilder {
+  /**
+   * Protobuf type {@code ProtobufWithSimpleCollection}
+   */
+  public  static final class ProtobufWithSimpleCollection extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ProtobufWithSimpleCollection)
+      ProtobufWithSimpleCollectionOrBuilder {
     // Use ProtobufWithSimpleCollection.newBuilder() to construct.
-    private ProtobufWithSimpleCollection(Builder builder) {
+    private ProtobufWithSimpleCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ProtobufWithSimpleCollection(boolean noInit) {}
-
-    private static final ProtobufWithSimpleCollection defaultInstance;
-    public static ProtobufWithSimpleCollection getDefaultInstance() {
-      return defaultInstance;
+    private ProtobufWithSimpleCollection() {
+      object_ = java.util.Collections.emptyList();
     }
 
-    public ProtobufWithSimpleCollection getDefaultInstanceForType() {
-      return defaultInstance;
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-
+    private ProtobufWithSimpleCollection(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                object_ = new java.util.ArrayList<SimpleProtoTestObject>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              object_.add(
+                  input.readMessage(ProtoTestObjects.SimpleProtoTestObject.parser(), extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          object_ = java.util.Collections.unmodifiableList(object_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_descriptor;
+        getDescriptor() {
+      return ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_fieldAccessorTable;
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoTestObjects.ProtobufWithSimpleCollection.class, ProtoTestObjects.ProtobufWithSimpleCollection.Builder.class);
     }
 
-    // repeated .SimpleProtoTestObject object = 1;
     public static final int OBJECT_FIELD_NUMBER = 1;
-    private java.util.List<org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject> object_;
-    public java.util.List<org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject> getObjectList() {
+    private java.util.List<SimpleProtoTestObject> object_;
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    public java.util.List<SimpleProtoTestObject> getObjectList() {
       return object_;
     }
-    public java.util.List<? extends org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder>
-    getObjectOrBuilderList() {
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    public java.util.List<? extends SimpleProtoTestObjectOrBuilder>
+        getObjectOrBuilderList() {
       return object_;
     }
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
     public int getObjectCount() {
       return object_.size();
     }
-    public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject getObject(int index) {
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    public ProtoTestObjects.SimpleProtoTestObject getObject(int index) {
       return object_.get(index);
     }
-    public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder getObjectOrBuilder(
-            int index) {
+    /**
+     * <code>repeated .SimpleProtoTestObject object = 1;</code>
+     */
+    public ProtoTestObjects.SimpleProtoTestObjectOrBuilder getObjectOrBuilder(
+        int index) {
       return object_.get(index);
     }
 
-    private void initFields() {
-      object_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) {
-        return isInitialized == 1;
-      }
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
-      for (int i = 0; i < getObjectCount(); i++) {
-        if (!getObject(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      getSerializedSize();
+                        throws java.io.IOException {
       for (int i = 0; i < object_.size(); i++) {
         output.writeMessage(1, object_.get(i));
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) {
-        return size;
-      }
+      int size = memoizedSize;
+      if (size != -1) return size;
 
       size = 0;
       for (int i = 0; i < object_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(1, object_.get(i));
+          .computeMessageSize(1, object_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoTestObjects.ProtobufWithSimpleCollection)) {
+        return super.equals(obj);
+      }
+      ProtoTestObjects.ProtobufWithSimpleCollection other = (ProtoTestObjects.ProtobufWithSimpleCollection) obj;
+
+      boolean result = true;
+      result = result && getObjectList()
+          .equals(other.getObjectList());
+      return result;
     }
 
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getObjectCount() > 0) {
+        hash = (37 * hash) + OBJECT_FIELD_NUMBER;
+        hash = (53 * hash) + getObjectList().hashCode();
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollection parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
-      return Builder.create();
+      return DEFAULT_INSTANCE.toBuilder();
     }
-
-    public Builder newBuilderForType() {
-      return newBuilder();
+    public static Builder newBuilder(ProtoTestObjects.ProtobufWithSimpleCollection prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
-    public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-
     public Builder toBuilder() {
-      return newBuilder(this);
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ProtobufWithSimpleCollection}
+     */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-            implements org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ProtobufWithSimpleCollection)
+        ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_descriptor;
+          getDescriptor() {
+        return ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_fieldAccessorTable;
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoTestObjects.ProtobufWithSimpleCollection.class, ProtoTestObjects.ProtobufWithSimpleCollection.Builder.class);
       }
 
       // Construct using org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.newBuilder()
@@ -2032,19 +2599,17 @@ public final class ProtoTestObjects {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(BuilderParent parent) {
+      private Builder(
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getObjectFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (objectBuilder_ == null) {
@@ -2056,39 +2621,25 @@ public final class ProtoTestObjects {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDescriptor();
+          getDescriptorForType() {
+        return ProtoTestObjects.internal_static_ProtobufWithSimpleCollection_descriptor;
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection getDefaultInstanceForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance();
+      public ProtoTestObjects.ProtobufWithSimpleCollection getDefaultInstanceForType() {
+        return ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance();
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection build() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection result = buildPartial();
+      public ProtoTestObjects.ProtobufWithSimpleCollection build() {
+        ProtoTestObjects.ProtobufWithSimpleCollection result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      private org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-                  result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection buildPartial() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection result = new org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection(this);
+      public ProtoTestObjects.ProtobufWithSimpleCollection buildPartial() {
+        ProtoTestObjects.ProtobufWithSimpleCollection result = new ProtoTestObjects.ProtobufWithSimpleCollection(this);
         int from_bitField0_ = bitField0_;
         if (objectBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
@@ -2103,20 +2654,43 @@ public final class ProtoTestObjects {
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection) {
-          return mergeFrom((org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection)other);
+        if (other instanceof ProtoTestObjects.ProtobufWithSimpleCollection) {
+          return mergeFrom((ProtoTestObjects.ProtobufWithSimpleCollection)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance()) {
-          return this;
-        }
-
+      public Builder mergeFrom(ProtoTestObjects.ProtobufWithSimpleCollection other) {
+        if (other == ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance()) return this;
         if (objectBuilder_ == null) {
           if (!other.object_.isEmpty()) {
             if (object_.isEmpty()) {
@@ -2136,82 +2710,65 @@ public final class ProtoTestObjects {
               object_ = other.object_;
               bitField0_ = (bitField0_ & ~0x00000001);
               objectBuilder_ =
-                      com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                              getObjectFieldBuilder() : null;
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getObjectFieldBuilder() : null;
             } else {
               objectBuilder_.addAllMessages(other.object_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        for (int i = 0; i < getObjectCount(); i++) {
-          if (!getObject(i).isInitialized()) {
-
-            return false;
-          }
-        }
         return true;
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                com.google.protobuf.UnknownFieldSet.newBuilder(
-                        this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            case 10: {
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder subBuilder = org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addObject(subBuilder.buildPartial());
-              break;
-            }
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoTestObjects.ProtobufWithSimpleCollection parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoTestObjects.ProtobufWithSimpleCollection) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-
       private int bitField0_;
 
-      // repeated .SimpleProtoTestObject object = 1;
-      private java.util.List<org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject> object_ =
-              java.util.Collections.emptyList();
+      private java.util.List<SimpleProtoTestObject> object_ =
+        java.util.Collections.emptyList();
       private void ensureObjectIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          object_ = new java.util.ArrayList<org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject>(object_);
+          object_ = new java.util.ArrayList<SimpleProtoTestObject>(object_);
           bitField0_ |= 0x00000001;
-        }
+         }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder> objectBuilder_;
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          SimpleProtoTestObject, SimpleProtoTestObject.Builder, SimpleProtoTestObjectOrBuilder> objectBuilder_;
 
-      public java.util.List<org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject> getObjectList() {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public java.util.List<SimpleProtoTestObject> getObjectList() {
         if (objectBuilder_ == null) {
           return java.util.Collections.unmodifiableList(object_);
         } else {
           return objectBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public int getObjectCount() {
         if (objectBuilder_ == null) {
           return object_.size();
@@ -2219,15 +2776,21 @@ public final class ProtoTestObjects {
           return objectBuilder_.getCount();
         }
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject getObject(int index) {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObject getObject(int index) {
         if (objectBuilder_ == null) {
           return object_.get(index);
         } else {
           return objectBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder setObject(
-              int index, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject value) {
+          int index, ProtoTestObjects.SimpleProtoTestObject value) {
         if (objectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2240,8 +2803,11 @@ public final class ProtoTestObjects {
         }
         return this;
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder setObject(
-              int index, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
+          int index, ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
         if (objectBuilder_ == null) {
           ensureObjectIsMutable();
           object_.set(index, builderForValue.build());
@@ -2251,7 +2817,10 @@ public final class ProtoTestObjects {
         }
         return this;
       }
-      public Builder addObject(org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject value) {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public Builder addObject(ProtoTestObjects.SimpleProtoTestObject value) {
         if (objectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2264,8 +2833,11 @@ public final class ProtoTestObjects {
         }
         return this;
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder addObject(
-              int index, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject value) {
+          int index, ProtoTestObjects.SimpleProtoTestObject value) {
         if (objectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2278,8 +2850,11 @@ public final class ProtoTestObjects {
         }
         return this;
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder addObject(
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
+          ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
         if (objectBuilder_ == null) {
           ensureObjectIsMutable();
           object_.add(builderForValue.build());
@@ -2289,8 +2864,11 @@ public final class ProtoTestObjects {
         }
         return this;
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder addObject(
-              int index, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
+          int index, ProtoTestObjects.SimpleProtoTestObject.Builder builderForValue) {
         if (objectBuilder_ == null) {
           ensureObjectIsMutable();
           object_.add(index, builderForValue.build());
@@ -2300,17 +2878,24 @@ public final class ProtoTestObjects {
         }
         return this;
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder addAllObject(
-              java.lang.Iterable<? extends org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject> values) {
+          Iterable<? extends SimpleProtoTestObject> values) {
         if (objectBuilder_ == null) {
           ensureObjectIsMutable();
-          super.addAll(values, object_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, object_);
           onChanged();
         } else {
           objectBuilder_.addAllMessages(values);
         }
         return this;
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder clearObject() {
         if (objectBuilder_ == null) {
           object_ = java.util.Collections.emptyList();
@@ -2321,6 +2906,9 @@ public final class ProtoTestObjects {
         }
         return this;
       }
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
       public Builder removeObject(int index) {
         if (objectBuilder_ == null) {
           ensureObjectIsMutable();
@@ -2331,45 +2919,62 @@ public final class ProtoTestObjects {
         }
         return this;
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder getObjectBuilder(
-              int index) {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObject.Builder getObjectBuilder(
+          int index) {
         return getObjectFieldBuilder().getBuilder(index);
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder getObjectOrBuilder(
-              int index) {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObjectOrBuilder getObjectOrBuilder(
+          int index) {
         if (objectBuilder_ == null) {
-          return object_.get(index);
-        } else {
+          return object_.get(index);  } else {
           return objectBuilder_.getMessageOrBuilder(index);
         }
       }
-      public java.util.List<? extends org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder>
-      getObjectOrBuilderList() {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public java.util.List<? extends SimpleProtoTestObjectOrBuilder>
+           getObjectOrBuilderList() {
         if (objectBuilder_ != null) {
           return objectBuilder_.getMessageOrBuilderList();
         } else {
           return java.util.Collections.unmodifiableList(object_);
         }
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder addObjectBuilder() {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObject.Builder addObjectBuilder() {
         return getObjectFieldBuilder().addBuilder(
-                org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance());
+            ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance());
       }
-      public org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder addObjectBuilder(
-              int index) {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public ProtoTestObjects.SimpleProtoTestObject.Builder addObjectBuilder(
+          int index) {
         return getObjectFieldBuilder().addBuilder(
-                index, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance());
+            index, ProtoTestObjects.SimpleProtoTestObject.getDefaultInstance());
       }
-      public java.util.List<org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder>
-      getObjectBuilderList() {
+      /**
+       * <code>repeated .SimpleProtoTestObject object = 1;</code>
+       */
+      public java.util.List<SimpleProtoTestObject.Builder>
+           getObjectBuilderList() {
         return getObjectFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
-              org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder>
-      getObjectFieldBuilder() {
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          SimpleProtoTestObject, SimpleProtoTestObject.Builder, SimpleProtoTestObjectOrBuilder>
+          getObjectFieldBuilder() {
         if (objectBuilder_ == null) {
-          objectBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-                  org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder, org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectOrBuilder>(
+          objectBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              SimpleProtoTestObject, SimpleProtoTestObject.Builder, SimpleProtoTestObjectOrBuilder>(
                   object_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -2378,223 +2983,328 @@ public final class ProtoTestObjects {
         }
         return objectBuilder_;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:ProtobufWithSimpleCollection)
     }
 
+    // @@protoc_insertion_point(class_scope:ProtobufWithSimpleCollection)
+    private static final ProtoTestObjects.ProtobufWithSimpleCollection DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ProtobufWithSimpleCollection(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new ProtoTestObjects.ProtobufWithSimpleCollection();
     }
 
-    // @@protoc_insertion_point(class_scope:ProtobufWithSimpleCollection)
+    public static ProtoTestObjects.ProtobufWithSimpleCollection getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ProtobufWithSimpleCollection>
+        PARSER = new com.google.protobuf.AbstractParser<ProtobufWithSimpleCollection>() {
+      public ProtobufWithSimpleCollection parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ProtobufWithSimpleCollection(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ProtobufWithSimpleCollection> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<ProtobufWithSimpleCollection> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoTestObjects.ProtobufWithSimpleCollection getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ProtobufWithSimpleCollectionContainerOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
+  public interface ProtobufWithSimpleCollectionContainerOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtobufWithSimpleCollectionContainer)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .ProtobufWithSimpleCollection object = 1;
+    /**
+     * <code>.ProtobufWithSimpleCollection object = 1;</code>
+     */
     boolean hasObject();
-    org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection getObject();
-    org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder getObjectOrBuilder();
+    /**
+     * <code>.ProtobufWithSimpleCollection object = 1;</code>
+     */
+    ProtoTestObjects.ProtobufWithSimpleCollection getObject();
+    /**
+     * <code>.ProtobufWithSimpleCollection object = 1;</code>
+     */
+    ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder getObjectOrBuilder();
   }
-  public static final class ProtobufWithSimpleCollectionContainer extends
-          com.google.protobuf.GeneratedMessage
-          implements ProtobufWithSimpleCollectionContainerOrBuilder {
+  /**
+   * Protobuf type {@code ProtobufWithSimpleCollectionContainer}
+   */
+  public  static final class ProtobufWithSimpleCollectionContainer extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ProtobufWithSimpleCollectionContainer)
+      ProtobufWithSimpleCollectionContainerOrBuilder {
     // Use ProtobufWithSimpleCollectionContainer.newBuilder() to construct.
-    private ProtobufWithSimpleCollectionContainer(Builder builder) {
+    private ProtobufWithSimpleCollectionContainer(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ProtobufWithSimpleCollectionContainer(boolean noInit) {}
-
-    private static final ProtobufWithSimpleCollectionContainer defaultInstance;
-    public static ProtobufWithSimpleCollectionContainer getDefaultInstance() {
-      return defaultInstance;
+    private ProtobufWithSimpleCollectionContainer() {
     }
 
-    public ProtobufWithSimpleCollectionContainer getDefaultInstanceForType() {
-      return defaultInstance;
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
+    private ProtobufWithSimpleCollectionContainer(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              ProtoTestObjects.ProtobufWithSimpleCollection.Builder subBuilder = null;
+              if (object_ != null) {
+                subBuilder = object_.toBuilder();
+              }
+              object_ = input.readMessage(ProtoTestObjects.ProtobufWithSimpleCollection.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(object_);
+                object_ = subBuilder.buildPartial();
+              }
 
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_descriptor;
+        getDescriptor() {
+      return ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable;
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoTestObjects.ProtobufWithSimpleCollectionContainer.class, ProtoTestObjects.ProtobufWithSimpleCollectionContainer.Builder.class);
     }
 
-    private int bitField0_;
-    // required .ProtobufWithSimpleCollection object = 1;
     public static final int OBJECT_FIELD_NUMBER = 1;
-    private org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection object_;
+    private ProtoTestObjects.ProtobufWithSimpleCollection object_;
+    /**
+     * <code>.ProtobufWithSimpleCollection object = 1;</code>
+     */
     public boolean hasObject() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return object_ != null;
     }
-    public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection getObject() {
-      return object_;
+    /**
+     * <code>.ProtobufWithSimpleCollection object = 1;</code>
+     */
+    public ProtoTestObjects.ProtobufWithSimpleCollection getObject() {
+      return object_ == null ? ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance() : object_;
     }
-    public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder getObjectOrBuilder() {
-      return object_;
+    /**
+     * <code>.ProtobufWithSimpleCollection object = 1;</code>
+     */
+    public ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder getObjectOrBuilder() {
+      return getObject();
     }
 
-    private void initFields() {
-      object_ = org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) {
-        return isInitialized == 1;
-      }
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
-      if (!hasObject()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getObject().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, object_);
+                        throws java.io.IOException {
+      if (object_ != null) {
+        output.writeMessage(1, getObject());
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) {
-        return size;
-      }
+      int size = memoizedSize;
+      if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (object_ != null) {
         size += com.google.protobuf.CodedOutputStream
-                .computeMessageSize(1, object_);
+          .computeMessageSize(1, getObject());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoTestObjects.ProtobufWithSimpleCollectionContainer)) {
+        return super.equals(obj);
+      }
+      ProtoTestObjects.ProtobufWithSimpleCollectionContainer other = (ProtoTestObjects.ProtobufWithSimpleCollectionContainer) obj;
+
+      boolean result = true;
+      result = result && (hasObject() == other.hasObject());
+      if (hasObject()) {
+        result = result && getObject()
+            .equals(other.getObject());
+      }
+      return result;
     }
 
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasObject()) {
+        hash = (37 * hash) + OBJECT_FIELD_NUMBER;
+        hash = (53 * hash) + getObject().hashCode();
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
-      return Builder.create();
+      return DEFAULT_INSTANCE.toBuilder();
     }
-
-    public Builder newBuilderForType() {
-      return newBuilder();
+    public static Builder newBuilder(ProtoTestObjects.ProtobufWithSimpleCollectionContainer prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
-    public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-
     public Builder toBuilder() {
-      return newBuilder(this);
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ProtobufWithSimpleCollectionContainer}
+     */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-            implements org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainerOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ProtobufWithSimpleCollectionContainer)
+        ProtoTestObjects.ProtobufWithSimpleCollectionContainerOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_descriptor;
+          getDescriptor() {
+        return ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable;
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoTestObjects.ProtobufWithSimpleCollectionContainer.class, ProtoTestObjects.ProtobufWithSimpleCollectionContainer.Builder.class);
       }
 
       // Construct using org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.newBuilder()
@@ -2602,163 +3312,144 @@ public final class ProtoTestObjects {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(BuilderParent parent) {
+      private Builder(
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getObjectFieldBuilder();
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (objectBuilder_ == null) {
-          object_ = org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance();
+          object_ = null;
         } else {
-          objectBuilder_.clear();
+          object_ = null;
+          objectBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.getDescriptor();
+          getDescriptorForType() {
+        return ProtoTestObjects.internal_static_ProtobufWithSimpleCollectionContainer_descriptor;
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer getDefaultInstanceForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.getDefaultInstance();
+      public ProtoTestObjects.ProtobufWithSimpleCollectionContainer getDefaultInstanceForType() {
+        return ProtoTestObjects.ProtobufWithSimpleCollectionContainer.getDefaultInstance();
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer build() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer result = buildPartial();
+      public ProtoTestObjects.ProtobufWithSimpleCollectionContainer build() {
+        ProtoTestObjects.ProtobufWithSimpleCollectionContainer result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      private org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-                  result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer buildPartial() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer result = new org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
+      public ProtoTestObjects.ProtobufWithSimpleCollectionContainer buildPartial() {
+        ProtoTestObjects.ProtobufWithSimpleCollectionContainer result = new ProtoTestObjects.ProtobufWithSimpleCollectionContainer(this);
         if (objectBuilder_ == null) {
           result.object_ = object_;
         } else {
           result.object_ = objectBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer) {
-          return mergeFrom((org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer)other);
+        if (other instanceof ProtoTestObjects.ProtobufWithSimpleCollectionContainer) {
+          return mergeFrom((ProtoTestObjects.ProtobufWithSimpleCollectionContainer)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.getDefaultInstance()) {
-          return this;
-        }
+      public Builder mergeFrom(ProtoTestObjects.ProtobufWithSimpleCollectionContainer other) {
+        if (other == ProtoTestObjects.ProtobufWithSimpleCollectionContainer.getDefaultInstance()) return this;
         if (other.hasObject()) {
           mergeObject(other.getObject());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasObject()) {
-
-          return false;
-        }
-        if (!getObject().isInitialized()) {
-
-          return false;
-        }
         return true;
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                com.google.protobuf.UnknownFieldSet.newBuilder(
-                        this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            case 10: {
-              org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder subBuilder = org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.newBuilder();
-              if (hasObject()) {
-                subBuilder.mergeFrom(getObject());
-              }
-              input.readMessage(subBuilder, extensionRegistry);
-              setObject(subBuilder.buildPartial());
-              break;
-            }
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoTestObjects.ProtobufWithSimpleCollectionContainer parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoTestObjects.ProtobufWithSimpleCollectionContainer) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
 
-      private int bitField0_;
-
-      // required .ProtobufWithSimpleCollection object = 1;
-      private org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection object_ = org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-              org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection, org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder, org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder> objectBuilder_;
+      private ProtoTestObjects.ProtobufWithSimpleCollection object_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ProtobufWithSimpleCollection, ProtobufWithSimpleCollection.Builder, ProtobufWithSimpleCollectionOrBuilder> objectBuilder_;
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
       public boolean hasObject() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return objectBuilder_ != null || object_ != null;
       }
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection getObject() {
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
+      public ProtoTestObjects.ProtobufWithSimpleCollection getObject() {
         if (objectBuilder_ == null) {
-          return object_;
+          return object_ == null ? ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance() : object_;
         } else {
           return objectBuilder_.getMessage();
         }
       }
-      public Builder setObject(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection value) {
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
+      public Builder setObject(ProtoTestObjects.ProtobufWithSimpleCollection value) {
         if (objectBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2768,26 +3459,31 @@ public final class ProtoTestObjects {
         } else {
           objectBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
       public Builder setObject(
-              org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder builderForValue) {
+          ProtoTestObjects.ProtobufWithSimpleCollection.Builder builderForValue) {
         if (objectBuilder_ == null) {
           object_ = builderForValue.build();
           onChanged();
         } else {
           objectBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
-      public Builder mergeObject(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection value) {
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
+      public Builder mergeObject(ProtoTestObjects.ProtobufWithSimpleCollection value) {
         if (objectBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-                  object_ != org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance()) {
+          if (object_ != null) {
             object_ =
-                    org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.newBuilder(object_).mergeFrom(value).buildPartial();
+              ProtoTestObjects.ProtobufWithSimpleCollection.newBuilder(object_).mergeFrom(value).buildPartial();
           } else {
             object_ = value;
           }
@@ -2795,257 +3491,436 @@ public final class ProtoTestObjects {
         } else {
           objectBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
       public Builder clearObject() {
         if (objectBuilder_ == null) {
-          object_ = org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance();
+          object_ = null;
           onChanged();
         } else {
-          objectBuilder_.clear();
+          object_ = null;
+          objectBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         return this;
       }
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder getObjectBuilder() {
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
+      public ProtoTestObjects.ProtobufWithSimpleCollection.Builder getObjectBuilder() {
+
         onChanged();
         return getObjectFieldBuilder().getBuilder();
       }
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder getObjectOrBuilder() {
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
+      public ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder getObjectOrBuilder() {
         if (objectBuilder_ != null) {
           return objectBuilder_.getMessageOrBuilder();
         } else {
-          return object_;
+          return object_ == null ?
+              ProtoTestObjects.ProtobufWithSimpleCollection.getDefaultInstance() : object_;
         }
       }
-      private com.google.protobuf.SingleFieldBuilder<
-              org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection, org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder, org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder>
-      getObjectFieldBuilder() {
+      /**
+       * <code>.ProtobufWithSimpleCollection object = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ProtobufWithSimpleCollection, ProtobufWithSimpleCollection.Builder, ProtobufWithSimpleCollectionOrBuilder>
+          getObjectFieldBuilder() {
         if (objectBuilder_ == null) {
-          objectBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-                  org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection, org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder, org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionOrBuilder>(
-                  object_,
+          objectBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ProtobufWithSimpleCollection, ProtobufWithSimpleCollection.Builder, ProtobufWithSimpleCollectionOrBuilder>(
+                  getObject(),
                   getParentForChildren(),
                   isClean());
           object_ = null;
         }
         return objectBuilder_;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:ProtobufWithSimpleCollectionContainer)
     }
 
+    // @@protoc_insertion_point(class_scope:ProtobufWithSimpleCollectionContainer)
+    private static final ProtoTestObjects.ProtobufWithSimpleCollectionContainer DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ProtobufWithSimpleCollectionContainer(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new ProtoTestObjects.ProtobufWithSimpleCollectionContainer();
     }
 
-    // @@protoc_insertion_point(class_scope:ProtobufWithSimpleCollectionContainer)
+    public static ProtoTestObjects.ProtobufWithSimpleCollectionContainer getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ProtobufWithSimpleCollectionContainer>
+        PARSER = new com.google.protobuf.AbstractParser<ProtobufWithSimpleCollectionContainer>() {
+      public ProtobufWithSimpleCollectionContainer parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ProtobufWithSimpleCollectionContainer(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ProtobufWithSimpleCollectionContainer> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<ProtobufWithSimpleCollectionContainer> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoTestObjects.ProtobufWithSimpleCollectionContainer getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  public interface ProtobufWithEnumCollectionOrBuilder
-          extends com.google.protobuf.MessageOrBuilder {
+  public interface ProtobufWithEnumCollectionOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ProtobufWithEnumCollection)
+      com.google.protobuf.MessageOrBuilder {
 
-    // repeated .ProtoEnum object = 1;
-    java.util.List<org.dozer.vo.proto.ProtoTestObjects.ProtoEnum> getObjectList();
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    java.util.List<ProtoEnum> getObjectList();
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
     int getObjectCount();
-    org.dozer.vo.proto.ProtoTestObjects.ProtoEnum getObject(int index);
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    ProtoTestObjects.ProtoEnum getObject(int index);
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    java.util.List<Integer>
+    getObjectValueList();
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    int getObjectValue(int index);
   }
-  public static final class ProtobufWithEnumCollection extends
-          com.google.protobuf.GeneratedMessage
-          implements ProtobufWithEnumCollectionOrBuilder {
+  /**
+   * Protobuf type {@code ProtobufWithEnumCollection}
+   */
+  public  static final class ProtobufWithEnumCollection extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ProtobufWithEnumCollection)
+      ProtobufWithEnumCollectionOrBuilder {
     // Use ProtobufWithEnumCollection.newBuilder() to construct.
-    private ProtobufWithEnumCollection(Builder builder) {
+    private ProtobufWithEnumCollection(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ProtobufWithEnumCollection(boolean noInit) {}
-
-    private static final ProtobufWithEnumCollection defaultInstance;
-    public static ProtobufWithEnumCollection getDefaultInstance() {
-      return defaultInstance;
+    private ProtobufWithEnumCollection() {
+      object_ = java.util.Collections.emptyList();
     }
 
-    public ProtobufWithEnumCollection getDefaultInstanceForType() {
-      return defaultInstance;
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-
+    private ProtobufWithEnumCollection(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                object_ = new java.util.ArrayList<Integer>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              object_.add(rawValue);
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int oldLimit = input.pushLimit(length);
+              while(input.getBytesUntilLimit() > 0) {
+                int rawValue = input.readEnum();
+                if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                  object_ = new java.util.ArrayList<Integer>();
+                  mutable_bitField0_ |= 0x00000001;
+                }
+                object_.add(rawValue);
+              }
+              input.popLimit(oldLimit);
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          object_ = java.util.Collections.unmodifiableList(object_);
+        }
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
-    getDescriptor() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithEnumCollection_descriptor;
+        getDescriptor() {
+      return ProtoTestObjects.internal_static_ProtobufWithEnumCollection_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-    internalGetFieldAccessorTable() {
-      return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithEnumCollection_fieldAccessorTable;
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoTestObjects.internal_static_ProtobufWithEnumCollection_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoTestObjects.ProtobufWithEnumCollection.class, ProtoTestObjects.ProtobufWithEnumCollection.Builder.class);
     }
 
-    // repeated .ProtoEnum object = 1;
     public static final int OBJECT_FIELD_NUMBER = 1;
-    private java.util.List<org.dozer.vo.proto.ProtoTestObjects.ProtoEnum> object_;
-    public java.util.List<org.dozer.vo.proto.ProtoTestObjects.ProtoEnum> getObjectList() {
-      return object_;
+    private java.util.List<Integer> object_;
+    private static final com.google.protobuf.Internal.ListAdapter.Converter<
+        Integer, ProtoEnum> object_converter_ =
+            new com.google.protobuf.Internal.ListAdapter.Converter<
+                Integer, ProtoEnum>() {
+              public ProtoTestObjects.ProtoEnum convert(Integer from) {
+                ProtoTestObjects.ProtoEnum result = ProtoTestObjects.ProtoEnum.valueOf(from);
+                return result == null ? ProtoTestObjects.ProtoEnum.UNRECOGNIZED : result;
+              }
+            };
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    public java.util.List<ProtoEnum> getObjectList() {
+      return new com.google.protobuf.Internal.ListAdapter<
+          Integer, ProtoEnum>(object_, object_converter_);
     }
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
     public int getObjectCount() {
       return object_.size();
     }
-    public org.dozer.vo.proto.ProtoTestObjects.ProtoEnum getObject(int index) {
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    public ProtoTestObjects.ProtoEnum getObject(int index) {
+      return object_converter_.convert(object_.get(index));
+    }
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    public java.util.List<Integer>
+    getObjectValueList() {
+      return object_;
+    }
+    /**
+     * <code>repeated .ProtoEnum object = 1;</code>
+     */
+    public int getObjectValue(int index) {
       return object_.get(index);
     }
+    private int objectMemoizedSerializedSize;
 
-    private void initFields() {
-      object_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) {
-        return isInitialized == 1;
-      }
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-            throws java.io.IOException {
+                        throws java.io.IOException {
       getSerializedSize();
-      for (int i = 0; i < object_.size(); i++) {
-        output.writeEnum(1, object_.get(i).getNumber());
+      if (getObjectList().size() > 0) {
+        output.writeUInt32NoTag(10);
+        output.writeUInt32NoTag(objectMemoizedSerializedSize);
       }
-      getUnknownFields().writeTo(output);
+      for (int i = 0; i < object_.size(); i++) {
+        output.writeEnumNoTag(object_.get(i));
+      }
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) {
-        return size;
-      }
+      int size = memoizedSize;
+      if (size != -1) return size;
 
       size = 0;
       {
         int dataSize = 0;
         for (int i = 0; i < object_.size(); i++) {
           dataSize += com.google.protobuf.CodedOutputStream
-                  .computeEnumSizeNoTag(object_.get(i).getNumber());
+            .computeEnumSizeNoTag(object_.get(i));
         }
         size += dataSize;
-        size += 1 * object_.size();
+        if (!getObjectList().isEmpty()) {  size += 1;
+          size += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(dataSize);
+        }objectMemoizedSerializedSize = dataSize;
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-            throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoTestObjects.ProtobufWithEnumCollection)) {
+        return super.equals(obj);
+      }
+      ProtoTestObjects.ProtobufWithEnumCollection other = (ProtoTestObjects.ProtobufWithEnumCollection) obj;
+
+      boolean result = true;
+      result = result && object_.equals(other.object_);
+      return result;
     }
 
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
-            com.google.protobuf.ByteString data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
-            com.google.protobuf.ByteString data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(byte[] data)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
-            byte[] data,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseDelimitedFrom(java.io.InputStream input)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseDelimitedFrom(
-            java.io.InputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getObjectCount() > 0) {
+        hash = (37 * hash) + OBJECT_FIELD_NUMBER;
+        hash = (53 * hash) + object_.hashCode();
       }
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
-            com.google.protobuf.CodedInputStream input)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-              .buildParsed();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoTestObjects.ProtobufWithEnumCollection parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
-      return Builder.create();
+      return DEFAULT_INSTANCE.toBuilder();
     }
-
-    public Builder newBuilderForType() {
-      return newBuilder();
+    public static Builder newBuilder(ProtoTestObjects.ProtobufWithEnumCollection prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-
-    public static Builder newBuilder(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-
     public Builder toBuilder() {
-      return newBuilder(this);
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code ProtobufWithEnumCollection}
+     */
     public static final class Builder extends
-            com.google.protobuf.GeneratedMessage.Builder<Builder>
-            implements org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollectionOrBuilder {
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ProtobufWithEnumCollection)
+        ProtoTestObjects.ProtobufWithEnumCollectionOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithEnumCollection_descriptor;
+          getDescriptor() {
+        return ProtoTestObjects.internal_static_ProtobufWithEnumCollection_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-        return org.dozer.vo.proto.ProtoTestObjects.internal_static_ProtobufWithEnumCollection_fieldAccessorTable;
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoTestObjects.internal_static_ProtobufWithEnumCollection_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoTestObjects.ProtobufWithEnumCollection.class, ProtoTestObjects.ProtobufWithEnumCollection.Builder.class);
       }
 
       // Construct using org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.newBuilder()
@@ -3053,18 +3928,16 @@ public final class ProtoTestObjects {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(BuilderParent parent) {
+      private Builder(
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         object_ = java.util.Collections.emptyList();
@@ -3072,39 +3945,25 @@ public final class ProtoTestObjects {
         return this;
       }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
       public com.google.protobuf.Descriptors.Descriptor
-      getDescriptorForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.getDescriptor();
+          getDescriptorForType() {
+        return ProtoTestObjects.internal_static_ProtobufWithEnumCollection_descriptor;
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection getDefaultInstanceForType() {
-        return org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.getDefaultInstance();
+      public ProtoTestObjects.ProtobufWithEnumCollection getDefaultInstanceForType() {
+        return ProtoTestObjects.ProtobufWithEnumCollection.getDefaultInstance();
       }
 
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection build() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection result = buildPartial();
+      public ProtoTestObjects.ProtobufWithEnumCollection build() {
+        ProtoTestObjects.ProtobufWithEnumCollection result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      private org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection buildParsed()
-              throws com.google.protobuf.InvalidProtocolBufferException {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-                  result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-
-      public org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection buildPartial() {
-        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection result = new org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection(this);
+      public ProtoTestObjects.ProtobufWithEnumCollection buildPartial() {
+        ProtoTestObjects.ProtobufWithEnumCollection result = new ProtoTestObjects.ProtobufWithEnumCollection(this);
         int from_bitField0_ = bitField0_;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           object_ = java.util.Collections.unmodifiableList(object_);
@@ -3115,19 +3974,43 @@ public final class ProtoTestObjects {
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection) {
-          return mergeFrom((org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection)other);
+        if (other instanceof ProtoTestObjects.ProtobufWithEnumCollection) {
+          return mergeFrom((ProtoTestObjects.ProtobufWithEnumCollection)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection other) {
-        if (other == org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.getDefaultInstance()) {
-          return this;
-        }
+      public Builder mergeFrom(ProtoTestObjects.ProtobufWithEnumCollection other) {
+        if (other == ProtoTestObjects.ProtobufWithEnumCollection.getDefaultInstance()) return this;
         if (!other.object_.isEmpty()) {
           if (object_.isEmpty()) {
             object_ = other.object_;
@@ -3138,7 +4021,7 @@ public final class ProtoTestObjects {
           }
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
@@ -3147,249 +4030,304 @@ public final class ProtoTestObjects {
       }
 
       public Builder mergeFrom(
-              com.google.protobuf.CodedInputStream input,
-              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-              throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-                com.google.protobuf.UnknownFieldSet.newBuilder(
-                        this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            case 8: {
-              int rawValue = input.readEnum();
-              org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                addObject(value);
-              }
-              break;
-            }
-            case 10: {
-              int length = input.readRawVarint32();
-              int oldLimit = input.pushLimit(length);
-              while(input.getBytesUntilLimit() > 0) {
-                int rawValue = input.readEnum();
-                org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value = org.dozer.vo.proto.ProtoTestObjects.ProtoEnum.valueOf(rawValue);
-                if (value == null) {
-                  unknownFields.mergeVarintField(1, rawValue);
-                } else {
-                  addObject(value);
-                }
-              }
-              input.popLimit(oldLimit);
-              break;
-            }
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoTestObjects.ProtobufWithEnumCollection parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoTestObjects.ProtobufWithEnumCollection) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-
       private int bitField0_;
 
-      // repeated .ProtoEnum object = 1;
-      private java.util.List<org.dozer.vo.proto.ProtoTestObjects.ProtoEnum> object_ =
-              java.util.Collections.emptyList();
+      private java.util.List<Integer> object_ =
+        java.util.Collections.emptyList();
       private void ensureObjectIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          object_ = new java.util.ArrayList<org.dozer.vo.proto.ProtoTestObjects.ProtoEnum>(object_);
+          object_ = new java.util.ArrayList<Integer>(object_);
           bitField0_ |= 0x00000001;
         }
       }
-      public java.util.List<org.dozer.vo.proto.ProtoTestObjects.ProtoEnum> getObjectList() {
-        return java.util.Collections.unmodifiableList(object_);
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public java.util.List<ProtoEnum> getObjectList() {
+        return new com.google.protobuf.Internal.ListAdapter<
+            Integer, ProtoEnum>(object_, object_converter_);
       }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
       public int getObjectCount() {
         return object_.size();
       }
-      public org.dozer.vo.proto.ProtoTestObjects.ProtoEnum getObject(int index) {
-        return object_.get(index);
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public ProtoTestObjects.ProtoEnum getObject(int index) {
+        return object_converter_.convert(object_.get(index));
       }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
       public Builder setObject(
-              int index, org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value) {
+          int index, ProtoTestObjects.ProtoEnum value) {
         if (value == null) {
           throw new NullPointerException();
         }
         ensureObjectIsMutable();
-        object_.set(index, value);
+        object_.set(index, value.getNumber());
         onChanged();
         return this;
       }
-      public Builder addObject(org.dozer.vo.proto.ProtoTestObjects.ProtoEnum value) {
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public Builder addObject(ProtoTestObjects.ProtoEnum value) {
         if (value == null) {
           throw new NullPointerException();
         }
         ensureObjectIsMutable();
-        object_.add(value);
+        object_.add(value.getNumber());
         onChanged();
         return this;
       }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
       public Builder addAllObject(
-              java.lang.Iterable<? extends org.dozer.vo.proto.ProtoTestObjects.ProtoEnum> values) {
+          Iterable<? extends ProtoEnum> values) {
         ensureObjectIsMutable();
-        super.addAll(values, object_);
+        for (ProtoTestObjects.ProtoEnum value : values) {
+          object_.add(value.getNumber());
+        }
         onChanged();
         return this;
       }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
       public Builder clearObject() {
         object_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public java.util.List<Integer>
+      getObjectValueList() {
+        return java.util.Collections.unmodifiableList(object_);
+      }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public int getObjectValue(int index) {
+        return object_.get(index);
+      }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public Builder setObjectValue(
+          int index, int value) {
+        ensureObjectIsMutable();
+        object_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public Builder addObjectValue(int value) {
+        ensureObjectIsMutable();
+        object_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated .ProtoEnum object = 1;</code>
+       */
+      public Builder addAllObjectValue(
+          Iterable<Integer> values) {
+        ensureObjectIsMutable();
+        for (int value : values) {
+          object_.add(value);
+        }
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:ProtobufWithEnumCollection)
     }
 
+    // @@protoc_insertion_point(class_scope:ProtobufWithEnumCollection)
+    private static final ProtoTestObjects.ProtobufWithEnumCollection DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ProtobufWithEnumCollection(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new ProtoTestObjects.ProtobufWithEnumCollection();
     }
 
-    // @@protoc_insertion_point(class_scope:ProtobufWithEnumCollection)
+    public static ProtoTestObjects.ProtobufWithEnumCollection getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ProtobufWithEnumCollection>
+        PARSER = new com.google.protobuf.AbstractParser<ProtobufWithEnumCollection>() {
+      public ProtobufWithEnumCollection parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ProtobufWithEnumCollection(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ProtobufWithEnumCollection> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<ProtobufWithEnumCollection> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoTestObjects.ProtobufWithEnumCollection getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
-          internal_static_SimpleProtoTestObject_descriptor;
-  private static
-  com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internal_static_SimpleProtoTestObject_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-          internal_static_SimpleProtoTestObjectWithoutRequired_descriptor;
-  private static
-  com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-          internal_static_ProtoTestObjectWithNestedProtoObject_descriptor;
-  private static
-  com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-          internal_static_ProtoObjectWithEnumField_descriptor;
-  private static
-  com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internal_static_ProtoObjectWithEnumField_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-          internal_static_ProtobufWithSimpleCollection_descriptor;
-  private static
-  com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internal_static_ProtobufWithSimpleCollection_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-          internal_static_ProtobufWithSimpleCollectionContainer_descriptor;
-  private static
-  com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-          internal_static_ProtobufWithEnumCollection_descriptor;
-  private static
-  com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internal_static_ProtobufWithEnumCollection_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SimpleProtoTestObject_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SimpleProtoTestObject_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SimpleProtoTestObjectWithoutRequired_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ProtoTestObjectWithNestedProtoObject_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ProtoObjectWithEnumField_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ProtoObjectWithEnumField_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ProtobufWithSimpleCollection_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ProtobufWithSimpleCollection_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ProtobufWithSimpleCollectionContainer_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ProtobufWithEnumCollection_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ProtobufWithEnumCollection_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
-  getDescriptor() {
+      getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
-          descriptor;
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
   static {
-    java.lang.String[] descriptorData = {
-            "\n\026ProtoTestObjects.proto\"$\n\025SimpleProtoT" +
-                    "estObject\022\013\n\003one\030\001 \002(\t\"3\n$SimpleProtoTes" +
-                    "tObjectWithoutRequired\022\013\n\003one\030\001 \001(\t\"a\n$P" +
-                    "rotoTestObjectWithNestedProtoObject\022\013\n\003o" +
-                    "ne\030\001 \002(\t\022,\n\014nestedObject\030\002 \002(\0132\026.SimpleP" +
-                    "rotoTestObject\"9\n\030ProtoObjectWithEnumFie" +
-                    "ld\022\035\n\tenumField\030\001 \002(\0162\n.ProtoEnum\"F\n\034Pro" +
-                    "tobufWithSimpleCollection\022&\n\006object\030\001 \003(" +
-                    "\0132\026.SimpleProtoTestObject\"V\n%ProtobufWit" +
-                    "hSimpleCollectionContainer\022-\n\006object\030\001 \002",
-            "(\0132\035.ProtobufWithSimpleCollection\"8\n\032Pro" +
-                    "tobufWithEnumCollection\022\032\n\006object\030\001 \003(\0162" +
-                    "\n.ProtoEnum*#\n\tProtoEnum\022\n\n\006VALUE1\020\001\022\n\n\006" +
-                    "VALUE2\020\002B&\n\022org.dozer.vo.protoB\020ProtoTes" +
-                    "tObjects"
+    String[] descriptorData = {
+      "\n\026ProtoTestObjects.proto\"$\n\025SimpleProtoT" +
+      "estObject\022\013\n\003one\030\001 \001(\t\"3\n$SimpleProtoTes" +
+      "tObjectWithoutRequired\022\013\n\003one\030\001 \001(\t\"a\n$P" +
+      "rotoTestObjectWithNestedProtoObject\022\013\n\003o" +
+      "ne\030\001 \001(\t\022,\n\014nestedObject\030\002 \001(\0132\026.SimpleP" +
+      "rotoTestObject\"9\n\030ProtoObjectWithEnumFie" +
+      "ld\022\035\n\tenumField\030\001 \001(\0162\n.ProtoEnum\"F\n\034Pro" +
+      "tobufWithSimpleCollection\022&\n\006object\030\001 \003(" +
+      "\0132\026.SimpleProtoTestObject\"V\n%ProtobufWit" +
+      "hSimpleCollectionContainer\022-\n\006object\030\001 \001",
+      "(\0132\035.ProtobufWithSimpleCollection\"8\n\032Pro" +
+      "tobufWithEnumCollection\022\032\n\006object\030\001 \003(\0162" +
+      "\n.ProtoEnum*/\n\tProtoEnum\022\n\n\006VALUE0\020\000\022\n\n\006" +
+      "VALUE1\020\001\022\n\n\006VALUE2\020\002B&\n\022org.dozer.vo.pro" +
+      "toB\020ProtoTestObjectsb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-            new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-              public com.google.protobuf.ExtensionRegistry assignDescriptors(
-                      com.google.protobuf.Descriptors.FileDescriptor root) {
-                descriptor = root;
-                internal_static_SimpleProtoTestObject_descriptor =
-                        getDescriptor().getMessageTypes().get(0);
-                internal_static_SimpleProtoTestObject_fieldAccessorTable = new
-                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-                        internal_static_SimpleProtoTestObject_descriptor,
-                        new java.lang.String[] { "One", },
-                        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.class,
-                        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject.Builder.class);
-                internal_static_SimpleProtoTestObjectWithoutRequired_descriptor =
-                        getDescriptor().getMessageTypes().get(1);
-                internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable = new
-                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-                        internal_static_SimpleProtoTestObjectWithoutRequired_descriptor,
-                        new java.lang.String[] { "One", },
-                        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.class,
-                        org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired.Builder.class);
-                internal_static_ProtoTestObjectWithNestedProtoObject_descriptor =
-                        getDescriptor().getMessageTypes().get(2);
-                internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable = new
-                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-                        internal_static_ProtoTestObjectWithNestedProtoObject_descriptor,
-                        new java.lang.String[] { "One", "NestedObject", },
-                        org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.class,
-                        org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject.Builder.class);
-                internal_static_ProtoObjectWithEnumField_descriptor =
-                        getDescriptor().getMessageTypes().get(3);
-                internal_static_ProtoObjectWithEnumField_fieldAccessorTable = new
-                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-                        internal_static_ProtoObjectWithEnumField_descriptor,
-                        new java.lang.String[] { "EnumField", },
-                        org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.class,
-                        org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField.Builder.class);
-                internal_static_ProtobufWithSimpleCollection_descriptor =
-                        getDescriptor().getMessageTypes().get(4);
-                internal_static_ProtobufWithSimpleCollection_fieldAccessorTable = new
-                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-                        internal_static_ProtobufWithSimpleCollection_descriptor,
-                        new java.lang.String[] { "Object", },
-                        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.class,
-                        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection.Builder.class);
-                internal_static_ProtobufWithSimpleCollectionContainer_descriptor =
-                        getDescriptor().getMessageTypes().get(5);
-                internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable = new
-                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-                        internal_static_ProtobufWithSimpleCollectionContainer_descriptor,
-                        new java.lang.String[] { "Object", },
-                        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.class,
-                        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer.Builder.class);
-                internal_static_ProtobufWithEnumCollection_descriptor =
-                        getDescriptor().getMessageTypes().get(6);
-                internal_static_ProtobufWithEnumCollection_fieldAccessorTable = new
-                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-                        internal_static_ProtobufWithEnumCollection_descriptor,
-                        new java.lang.String[] { "Object", },
-                        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.class,
-                        org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection.Builder.class);
-                return null;
-              }
-            };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
-            .internalBuildGeneratedFileFrom(descriptorData,
-                    new com.google.protobuf.Descriptors.FileDescriptor[] {
-                    }, assigner);
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        }, assigner);
+    internal_static_SimpleProtoTestObject_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_SimpleProtoTestObject_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SimpleProtoTestObject_descriptor,
+        new String[] { "One", });
+    internal_static_SimpleProtoTestObjectWithoutRequired_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_SimpleProtoTestObjectWithoutRequired_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SimpleProtoTestObjectWithoutRequired_descriptor,
+        new String[] { "One", });
+    internal_static_ProtoTestObjectWithNestedProtoObject_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_ProtoTestObjectWithNestedProtoObject_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ProtoTestObjectWithNestedProtoObject_descriptor,
+        new String[] { "One", "NestedObject", });
+    internal_static_ProtoObjectWithEnumField_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_ProtoObjectWithEnumField_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ProtoObjectWithEnumField_descriptor,
+        new String[] { "EnumField", });
+    internal_static_ProtobufWithSimpleCollection_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_ProtobufWithSimpleCollection_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ProtobufWithSimpleCollection_descriptor,
+        new String[] { "Object", });
+    internal_static_ProtobufWithSimpleCollectionContainer_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_ProtobufWithSimpleCollectionContainer_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ProtobufWithSimpleCollectionContainer_descriptor,
+        new String[] { "Object", });
+    internal_static_ProtobufWithEnumCollection_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_ProtobufWithEnumCollection_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ProtobufWithEnumCollection_descriptor,
+        new String[] { "Object", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

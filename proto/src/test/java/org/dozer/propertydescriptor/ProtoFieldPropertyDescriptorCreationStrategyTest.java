@@ -26,17 +26,18 @@ import static org.junit.Assert.assertTrue;
  * @since 04.01.13
  */
 public class ProtoFieldPropertyDescriptorCreationStrategyTest {
-  private ProtoFieldPropertyDescriptorCreationStrategy strategy;
 
-  @Before
-  public void setUp() throws Exception {
-    strategy = new ProtoFieldPropertyDescriptorCreationStrategy();
-  }
+    private ProtoFieldPropertyDescriptorCreationStrategy strategy;
 
-  @Test
-  public void isApplicable_true_ifMessageAndDeepMapping() {
-    assertTrue(strategy.isApplicable(
+    @Before
+    public void setUp() throws Exception {
+        strategy = new ProtoFieldPropertyDescriptorCreationStrategy();
+    }
+
+    @Test
+    public void isApplicable_true_ifMessageAndDeepMapping() {
+        assertTrue(strategy.isApplicable(
             /*any proto message class*/ProtoTestObjects.SimpleProtoTestObject.class,
             "deep.mapping"));
-  }
+    }
 }

@@ -46,4 +46,28 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>build-protobuf</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.xolstice.maven.plugins</groupId>
+                        <artifactId>protobuf-maven-plugin</artifactId>
+                        <configuration>
+                            <protocExecutable>/usr/local/bin/protoc</protocExecutable>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>test-compile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
