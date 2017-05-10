@@ -64,6 +64,15 @@ public final class FieldsMappingOptions {
       }
     };
   }
+  
+  public static FieldsMappingOption customConverterId(final String id, final String parameter) {
+    return new FieldsMappingOption() {
+      public void apply(DozerBuilder.FieldMappingBuilder fieldMappingBuilder) {
+        fieldMappingBuilder.customConverterId(id);
+        fieldMappingBuilder.customConverterParam(paramter);
+      }
+    };
+  }
 
   public static FieldsMappingOption useMapId(final String mapId) {
     return new FieldsMappingOption() {
