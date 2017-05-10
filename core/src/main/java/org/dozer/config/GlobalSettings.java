@@ -113,7 +113,7 @@ public class GlobalSettings {
     DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
     URL url = classLoader.loadResource(propFileName);
     if (url == null) {
-      log.warn("Dozer configuration file not found: {}.  Using defaults for all Dozer global properties.", propFileName);
+      log.info("Dozer configuration file not found: {}.  Using defaults for all Dozer global properties.", propFileName);
       return;
     } else {
       log.info("Using URL [{}] for Dozer global property configuration", url);
