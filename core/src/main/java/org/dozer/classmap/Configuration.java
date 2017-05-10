@@ -34,6 +34,7 @@ public class Configuration {
 
   private Boolean wildcard;
   private Boolean stopOnErrors;
+  private Boolean collectErrors;
   private Boolean trimStrings;
   private Boolean mapNull;
   private Boolean mapEmptyString;
@@ -75,6 +76,14 @@ public class Configuration {
 
   public void setStopOnErrors(Boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
+  }
+  
+  public Boolean getCollectErrors() {
+    return collectErrors != null ? collectErrors : Boolean.valueOf(DozerConstants.DEFAULT_COLLECT_ERRORS_POLICY);
+  }
+
+  public void setCollectErrors(Boolean collectErrors) {
+    this.collectErrors = collectErrors;
   }
 
   public Boolean getMapNull() {

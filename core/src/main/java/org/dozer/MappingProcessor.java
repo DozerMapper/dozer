@@ -97,6 +97,7 @@ public class MappingProcessor implements Mapper {
   private final CustomFieldMapper customFieldMapper;
 
   private final MappedFieldsTracker mappedFields = new MappedFieldsTracker();
+  private final List<Throwable> collectedErrors = new LinkedList<Throwable>();
 
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
@@ -196,6 +197,12 @@ public class MappingProcessor implements Mapper {
     } catch (Throwable e) {
       MappingUtils.throwMappingException(e);
     }
+    
+    if (!collectedErrors.isEmpty()) {
+      throw new CompositeMappingException(collectedErrors.size() + " error(s) encountered while performing field mappings.", 
+                                           result, collectedErrors);
+    }
+    
     eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_FINISHED, classMap, null, srcObj, result, null));
 
     return result;
@@ -350,12 +357,11 @@ public class MappingProcessor implements Mapper {
         MappingUtils.throwMappingException(e);
       } else {
         // check if any Exceptions should be allowed to be thrown
-        if (!fieldMapping.getClassMap().getAllowedExceptions().isEmpty() && e.getCause() instanceof InvocationTargetException) {
-          Throwable thrownType = ((InvocationTargetException) e.getCause()).getTargetException();
-          Class<? extends Throwable> exceptionClass = thrownType.getClass();
-          if (fieldMapping.getClassMap().getAllowedExceptions().contains(exceptionClass)) {
-            throw (RuntimeException) thrownType;
-          }
+        if (fieldMapping.getClassMap().getAllowedExceptions().contains(MappingUtils.getThrownException(e).getClass())) {
+            throw (RuntimeException) MappingUtils.getThrownException(e);
+        }
+        if (fieldMapping.isCollectErrors()) {
+          collectedErrors.add(MappingUtils.getThrownException(e));
         }
         statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
       }

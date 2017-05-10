@@ -126,6 +126,11 @@ public class DozerBuilder {
       classMap.setStopOnErrors(value);
       return this;
     }
+    
+    public MappingBuilder collectErrors(Boolean value) {
+      classMap.setCollectErrors(value);
+      return this;
+    }
 
     public MappingBuilder mapId(String id) {
       classMap.setMapId(id);
@@ -500,6 +505,10 @@ public class DozerBuilder {
 
     public void stopOnErrors(Boolean value) {
       configuration.setStopOnErrors(value);
+    }
+    
+    public void collectErrors(Boolean value) {
+      configuration.setCollectErrors(value);
     }
 
     public void dateFormat(String format) {

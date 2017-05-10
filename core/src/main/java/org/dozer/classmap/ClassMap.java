@@ -48,6 +48,7 @@ public class ClassMap {
   private boolean mapEmptyString = DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY;
   private Boolean wildcard;
   private Boolean stopOnErrors;
+  private Boolean collectErrors;
   private Boolean trimStrings;
   private CustomConverterContainer customConverters;
   private String mapId;
@@ -67,6 +68,14 @@ public class ClassMap {
 
   public void setStopOnErrors(Boolean stopOnErrors) {
     this.stopOnErrors = stopOnErrors;
+  }
+  
+  public boolean isCollectErrors() {
+    return collectErrors != null ? collectErrors.booleanValue() : globalConfiguration.getCollectErrors().booleanValue();
+  }
+
+  public void setCollectErrors(Boolean collectErrors) {
+    this.collectErrors = collectErrors;
   }
 
   public boolean isTrimStrings() {
