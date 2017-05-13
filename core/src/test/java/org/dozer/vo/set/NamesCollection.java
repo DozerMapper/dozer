@@ -21,13 +21,14 @@ import java.util.Collection;
  *
  */
 public class NamesCollection {
-  private Collection names = null;
 
-  public Collection getNames() {
-    return names;
-  }
+    private Collection names;
 
-  public void setNames(Collection names) {
-    this.names = names;
-  }
+    public Collection getNames() {
+        return names;
+    }
+
+    public void setNames(Collection names) {
+        this.names = names;
+    }
 }

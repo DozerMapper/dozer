@@ -32,7 +32,7 @@ public class ArrayDest {
 
   private List<String> destList = new ArrayList<String>(100);
 
-  private String[] array = null;
+  private String[] array;
   
   private int[] primitiveIntArray ;
 

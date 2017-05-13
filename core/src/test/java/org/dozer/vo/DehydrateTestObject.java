@@ -22,76 +22,76 @@ import java.util.List;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
+ *
  */
 public class DehydrateTestObject extends BaseTestObject {
-  private List cars = new ArrayList();
-  private List vans = new ArrayList();
-  private List appleComputers = null;
-  private List fruit = new ArrayList();
-  private List iterateCars = new ArrayList();
-  private List iterateMoreCars = new ArrayList();
 
-  public List getFruit() {
-    return fruit;
-  }
+    private List cars = new ArrayList();
+    private List vans = new ArrayList();
+    private List appleComputers;
+    private List fruit = new ArrayList();
+    private List iterateCars = new ArrayList();
+    private List iterateMoreCars = new ArrayList();
 
-  public void setFruit(List fruit) {
-    this.fruit = fruit;
-  }
+    public List getFruit() {
+        return fruit;
+    }
 
-  public List getCars() {
-    return cars;
-  }
+    public void setFruit(List fruit) {
+        this.fruit = fruit;
+    }
 
-  public void setCars(List cars) {
-    this.cars = cars;
-  }
+    public List getCars() {
+        return cars;
+    }
 
-  public List getAppleComputers() {
-    return appleComputers;
-  }
+    public void setCars(List cars) {
+        this.cars = cars;
+    }
 
-  public void setAppleComputers(List appleComputers) {
-    this.appleComputers = appleComputers;
-  }
+    public List getAppleComputers() {
+        return appleComputers;
+    }
 
-  public List getVans() {
-    return vans;
-  }
+    public void setAppleComputers(List appleComputers) {
+        this.appleComputers = appleComputers;
+    }
 
-  public void setVans(List vans) {
-    this.vans = vans;
-  }
+    public List getVans() {
+        return vans;
+    }
 
-  public Car buildCar() {
-    Car car = new Car();
-    car.setName("Build by buildCar");
-    return car;
-  }
+    public void setVans(List vans) {
+        this.vans = vans;
+    }
 
-  public List myIterateCars() {
-    return iterateCars;
-  }
+    public Car buildCar() {
+        Car car = new Car();
+        car.setName("Build by buildCar");
+        return car;
+    }
 
-  public void setIterateCars(List iterateCars) {
-    this.iterateCars = iterateCars;
-  }
+    public List myIterateCars() {
+        return iterateCars;
+    }
 
-  public void addCar(Car car) {
-    this.iterateCars.add(car);
-  }
+    public void setIterateCars(List iterateCars) {
+        this.iterateCars = iterateCars;
+    }
 
-  public List getIterateMoreCars() {
-    return iterateMoreCars;
-  }
+    public void addCar(Car car) {
+        this.iterateCars.add(car);
+    }
 
-  public void setIterateMoreCars(List iterateMoreCars) {
-    this.iterateMoreCars = iterateMoreCars;
-  }
+    public List getIterateMoreCars() {
+        return iterateMoreCars;
+    }
 
-  public void addMoreCar(Car car) {
-    this.iterateMoreCars.add(car);
-  }
+    public void setIterateMoreCars(List iterateMoreCars) {
+        this.iterateMoreCars = iterateMoreCars;
+    }
 
+    public void addMoreCar(Car car) {
+        this.iterateMoreCars.add(car);
+    }
 }

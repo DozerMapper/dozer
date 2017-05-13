@@ -20,59 +20,56 @@ import java.util.Map;
 
 import org.dozer.vo.BaseTestObject;
 
-
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
  */
 public class MapTestObjectPrime extends BaseTestObject {
 
-  private PropertyToMap propertyToMapReverse;
-  private Map propertyToMapMap = new HashMap();
-  private Map nullPropertyToMapMap = null;
-  private CustomMapIF propertyToCustomMapMap = new CustomMap();
-  private PropertyToMap propertyToCustomMapWithInterface;
+    private PropertyToMap propertyToMapReverse;
+    private Map propertyToMapMap = new HashMap();
+    private Map nullPropertyToMapMap;
+    private CustomMapIF propertyToCustomMapMap = new CustomMap();
+    private PropertyToMap propertyToCustomMapWithInterface;
 
-  public Map getPropertyToMapMap() {
-    return propertyToMapMap;
-  }
+    public Map getPropertyToMapMap() {
+        return propertyToMapMap;
+    }
 
-  public void setPropertyToMapMap(Map propertyToMapMap) {
-    this.propertyToMapMap = propertyToMapMap;
-  }
+    public void setPropertyToMapMap(Map propertyToMapMap) {
+        this.propertyToMapMap = propertyToMapMap;
+    }
 
-  public PropertyToMap getPropertyToMapReverse() {
-    return propertyToMapReverse;
-  }
+    public PropertyToMap getPropertyToMapReverse() {
+        return propertyToMapReverse;
+    }
 
-  public void setPropertyToMapReverse(PropertyToMap propertyToMap) {
-    this.propertyToMapReverse = propertyToMap;
-  }
+    public void setPropertyToMapReverse(PropertyToMap propertyToMap) {
+        this.propertyToMapReverse = propertyToMap;
+    }
 
-  public Map getNullPropertyToMapMap() {
-    return nullPropertyToMapMap;
-  }
+    public Map getNullPropertyToMapMap() {
+        return nullPropertyToMapMap;
+    }
 
-  public void setNullPropertyToMapMap(Map nullPropertyToMapMap) {
-    this.nullPropertyToMapMap = nullPropertyToMapMap;
-  }
+    public void setNullPropertyToMapMap(Map nullPropertyToMapMap) {
+        this.nullPropertyToMapMap = nullPropertyToMapMap;
+    }
 
-  public CustomMapIF getPropertyToCustomMapMap() {
-    return propertyToCustomMapMap;
-  }
+    public CustomMapIF getPropertyToCustomMapMap() {
+        return propertyToCustomMapMap;
+    }
 
-  public void setPropertyToCustomMapMap(CustomMapIF propertyToCustomMapMap) {
-    this.propertyToCustomMapMap = propertyToCustomMapMap;
-  }
+    public void setPropertyToCustomMapMap(CustomMapIF propertyToCustomMapMap) {
+        this.propertyToCustomMapMap = propertyToCustomMapMap;
+    }
 
-  public PropertyToMap getPropertyToCustomMapWithInterface() {
-    return propertyToCustomMapWithInterface;
-  }
+    public PropertyToMap getPropertyToCustomMapWithInterface() {
+        return propertyToCustomMapWithInterface;
+    }
 
-  public void setPropertyToCustomMapWithInterface(PropertyToMap propertyToCustomMapWithInterface) {
-    this.propertyToCustomMapWithInterface = propertyToCustomMapWithInterface;
-  }
-
+    public void setPropertyToCustomMapWithInterface(PropertyToMap propertyToCustomMapWithInterface) {
+        this.propertyToCustomMapWithInterface = propertyToCustomMapWithInterface;
+    }
 }

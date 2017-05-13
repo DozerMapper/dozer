@@ -264,7 +264,7 @@ lengths, if/try depths, etc...
         -->
 
         <!--<module name="ParameterAssignment"/>-->
-
+        <module name="ExplicitInitialization"/>
         <!-- <module name="AnnotationUseStyle"/> -->
         <!-- <module name="MissingDeprecated"/> -->
         <!--

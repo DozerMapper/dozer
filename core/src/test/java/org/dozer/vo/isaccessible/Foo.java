@@ -18,13 +18,14 @@ package org.dozer.vo.isaccessible;
 import java.util.List;
 
 public class Foo {
-  private List categories = null;
 
-  public List getCategories() {
-    return this.categories;
-  }
+    private List categories;
 
-  public void setCategories(List list) {
-    this.categories = list;
-  }
+    public List getCategories() {
+        return this.categories;
+    }
+
+    public void setCategories(List list) {
+        this.categories = list;
+    }
 }
