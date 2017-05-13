@@ -19,16 +19,16 @@ import java.util.SortedSet;
 
 /**
  * @author Peter Monks
- * 
  */
 public class NamesSortedSet {
-  private SortedSet names = null;
 
-  public SortedSet getNames() {
-    return names;
-  }
+    private SortedSet names;
 
-  public void setNames(SortedSet names) {
-    this.names = names;
-  }
+    public SortedSet getNames() {
+        return names;
+    }
+
+    public void setNames(SortedSet names) {
+        this.names = names;
+    }
 }

@@ -19,59 +19,57 @@ import java.util.Map;
 
 import org.dozer.vo.BaseTestObject;
 
-
 /**
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
+ *
  */
 public class MapTestObject extends BaseTestObject {
 
-  private PropertyToMap propertyToMap;
-  private Map propertyToMapMapReverse;
-  private PropertyToMap propertyToMapToNullMap;
-  private PropertyToMap propertyToCustomMap;
-  private CustomMapIF propertyToCustomMapMapWithInterface;
+    private PropertyToMap propertyToMap;
+    private Map propertyToMapMapReverse;
+    private PropertyToMap propertyToMapToNullMap;
+    private PropertyToMap propertyToCustomMap;
+    private CustomMapIF propertyToCustomMapMapWithInterface;
 
-  public PropertyToMap getPropertyToMap() {
-    return propertyToMap;
-  }
+    public PropertyToMap getPropertyToMap() {
+        return propertyToMap;
+    }
 
-  public void setPropertyToMap(PropertyToMap propertyToMap) {
-    this.propertyToMap = propertyToMap;
-  }
+    public void setPropertyToMap(PropertyToMap propertyToMap) {
+        this.propertyToMap = propertyToMap;
+    }
 
-  public Map getPropertyToMapMapReverse() {
-    return propertyToMapMapReverse;
-  }
+    public Map getPropertyToMapMapReverse() {
+        return propertyToMapMapReverse;
+    }
 
-  public void setPropertyToMapMapReverse(Map propertyToMapMapReverse) {
-    this.propertyToMapMapReverse = propertyToMapMapReverse;
-  }
+    public void setPropertyToMapMapReverse(Map propertyToMapMapReverse) {
+        this.propertyToMapMapReverse = propertyToMapMapReverse;
+    }
 
-  public PropertyToMap getPropertyToMapToNullMap() {
-    return propertyToMapToNullMap;
-  }
+    public PropertyToMap getPropertyToMapToNullMap() {
+        return propertyToMapToNullMap;
+    }
 
-  public void setPropertyToMapToNullMap(PropertyToMap propertyToMapToNullMap) {
-    this.propertyToMapToNullMap = propertyToMapToNullMap;
-  }
+    public void setPropertyToMapToNullMap(PropertyToMap propertyToMapToNullMap) {
+        this.propertyToMapToNullMap = propertyToMapToNullMap;
+    }
 
-  public PropertyToMap getPropertyToCustomMap() {
-    return propertyToCustomMap;
-  }
+    public PropertyToMap getPropertyToCustomMap() {
+        return propertyToCustomMap;
+    }
 
-  public void setPropertyToCustomMap(PropertyToMap propertyToCustomMap) {
-    this.propertyToCustomMap = propertyToCustomMap;
-  }
+    public void setPropertyToCustomMap(PropertyToMap propertyToCustomMap) {
+        this.propertyToCustomMap = propertyToCustomMap;
+    }
 
-  public CustomMapIF getPropertyToCustomMapMapWithInterface() {
-    return propertyToCustomMapMapWithInterface;
-  }
+    public CustomMapIF getPropertyToCustomMapMapWithInterface() {
+        return propertyToCustomMapMapWithInterface;
+    }
 
-  public void setPropertyToCustomMapMapWithInterface(CustomMapIF propertyToCustomMapMapWithInterface) {
-    this.propertyToCustomMapMapWithInterface = propertyToCustomMapMapWithInterface;
-  }
-
+    public void setPropertyToCustomMapMapWithInterface(CustomMapIF propertyToCustomMapMapWithInterface) {
+        this.propertyToCustomMapMapWithInterface = propertyToCustomMapMapWithInterface;
+    }
 }

@@ -19,16 +19,17 @@ import java.util.Set;
 
 /**
  * @author Peter Monks
- * 
+ *
  */
 public class NamesSet {
-  private Set names = null;
 
-  public Set getNames() {
-    return names;
-  }
+    private Set names;
 
-  public void setNames(Set names) {
-    this.names = names;
-  }
+    public Set getNames() {
+        return names;
+    }
+
+    public void setNames(Set names) {
+        this.names = names;
+    }
 }

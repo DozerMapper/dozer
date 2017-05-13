@@ -30,21 +30,21 @@ import org.dozer.util.ReflectionUtils;
  */
 public class JAXBElementConverter implements Converter {
 
-    private String     destObjClass  = null;
-    private String     destFieldName = null;
-    private DateFormat dateFormat    = null;
+    /**
+     * Cache the ObjectFactory because newInstance is very expensive.
+     */
+    private static Object objectFactory;
+    private static Class<?> objectFactoryClass;
+
+    private String destObjClass;
+    private String destFieldName;
+    private DateFormat dateFormat;
 
     public JAXBElementConverter(String destObjClass, String destFieldName, DateFormat dateFormat) {
         this.destObjClass = destObjClass;
         this.destFieldName = destFieldName;
         this.dateFormat = dateFormat;
     }
-
-    /**
-     * Cache the ObjectFactory because newInstance is very expensive.
-     */
-    private static Object   objectFactory      = null;
-    private static Class<?> objectFactoryClass = null;
 
     /**
      * Returns a new instance of ObjectFactory, or the cached one if previously created.
@@ -57,6 +57,7 @@ public class JAXBElementConverter implements Converter {
             objectFactoryClass = MappingUtils.loadClass(objectFactoryClassName);
             objectFactory = ReflectionUtils.newInstance(objectFactoryClass);
         }
+
         return objectFactory;
     }
 
@@ -67,9 +68,8 @@ public class JAXBElementConverter implements Converter {
      * @param type  Data type to which this value should be converted
      * @param value The input value to be converted
      * @return The converted value
-     * @throws org.apache.commons.beanutils.ConversionException
-     *          if conversion cannot be performed
-     *          successfully
+     * @throws org.apache.commons.beanutils.ConversionException if conversion cannot be performed
+     *                                                          successfully
      */
     @Override
     public Object convert(Class type, Object value) {

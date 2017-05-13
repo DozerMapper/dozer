@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FooPrime {
-  private List categories = null;
 
-  public List getCategories() {
-    if (categories == null) {
-      categories = new ArrayList();
+    private List categories;
+
+    public List getCategories() {
+        if (categories == null) {
+            categories = new ArrayList();
+        }
+
+        return this.categories;
     }
-    return this.categories;
-  }
 }

@@ -31,7 +31,7 @@ public class ArraySource {
 
   private List<String> list = new ArrayList<String>();
 
-  private String value = null;
+  private String value;
   
   private List<Integer> listOfIntegers = new ArrayList<Integer>();
 

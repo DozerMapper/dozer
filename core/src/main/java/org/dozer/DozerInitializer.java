@@ -56,7 +56,7 @@ public final class DozerInitializer {
 
   private static final DozerInitializer instance = new DozerInitializer();
 
-  private volatile boolean isInitialized = false;
+  private volatile boolean isInitialized;
 
   private DozerInitializer() {
   }
