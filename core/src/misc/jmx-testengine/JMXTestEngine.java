@@ -29,7 +29,11 @@ import org.dozer.vo.SimpleObjPrime2;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 
-public class JMXTestEngine {
+public final class JMXTestEngine {
+
+  private JMXTestEngine() {
+
+  }
 
   public static void main(String[] args) throws Exception {
     System.setProperty("dozer.debug", "true");

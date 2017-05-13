@@ -22,6 +22,5 @@ import org.dozer.loader.DozerBuilder;
  */
 public interface TypeMappingOption {
 
-  void apply(DozerBuilder.MappingBuilder fieldMappingBuilder);
-
+    void apply(DozerBuilder.MappingBuilder fieldMappingBuilder);
 }

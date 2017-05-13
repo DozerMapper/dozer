@@ -32,134 +32,152 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author Dmitry Spikhalskiy
  */
-public class ProtoUtils {
-  public static Message.Builder getBuilder(Class<? extends Message> clazz) {
-    final Message.Builder protoBuilder;
-    try {
-      Method newBuilderMethod = clazz.getMethod("newBuilder");
-      protoBuilder = (Message.Builder)newBuilderMethod.invoke(null);
-    } catch (Exception e) {
-      MappingUtils.throwMappingException(e);
-      return null;
+public final class ProtoUtils {
+
+    private ProtoUtils() {
+
     }
 
-    return protoBuilder;
-  }
+    public static Message.Builder getBuilder(Class<? extends Message> clazz) {
+        final Message.Builder protoBuilder;
+        try {
+            Method newBuilderMethod = clazz.getMethod("newBuilder");
+            protoBuilder = (Message.Builder)newBuilderMethod.invoke(null);
+        } catch (Exception e) {
+            MappingUtils.throwMappingException(e);
+            return null;
+        }
 
-  public static List<Descriptors.FieldDescriptor> getFieldDescriptors(Class<? extends Message> clazz) {
-    Message.Builder protoBuilder = getBuilder(clazz);
-
-    return getFieldDescriptors(protoBuilder);
-  }
-
-  public static List<Descriptors.FieldDescriptor> getFieldDescriptors(Message.Builder protoBuilder) {
-    return protoBuilder.getDescriptorForType().getFields();
-  }
-
-  public static Descriptors.FieldDescriptor getFieldDescriptor(Class<? extends Message> clazz, String fieldName) {
-    final List<Descriptors.FieldDescriptor> protoFieldDescriptors = getFieldDescriptors(clazz);
-
-    Descriptors.FieldDescriptor foundDescriptor = null;
-    for (Descriptors.FieldDescriptor descriptor : protoFieldDescriptors) {
-      if (fieldName.equals(descriptor.getName())) {
-        foundDescriptor = descriptor;
-      }
+        return protoBuilder;
     }
 
-    return foundDescriptor;
-  }
+    public static List<Descriptors.FieldDescriptor> getFieldDescriptors(Class<? extends Message> clazz) {
+        Message.Builder protoBuilder = getBuilder(clazz);
 
-  public static Object getFieldValue(Message message, String fieldName) {
-    Map<Descriptors.FieldDescriptor, Object> fieldsMap = message.getAllFields();
-    for (Map.Entry<Descriptors.FieldDescriptor, Object> field : fieldsMap.entrySet()) {
-      if (fieldName.equals(field.getKey().getName())) {
-        return field.getValue();
-      }
+        return getFieldDescriptors(protoBuilder);
     }
 
-    return null;
-  }
-
-  public static Class<?> getJavaClass(final Descriptors.FieldDescriptor descriptor) {
-    if (descriptor.isRepeated()) {
-      return List.class;
+    public static List<Descriptors.FieldDescriptor> getFieldDescriptors(Message.Builder protoBuilder) {
+        return protoBuilder.getDescriptorForType().getFields();
     }
 
-    return getJavaClassIgnoreRepeated(descriptor);
-  }
+    public static Descriptors.FieldDescriptor getFieldDescriptor(Class<? extends Message> clazz, String fieldName) {
+        final List<Descriptors.FieldDescriptor> protoFieldDescriptors = getFieldDescriptors(clazz);
 
-  public static Class<?> getJavaGenericClassForCollection(final Descriptors.FieldDescriptor descriptor) {
-    if (!descriptor.isRepeated()) {
-      return null;
+        Descriptors.FieldDescriptor foundDescriptor = null;
+        for (Descriptors.FieldDescriptor descriptor : protoFieldDescriptors) {
+            if (fieldName.equals(descriptor.getName())) {
+                foundDescriptor = descriptor;
+            }
+        }
+
+        return foundDescriptor;
     }
 
-    return getJavaClassIgnoreRepeated(descriptor);
-  }
+    public static Object getFieldValue(Message message, String fieldName) {
+        Map<Descriptors.FieldDescriptor, Object> fieldsMap = message.getAllFields();
+        for (Map.Entry<Descriptors.FieldDescriptor, Object> field : fieldsMap.entrySet()) {
+            if (fieldName.equals(field.getKey().getName())) {
+                return field.getValue();
+            }
+        }
 
-  private static Class<?> getJavaClassIgnoreRepeated(final Descriptors.FieldDescriptor descriptor) {
-    switch (descriptor.getJavaType()) {
-      case INT        : return Integer.class;
-      case LONG       : return Long.class;
-      case FLOAT      : return Float.class;
-      case DOUBLE     : return Double.class;
-      case BOOLEAN    : return Boolean.class;
-      case STRING     : return String.class;
-      case BYTE_STRING: return ByteString.class;
-      //code duplicate, but GenericDescriptor interface is private in protobuf
-      case ENUM       : return getEnumClassByEnumDescriptor(descriptor.getEnumType());
-      case MESSAGE    :
-        return MappingUtils.loadClass(StringUtils.join(
+        return null;
+    }
+
+    public static Class<?> getJavaClass(final Descriptors.FieldDescriptor descriptor) {
+        if (descriptor.isRepeated()) {
+            return List.class;
+        }
+
+        return getJavaClassIgnoreRepeated(descriptor);
+    }
+
+    public static Class<?> getJavaGenericClassForCollection(final Descriptors.FieldDescriptor descriptor) {
+        if (!descriptor.isRepeated()) {
+            return null;
+        }
+
+        return getJavaClassIgnoreRepeated(descriptor);
+    }
+
+    private static Class<?> getJavaClassIgnoreRepeated(final Descriptors.FieldDescriptor descriptor) {
+        switch (descriptor.getJavaType()) {
+        case INT:
+            return Integer.class;
+        case LONG:
+            return Long.class;
+        case FLOAT:
+            return Float.class;
+        case DOUBLE:
+            return Double.class;
+        case BOOLEAN:
+            return Boolean.class;
+        case STRING:
+            return String.class;
+        case BYTE_STRING:
+            return ByteString.class;
+        //code duplicate, but GenericDescriptor interface is private in protobuf
+        case ENUM:
+            return getEnumClassByEnumDescriptor(descriptor.getEnumType());
+        case MESSAGE:
+            return MappingUtils.loadClass(StringUtils.join(
                 getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'));
-      default         : throw new RuntimeException();
+        default:
+            throw new RuntimeException();
+        }
     }
-  }
 
-  private static String[] getFullyQualifiedClassName(DescriptorProtos.FileOptions options, String name) {
-      return new String[]{
+    private static String[] getFullyQualifiedClassName(DescriptorProtos.FileOptions options, String name) {
+        return new String[] {
             options.getJavaPackage(),
             options.getJavaOuterClassname(),
             name};
-  }
+    }
 
-  private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor) {
-    return (Class<? extends Enum>)MappingUtils.loadClass(StringUtils.join(
+    private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor) {
+        return (Class<? extends Enum>)MappingUtils.loadClass(StringUtils.join(
             getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.'));
-  }
-
-  public static Object wrapEnums(Object value) {
-    if (value instanceof ProtocolMessageEnum) {
-      return ((ProtocolMessageEnum) value).getValueDescriptor();
     }
-    //there is no other collections using in proto, only list
-    if (value instanceof List) {
-      List modifiedList = new ArrayList(((List) value).size());
-      for (Object element : (List)value) {
-        modifiedList.add(wrapEnums(element));
-      }
-      return modifiedList;
-    }
-    return value;
-  }
 
-  public static Object unwrapEnums(Object value) {
-    if (value instanceof Descriptors.EnumValueDescriptor) {
-      Descriptors.EnumValueDescriptor descriptor = (Descriptors.EnumValueDescriptor)value;
-      Class<? extends Enum> enumClass = getEnumClassByEnumDescriptor(descriptor.getType());
-      Enum[] enumValues = enumClass.getEnumConstants();
-      for (Enum enumValue : enumValues) {
-        if (((Descriptors.EnumValueDescriptor) value).getName().equals(enumValue.name())) {
-          return enumValue;
+    public static Object wrapEnums(Object value) {
+        if (value instanceof ProtocolMessageEnum) {
+            return ((ProtocolMessageEnum)value).getValueDescriptor();
         }
-      }
-      return null;
+
+        //there is no other collections using in proto, only list
+        if (value instanceof List) {
+            List modifiedList = new ArrayList(((List)value).size());
+            for (Object element : (List)value) {
+                modifiedList.add(wrapEnums(element));
+            }
+            return modifiedList;
+        }
+
+        return value;
     }
-    if (value instanceof Collection) {
-      List modifiedList = new ArrayList(((List) value).size());
-      for (Object element : (List)value) {
-        modifiedList.add(unwrapEnums(element));
-      }
-      return modifiedList;
+
+    public static Object unwrapEnums(Object value) {
+        if (value instanceof Descriptors.EnumValueDescriptor) {
+            Descriptors.EnumValueDescriptor descriptor = (Descriptors.EnumValueDescriptor)value;
+            Class<? extends Enum> enumClass = getEnumClassByEnumDescriptor(descriptor.getType());
+            Enum[] enumValues = enumClass.getEnumConstants();
+            for (Enum enumValue : enumValues) {
+                if (((Descriptors.EnumValueDescriptor)value).getName().equals(enumValue.name())) {
+                    return enumValue;
+                }
+            }
+            return null;
+        }
+
+        if (value instanceof Collection) {
+            List modifiedList = new ArrayList(((List)value).size());
+            for (Object element : (List)value) {
+                modifiedList.add(unwrapEnums(element));
+            }
+            return modifiedList;
+        }
+
+        return value;
     }
-    return value;
-  }
 }

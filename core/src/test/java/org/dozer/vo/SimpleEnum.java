@@ -18,7 +18,7 @@ package org.dozer.vo;
 /**
  * @author Dmitry Buzdin
  */
-public class SimpleEnum {
+public final class SimpleEnum {
 
     public static final SimpleEnum ONE = new SimpleEnum("ONE");
     public static final SimpleEnum TWO = new SimpleEnum("TWO");
@@ -36,5 +36,4 @@ public class SimpleEnum {
     public String toString() {
         return name;
     }
-
 }

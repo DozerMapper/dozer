@@ -25,67 +25,70 @@ import org.dozer.MappingException;
 import org.dozer.functional_tests.DataObjectInstantiator;
 import org.dozer.util.MappingUtils;
 
-public class JavassistDataObjectInstantiator implements DataObjectInstantiator {
+public final class JavassistDataObjectInstantiator implements DataObjectInstantiator {
 
-  public static final DataObjectInstantiator INSTANCE = new JavassistDataObjectInstantiator();
+    public static final DataObjectInstantiator INSTANCE = new JavassistDataObjectInstantiator();
 
-  private JavassistDataObjectInstantiator() {
-  }
+    private JavassistDataObjectInstantiator() {
 
-  @Override
-  public String getName() {
-    return "javassist";
-  }
-
-  public <T> T newInstance(Class<T> classToInstantiate) {
-    Class newClass = proxiedClass(classToInstantiate);
-    Object instance;
-    try {
-      instance = newClass.newInstance();
-    } catch (Exception e) {
-      throw new MappingException(e);
     }
-    return (T) instance;
-  }
 
-  public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
-    Class newClass = proxiedClass(classToInstantiate);
-    Object instance;
-    try {
-      Class[] argTypes = new Class[args.length];
-      for (int i = 0; i < args.length; i++) {
-        argTypes[i] = MappingUtils.getRealClass(args[i].getClass());
-      }
-      Constructor constructor = newClass.getDeclaredConstructor(argTypes);
-      instance = constructor.newInstance(args);
-    } catch (Exception e) {
-      throw new MappingException(e);
+    @Override
+    public String getName() {
+        return "javassist";
     }
-    return (T) instance;
-  }
 
-  public Object newInstance(Class<?>[] interfacesToProxy, Object target) {
-    ProxyFactory proxyFactory = new ProxyFactory();
-    proxyFactory.setInterfaces(interfacesToProxy);
-
-    Object instance;
-    try {
-      instance = proxyFactory.create(new Class[0], new Object[0], new MethodHandler() {
-        @Override
-        public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
-          return proceed.invoke(self, args);
+    public <T> T newInstance(Class<T> classToInstantiate) {
+        Class newClass = proxiedClass(classToInstantiate);
+        Object instance;
+        try {
+            instance = newClass.newInstance();
+        } catch (Exception e) {
+            throw new MappingException(e);
         }
-      });
-    } catch (Exception e) {
-      throw new MappingException(e);
+
+        return (T)instance;
     }
-    return instance;
-  }
 
-  private <T> Class proxiedClass(Class<T> classToInstantiate) {
-    ProxyFactory proxyFactory = new ProxyFactory();
-    proxyFactory.setSuperclass(classToInstantiate);
-    return proxyFactory.createClass();
-  }
+    public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
+        Class newClass = proxiedClass(classToInstantiate);
+        Object instance;
+        try {
+            Class[] argTypes = new Class[args.length];
+            for (int i = 0; i < args.length; i++) {
+                argTypes[i] = MappingUtils.getRealClass(args[i].getClass());
+            }
+            Constructor constructor = newClass.getDeclaredConstructor(argTypes);
+            instance = constructor.newInstance(args);
+        } catch (Exception e) {
+            throw new MappingException(e);
+        }
 
+        return (T)instance;
+    }
+
+    public Object newInstance(Class<?>[] interfacesToProxy, Object target) {
+        ProxyFactory proxyFactory = new ProxyFactory();
+        proxyFactory.setInterfaces(interfacesToProxy);
+
+        Object instance;
+        try {
+            instance = proxyFactory.create(new Class[0], new Object[0], new MethodHandler() {
+                @Override
+                public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
+                    return proceed.invoke(self, args);
+                }
+            });
+        } catch (Exception e) {
+            throw new MappingException(e);
+        }
+
+        return instance;
+    }
+
+    private <T> Class proxiedClass(Class<T> classToInstantiate) {
+        ProxyFactory proxyFactory = new ProxyFactory();
+        proxyFactory.setSuperclass(classToInstantiate);
+        return proxyFactory.createClass();
+    }
 }

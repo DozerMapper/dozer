@@ -27,16 +27,15 @@ import org.junit.runners.model.InitializationError;
  */
 public class Proxied extends Suite {
 
-  public Proxied(Class<?> klass) throws InitializationError {
-    super(klass, combinations(klass));
-  }
+    public Proxied(Class<?> klass) throws InitializationError {
+        super(klass, combinations(klass));
+    }
 
-  private static List<Runner> combinations(Class<?> klass) throws InitializationError {
-    ArrayList<Runner> runners = new ArrayList<Runner>();
-    runners.add(new ProxyRunner(klass, NoProxyDataObjectInstantiator.INSTANCE));
-    runners.add(new ProxyRunner(klass, ProxyDataObjectInstantiator.INSTANCE));
-    //runners.add(new ProxyRunner(klass, JavassistDataObjectInstantiator.INSTANCE));
-    return runners;
-  }
-
+    private static List<Runner> combinations(Class<?> klass) throws InitializationError {
+        ArrayList<Runner> runners = new ArrayList<Runner>();
+        runners.add(new ProxyRunner(klass, NoProxyDataObjectInstantiator.INSTANCE));
+        runners.add(new ProxyRunner(klass, ProxyDataObjectInstantiator.INSTANCE));
+        //runners.add(new ProxyRunner(klass, JavassistDataObjectInstantiator.INSTANCE));
+        return runners;
+    }
 }

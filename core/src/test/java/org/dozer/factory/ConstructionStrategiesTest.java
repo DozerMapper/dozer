@@ -41,221 +41,220 @@ import static org.mockito.Mockito.verify;
  */
 public class ConstructionStrategiesTest extends AbstractDozerTest {
 
-  private BeanCreationDirective directive;
+    private BeanCreationDirective directive;
 
-  private ConstructionStrategies.ByCreateMethod byCreateMethod;
-  private ConstructionStrategies.ByGetInstance byGetInstance;
-  private ConstructionStrategies.ByFactory byFactory;
-  private ConstructionStrategies.ByInterface byInterface;
-  private ConstructionStrategies.ByConstructor byConstructor;
-  private ConstructionStrategies.XMLBeansBased xmlBeansBased;
-  private ConstructionStrategies.JAXBBeansBased jaxbBeansBased;
+    private ConstructionStrategies.ByCreateMethod byCreateMethod;
+    private ConstructionStrategies.ByGetInstance byGetInstance;
+    private ConstructionStrategies.ByFactory byFactory;
+    private ConstructionStrategies.ByInterface byInterface;
+    private ConstructionStrategies.ByConstructor byConstructor;
+    private ConstructionStrategies.XMLBeansBased xmlBeansBased;
+    private ConstructionStrategies.JAXBBeansBased jaxbBeansBased;
 
-  private XMLBeanFactory xmlBeanFactory;
-  private JAXBBeanFactory jaxbBeanFactory;
+    private XMLBeanFactory xmlBeanFactory;
+    private JAXBBeanFactory jaxbBeanFactory;
 
-  @Before
-  @Override
-  public void setUp() throws Exception {
-    super.setUp();
-    xmlBeanFactory = mock(XMLBeanFactory.class);
-    jaxbBeanFactory = mock(JAXBBeanFactory.class);
+    @Before
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        xmlBeanFactory = mock(XMLBeanFactory.class);
+        jaxbBeanFactory = mock(JAXBBeanFactory.class);
 
-    byCreateMethod = new ConstructionStrategies.ByCreateMethod();
-    byGetInstance = new ConstructionStrategies.ByGetInstance();
-    byFactory = new ConstructionStrategies.ByFactory();
-    byInterface = new ConstructionStrategies.ByInterface();
-    byConstructor = new ConstructionStrategies.ByConstructor();
-    xmlBeansBased = new ConstructionStrategies.XMLBeansBased(xmlBeanFactory);
-    jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased(jaxbBeanFactory);
+        byCreateMethod = new ConstructionStrategies.ByCreateMethod();
+        byGetInstance = new ConstructionStrategies.ByGetInstance();
+        byFactory = new ConstructionStrategies.ByFactory();
+        byInterface = new ConstructionStrategies.ByInterface();
+        byConstructor = new ConstructionStrategies.ByConstructor();
+        xmlBeansBased = new ConstructionStrategies.XMLBeansBased(xmlBeanFactory);
+        jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased(jaxbBeanFactory);
 
-    directive = new BeanCreationDirective();
-  }
-
-  @Test
-  public void shouldAcceptOnlyWhenCreateMethodDefined() {
-    directive.setCreateMethod("a");
-    assertTrue(byCreateMethod.isApplicable(directive));
-
-    directive.setCreateMethod("");
-    assertFalse(byCreateMethod.isApplicable(directive));
-
-    directive.setCreateMethod(null);
-    assertFalse(byCreateMethod.isApplicable(directive));
-  }
-
-  @Test
-  public void shouldUseStaticCreateMethod() {
-    directive.setTargetClass(SelfFactory.class);
-    directive.setCreateMethod("create");
-    SelfFactory result = (SelfFactory) byCreateMethod.create(directive);
-
-    assertNotNull(result);
-    assertEquals("a", result.getName());
-  }
-
-  @Test
-  public void shouldUseFullyQualifiedStaticCreateMethod() {
-    directive.setTargetClass(String.class);
-    directive.setCreateMethod("org.dozer.factory.ConstructionStrategiesTest$ExternalFactory.create");
-    String result = (String) byCreateMethod.create(directive);
-    assertEquals("hello", result);
-  }
-
-  @Test(expected = MappingException.class)
-  public void shouldFailWithNoSuchMethod() {
-    directive.setTargetClass(SelfFactory.class);
-    directive.setCreateMethod("wrong");
-    byCreateMethod.create(directive);
-    fail();
-  }
-
-  @Test
-  public void shouldAcceptCalendar() {
-    directive.setTargetClass(Calendar.class);
-    assertTrue(byGetInstance.isApplicable(directive));
-
-    directive.setTargetClass(String.class);
-    assertFalse(byGetInstance.isApplicable(directive));
-  }
-
-  @Test
-  public void shouldCreateByGetInstance() {
-    directive.setTargetClass(Calendar.class);
-    Calendar result = (Calendar) byGetInstance.create(directive);
-    assertNotNull(result);
-  }
-
-  @Test
-  public void shouldAcceptWhenFactoryDefined() {
-    directive.setFactoryName(MyBeanFactory.class.getName());
-    assertTrue(byFactory.isApplicable(directive));
-
-    directive.setFactoryName("");
-    assertFalse(byFactory.isApplicable(directive));
-  }
-
-
-  @Test
-  public void shouldTakeFactoryFromCache() {
-    HashMap<String, BeanFactory> factories = new HashMap<String, BeanFactory>();
-    factories.put(MyBeanFactory.class.getName(), new MyBeanFactory());
-    byFactory.setStoredFactories(factories);
-    directive.setFactoryName(MyBeanFactory.class.getName());
-    directive.setTargetClass(String.class);
-    assertEquals("", byFactory.create(directive));
-  }
-
-  @Test
-  public void shouldInstantiateFactory() {
-    directive.setFactoryName(MyBeanFactory.class.getName());
-    directive.setTargetClass(String.class);
-    assertEquals("", byFactory.create(directive));
-  }
-
-  @Test(expected = MappingException.class)
-  public void shouldCheckType() {
-    directive.setFactoryName(String.class.getName());
-    directive.setTargetClass(String.class);
-    byFactory.create(directive);
-    fail();
-  }
-
-  @Test
-  public void shouldAcceptInterfaces() {
-    directive.setTargetClass(String.class);
-    assertFalse(byInterface.isApplicable(directive));
-    directive.setTargetClass(List.class);
-    assertTrue(byInterface.isApplicable(directive));
-    directive.setTargetClass(Map.class);
-    assertTrue(byInterface.isApplicable(directive));
-    directive.setTargetClass(Set.class);
-    assertTrue(byInterface.isApplicable(directive));
-  }
-
-  @Test
-  public void shouldCreateDefaultImpl() {
-    directive.setTargetClass(List.class);
-    assertTrue(byInterface.create(directive) instanceof ArrayList);
-
-    directive.setTargetClass(Map.class);
-    assertTrue(byInterface.create(directive) instanceof HashMap);
-
-    directive.setTargetClass(Set.class);
-    assertTrue(byInterface.create(directive) instanceof HashSet);
-  }
-
-  @Test
-  public void shouldCreateByConstructor() {
-    directive.setTargetClass(String.class);
-    assertEquals("", byConstructor.create(directive));
-  }
-
-  @Test(expected = MappingException.class)
-  public void shouldFailToFindConstructor() {
-    directive.setTargetClass(SelfFactory.class);
-    byConstructor.create(directive);
-  }
-
-  @Test(expected = MappingException.class)
-  public void shouldFailToReturnCorrectType() {
-    directive.setFactoryName(MyBeanFactory.class.getName());
-    directive.setTargetClass(SelfFactory.class);
-    byFactory.create(directive);
-  }
-
-  @Test
-  public void shouldInstantiateByXmlBeansFactory() {
-    directive.setSrcObject("");
-    directive.setSrcClass(String.class);
-    directive.setFactoryId("id");
-    directive.setTargetClass(UniqueDocumentImpl.class);
-
-    xmlBeansBased.create(directive);
-
-    verify(xmlBeanFactory, times(1)).createBean("", String.class, "id");
-  }
-
-  @Test
-  public void shouldInstantiateByJaxbBeansFactory() {
-    directive.setSrcObject("dummy");
-    directive.setSrcClass(String.class);
-    directive.setFactoryName("parentName");
-    directive.setTargetClass(EmployeeWithInnerClass.class);
-
-    jaxbBeansBased.create(directive);
-
-    verify(jaxbBeanFactory, times(1)).createBean("dummy", String.class, String.class.getCanonicalName());
-  }
-
-  public static class SelfFactory {
-    private String name;
-
-    private SelfFactory(String name) {
-      this.name = name;
-    }
-    public static SelfFactory create() {
-      return new SelfFactory("a");
+        directive = new BeanCreationDirective();
     }
 
-    public String getName() {
-      return name;
+    @Test
+    public void shouldAcceptOnlyWhenCreateMethodDefined() {
+        directive.setCreateMethod("a");
+        assertTrue(byCreateMethod.isApplicable(directive));
+
+        directive.setCreateMethod("");
+        assertFalse(byCreateMethod.isApplicable(directive));
+
+        directive.setCreateMethod(null);
+        assertFalse(byCreateMethod.isApplicable(directive));
     }
-  }
 
-  public static class MyBeanFactory implements BeanFactory {
+    @Test
+    public void shouldUseStaticCreateMethod() {
+        directive.setTargetClass(SelfFactory.class);
+        directive.setCreateMethod("create");
+        SelfFactory result = (SelfFactory)byCreateMethod.create(directive);
 
-    public Object createBean(Object source, Class<?> sourceClass, String targetBeanId) {
-      return "";
+        assertNotNull(result);
+        assertEquals("a", result.getName());
     }
 
-  }
-
-  public static class ExternalFactory {
-    public static String create() {
-      return "hello";
+    @Test
+    public void shouldUseFullyQualifiedStaticCreateMethod() {
+        directive.setTargetClass(String.class);
+        directive.setCreateMethod("org.dozer.factory.ConstructionStrategiesTest$ExternalFactory.create");
+        String result = (String)byCreateMethod.create(directive);
+        assertEquals("hello", result);
     }
-  }
 
+    @Test(expected = MappingException.class)
+    public void shouldFailWithNoSuchMethod() {
+        directive.setTargetClass(SelfFactory.class);
+        directive.setCreateMethod("wrong");
+        byCreateMethod.create(directive);
+        fail();
+    }
+
+    @Test
+    public void shouldAcceptCalendar() {
+        directive.setTargetClass(Calendar.class);
+        assertTrue(byGetInstance.isApplicable(directive));
+
+        directive.setTargetClass(String.class);
+        assertFalse(byGetInstance.isApplicable(directive));
+    }
+
+    @Test
+    public void shouldCreateByGetInstance() {
+        directive.setTargetClass(Calendar.class);
+        Calendar result = (Calendar)byGetInstance.create(directive);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void shouldAcceptWhenFactoryDefined() {
+        directive.setFactoryName(MyBeanFactory.class.getName());
+        assertTrue(byFactory.isApplicable(directive));
+
+        directive.setFactoryName("");
+        assertFalse(byFactory.isApplicable(directive));
+    }
+
+    @Test
+    public void shouldTakeFactoryFromCache() {
+        HashMap<String, BeanFactory> factories = new HashMap<String, BeanFactory>();
+        factories.put(MyBeanFactory.class.getName(), new MyBeanFactory());
+        byFactory.setStoredFactories(factories);
+        directive.setFactoryName(MyBeanFactory.class.getName());
+        directive.setTargetClass(String.class);
+        assertEquals("", byFactory.create(directive));
+    }
+
+    @Test
+    public void shouldInstantiateFactory() {
+        directive.setFactoryName(MyBeanFactory.class.getName());
+        directive.setTargetClass(String.class);
+        assertEquals("", byFactory.create(directive));
+    }
+
+    @Test(expected = MappingException.class)
+    public void shouldCheckType() {
+        directive.setFactoryName(String.class.getName());
+        directive.setTargetClass(String.class);
+        byFactory.create(directive);
+        fail();
+    }
+
+    @Test
+    public void shouldAcceptInterfaces() {
+        directive.setTargetClass(String.class);
+        assertFalse(byInterface.isApplicable(directive));
+        directive.setTargetClass(List.class);
+        assertTrue(byInterface.isApplicable(directive));
+        directive.setTargetClass(Map.class);
+        assertTrue(byInterface.isApplicable(directive));
+        directive.setTargetClass(Set.class);
+        assertTrue(byInterface.isApplicable(directive));
+    }
+
+    @Test
+    public void shouldCreateDefaultImpl() {
+        directive.setTargetClass(List.class);
+        assertTrue(byInterface.create(directive) instanceof ArrayList);
+
+        directive.setTargetClass(Map.class);
+        assertTrue(byInterface.create(directive) instanceof HashMap);
+
+        directive.setTargetClass(Set.class);
+        assertTrue(byInterface.create(directive) instanceof HashSet);
+    }
+
+    @Test
+    public void shouldCreateByConstructor() {
+        directive.setTargetClass(String.class);
+        assertEquals("", byConstructor.create(directive));
+    }
+
+    @Test(expected = MappingException.class)
+    public void shouldFailToFindConstructor() {
+        directive.setTargetClass(SelfFactory.class);
+        byConstructor.create(directive);
+    }
+
+    @Test(expected = MappingException.class)
+    public void shouldFailToReturnCorrectType() {
+        directive.setFactoryName(MyBeanFactory.class.getName());
+        directive.setTargetClass(SelfFactory.class);
+        byFactory.create(directive);
+    }
+
+    @Test
+    public void shouldInstantiateByXmlBeansFactory() {
+        directive.setSrcObject("");
+        directive.setSrcClass(String.class);
+        directive.setFactoryId("id");
+        directive.setTargetClass(UniqueDocumentImpl.class);
+
+        xmlBeansBased.create(directive);
+
+        verify(xmlBeanFactory, times(1)).createBean("", String.class, "id");
+    }
+
+    @Test
+    public void shouldInstantiateByJaxbBeansFactory() {
+        directive.setSrcObject("dummy");
+        directive.setSrcClass(String.class);
+        directive.setFactoryName("parentName");
+        directive.setTargetClass(EmployeeWithInnerClass.class);
+
+        jaxbBeansBased.create(directive);
+
+        verify(jaxbBeanFactory, times(1)).createBean("dummy", String.class, String.class.getCanonicalName());
+    }
+
+    public static final class SelfFactory {
+        private String name;
+
+        private SelfFactory(String name) {
+            this.name = name;
+        }
+
+        public static SelfFactory create() {
+            return new SelfFactory("a");
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    public static class MyBeanFactory implements BeanFactory {
+
+        public Object createBean(Object source, Class<?> sourceClass, String targetBeanId) {
+            return "";
+        }
+
+    }
+
+    public static class ExternalFactory {
+        public static String create() {
+            return "hello";
+        }
+    }
 }
 

@@ -127,7 +127,7 @@ public class MappingProcessorTest extends AbstractDozerTest {
     assertEquals(new Ordered(0), destinationList.get(3));
   }
 
-  private static class Ordered {
+  private static final class Ordered {
     private int id;
 
     private Ordered(int id) {

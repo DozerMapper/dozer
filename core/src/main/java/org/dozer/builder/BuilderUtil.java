@@ -20,12 +20,17 @@ import org.dozer.BeanBuilder;
 /**
  * @author Dmitry Spikhalskiy
  */
-public class BuilderUtil {
-  public static Class<?> unwrapDestClassFromBuilder(Object dest) {
-    if (dest instanceof BeanBuilder) {
-      return ((BeanBuilder)dest).beanClass();
+public final class BuilderUtil {
+
+    private BuilderUtil() {
+
     }
 
-    return dest.getClass();
-  }
+    public static Class<?> unwrapDestClassFromBuilder(Object dest) {
+        if (dest instanceof BeanBuilder) {
+            return ((BeanBuilder)dest).beanClass();
+        }
+
+        return dest.getClass();
+    }
 }

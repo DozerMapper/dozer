@@ -22,19 +22,19 @@ import org.dozer.functional_tests.DataObjectInstantiator;
  */
 public final class InstantiatorHolder {
 
-  private InstantiatorHolder() {}
+    private InstantiatorHolder() {
 
-  private static final ThreadLocal<DataObjectInstantiator> value
-      = new ThreadLocal<DataObjectInstantiator>() {{
-    set(NoProxyDataObjectInstantiator.INSTANCE);
-  }};
+    }
 
-  public static void set(DataObjectInstantiator instance) {
-    value.set(instance);
-  }
+    private static final ThreadLocal<DataObjectInstantiator> value = new ThreadLocal<DataObjectInstantiator>() {{
+        set(NoProxyDataObjectInstantiator.INSTANCE);
+    }};
 
-  public static DataObjectInstantiator get() {
-    return value.get();
-  }
+    public static void set(DataObjectInstantiator instance) {
+        value.set(instance);
+    }
 
+    public static DataObjectInstantiator get() {
+        return value.get();
+    }
 }

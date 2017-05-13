@@ -25,26 +25,29 @@ import org.dozer.factory.BeanCreationDirective;
 /**
  * @author Dmitry Spikhalskiy
  */
-public class DestBeanBuilderCreator {
+public final class DestBeanBuilderCreator {
 
-  //elements of this collections should have very specific isApplicable method to avoid application to class,
-  //which should be processed by another builder
-  static final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
+    /**
+     * Elements of this collections should have very specific isApplicable method to avoid application to class,
+     * which should be processed by another builder
+     */
+    private static final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
 
-  private DestBeanBuilderCreator() {
-  }
+    private DestBeanBuilderCreator() {
 
-  public static BeanBuilder create(BeanCreationDirective directive) {
-    for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
-      if (strategy.isApplicable(directive)) {
-        return strategy.create(directive);
-      }
     }
 
-    return null;
-  }
+    public static BeanBuilder create(BeanCreationDirective directive) {
+        for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
+            if (strategy.isApplicable(directive)) {
+                return strategy.create(directive);
+            }
+        }
 
-  public static void addPluggedStrategy(BeanBuilderCreationStrategy beanBuilderCreationStrategy) {
-    pluggedStrategies.add(beanBuilderCreationStrategy);
-  }
+        return null;
+    }
+
+    public static void addPluggedStrategy(BeanBuilderCreationStrategy beanBuilderCreationStrategy) {
+        pluggedStrategies.add(beanBuilderCreationStrategy);
+    }
 }
