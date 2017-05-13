@@ -39,18 +39,20 @@
 -->
 <suppressions>
     <suppress checks=".*"
-              files=".+[\\\/]generated[\\\/].+\.java"
-    />
+              files=".+[\\\/]generated[\\\/].+\.java"/>
+
     <suppress checks=".*"
-              files=".+[\\\/]build[\\\/]src[\\\/].+\.java"
-    />
+              files=".+[\\\/]build[\\\/]src[\\\/].+\.java"/>
+
     <suppress checks=".*"
-              files=".+[\\\/]target[\\\/].+\.java"
-    />
+              files=".+[\\\/]target[\\\/].+\.java"/>
+
     <suppress checks=".*"
-              files=".+[\\\/]contrib[\\\/].+\.java"
-    />
+              files=".+[\\\/]contrib[\\\/].+\.java"/>
+
     <suppress checks=".*"
-              files=".+[\\\/]proto[\\\/]ProtoTestObjects.java"
-    />
+              files=".+[\\\/]proto[\\\/]ProtoTestObjects.java"/>
+
+    <suppress checks=".*"
+              files=".+[\\\/]mockito[\\\/].+\.java"/>
 </suppressions>

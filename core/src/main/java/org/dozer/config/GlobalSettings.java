@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author tierney.matt
  */
-public class GlobalSettings {
+public final class GlobalSettings {
 
     private final Logger log = LoggerFactory.getLogger(GlobalSettings.class);
 
