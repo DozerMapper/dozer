@@ -49,14 +49,18 @@ import org.slf4j.LoggerFactory;
  */
 public final class ConstructionStrategies {
 
-    private static final BeanCreationStrategy             byCreateMethod       = new ConstructionStrategies.ByCreateMethod();
-    private static final BeanCreationStrategy             byGetInstance        = new ConstructionStrategies.ByGetInstance();
-    private static final BeanCreationStrategy             byInterface          = new ConstructionStrategies.ByInterface();
-    private static final BeanCreationStrategy             xmlBeansBased        = new ConstructionStrategies.XMLBeansBased();
-    private static final BeanCreationStrategy             jaxbBeansBased       = new ConstructionStrategies.JAXBBeansBased();
-    private static final BeanCreationStrategy             constructorBased     = new ConstructionStrategies.ByConstructor();
-    private static final ConstructionStrategies.ByFactory byFactory            = new ConstructionStrategies.ByFactory();
-    private static final BeanCreationStrategy             xmlGregorianCalendar = new ConstructionStrategies.XmlGregorian();
+    private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
+    private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
+    private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
+    private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
+    private static final BeanCreationStrategy jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased();
+    private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
+    private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
+    private static final BeanCreationStrategy xmlGregorianCalendar = new ConstructionStrategies.XmlGregorian();
+
+    private ConstructionStrategies() {
+
+    }
 
     public static BeanCreationStrategy byCreateMethod() {
         return byCreateMethod;
@@ -134,7 +138,7 @@ public final class ConstructionStrategies {
         public boolean isApplicable(BeanCreationDirective directive) {
             Class<?> actualClass = directive.getActualClass();
             return Calendar.class.isAssignableFrom(actualClass)
-                           || DateFormat.class.isAssignableFrom(actualClass);
+                   || DateFormat.class.isAssignableFrom(actualClass);
         }
 
         public Object create(BeanCreationDirective directive) {
@@ -167,9 +171,11 @@ public final class ConstructionStrategies {
                 Class<?> factoryClass = MappingUtils.loadClass(factoryName);
                 if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
                     MappingUtils.throwMappingException("Custom bean factory must implement "
-                                                               + BeanFactory.class.getName() + " interface : " + factoryClass);
+                                                       + BeanFactory.class.getName()
+                                                       + " interface : " + factoryClass);
                 }
-                factory = (BeanFactory) ReflectionUtils.newInstance(factoryClass);
+
+                factory = (BeanFactory)ReflectionUtils.newInstance(factoryClass);
                 // put the created factory in our factory map
                 factoryCache.put(factoryName, factory);
             }
@@ -180,9 +186,9 @@ public final class ConstructionStrategies {
                       result.getClass().getName(), factoryName);
 
             if (!classToCreate.isAssignableFrom(result.getClass())) {
-                MappingUtils.throwMappingException("Custom bean factory (" + factory.getClass() +
-                                                           ") did not return correct type of destination data object. Expected : "
-                                                           + classToCreate + ", Actual : " + result.getClass());
+                MappingUtils.throwMappingException("Custom bean factory (" + factory.getClass()
+                                                   + ") did not return correct type of destination data object. Expected : "
+                                                   + classToCreate + ", Actual : " + result.getClass());
             }
             return result;
         }
@@ -192,7 +198,6 @@ public final class ConstructionStrategies {
         }
 
     }
-
 
     static class ByInterface implements BeanCreationStrategy {
 
@@ -281,13 +286,14 @@ public final class ConstructionStrategies {
         }
 
         public Object create(BeanCreationDirective directive) {
-            JAXBElementConverter jaxbElementConverter = new JAXBElementConverter((directive.getDestObj() != null) ? directive.getDestObj().getClass().getCanonicalName() : directive.getActualClass().getCanonicalName(), directive.getFieldName(), null);
+            JAXBElementConverter jaxbElementConverter = new JAXBElementConverter(
+                (directive.getDestObj() != null) ? directive.getDestObj().getClass().getCanonicalName() : directive.getActualClass().getCanonicalName(), directive.getFieldName(),
+                null);
             String beanId = jaxbElementConverter.getBeanId();
             Object destValue = jaxbBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
             return jaxbElementConverter.convert(jaxbObjectType, (destValue != null) ? destValue : directive.getSrcObject());
         }
     }
-
 
     static class ByConstructor implements BeanCreationStrategy {
 
@@ -322,8 +328,9 @@ public final class ConstructionStrategies {
             }
 
             if (constructor == null) {
-                MappingUtils.throwMappingException("Could not create a new instance of the dest object: " + clazz
-                                                           + ".  Could not find a no-arg constructor for this class.");
+                MappingUtils.throwMappingException("Could not create a new instance of the dest object: "
+                                                   + clazz
+                                                   + ".  Could not find a no-arg constructor for this class.");
             }
 
             // If private, make it accessible
@@ -366,5 +373,4 @@ public final class ConstructionStrategies {
         }
 
     }
-
 }

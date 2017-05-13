@@ -39,138 +39,143 @@ import org.slf4j.LoggerFactory;
  */
 public class GlobalSettings {
 
-  private final Logger log = LoggerFactory.getLogger(GlobalSettings.class);
+    private final Logger log = LoggerFactory.getLogger(GlobalSettings.class);
 
-  private static final GlobalSettings instance = new GlobalSettings();
+    private static final GlobalSettings instance = new GlobalSettings();
 
-  private String loadedByFileName;
-  private boolean statisticsEnabled = DozerConstants.DEFAULT_STATISTICS_ENABLED;
-  private int converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
-  private int superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
-  private boolean autoregisterJMXBeans = DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
-  private boolean elEnabled = DozerConstants.DEFAULT_EL_ENABLED;
+    private String loadedByFileName;
+    private boolean statisticsEnabled = DozerConstants.DEFAULT_STATISTICS_ENABLED;
+    private int converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
+    private int superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
+    private boolean autoregisterJMXBeans = DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
+    private boolean elEnabled = DozerConstants.DEFAULT_EL_ENABLED;
 
-  private String classLoaderBeanName = DozerConstants.DEFAULT_CLASS_LOADER_BEAN;
-  private String proxyResolverBeanName = DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN;
+    private String classLoaderBeanName = DozerConstants.DEFAULT_CLASS_LOADER_BEAN;
+    private String proxyResolverBeanName = DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN;
 
-  public static GlobalSettings getInstance() {
-    return instance;
-  }
-
-  static GlobalSettings createNew() {
-    return new GlobalSettings();
-  }
-
-  private GlobalSettings() {
-    loadGlobalSettings();
-  }
-
-  protected String getLoadedByFileName() {
-    return loadedByFileName;
-  }
-
-  public boolean isAutoregisterJMXBeans() {
-    return autoregisterJMXBeans;
-  }
-
-  public int getConverterByDestTypeCacheMaxSize() {
-    return converterByDestTypeCacheMaxSize;
-  }
-
-  public boolean isStatisticsEnabled() {
-    return statisticsEnabled;
-  }
-
-  public void setStatisticsEnabled(boolean statisticsEnabled) {
-    this.statisticsEnabled = statisticsEnabled;
-  }
-
-  public int getSuperTypesCacheMaxSize() {
-    return superTypesCacheMaxSize;
-  }
-
-  public String getClassLoaderName() {
-    return classLoaderBeanName;
-  }
-
-  public String getProxyResolverName() {
-    return proxyResolverBeanName;
-  }
-
-  public boolean isElEnabled() {
-    return elEnabled;
-  }  
-
-  private synchronized void loadGlobalSettings() {
-    // Determine prop file name
-    String propFileName = System.getProperty(DozerConstants.CONFIG_FILE_SYS_PROP);
-    if (MappingUtils.isBlankOrNull(propFileName)) {
-      propFileName = DozerConstants.DEFAULT_CONFIG_FILE;
+    public static GlobalSettings getInstance() {
+        return instance;
     }
 
-    log.info("Trying to find Dozer configuration file: {}", propFileName);
-    // Load prop file. Prop file is optional, so if it's not found just use defaults
-    DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
-    URL url = classLoader.loadResource(propFileName);
-    if (url == null) {
-      log.warn("Dozer configuration file not found: {}.  Using defaults for all Dozer global properties.", propFileName);
-      return;
-    } else {
-      log.info("Using URL [{}] for Dozer global property configuration", url);
+    static GlobalSettings createNew() {
+        return new GlobalSettings();
     }
 
-    Properties props = new Properties();
-    InputStream inputStream = null;
-    try {
-      log.info("Reading Dozer properties from URL [{}]", url);
-      inputStream = url.openStream();
-      props.load(inputStream);
-    } catch (IOException e) {
-      MappingUtils.throwMappingException("Problem loading Dozer properties from URL [" + propFileName + "]", e);
-    } finally {
-      if (inputStream != null) {
-        try {
-          inputStream.close();
-        } catch (IOException e) {
+    private GlobalSettings() {
+        loadGlobalSettings();
+    }
+
+    protected String getLoadedByFileName() {
+        return loadedByFileName;
+    }
+
+    public boolean isAutoregisterJMXBeans() {
+        return autoregisterJMXBeans;
+    }
+
+    public int getConverterByDestTypeCacheMaxSize() {
+        return converterByDestTypeCacheMaxSize;
+    }
+
+    public boolean isStatisticsEnabled() {
+        return statisticsEnabled;
+    }
+
+    public void setStatisticsEnabled(boolean statisticsEnabled) {
+        this.statisticsEnabled = statisticsEnabled;
+    }
+
+    public int getSuperTypesCacheMaxSize() {
+        return superTypesCacheMaxSize;
+    }
+
+    public String getClassLoaderName() {
+        return classLoaderBeanName;
+    }
+
+    public String getProxyResolverName() {
+        return proxyResolverBeanName;
+    }
+
+    public boolean isElEnabled() {
+        return elEnabled;
+    }
+
+    private synchronized void loadGlobalSettings() {
+        // Determine prop file name
+        String propFileName = System.getProperty(DozerConstants.CONFIG_FILE_SYS_PROP);
+        if (MappingUtils.isBlankOrNull(propFileName)) {
+            propFileName = DozerConstants.DEFAULT_CONFIG_FILE;
         }
-      }
+
+        log.info("Trying to find Dozer configuration file: {}", propFileName);
+        // Load prop file. Prop file is optional, so if it's not found just use defaults
+        DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+        URL url = classLoader.loadResource(propFileName);
+        if (url == null) {
+            log.warn("Dozer configuration file not found: {}.  Using defaults for all Dozer global properties.", propFileName);
+            return;
+        } else {
+            log.info("Using URL [{}] for Dozer global property configuration", url);
+        }
+
+        Properties props = new Properties();
+        InputStream inputStream = null;
+        try {
+            log.info("Reading Dozer properties from URL [{}]", url);
+            inputStream = url.openStream();
+            props.load(inputStream);
+        } catch (IOException e) {
+            MappingUtils.throwMappingException("Problem loading Dozer properties from URL [" + propFileName + "]", e);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+
+        populateSettings(props);
+
+        loadedByFileName = propFileName;
+        log.debug("Finished configuring Dozer global properties");
     }
 
-    populateSettings(props);
+    private void populateSettings(Properties props) {
+        String propValue = props.getProperty(PropertyConstants.STATISTICS_ENABLED);
+        if (propValue != null) {
+            statisticsEnabled = Boolean.valueOf(propValue); // TODO Parsing errors?
+        }
 
-    loadedByFileName = propFileName;
-    log.debug("Finished configuring Dozer global properties");
-  }
+        propValue = props.getProperty(PropertyConstants.CONVERTER_CACHE_MAX_SIZE);
+        if (propValue != null) {
+            converterByDestTypeCacheMaxSize = Integer.parseInt(propValue);
+        }
 
-  private void populateSettings(Properties props) {
-    String propValue = props.getProperty(PropertyConstants.STATISTICS_ENABLED);
-    if (propValue != null) {
-      statisticsEnabled = Boolean.valueOf(propValue); // TODO Parsing errors?
-    }
-    propValue = props.getProperty(PropertyConstants.CONVERTER_CACHE_MAX_SIZE);
-    if (propValue != null) {
-      converterByDestTypeCacheMaxSize = Integer.parseInt(propValue);
-    }
-    propValue = props.getProperty(PropertyConstants.SUPERTYPE_CACHE_MAX_SIZE);
-    if (propValue != null) {
-      superTypesCacheMaxSize = Integer.parseInt(propValue);
-    }
-    propValue = props.getProperty(PropertyConstants.AUTOREGISTER_JMX_BEANS);
-    if (propValue != null) {
-      autoregisterJMXBeans = Boolean.valueOf(propValue);
-    }
-    propValue = props.getProperty(PropertyConstants.CLASS_LOADER_BEAN);
-    if (propValue != null) {
-      classLoaderBeanName = propValue;
-    }
-    propValue = props.getProperty(PropertyConstants.PROXY_RESOLVER_BEAN);
-    if (propValue != null) {
-      proxyResolverBeanName = propValue;
-    }
-    propValue = props.getProperty(PropertyConstants.EL_ENABLED);
-    if (propValue != null) {
-      elEnabled = Boolean.valueOf(propValue);
-    }
-  }
+        propValue = props.getProperty(PropertyConstants.SUPERTYPE_CACHE_MAX_SIZE);
+        if (propValue != null) {
+            superTypesCacheMaxSize = Integer.parseInt(propValue);
+        }
 
+        propValue = props.getProperty(PropertyConstants.AUTOREGISTER_JMX_BEANS);
+        if (propValue != null) {
+            autoregisterJMXBeans = Boolean.valueOf(propValue);
+        }
+
+        propValue = props.getProperty(PropertyConstants.CLASS_LOADER_BEAN);
+        if (propValue != null) {
+            classLoaderBeanName = propValue;
+        }
+
+        propValue = props.getProperty(PropertyConstants.PROXY_RESOLVER_BEAN);
+        if (propValue != null) {
+            proxyResolverBeanName = propValue;
+        }
+
+        propValue = props.getProperty(PropertyConstants.EL_ENABLED);
+        if (propValue != null) {
+            elEnabled = Boolean.valueOf(propValue);
+        }
+    }
 }

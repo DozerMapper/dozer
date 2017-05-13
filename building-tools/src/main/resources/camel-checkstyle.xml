@@ -183,8 +183,8 @@ lengths, if/try depths, etc...
 
         <!-- Modifier Checks                                    -->
         <!-- See http://checkstyle.sf.net/config_modifiers.html -->
-
-
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
 
 
         <!-- Checks for blocks. You know, those {}'s         -->
@@ -287,8 +287,8 @@ lengths, if/try depths, etc...
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
         <!--<module name="DesignForExtension"/>-->
-
-
+        
+        <module name="HideUtilityClassConstructor"/>
         <!-- We still do enum style interfaces
         <module name="InterfaceIsType"/>
         -->
