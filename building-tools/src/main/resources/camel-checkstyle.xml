@@ -248,7 +248,7 @@ lengths, if/try depths, etc...
 
 
         <!--<module name="RedundantThrows"/>-->
-
+        <module name="PackageDeclaration"/>
         <!--
         <module name="JUnitTestCase"/>
         -->
