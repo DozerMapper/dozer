@@ -115,10 +115,14 @@ public final class XMLParserFactory {
     }
 
     private String getMessage(String level, SAXParseException e) {
-      return ("Parsing " + level + "\n" + "Line:    " + e.getLineNumber() + "\n" + "URI:     " + e.getSystemId() + "\n"
-              + "Message: " + e.getMessage());
+      return "Parsing "
+             + level
+             + "\n" + "Line:    "
+             + e.getLineNumber()
+             + "\n" + "URI:     "
+             + e.getSystemId() + "\n"
+              + "Message: "
+             + e.getMessage();
     }
   }
-
-
 }

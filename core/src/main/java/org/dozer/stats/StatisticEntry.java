@@ -53,12 +53,14 @@ public class StatisticEntry {
 
   @Override
   public boolean equals(Object object) {
-    if ((this == object)) {
+    if (this == object) {
       return true;
     }
+
     if (!(object instanceof StatisticEntry)) {
       return false;
     }
+
     StatisticEntry entry = (StatisticEntry) object;
     return new EqualsBuilder().append(this.getKey(), entry.getKey()).isEquals();
   }

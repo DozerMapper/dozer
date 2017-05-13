@@ -28,64 +28,63 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Internal class that manages the Dozer caches. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  */
 public final class DozerCacheManager implements CacheManager {
 
-  private final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
+    private final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
 
-  private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
+    private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
 
-  public Collection<Cache> getCaches() {
-    return new HashSet<Cache>(cachesMap.values());
-  }
-
-  public Cache getCache(String name) {
-    Cache cache = cachesMap.get(name);
-    if (cache == null) {
-      MappingUtils.throwMappingException("Unable to find cache with name: " + name);
+    public Collection<Cache> getCaches() {
+        return new HashSet<Cache>(cachesMap.values());
     }
-    return cache;
-  }
 
-  public void addCache(String name, int maxElementsInMemory) {
-    addCache(new DozerCache(name, maxElementsInMemory));
-  }
-
-  public void addCache(Cache cache) {
-    synchronized (cachesMap) {
-      String name = cache.getName();
-      if (cacheExists(name)) {
-        MappingUtils.throwMappingException("Cache already exists with name: " + name);
-      }
-      cachesMap.put(name, cache);
+    public Cache getCache(String name) {
+        Cache cache = cachesMap.get(name);
+        if (cache == null) {
+            MappingUtils.throwMappingException("Unable to find cache with name: " + name);
+        }
+        return cache;
     }
-  }
 
-  public Collection<String> getCacheNames() {
-    Set<String> results = new HashSet<String>();
-    for (Entry<String, Cache> entry : cachesMap.entrySet()) {
-      results.add(entry.getKey());
+    public void addCache(String name, int maxElementsInMemory) {
+        addCache(new DozerCache(name, maxElementsInMemory));
     }
-    return results;
-  }
 
-  /*
-   * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each cache
-   */
-  public void clearAllEntries() {
-    for (Cache cache : cachesMap.values()) {
-      cache.clear();
+    public void addCache(Cache cache) {
+        synchronized (cachesMap) {
+            String name = cache.getName();
+            if (cacheExists(name)) {
+                MappingUtils.throwMappingException("Cache already exists with name: " + name);
+            }
+            cachesMap.put(name, cache);
+        }
     }
-  }
 
-  public boolean cacheExists(String name) {
-    return cachesMap.containsKey(name);
-  }
+    public Collection<String> getCacheNames() {
+        Set<String> results = new HashSet<String>();
+        for (Entry<String, Cache> entry : cachesMap.entrySet()) {
+            results.add(entry.getKey());
+        }
+        return results;
+    }
 
-  public void logCaches() {
-    log.info(getCaches().toString());
-  }
-  
+    /*
+     * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each cache
+     */
+    public void clearAllEntries() {
+        for (Cache cache : cachesMap.values()) {
+            cache.clear();
+        }
+    }
+
+    public boolean cacheExists(String name) {
+        return cachesMap.containsKey(name);
+    }
+
+    public void logCaches() {
+        log.info(getCaches().toString());
+    }
 }

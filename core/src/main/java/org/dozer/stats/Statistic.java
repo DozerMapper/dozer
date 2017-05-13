@@ -83,12 +83,14 @@ public class Statistic {
 
   @Override
   public boolean equals(Object object) {
-    if ((this == object)) {
+    if (this == object) {
       return true;
     }
+
     if (!(object instanceof Statistic)) {
       return false;
     }
+
     Statistic entry = (Statistic) object;
     return new EqualsBuilder().append(this.getType(), entry.getType()).isEquals();
   }

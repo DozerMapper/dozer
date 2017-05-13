@@ -20,24 +20,23 @@ import org.dozer.util.MappingUtils;
 
 /**
  * Internal class for converting Supported Data Types to Long. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  */
 public class LongConverter implements Converter {
 
-  private static org.apache.commons.beanutils.converters.LongConverter commonsConverter = new org.apache.commons.beanutils.converters.LongConverter();
+    private static org.apache.commons.beanutils.converters.LongConverter commonsConverter = new org.apache.commons.beanutils.converters.LongConverter();
 
-  @SuppressWarnings("rawtypes")
-  public Object convert(Class destClass, Object srcObj) {
-    // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
-    if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
-      boolean value = (Boolean) srcObj;
-      return (value ? (long) 1 : (long) 0);
-    } else if (MappingUtils.isEnumType(srcObj.getClass())) {
-      return ((Integer) ((Enum) srcObj).ordinal()).longValue();
-    } else {
-      return commonsConverter.convert(destClass, srcObj);
+    @SuppressWarnings("rawtypes")
+    public Object convert(Class destClass, Object srcObj) {
+        // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
+        if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
+            boolean value = (Boolean)srcObj;
+            return value ? (long)1 : (long)0;
+        } else if (MappingUtils.isEnumType(srcObj.getClass())) {
+            return ((Integer)((Enum)srcObj).ordinal()).longValue();
+        } else {
+            return commonsConverter.convert(destClass, srcObj);
+        }
     }
-  }
-
 }

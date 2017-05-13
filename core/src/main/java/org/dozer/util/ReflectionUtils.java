@@ -227,7 +227,7 @@ public final class ReflectionUtils {
     // If tokenizer has more elements, it mean that parameters may have been specified
     if (tokenizer.hasMoreElements()) {
       StringTokenizer tokens = new StringTokenizer(tokenizer.nextToken(), ")");
-      String params = (tokens.hasMoreTokens() ? tokens.nextToken() : null);
+      String params = tokens.hasMoreTokens() ? tokens.nextToken() : null;
       result = findMethodWithParam(clazz, m, params);
     } else {
       result = findMethod(clazz, methodName);

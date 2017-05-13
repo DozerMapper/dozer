@@ -84,7 +84,7 @@ public final class CacheKeyFactory {
         @Override
         public int hashCode() {
             int result;
-            result = (srcClass != null ? srcClass.hashCode() : 0);
+            result = srcClass != null ? srcClass.hashCode() : 0;
             result = 31 * result + (destClass != null ? destClass.hashCode() : 0);
             result = 31 * result + (mapId != null ? mapId.hashCode() : 0);
             return result;
