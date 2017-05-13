@@ -21,48 +21,49 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * Internal class that represents one entry in the cache. Holds the cache value, unique key for lookup, and creation
  * time. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  * @author dmitry.buzdin
  */
 public class CacheEntry<KeyType, ValueType> {
 
-  private final KeyType key;
-  private final ValueType value;
+    private final KeyType key;
+    private final ValueType value;
 
-  public CacheEntry(KeyType key, ValueType value) {
-    this.key = key;
-    this.value = value;
-  }
-
-  public KeyType getKey() {
-    return key;
-  }
-
-  public ValueType getValue() {
-    return value;
-  }
-
-  @Override
-  public int hashCode() {
-    return key.hashCode();
-  }
-
-  @Override
-  public boolean equals(Object object) {
-    if ((this == object)) {
-      return true;
+    public CacheEntry(KeyType key, ValueType value) {
+        this.key = key;
+        this.value = value;
     }
-    if (!(object instanceof CacheEntry)) {
-      return false;
+
+    public KeyType getKey() {
+        return key;
     }
-    CacheEntry entry = (CacheEntry) object;
-    return this.getKey().equals(entry.getKey());
-  }
 
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+    public ValueType getValue() {
+        return value;
+    }
 
+    @Override
+    public int hashCode() {
+        return key.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+
+        if (!(object instanceof CacheEntry)) {
+            return false;
+        }
+
+        CacheEntry entry = (CacheEntry)object;
+        return this.getKey().equals(entry.getKey());
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

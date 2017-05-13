@@ -19,34 +19,33 @@ import java.util.Collection;
 
 /**
  * Internal interface for managing caches. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  * @author dmitry.buzdin
  */
 public interface CacheManager {
 
-  /**
-   * Clears all available caches. Should not be used in production. Can be applied on "soft" application restart.
-   */
-  void clearAllEntries();
+    /**
+     * Clears all available caches. Should not be used in production. Can be applied on "soft" application restart.
+     */
+    void clearAllEntries();
 
-  /**
-   * Returns a Set of all Cache names
-   * @return Set of String objects representing Cache names.
-   */
-  Collection<String> getCacheNames();
+    /**
+     * Returns a Set of all Cache names
+     * @return Set of String objects representing Cache names.
+     */
+    Collection<String> getCacheNames();
 
-  Collection<Cache> getCaches();
+    Collection<Cache> getCaches();
 
-  /**
-   * Get Cache object by name.
-   * @param cacheName unique cache name
-   * @return Cache object or will throw MappingException in case Cache is not registered.
-   */
-  Cache getCache(String cacheName);
+    /**
+     * Get Cache object by name.
+     * @param cacheName unique cache name
+     * @return Cache object or will throw MappingException in case Cache is not registered.
+     */
+    Cache getCache(String cacheName);
 
-  void addCache(String cacheName, int maximumSize);
+    void addCache(String cacheName, int maximumSize);
 
-  boolean cacheExists(String cacheName);
-
+    boolean cacheExists(String cacheName);
 }

@@ -44,7 +44,7 @@ public class StatisticsInterceptor implements InvocationHandler {
 
       long stop = System.currentTimeMillis();
       statsMgr.increment(StatisticType.MAPPING_SUCCESS_COUNT);
-      statsMgr.increment(StatisticType.MAPPING_TIME, (stop - start));
+      statsMgr.increment(StatisticType.MAPPING_TIME, stop - start);
 
       return result;
     } catch (InvocationTargetException e) {

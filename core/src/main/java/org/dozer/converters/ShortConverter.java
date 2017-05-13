@@ -20,24 +20,23 @@ import org.dozer.util.MappingUtils;
 
 /**
  * Internal class for converting Supported Data Types to Short. Only intended for internal use.
- * 
+ *
  * @author siarhei.krukau
  */
 public class ShortConverter implements Converter {
 
-  private static org.apache.commons.beanutils.converters.ShortConverter commonsConverter = new org.apache.commons.beanutils.converters.ShortConverter();
+    private static org.apache.commons.beanutils.converters.ShortConverter commonsConverter = new org.apache.commons.beanutils.converters.ShortConverter();
 
-  @SuppressWarnings("rawtypes")
-  public Object convert(Class destClass, Object srcObj) {
-    // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
-    if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
-      boolean value = (Boolean) srcObj;
-      return (value ? (short) 1 : (short) 0);
-    } else if (MappingUtils.isEnumType(srcObj.getClass())) {
-      return ((Integer) ((Enum) srcObj).ordinal()).shortValue();
-    } else {
-      return commonsConverter.convert(destClass, srcObj);
+    @SuppressWarnings("rawtypes")
+    public Object convert(Class destClass, Object srcObj) {
+        // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
+        if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
+            boolean value = (Boolean)srcObj;
+            return value ? (short)1 : (short)0;
+        } else if (MappingUtils.isEnumType(srcObj.getClass())) {
+            return ((Integer)((Enum)srcObj).ordinal()).shortValue();
+        } else {
+            return commonsConverter.convert(destClass, srcObj);
+        }
     }
-  }
-
 }

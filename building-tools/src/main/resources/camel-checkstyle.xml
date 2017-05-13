@@ -280,7 +280,7 @@ lengths, if/try depths, etc...
         <!--<module name="MultipleStringLiterals"/>-->
         <module name="MultipleVariableDeclarations"/>
         <!--<module name="RequireThis"/>-->
-
+        <module name="UnnecessaryParentheses"/>
 
 
 

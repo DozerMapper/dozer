@@ -20,24 +20,23 @@ import org.dozer.util.MappingUtils;
 
 /**
  * Internal class for converting Supported Data Types to Byte. Only intended for internal use.
- * 
+ *
  * @author siarhei.krukau
  */
 public class ByteConverter implements Converter {
 
-  private static org.apache.commons.beanutils.converters.ByteConverter commonsConverter = new org.apache.commons.beanutils.converters.ByteConverter();
+    private static org.apache.commons.beanutils.converters.ByteConverter commonsConverter = new org.apache.commons.beanutils.converters.ByteConverter();
 
-  @SuppressWarnings("rawtypes")
-  public Object convert(Class destClass, Object srcObj) {
-    // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
-    if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
-      boolean value = (Boolean) srcObj;
-      return (value ? (byte) 1 : (byte) 0);
-    } else if (MappingUtils.isEnumType(srcObj.getClass())) {
-      return ((Integer) ((Enum) srcObj).ordinal()).byteValue();
-    } else {
-      return commonsConverter.convert(destClass, srcObj);
+    @SuppressWarnings("rawtypes")
+    public Object convert(Class destClass, Object srcObj) {
+        // Boolean to Int not supported in apache common's int converter and this is why this class is req'd
+        if (Boolean.class.isAssignableFrom(srcObj.getClass())) {
+            boolean value = (Boolean)srcObj;
+            return value ? (byte)1 : (byte)0;
+        } else if (MappingUtils.isEnumType(srcObj.getClass())) {
+            return ((Integer)((Enum)srcObj).ordinal()).byteValue();
+        } else {
+            return commonsConverter.convert(destClass, srcObj);
+        }
     }
-  }
-
 }
