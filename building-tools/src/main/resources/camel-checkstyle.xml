@@ -244,9 +244,9 @@ lengths, if/try depths, etc...
         <!--<module name="SuperClone"/>-->
         <module name="SuperFinalize"/>
         <!--<module name="IllegalCatch"/>-->
-
-
-
+        <module name="IllegalThrows">
+            <property name="illegalClassNames" value="java.lang.Error,java.lang.RuntimeException"/>
+        </module>
         <!--<module name="RedundantThrows"/>-->
         <module name="PackageDeclaration"/>
         <!--
