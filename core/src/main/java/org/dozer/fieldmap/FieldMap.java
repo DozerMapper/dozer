@@ -123,6 +123,9 @@ public abstract class FieldMap implements Cloneable {
   }
 
   /**
+   * Gets field param
+   * @param runtimeDestClass type
+   * @return type
    * @deprecated As of 3.2 release
    */
   @Deprecated
@@ -324,8 +327,9 @@ public abstract class FieldMap implements Cloneable {
   }
 
   /**
-   * Return true if is self referencing. Is considered self referencing where no other sources are specified, i.e., no
-   * source properties or #CDATA in the xml def.
+   * Return true if is self referencing. Is considered self referencing where no other sources are specified,
+   * i.e., no source properties or #CDATA in the xml def.
+   * @return true if is self referencing
    */
   protected boolean isSrcSelfReferencing() {
     return getSrcFieldName().equals(DozerConstants.SELF_KEYWORD);

@@ -87,10 +87,10 @@ public final class ClassMapBuilder {
   /**
    * Builds new default mapping on-the-fly for previously unknown mapped class pairs.
    *
-   * @param globalConfiguration
-   * @param srcClass
-   * @param destClass
-   * @return
+   * @param globalConfiguration configuration of Dozer
+   * @param srcClass type to convert from
+   * @param destClass type to convert to
+   * @return information about the classes being mapped
    */
   public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
     ClassMap classMap = new ClassMap(globalConfiguration);
@@ -106,8 +106,8 @@ public final class ClassMapBuilder {
   /**
    * Prepares default mappings based on provided mapping definition
    *
-   * @param classMappings
-   * @param globalConfiguration
+   * @param classMappings information about the classes being mapped
+   * @param globalConfiguration configuration of Dozer
    */
   public static void addDefaultFieldMappings(ClassMappings classMappings, Configuration globalConfiguration) {
     Set<Entry<String, ClassMap>> entries = classMappings.getAll().entrySet();
@@ -136,7 +136,10 @@ public final class ClassMapBuilder {
     boolean accepts(ClassMap classMap);
 
     /**
+     * true if we should stop after applied
      *
+     * @param classMap information about the classes being mapped
+     * @param configuration configuration of the mapping
      * @return true if we should stop after applied
      */
     boolean apply(ClassMap classMap, Configuration configuration);

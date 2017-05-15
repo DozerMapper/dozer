@@ -49,6 +49,7 @@ public class JAXBElementConverter implements Converter {
     /**
      * Returns a new instance of ObjectFactory, or the cached one if previously created.
      *
+     * @param destObjClass type to convert to
      * @return instance of ObjectFactory
      */
     private static Object objectFactory(String destObjClass) {
@@ -68,8 +69,7 @@ public class JAXBElementConverter implements Converter {
      * @param type  Data type to which this value should be converted
      * @param value The input value to be converted
      * @return The converted value
-     * @throws org.apache.commons.beanutils.ConversionException if conversion cannot be performed
-     *                                                          successfully
+     * @throws org.apache.commons.beanutils.ConversionException if conversion cannot be performed successfully
      */
     @Override
     public Object convert(Class type, Object value) {
@@ -119,7 +119,7 @@ public class JAXBElementConverter implements Converter {
     /**
      * Resolve the beanId associated to destination field name
      *
-     * @return
+     * @return bean id
      */
     public String getBeanId() {
         Class<?> factoryClass = objectFactory(destObjClass).getClass();

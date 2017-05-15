@@ -93,13 +93,15 @@ public final class ReflectionUtils {
     return result;
   }
 
-    /**
-     * There are some nasty bugs for introspection with generics. This method addresses those nasty bugs and tries to find proper methods if available
-     *  http://bugs.sun.com/view_bug.do?bug_id=6788525
-     *  http://bugs.sun.com/view_bug.do?bug_id=6528714
-     * @param descriptor
-     * @return
-     */
+  /**
+   * There are some nasty bugs for introspection with generics. This method addresses those nasty bugs and tries to find proper methods if available
+   *  http://bugs.sun.com/view_bug.do?bug_id=6788525
+   *  http://bugs.sun.com/view_bug.do?bug_id=6528714
+   *
+   * @param clazz type to work on
+   * @param descriptor property pair (get/set) information
+   * @return
+   */
     private static PropertyDescriptor fixGenericDescriptor(Class<?> clazz, PropertyDescriptor descriptor) {
       Method readMethod = descriptor.getReadMethod();
 
@@ -214,11 +216,21 @@ public final class ReflectionUtils {
   }
 
   /**
+   *
+   *
+   * @param clazz
+   * @param methodName
+   * @return
+   * @throws NoSuchMethodException
+   */
+
+  /**
    * Find a method with concrete string representation of it's parameters
+   *
    * @param clazz clazz to search
    * @param methodName name of method with representation of it's parameters
    * @return found method
-   * @throws NoSuchMethodException
+   * @throws NoSuchMethodException if no method found
    */
   public static Method findAMethod(Class<?> clazz, String methodName) throws NoSuchMethodException {
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
@@ -432,21 +444,29 @@ public final class ReflectionUtils {
   }
 
  /**
-  * Finds non-standard setters {@link PropertyUtils#getPropertyDescriptors} does
-  * not find. The non-standard setters include
+  *
   * <p>
   *     <ul>
-  *         <li>Setters that return something instead of {@code void}</li>
-  *         <li>Setters that take a wrapper argument (e.g. Boolean) when the
-  *             field is of primitive type (e.g. boolean) - or the other way
-  *             around.</li>
+  *         <li>
   *     </ul>
   * <p>
   *
-  * @param clazz The class to find non-standard setters from
-  * @param fieldName The field to find a non-standard setter for
-  * @return The non-standard setter or {@code null}
+
   */
+
+  /**
+   * Finds non-standard setters {@link PropertyUtils#getPropertyDescriptors} does not find.
+   * The non-standard setters include:
+   *
+   * <ul>
+   * <li> Setters that return something instead of {@code void}</li>
+   * <li> Setters that take a wrapper argument (e.g. Boolean) when the field is of primitive type (e.g. boolean) - or the other way around.
+   * </ul>
+   *
+   * @param clazz The class to find non-standard setters from
+   * @param fieldName The field to find a non-standard setter for
+   * @return The non-standard setter or {@code null}
+   */
   public static Method getNonStandardSetter(Class<?> clazz, String fieldName) {
     Field field;
 
