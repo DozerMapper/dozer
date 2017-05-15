@@ -22,31 +22,29 @@ import org.dozer.fieldmap.FieldMap;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.SimpleObjPrime;
 
-
 /**
  * @author tierney.matt
  */
 public class TestCustomFieldMapper implements CustomFieldMapper {
 
-  public static String FIELD_VALUE = "This field was set on the dest object by the TestCustomFieldMapper";
+    public static String fieldValue = "This field was set on the dest object by the TestCustomFieldMapper";
 
-  public boolean mapField(Object sourceObj, Object destObj, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) {
-    boolean result = false;
+    public boolean mapField(Object sourceObj, Object destObj, Object sourceFieldValue, ClassMap classMap, FieldMap fieldMapping) {
+        boolean result = false;
 
-    if (!(sourceObj instanceof SimpleObj)) {
-      throw new MappingException("Unsupported source object type.  Should be of type: SimpleObj");
+        if (!(sourceObj instanceof SimpleObj)) {
+            throw new MappingException("Unsupported source object type.  Should be of type: SimpleObj");
+        }
+
+        if (!(destObj instanceof SimpleObjPrime)) {
+            throw new MappingException("Unsupported dest object type.  Should be of type: SimpleObjPrime");
+        }
+
+        if (fieldMapping.getSrcFieldName().equals("field1")) {
+            ((SimpleObjPrime)destObj).setField1(fieldValue);
+            result = true;
+        }
+
+        return result;
     }
-
-    if (!(destObj instanceof SimpleObjPrime)) {
-      throw new MappingException("Unsupported dest object type.  Should be of type: SimpleObjPrime");
-    }
-
-    if (fieldMapping.getSrcFieldName().equals("field1")) {
-      ((SimpleObjPrime) destObj).setField1(FIELD_VALUE);
-      result = true;
-    }
-
-    return result;
-  }
-
 }
