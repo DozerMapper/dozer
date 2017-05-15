@@ -28,32 +28,43 @@ import org.dozer.OptionValue;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface MappingOptions {
-  /**
-   * The wildcard policy for the class mapping
-   */
-  OptionValue wildCard() default OptionValue.INHERITED;
 
-  /**
-   * The error handling policy for the class mapping
-   */
-  OptionValue stopOnErrors() default OptionValue.INHERITED;
+    /**
+     * The wildcard policy for the class mapping
+     *
+     * @return option is on or off
+     */
+    OptionValue wildCard() default OptionValue.INHERITED;
 
-  /**
-   * The bypass null policy for the class mapping.
-   * If this policy is OFF, the dest field mapping is bypassed at runtime and the destination value
-   * setter method will not be called if the src value is null.
-   */
-  OptionValue mapNull() default OptionValue.INHERITED;
+    /**
+     * The error handling policy for the class mapping
+     *
+     * @return option is on or off
+     */
+    OptionValue stopOnErrors() default OptionValue.INHERITED;
 
-  /**
-   * The bypass empty string policy for the class mapping.
-   * If this policy is OFF, the dest field mapping is bypassed at runtime and the destination value
-   * setter method will not be called if the src value is an empty String.
-   */
-  OptionValue mapEmptyString() default OptionValue.INHERITED;
+    /**
+     * The bypass null policy for the class mapping.
+     * If this policy is OFF, the dest field mapping is bypassed at runtime and the destination value
+     * setter method will not be called if the src value is null.
+     *
+     * @return option is on or off
+     */
+    OptionValue mapNull() default OptionValue.INHERITED;
 
-  /**
-   * The date format for the class mapping.
-   */
-  String dateFormat() default "";
+    /**
+     * The bypass empty string policy for the class mapping.
+     * If this policy is OFF, the dest field mapping is bypassed at runtime and the destination value
+     * setter method will not be called if the src value is an empty String.
+     *
+     * @return option is on or off
+     */
+    OptionValue mapEmptyString() default OptionValue.INHERITED;
+
+    /**
+     * The date format for the class mapping.
+     *
+     * @return option is on or off
+     */
+    String dateFormat() default "";
 }

@@ -190,7 +190,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
    * Spring DisposableBean method implementation. Triggered when application context is stopped.
    * Used to release global Dozer resources for hot redeployment without stopping the JVM.
    *
-   * @throws Exception
+   * @throws Exception if bean mapper fails to destory
    */
   public void destroy() throws Exception {
     if (this.beanMapper != null) {

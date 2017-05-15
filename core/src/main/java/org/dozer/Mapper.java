@@ -17,52 +17,51 @@ package org.dozer;
 
 /**
  * Public root interface for performing Dozer mappings from application code.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
  */
 public interface Mapper {
 
-  /**
-   * Constructs new instance of destinationClass and performs mapping between from source
-   *
-   * @param source source object
-   * @param destinationClass
-   * @param <T>
-   * @return
-   * @throws MappingException
-   */
-  <T> T map(Object source, Class<T> destinationClass) throws MappingException;
+    /**
+     * Constructs new instance of destinationClass and performs mapping between from source
+     *
+     * @param source object to convert from
+     * @param destinationClass type to convert to
+     * @param <T> type to convert to
+     * @return mapped object
+     * @throws MappingException mapping failure
+     */
+    <T> T map(Object source, Class<T> destinationClass) throws MappingException;
 
-  /**
-   * Performs mapping between source and destination objects
-   *
-   * @param source source object
-   * @param destination destination object
-   * @throws MappingException
-   */
-  void map(Object source, Object destination) throws MappingException;
+    /**
+     * Performs mapping between source and destination objects
+     *
+     * @param source object to convert from
+     * @param destination object to convert to
+     * @throws MappingException mapping failure
+     */
+    void map(Object source, Object destination) throws MappingException;
 
-  /**
-   * Constructs new instance of destinationClass and performs mapping between from source
-   *
-   * @param source source object
-   * @param destinationClass  destination class
-   * @param mapId
-   * @param <T>
-   * @return
-   * @throws MappingException
-   */
-  <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException;
+    /**
+     * Constructs new instance of destinationClass and performs mapping between from source
+     *
+     * @param source object to convert from
+     * @param destinationClass type to convert to
+     * @param mapId id in configuration for mapping
+     * @param <T> type to convert to
+     * @return mapped object
+     * @throws MappingException mapping failure
+     */
+    <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException;
 
-  /**
-   * Performs mapping between source and destination objects
-   *
-   * @param source source object
-   * @param destination destination object
-   * @param mapId
-   * @throws MappingException
-   */
-  void map(Object source, Object destination, String mapId) throws MappingException;
-
+    /**
+     * Performs mapping between source and destination objects
+     *
+     * @param source object to convert from
+     * @param destination object to convert to
+     * @param mapId id in configuration for mapping
+     * @throws MappingException mapping failure
+     */
+    void map(Object source, Object destination, String mapId) throws MappingException;
 }

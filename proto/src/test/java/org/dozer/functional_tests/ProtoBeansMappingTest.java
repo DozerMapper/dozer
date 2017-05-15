@@ -17,8 +17,6 @@ package org.dozer.functional_tests;
 
 import java.util.Arrays;
 
-import static junit.framework.Assert.assertFalse;
-
 import org.dozer.DozerBeanMapper;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.proto.LiteTestObject;
