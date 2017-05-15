@@ -102,12 +102,12 @@ lengths, if/try depths, etc...
         <!-- See http://checkstyle.sf.net/config_naming.html -->
 
 
-
+        <module name="LocalVariableName"/>
 
 
         <module name="PackageName"/>
         <module name="ParameterName"/>
-
+        <module name="StaticVariableName"/>
 
 
         <!-- <module name="RegexpHeader"/> -->
@@ -147,10 +147,10 @@ lengths, if/try depths, etc...
 
 
 
-
-
-
-
+        <module name="MethodLength">
+            <property name="max" value="200"/>
+            <property name="countEmpty" value="false"/>
+        </module>
         <!-- We should try to get this enabled soon..
         <module name="ParameterNumber">
             <property name="max" value="7"/>

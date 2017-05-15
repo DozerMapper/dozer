@@ -536,7 +536,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
     assertNotNull("dest field1 should not be null", dest.getField1());
     assertNotNull("dest field6 should not be null", dest.getField6());
-    assertEquals("dest field1 should have been set by custom field mapper", TestCustomFieldMapper.FIELD_VALUE, dest.getField1());
+    assertEquals("dest field1 should have been set by custom field mapper", TestCustomFieldMapper.fieldValue, dest.getField1());
     assertEquals("dest field6 should NOT have been set by custom field mapper", src.getField6(), dest.getField6());
   }
 
