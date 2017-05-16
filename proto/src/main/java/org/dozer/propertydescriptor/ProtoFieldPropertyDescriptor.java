@@ -15,6 +15,10 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Map;
+
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 
@@ -91,9 +95,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
       MappingUtils.throwMappingException("Try to pass non proto object to ProtoFieldPropertyDescriptor");
     }
 
-    Message message = (Message)bean;
-
-    Object value = ProtoUtils.getFieldValue(message, fieldName);
+    Object value = ProtoUtils.getFieldValue(bean, fieldName);
     return ProtoUtils.unwrapEnums(value);
   }
 
@@ -107,7 +109,19 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
 
     value = ProtoUtils.wrapEnums(value);
     if (value != null) {
-      builder.internalProtoBuilder().setField(getFieldDescriptor(), value);
+      if (getFieldDescriptor().isMapField()) {
+        //capitalize the first letter of the string;
+        String propertyName = Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+        String methodName = String.format("putAll%s", propertyName);
+        try {
+          Method mapSetterMethod = builder.internalProtoBuilder().getClass().getMethod(methodName, Map.class);
+          mapSetterMethod.invoke(builder.internalProtoBuilder(), value);
+        } catch (Exception e) {
+          throw new RuntimeException("Could not call map setter method " + methodName, e);
+        }
+      } else {
+        builder.internalProtoBuilder().setField(getFieldDescriptor(), value);
+      }
     } else {
       builder.internalProtoBuilder().clearField(getFieldDescriptor());
     }
