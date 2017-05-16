@@ -435,9 +435,12 @@ public final class ReflectionUtils {
     if (type != null && ParameterizedType.class.isAssignableFrom(type.getClass())) {
       Type genericType = ((ParameterizedType) type).getActualTypeArguments()[0];
       if (genericType != null) {
-         if(! (genericType instanceof TypeVariable)) {
-            result = (Class<?>) genericType;
-         }
+        if (genericType instanceof Class) {
+          result = (Class<?>) genericType;
+        } else if (genericType instanceof ParameterizedType) {
+          Type rawType = ((ParameterizedType) genericType).getRawType();
+          result = (Class<?>) rawType;
+        }
       }
     }
     return result;
