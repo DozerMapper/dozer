@@ -74,10 +74,23 @@ public final class ProtoUtils {
         return foundDescriptor;
     }
 
-    public static Object getFieldValue(Message message, String fieldName) {
-        Map<Descriptors.FieldDescriptor, Object> fieldsMap = message.getAllFields();
+    public static Object getFieldValue(Object message, String fieldName) {
+        Map<Descriptors.FieldDescriptor, Object> fieldsMap = ((Message)message).getAllFields();
         for (Map.Entry<Descriptors.FieldDescriptor, Object> field : fieldsMap.entrySet()) {
             if (fieldName.equals(field.getKey().getName())) {
+                if (field.getKey().isMapField()) {
+                    //capitalize the first letter of the string;
+                    String propertyName = Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+                    String methodName = String.format("get%sMap", propertyName);
+
+                    try {
+                        Method mapGetter = message.getClass().getMethod(methodName);
+                        return mapGetter.invoke(message);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Could not introspect map field with method " + methodName, e);
+                    }
+                }
+
                 return field.getValue();
             }
         }
@@ -86,6 +99,10 @@ public final class ProtoUtils {
     }
 
     public static Class<?> getJavaClass(final Descriptors.FieldDescriptor descriptor) {
+        if (descriptor.isMapField()) {
+            return Map.class;
+        }
+
         if (descriptor.isRepeated()) {
             return List.class;
         }
