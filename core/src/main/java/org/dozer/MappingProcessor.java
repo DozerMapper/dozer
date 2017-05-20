@@ -991,6 +991,10 @@ public class MappingProcessor implements Mapper {
       ((MapperAware) converterInstance).setMapper(this);
     }
 
+    if (converterInstance instanceof EventManagerAware) {
+      ((EventManagerAware) converterInstance).setEventManager(this.eventMgr);
+    }
+
     // TODO Remove code duplication
     Object result;
     if (converterInstance instanceof ConfigurableCustomConverter) {
