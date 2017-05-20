@@ -94,7 +94,7 @@ public class MapFieldMap extends FieldMap {
     } else {
       Class<?> actualType = determineActualPropertyType(getSrcFieldName(), isSrcFieldIndexed(), getSrcFieldIndex(), srcObj, false);
       if ((getSrcFieldMapGetMethod() != null)
-          || (this.getMapId() == null && MappingUtils.isSupportedMap(actualType) && getSrcHintContainer() == null)) {
+          || (this.getMapId() == null && MappingUtils.isSupportedMap(actualType) && getSrcHintContainer() == null && !hasCustomConverter())) {
         // Need to dig out actual map object by using getter on the field. Use actual map object to get the field value
         targetObject = super.getSrcFieldValue(srcObj);
 
@@ -116,6 +116,10 @@ public class MapFieldMap extends FieldMap {
 
     return result;
 
+  }
+  
+  private boolean hasCustomConverter() {
+	  return !MappingUtils.isBlankOrNull(getCustomConverterId()) || !MappingUtils.isBlankOrNull(getCustomConverter());
   }
 
   private PrepareTargetObjectResult prepareTargetObject(Object destObj) {
