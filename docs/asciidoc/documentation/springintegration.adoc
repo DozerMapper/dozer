@@ -1,7 +1,4 @@
 == Spring Framework Integration
-Since version 5.5.0 Spring integration comes within additional module
-_dozer-spring_.
-
 Add the DozerBeanMapperFactoryBean to your Spring configuration file.
 The mappingFiles property is where you should specify any custom dozer
 mapping files that you have created. This list can be empty if you don't

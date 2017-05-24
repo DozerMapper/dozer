@@ -137,6 +137,7 @@
                     <header>LICENSE-HEADER.txt</header>
                     <excludes>
                         <exclude>docs/**</exclude>
+                        <exclude>website/**</exclude>
                         <exclude>LICENSE-HEADER.txt</exclude>
                         <exclude>LICENSE.md</exclude>
                         <exclude>README.md</exclude>

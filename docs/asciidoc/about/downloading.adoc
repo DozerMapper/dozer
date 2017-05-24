@@ -1,5 +1,0 @@
-== Downloading Dozer
-* link:https://mvnrepository.com/artifact/net.sf.dozer/dozer[Latest
-release of Dozer Mapper.]
-* link:http://sourceforge.net/project/showfiles.php?group_id=133517&package_id=146610[Older
-Releases hosted on SourceForge.]
