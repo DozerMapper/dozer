@@ -1,10 +1,4 @@
 == API Mappings
-Since version 5.3 Dozer offers two ways for specifying explicit
-mappings. First is Xml-based and has been there for years. Second is
-API-based and it is brand new. On the high level both approaches are
-functionally equivalent, however there are major differences in using
-those described further on.
-
 === XML Mapping Flaws
 XML-based approach is stable and is used in many production projects.
 However, it imposes several limitations.
@@ -87,8 +81,3 @@ instance. It is possible to add multiple Builder classes.
 DozerBeanMapper mapper = new DozerBeanMapper();
 mapper.addMapping(builder);
 ----
-
-Don't forget to make a static import of FieldsMappingOptions and
-TypeMappingOptions classes.
-
-That's it.
