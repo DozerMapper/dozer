@@ -1,0 +1,8 @@
+== JMX Test Engine
+
+1. Change directory into Dozer Core, i.e.: _cd core_
+2. Execute the test engine via mvn, using: _mvn exec:java -Pjmxtest_
+3. Open a terminal and run JConsole, i.e.: _$JAVA_HOME/bin/jconsole_
+4. When JConsole opens, select the JMXTestEngine process and click connect, i.e.: _org.codehaus.plexus.classworlds.launcher.Launcher exec:java -Pjmxtest_
+5. Go to the MBeans tab and you should see the 2 Dozer MBeans
+ 

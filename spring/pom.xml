@@ -30,7 +30,7 @@
 
     <artifactId>dozer-spring</artifactId>
     <packaging>jar</packaging>
-    <name>Dozer-Spring</name>
+    <name>Dozer :: Spring 4</name>
 
     <dependencies>
         <dependency>
