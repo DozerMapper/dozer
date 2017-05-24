@@ -21,8 +21,7 @@
 
 <beans default-lazy-init="false">
 
-  <bean id="mapperWithBeanFactory" class="org.dozer.DozerBeanMapper"
-    singleton="true">
+  <bean id="mapperWithBeanFactory" class="org.dozer.DozerBeanMapper" scope="singleton">
     <property name="mappingFiles">
       <list>
         <value>mappingSpring.xml</value>
@@ -39,6 +38,6 @@
   </bean>
 
   <bean id="customBeanFactory" class="org.dozer.spring.functional_tests.support.SampleCustomBeanFactory"
-    singleton="true" />
+        scope="singleton" />
 
 </beans>
