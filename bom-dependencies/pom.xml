@@ -30,7 +30,7 @@
 
     <artifactId>dozer-bom-dependencies</artifactId>
     <packaging>pom</packaging>
-    <name>Dozer BOM Dependencies</name>
+    <name>Dozer :: BOM Dependencies</name>
 
     <properties>
         <!-- Dependency versions; alphabetical order -->

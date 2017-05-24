@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>dozer-osgi-test</artifactId>
-    <name>Dozer OSGi Bundle Tests</name>
+    <name>Dozer :: OSGi Bundle Tests</name>
 
     <dependencies>
         <dependency>
