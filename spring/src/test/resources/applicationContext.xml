@@ -26,10 +26,10 @@
   <import resource="classpath:spring-event-listener.xml"/>
   <import resource="classpath:spring-bean-mapping-builder.xml"/>
 
-  <bean id="implicitMapper" class="org.dozer.DozerBeanMapper" singleton="true" />
+  <bean id="implicitMapper" class="org.dozer.DozerBeanMapper" scope="singleton" />
 
   <!-- Provided Spring Integration -->
-  <bean id="byFactory" class="org.dozer.spring.DozerBeanMapperFactoryBean" >
+  <bean id="byFactory" class="org.dozer.spring.DozerBeanMapperFactoryBean">
     <property name="mappingFiles" value="classpath*:/*Mapping.xml"/>
     <property name="customConverters">
       <list/>
