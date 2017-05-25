@@ -70,7 +70,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>net.sf.dozer</groupId>
+                <groupId>com.github.dozermapper</groupId>
                 <artifactId>dozer-bom-dependencies</artifactId>
                 <version>${bom-dependencies-version}</version>
                 <type>pom</type>
