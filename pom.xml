@@ -147,6 +147,9 @@
                         <exclude>**/spring.handlers</exclude>
                         <exclude>**/mockito-extensions/**</exclude>
                     </excludes>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
                 </configuration>
                 <executions>
                     <execution>
