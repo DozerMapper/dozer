@@ -32,7 +32,8 @@ public class DefaultProxyResolver implements DozerProxyResolver {
     String className = clazz.getName();
     return className.contains(DozerConstants.CGLIB_ID)
         || className.startsWith(DozerConstants.JAVASSIST_PACKAGE)
-        || className.contains(DozerConstants.JAVASSIST_SYMBOL);
+        || className.contains(DozerConstants.JAVASSIST_SYMBOL)
+        || className.contains(DozerConstants.JAVASSIST_SYMBOL_2);
   }
 
   @Override
