@@ -22,13 +22,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.sf.dozer</groupId>
+        <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-plugins-parent</artifactId>
         <version>6.0.0-SNAPSHOT</version>
         <relativePath>../plugins-parent</relativePath>
     </parent>
 
-    <artifactId>dozer</artifactId>
+    <artifactId>dozer-core</artifactId>
     <packaging>bundle</packaging>
     <name>Dozer :: Core</name>
 

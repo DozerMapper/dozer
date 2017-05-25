@@ -1,7 +1,15 @@
 dist: trusty
+env:
+  global:
+  - secure: Izz+xWjTzSTMwJZJ0eFGVk0YTWnDWbXfqn3KShzevSeUIm/qxrGs9by/ATc1OouvM209ZLAKu6QBamrOEztfswZFFOgE2bNoF62Wh8X4rpeKBXrrqbsMZigcV4Y1dt/cMxioCLNSdEerQ252RWL8ILNW6zEo5/Tg82/sZmudIjE=
+  - secure: by3EqA+ceJedtsog127U7eqyZMMokxiSJuFwS9XUQ81BqvThmxNOu6ZS+oE1XC0XHJ5dfzO1bWlzedChP1bSM8Tq+tmeddtnbMgcdLDgQD2tLSncVBZerjJuN4P+wVOVKHjK0uaXKxH3To1q3psSxAPUJF0Hem6BOOeZoFZsui4=
+  - secure: ipsjLktGbYJhOu6aEuikws80SRfKxQ17I4Vyn92DRh6T/itITBzf8npH5hvPC/A1kUct3ZcxibkMFmC9DZ5qJrMeR2jSYRY2UW3GDAeNBal1flQAItGwcTuDVrxowS5d1QhCT0I/oMZNCScRkgLorZARCd62vGqD8xQCvMXlqis=
+  - secure: NESSqQhlo74FQix3wQNU1Gatk1igv3w4o0EIfQq5aXEEGoaLdDnF2hGdivkEINYzM3pEU6cpy5+N+njcONGKS9NnBEe8tA2Ngk1cKW+I/rScwS4jCBbA7FpdOagecWB3kb62uL8qS7Iu50v6HrKPjakioFwm9gAu2TE8WLgx0Pg=
 language: java
 jdk:
 - oraclejdk8
+before_install:
+- bash .travis/deploy-codesigning.sh
 install:
 - java -version && javac -version && mvn -version -B
 before_script:
@@ -10,6 +18,10 @@ script:
 - mvn clean install -B
 after_success:
 - mvn test -Dtest=PerformanceTest -DfailIfNoTests=false -DargLine="-DnumIters=25000"
+deploy:
+  provider: script
+  script: bash .travis/deploy.sh
+  skip_cleanup: true
 cache:
   directories:
   - $HOME/.m2

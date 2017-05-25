@@ -21,20 +21,25 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.sf.dozer</groupId>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.github.dozermapper</groupId>
     <artifactId>dozer-parent</artifactId>
     <packaging>pom</packaging>
     <version>6.0.0-SNAPSHOT</version>
-    <url>http://dozer.sourceforge.net</url>
     <name>Dozer :: Parent</name>
     <description>Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
-    <inceptionYear>2005</inceptionYear>
 
     <organization>
         <name>dozer</name>
         <url>https://github.com/DozerMapper/dozer</url>
     </organization>
 
+    <inceptionYear>2005</inceptionYear>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -95,6 +100,8 @@
         <maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <license-maven-plugin.version>3.0</license-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
+        <versions-maven-plugin.version>2.3</versions-maven-plugin.version>
 
         <building-tools.version>6.0.0-SNAPSHOT</building-tools.version>
     </properties>
@@ -114,9 +121,19 @@
                     <version>${maven-gpg-plugin.version}</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <version>${license-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -138,6 +155,7 @@
                     <excludes>
                         <exclude>docs/**</exclude>
                         <exclude>website/**</exclude>
+                        <exclude>.travis/**</exclude>
                         <exclude>LICENSE-HEADER.txt</exclude>
                         <exclude>LICENSE.md</exclude>
                         <exclude>README.md</exclude>
@@ -178,15 +196,10 @@
 
     <profiles>
         <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
+            <id>release-ossrh</id>
             <build>
                 <plugins>
+                    <!-- Alphabetical order -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -200,8 +213,40 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
         </profile>
     </profiles>
 
