@@ -30,9 +30,9 @@ If you are using Maven, simply copy-paste this dependency to your project.
 
 ```XML
 <dependency>
-    <groupId>net.sf.dozer</groupId>
-    <artifactId>dozer</artifactId>
-    <version>5.5.1</version>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>6.0.0-SNAPSHOT</version>
 </dependency>
 ```
 

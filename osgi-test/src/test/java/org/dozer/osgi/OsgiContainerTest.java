@@ -50,7 +50,7 @@ public class OsgiContainerTest {
   public Option[] config() {
 
     return options(
-        url("link:classpath:net.sf.dozer.dozer.link"),
+        url("link:classpath:com.github.dozermapper.dozer-core.link"),
         url("link:classpath:org.apache.commons.beanutils.link"),
         url("link:classpath:org.apache.commons.collections.link"),
         url("link:classpath:org.apache.commons.lang3.link"),

@@ -34,8 +34,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-core</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
