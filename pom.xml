@@ -72,10 +72,6 @@
         </mailingList>
     </mailingLists>
 
-    <prerequisites>
-        <maven>3.3.1</maven>
-    </prerequisites>
-
     <modules>
         <module>building-tools</module>
         <module>bom-dependencies</module>
@@ -98,6 +94,7 @@
 
         <!-- Top level versions; alphabetical order -->
         <maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
+        <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <license-maven-plugin.version>3.0</license-maven-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
@@ -107,6 +104,7 @@
     </properties>
 
     <build>
+        <defaultGoal>install</defaultGoal>
         <pluginManagement>
             <plugins>
                 <!-- Alphabetical order -->
@@ -114,6 +112,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -148,6 +151,28 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.3.1</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>1.8</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
@@ -156,6 +181,9 @@
                         <exclude>docs/**</exclude>
                         <exclude>website/**</exclude>
                         <exclude>.travis/**</exclude>
+                        <exclude>.mvn/**</exclude>
+                        <exclude>mvnw</exclude>
+                        <exclude>mvnw.cmd</exclude>
                         <exclude>LICENSE-HEADER.txt</exclude>
                         <exclude>LICENSE.md</exclude>
                         <exclude>README.md</exclude>
