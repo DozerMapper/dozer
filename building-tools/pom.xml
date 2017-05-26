@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-parent</artifactId>
-        <version>6.0.0</version>
+        <version>6.1.0-SNAPSHOT</version>
     </parent>
     <artifactId>building-tools</artifactId>
     <packaging>jar</packaging>

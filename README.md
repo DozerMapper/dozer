@@ -36,11 +36,6 @@ If you are using Maven, simply copy-paste this dependency to your project.
 </dependency>
 ```
 
-Apache Ivy users can copy-paste the following line instead.
-```XML
-<dependency org="net.sf.dozer" name="dozer" rev="5.5.1"/>
-```
-
 ## Simple Example
 ```XML
 <mapping>
