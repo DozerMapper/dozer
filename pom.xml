@@ -166,7 +166,6 @@
                     <header>LICENSE-HEADER.txt</header>
                     <excludes>
                         <exclude>docs/**</exclude>
-                        <exclude>website/**</exclude>
                         <exclude>.travis/**</exclude>
                         <exclude>.mvn/**</exclude>
                         <exclude>mvnw</exclude>

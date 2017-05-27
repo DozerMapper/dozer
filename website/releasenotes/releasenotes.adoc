@@ -1,6 +1,0 @@
-== Release Notes
-=== _2017-04-19_ Moving to github releases
-Its all on github!
-
-=== Archived Release Notes
-link:archived-releasenotes.adoc[See for pre 2017 release notes.]
