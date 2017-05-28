@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.MappingProcessor;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -60,7 +61,7 @@ public class DeepMappingWithMapIdTest {
         Assert.assertNull(srcChild1.getLastName());
         Assert.assertEquals(new Integer(1), srcChild1.getId());
         
-        DozerBeanMapper mapper = new DozerBeanMapper();
+        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
         mapper.addMapping(getParentMapping(ParentWithChildList.class));
         mapper.addMapping(getChildMapping());
         mapper.map(src, dest, MAP_ID_PATENT);
@@ -83,7 +84,7 @@ public class DeepMappingWithMapIdTest {
         Assert.assertEquals(new Integer(1), srcChild1.getId());
                 
         //Perform the mapping
-        DozerBeanMapper mapper = new DozerBeanMapper();
+        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
         mapper.addMapping(getParentMapping(ParentWithChildSet.class));
         mapper.addMapping(getChildMapping());
         mapper.map(src, dest, MAP_ID_PATENT);

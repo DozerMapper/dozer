@@ -18,7 +18,7 @@ package org.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.MappingException;
 import org.dozer.vo.abstractinheritance.A;
 import org.dozer.vo.abstractinheritance.AbstractA;
@@ -66,7 +66,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   public void testNoCustomMappingForAbstractClasses() throws Exception {
     // Test that wildcard fields in abstract classes are mapped when there is no explicit abstract custom mapping
     // definition
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
 
     A src = getA();
     B dest = mapper.map(src, B.class);

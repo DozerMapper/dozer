@@ -25,6 +25,7 @@ import static junit.framework.Assert.assertTrue;
 
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerConverter;
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
@@ -69,7 +70,9 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
 
   @Test
   public void test_convert_withSubclassedConverterInstance() throws Exception {
-    DozerBeanMapper mapper = new DozerBeanMapper(Arrays.asList("mappings/customConverterMapperAware.xml"));
+    DozerBeanMapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/customConverterMapperAware.xml")
+            .build();
     mapper.setCustomConverters(Arrays.<CustomConverter>asList(new Converter() {
       @Override
       public Map convertTo(List source, Map destination) {

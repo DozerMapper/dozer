@@ -26,6 +26,7 @@ import java.util.TreeMap;
 import static junit.framework.Assert.assertNotSame;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.functional_tests.AbstractFunctionalTest;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -47,7 +48,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    beanMapper = new DozerBeanMapper();
+    beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
     source = new MapContainer();
     target = new MapContainer();
   }
@@ -141,7 +142,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDozerMultiTypeMapContainingCollections() throws Exception {
-    DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
+    DozerBeanMapper dozerBeanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
 
     // Setting up test data, multiple types in a single Map
     DozerExampleEntry entry = new DozerExampleEntry();

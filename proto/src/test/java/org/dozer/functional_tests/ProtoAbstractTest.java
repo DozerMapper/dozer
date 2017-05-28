@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.util.DozerConstants;
 import org.junit.Ignore;
 
@@ -32,7 +33,7 @@ public class ProtoAbstractTest {
         System.setProperty("log4j.debug", "true");
         System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
 
-        DozerBeanMapper mapper = new DozerBeanMapper();
+        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
         mapper.setMappingFiles(fileNames);
 
         return mapper;

@@ -18,6 +18,7 @@ package org.dozer;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class DozerBeanMapperTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
     exceptions = new ArrayList<Throwable>();
     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
       public void uncaughtException(Thread t, Throwable e) {
@@ -114,6 +115,10 @@ public class DozerBeanMapperTest extends Assert {
 
   class CallTrackingMapper extends DozerBeanMapper {
     AtomicInteger calls = new AtomicInteger(0);
+
+    CallTrackingMapper() {
+      super(Collections.emptyList());
+    }
 
     @Override
     void loadCustomMappings() {

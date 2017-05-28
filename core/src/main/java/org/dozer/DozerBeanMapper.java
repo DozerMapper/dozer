@@ -94,11 +94,7 @@ public class DozerBeanMapper implements Mapper {
   private final CacheManager cacheManager = new DozerCacheManager();
   private DozerEventManager eventManager;
 
-  public DozerBeanMapper() {
-    this(Collections.<String>emptyList());
-  }
-
-  public DozerBeanMapper(List<String> mappingFiles) {
+  DozerBeanMapper(List<String> mappingFiles) {
     this.mappingFiles.addAll(mappingFiles);
     init();
   }

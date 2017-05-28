@@ -20,7 +20,9 @@
         "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-lazy-init="false">
 
-    <bean id="mapperWithEventListener" class="org.dozer.DozerBeanMapper" scope="singleton">
+    <bean id="mapperWithEventListener"
+          class="org.dozer.DozerBeanMapperBuilder"
+          factory-method="buildDefaultImplicit">
         <property name="eventListeners">
             <list>
                 <ref bean="eventTestListener"/>

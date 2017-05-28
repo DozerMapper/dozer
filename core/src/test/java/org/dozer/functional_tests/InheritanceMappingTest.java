@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.NoSuperClass;
 import org.dozer.vo.SubClass;
@@ -89,7 +89,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
   @Test
   public void testNoCustomMappingForSuperClasses() throws Exception {
     // Test that wildcard fields in super classes are mapped when there is no explicit super custom mapping definition
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
 
     A src = getA();
     B dest = mapper.map(src, B.class);

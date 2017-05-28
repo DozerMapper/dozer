@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,8 +34,7 @@ public class SimpleTest extends Assert {
 
   @Before
   public void setUp() {
-    beanMapper = new DozerBeanMapper();
-
+    beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
   }
 
   @Test

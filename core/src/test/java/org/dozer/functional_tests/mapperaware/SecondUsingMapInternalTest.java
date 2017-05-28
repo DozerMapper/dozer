@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
 import org.dozer.vo.mapperaware.MapperAwareSimpleDest;
@@ -42,7 +43,7 @@ public class SecondUsingMapInternalTest {
 
   @Before
   public void setup() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
     List<String> mappingFileUrls = new ArrayList<String>();
     mappingFileUrls.add("mappings/mapper-aware.xml");
 

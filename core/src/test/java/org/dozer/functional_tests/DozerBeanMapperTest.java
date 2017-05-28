@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerInitializer;
 import org.dozer.Mapper;
 import org.dozer.MappingException;
@@ -90,17 +91,16 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   public void testNoMappingFilesSpecified() throws Exception {
     // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
     // automatically.
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
 
     assertCommon(mapper);
   }
 
   @Test(expected=IllegalArgumentException.class)
   public void testDetectDuplicateMapping() throws Exception {
-    Mapper myMapper = null;
-    List<String> mappingFiles = new ArrayList<String>();
-    mappingFiles.add("mappings/duplicateMapping.xml");
-    myMapper = new DozerBeanMapper(mappingFiles);
+    Mapper myMapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/duplicateMapping.xml")
+            .build();
 
     myMapper.map(new org.dozer.vo.SuperSuperSuperClass(), org.dozer.vo.SuperSuperSuperClassPrime.class);
     fail("should have thrown exception");
@@ -141,7 +141,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
   @Test
   public void testDestroy() throws Exception {
-    DozerBeanMapper mapper = new DozerBeanMapper();
+    DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
     assertTrue(DozerInitializer.getInstance().isInitialized());
     mapper.destroy();
     assertFalse(DozerInitializer.getInstance().isInitialized());
@@ -149,7 +149,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
   @Test
   public void testGlobalNullAndEmptyString() throws Exception {
-    DozerBeanMapper mapperMapNull = new DozerBeanMapper();
+    DozerBeanMapper mapperMapNull = DozerBeanMapperBuilder.buildDefaultImplicit();
     DozerBeanMapper mapperNotMapNull = (DozerBeanMapper) getNewMapper(new String[]{"mappings/customGlobalConfigWithNullAndEmptyStringTest.xml"});
     Van src = new Van();
     Van dest = new Van();
@@ -177,7 +177,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
         list.add(mappingFiles[i]);
       }
     }
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
     ((DozerBeanMapper) mapper).setMappingFiles(list);
     return mapper;
   }

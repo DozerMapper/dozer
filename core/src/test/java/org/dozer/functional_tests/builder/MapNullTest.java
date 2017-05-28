@@ -16,6 +16,7 @@
 package org.dozer.functional_tests.builder;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.functional_tests.AbstractFunctionalTest;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
@@ -37,7 +38,7 @@ public class MapNullTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    beanMapper = new DozerBeanMapper();
+    beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
     source = new Source();
     destination = new Destination();
   }

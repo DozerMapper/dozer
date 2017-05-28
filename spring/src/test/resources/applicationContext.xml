@@ -24,7 +24,9 @@
     <import resource="classpath:spring-event-listener.xml"/>
     <import resource="classpath:spring-bean-mapping-builder.xml"/>
 
-    <bean id="implicitMapper" class="org.dozer.DozerBeanMapper" scope="singleton"/>
+    <bean id="implicitMapper"
+          class="org.dozer.DozerBeanMapperBuilder"
+          factory-method="buildDefaultImplicit"/>
 
     <!-- Provided Spring Integration -->
     <bean id="byFactory" class="org.dozer.spring.DozerBeanMapperFactoryBean">

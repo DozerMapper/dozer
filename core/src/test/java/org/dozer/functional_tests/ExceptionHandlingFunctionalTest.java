@@ -16,6 +16,7 @@
 package org.dozer.functional_tests;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.MappingException;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Before;
@@ -39,7 +40,7 @@ public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void shouldFailOnDuplicateMapping() {
-    DozerBeanMapper mapper = new DozerBeanMapper();
+    DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
     mapper.addMapping(new BeanMappingBuilder() {
       @Override
       protected void configure() {

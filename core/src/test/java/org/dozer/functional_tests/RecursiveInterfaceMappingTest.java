@@ -15,11 +15,9 @@
  */
 package org.dozer.functional_tests;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.interfacerecursion.User;
 import org.dozer.vo.interfacerecursion.UserGroup;
@@ -67,9 +65,9 @@ public class RecursiveInterfaceMappingTest extends AbstractFunctionalTest {
     }
 
     // get mapper
-    List<String> mappingFiles = new ArrayList<String>();
-    mappingFiles.add("mappings/interface-recursion-mappings.xml");
-    Mapper mapper = new DozerBeanMapper(mappingFiles);
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/interface-recursion-mappings.xml")
+            .build();
 
     // do mapping
     UserGroupPrime userGroupPrime = null;

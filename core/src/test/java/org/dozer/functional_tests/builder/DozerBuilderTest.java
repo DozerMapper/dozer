@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
@@ -50,7 +51,7 @@ public class DozerBuilderTest {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
   }
 
   @Test

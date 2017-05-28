@@ -15,9 +15,6 @@
  */
 package org.dozer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.dozer.util.DozerConstants;
 
 /**
@@ -38,10 +35,9 @@ public final class DozerBeanMapperSingletonWrapper {
 
     public static synchronized Mapper getInstance() {
         if (instance == null) {
-            List<String> mappingFiles = new ArrayList<String>();
-            mappingFiles.add(DozerConstants.DEFAULT_MAPPING_FILE);
-
-            instance = new DozerBeanMapper(mappingFiles);
+            instance = DozerBeanMapperBuilder.create()
+                    .withMappingFiles(DozerConstants.DEFAULT_MAPPING_FILE)
+                    .build();
         }
 
         return instance;
