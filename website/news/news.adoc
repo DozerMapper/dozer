@@ -1,6 +1,0 @@
-== News
-=== _2017-04-19_ 6.0.0 is coming!
-Soon!
-
-=== Archived News
-link:archived-news.adoc[See for pre-2017 news.]
