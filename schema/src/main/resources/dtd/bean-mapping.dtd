@@ -1,0 +1,238 @@
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!-- 
+    The document root
+--> 
+<!ELEMENT mappings ( configuration?, mapping* ) >
+
+<!--
+    Default values that are applied to all mappings.  Global Configuration.
+
+    Required Attributes: 
+
+    Optional Attributes: 
+
+            stop-on-errors   Indicates whether Dozer should stop mapping fields and throw the Exception if an error is encountered while performing a field mapping. 
+                             It is recommended that this is set to "true".  
+                             If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
+                             The default value is "true".
+               date-format   The string format of Date fields.  This is used for field mapping between Strings and Dates
+                  wildcard   Inicates whether Dozer automatically map fields that have the same name.  
+                             This will typically be set to "true".  The default value is "true"
+              trim-strings   Inicates whether Dozer automatically trims String values prior to setting the destination value.  
+                             The default value is "false"
+              bean-factory   The factory class to create data objects.  This typically will not be specified.  
+                             By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+         relationship-type   Indications whether collections are mapped cumulative or non-cumulative.  cumulative indicates the element is added to the collection.
+                             non-cumulative indicates the element will be added or an existing entry will be updated.  
+         custom-converters   The custom converters to be registered with Dozer.
+        copy-by-references   Indicates which class types should always be copied by reference
+-->
+<!ELEMENT configuration ( stop-on-errors?, date-format?, wildcard?, trim-strings?, map-null?, map-empty-string?, bean-factory?, relationship-type?, custom-converters*, copy-by-references*, allowed-exceptions* ) >
+
+
+<!--
+    Specifies a custom mapping definition between two classes(data types).  All Mapping definitions are bi-directional by default.
+    Global configuration element values are inherited 
+
+    Required Attributes:
+
+    Optional Attributes: 
+
+               date-format   The string format of Date fields.  This is used for field mapping between Strings and Dates
+            stop-on-errors   Indicates whether Dozer should stop mapping fields and throw the Exception if an error is encountered while performing a field mapping. 
+                             It is recommended that this is set to "true".  
+                             If set to "false", Dozer will trap the exception, log the error, and then continue mapping subsequent fields
+                             The default value is "true"
+                  wildcard   Inicates whether Dozer automatically map fields that have the same name.  The default value is "true"
+              trim-strings   Inicates whether Dozer automatically trims String values prior to setting the destination value.  
+                             The default value is "false"
+                  map-null   Indicates whether null values are mapped.  The default value is "true"
+          map-empty-string   Indicates whether empty string values are mapped. The default value is "true"
+              bean-factory   The factory class to create data objects.  This typically will not be specified.  
+                             By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+                      type   Indicates whether this mapping is bi-directional or only one-way.  Typically this will be set to bi-directional.
+                             The default is "bi-directional".
+                    map-id   The id that uniquely identifies this mapping definition.  This typically will not be specified.
+                             You would only need to specify this for only need this for special context based mapping
+                             and when mapping between Map objects and Custom Data Objects.
+         relationship-type   Indications whether collections are mapped cumulative or non-cumulative.  cumulative indicates the element is added to the collection.
+                             non-cumulative indicates the element will be added or an existing entry will be updated.  
+-->
+
+<!ELEMENT mapping ( class-a | class-b | field | field-exclude )* >
+<!ATTLIST mapping date-format CDATA #IMPLIED >
+<!ATTLIST mapping stop-on-errors CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping wildcard CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping trim-strings CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST mapping bean-factory CDATA #IMPLIED>
+<!ATTLIST mapping type (one-way | bi-directional) "bi-directional" >
+<!ATTLIST mapping relationship-type CDATA #IMPLIED >
+<!ATTLIST mapping map-id CDATA #IMPLIED>
+
+<!--
+    Specifies one of the classes in the mapping definition.  All Mapping definitions are bi-directional by default.
+    Global configuration and Mapping element values are inherited
+
+    Required Attributes:
+
+    Optional Attributes: 
+
+              bean-factory   The factory class to create data objects.  This typically will not be specified.  
+                             By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+           factory-bean-id   The id passed to the specified bean factory
+            map-set-method   For Map backed objects, this indicates which setter method should be used to retrieve field values.  
+                             This should only be used of Map backed objects.
+            map-get-method   For Map backed objects, this indicates which getter method should be used to retrieve field values.  
+                             This should only be used of Map backed objects.
+             create-method   Which method to invoke to create a new instance of the class.  This is typically not specified.
+                             By default, the no arg constructor(public or private) is used
+                  map-null   Indicates whether null values are mapped.  The default value is "true"
+          map-empty-string   Indicates whether empty string values are mapped. The default value is "true"
+-->
+<!ELEMENT class-a ( #PCDATA ) >
+<!ATTLIST class-a bean-factory CDATA #IMPLIED >
+<!ATTLIST class-a factory-bean-id CDATA #IMPLIED >
+<!ATTLIST class-a map-set-method CDATA #IMPLIED >
+<!ATTLIST class-a map-get-method CDATA #IMPLIED >
+<!ATTLIST class-a create-method CDATA #IMPLIED >
+<!ATTLIST class-a map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST class-a map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+
+
+<!--
+    Specifies the other class in the mapping definition
+-->
+<!ELEMENT class-b ( #PCDATA ) >
+<!ATTLIST class-b bean-factory CDATA #IMPLIED >
+<!ATTLIST class-b factory-bean-id CDATA #IMPLIED >
+<!ATTLIST class-b map-set-method CDATA #IMPLIED >
+<!ATTLIST class-b map-get-method CDATA #IMPLIED >
+<!ATTLIST class-b create-method CDATA #IMPLIED >
+<!ATTLIST class-b map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST class-b map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
+
+<!--
+    Specifies a custom field mapping.  Fields that share the same attribute name do not need to be defined.  
+    Dozer automatically maps fields that match on attribute name.  All Field Mapping definitions are bi-directional by default.  
+    Global configuration, Mapping, and Class element values are inherited.
+    
+    Hints are used for mapping Collection types.  A hint indicates which type of destination object should be created and added to the 
+    destination Collection.
+
+    Required Attributes:
+
+    Optional Attributes: 
+
+         relationship-type   For collections, indicates whether to add to existing values or to always replace any existing entries
+         remove-orphans      For collections, indicates whether items that did not exist in the source collection should be removed from the destination collection.          					 
+                      type   Indicates whether this mapping is bi-directional or only one-way.  Typically this will be set to bi-directional.
+                             The default is "bi-directional".
+                    map-id   The id that uniquely identifies this mapping definition.  This typically will not be specified.
+                             You would only need to specify this for only need this for special context based mapping
+                             and when mapping between Map objects and Custom Data Objects.
+         copy-by-reference   Indicates whether the source field value is copied by reference or by value when populating the destination field.
+                             The default value is "false"
+          custom-converter   Indicates that a specific custom converter should be used for mapping this field.  Typically this will not be specified.
+-->
+<!ELEMENT field ( a, b ,a-hint?, b-hint?, a-deep-index-hint?, b-deep-index-hint? ) >
+<!ATTLIST field relationship-type CDATA #IMPLIED  >
+<!ATTLIST field remove-orphans CDATA #IMPLIED>
+<!ATTLIST field type (one-way | bi-directional) "bi-directional" >
+<!ATTLIST field map-id CDATA #IMPLIED>
+<!ATTLIST field copy-by-reference CDATA #IMPLIED> <!-- (true | false ) "false" : if we don't make this CDATA the overidden flag is always true -->
+<!ATTLIST field custom-converter CDATA #IMPLIED>
+<!ATTLIST field custom-converter-id CDATA #IMPLIED>
+<!ATTLIST field custom-converter-param CDATA #IMPLIED>
+
+<!--
+    Exclude a particular field from being mapped
+-->
+<!ELEMENT field-exclude ( a, b ) >
+<!ATTLIST field-exclude type (one-way | bi-directional) "bi-directional" >
+
+
+<!--
+    Specifies one of the fields in the field mapping definition.  Global configuration, mapping, class, and field element values are inherited  
+
+    Required Attributes:
+
+    Optional Attributes: 
+
+               date-format   The string format of Date fields.  This is used for field mapping between Strings and Dates
+                set-method   Indicates which set method to invoke when setting the destination value.  Typically this will not be specified.
+                             By default, the beans attribute setter is used.
+                get-method   Indicates which get method to invoke on the src object to get the field value  Typically this will not be specified.
+                             By default, the beans attribute getter is used.
+             is-accessible   Indicates whether Dozer bypasses getter/setter methods and accesses the field directly.  
+                             This will typically be set to "false".  The default value is "false".  If set to "true", the 
+                             getter/setter methods will NOT be invoked.  You would want to set this to "true" if 
+                             the field is lacking a getter or setter method.
+-->
+<!ELEMENT a ( #PCDATA ) >
+<!ATTLIST a date-format CDATA #IMPLIED >
+<!ATTLIST a type (iterate | generic ) "generic" >
+<!ATTLIST a set-method CDATA #IMPLIED >
+<!ATTLIST a get-method CDATA #IMPLIED >
+<!ATTLIST a key CDATA #IMPLIED >
+<!ATTLIST a map-set-method CDATA #IMPLIED >
+<!ATTLIST a map-get-method CDATA #IMPLIED >
+<!ATTLIST a is-accessible CDATA #IMPLIED >
+<!ATTLIST a create-method CDATA #IMPLIED>
+
+<!--
+    Specifies the other field in the field mapping definition.
+-->
+<!ELEMENT b ( #PCDATA ) >
+<!ATTLIST b date-format CDATA #IMPLIED >
+<!ATTLIST b type (iterate | generic ) "generic" >
+<!ATTLIST b set-method CDATA #IMPLIED >
+<!ATTLIST b get-method CDATA #IMPLIED >
+<!ATTLIST b key CDATA #IMPLIED >
+<!ATTLIST b map-set-method CDATA #IMPLIED >
+<!ATTLIST b map-get-method CDATA #IMPLIED >
+<!ATTLIST b is-accessible CDATA #IMPLIED >
+<!ATTLIST b create-method CDATA #IMPLIED>
+
+<!--
+    DTD element declarations
+-->
+<!ELEMENT a-hint ( #PCDATA ) >
+<!ELEMENT b-hint ( #PCDATA ) >
+<!ELEMENT a-deep-index-hint ( #PCDATA ) >
+<!ELEMENT b-deep-index-hint ( #PCDATA ) >
+<!ELEMENT stop-on-errors ( #PCDATA ) >
+<!ELEMENT date-format ( #PCDATA ) >
+<!ELEMENT map-null ( #PCDATA ) >
+<!ELEMENT map-empty-string ( #PCDATA ) >
+<!ELEMENT wildcard ( #PCDATA ) >
+<!ELEMENT trim-strings ( #PCDATA ) >
+<!ELEMENT bean-factory ( #PCDATA ) >
+<!ELEMENT relationship-type ( #PCDATA ) >
+<!ELEMENT custom-converters ( converter+ ) >
+<!ELEMENT copy-by-references ( copy-by-reference+ ) >
+<!ELEMENT copy-by-reference ( #PCDATA ) >
+<!ELEMENT is-accessible ( #PCDATA ) >
+<!ELEMENT allowed-exceptions ( exception+ ) >
+<!ELEMENT exception ( #PCDATA ) >
+
+<!ELEMENT converter ( class-a, class-b ) >
+<!ATTLIST converter type CDATA #REQUIRED >
+

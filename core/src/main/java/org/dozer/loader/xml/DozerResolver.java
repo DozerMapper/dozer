@@ -22,6 +22,8 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
 import org.dozer.config.BeanContainer;
+import org.dozer.schema.DefaultSchemaResolver;
+import org.dozer.schema.SchemaResolver;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.slf4j.Logger;
@@ -38,27 +40,34 @@ import org.slf4j.LoggerFactory;
  */
 public class DozerResolver implements EntityResolver {
 
-  private final Logger log = LoggerFactory.getLogger(DozerResolver.class);
 
-  public InputSource resolveEntity(String publicId, String systemId) {
-    log.debug("Trying to resolve XML entity with public ID [{}] and system ID [{}]", publicId, systemId);
-    if (systemId != null && systemId.indexOf(DozerConstants.XSD_NAME) > systemId.lastIndexOf("/")) {
-      String fileName = systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME));
-      log.debug("Trying to locate [{}] in classpath", fileName);
-      try {
-        DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
-        URL url = classLoader.loadResource(fileName);
-        InputStream stream = url.openStream();
-        InputSource source = new InputSource(stream);
-        source.setPublicId(publicId);
-        source.setSystemId(systemId);
-        log.debug("Found beanmapping XML Schema [{}] in classpath", systemId);
-        return source;
-      } catch (Exception ex) {
-        log.error("Could not resolve beanmapping XML Schema [" + systemId + "]: not found in classpath", ex);
-      }
+    private final Logger log = LoggerFactory.getLogger(DozerResolver.class);
+
+    public InputSource resolveEntity(String publicId, String systemId) {
+        log.debug("Trying to resolve XML entity with public ID [{}] and system ID [{}]", publicId, systemId);
+
+        if (systemId != null && systemId.indexOf(DozerConstants.XSD_NAME) > systemId.lastIndexOf("/")) {
+            String fileName = systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME));
+
+            log.debug("Trying to locate [{}] in classpath", fileName);
+
+            try {
+                SchemaResolver schemaResolver = new DefaultSchemaResolver();
+                URL url = schemaResolver.get(fileName);
+
+                InputSource source = new InputSource(url.openStream());
+                source.setPublicId(publicId);
+                source.setSystemId(systemId);
+
+                log.debug("Found beanmapping XML Schema [{}] in classpath", systemId);
+
+                return source;
+            } catch (Exception ex) {
+                log.error("Could not resolve beanmapping XML Schema [" + systemId + "]: not found in classpath", ex);
+            }
+        }
+
+        // use the default behaviour -> download from website or wherever
+        return null;
     }
-    // use the default behaviour -> download from website or wherever
-    return null;
-  }
 }
