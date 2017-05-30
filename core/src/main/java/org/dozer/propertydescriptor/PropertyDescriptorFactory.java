@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
