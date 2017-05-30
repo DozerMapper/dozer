@@ -49,8 +49,12 @@ public final class PropertyDescriptorFactory {
         boolean isMapProperty = MappingUtils.isSupportedMap(clazz);
         if (name.equals(DozerConstants.SELF_KEYWORD) &&
             (mapSetMethod != null || mapGetMethod != null || isMapProperty)) {
-            String setMethod = isMapProperty ? "put" : mapSetMethod;
-            String getMethod = isMapProperty ? "get" : mapGetMethod;
+
+            // If no mapSetMethod is defined, default to "put"
+            String setMethod = StringUtils.isBlank(mapSetMethod) ? "put" : mapSetMethod;
+            
+            // If no mapGetMethod is defined, default to "get".
+            String getMethod = StringUtils.isBlank(mapGetMethod) ? "get" : mapGetMethod;
 
             desc = new MapPropertyDescriptor(clazz, name, isIndexed, index, setMethod,
                                              getMethod, key != null ? key : oppositeFieldName,
