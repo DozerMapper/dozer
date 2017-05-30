@@ -34,7 +34,9 @@ public class DefaultSchemaResolver implements SchemaResolver {
             LOG.debug("Trying OSGi bundle context for schema/{}", fileName);
 
             BundleContext context = Activator.getBundleContext();
-            answer = context.getBundle().getResource("schema/" + fileName);
+            if (context != null) {
+                answer = context.getBundle().getResource("schema/" + fileName);
+            }
         }
 
         return answer;
