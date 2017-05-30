@@ -17,9 +17,26 @@ package org.dozer.schema;
 
 import java.net.URL;
 
+import org.dozer.schema.osgi.Activator;
+import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class DefaultSchemaResolver implements SchemaResolver {
 
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultSchemaResolver.class);
+
     public URL get(String fileName) {
-        return getClass().getClassLoader().getResource("schema/" + fileName);
+        LOG.debug("Trying {} class loader for schema/{}", getClass().getCanonicalName(), fileName);
+
+        URL answer = getClass().getClassLoader().getResource("schema/" + fileName);
+        if (answer == null) {
+            LOG.debug("Trying OSGi bundle context for schema/{}", fileName);
+
+            BundleContext context = Activator.getBundleContext();
+            answer = context.getBundle().getResource("schema/" + fileName);
+        }
+
+        return answer;
     }
 }

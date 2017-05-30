@@ -52,8 +52,17 @@ public class DozerResolver implements EntityResolver {
             log.debug("Trying to locate [{}] in classpath", fileName);
 
             try {
-                SchemaResolver schemaResolver = new DefaultSchemaResolver();
-                URL url = schemaResolver.get(fileName);
+                //Attempt to find via user defined class loader
+                DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+                URL url = classLoader.loadResource(fileName);
+                if (url == null) {
+                    //Attempt to find via dozer-schema jar
+                    SchemaResolver schemaResolver = new DefaultSchemaResolver();
+                    url = schemaResolver.get(fileName);
+                    if (url == null) {
+                        throw new IllegalArgumentException("Failed to find: " + fileName);
+                    }
+                }
 
                 InputSource source = new InputSource(url.openStream());
                 source.setPublicId(publicId);
