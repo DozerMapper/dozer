@@ -17,9 +17,10 @@ package org.dozer.osgi;
 
 import java.util.Collections;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.dozer.DozerBeanMapper;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -43,43 +44,42 @@ import static org.ops4j.pax.exam.CoreOptions.url;
 @ExamReactorStrategy(PerMethod.class)
 public class OsgiContainerTest {
 
-  @Inject
-  private BundleContext bundleContext;
+    @Inject
+    private BundleContext bundleContext;
 
-  @Configuration
-  public Option[] config() {
+    @Configuration
+    public Option[] config() {
 
-    return options(
-        url("link:classpath:com.github.dozermapper.dozer-core.link"),
-        url("link:classpath:org.apache.commons.beanutils.link"),
-        url("link:classpath:org.apache.commons.collections.link"),
-        url("link:classpath:org.apache.commons.lang3.link"),
-        junitBundles(),
-        systemPackages("javax.net.ssl", "javax.xml.parsers", "javax.management", "javax.xml.datatype",
-                       "org.w3c.dom", "org.xml.sax", "org.xml.sax.helpers")
-    );
-  }
+        return options(
+            url("link:classpath:com.github.dozermapper.dozer-core.link"),
+            url("link:classpath:com.github.dozermapper.dozer-schema.link"),
+            url("link:classpath:org.apache.commons.beanutils.link"),
+            url("link:classpath:org.apache.commons.collections.link"),
+            url("link:classpath:org.apache.commons.lang3.link"),
+            junitBundles(),
+            systemPackages("javax.net.ssl", "javax.xml.parsers", "javax.management", "javax.xml.datatype",
+                           "org.w3c.dom", "org.xml.sax", "org.xml.sax.helpers")
+        );
+    }
 
-  @Test
-  public void shouldInstantiate() {
-    DozerBeanMapper beanMapper = new DozerBeanMapper();
-    assertThat(beanMapper, notNullValue());
-  }
+    @Test
+    public void shouldInstantiate() {
+        DozerBeanMapper beanMapper = new DozerBeanMapper();
+        assertThat(beanMapper, notNullValue());
+    }
 
-  @Test
-  public void shouldMap() {
-    DozerBeanMapper beanMapper = new DozerBeanMapper();
-    Object result = beanMapper.map(new Object(), Object.class);
-    assertThat(result, notNullValue());
-  }
+    @Test
+    public void shouldMap() {
+        DozerBeanMapper beanMapper = new DozerBeanMapper();
+        Object result = beanMapper.map(new Object(), Object.class);
+        assertThat(result, notNullValue());
+    }
 
-  @Ignore
-  @Test
-  public void shouldLoadMappingFile() {
-    List<String> mappingFiles = Collections.singletonList("mapping.xml");
-    DozerBeanMapper beanMapper = new DozerBeanMapper(mappingFiles);
-    Object result = beanMapper.map(new Object(), Object.class);
-    assertThat(result, notNullValue());
-  }
-
+    @Test
+    public void shouldLoadMappingFile() {
+        List<String> mappingFiles = Collections.singletonList("mapping.xml");
+        DozerBeanMapper beanMapper = new DozerBeanMapper(mappingFiles);
+        Object result = beanMapper.map(new Object(), Object.class);
+        assertThat(result, notNullValue());
+    }
 }

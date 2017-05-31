@@ -33,6 +33,12 @@
     <name>Dozer :: Core</name>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-schema</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Commons -->
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -118,23 +124,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/site/resources/schema</directory>
-                <includes>
-                    <include>beanmapping.xsd</include>
-                </includes>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/site/resources/schema</directory>
-            </testResource>
-        </testResources>
-
         <plugins>
             <!-- Core Java Plugins; alphabetical order -->
             <plugin>

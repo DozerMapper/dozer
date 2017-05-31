@@ -17,8 +17,8 @@
 
 -->
 <schema xmlns='http://www.w3.org/2001/XMLSchema'
-        targetNamespace='http://dozer.sourceforge.net'
-        xmlns:t='http://dozer.sourceforge.net'>
+        targetNamespace='http://dozermapper.github.io'
+        xmlns:t='http://dozermapper.github.io'>
 
   <element name='mappings'>
     <annotation>
