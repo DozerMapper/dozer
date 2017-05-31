@@ -23,12 +23,6 @@ import static org.junit.Assert.assertNull;
 public class DefaultSchemaResolverTest {
 
     @Test
-    public void canGetBeanMappingWithoutHypon() {
-        SchemaResolver resolver = new DefaultSchemaResolver();
-        assertNotNull(resolver.get("beanmapping.xsd"));
-    }
-
-    @Test
     public void canGetBeanMappingWithHypon() {
         SchemaResolver resolver = new DefaultSchemaResolver();
         assertNotNull(resolver.get("bean-mapping.xsd"));
