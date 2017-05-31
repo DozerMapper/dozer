@@ -20,15 +20,18 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
-    <configuration>
-        <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
-        <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
-            </converter>
-        </custom-converters>
-    </configuration>
+    <mapping map-null="false" map-empty-string="false">
+        <class-a>org.dozer.vo.AnotherTestObject</class-a>
+        <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+        <field>
+            <a>field4</a>
+            <b>to.one</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b map-null="false" map-empty-string="false">org.dozer.vo.TestObjectPrime2</class-b>
+    </mapping>
 
 </mappings>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright 2005-2017 Dozer Project
@@ -20,15 +19,19 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
-    <configuration>
-        <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
-        <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
-            </converter>
-        </custom-converters>
-    </configuration>
+    <mapping>
+        <class-a>org.dozer.functional_tests.MultipleHintsTest$SourceClass</class-a>
+        <class-b>org.dozer.functional_tests.MultipleHintsTest$DestinationClass</class-b>
+        <field>
+            <a>listOfSrcA</a>
+            <b set-method="addA" type="iterate">listOfA</b>
+            <a-hint>org.dozer.functional_tests.MultipleHintsTest$SrcA$SrcB,
+                org.dozer.functional_tests.MultipleHintsTest$SrcA$SrcC
+            </a-hint>
+            <b-hint>org.dozer.functional_tests.MultipleHintsTest$A$B,
+                org.dozer.functional_tests.MultipleHintsTest$A$C
+            </b-hint>
+        </field>
+    </mapping>
 
 </mappings>

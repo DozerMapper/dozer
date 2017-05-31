@@ -21,14 +21,21 @@
           xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <configuration>
-        <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
         <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
+            <converter type="org.dozer.functional_tests.support.ThrowExceptionCustomConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>java.lang.String</class-b>
             </converter>
         </custom-converters>
     </configuration>
+
+    <mapping wildcard="false" map-null="false">
+        <class-a>org.dozer.vo.SimpleObj</class-a>
+        <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
+        <field>
+            <a>field1</a>
+            <b>field1Prime</b>
+        </field>
+    </mapping>
 
 </mappings>

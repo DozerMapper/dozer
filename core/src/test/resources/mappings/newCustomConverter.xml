@@ -21,14 +21,30 @@
           xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <configuration>
-        <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
         <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
+            <converter type="org.dozer.functional_tests.support.MyDozerConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>java.lang.Boolean</class-b>
             </converter>
         </custom-converters>
     </configuration>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.SimpleObj</class-a>
+        <class-b>org.dozer.vo.SimpleObj</class-b>
+        <field custom-converter="org.dozer.functional_tests.support.MyDozerConverter" custom-converter-param="*">
+            <a>field1</a>
+            <b>field7</b>
+        </field>
+    </mapping>
+
+    <mapping type="one-way">
+        <class-a>java.util.Collection</class-a>
+        <class-b>org.dozer.functional_tests.NewCustomConverterTest$IntContainer</class-b>
+        <field custom-converter="org.dozer.functional_tests.NewCustomConverterTest$IntConverter">
+            <a>this</a>
+            <b>value</b>
+        </field>
+    </mapping>
 
 </mappings>

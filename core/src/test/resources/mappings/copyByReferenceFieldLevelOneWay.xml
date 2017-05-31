@@ -21,14 +21,27 @@
           xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <configuration>
-        <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
-        <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
-            </converter>
-        </custom-converters>
+        <copy-by-references>
+            <copy-by-reference>org.dozer.vo.copybyreference.ReferencedObject</copy-by-reference>
+        </copy-by-references>
     </configuration>
+
+    <mapping map-id="one-way">
+        <class-a>org.dozer.vo.copybyreference.ReferenceHolderA</class-a>
+        <class-b>org.dozer.vo.copybyreference.ReferenceHolderB</class-b>
+        <field type="one-way">
+            <a>referencedObject</a>
+            <b>referencedObject</b>
+        </field>
+    </mapping>
+
+    <mapping map-id="bi-directional">
+        <class-a>org.dozer.vo.copybyreference.ReferenceHolderA</class-a>
+        <class-b>org.dozer.vo.copybyreference.ReferenceHolderB</class-b>
+        <field>
+            <a>referencedObject</a>
+            <b>referencedObject</b>
+        </field>
+    </mapping>
 
 </mappings>

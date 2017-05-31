@@ -16,9 +16,9 @@
     limitations under the License.
 
 -->
-<mappings xmlns="http://dozer.sourceforge.net"
+<mappings xmlns="http://dozermapper.github.io"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+          xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="true">
         <class-a>org.dozer.vo.proto.LiteTestObject</class-a>
@@ -28,7 +28,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.TestObject</class-a>
         <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
-
         <field>
             <a>one</a>
             <b>one</b>
@@ -38,7 +37,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.TestObject</class-a>
         <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired</class-b>
-
         <field>
             <a>one</a>
             <b>one</b>
@@ -48,12 +46,10 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.TestObjectContainer</class-a>
         <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-b>
-
         <field>
             <a>one</a>
             <b>one</b>
         </field>
-
         <field>
             <a>nested</a>
             <b>nestedObject</b>
@@ -63,7 +59,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ObjectWithEnumField</class-a>
         <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField</class-b>
-
         <field>
             <a>enumField</a>
             <b>enumField</b>
@@ -73,7 +68,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ObjectWithCollection</class-a>
         <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-b>
-
         <field>
             <a>objects</a>
             <b>object</b>
@@ -83,10 +77,10 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ObjectWithEnumCollection</class-a>
         <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection</class-b>
-
         <field>
             <a>enums</a>
             <b>object</b>
         </field>
     </mapping>
+
 </mappings>

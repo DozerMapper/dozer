@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright 2005-2017 Dozer Project
@@ -19,16 +18,5 @@
 <mappings xmlns="http://dozermapper.github.io"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
-
-    <configuration>
-        <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
-        <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
-            </converter>
-        </custom-converters>
-    </configuration>
 
 </mappings>

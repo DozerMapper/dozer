@@ -22,13 +22,34 @@
 
     <configuration>
         <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
-        <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
-            </converter>
-        </custom-converters>
+        <date-format>dd/MM/yyyy</date-format>
+        <wildcard>false</wildcard>
     </configuration>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.SuperA</class-a>
+        <class-b>java.util.Map</class-b>
+        <field>
+            <a>superAField</a>
+            <b key="superAField">this</b>
+        </field>
+        <field>
+            <a>superField1</a>
+            <b key="superField1">this</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.A</class-a>
+        <class-b>java.util.Map</class-b>
+        <field>
+            <a>fieldA</a>
+            <b key="fieldA">this</b>
+        </field>
+        <field>
+            <a>field1</a>
+            <b key="field1">this</b>
+        </field>
+    </mapping>
 
 </mappings>

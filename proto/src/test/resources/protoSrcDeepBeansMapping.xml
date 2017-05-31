@@ -16,14 +16,13 @@
     limitations under the License.
 
 -->
-<mappings xmlns="http://dozer.sourceforge.net"
+<mappings xmlns="http://dozermapper.github.io"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+          xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-a>
         <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
-
         <field>
             <a>nestedObject.one</a>
             <b>one</b>
@@ -33,7 +32,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
         <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
-
         <field>
             <a>object[1].one</a>
             <b>one</b>
@@ -43,7 +41,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
         <class-b>org.dozer.vo.proto.ObjectWithCollection</class-b>
-
         <field>
             <a>object.object</a>
             <b>objects</b>
@@ -53,7 +50,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
         <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
-
         <field>
             <a>object.object[0]</a>
             <b>object</b>
@@ -63,7 +59,6 @@
     <mapping wildcard="false">
         <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
         <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
-
         <field>
             <a>object[1]</a>
             <b>object</b>

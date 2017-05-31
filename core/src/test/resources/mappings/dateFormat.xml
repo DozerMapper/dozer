@@ -20,15 +20,28 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io http://dozermapper.github.io/schema/bean-mapping.xsd">
 
-    <configuration>
-        <stop-on-errors>true</stop-on-errors>
-        <wildcard>true</wildcard>
-        <custom-converters>
-            <converter type="org.dozer.spring.functional_tests.support.InjectedCustomConverter">
-                <class-a>org.dozer.spring.vo.Source</class-a>
-                <class-b>org.dozer.spring.vo.Destination</class-b>
-            </converter>
-        </custom-converters>
-    </configuration>
+    <mapping>
+        <class-a>java.util.Date</class-a>
+        <class-b>org.dozer.vo.DateContainer</class-b>
+        <field>
+            <a>this</a>
+            <b date-format="yyyy-MM-dd HH:mm:ss">date</b>
+        </field>
+        <field>
+            <a>this</a>
+            <b date-format="yyyy-MM-dd HH:mm:ss">set[0]</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.DateObjectSource</class-a>
+        <class-b>org.dozer.vo.DateObjectDest</class-b>
+        <field>
+            <a>recalledDate</a>
+            <b>recDate</b>
+            <b-hint>com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl</b-hint>
+        </field>
+    </mapping>
+
 
 </mappings>
