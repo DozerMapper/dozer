@@ -15,7 +15,9 @@
  */
 package org.dozer.loader.xml;
 
-import java.io.InputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.xml.sax.EntityResolver;
@@ -31,52 +33,104 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Internal EntityResolver implementation to load Xml Schema from the dozer classpath resp. JAR file.
- * 
  * <p>
- * Fetches "beanmapping.xsd" from the classpath resource "/beanmapping.xsd", no matter if specified as some
- * local URL or as "http://dozer.sourceforge.net/schema/beanmapping.xsd".
- * 
+ * Fetches "bean-mapping.xsd" from the classpath resource "/bean-mapping.xsd", no matter if specified as some
+ * local URL or as "http://dozermapper.github.io/schema/bean-mapping.xsd".
+ *
  * @author garsombke.franz
  */
 public class DozerResolver implements EntityResolver {
 
-
     private final Logger log = LoggerFactory.getLogger(DozerResolver.class);
 
     public InputSource resolveEntity(String publicId, String systemId) {
+        InputSource source = null;
+
         log.debug("Trying to resolve XML entity with public ID [{}] and system ID [{}]", publicId, systemId);
 
+        try {
+            source = resolveFromClassPath(publicId, systemId);
+        } catch (IOException ex1) {
+            log.error("Could not resolve bean-mapping XML Schema [" + systemId + "]: not found in classpath", ex1);
+
+            try {
+                source = resolveFromURL(systemId);
+            } catch (IOException ex2) {
+                log.error("Could not resolve bean-mapping XML Schema [" + systemId + "]", ex2);
+            }
+        }
+
+        return source;
+    }
+
+    /**
+     * 1. Checks if DozerClassloader (i.e.: maybe the user is using a local XSD for some reason)
+     * 2. Trys classloader for dozer-schema.jar
+     * 3. Trys bundle context for dozer-schema.jar
+     *
+     * @param publicId publicId used by XSD
+     * @param systemId systemId used by XSD
+     * @return stream to XSD
+     * @throws IOException if fails to find XSD
+     */
+    private InputSource resolveFromClassPath(String publicId, String systemId) throws IOException {
+        InputSource source = null;
         if (systemId != null && systemId.indexOf(DozerConstants.XSD_NAME) > systemId.lastIndexOf("/")) {
             String fileName = systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME));
 
             log.debug("Trying to locate [{}] in classpath", fileName);
 
-            try {
-                //Attempt to find via user defined class loader
-                DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
-                URL url = classLoader.loadResource(fileName);
+            //Attempt to find via user defined class loader
+            DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+            URL url = classLoader.loadResource(fileName);
+            if (url == null) {
+                //Attempt to find via dozer-schema jar
+                SchemaResolver schemaResolver = new DefaultSchemaResolver();
+                url = schemaResolver.get(fileName);
                 if (url == null) {
-                    //Attempt to find via dozer-schema jar
-                    SchemaResolver schemaResolver = new DefaultSchemaResolver();
-                    url = schemaResolver.get(fileName);
-                    if (url == null) {
-                        throw new IllegalArgumentException("Failed to find: " + fileName);
-                    }
+                    throw new IOException("Could not resolve bean-mapping XML Schema [" + systemId + "]: not found in classpath; " + fileName);
                 }
+            }
 
-                InputSource source = new InputSource(url.openStream());
+            try {
+                source = new InputSource(url.openStream());
                 source.setPublicId(publicId);
                 source.setSystemId(systemId);
-
-                log.debug("Found beanmapping XML Schema [{}] in classpath", systemId);
-
-                return source;
-            } catch (Exception ex) {
-                log.error("Could not resolve beanmapping XML Schema [" + systemId + "]: not found in classpath", ex);
+            } catch (IOException ex) {
+                throw new IOException("Could not resolve bean-mapping XML Schema [" + systemId + "]: not found in classpath; " + fileName, ex);
             }
+
+            log.debug("Found bean-mapping XML Schema [{}] in classpath", systemId);
         }
 
-        // use the default behaviour -> download from website or wherever
-        return null;
+        return source;
+    }
+
+    /**
+     * NOTE: GitHub.io returns 301 so we need to handle redirection here, else SAX fails.
+     *
+     * @param systemId systemId used by XSD
+     * @return stream to XSD
+     * @throws IOException if fails to find XSD
+     */
+    private InputSource resolveFromURL(String systemId) throws IOException {
+        log.debug("Trying to download [{}]", systemId);
+
+        URL obj = new URL(systemId);
+        HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+
+        int status = conn.getResponseCode();
+        if ((status != HttpURLConnection.HTTP_OK) &&
+            (status == HttpURLConnection.HTTP_MOVED_TEMP
+             || status == HttpURLConnection.HTTP_MOVED_PERM
+             || status == HttpURLConnection.HTTP_SEE_OTHER)) {
+
+            log.debug("Received status of {}, attempting to follow Location header", status);
+
+            String newUrl = conn.getHeaderField("Location");
+            conn = (HttpURLConnection) new URL(newUrl).openConnection();
+        }
+
+        return new InputSource(conn.getInputStream());
     }
 }
