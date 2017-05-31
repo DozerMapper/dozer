@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Functional test for enum mapping as described 
- * <a href=http://dozer.sourceforge.net/documentation/enum.html>here</a>.
+ * <a href=https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/enum.adoc>here</a>.
  * 
  * In this functional test, Enum is categorized into two types: Based Enum and Overrided Enum.
  * Based Enum refers to those enum without any overrided methods, including constructors.  A 

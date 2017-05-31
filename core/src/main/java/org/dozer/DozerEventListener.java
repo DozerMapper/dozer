@@ -28,7 +28,8 @@ import org.dozer.event.DozerEvent;
  *
  * <p>
  * <a
- * href="http://dozer.sourceforge.net/documentation/events.html">http://dozer.sourceforge.net/documentation/events.html</a>
+ * href="https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/events.adoc">
+ * https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/events.adoc</a>
  *
  * @author garsombke.franz
  *

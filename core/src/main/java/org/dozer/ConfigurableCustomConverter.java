@@ -15,31 +15,27 @@
  */
 package org.dozer;
 
-
 /**
  * Public custom converter interface.
- * 
+ * <p>
  * In the Dozer mapping file(s), you can add some XML to tell Dozer to use a custom converter for certain class A and
  * class B types. When a custom converter is specified for a class A and class B combination, Dozer will invoke the
  * custom converter to perform the data mapping instead of the standard mapping logic.
- * 
+ * <p>
  * This interface also gives you the opportunity to send a configuration parameter to it
  * <p>
  * <a
- * href="http://dozer.sourceforge.net/documentation/customconverter.html">http://dozer.sourceforge.net/documentation/customconverter.html</a>
- * 
- * 
+ * href="https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/customconverter.adoc">
+ * https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/customconverter.adoc</a>
+ *
  * @author johnsen.knut-erik
- * 
  */
 public interface ConfigurableCustomConverter extends CustomConverter {
 
-  /**
-   * Setter for converter static parameter. Method is guaranteed to be called before the first execution.
-   *
-   * @param parameter - converter instance, which is injected via custom-converter-param attribute
-   */
-  void setParameter(String parameter);
-
-  
+    /**
+     * Setter for converter static parameter. Method is guaranteed to be called before the first execution.
+     *
+     * @param parameter - converter instance, which is injected via custom-converter-param attribute
+     */
+    void setParameter(String parameter);
 }
