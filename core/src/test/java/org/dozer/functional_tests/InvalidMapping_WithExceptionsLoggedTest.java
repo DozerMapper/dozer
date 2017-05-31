@@ -59,9 +59,9 @@ public class InvalidMapping_WithExceptionsLoggedTest extends AbstractFunctionalT
 
     @Test
     public void testNoFieldB() {
-        LOG.error("WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.b: The content of element 'field' is not complete. One of '{\"http://dozermapper.github.io\":b}' is expected'");
+        LOG.error("WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.b: The content of element 'field' is not complete. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":b}' is expected'");
 
-        testNoFieldBEE.expectMessage(Matchers.containsString("cvc-complex-type.2.4.b: The content of element 'field' is not complete. One of '{\"http://dozermapper.github.io\":b}' is expected"));
+        testNoFieldBEE.expectMessage(Matchers.containsString("cvc-complex-type.2.4.b: The content of element 'field' is not complete. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":b}' is expected"));
         testNoFieldBEE.expect(MappingException.class);
 
         mapper = getMapper("non-strict/invalidmapping2.xml");
@@ -98,9 +98,9 @@ public class InvalidMapping_WithExceptionsLoggedTest extends AbstractFunctionalT
 
     @Test
     public void testNoClassA() {
-        LOG.error("WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. One of '{\"http://dozermapper.github.io\":class-a}' is expected.'");
+        LOG.error("WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":class-a}' is expected.'");
 
-        testNoClassAEE.expectMessage(Matchers.containsString("cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. One of '{\"http://dozermapper.github.io\":class-a}' is expected."));
+        testNoClassAEE.expectMessage(Matchers.containsString("cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":class-a}' is expected."));
         testNoClassAEE.expect(MappingException.class);
 
         mapper = getMapper("non-strict/invalidmapping5.xml");

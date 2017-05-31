@@ -77,7 +77,7 @@ public class OsgiContainerTest {
 
     @Test
     public void shouldLoadMappingFile() {
-        List<String> mappingFiles = Collections.singletonList("mapping.xml");
+        List<String> mappingFiles = Collections.singletonList("mappings/mapping.xml");
         DozerBeanMapper beanMapper = new DozerBeanMapper(mappingFiles);
         Object result = beanMapper.map(new Object(), Object.class);
         assertThat(result, notNullValue());

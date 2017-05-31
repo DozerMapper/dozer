@@ -39,7 +39,7 @@ public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
 
     @Before
     public void setUp() throws Exception {
-        mapper = getMapper("protoSrcDeepBeansMapping.xml");
+        mapper = getMapper("mappings/protoSrcDeepBeansMapping.xml");
     }
 
     @Test
