@@ -31,7 +31,7 @@ public class TrimStringsTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper(new String[] { "trimStringsMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/trimStringsMapping.xml"});
   }
 
   @Test

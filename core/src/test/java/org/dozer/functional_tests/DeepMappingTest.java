@@ -42,7 +42,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapping() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
     DestDeepObj dest = mapper.map(src, DestDeepObj.class);
     SrcDeepObj src2 = mapper.map(dest, SrcDeepObj.class);
@@ -54,7 +54,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepPropertyOneWay() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
     House house = newInstance(House.class);
     Person owner = newInstance(Person.class);
     owner.setYourName("myName");
@@ -68,7 +68,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepInterfaceWithHint() throws Exception {
-    Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/fieldAttributeMapping.xml"});
     InsideTestObject ito = newInstance(InsideTestObject.class);
     House house = newInstance(House.class);
     MetalThingyIF thingy = newInstance(Car.class);
@@ -88,7 +88,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testDeepMapping_UsingCustomGetSetMethods() {
-    mapper = super.getMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
+    mapper = super.getMapper(new String[] {"mappings/deepMappingUsingCustomGetSet.xml"});
 
     Src src = newInstance(Src.class);
     src.setSrcField("srcFieldValue");

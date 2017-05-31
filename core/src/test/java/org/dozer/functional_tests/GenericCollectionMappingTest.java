@@ -51,7 +51,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testGenericCollectionMapping() throws Exception {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
 
     // prepare beans
     User user1 = newInstance(User.class);
@@ -104,7 +104,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMappingWithIndexOnSrcField() {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
 
     AnotherTestObject anotherTestObject = newInstance(AnotherTestObject.class);
     anotherTestObject.setField3("another test object field 3 value");
@@ -124,7 +124,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMappingWithIndexOnDestField() {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
     DestDeepObj src = newInstance(DestDeepObj.class);
     src.setDest5("some string value for field");
 
@@ -134,7 +134,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapIndexed() throws Exception {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
     Pet[] myPets = new Pet[2];
     Family source = newInstance(Family.class, new Object[] {"john", "jane", "doe", new Integer(22000), new Integer(20000)});
     Pet firstPet = newInstance(Pet.class, new Object[] {"molly", 2});
@@ -163,7 +163,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapInvIndexed() throws Exception {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
     HeadOfHouseHold source = newInstance(HeadOfHouseHold.class);
     source.setFirstName("Tom");
     source.setLastName("Roy");

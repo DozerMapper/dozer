@@ -47,7 +47,7 @@ public class BiDirectionalMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testBidirectionalWithCustomMapping() throws Exception {
-    Mapper mapper = getMapper(new String[] { "infiniteLoopMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/infiniteLoopMapping.xml"});
     LoopObjectParent loopObjectParent = newInstance(LoopObjectParent.class);
     LoopObjectChild loopObjectChild = newInstance(LoopObjectChild.class);
     loopObjectChild.setParent(loopObjectParent);

@@ -28,7 +28,7 @@ public class IsAccessibleTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    mapper = getMapper("nestedAccessible.xml");
+    mapper = getMapper("mappings/nestedAccessible.xml");
   }
 
   @Test

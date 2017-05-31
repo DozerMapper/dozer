@@ -33,7 +33,7 @@ public class JAXBBeansMapping_WithExceptionLoggedTest extends AbstractFunctional
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        mapper = getMapper("jaxbBeansMapping.xml");
+        mapper = getMapper("mappings/jaxbBeansMapping.xml");
     }
 
     @Test

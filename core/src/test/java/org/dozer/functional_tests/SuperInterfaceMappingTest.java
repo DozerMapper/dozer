@@ -32,7 +32,7 @@ public class SuperInterfaceMappingTest extends AbstractFunctionalTest {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("superInterfaceMapping.xml");
+    mapper = getMapper("mappings/superInterfaceMapping.xml");
   }
 
   @Test

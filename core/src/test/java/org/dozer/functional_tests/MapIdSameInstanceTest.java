@@ -38,7 +38,7 @@ public class MapIdSameInstanceTest extends AbstractFunctionalTest {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        mapper = getMapper("mapidsameinstance.xml");
+        mapper = getMapper("mappings/mapidsameinstance.xml");
 
         one = new One();
         two = createTwo();

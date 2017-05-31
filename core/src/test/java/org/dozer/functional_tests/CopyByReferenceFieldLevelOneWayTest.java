@@ -30,7 +30,7 @@ public class CopyByReferenceFieldLevelOneWayTest extends AbstractFunctionalTest 
 
     @Override
     public void setUp() throws Exception {
-        mapper = getMapper("copyByReferenceFieldLevelOneWay.xml");
+        mapper = getMapper("mappings/copyByReferenceFieldLevelOneWay.xml");
     }
 
     @Test

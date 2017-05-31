@@ -29,7 +29,7 @@ public class MapIdTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapIdWithSubClasses() {
-    mapper = getMapper("inheritanceMapping4.xml");
+    mapper = getMapper("mappings/inheritanceMapping4.xml");
 
     AContainer src = new AContainer();
     src.setAProperty(getA());
@@ -48,7 +48,7 @@ public class MapIdTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapIdWithHint() {
-    mapper = getMapper("mapIdWithHint.xml");
+    mapper = getMapper("mappings/mapIdWithHint.xml");
 
     AListContainer aListContainer = new AListContainer();
     aListContainer.getAList().add(getA());

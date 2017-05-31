@@ -39,7 +39,7 @@ public class IneritanceHintSupportTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("inheritanceHints.xml");
+    mapper = getMapper("mappings/inheritanceHints.xml");
   }
 
   @Test

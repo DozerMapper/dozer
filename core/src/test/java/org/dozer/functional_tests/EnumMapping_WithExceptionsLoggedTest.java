@@ -62,7 +62,7 @@ public class EnumMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest
         testEnumMapsToNonexistEnumValueEE.expectMessage("No enum constant org.dozer.vo.enumtest.DestType.BAR");
         testEnumMapsToNonexistEnumValueEE.expect(IllegalArgumentException.class);
 
-        mapper = getMapper(new String[] {"enumMapping.xml"});
+        mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
 
         MyBean src = newInstance(MyBean.class);
         src.setSrcType(SrcType.BAR);
@@ -81,7 +81,7 @@ public class EnumMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest
         testByteMapsToEnumOutOfOrdinalRangeEE.expect(MappingException.class);
         testByteMapsToEnumOutOfOrdinalRangeEE.expectMessage("Cannot convert [3] to enum of type class org.dozer.vo.enumtest.SrcTypeWithOverride");
 
-        mapper = getMapper(new String[] {"enumMapping.xml"});
+        mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
 
         MyBeanPrimeByte src = new MyBeanPrimeByte();
         src.setFirst((byte)0);
@@ -101,7 +101,7 @@ public class EnumMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest
         testShortMapsToEnumOutOfOrdinalRangeEE.expect(MappingException.class);
         testShortMapsToEnumOutOfOrdinalRangeEE.expectMessage("Cannot convert [3] to enum of type class org.dozer.vo.enumtest.SrcTypeWithOverride");
 
-        mapper = getMapper(new String[] {"enumMapping.xml"});
+        mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
 
         MyBeanPrimeShort src = new MyBeanPrimeShort();
         src.setFirst((short)0);
@@ -121,7 +121,7 @@ public class EnumMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest
         testIntegerMapsToEnumOutOfOrdinalRangeEE.expectMessage("Cannot convert [3] to enum of type class org.dozer.vo.enumtest.SrcTypeWithOverride");
         testIntegerMapsToEnumOutOfOrdinalRangeEE.expect(MappingException.class);
 
-        mapper = getMapper(new String[] {"enumMapping.xml"});
+        mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
 
         MyBeanPrimeInteger src = new MyBeanPrimeInteger();
         src.setFirst(0);
@@ -141,7 +141,7 @@ public class EnumMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest
         testLongMapsToEnumOutOfOrdinalRangeEE.expectMessage("Cannot convert [3] to enum of type class org.dozer.vo.enumtest.SrcTypeWithOverride");
         testLongMapsToEnumOutOfOrdinalRangeEE.expect(MappingException.class);
 
-        mapper = getMapper(new String[] {"enumMapping.xml"});
+        mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
 
         MyBeanPrimeLong src = new MyBeanPrimeLong();
         src.setFirst(0L);
@@ -161,7 +161,7 @@ public class EnumMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest
         testLongMapsToEnumOutOfOrdinalRangeEE.expectMessage("Cannot convert [BAZ] to enum of type class org.dozer.vo.enumtest.SrcType");
         testLongMapsToEnumOutOfOrdinalRangeEE.expect(MappingException.class);
 
-        mapper = getMapper(new String[] {"enumMapping.xml"});
+        mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
 
         MyBeanPrimeString src = new MyBeanPrimeString();
         src.setDestType("BAZ");

@@ -34,7 +34,7 @@ public class CopyByReferenceCollectionTest extends AbstractFunctionalTest {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("copyByReferenceCollectionTest.xml");
+    mapper = getMapper("mappings/copyByReferenceCollectionTest.xml");
   }
 
   @Test

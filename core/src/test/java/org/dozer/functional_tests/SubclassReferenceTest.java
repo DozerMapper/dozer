@@ -42,7 +42,7 @@ public class SubclassReferenceTest extends AbstractFunctionalTest {
   }
 
   protected String getMappingFile() {
-    return "reference-mapping.xml";
+    return "mappings/reference-mapping.xml";
   }
 
   @Test

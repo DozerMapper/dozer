@@ -52,12 +52,12 @@ public class RecursiveSelfMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testRecursiveSelfMapping() {
-    testMapping(c1, "selfreference_recursive.xml");
+    testMapping(c1, "mappings/selfreference_recursive.xml");
   }
 
   @Test
   public void testRecursiveSelfMapping_Iterate() {
-    testMapping(c1, "selfreference_recursive_iterate.xml");
+    testMapping(c1, "mappings/selfreference_recursive_iterate.xml");
   }
 
   private void testMapping(ContainerBean c1, String mappingFile) {

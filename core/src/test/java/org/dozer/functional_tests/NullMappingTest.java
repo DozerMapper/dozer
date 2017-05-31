@@ -44,7 +44,7 @@ public class NullMappingTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("nullMapping.xml");
+    mapper = getMapper("mappings/nullMapping.xml");
   }
 
   @Test

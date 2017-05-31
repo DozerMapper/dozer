@@ -35,7 +35,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class MetadataFieldTest extends AbstractFunctionalTest {
     
-    private static final String MAPPING_FILE = "metadataTest.xml";
+    private static final String MAPPING_FILE = "mappings/metadataTest.xml";
     private static final String CLASS_A = "org.dozer.vo.metadata.ClassA";
     private static final String CLASS_B = "org.dozer.vo.metadata.ClassB";
     private static final String NONEXISTENTFIELD = "noField";

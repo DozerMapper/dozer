@@ -30,7 +30,7 @@ public class ClassloaderTest extends AbstractFunctionalTest {
   @Test
   public void testClassloader() {
     ArrayList<String> files = new ArrayList<String>();
-    files.add("classloader.xml");
+    files.add("non-strict/classloader.xml");
     mapper = new DozerBeanMapper(files);
     assertNotNull(mapper);
   }

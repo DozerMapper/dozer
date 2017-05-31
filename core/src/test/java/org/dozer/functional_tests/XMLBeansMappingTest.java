@@ -42,7 +42,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testXmlBeans() throws Exception {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     // Map from TestObject to XMLBeans
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setOne("one");
@@ -83,7 +83,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     Child pojo = (Child) newInstance(Child.class);
 
     pojo.setId(BigInteger.valueOf(42));
@@ -109,7 +109,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     ChildType xmlBean = ChildType.Factory.newInstance();
 
     xmlBean.setId(BigInteger.valueOf(7236));
@@ -132,7 +132,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testXmlBeansWithNullFields() throws Exception {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     ChildType xmlBean = ChildType.Factory.newInstance();
 
     Child pojo = mapper.map(xmlBean, Child.class);

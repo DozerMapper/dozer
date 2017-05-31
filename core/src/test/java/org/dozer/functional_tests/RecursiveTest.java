@@ -55,7 +55,7 @@ public class RecursiveTest extends AbstractFunctionalTest {
    */
   @Test
   public void testConvertWithSubClass() {
-    mapper = getMapper("recursivemappings.xml", "recursivemappings2.xml");
+    mapper = getMapper("mappings/recursivemappings.xml", "mappings/recursivemappings2.xml");
     ClassAA testAA = createTestClassAA();
     // the == is on purpose, we test that the referenced parent of the first item of the subs is the parent instance
     // itself

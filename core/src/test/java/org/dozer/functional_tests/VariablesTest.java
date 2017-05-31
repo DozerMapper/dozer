@@ -37,7 +37,7 @@ public class VariablesTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("variables.xml");
+    mapper = getMapper("mappings/variables.xml");
   }
 
   @Test

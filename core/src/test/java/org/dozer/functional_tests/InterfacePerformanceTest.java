@@ -28,7 +28,7 @@ public class InterfacePerformanceTest extends AbstractFunctionalTest {
     @Test
     public void testInterface() throws Exception {
         log.info("Starting");
-        mapper = getMapper("interfaceMapping.xml");
+        mapper = getMapper("mappings/interfaceMapping.xml");
         { // warm up to load the config
             ApplicationUser source = new ApplicationUser();
             UpdateMember target = new UpdateMember();

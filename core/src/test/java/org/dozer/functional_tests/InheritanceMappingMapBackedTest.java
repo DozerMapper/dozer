@@ -39,7 +39,7 @@ public class InheritanceMappingMapBackedTest extends AbstractFunctionalTest {
      *    because the super classes and the interface classes were searched separately.   
      */
     
-    mapper = getMapper("inheritanceMappingMapBacked.xml");
+    mapper = getMapper("mappings/inheritanceMappingMapBacked.xml");
 
     A src = createA();
     Map dest = mapper.map(src, Map.class);

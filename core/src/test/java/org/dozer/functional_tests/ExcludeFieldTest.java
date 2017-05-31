@@ -35,7 +35,7 @@ public class ExcludeFieldTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("excludedField.xml");
+    mapper = getMapper("mappings/excludedField.xml");
   }
 
   @Test
