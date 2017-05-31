@@ -53,7 +53,7 @@
 .. link:documentation/examples.adoc[Examples]
 
 == Schema
-.. schema/beanmapping.xsd[Dozer Mapping XSD]
+.. schema/bean-mapping.xsd[Dozer Mapping XSD]
 .. dozer-user-guide.pdf[User's Guide PDF]
 
 == Eclipse Plugin
