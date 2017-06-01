@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.base.CaseFormat;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 
@@ -44,7 +45,7 @@ public class ProtobufBeanFieldsDetector implements BeanMappingGenerator.BeanFiel
     Set<String> resultSet = new HashSet<String>();
     List<Descriptors.FieldDescriptor> descriptors = ProtoUtils.getFieldDescriptors(clazz);
     for (Descriptors.FieldDescriptor descriptor : descriptors) {
-      resultSet.add(descriptor.getName());
+      resultSet.add(ProtoUtils.toCamelCase(descriptor.getName()));
     }
     return resultSet;
   }

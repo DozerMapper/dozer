@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.CaseFormat;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.DescriptorProtos;
 import com.google.protobuf.Descriptors;
@@ -28,6 +29,8 @@ import com.google.protobuf.Message;
 import com.google.protobuf.ProtocolMessageEnum;
 
 import org.apache.commons.lang3.StringUtils;
+
+import static com.google.common.base.CaseFormat.LOWER_UNDERSCORE;
 
 /**
  * @author Dmitry Spikhalskiy
@@ -61,23 +64,35 @@ public final class ProtoUtils {
         return protoBuilder.getDescriptorForType().getFields();
     }
 
+    /**
+     * Returns the first FieldDescriptor matching the specified field name, either with an exact match,
+     * or after applying a transformation to camel-case.  Returns null if there is no match.
+     */
     public static Descriptors.FieldDescriptor getFieldDescriptor(Class<? extends Message> clazz, String fieldName) {
         final List<Descriptors.FieldDescriptor> protoFieldDescriptors = getFieldDescriptors(clazz);
 
-        Descriptors.FieldDescriptor foundDescriptor = null;
         for (Descriptors.FieldDescriptor descriptor : protoFieldDescriptors) {
-            if (fieldName.equals(descriptor.getName())) {
-                foundDescriptor = descriptor;
+            if (sameField(fieldName, descriptor.getName())) {
+                return descriptor;
             }
         }
 
-        return foundDescriptor;
+        return null;
+    }
+
+    private static boolean sameField(String fieldName, String protoFieldName) {
+        if (fieldName.equals(protoFieldName)) {
+            return true;
+        }
+
+        // Try to compare field name with Protobuf official snake case syntax
+        return fieldName.equals(toCamelCase(protoFieldName));
     }
 
     public static Object getFieldValue(Object message, String fieldName) {
         Map<Descriptors.FieldDescriptor, Object> fieldsMap = ((Message)message).getAllFields();
         for (Map.Entry<Descriptors.FieldDescriptor, Object> field : fieldsMap.entrySet()) {
-            if (fieldName.equals(field.getKey().getName())) {
+            if (sameField(fieldName, field.getKey().getName())) {
                 if (field.getKey().isMapField()) {
                     //capitalize the first letter of the string;
                     String propertyName = Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
@@ -196,5 +211,9 @@ public final class ProtoUtils {
         }
 
         return value;
+    }
+
+    public static String toCamelCase(String name) {
+        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name);
     }
 }
