@@ -26,10 +26,9 @@ import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
  */
 public class SampleBeanMappingBuilder extends BeanMappingBuilder {
 
-  @Override
-  protected void configure() {
-    mapping(Source.class, Destination.class)
-      .fields("name", "value", copyByReference());
-  }
-
+    @Override
+    protected void configure() {
+        mapping(Source.class, Destination.class)
+            .fields("name", "value", copyByReference());
+    }
 }

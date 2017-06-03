@@ -43,79 +43,78 @@ import static org.mockito.Mockito.when;
  * @author <a href="mailto:buzdin@gmail.com">Dmitry Buzdin</a>
  */
 public class DozerBeanMapperFactoryBeanTest {
+    
+    DozerBeanMapperFactoryBean factory;
+    Resource mockResource;
+    ApplicationContext mockContext;
 
-  DozerBeanMapperFactoryBean factory;
-  Resource mockResource;
-  ApplicationContext mockContext;
+    @Before
+    public void setUp() throws Exception {
+        factory = new DozerBeanMapperFactoryBean();
+        mockResource = mock(Resource.class);
+        mockContext = mock(ApplicationContext.class);
+        factory.setApplicationContext(mockContext);
+    }
 
-  @Before
-  public void setUp() throws Exception {
-    factory = new DozerBeanMapperFactoryBean();
-    mockResource = mock(Resource.class);
-    mockContext = mock(ApplicationContext.class);
-    factory.setApplicationContext(mockContext);
-  }
+    @Test
+    public void testOk() throws Exception {
+        factory.setCustomConverters(Collections.EMPTY_LIST);
+        factory.setCustomConvertersWithId(Collections.EMPTY_MAP);
+        factory.setEventListeners(Collections.EMPTY_LIST);
+        factory.setFactories(Collections.EMPTY_MAP);
+        factory.setMappingFiles(new Resource[] {mockResource});
+        factory.setMappingBuilders(Collections.EMPTY_LIST);
 
-  @Test
-  public void testOk() throws Exception {
-    factory.setCustomConverters(Collections.EMPTY_LIST);
-    factory.setCustomConvertersWithId(Collections.EMPTY_MAP);
-    factory.setEventListeners(Collections.EMPTY_LIST);
-    factory.setFactories(Collections.EMPTY_MAP);
-    factory.setMappingFiles(new Resource[] { mockResource });
-    factory.setMappingBuilders(Collections.EMPTY_LIST);
+        URL url = this.getClass().getClassLoader().getResource("mappings/mappingSpring.xml");
+        when(mockResource.getURL()).thenReturn(url);
 
-    URL url = this.getClass().getClassLoader().getResource("mappings/mappingSpring.xml");
-    when(mockResource.getURL()).thenReturn(url);
+        factory.afterPropertiesSet();
 
-    factory.afterPropertiesSet();
+        assertEquals(Mapper.class, factory.getObjectType());
+        Assert.assertTrue(factory.isSingleton());
 
-    assertEquals(Mapper.class, factory.getObjectType());
-    Assert.assertTrue(factory.isSingleton());
+        DozerBeanMapper mapper = (DozerBeanMapper)factory.getObject();
+        List<?> files = mapper.getMappingFiles();
+        assertEquals(1, files.size());
+        assertEquals("file:" + url.getFile(), files.iterator().next());
+    }
 
-    DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
-    List<?> files = mapper.getMappingFiles();
-    assertEquals(1, files.size());
-    assertEquals("file:" + url.getFile(), files.iterator().next());
-  }
+    @Test
+    public void testEmpty() throws Exception {
+        factory.afterPropertiesSet();
+    }
 
-  @Test
-  public void testEmpty() throws Exception {
-    factory.afterPropertiesSet();
-  }
+    @Test
+    public void testDestroy() throws Exception {
+        factory.beanMapper = mock(DozerBeanMapper.class);
+        factory.destroy();
+        verify(factory.beanMapper).destroy();
+    }
 
-  @Test
-  public void testDestroy() throws Exception {
-    factory.beanMapper = mock(DozerBeanMapper.class);
-    factory.destroy();
-    verify(factory.beanMapper).destroy();
-  }
+    @Test
+    public void shouldInjectBeans() throws Exception {
+        HashMap<String, CustomConverter> converterHashMap = new HashMap<String, CustomConverter>();
+        converterHashMap.put("a", mock(CustomConverter.class));
+        HashMap<String, BeanFactory> beanFactoryMap = new HashMap<String, BeanFactory>();
+        beanFactoryMap.put("a", mock(BeanFactory.class));
+        HashMap<String, DozerEventListener> eventListenerMap = new HashMap<String, DozerEventListener>();
+        eventListenerMap.put("a", mock(DozerEventListener.class));
+        HashMap<String, BeanMappingBuilder> mappingBuilders = new HashMap<String, BeanMappingBuilder>();
+        mappingBuilders.put("a", mock(BeanMappingBuilder.class));
 
-  @Test
-  public void shouldInjectBeans() throws Exception {
-    HashMap<String, CustomConverter> converterHashMap = new HashMap<String, CustomConverter>();
-    converterHashMap.put("a", mock(CustomConverter.class));
-    HashMap<String, BeanFactory> beanFactoryMap = new HashMap<String, BeanFactory>();
-    beanFactoryMap.put("a", mock(BeanFactory.class));
-    HashMap<String, DozerEventListener> eventListenerMap = new HashMap<String, DozerEventListener>();
-    eventListenerMap.put("a", mock(DozerEventListener.class));
-    HashMap<String, BeanMappingBuilder> mappingBuilders = new HashMap<String, BeanMappingBuilder>();
-    mappingBuilders.put("a", mock(BeanMappingBuilder.class));
+        when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);
+        when(mockContext.getBeansOfType(BeanFactory.class)).thenReturn(beanFactoryMap);
+        when(mockContext.getBeansOfType(DozerEventListener.class)).thenReturn(eventListenerMap);
+        when(mockContext.getBeansOfType(BeanMappingBuilder.class)).thenReturn(mappingBuilders);
 
-    when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);
-    when(mockContext.getBeansOfType(BeanFactory.class)).thenReturn(beanFactoryMap);
-    when(mockContext.getBeansOfType(DozerEventListener.class)).thenReturn(eventListenerMap);
-    when(mockContext.getBeansOfType(BeanMappingBuilder.class)).thenReturn(mappingBuilders);
+        factory.afterPropertiesSet();
 
-    factory.afterPropertiesSet();
-
-    DozerBeanMapper mapper = (DozerBeanMapper) factory.getObject();
-    assertThat(mapper.getCustomConverters().size(), equalTo(1));
-    assertThat(mapper.getCustomConverters().size(), equalTo(1));
-    assertThat(mapper.getCustomConvertersWithId().size(), equalTo(1));
-    assertThat(mapper.getEventListeners().size(), equalTo(1));
-    // FIXME: there's no mapper.getMappings() method,
-    // so there's no (easy) way to verify whether BeanMappingBuilder was injected!
-  }
-
+        DozerBeanMapper mapper = (DozerBeanMapper)factory.getObject();
+        assertThat(mapper.getCustomConverters().size(), equalTo(1));
+        assertThat(mapper.getCustomConverters().size(), equalTo(1));
+        assertThat(mapper.getCustomConvertersWithId().size(), equalTo(1));
+        assertThat(mapper.getEventListeners().size(), equalTo(1));
+        // FIXME: there's no mapper.getMappings() method,
+        // so there's no (easy) way to verify whether BeanMappingBuilder was injected!
+    }
 }

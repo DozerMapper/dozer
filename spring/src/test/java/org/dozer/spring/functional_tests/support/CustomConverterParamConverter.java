@@ -22,27 +22,26 @@ import org.dozer.ConfigurableCustomConverter;
  */
 public class CustomConverterParamConverter implements ConfigurableCustomConverter {
 
-  private String param;
+    private String param;
 
-  public Object convert(Object existingDestinationFieldValue,
-                        Object sourceFieldValue,
-                        Class<?> destinationClass,
-                        Class<?> sourceClass) {
-    String source = null;
-    Object dest = null;
-    if (String.class.isAssignableFrom(sourceClass)) {
-      source = (String) sourceFieldValue;
+    public Object convert(Object existingDestinationFieldValue,
+                          Object sourceFieldValue,
+                          Class<?> destinationClass,
+                          Class<?> sourceClass) {
+        String source = null;
+        Object dest = null;
+        if (String.class.isAssignableFrom(sourceClass)) {
+            source = (String)sourceFieldValue;
+        }
+
+        if (String.class.isAssignableFrom(destinationClass)) {
+            dest = source + "-" + param;
+        }
+
+        return dest;
     }
 
-    if (String.class.isAssignableFrom(destinationClass)) {
-      dest = source + "-" + param;
+    public void setParameter(String parameter) {
+        param = parameter;
     }
-
-    return dest;
-  }
-
-  public void setParameter(String parameter) {
-    param = parameter;
-  }
-
 }

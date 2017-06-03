@@ -27,11 +27,9 @@ import org.springframework.beans.factory.xml.ParserContext;
  */
 public class MapperDefinitionParser extends AbstractBeanDefinitionParser {
 
-  @Override
-  protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
-    BeanDefinitionBuilder builder = BeanDefinitionBuilder
-        .rootBeanDefinition(DozerBeanMapperFactoryBean.class);
-    return builder.getBeanDefinition();
-  }
-
+    @Override
+    protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(DozerBeanMapperFactoryBean.class);
+        return builder.getBeanDefinition();
+    }
 }

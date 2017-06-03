@@ -19,37 +19,34 @@ import org.dozer.DozerConverter;
 import org.dozer.spring.vo.Destination;
 import org.dozer.spring.vo.Source;
 
-
 /**
  * @author garsombke.franz
- * 
  */
 public class InjectedCustomConverter extends DozerConverter<Source, Destination> {
 
-  private String injectedName;
+    private String injectedName;
 
-  public InjectedCustomConverter() {
-    super(Source.class, Destination.class);
-  }
+    public InjectedCustomConverter() {
+        super(Source.class, Destination.class);
+    }
 
-  @Override
-  public Destination convertTo(Source source, Destination destination) {
-    Destination result = new Destination();
-    result.setValue(injectedName);
-    return result;
-  }
+    @Override
+    public Destination convertTo(Source source, Destination destination) {
+        Destination result = new Destination();
+        result.setValue(injectedName);
+        return result;
+    }
 
-  @Override
-  public Source convertFrom(Destination source, Source destination) {
-    return null;
-  }
+    @Override
+    public Source convertFrom(Destination source, Source destination) {
+        return null;
+    }
 
-  public String getInjectedName() {
-    return injectedName;
-  }
+    public String getInjectedName() {
+        return injectedName;
+    }
 
-  public void setInjectedName(String injectedName) {
-    this.injectedName = injectedName;
-  }
-
+    public void setInjectedName(String injectedName) {
+        this.injectedName = injectedName;
+    }
 }
