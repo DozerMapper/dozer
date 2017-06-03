@@ -24,8 +24,8 @@ package org.dozer;
  * 
  * <p>
  * <a
- * href="https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/customconverter.adoc">
- * https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/customconverter.adoc</a>
+ * href="https://dozermapper.github.io/gitbook/documentation/customconverter.html">
+ * https://dozermapper.github.io/gitbook/documentation/customconverter.html</a>
  * 
  * 
  * @author sullins.ben
