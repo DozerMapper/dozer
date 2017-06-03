@@ -22,9 +22,8 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  */
 public class DozerNamespaceHandler extends NamespaceHandlerSupport {
 
-  @Override
-  public void init() {
-    registerBeanDefinitionParser("mapper", new MapperDefinitionParser());
-  }
-
+    @Override
+    public void init() {
+        registerBeanDefinitionParser("mapper", new MapperDefinitionParser());
+    }
 }

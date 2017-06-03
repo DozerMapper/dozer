@@ -23,11 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class ReferencingBean {
 
-  @Autowired
-  Mapper mapper;
+    @Autowired
+    Mapper mapper;
 
-  public Mapper getMapper() {
-    return mapper;
-  }
-
+    public Mapper getMapper() {
+        return mapper;
+    }
 }

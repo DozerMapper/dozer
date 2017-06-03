@@ -36,19 +36,18 @@ import static org.junit.Assert.assertThat;
 @ContextConfiguration(locations = "/springNameSpace.xml")
 public class NamespaceTest {
 
-  @Autowired
-  ApplicationContext context;
+    @Autowired
+    ApplicationContext context;
 
-  @Test
-  public void shouldRegisterMapper() {
-    DozerBeanMapper beanMapper = (DozerBeanMapper) context.getBean("beanMapper");
-    assertThat(beanMapper, notNullValue());
+    @Test
+    public void shouldRegisterMapper() {
+        DozerBeanMapper beanMapper = (DozerBeanMapper)context.getBean("beanMapper");
+        assertThat(beanMapper, notNullValue());
 
-    ReferencingBean referencingBean = context.getBean(ReferencingBean.class);
-    Mapper mapper = referencingBean.getMapper();
-    assertThat(mapper, notNullValue());
+        ReferencingBean referencingBean = context.getBean(ReferencingBean.class);
+        Mapper mapper = referencingBean.getMapper();
+        assertThat(mapper, notNullValue());
 
-    assertThat(beanMapper, sameInstance(mapper));
-  }
-
+        assertThat(beanMapper, sameInstance(mapper));
+    }
 }

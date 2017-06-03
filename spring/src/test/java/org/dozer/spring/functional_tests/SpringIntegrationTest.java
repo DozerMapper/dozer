@@ -17,8 +17,6 @@ package org.dozer.spring.functional_tests;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
@@ -31,6 +29,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -39,79 +38,78 @@ import static org.junit.Assert.assertTrue;
  */
 public class SpringIntegrationTest {
 
-  ClassPathXmlApplicationContext context;
+    ClassPathXmlApplicationContext context;
 
-  @Before
-  public void setUp() throws Exception {
-    context = new ClassPathXmlApplicationContext("applicationContext.xml");
-  }
+    @Before
+    public void setUp() throws Exception {
+        context = new ClassPathXmlApplicationContext("applicationContext.xml");
+    }
 
-  @Test
-  public void testCreationByFactory() {
-    DozerBeanMapper mapper = context.getBean("byFactory", DozerBeanMapper.class);
-    assertTrue(mapper.getMappingFiles().isEmpty());
-  }
+    @Test
+    public void testCreationByFactory() {
+        DozerBeanMapper mapper = context.getBean("byFactory", DozerBeanMapper.class);
+        assertTrue(mapper.getMappingFiles().isEmpty());
+    }
 
-  @Test
-  public void testSpringNoMappingFilesSpecified() throws Exception {
-    // Mapper can be used without specifying any mapping files.
-    // Fields that have the same name will be mapped automatically.
-    Mapper implicitMapper = (Mapper) context.getBean("implicitMapper");
+    @Test
+    public void testSpringNoMappingFilesSpecified() throws Exception {
+        // Mapper can be used without specifying any mapping files.
+        // Fields that have the same name will be mapped automatically.
+        Mapper implicitMapper = (Mapper)context.getBean("implicitMapper");
 
-    assertBasicMapping(implicitMapper);
-  }
+        assertBasicMapping(implicitMapper);
+    }
 
-  @Test
-  public void testInjectConverter() throws Exception {
-    DozerBeanMapper mapper = context.getBean("mapperWithConverter", DozerBeanMapper.class);
+    @Test
+    public void testInjectConverter() throws Exception {
+        DozerBeanMapper mapper = context.getBean("mapperWithConverter", DozerBeanMapper.class);
 
-    assertNotNull(mapper);
-    assertNotNull(mapper.getMappingFiles());
+        assertNotNull(mapper);
+        assertNotNull(mapper.getMappingFiles());
 
-    List<CustomConverter> customConverters = mapper.getCustomConverters();
-    assertEquals(1, customConverters.size());
+        List<CustomConverter> customConverters = mapper.getCustomConverters();
+        assertEquals(1, customConverters.size());
 
-    InjectedCustomConverter converter = context.getBean(InjectedCustomConverter.class);
-    converter.setInjectedName("inject");
+        InjectedCustomConverter converter = context.getBean(InjectedCustomConverter.class);
+        converter.setInjectedName("inject");
 
-    assertBasicMapping(mapper);
-  }
+        assertBasicMapping(mapper);
+    }
 
-  @Test
-  public void testEventListeners() throws Exception {
-    DozerBeanMapper eventMapper = context.getBean("mapperWithEventListener", DozerBeanMapper.class);
-    assertNotNull(eventMapper.getEventListeners());
-    assertEquals(1, eventMapper.getEventListeners().size());
-    DozerEventListener eventListener = eventMapper.getEventListeners().get(0);
-    assertEquals(EventTestListener.class, eventListener.getClass());
+    @Test
+    public void testEventListeners() throws Exception {
+        DozerBeanMapper eventMapper = context.getBean("mapperWithEventListener", DozerBeanMapper.class);
+        assertNotNull(eventMapper.getEventListeners());
+        assertEquals(1, eventMapper.getEventListeners().size());
+        DozerEventListener eventListener = eventMapper.getEventListeners().get(0);
+        assertEquals(EventTestListener.class, eventListener.getClass());
 
-    EventTestListener listener = context.getBean(EventTestListener.class);
-    assertNotNull(listener);
+        EventTestListener listener = context.getBean(EventTestListener.class);
+        assertNotNull(listener);
 
-    assertEquals(0, listener.getInvocationCount());
+        assertEquals(0, listener.getInvocationCount());
 
-    assertBasicMapping(eventMapper);
+        assertBasicMapping(eventMapper);
 
-    assertEquals(4, listener.getInvocationCount());
-  }
+        assertEquals(4, listener.getInvocationCount());
+    }
 
-  @Test
-  public void testBeanMappingBuilder() throws Exception {
-    DozerBeanMapper mapper = (DozerBeanMapper) context.getBean("factoryWithMappingBuilder", DozerBeanMapper.class);
+    @Test
+    public void testBeanMappingBuilder() throws Exception {
+        DozerBeanMapper mapper = (DozerBeanMapper)context.getBean("factoryWithMappingBuilder", DozerBeanMapper.class);
 
-    Source source = new Source();
-    source.setName("John");
-    source.setId(2L);
-    Destination destination = mapper.map(source, Destination.class);
-    assertEquals("John", destination.getValue());
-    assertEquals(2L, destination.getId());
-  }
+        Source source = new Source();
+        source.setName("John");
+        source.setId(2L);
+        Destination destination = mapper.map(source, Destination.class);
+        assertEquals("John", destination.getValue());
+        assertEquals(2L, destination.getId());
+    }
 
-  private void assertBasicMapping(Mapper mapper) {
-    Source source = new Source();
-    source.setId(1L);
-    Destination destination = mapper.map(source, Destination.class);
-    assertEquals(1L, destination.getId());
-  }
-
+    private void assertBasicMapping(Mapper mapper) {
+        Source source = new Source();
+        source.setId(1L);
+        Destination destination = mapper.map(source, Destination.class);
+        assertEquals(1L, destination.getId());
+    }
 }

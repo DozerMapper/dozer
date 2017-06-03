@@ -39,4 +39,10 @@ public class DefaultSchemaResolverTest {
         SchemaResolver resolver = new DefaultSchemaResolver();
         assertNull(resolver.get("doesnt-exist.xsd"));
     }
+
+    @Test
+    public void failsGetSpring() {
+        SchemaResolver resolver = new DefaultSchemaResolver();
+        assertNotNull(resolver.get("dozer-spring.xsd"));
+    }
 }

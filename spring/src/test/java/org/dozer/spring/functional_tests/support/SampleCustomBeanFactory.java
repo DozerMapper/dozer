@@ -22,12 +22,11 @@ import org.dozer.BeanFactory;
  */
 public class SampleCustomBeanFactory implements BeanFactory {
 
-  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
-    try {
-      return Class.forName(id).newInstance();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
+        try {
+            return Class.forName(id).newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
-  }
-
 }

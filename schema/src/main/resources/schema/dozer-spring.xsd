@@ -16,14 +16,19 @@
     limitations under the License.
 
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-        "http://www.springframework.org/dtd/spring-beans.dtd">
-<beans>
-    <bean id="factoryWithMappingBuilder" class="org.dozer.spring.DozerBeanMapperFactoryBean">
-        <property name="mappingBuilders">
-            <list>
-                <bean class="org.dozer.spring.functional_tests.support.SampleBeanMappingBuilder"/>
-            </list>
-        </property>
-    </bean>
-</beans>
+<xs:schema xmlns="http://dozermapper.github.io/schema/dozer-spring"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:beans="http://www.springframework.org/schema/beans"
+           targetNamespace="http://dozermapper.github.io/schema/dozer-spring"
+           elementFormDefault="qualified">
+
+  <xs:import namespace="http://www.springframework.org/schema/beans"/>
+
+  <xs:element name="mapper">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="beans:identifiedType"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
