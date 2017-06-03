@@ -204,6 +204,7 @@
                     <target>${project.java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <compilerArgs>
+                        <compilerArg>-Xdiags:verbose</compilerArg>
                         <compilerArg>-Xlint:all</compilerArg>
                         <compilerArg>-Xlint:-processing</compilerArg>
                         <compilerArg>-Xdoclint:all</compilerArg>
