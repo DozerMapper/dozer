@@ -31,7 +31,7 @@ public class OneWayMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testOneWay() {
-    Mapper mapper = getMapper("oneWayMapping.xml");
+    Mapper mapper = getMapper("mappings/oneWayMapping.xml");
 
     SourceClass source = newInstance(SourceClass.class, new Object[] {"A"});
 

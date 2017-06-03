@@ -45,7 +45,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   @Test
   public void testCustomMappingForAbstractClasses() throws Exception {
     // Test that the explicit abstract custom mapping definition is used when mapping sub classes
-    mapper = getMapper(new String[] { "abstractMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/abstractMapping.xml"});
 
     A src = getA();
     B dest = mapper.map(src, B.class);
@@ -90,7 +90,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   
   @Test
   public void testCustomMappingForAbstractDestClass() throws Exception {
-      mapper = getMapper("abstractMapping.xml");
+      mapper = getMapper("mappings/abstractMapping.xml");
       A src = getA();
       AbstractB dest = mapper.map(src, AbstractB.class);
       
@@ -110,7 +110,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   
   @Test
   public void testCustomMappingForAbstractDestClassLevelTwo() throws Exception {
-      mapper = getMapper("abstractMapping.xml");
+      mapper = getMapper("mappings/abstractMapping.xml");
       AbstractAContainer src = getAWrapper();
       AbstractBContainer dest = mapper.map(src, AbstractBContainer.class);
       assertTrue(dest.getB() instanceof B);
@@ -129,7 +129,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   
   @Test
   public void testCustomMappingForAsbstractDestClassCollection() throws Exception {
-      mapper = getMapper("abstractMapping.xml");
+      mapper = getMapper("mappings/abstractMapping.xml");
       AbstractACollectionContainer src = getAsContainer();
       AbstractBCollectionContainer dest = mapper.map(src, AbstractBCollectionContainer.class);
       assertTrue(dest.getBs().get(0) instanceof B);
@@ -150,7 +150,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   public void testNoCustomMappingForAbstractClasses_SubclassAttrsAppliedToAbstractClasses() throws Exception {
     // Test that when there isnt an explicit abstract custom mapping definition the subclass mapping def attrs are
     // applied to the abstract class mapping. In this use case, wildcard="false" for the A --> B mapping definition
-    mapper = getMapper(new String[] { "abstractMapping2.xml" });
+    mapper = getMapper(new String[] {"mappings/abstractMapping2.xml"});
 
     A src = getA();
     B dest = mapper.map(src, B.class);
@@ -170,7 +170,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
     // Tests that custom mappings for abstract classes are used when there are no custom mappings
     // for subclasses. Also tests that a default class map is properly created and used for the subclass
     // field mappings
-    mapper = getMapper(new String[] { "abstractMapping3.xml" });
+    mapper = getMapper(new String[] {"mappings/abstractMapping3.xml"});
 
     A src = getA();
     B dest = mapper.map(src, B.class);

@@ -18,7 +18,7 @@ package org.dozer.schema;
 import java.net.URL;
 
 import org.dozer.schema.osgi.Activator;
-import org.osgi.framework.BundleContext;
+import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +33,9 @@ public class DefaultSchemaResolver implements SchemaResolver {
         if (answer == null) {
             LOG.debug("Trying OSGi bundle context for schema/{}", fileName);
 
-            BundleContext context = Activator.getBundleContext();
-            if (context != null) {
-                answer = context.getBundle().getResource("schema/" + fileName);
+            Bundle bundle = Activator.getBundle();
+            if (bundle != null) {
+                answer = bundle.getResource("schema/" + fileName);
             }
         }
 

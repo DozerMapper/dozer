@@ -32,7 +32,7 @@ public class InheritanceTwoLevelTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("inheritanceTwoLevel.xml");
+    mapper = getMapper("mappings/inheritanceTwoLevel.xml");
   }
 
   @Test

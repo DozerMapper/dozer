@@ -31,7 +31,7 @@ public class GrandparentTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("grandparent.xml");
+    mapper = getMapper("mappings/grandparent.xml");
   }
 
   @Test

@@ -31,7 +31,7 @@ public class CopyByReferenceFromMapTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("mapMapping7.xml");
+    mapper = getMapper("mappings/mapMapping7.xml");
   }
 
   @Test

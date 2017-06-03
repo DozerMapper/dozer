@@ -34,7 +34,7 @@ public class ClassLevelIsAccessibleTest extends AbstractFunctionalTest {
     @Override
     @Before
     public void setUp() throws Exception {
-        mapper = getMapper("classLevelIsAccessible.xml");
+        mapper = getMapper("mappings/classLevelIsAccessible.xml");
     }
 
     @Test

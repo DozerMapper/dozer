@@ -55,7 +55,7 @@ public class GranularDozerBeanMapper_WithExceptionLoggedTest extends AbstractFun
         testAllowedExceptions_ImplicitEE.expectMessage("Checking Allowed Exceptions");
         testAllowedExceptions_ImplicitEE.expect(TestException.class);
 
-        Mapper mapper = getMapper("implicitAllowedExceptionsMapping.xml");
+        Mapper mapper = getMapper("mappings/implicitAllowedExceptionsMapping.xml");
 
         ThrowException to = newInstance(ThrowException.class);
         to.setThrowAllowedException("throw me");
@@ -72,7 +72,7 @@ public class GranularDozerBeanMapper_WithExceptionLoggedTest extends AbstractFun
         testAllowedExceptions_ImplicitEE.expectMessage("Checking Allowed Exceptions");
         testAllowedExceptions_ImplicitEE.expect(TestException.class);
 
-        Mapper mapper = getMapper("allowedExceptionsMapping.xml");
+        Mapper mapper = getMapper("mappings/allowedExceptionsMapping.xml");
 
         TestObject to = newInstance(TestObject.class);
         to.setThrowAllowedExceptionOnMap("throw me");

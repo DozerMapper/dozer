@@ -52,7 +52,7 @@ public class IndexMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() {
-    mapper = getMapper(new String[] { "IndividualMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/IndividualMapping.xml"});
   }
 
   @Test
@@ -203,7 +203,7 @@ public class IndexMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testStringToIndexedSet_UsingMapSetMethod() {
-    mapper = getMapper(new String[] { "indexMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/indexMapping.xml"});
     Mccoy src = newInstance(Mccoy.class);
     src.setStringProperty(String.valueOf(System.currentTimeMillis()));
 

@@ -35,7 +35,7 @@ public class InheritanceCustomConverterTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("inheritanceBug.xml");
+    mapper = getMapper("mappings/inheritanceBug.xml");
   }
 
   /*

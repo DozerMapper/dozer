@@ -49,7 +49,7 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
     assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
     // get mapper
-    Mapper mapper = getMapper(new String[] { "mapping-interface.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/mapping-interface.xml"});
 
     // do mapping
     UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);
@@ -83,7 +83,7 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
     assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
     // get mapper
-    Mapper mapper = getMapper(new String[] { "mapping-concrete.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/mapping-concrete.xml"});
 
     // do mapping
     UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);

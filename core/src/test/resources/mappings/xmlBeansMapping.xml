@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>MM/dd/yyyy HH:mm</date-format><!-- default dateformat will apply to all class maps unless the class mapping explicitly overrides it -->
+        <wildcard>true</wildcard><!-- default wildcard policy that will apply to all class maps unless the class mapping explicitly overrides it -->
+    </configuration>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b bean-factory="org.dozer.factory.XMLBeanFactory">org.dozer.vo.GetWeatherByZipCodeDocument</class-b>
+        <field>
+            <a>one</a>
+            <b>GetWeatherByZipCode.zipCode</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.Child</class-a>
+        <class-b bean-factory="org.dozer.factory.XMLBeanFactory">net.pmonks.xml.dozer.test.ChildType</class-b>
+        <field>
+            <a>name</a>
+            <b>name</b>
+        </field>
+    </mapping>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b bean-factory="org.dozer.factory.XMLBeanFactory">org.dozer.vo.GetWeatherByZipCodeResponseDocument</class-b>
+        <field>
+            <a>setToArray</a>
+            <b>GetWeatherByZipCodeResponse.WeatherDataArray</b>
+            <a-hint>org.dozer.vo.AnotherTestObject</a-hint>
+        </field>
+        <field>
+            <a set-method="addAnotherTestObject" type="iterate">setToArrayWithIterate</a>
+            <b>GetWeatherByZipCodeResponse.WeatherData2Array</b>
+            <a-hint>org.dozer.vo.AnotherTestObject</a-hint>
+        </field>
+    </mapping>
+
+</mappings>

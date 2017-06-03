@@ -34,7 +34,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("multipleHintsMapping.xml");
+    mapper = getMapper("mappings/multipleHintsMapping.xml");
   }
 
   @Test

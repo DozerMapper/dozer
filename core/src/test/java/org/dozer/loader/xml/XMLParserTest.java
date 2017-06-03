@@ -60,7 +60,7 @@ public class XMLParserTest extends AbstractDozerTest {
    */
   @Test
   public void testParseCustomConverterParam() throws Exception {
-    URL url = loader.getResource("fieldCustomConverterParam.xml");
+    URL url = loader.getResource("mappings/fieldCustomConverterParam.xml");
 
     Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
     parser = new XMLParser();

@@ -41,7 +41,7 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("customConverterMapperAware.xml");
+    mapper = getMapper("mappings/customConverterMapperAware.xml");
   }
 
   @Test
@@ -69,7 +69,7 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
 
   @Test
   public void test_convert_withSubclassedConverterInstance() throws Exception {
-    DozerBeanMapper mapper = new DozerBeanMapper(Arrays.asList("customConverterMapperAware.xml"));
+    DozerBeanMapper mapper = new DozerBeanMapper(Arrays.asList("mappings/customConverterMapperAware.xml"));
     mapper.setCustomConverters(Arrays.<CustomConverter>asList(new Converter() {
       @Override
       public Map convertTo(List source, Map destination) {

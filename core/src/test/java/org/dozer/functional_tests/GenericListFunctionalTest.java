@@ -27,7 +27,7 @@ public class GenericListFunctionalTest extends AbstractFunctionalTest {
 
   @Test
   public void testMappingForList() {
-    Mapper mapper = getMapper("listMapping.xml");
+    Mapper mapper = getMapper("mappings/listMapping.xml");
 
     Person1 person1 = new Person1();
 

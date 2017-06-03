@@ -34,7 +34,7 @@ public class UntypedCollectionTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("untypedCollection.xml");
+    mapper = getMapper("mappings/untypedCollection.xml");
   }
 
   @Test

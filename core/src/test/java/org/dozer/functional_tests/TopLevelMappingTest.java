@@ -30,7 +30,7 @@ public class TopLevelMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testListToListMapping_Explicit() {
-    mapper = getMapper("topLevelMapping.xml");
+    mapper = getMapper("mappings/topLevelMapping.xml");
     MyList source = new MyList();
     source.add("100");
 
@@ -68,7 +68,7 @@ public class TopLevelMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testListToListMapping_ExplicitItems() {
-    mapper = getMapper("topLevelMapping.xml");
+    mapper = getMapper("mappings/topLevelMapping.xml");
     MyList source = new MyList();
     ItemA itemA = new ItemA();
     itemA.setA("test");

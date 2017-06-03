@@ -38,13 +38,7 @@ public class ResourceLoaderTest extends AbstractDozerTest {
 
   @Test
   public void testGetResourceWithWhitespace() {
-    URL url = loader.getResource(" contextMapping.xml ");
-    assertNotNull("URL should not be null", url);
-  }
-
-  @Test
-  public void testGetResourceWithNewlines() {
-    URL url = loader.getResource("\ncontextMapping.xml\n");
+    URL url = loader.getResource("mappings/contextMapping.xml ");
     assertNotNull("URL should not be null", url);
   }
 

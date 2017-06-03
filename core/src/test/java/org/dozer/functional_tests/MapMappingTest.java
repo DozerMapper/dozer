@@ -42,7 +42,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("mapMapping6.xml");
+    mapper = getMapper("mappings/mapMapping6.xml");
   }
 
   @Ignore("failing for some reason.  was commented out")

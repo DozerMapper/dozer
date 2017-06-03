@@ -38,7 +38,7 @@ public class CumulativeMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("cumulative.xml");
+    mapper = getMapper("mappings/cumulative.xml");
   }
 
   /* Domain model: Library is a list of books. A book has an author and id. An author has a name and id.

@@ -36,7 +36,7 @@ public class InheritanceDirectionTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("inheritanceDirection.xml");
+    mapper = getMapper("mappings/inheritanceDirection.xml");
   }
 
   @Test

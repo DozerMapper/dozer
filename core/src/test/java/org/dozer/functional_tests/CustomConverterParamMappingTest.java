@@ -36,7 +36,7 @@ public class CustomConverterParamMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("fieldCustomConverterParam.xml");
+    mapper = getMapper("mappings/fieldCustomConverterParam.xml");
   }
 
   @Test

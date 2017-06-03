@@ -32,7 +32,8 @@ package org.dozer;
  *
  * <p>
  * <a
- * href="http://dozer.sourceforge.net/documentation/custombeanfactories.html">http://dozer.sourceforge.net/documentation/custombeanfactories.html</a>
+ * href="https://dozermapper.github.io/gitbook/documentation/custombeanfactories.html">
+ * https://dozermapper.github.io/gitbook/documentation/custombeanfactories.html</a>
  *
  * @author tierney.matt
  */

@@ -26,23 +26,22 @@ import org.junit.Test;
  */
 public class DozerResolverTest extends AbstractDozerTest {
 
-  private DozerResolver dozerResolver;
+    private DozerResolver dozerResolver;
 
-  @Before
-  public void setUp() throws Exception {
-    dozerResolver = new DozerResolver();
-  }
+    @Before
+    public void setUp() throws Exception {
+        dozerResolver = new DozerResolver();
+    }
 
-  @Test
-  public void testResolveEntity_OK() {
-    InputSource inputSource = dozerResolver.resolveEntity(null, "http://nowhere.tosearch.url/beanmapping.xsd");
-    assertNotNull(inputSource);
-  }
+    @Test
+    public void testResolveEntity_OK() {
+        InputSource inputSource = dozerResolver.resolveEntity(null, "http://dozermapper.github.io/schema/bean-mapping.xsd");
+        assertNotNull(inputSource);
+    }
 
-  @Test
-  public void testResolveEntity_Direct() {
-    InputSource inputSource = dozerResolver.resolveEntity(null, "beanmapping.xsd");
-    assertNotNull(inputSource);
-  }
-
+    @Test
+    public void testResolveEntity_Direct() {
+        InputSource inputSource = dozerResolver.resolveEntity(null, "bean-mapping.xsd");
+        assertNotNull(inputSource);
+    }
 }

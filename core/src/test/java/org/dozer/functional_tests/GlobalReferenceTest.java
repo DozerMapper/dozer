@@ -18,7 +18,7 @@ package org.dozer.functional_tests;
 public class GlobalReferenceTest extends SubclassReferenceTest {
   @Override
   protected String getMappingFile() {
-    return "global-mapping.xml";
+    return "mappings/global-mapping.xml";
   }
 
 }

@@ -29,7 +29,7 @@ public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("missingSetter.xml");
+    mapper = getMapper("mappings/missingSetter.xml");
   }
 
   @Test(expected = MappingException.class)

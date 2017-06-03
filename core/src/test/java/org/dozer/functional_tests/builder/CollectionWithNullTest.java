@@ -44,7 +44,7 @@ public class CollectionWithNullTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper(Collections.singletonList("collectionsWithNull.xml"));
+    mapper = new DozerBeanMapper(Collections.singletonList("mappings/collectionsWithNull.xml"));
 
     foo = new Foo();
     bar = new Bar();

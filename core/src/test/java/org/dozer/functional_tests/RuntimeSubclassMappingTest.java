@@ -35,7 +35,7 @@ public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("runtimeSubclass.xml");
+    mapper = getMapper("mappings/runtimeSubclass.xml");
   }
 
   @Test

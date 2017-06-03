@@ -35,7 +35,7 @@ public class CollectionTest extends AbstractFunctionalTest {
 
   @Override
   public void setUp() throws Exception {
-    mapper = getMapper("arrayMapping.xml");
+    mapper = getMapper("mappings/arrayMapping.xml");
   }
 
   /**

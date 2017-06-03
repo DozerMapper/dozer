@@ -17,8 +17,8 @@
 
 -->
 <schema xmlns='http://www.w3.org/2001/XMLSchema'
-        targetNamespace='http://dozermapper.github.io'
-        xmlns:t='http://dozermapper.github.io'>
+        targetNamespace='http://dozermapper.github.io/schema/bean-mapping'
+        xmlns:t='http://dozermapper.github.io/schema/bean-mapping'>
 
   <element name='mappings'>
     <annotation>

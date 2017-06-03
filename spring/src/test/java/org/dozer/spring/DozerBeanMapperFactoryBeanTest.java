@@ -65,7 +65,7 @@ public class DozerBeanMapperFactoryBeanTest {
     factory.setMappingFiles(new Resource[] { mockResource });
     factory.setMappingBuilders(Collections.EMPTY_LIST);
 
-    URL url = this.getClass().getClassLoader().getResource("mappingSpring.xml");
+    URL url = this.getClass().getClassLoader().getResource("mappings/mappingSpring.xml");
     when(mockResource.getURL()).thenReturn(url);
 
     factory.afterPropertiesSet();

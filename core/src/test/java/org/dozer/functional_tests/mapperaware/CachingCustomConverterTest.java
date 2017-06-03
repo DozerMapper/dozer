@@ -42,7 +42,7 @@ public class CachingCustomConverterTest extends Assert {
   public void setup() {
     mapper = new DozerBeanMapper();
     List<String> mappingFileUrls = new ArrayList<String>();
-    mappingFileUrls.add("mapper-aware.xml");
+    mappingFileUrls.add("mappings/mapper-aware.xml");
 
     Map<String, CustomConverter> customConvertersWithId = new HashMap<String, CustomConverter>();
     customConvertersWithId.put("associationConverter", new AssociatedEntityConverter());

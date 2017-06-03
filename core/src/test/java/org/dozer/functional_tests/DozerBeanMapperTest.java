@@ -99,7 +99,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   public void testDetectDuplicateMapping() throws Exception {
     Mapper myMapper = null;
     List<String> mappingFiles = new ArrayList<String>();
-    mappingFiles.add("duplicateMapping.xml");
+    mappingFiles.add("mappings/duplicateMapping.xml");
     myMapper = new DozerBeanMapper(mappingFiles);
 
     myMapper.map(new org.dozer.vo.SuperSuperSuperClass(), org.dozer.vo.SuperSuperSuperClassPrime.class);
@@ -113,7 +113,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     // custom bean factory
     // -----------------------------------------------------------
 
-    Mapper mapper = getNewMapper(new String[]{"customfactorymapping.xml"});
+    Mapper mapper = getNewMapper(new String[]{"mappings/customfactorymapping.xml"});
 
     TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = mapper.map(prime, TestObject.class);
@@ -150,7 +150,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   @Test
   public void testGlobalNullAndEmptyString() throws Exception {
     DozerBeanMapper mapperMapNull = new DozerBeanMapper();
-    DozerBeanMapper mapperNotMapNull = (DozerBeanMapper) getNewMapper(new String[]{"customGlobalConfigWithNullAndEmptyStringTest.xml"});
+    DozerBeanMapper mapperNotMapNull = (DozerBeanMapper) getNewMapper(new String[]{"mappings/customGlobalConfigWithNullAndEmptyStringTest.xml"});
     Van src = new Van();
     Van dest = new Van();
     dest.setName("not null or empty");

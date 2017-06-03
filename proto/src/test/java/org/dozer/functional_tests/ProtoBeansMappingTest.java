@@ -50,7 +50,7 @@ public class ProtoBeansMappingTest extends ProtoAbstractTest {
 
     @Before
     public void setUp() throws Exception {
-        mapper = getMapper("protoBeansMapping.xml");
+        mapper = getMapper("mappings/protoBeansMapping.xml");
     }
 
     @Test

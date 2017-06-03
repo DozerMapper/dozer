@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>dd/MM/yyyy</date-format>
+        <wildcard>false</wildcard>
+    </configuration>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.SuperA</class-a>
+        <class-b>java.util.Map</class-b>
+        <field>
+            <a>superAField</a>
+            <b key="superAField">this</b>
+        </field>
+        <field>
+            <a>superField1</a>
+            <b key="superField1">this</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.A</class-a>
+        <class-b>java.util.Map</class-b>
+        <field>
+            <a>fieldA</a>
+            <b key="fieldA">this</b>
+        </field>
+        <field>
+            <a>field1</a>
+            <b key="field1">this</b>
+        </field>
+    </mapping>
+
+</mappings>

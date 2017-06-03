@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>MM/dd/yyyy</date-format>
+        <wildcard>false</wildcard>
+    </configuration>
+
+    <mapping map-null="false">
+        <class-a>org.dozer.functional_tests.UntypedCollectionTest$Foo</class-a>
+        <class-b>java.util.Map</class-b>
+        <field>
+            <a>name</a>
+            <b key="name">this</b>
+        </field>
+        <field>
+            <a>bars[0].id</a>
+            <b key="bars[0]_id">this</b>
+            <a-deep-index-hint>org.dozer.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
+        </field>
+        <field>
+            <a>bars[1].id</a>
+            <b key="bars[1]_id">this</b>
+            <a-deep-index-hint>org.dozer.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
+        </field>
+    </mapping>
+
+</mappings>

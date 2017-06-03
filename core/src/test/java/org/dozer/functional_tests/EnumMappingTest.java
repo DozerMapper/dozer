@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Functional test for enum mapping as described 
- * <a href=http://dozer.sourceforge.net/documentation/enum.html>here</a>.
+ * <a href=https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/enum.adoc>here</a>.
  * 
  * In this functional test, Enum is categorized into two types: Based Enum and Overrided Enum.
  * Based Enum refers to those enum without any overrided methods, including constructors.  A 
@@ -60,7 +60,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testOverridedEnumMapsToBasedEnum() {
-    mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMappingOverriedEnumToBasedEnum.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -72,7 +72,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testBasedEnumMapsToOverridedEnum() {
-    mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMappingOverriedEnumToBasedEnum.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -84,7 +84,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testBasedEnumMapsToBasedEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -96,7 +96,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testOverridedEnumMapsToOverridedEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -120,7 +120,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToString() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     MyBeanPrimeString dest = mapper.map(src, MyBeanPrimeString.class);
@@ -132,7 +132,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testStringMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeString src = new MyBeanPrimeString();
     src.setDestType("FOO");
     src.setDestTypeWithOverride("BAR");
@@ -146,7 +146,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testByteMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeByte src = new MyBeanPrimeByte();
     src.setFirst((byte) 0);
     src.setSecond((byte) 1);
@@ -160,7 +160,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testShortMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeShort src = new MyBeanPrimeShort();
     src.setFirst((short) 0);
     src.setSecond((short) 1);
@@ -174,7 +174,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testIntegerMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeInteger src = new MyBeanPrimeInteger();
     src.setFirst(0);
     src.setSecond(1);
@@ -188,7 +188,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testLongMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeLong src = new MyBeanPrimeLong();
     src.setFirst(0L);
     src.setSecond(1L);
@@ -202,7 +202,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToByte() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
@@ -215,7 +215,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToShort() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
@@ -229,7 +229,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToInteger() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
@@ -243,7 +243,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToLong() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);

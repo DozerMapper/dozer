@@ -55,7 +55,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFields.xml"});
   }
 
   @Test
@@ -174,7 +174,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapIndexedIsAccessible() throws Exception {
-    mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexAndIsAccessible.xml"});
 
     Person source = newInstance(Person.class);
     Vector<Phone> phonesList = new Vector<Phone>();
@@ -190,7 +190,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
-    mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexAndIsAccessible.xml"});
 
     FlatPerson source = newInstance(FlatPerson.class);
     source.setPhoneNumber("911");
@@ -216,7 +216,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
    */
   @Test
   public void testDeepIndexMappingWithCustomConverter() {
-    mapper = getMapper(new String[] { "deepMappingWithIndexedFieldsByCustomConverter.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFieldsByCustomConverter.xml"});
     First first = new First();
     Last last = mapper.map(first, Last.class);
     assertNotNull("nested third object should not be null", last.getThird());
@@ -227,7 +227,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
   // bug #1803172
   @Test
   public void testDeepIndexMapping_CollectionNeedsResizing() {
-    mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFields.xml"});
     A src = new A();
     src.setId1(new Integer(10));
     src.setId2(new Integer(20));

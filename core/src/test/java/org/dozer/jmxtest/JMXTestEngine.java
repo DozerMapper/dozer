@@ -77,7 +77,7 @@ public final class JMXTestEngine {
         }
 
         mappingFiles = new ArrayList<String>();
-        mappingFiles.add("arrayToStringCustomConverter.xml");
+        mappingFiles.add("mappings/arrayToStringCustomConverter.xml");
         mapper = new DozerBeanMapper(mappingFiles);
 
         for (int i = 0; i < 6000; i++) {
