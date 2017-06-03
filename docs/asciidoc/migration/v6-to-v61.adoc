@@ -19,4 +19,25 @@ See link:https://github.com/DozerMapper/dozer/releases/tag/v6.1.0[for release no
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 ----
 
-=== 2. ???
+=== 2. Dozer-Spring XSD changed.
+**From:**
+[source,xml,prettyprint]
+----
+ <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dozer="http://dozer.sourceforge.net/schema/dozer-spring"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://dozer.sourceforge.net/schema/dozer-spring http://dozer.sourceforge.net/schema/dozer-spring.xsd">
+----
+
+**To:**
+[source,xml,prettyprint]
+----
+ <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dozer="http://dozermapper.github.io/schema/dozer-spring"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://dozermapper.github.io/schema/dozer-spring http://dozermapper.github.io/schema/dozer-spring.xsd">
+----
