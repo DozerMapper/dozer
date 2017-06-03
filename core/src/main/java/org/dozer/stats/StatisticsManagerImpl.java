@@ -36,7 +36,13 @@ public final class StatisticsManagerImpl implements StatisticsManager {
   private final Logger log = LoggerFactory.getLogger(StatisticsManagerImpl.class);
 
   private final ConcurrentMap<StatisticType, Statistic> statisticsMap = new ConcurrentHashMap<StatisticType, Statistic>();
-  private boolean isStatisticsEnabled = GlobalSettings.getInstance().isStatisticsEnabled();
+  private final GlobalSettings globalSettings;
+  private boolean isStatisticsEnabled;
+
+  StatisticsManagerImpl(GlobalSettings globalSettings) {
+    this.isStatisticsEnabled = globalSettings.isStatisticsEnabled();
+    this.globalSettings = globalSettings;
+  }
 
   public void clearAll() {
     statisticsMap.clear();
@@ -58,7 +64,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
 
   public void setStatisticsEnabled(boolean statisticsEnabled) {
     this.isStatisticsEnabled = statisticsEnabled;
-    GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
+    globalSettings.setStatisticsEnabled(statisticsEnabled);
   }
 
   public Set<StatisticType> getStatisticTypes() {

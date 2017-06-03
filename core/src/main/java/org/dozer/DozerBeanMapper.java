@@ -73,6 +73,7 @@ public class DozerBeanMapper implements Mapper {
   private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
   private final AtomicBoolean initializing = new AtomicBoolean(false);
   private final CountDownLatch ready = new CountDownLatch(1);
+  private final GlobalSettings globalSettings;
 
   /*
    * Accessible for custom injection
@@ -94,7 +95,8 @@ public class DozerBeanMapper implements Mapper {
   private final CacheManager cacheManager = new DozerCacheManager();
   private DozerEventManager eventManager;
 
-  DozerBeanMapper(List<String> mappingFiles) {
+  DozerBeanMapper(List<String> mappingFiles, GlobalSettings globalSettings) {
+    this.globalSettings = globalSettings;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -170,13 +172,12 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    DozerInitializer.getInstance().init();
+    DozerInitializer.getInstance().init(globalSettings);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
-    GlobalSettings globalSettings = GlobalSettings.getInstance();
     cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), globalSettings.getConverterByDestTypeCacheMaxSize());
     cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), globalSettings.getSuperTypesCacheMaxSize());
 
@@ -185,7 +186,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void destroy() {
-    DozerInitializer.getInstance().destroy();
+    DozerInitializer.getInstance().destroy(globalSettings);
   }
 
   protected Mapper getMappingProcessor() {

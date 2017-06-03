@@ -32,17 +32,22 @@ import org.dozer.stats.StatisticsManager;
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
 
     private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+    private final GlobalSettings globalSettings;
+
+    public DozerStatisticsController(GlobalSettings globalSettings) {
+        this.globalSettings = globalSettings;
+    }
 
     public void clearAll() {
         statsMgr.clearAll();
     }
 
     public boolean isStatisticsEnabled() {
-        return GlobalSettings.getInstance().isStatisticsEnabled();
+        return globalSettings.isStatisticsEnabled();
     }
 
     public void setStatisticsEnabled(boolean statisticsEnabled) {
-        GlobalSettings.getInstance().setStatisticsEnabled(statisticsEnabled);
+        globalSettings.setStatisticsEnabled(statisticsEnabled);
     }
 
     public long getMappingSuccessCount() {

@@ -18,6 +18,12 @@ package org.dozer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.dozer.config.GlobalSettings;
+import org.dozer.osgi.Activator;
+import org.dozer.osgi.OSGiClassLoader;
+import org.dozer.util.DefaultClassLoader;
+import org.dozer.util.DozerClassLoader;
+import org.dozer.util.RuntimeUtils;
 
 /**
  * Builds an instance of {@link DozerBeanMapper}.
@@ -27,6 +33,7 @@ import java.util.List;
 public final class DozerBeanMapperBuilder {
 
     private List<String> mappingFiles = new ArrayList<>(1);
+    private DozerClassLoader classLoader;
 
     private DozerBeanMapperBuilder() {
     }
@@ -67,6 +74,36 @@ public final class DozerBeanMapperBuilder {
     }
 
     /**
+     * Sets {@link DozerClassLoader} to be used whenever Dozer needs to load a class or resource.
+     * <p>
+     * By default, if Dozer is executed in OSGi environment, {@link org.dozer.osgi.OSGiClassLoader} will be
+     * used (i.e. delegate loading to Dozer bundle classloader). If Dozer is executed in non-OSGi environment,
+     * classloader of {@link DozerBeanMapperBuilder} will be used (wrapped into {@link DefaultClassLoader}).
+     *
+     * @param classLoader custom classloader to be used by Dozer.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withClassLoader(DozerClassLoader classLoader) {
+        this.classLoader = classLoader;
+        return this;
+    }
+
+    /**
+     * Sets classloader to be used whenever Dozer needs to load a class or resource.
+     * <p>
+     * By default, if Dozer is executed in OSGi environment, {@link org.dozer.osgi.OSGiClassLoader} will be
+     * used (i.e. delegate loading to Dozer bundle classloader). If Dozer is executed in non-OSGi environment,
+     * classloader of {@link DozerBeanMapperBuilder} will be used (wrapped into {@link DefaultClassLoader}).
+     *
+     * @param classLoader custom classloader to be used by Dozer. Will be wrapped into {@link DefaultClassLoader}.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withClassLoader(ClassLoader classLoader) {
+        this.classLoader = new DefaultClassLoader(classLoader);
+        return this;
+    }
+
+    /**
      * Creates an instance of {@link DozerBeanMapper}. Mapper is configured according to the current builder state.
      * <p>
      * Subsequent calls of this method will return new instances.
@@ -74,7 +111,24 @@ public final class DozerBeanMapperBuilder {
      * @return new instance of {@link DozerBeanMapper}.
      */
     public DozerBeanMapper build() {
-        return new DozerBeanMapper(mappingFiles);
+        DozerClassLoader classLoader = getClassLoader();
+        GlobalSettings globalSettings = new GlobalSettings(classLoader);
+
+        return new DozerBeanMapper(mappingFiles, globalSettings);
+    }
+
+    private DozerClassLoader getClassLoader() {
+        if (classLoader == null) {
+            if (RuntimeUtils.isOSGi()) {
+                return new OSGiClassLoader(Activator.getBundle().getBundleContext());
+
+            } else {
+                return new DefaultClassLoader(DozerBeanMapperBuilder.class.getClassLoader());
+            }
+
+        } else {
+            return classLoader;
+        }
     }
 
 }

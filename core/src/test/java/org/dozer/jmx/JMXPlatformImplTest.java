@@ -16,14 +16,19 @@
 package org.dozer.jmx;
 
 import java.lang.management.ManagementFactory;
-
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
-
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.GlobalSettings;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 /**
  * @author dmitry.buzdin
@@ -31,6 +36,12 @@ import org.junit.Test;
 public class JMXPlatformImplTest extends AbstractDozerTest {
 
   private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
+
+  @Rule
+  public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+  @Mock
+  private GlobalSettings globalSettingsMock;
 
   private MBeanServer mbs;
   private JMXPlatformImpl platform;
@@ -50,7 +61,7 @@ public class JMXPlatformImplTest extends AbstractDozerTest {
   public void testRegister() throws Exception {
     assertFalse(mbs.isRegistered(new ObjectName(DOZER_ADMIN_CONTROLLER)));
 
-    platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
+    platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController(globalSettingsMock));
     assertTrue(mbs.isRegistered(new ObjectName(DOZER_ADMIN_CONTROLLER)));
 
     platform.unregisterMBean(DOZER_ADMIN_CONTROLLER);
@@ -59,8 +70,8 @@ public class JMXPlatformImplTest extends AbstractDozerTest {
 
   @Test
   public void testDoubleRegister() throws Exception {
-    platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
-    platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
+    platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController(globalSettingsMock));
+    platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController(globalSettingsMock));
   }
 
   @Test

@@ -16,6 +16,8 @@
 package org.dozer.config;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.util.DefaultClassLoader;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +27,8 @@ import org.junit.Test;
  */
 public class GlobalSettingsTest extends AbstractDozerTest {
 
+  private DozerClassLoader classLoader = new DefaultClassLoader(GlobalSettingsTest.class.getClassLoader());
+
   @Before
   public void setUp() {
     System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, "");
@@ -32,7 +36,7 @@ public class GlobalSettingsTest extends AbstractDozerTest {
 
   @Test
   public void testLoadDefaultPropFile_Default() {
-    GlobalSettings globalSettings = GlobalSettings.createNew();
+    GlobalSettings globalSettings = new GlobalSettings(classLoader);
     assertNotNull("loaded by name should not be null", globalSettings.getLoadedByFileName());
     assertEquals("invalid loaded by file name", DozerConstants.DEFAULT_CONFIG_FILE, globalSettings.getLoadedByFileName());
   }
@@ -41,7 +45,7 @@ public class GlobalSettingsTest extends AbstractDozerTest {
   public void testLoadDefaultPropFile_NotFound() {
     String propFileName = String.valueOf(System.currentTimeMillis());
     System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, propFileName);
-    GlobalSettings globalSettings = GlobalSettings.createNew();
+    GlobalSettings globalSettings = new GlobalSettings(classLoader);
 
     // assert all global settings equal the default values
     assertNull("loaded by file name should be null", globalSettings.getLoadedByFileName());
@@ -62,7 +66,7 @@ public class GlobalSettingsTest extends AbstractDozerTest {
     String propFileName = "samplecustomdozer.properties";
     System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, propFileName);
 
-    GlobalSettings globalSettings = GlobalSettings.createNew();
+    GlobalSettings globalSettings = new GlobalSettings(classLoader);
 
     assertNotNull("loaded by name should not be null", globalSettings.getLoadedByFileName());
     assertEquals("invalid load by file name", propFileName, globalSettings.getLoadedByFileName());

@@ -15,6 +15,9 @@
  */
 package org.dozer.stats;
 
+import org.dozer.config.BeanContainer;
+import org.dozer.config.GlobalSettings;
+
 /**
  * Internal singleton class that holds global statistics. Only intended for internal use.
  * 
@@ -26,7 +29,8 @@ public final class GlobalStatistics {
   private final StatisticsManager statsMgr;
 
   private GlobalStatistics() {
-    statsMgr = new StatisticsManagerImpl();
+    // todo this will be moved to DozerBeanMapperBuilder
+    statsMgr = new StatisticsManagerImpl(new GlobalSettings(BeanContainer.getInstance().getClassLoader()));
   }
 
   public static GlobalStatistics getInstance() {

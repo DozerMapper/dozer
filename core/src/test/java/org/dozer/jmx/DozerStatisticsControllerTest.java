@@ -16,30 +16,37 @@
 package org.dozer.jmx;
 
 import java.util.Set;
-
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.GlobalSettings;
 import org.dozer.stats.StatisticType;
-import org.junit.Before;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author tierney.matt
  */
 public class DozerStatisticsControllerTest extends AbstractDozerTest {
 
-  private DozerStatisticsController controller;
+  @Rule
+  public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    controller = new DozerStatisticsController();
-  }
+  @Mock
+  private GlobalSettings globalSettingsMock;
+
+  @InjectMocks
+  private DozerStatisticsController controller;
 
   @Test
   public void testIsStatisticsEnabled() throws Exception {
     boolean isStatisticsEnabled = controller.isStatisticsEnabled();
     controller.setStatisticsEnabled(!isStatisticsEnabled);
-    assertEquals("statistics enabled value was not updated", !isStatisticsEnabled, controller.isStatisticsEnabled());
+    verify(globalSettingsMock).setStatisticsEnabled(!isStatisticsEnabled);
   }
 
   @Test

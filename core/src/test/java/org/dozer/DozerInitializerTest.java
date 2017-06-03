@@ -16,51 +16,55 @@
 package org.dozer;
 
 import org.dozer.config.GlobalSettings;
+import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerConstants;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class DozerInitializerTest extends AbstractDozerTest {
 
+    private GlobalSettings globalSettings;
+
     private DozerInitializer instance;
 
     @Before
     public void setUp() throws Exception {
+        globalSettings = new GlobalSettings(new DefaultClassLoader(DozerInitializerTest.class.getClassLoader()));
         instance = DozerInitializer.getInstance();
-        instance.destroy();
+        instance.destroy(globalSettings);
     }
 
     @After
     public void tearDown() throws Exception {
-        instance.destroy();
+        instance.destroy(globalSettings);
     }
 
     @Test
     public void testIsInitialized() {
         assertFalse(instance.isInitialized());
 
-        instance.init();
+        instance.init(globalSettings);
         assertTrue(instance.isInitialized());
 
-        instance.destroy();
+        instance.destroy(globalSettings);
         assertFalse(instance.isInitialized());
     }
 
     @Test
     public void testDoubleCalls() {
-        instance.destroy();
+        instance.destroy(globalSettings);
         assertFalse(instance.isInitialized());
 
-        instance.init();
-        instance.init();
+        instance.init(globalSettings);
+        instance.init(globalSettings);
         assertTrue(instance.isInitialized());
 
-        instance.destroy();
-        instance.destroy();
+        instance.destroy(globalSettings);
+        instance.destroy(globalSettings);
         assertFalse(instance.isInitialized());
     }
 
