@@ -87,7 +87,6 @@ control techniques.
     <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
-                <value>systempropertymapping1.xml</value>
                 <value>dozerBeanMapping.xml</value>
             </list>
         </property>

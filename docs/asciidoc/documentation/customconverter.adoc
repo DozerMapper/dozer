@@ -90,7 +90,6 @@ you do not use Spring.
     <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
-                <value>systempropertymapping1.xml</value>
                 <value>dozerBeanMapping.xml</value>
                 <value>injectedCustomConverter.xml</value>
             </list>
@@ -152,7 +151,6 @@ need to do some manipulation with them before they are used in dozer.
     <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
-                <value>systempropertymapping1.xml</value>
                 <value>dozerBeanMapping.xml</value>
                 <value>injectedCustomConverter.xml</value>
             </list>
