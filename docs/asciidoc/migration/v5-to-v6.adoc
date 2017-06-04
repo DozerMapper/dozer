@@ -1,0 +1,48 @@
+== Migration from v5.5.1 to v6.0.0
+See link:https://github.com/DozerMapper/dozer/releases/tag/v6.0.0[for release notes].
+
+=== 1. JDK <1.8 support dropped
+Dozer is built against Java JDK 1.8 ONLY.
+
+=== 2. Maven GAV (Group ID, Artifact and Version) has changed:
+**From:**
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>net.sf.dozer</groupId>
+    <artifactId>dozer</artifactId>
+    <version>5.5.1</version>
+</dependency>
+----
+
+**To:**
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>6.0.0</version>
+</dependency>
+----
+
+=== 3. dozer-osgi dropped
+You no longer need to use the below, if you are running in an OSGi environment:
+
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>net.sf.dozer</groupId>
+    <artifactId>dozer-osgi</artifactId>
+    <version>5.5.1</version>
+</dependency>
+----
+
+Just simply use the dozer-core:
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>6.0.0</version>
+</dependency>
+----

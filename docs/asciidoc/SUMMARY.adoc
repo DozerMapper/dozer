@@ -52,6 +52,10 @@
 .. link:documentation/faq.adoc[FAQ]
 .. link:documentation/examples.adoc[Examples]
 
+== Migration
+.. link:migration/v5-to-v6.adoc[v5 to v6]
+.. link:migration/v6-to-v61.adoc[v6.0.0 to v6.1.0]
+
 == Schema
 .. schema/bean-mapping.xsd[Dozer Mapping XSD]
 .. dozer-user-guide.pdf[User's Guide PDF]

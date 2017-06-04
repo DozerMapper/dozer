@@ -1,0 +1,43 @@
+== Migration from v6.0.0 to v6.1.0
+**STILL WORK IN PROGRESS - NOT RELEASED**
+See link:https://github.com/DozerMapper/dozer/releases/tag/v6.1.0[for release notes].
+
+=== 1. Mapping.xml XSD changed:
+**From:**
+[source,xml,prettyprint]
+----
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+----
+
+**To:**
+[source,xml,prettyprint]
+----
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+----
+
+=== 2. Dozer-Spring XSD changed.
+**From:**
+[source,xml,prettyprint]
+----
+ <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dozer="http://dozer.sourceforge.net/schema/dozer-spring"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://dozer.sourceforge.net/schema/dozer-spring http://dozer.sourceforge.net/schema/dozer-spring.xsd">
+----
+
+**To:**
+[source,xml,prettyprint]
+----
+ <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dozer="http://dozermapper.github.io/schema/dozer-spring"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://dozermapper.github.io/schema/dozer-spring http://dozermapper.github.io/schema/dozer-spring.xsd">
+----
