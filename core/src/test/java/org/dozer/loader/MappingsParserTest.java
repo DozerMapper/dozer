@@ -34,7 +34,7 @@ public class MappingsParserTest extends AbstractDozerTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    parser = MappingsParser.getInstance();
+    parser = new MappingsParser();
   }
 
   @Test(expected=IllegalArgumentException.class)

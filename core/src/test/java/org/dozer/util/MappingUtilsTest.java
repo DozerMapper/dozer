@@ -64,7 +64,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
   public void testOverridenFields() throws Exception {
     MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
     MappingFileData mappingFileData = fileReader.read("mappings/overridemapping.xml");
-    MappingsParser mappingsParser = MappingsParser.getInstance();
+    MappingsParser mappingsParser = new MappingsParser();
     mappingsParser.processMappings(mappingFileData.getClassMaps(), mappingFileData.getConfiguration());
     // validate class mappings
     for (ClassMap classMap : mappingFileData.getClassMaps()) {

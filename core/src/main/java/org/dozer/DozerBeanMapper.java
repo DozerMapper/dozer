@@ -74,6 +74,7 @@ public class DozerBeanMapper implements Mapper {
   private final AtomicBoolean initializing = new AtomicBoolean(false);
   private final CountDownLatch ready = new CountDownLatch(1);
   private final GlobalSettings globalSettings;
+  private final CustomMappingsLoader customMappingsLoader;
 
   /*
    * Accessible for custom injection
@@ -95,8 +96,9 @@ public class DozerBeanMapper implements Mapper {
   private final CacheManager cacheManager = new DozerCacheManager();
   private DozerEventManager eventManager;
 
-  DozerBeanMapper(List<String> mappingFiles, GlobalSettings globalSettings) {
+  DozerBeanMapper(List<String> mappingFiles, GlobalSettings globalSettings, CustomMappingsLoader customMappingsLoader) {
     this.globalSettings = globalSettings;
+    this.customMappingsLoader = customMappingsLoader;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -206,7 +208,6 @@ public class DozerBeanMapper implements Mapper {
   }
 
   void loadCustomMappings() {
-    CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader();
     List<MappingFileData> xmlMappings = loadFromFiles(mappingFiles);
     ArrayList<MappingFileData> allMappings = new ArrayList<MappingFileData>();
     allMappings.addAll(xmlMappings);

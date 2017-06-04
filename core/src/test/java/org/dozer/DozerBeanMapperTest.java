@@ -31,6 +31,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import org.dozer.config.GlobalSettings;
+import org.dozer.loader.CustomMappingsLoader;
+import org.dozer.loader.MappingsParser;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.vo.TestObject;
@@ -121,7 +123,8 @@ public class DozerBeanMapperTest extends Assert {
 
     CallTrackingMapper() {
       super(Collections.emptyList(),
-              new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader())));
+              new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader())),
+              new CustomMappingsLoader(new MappingsParser()));
     }
 
     @Override

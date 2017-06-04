@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.dozer.config.GlobalSettings;
+import org.dozer.loader.CustomMappingsLoader;
+import org.dozer.loader.MappingsParser;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
 import org.dozer.util.DefaultClassLoader;
@@ -113,8 +115,9 @@ public final class DozerBeanMapperBuilder {
     public DozerBeanMapper build() {
         DozerClassLoader classLoader = getClassLoader();
         GlobalSettings globalSettings = new GlobalSettings(classLoader);
+        CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(new MappingsParser());
 
-        return new DozerBeanMapper(mappingFiles, globalSettings);
+        return new DozerBeanMapper(mappingFiles, globalSettings, customMappingsLoader);
     }
 
     private DozerClassLoader getClassLoader() {

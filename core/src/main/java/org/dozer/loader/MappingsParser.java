@@ -44,13 +44,7 @@ import static org.dozer.util.MappingUtils.isSupportedMap;
  */
 public final class MappingsParser {
 
-  private static final MappingsParser INSTANCE = new MappingsParser();
-
-  public static MappingsParser getInstance() {
-    return INSTANCE;
-  }
-
-  private MappingsParser() {
+  public MappingsParser() {
   }
 
   /**

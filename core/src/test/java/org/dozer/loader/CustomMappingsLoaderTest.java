@@ -38,7 +38,7 @@ public class CustomMappingsLoaderTest extends AbstractDozerTest{
 
   @Before
   public void setUp() {
-    loader = new CustomMappingsLoader();
+    loader = new CustomMappingsLoader(new MappingsParser());
     data = new ArrayList<MappingFileData>();
   }
 

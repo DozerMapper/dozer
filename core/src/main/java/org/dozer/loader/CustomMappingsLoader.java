@@ -42,7 +42,11 @@ import org.dozer.util.MappingUtils;
  */
 public class CustomMappingsLoader {
 
-  private static final MappingsParser mappingsParser = MappingsParser.getInstance();
+  private final MappingsParser mappingsParser;
+
+  public CustomMappingsLoader(MappingsParser mappingsParser) {
+    this.mappingsParser = mappingsParser;
+  }
 
   public LoadMappingsResult load(List<MappingFileData> mappings) {
 
