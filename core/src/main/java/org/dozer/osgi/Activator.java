@@ -18,6 +18,7 @@ package org.dozer.osgi;
 import org.dozer.DozerInitializer;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
+import org.dozer.stats.StatisticsManagerImpl;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
@@ -39,9 +40,11 @@ public final class Activator implements BundleActivator {
     // todo all this should be moved to DozerMapperBeanBuilder
     OSGiClassLoader classLoader = new OSGiClassLoader(bundleContext);
     BeanContainer.getInstance().setClassLoader(classLoader);
+    GlobalSettings globalSettings = new GlobalSettings(BeanContainer.getInstance().getClassLoader());
     DozerInitializer.getInstance().init(
-            new GlobalSettings(BeanContainer.getInstance().getClassLoader()),
-            Activator.class.getClassLoader());
+            globalSettings,
+            Activator.class.getClassLoader(),
+            new StatisticsManagerImpl(globalSettings));
   }
 
   public static Bundle getBundle() {

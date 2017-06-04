@@ -22,7 +22,6 @@ import java.util.Set;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 
@@ -38,14 +37,15 @@ public class DozerCache<KeyType, ValueType> implements Cache<KeyType, ValueType>
 
     private final LRUMap cacheMap;
 
-    StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
+    StatisticsManager statMgr;
 
-    public DozerCache(final String name, final int maximumSize) {
+    public DozerCache(final String name, final int maximumSize, StatisticsManager statMgr) {
         if (maximumSize < 1) {
             throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
         }
         this.name = name;
         this.cacheMap = new LRUMap(maximumSize); // TODO This should be in Collections.synchronizedMap()
+        this.statMgr = statMgr;
     }
 
     public void clear() {

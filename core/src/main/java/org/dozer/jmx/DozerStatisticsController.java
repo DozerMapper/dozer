@@ -19,7 +19,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.dozer.config.GlobalSettings;
-import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticEntry;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
@@ -31,10 +30,11 @@ import org.dozer.stats.StatisticsManager;
  */
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
 
-    private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
+    private final StatisticsManager statsMgr;
     private final GlobalSettings globalSettings;
 
-    public DozerStatisticsController(GlobalSettings globalSettings) {
+    public DozerStatisticsController(StatisticsManager statsMgr, GlobalSettings globalSettings) {
+        this.statsMgr = statsMgr;
         this.globalSettings = globalSettings;
     }
 

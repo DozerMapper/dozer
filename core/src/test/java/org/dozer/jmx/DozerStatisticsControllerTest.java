@@ -19,6 +19,7 @@ import java.util.Set;
 import org.dozer.AbstractDozerTest;
 import org.dozer.config.GlobalSettings;
 import org.dozer.stats.StatisticType;
+import org.dozer.stats.StatisticsManager;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,6 +39,9 @@ public class DozerStatisticsControllerTest extends AbstractDozerTest {
 
   @Mock
   private GlobalSettings globalSettingsMock;
+
+  @Mock
+  private StatisticsManager statisticsManager;
 
   @InjectMocks
   private DozerStatisticsController controller;

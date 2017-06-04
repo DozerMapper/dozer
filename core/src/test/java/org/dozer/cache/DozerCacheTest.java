@@ -16,16 +16,28 @@
 package org.dozer.cache;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.stats.StatisticsManager;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 /**
  * @author tierney.matt
  */
 public class DozerCacheTest extends AbstractDozerTest {
 
+  @Rule
+  public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+  @Mock
+  private StatisticsManager statisticsManager;
+
   @Test
   public void testPutGetFromCache() throws Exception {
-    Cache cache = new DozerCache(getRandomString(), 50);
+    Cache cache = new DozerCache(getRandomString(), 50, statisticsManager);
     int numCacheEntriesToAdd = 45;
     for (int i = 0; i < numCacheEntriesToAdd; i++) {
       Object key = String.valueOf(i);
@@ -43,7 +55,7 @@ public class DozerCacheTest extends AbstractDozerTest {
   @Test
   public void testMaximumCacheSize() throws Exception {
     int maxSize = 25;
-    Cache cache = new DozerCache(getRandomString(), maxSize);
+    Cache cache = new DozerCache(getRandomString(), maxSize, statisticsManager);
     // Add a bunch of entries to cache to verify the cache doesnt grow larger than specified max size
     for (int i = 0; i < maxSize + 125; i++) {
       cache.put("testkey" + i, "testvalue" + i);
@@ -54,7 +66,7 @@ public class DozerCacheTest extends AbstractDozerTest {
   @Test(expected = IllegalArgumentException.class)
   public void testMaximumCacheSize_Zero() throws Exception {
     int maxSize = 0;
-    Cache cache = new DozerCache(getRandomString(), maxSize);
+    Cache cache = new DozerCache(getRandomString(), maxSize, statisticsManager);
     // Add a bunch of entries to cache to verify the cache doesnt grow larger than specified max size
     for (int i = 0; i < maxSize + 5; i++) {
       cache.put("testkey" + i, "testvalue" + i);
@@ -64,7 +76,7 @@ public class DozerCacheTest extends AbstractDozerTest {
 
   @Test
   public void testClear() throws Exception {
-    Cache<Object, String> cache = new DozerCache<Object, String>(getRandomString(), 50);
+    Cache<Object, String> cache = new DozerCache<Object, String>(getRandomString(), 50, statisticsManager);
     Object key = CacheKeyFactory.createKey(String.class, Integer.class);
     cache.put(key, "testvalue");
 
@@ -76,27 +88,27 @@ public class DozerCacheTest extends AbstractDozerTest {
   @Test
   public void testGetMaxSize() {
     int maxSize = 550;
-    Cache cache = new DozerCache(getRandomString(), maxSize);
+    Cache cache = new DozerCache(getRandomString(), maxSize, statisticsManager);
 
     assertEquals("invalid max size", maxSize, cache.getMaxSize());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testGetNull() {
-    Cache cache = new DozerCache(getRandomString(), 5);
+    Cache cache = new DozerCache(getRandomString(), 5, statisticsManager);
     cache.get(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testPutNull() {
-    Cache cache = new DozerCache(getRandomString(), 5);
+    Cache cache = new DozerCache(getRandomString(), 5, statisticsManager);
     cache.put(null, null);
   }
 
   @Test
   public void testAddEntries() {
-    DozerCache cache = new DozerCache(getRandomString(), 5);
-    DozerCache<String, String> cache2 = new DozerCache<String, String>(getRandomString(), 5);
+    DozerCache cache = new DozerCache(getRandomString(), 5, statisticsManager);
+    DozerCache<String, String> cache2 = new DozerCache<String, String>(getRandomString(), 5, statisticsManager);
 
     cache2.put("A", "B");
     cache2.put("B", "C");

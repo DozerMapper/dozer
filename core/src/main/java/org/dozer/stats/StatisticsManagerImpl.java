@@ -39,7 +39,7 @@ public final class StatisticsManagerImpl implements StatisticsManager {
   private final GlobalSettings globalSettings;
   private boolean isStatisticsEnabled;
 
-  StatisticsManagerImpl(GlobalSettings globalSettings) {
+  public StatisticsManagerImpl(GlobalSettings globalSettings) {
     this.isStatisticsEnabled = globalSettings.isStatisticsEnabled();
     this.globalSettings = globalSettings;
   }

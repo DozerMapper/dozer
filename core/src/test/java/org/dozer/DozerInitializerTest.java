@@ -16,6 +16,8 @@
 package org.dozer;
 
 import org.dozer.config.GlobalSettings;
+import org.dozer.stats.StatisticsManager;
+import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerConstants;
 
@@ -30,10 +32,12 @@ public class DozerInitializerTest extends AbstractDozerTest {
     private GlobalSettings globalSettings;
 
     private DozerInitializer instance;
+    private StatisticsManager statisticsManager;
 
     @Before
     public void setUp() throws Exception {
         globalSettings = new GlobalSettings(new DefaultClassLoader(DozerInitializerTest.class.getClassLoader()));
+        statisticsManager = new StatisticsManagerImpl(globalSettings);
         instance = DozerInitializer.getInstance();
         instance.destroy(globalSettings);
     }
@@ -47,7 +51,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
     public void testIsInitialized() {
         assertFalse(instance.isInitialized());
 
-        instance.init(globalSettings);
+        instance.init(globalSettings, statisticsManager);
         assertTrue(instance.isInitialized());
 
         instance.destroy(globalSettings);
@@ -59,8 +63,8 @@ public class DozerInitializerTest extends AbstractDozerTest {
         instance.destroy(globalSettings);
         assertFalse(instance.isInitialized());
 
-        instance.init(globalSettings);
-        instance.init(globalSettings);
+        instance.init(globalSettings, statisticsManager);
+        instance.init(globalSettings, statisticsManager);
         assertTrue(instance.isInitialized());
 
         instance.destroy(globalSettings);
@@ -74,7 +78,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
         when(settings.getClassLoaderName()).thenReturn(DozerConstants.DEFAULT_CLASS_LOADER_BEAN);
         when(settings.getProxyResolverName()).thenReturn("no.such.class.Found");
 
-        instance.initialize(settings, getClass().getClassLoader());
+        instance.initialize(settings, getClass().getClassLoader(), statisticsManager);
         fail();
     }
 
@@ -84,7 +88,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
         when(settings.getClassLoaderName()).thenReturn("java.lang.String");
         when(settings.getProxyResolverName()).thenReturn(DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN);
 
-        instance.initialize(settings, getClass().getClassLoader());
+        instance.initialize(settings, getClass().getClassLoader(), statisticsManager);
         fail();
     }
 }

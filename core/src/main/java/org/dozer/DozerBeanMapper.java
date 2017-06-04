@@ -43,7 +43,6 @@ import org.dozer.loader.xml.MappingStreamReader;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
-import org.dozer.stats.GlobalStatistics;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
@@ -70,9 +69,9 @@ public class DozerBeanMapper implements Mapper {
 
   private final Logger log = LoggerFactory.getLogger(DozerBeanMapper.class);
 
-  private final StatisticsManager statsMgr = GlobalStatistics.getInstance().getStatsMgr();
   private final AtomicBoolean initializing = new AtomicBoolean(false);
   private final CountDownLatch ready = new CountDownLatch(1);
+  private final StatisticsManager statsMgr;
   private final GlobalSettings globalSettings;
   private final CustomMappingsLoader customMappingsLoader;
   private final XMLParserFactory xmlParserFactory;
@@ -94,16 +93,19 @@ public class DozerBeanMapper implements Mapper {
   private ClassMappings customMappings;
   private Configuration globalConfiguration;
   // There are no global caches. Caches are per bean mapper instance
-  private final CacheManager cacheManager = new DozerCacheManager();
+  private final CacheManager cacheManager;
   private DozerEventManager eventManager;
 
   DozerBeanMapper(List<String> mappingFiles,
                   GlobalSettings globalSettings,
                   CustomMappingsLoader customMappingsLoader,
-                  XMLParserFactory xmlParserFactory) {
+                  XMLParserFactory xmlParserFactory,
+                  StatisticsManager statsMgr) {
     this.globalSettings = globalSettings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
+    this.statsMgr = statsMgr;
+    this.cacheManager = new DozerCacheManager(statsMgr);
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -179,7 +181,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    DozerInitializer.getInstance().init(globalSettings);
+    DozerInitializer.getInstance().init(globalSettings, statsMgr);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
