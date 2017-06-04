@@ -23,6 +23,7 @@ import java.net.URL;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
+import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
 import org.dozer.schema.DefaultSchemaResolver;
 import org.dozer.schema.SchemaResolver;
@@ -42,11 +43,22 @@ import org.slf4j.LoggerFactory;
 public class DozerResolver implements EntityResolver {
 
     private final Logger log = LoggerFactory.getLogger(DozerResolver.class);
+    private static final String VERSION_5_XSD = "http://dozer.sourceforge.net/schema/beanmapping.xsd";
+    private static final String VERSION_6_XSD = "http://dozermapper.github.io/schema/bean-mapping.xsd";
 
     public InputSource resolveEntity(String publicId, String systemId) {
         InputSource source = null;
 
         log.debug("Trying to resolve XML entity with public ID [{}] and system ID [{}]", publicId, systemId);
+
+        if (VERSION_5_XSD.equalsIgnoreCase(systemId)) {
+            throw new MappingException("Dozer >= v6.0.0 uses a new XSD location. Your current config needs to be upgraded. "
+                                       + "Found v5 XSD: '"
+                                       + VERSION_5_XSD
+                                       + "'. Expected v6 XSD: '"
+                                       + VERSION_6_XSD
+                                       + "'. Please see migration guide @ https://dozermapper.github.io/gitbook");
+        }
 
         try {
             source = resolveFromClassPath(publicId, systemId);
