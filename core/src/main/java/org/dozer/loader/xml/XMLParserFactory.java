@@ -38,13 +38,7 @@ public final class XMLParserFactory {
 
   private static final String SCHEMA_FEATURE = "http://apache.org/xml/features/validation/schema";
 
-  private static final XMLParserFactory instance = new XMLParserFactory();
-
-  public static XMLParserFactory getInstance() {
-    return instance;
-  }
-
-  private XMLParserFactory() {
+  public XMLParserFactory() {
   }
 
   public DocumentBuilder createParser() {

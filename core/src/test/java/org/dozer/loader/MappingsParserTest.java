@@ -39,7 +39,7 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   @Test(expected=IllegalArgumentException.class)
   public void testDuplicateMapIds() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory());
     MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapIdsMapping.xml");
 
     parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
@@ -48,7 +48,7 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   @Test(expected=IllegalArgumentException.class)
   public void testDetectDuplicateMapping() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory());
     MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapping.xml");
     parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
     fail("should have thrown exception");

@@ -34,6 +34,7 @@ import org.dozer.config.GlobalSettings;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.MappingsParser;
 import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.generics.deepindex.TestObjectPrime;
@@ -124,7 +125,8 @@ public class DozerBeanMapperTest extends Assert {
     CallTrackingMapper() {
       super(Collections.emptyList(),
               new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader())),
-              new CustomMappingsLoader(new MappingsParser()));
+              new CustomMappingsLoader(new MappingsParser()),
+              new XMLParserFactory());
     }
 
     @Override

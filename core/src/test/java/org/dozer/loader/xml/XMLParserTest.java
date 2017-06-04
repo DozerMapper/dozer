@@ -47,7 +47,7 @@ public class XMLParserTest extends AbstractDozerTest {
   public void testParse() throws Exception {
     URL url = loader.getResource("dozerBeanMapping.xml");
 
-    Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
+    Document document = new XMLParserFactory().createParser().parse(url.openStream());
     parser = new XMLParser();
 
     MappingFileData mappings = parser.read(document);
@@ -62,7 +62,7 @@ public class XMLParserTest extends AbstractDozerTest {
   public void testParseCustomConverterParam() throws Exception {
     URL url = loader.getResource("mappings/fieldCustomConverterParam.xml");
 
-    Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
+    Document document = new XMLParserFactory().createParser().parse(url.openStream());
     parser = new XMLParser();
     
     MappingFileData mappings = parser.read(document);

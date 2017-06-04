@@ -75,6 +75,7 @@ public class DozerBeanMapper implements Mapper {
   private final CountDownLatch ready = new CountDownLatch(1);
   private final GlobalSettings globalSettings;
   private final CustomMappingsLoader customMappingsLoader;
+  private final XMLParserFactory xmlParserFactory;
 
   /*
    * Accessible for custom injection
@@ -96,9 +97,13 @@ public class DozerBeanMapper implements Mapper {
   private final CacheManager cacheManager = new DozerCacheManager();
   private DozerEventManager eventManager;
 
-  DozerBeanMapper(List<String> mappingFiles, GlobalSettings globalSettings, CustomMappingsLoader customMappingsLoader) {
+  DozerBeanMapper(List<String> mappingFiles,
+                  GlobalSettings globalSettings,
+                  CustomMappingsLoader customMappingsLoader,
+                  XMLParserFactory xmlParserFactory) {
     this.globalSettings = globalSettings;
     this.customMappingsLoader = customMappingsLoader;
+    this.xmlParserFactory = xmlParserFactory;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -218,7 +223,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private List<MappingFileData> loadFromFiles(List<String> mappingFiles) {
-    MappingFileReader mappingFileReader = new MappingFileReader(XMLParserFactory.getInstance());
+    MappingFileReader mappingFileReader = new MappingFileReader(xmlParserFactory);
     List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
     if (mappingFiles != null && mappingFiles.size() > 0) {
       log.info("Using the following xml files to load custom mappings for the bean mapper instance: {}", mappingFiles);
@@ -245,7 +250,7 @@ public class DozerBeanMapper implements Mapper {
      */
     public void addMapping(InputStream xmlStream) {
     checkIfInitialized();
-    MappingStreamReader fileReader = new MappingStreamReader(XMLParserFactory.getInstance());
+    MappingStreamReader fileReader = new MappingStreamReader(xmlParserFactory);
     MappingFileData mappingFileData = fileReader.read(xmlStream);
     builderMappings.add(mappingFileData);
   }

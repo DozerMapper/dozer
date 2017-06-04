@@ -21,6 +21,7 @@ import java.util.List;
 import org.dozer.config.GlobalSettings;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.MappingsParser;
+import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
 import org.dozer.util.DefaultClassLoader;
@@ -116,8 +117,9 @@ public final class DozerBeanMapperBuilder {
         DozerClassLoader classLoader = getClassLoader();
         GlobalSettings globalSettings = new GlobalSettings(classLoader);
         CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(new MappingsParser());
+        XMLParserFactory xmlParserFactory = new XMLParserFactory();
 
-        return new DozerBeanMapper(mappingFiles, globalSettings, customMappingsLoader);
+        return new DozerBeanMapper(mappingFiles, globalSettings, customMappingsLoader, xmlParserFactory);
     }
 
     private DozerClassLoader getClassLoader() {

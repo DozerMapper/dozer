@@ -34,7 +34,7 @@ public class MappingStreamReaderTest {
 
   @Before
   public void setUp() throws Exception {
-    streamReader = new MappingStreamReader(XMLParserFactory.getInstance());
+    streamReader = new MappingStreamReader(new XMLParserFactory());
   }
 
   @Test
