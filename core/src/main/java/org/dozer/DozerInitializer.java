@@ -60,11 +60,11 @@ public final class DozerInitializer {
   public DozerInitializer() {
   }
 
-  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr) {
-    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr);
+  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer) {
+    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer);
   }
 
-  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr) {
+  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer) {
     // Multiple threads may try to initialize simultaneously
     synchronized (this) {
       if (isInitialized) {
@@ -75,13 +75,13 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      initialize(globalSettings, classLoader, statsMgr);
+      initialize(globalSettings, classLoader, statsMgr, beanContainer);
 
       isInitialized = true;
     }
   }
 
-  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr) {
+  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer) {
     if (globalSettings.isAutoregisterJMXBeans()) {
       // Register JMX MBeans. If an error occurs, don't propagate exception
       try {
@@ -91,8 +91,6 @@ public final class DozerInitializer {
             + "normally, but management via JMX may not be available", t);
       }
     }
-
-    BeanContainer beanContainer = BeanContainer.getInstance();
 
     registerClassLoader(globalSettings, classLoader, beanContainer);
     registerProxyResolver(globalSettings, beanContainer);

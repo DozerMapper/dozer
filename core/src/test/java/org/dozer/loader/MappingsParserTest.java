@@ -19,7 +19,10 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.xml.MappingFileReader;
+import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,16 +33,20 @@ import org.junit.Test;
 public class MappingsParserTest extends AbstractDozerTest {
 
   private MappingsParser parser;
+  private BeanContainer beanContainer;
+  private DestBeanCreator destBeanCreator;
 
   @Override
   @Before
   public void setUp() throws Exception {
-    parser = new MappingsParser();
+    beanContainer = new BeanContainer();
+    destBeanCreator = new DestBeanCreator(beanContainer);
+    parser = new MappingsParser(beanContainer, destBeanCreator);
   }
 
   @Test(expected=IllegalArgumentException.class)
   public void testDuplicateMapIds() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory());
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator), beanContainer);
     MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapIdsMapping.xml");
 
     parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
@@ -48,7 +55,7 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   @Test(expected=IllegalArgumentException.class)
   public void testDetectDuplicateMapping() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory());
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator), beanContainer);
     MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapping.xml");
     parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
     fail("should have thrown exception");

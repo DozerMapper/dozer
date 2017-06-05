@@ -15,6 +15,8 @@
  */
 package org.dozer;
 
+import org.dozer.config.BeanContainer;
+
 /**
  * Public custom bean factory interface.
  *
@@ -40,5 +42,5 @@ package org.dozer;
 public interface BeanFactory {
 
     // Need sourceObjClass in case sourceObj is null
-    Object createBean(Object source, Class<?> sourceClass, String targetBeanId);
+    Object createBean(Object source, Class<?> sourceClass, String targetBeanId, BeanContainer beanContainer);
 }

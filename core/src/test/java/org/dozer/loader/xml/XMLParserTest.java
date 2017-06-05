@@ -23,6 +23,8 @@ import org.w3c.dom.Document;
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.loader.MappingsSource;
 import org.dozer.util.ResourceLoader;
@@ -37,18 +39,22 @@ public class XMLParserTest extends AbstractDozerTest {
 
   MappingsSource<Document> parser;
   ResourceLoader loader;
+  BeanContainer beanContainer;
+  private DestBeanCreator destBeanCreator;
 
   @Before
   public void setUp() {
     loader = new ResourceLoader(getClass().getClassLoader());
+    beanContainer = new BeanContainer();
+    destBeanCreator = new DestBeanCreator(beanContainer);
   }
 
   @Test
   public void testParse() throws Exception {
     URL url = loader.getResource("dozerBeanMapping.xml");
 
-    Document document = new XMLParserFactory().createParser().parse(url.openStream());
-    parser = new XMLParser();
+    Document document = new XMLParserFactory(beanContainer).createParser().parse(url.openStream());
+    parser = new XMLParser(beanContainer, destBeanCreator);
 
     MappingFileData mappings = parser.read(document);
     assertNotNull(mappings);
@@ -62,8 +68,8 @@ public class XMLParserTest extends AbstractDozerTest {
   public void testParseCustomConverterParam() throws Exception {
     URL url = loader.getResource("mappings/fieldCustomConverterParam.xml");
 
-    Document document = new XMLParserFactory().createParser().parse(url.openStream());
-    parser = new XMLParser();
+    Document document = new XMLParserFactory(beanContainer).createParser().parse(url.openStream());
+    parser = new XMLParser(beanContainer, destBeanCreator);
     
     MappingFileData mappings = parser.read(document);
 

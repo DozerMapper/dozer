@@ -17,6 +17,9 @@ package org.dozer.loader;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+
 import org.junit.Test;
 
 /**
@@ -24,9 +27,12 @@ import org.junit.Test;
  */
 public class MappingsBuilderTest extends AbstractDozerTest{
 
+  private BeanContainer beanContainer = new BeanContainer();
+  private DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+
   @Test
   public void testBuild() {
-    DozerBuilder builder = new DozerBuilder();
+    DozerBuilder builder = new DozerBuilder(beanContainer, destBeanCreator);
     MappingFileData result = builder.build();
     assertNotNull(result);
   }

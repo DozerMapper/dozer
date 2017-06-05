@@ -19,6 +19,8 @@ import org.dozer.builder.ByProtobufBuilder;
 import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.classmap.generator.ProtobufBeanFieldsDetector;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.propertydescriptor.ProtoFieldPropertyDescriptorCreationStrategy;
 
@@ -27,8 +29,12 @@ import org.dozer.propertydescriptor.ProtoFieldPropertyDescriptorCreationStrategy
  */
 public class ProtobufSupportModule implements DozerModule {
   public void init() {
+    // todo: should be injected
+    BeanContainer beanContainer = new BeanContainer();
+    DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+
     DestBeanBuilderCreator.addPluggedStrategy(new ByProtobufBuilder());
-    PropertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategy(new ProtoFieldPropertyDescriptorCreationStrategy());
+    PropertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategy(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator));
     BeanMappingGenerator.addPluggedFieldDetector(new ProtobufBeanFieldsDetector());
   }
 }

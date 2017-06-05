@@ -28,7 +28,9 @@ import org.dozer.classmap.DozerClass;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
+import org.dozer.config.BeanContainer;
 import org.dozer.converters.CustomConverterDescription;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.CustomGetSetMethodFieldMap;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.ExcludeFieldMap;
@@ -54,6 +56,13 @@ public class DozerBuilder {
 
   MappingFileData data = new MappingFileData();
   private final List<MappingBuilder> mappingBuilders = new ArrayList<MappingBuilder>();
+  private final BeanContainer beanContainer;
+  private final DestBeanCreator destBeanCreator;
+
+  public DozerBuilder(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
+  }
 
   public MappingFileData build() {
     for (MappingBuilder builder : mappingBuilders) {
@@ -65,14 +74,14 @@ public class DozerBuilder {
   public ConfigurationBuilder configuration() {
     Configuration configuration = new Configuration();
     data.setConfiguration(configuration);
-    return new ConfigurationBuilder(configuration);
+    return new ConfigurationBuilder(configuration, beanContainer);
   }
 
   public MappingBuilder mapping() {
     Configuration configuration = data.getConfiguration();
     ClassMap classMap = new ClassMap(configuration);
     data.getClassMaps().add(classMap);
-    MappingBuilder mappingDefinitionBuilder = new MappingBuilder(classMap);
+    MappingBuilder mappingDefinitionBuilder = new MappingBuilder(classMap, beanContainer, destBeanCreator);
     mappingBuilders.add(mappingDefinitionBuilder);
     return mappingDefinitionBuilder;
   }
@@ -81,9 +90,13 @@ public class DozerBuilder {
 
     private ClassMap classMap;
     private final List<FieldBuider> fieldBuilders = new ArrayList<FieldBuider>();
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
 
-    public MappingBuilder(ClassMap classMap) {
+    public MappingBuilder(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
       this.classMap = classMap;
+      this.beanContainer = beanContainer;
+      this.destBeanCreator = destBeanCreator;
     }
 
     public MappingBuilder dateFormat(String dateFormat) {
@@ -138,38 +151,38 @@ public class DozerBuilder {
     }
 
     public ClassDefinitionBuilder classA(String typeName) {
-      Class<?> type = MappingUtils.loadClass(typeName);
+      Class<?> type = MappingUtils.loadClass(typeName, beanContainer);
       return classA(type);
     }
 
     public ClassDefinitionBuilder classA(Class type) {
-      DozerClass classDefinition = new DozerClass();
+      DozerClass classDefinition = new DozerClass(beanContainer);
       classDefinition.setName(type.getName());
       classMap.setSrcClass(classDefinition);
       return new ClassDefinitionBuilder(classDefinition);
     }
 
     public ClassDefinitionBuilder classB(String typeName) {
-      Class<?> type = MappingUtils.loadClass(typeName);
+      Class<?> type = MappingUtils.loadClass(typeName, beanContainer);
       return classB(type);
     }
 
     public ClassDefinitionBuilder classB(Class type) {
-      DozerClass classDefinition = new DozerClass();
+      DozerClass classDefinition = new DozerClass(beanContainer);
       classDefinition.setName(type.getName());
       classMap.setDestClass(classDefinition);
       return new ClassDefinitionBuilder(classDefinition);
     }
 
     public FieldExclusionBuilder fieldExclude() {
-      ExcludeFieldMap excludeFieldMap = new ExcludeFieldMap(classMap);
+      ExcludeFieldMap excludeFieldMap = new ExcludeFieldMap(classMap, beanContainer, destBeanCreator);
       FieldExclusionBuilder builder = new FieldExclusionBuilder(excludeFieldMap);
       fieldBuilders.add(builder);
       return builder;
     }
 
     public FieldMappingBuilder field() {
-      FieldMappingBuilder builder = new FieldMappingBuilder(classMap);
+      FieldMappingBuilder builder = new FieldMappingBuilder(classMap, beanContainer, destBeanCreator);
       fieldBuilders.add(builder);
       return builder;
     }
@@ -241,8 +254,13 @@ public class DozerBuilder {
     private String customConverterParam;
     private boolean copyByReferenceSet;
 
-    public FieldMappingBuilder(ClassMap classMap) {
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+
+    public FieldMappingBuilder(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
       this.classMap = classMap;
+      this.beanContainer = beanContainer;
+      this.destBeanCreator = destBeanCreator;
     }
 
     public FieldDefinitionBuilder a(String name) {
@@ -278,25 +296,25 @@ public class DozerBuilder {
     }
 
     public void srcHintContainer(String hint) {
-      HintContainer hintContainer = new HintContainer();
+      HintContainer hintContainer = new HintContainer(beanContainer);
       hintContainer.setHintName(hint);
       this.srcHintContainer = hintContainer;
     }
 
     public void destHintContainer(String hint) {
-      HintContainer hintContainer = new HintContainer();
+      HintContainer hintContainer = new HintContainer(beanContainer);
       hintContainer.setHintName(hint);
       this.destHintContainer = hintContainer;
     }
 
     public void srcDeepIndexHintContainer(String hint) {
-      HintContainer hintContainer = new HintContainer();
+      HintContainer hintContainer = new HintContainer(beanContainer);
       hintContainer.setHintName(hint);
       this.srcDeepIndexHintContainer = hintContainer;
     }
 
     public void destDeepIndexHintContainer(String hint) {
-      HintContainer hintContainer = new HintContainer();
+      HintContainer hintContainer = new HintContainer(beanContainer);
       hintContainer.setHintName(hint);
       this.destDeepIndexHintContainer = hintContainer;
     }
@@ -331,11 +349,11 @@ public class DozerBuilder {
       FieldMap result;
       if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField()
           || classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
-        result = new MapFieldMap(classMap);
+        result = new MapFieldMap(classMap, beanContainer, destBeanCreator);
       } else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
-        result = new CustomGetSetMethodFieldMap(classMap);
+        result = new CustomGetSetMethodFieldMap(classMap, beanContainer, destBeanCreator);
       } else {
-        result = new GenericFieldMap(classMap);
+        result = new GenericFieldMap(classMap, beanContainer, destBeanCreator);
       }
 
       result.setSrcField(srcField);
@@ -494,8 +512,11 @@ public class DozerBuilder {
 
     private CustomConverterDescription converterDescription;
 
-    public ConfigurationBuilder(Configuration configuration) {
+    private final BeanContainer beanContainer;
+
+    public ConfigurationBuilder(Configuration configuration, BeanContainer beanContainer) {
       this.configuration = configuration;
+      this.beanContainer = beanContainer;
     }
 
     public void stopOnErrors(Boolean value) {
@@ -535,7 +556,7 @@ public class DozerBuilder {
     }
 
     public CustomConverterBuilder customConverter(String type) {
-      Class<?> aClass = MappingUtils.loadClass(type);
+      Class<?> aClass = MappingUtils.loadClass(type, beanContainer);
       return customConverter(aClass);
     }
 
@@ -544,7 +565,7 @@ public class DozerBuilder {
       converterDescription = new CustomConverterDescription();
       converterDescription.setType(type);
       configuration.getCustomConverters().addConverter(converterDescription);
-      return new CustomConverterBuilder(converterDescription);
+      return new CustomConverterBuilder(converterDescription, beanContainer);
     }
 
     public ConfigurationBuilder copyByReference(String typeMask) {
@@ -554,7 +575,7 @@ public class DozerBuilder {
     }
 
     public ConfigurationBuilder allowedException(String type) {
-      Class<?> exceptionType = MappingUtils.loadClass(type);
+      Class<?> exceptionType = MappingUtils.loadClass(type, beanContainer);
       return allowedException(exceptionType);
     }
 
@@ -572,13 +593,15 @@ public class DozerBuilder {
 
   public static class CustomConverterBuilder {
     private CustomConverterDescription converterDescription;
+    private final BeanContainer beanContainer;
 
-    public CustomConverterBuilder(CustomConverterDescription converterDescription) {
+    public CustomConverterBuilder(CustomConverterDescription converterDescription, BeanContainer beanContainer) {
       this.converterDescription = converterDescription;
+      this.beanContainer = beanContainer;
     }
 
     public CustomConverterBuilder classA(String type) {
-      Class<?> aClass = MappingUtils.loadClass(type);
+      Class<?> aClass = MappingUtils.loadClass(type, beanContainer);
       return classA(aClass);
     }
 
@@ -588,7 +611,7 @@ public class DozerBuilder {
     }
 
     public CustomConverterBuilder classB(String type) {
-      Class<?> aClass = MappingUtils.loadClass(type);
+      Class<?> aClass = MappingUtils.loadClass(type, beanContainer);
       return classB(aClass);
     }
 

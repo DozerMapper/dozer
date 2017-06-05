@@ -16,6 +16,8 @@
 package org.dozer.fieldmap;
 
 import org.dozer.classmap.ClassMap;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 
 /**
  * Only intended for internal use.
@@ -26,7 +28,7 @@ import org.dozer.classmap.ClassMap;
  * 
  */
 public class GenericFieldMap extends FieldMap {
-  public GenericFieldMap(ClassMap classMap) {
-    super(classMap);
+  public GenericFieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    super(classMap, beanContainer, destBeanCreator);
   }
 }

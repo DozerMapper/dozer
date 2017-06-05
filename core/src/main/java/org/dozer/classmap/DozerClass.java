@@ -18,6 +18,8 @@ package org.dozer.classmap;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -40,12 +42,14 @@ public class DozerClass {
   private Boolean mapNull;
   private Boolean mapEmptyString;
   private Boolean accessible;
+  private final BeanContainer beanContainer;
 
-  public DozerClass() {
+  public DozerClass(BeanContainer beanContainer) {
+    this.beanContainer = beanContainer;
   }
 
   public DozerClass(String name, Class<?> classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
-      String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean accessible) {
+                    String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean accessible, BeanContainer beanContainer) {
     this.name = name;
     this.classToMap = classToMap;
     this.beanFactory = beanFactory;
@@ -56,6 +60,7 @@ public class DozerClass {
     this.mapNull = mapNull;
     this.mapEmptyString = mapEmptyString;
     this.accessible = accessible;
+    this.beanContainer = beanContainer;
   }
 
   public String getBeanFactory() {
@@ -76,7 +81,7 @@ public class DozerClass {
 
   public void setName(String name) {
     this.name = name;
-    classToMap = MappingUtils.loadClass(name);
+    classToMap = MappingUtils.loadClass(name, beanContainer);
   }
 
   public String getFactoryBeanId() {

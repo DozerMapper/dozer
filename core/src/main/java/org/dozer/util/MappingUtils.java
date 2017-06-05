@@ -162,16 +162,16 @@ public final class MappingUtils {
     reversed.setDestDeepIndexHintContainer(source.getSrcDeepIndexHintContainer());
   }
 
-  public static void reverseFields(ClassMap source, ClassMap destination) {
+  public static void reverseFields(ClassMap source, ClassMap destination, BeanContainer beanContainer) {
     // reverse the fields
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
         source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
             source.getDestClass().getCreateMethod(),
-            source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccessible()));
+            source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccessible(), beanContainer));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
         source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
             source.getSrcClass().getCreateMethod(),
-            source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccessible()));
+            source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccessible(), beanContainer));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
     destination.setTrimStrings(source.isTrimStrings());
@@ -218,27 +218,23 @@ public final class MappingUtils {
     }
   }
 
-  public static Class<?> loadClass(String name) {
-    BeanContainer container = BeanContainer.getInstance();
-    DozerClassLoader loader = container.getClassLoader();
+  public static Class<?> loadClass(String name, BeanContainer beanContainer) {
+    DozerClassLoader loader = beanContainer.getClassLoader();
     return loader.loadClass(name);
   }
 
-  public static Class<?> getRealClass(Class<?> clazz) {
-    BeanContainer container = BeanContainer.getInstance();
-    DozerProxyResolver proxyResolver = container.getProxyResolver();
+  public static Class<?> getRealClass(Class<?> clazz, BeanContainer beanContainer) {
+    DozerProxyResolver proxyResolver = beanContainer.getProxyResolver();
     return proxyResolver.getRealClass(clazz);
   }
 
-  public static <T> T deProxy(T object) {
-    BeanContainer container = BeanContainer.getInstance();
-    DozerProxyResolver proxyResolver = container.getProxyResolver();
+  public static <T> T deProxy(T object, BeanContainer beanContainer) {
+    DozerProxyResolver proxyResolver = beanContainer.getProxyResolver();
     return proxyResolver.unenhanceObject(object);
   }
 
-  public static boolean isProxy(Class<?> clazz) {
-    BeanContainer container = BeanContainer.getInstance();
-    DozerProxyResolver proxyResolver = container.getProxyResolver();
+  public static boolean isProxy(Class<?> clazz, BeanContainer beanContainer) {
+    DozerProxyResolver proxyResolver = beanContainer.getProxyResolver();
     return proxyResolver.isProxy(clazz);
   }
 
@@ -344,12 +340,12 @@ public final class MappingUtils {
     return isEnumType(srcFieldClass) && isEnumType(destFieldType);
   }
 
-  public static List<Class<?>> getSuperClassesAndInterfaces(Class<?> srcClass) {
+  public static List<Class<?>> getSuperClassesAndInterfaces(Class<?> srcClass, BeanContainer beanContainer) {
     List<Class<?>> superClasses = new ArrayList<Class<?>>();
-    Class<?> realClass = getRealClass(srcClass);
+    Class<?> realClass = getRealClass(srcClass, beanContainer);
 
     // Add all super classes first
-    Class<?> superClass = getRealClass(realClass).getSuperclass();
+    Class<?> superClass = getRealClass(realClass, beanContainer).getSuperclass();
     while (!isBaseClass(superClass)) {
       superClasses.add(superClass);
       superClass = superClass.getSuperclass();
@@ -360,9 +356,9 @@ public final class MappingUtils {
     // Linked hash set so duplicated are not added but insertion order is kept 
     LinkedHashSet<Class<?>> interfaces = new LinkedHashSet<Class<?>>();
 
-    interfaces.addAll(getInterfaceHierarchy(realClass));
+    interfaces.addAll(getInterfaceHierarchy(realClass, beanContainer));
     for (Class<?> clazz : superClasses) {
-      interfaces.addAll(getInterfaceHierarchy(clazz));
+      interfaces.addAll(getInterfaceHierarchy(clazz, beanContainer));
     }
 
     superClasses.addAll(interfaces);
@@ -370,9 +366,9 @@ public final class MappingUtils {
   }
 
   @SuppressWarnings("unchecked")
-  public static List<Class<?>> getInterfaceHierarchy(Class<?> srcClass) {
+  public static List<Class<?>> getInterfaceHierarchy(Class<?> srcClass, BeanContainer beanContainer) {
     final List<Class<?>> result = new LinkedList<Class<?>>();
-    Class<?> realClass = getRealClass(srcClass);
+    Class<?> realClass = getRealClass(srcClass, beanContainer);
 
     final LinkedList<Class> interfacesToProcess = new LinkedList<Class>();
 

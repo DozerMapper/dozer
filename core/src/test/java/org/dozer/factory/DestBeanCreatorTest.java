@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.BeanContainer;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
 import org.junit.Test;
@@ -29,9 +30,11 @@ import org.junit.Test;
  */
 public class DestBeanCreatorTest extends AbstractDozerTest {
 
+  private DestBeanCreator destBeanCreator = new DestBeanCreator(new BeanContainer());
+
   @Test
   public void testCreatDestBeanNoFactory() throws Exception {
-    TestObject bean = (TestObject) DestBeanCreator.create(new BeanCreationDirective(null, null, TestObject.class, null, null, null, null));
+    TestObject bean = (TestObject) destBeanCreator.create(new BeanCreationDirective(null, null, TestObject.class, null, null, null, null));
 
     assertNotNull(bean);
     assertNull(bean.getCreatedByFactoryName());
@@ -40,7 +43,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
   @Test
   public void testCreatBeanFromFactory() throws Exception {
     String factoryName = "org.dozer.functional_tests.support.SampleCustomBeanFactory";
-    TestObject bean = (TestObject) DestBeanCreator.create(
+    TestObject bean = (TestObject) destBeanCreator.create(
         new BeanCreationDirective(new TestObjectPrime(), TestObjectPrime.class, TestObject.class, null, factoryName, null, null));
 
     assertNotNull(bean);
@@ -49,10 +52,10 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
 
   @Test
   public void testMap() {
-    Map map = DestBeanCreator.create(Map.class);
+    Map map = destBeanCreator.create(Map.class);
     assertTrue(map instanceof HashMap);
 
-    TreeMap treeMap = DestBeanCreator.create(TreeMap.class);
+    TreeMap treeMap = destBeanCreator.create(TreeMap.class);
     assertNotNull(treeMap);
   }
 

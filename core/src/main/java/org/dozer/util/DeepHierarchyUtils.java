@@ -18,6 +18,8 @@ package org.dozer.util;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
@@ -32,11 +34,12 @@ public final class DeepHierarchyUtils {
     }
 
     // Copy-paste from GetterSetterPropertyDescriptor
-    public static Object getDeepFieldValue(Object srcObj, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer) {
+    public static Object getDeepFieldValue(Object srcObj, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer,
+                                           BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
         // follow deep field hierarchy. If any values are null along the way, then return null
         Object parentObj = srcObj;
         Object hierarchyValue = parentObj;
-        DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(srcObj.getClass(), fieldName, srcDeepIndexHintContainer);
+        DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(srcObj.getClass(), fieldName, srcDeepIndexHintContainer, beanContainer, destBeanCreator);
 
         for (DozerPropertyDescriptor hierarchyElement : hierarchy) {
             hierarchyValue = hierarchyElement.getPropertyValue(parentObj);
@@ -53,19 +56,20 @@ public final class DeepHierarchyUtils {
         return hierarchyValue;
     }
 
-    public static Class<?> getDeepFieldType(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer) {
+    public static Class<?> getDeepFieldType(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
         // follow deep field hierarchy. If any values are null along the way, then return null
-        DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer);
+        DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer, beanContainer, destBeanCreator);
         return hierarchy[hierarchy.length - 1].getPropertyType();
     }
 
-    public static Class<?> getDeepGenericType(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer) {
+    public static Class<?> getDeepGenericType(Class<?> clazz, String fieldName, HintContainer deepIndexHintContainer, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
         // follow deep field hierarchy. If any values are null along the way, then return null
-        DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer);
+        DozerPropertyDescriptor[] hierarchy = getDeepFieldHierarchy(clazz, fieldName, deepIndexHintContainer, beanContainer, destBeanCreator);
         return hierarchy[hierarchy.length - 1].genericType();
     }
 
-    private static DozerPropertyDescriptor[] getDeepFieldHierarchy(Class<?> parentClass, String field, HintContainer deepIndexHintContainer) {
+    private static DozerPropertyDescriptor[] getDeepFieldHierarchy(Class<?> parentClass, String field, HintContainer deepIndexHintContainer,
+                                                                   BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
         if (!MappingUtils.isDeepMapping(field)) {
             MappingUtils.throwMappingException("Field does not contain deep field delimiter");
         }
@@ -88,7 +92,7 @@ public final class DeepHierarchyUtils {
             DozerPropertyDescriptor propDescriptor = PropertyDescriptorFactory.getPropertyDescriptor(latestClass, null, null, null, null, false,
                                                                                                      collectionIndex > -1, collectionIndex, theFieldName, null,
                                                                                                      false, null, null, null,
-                                                                                                     null); //we can pass null as a hint container - if genericType return null - we will use hintContainer in the underlying if
+                                                                                                     null, beanContainer, destBeanCreator); //we can pass null as a hint container - if genericType return null - we will use hintContainer in the underlying if
 
             if (propDescriptor == null) {
                 MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "

@@ -21,6 +21,8 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -34,6 +36,11 @@ import org.dozer.util.MappingUtils;
 public class HintContainer {
   private String hintName;
   private List<Class<?>> hints;
+  private final BeanContainer beanContainer;
+
+  public HintContainer(BeanContainer beanContainer) {
+    this.beanContainer = beanContainer;
+  }
 
   public Class<?> getHint() {
     Class<?> result;
@@ -60,7 +67,7 @@ public class HintContainer {
       while (st.hasMoreElements()) {
         String theHintName = st.nextToken().trim();
 
-        Class<?> clazz = MappingUtils.loadClass(theHintName);
+        Class<?> clazz = MappingUtils.loadClass(theHintName, beanContainer);
         list.add(clazz);
       }
       hints = list;
@@ -81,7 +88,7 @@ public class HintContainer {
           .throwMappingException("When using multiple source and destination hints there must be exactly the same number of hints on the source and the destination.");
     }
     int count = 0;
-    String myClazName = MappingUtils.getRealClass(clazz).getName();
+    String myClazName = MappingUtils.getRealClass(clazz, beanContainer).getName();
     int size = clazzHints.size();
     for (int i = 0; i < size; i++) {
       Class<?> element = clazzHints.get(i);

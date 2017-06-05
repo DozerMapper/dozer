@@ -28,12 +28,6 @@ import org.dozer.util.DozerProxyResolver;
  */
 public class BeanContainer {
 
-  private static final BeanContainer instance = new BeanContainer();
-
-  public static BeanContainer getInstance() {
-    return instance;
-  }
-
   DozerClassLoader classLoader = new DefaultClassLoader(getClass().getClassLoader());
   DozerClassLoader tccl = new DefaultClassLoader(Thread.currentThread().getContextClassLoader());
   DozerProxyResolver proxyResolver = new DefaultProxyResolver();

@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +37,9 @@ public class MappingStreamReaderTest {
 
   @Before
   public void setUp() throws Exception {
-    streamReader = new MappingStreamReader(new XMLParserFactory());
+    BeanContainer beanContainer = new BeanContainer();
+    DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+    streamReader = new MappingStreamReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator));
   }
 
   @Test

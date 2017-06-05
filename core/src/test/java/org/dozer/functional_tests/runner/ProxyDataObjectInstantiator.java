@@ -25,6 +25,7 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
+import org.dozer.config.BeanContainer;
 import org.dozer.functional_tests.DataObjectInstantiator;
 import org.dozer.util.MappingUtils;
 
@@ -58,7 +59,7 @@ public final class ProxyDataObjectInstantiator implements DataObjectInstantiator
     public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
         List<Class<?>> argTypes = new ArrayList<Class<?>>();
         for (Object arg : args) {
-            argTypes.add(MappingUtils.getRealClass(arg.getClass()));
+            argTypes.add(MappingUtils.getRealClass(arg.getClass(), new BeanContainer()));
         }
 
         Enhancer enhancer = new Enhancer();

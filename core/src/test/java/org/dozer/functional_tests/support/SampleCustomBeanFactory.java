@@ -15,13 +15,15 @@
  */
 package org.dozer.functional_tests.support;
 
+import org.dozer.config.BeanContainer;
+
 /**
  * @author tierney.matt
  */
 
 public class SampleCustomBeanFactory extends BaseSampleBeanFactory {
 
-  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String id, BeanContainer beanContainer) {
     try {
       Object rvalue = Class.forName(id).newInstance();
       // just for unit testing. need something to indicate that it was created by the factory method

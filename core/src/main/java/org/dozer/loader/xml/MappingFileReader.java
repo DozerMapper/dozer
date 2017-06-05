@@ -39,13 +39,15 @@ public class MappingFileReader implements MappingsSource<URL> {
   private final Logger log = LoggerFactory.getLogger(MappingFileReader.class);
 
   private final MappingStreamReader streamReader;
+  private final BeanContainer beanContainer;
 
-  public MappingFileReader(XMLParserFactory parserFactory) {
-    streamReader = new MappingStreamReader(parserFactory);
+  public MappingFileReader(XMLParserFactory parserFactory, XMLParser xmlParser, BeanContainer beanContainer) {
+    this.streamReader = new MappingStreamReader(parserFactory, xmlParser);
+    this.beanContainer = beanContainer;
   }
 
   public MappingFileData read(String fileName) {
-    DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+    DozerClassLoader classLoader = beanContainer.getClassLoader();
     URL url = classLoader.loadResource(fileName);
     return read(url);
   }

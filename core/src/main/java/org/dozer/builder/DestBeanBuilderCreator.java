@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.dozer.BeanBuilder;
+import org.dozer.config.BeanContainer;
 import org.dozer.factory.BeanCreationDirective;
 
 /**
@@ -37,7 +38,7 @@ public final class DestBeanBuilderCreator {
 
     }
 
-    public static BeanBuilder create(BeanCreationDirective directive) {
+    public static BeanBuilder create(BeanCreationDirective directive, BeanContainer beanContainer) {
         for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
             if (strategy.isApplicable(directive)) {
                 return strategy.create(directive);

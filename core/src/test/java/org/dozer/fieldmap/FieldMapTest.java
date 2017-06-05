@@ -24,6 +24,9 @@ import java.util.concurrent.Executors;
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.DozerClass;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,7 +45,8 @@ public class FieldMapTest extends AbstractDozerTest {
   @Before
   public void setUp() {
     classMap = mock(ClassMap.class);
-    fieldMap = new FieldMap(classMap) {};
+    BeanContainer beanContainer = new BeanContainer();
+    fieldMap = new FieldMap(classMap, beanContainer, new DestBeanCreator(beanContainer)) {};
     DozerClass dozerClass = mock(DozerClass.class);
     when(classMap.getDestClass()).thenReturn(dozerClass);
     field = mock(DozerField.class);

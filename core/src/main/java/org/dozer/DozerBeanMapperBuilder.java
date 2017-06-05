@@ -18,9 +18,13 @@ package org.dozer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.MappingsParser;
+import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
@@ -118,17 +122,24 @@ public final class DozerBeanMapperBuilder {
     public DozerBeanMapper build() {
         DozerClassLoader classLoader = getClassLoader();
         GlobalSettings globalSettings = new GlobalSettings(classLoader);
-        CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(new MappingsParser());
-        XMLParserFactory xmlParserFactory = new XMLParserFactory();
+        BeanContainer beanContainer = new BeanContainer();
+        DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+        ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator);
+        CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(new MappingsParser(beanContainer, destBeanCreator), classMapBuilder, beanContainer);
+        XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
         StatisticsManager statisticsManager = new StatisticsManagerImpl(globalSettings);
         DozerInitializer dozerInitializer = new DozerInitializer();
+        XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator);
 
         return new DozerBeanMapper(mappingFiles,
                 globalSettings,
                 customMappingsLoader,
                 xmlParserFactory,
                 statisticsManager,
-                dozerInitializer);
+                dozerInitializer,
+                beanContainer,
+                xmlParser,
+                destBeanCreator);
     }
 
     private DozerClassLoader getClassLoader() {

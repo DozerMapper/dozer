@@ -17,7 +17,6 @@ package org.dozer.loader.xml;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.xml.sax.EntityResolver;
@@ -45,6 +44,12 @@ public class DozerResolver implements EntityResolver {
     private final Logger log = LoggerFactory.getLogger(DozerResolver.class);
     private static final String VERSION_5_XSD = "http://dozer.sourceforge.net/schema/beanmapping.xsd";
     private static final String VERSION_6_XSD = "http://dozermapper.github.io/schema/bean-mapping.xsd";
+
+    private final BeanContainer beanContainer;
+
+    public DozerResolver(BeanContainer beanContainer) {
+        this.beanContainer = beanContainer;
+    }
 
     public InputSource resolveEntity(String publicId, String systemId) {
         InputSource source = null;
@@ -93,7 +98,7 @@ public class DozerResolver implements EntityResolver {
             log.debug("Trying to locate [{}] in classpath", fileName);
 
             //Attempt to find via user defined class loader
-            DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+            DozerClassLoader classLoader = beanContainer.getClassLoader();
             URL url = classLoader.loadResource(fileName);
             if (url == null) {
                 //Attempt to find via dozer-schema jar

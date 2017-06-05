@@ -31,6 +31,8 @@ import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.classmap.generator.ClassLevelFieldMappingGenerator;
 import org.dozer.classmap.generator.GeneratorUtils;
 import org.dozer.classmap.generator.MappingType;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
@@ -53,27 +55,27 @@ public final class ClassMapBuilder {
 
   private static final Logger log = LoggerFactory.getLogger(ClassMapBuilder.class);
 
-  static final List<ClassMappingGenerator> buildTimeGenerators = new ArrayList<ClassMappingGenerator>();
-  static final List<ClassMappingGenerator> runTimeGenerators = new ArrayList<ClassMappingGenerator>();
+  private final List<ClassMappingGenerator> buildTimeGenerators = new ArrayList<>();
+  private final List<ClassMappingGenerator> runTimeGenerators = new ArrayList<>();
+  private final BeanContainer beanContainer;
 
-  static {
-    buildTimeGenerators.add(new ClassLevelFieldMappingGenerator());
-    buildTimeGenerators.add(new AnnotationPropertiesGenerator());
-    buildTimeGenerators.add(new AnnotationFieldsGenerator());
+  public ClassMapBuilder(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    this.beanContainer = beanContainer;
+
+    buildTimeGenerators.add(new ClassLevelFieldMappingGenerator(beanContainer, destBeanCreator));
+    buildTimeGenerators.add(new AnnotationPropertiesGenerator(beanContainer, destBeanCreator));
+    buildTimeGenerators.add(new AnnotationFieldsGenerator(beanContainer, destBeanCreator));
     buildTimeGenerators.add(new AnnotationClassesGenerator());
-    buildTimeGenerators.add(new MapMappingGenerator());
-    buildTimeGenerators.add(new BeanMappingGenerator());
-    buildTimeGenerators.add(new CollectionMappingGenerator());
+    buildTimeGenerators.add(new MapMappingGenerator(beanContainer, destBeanCreator));
+    buildTimeGenerators.add(new BeanMappingGenerator(beanContainer, destBeanCreator));
+    buildTimeGenerators.add(new CollectionMappingGenerator(beanContainer, destBeanCreator));
 
-    runTimeGenerators.add(new ClassLevelFieldMappingGenerator());
-    runTimeGenerators.add(new AnnotationPropertiesGenerator());
-    runTimeGenerators.add(new AnnotationFieldsGenerator());
+    runTimeGenerators.add(new ClassLevelFieldMappingGenerator(beanContainer, destBeanCreator));
+    runTimeGenerators.add(new AnnotationPropertiesGenerator(beanContainer, destBeanCreator));
+    runTimeGenerators.add(new AnnotationFieldsGenerator(beanContainer, destBeanCreator));
     runTimeGenerators.add(new AnnotationClassesGenerator());
-    runTimeGenerators.add(new MapMappingGenerator());
-    runTimeGenerators.add(new BeanMappingGenerator());
-  }
-
-  private ClassMapBuilder() {
+    runTimeGenerators.add(new MapMappingGenerator(beanContainer, destBeanCreator));
+    runTimeGenerators.add(new BeanMappingGenerator(beanContainer, destBeanCreator));
   }
 
   // TODO Cover with test cases
@@ -92,12 +94,12 @@ public final class ClassMapBuilder {
    * @param destClass type to convert to
    * @return information about the classes being mapped
    */
-  public static ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
+  public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
     ClassMap classMap = new ClassMap(globalConfiguration);
     classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null, null,
-        globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false));
+        globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false, beanContainer));
     classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
-        null, globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false));
+        null, globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false, beanContainer));
 
     generateMapping(classMap, globalConfiguration, buildTimeGenerators);
     return classMap;
@@ -109,7 +111,7 @@ public final class ClassMapBuilder {
    * @param classMappings information about the classes being mapped
    * @param globalConfiguration configuration of Dozer
    */
-  public static void addDefaultFieldMappings(ClassMappings classMappings, Configuration globalConfiguration) {
+  public void addDefaultFieldMappings(ClassMappings classMappings, Configuration globalConfiguration) {
     Set<Entry<String, ClassMap>> entries = classMappings.getAll().entrySet();
     for (Entry<String, ClassMap> entry : entries) {
       ClassMap classMap = entry.getValue();
@@ -117,7 +119,7 @@ public final class ClassMapBuilder {
     }
   }
 
-  private static void generateMapping(ClassMap classMap, Configuration configuration, List<ClassMappingGenerator> mappingGenerators) {
+  private void generateMapping(ClassMap classMap, Configuration configuration, List<ClassMappingGenerator> mappingGenerators) {
     if (!classMap.isWildcard()) {
       return;
     }
@@ -148,6 +150,14 @@ public final class ClassMapBuilder {
 
   public static class MapMappingGenerator implements ClassMappingGenerator {
 
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+
+    public MapMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+      this.beanContainer = beanContainer;
+      this.destBeanCreator = destBeanCreator;
+    }
+
     public boolean accepts(ClassMap classMap) {
       Class<?> srcClass = classMap.getSrcClassToMap();
       Class<?> destClass = classMap.getDestClassToMap();
@@ -172,7 +182,7 @@ public final class ClassMapBuilder {
       for (PropertyDescriptor property : properties) {
         String fieldName = property.getName();
 
-        if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass)) {
+        if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass, beanContainer)) {
           continue;
         }
 
@@ -186,7 +196,7 @@ public final class ClassMapBuilder {
           continue;
         }
 
-        FieldMap fieldMap = new MapFieldMap(classMap);
+        FieldMap fieldMap = new MapFieldMap(classMap, beanContainer, destBeanCreator);
         DozerField srcField = new DozerField(MappingUtils.isSupportedMap(srcClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
         srcField.setKey(fieldName);
 
@@ -219,6 +229,14 @@ public final class ClassMapBuilder {
 
   public static class CollectionMappingGenerator implements ClassMappingGenerator {
 
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+
+    public CollectionMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+      this.beanContainer = beanContainer;
+      this.destBeanCreator = destBeanCreator;
+    }
+
     public boolean accepts(ClassMap classMap) {
       Class<?> srcClass = classMap.getSrcClassToMap();
       Class<?> destClass = classMap.getDestClassToMap();
@@ -226,7 +244,7 @@ public final class ClassMapBuilder {
     }
 
     public boolean apply(ClassMap classMap, Configuration configuration) {
-      FieldMap fieldMap = new GenericFieldMap(classMap);
+      FieldMap fieldMap = new GenericFieldMap(classMap, beanContainer, destBeanCreator);
       DozerField selfReference = new DozerField(DozerConstants.SELF_KEYWORD, null);
       fieldMap.setSrcField(selfReference);
       fieldMap.setDestField(selfReference);
@@ -340,6 +358,14 @@ public final class ClassMapBuilder {
 
   public static class AnnotationPropertiesGenerator implements ClassMappingGenerator {
 
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+
+    public AnnotationPropertiesGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+      this.beanContainer = beanContainer;
+      this.destBeanCreator = destBeanCreator;
+    }
+
     public boolean accepts(ClassMap classMap) {
       return true;
     }
@@ -357,7 +383,7 @@ public final class ClassMapBuilder {
             String pairName = mapping.value().trim();
             if (requireMapping(mapping, classMap.getDestClassToMap(), propertyName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
-                      propertyName, pairName.isEmpty() ? propertyName : pairName);
+                      propertyName, pairName.isEmpty() ? propertyName : pairName, beanContainer, destBeanCreator);
             }
           }
         }
@@ -375,7 +401,7 @@ public final class ClassMapBuilder {
             String pairName = mapping.value().trim();
             if (requireMapping(mapping, classMap.getSrcClassToMap(), propertyName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
-                      pairName.isEmpty() ? propertyName : pairName, propertyName);
+                      pairName.isEmpty() ? propertyName : pairName, propertyName, beanContainer, destBeanCreator);
             }
           }
         }
@@ -386,6 +412,14 @@ public final class ClassMapBuilder {
   }
 
   public static class AnnotationFieldsGenerator implements ClassMappingGenerator {
+
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+
+    public AnnotationFieldsGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+      this.beanContainer = beanContainer;
+      this.destBeanCreator = destBeanCreator;
+    }
 
     public boolean accepts(ClassMap classMap) {
       return true;
@@ -401,7 +435,7 @@ public final class ClassMapBuilder {
             String pairName = mapping.value().trim();
             if (requireMapping(mapping, classMap.getDestClassToMap(), fieldName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
-                      fieldName, pairName.isEmpty() ? fieldName : pairName);
+                      fieldName, pairName.isEmpty() ? fieldName : pairName, beanContainer, destBeanCreator);
             }
           }
         }
@@ -417,7 +451,7 @@ public final class ClassMapBuilder {
             String pairName = mapping.value().trim();
             if (requireMapping(mapping, classMap.getSrcClassToMap(), fieldName, pairName)) {
               GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
-                      pairName.isEmpty() ? fieldName : pairName, fieldName);
+                      pairName.isEmpty() ? fieldName : pairName, fieldName, beanContainer, destBeanCreator);
             }
           }
         }

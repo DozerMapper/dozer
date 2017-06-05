@@ -23,6 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.lang3.StringUtils;
+
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -38,9 +40,11 @@ public class ClassMappings {
   // Cache key --> Mapping Structure
   private ConcurrentMap<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
   private ClassMapKeyFactory keyFactory;
+  private final BeanContainer beanContainer;
 
-  public ClassMappings() {
-    keyFactory = new ClassMapKeyFactory();
+  public ClassMappings(BeanContainer beanContainer) {
+    this.beanContainer = beanContainer;
+    keyFactory = new ClassMapKeyFactory(beanContainer);
   }
 
   // Default mappings. May be ovewritten due to multiple threads generating same mapping
@@ -152,7 +156,7 @@ public class ClassMappings {
       // Destination could be an abstract type. Picking up the best concrete type to use.
       if ((destClass.isAssignableFrom(mappingDestClass) && isAbstract(destClass)) ||
               (isInterfaceImplementation(destClass, mappingDestClass))) {
-        if (MappingUtils.getRealClass(srcClass).equals(mappingSrcClass)) {
+        if (MappingUtils.getRealClass(srcClass, beanContainer).equals(mappingSrcClass)) {
           return map;
         }
       }

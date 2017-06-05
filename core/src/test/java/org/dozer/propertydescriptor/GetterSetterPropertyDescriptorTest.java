@@ -19,6 +19,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.vo.deep2.Dest;
 import org.junit.Before;
@@ -35,8 +37,10 @@ public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
     public void setup() {
         DozerField dozerField = new DozerField("destField", "generic");
 
+        BeanContainer beanContainer = new BeanContainer();
+        DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
         this.javaBeanPropertyDescriptor = new JavaBeanPropertyDescriptor(
-            Dest.class, dozerField.getName(), dozerField.isIndexed(), dozerField.getIndex(), null, null);
+            Dest.class, dozerField.getName(), dozerField.isIndexed(), dozerField.getIndex(), null, null, beanContainer, destBeanCreator);
     }
 
     @Test

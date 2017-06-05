@@ -25,6 +25,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.vo.A;
 import org.dozer.vo.B;
 import org.dozer.vo.NoReadMethod;
@@ -41,6 +42,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
  * @author tierney.matt
  */
 public class ReflectionUtilsTest extends AbstractDozerTest {
+
+  private BeanContainer beanContainer = new BeanContainer();
 
   @Test(expected = MappingException.class)
   public void testGetMethod_NotFound() throws Exception {
@@ -151,25 +154,25 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
   @Test
   public void shouldThrowNoSuchMethodFound() throws NoSuchMethodException {
-    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC()");
+    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC()", beanContainer);
     assertThat(result, notNullValue());
   }
 
   @Test
   public void shouldThrowNoSuchMethodFound_NoBrackets() throws NoSuchMethodException {
-    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC");
+    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC", beanContainer);
     assertThat(result, notNullValue());
   }
 
   @Test(expected = NoSuchMethodException.class)
   public void shouldThrowNoSuchMethodFound_Missing() throws Exception {
-    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod()");
+    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod()", beanContainer);
     fail();
   }
 
   @Test(expected = NoSuchMethodException.class)
   public void shouldThrowNoSuchMethodFound_MissingNoBrackets() throws Exception {
-    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod");
+    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod", beanContainer);
     fail();
   }
 

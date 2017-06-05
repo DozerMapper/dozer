@@ -41,9 +41,9 @@ public class MappingStreamReader implements MappingsSource<InputStream> {
     private final DocumentBuilder documentBuilder;
   private final MappingsSource<Document> parser;
 
-    public MappingStreamReader(XMLParserFactory parserFactory) {
-    this.documentBuilder = parserFactory.createParser();
-    this.parser = new XMLParser();
+    public MappingStreamReader(XMLParserFactory parserFactory, XMLParser xmlParser) {
+        this.documentBuilder = parserFactory.createParser();
+        this.parser = xmlParser;
     }
 
     public MappingFileData read(InputStream xmlStream) {

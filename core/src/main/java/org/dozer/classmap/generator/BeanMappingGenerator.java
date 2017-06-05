@@ -23,6 +23,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.util.CollectionUtils;
 
 /**
@@ -35,6 +37,14 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
   static final List<BeanFieldsDetector> availableFieldDetectors = new ArrayList<BeanFieldsDetector>() {{
     add(new JavaBeanFieldsDetector());
   }};
+
+  private final BeanContainer beanContainer;
+  private final DestBeanCreator destBeanCreator;
+
+  public BeanMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
+  }
 
   public boolean accepts(ClassMap classMap) {
     return true;
@@ -49,7 +59,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
     Set<String> commonFieldNames = CollectionUtils.intersection(srcFieldNames, destFieldNames);
 
     for (String fieldName : commonFieldNames) {
-      if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass)) {
+      if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass, beanContainer)) {
         continue;
       }
 
@@ -58,7 +68,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
         continue;
       }
 
-      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName);
+      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName, beanContainer, destBeanCreator);
     }
     return false;
   }

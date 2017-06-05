@@ -17,6 +17,7 @@ package org.dozer.functional_tests.support;
 
 import org.dozer.BeanFactory;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.vo.interfacerecursion.User;
 import org.dozer.vo.interfacerecursion.UserGroup;
 import org.dozer.vo.interfacerecursion.UserGroupImpl;
@@ -31,7 +32,7 @@ import org.dozer.vo.interfacerecursion.UserPrimeImpl;
  */
 public class UserBeanFactory implements BeanFactory {
 
-    public Object createBean(Object aSrcObj, Class<?> aSrcObjClass, String aTargetBeanId) {
+    public Object createBean(Object aSrcObj, Class<?> aSrcObjClass, String aTargetBeanId, BeanContainer beanContainer) {
         // check null arguments
         if (aSrcObj == null || aSrcObjClass == null || aTargetBeanId == null) {
             return null;

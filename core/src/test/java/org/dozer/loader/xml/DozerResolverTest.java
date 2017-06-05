@@ -18,6 +18,8 @@ package org.dozer.loader.xml;
 import org.xml.sax.InputSource;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.BeanContainer;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +32,7 @@ public class DozerResolverTest extends AbstractDozerTest {
 
     @Before
     public void setUp() throws Exception {
-        dozerResolver = new DozerResolver();
+        dozerResolver = new DozerResolver(new BeanContainer());
     }
 
     @Test

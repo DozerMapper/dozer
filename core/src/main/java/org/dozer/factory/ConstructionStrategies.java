@@ -49,52 +49,65 @@ import org.slf4j.LoggerFactory;
  */
 public final class ConstructionStrategies {
 
-    private static final BeanCreationStrategy byCreateMethod = new ConstructionStrategies.ByCreateMethod();
-    private static final BeanCreationStrategy byGetInstance = new ConstructionStrategies.ByGetInstance();
-    private static final BeanCreationStrategy byInterface = new ConstructionStrategies.ByInterface();
-    private static final BeanCreationStrategy xmlBeansBased = new ConstructionStrategies.XMLBeansBased();
-    private static final BeanCreationStrategy jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased();
-    private static final BeanCreationStrategy constructorBased = new ConstructionStrategies.ByConstructor();
-    private static final ConstructionStrategies.ByFactory byFactory = new ConstructionStrategies.ByFactory();
-    private static final BeanCreationStrategy xmlGregorianCalendar = new ConstructionStrategies.XmlGregorian();
+    private final BeanCreationStrategy byCreateMethod;
+    private final BeanCreationStrategy byGetInstance;
+    private final BeanCreationStrategy byInterface;
+    private final BeanCreationStrategy xmlBeansBased;
+    private final BeanCreationStrategy jaxbBeansBased;
+    private final BeanCreationStrategy constructorBased;
+    private final ConstructionStrategies.ByFactory byFactory;
+    private final BeanCreationStrategy xmlGregorianCalendar;
 
-    private ConstructionStrategies() {
-
+    public ConstructionStrategies(BeanContainer beanContainer) {
+        byCreateMethod = new ByCreateMethod(beanContainer);
+        byGetInstance = new ByGetInstance(beanContainer);
+        byInterface = new ByInterface();
+        xmlBeansBased = new XMLBeansBased(beanContainer);
+        jaxbBeansBased = new JAXBBeansBased(beanContainer);
+        constructorBased = new ByConstructor();
+        byFactory = new ByFactory(beanContainer);
+        xmlGregorianCalendar = new XmlGregorian();
     }
 
-    public static BeanCreationStrategy byCreateMethod() {
+    public BeanCreationStrategy byCreateMethod() {
         return byCreateMethod;
     }
 
-    public static BeanCreationStrategy byGetInstance() {
+    public BeanCreationStrategy byGetInstance() {
         return byGetInstance;
     }
 
-    public static BeanCreationStrategy byInterface() {
+    public BeanCreationStrategy byInterface() {
         return byInterface;
     }
 
-    public static BeanCreationStrategy xmlBeansBased() {
+    public BeanCreationStrategy xmlBeansBased() {
         return xmlBeansBased;
     }
 
-    public static BeanCreationStrategy jaxbBeansBased() {
+    public BeanCreationStrategy jaxbBeansBased() {
         return jaxbBeansBased;
     }
 
-    public static BeanCreationStrategy byConstructor() {
+    public BeanCreationStrategy byConstructor() {
         return constructorBased;
     }
 
-    public static ByFactory byFactory() {
+    public ByFactory byFactory() {
         return byFactory;
     }
 
-    public static BeanCreationStrategy xmlGregorianCalendar() {
+    public BeanCreationStrategy xmlGregorianCalendar() {
         return xmlGregorianCalendar;
     }
 
     static class ByCreateMethod implements BeanCreationStrategy {
+
+        private final BeanContainer beanContainer;
+
+        ByCreateMethod(BeanContainer beanContainer) {
+            this.beanContainer = beanContainer;
+        }
 
         public boolean isApplicable(BeanCreationDirective directive) {
             String createMethod = directive.getCreateMethod();
@@ -109,7 +122,7 @@ public final class ConstructionStrategies {
             if (createMethod.contains(".")) {
                 String methodName = createMethod.substring(createMethod.lastIndexOf(".") + 1, createMethod.length());
                 String typeName = createMethod.substring(0, createMethod.lastIndexOf("."));
-                DozerClassLoader loader = BeanContainer.getInstance().getClassLoader();
+                DozerClassLoader loader = beanContainer.getClassLoader();
                 Class type = loader.loadClass(typeName);
                 method = findMethod(type, methodName);
             } else {
@@ -132,6 +145,10 @@ public final class ConstructionStrategies {
 
     static class ByGetInstance extends ByCreateMethod {
 
+        ByGetInstance(BeanContainer beanContainer) {
+            super(beanContainer);
+        }
+
         // TODO Investigate what else could be here
 
         @Override
@@ -152,6 +169,11 @@ public final class ConstructionStrategies {
         private final Logger log = LoggerFactory.getLogger(ByFactory.class);
 
         private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<String, BeanFactory>();
+        private final BeanContainer beanContainer;
+
+        ByFactory(BeanContainer beanContainer) {
+            this.beanContainer = beanContainer;
+        }
 
         public boolean isApplicable(BeanCreationDirective directive) {
             String factoryName = directive.getFactoryName();
@@ -168,7 +190,7 @@ public final class ConstructionStrategies {
 
             BeanFactory factory = factoryCache.get(factoryName);
             if (factory == null) {
-                Class<?> factoryClass = MappingUtils.loadClass(factoryName);
+                Class<?> factoryClass = MappingUtils.loadClass(factoryName, beanContainer);
                 if (!BeanFactory.class.isAssignableFrom(factoryClass)) {
                     MappingUtils.throwMappingException("Custom bean factory must implement "
                                                        + BeanFactory.class.getName()
@@ -180,7 +202,7 @@ public final class ConstructionStrategies {
                 factoryCache.put(factoryName, factory);
             }
 
-            Object result = factory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
+            Object result = factory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId, beanContainer);
 
             log.debug("Bean instance created with custom factory -->\n  Bean Type: {}\n  Factory Name: {}",
                       result.getClass().getName(), factoryName);
@@ -225,13 +247,15 @@ public final class ConstructionStrategies {
         final BeanFactory xmlBeanFactory;
         boolean xmlBeansAvailable;
         private Class<?> xmlObjectType;
+        private final BeanContainer beanContainer;
 
-        XMLBeansBased() {
-            this(new XMLBeanFactory());
+        XMLBeansBased(BeanContainer beanContainer) {
+            this(new XMLBeanFactory(), beanContainer);
         }
 
-        XMLBeansBased(XMLBeanFactory xmlBeanFactory) {
+        XMLBeansBased(XMLBeanFactory xmlBeanFactory, BeanContainer beanContainer) {
             this.xmlBeanFactory = xmlBeanFactory;
+            this.beanContainer = beanContainer;
             try {
                 xmlObjectType = Class.forName("org.apache.xmlbeans.XmlObject");
                 xmlBeansAvailable = true;
@@ -252,7 +276,7 @@ public final class ConstructionStrategies {
             Class<?> classToCreate = directive.getActualClass();
             String factoryBeanId = directive.getFactoryId();
             String beanId = !MappingUtils.isBlankOrNull(factoryBeanId) ? factoryBeanId : classToCreate.getName();
-            return xmlBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
+            return xmlBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId, beanContainer);
         }
 
     }
@@ -262,13 +286,15 @@ public final class ConstructionStrategies {
         final BeanFactory jaxbBeanFactory;
         boolean jaxbBeansAvailable;
         private Class<?> jaxbObjectType;
+        private final BeanContainer beanContainer;
 
-        JAXBBeansBased() {
-            this(new JAXBBeanFactory());
+        JAXBBeansBased(BeanContainer beanContainer) {
+            this(new JAXBBeanFactory(), beanContainer);
         }
 
-        JAXBBeansBased(JAXBBeanFactory jaxbBeanFactory) {
+        JAXBBeansBased(JAXBBeanFactory jaxbBeanFactory, BeanContainer beanContainer) {
             this.jaxbBeanFactory = jaxbBeanFactory;
+            this.beanContainer = beanContainer;
             try {
                 jaxbObjectType = Class.forName("javax.xml.bind.JAXBElement");
                 jaxbBeansAvailable = true;
@@ -288,9 +314,9 @@ public final class ConstructionStrategies {
         public Object create(BeanCreationDirective directive) {
             JAXBElementConverter jaxbElementConverter = new JAXBElementConverter(
                 (directive.getDestObj() != null) ? directive.getDestObj().getClass().getCanonicalName() : directive.getActualClass().getCanonicalName(), directive.getFieldName(),
-                null);
+                null, beanContainer);
             String beanId = jaxbElementConverter.getBeanId();
-            Object destValue = jaxbBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId);
+            Object destValue = jaxbBeanFactory.createBean(directive.getSrcObject(), directive.getSrcClass(), beanId, beanContainer);
             return jaxbElementConverter.convert(jaxbObjectType, (destValue != null) ? destValue : directive.getSrcObject());
         }
     }

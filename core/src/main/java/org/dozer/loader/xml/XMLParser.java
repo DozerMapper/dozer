@@ -26,6 +26,7 @@ import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.DozerBuilder;
 import org.dozer.loader.MappingsSource;
 import org.slf4j.Logger;
@@ -97,18 +98,20 @@ public class XMLParser implements MappingsSource<Document> {
   private static final String CUSTOM_CONVERTER_ID_ATTRIBUTE = "custom-converter-id";
   private static final String CUSTOM_CONVERTER_PARAM_ATTRIBUTE = "custom-converter-param";
 
-  private final ElementReader elementReader;
+  private final BeanContainer beanContainer;
+  private final DestBeanCreator destBeanCreator;
 
-  public XMLParser() {
-    this.elementReader = BeanContainer.getInstance().getElementReader();
+  public XMLParser(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
   }
 
   private String getAttribute(Element element, String attribute) {
-    return elementReader.getAttribute(element, attribute);
+    return beanContainer.getElementReader().getAttribute(element, attribute);
   }
 
   private String getNodeValue(Element element) {
-    return elementReader.getNodeValue(element);
+    return beanContainer.getElementReader().getNodeValue(element);
   }
 
   private void debugElement(Element element) {
@@ -122,7 +125,7 @@ public class XMLParser implements MappingsSource<Document> {
    * @return mapping container
    */
   public MappingFileData read(Document document) {
-    DozerBuilder builder = new DozerBuilder();
+    DozerBuilder builder = new DozerBuilder(beanContainer, destBeanCreator);
 
     Element theRoot = document.getDocumentElement();
     NodeList nl = theRoot.getChildNodes();
@@ -442,7 +445,7 @@ public class XMLParser implements MappingsSource<Document> {
         debugElement(ele);
 
         if (VARIABLE_ELEMENT.equals(ele.getNodeName())) {
-          ELEngine engine = BeanContainer.getInstance().getElEngine();
+          ELEngine engine = beanContainer.getElEngine();
           if (engine != null) {
             String name = getAttribute(ele, NAME_ATTRIBUTE);
             String value = getNodeValue(ele);

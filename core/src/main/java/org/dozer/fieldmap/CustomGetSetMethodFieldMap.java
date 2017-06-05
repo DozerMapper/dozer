@@ -16,6 +16,8 @@
 package org.dozer.fieldmap;
 
 import org.dozer.classmap.ClassMap;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 
 /**
  * Only intended for internal use.
@@ -26,7 +28,7 @@ import org.dozer.classmap.ClassMap;
  * 
  */
 public class CustomGetSetMethodFieldMap extends FieldMap {
-  public CustomGetSetMethodFieldMap(ClassMap classMap) {
-    super(classMap);
+  public CustomGetSetMethodFieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    super(classMap, beanContainer, destBeanCreator);
   }
 }

@@ -23,6 +23,8 @@ import java.util.Set;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.util.CollectionUtils;
 
@@ -31,6 +33,14 @@ import org.dozer.util.CollectionUtils;
  * classes have been declared field accessible e.g. with {@code is-accessible="true"}.
  */
 public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMappingGenerator {
+
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+
+    public ClassLevelFieldMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+        this.beanContainer = beanContainer;
+        this.destBeanCreator = destBeanCreator;
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -72,7 +82,7 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
         }
 
         GeneratorUtils.addGenericMapping(mappingType, classMap, configuration,
-                mutualFieldName, mutualFieldName);
+                mutualFieldName, mutualFieldName, beanContainer, destBeanCreator);
     }
 
     private Set<String> getDeclaredFieldNames(Class<?> srcType) {

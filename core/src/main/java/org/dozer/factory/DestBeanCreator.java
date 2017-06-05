@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.dozer.BeanFactory;
+import org.dozer.config.BeanContainer;
 
 /**
  * Internal class that contains the logic used to create a new instance of the destination object being mapped. Performs
@@ -37,29 +38,34 @@ public final class DestBeanCreator {
   static final List<BeanCreationStrategy> pluggedStrategies = new ArrayList<BeanCreationStrategy>();
 
   // order in this collection determines resolving priority
-  static final BeanCreationStrategy[] availableStrategies = new BeanCreationStrategy[]{
-          ConstructionStrategies.byCreateMethod(),
-          ConstructionStrategies.byGetInstance(),
-          ConstructionStrategies.xmlGregorianCalendar(),
-          ConstructionStrategies.byInterface(),
-          ConstructionStrategies.xmlBeansBased(),
-          ConstructionStrategies.jaxbBeansBased(),
-          ConstructionStrategies.byFactory(),
-          ConstructionStrategies.byConstructor()
-  };
+  private final BeanCreationStrategy[] availableStrategies;
+  private final ConstructionStrategies constructionStrategies;
+  private final BeanContainer beanContainer;
 
-  private DestBeanCreator() {
+  public DestBeanCreator(BeanContainer beanContainer) {
+    this.constructionStrategies = new ConstructionStrategies(beanContainer);
+    this.beanContainer = beanContainer;
+    this.availableStrategies = new BeanCreationStrategy[]{
+            this.constructionStrategies.byCreateMethod(),
+            this.constructionStrategies.byGetInstance(),
+            this.constructionStrategies.xmlGregorianCalendar(),
+            this.constructionStrategies.byInterface(),
+            this.constructionStrategies.xmlBeansBased(),
+            this.constructionStrategies.jaxbBeansBased(),
+            this.constructionStrategies.byFactory(),
+            this.constructionStrategies.byConstructor()
+    };
   }
 
-  public static <T> T create(Class<T> targetClass) {
+  public <T> T create(Class<T> targetClass) {
     return (T) create(targetClass, null);
   }
 
-  public static Object create(Class<?> targetClass, Class<?> alternateClass) {
+  public Object create(Class<?> targetClass, Class<?> alternateClass) {
     return create(new BeanCreationDirective(null, null, targetClass, alternateClass, null, null, null));
   }
 
-  public static Object create(BeanCreationDirective directive) {
+  public Object create(BeanCreationDirective directive) {
     Object result = applyStrategies(directive, pluggedStrategies);
     if (result == null) {
       result = applyStrategies(directive, Arrays.asList(availableStrategies));
@@ -68,7 +74,7 @@ public final class DestBeanCreator {
     return result;
   }
 
-  private static Object applyStrategies(BeanCreationDirective directive, List<BeanCreationStrategy> strategies) {
+  private Object applyStrategies(BeanCreationDirective directive, List<BeanCreationStrategy> strategies) {
     // TODO create method lookup by annotation/convention
     // TODO Cache ConstructionStrategy (reuse caching infrastructure)
     // TODO Check resulting type in each method
@@ -83,11 +89,11 @@ public final class DestBeanCreator {
     return null;
   }
 
-  public static void setStoredFactories(Map<String, BeanFactory> factories) {
-    ConstructionStrategies.byFactory().setStoredFactories(factories);
+  public void setStoredFactories(Map<String, BeanFactory> factories) {
+    constructionStrategies.byFactory().setStoredFactories(factories);
   }
 
-  public static void addPluggedStrategy(BeanCreationStrategy strategy) {
+  public void addPluggedStrategy(BeanCreationStrategy strategy) {
     pluggedStrategies.add(strategy);
   }
 

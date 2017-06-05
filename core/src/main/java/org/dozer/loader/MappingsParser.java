@@ -23,6 +23,8 @@ import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingDirection;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.fieldmap.FieldMap;
@@ -44,7 +46,12 @@ import static org.dozer.util.MappingUtils.isSupportedMap;
  */
 public final class MappingsParser {
 
-  public MappingsParser() {
+  private final BeanContainer beanContainer;
+  private final DestBeanCreator destBeanCreator;
+
+  public MappingsParser(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
   }
 
   /**
@@ -58,7 +65,7 @@ public final class MappingsParser {
     if (globalConfiguration == null) {
       throw new IllegalArgumentException("Global configuration parameter cannot be null");
     }
-    ClassMappings result = new ClassMappings();
+    ClassMappings result = new ClassMappings(beanContainer);
     if (classMaps == null || classMaps.size() == 0) {
       return result;
     }
@@ -85,7 +92,7 @@ public final class MappingsParser {
       result.add(classMap.getSrcClassToMap(), classMap.getDestClassToMap(), classMap.getMapId(), classMap);
       // now create class map prime
       classMapPrime = new ClassMap(globalConfiguration);
-      MappingUtils.reverseFields(classMap, classMapPrime);
+      MappingUtils.reverseFields(classMap, classMapPrime, beanContainer);
 
       if (classMap.getFieldMaps() != null) {
         List<FieldMap> fms = classMap.getFieldMaps();
@@ -101,7 +108,7 @@ public final class MappingsParser {
               if ( ( isSupportedMap(classMap.getDestClassToMap()) ^ isSupportedMap(classMap.getSrcClassToMap()) )
                || ( isSupportedMap(fieldMap.getDestFieldType(classMap.getDestClassToMap()))
                     ^ isSupportedMap(fieldMap.getSrcFieldType(classMap.getSrcClassToMap())) ) ) {
-                FieldMap fm = new MapFieldMap(fieldMap);
+                FieldMap fm = new MapFieldMap(fieldMap, beanContainer, destBeanCreator);
                 classMap.removeFieldMapping(fieldMap);
                 classMap.addFieldMapping(fm);
                 fieldMap = fm;
@@ -133,7 +140,7 @@ public final class MappingsParser {
               // check to see if it is only an exclude one way
               if (fieldMapPrime instanceof ExcludeFieldMap && MappingDirection.ONE_WAY.equals(fieldMap.getType())) {
                 // need to make a generic field map for the other direction
-                fieldMapPrime = new GenericFieldMap(classMapPrime);
+                fieldMapPrime = new GenericFieldMap(classMapPrime, beanContainer, destBeanCreator);
               }
               // reverse the fields
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
@@ -147,7 +154,7 @@ public final class MappingsParser {
               }
             } else { // if it is a one-way field map make the other field map excluded
               // make a prime field map
-              fieldMapPrime = new ExcludeFieldMap(classMapPrime);
+              fieldMapPrime = new ExcludeFieldMap(classMapPrime, beanContainer, destBeanCreator);
               MappingUtils.reverseFields(fieldMap, fieldMapPrime);
               MappingUtils.applyGlobalCopyByReference(globalConfiguration, fieldMap, classMap);
             }
@@ -162,7 +169,7 @@ public final class MappingsParser {
             MappingUtils.applyGlobalCopyByReference(globalConfiguration, oneWayFieldMap, classMap);
             // check to see if we need to exclude the map
             if (MappingDirection.ONE_WAY.equals(oneWayFieldMap.getType())) {
-              fieldMapPrime = new ExcludeFieldMap(classMapPrime);
+              fieldMapPrime = new ExcludeFieldMap(classMapPrime, beanContainer, destBeanCreator);
               MappingUtils.reverseFields(oneWayFieldMap, fieldMapPrime);
               classMapPrime.addFieldMapping(fieldMapPrime);
             }

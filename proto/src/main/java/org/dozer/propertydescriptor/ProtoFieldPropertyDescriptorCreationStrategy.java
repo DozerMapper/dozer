@@ -18,6 +18,8 @@ package org.dozer.propertydescriptor;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ProtoUtils;
@@ -26,9 +28,18 @@ import org.dozer.util.ProtoUtils;
  * @author Dmitry Spikhalskiy
  */
 public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDescriptorCreationStrategy {
+
+  private final BeanContainer beanContainer;
+  private final DestBeanCreator destBeanCreator;
+
+  public ProtoFieldPropertyDescriptorCreationStrategy(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
+  }
+
   @Override
   public DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    return new ProtoFieldPropertyDescriptor(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+    return new ProtoFieldPropertyDescriptor(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer, beanContainer, destBeanCreator);
   }
 
   @Override

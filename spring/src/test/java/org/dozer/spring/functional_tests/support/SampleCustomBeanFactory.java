@@ -16,13 +16,14 @@
 package org.dozer.spring.functional_tests.support;
 
 import org.dozer.BeanFactory;
+import org.dozer.config.BeanContainer;
 
 /**
  * @author Dmitry Buzdin
  */
 public class SampleCustomBeanFactory implements BeanFactory {
 
-    public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
+    public Object createBean(Object srcObj, Class<?> srcObjClass, String id, BeanContainer beanContainer) {
         try {
             return Class.forName(id).newInstance();
         } catch (Exception e) {

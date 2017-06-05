@@ -32,6 +32,7 @@ import org.dozer.cache.DozerCacheType;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.event.DozerEventManager;
 import org.dozer.factory.DestBeanCreator;
@@ -40,6 +41,7 @@ import org.dozer.loader.LoadMappingsResult;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.MappingStreamReader;
+import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
@@ -76,6 +78,9 @@ public class DozerBeanMapper implements Mapper {
   private final CustomMappingsLoader customMappingsLoader;
   private final XMLParserFactory xmlParserFactory;
   private final DozerInitializer dozerInitializer;
+  private final BeanContainer beanContainer;
+  private final XMLParser xmlParser;
+  private final DestBeanCreator destBeanCreator;
 
   /*
    * Accessible for custom injection
@@ -102,13 +107,19 @@ public class DozerBeanMapper implements Mapper {
                   CustomMappingsLoader customMappingsLoader,
                   XMLParserFactory xmlParserFactory,
                   StatisticsManager statsMgr,
-                  DozerInitializer dozerInitializer) {
+                  DozerInitializer dozerInitializer,
+                  BeanContainer beanContainer,
+                  XMLParser xmlParser,
+                  DestBeanCreator destBeanCreator) {
     this.globalSettings = globalSettings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
     this.statsMgr = statsMgr;
     this.cacheManager = new DozerCacheManager(statsMgr);
     this.dozerInitializer = dozerInitializer;
+    this.beanContainer = beanContainer;
+    this.xmlParser = xmlParser;
+    this.destBeanCreator = destBeanCreator;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -166,7 +177,7 @@ public class DozerBeanMapper implements Mapper {
 
   public void setFactories(Map<String, BeanFactory> factories) {
     checkIfInitialized();
-    DestBeanCreator.setStoredFactories(factories);
+    destBeanCreator.setStoredFactories(factories);
   }
 
   public void setCustomConverters(List<CustomConverter> customConverters) {
@@ -184,7 +195,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    dozerInitializer.init(globalSettings, statsMgr);
+    dozerInitializer.init(globalSettings, statsMgr, beanContainer);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
@@ -205,7 +216,7 @@ public class DozerBeanMapper implements Mapper {
     initMappings();
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
-            eventManager, getCustomFieldMapper(), customConvertersWithId);
+            eventManager, getCustomFieldMapper(), customConvertersWithId, beanContainer, destBeanCreator);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
@@ -228,13 +239,13 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private List<MappingFileData> loadFromFiles(List<String> mappingFiles) {
-    MappingFileReader mappingFileReader = new MappingFileReader(xmlParserFactory);
+    MappingFileReader mappingFileReader = new MappingFileReader(xmlParserFactory, xmlParser, beanContainer);
     List<MappingFileData> mappingFileDataList = new ArrayList<MappingFileData>();
     if (mappingFiles != null && mappingFiles.size() > 0) {
       log.info("Using the following xml files to load custom mappings for the bean mapper instance: {}", mappingFiles);
       for (String mappingFileName : mappingFiles) {
         log.info("Trying to find xml mapping file: {}", mappingFileName);
-        URL url = MappingValidator.validateURL(mappingFileName);
+        URL url = MappingValidator.validateURL(mappingFileName, beanContainer);
         log.info("Using URL [" + url + "] to load custom xml mappings");
         MappingFileData mappingFileData = mappingFileReader.read(url);
         log.info("Successfully loaded custom xml mappings from URL: [{}]", url);
@@ -255,7 +266,7 @@ public class DozerBeanMapper implements Mapper {
      */
     public void addMapping(InputStream xmlStream) {
     checkIfInitialized();
-    MappingStreamReader fileReader = new MappingStreamReader(xmlParserFactory);
+    MappingStreamReader fileReader = new MappingStreamReader(xmlParserFactory, xmlParser);
     MappingFileData mappingFileData = fileReader.read(xmlStream);
     builderMappings.add(mappingFileData);
   }
@@ -267,7 +278,7 @@ public class DozerBeanMapper implements Mapper {
    */
   public void addMapping(BeanMappingBuilder mappingBuilder) {
     checkIfInitialized();
-    MappingFileData mappingFileData = mappingBuilder.build();
+    MappingFileData mappingFileData = mappingBuilder.build(beanContainer, destBeanCreator);
     builderMappings.add(mappingFileData);
   }
 

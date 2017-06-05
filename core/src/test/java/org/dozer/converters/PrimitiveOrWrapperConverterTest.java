@@ -31,6 +31,8 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.BeanContainer;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,7 +43,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  */
 public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
-  private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter();
+  private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter(new BeanContainer());
 
   @Test
   public void testConvertPrimitiveOrWrapperEmptyString() throws Exception {

@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.generator.BeanMappingGenerator;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
@@ -36,9 +38,11 @@ public class ClassMapBuilderTest extends AbstractDozerTest {
 
   @Before
   public void setUp() throws Exception {
-    collectionMappingGenerator = new ClassMapBuilder.CollectionMappingGenerator();
-    mapMappingGenerator = new ClassMapBuilder.MapMappingGenerator();
-    beanMappingGenerator = new BeanMappingGenerator();
+    BeanContainer beanContainer = new BeanContainer();
+    DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+    collectionMappingGenerator = new ClassMapBuilder.CollectionMappingGenerator(beanContainer, destBeanCreator);
+    mapMappingGenerator = new ClassMapBuilder.MapMappingGenerator(beanContainer, destBeanCreator);
+    beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator);
 
     configuration = new Configuration();
   }

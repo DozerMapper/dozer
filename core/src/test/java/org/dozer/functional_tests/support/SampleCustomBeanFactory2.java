@@ -15,6 +15,7 @@
  */
 package org.dozer.functional_tests.support;
 
+import org.dozer.config.BeanContainer;
 import org.dozer.vo.InsideTestObject;
 import org.dozer.vo.InsideTestObjectPrime;
 
@@ -23,7 +24,7 @@ import org.dozer.vo.InsideTestObjectPrime;
  */
 public class SampleCustomBeanFactory2 extends BaseSampleBeanFactory {
 
-  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String id, BeanContainer beanContainer) {
     // example of using all input objects. These params are passed in from the
     // dozer mapping processor.
 

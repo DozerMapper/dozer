@@ -16,6 +16,8 @@
 package org.dozer.classmap;
 
 import org.apache.commons.lang3.StringUtils;
+
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -27,7 +29,10 @@ import org.dozer.util.MappingUtils;
  */
 public final class ClassMapKeyFactory {
 
-  public ClassMapKeyFactory() {
+  private final BeanContainer beanContainer;
+
+  public ClassMapKeyFactory(BeanContainer beanContainer) {
+    this.beanContainer = beanContainer;
   }
 
   public String createKey(Class<?> srcClass, Class<?> destClass) {
@@ -35,8 +40,8 @@ public final class ClassMapKeyFactory {
   }
 
   public String createKey(Class<?> srcClass, Class<?> destClass, String mapId) {
-      Class<?> srcRealClass = MappingUtils.getRealClass(srcClass);
-      Class<?> destRealClass = MappingUtils.getRealClass(destClass);
+      Class<?> srcRealClass = MappingUtils.getRealClass(srcClass, beanContainer);
+      Class<?> destRealClass = MappingUtils.getRealClass(destClass, beanContainer);
 
 
     StringBuilder result = new StringBuilder(140);

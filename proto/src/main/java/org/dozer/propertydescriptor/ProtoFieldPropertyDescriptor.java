@@ -24,6 +24,8 @@ import com.google.protobuf.Message;
 import org.dozer.BeanBuilder;
 import org.dozer.MappingException;
 import org.dozer.builder.ProtoBeanBuilder;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.DeepHierarchyUtils;
@@ -38,8 +40,14 @@ import org.slf4j.LoggerFactory;
 public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
   private final Logger logger = LoggerFactory.getLogger(ProtoFieldPropertyDescriptor.class);
 
-  public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+  private final BeanContainer beanContainer;
+  private final DestBeanCreator destBeanCreator;
+
+  public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer,
+                                      BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
   }
 
   private Class<?> _propertyType;
@@ -51,18 +59,18 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
       Class<?> result;
       if (MappingUtils.isDeepMapping(fieldName)) {
         try {
-          result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, srcDeepIndexHintContainer);
+          result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, srcDeepIndexHintContainer, beanContainer, destBeanCreator);
         } catch (Exception ignore) {
           logger.info("Determine field type by srcDeepIndexHintContainer failed");
           try {
-            result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, destDeepIndexHintContainer);
+            result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, destDeepIndexHintContainer, beanContainer, destBeanCreator);
           } catch (Exception secondIgnore) {
             logger.info("Determine field type by destDeepIndexHintContainer failed");
             result = null;
           }
         }
       } else {
-        result = ProtoUtils.getJavaClass(getFieldDescriptor());
+        result = ProtoUtils.getJavaClass(getFieldDescriptor(), beanContainer);
       }
 
       this._propertyType = result;
@@ -75,7 +83,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
   public Object getPropertyValue(Object bean) {
     Object result;
     if (MappingUtils.isDeepMapping(fieldName)) {
-      result = DeepHierarchyUtils.getDeepFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer);
+      result = DeepHierarchyUtils.getDeepFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer, beanContainer, destBeanCreator);
     } else {
       result = getSimplePropertyValue(bean);
       if (isIndexed) {
@@ -96,7 +104,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
     }
 
     Object value = ProtoUtils.getFieldValue(bean, fieldName);
-    return ProtoUtils.unwrapEnums(value);
+    return ProtoUtils.unwrapEnums(value, beanContainer);
   }
 
   @Override
@@ -136,18 +144,18 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
       Class<?> result;
       if (MappingUtils.isDeepMapping(fieldName)) {
         try {
-          result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, srcDeepIndexHintContainer);
+          result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, srcDeepIndexHintContainer, beanContainer, destBeanCreator);
         } catch (Exception ignore) {
           logger.info("Determine field generic type by srcDeepIndexHintContainer failed");
           try {
-            result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, destDeepIndexHintContainer);
+            result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, destDeepIndexHintContainer, beanContainer, destBeanCreator);
           } catch (Exception secondIgnore) {
             logger.info("Determine field generic type by destDeepIndexHintContainer failed");
             result = null;
           }
         }
       } else {
-        result = ProtoUtils.getJavaGenericClassForCollection(getFieldDescriptor());
+        result = ProtoUtils.getJavaGenericClassForCollection(getFieldDescriptor(), beanContainer);
       }
 
       this._genericType = result;

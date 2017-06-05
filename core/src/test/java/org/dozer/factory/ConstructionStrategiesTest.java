@@ -27,10 +27,13 @@ import org.apache.xmlbeans.impl.xb.xsdschema.impl.UniqueDocumentImpl;
 import org.dozer.AbstractDozerTest;
 import org.dozer.BeanFactory;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -53,6 +56,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
 
     private XMLBeanFactory xmlBeanFactory;
     private JAXBBeanFactory jaxbBeanFactory;
+    private BeanContainer beanContainer;
 
     @Before
     @Override
@@ -60,14 +64,15 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
         super.setUp();
         xmlBeanFactory = mock(XMLBeanFactory.class);
         jaxbBeanFactory = mock(JAXBBeanFactory.class);
+        beanContainer = new BeanContainer();
 
-        byCreateMethod = new ConstructionStrategies.ByCreateMethod();
-        byGetInstance = new ConstructionStrategies.ByGetInstance();
-        byFactory = new ConstructionStrategies.ByFactory();
+        byCreateMethod = new ConstructionStrategies.ByCreateMethod(beanContainer);
+        byGetInstance = new ConstructionStrategies.ByGetInstance(beanContainer);
+        byFactory = new ConstructionStrategies.ByFactory(beanContainer);
         byInterface = new ConstructionStrategies.ByInterface();
         byConstructor = new ConstructionStrategies.ByConstructor();
-        xmlBeansBased = new ConstructionStrategies.XMLBeansBased(xmlBeanFactory);
-        jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased(jaxbBeanFactory);
+        xmlBeansBased = new ConstructionStrategies.XMLBeansBased(xmlBeanFactory, beanContainer);
+        jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased(jaxbBeanFactory, beanContainer);
 
         directive = new BeanCreationDirective();
     }
@@ -212,7 +217,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
 
         xmlBeansBased.create(directive);
 
-        verify(xmlBeanFactory, times(1)).createBean("", String.class, "id");
+        verify(xmlBeanFactory, times(1)).createBean(eq(""), eq(String.class), eq("id"), any());
     }
 
     @Test
@@ -224,7 +229,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
 
         jaxbBeansBased.create(directive);
 
-        verify(jaxbBeanFactory, times(1)).createBean("dummy", String.class, String.class.getCanonicalName());
+        verify(jaxbBeanFactory, times(1)).createBean(eq("dummy"), eq(String.class), eq(String.class.getCanonicalName()), any());
     }
 
     public static final class SelfFactory {
@@ -245,7 +250,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
 
     public static class MyBeanFactory implements BeanFactory {
 
-        public Object createBean(Object source, Class<?> sourceClass, String targetBeanId) {
+        public Object createBean(Object source, Class<?> sourceClass, String targetBeanId, BeanContainer beanContainer) {
             return "";
         }
 
