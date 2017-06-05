@@ -75,6 +75,7 @@ public class DozerBeanMapper implements Mapper {
   private final GlobalSettings globalSettings;
   private final CustomMappingsLoader customMappingsLoader;
   private final XMLParserFactory xmlParserFactory;
+  private final DozerInitializer dozerInitializer;
 
   /*
    * Accessible for custom injection
@@ -100,12 +101,14 @@ public class DozerBeanMapper implements Mapper {
                   GlobalSettings globalSettings,
                   CustomMappingsLoader customMappingsLoader,
                   XMLParserFactory xmlParserFactory,
-                  StatisticsManager statsMgr) {
+                  StatisticsManager statsMgr,
+                  DozerInitializer dozerInitializer) {
     this.globalSettings = globalSettings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
     this.statsMgr = statsMgr;
     this.cacheManager = new DozerCacheManager(statsMgr);
+    this.dozerInitializer = dozerInitializer;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -181,7 +184,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    DozerInitializer.getInstance().init(globalSettings, statsMgr);
+    dozerInitializer.init(globalSettings, statsMgr);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
@@ -195,7 +198,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   public void destroy() {
-    DozerInitializer.getInstance().destroy(globalSettings);
+    dozerInitializer.destroy(globalSettings);
   }
 
   protected Mapper getMappingProcessor() {

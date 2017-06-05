@@ -38,7 +38,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
     public void setUp() throws Exception {
         globalSettings = new GlobalSettings(new DefaultClassLoader(DozerInitializerTest.class.getClassLoader()));
         statisticsManager = new StatisticsManagerImpl(globalSettings);
-        instance = DozerInitializer.getInstance();
+        instance = new DozerInitializer();
         instance.destroy(globalSettings);
     }
 

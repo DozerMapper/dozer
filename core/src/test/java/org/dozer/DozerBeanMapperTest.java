@@ -128,7 +128,8 @@ public class DozerBeanMapperTest extends Assert {
               new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader())),
               new CustomMappingsLoader(new MappingsParser()),
               new XMLParserFactory(),
-              new StatisticsManagerImpl(new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader()))));
+              new StatisticsManagerImpl(new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader()))),
+              new DozerInitializer());
     }
 
     @Override

@@ -21,7 +21,6 @@ import java.util.List;
 import org.dozer.AbstractDozerTest;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.DozerInitializer;
 import org.dozer.Mapper;
 import org.dozer.MappingException;
 import org.dozer.functional_tests.runner.NoProxyDataObjectInstantiator;
@@ -137,14 +136,6 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     van.setName("testName");
     MetalThingyIF car = mapper.map(van, MetalThingyIF.class);
     assertEquals("testName", car.getName());
-  }
-
-  @Test
-  public void testDestroy() throws Exception {
-    DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
-    assertTrue(DozerInitializer.getInstance().isInitialized());
-    mapper.destroy();
-    assertFalse(DozerInitializer.getInstance().isInitialized());
   }
 
   @Test

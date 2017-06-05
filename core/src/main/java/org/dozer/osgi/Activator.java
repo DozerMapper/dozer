@@ -41,7 +41,7 @@ public final class Activator implements BundleActivator {
     OSGiClassLoader classLoader = new OSGiClassLoader(bundleContext);
     BeanContainer.getInstance().setClassLoader(classLoader);
     GlobalSettings globalSettings = new GlobalSettings(BeanContainer.getInstance().getClassLoader());
-    DozerInitializer.getInstance().init(
+    new DozerInitializer().init(
             globalSettings,
             Activator.class.getClassLoader(),
             new StatisticsManagerImpl(globalSettings));

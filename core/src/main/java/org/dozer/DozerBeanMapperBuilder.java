@@ -121,8 +121,14 @@ public final class DozerBeanMapperBuilder {
         CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(new MappingsParser());
         XMLParserFactory xmlParserFactory = new XMLParserFactory();
         StatisticsManager statisticsManager = new StatisticsManagerImpl(globalSettings);
+        DozerInitializer dozerInitializer = new DozerInitializer();
 
-        return new DozerBeanMapper(mappingFiles, globalSettings, customMappingsLoader, xmlParserFactory, statisticsManager);
+        return new DozerBeanMapper(mappingFiles,
+                globalSettings,
+                customMappingsLoader,
+                xmlParserFactory,
+                statisticsManager,
+                dozerInitializer);
     }
 
     private DozerClassLoader getClassLoader() {

@@ -55,11 +55,9 @@ public final class DozerInitializer {
   private static final String DOZER_STATISTICS_CONTROLLER = "org.dozer.jmx:type=DozerStatisticsController";
   private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
 
-  private static final DozerInitializer instance = new DozerInitializer();
-
   private volatile boolean isInitialized;
 
-  private DozerInitializer() {
+  public DozerInitializer() {
   }
 
   public void init(GlobalSettings globalSettings, StatisticsManager statsMgr) {
@@ -183,10 +181,6 @@ public final class DozerInitializer {
     } else {
       log.warn("jdk1.5 jmx management classes unavailable.");
     }
-  }
-
-  public static DozerInitializer getInstance() {
-    return instance;
   }
 
 }
