@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
+import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
@@ -138,7 +139,8 @@ public class DozerBeanMapperTest extends Assert {
               new XMLParserFactory(new BeanContainer()),
               new StatisticsManagerImpl(new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader()))),
               new DozerInitializer(), new BeanContainer(),
-              new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer())), new DestBeanCreator(new BeanContainer()));
+              new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer())), new DestBeanCreator(new BeanContainer()),
+              new DestBeanBuilderCreator());
     }
 
     @Override

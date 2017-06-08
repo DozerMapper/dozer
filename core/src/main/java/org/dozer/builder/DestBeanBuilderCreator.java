@@ -16,11 +16,11 @@
 package org.dozer.builder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.dozer.BeanBuilder;
-import org.dozer.config.BeanContainer;
 import org.dozer.factory.BeanCreationDirective;
 
 /**
@@ -32,13 +32,13 @@ public final class DestBeanBuilderCreator {
      * Elements of this collections should have very specific isApplicable method to avoid application to class,
      * which should be processed by another builder
      */
-    private static final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
+    private final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
 
-    private DestBeanBuilderCreator() {
+    public DestBeanBuilderCreator() {
 
     }
 
-    public static BeanBuilder create(BeanCreationDirective directive, BeanContainer beanContainer) {
+    public BeanBuilder create(BeanCreationDirective directive) {
         for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
             if (strategy.isApplicable(directive)) {
                 return strategy.create(directive);
@@ -48,7 +48,7 @@ public final class DestBeanBuilderCreator {
         return null;
     }
 
-    public static void addPluggedStrategy(BeanBuilderCreationStrategy beanBuilderCreationStrategy) {
-        pluggedStrategies.add(beanBuilderCreationStrategy);
+    public void addPluggedStrategies(Collection<BeanBuilderCreationStrategy> beanBuilderCreationStrategies) {
+        pluggedStrategies.addAll(beanBuilderCreationStrategies);
     }
 }

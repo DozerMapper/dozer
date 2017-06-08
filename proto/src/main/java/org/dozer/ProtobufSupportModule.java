@@ -15,8 +15,10 @@
  */
 package org.dozer;
 
+import java.util.Collection;
+import java.util.Collections;
+import org.dozer.builder.BeanBuilderCreationStrategy;
 import org.dozer.builder.ByProtobufBuilder;
-import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.classmap.generator.ProtobufBeanFieldsDetector;
 import org.dozer.config.BeanContainer;
@@ -33,8 +35,12 @@ public class ProtobufSupportModule implements DozerModule {
     BeanContainer beanContainer = new BeanContainer();
     DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
 
-    DestBeanBuilderCreator.addPluggedStrategy(new ByProtobufBuilder());
     PropertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategy(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator));
     BeanMappingGenerator.addPluggedFieldDetector(new ProtobufBeanFieldsDetector());
+  }
+
+  @Override
+  public Collection<BeanBuilderCreationStrategy> getBeanBuilderCreationStrategies() {
+    return Collections.singleton(new ByProtobufBuilder());
   }
 }

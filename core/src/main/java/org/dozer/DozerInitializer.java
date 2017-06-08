@@ -23,6 +23,7 @@ import javax.management.MBeanRegistrationException;
 import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 
+import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.jmx.DozerAdminController;
@@ -60,11 +61,11 @@ public final class DozerInitializer {
   public DozerInitializer() {
   }
 
-  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer) {
-    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer);
+  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer, DestBeanBuilderCreator destBeanBuilderCreator) {
+    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator);
   }
 
-  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer) {
+  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer, DestBeanBuilderCreator destBeanBuilderCreator) {
     // Multiple threads may try to initialize simultaneously
     synchronized (this) {
       if (isInitialized) {
@@ -75,13 +76,13 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      initialize(globalSettings, classLoader, statsMgr, beanContainer);
+      initialize(globalSettings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator);
 
       isInitialized = true;
     }
   }
 
-  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer) {
+  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer, DestBeanBuilderCreator destBeanBuilderCreator) {
     if (globalSettings.isAutoregisterJMXBeans()) {
       // Register JMX MBeans. If an error occurs, don't propagate exception
       try {
@@ -104,6 +105,7 @@ public final class DozerInitializer {
 
     for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
       module.init();
+      destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
     }
   }
 

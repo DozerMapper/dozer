@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheManager;
 import org.dozer.cache.DozerCacheType;
@@ -81,6 +82,7 @@ public class DozerBeanMapper implements Mapper {
   private final BeanContainer beanContainer;
   private final XMLParser xmlParser;
   private final DestBeanCreator destBeanCreator;
+  private final DestBeanBuilderCreator destBeanBuilderCreator;
 
   /*
    * Accessible for custom injection
@@ -110,7 +112,8 @@ public class DozerBeanMapper implements Mapper {
                   DozerInitializer dozerInitializer,
                   BeanContainer beanContainer,
                   XMLParser xmlParser,
-                  DestBeanCreator destBeanCreator) {
+                  DestBeanCreator destBeanCreator,
+                  DestBeanBuilderCreator destBeanBuilderCreator) {
     this.globalSettings = globalSettings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
@@ -120,6 +123,7 @@ public class DozerBeanMapper implements Mapper {
     this.beanContainer = beanContainer;
     this.xmlParser = xmlParser;
     this.destBeanCreator = destBeanCreator;
+    this.destBeanBuilderCreator = destBeanBuilderCreator;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -195,7 +199,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    dozerInitializer.init(globalSettings, statsMgr, beanContainer);
+    dozerInitializer.init(globalSettings, statsMgr, beanContainer, destBeanBuilderCreator);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
@@ -216,7 +220,7 @@ public class DozerBeanMapper implements Mapper {
     initMappings();
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
-            eventManager, getCustomFieldMapper(), customConvertersWithId, beanContainer, destBeanCreator);
+            eventManager, getCustomFieldMapper(), customConvertersWithId, beanContainer, destBeanCreator, destBeanBuilderCreator);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {

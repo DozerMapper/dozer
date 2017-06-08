@@ -106,11 +106,13 @@ public class MappingProcessor implements Mapper {
   private final BeanContainer beanContainer;
   private final ClassMapBuilder classMapBuilder;
   private final DestBeanCreator destBeanCreator;
+  private final DestBeanBuilderCreator destBeanBuilderCreator;
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
                              StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
                              DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
-                             Map<String, CustomConverter> customConverterObjectsWithId, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+                             Map<String, CustomConverter> customConverterObjectsWithId, BeanContainer beanContainer,
+                             DestBeanCreator destBeanCreator, DestBeanBuilderCreator destBeanBuilderCreator) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -121,6 +123,7 @@ public class MappingProcessor implements Mapper {
     this.superTypeCache = cacheMgr.getCache(DozerCacheType.SUPER_TYPE_CHECK.name());
     this.customConverterObjectsWithId = customConverterObjectsWithId;
     this.beanContainer = beanContainer;
+    this.destBeanBuilderCreator = destBeanBuilderCreator;
     this.classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator);
     this.primitiveConverter = new PrimitiveOrWrapperConverter(beanContainer);
     this.destBeanCreator = destBeanCreator;
@@ -223,7 +226,7 @@ public class MappingProcessor implements Mapper {
    */
   private <T> T createByCreationDirectiveAndMap(BeanCreationDirective creationDirective, ClassMap classMap, Object srcObj, T result, boolean bypassSuperMappings, String mapId) {
     if (result == null) {
-      BeanBuilder beanBuilder = DestBeanBuilderCreator.create(creationDirective, beanContainer);
+      BeanBuilder beanBuilder = destBeanBuilderCreator.create(creationDirective);
       if (beanBuilder == null) {
         result = (T) destBeanCreator.create(creationDirective);
         mapToDestObject(classMap, srcObj, result, bypassSuperMappings, mapId);
