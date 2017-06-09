@@ -43,6 +43,7 @@ import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.CopyByReferenceContainer;
 import org.dozer.classmap.RelationshipType;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
@@ -112,7 +113,8 @@ public class MappingProcessor implements Mapper {
                              StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
                              DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
                              Map<String, CustomConverter> customConverterObjectsWithId, BeanContainer beanContainer,
-                             DestBeanCreator destBeanCreator, DestBeanBuilderCreator destBeanBuilderCreator) {
+                             DestBeanCreator destBeanCreator, DestBeanBuilderCreator destBeanBuilderCreator,
+                             BeanMappingGenerator beanMappingGenerator) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -124,7 +126,7 @@ public class MappingProcessor implements Mapper {
     this.customConverterObjectsWithId = customConverterObjectsWithId;
     this.beanContainer = beanContainer;
     this.destBeanBuilderCreator = destBeanBuilderCreator;
-    this.classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator);
+    this.classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator);
     this.primitiveConverter = new PrimitiveOrWrapperConverter(beanContainer);
     this.destBeanCreator = destBeanCreator;
   }

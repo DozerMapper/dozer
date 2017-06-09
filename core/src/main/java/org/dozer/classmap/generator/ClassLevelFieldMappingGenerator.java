@@ -51,7 +51,7 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
     /** {@inheritDoc} */
     @Override
     public boolean apply(ClassMap classMap, Configuration configuration) {
-        BeanMappingGenerator.BeanFieldsDetector beanFieldsDetector = new JavaBeanFieldsDetector();
+        BeanFieldsDetector beanFieldsDetector = new JavaBeanFieldsDetector();
 
         Set<String> destFieldNames = getDeclaredFieldNames(classMap.getDestClassToMap());
         Set<String> destWritablePropertyNames = beanFieldsDetector.getWritableFieldNames(classMap.getDestClassToMap());

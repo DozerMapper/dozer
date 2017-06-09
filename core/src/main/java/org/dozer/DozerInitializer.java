@@ -24,6 +24,7 @@ import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 
 import org.dozer.builder.DestBeanBuilderCreator;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.jmx.DozerAdminController;
@@ -61,11 +62,13 @@ public final class DozerInitializer {
   public DozerInitializer() {
   }
 
-  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer, DestBeanBuilderCreator destBeanBuilderCreator) {
-    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator);
+  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer,
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator) {
+    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator);
   }
 
-  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer, DestBeanBuilderCreator destBeanBuilderCreator) {
+  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator) {
     // Multiple threads may try to initialize simultaneously
     synchronized (this) {
       if (isInitialized) {
@@ -76,13 +79,14 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      initialize(globalSettings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator);
+      initialize(globalSettings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator);
 
       isInitialized = true;
     }
   }
 
-  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer, DestBeanBuilderCreator destBeanBuilderCreator) {
+  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+                  DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator) {
     if (globalSettings.isAutoregisterJMXBeans()) {
       // Register JMX MBeans. If an error occurs, don't propagate exception
       try {
@@ -106,6 +110,7 @@ public final class DozerInitializer {
     for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
       module.init();
       destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
+      beanMappingGenerator.addPluggedFieldDetectors(module.getBeanFieldsDetectors());
     }
   }
 

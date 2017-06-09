@@ -18,6 +18,7 @@ package org.dozer;
 import java.util.Collection;
 import java.util.Collections;
 import org.dozer.builder.BeanBuilderCreationStrategy;
+import org.dozer.classmap.generator.BeanFieldsDetector;
 
 /**
  * @author Dmitry Spikhalskiy
@@ -30,6 +31,14 @@ public interface DozerModule {
    * @return collection of bean creation strategies; or empty collection if module does not provide this.
    */
   default Collection<BeanBuilderCreationStrategy> getBeanBuilderCreationStrategies() {
+    return Collections.emptyList();
+  }
+
+  /**
+   * To be implemented by module if it provides any additional detectors of bean fields.
+   * @return collection of bean field detectors; or empty collection if module does not provide this.
+   */
+  default Collection<BeanFieldsDetector> getBeanFieldsDetectors() {
     return Collections.emptyList();
   }
 }

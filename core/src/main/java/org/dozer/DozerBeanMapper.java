@@ -33,6 +33,7 @@ import org.dozer.cache.DozerCacheType;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.event.DozerEventManager;
@@ -83,6 +84,7 @@ public class DozerBeanMapper implements Mapper {
   private final XMLParser xmlParser;
   private final DestBeanCreator destBeanCreator;
   private final DestBeanBuilderCreator destBeanBuilderCreator;
+  private final BeanMappingGenerator beanMappingGenerator;
 
   /*
    * Accessible for custom injection
@@ -113,7 +115,8 @@ public class DozerBeanMapper implements Mapper {
                   BeanContainer beanContainer,
                   XMLParser xmlParser,
                   DestBeanCreator destBeanCreator,
-                  DestBeanBuilderCreator destBeanBuilderCreator) {
+                  DestBeanBuilderCreator destBeanBuilderCreator,
+                  BeanMappingGenerator beanMappingGenerator) {
     this.globalSettings = globalSettings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
@@ -124,6 +127,7 @@ public class DozerBeanMapper implements Mapper {
     this.xmlParser = xmlParser;
     this.destBeanCreator = destBeanCreator;
     this.destBeanBuilderCreator = destBeanBuilderCreator;
+    this.beanMappingGenerator = beanMappingGenerator;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -199,7 +203,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    dozerInitializer.init(globalSettings, statsMgr, beanContainer, destBeanBuilderCreator);
+    dozerInitializer.init(globalSettings, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
@@ -220,7 +224,8 @@ public class DozerBeanMapper implements Mapper {
     initMappings();
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
-            eventManager, getCustomFieldMapper(), customConvertersWithId, beanContainer, destBeanCreator, destBeanBuilderCreator);
+            eventManager, getCustomFieldMapper(), customConvertersWithId, beanContainer, destBeanCreator, destBeanBuilderCreator,
+            beanMappingGenerator);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {

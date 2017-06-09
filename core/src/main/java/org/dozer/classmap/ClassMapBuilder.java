@@ -59,7 +59,7 @@ public final class ClassMapBuilder {
   private final List<ClassMappingGenerator> runTimeGenerators = new ArrayList<>();
   private final BeanContainer beanContainer;
 
-  public ClassMapBuilder(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+  public ClassMapBuilder(BeanContainer beanContainer, DestBeanCreator destBeanCreator, BeanMappingGenerator beanMappingGenerator) {
     this.beanContainer = beanContainer;
 
     buildTimeGenerators.add(new ClassLevelFieldMappingGenerator(beanContainer, destBeanCreator));
@@ -67,7 +67,7 @@ public final class ClassMapBuilder {
     buildTimeGenerators.add(new AnnotationFieldsGenerator(beanContainer, destBeanCreator));
     buildTimeGenerators.add(new AnnotationClassesGenerator());
     buildTimeGenerators.add(new MapMappingGenerator(beanContainer, destBeanCreator));
-    buildTimeGenerators.add(new BeanMappingGenerator(beanContainer, destBeanCreator));
+    buildTimeGenerators.add(beanMappingGenerator);
     buildTimeGenerators.add(new CollectionMappingGenerator(beanContainer, destBeanCreator));
 
     runTimeGenerators.add(new ClassLevelFieldMappingGenerator(beanContainer, destBeanCreator));
@@ -75,7 +75,7 @@ public final class ClassMapBuilder {
     runTimeGenerators.add(new AnnotationFieldsGenerator(beanContainer, destBeanCreator));
     runTimeGenerators.add(new AnnotationClassesGenerator());
     runTimeGenerators.add(new MapMappingGenerator(beanContainer, destBeanCreator));
-    runTimeGenerators.add(new BeanMappingGenerator(beanContainer, destBeanCreator));
+    runTimeGenerators.add(beanMappingGenerator);
   }
 
   // TODO Cover with test cases

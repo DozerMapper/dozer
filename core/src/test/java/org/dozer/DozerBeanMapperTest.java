@@ -32,6 +32,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 
 import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.factory.DestBeanCreator;
@@ -134,13 +135,15 @@ public class DozerBeanMapperTest extends Assert {
               new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader())),
               new CustomMappingsLoader(
                       new MappingsParser(new BeanContainer(), new DestBeanCreator(new BeanContainer())),
-                      new ClassMapBuilder(new BeanContainer(), new DestBeanCreator(new BeanContainer())),
+                      new ClassMapBuilder(new BeanContainer(), new DestBeanCreator(new BeanContainer()),
+                              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()))),
                       new BeanContainer()),
               new XMLParserFactory(new BeanContainer()),
               new StatisticsManagerImpl(new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader()))),
               new DozerInitializer(), new BeanContainer(),
               new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer())), new DestBeanCreator(new BeanContainer()),
-              new DestBeanBuilderCreator());
+              new DestBeanBuilderCreator(),
+              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer())));
     }
 
     @Override

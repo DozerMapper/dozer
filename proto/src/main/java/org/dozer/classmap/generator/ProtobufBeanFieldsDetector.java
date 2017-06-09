@@ -27,7 +27,7 @@ import org.dozer.util.ProtoUtils;
 /**
  * @author Dmitry Spikhalskiy
  */
-public class ProtobufBeanFieldsDetector implements BeanMappingGenerator.BeanFieldsDetector {
+public class ProtobufBeanFieldsDetector implements BeanFieldsDetector {
   public boolean accepts(Class<?> clazz) {
     return Message.class.isAssignableFrom(clazz);
   }

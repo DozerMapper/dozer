@@ -26,6 +26,7 @@ import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.factory.DestBeanCreator;
@@ -44,7 +45,8 @@ public class CustomMappingsLoaderTest extends AbstractDozerTest{
   public void setUp() {
     BeanContainer beanContainer = new BeanContainer();
     DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
-    loader = new CustomMappingsLoader(new MappingsParser(beanContainer, destBeanCreator), new ClassMapBuilder(beanContainer, destBeanCreator), beanContainer);
+    loader = new CustomMappingsLoader(new MappingsParser(beanContainer, destBeanCreator),
+            new ClassMapBuilder(beanContainer, destBeanCreator, new BeanMappingGenerator(beanContainer, destBeanCreator)), beanContainer);
     data = new ArrayList<MappingFileData>();
   }
 

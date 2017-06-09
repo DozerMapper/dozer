@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
 import org.dozer.factory.DestBeanCreator;
@@ -125,7 +126,8 @@ public final class DozerBeanMapperBuilder {
         GlobalSettings globalSettings = new GlobalSettings(classLoader);
         BeanContainer beanContainer = new BeanContainer();
         DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
-        ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator);
+        BeanMappingGenerator beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator);
+        ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator);
         CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(new MappingsParser(beanContainer, destBeanCreator), classMapBuilder, beanContainer);
         XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
         StatisticsManager statisticsManager = new StatisticsManagerImpl(globalSettings);
@@ -142,7 +144,8 @@ public final class DozerBeanMapperBuilder {
                 beanContainer,
                 xmlParser,
                 destBeanCreator,
-                destBeanBuilderCreator);
+                destBeanBuilderCreator,
+                beanMappingGenerator);
     }
 
     private DozerClassLoader getClassLoader() {
