@@ -30,6 +30,7 @@ import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheManager;
 import org.dozer.cache.DozerCacheType;
+import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
@@ -40,6 +41,7 @@ import org.dozer.event.DozerEventManager;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
+import org.dozer.loader.MappingsParser;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.MappingStreamReader;
@@ -47,11 +49,18 @@ import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
+import org.dozer.osgi.Activator;
+import org.dozer.osgi.OSGiClassLoader;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
+import org.dozer.stats.StatisticsManagerImpl;
+import org.dozer.util.DefaultClassLoader;
+import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingValidator;
+import org.dozer.util.RuntimeUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,6 +116,41 @@ public class DozerBeanMapper implements Mapper {
   // There are no global caches. Caches are per bean mapper instance
   private final CacheManager cacheManager;
   private DozerEventManager eventManager;
+
+  /**
+   * @deprecated will be removed in 6.2. Please use {@code DozerBeanMapperBuilder.create().build()}.
+   */
+  @Deprecated
+  public DozerBeanMapper() {
+    this(Collections.emptyList());
+  }
+
+   /**
+   * @deprecated will be removed in 6.2. Please use {@code DozerBeanMapperBuilder.create().withMappingFiles(..).build()}.
+   */
+   @Deprecated
+  public DozerBeanMapper(List<String> mappingFiles) {
+    DozerClassLoader classLoader = RuntimeUtils.isOSGi()
+            ? new OSGiClassLoader(Activator.getBundle().getBundleContext())
+            : new DefaultClassLoader(DozerBeanMapperBuilder.class.getClassLoader());
+    this.globalSettings = new GlobalSettings(classLoader);
+    this.beanContainer = new BeanContainer();
+    this.destBeanCreator = new DestBeanCreator(beanContainer);
+    this.propertyDescriptorFactory = new PropertyDescriptorFactory();
+    this.beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    ClassMapBuilder classMapBuilder = new ClassMapBuilder(
+            beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
+    this.customMappingsLoader = new CustomMappingsLoader(
+            new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
+    this.xmlParserFactory = new XMLParserFactory(beanContainer);
+    this.statsMgr = new StatisticsManagerImpl(globalSettings);
+    this.dozerInitializer = new DozerInitializer();
+    this.xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    this.destBeanBuilderCreator = new DestBeanBuilderCreator();
+    this.cacheManager = new DozerCacheManager(statsMgr);
+    this.mappingFiles.addAll(mappingFiles);
+    init();
+  }
 
   DozerBeanMapper(List<String> mappingFiles,
                   GlobalSettings globalSettings,
