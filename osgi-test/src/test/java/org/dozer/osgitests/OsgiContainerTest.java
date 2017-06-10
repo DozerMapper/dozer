@@ -13,20 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.osgi;
+package org.dozer.osgitests;
+
+import javax.inject.Inject;
 
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
+import org.dozer.osgi.Activator;
+import org.dozer.osgi.OSGiClassLoader;
+import org.dozer.osgitestsmodel.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
-import org.ops4j.pax.exam.spi.reactors.PerMethod;
+import org.ops4j.pax.exam.spi.reactors.PerClass;
+import org.osgi.framework.BundleContext;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.systemPackages;
@@ -36,8 +42,11 @@ import static org.ops4j.pax.exam.CoreOptions.url;
  * @author Dmitry Buzdin
  */
 @RunWith(PaxExam.class)
-@ExamReactorStrategy(PerMethod.class)
+@ExamReactorStrategy(PerClass.class)
 public class OsgiContainerTest {
+
+    @Inject
+    private BundleContext context;
 
     @Configuration
     public Option[] config() {
@@ -45,6 +54,7 @@ public class OsgiContainerTest {
         return options(
             url("link:classpath:com.github.dozermapper.dozer-core.link"),
             url("link:classpath:com.github.dozermapper.dozer-schema.link"),
+            url("link:classpath:com.github.dozermapper.dozer-osgi-tests-model.link"),
             url("link:classpath:org.apache.commons.beanutils.link"),
             url("link:classpath:org.apache.commons.collections.link"),
             url("link:classpath:org.apache.commons.lang3.link"),
@@ -55,24 +65,46 @@ public class OsgiContainerTest {
     }
 
     @Test
-    public void shouldInstantiate() {
-        Mapper beanMapper = DozerBeanMapperBuilder.buildDefault();
-        assertThat(beanMapper, notNullValue());
+    public void canGetBundleFromDozerCore() {
+        assertNotNull(Activator.getContext());
+        assertNotNull(Activator.getBundle());
     }
 
     @Test
-    public void shouldMap() {
-        Mapper beanMapper = DozerBeanMapperBuilder.buildDefault();
-        Object result = beanMapper.map(new Object(), Object.class);
-        assertThat(result, notNullValue());
+    public void canConstructDozerBeanMapper() {
+        Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/mapping.xml")
+            .withClassLoader(new OSGiClassLoader(org.dozer.osgitestsmodel.Activator.getBundleContext()))
+            .build();
+
+        assertNotNull(mapper);
     }
 
     @Test
-    public void shouldLoadMappingFile() {
-        Mapper beanMapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("mappings/mapping.xml")
-                .build();
-        Object result = beanMapper.map(new Object(), Object.class);
-        assertThat(result, notNullValue());
+    public void canMap() {
+        Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/mapping.xml")
+            .withClassLoader(new OSGiClassLoader(org.dozer.osgitestsmodel.Activator.getBundleContext()))
+            .build();
+
+        Person answer = mapper.map(new Person("bob"), Person.class);
+
+        assertNotNull(answer);
+        assertNotNull(answer.getName());
+        assertEquals("bob", answer.getName());
+    }
+
+    @Test
+    public void canMapUsingXML() {
+        Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/mapping.xml")
+            .withClassLoader(new OSGiClassLoader(org.dozer.osgitestsmodel.Activator.getBundleContext()))
+            .build();
+
+        Person answer = mapper.map(new Person("bob"), Person.class);
+
+        assertNotNull(answer);
+        assertNotNull(answer.getName());
+        assertEquals("bob", answer.getName());
     }
 }

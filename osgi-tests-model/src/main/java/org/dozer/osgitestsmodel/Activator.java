@@ -13,27 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.osgi;
+package org.dozer.osgitestsmodel;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public final class Activator implements BundleActivator {
+public class Activator implements BundleActivator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
-
-    private static BundleContext context;
+    private static BundleContext bundleContext;
     private static Bundle bundle;
 
-    public static BundleContext getContext() {
-        return context;
+    public static BundleContext getBundleContext() {
+        return bundleContext;
     }
 
-    private static void setContext(BundleContext context) {
-        Activator.context = context;
+    private static void setBundleContext(BundleContext context) {
+        Activator.bundleContext = context;
     }
 
     public static Bundle getBundle() {
@@ -44,19 +40,13 @@ public final class Activator implements BundleActivator {
         Activator.bundle = bundle;
     }
 
-    @Override
     public void start(BundleContext context) throws Exception {
-        LOG.info("Starting Dozer OSGi bundle");
-
-        setContext(context);
+        setBundleContext(context);
         setBundle(context.getBundle());
     }
 
-    @Override
-    public void stop(BundleContext bundleContext) throws Exception {
-        setContext(null);
+    public void stop(BundleContext context) throws Exception {
+        setBundleContext(null);
         setBundle(null);
-
-        LOG.info("Dozer OSGi bundle stopped");
     }
 }
