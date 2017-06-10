@@ -225,7 +225,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapToMap() throws Exception {
-    Mapper mapper = getMapper(new String[] {"mappings/mapInterfaceMapping.xml", "dozerBeanMapping.xml"});
+    Mapper mapper = getMapper(new String[] {"mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml"});
     TestObject to = newInstance(TestObject.class);
     to.setOne("one");
     TestObject to2 = newInstance(TestObject.class);
@@ -250,7 +250,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapToMapExistingDestination() throws Exception {
-    Mapper mapper = getMapper(new String[] {"mappings/mapInterfaceMapping.xml", "dozerBeanMapping.xml"});
+    Mapper mapper = getMapper(new String[] {"mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml"});
     TestObject to = newInstance(TestObject.class);
     to.setOne("one");
     TestObject to2 = newInstance(TestObject.class);
@@ -276,7 +276,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testPropertyClassLevelMap() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     PropertyToMap ptm = newInstance(PropertyToMap.class);
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
@@ -297,7 +297,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testPropertyClassLevelMap2() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     PropertyToMap ptm = newInstance(PropertyToMap.class);
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
@@ -310,7 +310,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
   @Test
   public void testPropertyClassLevelMapBack() throws Exception {
     // Map Back
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     Map<String, Object> map = newInstance(HashMap.class);
     map.put("stringProperty", "stringPropertyValue");
     map.put("integerProperty", new Integer("567"));
@@ -329,7 +329,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testPropertyToMap() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     PropertyToMap ptm = newInstance(PropertyToMap.class);
     ptm.setStringProperty("stringPropertyValue");
     ptm.addStringProperty2("stringProperty2Value");
@@ -359,7 +359,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testPropertyToCustomMap() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     PropertyToMap ptm = newInstance(PropertyToMap.class);
     ptm.setStringProperty3("stringProperty3Value");
     ptm.setStringProperty4("stringProperty4Value");
@@ -379,7 +379,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testPropertyToClassLevelMap() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     MapTestObject mto = newInstance(MapTestObject.class);
     PropertyToMap ptm = newInstance(PropertyToMap.class);
     Map<String, String> map = newInstance(HashMap.class);
@@ -428,7 +428,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
   @Test
   public void testPropertyToCustomClassLevelMap() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     MapTestObject mto = newInstance(MapTestObject.class);
     PropertyToMap ptm = newInstance(PropertyToMap.class);
     ptm.setStringProperty("stringPropertyValue");

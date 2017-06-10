@@ -34,7 +34,7 @@ public class SimpleTest extends Assert {
 
   @Before
   public void setUp() {
-    beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    beanMapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   @Test

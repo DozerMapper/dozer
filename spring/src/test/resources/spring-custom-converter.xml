@@ -23,7 +23,7 @@
     <!-- Semi-Manual Solution -->
     <bean id="mapperWithConverter"
           class="org.dozer.DozerBeanMapperBuilder"
-          factory-method="buildDefaultImplicit">
+          factory-method="buildDefault">
         <property name="customConverters">
             <list>
                 <ref bean="converter"/>

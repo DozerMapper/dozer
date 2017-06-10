@@ -40,7 +40,7 @@ public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void shouldFailOnDuplicateMapping() {
-    DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefault();
     mapper.addMapping(new BeanMappingBuilder() {
       @Override
       protected void configure() {

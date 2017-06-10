@@ -62,13 +62,13 @@ public class OsgiContainerTest {
 
     @Test
     public void shouldInstantiate() {
-        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefault();
         assertThat(beanMapper, notNullValue());
     }
 
     @Test
     public void shouldMap() {
-        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefault();
         Object result = beanMapper.map(new Object(), Object.class);
         assertThat(result, notNullValue());
     }

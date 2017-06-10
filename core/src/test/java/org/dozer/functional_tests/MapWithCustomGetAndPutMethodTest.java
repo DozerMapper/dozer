@@ -34,7 +34,7 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
 
   @Test
   public void testDefaultMapBehaviour_UseDefaultGetAndPutMethod() {
-    DozerBeanMapper defaultMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper defaultMapper = DozerBeanMapperBuilder.buildDefault();
     
     // Map to Object, should use "get"
     MapWithCustomGetAndPut input1 = MapWithCustomGetAndPut.createInput();
@@ -58,7 +58,7 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapWithCustomMethods_UseSpecifiedMethods() {
-    DozerBeanMapper customMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper customMapper = DozerBeanMapperBuilder.buildDefault();
     customMapper.addMapping(new BeanMappingBuilder() {
       @Override
       protected void configure() {
@@ -90,7 +90,7 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapWithNullGetAndPutMethods_FallbackToDefaultMethods() {
-    DozerBeanMapper nullMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper nullMapper = DozerBeanMapperBuilder.buildDefault();
     nullMapper.addMapping(new BeanMappingBuilder() {
       @Override
       protected void configure() {
@@ -122,7 +122,7 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
   
   @Test
   public void testMapWithEmptyGetAndPutMethods_FallbackToDefaultMethods() {
-    DozerBeanMapper emptyMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper emptyMapper = DozerBeanMapperBuilder.buildDefault();
     emptyMapper.addMapping(new BeanMappingBuilder() {
       @Override
       protected void configure() {
@@ -158,7 +158,7 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
    */
   @Test(expected=MappingException.class)
   public void testMapWithInvalidGetMethod_ThrowsMappingException() {
-    DozerBeanMapper invalidMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper invalidMapper = DozerBeanMapperBuilder.buildDefault();
     invalidMapper.addMapping(new BeanMappingBuilder() {
       @Override
       protected void configure() {
@@ -182,7 +182,7 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
    */
   @Test(expected=MappingException.class)
   public void testMapWithInvalidPutMethod_ThrowsMappingException() {
-    DozerBeanMapper invalidMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper invalidMapper = DozerBeanMapperBuilder.buildDefault();
     invalidMapper.addMapping(new BeanMappingBuilder() {
       @Override
       protected void configure() {

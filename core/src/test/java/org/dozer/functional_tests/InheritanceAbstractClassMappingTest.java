@@ -66,7 +66,7 @@ public class InheritanceAbstractClassMappingTest extends AbstractFunctionalTest 
   public void testNoCustomMappingForAbstractClasses() throws Exception {
     // Test that wildcard fields in abstract classes are mapped when there is no explicit abstract custom mapping
     // definition
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
 
     A src = getA();
     B dest = mapper.map(src, B.class);

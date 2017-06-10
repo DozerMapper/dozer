@@ -23,8 +23,11 @@ import org.dozer.util.DozerConstants;
  * DozerBeanMapper(MapperIF) instance is configured via an IOC framework, such as Spring, with singleton property set to
  * "true"
  *
+ * @deprecated Will be removed in version 6.2. Please use {@link DozerBeanMapperBuilder#buildDefault()}.
+ *
  * @author garsombke.franz
  */
+@Deprecated
 public final class DozerBeanMapperSingletonWrapper {
 
     private static Mapper instance;
@@ -33,11 +36,13 @@ public final class DozerBeanMapperSingletonWrapper {
 
     }
 
+    /**
+     * @deprecated Will be removed in version 6.2. Please use {@link DozerBeanMapperBuilder#buildDefault()}.
+     */
+    @Deprecated
     public static synchronized Mapper getInstance() {
         if (instance == null) {
-            instance = DozerBeanMapperBuilder.create()
-                    .withMappingFiles(DozerConstants.DEFAULT_MAPPING_FILE)
-                    .build();
+            instance = DozerBeanMapperBuilder.buildDefault();
         }
 
         return instance;

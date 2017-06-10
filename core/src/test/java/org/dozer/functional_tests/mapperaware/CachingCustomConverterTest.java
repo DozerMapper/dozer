@@ -41,7 +41,7 @@ public class CachingCustomConverterTest extends Assert {
 
   @Before
   public void setup() {
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
     List<String> mappingFileUrls = new ArrayList<String>();
     mappingFileUrls.add("mappings/mapper-aware.xml");
 

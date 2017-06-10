@@ -22,7 +22,7 @@
 
     <bean id="mapperWithBeanFactory"
           class="org.dozer.DozerBeanMapperBuilder"
-          factory-method="buildDefaultImplicit">
+          factory-method="buildDefault">
         <property name="mappingFiles">
             <list>
                 <value>mappingSpring.xml</value>

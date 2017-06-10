@@ -33,7 +33,7 @@ public class InheritanceTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
 
     source = new A();
     source.property1 = "1";

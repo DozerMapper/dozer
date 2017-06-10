@@ -51,7 +51,7 @@ public abstract class AbstractFunctionalTest {
   public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   protected Mapper getMapper(String ... mappingFiles) {
@@ -59,7 +59,7 @@ public abstract class AbstractFunctionalTest {
     if (mappingFiles != null) {
       list.addAll(Arrays.asList(mappingFiles));
     }
-    Mapper result = DozerBeanMapperBuilder.buildDefaultImplicit();
+    Mapper result = DozerBeanMapperBuilder.buildDefault();
     ((DozerBeanMapper) result).setMappingFiles(list);
     return result;
   }

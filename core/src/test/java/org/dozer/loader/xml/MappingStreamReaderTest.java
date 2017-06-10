@@ -46,7 +46,7 @@ public class MappingStreamReaderTest {
 
   @Test
   public void loadFromStreamTest() throws IOException {
-    InputStream xmlStream = getClass().getClassLoader().getResourceAsStream("dozerBeanMapping.xml");
+    InputStream xmlStream = getClass().getClassLoader().getResourceAsStream("testDozerBeanMapping.xml");
     MappingFileData data = streamReader.read(xmlStream);
     xmlStream.close();
 

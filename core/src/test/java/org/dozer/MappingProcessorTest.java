@@ -40,7 +40,7 @@ public class MappingProcessorTest extends AbstractDozerTest {
 
   @Test
   public void testTwiceObjectToObjectConvert() {
-    DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefault();
     Mapper mappingProcessor = mapper.getMappingProcessor();
 
     A src = new A();

@@ -51,7 +51,7 @@ public class DozerBuilderTest {
 
   @Before
   public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   @Test

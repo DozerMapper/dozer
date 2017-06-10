@@ -73,7 +73,7 @@ public class MappingProcessorArrayTest extends AbstractDozerTest {
       data[i] = i;
     }
     test.setData(data);
-    DozerBeanMapper dozer = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper dozer = DozerBeanMapperBuilder.buildDefault();
     PrimitiveArray result = dozer.map(test, PrimitiveArray.class);
 
     long start = System.currentTimeMillis();

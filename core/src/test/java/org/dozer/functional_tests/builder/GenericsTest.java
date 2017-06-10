@@ -36,7 +36,7 @@ public class GenericsTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
   }
 
 

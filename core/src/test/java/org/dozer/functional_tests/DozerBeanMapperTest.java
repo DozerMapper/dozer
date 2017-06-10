@@ -52,7 +52,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   @Before
   public void setUp() throws Exception {
     if (mapper == null) {
-      mapper = getNewMapper(new String[]{"dozerBeanMapping.xml"});
+      mapper = getNewMapper(new String[]{"testDozerBeanMapping.xml"});
     }
   }
 
@@ -90,7 +90,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
   public void testNoMappingFilesSpecified() throws Exception {
     // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
     // automatically.
-    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     assertCommon(mapper);
   }
@@ -140,7 +140,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
   @Test
   public void testGlobalNullAndEmptyString() throws Exception {
-    DozerBeanMapper mapperMapNull = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper mapperMapNull = DozerBeanMapperBuilder.buildDefault();
     DozerBeanMapper mapperNotMapNull = (DozerBeanMapper) getNewMapper(new String[]{"mappings/customGlobalConfigWithNullAndEmptyStringTest.xml"});
     Van src = new Van();
     Van dest = new Van();
@@ -168,7 +168,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
         list.add(mappingFiles[i]);
       }
     }
-    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
     ((DozerBeanMapper) mapper).setMappingFiles(list);
     return mapper;
   }

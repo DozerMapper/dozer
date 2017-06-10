@@ -48,7 +48,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    beanMapper = DozerBeanMapperBuilder.buildDefault();
     source = new MapContainer();
     target = new MapContainer();
   }
@@ -142,7 +142,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDozerMultiTypeMapContainingCollections() throws Exception {
-    DozerBeanMapper dozerBeanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    DozerBeanMapper dozerBeanMapper = DozerBeanMapperBuilder.buildDefault();
 
     // Setting up test data, multiple types in a single Map
     DozerExampleEntry entry = new DozerExampleEntry();

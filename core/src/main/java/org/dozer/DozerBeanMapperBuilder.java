@@ -15,6 +15,7 @@
  */
 package org.dozer;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,7 @@ import org.dozer.stats.StatisticsManager;
 import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
+import org.dozer.util.DozerConstants;
 import org.dozer.util.RuntimeUtils;
 
 /**
@@ -62,12 +64,19 @@ public final class DozerBeanMapperBuilder {
     /**
      * Creates an instance of {@link DozerBeanMapper}, with all the configuration set to its default values.
      * <p>
-     * Is a shortcut for {@code DozerBeanMapperBuilder.create().build()}.
+     * The only special handling is for mapping file. If there is a file with name {@code dozerBeanMapping.xml}
+     * available on classpath, this file will be used by created mapper. Otherwise the mapper is implicit.
      *
-     * @return new instance of {@link DozerBeanMapper} with default configuration.
+     * @return new instance of {@link DozerBeanMapper} with default configuration and optionally initiated mapping file.
      */
-    public static DozerBeanMapper buildDefaultImplicit() {
-        return create().build();
+    public static DozerBeanMapper buildDefault() {
+        DozerBeanMapperBuilder builder = create();
+        DozerClassLoader classLoader = builder.getClassLoader();
+        URL defaultMappingFile = classLoader.loadResource(DozerConstants.DEFAULT_MAPPING_FILE);
+        if (defaultMappingFile != null) {
+            builder.withMappingFiles(DozerConstants.DEFAULT_MAPPING_FILE);
+        }
+        return builder.withClassLoader(classLoader).build();
     }
 
     /**

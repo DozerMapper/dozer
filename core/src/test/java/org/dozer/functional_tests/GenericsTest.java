@@ -33,7 +33,7 @@ public class GenericsTest extends AbstractFunctionalTest {
   @Test
   public void testSimpleGenerics() {
 
-    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     A a = new A();
     a.setId(15L);
@@ -51,7 +51,7 @@ public class GenericsTest extends AbstractFunctionalTest {
    */
   @Test
   public void testSimpleGenericsInheritance() {
-    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     B b = new B();
     b.setId(15);
@@ -70,7 +70,7 @@ public class GenericsTest extends AbstractFunctionalTest {
    */
   @Test
   public void testDeepGenericInheritanceTest() throws Exception {
-    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     B b = new B();
     b.setId(12345);
@@ -83,7 +83,7 @@ public class GenericsTest extends AbstractFunctionalTest {
    */
   @Test
   public void testGenericsWithSeveralTypes() {
-    Mapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     GenericTestType testType = new GenericTestType();
     testType.setA(15L);

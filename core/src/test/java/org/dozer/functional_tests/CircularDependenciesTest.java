@@ -30,7 +30,7 @@ public class CircularDependenciesTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   @Test

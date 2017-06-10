@@ -44,7 +44,7 @@ public final class JMXTestEngine {
 
     private static void performSomeMappings() {
         Mapper mapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("dozerBeanMapping.xml")
+                .withMappingFiles("testDozerBeanMapping.xml")
                 .build();
 
         try {

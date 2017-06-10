@@ -22,7 +22,7 @@
 
     <bean id="mapperWithEventListener"
           class="org.dozer.DozerBeanMapperBuilder"
-          factory-method="buildDefaultImplicit">
+          factory-method="buildDefault">
         <property name="eventListeners">
             <list>
                 <ref bean="eventTestListener"/>

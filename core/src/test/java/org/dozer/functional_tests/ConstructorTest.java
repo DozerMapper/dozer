@@ -44,7 +44,7 @@ public class ConstructorTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    beanMapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   @Test

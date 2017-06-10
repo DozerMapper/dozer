@@ -33,7 +33,7 @@ public class ProtoAbstractTest {
         System.setProperty("log4j.debug", "true");
         System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
 
-        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefault();
         mapper.setMappingFiles(fileNames);
 
         return mapper;

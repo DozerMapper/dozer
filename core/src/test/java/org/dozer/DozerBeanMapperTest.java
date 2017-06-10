@@ -65,7 +65,7 @@ public class DozerBeanMapperTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    mapper = DozerBeanMapperBuilder.buildDefault();
     exceptions = new ArrayList<Throwable>();
     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
       public void uncaughtException(Thread t, Throwable e) {
@@ -108,7 +108,7 @@ public class DozerBeanMapperTest extends Assert {
 
   @Test
   public void shouldBeThreadSafe() throws Exception {
-    mapper.setMappingFiles(Arrays.asList("dozerBeanMapping.xml"));
+    mapper.setMappingFiles(Arrays.asList("testDozerBeanMapping.xml"));
     final CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
 
     for (int i = 0; i < THREAD_COUNT; i++) {

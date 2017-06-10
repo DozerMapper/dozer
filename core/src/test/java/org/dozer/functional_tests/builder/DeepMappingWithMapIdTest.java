@@ -61,7 +61,7 @@ public class DeepMappingWithMapIdTest {
         Assert.assertNull(srcChild1.getLastName());
         Assert.assertEquals(new Integer(1), srcChild1.getId());
         
-        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefault();
         mapper.addMapping(getParentMapping(ParentWithChildList.class));
         mapper.addMapping(getChildMapping());
         mapper.map(src, dest, MAP_ID_PATENT);
@@ -84,7 +84,7 @@ public class DeepMappingWithMapIdTest {
         Assert.assertEquals(new Integer(1), srcChild1.getId());
                 
         //Perform the mapping
-        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefault();
         mapper.addMapping(getParentMapping(ParentWithChildSet.class));
         mapper.addMapping(getChildMapping());
         mapper.map(src, dest, MAP_ID_PATENT);

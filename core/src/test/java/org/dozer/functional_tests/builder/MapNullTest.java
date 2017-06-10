@@ -38,7 +38,7 @@ public class MapNullTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    beanMapper = DozerBeanMapperBuilder.buildDefaultImplicit();
+    beanMapper = DozerBeanMapperBuilder.buildDefault();
     source = new Source();
     destination = new Destination();
   }
