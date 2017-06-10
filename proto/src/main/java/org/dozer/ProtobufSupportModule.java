@@ -23,6 +23,7 @@ import org.dozer.classmap.generator.BeanFieldsDetector;
 import org.dozer.classmap.generator.ProtobufBeanFieldsDetector;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorCreationStrategy;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.propertydescriptor.ProtoFieldPropertyDescriptorCreationStrategy;
 
@@ -30,12 +31,19 @@ import org.dozer.propertydescriptor.ProtoFieldPropertyDescriptorCreationStrategy
  * @author Dmitry Spikhalskiy
  */
 public class ProtobufSupportModule implements DozerModule {
-  public void init() {
-    // todo: should be injected
-    BeanContainer beanContainer = new BeanContainer();
-    DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
 
-    PropertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategy(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator));
+  private BeanContainer beanContainer;
+  private DestBeanCreator destBeanCreator;
+  private PropertyDescriptorFactory propertyDescriptorFactory;
+
+  @Override
+  public void init(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory)  {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
+  }
+
+  public void init() {
   }
 
   @Override
@@ -46,5 +54,10 @@ public class ProtobufSupportModule implements DozerModule {
   @Override
   public Collection<BeanFieldsDetector> getBeanFieldsDetectors() {
     return Collections.singleton(new ProtobufBeanFieldsDetector());
+  }
+
+  @Override
+  public Collection<PropertyDescriptorCreationStrategy> getPropertyDescriptorCreationStrategies() {
+    return Collections.singleton(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator, propertyDescriptorFactory));
   }
 }

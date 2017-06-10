@@ -22,6 +22,7 @@ import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,9 +41,10 @@ public class ClassMapBuilderTest extends AbstractDozerTest {
   public void setUp() throws Exception {
     BeanContainer beanContainer = new BeanContainer();
     DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
-    collectionMappingGenerator = new ClassMapBuilder.CollectionMappingGenerator(beanContainer, destBeanCreator);
-    mapMappingGenerator = new ClassMapBuilder.MapMappingGenerator(beanContainer, destBeanCreator);
-    beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator);
+    PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
+    collectionMappingGenerator = new ClassMapBuilder.CollectionMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    mapMappingGenerator = new ClassMapBuilder.MapMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     configuration = new Configuration();
   }

@@ -19,6 +19,7 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 import org.junit.Test;
 
@@ -32,7 +33,7 @@ public class MappingsBuilderTest extends AbstractDozerTest{
 
   @Test
   public void testBuild() {
-    DozerBuilder builder = new DozerBuilder(beanContainer, destBeanCreator);
+    DozerBuilder builder = new DozerBuilder(beanContainer, destBeanCreator, new PropertyDescriptorFactory());
     MappingFileData result = builder.build();
     assertNotNull(result);
   }

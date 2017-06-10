@@ -42,12 +42,14 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
 
   private final BeanContainer beanContainer;
   private final DestBeanCreator destBeanCreator;
+  private final PropertyDescriptorFactory propertyDescriptorFactory;
 
   public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer,
-                                      BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+                                      BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
     this.beanContainer = beanContainer;
     this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
   }
 
   private Class<?> _propertyType;
@@ -59,11 +61,11 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
       Class<?> result;
       if (MappingUtils.isDeepMapping(fieldName)) {
         try {
-          result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, srcDeepIndexHintContainer, beanContainer, destBeanCreator);
+          result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, srcDeepIndexHintContainer, beanContainer, destBeanCreator, propertyDescriptorFactory);
         } catch (Exception ignore) {
           logger.info("Determine field type by srcDeepIndexHintContainer failed");
           try {
-            result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, destDeepIndexHintContainer, beanContainer, destBeanCreator);
+            result = DeepHierarchyUtils.getDeepFieldType(clazz, fieldName, destDeepIndexHintContainer, beanContainer, destBeanCreator, propertyDescriptorFactory);
           } catch (Exception secondIgnore) {
             logger.info("Determine field type by destDeepIndexHintContainer failed");
             result = null;
@@ -83,7 +85,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
   public Object getPropertyValue(Object bean) {
     Object result;
     if (MappingUtils.isDeepMapping(fieldName)) {
-      result = DeepHierarchyUtils.getDeepFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer, beanContainer, destBeanCreator);
+      result = DeepHierarchyUtils.getDeepFieldValue(bean, fieldName, isIndexed, index, srcDeepIndexHintContainer, beanContainer, destBeanCreator, propertyDescriptorFactory);
     } else {
       result = getSimplePropertyValue(bean);
       if (isIndexed) {
@@ -144,11 +146,11 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
       Class<?> result;
       if (MappingUtils.isDeepMapping(fieldName)) {
         try {
-          result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, srcDeepIndexHintContainer, beanContainer, destBeanCreator);
+          result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, srcDeepIndexHintContainer, beanContainer, destBeanCreator, propertyDescriptorFactory);
         } catch (Exception ignore) {
           logger.info("Determine field generic type by srcDeepIndexHintContainer failed");
           try {
-            result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, destDeepIndexHintContainer, beanContainer, destBeanCreator);
+            result = DeepHierarchyUtils.getDeepGenericType(clazz, fieldName, destDeepIndexHintContainer, beanContainer, destBeanCreator, propertyDescriptorFactory);
           } catch (Exception secondIgnore) {
             logger.info("Determine field generic type by destDeepIndexHintContainer failed");
             result = null;

@@ -26,6 +26,7 @@ import org.dozer.classmap.Configuration;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.CollectionUtils;
 
 /**
@@ -36,10 +37,12 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
 
     private final BeanContainer beanContainer;
     private final DestBeanCreator destBeanCreator;
+    private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-    public ClassLevelFieldMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    public ClassLevelFieldMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
         this.beanContainer = beanContainer;
         this.destBeanCreator = destBeanCreator;
+        this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
     /** {@inheritDoc} */
@@ -82,7 +85,7 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
         }
 
         GeneratorUtils.addGenericMapping(mappingType, classMap, configuration,
-                mutualFieldName, mutualFieldName, beanContainer, destBeanCreator);
+                mutualFieldName, mutualFieldName, beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
 
     private Set<String> getDeclaredFieldNames(Class<?> srcType) {

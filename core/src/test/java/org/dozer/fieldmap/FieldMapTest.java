@@ -26,6 +26,7 @@ import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.DozerClass;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class FieldMapTest extends AbstractDozerTest {
   public void setUp() {
     classMap = mock(ClassMap.class);
     BeanContainer beanContainer = new BeanContainer();
-    fieldMap = new FieldMap(classMap, beanContainer, new DestBeanCreator(beanContainer)) {};
+    fieldMap = new FieldMap(classMap, beanContainer, new DestBeanCreator(beanContainer), new PropertyDescriptorFactory()) {};
     DozerClass dozerClass = mock(DozerClass.class);
     when(classMap.getDestClass()).thenReturn(dozerClass);
     field = mock(DozerField.class);

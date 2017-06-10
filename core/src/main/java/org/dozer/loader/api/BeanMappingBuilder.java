@@ -19,6 +19,7 @@ import org.dozer.classmap.MappingFileData;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.DozerBuilder;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 
 /**
@@ -38,8 +39,8 @@ public abstract class BeanMappingBuilder {
    * For internal use
    * @return mappings created with given builder
    */
-  public MappingFileData build(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
-    dozerBuilder = new DozerBuilder(beanContainer, destBeanCreator);
+  public MappingFileData build(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+    dozerBuilder = new DozerBuilder(beanContainer, destBeanCreator, propertyDescriptorFactory);
     configure();
     return dozerBuilder.build();
   }

@@ -26,6 +26,7 @@ import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.CollectionUtils;
 
 /**
@@ -41,10 +42,12 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
 
   private final BeanContainer beanContainer;
   private final DestBeanCreator destBeanCreator;
+  private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-  public BeanMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+  public BeanMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.beanContainer = beanContainer;
     this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
   }
 
   public boolean accepts(ClassMap classMap) {
@@ -69,7 +72,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
         continue;
       }
 
-      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName, beanContainer, destBeanCreator);
+      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName, beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
     return false;
   }

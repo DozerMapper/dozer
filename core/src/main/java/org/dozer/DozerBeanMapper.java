@@ -47,6 +47,7 @@ import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsInterceptor;
 import org.dozer.stats.StatisticsManager;
@@ -85,6 +86,7 @@ public class DozerBeanMapper implements Mapper {
   private final DestBeanCreator destBeanCreator;
   private final DestBeanBuilderCreator destBeanBuilderCreator;
   private final BeanMappingGenerator beanMappingGenerator;
+  private final PropertyDescriptorFactory propertyDescriptorFactory;
 
   /*
    * Accessible for custom injection
@@ -116,7 +118,8 @@ public class DozerBeanMapper implements Mapper {
                   XMLParser xmlParser,
                   DestBeanCreator destBeanCreator,
                   DestBeanBuilderCreator destBeanBuilderCreator,
-                  BeanMappingGenerator beanMappingGenerator) {
+                  BeanMappingGenerator beanMappingGenerator,
+                  PropertyDescriptorFactory propertyDescriptorFactory) {
     this.globalSettings = globalSettings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
@@ -128,6 +131,7 @@ public class DozerBeanMapper implements Mapper {
     this.destBeanCreator = destBeanCreator;
     this.destBeanBuilderCreator = destBeanBuilderCreator;
     this.beanMappingGenerator = beanMappingGenerator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
     this.mappingFiles.addAll(mappingFiles);
     init();
   }
@@ -203,7 +207,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    dozerInitializer.init(globalSettings, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator);
+    dozerInitializer.init(globalSettings, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
@@ -225,7 +229,7 @@ public class DozerBeanMapper implements Mapper {
 
     Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
             eventManager, getCustomFieldMapper(), customConvertersWithId, beanContainer, destBeanCreator, destBeanBuilderCreator,
-            beanMappingGenerator);
+            beanMappingGenerator, propertyDescriptorFactory);
 
     // If statistics are enabled, then Proxy the processor with a statistics interceptor
     if (statsMgr.isStatisticsEnabled()) {
@@ -287,7 +291,7 @@ public class DozerBeanMapper implements Mapper {
    */
   public void addMapping(BeanMappingBuilder mappingBuilder) {
     checkIfInitialized();
-    MappingFileData mappingFileData = mappingBuilder.build(beanContainer, destBeanCreator);
+    MappingFileData mappingFileData = mappingBuilder.build(beanContainer, destBeanCreator, propertyDescriptorFactory);
     builderMappings.add(mappingFileData);
   }
 

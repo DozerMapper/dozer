@@ -53,6 +53,7 @@ public abstract class FieldMap implements Cloneable {
 
   protected final BeanContainer beanContainer;
   protected final DestBeanCreator destBeanCreator;
+  protected final PropertyDescriptorFactory propertyDescriptorFactory;
 
   private ClassMap classMap;
   private DozerField srcField;
@@ -74,10 +75,11 @@ public abstract class FieldMap implements Cloneable {
   private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> srcPropertyDescriptorMap = new ConcurrentHashMap<Class<?>, DozerPropertyDescriptor>(); // For Caching Purposes
   private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> destPropertyDescriptorMap = new ConcurrentHashMap<Class<?>, DozerPropertyDescriptor>();
 
-  public FieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+  public FieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.classMap = classMap;
     this.beanContainer = beanContainer;
     this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
   }
 
   public ClassMap getClassMap() {
@@ -388,7 +390,7 @@ public abstract class FieldMap implements Cloneable {
     if (result == null) {
       String srcFieldMapGetMethod = getSrcFieldMapGetMethod();
       String srcFieldMapSetMethod = getSrcFieldMapSetMethod();
-      DozerPropertyDescriptor descriptor = PropertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass,
+      DozerPropertyDescriptor descriptor = propertyDescriptorFactory.getPropertyDescriptor(runtimeSrcClass,
               getSrcFieldTheGetMethod(), getSrcFieldTheSetMethod(),
               srcFieldMapGetMethod, srcFieldMapSetMethod, isSrcFieldAccessible(), isSrcFieldIndexed(), getSrcFieldIndex(),
               getSrcFieldName(), getSrcFieldKey(), isSrcSelfReferencing(), getDestFieldName(), getSrcDeepIndexHintContainer(),
@@ -408,7 +410,7 @@ public abstract class FieldMap implements Cloneable {
 
     DozerPropertyDescriptor result = this.destPropertyDescriptorMap.get(runtimeDestClass);
     if (result == null) {
-      DozerPropertyDescriptor descriptor = PropertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass,
+      DozerPropertyDescriptor descriptor = propertyDescriptorFactory.getPropertyDescriptor(runtimeDestClass,
             getDestFieldTheGetMethod(), getDestFieldTheSetMethod(), getDestFieldMapGetMethod(),
             getDestFieldMapSetMethod(), isDestFieldAccessible(), isDestFieldIndexed(), getDestFieldIndex(),
             getDestFieldName(), getDestFieldKey(), isDestSelfReferencing(), getSrcFieldName(),

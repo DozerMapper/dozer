@@ -16,6 +16,7 @@
 package org.dozer.propertydescriptor;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -34,19 +35,19 @@ import org.dozer.util.MappingUtils;
  */
 public final class PropertyDescriptorFactory {
 
-    private static final List<PropertyDescriptorCreationStrategy> pluggedDescriptorCreationStrategies =
+    private final List<PropertyDescriptorCreationStrategy> pluggedDescriptorCreationStrategies =
         new ArrayList<PropertyDescriptorCreationStrategy>();
 
-    private PropertyDescriptorFactory() {
+    public PropertyDescriptorFactory() {
 
     }
 
-    public static DozerPropertyDescriptor getPropertyDescriptor(Class<?> clazz, String theGetMethod, String theSetMethod,
-                                                                String mapGetMethod, String mapSetMethod, boolean isAccessible,
-                                                                boolean isIndexed, int index, String name, String key, boolean isSelfReferencing,
-                                                                String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
-                                                                HintContainer destDeepIndexHintContainer, String beanFactory,
-                                                                BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    public DozerPropertyDescriptor getPropertyDescriptor(Class<?> clazz, String theGetMethod, String theSetMethod,
+                                                         String mapGetMethod, String mapSetMethod, boolean isAccessible,
+                                                         boolean isIndexed, int index, String name, String key, boolean isSelfReferencing,
+                                                         String oppositeFieldName, HintContainer srcDeepIndexHintContainer,
+                                                         HintContainer destDeepIndexHintContainer, String beanFactory,
+                                                         BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
         DozerPropertyDescriptor desc = null;
 
         // Raw Map types or custom map-get-method/set specified
@@ -106,7 +107,7 @@ public final class PropertyDescriptorFactory {
         return desc;
     }
 
-    public static void addPluggedPropertyDescriptorCreationStrategy(PropertyDescriptorCreationStrategy strategy) {
-        pluggedDescriptorCreationStrategies.add(strategy);
+    public void addPluggedPropertyDescriptorCreationStrategies(Collection<PropertyDescriptorCreationStrategy> strategies) {
+        pluggedDescriptorCreationStrategies.addAll(strategies);
     }
 }

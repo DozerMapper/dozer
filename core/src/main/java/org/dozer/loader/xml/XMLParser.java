@@ -29,6 +29,8 @@ import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.DozerBuilder;
 import org.dozer.loader.MappingsSource;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,10 +102,12 @@ public class XMLParser implements MappingsSource<Document> {
 
   private final BeanContainer beanContainer;
   private final DestBeanCreator destBeanCreator;
+  private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-  public XMLParser(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+  public XMLParser(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.beanContainer = beanContainer;
     this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
   }
 
   private String getAttribute(Element element, String attribute) {
@@ -125,7 +129,7 @@ public class XMLParser implements MappingsSource<Document> {
    * @return mapping container
    */
   public MappingFileData read(Document document) {
-    DozerBuilder builder = new DozerBuilder(beanContainer, destBeanCreator);
+    DozerBuilder builder = new DozerBuilder(beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     Element theRoot = document.getDocumentElement();
     NodeList nl = theRoot.getChildNodes();

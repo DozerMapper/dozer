@@ -22,6 +22,7 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -46,8 +47,9 @@ public final class GeneratorUtils {
   }
 
   public static void addGenericMapping(MappingType mappingType, ClassMap classMap,
-                                       Configuration configuration, String srcName, String destName, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
-      FieldMap fieldMap = new GenericFieldMap(classMap, beanContainer, destBeanCreator);
+                                       Configuration configuration, String srcName, String destName, BeanContainer beanContainer,
+                                       DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+      FieldMap fieldMap = new GenericFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
       DozerField srcField = new DozerField(srcName, null);
       DozerField destField = new DozerField(destName, null);
       fieldMap.setSrcField(srcField);

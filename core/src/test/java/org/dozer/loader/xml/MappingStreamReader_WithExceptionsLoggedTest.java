@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -39,7 +40,7 @@ public class MappingStreamReader_WithExceptionsLoggedTest {
     public void setUp() throws Exception {
         BeanContainer beanContainer = new BeanContainer();
         DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
-        streamReader = new MappingStreamReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator));
+        streamReader = new MappingStreamReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, new PropertyDescriptorFactory()));
     }
 
     @Test

@@ -38,6 +38,7 @@ import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
@@ -58,10 +59,12 @@ public class DozerBuilder {
   private final List<MappingBuilder> mappingBuilders = new ArrayList<MappingBuilder>();
   private final BeanContainer beanContainer;
   private final DestBeanCreator destBeanCreator;
+  private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-  public DozerBuilder(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+  public DozerBuilder(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.beanContainer = beanContainer;
     this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
   }
 
   public MappingFileData build() {
@@ -81,7 +84,7 @@ public class DozerBuilder {
     Configuration configuration = data.getConfiguration();
     ClassMap classMap = new ClassMap(configuration);
     data.getClassMaps().add(classMap);
-    MappingBuilder mappingDefinitionBuilder = new MappingBuilder(classMap, beanContainer, destBeanCreator);
+    MappingBuilder mappingDefinitionBuilder = new MappingBuilder(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
     mappingBuilders.add(mappingDefinitionBuilder);
     return mappingDefinitionBuilder;
   }
@@ -92,11 +95,13 @@ public class DozerBuilder {
     private final List<FieldBuider> fieldBuilders = new ArrayList<FieldBuider>();
     private final BeanContainer beanContainer;
     private final DestBeanCreator destBeanCreator;
+    private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-    public MappingBuilder(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    public MappingBuilder(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
       this.classMap = classMap;
       this.beanContainer = beanContainer;
       this.destBeanCreator = destBeanCreator;
+      this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
     public MappingBuilder dateFormat(String dateFormat) {
@@ -175,14 +180,14 @@ public class DozerBuilder {
     }
 
     public FieldExclusionBuilder fieldExclude() {
-      ExcludeFieldMap excludeFieldMap = new ExcludeFieldMap(classMap, beanContainer, destBeanCreator);
+      ExcludeFieldMap excludeFieldMap = new ExcludeFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
       FieldExclusionBuilder builder = new FieldExclusionBuilder(excludeFieldMap);
       fieldBuilders.add(builder);
       return builder;
     }
 
     public FieldMappingBuilder field() {
-      FieldMappingBuilder builder = new FieldMappingBuilder(classMap, beanContainer, destBeanCreator);
+      FieldMappingBuilder builder = new FieldMappingBuilder(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
       fieldBuilders.add(builder);
       return builder;
     }
@@ -256,11 +261,13 @@ public class DozerBuilder {
 
     private final BeanContainer beanContainer;
     private final DestBeanCreator destBeanCreator;
+    private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-    public FieldMappingBuilder(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    public FieldMappingBuilder(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
       this.classMap = classMap;
       this.beanContainer = beanContainer;
       this.destBeanCreator = destBeanCreator;
+      this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
     public FieldDefinitionBuilder a(String name) {
@@ -349,11 +356,11 @@ public class DozerBuilder {
       FieldMap result;
       if (srcField.isMapTypeCustomGetterSetterField() || destField.isMapTypeCustomGetterSetterField()
           || classMap.isSrcClassMapTypeCustomGetterSetter() || classMap.isDestClassMapTypeCustomGetterSetter()) {
-        result = new MapFieldMap(classMap, beanContainer, destBeanCreator);
+        result = new MapFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
       } else if (srcField.isCustomGetterSetterField() || destField.isCustomGetterSetterField()) {
-        result = new CustomGetSetMethodFieldMap(classMap, beanContainer, destBeanCreator);
+        result = new CustomGetSetMethodFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
       } else {
-        result = new GenericFieldMap(classMap, beanContainer, destBeanCreator);
+        result = new GenericFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
       }
 
       result.setSrcField(srcField);

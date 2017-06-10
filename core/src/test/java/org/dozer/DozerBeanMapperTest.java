@@ -41,6 +41,7 @@ import org.dozer.loader.MappingsParser;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.vo.TestObject;
@@ -134,16 +135,16 @@ public class DozerBeanMapperTest extends Assert {
       super(Collections.emptyList(),
               new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader())),
               new CustomMappingsLoader(
-                      new MappingsParser(new BeanContainer(), new DestBeanCreator(new BeanContainer())),
+                      new MappingsParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()),
                       new ClassMapBuilder(new BeanContainer(), new DestBeanCreator(new BeanContainer()),
-                              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()))),
+                              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory()),
                       new BeanContainer()),
               new XMLParserFactory(new BeanContainer()),
               new StatisticsManagerImpl(new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader()))),
               new DozerInitializer(), new BeanContainer(),
-              new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer())), new DestBeanCreator(new BeanContainer()),
+              new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new DestBeanCreator(new BeanContainer()),
               new DestBeanBuilderCreator(),
-              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer())));
+              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory());
     }
 
     @Override

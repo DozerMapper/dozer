@@ -35,7 +35,7 @@ public class ProtoFieldPropertyDescriptorCreationStrategyTest {
     public void setUp() throws Exception {
         BeanContainer beanContainer = new BeanContainer();
         DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
-        strategy = new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator);
+        strategy = new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator, new PropertyDescriptorFactory());
     }
 
     @Test

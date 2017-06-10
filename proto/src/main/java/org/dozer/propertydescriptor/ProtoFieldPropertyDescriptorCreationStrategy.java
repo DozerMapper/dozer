@@ -31,15 +31,17 @@ public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDes
 
   private final BeanContainer beanContainer;
   private final DestBeanCreator destBeanCreator;
+  private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-  public ProtoFieldPropertyDescriptorCreationStrategy(BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+  public ProtoFieldPropertyDescriptorCreationStrategy(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.beanContainer = beanContainer;
     this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
   }
 
   @Override
   public DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    return new ProtoFieldPropertyDescriptor(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer, beanContainer, destBeanCreator);
+    return new ProtoFieldPropertyDescriptor(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer, beanContainer, destBeanCreator, propertyDescriptorFactory);
   }
 
   @Override

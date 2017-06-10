@@ -27,12 +27,14 @@ import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.jmx.DozerAdminController;
 import org.dozer.jmx.DozerStatisticsController;
 import org.dozer.jmx.JMXPlatform;
 import org.dozer.jmx.JMXPlatformImpl;
 import org.dozer.loader.xml.ELEngine;
 import org.dozer.loader.xml.ExpressionElementReader;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
@@ -63,12 +65,14 @@ public final class DozerInitializer {
   }
 
   public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer,
-                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator) {
-    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator);
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                   DestBeanCreator destBeanCreator) {
+    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
   }
 
   public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
-                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator) {
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                   DestBeanCreator destBeanCreator) {
     // Multiple threads may try to initialize simultaneously
     synchronized (this) {
       if (isInitialized) {
@@ -79,14 +83,15 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      initialize(globalSettings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator);
+      initialize(globalSettings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
       isInitialized = true;
     }
   }
 
   void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
-                  DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator) {
+                  DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                  DestBeanCreator destBeanCreator) {
     if (globalSettings.isAutoregisterJMXBeans()) {
       // Register JMX MBeans. If an error occurs, don't propagate exception
       try {
@@ -109,8 +114,11 @@ public final class DozerInitializer {
 
     for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
       module.init();
+      module.init(beanContainer, destBeanCreator, propertyDescriptorFactory);
+
       destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
       beanMappingGenerator.addPluggedFieldDetectors(module.getBeanFieldsDetectors());
+      propertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategies(module.getPropertyDescriptorCreationStrategies());
     }
   }
 

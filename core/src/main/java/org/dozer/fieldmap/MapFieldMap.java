@@ -22,6 +22,7 @@ import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.FieldPropertyDescriptor;
 import org.dozer.propertydescriptor.JavaBeanPropertyDescriptor;
 import org.dozer.propertydescriptor.MapPropertyDescriptor;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
@@ -37,13 +38,13 @@ import org.dozer.util.MappingUtils;
  */
 public class MapFieldMap extends FieldMap {
 
-  public MapFieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
-    super(classMap, beanContainer, destBeanCreator);
+  public MapFieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+    super(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
   }
 
-  public MapFieldMap(FieldMap fieldMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+  public MapFieldMap(FieldMap fieldMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     //Create from existing field map
-    super(fieldMap.getClassMap(), beanContainer, destBeanCreator);
+    super(fieldMap.getClassMap(), beanContainer, destBeanCreator, propertyDescriptorFactory);
     setCopyByReference(fieldMap.isCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
     setCustomConverterId(fieldMap.getCustomConverterId());

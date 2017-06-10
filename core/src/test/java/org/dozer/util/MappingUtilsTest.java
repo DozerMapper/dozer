@@ -34,6 +34,7 @@ import org.dozer.loader.MappingsParser;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.vo.enumtest.DestType;
 import org.dozer.vo.enumtest.DestTypeWithOverride;
 import org.dozer.vo.enumtest.SrcType;
@@ -58,6 +59,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
 
   private BeanContainer beanContainer = new BeanContainer();
   private DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+  private PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
 
   @Test
   public void testIsBlankOrNull() throws Exception {
@@ -68,9 +70,9 @@ public class MappingUtilsTest extends AbstractDozerTest {
 
   @Test
   public void testOverridenFields() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator), beanContainer);
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory), beanContainer);
     MappingFileData mappingFileData = fileReader.read("mappings/overridemapping.xml");
-    MappingsParser mappingsParser = new MappingsParser(beanContainer, destBeanCreator);
+    MappingsParser mappingsParser = new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
     mappingsParser.processMappings(mappingFileData.getClassMaps(), mappingFileData.getConfiguration());
     // validate class mappings
     for (ClassMap classMap : mappingFileData.getClassMaps()) {

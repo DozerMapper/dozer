@@ -30,6 +30,7 @@ import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.util.DefaultClassLoader;
@@ -126,13 +127,15 @@ public final class DozerBeanMapperBuilder {
         GlobalSettings globalSettings = new GlobalSettings(classLoader);
         BeanContainer beanContainer = new BeanContainer();
         DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
-        BeanMappingGenerator beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator);
-        ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator);
-        CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(new MappingsParser(beanContainer, destBeanCreator), classMapBuilder, beanContainer);
+        PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
+        BeanMappingGenerator beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
+        ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
+        CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(
+                new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
         XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
         StatisticsManager statisticsManager = new StatisticsManagerImpl(globalSettings);
         DozerInitializer dozerInitializer = new DozerInitializer();
-        XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator);
+        XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
         DestBeanBuilderCreator destBeanBuilderCreator = new DestBeanBuilderCreator();
 
         return new DozerBeanMapper(mappingFiles,
@@ -145,7 +148,7 @@ public final class DozerBeanMapperBuilder {
                 xmlParser,
                 destBeanCreator,
                 destBeanBuilderCreator,
-                beanMappingGenerator);
+                beanMappingGenerator, propertyDescriptorFactory);
     }
 
     private DozerClassLoader getClassLoader() {

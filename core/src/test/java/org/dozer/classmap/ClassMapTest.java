@@ -23,6 +23,8 @@ import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +36,7 @@ public class ClassMapTest extends AbstractDozerTest {
   private ClassMap classMap;
   private BeanContainer beanContainer;
   private DestBeanCreator destBeanCreator;
+  private PropertyDescriptorFactory propertyDescriptorFactory;
 
   @Override
   @Before
@@ -42,12 +45,13 @@ public class ClassMapTest extends AbstractDozerTest {
     classMap = new ClassMap(globalConfiguration);
     beanContainer = new BeanContainer();
     destBeanCreator = new DestBeanCreator(beanContainer);
+    propertyDescriptorFactory = new PropertyDescriptorFactory();
   }
 
   @Test
   public void testAddFieldMappings() throws Exception {
     ClassMap cm = new ClassMap(null);
-    GenericFieldMap fm = new GenericFieldMap(cm, beanContainer, destBeanCreator);
+    GenericFieldMap fm = new GenericFieldMap(cm, beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     cm.addFieldMapping(fm);
 
@@ -59,7 +63,7 @@ public class ClassMapTest extends AbstractDozerTest {
   @Test
   public void testSetFieldMappings() throws Exception {
     ClassMap cm = new ClassMap(null);
-    GenericFieldMap fm = new GenericFieldMap(cm, beanContainer, destBeanCreator);
+    GenericFieldMap fm = new GenericFieldMap(cm, beanContainer, destBeanCreator, propertyDescriptorFactory);
     List<FieldMap> fmList = new ArrayList<FieldMap>();
     fmList.add(fm);
 

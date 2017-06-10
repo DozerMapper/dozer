@@ -58,6 +58,7 @@ import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.CollectionUtils;
@@ -114,7 +115,7 @@ public class MappingProcessor implements Mapper {
                              DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
                              Map<String, CustomConverter> customConverterObjectsWithId, BeanContainer beanContainer,
                              DestBeanCreator destBeanCreator, DestBeanBuilderCreator destBeanBuilderCreator,
-                             BeanMappingGenerator beanMappingGenerator) {
+                             BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -126,7 +127,7 @@ public class MappingProcessor implements Mapper {
     this.customConverterObjectsWithId = customConverterObjectsWithId;
     this.beanContainer = beanContainer;
     this.destBeanBuilderCreator = destBeanBuilderCreator;
-    this.classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator);
+    this.classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
     this.primitiveConverter = new PrimitiveOrWrapperConverter(beanContainer);
     this.destBeanCreator = destBeanCreator;
   }

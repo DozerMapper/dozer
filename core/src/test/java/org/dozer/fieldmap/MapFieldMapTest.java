@@ -20,6 +20,7 @@ import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 import org.junit.Test;
 
@@ -32,11 +33,12 @@ public class MapFieldMapTest extends AbstractDozerTest {
 
   private BeanContainer beanContainer = new BeanContainer();
   private DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+  private PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
 
   @Test
   public void testConstructor() {
     FieldMap fieldMap = mock(FieldMap.class);
-    MapFieldMap source = new MapFieldMap(fieldMap, beanContainer, destBeanCreator);
+    MapFieldMap source = new MapFieldMap(fieldMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     source.setCopyByReference(true);
     source.setCustomConverter("converter");
@@ -53,7 +55,7 @@ public class MapFieldMapTest extends AbstractDozerTest {
     source.setSrcDeepIndexHintContainer(new HintContainer(beanContainer));
     source.setType(MappingDirection.ONE_WAY);
 
-    MapFieldMap result = new MapFieldMap(source, beanContainer, destBeanCreator);
+    MapFieldMap result = new MapFieldMap(source, beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     assertEquals(source.isCopyByReference(), result.isCopyByReference());
     assertEquals(source.getCustomConverter(), result.getCustomConverter());
