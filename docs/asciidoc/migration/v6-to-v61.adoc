@@ -41,3 +41,36 @@ See link:https://github.com/DozerMapper/dozer/releases/tag/v6.1.0[for release no
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
            http://dozermapper.github.io/schema/dozer-spring http://dozermapper.github.io/schema/dozer-spring.xsd">
 ----
+
+=== 3. DozerBeanMapper instantiation is deprecated
+Direct instantiation of `DozerBeanMapper` is deprecated and its constructors will be hidden in version 6.2.
+
+Please use `DozerBeanMapperBuilder` instead.
+
+**Deprecated:**
+[source,java,prettyprint]
+----
+Mapper mapper = new DozerBeanMapper();
+----
+
+**Recommended:**
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.createDefault();
+----
+
+=== 4. Dozer Bean Mapper Singleton Wrapper is deprecated
+`DozerBeanMapperSingletonWrapper` is deprecated and planned for removal in version 6.2.
+
+Dozer project does not advise to use JVM singletons. Please use your DI container to manage single instance
+ of the `Mapper` if required. The following code can be used to create a `Mapper` with default configuration:
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.createDefault();
+----
+
+=== 5. Internal API is changed
+Dozer is moving away from having JMV-global state. This means that some internal API like `BeanContainer` is
+not available anymore via singleton references, i.e. `BeanContainer.getInstance()` does not exist. If you were using
+this or any other code that is reworked, please let us know. Most likely you developed `DozerModule`. We would like to know
+more about real-world use cases to build convenient public API for modules developers.

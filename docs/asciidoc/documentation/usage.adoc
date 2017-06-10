@@ -7,7 +7,7 @@ After mapping the two objects it then returns the destination object with all of
 
 [source,java,prettyprint]
 ----
-Mapper mapper = new DozerBeanMapper();
+Mapper mapper = DozerBeanMapperBuilder.createDefault();
 DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
 ----
 
@@ -46,12 +46,9 @@ If you are using the mapper this way just wrap it using the singleton pattern.
 
 [source,java,prettyprint]
 ----
-List myMappingFiles = new ArrayList();
-myMappingFiles.add("dozerBeanMapping.xml");
-myMappingFiles.add("someOtherDozerBeanMappings.xml");
-
-DozerBeanMapper mapper = new DozerBeanMapper();
-mapper.setMappingFiles(myMappingFiles);
+DozerBeanMapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingFiles("dozerBeanMapping.xml", "someOtherDozerBeanMappings.xml")
+        .build();
 
 DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
 ----
@@ -70,37 +67,4 @@ The following is an example how the Mapper bean would be configured via Spring.
         </list>
     </property>
 </bean>
-----
-
-=== Dozer Bean Mapper Singleton Wrapper
-There is one way to configure the DozerBeanMapperSingletonWrapper to use
-your custom mapping file.
-
-* *Using one mapping file:* A file called dozerBeanMapping.xml file will
-be loaded if it is in your Classpath. You can find a sample of this file
-in the \{dozer.home}/mappings directory.
-
-The mapping file defines all of the relationships between Java classes
-and their attributes. The link:./mappings.adoc[Custom Mappings] section
-details the custom XML mapping options that are available.
-
-The following example show how to use the
-DozerBeanMapperSingletonWrapper. Dozer has a method called map which
-takes a source object and either a destination object or destination
-object class type. After mapping the two objects it then returns the
-destination object with all of its mapped fields.
-
-[source,java,prettyprint]
-----
-Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
-DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
-----
-
-or
-
-[source,java,prettyprint]
-----
-Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
-DestinationObject destObject = new DestinationObject();
-mapper.map(sourceObject, destObject);
 ----

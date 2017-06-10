@@ -50,7 +50,7 @@ If you are using Maven, simply copy-paste this dependency to your project.
 ```Java
 SourceClassName sourceObject = ...
 
-Mapper mapper = new DozerBeanMapper();
+Mapper mapper = DozerBeanMapperBuilder.createDefault();
 DestinationObject destObject = mapper.map(sourceObject, DestinationClassName.class);
 
 assertTrue(destObject.getYourDestinationFieldName().equals(sourceObject.getYourSourceFieldName));
