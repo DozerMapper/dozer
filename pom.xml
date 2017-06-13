@@ -179,6 +179,7 @@
                         <exclude>**/spring.schemas</exclude>
                         <exclude>**/spring.handlers</exclude>
                         <exclude>**/mockito-extensions/**</exclude>
+                        <exclude>**/gen-src/**</exclude>
                     </excludes>
                     <mapping>
                         <java>SLASHSTAR_STYLE</java>

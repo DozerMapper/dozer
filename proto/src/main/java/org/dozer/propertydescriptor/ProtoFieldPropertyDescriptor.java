@@ -22,6 +22,7 @@ import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 
 import org.dozer.BeanBuilder;
+import org.dozer.MappingException;
 import org.dozer.builder.ProtoBeanBuilder;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
@@ -116,7 +117,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
           Method mapSetterMethod = builder.internalProtoBuilder().getClass().getMethod(methodName, Map.class);
           mapSetterMethod.invoke(builder.internalProtoBuilder(), value);
         } catch (Exception e) {
-          throw new RuntimeException("Could not call map setter method " + methodName, e);
+          throw new MappingException("Could not call map setter method " + methodName, e);
         }
       } else {
         builder.internalProtoBuilder().setField(getFieldDescriptor(), value);

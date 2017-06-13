@@ -18,14 +18,17 @@ package org.dozer.functional_tests;
 import java.util.Arrays;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.MappingException;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.proto.LiteTestObject;
+import org.dozer.vo.proto.MapExample;
 import org.dozer.vo.proto.ObjectWithCollection;
 import org.dozer.vo.proto.ObjectWithEnumCollection;
 import org.dozer.vo.proto.ObjectWithEnumField;
 import org.dozer.vo.proto.ProtoTestObjects.ProtoEnum;
 import org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField;
 import org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject;
+import org.dozer.vo.proto.ProtoTestObjects.ProtobufMapExample;
 import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection;
 import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection;
 import org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject;
@@ -35,16 +38,22 @@ import org.dozer.vo.proto.TestObject;
 import org.dozer.vo.proto.TestObjectContainer;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Dmitry Spikhalskiy
  */
 public class ProtoBeansMappingTest extends ProtoAbstractTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     protected DozerBeanMapper mapper;
 
@@ -220,5 +229,45 @@ public class ProtoBeansMappingTest extends ProtoAbstractTest {
         assertNotNull(result.getEnums());
         Assert.assertEquals(1, result.getEnums().size());
         Assert.assertEquals(SimpleEnum.VALUE1, result.getEnums().get(0));
+    }
+
+    @Test
+    public void testBadMap_toProto() {
+        MapExample mapExample = new MapExample();
+        mapExample.put("test", null);
+        mapExample.put("foo", "bar");
+
+        thrown.expect(MappingException.class);
+        mapper.map(mapExample, ProtobufMapExample.class);
+    }
+
+    @Test
+    public void testMap_toProto() {
+        MapExample mapExample = new MapExample();
+
+        // put a valid value
+        mapExample.put("test", "value");
+        ProtobufMapExample protoMapExample = mapper.map(mapExample, ProtobufMapExample.class);
+
+        // mapping OK
+        assertEquals(mapExample.getValue(), protoMapExample.getValueMap());
+    }
+
+    @Test
+    public void testBadMap_fromProto() {
+        ProtobufMapExample.Builder protoMapExample = ProtobufMapExample.newBuilder();
+
+        thrown.expect(NullPointerException.class);
+        protoMapExample.putValue("test", null);
+    }
+
+    @Test
+    public void testMap_fromProto() {
+        ProtobufMapExample.Builder protoMapExample = ProtobufMapExample.newBuilder();
+        protoMapExample.putValue("test", "value");
+        protoMapExample.putValue("foo", "bar");
+
+        MapExample mapExample = mapper.map(protoMapExample, MapExample.class);
+        assertEquals(protoMapExample.getValueMap(), mapExample.getValue());
     }
 }

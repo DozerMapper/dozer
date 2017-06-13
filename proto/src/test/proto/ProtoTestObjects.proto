@@ -36,3 +36,7 @@ message ProtobufWithSimpleCollectionContainer {
 message ProtobufWithEnumCollection {
     repeated ProtoEnum object = 1;
 }
+
+message ProtobufMapExample {
+    map<string,string> value = 1;
+}

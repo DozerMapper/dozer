@@ -57,7 +57,7 @@
         <depends-maven-plugin.version>1.3.1</depends-maven-plugin.version>
 
         <!-- Protobuf Plugins versions; alphabetical order -->
-        <protobuf-maven-plugin.version>0.5.0</protobuf-maven-plugin.version>
+        <protoc-jar-maven-plugin.version>3.3.0</protoc-jar-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -187,9 +187,9 @@
 
                 <!-- Protobuf Plugins; alphabetical order -->
                 <plugin>
-                    <groupId>org.xolstice.maven.plugins</groupId>
-                    <artifactId>protobuf-maven-plugin</artifactId>
-                    <version>${protobuf-maven-plugin.version}</version>
+                    <groupId>com.github.os72</groupId>
+                    <artifactId>protoc-jar-maven-plugin</artifactId>
+                    <version>${protoc-jar-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
