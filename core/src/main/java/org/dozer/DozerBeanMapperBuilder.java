@@ -26,7 +26,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.dozer.builder.BeanMappingsBuilder;
 import org.dozer.builder.DestBeanBuilderCreator;
+import org.dozer.builder.xml.BeanMappingXMLBuilder;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
@@ -78,6 +80,7 @@ public final class DozerBeanMapperBuilder {
     private List<CustomConverter> customConverters = new ArrayList<>(0);
     private List<Supplier<InputStream>> xmlMappingSuppliers = new ArrayList<>(0);
     private List<BeanMappingBuilder> mappingBuilders = new ArrayList<>(0);
+    private List<BeanMappingsBuilder> beanMappingsBuilders = new ArrayList<>(0);
     private List<DozerEventListener> eventListeners = new ArrayList<>(0);
     private CustomFieldMapper customFieldMapper;
     private Map<String, CustomConverter> customConvertersWithId = new HashMap<>(0);
@@ -291,6 +294,57 @@ public final class DozerBeanMapperBuilder {
     }
 
     /**
+     * Registers a {@link BeanMappingsBuilder} for the mapper. Multiple calls of this method will register builders in the order of calling.
+     * <p>
+     * Builders are executed at the moment of {@link #create()} method call.
+     * <p>
+     * Current implementations include; {@link BeanMappingXMLBuilder}
+     * <p>
+     * By default, no API builders are registered.
+     *
+     * @param beanMappingsBuilder mapping builder to be registered for the mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withBeanMappingsBuilders(BeanMappingsBuilder beanMappingsBuilder) {
+        return withBeanMappingsBuilders(Arrays.asList(beanMappingsBuilder));
+    }
+
+    /**
+     * Registers a {@link BeanMappingsBuilder} for the mapper. Multiple calls of this method will register builders in the order of calling.
+     * <p>
+     * Builders are executed at the moment of {@link #create()} method call.
+     * <p>
+     * Current implementations include; {@link BeanMappingXMLBuilder}
+     * <p>
+     * By default, no API builders are registered.
+     *
+     * @param beanMappingsBuilder mapping builder to be registered for the mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withBeanMappingsBuilders(BeanMappingsBuilder... beanMappingsBuilder) {
+        return withBeanMappingsBuilders(Arrays.asList(beanMappingsBuilder));
+    }
+
+    /**
+     * Registers a {@link BeanMappingsBuilder} for the mapper. Multiple calls of this method will register builders in the order of calling.
+     * <p>
+     * Builders are executed at the moment of {@link #create()} method call.
+     * <p>
+     * Current implementations include; {@link BeanMappingXMLBuilder}
+     * <p>
+     * By default, no API builders are registered.
+     *
+     * @param beanMappingsBuilder mapping builder to be registered for the mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withBeanMappingsBuilders(List<BeanMappingsBuilder> beanMappingsBuilder) {
+        if (beanMappingsBuilder != null) {
+            this.beanMappingsBuilders.addAll(beanMappingsBuilder);
+        }
+        return this;
+    }
+
+    /**
      * Registers a {@link DozerEventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
      * <p>
      * By default, no listeners are registered.
@@ -486,11 +540,17 @@ public final class DozerBeanMapperBuilder {
         dozerInitializer.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
         List<MappingFileData> mappingsFileData = new ArrayList<>();
-        mappingsFileData.addAll(readXmlMappings(xmlParserFactory, xmlParser));
+        if (settings.getUseJaxbMappingEngine()) {
+            mappingsFileData.addAll(buildXmlMappings(beanContainer, destBeanCreator, propertyDescriptorFactory, elEngine));
+        } else {
+            mappingsFileData.addAll(readXmlMappings(xmlParserFactory, xmlParser));
+            mappingsFileData.addAll(loadFromFiles(mappingFiles, xmlParserFactory, xmlParser, beanContainer));
+        }
+
+        mappingsFileData.addAll(buildGenericMappings(beanContainer, destBeanCreator, propertyDescriptorFactory));
         mappingsFileData.addAll(createMappingsWithBuilders(beanContainer, destBeanCreator, propertyDescriptorFactory));
 
-        loadCustomMappings(mappingsFileData, xmlParserFactory, xmlParser,
-                           beanContainer, propertyDescriptorFactory, beanMappingGenerator, destBeanCreator);
+        loadCustomMappings(mappingsFileData, beanContainer, propertyDescriptorFactory, beanMappingGenerator, destBeanCreator);
 
         return new DozerBeanMapper(mappingFiles,
                                    settings,
@@ -528,6 +588,22 @@ public final class DozerBeanMapperBuilder {
                 .collect(Collectors.toList());
     }
 
+    private List<MappingFileData> buildXmlMappings(BeanContainer beanContainer, DestBeanCreator destBeanCreator,
+                                                   PropertyDescriptorFactory propertyDescriptorFactory, ELEngine elEngine) {
+        BeanMappingXMLBuilder builder = new BeanMappingXMLBuilder(beanContainer, elEngine);
+        builder.loadFiles(mappingFiles);
+        builder.loadInputStreams(xmlMappingSuppliers);
+
+        return builder.build(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    }
+
+    private List<MappingFileData> buildGenericMappings(BeanContainer beanContainer, DestBeanCreator destBeanCreator,
+                                                       PropertyDescriptorFactory propertyDescriptorFactory) {
+        return beanMappingsBuilders.stream()
+                .map(m -> m.build(beanContainer, destBeanCreator, propertyDescriptorFactory))
+                .collect(ArrayList::new, ArrayList::addAll, ArrayList::addAll);
+    }
+    
     private DozerClassLoader getClassLoader() {
         if (classLoader == null) {
             if (RuntimeUtils.isOSGi()) {
@@ -574,15 +650,9 @@ public final class DozerBeanMapperBuilder {
         }
     }
 
-    private void loadCustomMappings(List<MappingFileData> mappingsFileData, XMLParserFactory xmlParserFactory, XMLParser xmlParser,
-                                    BeanContainer beanContainer, PropertyDescriptorFactory propertyDescriptorFactory,
-                                    BeanMappingGenerator beanMappingGenerator, DestBeanCreator destBeanCreator) {
-
-        List<MappingFileData> xmlMappings = loadFromFiles(mappingFiles, xmlParserFactory, xmlParser, beanContainer);
-        ArrayList<MappingFileData> allMappings = new ArrayList<>();
-        allMappings.addAll(xmlMappings);
-        allMappings.addAll(mappingsFileData);
-
+    private void loadCustomMappings(List<MappingFileData> allMappings, BeanContainer beanContainer,
+                                    PropertyDescriptorFactory propertyDescriptorFactory, BeanMappingGenerator beanMappingGenerator,
+                                    DestBeanCreator destBeanCreator) {
         MappingsParser mappingsParser = new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
         ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
         CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(mappingsParser, classMapBuilder, beanContainer);

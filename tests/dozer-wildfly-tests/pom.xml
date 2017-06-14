@@ -56,12 +56,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.dozermapper</groupId>
-            <artifactId>dozer-schema</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.github.dozermapper.tests</groupId>
             <artifactId>dozer-osgi-tests-model</artifactId>
             <version>${project.version}</version>

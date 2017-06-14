@@ -42,10 +42,65 @@ The property for 'dozer.el.enabled' has been deprecated. Instead, you should use
             .build();
 ----
 
-=== 5. Artifacts renamed
+=== 5. Spring maven artifact name has changed
+**From:**
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-spring</artifactId>
+    <version>6.1.0</version>
+</dependency>
+----
 
-`dozer-spring` maven artifact renamed to `dozer-spring4` +
-`dozer-proto` maven artifact renamed to `dozer-proto3` +
+**To:**
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-spring4</artifactId>
+    <version>6.2.0</version>
+</dependency>
+----
 
-=== 6. Extended spring boot support
+=== 6. Spring maven artifact name has changed
+**From:**
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-proto</artifactId>
+    <version>6.1.0</version>
+</dependency>
+----
+
+**To:**
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-proto3</artifactId>
+    <version>6.2.0</version>
+</dependency>
+----
+
+=== 7. Extended spring boot support
 `dozer-spring-boot-starter` and `dozer-spring-boot-autoconfigure` artifacts added to support spring boot auto configuration features.
+
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-spring-boot-starter</artifactId>
+    <version>6.2.0</version>
+</dependency>
+----
+
+=== 8. dozer.xml.use-jaxb-mapping-engine to use new JAXB
+The current Dozer XML to Objects implementation uses org.w3c.dom.Document to parse the model.
+Going forward, the intention is to use a JAXB model. This feature is not enabled by default, but can be via:
+
+[source,prettyprint]
+----
+    dozer.xml.use-jaxb-mapping-engine=true
+----

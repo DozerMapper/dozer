@@ -29,6 +29,7 @@ public final class SettingsKeys {
     public static final String SUPER_TYPE_CHECK_CACHE_MAX_SIZE = "dozer.cache.super-type-maxsize";
     public static final String CLASS_LOADER_BEAN = "dozer.beans.class-loader-bean";
     public static final String PROXY_RESOLVER_BEAN = "dozer.beans.proxy-resolver-bean";
+    public static final String USE_JAXB_MAPPING_ENGINE = "dozer.xml.use-jaxb-mapping-engine";
 
     @Deprecated
     public static final String DEPRECATED_EL_ENABLED = "dozer.el.enabled";

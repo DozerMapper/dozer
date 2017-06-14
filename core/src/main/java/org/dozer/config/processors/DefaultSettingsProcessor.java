@@ -51,7 +51,10 @@ public class DefaultSettingsProcessor implements SettingsProcessor {
         Integer superTypesCacheMaxSize = Integer.valueOf(getValue(SettingsKeys.SUPER_TYPE_CHECK_CACHE_MAX_SIZE,
                                                                   SettingsDefaults.SUPER_TYPE_CHECK_CACHE_MAX_SIZE).toString());
 
-        return new Settings(converterByDestTypeCacheMaxSize, superTypesCacheMaxSize, classLoaderBeanName, proxyResolverBeanName);
+        Boolean useJaxbMappingEngine = Boolean.valueOf(getValue(SettingsKeys.USE_JAXB_MAPPING_ENGINE,
+                                                                SettingsDefaults.USE_JAXB_MAPPING_ENGINE).toString());
+
+        return new Settings(converterByDestTypeCacheMaxSize, superTypesCacheMaxSize, classLoaderBeanName, proxyResolverBeanName, useJaxbMappingEngine);
     }
 
     private void createSettingsResolvers() {

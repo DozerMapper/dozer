@@ -21,10 +21,10 @@ install:
 before_script:
 - ./mvnw dependency:resolve-plugins -B
 script:
-- ./mvnw clean install -B
+- ./mvnw clean install -B && ./mvnw clean install -Ddozer.xml.use-jaxb-mapping-engine=true -B
 after_success:
 - ./mvnw test -Dtest=PerformanceTest -DargLine="-DnumIters=25000" -f core/pom.xml
-- ./mvnw integration-test -Prun-benchmarks -f tests/dozer-jmh-tests/pom.xml
+- ./mvnw integration-test -Prun-benchmarks -f tests/dozer-jmh-tests/pom.xml && ./mvnw integration-test -Prun-benchmarks -f tests/dozer-jmh-tests/pom.xml -Ddozer.xml.use-jaxb-mapping-engine=true
 deploy:
   provider: script
   script: bash .travis/deploy.sh

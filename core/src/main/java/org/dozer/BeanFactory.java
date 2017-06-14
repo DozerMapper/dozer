@@ -48,6 +48,10 @@ public interface BeanFactory {
 
     /**
      * Will be removed in 6.2. Please use {@link BeanFactory#createBean(Object, Class, String, BeanContainer)}.
+     * @param source obj
+     * @param sourceClass obj
+     * @param targetBeanId id
+     * @return bean
      */
     @Deprecated
     default Object createBean(Object source, Class<?> sourceClass, String targetBeanId) {

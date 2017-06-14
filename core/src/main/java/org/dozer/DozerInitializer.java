@@ -125,6 +125,8 @@ public final class DozerInitializer {
 
   /**
    * Performs framework shutdown sequence.
+   *
+   * @param settings settings
    */
   public void destroy(Settings settings) {
     synchronized (this) {

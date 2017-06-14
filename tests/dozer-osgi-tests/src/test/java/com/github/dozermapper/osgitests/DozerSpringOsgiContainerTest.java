@@ -90,9 +90,11 @@ public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
 
         for (Bundle current : bundleContext.getBundles()) {
             //Ignore any Karaf bundles
-            if (!current.getSymbolicName().startsWith("org.apache.karaf")) {
-                assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
+            if (current.getSymbolicName().startsWith("org.apache.karaf")) {
+                continue;
             }
+
+            assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
         }
     }
 

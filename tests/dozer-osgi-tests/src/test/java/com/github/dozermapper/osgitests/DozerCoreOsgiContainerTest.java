@@ -16,13 +16,16 @@
 package com.github.dozermapper.osgitests;
 
 import com.github.dozermapper.osgitestsmodel.Person;
+
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.el.ELExpressionFactory;
 import org.dozer.osgi.OSGiClassLoader;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public abstract class DozerCoreOsgiContainerTest extends AbstractDozerCoreOsgiContainerTest {
 

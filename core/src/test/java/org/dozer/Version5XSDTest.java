@@ -39,6 +39,7 @@ public class Version5XSDTest {
         Mapper mapper = DozerBeanMapperBuilder.create()
                 .withMappingFiles("non-strict/v5-xsd.xml")
                 .build();
+
         mapper.getMappingMetadata();
     }
 }

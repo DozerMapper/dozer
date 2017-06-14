@@ -31,7 +31,6 @@ public final class BundleOptions {
                 localBundle("org.apache.commons.io.link"),
                 // Core
                 localBundle("com.github.dozermapper.dozer-core.link"),
-                localBundle("com.github.dozermapper.dozer-schema.link"),
                 localBundle("com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
                 // Objenesis
                 localBundle("org.objenesis.link")
@@ -44,10 +43,8 @@ public final class BundleOptions {
                 localBundle("com.fasterxml.jackson.core.jackson-annotations.link"),
                 localBundle("com.fasterxml.jackson.core.jackson-core.link"),
                 localBundle("com.fasterxml.jackson.core.jackson-databind.link"),
-                localBundle("com.fasterxml.jackson.dataformat.jackson-dataformat-xml.link"),
                 localBundle("com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.link"),
-                localBundle("com.fasterxml.jackson.module.jackson-module-jaxb-annotations.link"),
-                localBundle("com.fasterxml.woodstox.woodstox-core.link"),
+                localBundle("woodstox-core-asl.link"),
                 localBundle("stax2-api.link"),
                 localBundle("org.yaml.snakeyaml.link"),
                 // Optional; Javassist
