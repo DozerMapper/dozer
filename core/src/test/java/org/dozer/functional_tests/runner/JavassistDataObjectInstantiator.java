@@ -22,6 +22,7 @@ import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyFactory;
 
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.functional_tests.DataObjectInstantiator;
 import org.dozer.util.MappingUtils;
 
@@ -56,7 +57,7 @@ public final class JavassistDataObjectInstantiator implements DataObjectInstanti
         try {
             Class[] argTypes = new Class[args.length];
             for (int i = 0; i < args.length; i++) {
-                argTypes[i] = MappingUtils.getRealClass(args[i].getClass());
+                argTypes[i] = MappingUtils.getRealClass(args[i].getClass(), new BeanContainer());
             }
             Constructor constructor = newClass.getDeclaredConstructor(argTypes);
             instance = constructor.newInstance(args);

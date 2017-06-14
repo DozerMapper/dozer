@@ -15,12 +15,10 @@
  */
 package org.dozer.osgi;
 
-import java.util.Collections;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -64,21 +62,22 @@ public class OsgiContainerTest {
 
     @Test
     public void shouldInstantiate() {
-        DozerBeanMapper beanMapper = new DozerBeanMapper();
+        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefault();
         assertThat(beanMapper, notNullValue());
     }
 
     @Test
     public void shouldMap() {
-        DozerBeanMapper beanMapper = new DozerBeanMapper();
+        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefault();
         Object result = beanMapper.map(new Object(), Object.class);
         assertThat(result, notNullValue());
     }
 
     @Test
     public void shouldLoadMappingFile() {
-        List<String> mappingFiles = Collections.singletonList("mappings/mapping.xml");
-        DozerBeanMapper beanMapper = new DozerBeanMapper(mappingFiles);
+        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/mapping.xml")
+                .build();
         Object result = beanMapper.map(new Object(), Object.class);
         assertThat(result, notNullValue());
     }

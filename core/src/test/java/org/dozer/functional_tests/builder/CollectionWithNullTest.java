@@ -16,12 +16,12 @@
 package org.dozer.functional_tests.builder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerConverter;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
@@ -44,7 +44,9 @@ public class CollectionWithNullTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper(Collections.singletonList("mappings/collectionsWithNull.xml"));
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/collectionsWithNull.xml")
+            .build();
 
     foo = new Foo();
     bar = new Bar();

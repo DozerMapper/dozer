@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
@@ -36,7 +36,7 @@ public class GenericsTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefault();
   }
 
 

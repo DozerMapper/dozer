@@ -22,6 +22,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang3.StringUtils;
+
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
@@ -39,11 +41,13 @@ public class JAXBElementConverter implements Converter {
     private String destObjClass;
     private String destFieldName;
     private DateFormat dateFormat;
+    private final BeanContainer beanContainer;
 
-    public JAXBElementConverter(String destObjClass, String destFieldName, DateFormat dateFormat) {
+    public JAXBElementConverter(String destObjClass, String destFieldName, DateFormat dateFormat, BeanContainer beanContainer) {
         this.destObjClass = destObjClass;
         this.destFieldName = destFieldName;
         this.dateFormat = dateFormat;
+        this.beanContainer = beanContainer;
     }
 
     /**
@@ -52,10 +56,10 @@ public class JAXBElementConverter implements Converter {
      * @param destObjClass type to convert to
      * @return instance of ObjectFactory
      */
-    private static Object objectFactory(String destObjClass) {
+    private static Object objectFactory(String destObjClass, BeanContainer beanContainer) {
         String objectFactoryClassName = destObjClass.substring(0, destObjClass.lastIndexOf(".")) + ".ObjectFactory";
         if (objectFactory == null || objectFactoryClass == null || !objectFactoryClass.getCanonicalName().equals(objectFactoryClassName)) {
-            objectFactoryClass = MappingUtils.loadClass(objectFactoryClassName);
+            objectFactoryClass = MappingUtils.loadClass(objectFactoryClassName, beanContainer);
             objectFactory = ReflectionUtils.newInstance(objectFactoryClass);
         }
 
@@ -75,7 +79,7 @@ public class JAXBElementConverter implements Converter {
     public Object convert(Class type, Object value) {
 
         Object result;
-        Object factory = objectFactory(destObjClass);
+        Object factory = objectFactory(destObjClass, beanContainer);
         Class<?> factoryClass = factory.getClass();
         Class<?> destClass = value.getClass();
         Class<?> valueClass = value.getClass();
@@ -83,7 +87,7 @@ public class JAXBElementConverter implements Converter {
         String methodName = "create" + destObjClass.substring(destObjClass.lastIndexOf(".") + 1) + StringUtils.capitalize(destFieldName);
         Method method = null;
         try {
-            method = ReflectionUtils.findAMethod(factoryClass, methodName);
+            method = ReflectionUtils.findAMethod(factoryClass, methodName, beanContainer);
             Class<?>[] parameterTypes = method.getParameterTypes();
             for (Class<?> parameterClass : parameterTypes) {
                 if (!valueClass.equals(parameterClass)) {
@@ -122,12 +126,12 @@ public class JAXBElementConverter implements Converter {
      * @return bean id
      */
     public String getBeanId() {
-        Class<?> factoryClass = objectFactory(destObjClass).getClass();
+        Class<?> factoryClass = objectFactory(destObjClass, beanContainer).getClass();
         Class<?> destClass = null;
         String methodName = "create" + destObjClass.substring(destObjClass.lastIndexOf(".") + 1) + StringUtils.capitalize(destFieldName);
 
         try {
-            Method method = ReflectionUtils.findAMethod(factoryClass, methodName);
+            Method method = ReflectionUtils.findAMethod(factoryClass, methodName, beanContainer);
             Class<?>[] parameterTypes = method.getParameterTypes();
             for (Class<?> parameterClass : parameterTypes) {
                 destClass = parameterClass;

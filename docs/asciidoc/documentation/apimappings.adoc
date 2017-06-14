@@ -78,6 +78,6 @@ instance. It is possible to add multiple Builder classes.
 
 [source,java,prettyprint]
 ----
-DozerBeanMapper mapper = new DozerBeanMapper();
+DozerBeanMapper mapper = DozerBeanMapperBuilder.createDefault();
 mapper.addMapping(builder);
 ----

@@ -18,7 +18,7 @@ For your first mapping, lets assume that the two data objects share all common a
 
 [source,java,prettyprint]
 ----
-Mapper mapper = new DozerBeanMapper();
+Mapper mapper = DozerBeanMapperBuilder.createDefault();
 DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
 ----
 
@@ -30,12 +30,7 @@ At this point you have completed your first Dozer mapping.
 Later sections will go over how to specify custom mappings via custom xml files.
 
 *IMPORTANT:* For real-world applications it is _NOT_ recommended to create a new instance of the Mapper
-each time you map objects.
-Typically, a system will only have one DozerBeanMapper instance per JVM.
-If you are not using an link:https://en.wikipedia.org/wiki/Inversion_of_control[IoC] framework
-where you can define the Mapper instance as _scope="singleton"_.
-If needed, a link:https://github.com/DozerMapper/dozer/blob/master/core/src/main/java/org/dozer/DozerBeanMapperSingletonWrapper.java[DozerBeanMapperSingletonWrapper]
-convenience class is provided.
+each time you map objects but reuse created instance instead.
 
 === Specifying Custom Mappings via XML
 If the two different types of data objects that you are mapping contain any fields that don't share a common property name,

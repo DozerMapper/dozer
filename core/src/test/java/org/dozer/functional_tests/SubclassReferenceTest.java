@@ -15,9 +15,7 @@
  */
 package org.dozer.functional_tests;
 
-import java.util.Arrays;
-
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.copybyreference.Reference;
 import org.dozer.vo.copybyreference.TestA;
@@ -34,7 +32,9 @@ public class SubclassReferenceTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper(Arrays.asList(new String[] { getMappingFile() }));
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles(getMappingFile())
+            .build();
     testA = newInstance(TestA.class);
     testA.setOne("one");
     testA.setOneA("oneA");

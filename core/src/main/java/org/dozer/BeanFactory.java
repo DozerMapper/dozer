@@ -15,6 +15,8 @@
  */
 package org.dozer;
 
+import org.dozer.config.BeanContainer;
+
 /**
  * Public custom bean factory interface.
  *
@@ -40,5 +42,15 @@ package org.dozer;
 public interface BeanFactory {
 
     // Need sourceObjClass in case sourceObj is null
-    Object createBean(Object source, Class<?> sourceClass, String targetBeanId);
+    default Object createBean(Object source, Class<?> sourceClass, String targetBeanId, BeanContainer beanContainer) {
+        return createBean(source, sourceClass, targetBeanId);
+    }
+
+    /**
+     * Will be removed in 6.2. Please use {@link BeanFactory#createBean(Object, Class, String, BeanContainer)}.
+     */
+    @Deprecated
+    default Object createBean(Object source, Class<?> sourceClass, String targetBeanId) {
+        return null;
+    }
 }

@@ -33,8 +33,9 @@ To begin querying the mapping definitions the following code is needed:
 
 [source,java,prettyprint]
 ----
-DozerBeanMapper mapper = new DozerBeanMapper();
-mapper.setMappingFiles(listOfFiles);
+DozerBeanMapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingFiles(listOfFiles)
+        .build();
 MappingMetadata mapMetadata = beanMapper.getMappingMetadata();
 ----
 

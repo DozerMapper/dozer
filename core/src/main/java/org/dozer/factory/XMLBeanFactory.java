@@ -18,6 +18,7 @@ package org.dozer.factory;
 import java.lang.reflect.Method;
 
 import org.dozer.BeanFactory;
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
@@ -40,9 +41,9 @@ public class XMLBeanFactory implements BeanFactory {
    *          the name of the destination interface class
    * @return A implementation of the destination interface
    */
-  public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId, BeanContainer beanContainer) {
     Object result;
-    Class<?> destClass = MappingUtils.loadClass(beanId);
+    Class<?> destClass = MappingUtils.loadClass(beanId, beanContainer);
     Class<?>[] innerClasses = destClass.getClasses();
     Class<?> factory = null;
     for (Class<?> innerClass : innerClasses) {

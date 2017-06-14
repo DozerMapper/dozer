@@ -16,6 +16,7 @@
 package org.dozer.functional_tests.builder;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class InheritanceTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefault();
 
     source = new A();
     source.property1 = "1";

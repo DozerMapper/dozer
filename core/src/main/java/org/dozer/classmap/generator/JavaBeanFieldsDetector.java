@@ -24,7 +24,7 @@ import org.dozer.util.ReflectionUtils;
 /**
  * @author Dmitry Spikhalskiy
  */
-public class JavaBeanFieldsDetector implements BeanMappingGenerator.BeanFieldsDetector {
+public class JavaBeanFieldsDetector implements BeanFieldsDetector {
   public boolean accepts(Class<?> clazz) {
     return true;
   }

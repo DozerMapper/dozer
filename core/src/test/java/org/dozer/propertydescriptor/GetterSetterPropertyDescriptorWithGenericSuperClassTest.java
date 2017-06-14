@@ -16,6 +16,8 @@
 package org.dozer.propertydescriptor;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.vo.deep3.Dest;
 import org.dozer.vo.deep3.NestedDest;
@@ -32,8 +34,9 @@ public class GetterSetterPropertyDescriptorWithGenericSuperClassTest extends Abs
     public void testGetReadMethod() throws Exception {
       DozerField dozerField = new DozerField("nestedList", "generic");
 
-      JavaBeanPropertyDescriptor pd = new JavaBeanPropertyDescriptor(Dest.class, dozerField.getName(), dozerField.isIndexed(),
-          dozerField.getIndex(), null, null);
+        BeanContainer beanContainer = new BeanContainer();
+        JavaBeanPropertyDescriptor pd = new JavaBeanPropertyDescriptor(Dest.class, dozerField.getName(), dozerField.isIndexed(),
+          dozerField.getIndex(), null, null, beanContainer, new DestBeanCreator(beanContainer));
       Class<?> clazz = pd.genericType();
 
       assertNotNull("clazz should not be null", clazz);

@@ -597,7 +597,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testStringToDateMapping() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SS");
     String dateStr = "01/29/1975 10:45:13:25";
     TestObject sourceObj = newInstance(TestObject.class);
@@ -613,7 +613,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testMethodMapping() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     MethodFieldTestObject sourceObj = newInstance(MethodFieldTestObject.class);
     sourceObj.setIntegerStr("1500");
     sourceObj.setPriceItem("3500");
@@ -632,7 +632,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   @Test
   public void testNoReadMethod() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     NoReadMethod src = newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
@@ -643,7 +643,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   @Test
   public void testNoReadMethodSameClassTypes() throws Exception {
     // If the field doesnt have a getter/setter, dont add it is a default field to be mapped.
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     NoReadMethod src = newInstance(NoReadMethod.class);
     src.setNoReadMethod("somevalue");
 
@@ -654,7 +654,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   @Test
   public void testNoReadMethod_GetterOnlyWithParams() throws Exception {
     // Dont use getter methods that have a param when discovering default fields to be mapped.
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     NoReadMethod src = newInstance(NoReadMethod.class);
     src.setOtherNoReadMethod("someValue");
 
@@ -664,7 +664,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNoWriteMethod() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     NoWriteMethod src = newInstance(NoWriteMethod.class);
     src.setXXXXXX("someValue");
 
@@ -676,7 +676,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   public void testNoWriteMethodSameClassTypes() throws Exception {
     // When mapping between identical types, if the field doesnt have a getter/setter, dont
     // add it is a default field to be mapped.
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     NoWriteMethod src = newInstance(NoWriteMethod.class);
     src.setXXXXXX("someValue");
 
@@ -688,7 +688,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNoVoidSetters() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     NoVoidSetters src = newInstance(NoVoidSetters.class);
     src.setDescription("someValue");
     src.setI(1);
@@ -700,7 +700,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNullField() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     src.setField2(null);
     AnotherTestObjectPrime dest = newInstance(AnotherTestObjectPrime.class);
@@ -712,7 +712,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNullField2() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     // Test that String --> String with an empty String input value results
     // in the destination field being an empty String and not null.
     String input = "";
@@ -726,7 +726,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNullToPrimitive() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     AnotherTestObjectPrime prime = newInstance(AnotherTestObjectPrime.class);
     TestObject to = newInstance(TestObject.class);

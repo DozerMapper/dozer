@@ -21,8 +21,11 @@ import java.util.List;
 import org.dozer.AbstractDozerTest;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.DozerCache;
+import org.dozer.stats.StatisticsManager;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * @author tierney.matt
@@ -37,7 +40,7 @@ public class CustomConverterContainerTest extends AbstractDozerTest {
   @Before
   public void setUp() throws Exception {
     ccc = new CustomConverterContainer();
-    cache = new DozerCache("NAME", 10);
+    cache = new DozerCache("NAME", 10, Mockito.mock(StatisticsManager.class));
     converters = new ArrayList<CustomConverterDescription>();
     ccc.setConverters(converters);
   }

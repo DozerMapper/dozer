@@ -16,6 +16,7 @@
 package org.dozer.functional_tests.support;
 
 import org.dozer.BeanFactory;
+import org.dozer.config.BeanContainer;
 import org.dozer.vo.Car;
 
 
@@ -27,7 +28,7 @@ import org.dozer.vo.Car;
  */
 public class SampleCustomBeanFactory3 implements BeanFactory {
 
-  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String id, BeanContainer beanContainer) {
     try {
       Object rvalue = Car.class.newInstance();
       // return the interface

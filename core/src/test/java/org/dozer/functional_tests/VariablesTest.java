@@ -18,15 +18,11 @@ package org.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-
-import org.dozer.config.GlobalSettings;
 import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
+
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -42,8 +38,6 @@ public class VariablesTest extends AbstractFunctionalTest {
 
   @Test
   public void testTest() {
-    assertTrue(GlobalSettings.getInstance().isElEnabled());
-
     Container<Child> source = new Container<Child>();
     Container<ChildClone> destination = new Container<ChildClone>();
 

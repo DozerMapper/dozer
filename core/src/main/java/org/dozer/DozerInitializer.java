@@ -23,14 +23,19 @@ import javax.management.MBeanRegistrationException;
 import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 
+import org.dozer.builder.DestBeanBuilderCreator;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.GlobalSettings;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.jmx.DozerAdminController;
 import org.dozer.jmx.DozerStatisticsController;
 import org.dozer.jmx.JMXPlatform;
 import org.dozer.jmx.JMXPlatformImpl;
 import org.dozer.loader.xml.ELEngine;
 import org.dozer.loader.xml.ExpressionElementReader;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+import org.dozer.stats.StatisticsManager;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
@@ -54,18 +59,20 @@ public final class DozerInitializer {
   private static final String DOZER_STATISTICS_CONTROLLER = "org.dozer.jmx:type=DozerStatisticsController";
   private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
 
-  private static final DozerInitializer instance = new DozerInitializer();
-
   private volatile boolean isInitialized;
 
-  private DozerInitializer() {
+  public DozerInitializer() {
   }
 
-  public void init() {
-    init(getClass().getClassLoader());
+  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer,
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                   DestBeanCreator destBeanCreator) {
+    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
   }
 
-  public void init(ClassLoader classLoader) {
+  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                   DestBeanCreator destBeanCreator) {
     // Multiple threads may try to initialize simultaneously
     synchronized (this) {
       if (isInitialized) {
@@ -76,25 +83,24 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      GlobalSettings globalSettings = GlobalSettings.getInstance();
-      initialize(globalSettings, classLoader);
+      initialize(globalSettings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
       isInitialized = true;
     }
   }
 
-  void initialize(GlobalSettings globalSettings, ClassLoader classLoader) {
+  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+                  DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                  DestBeanCreator destBeanCreator) {
     if (globalSettings.isAutoregisterJMXBeans()) {
       // Register JMX MBeans. If an error occurs, don't propagate exception
       try {
-        registerJMXBeans(new JMXPlatformImpl());
+        registerJMXBeans(globalSettings, new JMXPlatformImpl(), statsMgr);
       } catch (Throwable t) {
         log.warn("Unable to register Dozer JMX MBeans with the PlatformMBeanServer.  Dozer will still function "
             + "normally, but management via JMX may not be available", t);
       }
     }
-
-    BeanContainer beanContainer = BeanContainer.getInstance();
 
     registerClassLoader(globalSettings, classLoader, beanContainer);
     registerProxyResolver(globalSettings, beanContainer);
@@ -108,6 +114,11 @@ public final class DozerInitializer {
 
     for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
       module.init();
+      module.init(beanContainer, destBeanCreator, propertyDescriptorFactory);
+
+      destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
+      beanMappingGenerator.addPluggedFieldDetectors(module.getBeanFieldsDetectors());
+      propertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategies(module.getPropertyDescriptorCreationStrategies());
     }
   }
 
@@ -142,14 +153,13 @@ public final class DozerInitializer {
   /**
    * Performs framework shutdown sequence. Includes de-registering existing Dozer JMX MBeans.
    */
-  public void destroy() {
+  public void destroy(GlobalSettings globalSettings) {
     synchronized (this) {
       if (!isInitialized) {
         log.debug("Tried to destroy when no Dozer instance started.");
         return;
       }
 
-      GlobalSettings globalSettings = GlobalSettings.getInstance();
       if (globalSettings.isAutoregisterJMXBeans()) {
         try {
           unregisterJMXBeans(new JMXPlatformImpl());
@@ -165,11 +175,13 @@ public final class DozerInitializer {
     return isInitialized;
   }
 
-  private void registerJMXBeans(JMXPlatform platform) throws MalformedObjectNameException, InstanceNotFoundException,
-      MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
+  private void registerJMXBeans(GlobalSettings globalSettings, JMXPlatform platform, StatisticsManager statsMgr)
+          throws MalformedObjectNameException, InstanceNotFoundException,
+          MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
+
     if (platform.isAvailable()) {
-      platform.registerMBean(DOZER_STATISTICS_CONTROLLER, new DozerStatisticsController());
-      platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
+      platform.registerMBean(DOZER_STATISTICS_CONTROLLER, new DozerStatisticsController(statsMgr, globalSettings));
+      platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController(globalSettings));
     } else {
       log.warn("jdk1.5 jmx management classes unavailable. Dozer JMX MBeans will not be auto registered.");
     }
@@ -182,10 +194,6 @@ public final class DozerInitializer {
     } else {
       log.warn("jdk1.5 jmx management classes unavailable.");
     }
-  }
-
-  public static DozerInitializer getInstance() {
-    return instance;
   }
 
 }

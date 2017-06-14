@@ -15,10 +15,7 @@
  */
 package org.dozer.jmxtest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.functional_tests.runner.NoProxyDataObjectInstantiator;
 import org.dozer.functional_tests.support.TestDataFactory;
@@ -46,9 +43,9 @@ public final class JMXTestEngine {
     }
 
     private static void performSomeMappings() {
-        List<String> mappingFiles = new ArrayList<String>();
-        mappingFiles.add("dozerBeanMapping.xml");
-        Mapper mapper = new DozerBeanMapper(mappingFiles);
+        Mapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("testDozerBeanMapping.xml")
+                .build();
 
         try {
             mapper.map(new String("yo"), new String("y"));
@@ -76,9 +73,9 @@ public final class JMXTestEngine {
             mapper.map(src, SimpleObjPrime2.class);
         }
 
-        mappingFiles = new ArrayList<String>();
-        mappingFiles.add("mappings/arrayToStringCustomConverter.xml");
-        mapper = new DozerBeanMapper(mappingFiles);
+        mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/arrayToStringCustomConverter.xml")
+            .build();
 
         for (int i = 0; i < 6000; i++) {
             SimpleObj simple = new SimpleObj();

@@ -15,9 +15,7 @@
  */
 package org.dozer.functional_tests;
 
-import java.util.ArrayList;
-
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -29,9 +27,9 @@ public class ClassloaderTest extends AbstractFunctionalTest {
 
   @Test
   public void testClassloader() {
-    ArrayList<String> files = new ArrayList<String>();
-    files.add("non-strict/classloader.xml");
-    mapper = new DozerBeanMapper(files);
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("non-strict/classloader.xml")
+            .build();
     assertNotNull(mapper);
   }
 

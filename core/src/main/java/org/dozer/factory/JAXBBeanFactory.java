@@ -18,6 +18,7 @@ package org.dozer.factory;
 import java.lang.reflect.Method;
 
 import org.dozer.BeanFactory;
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ public class JAXBBeanFactory implements BeanFactory {
      * @return A implementation of the destination interface
      */
     @Override
-    public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
+    public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId, BeanContainer beanContainer) {
         log.debug("createBean(Object, Class, String) - start [{}]", beanId);
 
         int indexOf = beanId.indexOf(INNER_CLASS_DELIMITER);
@@ -55,7 +56,7 @@ public class JAXBBeanFactory implements BeanFactory {
         }
         Object result;
 
-        Class<?> objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory");
+        Class<?> objectFactory = MappingUtils.loadClass(beanId.substring(0, beanId.lastIndexOf(".")) + ".ObjectFactory", beanContainer);
         Object factory = ReflectionUtils.newInstance(objectFactory);
         Method method = null;
         try {

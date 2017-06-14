@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.vo.proto.LiteTestObject;
 import org.dozer.vo.proto.MapExample;
@@ -56,15 +57,17 @@ public class ProtoBeansMappingTest extends ProtoAbstractTest {
     public ExpectedException thrown = ExpectedException.none();
 
     protected DozerBeanMapper mapper;
+    private BeanContainer beanContainer;
 
     @Before
     public void setUp() throws Exception {
+        beanContainer = new BeanContainer();
         mapper = getMapper("mappings/protoBeansMapping.xml");
     }
 
     @Test
     public void testTrivial() {
-        Class<?> type = MappingUtils.loadClass("org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject");
+        Class<?> type = MappingUtils.loadClass("org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject", beanContainer);
         assertNotNull(type);
     }
 

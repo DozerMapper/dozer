@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Assert;
@@ -35,7 +36,7 @@ public class PrimitiveTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   @Test

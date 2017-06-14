@@ -23,8 +23,11 @@ import org.w3c.dom.Document;
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.loader.MappingsSource;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.ResourceLoader;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,18 +40,24 @@ public class XMLParserTest extends AbstractDozerTest {
 
   MappingsSource<Document> parser;
   ResourceLoader loader;
+  BeanContainer beanContainer;
+  DestBeanCreator destBeanCreator;
+  PropertyDescriptorFactory propertyDescriptorFactory;
 
   @Before
   public void setUp() {
     loader = new ResourceLoader(getClass().getClassLoader());
+    beanContainer = new BeanContainer();
+    destBeanCreator = new DestBeanCreator(beanContainer);
+    propertyDescriptorFactory = new PropertyDescriptorFactory();
   }
 
   @Test
   public void testParse() throws Exception {
-    URL url = loader.getResource("dozerBeanMapping.xml");
+    URL url = loader.getResource("testDozerBeanMapping.xml");
 
-    Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
-    parser = new XMLParser();
+    Document document = new XMLParserFactory(beanContainer).createParser().parse(url.openStream());
+    parser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     MappingFileData mappings = parser.read(document);
     assertNotNull(mappings);
@@ -62,8 +71,8 @@ public class XMLParserTest extends AbstractDozerTest {
   public void testParseCustomConverterParam() throws Exception {
     URL url = loader.getResource("mappings/fieldCustomConverterParam.xml");
 
-    Document document = XMLParserFactory.getInstance().createParser().parse(url.openStream());
-    parser = new XMLParser();
+    Document document = new XMLParserFactory(beanContainer).createParser().parse(url.openStream());
+    parser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
     
     MappingFileData mappings = parser.read(document);
 

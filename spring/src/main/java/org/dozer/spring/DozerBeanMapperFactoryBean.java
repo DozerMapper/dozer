@@ -26,6 +26,7 @@ import org.dozer.BeanFactory;
 import org.dozer.CustomConverter;
 import org.dozer.CustomFieldMapper;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -116,7 +117,7 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
     // interface 'InitializingBean'
     // ==================================================================================================================================
     public final void afterPropertiesSet() throws Exception {
-        this.beanMapper = new DozerBeanMapper();
+        this.beanMapper = DozerBeanMapperBuilder.buildDefault();
 
         loadMappingFiles();
 

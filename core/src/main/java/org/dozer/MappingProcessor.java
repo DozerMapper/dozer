@@ -43,6 +43,8 @@ import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.CopyByReferenceContainer;
 import org.dozer.classmap.RelationshipType;
+import org.dozer.classmap.generator.BeanMappingGenerator;
+import org.dozer.config.BeanContainer;
 import org.dozer.converters.DateFormatContainer;
 import org.dozer.converters.PrimitiveOrWrapperConverter;
 import org.dozer.event.DozerEvent;
@@ -56,6 +58,7 @@ import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.fieldmap.MapFieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticType;
 import org.dozer.stats.StatisticsManager;
 import org.dozer.util.CollectionUtils;
@@ -100,13 +103,19 @@ public class MappingProcessor implements Mapper {
 
   private final Cache converterByDestTypeCache;
   private final Cache superTypeCache;
-  private final PrimitiveOrWrapperConverter primitiveConverter = new PrimitiveOrWrapperConverter();
+  private final PrimitiveOrWrapperConverter primitiveConverter;
   private final LogMsgFactory logMsgFactory = new LogMsgFactory();
+  private final BeanContainer beanContainer;
+  private final ClassMapBuilder classMapBuilder;
+  private final DestBeanCreator destBeanCreator;
+  private final DestBeanBuilderCreator destBeanBuilderCreator;
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
                              StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
                              DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
-                             Map<String, CustomConverter> customConverterObjectsWithId) {
+                             Map<String, CustomConverter> customConverterObjectsWithId, BeanContainer beanContainer,
+                             DestBeanCreator destBeanCreator, DestBeanBuilderCreator destBeanBuilderCreator,
+                             BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
     this.statsMgr = statsMgr;
@@ -116,6 +125,11 @@ public class MappingProcessor implements Mapper {
     this.converterByDestTypeCache = cacheMgr.getCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name());
     this.superTypeCache = cacheMgr.getCache(DozerCacheType.SUPER_TYPE_CHECK.name());
     this.customConverterObjectsWithId = customConverterObjectsWithId;
+    this.beanContainer = beanContainer;
+    this.destBeanBuilderCreator = destBeanBuilderCreator;
+    this.classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
+    this.primitiveConverter = new PrimitiveOrWrapperConverter(beanContainer);
+    this.destBeanCreator = destBeanCreator;
   }
 
   /* Mapper Interface Implementation */
@@ -150,7 +164,7 @@ public class MappingProcessor implements Mapper {
    * @return new or updated destination object
    */
   private <T> T mapGeneral(Object srcObj, final Class<T> destClass, final T destObj, final String mapId) {
-    srcObj = MappingUtils.deProxy(srcObj);
+    srcObj = MappingUtils.deProxy(srcObj, beanContainer);
 
     Class<T> destType;
     T result;
@@ -215,9 +229,9 @@ public class MappingProcessor implements Mapper {
    */
   private <T> T createByCreationDirectiveAndMap(BeanCreationDirective creationDirective, ClassMap classMap, Object srcObj, T result, boolean bypassSuperMappings, String mapId) {
     if (result == null) {
-      BeanBuilder beanBuilder = DestBeanBuilderCreator.create(creationDirective);
+      BeanBuilder beanBuilder = destBeanBuilderCreator.create(creationDirective);
       if (beanBuilder == null) {
-        result = (T) DestBeanCreator.create(creationDirective);
+        result = (T) destBeanCreator.create(creationDirective);
         mapToDestObject(classMap, srcObj, result, bypassSuperMappings, mapId);
       } else {
         mapToDestObject(classMap, srcObj, beanBuilder, bypassSuperMappings, mapId);
@@ -248,7 +262,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, List<String> mappedParentFields, String mapId) {
-    srcObj = MappingUtils.deProxy(srcObj);
+    srcObj = MappingUtils.deProxy(srcObj, beanContainer);
 
     // 1596766 - Recursive object mapping issue. Prevent recursive mapping
     // infinite loop. Keep a record of mapped fields
@@ -392,7 +406,7 @@ public class MappingProcessor implements Mapper {
       destFieldValue = mapOrRecurseObject(srcObj, srcFieldValue, destFieldType, fieldMapping, destObj);
     } else {
       Class<?> srcFieldClass = srcFieldValue != null ? srcFieldValue.getClass() : fieldMapping.getSrcFieldType(srcObj.getClass());
-      destFieldValue = mapUsingCustomConverter(MappingUtils.loadClass(fieldMapping.getCustomConverter()), srcFieldClass,
+      destFieldValue = mapUsingCustomConverter(MappingUtils.loadClass(fieldMapping.getCustomConverter(), beanContainer), srcFieldClass,
           srcFieldValue, destFieldType, destObj, fieldMapping, false);
     }
 
@@ -507,7 +521,7 @@ public class MappingProcessor implements Mapper {
   }
 
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class<?> destFieldType, String destFieldName, Object srcFieldValue) {
-    srcFieldValue = MappingUtils.deProxy(srcFieldValue);
+    srcFieldValue = MappingUtils.deProxy(srcFieldValue, beanContainer);
 
     // Custom java bean. Need to make sure that the destination object is not
     // already instantiated.
@@ -560,7 +574,7 @@ public class MappingProcessor implements Mapper {
     if (fieldMap.getDestHintContainer() == null) {
       Class<?> genericType = fieldMap.getGenericType(BuilderUtil.unwrapDestClassFromBuilder(destObj));
       if (genericType != null) {
-        HintContainer destHintContainer = new HintContainer();
+        HintContainer destHintContainer = new HintContainer(beanContainer);
         destHintContainer.setHintName(genericType.getName());
         FieldMap cloneFieldMap = (FieldMap) fieldMap.clone();
         cloneFieldMap.setDestHintContainer(destHintContainer); // should affect only this time as fieldMap is cloned
@@ -620,7 +634,7 @@ public class MappingProcessor implements Mapper {
     Map result;
     Map destinationMap = (Map) fieldMap.getDestValue(destObj);
     if (destinationMap == null) {
-      result = DestBeanCreator.create(srcMapValue.getClass());
+      result = destBeanCreator.create(srcMapValue.getClass());
     } else {
       result = destinationMap;
       if (fieldMap.isRemoveOrphans()) {
@@ -1066,8 +1080,8 @@ public class MappingProcessor implements Mapper {
     // Need to call getRealSuperclass because proxied data objects will not return correct
     // superclass when using basic reflection
 
-    List<Class<?>> superSrcClasses = MappingUtils.getSuperClassesAndInterfaces(srcClass);
-    List<Class<?>> superDestClasses = MappingUtils.getSuperClassesAndInterfaces(destClass);
+    List<Class<?>> superSrcClasses = MappingUtils.getSuperClassesAndInterfaces(srcClass, beanContainer);
+    List<Class<?>> superDestClasses = MappingUtils.getSuperClassesAndInterfaces(destClass, beanContainer);
 
     // add the actual classes to check for mappings between the original and the opposite 
     // super classes
@@ -1139,7 +1153,7 @@ public class MappingProcessor implements Mapper {
       // default as an explicit mapping must not
       // exist. The create default class map method will also add all default
       // mappings that it can determine.
-      mapping = ClassMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass);
+      mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass);
       classMappings.addDefault(srcClass, destClass, mapping);
     }
 

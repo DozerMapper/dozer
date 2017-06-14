@@ -15,6 +15,8 @@
  */
 package org.dozer.propertydescriptor;
 
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.vo.proto.ProtoTestObjects;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +33,9 @@ public class ProtoFieldPropertyDescriptorCreationStrategyTest {
 
     @Before
     public void setUp() throws Exception {
-        strategy = new ProtoFieldPropertyDescriptorCreationStrategy();
+        BeanContainer beanContainer = new BeanContainer();
+        DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+        strategy = new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator, new PropertyDescriptorFactory());
     }
 
     @Test

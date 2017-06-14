@@ -41,8 +41,6 @@ public final class GlobalSettings {
 
     private final Logger log = LoggerFactory.getLogger(GlobalSettings.class);
 
-    private static final GlobalSettings instance = new GlobalSettings();
-
     private String loadedByFileName;
     private boolean statisticsEnabled = DozerConstants.DEFAULT_STATISTICS_ENABLED;
     private int converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
@@ -53,15 +51,10 @@ public final class GlobalSettings {
     private String classLoaderBeanName = DozerConstants.DEFAULT_CLASS_LOADER_BEAN;
     private String proxyResolverBeanName = DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN;
 
-    public static GlobalSettings getInstance() {
-        return instance;
-    }
+    private DozerClassLoader classLoader;
 
-    static GlobalSettings createNew() {
-        return new GlobalSettings();
-    }
-
-    private GlobalSettings() {
+    public GlobalSettings(DozerClassLoader classLoader) {
+        this.classLoader = classLoader;
         loadGlobalSettings();
     }
 
@@ -110,7 +103,6 @@ public final class GlobalSettings {
 
         log.info("Trying to find Dozer configuration file: {}", propFileName);
         // Load prop file. Prop file is optional, so if it's not found just use defaults
-        DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
         URL url = classLoader.loadResource(propFileName);
         if (url == null) {
             log.warn("Dozer configuration file not found: {}.  Using defaults for all Dozer global properties.", propFileName);

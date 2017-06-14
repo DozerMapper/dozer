@@ -26,6 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.vo.jaxb.employee.EmployeeType;
 import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
 import org.junit.Before;
@@ -41,15 +42,17 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
     public static final int DAY   = 1;
 
     private JAXBElementConverter converter;
+    private BeanContainer beanContainer;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
+        beanContainer = new BeanContainer();
     }
 
     @Test
     public void stringToJAXBElementConversion() throws Exception {
-        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         Object conversion = converter.convert(JAXBElement.class, "dummy");
         assertNotNull(conversion);
         assertEquals("javax.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
@@ -59,7 +62,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test
     public void xmlgregoriancalendarToJAXBElementConversion() throws Exception {
-        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         DatatypeFactory instance = DatatypeFactory.newInstance();
         XMLGregorianCalendar calendar = instance.newXMLGregorianCalendar(new GregorianCalendar(2001, 1, 1));
         Object conversion = converter.convert(JAXBElement.class, calendar);
@@ -71,7 +74,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test
     public void calendarToJAXBElementConversion() throws Exception {
-        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         Calendar calendar = new GregorianCalendar(2001, 1, 1);
         Object conversion = converter.convert(JAXBElement.class, calendar);
         assertNotNull(conversion);
@@ -84,7 +87,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test
     public void dateToJAXBElementConversion() throws Exception {
-        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         Date calendar = new Date(YEAR, MONTH, DAY);
         Object conversion = converter.convert(JAXBElement.class, calendar);
         assertNotNull(conversion);
@@ -97,7 +100,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test
     public void dateToJAXBElementStringConversion() throws Exception {
-        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         Date calendar = new Date(YEAR, MONTH, DAY);
         Object conversion = converter.convert(JAXBElement.class, calendar);
         assertNotNull(conversion);
@@ -108,7 +111,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test
     public void calendarToJAXBElementStringConversion() throws Exception {
-        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         Calendar calendar = new GregorianCalendar(2001, 1, 1);
         Object conversion = converter.convert(JAXBElement.class, calendar);
         assertNotNull(conversion);
@@ -119,13 +122,13 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test(expected = MappingException.class)
     public void createFieldNotFoundException() throws Exception {
-        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "vds", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "vds", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         converter.convert(JAXBElement.class, "dummy");
     }
 
     @Test
     public void stringTypeBeanId() throws Exception {
-        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "parentName", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         String beanId = converter.getBeanId();
         assertNotNull(beanId);
         assertEquals("java.lang.String", beanId);
@@ -133,7 +136,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test
     public void xmlgregoriancalendarTypeBeanId() throws Exception {
-        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeType.class.getCanonicalName(), "birthDate", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         String beanId = converter.getBeanId();
         assertNotNull(beanId);
         assertEquals("javax.xml.datatype.XMLGregorianCalendar", beanId);
@@ -141,7 +144,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
 
     @Test(expected = MappingException.class)
     public void beanIdFieldNotFoundException() throws Exception {
-        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "vds", new SimpleDateFormat("dd.MM.yyyy"));
+        converter = new JAXBElementConverter(EmployeeWithInnerClass.class.getCanonicalName(), "vds", new SimpleDateFormat("dd.MM.yyyy"), beanContainer);
         converter.getBeanId();
     }
 }

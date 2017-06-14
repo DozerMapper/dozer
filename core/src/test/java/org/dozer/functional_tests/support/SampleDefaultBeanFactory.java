@@ -15,12 +15,14 @@
  */
 package org.dozer.functional_tests.support;
 
+import org.dozer.config.BeanContainer;
+
 /**
  * @author tierney.matt
  */
 public class SampleDefaultBeanFactory extends BaseSampleBeanFactory {
 
-  public Object createBean(Object srcObj, Class<?> srcObjClass, String id) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String id, BeanContainer beanContainer) {
     try {
       Class<?> destClass = Class.forName(id);
       Object rvalue = destClass.newInstance();

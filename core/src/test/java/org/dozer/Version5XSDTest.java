@@ -15,8 +15,6 @@
  */
 package org.dozer;
 
-import java.util.Arrays;
-
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,7 +36,9 @@ public class Version5XSDTest {
         testOldXSDNaming.expectMessage(Matchers.containsString(message));
         testOldXSDNaming.expect(MappingException.class);
 
-        DozerBeanMapper mapper = new DozerBeanMapper(Arrays.asList("non-strict/v5-xsd.xml"));
+        DozerBeanMapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("non-strict/v5-xsd.xml")
+                .build();
         mapper.getMappingMetadata();
     }
 }

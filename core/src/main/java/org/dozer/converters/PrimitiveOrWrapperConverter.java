@@ -33,6 +33,8 @@ import org.apache.commons.beanutils.converters.ClassConverter;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.lang3.ClassUtils;
+
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -60,6 +62,12 @@ public class PrimitiveOrWrapperConverter {
         CONVERTER_MAP.put(BigDecimal.class, new BigDecimalConverter());
         CONVERTER_MAP.put(BigInteger.class, new BigIntegerConverter());
         CONVERTER_MAP.put(Class.class, new ClassConverter());
+    }
+
+    private final BeanContainer beanContainer;
+
+    public PrimitiveOrWrapperConverter(BeanContainer beanContainer) {
+        this.beanContainer = beanContainer;
     }
 
     public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
@@ -102,7 +110,7 @@ public class PrimitiveOrWrapperConverter {
             } else if (MappingUtils.isEnumType(destClass)) {
                 result = new EnumConverter();
             } else if (JAXBElement.class.isAssignableFrom(destClass) && destFieldName != null) {
-                result = new JAXBElementConverter(destObj.getClass().getCanonicalName(), destFieldName, dateFormatContainer.getDateFormat());
+                result = new JAXBElementConverter(destObj.getClass().getCanonicalName(), destFieldName, dateFormatContainer.getDateFormat(), beanContainer);
             }
         }
         return result == null ? new StringConstructorConverter(dateFormatContainer) : result;

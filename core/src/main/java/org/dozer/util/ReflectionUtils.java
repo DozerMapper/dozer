@@ -31,6 +31,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
 
@@ -230,7 +231,7 @@ public final class ReflectionUtils {
    * @return found method
    * @throws NoSuchMethodException if no method found
    */
-  public static Method findAMethod(Class<?> clazz, String methodName) throws NoSuchMethodException {
+  public static Method findAMethod(Class<?> clazz, String methodName, BeanContainer beanContainer) throws NoSuchMethodException {
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
     Method result;
@@ -238,7 +239,7 @@ public final class ReflectionUtils {
     if (tokenizer.hasMoreElements()) {
       StringTokenizer tokens = new StringTokenizer(tokenizer.nextToken(), ")");
       String params = tokens.hasMoreTokens() ? tokens.nextToken() : null;
-      result = findMethodWithParam(clazz, m, params);
+      result = findMethodWithParam(clazz, m, params, beanContainer);
     } else {
       result = findMethod(clazz, methodName);
     }
@@ -248,14 +249,14 @@ public final class ReflectionUtils {
     return result;
   }
 
-  private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params)
+  private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params, BeanContainer beanContainer)
       throws NoSuchMethodException {
     List<Class<?>> list = new ArrayList<Class<?>>();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken();
-        list.add(MappingUtils.loadClass(token));
+        list.add(MappingUtils.loadClass(token, beanContainer));
       }
     }
     return getMethod(parentDestClass, methodName, list.toArray(new Class[list.size()]));

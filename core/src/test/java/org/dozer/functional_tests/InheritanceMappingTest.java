@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.NoSuperClass;
 import org.dozer.vo.SubClass;
@@ -89,7 +89,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
   @Test
   public void testNoCustomMappingForSuperClasses() throws Exception {
     // Test that wildcard fields in super classes are mapped when there is no explicit super custom mapping definition
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefault();
 
     A src = getA();
     B dest = mapper.map(src, B.class);
@@ -148,7 +148,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testGeneralInheritance() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     // first test mapping of sub and base class to a single class
     org.dozer.vo.inheritance.SubClass sub = newInstance(org.dozer.vo.inheritance.SubClass.class);
 
@@ -163,7 +163,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testGeneralInheritance2() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     // test base to base and sub to sub mapping with an intermediate on the destination
     AnotherSubClass asub = newInstance(AnotherSubClass.class);
     asub.setBaseAttribute("base");
@@ -239,7 +239,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testInheritanceWithAbstractClassOrInterfaceAsDestination() throws Exception {
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     SpecificObject so = newInstance(SpecificObject.class);
     so.setSuperAttr1("superAttr1");
 
@@ -269,7 +269,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testComplexSuperClassMapping() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
     SubClass obj = testDataFactory.getSubClass();
     SubClassPrime objPrime = mapper.map(obj, SubClassPrime.class);
     SubClass obj2 = mapper.map(objPrime, SubClass.class);
@@ -326,7 +326,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
   @Test
   public void testSuperClassMapping() throws Exception {
     // source object does not extend a base custom data object, but destination object extends a custom data object.
-    mapper = getMapper(new String[] {"dozerBeanMapping.xml"});
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     NoSuperClass src = newInstance(NoSuperClass.class);
     src.setAttribute("somefieldvalue");
     src.setSuperAttribute("someotherfieldvalue");

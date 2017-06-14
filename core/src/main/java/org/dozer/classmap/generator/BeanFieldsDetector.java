@@ -13,21 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.stats;
+package org.dozer.classmap.generator;
 
-import org.dozer.AbstractDozerTest;
-import org.junit.Test;
+import java.util.Set;
 
-/**
- * @author tierney.matt
- */
-public class GlobalStatisticsTest extends AbstractDozerTest {
+public interface BeanFieldsDetector {
 
-  @Test
-  public void testGetInstance() throws Exception {
-    GlobalStatistics mgr = GlobalStatistics.getInstance();
+    boolean accepts(Class<?> clazz);
 
-    assertEquals("stat mgrs should be equal", mgr, GlobalStatistics.getInstance());
-    assertSame("stat mgrs should be the same instance", mgr, GlobalStatistics.getInstance());
-  }
+    Set<String> getReadableFieldNames(Class<?> clazz);
+
+    Set<String> getWritableFieldNames(Class<?> clazz);
 }

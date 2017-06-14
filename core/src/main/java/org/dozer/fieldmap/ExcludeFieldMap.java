@@ -16,6 +16,9 @@
 package org.dozer.fieldmap;
 
 import org.dozer.classmap.ClassMap;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 /**
  * Only intended for internal use.
@@ -27,8 +30,8 @@ import org.dozer.classmap.ClassMap;
  */
 public class ExcludeFieldMap extends FieldMap {
 
-  public ExcludeFieldMap(ClassMap classMap) {
-    super(classMap);
+  public ExcludeFieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+    super(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
   }
 
 }

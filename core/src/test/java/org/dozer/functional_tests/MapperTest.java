@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.Apple;
 import org.dozer.vo.Car;
@@ -76,7 +76,7 @@ public class MapperTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
   }
 
   @Test
@@ -111,7 +111,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNoClassMappings() throws Exception {
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
     // Should attempt mapping even though it is not in the beanmapping.xml file
     NoCustomMappingsObjectPrime dest1 = mapper.map(testDataFactory.getInputTestNoClassMappingsNoCustomMappingsObject(),
         NoCustomMappingsObjectPrime.class);

@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerConverter;
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
@@ -40,7 +41,7 @@ public class CachingCustomConverterTest extends Assert {
 
   @Before
   public void setup() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefault();
     List<String> mappingFileUrls = new ArrayList<String>();
     mappingFileUrls.add("mappings/mapper-aware.xml");
 

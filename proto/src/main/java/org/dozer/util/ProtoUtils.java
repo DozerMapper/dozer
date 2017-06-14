@@ -28,6 +28,7 @@ import com.google.protobuf.Message;
 import com.google.protobuf.ProtocolMessageEnum;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dozer.config.BeanContainer;
 
 /**
  * @author Dmitry Spikhalskiy
@@ -98,7 +99,7 @@ public final class ProtoUtils {
         return null;
     }
 
-    public static Class<?> getJavaClass(final Descriptors.FieldDescriptor descriptor) {
+    public static Class<?> getJavaClass(final Descriptors.FieldDescriptor descriptor, BeanContainer beanContainer) {
         if (descriptor.isMapField()) {
             return Map.class;
         }
@@ -107,18 +108,18 @@ public final class ProtoUtils {
             return List.class;
         }
 
-        return getJavaClassIgnoreRepeated(descriptor);
+        return getJavaClassIgnoreRepeated(descriptor, beanContainer);
     }
 
-    public static Class<?> getJavaGenericClassForCollection(final Descriptors.FieldDescriptor descriptor) {
+    public static Class<?> getJavaGenericClassForCollection(final Descriptors.FieldDescriptor descriptor, BeanContainer beanContainer) {
         if (!descriptor.isRepeated()) {
             return null;
         }
 
-        return getJavaClassIgnoreRepeated(descriptor);
+        return getJavaClassIgnoreRepeated(descriptor, beanContainer);
     }
 
-    private static Class<?> getJavaClassIgnoreRepeated(final Descriptors.FieldDescriptor descriptor) {
+    private static Class<?> getJavaClassIgnoreRepeated(final Descriptors.FieldDescriptor descriptor, BeanContainer beanContainer) {
         switch (descriptor.getJavaType()) {
         case INT:
             return Integer.class;
@@ -136,10 +137,10 @@ public final class ProtoUtils {
             return ByteString.class;
         //code duplicate, but GenericDescriptor interface is private in protobuf
         case ENUM:
-            return getEnumClassByEnumDescriptor(descriptor.getEnumType());
+            return getEnumClassByEnumDescriptor(descriptor.getEnumType(), beanContainer);
         case MESSAGE:
             return MappingUtils.loadClass(StringUtils.join(
-                getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'));
+                getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'), beanContainer);
         default:
             throw new RuntimeException();
         }
@@ -152,9 +153,9 @@ public final class ProtoUtils {
             name};
     }
 
-    private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor) {
+    private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor, BeanContainer beanContainer) {
         return (Class<? extends Enum>)MappingUtils.loadClass(StringUtils.join(
-            getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.'));
+            getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.'), beanContainer);
     }
 
     public static Object wrapEnums(Object value) {
@@ -174,10 +175,10 @@ public final class ProtoUtils {
         return value;
     }
 
-    public static Object unwrapEnums(Object value) {
+    public static Object unwrapEnums(Object value, BeanContainer beanContainer) {
         if (value instanceof Descriptors.EnumValueDescriptor) {
             Descriptors.EnumValueDescriptor descriptor = (Descriptors.EnumValueDescriptor)value;
-            Class<? extends Enum> enumClass = getEnumClassByEnumDescriptor(descriptor.getType());
+            Class<? extends Enum> enumClass = getEnumClassByEnumDescriptor(descriptor.getType(), beanContainer);
             Enum[] enumValues = enumClass.getEnumConstants();
             for (Enum enumValue : enumValues) {
                 if (((Descriptors.EnumValueDescriptor)value).getName().equals(enumValue.name())) {
@@ -190,7 +191,7 @@ public final class ProtoUtils {
         if (value instanceof Collection) {
             List modifiedList = new ArrayList(((List)value).size());
             for (Object element : (List)value) {
-                modifiedList.add(unwrapEnums(element));
+                modifiedList.add(unwrapEnums(element, beanContainer));
             }
             return modifiedList;
         }

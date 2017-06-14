@@ -25,6 +25,8 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,13 +40,10 @@ public final class XMLParserFactory {
 
   private static final String SCHEMA_FEATURE = "http://apache.org/xml/features/validation/schema";
 
-  private static final XMLParserFactory instance = new XMLParserFactory();
+  private final BeanContainer beanContainer;
 
-  public static XMLParserFactory getInstance() {
-    return instance;
-  }
-
-  private XMLParserFactory() {
+  public XMLParserFactory(BeanContainer beanContainer) {
+    this.beanContainer = beanContainer;
   }
 
   public DocumentBuilder createParser() {
@@ -85,7 +84,7 @@ public final class XMLParserFactory {
   private DocumentBuilder createDocumentBuilder(DocumentBuilderFactory factory) throws ParserConfigurationException {
     DocumentBuilder docBuilder = factory.newDocumentBuilder();
     docBuilder.setErrorHandler(new DozerDefaultHandler());
-    docBuilder.setEntityResolver(new DozerResolver());
+    docBuilder.setEntityResolver(new DozerResolver(beanContainer));
     return docBuilder;
   }
 

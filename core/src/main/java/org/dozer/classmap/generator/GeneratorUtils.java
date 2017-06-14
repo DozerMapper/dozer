@@ -17,9 +17,12 @@ package org.dozer.classmap.generator;
 
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.Configuration;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.DozerField;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -32,20 +35,21 @@ public final class GeneratorUtils {
 
   private GeneratorUtils() {}
 
-  public static boolean shouldIgnoreField(String fieldName, Class<?> srcType, Class<?> destType) {
+  public static boolean shouldIgnoreField(String fieldName, Class<?> srcType, Class<?> destType, BeanContainer beanContainer) {
     if (CLASS.equals(fieldName)) {
       return true;
     }
     if ((CALLBACK.equals(fieldName) || CALLBACKS.equals(fieldName))
-            && (MappingUtils.isProxy(srcType) || MappingUtils.isProxy(destType))) {
+            && (MappingUtils.isProxy(srcType, beanContainer) || MappingUtils.isProxy(destType, beanContainer))) {
       return true;
     }
     return false;
   }
 
   public static void addGenericMapping(MappingType mappingType, ClassMap classMap,
-                                       Configuration configuration, String srcName, String destName) {
-      FieldMap fieldMap = new GenericFieldMap(classMap);
+                                       Configuration configuration, String srcName, String destName, BeanContainer beanContainer,
+                                       DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+      FieldMap fieldMap = new GenericFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
       DozerField srcField = new DozerField(srcName, null);
       DozerField destField = new DozerField(destName, null);
       fieldMap.setSrcField(srcField);

@@ -19,6 +19,8 @@ import java.lang.ref.SoftReference;
 import java.lang.reflect.Method;
 
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
@@ -50,8 +52,9 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private SoftReference<Method> readMethod;
 
   public MapPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, String setMethod, String getMethod,
-                               String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+                               String key, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer,
+                               BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer, beanContainer, destBeanCreator);
     this.setMethodName = setMethod;
     this.getMethodName = getMethod;
     this.key = key;

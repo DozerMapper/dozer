@@ -18,6 +18,8 @@ package org.dozer.propertydescriptor;
 import java.lang.ref.SoftReference;
 import java.lang.reflect.Method;
 
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
@@ -40,8 +42,9 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   private SoftReference<Method> readMethod;
 
   public CustomGetSetPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, String customSetMethod,
-      String customGetMethod, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+                                        String customGetMethod, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer,
+                                        BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer, beanContainer, destBeanCreator);
     this.customSetMethod = customSetMethod;
     this.customGetMethod = customGetMethod;
   }
@@ -50,7 +53,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   public Method getWriteMethod() throws NoSuchMethodException {
     if (writeMethod == null || writeMethod.get() == null) {
       if (customSetMethod != null && !MappingUtils.isDeepMapping(fieldName)) {
-        Method method = ReflectionUtils.findAMethod(clazz, customSetMethod);
+        Method method = ReflectionUtils.findAMethod(clazz, customSetMethod, beanContainer);
         writeMethod = new SoftReference<Method>(method);
       } else {
         return super.getWriteMethod();
@@ -63,7 +66,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
   protected Method getReadMethod() throws NoSuchMethodException {
     if (readMethod == null || readMethod.get() == null) {
       if (customGetMethod != null) {
-        Method method = ReflectionUtils.findAMethod(clazz, customGetMethod);
+        Method method = ReflectionUtils.findAMethod(clazz, customGetMethod, beanContainer);
         readMethod = new SoftReference<Method>(method);
       } else {
         return super.getReadMethod();

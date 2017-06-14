@@ -15,10 +15,15 @@
  */
 package org.dozer;
 
+import java.util.Collection;
+import java.util.Collections;
+import org.dozer.builder.BeanBuilderCreationStrategy;
 import org.dozer.builder.ByProtobufBuilder;
-import org.dozer.builder.DestBeanBuilderCreator;
-import org.dozer.classmap.generator.BeanMappingGenerator;
+import org.dozer.classmap.generator.BeanFieldsDetector;
 import org.dozer.classmap.generator.ProtobufBeanFieldsDetector;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorCreationStrategy;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.propertydescriptor.ProtoFieldPropertyDescriptorCreationStrategy;
 
@@ -26,9 +31,33 @@ import org.dozer.propertydescriptor.ProtoFieldPropertyDescriptorCreationStrategy
  * @author Dmitry Spikhalskiy
  */
 public class ProtobufSupportModule implements DozerModule {
+
+  private BeanContainer beanContainer;
+  private DestBeanCreator destBeanCreator;
+  private PropertyDescriptorFactory propertyDescriptorFactory;
+
+  @Override
+  public void init(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory)  {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
+  }
+
   public void init() {
-    DestBeanBuilderCreator.addPluggedStrategy(new ByProtobufBuilder());
-    PropertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategy(new ProtoFieldPropertyDescriptorCreationStrategy());
-    BeanMappingGenerator.addPluggedFieldDetector(new ProtobufBeanFieldsDetector());
+  }
+
+  @Override
+  public Collection<BeanBuilderCreationStrategy> getBeanBuilderCreationStrategies() {
+    return Collections.singleton(new ByProtobufBuilder());
+  }
+
+  @Override
+  public Collection<BeanFieldsDetector> getBeanFieldsDetectors() {
+    return Collections.singleton(new ProtobufBeanFieldsDetector());
+  }
+
+  @Override
+  public Collection<PropertyDescriptorCreationStrategy> getPropertyDescriptorCreationStrategies() {
+    return Collections.singleton(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator, propertyDescriptorFactory));
   }
 }
