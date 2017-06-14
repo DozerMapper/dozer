@@ -70,7 +70,23 @@ Mapper mapper = DozerBeanMapperBuilder.createDefault();
 ----
 
 === 5. Internal API is changed
-Dozer is moving away from having JMV-global state. This means that some internal API like `BeanContainer` is
+Dozer is moving away from having JVM-global state. This means that some internal API like `BeanContainer` is
 not available anymore via singleton references, i.e. `BeanContainer.getInstance()` does not exist. If you were using
 this or any other code that is reworked, please let us know. Most likely you developed `DozerModule`. We would like to know
 more about real-world use cases to build convenient public API for modules developers.
+
+=== 6. org.dozer.BeanFactory interface changes
+Old signature of `org.dozer.BeanFactory` is deprecated and will be removed in version 6.2. Please use new method of this interface when
+creating custom bean factories.
+
+**Deprecated:**
+[source,java,prettyprint]
+----
+    Object createBean(Object source, Class<?> sourceClass, String targetBeanId)
+----
+
+**Recommended:**
+[source,java,prettyprint]
+----
+    Object createBean(Object source, Class<?> sourceClass, String targetBeanId, BeanContainer beanContainer)
+----
