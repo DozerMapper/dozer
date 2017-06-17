@@ -73,11 +73,12 @@ public class MyClass {
 }
 ----
 
-Constructed builder object should be then passed to DozerBeanMapper
-instance. It is possible to add multiple Builder classes.
+Constructed builder object should be then passed to `DozerBeanMapperBuilder`.
+It is possible to add multiple Builder classes.
 
 [source,java,prettyprint]
 ----
-DozerBeanMapper mapper = DozerBeanMapperBuilder.createDefault();
-mapper.addMapping(builder);
+Mapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingBuilder(builder)
+        .build();
 ----

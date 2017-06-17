@@ -18,6 +18,7 @@ package org.dozer.functional_tests;
 import java.util.List;
 
 import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.dozer.metadata.ClassMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
 import org.dozer.metadata.MetadataLookupException;
@@ -45,7 +46,7 @@ public class MetadataTest extends AbstractFunctionalTest {
     
     @Before
     public void setup() {
-        DozerBeanMapper beanMapper = (DozerBeanMapper) getMapper(MAPPING_FILE);
+        Mapper beanMapper = getMapper(MAPPING_FILE);
         mapMetadata = beanMapper.getMappingMetadata();
     }
     

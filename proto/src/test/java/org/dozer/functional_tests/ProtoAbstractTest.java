@@ -15,11 +15,8 @@
  */
 package org.dozer.functional_tests;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.util.DozerConstants;
 import org.junit.Ignore;
 
@@ -29,17 +26,12 @@ import org.junit.Ignore;
 @Ignore
 public class ProtoAbstractTest {
 
-    protected DozerBeanMapper getMapper(List<String> fileNames) {
+    protected Mapper getMapper(String fileName) {
         System.setProperty("log4j.debug", "true");
         System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
 
-        DozerBeanMapper mapper = DozerBeanMapperBuilder.buildDefault();
-        mapper.setMappingFiles(fileNames);
-
-        return mapper;
-    }
-
-    protected DozerBeanMapper getMapper(String fileName) {
-        return getMapper(Arrays.asList(fileName));
+        return DozerBeanMapperBuilder.create()
+                .withMappingFiles(fileName)
+                .build();
     }
 }

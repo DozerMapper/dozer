@@ -20,9 +20,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerConverter;
+import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Assert;
@@ -37,16 +37,15 @@ import static org.hamcrest.CoreMatchers.equalTo;
  */
 public class CollectionWithNullTest extends Assert {
 
-  private DozerBeanMapper mapper;
+  private DozerBeanMapperBuilder mapperBuilder;
 
   private Foo foo;
   private Bar bar;
 
   @Before
   public void setUp() {
-    mapper = DozerBeanMapperBuilder.create()
-            .withMappingFiles("mappings/collectionsWithNull.xml")
-            .build();
+    mapperBuilder = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/collectionsWithNull.xml");
 
     foo = new Foo();
     bar = new Bar();
@@ -54,13 +53,15 @@ public class CollectionWithNullTest extends Assert {
 
   @Test
   public void shouldMapNullAsListFirstElement() {
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
-                .fields("wheeIds", "wheeList");
-      }
-    });
+    Mapper mapper = mapperBuilder
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
+                        .fields("wheeIds", "wheeList");
+              }
+            })
+            .build();
 
     bar.getWheeList().add(null);
     bar.getWheeList().add(new Whee("1"));
@@ -73,13 +74,15 @@ public class CollectionWithNullTest extends Assert {
 
   @Test
   public void shouldMapNullAsListSecondElement() {
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
-                .fields("wheeIds", "wheeList");
-      }
-    });
+    Mapper mapper = mapperBuilder
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
+                        .fields("wheeIds", "wheeList");
+              }
+            })
+            .build();
 
     bar.getWheeList().add(new Whee("1"));
     bar.getWheeList().add(null);
@@ -92,13 +95,15 @@ public class CollectionWithNullTest extends Assert {
 
   @Test
   public void shouldMapNullAsSetSecondElement() {
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
-                .fields("wheeIds", "wheeSet");
-      }
-    });
+    Mapper mapper = mapperBuilder
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
+                        .fields("wheeIds", "wheeSet");
+              }
+            })
+            .build();
 
     bar.getWheeSet().add(new Whee("1"));
     bar.getWheeSet().add(null);
@@ -111,13 +116,15 @@ public class CollectionWithNullTest extends Assert {
 
   @Test
   public void shouldMapNullAsSetSecondElement_Reverse() {
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
-                .fields("wheeIds", "wheeSet");
-      }
-    });
+    Mapper mapper = mapperBuilder
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Foo.class, Bar.class, TypeMappingOptions.mapNull(false))
+                        .fields("wheeIds", "wheeSet");
+              }
+            })
+            .build();
 
     foo.getWheeIds().add("1");
     foo.getWheeIds().add(null);
@@ -129,7 +136,7 @@ public class CollectionWithNullTest extends Assert {
   }
 
   public static class Foo {
-    List<String> wheeIds = new ArrayList<String>();
+    List<String> wheeIds = new ArrayList<>();
 
     public List<String> getWheeIds() {
       return wheeIds;
@@ -141,8 +148,8 @@ public class CollectionWithNullTest extends Assert {
   }
 
   public static class Bar {
-    List<Whee> wheeList = new ArrayList<Whee>();
-    Set<Whee> wheeSet = new HashSet<Whee>();
+    List<Whee> wheeList = new ArrayList<>();
+    Set<Whee> wheeSet = new HashSet<>();
 
     public List<Whee> getWheeList() {
       return wheeList;

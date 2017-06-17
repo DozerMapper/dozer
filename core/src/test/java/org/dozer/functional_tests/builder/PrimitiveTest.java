@@ -19,25 +19,17 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.net.URL;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.sameInstance;
 
 public class PrimitiveTest extends Assert {
-
-  private DozerBeanMapper mapper;
-
-  @Before
-  public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefault();
-  }
 
   @Test
   public void shouldMapPrimitiveTypes() throws Exception {
@@ -48,7 +40,7 @@ public class PrimitiveTest extends Assert {
     source.bigDecimal = new BigDecimal("1");
     source.myDouble = new Double("1");
 
-    Destination result = mapper.map(source, Destination.class);
+    Destination result = DozerBeanMapperBuilder.buildDefault().map(source, Destination.class);
 
     assertThat(result.file, equalTo(new File("a")));
     assertThat(result.url, equalTo(new URL("http://a")));
@@ -59,21 +51,23 @@ public class PrimitiveTest extends Assert {
 
   @Test
   public void shouldMapOneWayOnly() {
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(type(Source.class),
-                type(Destination.class)
-                 , TypeMappingOptions.oneWay()
-        );
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(type(Source.class),
+                        type(Destination.class)
+                        , TypeMappingOptions.oneWay()
+                );
 
-        mapping(type(Destination.class),
-                type(Source.class)
-                 , TypeMappingOptions.oneWay(), TypeMappingOptions.wildcard(false)
-        );
+                mapping(type(Destination.class),
+                        type(Source.class)
+                        , TypeMappingOptions.oneWay(), TypeMappingOptions.wildcard(false)
+                );
 
-      }
-    });
+              }
+            })
+            .build();
 
     {
       Source source = new Source();

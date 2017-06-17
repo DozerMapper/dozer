@@ -117,7 +117,8 @@ public class DozerBeanMapperFactoryBean implements FactoryBean<Mapper>,
     // interface 'InitializingBean'
     // ==================================================================================================================================
     public final void afterPropertiesSet() throws Exception {
-        this.beanMapper = DozerBeanMapperBuilder.buildDefault();
+        // todo to be reworked in #402
+        this.beanMapper = (DozerBeanMapper) DozerBeanMapperBuilder.buildDefault();
 
         loadMappingFiles();
 

@@ -15,8 +15,8 @@
  */
 package org.dozer.functional_tests.builder;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.functional_tests.AbstractFunctionalTest;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeMappingOptions;
@@ -32,26 +32,26 @@ import static org.junit.Assert.assertThat;
  */
 public class MapNullTest extends AbstractFunctionalTest {
 
-  private DozerBeanMapper beanMapper;
   private Source source;
   private Destination destination;
 
   @Before
   public void setUp() {
-    beanMapper = DozerBeanMapperBuilder.buildDefault();
     source = new Source();
     destination = new Destination();
   }
 
   @Test
   public void shouldMapNull() {
-    beanMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Source.class, Destination.class, TypeMappingOptions.mapNull(true))
-                .fields("a", "b");
-      }
-    });
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Source.class, Destination.class, TypeMappingOptions.mapNull(true))
+                        .fields("a", "b");
+              }
+            })
+            .build();
 
     source.setA(null);
     destination.setB("notNull");
@@ -63,13 +63,15 @@ public class MapNullTest extends AbstractFunctionalTest {
 
   @Test
   public void shouldMapEmptyString() {
-    beanMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Source.class, Destination.class, TypeMappingOptions.mapEmptyString(true))
-                .fields("a", "b");
-      }
-    });
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Source.class, Destination.class, TypeMappingOptions.mapEmptyString(true))
+                        .fields("a", "b");
+              }
+            })
+            .build();
 
     source.setA("");
     destination.setB("notNull");

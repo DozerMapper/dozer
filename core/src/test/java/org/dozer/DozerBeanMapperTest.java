@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * @author Dmitry Buzdin
@@ -65,7 +69,8 @@ public class DozerBeanMapperTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefault();
+    // todo the test should be redesigned once DozerBeanMapper is immutable #434
+    mapper = (DozerBeanMapper) DozerBeanMapperBuilder.buildDefault();
     exceptions = new ArrayList<Throwable>();
     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
       public void uncaughtException(Thread t, Throwable e) {
@@ -144,7 +149,8 @@ public class DozerBeanMapperTest extends Assert {
               new DozerInitializer(), new BeanContainer(),
               new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new DestBeanCreator(new BeanContainer()),
               new DestBeanBuilderCreator(),
-              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory());
+              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory(),
+              new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null, new HashMap<>());
     }
 
     @Override
@@ -229,11 +235,15 @@ public class DozerBeanMapperTest extends Assert {
   @Test
   public void shouldSetEventListeners() {
     DozerEventListener listener = mock(DozerEventListener.class);
-    mapper.setEventListeners(Arrays.asList(listener));
 
-    List<? extends DozerEventListener> listeners = mapper.getEventListeners();
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withEventListener(listener)
+            .build();
+    beanMapper.map(new Object(), new Object());
 
-    assertEquals(1, listeners.size());
+    verify(listener).mappingStarted(any());
+    verify(listener).mappingFinished(any());
+    verifyNoMoreInteractions(listener);
   }
 
 }

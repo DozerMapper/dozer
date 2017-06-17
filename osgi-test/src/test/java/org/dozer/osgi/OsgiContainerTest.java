@@ -15,10 +15,8 @@
  */
 package org.dozer.osgi;
 
-import javax.inject.Inject;
-
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -26,7 +24,6 @@ import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerMethod;
-import org.osgi.framework.BundleContext;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -41,9 +38,6 @@ import static org.ops4j.pax.exam.CoreOptions.url;
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerMethod.class)
 public class OsgiContainerTest {
-
-    @Inject
-    private BundleContext bundleContext;
 
     @Configuration
     public Option[] config() {
@@ -62,20 +56,20 @@ public class OsgiContainerTest {
 
     @Test
     public void shouldInstantiate() {
-        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefault();
+        Mapper beanMapper = DozerBeanMapperBuilder.buildDefault();
         assertThat(beanMapper, notNullValue());
     }
 
     @Test
     public void shouldMap() {
-        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.buildDefault();
+        Mapper beanMapper = DozerBeanMapperBuilder.buildDefault();
         Object result = beanMapper.map(new Object(), Object.class);
         assertThat(result, notNullValue());
     }
 
     @Test
     public void shouldLoadMappingFile() {
-        DozerBeanMapper beanMapper = DozerBeanMapperBuilder.create()
+        Mapper beanMapper = DozerBeanMapperBuilder.create()
                 .withMappingFiles("mappings/mapping.xml")
                 .build();
         Object result = beanMapper.map(new Object(), Object.class);

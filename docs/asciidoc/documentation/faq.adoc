@@ -500,11 +500,11 @@ public void testAssembleSomeObject_NullValues() throws Exception {
 
 [[config-as-singleton]]
 === Should the Dozer mapper be configured as a Singleton?
-Yes. Mapper instance(s) should be setup as a Singleton. For every
-instance of the DozerBeanMapper, the mapping files are loaded and
-parsed. You should configure the Mapper as a singleton so that you only
-incur the cost of loading and initializing the mapping files 1 time. The
-DozerBeanMapper class is thread safe.
+Yes. `Mapper` instances should be reused as much as possible. For every
+instance of the `Mapper`, the mapping files are loaded and
+parsed. You should configure the `Mapper` once for your configuration
+and reuse this instance throughout your application. The
+`Mapper` implementations are thread safe.
 
 [[component-mappings]]
 === Is it better to have 1 large xml mapping file or to have multiple smaller mapping files?

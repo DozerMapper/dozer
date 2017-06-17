@@ -17,7 +17,7 @@ package org.dozer.functional_tests;
 
 import java.util.Arrays;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.dozer.vo.proto.LiteTestObject;
 import org.dozer.vo.proto.LiteTestObjectContainer;
 import org.dozer.vo.proto.ObjectWithCollection;
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
 
-    private DozerBeanMapper mapper;
+    private Mapper mapper;
 
     @Before
     public void setUp() throws Exception {

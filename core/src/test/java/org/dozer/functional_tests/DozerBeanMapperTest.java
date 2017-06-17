@@ -15,11 +15,7 @@
  */
 package org.dozer.functional_tests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.dozer.AbstractDozerTest;
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.MappingException;
@@ -45,15 +41,15 @@ import org.junit.Test;
  */
 public class DozerBeanMapperTest extends AbstractDozerTest {
 
-  private static Mapper mapper;
+  private Mapper mapper;
   private TestDataFactory testDataFactory = new TestDataFactory(NoProxyDataObjectInstantiator.INSTANCE);
 
   @Override
   @Before
   public void setUp() throws Exception {
-    if (mapper == null) {
-      mapper = getNewMapper(new String[]{"testDozerBeanMapping.xml"});
-    }
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("testDozerBeanMapping.xml")
+            .build();
   }
 
   @Test(expected=MappingException.class)
@@ -70,8 +66,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
   @Test(expected=MappingException.class)
   public void testNullDestObj() throws Exception {
-    Object destObj = null;
-    mapper.map(new TestObject(), destObj);
+    mapper.map(new TestObject(), null);
     fail("should have thrown mapping exception");
   }
 
@@ -112,7 +107,9 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     // custom bean factory
     // -----------------------------------------------------------
 
-    Mapper mapper = getNewMapper(new String[]{"mappings/customfactorymapping.xml"});
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/customfactorymapping.xml")
+            .build();
 
     TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
     TestObject source = mapper.map(prime, TestObject.class);
@@ -140,8 +137,10 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
 
   @Test
   public void testGlobalNullAndEmptyString() throws Exception {
-    DozerBeanMapper mapperMapNull = DozerBeanMapperBuilder.buildDefault();
-    DozerBeanMapper mapperNotMapNull = (DozerBeanMapper) getNewMapper(new String[]{"mappings/customGlobalConfigWithNullAndEmptyStringTest.xml"});
+    Mapper mapperMapNull = DozerBeanMapperBuilder.buildDefault();
+    Mapper mapperNotMapNull = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/customGlobalConfigWithNullAndEmptyStringTest.xml")
+            .build();
     Van src = new Van();
     Van dest = new Van();
     dest.setName("not null or empty");
@@ -159,18 +158,6 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     TestObjectPrime prime2 = mapper.map(source, TestObjectPrime.class);
 
     assertEquals(prime2, prime);
-  }
-
-  private Mapper getNewMapper(String[] mappingFiles) {
-    List<String> list = new ArrayList<String>();
-    if (mappingFiles != null) {
-      for (int i = 0; i < mappingFiles.length; i++) {
-        list.add(mappingFiles[i]);
-      }
-    }
-    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
-    ((DozerBeanMapper) mapper).setMappingFiles(list);
-    return mapper;
   }
 
 }
