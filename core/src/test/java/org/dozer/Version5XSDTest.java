@@ -36,7 +36,7 @@ public class Version5XSDTest {
         testOldXSDNaming.expectMessage(Matchers.containsString(message));
         testOldXSDNaming.expect(MappingException.class);
 
-        DozerBeanMapper mapper = DozerBeanMapperBuilder.create()
+        Mapper mapper = DozerBeanMapperBuilder.create()
                 .withMappingFiles("non-strict/v5-xsd.xml")
                 .build();
         mapper.getMappingMetadata();

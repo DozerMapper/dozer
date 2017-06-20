@@ -18,11 +18,10 @@ package org.dozer.functional_tests.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
@@ -32,23 +31,17 @@ import static org.mockito.Mockito.when;
  */
 public class GenericsTest extends Assert {
 
-  private DozerBeanMapper mapper;
-
-  @Before
-  public void setUp() {
-    mapper = DozerBeanMapperBuilder.buildDefault();
-  }
-
-
   @Test
   public void shouldDetermineCollectionTypeViaFieldGenericType() {
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Container.class, ContainerDTO.class)
-                .fields(field("items").accessible(true), "items");
-      }
-    });
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Container.class, ContainerDTO.class)
+                        .fields(field("items").accessible(true), "items");
+              }
+            })
+            .build();
 
     Container container = prepareContainer();
 
@@ -62,13 +55,15 @@ public class GenericsTest extends Assert {
 
   @Test
   public void shouldDetermineCollectionTypeViaGetter() {
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Container.class, ContainerDTO.class)
-                .fields("items", "items");
-      }
-    });
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Container.class, ContainerDTO.class)
+                        .fields("items", "items");
+              }
+            })
+            .build();
 
     Container container = prepareContainer();
 
@@ -85,7 +80,7 @@ public class GenericsTest extends Assert {
 
   private Container prepareContainer() {
     Container container = new Container();
-    ArrayList<Item> items = new ArrayList<Item>();
+    ArrayList<Item> items = new ArrayList<>();
     Item item = new Item();
     item.setId("A");
     items.add(item);

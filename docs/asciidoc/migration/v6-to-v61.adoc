@@ -42,21 +42,30 @@ See link:https://github.com/DozerMapper/dozer/releases/tag/v6.1.0[for release no
            http://dozermapper.github.io/schema/dozer-spring http://dozermapper.github.io/schema/dozer-spring.xsd">
 ----
 
-=== 3. DozerBeanMapper instantiation is deprecated
-Direct instantiation of `DozerBeanMapper` is deprecated and its constructors will be hidden in version 6.2.
-
-Please use `DozerBeanMapperBuilder` instead.
+=== 3. DozerBeanMapper usage is deprecated
+Direct instantiation of `DozerBeanMapper` as well as its usage is deprecated.
+This class will be hidden in version 6.2. Please use `Mapper` whenever you need to map,
+and `DozerBeanMapperBuilder` to configure the mapper.
 
 **Deprecated:**
 [source,java,prettyprint]
 ----
-Mapper mapper = new DozerBeanMapper();
+DozerBeanMapper mapper = new DozerBeanMapper();
+mapper.addMapping(myMappingBuilder);
+mapper.setMappingFiles(myFiles);
+
+mapper.map(a, b);
 ----
 
 **Recommended:**
 [source,java,prettyprint]
 ----
-Mapper mapper = DozerBeanMapperBuilder.createDefault();
+Mapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingBuilder(myMappingBuilder)
+        .withMappingFiles(myFiles)
+        .build();
+
+mapper.map(a, b);
 ----
 
 === 4. Dozer Bean Mapper Singleton Wrapper is deprecated

@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.dozer.CustomFieldMapper;
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.functional_tests.support.SampleDefaultBeanFactory;
 import org.dozer.functional_tests.support.TestCustomFieldMapper;
@@ -525,7 +526,9 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   @Test
   public void testCustomFieldMapper() throws Exception {
     CustomFieldMapper customFieldMapper = new TestCustomFieldMapper();
-    ((DozerBeanMapper) mapper).setCustomFieldMapper(customFieldMapper);
+    mapper = DozerBeanMapperBuilder.create()
+            .withCustomFieldMapper(customFieldMapper)
+            .build();
 
     String currentTime = String.valueOf(System.currentTimeMillis());
     SimpleObj src = newInstance(SimpleObj.class);
@@ -743,10 +746,10 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   public void testGlobalRelationshipType() throws Exception {
     mapper = getMapper("mappings/relationship-type-global-configuration.xml");
     TestObject src = new TestObject();
-    src.setHintList(new ArrayList<String>(Arrays.asList(new String[] { "a" })));
+    src.setHintList(new ArrayList<>(Collections.singletonList("a")));
 
     TestObjectPrime dest = new TestObjectPrime();
-    dest.setHintList(new ArrayList<String>(Arrays.asList(new String[] { "a", "b" })));
+    dest.setHintList(new ArrayList<>(Arrays.asList("a", "b")));
 
     mapper.map(src, dest);
 
@@ -757,10 +760,10 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
   public void testClassMapRelationshipType() throws Exception {
     mapper = getMapper("mappings/relationshipTypeMapping.xml");
     TestObject src = new TestObject();
-    src.setHintList(new ArrayList<String>(Arrays.asList(new String[] { "a" })));
+    src.setHintList(new ArrayList<>(Arrays.asList("a")));
 
     TestObjectPrime dest = new TestObjectPrime();
-    dest.setHintList(new ArrayList<String>(Arrays.asList(new String[] { "a", "b" })));
+    dest.setHintList(new ArrayList<>(Arrays.asList("a", "b")));
 
     mapper.map(src, dest);
 
@@ -785,12 +788,12 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     Fruit kiwiFruit = new Fruit();
     kiwiFruit.setName("Kiwi Fruit");
 
-    List<Fruit> srcFruits = new ArrayList<Fruit>();
+    List<Fruit> srcFruits = new ArrayList<>();
     srcFruits.add(apple);
     srcFruits.add(banana);
     srcFruits.add(kiwiFruit);
 
-    List<Fruit> destFruits = new ArrayList<Fruit>();
+    List<Fruit> destFruits = new ArrayList<>();
     destFruits.add(grape); // not in src
     destFruits.add(banana); // shared with src fruits
     destFruits.add(orange); // not in src

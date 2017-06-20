@@ -5,10 +5,9 @@ currently active mapping definitions.
 
 The following sections will give some code examples how to use the
 mapping query interfaces. The most important interface in the whole
-process is org.dozer.metadata.MappingMetadata. An instance can be
-acquired by calling the getMappingMetadata() method of the
-DozerBeanMapper class. This call will initialize the mappings if the map
-method has not been called yet.
+process is `org.dozer.metadata.MappingMetadata`. An instance can be
+acquired by calling the `getMappingMetadata()` method of the
+`Mapper` instance.
 
 Consider the following mapping file:
 
@@ -33,10 +32,10 @@ To begin querying the mapping definitions the following code is needed:
 
 [source,java,prettyprint]
 ----
-DozerBeanMapper mapper = DozerBeanMapperBuilder.create()
+Mapper mapper = DozerBeanMapperBuilder.create()
         .withMappingFiles(listOfFiles)
         .build();
-MappingMetadata mapMetadata = beanMapper.getMappingMetadata();
+MappingMetadata mapMetadata = mapper.getMappingMetadata();
 ----
 
 Now that a reference to MappingMetadata is obtained we can start

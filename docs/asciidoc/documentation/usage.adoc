@@ -34,8 +34,8 @@ Implicit/Explicit mapping switch is called _"wildcard"_ in Dozer.
 
 === Injecting Custom Mapping Files
 The Dozer mapping xml file(s) define any custom mappings that can't be automatically performed by the Dozer mapping engine.
-Any custom Dozer mapping files need to be injected into the Mapper implementation(org.dozer.DozerBeanMapper).
-Both setter-based andconstructor-based injection are supported.
+Any custom Dozer mapping files need to be injected into the `Mapper` implementation
+via `DozerBeanMapperBuilder#withMappingFiles(..)` method.
 
 Preferably, you will be using an IOC framework such as Spring for these Dozer injection requirements.
 Alternatively, the injection of mapping files can be done programmatically.
@@ -46,7 +46,7 @@ If you are using the mapper this way just wrap it using the singleton pattern.
 
 [source,java,prettyprint]
 ----
-DozerBeanMapper mapper = DozerBeanMapperBuilder.create()
+Mapper mapper = DozerBeanMapperBuilder.create()
         .withMappingFiles("dozerBeanMapping.xml", "someOtherDozerBeanMappings.xml")
         .build();
 

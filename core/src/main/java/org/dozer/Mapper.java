@@ -15,6 +15,8 @@
  */
 package org.dozer;
 
+import org.dozer.metadata.MappingMetadata;
+
 /**
  * Public root interface for performing Dozer mappings from application code.
  *
@@ -64,4 +66,16 @@ public interface Mapper {
      * @throws MappingException mapping failure
      */
     void map(Object source, Object destination, String mapId) throws MappingException;
+
+    /**
+     * The {@link org.dozer.metadata.MappingMetadata} interface can be used to query information about the current
+     * mapping definitions. It provides read only access to all important classes and field
+     * mapping properties. When first called, initializes all mappings if map() has not yet been called.
+     *
+     * @return An instance of {@link org.dozer.metadata.MappingMetadata} which serves starting point
+     * for querying mapping information.
+     */
+    default MappingMetadata getMappingMetadata() {
+        return MappingMetadata.EMPTY;
+    };
 }

@@ -25,8 +25,8 @@ import java.util.TreeMap;
 
 import static junit.framework.Assert.assertNotSame;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.functional_tests.AbstractFunctionalTest;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -42,13 +42,11 @@ import static org.junit.Assert.assertEquals;
  */
 public class MapMappingTest extends AbstractFunctionalTest {
 
-  private DozerBeanMapper beanMapper;
   private MapContainer source;
   private MapContainer target;
 
   @Before
   public void setUp() {
-    beanMapper = DozerBeanMapperBuilder.buildDefault();
     source = new MapContainer();
     target = new MapContainer();
   }
@@ -57,15 +55,17 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void shouldAccumulateEntries() {
-    beanMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(MapContainer.class, MapContainer.class)
-                .fields("map", "map",
-                        collectionStrategy(false, RelationshipType.CUMULATIVE)
-                );
-      }
-    });
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(MapContainer.class, MapContainer.class)
+                        .fields("map", "map",
+                                collectionStrategy(false, RelationshipType.CUMULATIVE)
+                        );
+              }
+            })
+            .build();
 
     source.getMap().put("A", "1");
     target.getMap().put("B", "2");
@@ -77,15 +77,17 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void shouldRemoveOrphans() {
-    beanMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(MapContainer.class, MapContainer.class)
-                .fields("map", "map",
-                        collectionStrategy(true, RelationshipType.CUMULATIVE)
-                );
-      }
-    });
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(MapContainer.class, MapContainer.class)
+                        .fields("map", "map",
+                                collectionStrategy(true, RelationshipType.CUMULATIVE)
+                        );
+              }
+            })
+            .build();
 
     source.getMap().put("A", "1");
     target.getMap().put("B", "2");
@@ -98,18 +100,20 @@ public class MapMappingTest extends AbstractFunctionalTest {
   @Test
   @Ignore("Backwards mapping does not work")
   public void shouldMapEmbeddedList() {
-    beanMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(Map.class, ListContainer.class)
-                .fields(this_().mapKey("embedded"), "list",
-                        collectionStrategy(true, RelationshipType.NON_CUMULATIVE)
-                );
-      }
-    });
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(Map.class, ListContainer.class)
+                        .fields(this_().mapKey("embedded"), "list",
+                                collectionStrategy(true, RelationshipType.NON_CUMULATIVE)
+                        );
+              }
+            })
+            .build();
 
-    HashMap<String, Object> map = new HashMap<String, Object>();
-    List<String> list = new ArrayList<String>();
+    HashMap<String, Object> map = new HashMap<>();
+    List<String> list = new ArrayList<>();
     list.add("A");
     map.put("embedded", list);
 
@@ -120,7 +124,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
     assertEquals(1, container.getList().size());
     assertEquals("A", container.getList().get(0));
 
-    HashMap<String, Object> copy = new HashMap<String, Object>();
+    HashMap<String, Object> copy = new HashMap<>();
     
     beanMapper.map(container, copy);
 
@@ -129,20 +133,20 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void shouldMapTopLevel() {
-    Map<String, String> src = new HashMap<String, String>();
-    Map<String, String> dest = new HashMap<String, String>();
+    Map<String, String> src = new HashMap<>();
+    Map<String, String> dest = new HashMap<>();
 
     src.put("A", "B");
     dest.put("B", "A");
 
-    beanMapper.map(src, dest);
+    DozerBeanMapperBuilder.buildDefault().map(src, dest);
 
     assertEquals(2, dest.size());
   }
 
   @Test
   public void testDozerMultiTypeMapContainingCollections() throws Exception {
-    DozerBeanMapper dozerBeanMapper = DozerBeanMapperBuilder.buildDefault();
+    Mapper dozerBeanMapper = DozerBeanMapperBuilder.buildDefault();
 
     // Setting up test data, multiple types in a single Map
     DozerExampleEntry entry = new DozerExampleEntry();
@@ -152,7 +156,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
       entry.getMap().put("C", Boolean.TRUE);
       // This array list will produce the problem
       // Remove it and the test case will succeed
-      ArrayList<String> genericList = new ArrayList<String>();
+      ArrayList<String> genericList = new ArrayList<>();
       genericList.add("something");
       entry.getMap().put("D", genericList);
       entry.getMap().put("E", new BigDecimal("0.00"));
@@ -165,7 +169,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
     assertEquals("foobar", mapped.getMap().get("A"));
     assertEquals(new Date(0), mapped.getMap().get("B"));
     assertEquals(Boolean.TRUE, mapped.getMap().get("C"));
-    ArrayList<String> expectedList = new ArrayList<String>();
+    ArrayList<String> expectedList = new ArrayList<>();
     expectedList.add("something");
     assertEquals(expectedList, mapped.getMap().get("D"));
     assertNotSame(expectedList, mapped.getMap().get("D"));
@@ -181,7 +185,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
     * Map. A, B and C are converted successfully. D too, but this will trigger the
     * setDestinationTypeHint(). And that will lead to the invalid mapping of entry E.
     */
-    private Map<String, Object> map = new TreeMap<String, Object>();
+    private Map<String, Object> map = new TreeMap<>();
 
     public Map<String, Object> getMap() {
       return this.map;
@@ -194,7 +198,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
   public static class MapContainer {
 
-    private Map<String, String> map = new HashMap<String, String>();
+    private Map<String, String> map = new HashMap<>();
 
     public Map<String, String> getMap() {
       return map;
@@ -206,7 +210,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
   }
 
   public static class ListContainer {
-    private List<String> list = new ArrayList<String>();
+    private List<String> list = new ArrayList<>();
 
     public List<String> getList() {
       return list;

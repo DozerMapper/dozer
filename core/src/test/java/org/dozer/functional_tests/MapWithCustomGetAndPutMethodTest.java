@@ -17,8 +17,8 @@ package org.dozer.functional_tests;
 
 import java.util.HashMap;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.MappingException;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.TypeDefinition;
@@ -34,7 +34,7 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
 
   @Test
   public void testDefaultMapBehaviour_UseDefaultGetAndPutMethod() {
-    DozerBeanMapper defaultMapper = DozerBeanMapperBuilder.buildDefault();
+    Mapper defaultMapper = DozerBeanMapperBuilder.buildDefault();
     
     // Map to Object, should use "get"
     MapWithCustomGetAndPut input1 = MapWithCustomGetAndPut.createInput();
@@ -58,16 +58,17 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapWithCustomMethods_UseSpecifiedMethods() {
-    DozerBeanMapper customMapper = DozerBeanMapperBuilder.buildDefault();
-    customMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(
-            ValueContainer.class, 
-            new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("customGet", "customPut")
-            );
-      }
-    });
+    Mapper customMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(
+                        ValueContainer.class,
+                        new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("customGet", "customPut")
+                );
+              }
+            })
+            .build();
     
     // Map to Object, should use "customGet"
     MapWithCustomGetAndPut input1 = MapWithCustomGetAndPut.createInput();
@@ -90,16 +91,17 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapWithNullGetAndPutMethods_FallbackToDefaultMethods() {
-    DozerBeanMapper nullMapper = DozerBeanMapperBuilder.buildDefault();
-    nullMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(
-            ValueContainer.class, 
-            new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods(null, null)
-            );
-      }
-    });
+    Mapper nullMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(
+                        ValueContainer.class,
+                        new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods(null, null)
+                );
+              }
+            })
+            .build();
     
     // Map to Object, should use "get"
     MapWithCustomGetAndPut input1 = MapWithCustomGetAndPut.createInput();
@@ -122,16 +124,17 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
   
   @Test
   public void testMapWithEmptyGetAndPutMethods_FallbackToDefaultMethods() {
-    DozerBeanMapper emptyMapper = DozerBeanMapperBuilder.buildDefault();
-    emptyMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(
-            ValueContainer.class, 
-            new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("", "")
-            );
-      }
-    });
+    Mapper emptyMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(
+                        ValueContainer.class,
+                        new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("", "")
+                );
+              }
+            })
+            .build();
     
     // Map to Object, should use "get"
     MapWithCustomGetAndPut input1 = MapWithCustomGetAndPut.createInput();
@@ -158,16 +161,17 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
    */
   @Test(expected=MappingException.class)
   public void testMapWithInvalidGetMethod_ThrowsMappingException() {
-    DozerBeanMapper invalidMapper = DozerBeanMapperBuilder.buildDefault();
-    invalidMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(
-            ValueContainer.class, 
-            new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("invalidGetMethod", "invalidPutMethod")
-            );
-      }
-    });
+    Mapper invalidMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(
+                        ValueContainer.class,
+                        new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("invalidGetMethod", "invalidPutMethod")
+                );
+              }
+            })
+            .build();
     
     // Map to Object, will try to  use "invalidGetMethod"
     MapWithCustomGetAndPut input = MapWithCustomGetAndPut.createInput();
@@ -182,16 +186,17 @@ public class MapWithCustomGetAndPutMethodTest extends AbstractFunctionalTest {
    */
   @Test(expected=MappingException.class)
   public void testMapWithInvalidPutMethod_ThrowsMappingException() {
-    DozerBeanMapper invalidMapper = DozerBeanMapperBuilder.buildDefault();
-    invalidMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(
-            ValueContainer.class, 
-            new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("invalidGetMethod", "invalidPutMethod")
-            );
-      }
-    });
+    Mapper invalidMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(
+                        ValueContainer.class,
+                        new TypeDefinition(MapWithCustomGetAndPut.class).mapMethods("invalidGetMethod", "invalidPutMethod")
+                );
+              }
+            })
+            .build();
 
     // Object to Map, will try to  use "invalidPutMethod"
     ValueContainer input = ValueContainer.createInput();

@@ -26,8 +26,8 @@ import static junit.framework.Assert.assertNotSame;
 
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,7 +40,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ConstructorTest extends AbstractFunctionalTest {
 
-  private DozerBeanMapper beanMapper;
+  private Mapper beanMapper;
 
   @Before
   public void setUp() {

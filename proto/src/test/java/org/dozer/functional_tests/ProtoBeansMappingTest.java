@@ -17,7 +17,7 @@ package org.dozer.functional_tests;
 
 import java.util.Arrays;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
@@ -47,7 +47,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * @author Dmitry Spikhalskiy
@@ -56,7 +55,7 @@ public class ProtoBeansMappingTest extends ProtoAbstractTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    protected DozerBeanMapper mapper;
+    protected Mapper mapper;
     private BeanContainer beanContainer;
 
     @Before
@@ -186,7 +185,7 @@ public class ProtoBeansMappingTest extends ProtoAbstractTest {
         TestObject innerTestObject = new TestObject();
         innerTestObject.setOne("One");
 
-        source.setObjects(Arrays.<TestObject>asList(innerTestObject));
+        source.setObjects(Arrays.asList(innerTestObject));
 
         ProtobufWithSimpleCollection result = mapper.map(source, ProtobufWithSimpleCollection.class);
         assertNotNull(result);

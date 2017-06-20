@@ -15,8 +15,8 @@
  */
 package org.dozer.functional_tests.builder;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  */
 public class InheritanceTest extends Assert {
 
-  private DozerBeanMapper mapper;
+  private Mapper mapper;
   private A source;
 
   @Before
@@ -52,7 +52,7 @@ public class InheritanceTest extends Assert {
     {
       B result = mapper.map(source, B.class);
 
-      assertThat((Class<B>) result.getClass(), equalTo(B.class));
+      assertThat(result.getClass(), equalTo(B.class));
       assertThat(result.property1, equalTo("1"));
     }
   }
@@ -73,7 +73,7 @@ public class InheritanceTest extends Assert {
 
       mapper.map(source, result);
 
-      assertThat((Class<B>) result.getClass(), equalTo(B.class));
+      assertThat(result.getClass(), equalTo(B.class));
       assertThat(result.property1, equalTo("1"));
     }
   }

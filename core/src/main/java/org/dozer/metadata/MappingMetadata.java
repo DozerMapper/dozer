@@ -15,6 +15,7 @@
  */
 package org.dozer.metadata;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,6 +25,43 @@ import java.util.List;
  * @author Florian Kunz
  */
 public interface MappingMetadata {
+
+    MappingMetadata EMPTY = new MappingMetadata() {
+        @Override
+        public List<ClassMappingMetadata> getClassMappings() {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsBySourceName(String sourceClassName) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsByDestinationName(String destinationClassName) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName) {
+            return null;
+        }
+
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsBySource(Class<?> sourceClass) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsByDestination(Class<?> destinationClass) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass) {
+            return null;
+        }
+    };
 
     /**
      * Obtains a list of all available mapping definitions.

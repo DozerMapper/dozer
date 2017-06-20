@@ -6,7 +6,7 @@ custom converter is specified for a class A and class B combination,
 Dozer will invoke the custom converter to perform the data mapping
 instead of the standard mapping logic.
 
-Your custom converter must implement the org.dozer.CustomConverter
+Your custom converter must implement the `org.dozer.CustomConverter`
 interface in order for Dozer to accept it. Otherwise an exception will
 be thrown.
 
@@ -78,10 +78,8 @@ perform the field mapping.
 </mapping>
 ----
 
-CustomConverter instances need to be injected into the DozerBeanMapper
-if you need to do some manipulation with them before they are used in
-dozer. They can also be set programmatically on the DozerBeanMapper if
-you do not use Spring.
+`CustomConverter` instances can be provided during configuration of `Mapper` via
+`DozerBeanMapperBuilder#withCustomConverter(..)` method.
 
 [source,xml,prettyprint]
 ----
@@ -106,8 +104,8 @@ you do not use Spring.
 
 Sample custom converter implementation:
 
-*Note:* Custom Converters get invoked when the source value is null, so
-you need to explicitly handle null values in your custom converter
+*Note:* Custom Converters get invoked when the source value is `null`, so
+you need to explicitly handle `null` values in your custom converter
 implementation.
 
 [source,java,prettyprint]
@@ -141,7 +139,7 @@ public class TestCustomConverter implements CustomConverter {
   }
 ----
 
-CustomConverters can also be injected into the DozerBeanMapper if you
+CustomConverters can also be injected into the `Mapper` if you
 need to do some manipulation with them before they are used in dozer.
 
 [source,xml,prettyprint]
@@ -174,9 +172,9 @@ need to do some manipulation with them before they are used in dozer.
 You can specify a custom converter for Array types. For example, if you
 want to use a custom converter for mapping between an array of objects
 and a String you would use the following mapping notation. Dozer
-generically uses ClassLoader.loadClass() when parsing the mapping files.
-For arrays, java expects the class name in the following format....
-[Lorg.dozer.vo.SimpleObj;
+generically uses `ClassLoader.loadClass()` when parsing the mapping files.
+For arrays, java expects the class name in the following format:
+`[Lorg.dozer.vo.SimpleObj`;
 
 [source,xml,prettyprint]
 ----
@@ -188,11 +186,11 @@ For arrays, java expects the class name in the following format....
 
 === Support for primitives
 You can specify a custom converter for primitive types. Just use the
-primitive wrapper class when defining the custom coverter mapping. In
+primitive wrapper class when defining the custom converter mapping. In
 the following example, Dozer will use the specified custom converter
 when mapping between SomeObject and the int primitive type. Note that
-Dozer will also use the custom converter when mapping between SomeObject
-and the Integer wrapper type.
+Dozer will also use the custom converter when mapping between `SomeObject`
+and the `Integer` wrapper type.
 
 [source,xml,prettyprint]
 ----
@@ -205,9 +203,9 @@ and the Integer wrapper type.
 === Configurable Custom Converters
 You can define a custom converter, which can be configured from mappings
 via configuration parameter. In this case you should implement
-ConfigurableCustomConverter interface instead of usual CustomConverter.
+`ConfigurableCustomConverter` interface instead of usual `CustomConverter`.
 Configurable converter has additional attribute provided in runtime -
-param. Parameter is provided using custom-converter-param attribute.
+param. Parameter is provided using `custom-converter-param` attribute.
 
 [source,xml,prettyprint]
 ----
@@ -223,7 +221,7 @@ param. Parameter is provided using custom-converter-param attribute.
 
 Configurable custom converter should be used when you have similar
 behaviour in many cases, which can be parametrized, but the number of
-conbinations is too high to do simple Custom Converter subclassing.
+combinations is too high to do simple Custom Converter subclassing.
 
 [source,java,prettyprint]
 ----
@@ -249,10 +247,10 @@ public class MathOperationConverter
 
 === New Custom Converter API
 While providing great deal of flexibility Custom Converter API described
-above is written on fairly low levele of abstraction. This results in
+above is written on fairly low level of abstraction. This results in
 converter, which code is difficult to understand and to reuse in other
 ways than plugging into Dozer mapping. However it is not uncommon
-situation when the same convertation logic should be called from a place
+situation when the same conversion logic should be called from a place
 other than bean mapping framework.
 version of Dozer gets shipped with new - cleaner API for defining
 custom converter, which gives you more obvious API while taking away
@@ -298,7 +296,7 @@ structure conversion, say copy each odd element in a list as map key,
 but each even as map value. In this case it is needed to define
 transformation of the structure while relying on usual Dozer mapping
 support for individual values. For this purposes it is possible to use
-_MapperAware_ interface, which injects current mapper instance inside
+`MapperAware` interface, which injects current mapper instance inside
 custom converter.
 
 [source,java,prettyprint]

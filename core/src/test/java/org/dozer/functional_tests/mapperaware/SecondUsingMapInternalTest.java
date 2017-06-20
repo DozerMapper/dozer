@@ -15,13 +15,7 @@
  */
 package org.dozer.functional_tests.mapperaware;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
@@ -33,25 +27,19 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-
 /**
  * @author Dmitry Spikhalskiy
  * @see <a href="https://github.com/DozerMapper/dozer/issues/45">issue</a>
  */
 public class SecondUsingMapInternalTest {
-  DozerBeanMapper mapper;
+  Mapper mapper;
 
   @Before
   public void setup() {
-    mapper = DozerBeanMapperBuilder.buildDefault();
-    List<String> mappingFileUrls = new ArrayList<String>();
-    mappingFileUrls.add("mappings/mapper-aware.xml");
-
-    Map<String, CustomConverter> customConvertersWithId = new HashMap<String, CustomConverter>();
-    customConvertersWithId.put("oneConverter", new TwiceInnerMapperAwareConverter());
-
-    mapper.setCustomConvertersWithId(customConvertersWithId);
-    mapper.setMappingFiles(mappingFileUrls);
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/mapper-aware.xml")
+            .withCustomConverterWithId("oneConverter", new TwiceInnerMapperAwareConverter())
+            .build();
   }
 
   /**
