@@ -39,7 +39,11 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Google protobuf -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>

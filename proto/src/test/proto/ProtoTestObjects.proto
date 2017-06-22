@@ -40,3 +40,7 @@ message ProtobufWithEnumCollection {
 message ProtobufMapExample {
     map<string,string> value = 1;
 }
+
+message ProtobufFieldNaming {
+    string snake_case_field = 1;
+}

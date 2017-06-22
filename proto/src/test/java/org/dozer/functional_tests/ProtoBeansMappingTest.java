@@ -29,6 +29,7 @@ import org.dozer.vo.proto.ObjectWithEnumField;
 import org.dozer.vo.proto.ProtoTestObjects.ProtoEnum;
 import org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField;
 import org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject;
+import org.dozer.vo.proto.ProtoTestObjects.ProtobufFieldNaming;
 import org.dozer.vo.proto.ProtoTestObjects.ProtobufMapExample;
 import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection;
 import org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection;
@@ -271,5 +272,23 @@ public class ProtoBeansMappingTest extends ProtoAbstractTest {
 
         MapExample mapExample = mapper.map(protoMapExample, MapExample.class);
         assertEquals(protoMapExample.getValueMap(), mapExample.getValue());
+    }
+
+    @Test
+    public void testSnakeCaseField_fromProto() {
+        ProtobufFieldNaming.Builder protoFieldNaming = ProtobufFieldNaming.newBuilder();
+        protoFieldNaming.setSnakeCaseField("some value");
+
+        FieldNaming fieldNaming = mapper.map(protoFieldNaming, FieldNaming.class);
+        assertEquals(protoFieldNaming.getSnakeCaseField(), fieldNaming.getSnakeCaseField());
+    }
+
+    @Test
+    public void testSnakeCaseField_toProto() {
+        FieldNaming fieldNaming = new FieldNaming();
+        fieldNaming.setSnakeCaseField("some value");
+
+        ProtobufFieldNaming protoFieldNaming = mapper.map(fieldNaming, ProtobufFieldNaming.class);
+        assertEquals(fieldNaming.getSnakeCaseField(), protoFieldNaming.getSnakeCaseField());
     }
 }
