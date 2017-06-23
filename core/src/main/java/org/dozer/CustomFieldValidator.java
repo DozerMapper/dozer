@@ -16,5 +16,5 @@ import org.dozer.fieldmap.FieldMap;
  * @author Gilbert Grant
  */
 public interface CustomFieldValidator {
-	boolean canMapField(Object source, Object destination, ClassMap classMap, FieldMap fieldMapping);
+    boolean canMapField(Object source, Object destination, ClassMap classMap, FieldMap fieldMapping);
 }
