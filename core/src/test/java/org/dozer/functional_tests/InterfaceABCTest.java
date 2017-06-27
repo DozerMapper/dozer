@@ -18,45 +18,30 @@ package org.dozer.functional_tests;
 import org.dozer.vo.iface.ApplicationUser;
 import org.dozer.vo.iface.Subscriber;
 import org.dozer.vo.iface.UpdateMember;
+import org.dozer.vo.inheritance.A;
+import org.dozer.vo.inheritance.B;
+import org.dozer.vo.inheritance.C;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InterfacePerformanceTest extends AbstractFunctionalTest {
-    private static Logger log = LoggerFactory.getLogger(InterfacePerformanceTest.class);
+public class InterfaceABCTest extends AbstractFunctionalTest {
+    private static Logger log = LoggerFactory.getLogger(InterfaceABCTest.class);
 
     @Test
     public void testInterface() throws Exception {
         log.info("Starting");
-        mapper = getMapper("mappings/interfaceMapping.xml");
-        { // warm up to load the config
-            ApplicationUser source = new ApplicationUser();
-            UpdateMember target = new UpdateMember();
-            mapper.map(source, target);
-        }
+        mapper = getMapper("mappings/interfaceMapping2.xml");
 
-        for (int j = 1; j <= 16384; j += j) {
-            long start = System.currentTimeMillis();
-            for (int i = 0; i < j; i++) {
-                ApplicationUser source = new ApplicationUser();
-                UpdateMember target = new UpdateMember();
-                mapper.map(source, target);
-            }
+        A a = new  A();
+        a.setField1("Field with error?");
+        a.setFieldA("Field to test");
+        B b = new  B();
+        C c = new  C();
 
-            long applicationUserTime = System.currentTimeMillis() - start;
-            start = System.currentTimeMillis();
-            for (int i = 0; i < j; i++) {
-                Subscriber source = new Subscriber();
-                UpdateMember target = new UpdateMember();
-                mapper.map(source, target);
-            }
-
-            long subscriberTime = System.currentTimeMillis() - start;
-            log.debug("Execution of "
-                      + j
-                      + " iterations times ApplicationUser = "
-                      + applicationUserTime + " Subscriber = "
-                      + subscriberTime);
-        }
+        mapper.map(a, c);
+        assert a.getFieldA().equals(c.getFieldA());
+        mapper.map(a, b);
+        assert a.getField1().equals(b.getField1());
     }
 }
