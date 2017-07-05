@@ -60,7 +60,7 @@
     <artifactId>dozer-jmh-tests</artifactId>
     <version>6.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Dozer : JMH Tests</name>
+    <name>Dozer :: JMH Tests</name>
 
     <properties>
         <uberjar.name>benchmarks</uberjar.name>
