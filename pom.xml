@@ -81,6 +81,7 @@
         <module>spring</module>
         <module>proto</module>
         <module>osgi-test</module>
+        <module>jmh-tests</module>
     </modules>
 
     <properties>
