@@ -31,6 +31,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author tierney.matt
  * @author dmitry.buzdin
  */
+@Deprecated
 public class Statistic {
 
   private final StatisticType type;

@@ -27,6 +27,7 @@ import org.dozer.util.MappingUtils;
  * 
  * @author tierney.matt
  */
+@Deprecated
 public class StatisticsInterceptor implements InvocationHandler {
   private final Object delegate;
   private final StatisticsManager statsMgr;

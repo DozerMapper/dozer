@@ -20,6 +20,7 @@ package org.dozer.stats;
  * 
  * @author tierney.matt
  */
+@Deprecated
 public enum StatisticType {
   
   MAPPER_INSTANCES_COUNT,

@@ -22,6 +22,7 @@ import java.util.Set;
  *
  * @author tierney.matt
  */
+@Deprecated
 public interface StatisticsManager {
 
   Set<Statistic> getStatistics();

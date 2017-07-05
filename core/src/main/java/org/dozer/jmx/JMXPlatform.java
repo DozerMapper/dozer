@@ -25,6 +25,7 @@ import javax.management.NotCompliantMBeanException;
  *
  * @author dmitry.buzdin
  */
+@Deprecated
 public interface JMXPlatform {
 
   /**

@@ -28,6 +28,7 @@ import org.dozer.stats.StatisticsManager;
  *
  * @author tierney.matt
  */
+@Deprecated
 public class DozerStatisticsController implements DozerStatisticsControllerMBean {
 
     private final StatisticsManager statsMgr;
