@@ -23,6 +23,7 @@ import org.dozer.util.DozerConstants;
  *
  * @author tierney.matt
  */
+@Deprecated
 public class DozerAdminController implements DozerAdminControllerMBean {
 
     private final GlobalSettings globalSettings;

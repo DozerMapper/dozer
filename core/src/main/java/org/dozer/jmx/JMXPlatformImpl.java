@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author dmitry.buzdin
  */
+@Deprecated
 public class JMXPlatformImpl implements JMXPlatform {
 
   private final Logger log = LoggerFactory.getLogger(JMXPlatformImpl.class);

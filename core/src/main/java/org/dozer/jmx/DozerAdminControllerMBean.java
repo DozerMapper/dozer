@@ -20,6 +20,7 @@ package org.dozer.jmx;
  *
  * @author tierney.matt
  */
+@Deprecated
 public interface DozerAdminControllerMBean {
 
     String getCurrentVersion();

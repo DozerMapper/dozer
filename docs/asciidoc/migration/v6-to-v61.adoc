@@ -91,11 +91,19 @@ creating custom bean factories.
 **Deprecated:**
 [source,java,prettyprint]
 ----
-    Object createBean(Object source, Class<?> sourceClass, String targetBeanId)
+Object createBean(Object source, Class<?> sourceClass, String targetBeanId)
 ----
 
 **Recommended:**
 [source,java,prettyprint]
 ----
-    Object createBean(Object source, Class<?> sourceClass, String targetBeanId, BeanContainer beanContainer)
+Object createBean(Object source, Class<?> sourceClass, String targetBeanId, BeanContainer beanContainer)
+----
+
+=== 7. Deprecated stats and jmx
+**Deprecated:**
+[source,java,prettyprint]
+----
+org.dozer.stats
+org.dozer.jmx
 ----

@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author tierney.matt
  */
+@Deprecated
 public final class StatisticsManagerImpl implements StatisticsManager {
 
   private final Logger log = LoggerFactory.getLogger(StatisticsManagerImpl.class);

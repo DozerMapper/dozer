@@ -30,6 +30,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author tierney.matt
  * @author dmitry.buzdin
  */
+@Deprecated
 public class StatisticEntry {
 
   private final Object key;
