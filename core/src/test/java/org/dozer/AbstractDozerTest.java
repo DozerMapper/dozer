@@ -31,6 +31,7 @@ public abstract class AbstractDozerTest extends Assert {
   public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
+    System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, "dozer.properties");
   }
 
   protected String getRandomString() {
