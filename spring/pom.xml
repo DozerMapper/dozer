@@ -32,6 +32,11 @@
     <packaging>jar</packaging>
     <name>Dozer :: Spring 4</name>
 
+    <properties>
+        <!-- NOTE: Needs to be removed in future -->
+        <findbugs.skip>true</findbugs.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.github.dozermapper</groupId>
