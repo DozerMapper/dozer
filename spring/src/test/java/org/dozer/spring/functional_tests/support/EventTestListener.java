@@ -24,27 +24,31 @@ import org.slf4j.LoggerFactory;
 
 public class EventTestListener implements DozerEventListener {
 
-    private static final Logger log = LoggerFactory.getLogger(EventTestListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EventTestListener.class);
 
     private final AtomicInteger invocationCount = new AtomicInteger();
 
     public void mappingStarted(DozerEvent event) {
-        log.debug("mappingStarted Called with:" + event.getClassMap().getDestClassToMap());
+        LOG.debug("mappingStarted Called with:" + event.getClassMap().getDestClassToMap());
+
         invocationCount.incrementAndGet();
     }
 
     public void preWritingDestinationValue(DozerEvent event) {
-        log.debug("preWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
+        LOG.debug("preWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
+
         invocationCount.incrementAndGet();
     }
 
     public void postWritingDestinationValue(DozerEvent event) {
-        log.debug("postWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
+        LOG.debug("postWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
+
         invocationCount.incrementAndGet();
     }
 
     public void mappingFinished(DozerEvent event) {
-        log.debug("mappingFinished Called with:" + event.getClassMap().getDestClassToMap());
+        LOG.debug("mappingFinished Called with:" + event.getClassMap().getDestClassToMap());
+
         invocationCount.incrementAndGet();
     }
 

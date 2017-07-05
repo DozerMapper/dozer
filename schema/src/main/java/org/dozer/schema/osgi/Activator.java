@@ -24,21 +24,29 @@ public class Activator implements BundleActivator {
     private static BundleContext context;
     private static Bundle bundle;
 
+    public static BundleContext getContext() {
+        return context;
+    }
+
+    private static void setContext(BundleContext context) {
+        Activator.context = context;
+    }
+
     public static Bundle getBundle() {
         return bundle;
     }
 
-    public static BundleContext getBundleContext() {
-        return context;
+    private static void setBundle(Bundle bundle) {
+        Activator.bundle = bundle;
     }
 
     public void start(BundleContext context) throws Exception {
-        Activator.context = context;
-        Activator.bundle = context.getBundle();
+        setContext(context);
+        setBundle(context.getBundle());
     }
 
     public void stop(BundleContext context) throws Exception {
-        Activator.context = null;
-        Activator.bundle = null;
+        setContext(null);
+        setBundle(null);
     }
 }

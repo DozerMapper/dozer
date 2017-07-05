@@ -264,7 +264,6 @@
             </plugin>
 
             <!-- Governance Plugins; alphabetical order -->
-            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -289,7 +288,6 @@
                     </execution>
                 </executions>
             </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -306,7 +304,7 @@
                         <id>validate</id>
                         <phase>validate</phase>
                         <configuration>
-                            <configLocation>camel-checkstyle.xml</configLocation>
+                            <configLocation>upstream-camel-checkstyle.xml</configLocation>
                             <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
                             <consoleOutput>true</consoleOutput>
                             <failOnViolation>true</failOnViolation>
