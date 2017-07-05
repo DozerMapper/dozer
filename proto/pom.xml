@@ -43,39 +43,19 @@
             <artifactId>dozer-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>com.github.os72</groupId>
-                <artifactId>protoc-jar-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <protocVersion>${protobuf-java.version}</protocVersion>
-                            <inputDirectories>
-                                <include>src/test/proto</include>
-                            </inputDirectories>
-                            <outputDirectory>${project.build.directory}/gen-test-src</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- Protobuf Plugins; alphabetical order -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -93,7 +73,26 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>com.github.os72</groupId>
+                <artifactId>protoc-jar-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <protocVersion>${protoc-jar-maven-plugin.version}</protocVersion>
+                            <inputDirectories>
+                                <include>src/test/proto</include>
+                            </inputDirectories>
+                            <outputDirectory>${project.build.directory}/gen-test-src</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
             <!-- Governance Plugins; alphabetical order -->
             <!-- NOTE: Uses less strict config - should be removed in future -->
             <plugin>
