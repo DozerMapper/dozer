@@ -43,11 +43,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.dozermapper.jhm;
+package com.github.dozermapper.jmh;
 
 import java.util.Arrays;
 
-import com.github.dozermapper.jhm.model.Person;
+import com.github.dozermapper.jmh.model.Person;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -60,5 +60,4 @@ public class DozerBeanMapperBenchmark {
         Mapper mapper = new DozerBeanMapper(Arrays.asList("mappings/simple-sametypes.xml"));
         return mapper.map(new Person("bob"), Person.class);
     }
-
 }
