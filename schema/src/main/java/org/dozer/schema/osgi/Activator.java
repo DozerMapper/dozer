@@ -21,15 +21,15 @@ import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
-    private static BundleContext context;
+    private static BundleContext bundleContext;
     private static Bundle bundle;
 
-    public static BundleContext getContext() {
-        return context;
+    public static BundleContext getBundleContext() {
+        return bundleContext;
     }
 
-    private static void setContext(BundleContext context) {
-        Activator.context = context;
+    private static void setBundleContext(BundleContext context) {
+        Activator.bundleContext = context;
     }
 
     public static Bundle getBundle() {
@@ -41,12 +41,12 @@ public class Activator implements BundleActivator {
     }
 
     public void start(BundleContext context) throws Exception {
-        setContext(context);
+        setBundleContext(context);
         setBundle(context.getBundle());
     }
 
     public void stop(BundleContext context) throws Exception {
-        setContext(null);
+        setBundleContext(null);
         setBundle(null);
     }
 }
