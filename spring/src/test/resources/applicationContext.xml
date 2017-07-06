@@ -29,7 +29,7 @@
           factory-method="buildDefault"/>
 
     <!-- Provided Spring Integration -->
-    <bean id="byFactory" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    <bean id="byFactory" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
         <property name="mappingFiles" value="classpath*:/*Mapping.xml"/>
         <property name="customConverters">
             <list/>

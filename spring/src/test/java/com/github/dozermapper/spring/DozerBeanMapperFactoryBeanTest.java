@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring;
+package com.github.dozermapper.spring;
 
 import java.net.URL;
 import java.util.Collections;

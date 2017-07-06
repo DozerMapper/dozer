@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring.functional_tests.support;
+package com.github.dozermapper.spring;
 
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
  * @author Dmitry Buzdin
  */
-public class ReferencingBean {
+public class DozerNamespaceHandler extends NamespaceHandlerSupport {
 
-    @Autowired
-    Mapper mapper;
-
-    public Mapper getMapper() {
-        return mapper;
+    @Override
+    public void init() {
+        registerBeanDefinitionParser("mapper", new MapperDefinitionParser());
     }
 }

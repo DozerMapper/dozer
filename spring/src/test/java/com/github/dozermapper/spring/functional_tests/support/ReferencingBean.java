@@ -13,29 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring.vo;
+package com.github.dozermapper.spring.functional_tests.support;
+
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Dmitry Buzdin
  */
-public class Source {
+public class ReferencingBean {
 
-    private long id;
-    private String name;
+    @Autowired
+    Mapper mapper;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Mapper getMapper() {
+        return mapper;
     }
 }

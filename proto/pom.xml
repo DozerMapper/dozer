@@ -30,7 +30,7 @@
 
     <artifactId>dozer-proto</artifactId>
     <packaging>jar</packaging>
-    <name>Dozer :: Protobuf</name>
+    <name>Dozer :: Protobuf 3</name>
 
     <properties>
         <!-- NOTE: Needs to be removed in future -->
