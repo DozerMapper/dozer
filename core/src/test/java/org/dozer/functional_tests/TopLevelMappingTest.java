@@ -17,11 +17,10 @@ package org.dozer.functional_tests;
 
 import java.util.ArrayList;
 
-import static junit.framework.Assert.assertTrue;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin

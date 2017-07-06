@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static junit.framework.Assert.assertNotSame;
-
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.classmap.RelationshipType;
@@ -36,6 +34,7 @@ import org.junit.Test;
 
 import static org.dozer.loader.api.FieldsMappingOptions.collectionStrategy;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 /**
  * @author Dmitry Buzdin

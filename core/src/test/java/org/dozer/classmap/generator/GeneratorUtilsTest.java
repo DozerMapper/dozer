@@ -15,12 +15,14 @@
  */
 package org.dozer.classmap.generator;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+
 
 import org.dozer.config.BeanContainer;
 import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Dmitry Spikhalskiy
