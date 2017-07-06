@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.osgitests;
+package com.github.dozermapper.osgitests;
 
 import javax.inject.Inject;
+
+import com.github.dozermapper.osgitestsmodel.Person;
 
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
-import org.dozer.osgitestsmodel.Person;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -74,7 +75,7 @@ public class OsgiContainerTest {
     public void canConstructDozerBeanMapper() {
         Mapper mapper = DozerBeanMapperBuilder.create()
             .withMappingFiles("mappings/mapping.xml")
-            .withClassLoader(new OSGiClassLoader(org.dozer.osgitestsmodel.Activator.getBundleContext()))
+            .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
             .build();
 
         assertNotNull(mapper);
@@ -84,7 +85,7 @@ public class OsgiContainerTest {
     public void canMap() {
         Mapper mapper = DozerBeanMapperBuilder.create()
             .withMappingFiles("mappings/mapping.xml")
-            .withClassLoader(new OSGiClassLoader(org.dozer.osgitestsmodel.Activator.getBundleContext()))
+            .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
             .build();
 
         Person answer = mapper.map(new Person("bob"), Person.class);
@@ -98,7 +99,7 @@ public class OsgiContainerTest {
     public void canMapUsingXML() {
         Mapper mapper = DozerBeanMapperBuilder.create()
             .withMappingFiles("mappings/mapping.xml")
-            .withClassLoader(new OSGiClassLoader(org.dozer.osgitestsmodel.Activator.getBundleContext()))
+            .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
             .build();
 
         Person answer = mapper.map(new Person("bob"), Person.class);
