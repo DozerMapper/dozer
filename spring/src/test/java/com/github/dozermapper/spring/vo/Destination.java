@@ -13,21 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring.functional_tests.support;
-
-import org.dozer.BeanFactory;
-import org.dozer.config.BeanContainer;
+package com.github.dozermapper.spring.vo;
 
 /**
  * @author Dmitry Buzdin
  */
-public class SampleCustomBeanFactory implements BeanFactory {
+public class Destination {
 
-    public Object createBean(Object srcObj, Class<?> srcObjClass, String id, BeanContainer beanContainer) {
-        try {
-            return Class.forName(id).newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    private long id;
+    private String value;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

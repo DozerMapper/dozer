@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring.functional_tests;
+package com.github.dozermapper.spring.functional_tests;
+
+import com.github.dozermapper.spring.functional_tests.support.ReferencingBean;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
-import org.dozer.spring.functional_tests.support.ReferencingBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

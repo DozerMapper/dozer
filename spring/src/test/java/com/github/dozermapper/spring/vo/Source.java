@@ -13,17 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring;
-
-import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
+package com.github.dozermapper.spring.vo;
 
 /**
  * @author Dmitry Buzdin
  */
-public class DozerNamespaceHandler extends NamespaceHandlerSupport {
+public class Source {
 
-    @Override
-    public void init() {
-        registerBeanDefinitionParser("mapper", new MapperDefinitionParser());
+    private long id;
+    private String name;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

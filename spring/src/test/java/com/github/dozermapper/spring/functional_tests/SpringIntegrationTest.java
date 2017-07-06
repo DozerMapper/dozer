@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring.functional_tests;
+package com.github.dozermapper.spring.functional_tests;
 
 import java.util.List;
+
+import com.github.dozermapper.spring.functional_tests.support.EventTestListener;
+import com.github.dozermapper.spring.functional_tests.support.InjectedCustomConverter;
+import com.github.dozermapper.spring.vo.Destination;
+import com.github.dozermapper.spring.vo.Source;
 
 import org.dozer.CustomConverter;
 import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
-import org.dozer.spring.functional_tests.support.EventTestListener;
-import org.dozer.spring.functional_tests.support.InjectedCustomConverter;
-import org.dozer.spring.vo.Destination;
-import org.dozer.spring.vo.Source;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.spring.functional_tests.support;
+package com.github.dozermapper.spring.functional_tests.support;
+
+import com.github.dozermapper.spring.vo.Destination;
+import com.github.dozermapper.spring.vo.Source;
 
 import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.spring.vo.Destination;
-import org.dozer.spring.vo.Source;
 
 import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
 
