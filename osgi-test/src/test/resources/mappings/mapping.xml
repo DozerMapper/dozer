@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.osgitestsmodel.Person</class-a>
-        <class-b>org.dozer.osgitestsmodel.Person</class-b>
+        <class-a>com.github.dozermapper.osgitestsmodel.Person</class-a>
+        <class-b>com.github.dozermapper.osgitestsmodel.Person</class-b>
         <field>
             <a>name</a>
             <b>name</b>

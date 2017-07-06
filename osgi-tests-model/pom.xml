@@ -52,8 +52,8 @@
                     <instructions>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Activator> org.dozer.osgitestsmodel.Activator</Bundle-Activator>
-                        <Export-Package>org.dozer.osgitestsmodel.*;version=${project.version}</Export-Package>
+                        <Bundle-Activator>com.github.dozermapper.osgitestsmodel.Activator</Bundle-Activator>
+                        <Export-Package>com.github.dozermapper.osgitestsmodel.*;version=${project.version}</Export-Package>
                         <Import-Package>*</Import-Package>
                         <Implementation-Title>${project.name}</Implementation-Title>
                         <Implementation-Version>${project.version}</Implementation-Version>
