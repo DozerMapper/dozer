@@ -107,3 +107,19 @@ Object createBean(Object source, Class<?> sourceClass, String targetBeanId, Bean
 org.dozer.stats
 org.dozer.jmx
 ----
+
+=== 8. Updated dozer-proto package name
+**From:**
+[source,java,prettyprint]
+----
+org.dozer
+----
+
+**To:**
+[source,java,prettyprint]
+----
+com.github.dozermapper.protobuf
+----
+
+
+
