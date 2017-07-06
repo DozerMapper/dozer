@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-a>
-        <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.LiteTestObject</class-b>
         <field>
             <a>nestedObject.one</a>
             <b>one</b>
@@ -30,8 +30,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
-        <class-b>org.dozer.vo.proto.LiteTestObject</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.LiteTestObject</class-b>
         <field>
             <a>object[1].one</a>
             <b>one</b>
@@ -39,8 +39,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
-        <class-b>org.dozer.vo.proto.ObjectWithCollection</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ObjectWithCollection</class-b>
         <field>
             <a>object.object</a>
             <b>objects</b>
@@ -48,8 +48,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
-        <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.LiteTestObjectContainer</class-b>
         <field>
             <a>object.object[0]</a>
             <b>object</b>
@@ -57,8 +57,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
-        <class-b>org.dozer.vo.proto.LiteTestObjectContainer</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.LiteTestObjectContainer</class-b>
         <field>
             <a>object[1]</a>
             <b>object</b>

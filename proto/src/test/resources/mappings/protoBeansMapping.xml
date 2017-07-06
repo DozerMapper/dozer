@@ -21,13 +21,13 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="true">
-        <class-a>org.dozer.vo.proto.LiteTestObject</class-a>
-        <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.LiteTestObject</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.TestObject</class-a>
-        <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.TestObject</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.SimpleProtoTestObject</class-b>
         <field>
             <a>one</a>
             <b>one</b>
@@ -35,8 +35,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.TestObject</class-a>
-        <class-b>org.dozer.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.TestObject</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.SimpleProtoTestObjectWithoutRequired</class-b>
         <field>
             <a>one</a>
             <b>one</b>
@@ -44,8 +44,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.TestObjectContainer</class-a>
-        <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.TestObjectContainer</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-b>
         <field>
             <a>one</a>
             <b>one</b>
@@ -57,8 +57,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ObjectWithEnumField</class-a>
-        <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ObjectWithEnumField</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtoObjectWithEnumField</class-b>
         <field>
             <a>enumField</a>
             <b>enumField</b>
@@ -66,8 +66,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ObjectWithCollection</class-a>
-        <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ObjectWithCollection</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection</class-b>
         <field>
             <a>objects</a>
             <b>object</b>
@@ -75,8 +75,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.proto.ObjectWithEnumCollection</class-a>
-        <class-b>org.dozer.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection</class-b>
+        <class-a>com.github.dozermapper.protobuf.vo.proto.ObjectWithEnumCollection</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithEnumCollection</class-b>
         <field>
             <a>enums</a>
             <b>object</b>

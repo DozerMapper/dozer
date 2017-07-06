@@ -1,5 +1,5 @@
 syntax = "proto3";
-option java_package = "org.dozer.vo.proto";
+option java_package = "com.github.dozermapper.protobuf.vo.proto";
 option java_outer_classname = "ProtoTestObjects";
 
 message SimpleProtoTestObject {
