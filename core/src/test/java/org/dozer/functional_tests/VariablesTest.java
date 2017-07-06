@@ -34,6 +34,8 @@ public class VariablesTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
+    System.setProperty("dozer.configuration", "dozer.properties");
+
     mapper = getMapper("mappings/variables.xml");
   }
 
