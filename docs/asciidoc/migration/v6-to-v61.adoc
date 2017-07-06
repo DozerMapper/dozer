@@ -121,5 +121,18 @@ org.dozer
 com.github.dozermapper.protobuf
 ----
 
+=== 9. Updated dozer-spring package name
+**From:**
+[source,java,prettyprint]
+----
+org.dozer.spring
+----
+
+**To:**
+[source,java,prettyprint]
+----
+com.github.dozermapper.spring
+----
+
 
 
