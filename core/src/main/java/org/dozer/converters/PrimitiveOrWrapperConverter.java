@@ -33,7 +33,6 @@ import org.apache.commons.beanutils.converters.ClassConverter;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.lang3.ClassUtils;
-
 import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 

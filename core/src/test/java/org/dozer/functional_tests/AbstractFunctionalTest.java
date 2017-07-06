@@ -21,7 +21,6 @@ import org.dozer.functional_tests.runner.InstantiatorHolder;
 import org.dozer.functional_tests.runner.Proxied;
 import org.dozer.functional_tests.support.TestDataFactory;
 import org.dozer.util.DozerConstants;
-
 import org.junit.Before;
 import org.junit.runner.RunWith;
 

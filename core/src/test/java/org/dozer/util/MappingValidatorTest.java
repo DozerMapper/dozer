@@ -18,7 +18,6 @@ package org.dozer.util;
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
-
 import org.junit.Test;
 
 /**

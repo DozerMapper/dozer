@@ -16,16 +16,16 @@
 package org.dozer.jmx;
 
 import java.lang.management.ManagementFactory;
+
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.config.GlobalSettings;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;

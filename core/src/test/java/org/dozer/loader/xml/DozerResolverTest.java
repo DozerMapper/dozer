@@ -19,7 +19,6 @@ import org.xml.sax.InputSource;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.config.BeanContainer;
-
 import org.junit.Before;
 import org.junit.Test;
 

@@ -17,6 +17,7 @@ package org.dozer.functional_tests.mapperaware;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerConverter;
 import org.dozer.Mapper;

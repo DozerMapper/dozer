@@ -32,7 +32,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.config.BeanContainer;
-
 import org.junit.Assert;
 import org.junit.Test;
 

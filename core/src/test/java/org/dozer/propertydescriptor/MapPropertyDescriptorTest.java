@@ -22,7 +22,6 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
-
 import org.junit.Before;
 import org.junit.Test;
 

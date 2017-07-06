@@ -25,7 +25,6 @@ import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-
 import org.junit.Before;
 import org.junit.Test;
 

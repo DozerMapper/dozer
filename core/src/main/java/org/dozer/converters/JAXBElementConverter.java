@@ -22,7 +22,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang3.StringUtils;
-
 import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;

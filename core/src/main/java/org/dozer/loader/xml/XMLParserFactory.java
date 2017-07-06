@@ -26,7 +26,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

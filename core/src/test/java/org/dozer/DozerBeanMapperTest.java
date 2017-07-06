@@ -30,7 +30,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.beanutils.PropertyUtils;
-
 import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.generator.BeanMappingGenerator;

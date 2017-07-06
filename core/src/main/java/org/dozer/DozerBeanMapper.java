@@ -60,7 +60,6 @@ import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingValidator;
 import org.dozer.util.RuntimeUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

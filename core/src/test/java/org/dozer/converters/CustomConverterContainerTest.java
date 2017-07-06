@@ -22,7 +22,6 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.DozerCache;
 import org.dozer.stats.StatisticsManager;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

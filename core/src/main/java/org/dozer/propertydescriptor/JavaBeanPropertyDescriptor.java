@@ -19,7 +19,6 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.PropertyUtils;
-
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.HintContainer;
