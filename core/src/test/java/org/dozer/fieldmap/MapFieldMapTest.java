@@ -21,7 +21,6 @@ import org.dozer.classmap.RelationshipType;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;

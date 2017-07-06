@@ -17,7 +17,6 @@ package org.dozer.cache;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.stats.StatisticsManager;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -15,7 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static junit.framework.Assert.fail;
 
 import org.dozer.MappingException;
 import org.hamcrest.Matchers;
@@ -24,6 +23,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.junit.Assert.fail;
 
 public class InvalidMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest {
 

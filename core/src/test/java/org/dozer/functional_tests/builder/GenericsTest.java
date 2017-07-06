@@ -23,6 +23,7 @@ import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.junit.Assert;
 import org.junit.Test;
+
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 

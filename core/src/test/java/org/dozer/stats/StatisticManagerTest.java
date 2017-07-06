@@ -17,9 +17,9 @@ package org.dozer.stats;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.config.GlobalSettings;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

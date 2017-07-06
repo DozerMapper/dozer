@@ -15,10 +15,8 @@
  */
 package org.dozer.classmap;
 
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
 import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 

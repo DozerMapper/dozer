@@ -21,9 +21,6 @@ import java.util.GregorianCalendar;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNotSame;
-
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 import org.dozer.DozerBeanMapperBuilder;
@@ -32,8 +29,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-
-
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 /**
  * @author Dmitry Buzdin

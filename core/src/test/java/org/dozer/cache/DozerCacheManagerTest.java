@@ -21,7 +21,6 @@ import java.util.Set;
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.stats.StatisticsManager;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

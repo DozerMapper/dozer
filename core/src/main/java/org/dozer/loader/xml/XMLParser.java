@@ -30,7 +30,6 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.DozerBuilder;
 import org.dozer.loader.MappingsSource;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

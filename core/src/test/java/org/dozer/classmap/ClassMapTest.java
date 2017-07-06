@@ -24,7 +24,6 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.GenericFieldMap;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-
 import org.junit.Before;
 import org.junit.Test;
 

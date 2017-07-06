@@ -17,6 +17,7 @@ package org.dozer.propertydescriptor;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;

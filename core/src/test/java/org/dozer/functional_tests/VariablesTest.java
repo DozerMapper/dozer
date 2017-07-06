@@ -18,12 +18,13 @@ package org.dozer.functional_tests;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import static junit.framework.Assert.assertNotNull;
-import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 
+import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author dmitry.buzdin

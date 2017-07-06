@@ -15,8 +15,6 @@
  */
 package org.dozer;
 
-import org.dozer.util.DozerConstants;
-
 /**
  * Public Singleton wrapper for the DozerBeanMapper. Only supports a single mapping file named dozerBeanMapping.xml, so
  * configuration is very limited. Instead of using the DozerBeanMapperSingletonWrapper, it is recommended that the

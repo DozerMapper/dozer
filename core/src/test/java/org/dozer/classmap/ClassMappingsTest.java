@@ -20,7 +20,6 @@ import java.util.Map;
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
-
 import org.junit.Before;
 import org.junit.Test;
 

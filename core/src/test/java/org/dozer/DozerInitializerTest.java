@@ -25,10 +25,10 @@ import org.dozer.stats.StatisticsManager;
 import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerConstants;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

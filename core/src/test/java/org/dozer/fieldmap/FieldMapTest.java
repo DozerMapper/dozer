@@ -27,7 +27,6 @@ import org.dozer.classmap.DozerClass;
 import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-
 import org.junit.Before;
 import org.junit.Test;
 

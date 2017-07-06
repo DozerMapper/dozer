@@ -15,7 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static junit.framework.Assert.assertTrue;
 
 import org.dozer.vo.jaxb.employee.EmployeeType;
 import org.junit.Before;
@@ -25,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class JAXBBeansMapping_WithExceptionLoggedTest extends AbstractFunctionalTest {
 
