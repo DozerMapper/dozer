@@ -213,7 +213,6 @@
                         <compilerArg>-Xdiags:verbose</compilerArg>
                         <compilerArg>-Xlint:all</compilerArg>
                         <compilerArg>-Xlint:-processing</compilerArg>
-                        <compilerArg>-Xdoclint:all</compilerArg>
                         <!--<compilerArg>-Werror</compilerArg>-->
                     </compilerArgs>
                 </configuration>
@@ -228,6 +227,7 @@
                 <configuration>
                     <excludePackageNames>org.dozer.vo.jaxb.employee</excludePackageNames>
                     <failOnError>true</failOnError>
+                    <additionalparam>-Xdoclint:all</additionalparam>
                 </configuration>
                 <executions>
                     <execution>
