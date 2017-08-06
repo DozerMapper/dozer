@@ -175,7 +175,8 @@
                         <exclude>mvnw.cmd</exclude>
                         <exclude>LICENSE-HEADER.txt</exclude>
                         <exclude>LICENSE.md</exclude>
-                        <exclude>README.md</exclude>
+                        <exclude>**/*.md</exclude>
+                        <exclude>**/*.adoc</exclude>
                         <exclude>**/*.jpeg</exclude>
                         <exclude>**/*.proto</exclude>
                         <exclude>**/spring.schemas</exclude>
