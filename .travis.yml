@@ -24,6 +24,9 @@ deploy:
   provider: script
   script: bash .travis/deploy.sh
   skip_cleanup: true
+  on:
+    tags: false
+    all_branches: true
 cache:
   directories:
   - $HOME/.m2
