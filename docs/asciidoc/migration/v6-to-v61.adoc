@@ -1,6 +1,5 @@
 == Migration from v6.0.0 to v6.1.0
-**STILL WORK IN PROGRESS - NOT RELEASED**
-See link:https://github.com/DozerMapper/dozer/releases/tag/v6.1.0[for release notes].
+See link:https://github.com/DozerMapper/dozer/releases/tag/6.1.0[for release notes].
 
 === 1. Mapping.xml XSD changed:
 **From:**
