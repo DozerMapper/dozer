@@ -121,39 +121,49 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>run-benchmarks</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <classpathScope>test</classpathScope>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>-classpath</argument>
-                                <classpath/>
-                                <argument>org.openjdk.jmh.Main</argument>
-                                <argument>-jvmArgs</argument> <!-- Use given JVM arguments -->
-                                <argument>-Dorg.slf4j.simpleLogger.defaultLogLevel=WARN</argument>
-                                <argument>-bm</argument> <!-- Benchmark mode -->
-                                <argument>Throughput</argument>
-                                <argument>-f</argument> <!-- How many times to fork a single benchmark -->
-                                <argument>2</argument>
-                                <argument>-i</argument> <!-- Number of measurement iterations to do -->
-                                <argument>5</argument>
-                                <argument>-wi</argument> <!-- Number of warmup iterations to do -->
-                                <argument>5</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>run-benchmarks</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>run-benchmarks</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <classpathScope>test</classpathScope>
+                                    <executable>java</executable>
+                                    <arguments>
+                                        <argument>-classpath</argument>
+                                        <classpath/>
+                                        <argument>org.openjdk.jmh.Main</argument>
+                                        <argument>-jvmArgs</argument> <!-- Use given JVM arguments -->
+                                        <argument>-Dorg.slf4j.simpleLogger.defaultLogLevel=WARN</argument>
+                                        <argument>-bm</argument> <!-- Benchmark mode -->
+                                        <argument>Throughput</argument>
+                                        <argument>-f</argument> <!-- How many times to fork a single benchmark -->
+                                        <argument>2</argument>
+                                        <argument>-i</argument> <!-- Number of measurement iterations to do -->
+                                        <argument>5</argument>
+                                        <argument>-wi</argument> <!-- Number of warmup iterations to do -->
+                                        <argument>5</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

@@ -20,6 +20,7 @@ script:
 - ./mvnw clean install -B
 after_success:
 - ./mvnw test -Dtest=PerformanceTest -DargLine="-DnumIters=25000" -f core/pom.xml
+- ./mvnw integration-test -Prun-benchmarks -f jmh-tests/pom.xml
 deploy:
   provider: script
   script: bash .travis/deploy.sh
