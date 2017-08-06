@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-parent</artifactId>
-        <version>6.1.0</version>
+        <version>6.2.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
@@ -33,7 +33,7 @@
     <name>Dozer :: Plugins Parent</name>
 
     <properties>
-        <bom-dependencies-version>6.1.0</bom-dependencies-version>
+        <bom-dependencies-version>6.2.0-SNAPSHOT</bom-dependencies-version>
 
         <!-- Maven Plugins versions; alphabetical order -->
         <alta-maven-plugin.version>0.5</alta-maven-plugin.version>
