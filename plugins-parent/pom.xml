@@ -33,8 +33,6 @@
     <name>Dozer :: Plugins Parent</name>
 
     <properties>
-        <bom-dependencies-version>6.2.0-SNAPSHOT</bom-dependencies-version>
-
         <!-- Maven Plugins versions; alphabetical order -->
         <alta-maven-plugin.version>0.5</alta-maven-plugin.version>
         <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
@@ -66,7 +64,7 @@
             <dependency>
                 <groupId>com.github.dozermapper</groupId>
                 <artifactId>dozer-bom-dependencies</artifactId>
-                <version>${bom-dependencies-version}</version>
+                <version>${building-tools.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
