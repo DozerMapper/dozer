@@ -45,7 +45,6 @@ public final class GlobalSettings {
     private boolean statisticsEnabled = DozerConstants.DEFAULT_STATISTICS_ENABLED;
     private int converterByDestTypeCacheMaxSize = DozerConstants.DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
     private int superTypesCacheMaxSize = DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
-    private boolean autoregisterJMXBeans = DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS;
     private boolean elEnabled = DozerConstants.DEFAULT_EL_ENABLED;
 
     private String classLoaderBeanName = DozerConstants.DEFAULT_CLASS_LOADER_BEAN;
@@ -60,10 +59,6 @@ public final class GlobalSettings {
 
     protected String getLoadedByFileName() {
         return loadedByFileName;
-    }
-
-    public boolean isAutoregisterJMXBeans() {
-        return autoregisterJMXBeans;
     }
 
     public int getConverterByDestTypeCacheMaxSize() {
@@ -148,11 +143,6 @@ public final class GlobalSettings {
         propValue = props.getProperty(PropertyConstants.SUPERTYPE_CACHE_MAX_SIZE);
         if (propValue != null) {
             superTypesCacheMaxSize = Integer.parseInt(propValue);
-        }
-
-        propValue = props.getProperty(PropertyConstants.AUTOREGISTER_JMX_BEANS);
-        if (propValue != null) {
-            autoregisterJMXBeans = Boolean.valueOf(propValue);
         }
 
         propValue = props.getProperty(PropertyConstants.CLASS_LOADER_BEAN);

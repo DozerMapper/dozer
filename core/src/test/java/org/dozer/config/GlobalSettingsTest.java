@@ -54,8 +54,7 @@ public class GlobalSettingsTest extends AbstractDozerTest {
         globalSettings.getConverterByDestTypeCacheMaxSize());
     assertEquals("invalid super type cache max size value", DozerConstants.DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE, globalSettings
         .getSuperTypesCacheMaxSize());
-    assertEquals("invalid autoregister jmx beans", DozerConstants.DEFAULT_AUTOREGISTER_JMX_BEANS, globalSettings
-        .isAutoregisterJMXBeans());
+
     assertEquals(DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN, globalSettings.getProxyResolverName());
     assertEquals(DozerConstants.DEFAULT_CLASS_LOADER_BEAN, globalSettings.getClassLoaderName());
     assertEquals(DozerConstants.DEFAULT_EL_ENABLED, globalSettings.isElEnabled());
@@ -73,7 +72,6 @@ public class GlobalSettingsTest extends AbstractDozerTest {
     assertEquals("invalid stats enabled value", true, globalSettings.isStatisticsEnabled());
     assertEquals("invalid converter cache max size value", 25000, globalSettings.getConverterByDestTypeCacheMaxSize());
     assertEquals("invalid super type cache max size value", 10000, globalSettings.getSuperTypesCacheMaxSize());
-    assertEquals("invalid autoregister jmx beans", false, globalSettings.isAutoregisterJMXBeans());
     assertEquals("org.dozer.CustomLoader", globalSettings.getClassLoaderName());
     assertEquals("org.dozer.CustomResolver", globalSettings.getProxyResolverName());
     assertEquals(true, globalSettings.isElEnabled());
