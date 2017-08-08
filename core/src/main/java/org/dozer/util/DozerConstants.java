@@ -45,7 +45,6 @@ public final class DozerConstants {
   public static final RelationshipType DEFAULT_RELATIONSHIP_TYPE_POLICY = RelationshipType.CUMULATIVE;
   public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";
-  public static final boolean DEFAULT_AUTOREGISTER_JMX_BEANS = true;
   public static final boolean DEFAULT_STATISTICS_ENABLED = false;
   public static final boolean DEFAULT_EL_ENABLED = false;
 
