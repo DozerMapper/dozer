@@ -36,7 +36,7 @@ import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
-import org.dozer.config.GlobalSettings;
+import org.dozer.config.Settings;
 import org.dozer.event.DozerEventManager;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
@@ -85,7 +85,7 @@ public class DozerBeanMapper implements Mapper {
   private final AtomicBoolean initializing = new AtomicBoolean(false);
   private final CountDownLatch ready = new CountDownLatch(1);
   private final StatisticsManager statsMgr;
-  private final GlobalSettings globalSettings;
+  private final Settings settings;
   private final CustomMappingsLoader customMappingsLoader;
   private final XMLParserFactory xmlParserFactory;
   private final DozerInitializer dozerInitializer;
@@ -132,7 +132,7 @@ public class DozerBeanMapper implements Mapper {
     DozerClassLoader classLoader = RuntimeUtils.isOSGi()
             ? new OSGiClassLoader(Activator.getBundle().getBundleContext())
             : new DefaultClassLoader(DozerBeanMapperBuilder.class.getClassLoader());
-    this.globalSettings = new GlobalSettings(classLoader);
+    this.settings = new Settings();
     this.beanContainer = new BeanContainer();
     this.destBeanCreator = new DestBeanCreator(beanContainer);
     this.propertyDescriptorFactory = new PropertyDescriptorFactory();
@@ -142,7 +142,7 @@ public class DozerBeanMapper implements Mapper {
     this.customMappingsLoader = new CustomMappingsLoader(
             new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
     this.xmlParserFactory = new XMLParserFactory(beanContainer);
-    this.statsMgr = new StatisticsManagerImpl(globalSettings);
+    this.statsMgr = new StatisticsManagerImpl(settings);
     this.dozerInitializer = new DozerInitializer();
     this.xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
     this.destBeanBuilderCreator = new DestBeanBuilderCreator();
@@ -156,7 +156,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   DozerBeanMapper(List<String> mappingFiles,
-                  GlobalSettings globalSettings,
+                  Settings settings,
                   CustomMappingsLoader customMappingsLoader,
                   XMLParserFactory xmlParserFactory,
                   StatisticsManager statsMgr,
@@ -172,7 +172,7 @@ public class DozerBeanMapper implements Mapper {
                   List<DozerEventListener> eventListeners,
                   CustomFieldMapper customFieldMapper,
                   Map<String, CustomConverter> customConvertersWithId) {
-    this.globalSettings = globalSettings;
+    this.settings = settings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
     this.statsMgr = statsMgr;
@@ -284,21 +284,21 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    dozerInitializer.init(globalSettings, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+    dozerInitializer.init(settings, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
-    cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), globalSettings.getConverterByDestTypeCacheMaxSize());
-    cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), globalSettings.getSuperTypesCacheMaxSize());
+    cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), settings.getConverterByDestTypeCacheMaxSize());
+    cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), settings.getSuperTypesCacheMaxSize());
 
     // stats
     statsMgr.increment(StatisticType.MAPPER_INSTANCES_COUNT);
   }
 
   public void destroy() {
-    dozerInitializer.destroy(globalSettings);
+    dozerInitializer.destroy(settings);
   }
 
   protected Mapper getMappingProcessor() {

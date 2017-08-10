@@ -40,16 +40,10 @@ public final class DozerConstants {
   public static final boolean DEFAULT_MAP_NULL_POLICY = true;
   public static final boolean DEFAULT_MAP_EMPTY_STRING_POLICY = true;
   public static final boolean DEFAULT_TRIM_STRINGS_POLICY = false;
-  public static final int DEFAULT_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = 10000;
-  public static final int DEFAULT_SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 10000;
   public static final RelationshipType DEFAULT_RELATIONSHIP_TYPE_POLICY = RelationshipType.CUMULATIVE;
-  public static final String DEFAULT_CONFIG_FILE = "dozer.properties";
   public static final String DEFAULT_MAPPING_FILE = "dozerBeanMapping.xml";
-  public static final boolean DEFAULT_STATISTICS_ENABLED = false;
-  public static final boolean DEFAULT_EL_ENABLED = false;
 
   public static final String XSD_NAME = "bean-mapping.xsd";
-  public static final String CONFIG_FILE_SYS_PROP = "dozer.configuration"; // i.e)-Ddozer.configuration=somefile.properties
   public static final String DEBUG_SYS_PROP = "dozer.debug";// i.e)-Ddozer.debug=true
   public static final String ITERATE = "iterate";
   public static final String DEEP_FIELD_DELIMITER = ".";
@@ -62,9 +56,6 @@ public final class DozerConstants {
   public static final String CGLIB_ID = "$$EnhancerByCGLIB$$";  
   public static final String BASE_CLASS = Object.class.getName();
   public static final String XML_BEAN_FACTORY = XMLBeanFactory.class.getName();
-
-  public static final String DEFAULT_CLASS_LOADER_BEAN = DefaultClassLoader.class.getName();
-  public static final String DEFAULT_PROXY_RESOLVER_BEAN = DefaultProxyResolver.class.getName();
 
   public static final String JAVASSIST_PACKAGE = "org.javassist.tmp.";
   public static final String JAVASSIST_SYMBOL = "_$$_javassist_";

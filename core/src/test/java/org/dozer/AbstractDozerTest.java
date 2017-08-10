@@ -17,6 +17,8 @@ package org.dozer;
 
 import java.util.Random;
 
+import org.dozer.config.SettingsDefaults;
+import org.dozer.config.SettingsKeys;
 import org.dozer.util.DozerConstants;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,7 +33,7 @@ public abstract class AbstractDozerTest extends Assert {
   public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
-    System.setProperty(DozerConstants.CONFIG_FILE_SYS_PROP, "dozer.properties");
+    System.setProperty(SettingsKeys.CONFIG_FILE_SYS_PROP, SettingsDefaults.LEGACY_PROPERTIES_FILE);
   }
 
   protected String getRandomString() {

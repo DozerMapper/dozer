@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.config.GlobalSettings;
+import org.dozer.config.Settings;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -33,7 +33,7 @@ public class StatisticManagerTest extends AbstractDozerTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    statMgr = new StatisticsManagerImpl(Mockito.mock(GlobalSettings.class));
+    statMgr = new StatisticsManagerImpl(Mockito.mock(Settings.class));
     statMgr.setStatisticsEnabled(true);
   }
 

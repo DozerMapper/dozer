@@ -49,7 +49,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.dozermapper</groupId>
+            <groupId>com.github.dozermapper.tests</groupId>
             <artifactId>dozer-osgi-tests-model</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

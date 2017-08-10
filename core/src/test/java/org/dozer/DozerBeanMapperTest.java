@@ -34,7 +34,7 @@ import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
-import org.dozer.config.GlobalSettings;
+import org.dozer.config.Settings;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.MappingsParser;
@@ -43,7 +43,6 @@ import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.stats.StatisticsManagerImpl;
-import org.dozer.util.DefaultClassLoader;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.generics.deepindex.TestObjectPrime;
 import org.junit.After;
@@ -137,14 +136,14 @@ public class DozerBeanMapperTest extends Assert {
     CallTrackingMapper() {
       // todo this is awful, but will be removed when DozerBeanMapper is immutable (#400)
       super(Collections.emptyList(),
-              new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader())),
+              new Settings(),
               new CustomMappingsLoader(
                       new MappingsParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()),
                       new ClassMapBuilder(new BeanContainer(), new DestBeanCreator(new BeanContainer()),
                               new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory()),
                       new BeanContainer()),
               new XMLParserFactory(new BeanContainer()),
-              new StatisticsManagerImpl(new GlobalSettings(new DefaultClassLoader(DozerBeanMapperTest.class.getClassLoader()))),
+              new StatisticsManagerImpl(new Settings()),
               new DozerInitializer(), new BeanContainer(),
               new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new DestBeanCreator(new BeanContainer()),
               new DestBeanBuilderCreator(),

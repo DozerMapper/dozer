@@ -37,11 +37,13 @@
         <cglib-nodep.version>2.2.2</cglib-nodep.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-lang3.version>3.5</commons-lang3.version>
+        <commons-io.version>2.5</commons-io.version>
         <javax.el.version>2.2</javax.el.version>
         <felix.version>5.6.2</felix.version>
         <guava.version>22.0</guava.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <hibernate-core.version>5.2.10.Final</hibernate-core.version>
+        <jackson-dataformat.version>2.8.8</jackson-dataformat.version>
         <javax.inject.version>1</javax.inject.version>
         <javassist.version>3.18.1-GA</javassist.version>
         <jaxb-api.version>2.2.11</jaxb-api.version>
@@ -54,6 +56,7 @@
         <osgi.version>6.0.0</osgi.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.8.RELEASE</spring.version>
+        <woodstox-core-asl.version>4.4.1</woodstox-core-asl.version>
         <xmlbeans.version>2.6.0</xmlbeans.version>
     </properties>
 
@@ -87,6 +90,11 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>el-api</artifactId>
                 <version>${javax.el.version}</version>
@@ -110,6 +118,16 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${jackson-dataformat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${jackson-dataformat.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.inject</groupId>
@@ -157,6 +175,11 @@
                 <version>${mockito-core.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>${osgi.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.ops4j.pax.exam</groupId>
                 <artifactId>pax-exam-container-native</artifactId>
                 <version>${pax-exam.version}</version>
@@ -202,9 +225,9 @@
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>${osgi.version}</version>
+                <groupId>org.codehaus.woodstox</groupId>
+                <artifactId>woodstox-core-asl</artifactId>
+                <version>${woodstox-core-asl.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.xmlbeans</groupId>

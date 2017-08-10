@@ -14,14 +14,17 @@
 # limitations under the License.
 #
 
-dozer.statistics.enabled=true
-dozer.el.enabled=true
+---
+dozer:
+  cache:
+    converter-by-dest-type-maxsize: 5000
+    super-type-maxsize: 5000
+  el:
+    enabled: true
+# beans:
+#   class-loader-bean: "org.dozer.util.DefaultClassLoader"
+#   proxy-resolver-bean: "org.dozer.util.DefaultProxyResolver"
 
-dozer.cache.converter.by.dest.type.maxsize=25000
-dozer.cache.super.type.maxsize=10000
 
-dozer.autoregister.jmx.beans=false
 
-org.dozer.util.DozerClassLoader=org.dozer.CustomLoader
-org.dozer.util.DozerProxyResolver=org.dozer.CustomResolver
 

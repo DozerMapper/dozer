@@ -27,11 +27,6 @@ dozer.configuration system property. ex)
 |false
 |false
 
-|dozer.autoregister.jmx.beans
-|Specifies whether Dozer will auto register it's JMX beans with the PlatformMDBServer on startup.
-|true
-|false
-|true
 
 |dozer.el.enabled
 |Specifies whether during Xml mappings parsing Dozer will recognize EL expressions.
@@ -39,25 +34,25 @@ dozer.configuration system property. ex)
 |false
 |false
 
-|dozer.cache.converter.by.dest.type.maxsize
+|dozer.cache.converter-by-dest-type-maxsize
 |Specifies the max size for one of Dozers internal caches.
 |0 - Long.MAX_VALUE
 |10000
 |
 
-|dozer.cache.super.type.maxsize
+|dozer.cache.super-type-maxsize
 |Specifies the max size for one of Dozers internal caches
 |0 - Long.MAX_VALUE
 |10000
 |
 
-|org.dozer.util.DozerProxyResolver
+|dozer.beans.proxy-resolver-bean
 |Specifies implementation of DozerProxyResolver to be used
 |Valid class name
 |Default implementation
 |
 
-|org.dozer.util.DozerClassLoader
+|dozer.beans.class-loader-bean
 |Specifies implementation of DozerClassLoader to be used
 |Valid class name
 |Default implementation

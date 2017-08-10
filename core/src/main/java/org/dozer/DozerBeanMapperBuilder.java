@@ -31,7 +31,9 @@ import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
-import org.dozer.config.GlobalSettings;
+import org.dozer.config.Settings;
+import org.dozer.config.processors.DefaultSettingsProcessor;
+import org.dozer.config.processors.SettingsProcessor;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.MappingsParser;
@@ -65,6 +67,7 @@ public final class DozerBeanMapperBuilder {
     private CustomFieldMapper customFieldMapper;
     private Map<String, CustomConverter> customConvertersWithId = new HashMap<>(0);
     private Map<String, BeanFactory> beanFactories = new HashMap<>(0);
+    private SettingsProcessor settingsProcessor;
 
     private DozerBeanMapperBuilder() {
     }
@@ -250,6 +253,19 @@ public final class DozerBeanMapperBuilder {
     }
 
     /**
+     * Registers a {@link SettingsProcessor} for the mapper. Which can be used to resolve a settings instance.
+     * <p>
+     * By default, {@link DefaultSettingsProcessor} is registered.
+     *
+     * @param processor processor to use
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withSettingsProcessor(SettingsProcessor processor) {
+        this.settingsProcessor = settingsProcessor;
+        return this;
+    }
+
+    /**
      * Creates an instance of {@link Mapper}. Mapper is configured according to the current builder state.
      * <p>
      * Subsequent calls of this method will return new instances.
@@ -258,7 +274,7 @@ public final class DozerBeanMapperBuilder {
      */
     public Mapper build() {
         DozerClassLoader classLoader = getClassLoader();
-        GlobalSettings globalSettings = new GlobalSettings(classLoader);
+        Settings settings = getSettings(classLoader);
         BeanContainer beanContainer = new BeanContainer();
 
         DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
@@ -270,7 +286,7 @@ public final class DozerBeanMapperBuilder {
         CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(
                 new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
         XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
-        StatisticsManager statisticsManager = new StatisticsManagerImpl(globalSettings);
+        StatisticsManager statisticsManager = new StatisticsManagerImpl(settings);
         DozerInitializer dozerInitializer = new DozerInitializer();
         XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
         DestBeanBuilderCreator destBeanBuilderCreator = new DestBeanBuilderCreator();
@@ -280,7 +296,7 @@ public final class DozerBeanMapperBuilder {
         mappingsFileData.addAll(createMappingsWithBuilders(beanContainer, destBeanCreator, propertyDescriptorFactory));
 
         return new DozerBeanMapper(mappingFiles,
-                globalSettings,
+                settings,
                 customMappingsLoader,
                 xmlParserFactory,
                 statisticsManager,
@@ -331,4 +347,15 @@ public final class DozerBeanMapperBuilder {
         }
     }
 
+    private Settings getSettings(DozerClassLoader classLoader) {
+        Settings answer;
+        if (settingsProcessor == null) {
+            settingsProcessor = new DefaultSettingsProcessor(classLoader);
+            answer = settingsProcessor.process();
+        } else {
+            answer = settingsProcessor.process();
+        }
+
+        return answer;
+    }
 }
