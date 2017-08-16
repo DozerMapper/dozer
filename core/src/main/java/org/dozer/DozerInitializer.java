@@ -20,7 +20,8 @@ import java.util.ServiceLoader;
 import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
-import org.dozer.config.GlobalSettings;
+import org.dozer.config.Settings;
+import org.dozer.config.SettingsDefaults;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.xml.ELEngine;
 import org.dozer.loader.xml.ExpressionElementReader;
@@ -51,13 +52,13 @@ public final class DozerInitializer {
   public DozerInitializer() {
   }
 
-  public void init(GlobalSettings globalSettings, StatisticsManager statsMgr, BeanContainer beanContainer,
+  public void init(Settings settings, StatisticsManager statsMgr, BeanContainer beanContainer,
                    DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
                    DestBeanCreator destBeanCreator) {
-    init(globalSettings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+    init(settings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
   }
 
-  public void init(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+  public void init(Settings settings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
                    DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
                    DestBeanCreator destBeanCreator) {
     // Multiple threads may try to initialize simultaneously
@@ -70,19 +71,19 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      initialize(globalSettings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+      initialize(settings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
       isInitialized = true;
     }
   }
 
-  void initialize(GlobalSettings globalSettings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+  void initialize(Settings settings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
                   DestBeanCreator destBeanCreator) {
-    registerClassLoader(globalSettings, classLoader, beanContainer);
-    registerProxyResolver(globalSettings, beanContainer);
+    registerClassLoader(settings, classLoader, beanContainer);
+    registerProxyResolver(settings, beanContainer);
 
-    if (globalSettings.isElEnabled()) {
+    if (settings.getElEnabled()) {
       ELEngine engine = new ELEngine();
       engine.init();
       beanContainer.setElEngine(engine);
@@ -99,9 +100,9 @@ public final class DozerInitializer {
     }
   }
 
-  private void registerClassLoader(GlobalSettings globalSettings, ClassLoader classLoader, BeanContainer beanContainer) {
-    String classLoaderName = globalSettings.getClassLoaderName();
-    if (!DozerConstants.DEFAULT_CLASS_LOADER_BEAN.equals(classLoaderName)) {
+  private void registerClassLoader(Settings settings, ClassLoader classLoader, BeanContainer beanContainer) {
+    String classLoaderName = settings.getClassLoaderBeanName();
+    if (!SettingsDefaults.CLASS_LOADER_BEAN.equals(classLoaderName)) {
       DefaultClassLoader defaultClassLoader = new DefaultClassLoader(classLoader);
       Class<? extends DozerClassLoader> classLoaderType = loadBeanType(classLoaderName, defaultClassLoader, DozerClassLoader.class);
       DozerClassLoader classLoaderBean = ReflectionUtils.newInstance(classLoaderType);
@@ -109,9 +110,9 @@ public final class DozerInitializer {
     }
   }
 
-  private void registerProxyResolver(GlobalSettings globalSettings, BeanContainer beanContainer) {
-    String proxyResolverName = globalSettings.getProxyResolverName();
-    if (!DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN.equals(proxyResolverName)) {
+  private void registerProxyResolver(Settings settings, BeanContainer beanContainer) {
+    String proxyResolverName = settings.getProxyResolverBeanName();
+    if (!SettingsDefaults.PROXY_RESOLVER_BEAN.equals(proxyResolverName)) {
       DozerClassLoader initializedClassLoader = beanContainer.getClassLoader();
       Class<? extends DozerProxyResolver> proxyResolverType = loadBeanType(proxyResolverName, initializedClassLoader, DozerProxyResolver.class);
       DozerProxyResolver proxyResolverBean = ReflectionUtils.newInstance(proxyResolverType);
@@ -130,7 +131,7 @@ public final class DozerInitializer {
   /**
    * Performs framework shutdown sequence. Includes de-registering existing Dozer JMX MBeans.
    */
-  public void destroy(GlobalSettings globalSettings) {
+  public void destroy(Settings settings) {
     synchronized (this) {
       if (!isInitialized) {
         log.debug("Tried to destroy when no Dozer instance started.");

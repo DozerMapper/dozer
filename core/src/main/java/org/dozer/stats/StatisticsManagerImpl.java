@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.dozer.config.GlobalSettings;
+import org.dozer.config.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,12 +37,11 @@ public final class StatisticsManagerImpl implements StatisticsManager {
   private final Logger log = LoggerFactory.getLogger(StatisticsManagerImpl.class);
 
   private final ConcurrentMap<StatisticType, Statistic> statisticsMap = new ConcurrentHashMap<StatisticType, Statistic>();
-  private final GlobalSettings globalSettings;
+  private final Settings settings;
   private boolean isStatisticsEnabled;
 
-  public StatisticsManagerImpl(GlobalSettings globalSettings) {
-    this.isStatisticsEnabled = globalSettings.isStatisticsEnabled();
-    this.globalSettings = globalSettings;
+  public StatisticsManagerImpl(Settings settings) {
+    this.settings = settings;
   }
 
   public void clearAll() {
@@ -65,7 +64,6 @@ public final class StatisticsManagerImpl implements StatisticsManager {
 
   public void setStatisticsEnabled(boolean statisticsEnabled) {
     this.isStatisticsEnabled = statisticsEnabled;
-    globalSettings.setStatisticsEnabled(statisticsEnabled);
   }
 
   public Set<StatisticType> getStatisticTypes() {
