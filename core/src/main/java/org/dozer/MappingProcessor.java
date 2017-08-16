@@ -42,6 +42,7 @@ import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.CopyByReferenceContainer;
+import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
@@ -1149,12 +1150,19 @@ public class MappingProcessor implements Mapper {
     ClassMap mapping = classMappings.find(srcClass, destClass, mapId);
 
     if (mapping == null) {
-      // If mapping not found in existing custom mapping collection, create
-      // default as an explicit mapping must not
-      // exist. The create default class map method will also add all default
-      // mappings that it can determine.
-      mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass);
-      classMappings.addDefault(srcClass, destClass, mapping);
+      //Does the opposite mapping exist, but its only a ONE_WAY?
+      mapping = classMappings.find(destClass, srcClass, null);
+      if (mapping != null && MappingDirection.ONE_WAY == mapping.getType()) {
+        mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass, false);
+        classMappings.addDefault(destClass, srcClass, mapping);
+      } else {
+        // If mapping not found in existing custom mapping collection,
+        // create default as an explicit mapping must not exist.
+        // The create default class map method will also add all default
+        // mappings that it can determine.
+        mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass);
+        classMappings.addDefault(srcClass, destClass, mapping);
+      }
     }
 
     return mapping;
