@@ -32,30 +32,32 @@ import org.dozer.util.MappingUtils;
  */
 public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDescriptorCreationStrategy {
 
-  private final BeanContainer beanContainer;
-  private final DestBeanCreator destBeanCreator;
-  private final PropertyDescriptorFactory propertyDescriptorFactory;
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+    private final PropertyDescriptorFactory propertyDescriptorFactory;
 
-  public ProtoFieldPropertyDescriptorCreationStrategy(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
-    this.beanContainer = beanContainer;
-    this.destBeanCreator = destBeanCreator;
-    this.propertyDescriptorFactory = propertyDescriptorFactory;
-  }
-
-  @Override
-  public DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    return new ProtoFieldPropertyDescriptor(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer, beanContainer, destBeanCreator, propertyDescriptorFactory);
-  }
-
-  @Override
-  public boolean isApplicable(Class<?> clazz, String fieldName) {
-    if (!Message.class.isAssignableFrom(clazz)) {
-      return false;
+    public ProtoFieldPropertyDescriptorCreationStrategy(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+        this.beanContainer = beanContainer;
+        this.destBeanCreator = destBeanCreator;
+        this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
-    Class<? extends Message> messageClass = (Class<? extends Message>)clazz;
-    Descriptors.FieldDescriptor foundDescriptor = ProtoUtils.getFieldDescriptor(messageClass, fieldName);
+    @Override
+    public DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer,
+                                            HintContainer destDeepIndexHintContainer) {
+        return new ProtoFieldPropertyDescriptor(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer,
+                                                beanContainer, destBeanCreator, propertyDescriptorFactory);
+    }
 
-    return foundDescriptor != null || MappingUtils.isDeepMapping(fieldName);
-  }
+    @Override
+    public boolean isApplicable(Class<?> clazz, String fieldName) {
+        if (!Message.class.isAssignableFrom(clazz)) {
+            return false;
+        }
+
+        Class<? extends Message> messageClass = (Class<? extends Message>)clazz;
+        Descriptors.FieldDescriptor foundDescriptor = ProtoUtils.getFieldDescriptor(messageClass, fieldName);
+
+        return foundDescriptor != null || MappingUtils.isDeepMapping(fieldName);
+    }
 }

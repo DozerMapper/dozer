@@ -16,6 +16,7 @@
 package com.github.dozermapper.protobuf.functional_tests;
 
 public class FieldNaming {
+
     private String snakeCaseField;
 
     public String getSnakeCaseField() {

@@ -18,13 +18,11 @@ package com.github.dozermapper.protobuf.functional_tests;
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.util.DozerConstants;
-import org.junit.Ignore;
 
 /**
  * @author Dmitry Spikhalskiy
  */
-@Ignore
-public class ProtoAbstractTest {
+public abstract class ProtoAbstractTest {
 
     protected Mapper getMapper(String fileName) {
         System.setProperty("log4j.debug", "true");

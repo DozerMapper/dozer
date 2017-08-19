@@ -41,7 +41,7 @@ public class ProtoFieldPropertyDescriptorCreationStrategyTest {
     }
 
     @Test
-    public void isApplicable_true_ifMessageAndDeepMapping() {
+    public void isApplicableTrueIfMessageAndDeepMapping() {
         assertTrue(strategy.isApplicable(
             /*any proto message class*/ProtoTestObjects.SimpleProtoTestObject.class,
             "deep.mapping"));

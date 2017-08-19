@@ -154,7 +154,7 @@ public final class ProtoUtils {
             return getEnumClassByEnumDescriptor(descriptor.getEnumType(), beanContainer);
         case MESSAGE:
             return MappingUtils.loadClass(StringUtils.join(
-                getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'), beanContainer);
+                    getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'), beanContainer);
         default:
             throw new RuntimeException();
         }
@@ -164,12 +164,12 @@ public final class ProtoUtils {
         return new String[] {
             options.getJavaPackage(),
             options.getJavaOuterClassname(),
-            name};
+            name };
     }
 
     private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor, BeanContainer beanContainer) {
-        return (Class<? extends Enum>)MappingUtils.loadClass(StringUtils.join(
-            getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.'), beanContainer);
+        String name = StringUtils.join(getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.');
+        return (Class<? extends Enum>)MappingUtils.loadClass(name, beanContainer);
     }
 
     public static Object wrapEnums(Object value) {
@@ -193,20 +193,24 @@ public final class ProtoUtils {
         if (value instanceof Descriptors.EnumValueDescriptor) {
             Descriptors.EnumValueDescriptor descriptor = (Descriptors.EnumValueDescriptor)value;
             Class<? extends Enum> enumClass = getEnumClassByEnumDescriptor(descriptor.getType(), beanContainer);
-            Enum[] enumValues = enumClass.getEnumConstants();
-            for (Enum enumValue : enumValues) {
+
+            for (Enum enumValue : enumClass.getEnumConstants()) {
                 if (((Descriptors.EnumValueDescriptor)value).getName().equals(enumValue.name())) {
                     return enumValue;
                 }
             }
+
             return null;
         }
 
         if (value instanceof Collection) {
-            List modifiedList = new ArrayList(((List)value).size());
-            for (Object element : (List)value) {
+            Collection valueCollection = (Collection)value;
+            List modifiedList = new ArrayList(valueCollection.size());
+
+            for (Object element : valueCollection) {
                 modifiedList.add(unwrapEnums(element, beanContainer));
             }
+
             return modifiedList;
         }
 

@@ -29,24 +29,25 @@ import org.dozer.classmap.generator.BeanFieldsDetector;
  * @author Dmitry Spikhalskiy
  */
 public class ProtobufBeanFieldsDetector implements BeanFieldsDetector {
-  public boolean accepts(Class<?> clazz) {
-    return Message.class.isAssignableFrom(clazz);
-  }
 
-  public Set<String> getReadableFieldNames(Class<?> clazz) {
-    return getFieldNames((Class<? extends Message>) clazz);
-  }
-
-  public Set<String> getWritableFieldNames(Class<?> clazz) {
-    return getFieldNames((Class<? extends Message>) clazz);
-  }
-
-  private static Set<String> getFieldNames(Class<? extends Message> clazz) {
-    Set<String> resultSet = new HashSet<String>();
-    List<Descriptors.FieldDescriptor> descriptors = ProtoUtils.getFieldDescriptors(clazz);
-    for (Descriptors.FieldDescriptor descriptor : descriptors) {
-      resultSet.add(ProtoUtils.toCamelCase(descriptor.getName()));
+    public boolean accepts(Class<?> clazz) {
+        return Message.class.isAssignableFrom(clazz);
     }
-    return resultSet;
-  }
+
+    public Set<String> getReadableFieldNames(Class<?> clazz) {
+        return getFieldNames((Class<? extends Message>)clazz);
+    }
+
+    public Set<String> getWritableFieldNames(Class<?> clazz) {
+        return getFieldNames((Class<? extends Message>)clazz);
+    }
+
+    private static Set<String> getFieldNames(Class<? extends Message> clazz) {
+        Set<String> resultSet = new HashSet<String>();
+        for (Descriptors.FieldDescriptor descriptor : ProtoUtils.getFieldDescriptors(clazz)) {
+            resultSet.add(ProtoUtils.toCamelCase(descriptor.getName()));
+        }
+
+        return resultSet;
+    }
 }

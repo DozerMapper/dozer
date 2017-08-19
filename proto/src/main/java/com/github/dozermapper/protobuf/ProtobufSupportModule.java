@@ -35,32 +35,33 @@ import org.dozer.propertydescriptor.PropertyDescriptorFactory;
  */
 public class ProtobufSupportModule implements DozerModule {
 
-  private BeanContainer beanContainer;
-  private DestBeanCreator destBeanCreator;
-  private PropertyDescriptorFactory propertyDescriptorFactory;
+    private BeanContainer beanContainer;
+    private DestBeanCreator destBeanCreator;
+    private PropertyDescriptorFactory propertyDescriptorFactory;
 
-  @Override
-  public void init(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory)  {
-    this.beanContainer = beanContainer;
-    this.destBeanCreator = destBeanCreator;
-    this.propertyDescriptorFactory = propertyDescriptorFactory;
-  }
+    @Override
+    public void init(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+        this.beanContainer = beanContainer;
+        this.destBeanCreator = destBeanCreator;
+        this.propertyDescriptorFactory = propertyDescriptorFactory;
+    }
 
-  public void init() {
-  }
+    public void init() {
 
-  @Override
-  public Collection<BeanBuilderCreationStrategy> getBeanBuilderCreationStrategies() {
-    return Collections.singleton(new ByProtobufBuilder());
-  }
+    }
 
-  @Override
-  public Collection<BeanFieldsDetector> getBeanFieldsDetectors() {
-    return Collections.singleton(new ProtobufBeanFieldsDetector());
-  }
+    @Override
+    public Collection<BeanBuilderCreationStrategy> getBeanBuilderCreationStrategies() {
+        return Collections.singleton(new ByProtobufBuilder());
+    }
 
-  @Override
-  public Collection<PropertyDescriptorCreationStrategy> getPropertyDescriptorCreationStrategies() {
-    return Collections.singleton(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator, propertyDescriptorFactory));
-  }
+    @Override
+    public Collection<BeanFieldsDetector> getBeanFieldsDetectors() {
+        return Collections.singleton(new ProtobufBeanFieldsDetector());
+    }
+
+    @Override
+    public Collection<PropertyDescriptorCreationStrategy> getPropertyDescriptorCreationStrategies() {
+        return Collections.singleton(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator, propertyDescriptorFactory));
+    }
 }

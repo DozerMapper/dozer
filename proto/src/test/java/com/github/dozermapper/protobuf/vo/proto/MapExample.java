@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapExample {
+
+    private Map<String, String> value = new HashMap<>();
+
     public Map<String, String> getValue() {
         return value;
     }
@@ -26,8 +29,6 @@ public class MapExample {
     public void setValue(Map<String, String> value) {
         this.value = value;
     }
-
-    private Map<String,String> value = new HashMap<>();
 
     public void put(String key, String value) {
         this.value.put(key, value);
