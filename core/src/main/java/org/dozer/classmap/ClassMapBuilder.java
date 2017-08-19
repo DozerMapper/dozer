@@ -96,13 +96,24 @@ public final class ClassMapBuilder {
    * @return information about the classes being mapped
    */
   public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass) {
-    ClassMap classMap = new ClassMap(globalConfiguration);
-    classMap.setSrcClass(new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null, null,
-        globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false, beanContainer));
-    classMap.setDestClass(new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
-        null, globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false, beanContainer));
+    return createDefaultClassMap(globalConfiguration, srcClass, destClass, true);
+  }
 
-    generateMapping(classMap, globalConfiguration, buildTimeGenerators);
+  public ClassMap createDefaultClassMap(Configuration globalConfiguration, Class<?> srcClass, Class<?> destClass, Boolean shouldGenerateMapping) {
+    DozerClass srcDozerClass = new DozerClass(srcClass.getName(), srcClass, globalConfiguration.getBeanFactory(), null, null, null,
+                                              null, globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false, beanContainer);
+
+    DozerClass destDozerClass = new DozerClass(destClass.getName(), destClass, globalConfiguration.getBeanFactory(), null, null, null,
+                                               null, globalConfiguration.getMapNull(), globalConfiguration.getMapEmptyString(), false, beanContainer);
+
+    ClassMap classMap = new ClassMap(globalConfiguration);
+    classMap.setSrcClass(srcDozerClass);
+    classMap.setDestClass(destDozerClass);
+
+    if (shouldGenerateMapping) {
+      generateMapping(classMap, globalConfiguration, buildTimeGenerators);
+    }
+
     return classMap;
   }
 
