@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.schema;
+package com.github.dozermapper.schema;
 
 import java.net.URL;
 
-import org.dozer.schema.osgi.Activator;
+import com.github.dozermapper.schema.osgi.Activator;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

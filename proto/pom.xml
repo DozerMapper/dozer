@@ -83,7 +83,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <protocVersion>${protoc-jar-maven-plugin.version}</protocVersion>
+                            <protocVersion>${protoc.version}</protocVersion>
                             <inputDirectories>
                                 <include>src/test/proto</include>
                             </inputDirectories>

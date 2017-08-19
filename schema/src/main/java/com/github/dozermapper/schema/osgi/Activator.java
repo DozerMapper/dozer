@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.schema.osgi;
+package com.github.dozermapper.schema.osgi;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;

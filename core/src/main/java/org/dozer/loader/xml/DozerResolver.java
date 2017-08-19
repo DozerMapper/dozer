@@ -22,10 +22,11 @@ import java.net.URL;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
+import com.github.dozermapper.schema.DefaultSchemaResolver;
+import com.github.dozermapper.schema.SchemaResolver;
+
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
-import org.dozer.schema.DefaultSchemaResolver;
-import org.dozer.schema.SchemaResolver;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.slf4j.Logger;

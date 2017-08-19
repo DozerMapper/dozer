@@ -56,8 +56,8 @@
                     <instructions>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Activator>org.dozer.schema.osgi.Activator</Bundle-Activator>
-                        <Export-Package>org.dozer.schema.*;version=${project.version}</Export-Package>
+                        <Bundle-Activator>com.github.dozermapper.schema.osgi.Activator</Bundle-Activator>
+                        <Export-Package>com.github.dozermapper.schema.*;version=${project.version}</Export-Package>
                         <Import-Package>*</Import-Package>
                         <Implementation-Title>${project.name}</Implementation-Title>
                         <Implementation-Version>${project.version}</Implementation-Version>
