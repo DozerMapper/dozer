@@ -45,11 +45,9 @@
  */
 package com.github.dozermapper.jmh;
 
-import java.util.Arrays;
-
 import com.github.dozermapper.jmh.model.Person;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.openjdk.jmh.annotations.Benchmark;
 
@@ -57,7 +55,10 @@ public class DozerBeanMapperBenchmark {
 
     @Benchmark
     public Person mapSimpleSameTypes() {
-        Mapper mapper = new DozerBeanMapper(Arrays.asList("mappings/simple-sametypes.xml"));
+        Mapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/simple-sametypes.xml")
+                .build();
+
         return mapper.map(new Person("bob"), Person.class);
     }
 }
