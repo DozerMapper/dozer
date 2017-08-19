@@ -19,7 +19,6 @@ package com.github.dozermapper.protobuf.vo.proto;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- *
  */
 public class TestObject {
 

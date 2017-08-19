@@ -23,23 +23,24 @@ import org.dozer.BeanBuilder;
  * @author Dmitry Spikhalskiy
  */
 public class ProtoBeanBuilder implements BeanBuilder {
-  protected Message.Builder internalProtoBuilder;
-  protected Class<? extends Message> beanClass;
 
-  public ProtoBeanBuilder(Message.Builder internalProtoBuilder, Class<? extends Message> beanClass) {
-    this.internalProtoBuilder = internalProtoBuilder;
-    this.beanClass = beanClass;
-  }
+    protected Message.Builder internalProtoBuilder;
+    protected Class<? extends Message> beanClass;
 
-  public Class<? extends Message> beanClass() {
-    return beanClass;
-  }
+    public ProtoBeanBuilder(Message.Builder internalProtoBuilder, Class<? extends Message> beanClass) {
+        this.internalProtoBuilder = internalProtoBuilder;
+        this.beanClass = beanClass;
+    }
 
-  public Message.Builder internalProtoBuilder() {
-    return internalProtoBuilder;
-  }
+    public Class<? extends Message> beanClass() {
+        return beanClass;
+    }
 
-  public Object build() {
-    return internalProtoBuilder.build();
-  }
+    public Message.Builder internalProtoBuilder() {
+        return internalProtoBuilder;
+    }
+
+    public Object build() {
+        return internalProtoBuilder.build();
+    }
 }
