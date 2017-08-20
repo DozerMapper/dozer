@@ -35,6 +35,12 @@
     <properties>
         <osgi.Bundle-Activator>org.dozer.osgi.Activator</osgi.Bundle-Activator>
         <osgi.Export-Package>org.dozer.*</osgi.Export-Package>
+        <!-- ServiceLoader Capability -->
+        <osgi.Require-Capability>
+            osgi.serviceloader; filter:="(osgi.serviceloader=org.dozer.DozerModule)";cardinality:=multiple;resolution:=optional,
+            osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
+        </osgi.Require-Capability>
+        <osgi.SPI-Consumer>*</osgi.SPI-Consumer>
         
         <!-- NOTE: Needs to be removed in future -->
         <findbugs.skip>true</findbugs.skip>
