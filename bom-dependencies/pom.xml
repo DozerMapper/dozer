@@ -51,6 +51,7 @@
         <jmh.version>1.19</jmh.version>
         <junit.version>4.12</junit.version>
         <mockito-core.version>2.7.22</mockito-core.version>
+        <aries.spifly.verison>1.0.8</aries.spifly.verison>
         <pax-exam.version>4.10.0</pax-exam.version>
         <protobuf-java.version>3.3.0</protobuf-java.version>
         <osgi.version>6.0.0</osgi.version>
@@ -173,6 +174,26 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.aries.spifly</groupId>
+                <artifactId>org.apache.aries.spifly.dynamic.bundle</artifactId>
+                <version>${aries.spifly.verison}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.spring-core</artifactId>
+                <version>${spring.version}_1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.spring-context</artifactId>
+                <version>${spring.version}_1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.spring-beans</artifactId>
+                <version>${spring.version}_1</version>
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
