@@ -61,6 +61,12 @@
         <!-- Protobuf Plugins versions; alphabetical order -->
         <protoc-jar-maven-plugin.version>3.3.0.1</protoc-jar-maven-plugin.version>
         <protoc.version>3.3.0</protoc.version>
+
+        <osgi.Bundle-Activator/>
+        <osgi.Export-Package/>
+        <osgi.Require-Capability/>
+        <osgi.Provide-Capability/>
+        <osgi.SPI-Consumer/>
     </properties>
 
     <dependencyManagement>
@@ -278,6 +284,44 @@
                         <exclude>**/Test*.java</exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+
+            <!-- OSGi Plugins; alphabetical order -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <unpackBundle>false</unpackBundle>
+                    <instructions>
+                        <Bundle-Activator>${osgi.Bundle-Activator}</Bundle-Activator>
+                        <Bundle-Name>${project.name}</Bundle-Name>
+                        <Bundle-DocURL>https://dozermapper.github.io/gitbook/</Bundle-DocURL>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <DynamicImport-Package>*</DynamicImport-Package>
+                        <Export-Package>${osgi.Export-Package};version=${project.version}</Export-Package>
+                        <Import-Package>*</Import-Package>
+                        <Implementation-Title>${project.name}</Implementation-Title>
+                        <Implementation-Version>${project.version}</Implementation-Version>
+                        <Karaf-Info>${project.groupId}.${project.artifactId}=${project.version}</Karaf-Info>
+                        <Require-Capability>${osgi.Require-Capability}</Require-Capability>
+                        <Provide-Capability>${osgi.Provide-Capability}</Provide-Capability>
+                        <SPI-Consumer>${osgi.SPI-Consumer}</SPI-Consumer>
+                        <SPI-Provider>${osgi.SPI-Provider}</SPI-Provider>
+                    </instructions>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.servicemix.tooling</groupId>
+                <artifactId>depends-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-depends-file</id>
+                        <goals>
+                            <goal>generate-depends-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Governance Plugins; alphabetical order -->

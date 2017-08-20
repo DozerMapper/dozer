@@ -15,6 +15,7 @@
  */
 package org.dozer;
 
+import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
 import org.dozer.builder.DestBeanBuilderCreator;
@@ -23,6 +24,7 @@ import org.dozer.config.BeanContainer;
 import org.dozer.config.Settings;
 import org.dozer.config.SettingsDefaults;
 import org.dozer.factory.DestBeanCreator;
+import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.loader.xml.ELEngine;
 import org.dozer.loader.xml.ExpressionElementReader;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
@@ -90,13 +92,18 @@ public final class DozerInitializer {
       beanContainer.setElementReader(new ExpressionElementReader(engine));
     }
 
-    for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
-      module.init();
-      module.init(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    try {
+      ServiceLoader<DozerModule> services = ServiceLoader.load(DozerModule.class);
+      for (DozerModule module : services) {
+        module.init();
+        module.init(beanContainer, destBeanCreator, propertyDescriptorFactory);
 
-      destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
-      beanMappingGenerator.addPluggedFieldDetectors(module.getBeanFieldsDetectors());
-      propertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategies(module.getPropertyDescriptorCreationStrategies());
+        destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
+        beanMappingGenerator.addPluggedFieldDetectors(module.getBeanFieldsDetectors());
+        propertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategies(module.getPropertyDescriptorCreationStrategies());
+      }
+    } catch (ServiceConfigurationError ex) {
+      log.error("{}", ex.getMessage());
     }
   }
 

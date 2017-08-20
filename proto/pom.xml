@@ -29,8 +29,13 @@
     </parent>
 
     <artifactId>dozer-proto</artifactId>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>Dozer :: Protobuf 3</name>
+
+    <properties>
+        <osgi.Bundle-Activator/>
+        <osgi.Export-Package>com.github.dozermapper.protobuf.*</osgi.Export-Package>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -45,6 +50,13 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+        </dependency>
+
+        <!-- Other Runtimes; OSGi-->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

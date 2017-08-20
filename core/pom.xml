@@ -33,6 +33,9 @@
     <name>Dozer :: Core</name>
 
     <properties>
+        <osgi.Bundle-Activator>org.dozer.osgi.Activator</osgi.Bundle-Activator>
+        <osgi.Export-Package>org.dozer.*</osgi.Export-Package>
+        
         <!-- NOTE: Needs to be removed in future -->
         <findbugs.skip>true</findbugs.skip>
 
@@ -168,39 +171,6 @@
                         <exclude>**/schemaorg_apache_xmlbeans/**</exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-
-            <!-- OSGi Plugins; alphabetical order -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <configuration>
-                    <unpackBundle>false</unpackBundle>
-                    <instructions>
-                        <Bundle-Name>${project.name}</Bundle-Name>
-                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Activator>org.dozer.osgi.Activator</Bundle-Activator>
-                        <DynamicImport-Package>*</DynamicImport-Package>
-                        <Export-Package>org.dozer.*;version=${project.version}</Export-Package>
-                        <Import-Package>*</Import-Package>
-                        <Implementation-Title>${project.name}</Implementation-Title>
-                        <Implementation-Version>${project.version}</Implementation-Version>
-                        <Karaf-Info>${project.groupId}.${project.artifactId}=${project.version}</Karaf-Info>
-                    </instructions>
-                </configuration>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.servicemix.tooling</groupId>
-                <artifactId>depends-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-depends-file</id>
-                        <goals>
-                            <goal>generate-depends-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- Governance Plugins; alphabetical order -->
