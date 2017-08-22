@@ -43,7 +43,6 @@ public class DefaultSettingsProcessor implements SettingsProcessor {
         createSettingsResolvers();
         checkForDeprecatedKeys();
 
-        Boolean elEnabled = Boolean.valueOf(getValue(SettingsKeys.EL_ENABLED, SettingsDefaults.EL_ENABLED).toString());
         String classLoaderBeanName = String.valueOf(getValue(SettingsKeys.CLASS_LOADER_BEAN, SettingsDefaults.CLASS_LOADER_BEAN));
         String proxyResolverBeanName = String.valueOf(getValue(SettingsKeys.PROXY_RESOLVER_BEAN, SettingsDefaults.PROXY_RESOLVER_BEAN));
 
@@ -53,7 +52,7 @@ public class DefaultSettingsProcessor implements SettingsProcessor {
         Integer superTypesCacheMaxSize = Integer.valueOf(getValue(SettingsKeys.SUPER_TYPE_CHECK_CACHE_MAX_SIZE,
                                                                   SettingsDefaults.SUPER_TYPE_CHECK_CACHE_MAX_SIZE).toString());
 
-        return new Settings(converterByDestTypeCacheMaxSize, superTypesCacheMaxSize, elEnabled, classLoaderBeanName, proxyResolverBeanName);
+        return new Settings(converterByDestTypeCacheMaxSize, superTypesCacheMaxSize, classLoaderBeanName, proxyResolverBeanName);
     }
 
     private void createSettingsResolvers() {
@@ -78,6 +77,13 @@ public class DefaultSettingsProcessor implements SettingsProcessor {
 
     private void checkForDeprecatedKeys() {
         for (SettingsResolver current : resolvers) {
+            if (current.get(SettingsKeys.DEPRECATED_EL_ENABLED, null) != null) {
+                throw new IllegalArgumentException("Found key in properties for " + SettingsKeys.DEPRECATED_EL_ENABLED
+                                                   + " via "
+                                                   + current.getClass().getName()
+                                                   + ". This is deprecated, please use: DozerBeanMapperBuilder.withELEngine()");
+            }
+
             if (current.get(SettingsKeys.DEPRECATED_CLASS_LOADER_BEAN, null) != null) {
                 throw new IllegalArgumentException("Found key in properties for " + SettingsKeys.DEPRECATED_CLASS_LOADER_BEAN
                                                    + " via "

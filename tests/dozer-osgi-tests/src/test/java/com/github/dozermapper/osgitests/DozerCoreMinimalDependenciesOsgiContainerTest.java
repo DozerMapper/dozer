@@ -15,6 +15,9 @@
  */
 package com.github.dozermapper.osgitests;
 
+import org.dozer.el.ELExpressionFactory;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
@@ -22,6 +25,10 @@ import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.systemPackage;
@@ -45,8 +52,24 @@ public class DozerCoreMinimalDependenciesOsgiContainerTest extends DozerCoreOsgi
                 url("link:classpath:com.github.dozermapper.dozer-core.link"),
                 url("link:classpath:com.github.dozermapper.dozer-schema.link"),
                 url("link:classpath:com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
-                junitBundles(),
-                systemPackage("javax.xml.stream")
+                junitBundles()
         );
+    }
+
+    @Test
+    public void elNotSupported() {
+        assertFalse(ELExpressionFactory.isSupported());
+    }
+
+    @Test
+    @Override
+    public void elSupported() {
+        //Override child test, as javax.el is not supported on minimal dependencies
+    }
+
+    @Test
+    @Override
+    public void canMapUsingXMLWithVariables() {
+        //Override child test, as javax.el is not supported on minimal dependencies
     }
 }

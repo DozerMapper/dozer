@@ -24,7 +24,6 @@ public class Settings {
 
     private Integer converterByDestTypeCacheMaxSize = SettingsDefaults.CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE;
     private Integer superTypesCacheMaxSize = SettingsDefaults.SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
-    private Boolean elEnabled = SettingsDefaults.EL_ENABLED;
     private String classLoaderBeanName = SettingsDefaults.CLASS_LOADER_BEAN;
     private String proxyResolverBeanName = SettingsDefaults.PROXY_RESOLVER_BEAN;
 
@@ -32,10 +31,9 @@ public class Settings {
 
     }
 
-    public Settings(Integer converterByDestTypeCacheMaxSize, Integer superTypesCacheMaxSize, Boolean elEnabled, String classLoaderBeanName, String proxyResolverBeanName) {
+    public Settings(Integer converterByDestTypeCacheMaxSize, Integer superTypesCacheMaxSize, String classLoaderBeanName, String proxyResolverBeanName) {
         this.converterByDestTypeCacheMaxSize = converterByDestTypeCacheMaxSize;
         this.superTypesCacheMaxSize = superTypesCacheMaxSize;
-        this.elEnabled = elEnabled;
         this.classLoaderBeanName = classLoaderBeanName;
         this.proxyResolverBeanName = proxyResolverBeanName;
     }
@@ -46,10 +44,6 @@ public class Settings {
 
     public Integer getSuperTypesCacheMaxSize() {
         return superTypesCacheMaxSize;
-    }
-
-    public Boolean getElEnabled() {
-        return elEnabled;
     }
 
     public String getClassLoaderBeanName() {
@@ -65,7 +59,6 @@ public class Settings {
         return new ToStringBuilder(this)
                 .append("converterByDestTypeCacheMaxSize", converterByDestTypeCacheMaxSize)
                 .append("superTypesCacheMaxSize", superTypesCacheMaxSize)
-                .append("elEnabled", elEnabled)
                 .append("classLoaderBeanName", classLoaderBeanName)
                 .append("proxyResolverBeanName", proxyResolverBeanName)
                 .toString();

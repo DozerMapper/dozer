@@ -19,8 +19,6 @@ dozer:
   cache:
     converter-by-dest-type-maxsize: 5000
     super-type-maxsize: 5000
-  el:
-    enabled: true
 # beans:
 #   class-loader-bean: "org.dozer.util.DefaultClassLoader"
 #   proxy-resolver-bean: "org.dozer.util.DefaultProxyResolver"

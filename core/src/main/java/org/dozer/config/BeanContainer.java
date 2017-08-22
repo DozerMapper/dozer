@@ -15,7 +15,8 @@
  */
 package org.dozer.config;
 
-import org.dozer.loader.xml.ELEngine;
+
+import org.dozer.el.ELEngine;
 import org.dozer.loader.xml.ElementReader;
 import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.util.DefaultClassLoader;

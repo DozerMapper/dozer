@@ -26,6 +26,7 @@ import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.config.BeanContainer;
+import org.dozer.el.ELEngine;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.DozerBuilder;
 import org.dozer.loader.MappingsSource;
@@ -110,7 +111,7 @@ public class XMLParser implements MappingsSource<Document> {
   }
 
   private String getAttribute(Element element, String attribute) {
-    return beanContainer.getElementReader().getAttribute(element, attribute);
+    return beanContainer. getElementReader().getAttribute(element, attribute);
   }
 
   private String getNodeValue(Element element) {
