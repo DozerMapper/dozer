@@ -186,41 +186,6 @@ public class DozerBeanMapper implements Mapper {
   }
 
   /**
-   * Sets list of URLs for custom XML mapping files, which are loaded when mapper gets initialized.
-   * It is possible to load files from file system via file: prefix. If no prefix is given mapping files are
-   * loaded from classpath and can be packaged along with the application.
-   *
-   * @param mappingFileUrls URLs referencing custom mapping files
-   * @see java.net.URL
-   * @deprecated will be removed in 6.2. Please use {@code withMappingFiles(..)} configuration method of {@link DozerBeanMapperBuilder}.
-   */
-  @Deprecated
-  public void setMappingFiles(List<String> mappingFileUrls) {
-    checkIfInitialized();
-    this.mappingFiles.clear();
-    this.mappingFiles.addAll(mappingFileUrls);
-  }
-
-  /**
-   * @deprecated will be removed in 6.2. Please use {@code withBeanFactory(..)} configuration method of {@link DozerBeanMapperBuilder}.
-   */
-  @Deprecated
-  public void setFactories(Map<String, BeanFactory> factories) {
-    checkIfInitialized();
-    destBeanCreator.setStoredFactories(factories);
-  }
-
-  /**
-   * @deprecated will be removed in 6.2. Please use {@code withCustomConverter(..)} configuration method of {@link DozerBeanMapperBuilder}.
-   */
-  @Deprecated
-  public void setCustomConverters(List<CustomConverter> customConverters) {
-    checkIfInitialized();
-    this.customConverters.clear();
-    this.customConverters.addAll(customConverters);
-  }
-
-  /**
    * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
    */
   @Deprecated
@@ -290,51 +255,11 @@ public class DozerBeanMapper implements Mapper {
   }
 
   /**
-   * Add mapping XML from InputStream resources for mapping not stored in
-   * files (e.g. from database.) The InputStream will be read immediately to
-   * internally create MappingFileData objects so that the InputStreams may be
-   * closed after the call to this method.
-   *
-     * @param xmlStream Dozer mapping XML InputStream
-     * @deprecated will be removed in 6.2. Please use {@code withXmlMapping(..)} configuration method of {@link DozerBeanMapperBuilder}.
-     */
-    @Deprecated
-    public void addMapping(InputStream xmlStream) {
-    checkIfInitialized();
-    MappingStreamReader fileReader = new MappingStreamReader(xmlParserFactory, xmlParser);
-    MappingFileData mappingFileData = fileReader.read(xmlStream);
-    this.mappingsFileData.add(mappingFileData);
-  }
-
-  /**
-   * Adds API mapping to given mapper instance.
-   *
-   * @param mappingBuilder mappings to be added
-   * @deprecated will be removed in 6.2. Please use {@code withMappingBuilder(..)} configuration method of {@link DozerBeanMapperBuilder}.
-   */
-  @Deprecated
-  public void addMapping(BeanMappingBuilder mappingBuilder) {
-    checkIfInitialized();
-    MappingFileData mappingFileData = mappingBuilder.build(beanContainer, destBeanCreator, propertyDescriptorFactory);
-    this.mappingsFileData.add(mappingFileData);
-  }
-
-  /**
    * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
    */
   @Deprecated
   public List<? extends DozerEventListener> getEventListeners() {
     return Collections.unmodifiableList(eventListeners);
-  }
-
-  /**
-   * @deprecated will be removed in 6.2. Please use {@code withEventListener(..)} configuration method of {@link DozerBeanMapperBuilder}.
-   */
-  @Deprecated
-  public void setEventListeners(List<? extends DozerEventListener> eventListeners) {
-    checkIfInitialized();
-    this.eventListeners.clear();
-    this.eventListeners.addAll(eventListeners);
   }
 
   /**
@@ -345,33 +270,10 @@ public class DozerBeanMapper implements Mapper {
     return customFieldMapper;
   }
 
-  /**
-   * @deprecated will be removed in 6.2. Please use {@code withCustomFieldMapper(..)} configuration method of {@link DozerBeanMapperBuilder}.
-   */
-  @Deprecated
-  public void setCustomFieldMapper(CustomFieldMapper customFieldMapper) {
-    checkIfInitialized();
-    this.customFieldMapper = customFieldMapper;
-  }
-
   @Override
   public MappingMetadata getMappingMetadata() {
     initMappings();
     return new DozerMappingMetadata(customMappings);
-  }
-
-  /**
-   * Converters passed with this method could be further referenced in mappings via its unique id.
-   * Converter instances passed that way are considered stateful and will not be initialized for each mapping.
-   *
-   * @param customConvertersWithId converter id to converter instance map
-   * @deprecated will be removed in 6.2. Please use {@code withCustomConverterWithId(..)} configuration method of {@link DozerBeanMapperBuilder}.
-   */
-  @Deprecated
-  public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
-    checkIfInitialized();
-    this.customConvertersWithId.clear();
-    this.customConvertersWithId.putAll(customConvertersWithId);
   }
 
   private void checkIfInitialized() {

@@ -15,9 +15,7 @@
  */
 package org.dozer;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,7 +36,6 @@ import org.dozer.config.Settings;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.MappingsParser;
-import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
@@ -110,7 +107,10 @@ public class DozerBeanMapperTest extends Assert {
 
   @Test
   public void shouldBeThreadSafe() throws Exception {
-    mapper.setMappingFiles(Arrays.asList("testDozerBeanMapping.xml"));
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("testDozerBeanMapping.xml")
+            .build();
+
     final CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
 
     for (int i = 0; i < THREAD_COUNT; i++) {
@@ -159,50 +159,6 @@ public class DozerBeanMapperTest extends Assert {
     }
   }
 
-  @Test
-  public void shouldNotBeConfigurableAfterInit() {
-    mapper.map("Hello", String.class);
-    try {
-      mapper.setCustomConverters(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setCustomConvertersWithId(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setCustomFieldMapper(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setEventListeners(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setFactories(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setMappingFiles(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.addMapping(mock(InputStream.class));
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.addMapping(mock(BeanMappingBuilder.class));
-      fail();
-    } catch (MappingException e) {
-    }
-  }
 
   @Test
   public void shouldReturnImmutableResources() throws Exception {
