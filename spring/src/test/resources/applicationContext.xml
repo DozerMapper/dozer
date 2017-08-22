@@ -27,7 +27,7 @@
 
     <!-- Provided Spring Integration -->
     <bean id="byFactory" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
-        <property name="mappingFiles" value="classpath*:/*Mapping.xml"/>
+        <property name="mappingFiles" value="classpath*:mappings/*.xml"/>
     </bean>
 
 </beans>

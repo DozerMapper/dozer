@@ -19,10 +19,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-lazy-init="false">
 
-    <bean id="mapperWithBeanFactory" class="org.dozer.DozerBeanMapperBuilder" factory-method="buildDefault">
+    <bean id="mapperWithBeanFactory" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
         <property name="mappingFiles">
             <list>
-                <value>mappingSpring.xml</value>
+                <value>mappings/mappingSpring.xml</value>
             </list>
         </property>
         <property name="factories">

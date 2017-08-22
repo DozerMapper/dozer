@@ -20,13 +20,7 @@
 <beans>
 
     <!-- Semi-Manual Solution -->
-    <bean id="mapperWithConverter" class="org.dozer.DozerBeanMapperBuilder" factory-method="buildDefault">
-        <property name="customConverters">
-            <list>
-                <ref bean="converter"/>
-            </list>
-        </property>
-    </bean>
+    <bean id="mapperWithConverter" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean"/>
 
     <bean id="converter" class="com.github.dozermapper.spring.functional_tests.support.InjectedCustomConverter">
         <property name="parameter" value="injectedName"/>

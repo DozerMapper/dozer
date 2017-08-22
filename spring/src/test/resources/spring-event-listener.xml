@@ -19,13 +19,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-lazy-init="false">
 
-    <bean id="mapperWithEventListener" class="org.dozer.DozerBeanMapperBuilder" factory-method="buildDefault">
-        <property name="eventListeners">
-            <list>
-                <ref bean="eventTestListener"/>
-            </list>
-        </property>
-    </bean>
+    <bean id="mapperWithEventListener" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean"/>
 
     <bean id="eventTestListener" class="com.github.dozermapper.spring.functional_tests.support.EventTestListener" scope="singleton"/>
 
