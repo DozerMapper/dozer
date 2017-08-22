@@ -50,6 +50,12 @@
         </dependency>
         <dependency>
             <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-proto</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-spring</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
