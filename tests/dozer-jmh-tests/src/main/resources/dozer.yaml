@@ -14,28 +14,16 @@
 # limitations under the License.
 #
 
-######################################################
-# This file contains all configurable Dozer 
-# properties and the default values
-######################################################
-
-##################
-### Statistics ###
-##################
-dozer.statistics.enabled=false
-
-#######################
-### Internal Caches ###
-#######################
-dozer.cache.converter.by.dest.type.maxsize=5000
-dozer.cache.super.type.maxsize=5000
-
-#######################
-### JMX             ###
-#######################
-dozer.autoregister.jmx.beans=true
-
-dozer.el.enabled=false
+---
+dozer:
+  cache:
+    converter-by-dest-type-maxsize: 5000
+    super-type-maxsize: 5000
+  el:
+    enabled: true
+# beans:
+#   class-loader-bean: "org.dozer.util.DefaultClassLoader"
+#   proxy-resolver-bean: "org.dozer.util.DefaultProxyResolver"
 
 
 

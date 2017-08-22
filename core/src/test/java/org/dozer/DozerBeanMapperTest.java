@@ -42,7 +42,6 @@ import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.generics.deepindex.TestObjectPrime;
 import org.junit.After;
@@ -143,7 +142,6 @@ public class DozerBeanMapperTest extends Assert {
                               new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory()),
                       new BeanContainer()),
               new XMLParserFactory(new BeanContainer()),
-              new StatisticsManagerImpl(new Settings()),
               new DozerInitializer(), new BeanContainer(),
               new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new DestBeanCreator(new BeanContainer()),
               new DestBeanBuilderCreator(),

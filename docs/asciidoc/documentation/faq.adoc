@@ -59,8 +59,6 @@ Dozer?]
 what type of data objects I want in the destination collection?]
 * link:#bypass-null[How can I tell Dozer to bypass mapping null or empty
 string values?]
-* link:#runtime-stats[How do I enable Dozer to collect runtime mapping
-statistics?]
 
 === Tips, Tricks, and Suggestions
 * link:#encapsulation[Should I encapsulate logic that copies data
@@ -71,8 +69,6 @@ logic that I use Dozer to perform?]
 Singleton?]
 * link:#component-mappings[Is it better to have 1 large xml mapping file
 or to have multiple smaller mapping files?]
-* link:#viewing-runtime-stats[What is the best way to view runtime
-mapping statistics?]
 * link:#debugging-dozer[What are the best ways to debug Dozer?]
 * link:#global-config[What is the best way to setup the global
 configuration?]
@@ -192,17 +188,6 @@ issues. But we always recommend that you run performance tests on your
 application to determine the actual performance costs within your
 system. You can decide for yourself whether those costs are acceptable
 in the context of the entire system.
-
-If you want to see actual Dozer runtime mapping statistics within the
-context of a system/application, you can enable Dozer statistics. This
-would be a good way to determine actual mapping times as a percentage of
-overall system performance. The best way to view the stats is via the
-Dozer JMX Beans. With the 3.2 release, these JMXBeans are auto
-registered with the platform mdb server. JConsole is a good way to
-easily view the MBeans.
-
-Based on our profiling numbers, the overhead of enabling statistics is
-roughly 3-5%.
 
 [[jdk-support]]
 === Which JDK versions are supported?
@@ -386,10 +371,6 @@ is bypassed at runtime and the destination value setter method will not
 be called if the src value is an empty String. This can be specified at
 the mapping or class level
 
-[[runtime-stats]]
-=== How do I enable Dozer to collect runtime mapping statistics?
-In your dozer.properties file set "dozer.statistics.enabled=true"
-
 [[encapsulation]]
 === Should I encapsulate logic that copies data between objects?
 It is our opinion that you should. Regardless of whether you use Dozer
@@ -511,12 +492,6 @@ and reuse this instance throughout your application. The
 We recommend componentizing your mapping files instead of having 1 large
 mapping file.
 
-[[viewing-runtime-stats]]
-=== What is the best way to view runtime mapping statistics?
-The best way to view the runtime stats is via the Dozer JMX Beans. These
-JMXBeans are auto registered with the platform mdb server at startup.
-JConsole is a good way to easily view the MBeans.
-
 [[debugging-dozer]]
 === What are the best ways to debug Dozer?
 You can specify the -Ddozer.debug system property to view the one time
@@ -530,9 +505,6 @@ dozer: Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classe
 dozer: Reading Dozer properties from URL[file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties]
 dozer: Finished configuring Dozer global properties
 dozer: Initializing Dozer. Version: ${project.version}, Thread Name:main
-dozer: Dozer JMX MBean [org.dozer.jmx:type=DozerStatisticsController] auto registered with the Platform MBeanServer
-dozer: Dozer JMX MBean [org.dozer.jmx:type=DozerAdminController] auto registered with the Platform MBeanServer
-dozer: Initializing a new instance of the dozer bean mapper.
 dozer: Initializing a new instance of the dozer bean mapper.
 dozer: Using the following xml files to load custom mappings for the bean mapper instance:[fieldAttributeMapping.xml]
 dozer: Trying to find xml mapping file: fieldAttributeMapping.xml

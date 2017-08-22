@@ -22,9 +22,6 @@ import org.dozer.config.Settings;
 import org.dozer.config.SettingsDefaults;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.stats.StatisticsManager;
-import org.dozer.stats.StatisticsManagerImpl;
-import org.dozer.util.DozerConstants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +34,6 @@ public class DozerInitializerTest extends AbstractDozerTest {
     private Settings settings;
 
     private DozerInitializer instance;
-    private StatisticsManager statisticsManager;
     private BeanContainer beanContainer;
     private DestBeanBuilderCreator destBeanBuilderCreator;
     private BeanMappingGenerator beanMappingGenerator;
@@ -48,7 +44,6 @@ public class DozerInitializerTest extends AbstractDozerTest {
     public void setUp() throws Exception {
         beanContainer = new BeanContainer();
         settings = new Settings();
-        statisticsManager = new StatisticsManagerImpl(settings);
         destBeanBuilderCreator = new DestBeanBuilderCreator();
         propertyDescriptorFactory = new PropertyDescriptorFactory();
         destBeanCreator = new DestBeanCreator(beanContainer);
@@ -66,7 +61,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
     public void testIsInitialized() {
         assertFalse(instance.isInitialized());
 
-        instance.init(settings, statisticsManager, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        instance.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
         assertTrue(instance.isInitialized());
 
         instance.destroy(settings);
@@ -78,8 +73,8 @@ public class DozerInitializerTest extends AbstractDozerTest {
         instance.destroy(settings);
         assertFalse(instance.isInitialized());
 
-        instance.init(settings, statisticsManager, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
-        instance.init(settings, statisticsManager, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        instance.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        instance.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
         assertTrue(instance.isInitialized());
 
         instance.destroy(settings);
@@ -93,7 +88,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
         when(settings.getClassLoaderBeanName()).thenReturn(SettingsDefaults.CLASS_LOADER_BEAN);
         when(settings.getProxyResolverBeanName()).thenReturn("no.such.class.Found");
 
-        instance.initialize(settings, getClass().getClassLoader(), statisticsManager, beanContainer, destBeanBuilderCreator,
+        instance.initialize(settings, getClass().getClassLoader(), beanContainer, destBeanBuilderCreator,
                 beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
         fail();
     }
@@ -104,7 +99,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
         when(settings.getClassLoaderBeanName()).thenReturn("java.lang.String");
         when(settings.getProxyResolverBeanName()).thenReturn(SettingsDefaults.PROXY_RESOLVER_BEAN);
 
-        instance.initialize(settings, getClass().getClassLoader(), statisticsManager, beanContainer, destBeanBuilderCreator,
+        instance.initialize(settings, getClass().getClassLoader(), beanContainer, destBeanBuilderCreator,
                 beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
         fail();
     }

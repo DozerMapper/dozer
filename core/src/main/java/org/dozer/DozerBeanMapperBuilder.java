@@ -44,8 +44,6 @@ import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.stats.StatisticsManager;
-import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
@@ -286,7 +284,6 @@ public final class DozerBeanMapperBuilder {
         CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(
                 new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
         XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
-        StatisticsManager statisticsManager = new StatisticsManagerImpl(settings);
         DozerInitializer dozerInitializer = new DozerInitializer();
         XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
         DestBeanBuilderCreator destBeanBuilderCreator = new DestBeanBuilderCreator();
@@ -299,7 +296,6 @@ public final class DozerBeanMapperBuilder {
                 settings,
                 customMappingsLoader,
                 xmlParserFactory,
-                statisticsManager,
                 dozerInitializer,
                 beanContainer,
                 xmlParser,

@@ -269,29 +269,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>jmxtest</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>java</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <mainClass>org.dozer.jmxtest.JMXTestEngine</mainClass>
-                            <classpathScope>test</classpathScope>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
 </project>
