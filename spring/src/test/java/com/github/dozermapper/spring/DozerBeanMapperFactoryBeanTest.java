@@ -26,17 +26,14 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.DozerEventListener;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -44,9 +41,9 @@ import static org.mockito.Mockito.when;
  */
 public class DozerBeanMapperFactoryBeanTest {
     
-    DozerBeanMapperFactoryBean factory;
-    Resource mockResource;
-    ApplicationContext mockContext;
+    private DozerBeanMapperFactoryBean factory;
+    private Resource mockResource;
+    private ApplicationContext mockContext;
 
     @Before
     public void setUp() throws Exception {
@@ -58,6 +55,9 @@ public class DozerBeanMapperFactoryBeanTest {
 
     @Test
     public void testOk() throws Exception {
+        URL url = this.getClass().getClassLoader().getResource("mappings/mappingSpring.xml");
+        when(mockResource.getURL()).thenReturn(url);
+
         factory.setCustomConverters(Collections.EMPTY_LIST);
         factory.setCustomConvertersWithId(Collections.EMPTY_MAP);
         factory.setEventListeners(Collections.EMPTY_LIST);
@@ -65,16 +65,14 @@ public class DozerBeanMapperFactoryBeanTest {
         factory.setMappingFiles(new Resource[] {mockResource});
         factory.setMappingBuilders(Collections.EMPTY_LIST);
 
-        URL url = this.getClass().getClassLoader().getResource("mappings/mappingSpring.xml");
-        when(mockResource.getURL()).thenReturn(url);
-
         factory.afterPropertiesSet();
 
         assertEquals(Mapper.class, factory.getObjectType());
-        Assert.assertTrue(factory.isSingleton());
+        assertTrue(factory.isSingleton());
 
         DozerBeanMapper mapper = (DozerBeanMapper)factory.getObject();
         List<?> files = mapper.getMappingFiles();
+
         assertEquals(1, files.size());
         assertEquals("file:" + url.getFile(), files.iterator().next());
     }
@@ -85,20 +83,16 @@ public class DozerBeanMapperFactoryBeanTest {
     }
 
     @Test
-    public void testDestroy() throws Exception {
-        factory.beanMapper = mock(DozerBeanMapper.class);
-        factory.destroy();
-        verify(factory.beanMapper).destroy();
-    }
-
-    @Test
     public void shouldInjectBeans() throws Exception {
         HashMap<String, CustomConverter> converterHashMap = new HashMap<String, CustomConverter>();
         converterHashMap.put("a", mock(CustomConverter.class));
+
         HashMap<String, BeanFactory> beanFactoryMap = new HashMap<String, BeanFactory>();
         beanFactoryMap.put("a", mock(BeanFactory.class));
+
         HashMap<String, DozerEventListener> eventListenerMap = new HashMap<String, DozerEventListener>();
         eventListenerMap.put("a", mock(DozerEventListener.class));
+
         HashMap<String, BeanMappingBuilder> mappingBuilders = new HashMap<String, BeanMappingBuilder>();
         mappingBuilders.put("a", mock(BeanMappingBuilder.class));
 
@@ -110,11 +104,9 @@ public class DozerBeanMapperFactoryBeanTest {
         factory.afterPropertiesSet();
 
         DozerBeanMapper mapper = (DozerBeanMapper)factory.getObject();
-        assertThat(mapper.getCustomConverters().size(), equalTo(1));
-        assertThat(mapper.getCustomConverters().size(), equalTo(1));
-        assertThat(mapper.getCustomConvertersWithId().size(), equalTo(1));
-        assertThat(mapper.getEventListeners().size(), equalTo(1));
-        // FIXME: there's no mapper.getMappings() method,
-        // so there's no (easy) way to verify whether BeanMappingBuilder was injected!
+        assertEquals(1, mapper.getCustomConverters().size());
+        assertEquals(1, mapper.getCustomConverters().size());
+        assertEquals(1, mapper.getCustomConvertersWithId().size());
+        assertEquals(1, mapper.getEventListeners().size());
     }
 }

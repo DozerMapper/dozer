@@ -17,7 +17,6 @@ package com.github.dozermapper.spring.functional_tests;
 
 import com.github.dozermapper.spring.functional_tests.support.ReferencingBean;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,9 +25,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin
@@ -42,13 +40,15 @@ public class NamespaceTest {
 
     @Test
     public void shouldRegisterMapper() {
-        DozerBeanMapper beanMapper = (DozerBeanMapper)context.getBean("beanMapper");
-        assertThat(beanMapper, notNullValue());
-
+        Mapper beanMapper = context.getBean("beanMapper", Mapper.class);
         ReferencingBean referencingBean = context.getBean(ReferencingBean.class);
-        Mapper mapper = referencingBean.getMapper();
-        assertThat(mapper, notNullValue());
 
-        assertThat(beanMapper, sameInstance(mapper));
+        assertNotNull(beanMapper);
+        assertNotNull(referencingBean);
+
+        Mapper mapper = referencingBean.getMapper();
+
+        assertNotNull(mapper);
+        assertEquals(beanMapper, mapper);
     }
 }

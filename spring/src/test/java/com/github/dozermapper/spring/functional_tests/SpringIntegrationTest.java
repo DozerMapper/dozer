@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SpringIntegrationTest {
 
-    ClassPathXmlApplicationContext context;
+    private ClassPathXmlApplicationContext context;
 
     @Before
     public void setUp() throws Exception {
@@ -48,25 +48,28 @@ public class SpringIntegrationTest {
 
     @Test
     public void testCreationByFactory() {
-        DozerBeanMapper mapper = context.getBean("byFactory", DozerBeanMapper.class);
-        assertTrue(mapper.getMappingFiles().isEmpty());
+        Mapper mapper = context.getBean("byFactory", Mapper.class);
+
+        assertNotNull(mapper);
+        assertNotNull(mapper.getMappingMetadata());
     }
 
     @Test
     public void testSpringNoMappingFilesSpecified() throws Exception {
         // Mapper can be used without specifying any mapping files.
         // Fields that have the same name will be mapped automatically.
-        Mapper implicitMapper = (Mapper)context.getBean("implicitMapper");
+        Mapper implicitMapper = context.getBean("implicitMapper", Mapper.class);
 
+        assertNotNull(implicitMapper);
         assertBasicMapping(implicitMapper);
     }
 
     @Test
     public void testInjectConverter() throws Exception {
-        DozerBeanMapper mapper = context.getBean("mapperWithConverter", DozerBeanMapper.class);
+        DozerBeanMapper mapper = (DozerBeanMapper)context.getBean("mapperWithConverter", Mapper.class);
 
         assertNotNull(mapper);
-        assertNotNull(mapper.getMappingFiles());
+        assertNotNull(mapper.getMappingMetadata());
 
         List<CustomConverter> customConverters = mapper.getCustomConverters();
         assertEquals(1, customConverters.size());
@@ -79,14 +82,16 @@ public class SpringIntegrationTest {
 
     @Test
     public void testEventListeners() throws Exception {
-        DozerBeanMapper eventMapper = context.getBean("mapperWithEventListener", DozerBeanMapper.class);
+        DozerBeanMapper eventMapper = (DozerBeanMapper)context.getBean("mapperWithEventListener", Mapper.class);
+        EventTestListener listener = context.getBean(EventTestListener.class);
+
+        assertNotNull(eventMapper);
+        assertNotNull(listener);
         assertNotNull(eventMapper.getEventListeners());
         assertEquals(1, eventMapper.getEventListeners().size());
-        DozerEventListener eventListener = eventMapper.getEventListeners().get(0);
-        assertEquals(EventTestListener.class, eventListener.getClass());
 
-        EventTestListener listener = context.getBean(EventTestListener.class);
-        assertNotNull(listener);
+        DozerEventListener eventListener = eventMapper.getEventListeners().get(0);
+        assertTrue(eventListener instanceof EventTestListener);
 
         assertEquals(0, listener.getInvocationCount());
 
@@ -97,12 +102,14 @@ public class SpringIntegrationTest {
 
     @Test
     public void testBeanMappingBuilder() throws Exception {
-        DozerBeanMapper mapper = (DozerBeanMapper)context.getBean("factoryWithMappingBuilder", DozerBeanMapper.class);
+        Mapper mapper = context.getBean("factoryWithMappingBuilder", Mapper.class);
 
         Source source = new Source();
         source.setName("John");
         source.setId(2L);
+
         Destination destination = mapper.map(source, Destination.class);
+
         assertEquals("John", destination.getValue());
         assertEquals(2L, destination.getId());
     }
@@ -110,7 +117,9 @@ public class SpringIntegrationTest {
     private void assertBasicMapping(Mapper mapper) {
         Source source = new Source();
         source.setId(1L);
+
         Destination destination = mapper.map(source, Destination.class);
+
         assertEquals(1L, destination.getId());
     }
 }
