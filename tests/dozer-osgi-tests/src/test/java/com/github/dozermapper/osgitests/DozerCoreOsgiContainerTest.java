@@ -59,7 +59,7 @@ public class DozerCoreOsgiContainerTest extends OsgiTestSupport {
                 url("link:classpath:org.apache.commons.collections.link"),
                 url("link:classpath:org.apache.commons.lang3.link"),
                 url("link:classpath:org.apache.commons.io.link"),
-                // Jackson
+                // Optional; Jackson
                 url("link:classpath:com.fasterxml.jackson.core.jackson-annotations.link"),
                 url("link:classpath:com.fasterxml.jackson.core.jackson-core.link"),
                 url("link:classpath:com.fasterxml.jackson.core.jackson-databind.link"),

@@ -69,6 +69,21 @@
 
         <!-- Provided dependencies -->
         <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>woodstox-core-asl</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <scope>test</scope>

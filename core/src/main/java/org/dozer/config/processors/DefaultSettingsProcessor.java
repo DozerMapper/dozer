@@ -58,8 +58,7 @@ public class DefaultSettingsProcessor implements SettingsProcessor {
 
     private void createSettingsResolvers() {
         String fileName = System.getProperty(SettingsKeys.CONFIG_FILE_SYS_PROP);
-
-        resolvers.add(new YAMLSettingsResolver(classLoader, getConfigFileName(fileName, SettingsDefaults.YAML_PROPERTIES_FILE)));
+        
         resolvers.add(new LegacyPropertiesSettingsResolver(classLoader, getConfigFileName(fileName, SettingsDefaults.LEGACY_PROPERTIES_FILE)));
         resolvers.add(new SystemPropertySettingsResolver());
         resolvers.add(new SystemEnvironmentSettingsResolver());
