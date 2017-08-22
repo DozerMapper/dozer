@@ -97,6 +97,7 @@
         <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <license-maven-plugin.version>3.0</license-maven-plugin.version>
+        <directory-maven-plugin.version>0.2</directory-maven-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
 
@@ -122,6 +123,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.commonjava.maven.plugins</groupId>
+                    <artifactId>directory-maven-plugin</artifactId>
+                    <version>${directory-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>com.mycila</groupId>
@@ -161,10 +167,31 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.commonjava.maven.plugins</groupId>
+                <artifactId>directory-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>directory-of</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <property>buildingtools.basedir</property>
+                            <project>
+                                <groupId>com.github.dozermapper</groupId>
+                                <artifactId>dozer-building-tools</artifactId>
+                            </project>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
-                    <header>LICENSE-HEADER.txt</header>
+                    <header>${buildingtools.basedir}/src/main/resources/LICENSE-HEADER.txt</header>
                     <excludes>
                         <exclude>docs/**</exclude>
                         <exclude>.travis/**</exclude>

@@ -187,7 +187,7 @@
                 <dependencies>
                     <dependency>
                         <groupId>com.github.dozermapper</groupId>
-                        <artifactId>building-tools</artifactId>
+                        <artifactId>dozer-building-tools</artifactId>
                         <version>${building-tools.version}</version>
                         <scope>compile</scope>
                     </dependency>
