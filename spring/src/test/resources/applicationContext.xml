@@ -16,30 +16,18 @@
     limitations under the License.
 
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-        "http://www.springframework.org/dtd/spring-beans.dtd">
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
     <import resource="classpath:spring-custom-converter.xml"/>
     <import resource="classpath:spring-bean-factory.xml"/>
     <import resource="classpath:spring-event-listener.xml"/>
     <import resource="classpath:spring-bean-mapping-builder.xml"/>
 
-    <bean id="implicitMapper"
-          class="org.dozer.DozerBeanMapperBuilder"
-          factory-method="buildDefault"/>
+    <bean id="implicitMapper" class="org.dozer.DozerBeanMapperBuilder" factory-method="buildDefault"/>
 
     <!-- Provided Spring Integration -->
     <bean id="byFactory" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
         <property name="mappingFiles" value="classpath*:/*Mapping.xml"/>
-        <property name="customConverters">
-            <list/>
-        </property>
-        <property name="eventListeners">
-            <list/>
-        </property>
-        <property name="factories">
-            <map/>
-        </property>
     </bean>
 
 </beans>
