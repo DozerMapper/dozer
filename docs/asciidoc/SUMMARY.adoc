@@ -40,8 +40,6 @@
 == Extra
 .. link:documentation/configuration/logging.adoc[Logging]
 .. link:documentation/events.adoc[Event Listening]
-.. link:documentation/configuration/statistics.adoc[Statistics]
-.. link:documentation/jmxintegration.adoc[JMX Integration]
 .. link:documentation/metadata.adoc[Metadata Query Interface]
 
 == 3rd Party

@@ -60,8 +60,6 @@ import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.fieldmap.MapFieldMap;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.stats.StatisticType;
-import org.dozer.stats.StatisticsManager;
 import org.dozer.util.CollectionUtils;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.IteratorUtils;
@@ -96,7 +94,6 @@ public class MappingProcessor implements Mapper {
   private final Configuration globalConfiguration;
   private final List<CustomConverter> customConverterObjects;
   private final Map<String, CustomConverter> customConverterObjectsWithId;
-  private final StatisticsManager statsMgr;
   private final EventManager eventMgr;
   private final CustomFieldMapper customFieldMapper;
 
@@ -112,14 +109,13 @@ public class MappingProcessor implements Mapper {
   private final DestBeanBuilderCreator destBeanBuilderCreator;
 
   protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
-                             StatisticsManager statsMgr, List<CustomConverter> customConverterObjects,
+                             List<CustomConverter> customConverterObjects,
                              DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
                              Map<String, CustomConverter> customConverterObjectsWithId, BeanContainer beanContainer,
                              DestBeanCreator destBeanCreator, DestBeanBuilderCreator destBeanBuilderCreator,
                              BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory) {
     this.classMappings = classMappings;
     this.globalConfiguration = globalConfiguration;
-    this.statsMgr = statsMgr;
     this.customConverterObjects = customConverterObjects;
     this.eventMgr = eventManager;
     this.customFieldMapper = customFieldMapper;
@@ -354,11 +350,8 @@ public class MappingProcessor implements Mapper {
         }
       }
 
-      statsMgr.increment(StatisticType.FIELD_MAPPING_SUCCESS_COUNT);
-
     } catch (Throwable e) {
       log.error(logMsgFactory.createFieldMappingErrorMsg(srcObj, fieldMapping, srcFieldValue, destObj), e);
-      statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_COUNT);
 
       // check error handling policy.
       if (fieldMapping.isStopOnErrors()) {
@@ -372,7 +365,6 @@ public class MappingProcessor implements Mapper {
             throw (RuntimeException) thrownType;
           }
         }
-        statsMgr.increment(StatisticType.FIELD_MAPPING_FAILURE_IGNORED_COUNT);
       }
     }
   }
@@ -1000,8 +992,6 @@ public class MappingProcessor implements Mapper {
       return null;
     }
 
-    long start = System.currentTimeMillis();
-
     if (converterInstance instanceof MapperAware) {
       ((MapperAware) converterInstance).setMapper(this);
     }
@@ -1035,10 +1025,6 @@ public class MappingProcessor implements Mapper {
         result = converterInstance.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
       }
     }
-
-    long stop = System.currentTimeMillis();
-    statsMgr.increment(StatisticType.CUSTOM_CONVERTER_SUCCESS_COUNT);
-    statsMgr.increment(StatisticType.CUSTOM_CONVERTER_TIME, stop - start);
 
     return result;
   }

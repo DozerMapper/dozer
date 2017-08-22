@@ -16,7 +16,6 @@
 package org.dozer;
 
 import java.io.InputStream;
-import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,10 +51,6 @@ import org.dozer.metadata.MappingMetadata;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.stats.StatisticType;
-import org.dozer.stats.StatisticsInterceptor;
-import org.dozer.stats.StatisticsManager;
-import org.dozer.stats.StatisticsManagerImpl;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingValidator;
@@ -84,7 +79,6 @@ public class DozerBeanMapper implements Mapper {
 
   private final AtomicBoolean initializing = new AtomicBoolean(false);
   private final CountDownLatch ready = new CountDownLatch(1);
-  private final StatisticsManager statsMgr;
   private final Settings settings;
   private final CustomMappingsLoader customMappingsLoader;
   private final XMLParserFactory xmlParserFactory;
@@ -142,11 +136,10 @@ public class DozerBeanMapper implements Mapper {
     this.customMappingsLoader = new CustomMappingsLoader(
             new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
     this.xmlParserFactory = new XMLParserFactory(beanContainer);
-    this.statsMgr = new StatisticsManagerImpl(settings);
     this.dozerInitializer = new DozerInitializer();
     this.xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
     this.destBeanBuilderCreator = new DestBeanBuilderCreator();
-    this.cacheManager = new DozerCacheManager(statsMgr);
+    this.cacheManager = new DozerCacheManager();
     this.mappingFiles = new ArrayList<>(mappingFiles);
     this.customConverters = new ArrayList<>();
     this.mappingsFileData = new ArrayList<>();
@@ -159,7 +152,6 @@ public class DozerBeanMapper implements Mapper {
                   Settings settings,
                   CustomMappingsLoader customMappingsLoader,
                   XMLParserFactory xmlParserFactory,
-                  StatisticsManager statsMgr,
                   DozerInitializer dozerInitializer,
                   BeanContainer beanContainer,
                   XMLParser xmlParser,
@@ -175,8 +167,7 @@ public class DozerBeanMapper implements Mapper {
     this.settings = settings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
-    this.statsMgr = statsMgr;
-    this.cacheManager = new DozerCacheManager(statsMgr);
+    this.cacheManager = new DozerCacheManager();
     this.dozerInitializer = dozerInitializer;
     this.beanContainer = beanContainer;
     this.xmlParser = xmlParser;
@@ -284,7 +275,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   private void init() {
-    dozerInitializer.init(settings, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+    dozerInitializer.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
     log.info("Initializing a new instance of dozer bean mapper.");
 
@@ -292,9 +283,6 @@ public class DozerBeanMapper implements Mapper {
     // are not shared across the VM.
     cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), settings.getConverterByDestTypeCacheMaxSize());
     cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), settings.getSuperTypesCacheMaxSize());
-
-    // stats
-    statsMgr.increment(StatisticType.MAPPER_INSTANCES_COUNT);
   }
 
   public void destroy() {
@@ -304,16 +292,9 @@ public class DozerBeanMapper implements Mapper {
   protected Mapper getMappingProcessor() {
     initMappings();
 
-    Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, statsMgr, customConverters,
+    Mapper processor = new MappingProcessor(customMappings, globalConfiguration, cacheManager, customConverters,
             eventManager, customFieldMapper, customConvertersWithId, beanContainer, destBeanCreator, destBeanBuilderCreator,
             beanMappingGenerator, propertyDescriptorFactory);
-
-    // If statistics are enabled, then Proxy the processor with a statistics interceptor
-    if (statsMgr.isStatisticsEnabled()) {
-      processor = (Mapper) Proxy.newProxyInstance(processor.getClass().getClassLoader(),
-              processor.getClass().getInterfaces(),
-              new StatisticsInterceptor(processor, statsMgr));
-    }
 
     return processor;
   }

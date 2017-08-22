@@ -24,11 +24,9 @@ import org.dozer.config.BeanContainer;
 import org.dozer.config.Settings;
 import org.dozer.config.SettingsDefaults;
 import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.ExcludeFieldMap;
 import org.dozer.loader.xml.ELEngine;
 import org.dozer.loader.xml.ExpressionElementReader;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.stats.StatisticsManager;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
@@ -40,7 +38,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Internal class that performs one time Dozer initializations. Only intended for internal use.
- * Registers internal JMX MBeans if those are enabled in the configuration.
  *
  * @author tierney.matt
  * @author dmitry.buzdin
@@ -54,13 +51,13 @@ public final class DozerInitializer {
   public DozerInitializer() {
   }
 
-  public void init(Settings settings, StatisticsManager statsMgr, BeanContainer beanContainer,
+  public void init(Settings settings, BeanContainer beanContainer,
                    DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
                    DestBeanCreator destBeanCreator) {
-    init(settings, getClass().getClassLoader().getParent(), statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+    init(settings, getClass().getClassLoader().getParent(), beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
   }
 
-  public void init(Settings settings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+  public void init(Settings settings, ClassLoader classLoader, BeanContainer beanContainer,
                    DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
                    DestBeanCreator destBeanCreator) {
     // Multiple threads may try to initialize simultaneously
@@ -73,13 +70,13 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      initialize(settings, classLoader, statsMgr, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+      initialize(settings, classLoader, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
       isInitialized = true;
     }
   }
 
-  void initialize(Settings settings, ClassLoader classLoader, StatisticsManager statsMgr, BeanContainer beanContainer,
+  void initialize(Settings settings, ClassLoader classLoader, BeanContainer beanContainer,
                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
                   DestBeanCreator destBeanCreator) {
     registerClassLoader(settings, classLoader, beanContainer);
@@ -136,7 +133,7 @@ public final class DozerInitializer {
   }
 
   /**
-   * Performs framework shutdown sequence. Includes de-registering existing Dozer JMX MBeans.
+   * Performs framework shutdown sequence.
    */
   public void destroy(Settings settings) {
     synchronized (this) {

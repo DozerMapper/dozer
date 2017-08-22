@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.dozer.stats.StatisticsManager;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,10 +37,8 @@ public final class DozerCacheManager implements CacheManager {
 
     private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
 
-    private final StatisticsManager statisticsManager;
+    public DozerCacheManager() {
 
-    public DozerCacheManager(StatisticsManager statisticsManager) {
-        this.statisticsManager = statisticsManager;
     }
 
     public Collection<Cache> getCaches() {
@@ -57,7 +54,7 @@ public final class DozerCacheManager implements CacheManager {
     }
 
     public void addCache(String name, int maxElementsInMemory) {
-        addCache(new DozerCache(name, maxElementsInMemory, statisticsManager));
+        addCache(new DozerCache(name, maxElementsInMemory));
     }
 
     public void addCache(Cache cache) {

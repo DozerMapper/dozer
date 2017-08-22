@@ -2,8 +2,8 @@
 **STILL WORK IN PROGRESS - NOT RELEASED**
 See link:https://github.com/DozerMapper/dozer/releases/tag/6.2.0[for release notes].
 
-=== 1. JMX has been removed
-As per 6.1.0 migration docs, JMX was deprecated. It has now been fully removed.
+=== 1. JMX/Stats has been removed
+As per 6.1.0 migration docs, JMX and Stats were deprecated. They have now been fully removed.
 
 === 2. dozer.properties keys changed
 **From:**

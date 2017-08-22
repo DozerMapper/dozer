@@ -20,11 +20,9 @@ import java.util.Set;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
-import org.dozer.stats.StatisticsManager;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
@@ -36,20 +34,17 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
   @Rule
   public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-  @Mock
-  private StatisticsManager statisticsManager;
-
   private DozerCacheManager cacheMgr;
 
   @Override
   @Before
   public void setUp() throws Exception {
-    cacheMgr = new DozerCacheManager(statisticsManager);
+    cacheMgr = new DozerCacheManager();
   }
 
   @Test
   public void testCreateNew() throws Exception {
-    DozerCacheManager cacheMgr2 = new DozerCacheManager(statisticsManager);
+    DozerCacheManager cacheMgr2 = new DozerCacheManager();
 
     assertFalse("cache mgrs should not be equal", cacheMgr.equals(cacheMgr2));
     assertNotSame("cache mgrs should not be same instance", cacheMgr, cacheMgr2);
@@ -90,7 +85,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     // You should be able to add caches with the same name to non singleton instances
     // of the cache manager because they each have their own copies of caches to manage.
     // The caches are uniquely identified by the cache managers by using the instance id.
-    DozerCacheManager cacheMgr2 = new DozerCacheManager(statisticsManager);
+    DozerCacheManager cacheMgr2 = new DozerCacheManager();
 
     // add cache to each cache mgr instance
     String cacheName = getRandomString();
@@ -125,7 +120,7 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
   @Test
   public void testClearAllCacheEntries() {
     String name = getRandomString();
-    Cache<String, String> cache = new DozerCache<String, String>(name, 5, statisticsManager);
+    Cache<String, String> cache = new DozerCache<String, String>(name, 5);
     cache.put(getRandomString(), "value");
     cacheMgr.addCache(cache);
 
@@ -137,8 +132,8 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
   @Test
   public void testGetCaches() {
     String name = getRandomString();
-    Cache<String, String> cache = new DozerCache<String, String>(name, 5, statisticsManager);
-    Cache<String, String> cache2 = new DozerCache<String, String>(name + "2", 5, statisticsManager);
+    Cache<String, String> cache = new DozerCache<String, String>(name, 5);
+    Cache<String, String> cache2 = new DozerCache<String, String>(name + "2", 5);
     cacheMgr.addCache(cache);
     cacheMgr.addCache(cache2);
 
