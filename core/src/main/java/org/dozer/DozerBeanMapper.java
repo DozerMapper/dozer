@@ -109,45 +109,7 @@ public class DozerBeanMapper implements Mapper {
   // There are no global caches. Caches are per bean mapper instance
   private final CacheManager cacheManager;
   private DozerEventManager eventManager;
-
-  /**
-   * @deprecated will be removed in 6.2. Please use {@code DozerBeanMapperBuilder.create().build()}.
-   */
-  @Deprecated
-  public DozerBeanMapper() {
-    this(Collections.emptyList());
-  }
-
-   /**
-   * @deprecated will be removed in 6.2. Please use {@code DozerBeanMapperBuilder.create().withMappingFiles(..).build()}.
-   */
-   @Deprecated
-  public DozerBeanMapper(List<String> mappingFiles) {
-    DozerClassLoader classLoader = RuntimeUtils.isOSGi()
-            ? new OSGiClassLoader(Activator.getBundle().getBundleContext())
-            : new DefaultClassLoader(DozerBeanMapperBuilder.class.getClassLoader());
-    this.settings = new Settings();
-    this.beanContainer = new BeanContainer();
-    this.destBeanCreator = new DestBeanCreator(beanContainer);
-    this.propertyDescriptorFactory = new PropertyDescriptorFactory();
-    this.beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
-    ClassMapBuilder classMapBuilder = new ClassMapBuilder(
-            beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
-    this.customMappingsLoader = new CustomMappingsLoader(
-            new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
-    this.xmlParserFactory = new XMLParserFactory(beanContainer);
-    this.dozerInitializer = new DozerInitializer();
-    this.xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
-    this.destBeanBuilderCreator = new DestBeanBuilderCreator();
-    this.cacheManager = new DozerCacheManager();
-    this.mappingFiles = new ArrayList<>(mappingFiles);
-    this.customConverters = new ArrayList<>();
-    this.mappingsFileData = new ArrayList<>();
-    this.eventListeners = new ArrayList<>();
-    this.customConvertersWithId = new HashMap<>();
-    init();
-  }
-
+  
   DozerBeanMapper(List<String> mappingFiles,
                   Settings settings,
                   CustomMappingsLoader customMappingsLoader,
