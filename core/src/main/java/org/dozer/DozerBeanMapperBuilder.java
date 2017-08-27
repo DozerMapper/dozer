@@ -420,11 +420,7 @@ public final class DozerBeanMapperBuilder {
 
     private ElementReader getElementReader(ELEngine elEngine) {
         if (elementReader == null) {
-            if (ELExpressionFactory.isSupported()) {
-                return new ExpressionElementReader(elEngine);
-            } else {
-                return new SimpleElementReader();
-            }
+            return new ExpressionElementReader(elEngine);
         } else {
             return elementReader;
         }

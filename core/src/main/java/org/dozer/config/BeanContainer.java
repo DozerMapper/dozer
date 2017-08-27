@@ -17,7 +17,9 @@ package org.dozer.config;
 
 
 import org.dozer.el.ELEngine;
+import org.dozer.el.NoopELEngine;
 import org.dozer.loader.xml.ElementReader;
+import org.dozer.loader.xml.ExpressionElementReader;
 import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DefaultProxyResolver;
@@ -32,7 +34,7 @@ public class BeanContainer {
   DozerClassLoader classLoader = new DefaultClassLoader(getClass().getClassLoader());
   DozerClassLoader tccl = new DefaultClassLoader(Thread.currentThread().getContextClassLoader());
   DozerProxyResolver proxyResolver = new DefaultProxyResolver();
-  ElementReader elementReader = new SimpleElementReader();
+  ElementReader elementReader = new ExpressionElementReader(new NoopELEngine());
   ELEngine elEngine;
 
   public DozerClassLoader getClassLoader() {

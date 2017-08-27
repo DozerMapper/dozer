@@ -37,6 +37,7 @@ import org.dozer.el.NoopELEngine;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.MappingsParser;
+import org.dozer.loader.xml.ExpressionElementReader;
 import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
@@ -149,7 +150,7 @@ public class DozerBeanMapperTest extends Assert {
               new DestBeanBuilderCreator(),
               new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory(),
               new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null, new HashMap<>(),
-              new NoopELEngine(), new SimpleElementReader());
+              new NoopELEngine(), new ExpressionElementReader(new NoopELEngine()));
     }
 
     @Override
