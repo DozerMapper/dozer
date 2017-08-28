@@ -34,10 +34,12 @@ public class ProtobufBeanFieldsDetector implements BeanFieldsDetector {
         return Message.class.isAssignableFrom(clazz);
     }
 
+    @SuppressWarnings("unchecked")
     public Set<String> getReadableFieldNames(Class<?> clazz) {
         return getFieldNames((Class<? extends Message>)clazz);
     }
 
+    @SuppressWarnings("unchecked")
     public Set<String> getWritableFieldNames(Class<?> clazz) {
         return getFieldNames((Class<? extends Message>)clazz);
     }

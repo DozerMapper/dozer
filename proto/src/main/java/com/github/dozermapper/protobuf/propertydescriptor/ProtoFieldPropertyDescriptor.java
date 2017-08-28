@@ -176,8 +176,9 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
         return this.genericType;
     }
 
+    @SuppressWarnings("unchecked")
     private Descriptors.FieldDescriptor getFieldDescriptor() {
-        if (this.fieldDescriptor == null) {
+        if (this.fieldDescriptor == null && Message.class.isAssignableFrom(clazz)) {
             this.fieldDescriptor = ProtoUtils.getFieldDescriptor((Class<? extends Message>)clazz, fieldName);
             if (this.fieldDescriptor == null && !MappingUtils.isDeepMapping(fieldName)) {
                 MappingUtils.throwMappingException("No field descriptor for field with name: " + fieldName);
