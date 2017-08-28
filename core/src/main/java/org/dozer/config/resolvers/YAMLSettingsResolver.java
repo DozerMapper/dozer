@@ -39,7 +39,6 @@ public class YAMLSettingsResolver implements SettingsResolver {
 
     private static final String ROOT_PARENT = "dozer";
     private static final String CACHE_PARENT = "cache";
-    private static final String EL_PARENT = "el";
     private static final String BEANS_PARENT = "beans";
 
     private static final String ENABLED_PROPERTY = "enabled";
@@ -102,13 +101,6 @@ public class YAMLSettingsResolver implements SettingsResolver {
 
                 if (cache.containsKey(SUPER_TYPE_CHECK_CACHE_MAX_SIZE_PROPERTY)) {
                     properties.put(SettingsKeys.SUPER_TYPE_CHECK_CACHE_MAX_SIZE, cache.get(SUPER_TYPE_CHECK_CACHE_MAX_SIZE_PROPERTY));
-                }
-            }
-
-            if (root.containsKey(EL_PARENT)) {
-                Map<String, Boolean> el = (Map<String, Boolean>)root.get(EL_PARENT);
-                if (el.containsKey(ENABLED_PROPERTY)) {
-                    properties.put(SettingsKeys.EL_ENABLED, el.get(ENABLED_PROPERTY));
                 }
             }
 

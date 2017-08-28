@@ -23,8 +23,9 @@ import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.Settings;
 import org.dozer.config.SettingsDefaults;
+import org.dozer.el.ELEngine;
 import org.dozer.factory.DestBeanCreator;
-import org.dozer.loader.xml.ELEngine;
+import org.dozer.loader.xml.ElementReader;
 import org.dozer.loader.xml.ExpressionElementReader;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DefaultClassLoader;
@@ -81,13 +82,6 @@ public final class DozerInitializer {
                   DestBeanCreator destBeanCreator) {
     registerClassLoader(settings, classLoader, beanContainer);
     registerProxyResolver(settings, beanContainer);
-
-    if (settings.getElEnabled()) {
-      ELEngine engine = new ELEngine();
-      engine.init();
-      beanContainer.setElEngine(engine);
-      beanContainer.setElementReader(new ExpressionElementReader(engine));
-    }
 
     try {
       ServiceLoader<DozerModule> services = ServiceLoader.load(DozerModule.class);

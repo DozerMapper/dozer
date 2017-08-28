@@ -13,25 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.config.processors;
+package org.dozer.el;
 
-import org.dozer.config.Settings;
-import org.dozer.util.DefaultClassLoader;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-public class SettingsProcessorTest {
+public class ELExpressionFactoryTest {
 
     @Test
-    public void canGetSettings() {
-        DefaultSettingsProcessor processor = new DefaultSettingsProcessor(new DefaultClassLoader(getClass().getClassLoader()));
-        Settings settings = processor.process();
+    public void canNewInstance() {
+        assertNotNull(ELExpressionFactory.newInstance());
+    }
 
-        assertNotNull(settings);
-        assertNotNull(settings.getConverterByDestTypeCacheMaxSize());
-        assertNotNull(settings.getSuperTypesCacheMaxSize());
-        assertNotNull(settings.getClassLoaderBeanName());
-        assertNotNull(settings.getProxyResolverBeanName());
+    @Test
+    public void canNewInstanceWithClassloader() {
+        assertNotNull(ELExpressionFactory.newInstance(getClass().getClassLoader()));
+    }
+
+    @Test
+    public void canIsSupported() {
+        assertTrue(ELExpressionFactory.isSupported());
+    }
+
+    @Test
+    public void canIsSupportedWithClassloader() {
+        assertTrue(ELExpressionFactory.isSupported(getClass().getClassLoader()));
     }
 }

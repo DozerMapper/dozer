@@ -23,8 +23,10 @@ import com.github.dozermapper.osgitestsmodel.Person;
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerModule;
 import org.dozer.Mapper;
+import org.dozer.el.ELExpressionFactory;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
+import org.dozer.util.RuntimeUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -36,10 +38,14 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
+import static org.ops4j.pax.exam.CoreOptions.repositories;
 import static org.ops4j.pax.exam.CoreOptions.systemPackage;
 import static org.ops4j.pax.exam.CoreOptions.url;
 
@@ -78,8 +84,7 @@ public class DozerCoreOsgiContainerTest extends OsgiTestSupport {
                 url("link:classpath:com.github.dozermapper.dozer-core.link"),
                 url("link:classpath:com.github.dozermapper.dozer-schema.link"),
                 url("link:classpath:com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
-                junitBundles(),
-                systemPackage("javax.xml.stream")
+                junitBundles()
         );
     }
 
@@ -122,5 +127,24 @@ public class DozerCoreOsgiContainerTest extends OsgiTestSupport {
         assertNotNull(answer);
         assertNotNull(answer.getName());
         assertEquals("bob", answer.getName());
+    }
+
+    @Test
+    public void canMapUsingXMLWithVariables() {
+        Mapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/mapping-with-el.xml")
+                .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
+                .build();
+
+        Person answer = mapper.map(new Person("bob"), Person.class);
+
+        assertNotNull(answer);
+        assertNotNull(answer.getName());
+        assertEquals("bob", answer.getName());
+    }
+
+    @Test
+    public void elSupported() {
+        assertTrue(ELExpressionFactory.isSupported());
     }
 }

@@ -36,14 +36,18 @@ import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.Settings;
+import org.dozer.el.ELEngine;
+import org.dozer.el.NoopELEngine;
 import org.dozer.event.DozerEventManager;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
 import org.dozer.loader.MappingsParser;
 import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.xml.ElementReader;
 import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.MappingStreamReader;
+import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
@@ -90,6 +94,9 @@ public class DozerBeanMapper implements Mapper {
   private final BeanMappingGenerator beanMappingGenerator;
   private final PropertyDescriptorFactory propertyDescriptorFactory;
 
+  private final ELEngine elEngine;
+  private final ElementReader elementReader;
+
   /*
    * Accessible for custom injection
    */
@@ -98,7 +105,6 @@ public class DozerBeanMapper implements Mapper {
   private final List<MappingFileData> mappingsFileData;
   private final List<DozerEventListener> eventListeners;
   private final Map<String, CustomConverter> customConvertersWithId;
-
   private CustomFieldMapper customFieldMapper;
 
   /*
@@ -109,7 +115,7 @@ public class DozerBeanMapper implements Mapper {
   // There are no global caches. Caches are per bean mapper instance
   private final CacheManager cacheManager;
   private DozerEventManager eventManager;
-  
+
   DozerBeanMapper(List<String> mappingFiles,
                   Settings settings,
                   CustomMappingsLoader customMappingsLoader,
@@ -125,7 +131,9 @@ public class DozerBeanMapper implements Mapper {
                   List<MappingFileData> mappingsFileData,
                   List<DozerEventListener> eventListeners,
                   CustomFieldMapper customFieldMapper,
-                  Map<String, CustomConverter> customConvertersWithId) {
+                  Map<String, CustomConverter> customConvertersWithId,
+                  ELEngine elEngine,
+                  ElementReader elementReader) {
     this.settings = settings;
     this.customMappingsLoader = customMappingsLoader;
     this.xmlParserFactory = xmlParserFactory;
@@ -143,6 +151,9 @@ public class DozerBeanMapper implements Mapper {
     this.mappingFiles = new ArrayList<>(mappingFiles);
     this.customFieldMapper = customFieldMapper;
     this.customConvertersWithId = new HashMap<>(customConvertersWithId);
+    this.elEngine = elEngine;
+    this.elementReader = elementReader;
+
     init();
   }
 

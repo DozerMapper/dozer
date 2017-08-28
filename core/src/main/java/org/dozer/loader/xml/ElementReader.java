@@ -22,8 +22,8 @@ import org.w3c.dom.Element;
  */
 public interface ElementReader {
 
-  String getAttribute(Element element, String attribute);
+    String getAttribute(Element element, String attribute);
 
-  String getNodeValue(Element element);
+    String getNodeValue(Element element);
 
 }

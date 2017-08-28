@@ -16,16 +16,21 @@
 package org.dozer.util;
 
 import org.dozer.osgi.Activator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility class to provide various information about runtime in which Dozer is executed.
  */
 public final class RuntimeUtils {
 
-    private RuntimeUtils() {
-    }
+    private static final Logger LOG = LoggerFactory.getLogger(RuntimeUtils.class);
 
     private static Boolean isOSGi;
+
+    private RuntimeUtils() {
+
+    }
 
     /**
      * Returns {@code true} if Dozer is executed in OSGi container.
@@ -40,11 +45,13 @@ public final class RuntimeUtils {
 
                 // then verify that bundle is started (client code could add framework classes into classpath)
                 isOSGi = Activator.getBundle() != null;
-
             } catch (ClassNotFoundException e) {
                 isOSGi = Boolean.FALSE;
             }
+
+            LOG.info("OSGi support is {}", isOSGi);
         }
+
         return isOSGi;
     }
 }

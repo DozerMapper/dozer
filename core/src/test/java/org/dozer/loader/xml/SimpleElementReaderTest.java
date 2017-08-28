@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import org.dozer.AbstractDozerTest;
+import org.dozer.el.NoopELEngine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ public class SimpleElementReaderTest extends AbstractDozerTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    reader = new SimpleElementReader();
+    reader = new ExpressionElementReader(new NoopELEngine());
   }
 
   @Test

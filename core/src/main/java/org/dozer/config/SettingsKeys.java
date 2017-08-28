@@ -27,9 +27,11 @@ public final class SettingsKeys {
 
     public static final String CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = "dozer.cache.converter-by-dest-type-maxsize";
     public static final String SUPER_TYPE_CHECK_CACHE_MAX_SIZE = "dozer.cache.super-type-maxsize";
-    public static final String EL_ENABLED = "dozer.el.enabled";
     public static final String CLASS_LOADER_BEAN = "dozer.beans.class-loader-bean";
     public static final String PROXY_RESOLVER_BEAN = "dozer.beans.proxy-resolver-bean";
+
+    @Deprecated
+    public static final String DEPRECATED_EL_ENABLED = "dozer.el.enabled";
 
     @Deprecated
     public static final String DEPRECATED_CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = "dozer.cache.converter.by.dest.type.maxsize";

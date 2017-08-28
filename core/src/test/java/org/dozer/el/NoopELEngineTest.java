@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dozer.config;
+package org.dozer.el;
 
-public final class SettingsDefaults {
+import org.junit.Test;
 
-    private SettingsDefaults() {
+import static org.junit.Assert.assertEquals;
+
+public class NoopELEngineTest {
+
+    @Test
+    public void canResolve() {
+        ELEngine elEngine = new NoopELEngine();
+        assertEquals("same", elEngine.resolve("same"));
     }
-
-    public static final String LEGACY_PROPERTIES_FILE = "dozer.properties";
-    public static final String YAML_PROPERTIES_FILE = "dozer.yaml";
-
-    public static final Integer CONVERTER_BY_DEST_TYPE_CACHE_MAX_SIZE = 10000;
-    public static final Integer SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 10000;
-    public static final String CLASS_LOADER_BEAN = "org.dozer.util.DefaultClassLoader";
-    public static final String PROXY_RESOLVER_BEAN = "org.dozer.util.DefaultProxyResolver";
 }
