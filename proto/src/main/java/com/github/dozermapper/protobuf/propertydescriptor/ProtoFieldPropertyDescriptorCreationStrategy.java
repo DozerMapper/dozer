@@ -49,6 +49,7 @@ public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDes
                                                 beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean isApplicable(Class<?> clazz, String fieldName) {
         if (!Message.class.isAssignableFrom(clazz)) {

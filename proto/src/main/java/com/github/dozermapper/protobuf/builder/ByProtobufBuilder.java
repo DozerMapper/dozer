@@ -31,6 +31,7 @@ public class ByProtobufBuilder implements BeanBuilderCreationStrategy {
         return Message.class.isAssignableFrom(directive.getActualClass());
     }
 
+    @SuppressWarnings("unchecked")
     public BeanBuilder create(BeanCreationDirective directive) {
         Class<? extends Message> messageClass = (Class<? extends Message>)directive.getActualClass();
         final Message.Builder protoBuilder = ProtoUtils.getBuilder(messageClass);

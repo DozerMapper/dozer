@@ -67,6 +67,10 @@ public final class ProtoUtils {
     /**
      * Returns the first FieldDescriptor matching the specified field name, either with an exact match,
      * or after applying a transformation to camel-case.  Returns null if there is no match.
+     *
+     * @param clazz clazz to look up
+     * @param fieldName field to look up
+     * @return field descriptor or null if none found
      */
     public static Descriptors.FieldDescriptor getFieldDescriptor(Class<? extends Message> clazz, String fieldName) {
         final List<Descriptors.FieldDescriptor> protoFieldDescriptors = getFieldDescriptors(clazz);
@@ -167,11 +171,13 @@ public final class ProtoUtils {
             name };
     }
 
+    @SuppressWarnings("unchecked")
     private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor, BeanContainer beanContainer) {
         String name = StringUtils.join(getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.');
         return (Class<? extends Enum>)MappingUtils.loadClass(name, beanContainer);
     }
 
+    @SuppressWarnings("unchecked")
     public static Object wrapEnums(Object value) {
         if (value instanceof ProtocolMessageEnum) {
             return ((ProtocolMessageEnum)value).getValueDescriptor();
@@ -189,6 +195,7 @@ public final class ProtoUtils {
         return value;
     }
 
+    @SuppressWarnings("unchecked")
     public static Object unwrapEnums(Object value, BeanContainer beanContainer) {
         if (value instanceof Descriptors.EnumValueDescriptor) {
             Descriptors.EnumValueDescriptor descriptor = (Descriptors.EnumValueDescriptor)value;
