@@ -58,12 +58,12 @@ public class DozerBeanMapperFactoryBeanTest {
         URL url = this.getClass().getClassLoader().getResource("mappings/mappingSpring.xml");
         when(mockResource.getURL()).thenReturn(url);
 
-        factory.setCustomConverters(Collections.EMPTY_LIST);
-        factory.setCustomConvertersWithId(Collections.EMPTY_MAP);
-        factory.setEventListeners(Collections.EMPTY_LIST);
-        factory.setFactories(Collections.EMPTY_MAP);
+        factory.setCustomConverters(Collections.emptyList());
+        factory.setCustomConvertersWithId(Collections.emptyMap());
+        factory.setEventListeners(Collections.emptyList());
+        factory.setFactories(Collections.emptyMap());
         factory.setMappingFiles(new Resource[] {mockResource});
-        factory.setMappingBuilders(Collections.EMPTY_LIST);
+        factory.setMappingBuilders(Collections.emptyList());
 
         factory.afterPropertiesSet();
 
