@@ -55,4 +55,16 @@
 
     <suppress checks=".*"
               files=".+[\\\/]mockito[\\\/].+\.java"/>
+
+    <suppress checks="JavadocMethod"
+              files=".+[\\\/]test[\\\/].+\.java"/>
+
+    <suppress checks="JavadocType"
+              files=".+[\\\/]test[\\\/].+\.java"/>
+
+    <suppress checks="JavadocVariable"
+              files=".+[\\\/]test[\\\/].+\.java"/>
+
+    <suppress checks="JavadocPackage"
+              files=".+[\\\/]test[\\\/].+\.java"/>
 </suppressions>
