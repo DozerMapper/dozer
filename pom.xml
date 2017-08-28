@@ -177,10 +177,10 @@
                         </goals>
                         <phase>initialize</phase>
                         <configuration>
-                            <property>buildingtools.basedir</property>
+                            <property>dozer.basedir</property>
                             <project>
                                 <groupId>com.github.dozermapper</groupId>
-                                <artifactId>dozer-building-tools</artifactId>
+                                <artifactId>dozer-parent</artifactId>
                             </project>
                         </configuration>
                     </execution>
@@ -191,7 +191,7 @@
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
-                    <header>${buildingtools.basedir}/src/main/resources/LICENSE-HEADER.txt</header>
+                    <header>${dozer.basedir}/building-tools/src/main/resources/LICENSE-HEADER.txt</header>
                     <excludes>
                         <exclude>docs/**</exclude>
                         <exclude>.travis/**</exclude>
