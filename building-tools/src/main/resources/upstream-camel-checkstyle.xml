@@ -85,17 +85,23 @@ lengths, if/try depths, etc...
 	</module>
 	 -->
 
+    <module name="JavadocPackage"/>
     <module name="TreeWalker">
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <!--
         <module name="PackageHtml"/>
-        <module name="JavadocMethod"/>
-        <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
-        <module name="JavadocStyle"/>
         -->
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="validateThrows" value="true"/>
+        </module>
+        <module name="JavadocType"/>
+        <module name="JavadocVariable">
+            <property name="scope" value="public"/>
+        </module>
+        <module name="JavadocStyle"/>
 
 
         <!-- Checks for Naming Conventions.                  -->
