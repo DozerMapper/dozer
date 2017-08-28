@@ -124,7 +124,25 @@ public final class DozerBeanMapperBuilder {
      * @return modified builder to be further configured.
      */
     public DozerBeanMapperBuilder withMappingFiles(String... mappingFiles) {
-        this.mappingFiles.addAll(Arrays.asList(mappingFiles));
+        return withMappingFiles(Arrays.asList(mappingFiles));
+    }
+
+    /**
+     * Adds {@code mappingFiles} to the list of URLs to be used as mapping configuration. It is possible to load files from
+     * file system via {@code file:} prefix. If no prefix is given, loaded from classpath.
+     * <p>
+     * Multiple calls of this method will result in all the files being added to the list
+     * of mappings in the order methods were called.
+     * <p>
+     * If not called, no files will be added to the mapping configuration, and mapper will use implicit mode.
+     *
+     * @param mappingFiles URLs to mapping files to be added.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withMappingFiles(List<String> mappingFiles) {
+        if (mappingFiles != null) {
+            this.mappingFiles.addAll(mappingFiles);
+        }
         return this;
     }
 
@@ -167,7 +185,33 @@ public final class DozerBeanMapperBuilder {
      * @return modified builder to be further configured.
      */
     public DozerBeanMapperBuilder withCustomConverter(CustomConverter customConverter) {
-        this.customConverters.add(customConverter);
+        return withCustomConverters(customConverter);
+    }
+
+    /**
+     * Registers a {@link CustomConverter} for the mapper. Multiple calls of this method will register converters in the order of calling.
+     * <p>
+     * By default, no custom converters are used by generated mapper.
+     *
+     * @param customConverters converters to be registered.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withCustomConverters(CustomConverter... customConverters) {
+        return withCustomConverters(Arrays.asList(customConverters));
+    }
+
+    /**
+     * Registers a {@link CustomConverter} for the mapper. Multiple calls of this method will register converters in the order of calling.
+     * <p>
+     * By default, no custom converters are used by generated mapper.
+     *
+     * @param customConverters converters to be registered.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withCustomConverters(List<CustomConverter> customConverters) {
+        if (customConverters != null) {
+            this.customConverters.addAll(customConverters);
+        }
         return this;
     }
 
@@ -201,7 +245,41 @@ public final class DozerBeanMapperBuilder {
      * @return modified builder to be further configured.
      */
     public DozerBeanMapperBuilder withMappingBuilder(BeanMappingBuilder mappingBuilder) {
-        this.mappingBuilders.add(mappingBuilder);
+        return withMappingBuilders(mappingBuilder);
+    }
+
+    /**
+     * Registers a {@link BeanMappingBuilder} for the mapper. Multiple calls of this method will register builders in the order of calling.
+     * <p>
+     * Builders are executed at the moment of {@link #create()} method call.
+     * <p>
+     * Please note, XML mappings are processed before Java builder mappings. Although it is not recommended to mix the approaches.
+     * <p>
+     * By default, no API builders are registered.
+     *
+     * @param mappingBuilders mapping builder to be registered for the mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withMappingBuilders(BeanMappingBuilder... mappingBuilders) {
+        return withMappingBuilders(Arrays.asList(mappingBuilders));
+    }
+
+    /**
+     * Registers a {@link BeanMappingBuilder} for the mapper. Multiple calls of this method will register builders in the order of calling.
+     * <p>
+     * Builders are executed at the moment of {@link #create()} method call.
+     * <p>
+     * Please note, XML mappings are processed before Java builder mappings. Although it is not recommended to mix the approaches.
+     * <p>
+     * By default, no API builders are registered.
+     *
+     * @param mappingBuilders mapping builder to be registered for the mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withMappingBuilders(List<BeanMappingBuilder> mappingBuilders) {
+        if (mappingBuilders != null) {
+            this.mappingBuilders.addAll(mappingBuilders);
+        }
         return this;
     }
 
@@ -214,7 +292,33 @@ public final class DozerBeanMapperBuilder {
      * @return modified builder to be further configured.
      */
     public DozerBeanMapperBuilder withEventListener(DozerEventListener eventListener) {
-        this.eventListeners.add(eventListener);
+        return withEventListeners(eventListener);
+    }
+
+    /**
+     * Registers a {@link DozerEventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
+     * <p>
+     * By default, no listeners are registered.
+     *
+     * @param eventListeners listeners to be registered for the mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withEventListeners(DozerEventListener... eventListeners) {
+        return withEventListeners(Arrays.asList(eventListeners));
+    }
+
+    /**
+     * Registers a {@link DozerEventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
+     * <p>
+     * By default, no listeners are registered.
+     *
+     * @param eventListeners listeners to be registered for the mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withEventListeners(List<DozerEventListener> eventListeners) {
+        if (eventListeners != null) {
+            this.eventListeners.addAll(eventListeners);
+        }
         return this;
     }
 
@@ -250,6 +354,24 @@ public final class DozerBeanMapperBuilder {
     }
 
     /**
+     * Registers a {@link CustomConverter} which can be referenced in mapping by provided ID.
+     * Consecutive calls of this method with the same ID will override previously provided value.
+     * <p>
+     * Converter instances provided this way are considered stateful and will not be initialized for each mapping.
+     * <p>
+     * By default, no converters with IDs are registered.
+     *
+     * @param customConvertersWithId   converters to be used by mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withCustomConvertersWithIds(Map<String, CustomConverter> customConvertersWithId) {
+        if (customConvertersWithId != null) {
+            this.customConvertersWithId.putAll(customConvertersWithId);
+        }
+        return this;
+    }
+
+    /**
      * Registers a {@link BeanFactory} for the mapper.
      * Consecutive calls of this method with the same factory name will override previously provided value.
      * <p>
@@ -261,6 +383,22 @@ public final class DozerBeanMapperBuilder {
      */
     public DozerBeanMapperBuilder withBeanFactory(String factoryName, BeanFactory beanFactory) {
         this.beanFactories.put(factoryName, beanFactory);
+        return this;
+    }
+
+    /**
+     * Registers a {@link BeanFactory} for the mapper.
+     * Consecutive calls of this method with the same factory name will override previously provided value.
+     * <p>
+     * By default, no custom bean factories are registered.
+     *
+     * @param beanFactories factory's to be used by mapper.
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withBeanFactorys(Map<String, BeanFactory> beanFactories) {
+        if (beanFactories != null) {
+            this.beanFactories.putAll(beanFactories);
+        }
         return this;
     }
 

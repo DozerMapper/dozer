@@ -132,35 +132,15 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
         eventListeners.addAll(contextEventListeners.values());
         customConvertersWithId.putAll(contextCustomConvertersWithId);
 
-        DozerBeanMapperBuilder builder = DozerBeanMapperBuilder.create();
-
-        for (String url : mappingFileUrls) {
-            builder.withMappingFiles(url);
-        }
-
-        builder.withCustomFieldMapper(customFieldMapper);
-
-        for (CustomConverter converter : customConverters) {
-            builder.withCustomConverter(converter);
-        }
-
-        for (BeanMappingBuilder mappingBuilder : mappingBuilders) {
-            builder.withMappingBuilder(mappingBuilder);
-        }
-
-        for (DozerEventListener listener : eventListeners) {
-            builder.withEventListener(listener);
-        }
-
-        for (Map.Entry<String, BeanFactory> beanFactoryEntry : beanFactories.entrySet()) {
-            builder.withBeanFactory(beanFactoryEntry.getKey(), beanFactoryEntry.getValue());
-        }
-
-        for (Map.Entry<String, CustomConverter> customConverterEntry : customConvertersWithId.entrySet()) {
-            builder.withCustomConverterWithId(customConverterEntry.getKey(), customConverterEntry.getValue());
-        }
-
-        this.mapper = builder.build();
+        this.mapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles(mappingFileUrls)
+                .withCustomFieldMapper(customFieldMapper)
+                .withCustomConverters(customConverters)
+                .withMappingBuilders(mappingBuilders)
+                .withEventListeners(eventListeners)
+                .withBeanFactorys(beanFactories)
+                .withCustomConvertersWithIds(customConvertersWithId)
+                .build();
     }
 
     // ===
