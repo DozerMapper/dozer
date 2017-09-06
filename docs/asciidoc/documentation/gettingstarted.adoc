@@ -7,8 +7,8 @@ If you are using link:https://maven.apache.org/[Apache Maven], simply copy-paste
 [source,xml,prettyprint,subs="verbatim,attributes"]
 ----
 <dependency>
-    <groupId>net.sf.dozer</groupId>
-    <artifactId>dozer</artifactId>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
     <version>{dozer-version}</version>
 </dependency>
 ----
