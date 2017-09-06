@@ -29,8 +29,4 @@
         </custom-converters>
     </configuration>
 
-    <mapping>
-        <class-a></class-a>
-    </mapping>
-
 </mappings>

@@ -16,31 +16,11 @@
 package org.dozer;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.dozer.builder.DestBeanBuilderCreator;
-import org.dozer.classmap.ClassMapBuilder;
-import org.dozer.classmap.generator.BeanMappingGenerator;
-import org.dozer.config.BeanContainer;
-import org.dozer.config.Settings;
-import org.dozer.el.NoopELEngine;
-import org.dozer.factory.DestBeanCreator;
-import org.dozer.loader.CustomMappingsLoader;
-import org.dozer.loader.MappingsParser;
-import org.dozer.loader.xml.ExpressionElementReader;
-import org.dozer.loader.xml.XMLParser;
-import org.dozer.loader.xml.XMLParserFactory;
-import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.generics.deepindex.TestObjectPrime;
 import org.junit.After;
@@ -83,31 +63,6 @@ public class DozerBeanMapperTest extends Assert {
   }
 
   @Test
-  public void shouldInitializeOnce() throws Exception {
-    final CallTrackingMapper mapper = new CallTrackingMapper();
-    ExecutorService executorService = Executors.newFixedThreadPool(10);
-
-    final CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
-
-    HashSet<Callable<Object>> callables = new HashSet<Callable<Object>>();
-
-    for (int i = 0; i < THREAD_COUNT; i++) {
-      callables.add(new Callable<Object>() {
-        public Object call() throws Exception {
-          latch.countDown();
-          latch.await();
-          Mapper processor = mapper.getMappingProcessor();
-          assertNotNull(processor);
-          return null;
-        }
-      });
-    }
-    executorService.invokeAll(callables);
-    assertEquals(1, mapper.getCalls());
-    assertTrue(exceptions.isEmpty());
-  }
-
-  @Test
   public void shouldBeThreadSafe() throws Exception {
     Mapper mapper = DozerBeanMapperBuilder.create()
             .withMappingFiles("testDozerBeanMapping.xml")
@@ -130,38 +85,6 @@ public class DozerBeanMapperTest extends Assert {
     latch.await();
     assertTrue(exceptions.isEmpty());
   }
-
-  class CallTrackingMapper extends DozerBeanMapper {
-    AtomicInteger calls = new AtomicInteger(0);
-
-    CallTrackingMapper() {
-      // todo this is awful, but will be removed when DozerBeanMapper is immutable (#400)
-      super(Collections.emptyList(),
-              new Settings(),
-              new CustomMappingsLoader(
-                      new MappingsParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()),
-                      new ClassMapBuilder(new BeanContainer(), new DestBeanCreator(new BeanContainer()),
-                              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory()),
-                      new BeanContainer()),
-              new XMLParserFactory(new BeanContainer()),
-              new DozerInitializer(), new BeanContainer(),
-              new XMLParser(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new DestBeanCreator(new BeanContainer()),
-              new DestBeanBuilderCreator(),
-              new BeanMappingGenerator(new BeanContainer(), new DestBeanCreator(new BeanContainer()), new PropertyDescriptorFactory()), new PropertyDescriptorFactory(),
-              new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null, new HashMap<>(),
-              new NoopELEngine(), new ExpressionElementReader(new NoopELEngine()));
-    }
-
-    @Override
-    void loadCustomMappings() {
-      calls.incrementAndGet();
-    }
-
-    public int getCalls() {
-      return calls.get();
-    }
-  }
-
 
   @Test
   public void shouldReturnImmutableResources() throws Exception {
