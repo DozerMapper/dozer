@@ -25,7 +25,6 @@ import org.dozer.config.resolvers.LegacyPropertiesSettingsResolver;
 import org.dozer.config.resolvers.SettingsResolver;
 import org.dozer.config.resolvers.SystemEnvironmentSettingsResolver;
 import org.dozer.config.resolvers.SystemPropertySettingsResolver;
-import org.dozer.config.resolvers.YAMLSettingsResolver;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 

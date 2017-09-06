@@ -16,9 +16,6 @@
 package org.dozer.config;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.dozer.util.DefaultClassLoader;
-import org.dozer.util.DefaultProxyResolver;
-import org.dozer.util.DozerConstants;
 
 public class Settings {
 
