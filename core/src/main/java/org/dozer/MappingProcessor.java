@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.builder.BuilderUtil;
@@ -290,7 +291,7 @@ public class MappingProcessor implements Mapper {
     if (!bypassSuperMappings) {
       Collection<ClassMap> superMappings = new ArrayList<ClassMap>();
 
-      Collection<ClassMap> superClasses = checkForSuperTypeMapping(srcClass, destClass);
+      Collection<ClassMap> superClasses = checkForSuperTypeMapping(srcClass, destClass, classMap);
       //List<ClassMap> interfaceMappings = classMappings.findInterfaceMappings(srcClass, destClass);
 
       superMappings.addAll(superClasses);
@@ -1055,7 +1056,7 @@ public class MappingProcessor implements Mapper {
         fieldMap, topLevel);
   }
 
-  private Collection<ClassMap> checkForSuperTypeMapping(Class<?> srcClass, Class<?> destClass) {
+  private Collection<ClassMap> checkForSuperTypeMapping(Class<?> srcClass, Class<?> destClass, ClassMap rootClassMap) {
     // Check cache first
     Object cacheKey = CacheKeyFactory.createKey(destClass, srcClass);
     Collection<ClassMap> cachedResult = (Collection<ClassMap>) superTypeCache.get(cacheKey);
@@ -1085,11 +1086,37 @@ public class MappingProcessor implements Mapper {
       }
     }
 
+    checkForSuperTypeMappingWithParentExcludes(rootClassMap, superClasses);
+
     Collections.reverse(superClasses); // Done so base classes are processed first
 
     superTypeCache.put(cacheKey, superClasses);
 
     return superClasses;
+  }
+
+  private void checkForSuperTypeMappingWithParentExcludes(ClassMap rootClassMap, List<ClassMap> superClasses) {
+    Map<String, FieldMap> excludeFieldMaps = rootClassMap.getFieldMaps().stream()
+            .filter(fm -> fm instanceof ExcludeFieldMap)
+            .collect(Collectors.toMap(e -> e.getSrcFieldName() + "-" + e.getDestFieldName(), e -> e));
+
+    if (excludeFieldMaps.entrySet().size() > 0) {
+      for (ClassMap superClassClassMap : superClasses) {
+        List<FieldMap> filterFieldMap = new ArrayList<FieldMap>();
+
+        for (FieldMap currentFieldMap : superClassClassMap.getFieldMaps()) {
+          String key = currentFieldMap.getSrcFieldName() + "-" + currentFieldMap.getDestFieldName();
+          if (excludeFieldMaps.containsKey(key)) {
+            // We found a field that is excluded by the parent, but not the child
+            log.debug("Removing FieldMap {}, as {} contains an ExcludeFieldMap for {}", currentFieldMap, rootClassMap, key);
+          } else {
+            filterFieldMap.add(currentFieldMap);
+          }
+        }
+
+        superClassClassMap.setFieldMaps(filterFieldMap);
+      }
+    }
   }
 
   private void checkForClassMapping(Class<?> srcClass, List<ClassMap> superClasses, Class<?> superDestClass) {
