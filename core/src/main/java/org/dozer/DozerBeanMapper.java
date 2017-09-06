@@ -15,7 +15,6 @@
  */
 package org.dozer;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +28,6 @@ import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.cache.CacheManager;
 import org.dozer.cache.DozerCacheManager;
 import org.dozer.cache.DozerCacheType;
-import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
@@ -37,28 +35,18 @@ import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
 import org.dozer.config.Settings;
 import org.dozer.el.ELEngine;
-import org.dozer.el.NoopELEngine;
 import org.dozer.event.DozerEventManager;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
 import org.dozer.loader.LoadMappingsResult;
-import org.dozer.loader.MappingsParser;
-import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.xml.ElementReader;
 import org.dozer.loader.xml.MappingFileReader;
-import org.dozer.loader.xml.MappingStreamReader;
-import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
 import org.dozer.metadata.DozerMappingMetadata;
 import org.dozer.metadata.MappingMetadata;
-import org.dozer.osgi.Activator;
-import org.dozer.osgi.OSGiClassLoader;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.util.DefaultClassLoader;
-import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingValidator;
-import org.dozer.util.RuntimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

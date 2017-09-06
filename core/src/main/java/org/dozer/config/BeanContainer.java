@@ -15,12 +15,10 @@
  */
 package org.dozer.config;
 
-
 import org.dozer.el.ELEngine;
 import org.dozer.el.NoopELEngine;
 import org.dozer.loader.xml.ElementReader;
 import org.dozer.loader.xml.ExpressionElementReader;
-import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DefaultProxyResolver;
 import org.dozer.util.DozerClassLoader;

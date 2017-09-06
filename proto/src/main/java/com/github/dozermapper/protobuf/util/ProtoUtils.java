@@ -68,7 +68,7 @@ public final class ProtoUtils {
      * Returns the first FieldDescriptor matching the specified field name, either with an exact match,
      * or after applying a transformation to camel-case.  Returns null if there is no match.
      *
-     * @param clazz clazz to look up
+     * @param clazz     clazz to look up
      * @param fieldName field to look up
      * @return field descriptor or null if none found
      */
@@ -165,10 +165,7 @@ public final class ProtoUtils {
     }
 
     private static String[] getFullyQualifiedClassName(DescriptorProtos.FileOptions options, String name) {
-        return new String[] {
-            options.getJavaPackage(),
-            options.getJavaOuterClassname(),
-            name };
+        return new String[] {options.getJavaPackage(), options.getJavaOuterClassname(), name};
     }
 
     @SuppressWarnings("unchecked")

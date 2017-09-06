@@ -16,7 +16,6 @@
 package com.github.dozermapper.protobuf.classmap.generator;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.github.dozermapper.protobuf.util.ProtoUtils;
@@ -45,7 +44,7 @@ public class ProtobufBeanFieldsDetector implements BeanFieldsDetector {
     }
 
     private static Set<String> getFieldNames(Class<? extends Message> clazz) {
-        Set<String> resultSet = new HashSet<String>();
+        Set<String> resultSet = new HashSet<>();
         for (Descriptors.FieldDescriptor descriptor : ProtoUtils.getFieldDescriptors(clazz)) {
             resultSet.add(ProtoUtils.toCamelCase(descriptor.getName()));
         }
