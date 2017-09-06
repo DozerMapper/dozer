@@ -18,14 +18,21 @@ package com.github.dozermapper.schema;
 import java.net.URL;
 
 import com.github.dozermapper.schema.osgi.Activator;
+
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultSchemaResolver implements SchemaResolver {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSchemaResolver.class);
 
+    /**
+     * {@inheritDoc}
+     */
     public URL get(String fileName) {
         LOG.debug("Trying {} class loader for schema/{}", getClass().getCanonicalName(), fileName);
 
