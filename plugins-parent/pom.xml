@@ -61,11 +61,13 @@
         <protoc-jar-maven-plugin.version>3.3.0.1</protoc-jar-maven-plugin.version>
         <protoc.version>3.3.0</protoc.version>
 
+        <!-- OSGI properties for bundle plugin -->
         <osgi.Bundle-Activator/>
         <osgi.Export-Package/>
         <osgi.Require-Capability/>
         <osgi.Provide-Capability/>
         <osgi.SPI-Consumer/>
+        <osgi.SPI-Provider/>
     </properties>
 
     <dependencyManagement>
