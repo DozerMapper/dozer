@@ -13,20 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.schema;
-
-import java.net.URL;
-
 /**
- * Resolve xsd file via flat classpath or OSGi bundle.
+ * OSGi specific classes to resolve the dozer.xsd
  */
-public interface SchemaResolver {
-
-    /**
-     * Gets dozer.xsd as URL.
-     *
-     * @param fileName dozer.xsd filename to resolve on classpath
-     * @return dozer.xsd URL
-     */
-    URL get(String fileName);
-}
+package com.github.dozermapper.schema.osgi;

@@ -19,11 +19,19 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
+/**
+ * OSGi activator for dozer-schema bundle
+ */
 public class Activator implements BundleActivator {
 
     private static BundleContext bundleContext;
     private static Bundle bundle;
 
+    /**
+     * Gets bundle context set via {@link #start(BundleContext)}}
+     *
+     * @return bundle context for dozer-schema
+     */
     public static BundleContext getBundleContext() {
         return bundleContext;
     }
@@ -32,6 +40,11 @@ public class Activator implements BundleActivator {
         Activator.bundleContext = context;
     }
 
+    /**
+     * Gets bundle set via {@link #start(BundleContext)}}
+     *
+     * @return bundle for dozer-schema
+     */
     public static Bundle getBundle() {
         return bundle;
     }
@@ -40,11 +53,19 @@ public class Activator implements BundleActivator {
         Activator.bundle = bundle;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void start(BundleContext context) throws Exception {
         setBundleContext(context);
         setBundle(context.getBundle());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void stop(BundleContext context) throws Exception {
         setBundleContext(null);
         setBundle(null);
