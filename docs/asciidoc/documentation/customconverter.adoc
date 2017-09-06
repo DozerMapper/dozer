@@ -110,33 +110,41 @@ implementation.
 
 [source,java,prettyprint]
 ----
+import org.dozer.CustomConverter;
+import org.dozer.MappingException;
+
 public class TestCustomConverter implements CustomConverter {
-  
-  public Object convert(Object destination, Object source, 
-      Class destClass, Class sourceClass) {
-    if (source == null) {
-      return null;
+
+    @Override
+    public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
+        if (sourceFieldValue == null) {
+            return null;
+        }
+
+        CustomDoubleObject dest;
+        if (source instanceof Double) {
+            // check to see if the object already exists
+            if (destination == null) {
+                dest = new CustomDoubleObject();
+            } else {
+                dest = (CustomDoubleObject)destination;
+            }
+
+            dest.setTheDouble(((Double)source).doubleValue());
+
+            return dest;
+        } else if (source instanceof CustomDoubleObject) {
+            double sourceObj = ((CustomDoubleObject)source).getTheDouble();
+            return new Double(sourceObj);
+        } else {
+            throw new MappingException("Converter TestCustomConverter "
+                                       + "used incorrectly. Arguments passed in were:"
+                                       + destination
+                                       + " and "
+                                       + source);
+        }
     }
-    CustomDoubleObject dest = null;
-    if (source instanceof Double) {
-      // check to see if the object already exists
-      if (destination == null) {
-        dest = new CustomDoubleObject();
-      } else {
-        dest = (CustomDoubleObject) destination;
-      }
-      dest.setTheDouble(((Double) source).doubleValue());
-      return dest;
-    } else if (source instanceof CustomDoubleObject) {
-      double sourceObj = 
-        ((CustomDoubleObject) source).getTheDouble();
-      return new Double(sourceObj);
-    } else {
-      throw new MappingException("Converter TestCustomConverter "
-          + "used incorrectly. Arguments passed in were:"
-          + destination + " and " + source);
-    }
-  }
+}
 ----
 
 CustomConverters can also be injected into the `Mapper` if you
@@ -225,23 +233,39 @@ combinations is too high to do simple Custom Converter subclassing.
 
 [source,java,prettyprint]
 ----
-public class MathOperationConverter 
-    implements ConfigurableCustomConverter {
-  
-  public Object convert(Object destinationFieldValue, 
-                        Object sourceFieldValue,
-                        Class destinationClass, 
-                        Class sourceClass, String param) {
-    Integer source = (Integer) sourceFieldValue;
-    Integer destination = (Integer) destinationFieldValue;
-    if ("+".equals(param)) {
-      return destination.intValue + source.intValue();
+import org.dozer.ConfigurableCustomConverter;
+import org.dozer.MappingException;
+
+public class MathOperationConverter implements ConfigurableCustomConverter {
+
+    private String parameter;
+
+    @Override
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
     }
-    if ("-".equals(param)) {
-      return destination.intValue - source.intValue();
+
+    @Override
+    public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
+        Integer source = (Integer)sourceFieldValue;
+        Integer destination = (Integer)existingDestinationFieldValue;
+
+        if ("+".equals(parameter)) {
+            return destination.intValue + source.intValue();
+        }
+
+        if ("-".equals(parameter)) {
+            return destination.intValue - source.intValue();
+        }
+
+        throw new MappingException("Converter MathOperationConverter "
+                                   + "used incorrectly. Arguments passed in were:"
+                                   + destination
+                                   + ", "
+                                   + source
+                                   + " and "
+                                   + parameter);
     }
-  }
-  
 }
 ----
 
@@ -259,31 +283,33 @@ demonstrates simple, yet working converter using new API.
 
 [source,java,prettyprint]
 ----
-public class NewDozerConverter 
-    extends DozerConverter<String, Boolean> {
+import org.dozer.DozerConverter;
 
-  public NewDozerConverter() {
-    super(String.class, Boolean.class);
-  }
+public class NewDozerConverter extends DozerConverter<String, Boolean> {
 
-  public Boolean convertTo(String source, Boolean destination) {
-    if ("yes".equals(source)) {
-      return Boolean.TRUE;
-    } else if ("no".equals(source)) {
-      return Boolean.FALSE;
+    public NewDozerConverter() {
+        super(String.class, Boolean.class);
     }
-    throw new IllegalStateException("Unknown value!");
-  }
 
-  public String convertFrom(Boolean source, String destination) {
-    if (Boolean.TRUE.equals(source)) {
-      return "yes";
-    } else if (Boolean.FALSE.equals(source)) {
-      return "no";
+    @Override
+    public Boolean convertTo(String source, Boolean destination) {
+        if ("yes".equals(source)) {
+            return Boolean.TRUE;
+        } else if ("no".equals(source)) {
+            return Boolean.FALSE;
+        }
+        throw new IllegalStateException("Unknown value!");
     }
-    throw new IllegalStateException("Unknown value!");
-  }
 
+    @Override
+    public String convertFrom(Boolean source, String destination) {
+        if (Boolean.TRUE.equals(source)) {
+            return "yes";
+        } else if (Boolean.FALSE.equals(source)) {
+            return "no";
+        }
+        throw new IllegalStateException("Unknown value!");
+    }
 }
 ----
 
@@ -301,29 +327,41 @@ custom converter.
 
 [source,java,prettyprint]
 ----
-public static class Converter 
-    extends DozerConverter <List, Map> implements MapperAware {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-  private Mapper mapper;
+import org.dozer.DozerConverter;
+import org.dozer.Mapper;
+import org.dozer.MapperAware;
 
-  public Converter() {
-    super(List.class, Map.class);
-  }
+public class Converter extends DozerConverter<List, Map> implements MapperAware {
 
-  public Map convertTo(List source, Map destination) {
-    Map originalToMapped = new HashMap();
-    for (Source item : source) {
-      Target mappedItem = mapper.map(item, Target.class);
-      originalToMapped.put(item, mappedItem);
+    private Mapper mapper;
+
+    public Converter() {
+        super(List.class, Map.class);
     }
-    return originalToMapped;
-  }
 
-<...>
+    @Override
+    public void setMapper(Mapper mapper) {
+        this.mapper = mapper;
+    }
 
-  public void setMapper(Mapper mapper) {
-    this.mapper = mapper;
-  }
+    @Override
+    public Map convertTo(List source, Map destination) {
+        Map originalToMapped = new HashMap();
+        for (Source item : source) {
+            Target mappedItem = mapper.map(item, Target.class);
 
+            originalToMapped.put(item, mappedItem);
+        }
+        return originalToMapped;
+    }
+
+    @Override
+    public List convertFrom(Map source, List destination) {
+        throw new IllegalStateException("Not implemented");
+    }
 }
 ----
