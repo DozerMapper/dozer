@@ -1,3 +1,5 @@
+:dozer-version: 6.2.0-SNAPSHOT
+
 == Frequently Asked Questions
 === Common
 * link:#dataobject-support[What types of data objects are supported?]
@@ -201,9 +203,9 @@ uploaded into the repository.
 [source,xml,prettyprint]
 ----
 <dependency>
-    <groupId>net.sf.dozer</groupId>
-    <artifactId>dozer</artifactId>
-    <version>${dozer.version}</version>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>{dozer-version}</version>
 </dependency>
 ----
 
