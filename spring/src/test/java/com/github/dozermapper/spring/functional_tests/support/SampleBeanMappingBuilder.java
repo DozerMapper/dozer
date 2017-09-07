@@ -22,9 +22,6 @@ import org.dozer.loader.api.BeanMappingBuilder;
 
 import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
 
-/**
- * @author Maurus Cuelenaere
- */
 public class SampleBeanMappingBuilder extends BeanMappingBuilder {
 
     @Override

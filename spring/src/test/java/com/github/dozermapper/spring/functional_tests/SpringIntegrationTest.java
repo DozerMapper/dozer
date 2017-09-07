@@ -34,9 +34,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * @author dmitry.buzdin
- */
 public class SpringIntegrationTest {
 
     private ClassPathXmlApplicationContext context;

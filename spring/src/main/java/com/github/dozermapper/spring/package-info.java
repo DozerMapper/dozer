@@ -13,17 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.spring.functional_tests.support;
-
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
-public class ReferencingBean {
-
-    @Autowired
-    Mapper mapper;
-
-    public Mapper getMapper() {
-        return mapper;
-    }
-}
+/**
+ * Extension classes to integrate Dozer with Spring as a first-class-citizen
+ */
+package com.github.dozermapper.spring;

@@ -37,11 +37,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
 
 /**
- * Public Spring FactoryBean that can be used by application code.
- * Uses Spring InitializingBean contracts to properly start-up
- *
- * @author S'ren Chittka
- * @author dmitry.buzdin
+ * {@link FactoryBean} that can be used to create an instance of {@link Mapper}
  */
 public class DozerBeanMapperFactoryBean implements ApplicationContextAware, InitializingBean, FactoryBean<Mapper> {
 
@@ -57,6 +53,13 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
 
     private Mapper mapper;
 
+    /**
+     * Registers a {@link CustomFieldMapper} for the mapper.
+     * <p>
+     * By default, no custom field mapper is registered.
+     *
+     * @param customFieldMapper custom field mapper to be registered for the mapper.
+     */
     public void setCustomFieldMapper(CustomFieldMapper customFieldMapper) {
         this.customFieldMapper = customFieldMapper;
     }
@@ -65,11 +68,13 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
      * Spring resources definition for providing mapping file location.
      * Could be used for loading all mapping files by wildcard definition for example
      *
+     * <pre>
      * {@code
-     * <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-     *   <property name="mappingFiles" value="classpath*:/*.dozer.xml"/>
-     * </bean>
+     *  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+     *      <property name="mappingFiles" value="classpath*:/*.dozer.xml"/>
+     *  <\/bean>
      * }
+     * </pre>
      *
      * @param mappingFiles Spring resource definition
      * @throws IOException if URL fails to resolve
@@ -83,22 +88,59 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
         }
     }
 
+    /**
+     * Registers a collection of {@link CustomConverter} for the mapper.
+     * <p>
+     * By default, no custom converters are used by generated mapper.
+     *
+     * @param customConverters converters to be registered.
+     */
     public void setCustomConverters(List<CustomConverter> customConverters) {
         this.customConverters.addAll(customConverters);
     }
 
+    /**
+     * Registers a {@link BeanMappingBuilder} for the mapper.
+     * <p>
+     * By default, no API builders are registered.
+     *
+     * @param mappingBuilders mapping builders to be registered for the mapper.
+     */
     public void setMappingBuilders(List<BeanMappingBuilder> mappingBuilders) {
         this.mappingBuilders.addAll(mappingBuilders);
     }
 
+    /**
+     * Registers a {@link DozerEventListener} for the mapper.
+     * <p>
+     * By default, no listeners are registered.
+     *
+     * @param eventListeners listeners to be registered for the mapper.
+     */
     public void setEventListeners(List<DozerEventListener> eventListeners) {
         this.eventListeners.addAll(eventListeners);
     }
 
+    /**
+     * Registers a {@link BeanFactory} for the mapper.
+     * <p>
+     * By default, no custom bean factories are registered.
+     *
+     * @param beanFactories factorys to be used by mapper.
+     */
     public void setFactories(Map<String, BeanFactory> beanFactories) {
         this.beanFactories.putAll(beanFactories);
     }
 
+    /**
+     * Registers a {@link CustomConverter} which can be referenced in mapping by provided ID.
+     * <p>
+     * Converter instances provided this way are considered stateful and will not be initialized for each mapping.
+     * <p>
+     * By default, no converters with IDs are registered.
+     *
+     * @param customConvertersWithId   converters to be used for provided ID.
+     */
     public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
         this.customConvertersWithId.putAll(customConvertersWithId);
     }
@@ -107,6 +149,9 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     // Methods for: ApplicationContextAware
     // ===
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
@@ -116,6 +161,9 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     // Methods for: InitializingBean
     // ===
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Map<String, CustomConverter> contextCustomConvertersWithId = applicationContext.getBeansOfType(CustomConverter.class);
@@ -144,16 +192,25 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     // Methods for: FactoryBean<Mapper>
     // ===
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Mapper getObject() throws Exception {
         return this.mapper;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<Mapper> getObjectType() {
         return Mapper.class;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isSingleton() {
         return true;
