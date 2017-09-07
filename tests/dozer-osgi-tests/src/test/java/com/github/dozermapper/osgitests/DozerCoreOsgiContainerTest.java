@@ -26,7 +26,6 @@ import org.dozer.Mapper;
 import org.dozer.el.ELExpressionFactory;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
-import org.dozer.util.RuntimeUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -38,14 +37,11 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
-import static org.ops4j.pax.exam.CoreOptions.repositories;
 import static org.ops4j.pax.exam.CoreOptions.systemPackage;
 import static org.ops4j.pax.exam.CoreOptions.url;
 
@@ -65,6 +61,11 @@ public class DozerCoreOsgiContainerTest extends OsgiTestSupport {
                 url("link:classpath:org.apache.commons.collections.link"),
                 url("link:classpath:org.apache.commons.lang3.link"),
                 url("link:classpath:org.apache.commons.io.link"),
+                // JAXB
+                url("link:classpath:org.apache.geronimo.specs.geronimo-stax-api_1.0_spec.link"),
+                url("link:classpath:org.apache.geronimo.specs.geronimo-activation_1.1_spec.link"),
+                url("link:classpath:org.apache.servicemix.specs.jaxb-api-2.2.link"),
+                url("link:classpath:org.apache.servicemix.bundles.jaxb-impl.link"),
                 // Optional; Jackson
                 url("link:classpath:com.fasterxml.jackson.core.jackson-annotations.link"),
                 url("link:classpath:com.fasterxml.jackson.core.jackson-core.link"),
@@ -80,11 +81,24 @@ public class DozerCoreOsgiContainerTest extends OsgiTestSupport {
                 // Optional; EL
                 url("link:classpath:javax.el-api.link"),
                 url("link:classpath:com.sun.el.javax.el.link"),
+                // Optional; Hibernate
+                url("link:classpath:org.hibernate.javax.persistence.hibernate-jpa-2.1-api.link"),
+                url("link:classpath:org.apache.servicemix.bundles.dom4j.link"),
+                url("link:classpath:org.apache.servicemix.bundles.antlr.link"),
+                url("link:classpath:org.jboss.jandex.link"),
+                url("link:classpath:org.jboss.logging.jboss-logging.link"),
+                url("link:classpath:com.fasterxml.classmate.link"),
+                url("link:classpath:org.hibernate.common.hibernate-commons-annotations.link"),
+                url("link:classpath:org.hibernate.core.link"),
+                url("link:classpath:org.hibernate.osgi.link"),
                 // Core
                 url("link:classpath:com.github.dozermapper.dozer-core.link"),
                 url("link:classpath:com.github.dozermapper.dozer-schema.link"),
                 url("link:classpath:com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
-                junitBundles()
+                junitBundles(),
+                // Required by: Hibernate
+                systemPackage("javax.transaction;version=1.1.0"),
+                systemPackage("javax.transaction.xa;version=1.1.0")
         );
     }
 
