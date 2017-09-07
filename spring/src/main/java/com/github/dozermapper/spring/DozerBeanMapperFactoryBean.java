@@ -67,7 +67,6 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     /**
      * Spring resources definition for providing mapping file location.
      * Could be used for loading all mapping files by wildcard definition for example
-     *
      * <pre>
      * {@code
      *  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
@@ -139,7 +138,7 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
      * <p>
      * By default, no converters with IDs are registered.
      *
-     * @param customConvertersWithId   converters to be used for provided ID.
+     * @param customConvertersWithId converters to be used for provided ID.
      */
     public void setCustomConvertersWithId(Map<String, CustomConverter> customConvertersWithId) {
         this.customConvertersWithId.putAll(customConvertersWithId);
