@@ -31,9 +31,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * @author Dmitry Spikhalskiy
- */
 public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
 
     private Mapper mapper;

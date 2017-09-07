@@ -17,9 +17,6 @@ package com.github.dozermapper.protobuf.vo.proto;
 
 import java.util.List;
 
-/**
- * @author Dmitry Spikhalskiy
- */
 public class ObjectWithEnumCollection {
 
     private List<SimpleEnum> enums;

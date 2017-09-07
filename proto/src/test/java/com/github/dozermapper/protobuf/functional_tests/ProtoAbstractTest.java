@@ -19,9 +19,6 @@ import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.util.DozerConstants;
 
-/**
- * @author Dmitry Spikhalskiy
- */
 public abstract class ProtoAbstractTest {
 
     protected Mapper getMapper(String fileName) {

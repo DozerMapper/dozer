@@ -33,14 +33,19 @@ import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 
 /**
- * @author Dmitry Spikhalskiy
+ * Protobuf utility methods
  */
 public final class ProtoUtils {
 
     private ProtoUtils() {
-
     }
 
+    /**
+     * Gets the {@link Message.Builder} instance associated with the clazz
+     *
+     * @param clazz {@link Message} clazz
+     * @return {@link Message.Builder} instance associated with the clazz
+     */
     public static Message.Builder getBuilder(Class<? extends Message> clazz) {
         final Message.Builder protoBuilder;
         try {
@@ -54,12 +59,24 @@ public final class ProtoUtils {
         return protoBuilder;
     }
 
+    /**
+     * Gets a list of {@link Descriptors.FieldDescriptor} associated with the clazz
+     *
+     * @param clazz {@link Message} clazz
+     * @return list of {@link Descriptors.FieldDescriptor} associated with the clazz
+     */
     public static List<Descriptors.FieldDescriptor> getFieldDescriptors(Class<? extends Message> clazz) {
         Message.Builder protoBuilder = getBuilder(clazz);
 
         return getFieldDescriptors(protoBuilder);
     }
 
+    /**
+     * Gets a list of {@link Descriptors.FieldDescriptor} associated with the {@link Message.Builder}
+     *
+     * @param protoBuilder {@link Message.Builder} instance
+     * @return list of {@link Descriptors.FieldDescriptor} associated with the {@link Message.Builder}
+     */
     public static List<Descriptors.FieldDescriptor> getFieldDescriptors(Message.Builder protoBuilder) {
         return protoBuilder.getDescriptorForType().getFields();
     }
@@ -71,6 +88,17 @@ public final class ProtoUtils {
      * @param clazz     clazz to look up
      * @param fieldName field to look up
      * @return field descriptor or null if none found
+     */
+
+    /**
+     * Gets a {@link Descriptors.FieldDescriptor} associated with the clazz, which matches the fieldName,
+     * either with an exact match, or after applying a transformation to camel-case.
+     * <p>
+     * Returns null if there is no match.
+     *
+     * @param clazz     {@link Message} clazz
+     * @param fieldName fieldName to find
+     * @return {@link Descriptors.FieldDescriptor} associated with the clazz and which matches the fieldName
      */
     public static Descriptors.FieldDescriptor getFieldDescriptor(Class<? extends Message> clazz, String fieldName) {
         final List<Descriptors.FieldDescriptor> protoFieldDescriptors = getFieldDescriptors(clazz);
@@ -93,6 +121,16 @@ public final class ProtoUtils {
         return fieldName.equals(toCamelCase(protoFieldName));
     }
 
+    /**
+     * Gets the field value from the {@link Message}, which matches the fieldName,
+     * either with an exact match, or after applying a transformation to camel-case.
+     * <p>
+     * Returns null if there is no match.
+     *
+     * @param message   {@link Message} instance
+     * @param fieldName fieldName to find
+     * @return field value from the {@link Message} for the specified field name, or null if none found
+     */
     public static Object getFieldValue(Object message, String fieldName) {
         Map<Descriptors.FieldDescriptor, Object> fieldsMap = ((Message)message).getAllFields();
         for (Map.Entry<Descriptors.FieldDescriptor, Object> field : fieldsMap.entrySet()) {
@@ -117,6 +155,13 @@ public final class ProtoUtils {
         return null;
     }
 
+    /**
+     * Gets the class type of the {@link Descriptors.FieldDescriptor}
+     *
+     * @param descriptor    {@link Descriptors.FieldDescriptor} instance
+     * @param beanContainer {@link BeanContainer} instance
+     * @return class type of the {@link Descriptors.FieldDescriptor}
+     */
     public static Class<?> getJavaClass(final Descriptors.FieldDescriptor descriptor, BeanContainer beanContainer) {
         if (descriptor.isMapField()) {
             return Map.class;
@@ -129,6 +174,13 @@ public final class ProtoUtils {
         return getJavaClassIgnoreRepeated(descriptor, beanContainer);
     }
 
+    /**
+     * Gets the class type of the {@link Descriptors.FieldDescriptor}
+     *
+     * @param descriptor    {@link Descriptors.FieldDescriptor} instance
+     * @param beanContainer {@link BeanContainer} instance
+     * @return class type of the {@link Descriptors.FieldDescriptor} or null, if {@link Descriptors.FieldDescriptor#isRepeated()}
+     */
     public static Class<?> getJavaGenericClassForCollection(final Descriptors.FieldDescriptor descriptor, BeanContainer beanContainer) {
         if (!descriptor.isRepeated()) {
             return null;
@@ -174,6 +226,13 @@ public final class ProtoUtils {
         return (Class<? extends Enum>)MappingUtils.loadClass(name, beanContainer);
     }
 
+    /**
+     * Wrap {@link ProtocolMessageEnum} or a {@link List} to a {@link Descriptors.EnumValueDescriptor}
+     * If the value is neither {@link ProtocolMessageEnum} or a {@link List}, the value is returned.
+     *
+     * @param value {@link ProtocolMessageEnum} or a {@link List}
+     * @return {@link Descriptors.EnumValueDescriptor} if value is {@link ProtocolMessageEnum}, else a {@link List} of {@link Descriptors.EnumValueDescriptor}
+     */
     @SuppressWarnings("unchecked")
     public static Object wrapEnums(Object value) {
         if (value instanceof ProtocolMessageEnum) {
@@ -192,6 +251,14 @@ public final class ProtoUtils {
         return value;
     }
 
+    /**
+     * Unwrap {@link Descriptors.EnumValueDescriptor} or a {@link Collection} to a raw {@link Enum}
+     * If the value is neither {@link Descriptors.EnumValueDescriptor} or a {@link Collection}, the value is returned.
+     *
+     * @param value         {@link Descriptors.EnumValueDescriptor} or a {@link Collection}
+     * @param beanContainer {@link BeanContainer} instance
+     * @return {@link Enum} if value is {@link Descriptors.EnumValueDescriptor}, else a {@link Collection} of {@link Enum}
+     */
     @SuppressWarnings("unchecked")
     public static Object unwrapEnums(Object value, BeanContainer beanContainer) {
         if (value instanceof Descriptors.EnumValueDescriptor) {
@@ -221,6 +288,12 @@ public final class ProtoUtils {
         return value;
     }
 
+    /**
+     * Converts name to CamelCase
+     *
+     * @param name name to convert
+     * @return converted name to CamelCase
+     */
     public static String toCamelCase(String name) {
         return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name);
     }

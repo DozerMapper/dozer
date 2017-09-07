@@ -15,10 +15,6 @@
  */
 package com.github.dozermapper.protobuf.vo.proto;
 
-/**
- * @author Dmitry Spikhalskiy
- * @since 05.01.13
- */
 public class LiteTestObjectContainer {
 
     private LiteTestObject object;

@@ -13,19 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.protobuf.vo.proto;
-
-import java.util.List;
-
-public class ObjectWithCollection {
-
-    private List<TestObject> objects;
-
-    public List<TestObject> getObjects() {
-        return objects;
-    }
-
-    public void setObjects(List<TestObject> objects) {
-        this.objects = objects;
-    }
-}
+/**
+ * Extension classes to integrate Dozer with Protobuf as a first-class-citizen
+ */
+package com.github.dozermapper.protobuf;

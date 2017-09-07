@@ -38,7 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Dmitry Spikhalskiy
+ * {@link org.dozer.propertydescriptor.DozerPropertyDescriptor} which resolves Protobuf fields
  */
 public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
 
@@ -52,6 +52,19 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
     private Class<?> genericType;
     private Descriptors.FieldDescriptor fieldDescriptor;
 
+    /**
+     * {@link org.dozer.propertydescriptor.DozerPropertyDescriptor} which resolves Protobuf fields
+     *
+     * @param clazz                      clazz to work on
+     * @param fieldName                  field name to resolve
+     * @param isIndexed                  whether the mapping is indexed
+     * @param index                      current index
+     * @param srcDeepIndexHintContainer  source hint
+     * @param destDeepIndexHintContainer destination hint
+     * @param beanContainer              {@link BeanContainer} instance
+     * @param destBeanCreator            {@link DestBeanCreator} instance
+     * @param propertyDescriptorFactory  {@link PropertyDescriptorFactory} instance
+     */
     public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer,
                                         HintContainer destDeepIndexHintContainer, BeanContainer beanContainer, DestBeanCreator destBeanCreator,
                                         PropertyDescriptorFactory propertyDescriptorFactory) {
@@ -62,6 +75,9 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
         this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<?> getPropertyType() {
         if (this.propertyType == null) {
@@ -90,6 +106,9 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
         return this.propertyType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getPropertyValue(Object bean) {
         Object result;
@@ -119,6 +138,9 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
         return ProtoUtils.unwrapEnums(value, beanContainer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
         if (!(bean instanceof ProtoBeanBuilder)) {
@@ -148,6 +170,9 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<?> genericType() {
         if (this.genericType == null) {

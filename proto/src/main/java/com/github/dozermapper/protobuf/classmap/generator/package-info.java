@@ -13,19 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.protobuf.vo.proto;
-
-import java.util.List;
-
-public class ObjectWithCollection {
-
-    private List<TestObject> objects;
-
-    public List<TestObject> getObjects() {
-        return objects;
-    }
-
-    public void setObjects(List<TestObject> objects) {
-        this.objects = objects;
-    }
-}
+/**
+ * {@link org.dozer.classmap.generator.BeanFieldsDetector} extensions for Protbuf
+ */
+package com.github.dozermapper.protobuf.classmap.generator;

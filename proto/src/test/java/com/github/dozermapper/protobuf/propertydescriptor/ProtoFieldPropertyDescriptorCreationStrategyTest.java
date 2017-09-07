@@ -25,10 +25,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * @author Dmitry Spikhalskiy
- * @since 04.01.13
- */
 public class ProtoFieldPropertyDescriptorCreationStrategyTest {
 
     private ProtoFieldPropertyDescriptorCreationStrategy strategy;
