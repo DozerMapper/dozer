@@ -191,28 +191,28 @@ public final class ProtoUtils {
 
     private static Class<?> getJavaClassIgnoreRepeated(final Descriptors.FieldDescriptor descriptor, BeanContainer beanContainer) {
         switch (descriptor.getJavaType()) {
-        case INT:
-            return Integer.class;
-        case LONG:
-            return Long.class;
-        case FLOAT:
-            return Float.class;
-        case DOUBLE:
-            return Double.class;
-        case BOOLEAN:
-            return Boolean.class;
-        case STRING:
-            return String.class;
-        case BYTE_STRING:
-            return ByteString.class;
-        //code duplicate, but GenericDescriptor interface is private in protobuf
-        case ENUM:
-            return getEnumClassByEnumDescriptor(descriptor.getEnumType(), beanContainer);
-        case MESSAGE:
-            return MappingUtils.loadClass(StringUtils.join(
-                    getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'), beanContainer);
-        default:
-            throw new RuntimeException();
+            case INT:
+                return Integer.class;
+            case LONG:
+                return Long.class;
+            case FLOAT:
+                return Float.class;
+            case DOUBLE:
+                return Double.class;
+            case BOOLEAN:
+                return Boolean.class;
+            case STRING:
+                return String.class;
+            case BYTE_STRING:
+                return ByteString.class;
+            //code duplicate, but GenericDescriptor interface is private in protobuf
+            case ENUM:
+                return getEnumClassByEnumDescriptor(descriptor.getEnumType(), beanContainer);
+            case MESSAGE:
+                return MappingUtils.loadClass(StringUtils.join(
+                        getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'), beanContainer);
+            default:
+                throw new RuntimeException();
         }
     }
 

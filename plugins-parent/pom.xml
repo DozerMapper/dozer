@@ -352,8 +352,20 @@
                 <dependencies>
                     <dependency>
                         <groupId>com.github.dozermapper</groupId>
-                        <artifactId>building-tools</artifactId>
+                        <artifactId>dozer-building-tools</artifactId>
                         <version>${building-tools.version}</version>
+                        <scope>compile</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.0</version>
+                        <scope>compile</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.sevntu-checkstyle</groupId>
+                        <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
+                        <version>1.24.2</version>
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
@@ -362,13 +374,12 @@
                         <id>validate</id>
                         <phase>validate</phase>
                         <configuration>
-                            <configLocation>upstream-camel-checkstyle.xml</configLocation>
-                            <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
+                            <configLocation>strict-checkstyle.xml</configLocation>
+                            <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
                             <consoleOutput>true</consoleOutput>
                             <failOnViolation>true</failOnViolation>
                             <failsOnError>true</failsOnError>
                             <encoding>UTF-8</encoding>
-                            <sourceDirectory>${basedir}/src</sourceDirectory>
                         </configuration>
                         <goals>
                             <goal>check</goal>
