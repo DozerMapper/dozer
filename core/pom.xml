@@ -190,6 +190,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <inherited>false</inherited>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.dozermapper</groupId>
@@ -202,9 +203,9 @@
                     <execution>
                         <id>validate</id>
                         <phase>validate</phase>
-                        <configuration>
-                            <configLocation>camel-checkstyle.xml</configLocation>
-                            <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
+                        <configuration combine.self="override">
+                            <configLocation>loose-checkstyle.xml</configLocation>
+                            <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
                             <consoleOutput>true</consoleOutput>
                             <failOnViolation>true</failOnViolation>
                             <failsOnError>true</failsOnError>

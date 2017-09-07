@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<!-- See http://checkstyle.sourceforge.net/checks.html for documentation on available checks -->
+<module name="Checker">
+    <!-- Checks to see if a file contains a tab character. -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <!-- Checks for trailing whitespace. -->
+    <module name="RegexpSingleline">
+        <!-- \s matches whitespace character, $ matches end of line. -->
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+
+    <module name="FileLength"/>
+    <module name="JavadocPackage"/>
+
+    <module name="TreeWalker">
+
+        <!-- Checks for Javadoc comments. -->
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="validateThrows" value="true"/>
+        </module>
+        <module name="JavadocType"/>
+        <module name="JavadocVariable">
+            <property name="scope" value="public"/>
+        </module>
+        <module name="JavadocStyle">
+            <property name="checkFirstSentence" value="false"/>
+            <property name="checkEmptyJavadoc" value="true"/>
+        </module>
+
+        <!-- Checks for Naming Conventions. -->
+        <module name="ConstantName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+
+        <!-- Checks for imports -->
+        <module name="AvoidStarImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <module name="ImportOrder">
+            <property name="groups" value="java,javax,org.w3c,org.xml"/>
+            <property name="ordered" value="true"/>
+        </module>
+
+        <!-- Modifier Checks -->
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+
+        <!-- Checks for Size Violations. -->
+        <module name="AnonInnerLength">
+            <property name="max" value="200"/>
+        </module>
+        <module name="ExecutableStatementCount">
+            <property name="max" value="100"/>
+        </module>
+        <module name="LineLength">
+            <property name="max" value="200"/>
+        </module>
+        <module name="MethodLength">
+            <property name="max" value="200"/>
+            <property name="countEmpty" value="false"/>
+        </module>
+
+        <!-- Checks for common coding problems -->
+        <module name="EmptyStatement"/>
+
+        <!-- Checks that classes that override equals() also override hashCode(). -->
+        <module name="EqualsHashCode"/>
+
+        <!-- Checks for illegal instantiations where a factory method is preferred. -->
+        <module name="IllegalInstantiation"/>
+
+        <!-- Checks that long constants are defined with an upper ell. -->
+        <module name="UpperEll"/>
+
+        <!-- This check makes sure that all package annotations are in the package-info.java file. -->
+        <module name="PackageAnnotation"/>
+
+        <!-- Checks that if a class defines a covariant method equals, then it defines method equals(java.lang.Object). -->
+        <module name="CovariantEquals"/>
+
+        <!-- Checks the style of array type definitions. -->
+        <module name="ArrayTypeStyle"/>
+
+        <!-- Make sure left curly braces are on the same line. -->
+        <module name="LeftCurly">
+            <property name="maxLineLength" value="100"/>
+        </module>
+
+        <module name="RightCurly">
+            <property name="option" value="alone"/>
+            <property name="tokens" value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, STATIC_INIT, INSTANCE_INIT"/>
+        </module>
+
+        <module name="NeedBraces"/>
+
+        <!-- Checks that there is no whitespace after certain tokens; e.g. "." and "!". -->
+        <module name="NoWhitespaceAfter"/>
+
+        <!-- Checks that there is no whitespace before certain tokens; e.g. "++" and ";". -->
+        <module name="NoWhitespaceBefore"/>
+
+        <!-- Checks that most tokens are surrounded by whitespace. RCURLY is omitted so we can do stuff like "new Thread(){...}.start()". -->
+        <module name="WhitespaceAround">
+            <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND"/>
+        </module>
+
+        <!-- Ensure there is no space between the identifier of a method definition, constructor definition, method call, or constructor invocation and the left parenthesis of the parameter list. -->
+        <module name="MethodParamPad"/>
+
+        <module name="EmptyForIteratorPad"/>
+        <module name="EmptyForInitializerPad"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+
+        <!-- Ensure proper indentation. -->
+        <module name="Indentation"/>
+
+        <module name="IllegalImport">
+            <property name="illegalPkgs" value="junit.framework"/>
+        </module>
+
+        <module name="WriteTag">
+            <property name="tag" value="@author"/>
+            <property name="tagSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+        </module>
+
+        <module name="MissingSwitchDefault"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="NestedIfDepth">
+            <property name="max" value="8"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="8"/>
+        </module>
+
+        <module name="SuperFinalize"/>
+
+        <module name="IllegalThrows">
+            <property name="illegalClassNames" value="java.lang.Error,java.lang.RuntimeException"/>
+        </module>
+
+        <module name="PackageDeclaration"/>
+        <module name="ReturnCount">
+            <property name="max" value="10"/>
+        </module>
+
+        <module name="DeclarationOrder"/>
+        <module name="ExplicitInitialization"/>
+
+        <module name="BooleanExpressionComplexity"/>
+        <module name="DefaultComesLast"/>
+        <module name="FallThrough"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="UnnecessaryParentheses"/>
+
+        <!-- Checks for class design -->
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+
+        <module name="MutableException">
+            <property name="format" value="^.*Exception$"/>
+        </module>
+        <module name="ThrowsCount">
+            <property name="max" value="5"/>
+        </module>
+
+        <!-- Sevntu checks, http://sevntu-checkstyle.github.io/sevntu.checkstyle/ -->
+        <module name="DiamondOperatorForVariableDefinition"/>
+        <module name="RequiredParameterForAnnotation">
+            <property name="annotationName" value="Parameterized.Parameters"/>
+            <property name="requiredParameters" value="name"/>
+        </module>
+
+    </module>
+</module>
