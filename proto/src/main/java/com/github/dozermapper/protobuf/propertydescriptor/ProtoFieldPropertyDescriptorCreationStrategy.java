@@ -28,7 +28,8 @@ import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.MappingUtils;
 
 /**
- * @author Dmitry Spikhalskiy
+ * {@link PropertyDescriptorCreationStrategy} which is used to build {@link ProtoFieldPropertyDescriptor}
+ * via {@link #buildFor(Class, String, boolean, int, HintContainer, HintContainer)}.
  */
 public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDescriptorCreationStrategy {
 
@@ -36,12 +37,22 @@ public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDes
     private final DestBeanCreator destBeanCreator;
     private final PropertyDescriptorFactory propertyDescriptorFactory;
 
+    /**
+     * {@link PropertyDescriptorCreationStrategy} which is used to create instances of {@link DozerPropertyDescriptor}
+     *
+     * @param beanContainer             {@link BeanContainer} instance
+     * @param destBeanCreator           {@link DestBeanCreator} instance
+     * @param propertyDescriptorFactory {@link PropertyDescriptorFactory} instance
+     */
     public ProtoFieldPropertyDescriptorCreationStrategy(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
         this.beanContainer = beanContainer;
         this.destBeanCreator = destBeanCreator;
         this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DozerPropertyDescriptor buildFor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer,
                                             HintContainer destDeepIndexHintContainer) {
@@ -49,6 +60,9 @@ public class ProtoFieldPropertyDescriptorCreationStrategy implements PropertyDes
                                                 beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
     @Override
     public boolean isApplicable(Class<?> clazz, String fieldName) {

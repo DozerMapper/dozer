@@ -15,9 +15,6 @@
  */
 package com.github.dozermapper.protobuf.vo.proto;
 
-/**
- * @author Dmitry Spikhalskiy
- */
 public class LiteTestObject {
 
     private String one;

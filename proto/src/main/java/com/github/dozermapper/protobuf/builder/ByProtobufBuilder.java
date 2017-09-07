@@ -23,15 +23,23 @@ import org.dozer.builder.BeanBuilderCreationStrategy;
 import org.dozer.factory.BeanCreationDirective;
 
 /**
- * @author Dmitry Spikhalskiy
+ * {@link BeanBuilderCreationStrategy} that is applicable to {@link Message}
  */
 public class ByProtobufBuilder implements BeanBuilderCreationStrategy {
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isApplicable(BeanCreationDirective directive) {
         return Message.class.isAssignableFrom(directive.getActualClass());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
+    @Override
     public BeanBuilder create(BeanCreationDirective directive) {
         Class<? extends Message> messageClass = (Class<? extends Message>)directive.getActualClass();
         final Message.Builder protoBuilder = ProtoUtils.getBuilder(messageClass);

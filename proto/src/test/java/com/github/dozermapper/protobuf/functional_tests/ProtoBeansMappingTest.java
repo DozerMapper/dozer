@@ -49,9 +49,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * @author Dmitry Spikhalskiy
- */
 public class ProtoBeansMappingTest extends ProtoAbstractTest {
 
     @Rule

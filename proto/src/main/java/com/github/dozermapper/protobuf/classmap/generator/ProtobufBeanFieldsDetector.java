@@ -25,20 +25,32 @@ import com.google.protobuf.Message;
 import org.dozer.classmap.generator.BeanFieldsDetector;
 
 /**
- * @author Dmitry Spikhalskiy
+ * {@link BeanFieldsDetector} that accepts {@link Message}
  */
 public class ProtobufBeanFieldsDetector implements BeanFieldsDetector {
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean accepts(Class<?> clazz) {
         return Message.class.isAssignableFrom(clazz);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
+    @Override
     public Set<String> getReadableFieldNames(Class<?> clazz) {
         return getFieldNames((Class<? extends Message>)clazz);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
+    @Override
     public Set<String> getWritableFieldNames(Class<?> clazz) {
         return getFieldNames((Class<? extends Message>)clazz);
     }

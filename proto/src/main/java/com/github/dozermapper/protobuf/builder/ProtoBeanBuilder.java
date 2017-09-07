@@ -20,26 +20,45 @@ import com.google.protobuf.Message;
 import org.dozer.BeanBuilder;
 
 /**
- * @author Dmitry Spikhalskiy
+ * {@link BeanBuilder} that instantiates {@link Message}
  */
 public class ProtoBeanBuilder implements BeanBuilder {
 
     protected Message.Builder internalProtoBuilder;
     protected Class<? extends Message> beanClass;
 
+    /**
+     * {@link BeanBuilder} which is used to create instances of {@link Message} via {@link Message.Builder}
+     *
+     * @param internalProtoBuilder builder for {@link Message}
+     * @param beanClass            type of {@link Message} to create
+     */
     public ProtoBeanBuilder(Message.Builder internalProtoBuilder, Class<? extends Message> beanClass) {
         this.internalProtoBuilder = internalProtoBuilder;
         this.beanClass = beanClass;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Class<? extends Message> beanClass() {
         return beanClass;
     }
 
+    /**
+     * Get the {@link Message.Builder}
+     *
+     * @return instance of {@link Message.Builder}
+     */
     public Message.Builder internalProtoBuilder() {
         return internalProtoBuilder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object build() {
         return internalProtoBuilder.build();
     }

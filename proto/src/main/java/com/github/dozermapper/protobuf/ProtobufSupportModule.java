@@ -31,7 +31,8 @@ import org.dozer.propertydescriptor.PropertyDescriptorCreationStrategy;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 /**
- * @author Dmitry Spikhalskiy
+ * {@link DozerModule} which adds support for Protobuf.
+ * This is the main integration point into Dozer and is loaded via an SPI mechanism.
  */
 public class ProtobufSupportModule implements DozerModule {
 
@@ -39,6 +40,10 @@ public class ProtobufSupportModule implements DozerModule {
     private DestBeanCreator destBeanCreator;
     private PropertyDescriptorFactory propertyDescriptorFactory;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Deprecated
     @Override
     public void init(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
         this.beanContainer = beanContainer;
@@ -46,20 +51,33 @@ public class ProtobufSupportModule implements DozerModule {
         this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void init() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<BeanBuilderCreationStrategy> getBeanBuilderCreationStrategies() {
         return Collections.singleton(new ByProtobufBuilder());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<BeanFieldsDetector> getBeanFieldsDetectors() {
         return Collections.singleton(new ProtobufBeanFieldsDetector());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<PropertyDescriptorCreationStrategy> getPropertyDescriptorCreationStrategies() {
         return Collections.singleton(new ProtoFieldPropertyDescriptorCreationStrategy(beanContainer, destBeanCreator, propertyDescriptorFactory));
