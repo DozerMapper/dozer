@@ -17,9 +17,6 @@ package com.github.dozermapper.spring.functional_tests.support;
 
 import org.dozer.ConfigurableCustomConverter;
 
-/**
- * @author Dmitry Buzdin
- */
 public class CustomConverterParamConverter implements ConfigurableCustomConverter {
 
     private String param;

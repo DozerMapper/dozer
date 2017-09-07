@@ -15,9 +15,6 @@
  */
 package com.github.dozermapper.spring.vo;
 
-/**
- * @author Dmitry Buzdin
- */
 public class Source {
 
     private long id;

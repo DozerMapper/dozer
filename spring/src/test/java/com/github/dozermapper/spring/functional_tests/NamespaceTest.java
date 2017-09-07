@@ -28,9 +28,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * @author Dmitry Buzdin
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/springNameSpace.xml")
 public class NamespaceTest {

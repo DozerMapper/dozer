@@ -20,9 +20,6 @@ import com.github.dozermapper.spring.vo.Source;
 
 import org.dozer.DozerConverter;
 
-/**
- * @author garsombke.franz
- */
 public class InjectedCustomConverter extends DozerConverter<Source, Destination> {
 
     private String injectedName;

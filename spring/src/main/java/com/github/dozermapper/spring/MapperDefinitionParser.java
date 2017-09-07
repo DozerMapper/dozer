@@ -23,7 +23,8 @@ import org.springframework.beans.factory.xml.AbstractBeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 
 /**
- * @author Dmitry Buzdin
+ * {@link AbstractBeanDefinitionParser} which uses {@link BeanDefinitionBuilder#rootBeanDefinition(Class)}
+ * to create a {@link DozerBeanMapperFactoryBean}
  */
 public class MapperDefinitionParser extends AbstractBeanDefinitionParser {
 

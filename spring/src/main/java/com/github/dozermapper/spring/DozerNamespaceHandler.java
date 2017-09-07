@@ -18,10 +18,13 @@ package com.github.dozermapper.spring;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
- * @author Dmitry Buzdin
+ * Resolves the dozer xsd namespace within XML
  */
 public class DozerNamespaceHandler extends NamespaceHandlerSupport {
 
+    /**
+     * Parses the element name using {@link MapperDefinitionParser}
+     */
     @Override
     public void init() {
         registerBeanDefinitionParser("mapper", new MapperDefinitionParser());

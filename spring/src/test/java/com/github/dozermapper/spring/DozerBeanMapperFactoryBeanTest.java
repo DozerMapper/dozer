@@ -36,9 +36,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/**
- * @author <a href="mailto:buzdin@gmail.com">Dmitry Buzdin</a>
- */
 public class DozerBeanMapperFactoryBeanTest {
     
     private DozerBeanMapperFactoryBean factory;
