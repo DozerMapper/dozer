@@ -461,6 +461,7 @@ public final class DozerBeanMapperBuilder {
         BeanContainer beanContainer = new BeanContainer();
         beanContainer.setElEngine(elEngine);
         beanContainer.setElementReader(elementReader);
+        beanContainer.setClassLoader(classLoader);
 
         DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
         destBeanCreator.setStoredFactories(beanFactories);
