@@ -45,7 +45,7 @@
         <hibernate-core.version>5.2.10.Final</hibernate-core.version>
         <jackson-dataformat.version>2.8.8</jackson-dataformat.version>
         <javax.inject.version>1</javax.inject.version>
-        <javassist.version>3.18.1-GA</javassist.version>
+        <javassist.version>3.21.0-GA</javassist.version>
         <jaxb-api.version>2.2.11</jaxb-api.version>
         <jaxb-impl.version>2.2.4</jaxb-impl.version>
         <jmh.version>1.19</jmh.version>
