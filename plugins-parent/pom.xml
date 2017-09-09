@@ -63,6 +63,15 @@
 
         <!-- OSGI properties for bundle plugin -->
         <osgi.Bundle-Activator/>
+        <osgi.defaults.Import-Package>
+            !${osgi.Export-Package},
+        </osgi.defaults.Import-Package>
+        <osgi.additional.Import-Package/>
+        <osgi.Import-Package>
+            ${osgi.defaults.Import-Package},
+            ${osgi.additional.Import-Package},
+            *
+        </osgi.Import-Package>
         <osgi.Export-Package/>
         <osgi.Require-Capability/>
         <osgi.Provide-Capability/>
@@ -295,7 +304,7 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <DynamicImport-Package>*</DynamicImport-Package>
                         <Export-Package>${osgi.Export-Package};version=${project.version}</Export-Package>
-                        <Import-Package>*</Import-Package>
+                        <Import-Package>${osgi.Import-Package}</Import-Package>
                         <Implementation-Title>${project.name}</Implementation-Title>
                         <Implementation-Version>${project.version}</Implementation-Version>
                         <Karaf-Info>${project.groupId}.${project.artifactId}=${project.version}</Karaf-Info>
