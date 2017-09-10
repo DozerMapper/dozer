@@ -28,6 +28,8 @@ import java.util.stream.Collectors;
 
 import org.dozer.builder.DestBeanBuilderCreator;
 import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.ClassMappings;
+import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
 import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
@@ -41,10 +43,12 @@ import org.dozer.el.NoopELEngine;
 import org.dozer.el.TcclELEngine;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.CustomMappingsLoader;
+import org.dozer.loader.LoadMappingsResult;
 import org.dozer.loader.MappingsParser;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.xml.ElementReader;
 import org.dozer.loader.xml.ExpressionElementReader;
+import org.dozer.loader.xml.MappingFileReader;
 import org.dozer.loader.xml.MappingStreamReader;
 import org.dozer.loader.xml.SimpleElementReader;
 import org.dozer.loader.xml.XMLParser;
@@ -55,6 +59,7 @@ import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
+import org.dozer.util.MappingValidator;
 import org.dozer.util.RuntimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +85,8 @@ public final class DozerBeanMapperBuilder {
     private SettingsProcessor settingsProcessor;
     private ELEngine elEngine;
     private ElementReader elementReader;
+    private ClassMappings customMappings;
+    private Configuration globalConfiguration;
 
     private DozerBeanMapperBuilder() {
     }
@@ -453,6 +460,8 @@ public final class DozerBeanMapperBuilder {
      * @return new instance of {@link Mapper}.
      */
     public Mapper build() {
+        LOG.info("Initializing a new instance of dozer bean mapper.");
+
         DozerClassLoader classLoader = getClassLoader();
         Settings settings = getSettings(classLoader);
         ELEngine elEngine = getELEngine();
@@ -468,36 +477,36 @@ public final class DozerBeanMapperBuilder {
 
         PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
         BeanMappingGenerator beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
-        ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
-        CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(
-                new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory), classMapBuilder, beanContainer);
-        XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
-        DozerInitializer dozerInitializer = new DozerInitializer();
-        XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
         DestBeanBuilderCreator destBeanBuilderCreator = new DestBeanBuilderCreator();
+
+        XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
+        XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
+
+        DozerInitializer dozerInitializer = new DozerInitializer();
+        dozerInitializer.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
         List<MappingFileData> mappingsFileData = new ArrayList<>();
         mappingsFileData.addAll(readXmlMappings(xmlParserFactory, xmlParser));
         mappingsFileData.addAll(createMappingsWithBuilders(beanContainer, destBeanCreator, propertyDescriptorFactory));
 
+        loadCustomMappings(mappingsFileData, xmlParserFactory, xmlParser,
+                           beanContainer, propertyDescriptorFactory, beanMappingGenerator, destBeanCreator);
+
         return new DozerBeanMapper(mappingFiles,
-                settings,
-                customMappingsLoader,
-                xmlParserFactory,
-                dozerInitializer,
-                beanContainer,
-                xmlParser,
-                destBeanCreator,
-                destBeanBuilderCreator,
-                beanMappingGenerator,
-                propertyDescriptorFactory,
-                customConverters,
-                mappingsFileData,
-                eventListeners,
-                customFieldMapper,
-                customConvertersWithId,
-                elEngine,
-                elementReader);
+                                   settings,
+                                   dozerInitializer,
+                                   beanContainer,
+                                   destBeanCreator,
+                                   destBeanBuilderCreator,
+                                   beanMappingGenerator,
+                                   propertyDescriptorFactory,
+                                   customConverters,
+                                   mappingsFileData,
+                                   eventListeners,
+                                   customFieldMapper,
+                                   customConvertersWithId,
+                                   customMappings,
+                                   globalConfiguration);
     }
 
     private List<MappingFileData> createMappingsWithBuilders(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
@@ -563,5 +572,49 @@ public final class DozerBeanMapperBuilder {
         } else {
             return elementReader;
         }
+    }
+
+    private void loadCustomMappings(List<MappingFileData> mappingsFileData, XMLParserFactory xmlParserFactory, XMLParser xmlParser,
+                                    BeanContainer beanContainer, PropertyDescriptorFactory propertyDescriptorFactory,
+                                    BeanMappingGenerator beanMappingGenerator, DestBeanCreator destBeanCreator) {
+
+        List<MappingFileData> xmlMappings = loadFromFiles(mappingFiles, xmlParserFactory, xmlParser, beanContainer);
+        ArrayList<MappingFileData> allMappings = new ArrayList<>();
+        allMappings.addAll(xmlMappings);
+        allMappings.addAll(mappingsFileData);
+
+        MappingsParser mappingsParser = new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
+        ClassMapBuilder classMapBuilder = new ClassMapBuilder(beanContainer, destBeanCreator, beanMappingGenerator, propertyDescriptorFactory);
+        CustomMappingsLoader customMappingsLoader = new CustomMappingsLoader(mappingsParser, classMapBuilder, beanContainer);
+
+        LoadMappingsResult loadMappingsResult = customMappingsLoader.load(allMappings);
+
+        this.customMappings = loadMappingsResult.getCustomMappings();
+        this.globalConfiguration = loadMappingsResult.getGlobalConfiguration();
+    }
+
+    private List<MappingFileData> loadFromFiles(List<String> mappingFiles, XMLParserFactory xmlParserFactory, XMLParser xmlParser,
+                                                BeanContainer beanContainer) {
+        MappingFileReader mappingFileReader = new MappingFileReader(xmlParserFactory, xmlParser, beanContainer);
+        List<MappingFileData> mappingFileDataList = new ArrayList<>();
+        if (mappingFiles != null && mappingFiles.size() > 0) {
+            LOG.info("Using the following xml files to load custom mappings for the bean mapper instance: {}", mappingFiles);
+
+            for (String mappingFileName : mappingFiles) {
+                LOG.info("Trying to find xml mapping file: {}", mappingFileName);
+
+                URL url = MappingValidator.validateURL(mappingFileName, beanContainer);
+
+                LOG.info("Using URL [" + url + "] to load custom xml mappings");
+
+                MappingFileData mappingFileData = mappingFileReader.read(url);
+
+                LOG.info("Successfully loaded custom xml mappings from URL: [{}]", url);
+
+                mappingFileDataList.add(mappingFileData);
+            }
+        }
+
+        return mappingFileDataList;
     }
 }

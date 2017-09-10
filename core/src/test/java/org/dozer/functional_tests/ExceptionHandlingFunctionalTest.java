@@ -19,7 +19,6 @@ import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.MappingException;
 import org.dozer.loader.api.BeanMappingBuilder;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -27,14 +26,9 @@ import org.junit.Test;
  */
 public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
 
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    mapper = getMapper("mappings/missingSetter.xml");
-  }
-
   @Test(expected = MappingException.class)
   public void test_UnableToDetermineType() {
+    Mapper mapper = getMapper("mappings/missingSetter.xml");
     mapper.map("", NoNothing.class);
   }
 

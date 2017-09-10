@@ -90,13 +90,9 @@ public class DozerBeanMapperFactoryBeanTest {
         HashMap<String, DozerEventListener> eventListenerMap = new HashMap<String, DozerEventListener>();
         eventListenerMap.put("a", mock(DozerEventListener.class));
 
-        HashMap<String, BeanMappingBuilder> mappingBuilders = new HashMap<String, BeanMappingBuilder>();
-        mappingBuilders.put("a", mock(BeanMappingBuilder.class));
-
         when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);
         when(mockContext.getBeansOfType(BeanFactory.class)).thenReturn(beanFactoryMap);
         when(mockContext.getBeansOfType(DozerEventListener.class)).thenReturn(eventListenerMap);
-        when(mockContext.getBeansOfType(BeanMappingBuilder.class)).thenReturn(mappingBuilders);
 
         factory.afterPropertiesSet();
 
