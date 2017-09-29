@@ -34,6 +34,12 @@
 
     <properties>
         <osgi.Bundle-Activator>org.dozer.osgi.Activator</osgi.Bundle-Activator>
+        <!--
+        <osgi.additional.Import-Package>
+            org.hibernate.proxy;version="[4.2,6)";resolution:=optional,
+            javassist.util.proxy;version="[3.13,4)";resolution:=optional
+        </osgi.additional.Import-Package>
+        -->
         <osgi.Export-Package>org.dozer.*</osgi.Export-Package>
         <!-- ServiceLoader Capability -->
         <osgi.Require-Capability>
