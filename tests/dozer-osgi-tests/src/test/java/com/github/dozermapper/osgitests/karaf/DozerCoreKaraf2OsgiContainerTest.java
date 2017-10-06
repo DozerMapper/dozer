@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.osgitests;
+package com.github.dozermapper.osgitests.karaf;
 
-import org.dozer.el.ELExpressionFactory;
-import org.junit.Test;
+import com.github.dozermapper.osgitests.DozerCoreOsgiContainerTest;
+import org.junit.runner.RunWith;
+import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerClass;
 
-import static org.junit.Assert.assertFalse;
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerClass.class)
+public class DozerCoreKaraf2OsgiContainerTest extends DozerCoreOsgiContainerTest {
 
-public abstract class DozerCoreMinimalDependenciesOsgiContainerTest extends AbstractDozerCoreOsgiContainerTest {
-
-    @Test
-    public void elNotSupported() {
-        assertFalse(ELExpressionFactory.isSupported());
+    @Override
+    protected Option containerConfigOptions() {
+        return KarafOptions.karaf2ContainerConfigOptions();
     }
-
 }

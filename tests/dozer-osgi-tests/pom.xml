@@ -182,7 +182,7 @@
         <!-- PaxExam Testing -->
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
-            <artifactId>pax-exam-container-native</artifactId>
+            <artifactId>pax-exam-container-karaf</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -193,6 +193,11 @@
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
             <artifactId>pax-exam-link-assembly</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.exam</groupId>
+            <artifactId>pax-exam-link-mvn</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
