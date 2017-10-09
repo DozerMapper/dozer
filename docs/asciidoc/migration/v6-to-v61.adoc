@@ -74,7 +74,7 @@ Dozer project does not advise to use JVM singletons. Please use your DI containe
  of the `Mapper` if required. The following code can be used to create a `Mapper` with default configuration:
 [source,java,prettyprint]
 ----
-Mapper mapper = DozerBeanMapperBuilder.createDefault();
+Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 ----
 
 === 5. Internal API is changed
