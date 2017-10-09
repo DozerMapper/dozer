@@ -7,7 +7,7 @@ After mapping the two objects it then returns the destination object with all of
 
 [source,java,prettyprint]
 ----
-Mapper mapper = DozerBeanMapperBuilder.createDefault();
+Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
 ----
 

@@ -18,7 +18,7 @@ For your first mapping, lets assume that the two data objects share all common a
 
 [source,java,prettyprint]
 ----
-Mapper mapper = DozerBeanMapperBuilder.createDefault();
+Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
 ----
 
