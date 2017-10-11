@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.osgitests;
 
+import com.github.dozermapper.osgitests.karaf.BundleOptions;
 import com.github.dozermapper.osgitests.support.OsgiTestSupport;
 import com.github.dozermapper.osgitestsmodel.Person;
 import org.dozer.DozerBeanMapperBuilder;
@@ -42,39 +43,12 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport
 
     @Configuration
     public Option[] config() {
-
         return options(
                 // Framework
                 containerConfigOptions(),
-                // Commons
-                localBundle("org.apache.commons.beanutils.link"),
-                localBundle("org.apache.commons.collections.link"),
-                localBundle("org.apache.commons.lang3.link"),
-                localBundle("org.apache.commons.io.link"),
-                // JAXB
-                localBundle("org.apache.geronimo.specs.geronimo-stax-api_1.0_spec.link"),
-                localBundle("org.apache.geronimo.specs.geronimo-activation_1.1_spec.link"),
-                localBundle("org.apache.servicemix.specs.jaxb-api-2.2.link"),
-                localBundle("org.apache.servicemix.bundles.jaxb-impl.link"),
-                // Jackson
-                localBundle("com.fasterxml.jackson.core.jackson-annotations.link"),
-                localBundle("com.fasterxml.jackson.core.jackson-core.link"),
-                localBundle("com.fasterxml.jackson.core.jackson-databind.link"),
-                localBundle("com.fasterxml.jackson.dataformat.jackson-dataformat-xml.link"),
-                localBundle("com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.link"),
-                localBundle("com.fasterxml.jackson.module.jackson-module-jaxb-annotations.link"),
-                localBundle("com.fasterxml.woodstox.woodstox-core.link"),
-                localBundle("stax2-api.link"),
-                localBundle("org.yaml.snakeyaml.link"),
-                // Javassist
-                localBundle("javassist.link"),
-                // Optional;
+                // Bundles
                 optionalBundles(),
-                // Core
-                localBundle("com.github.dozermapper.dozer-core.link"),
-                localBundle("com.github.dozermapper.dozer-core.link"),
-                localBundle("com.github.dozermapper.dozer-schema.link"),
-                localBundle("com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
+                BundleOptions.coreBundles(),
                 junitBundles()
         );
     }
@@ -82,7 +56,7 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport
     protected abstract Option containerConfigOptions();
 
     protected Option optionalBundles() {
-        return composite();
+        return BundleOptions.optionalBundles();
     }
 
     @Test
@@ -96,6 +70,13 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport
         assertEquals(Bundle.ACTIVE, core.getState());
 
         assertNull(bundleContext.getServiceReference(DozerModule.class));
+
+        for (Bundle current : bundleContext.getBundles()) {
+            //Ignore any Karaf bundles
+            if (!current.getSymbolicName().startsWith("org.apache.karaf")) {
+                assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
+            }
+        }
     }
 
     @Test
@@ -121,9 +102,4 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport
         assertNotNull(answer.getName());
         assertEquals("bob", answer.getName());
     }
-
-    InputStream getLocalResource(String name) {
-        return getClass().getClassLoader().getResourceAsStream(name);
-    }
-
 }

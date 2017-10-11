@@ -30,5 +30,4 @@ public class DozerCoreKaraf4MinimalDependenciesOsgiContainerTest extends DozerCo
     protected Option containerConfigOptions() {
         return KarafOptions.karaf4ContainerConfigOptions();
     }
-
 }

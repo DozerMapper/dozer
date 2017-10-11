@@ -17,6 +17,8 @@ package com.github.dozermapper.osgitests;
 
 import javax.inject.Inject;
 
+import com.github.dozermapper.osgitests.karaf.BundleOptions;
+import com.github.dozermapper.osgitests.karaf.KarafOptions;
 import com.github.dozermapper.osgitests.support.OsgiTestSupport;
 import com.github.dozermapper.protobuf.ProtobufSupportModule;
 
@@ -37,9 +39,11 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
+import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.systemPackages;
@@ -54,44 +58,28 @@ public class DozerProtoOsgiContainerTest extends OsgiTestSupport {
 
     @Configuration
     public Option[] config() {
-
         return options(
+                // Framework
+                containerConfigOptions(),
                 // ServiceLoader
-                url("link:classpath:org.apache.aries.spifly.dynamic.bundle.link"),
-                url("link:classpath:org.apache.aries.util.link"),
-                url("link:classpath:org.objectweb.asm.all.debug.link"),
-                // Commons
-                url("link:classpath:org.apache.commons.beanutils.link"),
-                url("link:classpath:org.apache.commons.collections.link"),
-                url("link:classpath:org.apache.commons.lang3.link"),
-                url("link:classpath:org.apache.commons.io.link"),
-                // Optional; Jackson
-                url("link:classpath:com.fasterxml.jackson.core.jackson-annotations.link"),
-                url("link:classpath:com.fasterxml.jackson.core.jackson-core.link"),
-                url("link:classpath:com.fasterxml.jackson.core.jackson-databind.link"),
-                url("link:classpath:com.fasterxml.jackson.dataformat.jackson-dataformat-xml.link"),
-                url("link:classpath:com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.link"),
-                url("link:classpath:com.fasterxml.jackson.module.jackson-module-jaxb-annotations.link"),
-                url("link:classpath:com.fasterxml.woodstox.woodstox-core.link"),
-                url("link:classpath:stax2-api.link"),
-                url("link:classpath:org.yaml.snakeyaml.link"),
-                // Optional; Javassist
-                url("link:classpath:javassist.link"),
-                // Optional; EL
-                url("link:classpath:javax.el-api.link"),
-                url("link:classpath:com.sun.el.javax.el.link"),
+                localBundle("org.apache.aries.spifly.dynamic.bundle.link"),
+                localBundle("org.apache.aries.util.link"),
+                localBundle("org.objectweb.asm.all.debug.link"),
+                // Bundles
+                BundleOptions.optionalBundles(),
+                BundleOptions.coreBundles(),
                 // Proto3
-                url("link:classpath:com.google.guava.link"),
-                url("link:classpath:com.google.protobuf.link"),
-                // Core
-                url("link:classpath:com.github.dozermapper.dozer-core.link"),
-                url("link:classpath:com.github.dozermapper.dozer-schema.link"),
-                url("link:classpath:com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
+                localBundle("com.google.guava.link"),
+                localBundle("com.google.protobuf.link"),
                 // Proto
-                url("link:classpath:com.github.dozermapper.dozer-proto.link"),
+                localBundle("com.github.dozermapper.dozer-proto.link"),
                 junitBundles(),
                 systemPackages("sun.misc")
         );
+    }
+
+    protected Option containerConfigOptions() {
+        return KarafOptions.karaf4ContainerConfigOptions();
     }
 
     @Test
@@ -109,14 +97,17 @@ public class DozerProtoOsgiContainerTest extends OsgiTestSupport {
         assertEquals(Bundle.ACTIVE, proto.getState());
 
         for (Bundle current : bundleContext.getBundles()) {
-            assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
+            //Ignore any Karaf bundles
+            if (!current.getSymbolicName().startsWith("org.apache.karaf")) {
+                assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
+            }
         }
     }
 
     @Test
     public void canConstructDozerBeanMapper() {
         Mapper mapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("mappings/mapping.xml")
+                .withXmlMapping(() -> getLocalResource("mappings/mapping.xml"))
                 .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
                 .build();
 
@@ -126,7 +117,7 @@ public class DozerProtoOsgiContainerTest extends OsgiTestSupport {
     @Test
     public void canResolveProtobufSupportModule() {
         Mapper mapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("mappings/mapping.xml")
+                .withXmlMapping(() -> getLocalResource("mappings/mapping.xml"))
                 .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
                 .build();
 

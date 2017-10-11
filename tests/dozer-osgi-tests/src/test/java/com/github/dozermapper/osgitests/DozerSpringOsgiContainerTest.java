@@ -17,6 +17,8 @@ package com.github.dozermapper.osgitests;
 
 import javax.inject.Inject;
 
+import com.github.dozermapper.osgitests.karaf.BundleOptions;
+import com.github.dozermapper.osgitests.karaf.KarafOptions;
 import com.github.dozermapper.osgitests.support.OsgiTestSupport;
 
 import org.dozer.DozerBeanMapperBuilder;
@@ -34,11 +36,13 @@ import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
+import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
+import static org.ops4j.pax.exam.CoreOptions.systemPackages;
 import static org.ops4j.pax.exam.CoreOptions.url;
 
 @RunWith(PaxExam.class)
@@ -50,40 +54,24 @@ public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
 
     @Configuration
     public Option[] config() {
-
         return options(
-                // Commons
-                url("link:classpath:org.apache.commons.beanutils.link"),
-                url("link:classpath:org.apache.commons.collections.link"),
-                url("link:classpath:org.apache.commons.lang3.link"),
-                url("link:classpath:org.apache.commons.io.link"),
-                // Optional; Jackson
-                url("link:classpath:com.fasterxml.jackson.core.jackson-annotations.link"),
-                url("link:classpath:com.fasterxml.jackson.core.jackson-core.link"),
-                url("link:classpath:com.fasterxml.jackson.core.jackson-databind.link"),
-                url("link:classpath:com.fasterxml.jackson.dataformat.jackson-dataformat-xml.link"),
-                url("link:classpath:com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.link"),
-                url("link:classpath:com.fasterxml.jackson.module.jackson-module-jaxb-annotations.link"),
-                url("link:classpath:com.fasterxml.woodstox.woodstox-core.link"),
-                url("link:classpath:stax2-api.link"),
-                url("link:classpath:org.yaml.snakeyaml.link"),
-                // Optional; Javassist
-                url("link:classpath:javassist.link"),
-                // Optional; EL
-                url("link:classpath:javax.el-api.link"),
-                url("link:classpath:com.sun.el.javax.el.link"),
+                // Framework
+                containerConfigOptions(),
+                // Bundles
+                BundleOptions.optionalBundles(),
+                BundleOptions.coreBundles(),
                 // Spring
-                url("link:classpath:org.apache.servicemix.bundles.spring-beans.link"),
-                url("link:classpath:org.apache.servicemix.bundles.spring-context.link"),
-                url("link:classpath:org.apache.servicemix.bundles.spring-core.link"),
-                // Core
-                url("link:classpath:com.github.dozermapper.dozer-core.link"),
-                url("link:classpath:com.github.dozermapper.dozer-schema.link"),
-                url("link:classpath:com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
+                localBundle("org.apache.servicemix.bundles.spring-beans.link"),
+                localBundle("org.apache.servicemix.bundles.spring-context.link"),
+                localBundle("org.apache.servicemix.bundles.spring-core.link"),
                 // Spring4
-                url("link:classpath:com.github.dozermapper.dozer-spring.link"),
+                localBundle("com.github.dozermapper.dozer-spring.link"),
                 junitBundles()
         );
+    }
+
+    protected Option containerConfigOptions() {
+        return KarafOptions.karaf4ContainerConfigOptions();
     }
 
     @Test
@@ -103,14 +91,17 @@ public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
         assertNull(bundleContext.getServiceReference(DozerModule.class));
 
         for (Bundle current : bundleContext.getBundles()) {
-            assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
+            //Ignore any Karaf bundles
+            if (!current.getSymbolicName().startsWith("org.apache.karaf")) {
+                assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
+            }
         }
     }
 
     @Test
     public void canConstructDozerBeanMapper() {
         Mapper mapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("mappings/mapping.xml")
+                .withXmlMapping(() -> getLocalResource("mappings/mapping.xml"))
                 .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
                 .build();
 

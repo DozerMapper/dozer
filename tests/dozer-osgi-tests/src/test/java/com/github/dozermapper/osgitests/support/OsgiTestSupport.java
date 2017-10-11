@@ -15,6 +15,8 @@
  */
 package com.github.dozermapper.osgitests.support;
 
+import java.io.InputStream;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -30,5 +32,9 @@ public abstract class OsgiTestSupport {
         }
 
         return answer;
+    }
+
+    protected InputStream getLocalResource(String name) {
+        return getClass().getClassLoader().getResourceAsStream(name);
     }
 }

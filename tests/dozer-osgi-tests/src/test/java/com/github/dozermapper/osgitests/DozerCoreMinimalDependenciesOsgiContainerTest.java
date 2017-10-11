@@ -17,14 +17,20 @@ package com.github.dozermapper.osgitests;
 
 import org.dozer.el.ELExpressionFactory;
 import org.junit.Test;
+import org.ops4j.pax.exam.Option;
 
 import static org.junit.Assert.assertFalse;
+import static org.ops4j.pax.exam.CoreOptions.composite;
 
 public abstract class DozerCoreMinimalDependenciesOsgiContainerTest extends AbstractDozerCoreOsgiContainerTest {
+
+    @Override
+    protected Option optionalBundles() {
+        return composite();
+    }
 
     @Test
     public void elNotSupported() {
         assertFalse(ELExpressionFactory.isSupported());
     }
-
 }

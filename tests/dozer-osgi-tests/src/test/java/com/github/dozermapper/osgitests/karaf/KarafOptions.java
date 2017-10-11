@@ -15,25 +15,25 @@
  */
 package com.github.dozermapper.osgitests.karaf;
 
-import org.ops4j.pax.exam.Option;
-import org.ops4j.pax.exam.karaf.options.LogLevelOption;
-
 import java.io.File;
+
+import org.ops4j.pax.exam.Option;
 
 import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.maven;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.*;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.doNotModifyLogConfiguration;
 
-final class KarafOptions {
+public final class KarafOptions {
 
     private static final String FRAMEWORK_GROUP_ID = "org.apache.karaf";
     private static final String FRAMEWORK_ARTIFACT_ID = "apache-karaf";
 
-    static Option karaf4ContainerConfigOptions() {
+    public static Option karaf4ContainerConfigOptions() {
         return karafContainerConfigOptions("4.1.2");
     }
 
-    static Option karaf2ContainerConfigOptions() {
+    public static Option karaf2ContainerConfigOptions() {
         return karafContainerConfigOptions("2.4.4");
     }
 
