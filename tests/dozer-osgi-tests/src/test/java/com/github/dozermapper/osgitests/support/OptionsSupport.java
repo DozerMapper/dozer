@@ -40,7 +40,9 @@ public final class OptionsSupport {
     public static UrlProvisionOption localBundle(String link) {
         try (InputStream resourceAsStream = OptionsSupport.class.getClassLoader().getResourceAsStream(link)) {
             List<String> urls = IOUtils.readLines(resourceAsStream, Charset.forName("UTF-8"));
+
             assertEquals("Invalid link file was provided", 1, urls.size());
+
             return url(urls.get(0));
         } catch (IOException e) {
             throw new IllegalArgumentException(e);

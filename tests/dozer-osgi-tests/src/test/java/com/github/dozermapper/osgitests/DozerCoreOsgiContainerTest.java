@@ -21,23 +21,10 @@ import org.dozer.Mapper;
 import org.dozer.el.ELExpressionFactory;
 import org.dozer.osgi.OSGiClassLoader;
 import org.junit.Test;
-import org.ops4j.pax.exam.Option;
 
-import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
 import static org.junit.Assert.*;
-import static org.ops4j.pax.exam.CoreOptions.composite;
 
 public abstract class DozerCoreOsgiContainerTest extends AbstractDozerCoreOsgiContainerTest {
-
-    protected abstract Option containerConfigOptions();
-
-    protected Option optionalBundles() {
-        return composite(
-                // EL
-                localBundle("javax.el-api.link"),
-                localBundle("com.sun.el.javax.el.link")
-        );
-    }
 
     @Test
     public void canMapUsingXMLWithVariables() {
