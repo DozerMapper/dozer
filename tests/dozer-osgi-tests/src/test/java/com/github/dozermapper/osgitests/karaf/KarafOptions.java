@@ -48,7 +48,8 @@ public final class KarafOptions {
                         )
                         .karafVersion(version)
                         .name("Apache Karaf " + version)
-                        .unpackDirectory(new File("target/paxexam/unpack")),
+                        .unpackDirectory(new File("target/paxexam/unpack"))
+                        .useDeployFolder(false),
                 doNotModifyLogConfiguration()
         );
     }
