@@ -22,7 +22,7 @@ Dozer supports simple property mapping, complex type mapping, bi-directional map
 Dozer not only supports mapping between attribute names, but also automatically converting between types. Most conversion scenarios are supported out of the box, but Dozer also allows you to specify custom conversions via XML or code-based configuration.
 
 ## Getting Started
-Check out the [Getting Started Guide](http://dozer.sf.net/documentation/gettingstarted.html) and [Full User Guide](http://dozer.sf.net/dozer-user-guide.pdf) or [Dozer SF Site](http://dozer.sf.net) for advanced information.
+Check out the [Getting Started Guide](https://dozermapper.github.io/gitbook/documentation/gettingstarted.html) and [Full User Guide](https://dozermapper.github.io/user-guide.pdf) or [Dozer SF Site](https://dozermapper.github.io/gitbook/) for advanced information.
 
 ## Getting the Distribution
 If you are using Maven, simply copy-paste this dependency to your project.
