@@ -1,0 +1,11 @@
+syntax = "proto3";
+option java_package = "com.github.dozermapper.protobuf.vo.protomultiple";
+option java_multiple_files = true;
+
+message TestObject {
+    string one = 1;
+}
+
+message SimpleProtoTestObject {
+    TestObject nested = 1;
+}

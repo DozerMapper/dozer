@@ -217,6 +217,10 @@ public final class ProtoUtils {
     }
 
     private static String[] getFullyQualifiedClassName(DescriptorProtos.FileOptions options, String name) {
+        if (options.getJavaMultipleFiles()) {
+            return new String[]{options.getJavaPackage(), name};
+        }
+
         return new String[] {options.getJavaPackage(), options.getJavaOuterClassname(), name};
     }
 
