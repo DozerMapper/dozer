@@ -81,6 +81,7 @@
         <module>spring</module>
         <module>proto</module>
         <module>tests</module>
+        <module>dozer-spring-boot-auto-configuration</module>
     </modules>
 
     <properties>
@@ -214,6 +215,7 @@
                         <exclude>**/spring.handlers</exclude>
                         <exclude>**/mockito-extensions/**</exclude>
                         <exclude>**/gen-src/**</exclude>
+                        <exclude>**/spring.factories</exclude>
                     </excludes>
                     <mapping>
                         <java>SLASHSTAR_STYLE</java>

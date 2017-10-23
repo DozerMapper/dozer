@@ -289,6 +289,9 @@
                     <excludes>
                         <exclude>**/Test*.java</exclude>
                     </excludes>
+                    <systemPropertyVariables>
+                        <org.slf4j.simpleLogger.defaultLogLevel>WARN</org.slf4j.simpleLogger.defaultLogLevel>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
