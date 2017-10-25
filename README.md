@@ -3,8 +3,22 @@
 [![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
 # Dozer
-## Looking for HELP
-We are actively looking for people who want to help with the Dozer project!
+## Active Contributors
+We are always looking for more help. The below is the current active list:
+
+### Core
+- @garethahealy
+- @orange-buffalo
+- ??
+
+### Protobuf
+- @jbq
+- @garethahealy
+- ??
+
+### Spring4
+- @garethahealy
+- ??
 
 ## Why Map?
 A mapping framework is useful in a layered architecture where you are creating layers of abstraction by encapsulating changes to particular data objects vs. propagating these objects to other layers (i.e. external service data objects, domain objects, data transfer objects, internal service data objects).
@@ -22,7 +36,7 @@ Dozer supports simple property mapping, complex type mapping, bi-directional map
 Dozer not only supports mapping between attribute names, but also automatically converting between types. Most conversion scenarios are supported out of the box, but Dozer also allows you to specify custom conversions via XML or code-based configuration.
 
 ## Getting Started
-Check out the [Getting Started Guide](https://dozermapper.github.io/gitbook/documentation/gettingstarted.html) and [Full User Guide](https://dozermapper.github.io/user-guide.pdf) or [Dozer SF Site](https://dozermapper.github.io/gitbook/) for advanced information.
+Check out the [Getting Started Guide](https://dozermapper.github.io/gitbook/documentation/gettingstarted.html), [Full User Guide](https://dozermapper.github.io/user-guide.pdf) or [GitBook](https://dozermapper.github.io/gitbook/) for advanced information.
 
 ## Getting the Distribution
 If you are using Maven, simply copy-paste this dependency to your project.
