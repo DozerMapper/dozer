@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gihub.dozermaper.autoconfigure.vo;
+package com.github.dozermaper.springboot.autoconfigure.vo;
 
 public class Dest {
 

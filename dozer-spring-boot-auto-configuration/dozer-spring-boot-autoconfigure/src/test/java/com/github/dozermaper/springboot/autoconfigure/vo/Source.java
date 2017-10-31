@@ -13,7 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * Spring boot auto configuration classes.
- */
-package com.github.dozermapper.autoconfigure;
+package com.github.dozermaper.springboot.autoconfigure.vo;
+
+public class Source {
+
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public Source setText(String text) {
+        this.text = text;
+        return this;
+    }
+}

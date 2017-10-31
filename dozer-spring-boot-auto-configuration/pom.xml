@@ -60,8 +60,4 @@
         <module>dozer-spring-boot-autoconfigure</module>
         <module>dozer-spring-boot-starter</module>
     </modules>
-
-
-
-
 </project>

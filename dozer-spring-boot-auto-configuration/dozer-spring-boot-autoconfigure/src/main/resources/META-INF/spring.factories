@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.github.dozermapper.autoconfigure.DozerAutoConfiguration
+  com.github.dozermapper.springboot.autoconfigure.DozerAutoConfiguration

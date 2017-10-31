@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.autoconfigure;
+package com.github.dozermapper.springboot.autoconfigure;
 
 import java.util.Arrays;
 

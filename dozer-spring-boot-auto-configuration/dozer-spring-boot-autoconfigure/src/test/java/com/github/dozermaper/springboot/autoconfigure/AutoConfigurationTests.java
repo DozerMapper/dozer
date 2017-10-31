@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gihub.dozermaper.autoconfigure;
+package com.github.dozermaper.springboot.autoconfigure;
 
-import com.gihub.dozermaper.autoconfigure.vo.Dest;
-import com.gihub.dozermaper.autoconfigure.vo.Source;
-import com.github.dozermapper.autoconfigure.DozerAutoConfiguration;
+import com.github.dozermaper.springboot.autoconfigure.vo.Dest;
+import com.github.dozermaper.springboot.autoconfigure.vo.Source;
+import com.github.dozermapper.springboot.autoconfigure.DozerAutoConfiguration;
 import com.github.dozermapper.spring.DozerBeanMapperFactoryBean;
 import org.dozer.Mapper;
 import org.dozer.metadata.ClassMappingMetadata;

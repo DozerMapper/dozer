@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>com.gihub.dozermaper.autoconfigure.vo.Source</class-a>
-        <class-b>com.gihub.dozermaper.autoconfigure.vo.Dest</class-b>
+        <class-a>com.github.dozermaper.springboot.autoconfigure.vo.Source</class-a>
+        <class-b>com.github.dozermaper.springboot.autoconfigure.vo.Dest</class-b>
         <field>
             <a>text</a>
             <b>text</b>
