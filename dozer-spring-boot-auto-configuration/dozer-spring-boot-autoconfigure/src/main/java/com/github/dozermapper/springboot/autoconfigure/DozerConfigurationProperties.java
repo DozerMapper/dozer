@@ -21,17 +21,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;
 
 
+
 /**
  * Dozer configuration properties.
  */
 @ConfigurationProperties(prefix = "dozer")
 public class DozerConfigurationProperties {
 
+    /**
+     * Mapping files configuration.
+     * For example <code>classpath:*.dozer.xml</code>.
+     */
     private Resource[] mappingFiles = new Resource[] {};
 
     /**
      * Mapping files configuration.
-     * For example <code>classpath:*.dozer.xml</code>.
      *
      * @return mapping files
      */
@@ -40,7 +44,8 @@ public class DozerConfigurationProperties {
     }
 
     /**
-     * Set mapping files configuration
+     * Set mapping files configuration. For example <code>classpath:*.dozer.xml</code>.
+     *
      * @param mappingFiles dozer mapping files
      * @return dozer properties
      */

@@ -38,11 +38,21 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(DozerConfigurationProperties.class)
 public class DozerAutoConfiguration {
 
-    @Autowired
-    private DozerConfigurationProperties configurationProperties;
+    private final DozerConfigurationProperties configurationProperties;
 
+    private final ApplicationContext applicationContext;
+
+    /**
+     * Constructor for creating auto configuration.
+     * @param configurationProperties properties
+     * @param applicationContext context
+     */
     @Autowired
-    private ApplicationContext applicationContext;
+    public DozerAutoConfiguration(DozerConfigurationProperties configurationProperties,
+                                  ApplicationContext applicationContext) {
+        this.configurationProperties = configurationProperties;
+        this.applicationContext = applicationContext;
+    }
 
     /**
      * Creates default Dozer mapper
