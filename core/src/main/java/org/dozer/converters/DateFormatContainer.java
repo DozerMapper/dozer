@@ -17,34 +17,57 @@ package org.dozer.converters;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
  * Internal class used as a container to determine the date format to use for a particular field mapping. Only intended
- * for internal use.  
- * 
+ * for internal use.
+ *
  * @author tierney.matt
  */
 public class DateFormatContainer {
-  private String dfStr;
-  private DateFormat dateFormat;
+    private String dfStr;
+    private DateFormat dateFormat;
+    private DateTimeFormatter dateTimeFormatter;
 
-  public DateFormatContainer(String dfStr) {
-    this.dfStr = dfStr;
-  }
-
-  public DateFormat getDateFormat() {
-    if (dateFormat == null) {
-      dateFormat = determineDateFormat();
+    public DateFormatContainer(String dfStr) {
+        this.dfStr = dfStr;
     }
-    return dateFormat;
-  }
 
-  public void setDateFormat(DateFormat dateFormat) {
-    this.dateFormat = dateFormat;
-  }
+    public DateFormat getDateFormat() {
+        if (dateFormat == null) {
+            dateFormat = determineDateFormat();
+        }
+        return dateFormat;
+    }
 
-  private DateFormat determineDateFormat() {
-    return dfStr == null ? null : new SimpleDateFormat(dfStr, Locale.getDefault());
-  }
+    /**
+     * Date and time formatter for Java 8 Date &amp; Time objects.
+     * @return formatter
+     */
+    public DateTimeFormatter getDateTimeFormatter() {
+        if (dateTimeFormatter == null) {
+            if (dfStr != null) {
+                dateTimeFormatter = DateTimeFormatter.ofPattern(dfStr);
+            }
+        }
+        return dateTimeFormatter;
+    }
+
+
+    /**
+     * TODO replace method call with reflection in tests.
+     * @param dateFormat dateFormat
+     * @deprecated This method will break internal state of the instance by setting formatter which is not using
+     * format provided using constructor. It will be removed in future releases.
+     */
+    @Deprecated
+    public void setDateFormat(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    private DateFormat determineDateFormat() {
+        return dfStr == null ? null : new SimpleDateFormat(dfStr, Locale.getDefault());
+    }
 }
