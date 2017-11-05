@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,18 +39,13 @@ public class DozerAutoConfiguration {
 
     private final DozerConfigurationProperties configurationProperties;
 
-    private final ApplicationContext applicationContext;
-
     /**
      * Constructor for creating auto configuration.
      * @param configurationProperties properties
-     * @param applicationContext context
      */
     @Autowired
-    public DozerAutoConfiguration(DozerConfigurationProperties configurationProperties,
-                                  ApplicationContext applicationContext) {
+    public DozerAutoConfiguration(DozerConfigurationProperties configurationProperties) {
         this.configurationProperties = configurationProperties;
-        this.applicationContext = applicationContext;
     }
 
     /**
@@ -63,7 +57,6 @@ public class DozerAutoConfiguration {
     public DozerBeanMapperFactoryBean dozerMapper() throws IOException {
         DozerBeanMapperFactoryBean factoryBean = new DozerBeanMapperFactoryBean();
         factoryBean.setMappingFiles(configurationProperties.getMappingFiles());
-        factoryBean.setApplicationContext(applicationContext);
         return factoryBean;
     }
 
