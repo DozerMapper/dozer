@@ -25,7 +25,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>dozer-spring-boot-starter</artifactId>
-    <name>Spring Boot AutoConfiguration :: Dozer Starter</name>
+    <name>Dozer :: Spring Boot AutoConfiguration :: Starter</name>
 
     <dependencies>
         <dependency>

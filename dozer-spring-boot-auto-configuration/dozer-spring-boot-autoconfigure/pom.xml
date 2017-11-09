@@ -27,7 +27,7 @@
     <artifactId>dozer-spring-boot-autoconfigure</artifactId>
     <packaging>jar</packaging>
 
-    <name>Spring Boot AutoConfiguration :: Dozer AutoConfiguration</name>
+    <name>Dozer :: Spring Boot AutoConfiguration :: AutoConfiguration</name>
 
     <dependencies>
         <dependency>
