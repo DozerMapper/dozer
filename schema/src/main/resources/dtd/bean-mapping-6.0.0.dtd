@@ -113,6 +113,7 @@
 <!ATTLIST class-a map-set-method CDATA #IMPLIED >
 <!ATTLIST class-a map-get-method CDATA #IMPLIED >
 <!ATTLIST class-a create-method CDATA #IMPLIED >
+<!ATTLIST class-a skip-constructor CDATA #IMPLIED >
 <!ATTLIST class-a map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST class-a map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 
@@ -126,6 +127,7 @@
 <!ATTLIST class-b map-set-method CDATA #IMPLIED >
 <!ATTLIST class-b map-get-method CDATA #IMPLIED >
 <!ATTLIST class-b create-method CDATA #IMPLIED >
+<!ATTLIST class-b skip-constructor CDATA #IMPLIED >
 <!ATTLIST class-b map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST class-b map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 

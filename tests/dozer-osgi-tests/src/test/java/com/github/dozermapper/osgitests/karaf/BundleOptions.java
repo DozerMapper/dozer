@@ -32,7 +32,9 @@ public final class BundleOptions {
                 // Core
                 localBundle("com.github.dozermapper.dozer-core.link"),
                 localBundle("com.github.dozermapper.dozer-schema.link"),
-                localBundle("com.github.dozermapper.tests.dozer-osgi-tests-model.link")
+                localBundle("com.github.dozermapper.tests.dozer-osgi-tests-model.link"),
+                // Objenesis
+                localBundle("org.objenesis.link")
         );
     }
 

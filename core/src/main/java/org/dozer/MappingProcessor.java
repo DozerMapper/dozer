@@ -201,7 +201,8 @@ public class MappingProcessor implements Mapper {
 
       BeanCreationDirective creationDirective =
               new BeanCreationDirective(srcObj, classMap.getSrcClassToMap(), classMap.getDestClassToMap(), destType,
-              classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod());
+              classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(), classMap.getDestClassCreateMethod(),
+              classMap.getDestClass().isSkipConstructor());
 
       result = createByCreationDirectiveAndMap(creationDirective, classMap, srcObj, result, false, null);
     } catch (Throwable e) {
@@ -550,7 +551,8 @@ public class MappingProcessor implements Mapper {
 
       BeanCreationDirective creationDirective = new BeanCreationDirective(srcFieldValue, classMap.getSrcClassToMap(), classMap.getDestClassToMap(),
               destFieldType, classMap.getDestClassBeanFactory(), classMap.getDestClassBeanFactoryId(),
-              fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod(), destObj, destFieldName);
+              fieldMap.getDestFieldCreateMethod() != null ? fieldMap.getDestFieldCreateMethod() : classMap.getDestClassCreateMethod(),
+              classMap.getDestClass().isSkipConstructor(), destObj, destFieldName);
 
       result = createByCreationDirectiveAndMap(creationDirective, classMap, srcFieldValue, null, false, fieldMap.getMapId());
     } else {

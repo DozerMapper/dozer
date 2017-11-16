@@ -28,6 +28,7 @@ public class BeanCreationDirective {
     private String   factoryName;
     private String   factoryId;
     private String   createMethod;
+    private Boolean  skipConstructor;
     private Object   destObj;
     private String   destFieldName;
 
@@ -35,11 +36,11 @@ public class BeanCreationDirective {
         super();
     }
 
-    public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod) {
-        this(srcObject, srcClass, targetClass, alternateClass, factoryName, factoryId, createMethod, null, null);
+    public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod, Boolean skipConstructor) {
+        this(srcObject, srcClass, targetClass, alternateClass, factoryName, factoryId, createMethod, skipConstructor, null, null);
     }
 
-    public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod, Object destObj, String destFieldName) {
+    public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod, Boolean skipConstructor, Object destObj, String destFieldName) {
         this.srcObject = srcObject;
         this.srcClass = srcClass;
         this.targetClass = targetClass;
@@ -47,6 +48,7 @@ public class BeanCreationDirective {
         this.factoryName = factoryName;
         this.factoryId = factoryId;
         this.createMethod = createMethod;
+        this.skipConstructor = skipConstructor != null ? skipConstructor : false;
         this.destObj = destObj;
         this.destFieldName = destFieldName;
     }
@@ -105,6 +107,14 @@ public class BeanCreationDirective {
 
     public void setCreateMethod(String createMethod) {
         this.createMethod = createMethod;
+    }
+
+    public Boolean isSkipConstructor() {
+        return skipConstructor;
+    }
+
+    public void setSkipConstructor(Boolean skipConstructor) {
+        this.skipConstructor = skipConstructor;
     }
 
     public Class<?> getActualClass() {

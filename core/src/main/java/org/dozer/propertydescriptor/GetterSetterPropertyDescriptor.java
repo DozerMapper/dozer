@@ -194,7 +194,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
             //lets see if they have a factory we can try as a last ditch. If not...throw the exception:
             if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
               o = destBeanCreator.create(new BeanCreationDirective(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, clazz, fieldMap.getClassMap()
-                      .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null));
+                      .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null, null));
             } else {
               MappingUtils.throwMappingException(e);
             }
