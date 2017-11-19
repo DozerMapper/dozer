@@ -15,10 +15,13 @@
  */
 package com.github.dozermaper.springboot.autoconfigure;
 
+import java.util.Map;
+
 import com.github.dozermaper.springboot.autoconfigure.vo.Dest;
 import com.github.dozermaper.springboot.autoconfigure.vo.Source;
-import com.github.dozermapper.springboot.autoconfigure.DozerAutoConfiguration;
 import com.github.dozermapper.spring.DozerBeanMapperFactoryBean;
+import com.github.dozermapper.springboot.autoconfigure.DozerAutoConfiguration;
+
 import org.dozer.Mapper;
 import org.dozer.metadata.ClassMappingMetadata;
 import org.junit.Test;
@@ -27,8 +30,6 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -79,9 +79,9 @@
         <module>schema</module>
         <module>core</module>
         <module>spring</module>
+        <module>dozer-spring-boot-auto-configuration</module>
         <module>proto</module>
         <module>tests</module>
-        <module>dozer-spring-boot-auto-configuration</module>
     </modules>
 
     <properties>
