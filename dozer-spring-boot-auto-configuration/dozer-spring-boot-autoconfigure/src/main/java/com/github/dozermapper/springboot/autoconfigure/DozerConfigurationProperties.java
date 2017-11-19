@@ -20,8 +20,6 @@ import java.util.Arrays;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.Resource;
 
-
-
 /**
  * Dozer configuration properties.
  */
