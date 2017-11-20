@@ -22,6 +22,7 @@ import org.dozer.functional_tests.model.MyMinimalDto;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class OneWayClassMappingTest {
@@ -38,6 +39,10 @@ public class OneWayClassMappingTest {
         entity.setId("id");
 
         MyMinimalDto dto = mapper.map(entity, MyMinimalDto.class);
+
+        assertNotNull(dto);
+        assertNotNull(dto.getId());
+        assertNotNull(dto.getOneWay());
 
         assertEquals(dto.getId(), entity.getId());
         assertEquals(dto.getOneWay(), entity.getOneWay());
