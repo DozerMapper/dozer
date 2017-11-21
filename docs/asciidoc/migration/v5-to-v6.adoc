@@ -46,3 +46,10 @@ Just simply use the dozer-core:
     <version>6.0.0</version>
 </dependency>
 ----
+
+=== 4. XSD namespace and location has been modified
+Dozer >= v6.0.0 uses a new XSD namespace and location.
+
+The v5 XSD location was 'http://dozer.sourceforge.net/schema/beanmapping.xsd' and now need to be modified to v6 XSD location: 'https://dozermapper.github.io/schema/bean-mapping.xsd'.
+
+The v5 namespace was 'http://dozer.sourceforge.net' and now need to be modified to v6 namespace: 'http://dozermapper.github.io/schema/bean-mapping'.
