@@ -59,6 +59,7 @@
         <spring.version>4.3.10.RELEASE</spring.version>
         <woodstox-core-asl.version>4.4.1</woodstox-core-asl.version>
         <xmlbeans.version>2.6.0</xmlbeans.version>
+        <objenesis.version>2.6</objenesis.version>
     </properties>
 
     <dependencyManagement>
@@ -264,6 +265,11 @@
                 <groupId>org.apache.xmlbeans</groupId>
                 <artifactId>xmlbeans</artifactId>
                 <version>${xmlbeans.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>${objenesis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
