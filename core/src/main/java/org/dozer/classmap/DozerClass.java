@@ -148,8 +148,8 @@ public class DozerClass {
     return skipConstructor != null && skipConstructor;
   }
 
-  public void setSkipConstructor(Boolean omitConstructor) {
-    this.skipConstructor = omitConstructor;
+  public void setSkipConstructor(Boolean skipConstructor) {
+    this.skipConstructor = skipConstructor;
   }
 
   @Override
