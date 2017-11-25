@@ -1,4 +1,4 @@
-== Creating objects without using a constructor
+== Mapping immutable types
 You can create objects when constructor is not available, or when
 there is no no-args constructor in the class. Feature is designed
 for mapping immutable types. To use it, at the mapping level add
