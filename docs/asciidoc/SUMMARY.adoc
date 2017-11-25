@@ -22,6 +22,7 @@
 .. link:documentation/indexmapping.adoc[Indexed Property Mapping]
 .. link:documentation/exclude.adoc[Excluding Fields]
 .. link:documentation/advancedproperty.adoc[Assembler Pattern]
+.. link:documentation/immutable.adoc[Mapping immutable types]
 
 == How do i map a type of...?
 .. link:documentation/enum.adoc[Enums]
