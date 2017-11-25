@@ -42,7 +42,6 @@ import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
-import org.objenesis.instantiator.ObjectInstantiator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -263,16 +262,11 @@ public final class ConstructionStrategies {
         public Object create(BeanCreationDirective directive) {
             Class<?> classToCreate = directive.getActualClass();
             try {
-                return newInstance(classToCreate);
+                return objectFactory.newInstance(classToCreate);
             } catch (Exception e) {
                 MappingUtils.throwMappingException(e);
             }
             return null;
-        }
-
-        private <T> T newInstance(Class<T> clazz) {
-            ObjectInstantiator<T> instantiator = objectFactory.getInstantiatorOf(clazz);
-            return instantiator.newInstance();
         }
     }
 

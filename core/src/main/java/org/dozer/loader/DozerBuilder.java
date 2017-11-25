@@ -512,7 +512,7 @@ public class DozerBuilder {
       definition.setAccessible(value);
     }
 
-    public void isSkipConstructor(Boolean skipConstructor) {
+    public void skipConstructor(Boolean skipConstructor) {
       definition.setSkipConstructor(skipConstructor);
     }
   }

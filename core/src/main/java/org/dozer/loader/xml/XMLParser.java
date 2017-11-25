@@ -238,7 +238,7 @@ public class XMLParser implements MappingsSource<Document> {
       classBuilder.isAccessible(Boolean.valueOf(getAttribute(element, IS_ACCESSIBLE_ATTRIBUTE)));
     }
     if (StringUtils.isNotEmpty(getAttribute(element, SKIP_CONSTRUCTOR_ATTRIBUTE))) {
-      classBuilder.isSkipConstructor(Boolean.valueOf(getAttribute(element, SKIP_CONSTRUCTOR_ATTRIBUTE)));
+      classBuilder.skipConstructor(Boolean.valueOf(getAttribute(element, SKIP_CONSTRUCTOR_ATTRIBUTE)));
     }
   }
 
