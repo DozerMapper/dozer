@@ -1138,11 +1138,12 @@ public class MappingProcessor implements Mapper {
     ClassMap mapping = classMappings.find(srcClass, destClass, mapId);
 
     if (mapping == null) {
-      //Does the opposite mapping exist, but its only a ONE_WAY?
       mapping = classMappings.find(destClass, srcClass, null);
       if (mapping != null && MappingDirection.ONE_WAY == mapping.getType()) {
+        //Does the opposite mapping exist, but its only a ONE_WAY?
+        //Then create an empty mapping, i.e.: an object instance will be returned by the mapper, but no fields will be set
         mapping = classMapBuilder.createDefaultClassMap(globalConfiguration, srcClass, destClass, false);
-        classMappings.addDefault(destClass, srcClass, mapping);
+        classMappings.addDefault(srcClass, destClass, mapping);
       } else {
         // If mapping not found in existing custom mapping collection,
         // create default as an explicit mapping must not exist.
