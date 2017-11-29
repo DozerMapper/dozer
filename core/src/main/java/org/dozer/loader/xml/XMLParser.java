@@ -94,6 +94,7 @@ public class XMLParser implements MappingsSource<Document> {
   private static final String FACTORY_BEANID_ATTRIBUTE = "factory-bean-id";
   private static final String IS_ACCESSIBLE_ATTRIBUTE = "is-accessible";
   private static final String CREATE_METHOD_ATTRIBUTE = "create-method";
+  private static final String SKIP_CONSTRUCTOR_ATTRIBUTE = "skip-constructor";
   private static final String MAP_NULL_ATTRIBUTE = "map-null";
   private static final String MAP_EMPTY_STRING_ATTRIBUTE = "map-empty-string";
   private static final String CUSTOM_CONVERTER_ATTRIBUTE = "custom-converter";
@@ -235,6 +236,9 @@ public class XMLParser implements MappingsSource<Document> {
     }
     if (StringUtils.isNotEmpty(getAttribute(element, IS_ACCESSIBLE_ATTRIBUTE))) {
       classBuilder.isAccessible(Boolean.valueOf(getAttribute(element, IS_ACCESSIBLE_ATTRIBUTE)));
+    }
+    if (StringUtils.isNotEmpty(getAttribute(element, SKIP_CONSTRUCTOR_ATTRIBUTE))) {
+      classBuilder.skipConstructor(Boolean.valueOf(getAttribute(element, SKIP_CONSTRUCTOR_ATTRIBUTE)));
     }
   }
 

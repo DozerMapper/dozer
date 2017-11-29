@@ -511,6 +511,10 @@ public class DozerBuilder {
     public void isAccessible(Boolean value) {
       definition.setAccessible(value);
     }
+
+    public void skipConstructor(Boolean skipConstructor) {
+      definition.setSkipConstructor(skipConstructor);
+    }
   }
 
   public static class ConfigurationBuilder {

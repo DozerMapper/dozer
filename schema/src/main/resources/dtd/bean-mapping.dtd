@@ -104,6 +104,7 @@
                              This should only be used of Map backed objects.
              create-method   Which method to invoke to create a new instance of the class.  This is typically not specified.
                              By default, the no arg constructor(public or private) is used
+          skip-constructor   Used for mapping to immutable types. Object is created with no-arg constructor.
                   map-null   Indicates whether null values are mapped.  The default value is "true"
           map-empty-string   Indicates whether empty string values are mapped. The default value is "true"
 -->
@@ -113,6 +114,7 @@
 <!ATTLIST class-a map-set-method CDATA #IMPLIED >
 <!ATTLIST class-a map-get-method CDATA #IMPLIED >
 <!ATTLIST class-a create-method CDATA #IMPLIED >
+<!ATTLIST class-a skip-constructor CDATA #IMPLIED >
 <!ATTLIST class-a map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST class-a map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 
@@ -126,6 +128,7 @@
 <!ATTLIST class-b map-set-method CDATA #IMPLIED >
 <!ATTLIST class-b map-get-method CDATA #IMPLIED >
 <!ATTLIST class-b create-method CDATA #IMPLIED >
+<!ATTLIST class-b skip-constructor CDATA #IMPLIED >
 <!ATTLIST class-b map-null CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 <!ATTLIST class-b map-empty-string CDATA #IMPLIED> <!-- (true | false ) "true" : if we don't make this CDATA the overidden flag is always true -->
 

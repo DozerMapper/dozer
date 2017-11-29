@@ -51,6 +51,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     private ConstructionStrategies.ByFactory byFactory;
     private ConstructionStrategies.ByInterface byInterface;
     private ConstructionStrategies.ByConstructor byConstructor;
+    private ConstructionStrategies.ByNoArgObjectConstructor byNoArgObjectConstructor;
     private ConstructionStrategies.XMLBeansBased xmlBeansBased;
     private ConstructionStrategies.JAXBBeansBased jaxbBeansBased;
 
@@ -71,6 +72,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
         byFactory = new ConstructionStrategies.ByFactory(beanContainer);
         byInterface = new ConstructionStrategies.ByInterface();
         byConstructor = new ConstructionStrategies.ByConstructor();
+        byNoArgObjectConstructor = new ConstructionStrategies.ByNoArgObjectConstructor();
         xmlBeansBased = new ConstructionStrategies.XMLBeansBased(xmlBeanFactory, beanContainer);
         jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased(jaxbBeanFactory, beanContainer);
 
@@ -207,6 +209,14 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
         directive.setTargetClass(SelfFactory.class);
         byFactory.create(directive);
     }
+
+  @Test
+  public void shouldInstantiateByNoArgObjectConstructor() {
+      directive.setSkipConstructor(true);
+      directive.setTargetClass(SelfFactory.class);
+      SelfFactory result = (SelfFactory) byNoArgObjectConstructor.create(directive);
+      assertEquals(null, result.getName());
+  }
 
     @Test
     public void shouldInstantiateByXmlBeansFactory() {

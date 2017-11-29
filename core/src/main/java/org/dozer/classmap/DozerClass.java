@@ -40,6 +40,7 @@ public class DozerClass {
   private Boolean mapNull;
   private Boolean mapEmptyString;
   private Boolean accessible;
+  private Boolean skipConstructor;
   private final BeanContainer beanContainer;
 
   public DozerClass(BeanContainer beanContainer) {
@@ -47,7 +48,7 @@ public class DozerClass {
   }
 
   public DozerClass(String name, Class<?> classToMap, String beanFactory, String factoryBeanId, String mapGetMethod,
-                    String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean accessible, BeanContainer beanContainer) {
+                    String mapSetMethod, String createMethod, Boolean mapNull, Boolean mapEmptyString, Boolean accessible, Boolean skipConstructor, BeanContainer beanContainer) {
     this.name = name;
     this.classToMap = classToMap;
     this.beanFactory = beanFactory;
@@ -58,6 +59,7 @@ public class DozerClass {
     this.mapNull = mapNull;
     this.mapEmptyString = mapEmptyString;
     this.accessible = accessible;
+    this.skipConstructor = skipConstructor;
     this.beanContainer = beanContainer;
   }
 
@@ -140,6 +142,14 @@ public class DozerClass {
 
   public void setAccessible(Boolean accessible) {
     this.accessible = accessible;
+  }
+
+  public boolean isSkipConstructor() {
+    return skipConstructor != null && skipConstructor;
+  }
+
+  public void setSkipConstructor(Boolean skipConstructor) {
+    this.skipConstructor = skipConstructor;
   }
 
   @Override

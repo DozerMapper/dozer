@@ -167,11 +167,11 @@ public final class MappingUtils {
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
         source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
             source.getDestClass().getCreateMethod(),
-            source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccessible(), beanContainer));
+            source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccessible(), source.getDestClass().isSkipConstructor(), beanContainer));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
         source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
             source.getSrcClass().getCreateMethod(),
-            source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccessible(), beanContainer));
+            source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccessible(), source.getSrcClass().isSkipConstructor(), beanContainer));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
     destination.setTrimStrings(source.isTrimStrings());

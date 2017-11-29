@@ -40,12 +40,15 @@ import org.dozer.converters.JAXBElementConverter;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
+import org.objenesis.Objenesis;
+import org.objenesis.ObjenesisStd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Dmitry Buzdin
  * @author Jose Barragan
+ * @author Piotr Dytkowski
  */
 public final class ConstructionStrategies {
 
@@ -55,6 +58,7 @@ public final class ConstructionStrategies {
     private final BeanCreationStrategy xmlBeansBased;
     private final BeanCreationStrategy jaxbBeansBased;
     private final BeanCreationStrategy constructorBased;
+    private final BeanCreationStrategy noArgObjectConstructor;
     private final ConstructionStrategies.ByFactory byFactory;
     private final BeanCreationStrategy xmlGregorianCalendar;
 
@@ -65,6 +69,7 @@ public final class ConstructionStrategies {
         xmlBeansBased = new XMLBeansBased(beanContainer);
         jaxbBeansBased = new JAXBBeansBased(beanContainer);
         constructorBased = new ByConstructor();
+        noArgObjectConstructor = new ByNoArgObjectConstructor();
         byFactory = new ByFactory(beanContainer);
         xmlGregorianCalendar = new XmlGregorian();
     }
@@ -91,6 +96,10 @@ public final class ConstructionStrategies {
 
     public BeanCreationStrategy byConstructor() {
         return constructorBased;
+    }
+
+    public BeanCreationStrategy byNoArgObjectConstructor() {
+        return noArgObjectConstructor;
     }
 
     public ByFactory byFactory() {
@@ -240,6 +249,25 @@ public final class ConstructionStrategies {
             throw new IllegalStateException("Type not expected : " + actualClass);
         }
 
+    }
+
+    static class ByNoArgObjectConstructor implements BeanCreationStrategy {
+        private final Objenesis objectFactory = new ObjenesisStd();
+        @Override
+        public boolean isApplicable(BeanCreationDirective directive) {
+            return directive.isSkipConstructor();
+        }
+
+        @Override
+        public Object create(BeanCreationDirective directive) {
+            Class<?> classToCreate = directive.getActualClass();
+            try {
+                return objectFactory.newInstance(classToCreate);
+            } catch (Exception e) {
+                MappingUtils.throwMappingException(e);
+            }
+            return null;
+        }
     }
 
     static class XMLBeansBased implements BeanCreationStrategy {

@@ -35,7 +35,7 @@ import org.dozer.config.BeanContainer;
  */
 public final class DestBeanCreator {
 
-  static final List<BeanCreationStrategy> pluggedStrategies = new ArrayList<BeanCreationStrategy>();
+  static final List<BeanCreationStrategy> pluggedStrategies = new ArrayList<>();
 
   // order in this collection determines resolving priority
   private final BeanCreationStrategy[] availableStrategies;
@@ -46,6 +46,7 @@ public final class DestBeanCreator {
     this.constructionStrategies = new ConstructionStrategies(beanContainer);
     this.beanContainer = beanContainer;
     this.availableStrategies = new BeanCreationStrategy[]{
+            this.constructionStrategies.byNoArgObjectConstructor(),
             this.constructionStrategies.byCreateMethod(),
             this.constructionStrategies.byGetInstance(),
             this.constructionStrategies.xmlGregorianCalendar(),
@@ -62,7 +63,7 @@ public final class DestBeanCreator {
   }
 
   public Object create(Class<?> targetClass, Class<?> alternateClass) {
-    return create(new BeanCreationDirective(null, null, targetClass, alternateClass, null, null, null));
+    return create(new BeanCreationDirective(null, null, targetClass, alternateClass, null, null, null, null));
   }
 
   public Object create(BeanCreationDirective directive) {
@@ -81,7 +82,7 @@ public final class DestBeanCreator {
     // TODO Directive toString()
     // TODO review and document
 
-    for (BeanCreationStrategy strategy : new CopyOnWriteArrayList<BeanCreationStrategy>(strategies)) {
+    for (BeanCreationStrategy strategy : new CopyOnWriteArrayList<>(strategies)) {
       if (strategy.isApplicable(directive)) {
         return strategy.create(directive);
       }

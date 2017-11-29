@@ -161,6 +161,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Constructing objects without using constructors -->
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+        </dependency>
+
         <!-- Testing -->
         <dependency>
             <groupId>cglib</groupId>
