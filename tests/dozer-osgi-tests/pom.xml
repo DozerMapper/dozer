@@ -50,13 +50,13 @@
         </dependency>
         <dependency>
             <groupId>com.github.dozermapper</groupId>
-            <artifactId>dozer-proto</artifactId>
+            <artifactId>dozer-proto3</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.dozermapper</groupId>
-            <artifactId>dozer-spring</artifactId>
+            <artifactId>dozer-spring4</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>

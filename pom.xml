@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-    Copyright 2005-2017 Dozer Project
+    Copyright 2005-2018 Dozer Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -78,9 +78,7 @@
         <module>plugins-parent</module>
         <module>schema</module>
         <module>core</module>
-        <module>spring</module>
-        <module>dozer-spring-boot-auto-configuration</module>
-        <module>proto</module>
+        <module>dozer-integrations</module>
         <module>tests</module>
     </modules>
 
@@ -205,8 +203,8 @@
                         <exclude>.mvn/**</exclude>
                         <exclude>mvnw</exclude>
                         <exclude>mvnw.cmd</exclude>
-                        <exclude>LICENSE-HEADER.txt</exclude>
-                        <exclude>LICENSE.md</exclude>
+                        <exclude>**/LICENSE-HEADER.txt</exclude>
+                        <exclude>**/LICENSE.md</exclude>
                         <exclude>**/*.md</exclude>
                         <exclude>**/*.adoc</exclude>
                         <exclude>**/*.jpeg</exclude>
