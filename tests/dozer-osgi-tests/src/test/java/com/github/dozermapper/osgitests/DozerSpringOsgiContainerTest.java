@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import com.github.dozermapper.osgitests.karaf.BundleOptions;
 import com.github.dozermapper.osgitests.karaf.KarafOptions;
 import com.github.dozermapper.osgitests.support.OsgiTestSupport;
-
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerModule;
 import org.dozer.Mapper;
@@ -36,14 +35,13 @@ import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
+
 import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
-import static org.ops4j.pax.exam.CoreOptions.systemPackages;
-import static org.ops4j.pax.exam.CoreOptions.url;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
@@ -65,7 +63,7 @@ public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
                 localBundle("org.apache.servicemix.bundles.spring-context.link"),
                 localBundle("org.apache.servicemix.bundles.spring-core.link"),
                 // Spring4
-                localBundle("com.github.dozermapper.dozer-spring.link"),
+                localBundle("com.github.dozermapper.dozer-spring4.link"),
                 junitBundles()
         );
     }
@@ -84,7 +82,7 @@ public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
         assertNotNull(core);
         assertEquals(Bundle.ACTIVE, core.getState());
 
-        Bundle spring = getBundle(bundleContext, "com.github.dozermapper.dozer-spring");
+        Bundle spring = getBundle(bundleContext, "com.github.dozermapper.dozer-spring4");
         assertNotNull(spring);
         assertEquals(Bundle.ACTIVE, spring.getState());
 
