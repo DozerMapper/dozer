@@ -44,7 +44,7 @@ public class DozerResolver implements EntityResolver {
 
     private final Logger log = LoggerFactory.getLogger(DozerResolver.class);
     private static final String VERSION_5_XSD = "http://dozer.sourceforge.net/schema/beanmapping.xsd";
-    private static final String VERSION_6_XSD = "http://dozermapper.github.io/schema/bean-mapping.xsd";
+    private static final String VERSION_6_XSD = "https://dozermapper.github.io/schema/bean-mapping.xsd";
 
     private final BeanContainer beanContainer;
 
