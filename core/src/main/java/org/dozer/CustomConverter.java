@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,8 @@ package org.dozer;
  * 
  * <p>
  * <a
- * href="http://dozer.sourceforge.net/documentation/customconverter.html">http://dozer.sourceforge.net/documentation/customconverter.html</a>
+ * href="https://dozermapper.github.io/gitbook/documentation/customconverter.html">
+ * https://dozermapper.github.io/gitbook/documentation/customconverter.html</a>
  * 
  * 
  * @author sullins.ben

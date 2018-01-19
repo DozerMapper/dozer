@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,13 @@ import java.util.List;
  */
 public interface UserGroupPrime {
 
-  public String getName();
+    String getName();
 
-  public void setName(String aName);
+    void setName(String aName);
 
-  public List<UserPrime> getUsers();
+    List<UserPrime> getUsers();
 
-  public void setUsers(List<UserPrime> aUsers);
+    void setUsers(List<UserPrime> aUsers);
 
-  public void addUser(UserPrime aUser);
-
+    void addUser(UserPrime aUser);
 }

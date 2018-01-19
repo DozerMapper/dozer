@@ -1,0 +1,48 @@
+== Context Based Mapping
+Context based mapping can be specified by using the map-id attribute.
+Note that we also support nested context mapping by specifying a map-id
+at the field level.
+
+[source,xml,prettyprint]
+----
+<mapping map-id="caseA">
+    <class-a>org.dozer.vo.context.ContextMapping</class-a>
+    <class-b>org.dozer.vo.context.ContextMappingPrime</class-b>
+    <field-exclude>
+        <a>loanNo</a>
+        <b>loanNo</b>
+    </field-exclude>
+    <field map-id="caseC">
+        <a>contextList</a>
+        <b>contextList</b>
+        <b-hint>org.dozer.vo.context.ContextMappingNestedPrime
+     </b-hint>
+    </field>
+</mapping>
+<mapping map-id="caseB">
+    <class-a>org.dozer.vo.context.ContextMapping</class-a>
+    <class-b>org.dozer.vo.context.ContextMappingPrime</class-b>
+</mapping>
+<mapping map-id="caseC">
+    <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
+    <class-b>org.dozer.vo.context.ContextMappingNestedPrime
+  </class-b>
+    <field-exclude>
+        <a>loanNo</a>
+        <b>loanNo</b>
+    </field-exclude>
+</mapping>
+<mapping map-id="caseD">
+    <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
+    <class-b>org.dozer.vo.context.ContextMappingNestedPrime
+  </class-b>
+</mapping>
+----
+
+To use a particular context when invoking the Mapper, you simply specify
+the map-id in your mapping call.
+
+[source,javaprettyprint]
+----
+ContextMappingPrime cmpA = mapper.map(cm, ContextMappingPrime.class, "caseA");
+----

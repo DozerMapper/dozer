@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.MappingException;
 import org.dozer.vo.enumtest.MyBean;
 import org.dozer.vo.enumtest.MyBeanPrime;
 import org.dozer.vo.enumtest.MyBeanPrimeByte;
@@ -25,12 +24,13 @@ import org.dozer.vo.enumtest.MyBeanPrimeShort;
 import org.dozer.vo.enumtest.MyBeanPrimeString;
 import org.dozer.vo.enumtest.SrcType;
 import org.dozer.vo.enumtest.SrcTypeWithOverride;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Functional test for enum mapping as described 
- * <a href=http://dozer.sourceforge.net/documentation/enum.html>here</a>.
+ * <a href=https://github.com/DozerMapper/dozer/blob/master/docs/asciidoc/documentation/enum.adoc>here</a>.
  * 
  * In this functional test, Enum is categorized into two types: Based Enum and Overrided Enum.
  * Based Enum refers to those enum without any overrided methods, including constructors.  A 
@@ -60,7 +60,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testOverridedEnumMapsToBasedEnum() {
-    mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMappingOverriedEnumToBasedEnum.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -72,7 +72,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testBasedEnumMapsToOverridedEnum() {
-    mapper = getMapper(new String[] { "enumMappingOverriedEnumToBasedEnum.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMappingOverriedEnumToBasedEnum.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -84,7 +84,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testBasedEnumMapsToBasedEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcType(SrcType.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -96,7 +96,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testOverridedEnumMapsToOverridedEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = newInstance(MyBean.class);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
     MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
@@ -116,22 +116,11 @@ public class EnumMappingTest extends AbstractFunctionalTest {
   }
 
   /**
-   * Test on if mapping to nonexist enum value would throw exception.
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testEnumMapsToNonexistEnumValue() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBean src = newInstance(MyBean.class);
-    src.setSrcType(SrcType.BAR);
-    mapper.map(src, MyBeanPrime.class);
-  }
-
-  /**
    * Test on a mapping from enum to {@link String}.
    */
   @Test
   public void testEnumMapsToString() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     MyBeanPrimeString dest = mapper.map(src, MyBeanPrimeString.class);
@@ -143,7 +132,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testStringMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeString src = new MyBeanPrimeString();
     src.setDestType("FOO");
     src.setDestTypeWithOverride("BAR");
@@ -157,7 +146,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testByteMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeByte src = new MyBeanPrimeByte();
     src.setFirst((byte) 0);
     src.setSecond((byte) 1);
@@ -171,7 +160,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testShortMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeShort src = new MyBeanPrimeShort();
     src.setFirst((short) 0);
     src.setSecond((short) 1);
@@ -185,7 +174,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testIntegerMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeInteger src = new MyBeanPrimeInteger();
     src.setFirst(0);
     src.setSecond(1);
@@ -199,7 +188,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testLongMapsToEnum() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBeanPrimeLong src = new MyBeanPrimeLong();
     src.setFirst(0L);
     src.setSecond(1L);
@@ -213,7 +202,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToByte() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
@@ -226,7 +215,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToShort() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
@@ -240,7 +229,7 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToInteger() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
@@ -254,76 +243,12 @@ public class EnumMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testEnumMapsToLong() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/enumMapping.xml"});
     MyBean src = new MyBean();
     src.setSrcType(SrcType.FOO);
     src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
     MyBeanPrimeLong dest = mapper.map(src, MyBeanPrimeLong.class);
     assertEquals(0, dest.getFirst());
     assertEquals(Long.valueOf(1L), dest.getSecond());
-  }
-
-  /**
-   * Test on a mapping from byte types to enum.
-   */
-  @SuppressWarnings("unused")
-  @Test(expected = MappingException.class)
-  public void testByteMapsToEnumOutOfOrdinalRange() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBeanPrimeByte src = new MyBeanPrimeByte();
-    src.setFirst((byte) 0);
-    src.setSecond((byte) 3);
-    MyBean dest = mapper.map(src, MyBean.class);
-  }
-
-  /**
-   * Test on a mapping from short types to enum.
-   */
-  @SuppressWarnings("unused")
-  @Test(expected = MappingException.class)
-  public void testShortMapsToEnumOutOfOrdinalRange() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBeanPrimeShort src = new MyBeanPrimeShort();
-    src.setFirst((short) 0);
-    src.setSecond((short) 3);
-    MyBean dest = mapper.map(src, MyBean.class);
-  }
-
-  /**
-   * Test on a mapping from integer types to enum.
-   */
-  @SuppressWarnings("unused")
-  @Test(expected = MappingException.class)
-  public void testIntegerMapsToEnumOutOfOrdinalRange() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBeanPrimeInteger src = new MyBeanPrimeInteger();
-    src.setFirst(0);
-    src.setSecond(3);
-    MyBean dest = mapper.map(src, MyBean.class);
-  }
-
-  /**
-   * Test on a mapping from long types to enum.
-   */
-  @SuppressWarnings("unused")
-  @Test(expected = MappingException.class)
-  public void testLongMapsToEnumOutOfOrdinalRange() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBeanPrimeLong src = new MyBeanPrimeLong();
-    src.setFirst(0L);
-    src.setSecond(3L);
-    MyBean dest = mapper.map(src, MyBean.class);
-  }
-
-  /**
-   * Test on a mapping from {@link String} to enum with non-existing enum value.
-   */
-  @SuppressWarnings("unused")
-  @Test(expected = MappingException.class)
-  public void testStringMapsToEnumNonexistEnumValue() {
-    mapper = getMapper(new String[] { "enumMapping.xml" });
-    MyBeanPrimeString src = new MyBeanPrimeString();
-    src.setDestType("BAZ");
-    MyBean dest = mapper.map(src, MyBean.class);
   }
 }

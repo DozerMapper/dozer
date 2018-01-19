@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,32 +16,30 @@
 package org.dozer.propertydescriptor;
 
 import org.dozer.fieldmap.HintContainer;
-import org.dozer.util.DozerConstants;
-import org.dozer.util.MappingUtils;
 
 /**
  * Internal abstract property descriptor containing common property descriptor logic. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  * @author garsombke.franz
  */
 public abstract class AbstractPropertyDescriptor implements DozerPropertyDescriptor {
-  protected final Class<?> clazz;
-  protected final String fieldName;
-  protected boolean isIndexed = false;
-  protected int index;
-  protected HintContainer srcDeepIndexHintContainer;
-  protected HintContainer destDeepIndexHintContainer;
 
-  // TODO Delete this class
-  public AbstractPropertyDescriptor(final Class<?> clazz, final String fieldName, boolean isIndexed, int index,
-      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    this.clazz = clazz;
-    this.fieldName = fieldName;
-    this.isIndexed = isIndexed;
-    this.index = index;
-    this.srcDeepIndexHintContainer = srcDeepIndexHintContainer;
-    this.destDeepIndexHintContainer = destDeepIndexHintContainer;
-  }  
+    protected final Class<?> clazz;
+    protected final String fieldName;
+    protected boolean isIndexed;
+    protected int index;
+    protected HintContainer srcDeepIndexHintContainer;
+    protected HintContainer destDeepIndexHintContainer;
 
+    // TODO Delete this class
+    public AbstractPropertyDescriptor(final Class<?> clazz, final String fieldName, boolean isIndexed, int index,
+                                      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+        this.clazz = clazz;
+        this.fieldName = fieldName;
+        this.isIndexed = isIndexed;
+        this.index = index;
+        this.srcDeepIndexHintContainer = srcDeepIndexHintContainer;
+        this.destDeepIndexHintContainer = destDeepIndexHintContainer;
+    }
 }

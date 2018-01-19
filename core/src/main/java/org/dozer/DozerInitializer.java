@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,33 +15,27 @@
  */
 package org.dozer;
 
+import java.util.ServiceConfigurationError;
+import java.util.ServiceLoader;
+
+import org.dozer.builder.DestBeanBuilderCreator;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
-import org.dozer.config.GlobalSettings;
-import org.dozer.jmx.DozerAdminController;
-import org.dozer.jmx.DozerStatisticsController;
-import org.dozer.jmx.JMXPlatform;
-import org.dozer.jmx.JMXPlatformImpl;
+import org.dozer.config.Settings;
+import org.dozer.config.SettingsDefaults;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DefaultClassLoader;
 import org.dozer.util.DozerClassLoader;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.DozerProxyResolver;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-import org.dozer.loader.xml.ExpressionElementReader;
-import org.dozer.loader.xml.ELEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.InstanceNotFoundException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
-import java.util.ServiceLoader;
-
 /**
  * Internal class that performs one time Dozer initializations. Only intended for internal use.
- * Registers internal JMX MBeans if those are enabled in the configuration.
  *
  * @author tierney.matt
  * @author dmitry.buzdin
@@ -50,21 +44,20 @@ public final class DozerInitializer {
 
   private final Logger log = LoggerFactory.getLogger(DozerInitializer.class);
 
-  private static final String DOZER_STATISTICS_CONTROLLER = "org.dozer.jmx:type=DozerStatisticsController";
-  private static final String DOZER_ADMIN_CONTROLLER = "org.dozer.jmx:type=DozerAdminController";
+  private volatile boolean isInitialized;
 
-  private static final DozerInitializer instance = new DozerInitializer();
-
-  private volatile boolean isInitialized = false;
-
-  private DozerInitializer() {
+  public DozerInitializer() {
   }
 
-  public void init() {
-    init(getClass().getClassLoader());
+  public void init(Settings settings, BeanContainer beanContainer,
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                   DestBeanCreator destBeanCreator) {
+    init(settings, getClass().getClassLoader().getParent(), beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
   }
 
-  public void init(ClassLoader classLoader) {
+  public void init(Settings settings, ClassLoader classLoader, BeanContainer beanContainer,
+                   DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                   DestBeanCreator destBeanCreator) {
     // Multiple threads may try to initialize simultaneously
     synchronized (this) {
       if (isInitialized) {
@@ -75,44 +68,36 @@ public final class DozerInitializer {
       log.info("Initializing Dozer. Version: {}, Thread Name: {}",
               DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-      GlobalSettings globalSettings = GlobalSettings.getInstance();
-      initialize(globalSettings, classLoader);
+      initialize(settings, classLoader, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
       isInitialized = true;
     }
   }
 
-  void initialize(GlobalSettings globalSettings, ClassLoader classLoader) {
-    if (globalSettings.isAutoregisterJMXBeans()) {
-      // Register JMX MBeans. If an error occurs, don't propagate exception
-      try {
-        registerJMXBeans(new JMXPlatformImpl());
-      } catch (Throwable t) {
-        log.warn("Unable to register Dozer JMX MBeans with the PlatformMBeanServer.  Dozer will still function "
-            + "normally, but management via JMX may not be available", t);
+  void initialize(Settings settings, ClassLoader classLoader, BeanContainer beanContainer,
+                  DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                  DestBeanCreator destBeanCreator) {
+    registerClassLoader(settings, classLoader, beanContainer);
+    registerProxyResolver(settings, beanContainer);
+
+    try {
+      ServiceLoader<DozerModule> services = ServiceLoader.load(DozerModule.class);
+      for (DozerModule module : services) {
+        module.init();
+        module.init(beanContainer, destBeanCreator, propertyDescriptorFactory);
+
+        destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
+        beanMappingGenerator.addPluggedFieldDetectors(module.getBeanFieldsDetectors());
+        propertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategies(module.getPropertyDescriptorCreationStrategies());
       }
-    }
-
-    BeanContainer beanContainer = BeanContainer.getInstance();
-
-    registerClassLoader(globalSettings, classLoader, beanContainer);
-    registerProxyResolver(globalSettings, beanContainer);
-
-    if (globalSettings.isElEnabled()) {
-      ELEngine engine = new ELEngine();
-      engine.init();
-      beanContainer.setElEngine(engine);
-      beanContainer.setElementReader(new ExpressionElementReader(engine));
-    }
-
-    for (DozerModule module : ServiceLoader.load(DozerModule.class)) {
-      module.init();
+    } catch (ServiceConfigurationError ex) {
+      log.error("{}", ex.getMessage());
     }
   }
 
-  private void registerClassLoader(GlobalSettings globalSettings, ClassLoader classLoader, BeanContainer beanContainer) {
-    String classLoaderName = globalSettings.getClassLoaderName();
-    if (!DozerConstants.DEFAULT_CLASS_LOADER_BEAN.equals(classLoaderName)) {
+  private void registerClassLoader(Settings settings, ClassLoader classLoader, BeanContainer beanContainer) {
+    String classLoaderName = settings.getClassLoaderBeanName();
+    if (!SettingsDefaults.CLASS_LOADER_BEAN.equals(classLoaderName)) {
       DefaultClassLoader defaultClassLoader = new DefaultClassLoader(classLoader);
       Class<? extends DozerClassLoader> classLoaderType = loadBeanType(classLoaderName, defaultClassLoader, DozerClassLoader.class);
       DozerClassLoader classLoaderBean = ReflectionUtils.newInstance(classLoaderType);
@@ -120,9 +105,9 @@ public final class DozerInitializer {
     }
   }
 
-  private void registerProxyResolver(GlobalSettings globalSettings, BeanContainer beanContainer) {
-    String proxyResolverName = globalSettings.getProxyResolverName();
-    if (!DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN.equals(proxyResolverName)) {
+  private void registerProxyResolver(Settings settings, BeanContainer beanContainer) {
+    String proxyResolverName = settings.getProxyResolverBeanName();
+    if (!SettingsDefaults.PROXY_RESOLVER_BEAN.equals(proxyResolverName)) {
       DozerClassLoader initializedClassLoader = beanContainer.getClassLoader();
       Class<? extends DozerProxyResolver> proxyResolverType = loadBeanType(proxyResolverName, initializedClassLoader, DozerProxyResolver.class);
       DozerProxyResolver proxyResolverBean = ReflectionUtils.newInstance(proxyResolverType);
@@ -139,20 +124,15 @@ public final class DozerInitializer {
   }
 
   /**
-   * Performs framework shutdown sequence. Includes de-registering existing Dozer JMX MBeans.
+   * Performs framework shutdown sequence.
    */
-  public void destroy() {
+  public void destroy(Settings settings) {
     synchronized (this) {
       if (!isInitialized) {
         log.debug("Tried to destroy when no Dozer instance started.");
         return;
       }
 
-      try {
-        unregisterJMXBeans(new JMXPlatformImpl());
-      } catch (Throwable e) {
-        log.warn("Exception caught while disposing Dozer JMX MBeans.", e);
-      }
       isInitialized = false;
     }
   }
@@ -160,28 +140,4 @@ public final class DozerInitializer {
   public boolean isInitialized() {
     return isInitialized;
   }
-
-  private void registerJMXBeans(JMXPlatform platform) throws MalformedObjectNameException, InstanceNotFoundException,
-      MBeanRegistrationException, InstanceAlreadyExistsException, NotCompliantMBeanException {
-    if (platform.isAvailable()) {
-      platform.registerMBean(DOZER_STATISTICS_CONTROLLER, new DozerStatisticsController());
-      platform.registerMBean(DOZER_ADMIN_CONTROLLER, new DozerAdminController());
-    } else {
-      log.warn("jdk1.5 jmx management classes unavailable. Dozer JMX MBeans will not be auto registered.");
-    }
-  }
-
-  private void unregisterJMXBeans(JMXPlatform platform) throws MBeanRegistrationException, MalformedObjectNameException {
-    if (platform.isAvailable()) {
-      platform.unregisterMBean(DOZER_ADMIN_CONTROLLER);
-      platform.unregisterMBean(DOZER_STATISTICS_CONTROLLER);
-    } else {
-      log.warn("jdk1.5 jmx management classes unavailable.");
-    }
-  }
-
-  public static DozerInitializer getInstance() {
-    return instance;
-  }
-
 }

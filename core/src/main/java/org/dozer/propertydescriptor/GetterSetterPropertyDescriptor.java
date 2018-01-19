@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,13 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Array;
+import java.lang.reflect.Method;
+import java.util.Collection;
+
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.factory.BeanCreationDirective;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
@@ -27,11 +33,6 @@ import org.dozer.util.ReflectionUtils;
 import org.dozer.util.TypeResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
-import java.util.Collection;
 
 
 /**
@@ -48,10 +49,15 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
   private final Logger log = LoggerFactory.getLogger(GetterSetterPropertyDescriptor.class);
 
   private Class<?> propertyType;
+  protected final BeanContainer beanContainer;
+  protected final DestBeanCreator destBeanCreator;
 
   public GetterSetterPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
-                                        HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+                                        HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer,
+                                        BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
   }
 
   protected abstract Method getWriteMethod() throws NoSuchMethodException;
@@ -166,7 +172,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
         }
         Object o = null;
         if (clazz.isArray()) {
-          o = MappingUtils.prepareIndexedCollection(clazz, null, DestBeanCreator.create(clazz.getComponentType()),
+          o = MappingUtils.prepareIndexedCollection(clazz, null, destBeanCreator.create(clazz.getComponentType()),
                   hierarchyElement.getIndex());
         } else if (Collection.class.isAssignableFrom(clazz)) {
 
@@ -179,16 +185,16 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
             hintIndex += 1;
           }
 
-          o = MappingUtils.prepareIndexedCollection(clazz, null, DestBeanCreator.create(collectionEntryType), hierarchyElement
+          o = MappingUtils.prepareIndexedCollection(clazz, null, destBeanCreator.create(collectionEntryType), hierarchyElement
                   .getIndex());
         } else {
           try {
-            o = DestBeanCreator.create(clazz);
+            o = destBeanCreator.create(clazz);
           } catch (Exception e) {
             //lets see if they have a factory we can try as a last ditch. If not...throw the exception:
             if (fieldMap.getClassMap().getDestClassBeanFactory() != null) {
-              o = DestBeanCreator.create(new BeanCreationDirective(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, clazz, fieldMap.getClassMap()
-                      .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null));
+              o = destBeanCreator.create(new BeanCreationDirective(null, fieldMap.getClassMap().getSrcClassToMap(), clazz, clazz, fieldMap.getClassMap()
+                      .getDestClassBeanFactory(), fieldMap.getClassMap().getDestClassBeanFactoryId(), null, null));
             } else {
               MappingUtils.throwMappingException(e);
             }
@@ -227,7 +233,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           }
 
 
-          value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
+          value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, destBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
           //value = MappingUtils.prepareIndexedCollection(pd.getPropertyType(), value, DestBeanCreator.create(collectionEntryType), hierarchyElement.getIndex());
           ReflectionUtils.invoke(pd.getWriteMethod(), parentObj, new Object[]{value});
         }
@@ -259,7 +265,7 @@ public abstract class GetterSetterPropertyDescriptor extends AbstractPropertyDes
           method = pd.getWriteMethod();
         } else {
           try {
-            method = ReflectionUtils.findAMethod(parentObj.getClass(), getSetMethodName());
+            method = ReflectionUtils.findAMethod(parentObj.getClass(), getSetMethodName(), beanContainer);
           } catch (NoSuchMethodException e) {
             MappingUtils.throwMappingException(e);
           }

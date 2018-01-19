@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,12 +24,16 @@ import java.util.List;
  */
 public final class IteratorUtils {
 
-  public static <T> List<T> toList(Iterator<T> iterator) {
-    List<T> list = new ArrayList<T>();    
-    while (iterator.hasNext()) {
-      list.add(iterator.next());
-    }
-    return list;
-  }
+    private IteratorUtils() {
 
+    }
+
+    public static <T> List<T> toList(Iterator<T> iterator) {
+        List<T> list = new ArrayList<T>();
+        while (iterator.hasNext()) {
+            list.add(iterator.next());
+        }
+
+        return list;
+    }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <configuration>
+        <wildcard>true</wildcard>
+        <variables>
+            <variable name="container">org.dozer.functional_tests.VariablesTest$Container</variable>
+            <variable name="child">org.dozer.functional_tests.VariablesTest$Child</variable>
+            <variable name="childClone">org.dozer.functional_tests.VariablesTest$ChildClone</variable>
+            <variable name="parent">org.dozer.functional_tests.VariablesTest$Parent</variable>
+            <variable name="parentClone">org.dozer.functional_tests.VariablesTest$ParentClone</variable>
+        </variables>
+    </configuration>
+
+    <mapping map-id="from" type="one-way">
+        <class-a>${container}</class-a>
+        <class-b>${container}</class-b>
+        <field>
+            <a>this</a>
+            <b>this</b>
+            <a-hint>${child}</a-hint>
+            <b-hint>${childClone}</b-hint>
+        </field>
+    </mapping>
+
+    <mapping map-id="to" type="one-way">
+        <class-a>${container}</class-a>
+        <class-b>${container}</class-b>
+        <field>
+            <a>this</a>
+            <b>this</b>
+            <a-hint>${childClone}</a-hint>
+            <b-hint>${child}</b-hint>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>${parent}</class-a>
+        <class-b>${parentClone}</class-b>
+        <field-exclude>
+            <a>children</a>
+            <b>children</b>
+        </field-exclude>
+    </mapping>
+
+</mappings>

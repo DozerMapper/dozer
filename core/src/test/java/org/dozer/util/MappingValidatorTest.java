@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +17,15 @@ package org.dozer.util;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.junit.Test;
 
 /**
  * @author tierney.matt
  */
 public class MappingValidatorTest extends AbstractDozerTest {
+
+  private BeanContainer beanContainer = new BeanContainer();
 
   @Test(expected = MappingException.class)
   public void testValidateMappingRequest_NullSrcObj() throws Exception {
@@ -51,12 +54,12 @@ public class MappingValidatorTest extends AbstractDozerTest {
 
   @Test(expected = MappingException.class)
   public void testValidtateMappingURL_InvalidFileName() throws Exception{
-    MappingValidator.validateURL("hello");
+    MappingValidator.validateURL("hello", beanContainer);
   }
   
   @Test(expected = MappingException.class)
   public void testValidtateMappingURL_NullFileName() throws Exception{
-    MappingValidator.validateURL(null);
+    MappingValidator.validateURL(null, beanContainer);
   }
 
 }

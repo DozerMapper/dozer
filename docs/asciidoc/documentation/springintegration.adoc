@@ -1,0 +1,66 @@
+== Spring Framework Integration
+Add the DozerBeanMapperFactoryBean to your Spring configuration file.
+The mappingFiles property is where you should specify any custom dozer
+mapping files that you have created. This list can be empty if you don't
+have any custom mappings. It is also possible to set custom event
+listeners and bean factories.
+
+Note that this Factory Bean supports Spring Resources, which means that
+you could load mapping Xml files by classpath mask for example.
+
+[source,xml,prettyprint]
+----
+<bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+    <property name="mappingFiles" value="classpath*:/*mapping.xml" />
+    <property name="customConverters">
+        <list>
+            <bean class="org.dozer.converters.CustomConverter" />
+        </list>
+    </property>
+    <property name="eventListeners">
+        <list>
+            <bean class="org.dozer.listeners.EventListener" />
+        </list>
+    </property>
+    <property name="factories">
+        <map>
+            <entry key="id" value-ref="bean-factory-ref" />
+        </map>
+    </property>
+</bean>
+----
+
+*IMPORTANT:* You shoud define the Dozer mapper bean is defined as
+*singleton="true"*. You should configure the Mapper instance(s) this way
+so that you do not have to reload and reinitialize the mapping files for
+each individual mapping during the lifecycle of your app. Reinitializing
+the mapping files for each mapping would be inefficent and unnecessary.
+The DozerBeanMapper class is thread safe.
+
+If you want to avoid clashing of mapping definitions for different
+functionality it is possible to define own DozerBeanMapper instance for
+each such use case.
+
+A simpler way of registering mapper instance is without wrapping factory
+bean.
+
+[source,xml,prettyprint]
+----
+<bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+    <property name="mappingFiles">
+        <list>
+            <value>dozer-global-configuration.xml</value>
+            <value>dozer-bean-mappings.xml</value>
+            <value>more-dozer-bean-mappings.xml</value>
+        </list>
+    </property>
+</bean>
+----
+
+Using Spring to retrieve the Dozer Mapper......
+
+[source,java,prettyprint]
+----
+Mapper mapper = yourSpringBeanFactory.getBean("mapperBeanName");
+DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+----

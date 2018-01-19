@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,14 @@
  */
 package org.dozer.converters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dozer.cache.Cache;
 import org.dozer.cache.CacheKeyFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Internal class for holding custom converter definitions. Only intended for internal use.

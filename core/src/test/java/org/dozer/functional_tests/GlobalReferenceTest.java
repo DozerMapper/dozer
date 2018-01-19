@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ package org.dozer.functional_tests;
 public class GlobalReferenceTest extends SubclassReferenceTest {
   @Override
   protected String getMappingFile() {
-    return "global-mapping.xml";
+    return "mappings/global-mapping.xml";
   }
 
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +15,25 @@
  */
 package org.dozer.util;
 
-import junit.framework.Assert;
-import org.dozer.AbstractDozerTest;
-import org.dozer.MappingException;
-import org.dozer.vo.*;
-import org.dozer.vo.inheritance.ChildChildIF;
-import org.junit.Test;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
+import org.dozer.vo.A;
+import org.dozer.vo.B;
+import org.dozer.vo.NoReadMethod;
+import org.dozer.vo.NoVoidSetters;
+import org.dozer.vo.SimpleObj;
+import org.dozer.vo.inheritance.ChildChildIF;
+import org.junit.Assert;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -34,6 +42,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
  * @author tierney.matt
  */
 public class ReflectionUtilsTest extends AbstractDozerTest {
+
+  private BeanContainer beanContainer = new BeanContainer();
 
   @Test(expected = MappingException.class)
   public void testGetMethod_NotFound() throws Exception {
@@ -144,25 +154,25 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
   @Test
   public void shouldThrowNoSuchMethodFound() throws NoSuchMethodException {
-    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC()");
+    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC()", beanContainer);
     assertThat(result, notNullValue());
   }
 
   @Test
   public void shouldThrowNoSuchMethodFound_NoBrackets() throws NoSuchMethodException {
-    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC");
+    Method result = ReflectionUtils.findAMethod(TestClass.class, "getC", beanContainer);
     assertThat(result, notNullValue());
   }
 
   @Test(expected = NoSuchMethodException.class)
   public void shouldThrowNoSuchMethodFound_Missing() throws Exception {
-    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod()");
+    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod()", beanContainer);
     fail();
   }
 
   @Test(expected = NoSuchMethodException.class)
   public void shouldThrowNoSuchMethodFound_MissingNoBrackets() throws Exception {
-    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod");
+    ReflectionUtils.findAMethod(TestClass.class, "noSuchMethod", beanContainer);
     fail();
   }
 
@@ -170,6 +180,18 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   public void shouldHandleBeanWithGenericInterface() throws Exception {
     PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(Y.class, "x", null);
     assertEquals("org.dozer.util.ReflectionUtilsTest$ClassInheritsClassX", propertyDescriptor.getReadMethod().getReturnType().getName());
+  }
+
+  @Test
+  public void shouldDetermineGenericTypeForSimpleGenericType() throws Exception {
+    Class<?> clazz = ReflectionUtils.determineGenericsType(ClassWithGenericFields.class.getField("simpleGenericListString").getGenericType());
+    assertEquals("java.lang.String", clazz.getCanonicalName());
+  }
+
+  @Test
+  public void shouldDetermineGenericTypeForNestedGenericType() throws Exception {
+    Class<?> clazz = ReflectionUtils.determineGenericsType(ClassWithGenericFields.class.getField("nestedGenericListMapStringString").getGenericType());
+    assertEquals("java.util.Map", clazz.getCanonicalName());
   }
 
   public class Y implements HasX<ClassInheritsClassX> {
@@ -189,6 +211,11 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
   public interface HasX<X extends ClassX> {
     void setX(X x);
     X getX();
+  }
+
+  public class ClassWithGenericFields {
+    public List<String> simpleGenericListString;
+    public List<Map<String, String>> nestedGenericListMapStringString;
   }
 
   public class ClassInheritsClassX extends ClassX {
@@ -215,12 +242,12 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     }
   }
 
-  private static interface TestIF1 {
+  private interface TestIF1 {
     String getA();
     void setA(String a);
   }
 
-  private static interface TestIF2 {
+  private interface TestIF2 {
     Integer getB();
   }
 

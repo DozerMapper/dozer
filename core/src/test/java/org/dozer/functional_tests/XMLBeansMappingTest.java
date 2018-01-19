@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,12 @@
  */
 package org.dozer.functional_tests;
 
+import java.math.BigInteger;
+import java.util.HashSet;
+import java.util.Set;
+
 import net.pmonks.xml.dozer.test.ChildType;
+
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.Child;
 import org.dozer.vo.GetWeatherByZipCodeDocument;
@@ -23,12 +28,11 @@ import org.dozer.vo.GetWeatherByZipCodeDocument.GetWeatherByZipCode;
 import org.dozer.vo.GetWeatherByZipCodeResponseDocument;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.WeatherData;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.math.BigInteger;
-import java.util.HashSet;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author tierney.matt
@@ -38,7 +42,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testXmlBeans() throws Exception {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     // Map from TestObject to XMLBeans
     TestObject to = (TestObject) newInstance(TestObject.class);
     to.setOne("one");
@@ -79,7 +83,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testInterfaceInheritanceViaXmlBeans_PojoToXmlBean() {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     Child pojo = (Child) newInstance(Child.class);
 
     pojo.setId(BigInteger.valueOf(42));
@@ -105,7 +109,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testInterfaceInheritanceViaXmlBeans_XmlBeanToPojo() {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     ChildType xmlBean = ChildType.Factory.newInstance();
 
     xmlBean.setId(BigInteger.valueOf(7236));
@@ -128,7 +132,7 @@ public class XMLBeansMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testXmlBeansWithNullFields() throws Exception {
-    mapper = getMapper(new String[] { "xmlBeansMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/xmlBeansMapping.xml"});
     ChildType xmlBean = ChildType.Factory.newInstance();
 
     Child pojo = mapper.map(xmlBean, Child.class);

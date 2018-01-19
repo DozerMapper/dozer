@@ -1,0 +1,137 @@
+== Migration from v6.0.0 to v6.1.0
+See link:https://github.com/DozerMapper/dozer/releases/tag/6.1.0[for release notes].
+
+=== 1. Mapping.xml XSD changed:
+**From:**
+[source,xml,prettyprint]
+----
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+----
+
+**To:**
+[source,xml,prettyprint]
+----
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+----
+
+=== 2. Dozer-Spring XSD changed.
+**From:**
+[source,xml,prettyprint]
+----
+ <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dozer="http://dozer.sourceforge.net/schema/dozer-spring"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://dozer.sourceforge.net/schema/dozer-spring http://dozer.sourceforge.net/schema/dozer-spring.xsd">
+----
+
+**To:**
+[source,xml,prettyprint]
+----
+ <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dozer="http://dozermapper.github.io/schema/dozer-spring"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://dozermapper.github.io/schema/dozer-spring http://dozermapper.github.io/schema/dozer-spring.xsd">
+----
+
+=== 3. DozerBeanMapper usage is deprecated
+Direct instantiation of `DozerBeanMapper` as well as its usage is deprecated.
+This class will be hidden in version 6.2. Please use `Mapper` whenever you need to map,
+and `DozerBeanMapperBuilder` to configure the mapper.
+
+**Deprecated:**
+[source,java,prettyprint]
+----
+DozerBeanMapper mapper = new DozerBeanMapper();
+mapper.addMapping(myMappingBuilder);
+mapper.setMappingFiles(myFiles);
+
+mapper.map(a, b);
+----
+
+**Recommended:**
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingBuilder(myMappingBuilder)
+        .withMappingFiles(myFiles)
+        .build();
+
+mapper.map(a, b);
+----
+
+=== 4. Dozer Bean Mapper Singleton Wrapper is deprecated
+`DozerBeanMapperSingletonWrapper` is deprecated and planned for removal in version 6.2.
+
+Dozer project does not advise to use JVM singletons. Please use your DI container to manage single instance
+ of the `Mapper` if required. The following code can be used to create a `Mapper` with default configuration:
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+----
+
+=== 5. Internal API is changed
+Dozer is moving away from having JVM-global state. This means that some internal API like `BeanContainer` is
+not available anymore via singleton references, i.e. `BeanContainer.getInstance()` does not exist. If you were using
+this or any other code that is reworked, please let us know. Most likely you developed `DozerModule`. We would like to know
+more about real-world use cases to build convenient public API for modules developers.
+
+=== 6. org.dozer.BeanFactory interface changes
+Old signature of `org.dozer.BeanFactory` is deprecated and will be removed in version 6.2. Please use new method of this interface when
+creating custom bean factories.
+
+**Deprecated:**
+[source,java,prettyprint]
+----
+Object createBean(Object source, Class<?> sourceClass, String targetBeanId)
+----
+
+**Recommended:**
+[source,java,prettyprint]
+----
+Object createBean(Object source, Class<?> sourceClass, String targetBeanId, BeanContainer beanContainer)
+----
+
+=== 7. Deprecated stats and jmx
+**Deprecated:**
+[source,java,prettyprint]
+----
+org.dozer.stats
+org.dozer.jmx
+----
+
+=== 8. Updated dozer-proto package name
+**From:**
+[source,java,prettyprint]
+----
+org.dozer
+----
+
+**To:**
+[source,java,prettyprint]
+----
+com.github.dozermapper.protobuf
+----
+
+=== 9. Updated dozer-spring package name
+**From:**
+[source,java,prettyprint]
+----
+org.dozer.spring
+----
+
+**To:**
+[source,java,prettyprint]
+----
+com.github.dozermapper.spring
+----
+
+
+

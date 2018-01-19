@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,13 +22,13 @@ import java.util.List;
  */
 public class NamesList {
 
-  private List names = null;
+    private List names;
 
-  public List getNames() {
-    return names;
-  }
+    public List getNames() {
+        return names;
+    }
 
-  public void setNames(List names) {
-    this.names = names;
-  }
+    public void setNames(List names) {
+        this.names = names;
+    }
 }

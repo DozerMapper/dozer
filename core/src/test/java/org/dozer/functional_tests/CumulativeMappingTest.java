@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,20 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.dozer.vo.cumulative.Author;
 import org.dozer.vo.cumulative.AuthorPrime;
 import org.dozer.vo.cumulative.Book;
 import org.dozer.vo.cumulative.BookPrime;
 import org.dozer.vo.cumulative.Library;
 import org.dozer.vo.cumulative.LibraryPrime;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Dmitry Buzdin
@@ -37,7 +38,7 @@ public class CumulativeMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("cumulative.xml");
+    mapper = getMapper("mappings/cumulative.xml");
   }
 
   /* Domain model: Library is a list of books. A book has an author and id. An author has a name and id.

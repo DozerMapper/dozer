@@ -1,0 +1,43 @@
+== Migration from v6.1.0 to v6.2.0
+**STILL WORK IN PROGRESS - NOT RELEASED**
+See link:https://github.com/DozerMapper/dozer/releases/tag/6.2.0[for release notes].
+
+=== 1. JMX/Stats has been removed
+As per 6.1.0 migration docs, JMX and Stats were deprecated. They have now been fully removed.
+
+=== 2. dozer.properties keys changed
+**From:**
+[source,prettyprint]
+----
+    dozer.cache.converter.by.dest.type.maxsize
+    dozer.cache.super.type.maxsize
+    org.dozer.util.DozerClassLoader
+    org.dozer.util.DozerProxyResolver
+----
+
+**To:**
+[source,prettyprint]
+----
+    dozer.cache.converter-by-dest-type-maxsize
+    dozer.cache.super-type-maxsize
+    dozer.beans.class-loader-bean
+    dozer.beans.proxy-resolver-bean
+----
+
+=== 3. Support for YAML, SystemProperties and Environment variables
+As as well as dozer.properties, we also support several new implementations, such as YAML, see:
+- https://github.com/DozerMapper/dozer/tree/6.2.0/core/src/main/java/org/dozer/config/resolvers
+- https://github.com/DozerMapper/dozer/tree/6.2.0/core/src/main/java/org/dozer/config/processors
+
+=== 4. dozer.el.enabled is deprecated
+The property for 'dozer.el.enabled' has been deprecated. Instead, you should use:
+
+[source,java,prettyprint]
+----
+    DefaultELEngine elEngine = new DefaultELEngine();
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles(mappingFiles)
+            .withElementReader(new ExpressionElementReader(elEngine))
+            .withELEngine(elEngine)
+            .build();
+----

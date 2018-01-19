@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,43 +15,37 @@
  */
 package org.dozer.functional_tests.builder;
 
-import org.dozer.DozerBeanMapper;
-import org.dozer.loader.api.BeanMappingBuilder;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
+import org.dozer.loader.api.BeanMappingBuilder;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
  */
 public class SimpleTest extends Assert {
 
-  private DozerBeanMapper beanMapper;
-
-  @Before
-  public void setUp() {
-    beanMapper = new DozerBeanMapper();
-
-  }
-
   @Test
   public void shouldPerformSimpleMapping() {
-    beanMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(
-                type(Source.class),
-                type(Destination.class)
-        )
-                .fields(
-                        field("stringValue").accessible(true),
-                        field("destStringValue")
-                );
-      }
-    });
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(
+                        type(Source.class),
+                        type(Destination.class)
+                )
+                        .fields(
+                                field("stringValue").accessible(true),
+                                field("destStringValue")
+                        );
+              }
+            })
+            .build();
     Source source = new Source();
     source.setStringValue("A");
 
@@ -61,18 +55,20 @@ public class SimpleTest extends Assert {
 
   @Test
   public void shouldPerformMapBasedMapping() {
-    beanMapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(
-                Source.class,
-                Map.class
-        ).fields(
-                field("stringValue").accessible(true),
-                this_().mapKey("key").mapMethods("get", "put")
-        );
-      }
-    });
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(
+                        Source.class,
+                        Map.class
+                ).fields(
+                        field("stringValue").accessible(true),
+                        this_().mapKey("key").mapMethods("get", "put")
+                );
+              }
+            })
+            .build();
     Source source = new Source();
     source.setStringValue("A");
 

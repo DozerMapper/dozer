@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,17 +20,16 @@ import org.dozer.vo.mapid.AContainer;
 import org.dozer.vo.mapid.AListContainer;
 import org.dozer.vo.mapid.BContainer;
 import org.dozer.vo.mapid.BContainer2;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import org.junit.Test;
 
 public class MapIdTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapIdWithSubClasses() {
-    mapper = getMapper("inheritanceMapping4.xml");
+    mapper = getMapper("mappings/inheritanceMapping4.xml");
 
     AContainer src = new AContainer();
     src.setAProperty(getA());
@@ -49,7 +48,7 @@ public class MapIdTest extends AbstractFunctionalTest {
 
   @Test
   public void testMapIdWithHint() {
-    mapper = getMapper("mapIdWithHint.xml");
+    mapper = getMapper("mappings/mapIdWithHint.xml");
 
     AListContainer aListContainer = new AListContainer();
     aListContainer.getAList().add(getA());

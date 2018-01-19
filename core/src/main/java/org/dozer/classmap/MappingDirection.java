@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,27 +22,32 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class MappingDirection {
 
-  private static final String BI_DIRECTIONAL_VALUE = "bi-directional";
-  private static final String ONE_WAY_VALUE = "one-way";
+    private static final String BI_DIRECTIONAL_VALUE = "bi-directional";
+    private static final String ONE_WAY_VALUE = "one-way";
 
-  /**
-   * Default mapping approach when a to b to a' then a == a'
-   */
-  public static final MappingDirection BI_DIRECTIONAL = new MappingDirection();
-  /**
-   * Unidirectional mapping when a to b to a' then a != a'
-   */
-  public static final MappingDirection ONE_WAY = new MappingDirection();
+    /**
+     * Default mapping approach when a to b to a' then a == a'
+     */
+    public static final MappingDirection BI_DIRECTIONAL = new MappingDirection();
 
-  public static MappingDirection valueOf(String mappingDirection) {
-    if (BI_DIRECTIONAL_VALUE.equals(mappingDirection)) {
-      return BI_DIRECTIONAL;
-    } else if (ONE_WAY_VALUE.equals(mappingDirection)) {
-      return ONE_WAY;
-    } else if (StringUtils.isEmpty(mappingDirection)) {
-      return null;
+    /**
+     * Unidirectional mapping when a to b to a' then a != a'
+     */
+    public static final MappingDirection ONE_WAY = new MappingDirection();
+
+    private MappingDirection() {
+
     }
-    throw new IllegalStateException("type should be bi-directional or one-way. " + mappingDirection);
-  }
-  
+
+    public static MappingDirection valueOf(String mappingDirection) {
+        if (BI_DIRECTIONAL_VALUE.equals(mappingDirection)) {
+            return BI_DIRECTIONAL;
+        } else if (ONE_WAY_VALUE.equals(mappingDirection)) {
+            return ONE_WAY;
+        } else if (StringUtils.isEmpty(mappingDirection)) {
+            return null;
+        }
+
+        throw new IllegalStateException("type should be bi-directional or one-way. " + mappingDirection);
+    }
 }

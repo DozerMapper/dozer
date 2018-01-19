@@ -1,0 +1,48 @@
+== Event Listening
+By implementing the `DozerEventListener` interface dozer allows you to
+listen to 4 different events:
+
+* `mappingStarted`
+* `mappingFinished`
+* `preWritingDestinationValue`
+* `postWritingDestinationValue`
+
+A `DozerEvent` object is passed into these callback methods which stores
+information about the `ClassMap`, `FieldMap`, source object, destination
+object, and destination value. This will allow you to extend Dozer and
+manipulate mapped objects at run-time. The interface is shown below:
+
+[source,java,prettyprint]
+----
+public interface DozerEventListener {
+  public void mappingStarted(DozerEvent event);
+  public void preWritingDestinationValue(DozerEvent event);
+  public void postWritingDestinationValue(DozerEvent event);
+  public void mappingFinished(DozerEvent event);
+}
+----
+
+The listeners that you create can be injected into the `Mapper`
+using an IOC like Spring or set directly during `Mapper` instance configuration
+using `DozerBeanMapperBuilder#withEventListener(..)` method. Below is an example
+using Spring to inject an event listener:
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="false">
+    <bean id="EventMapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>dozerBeanMapping.xml</value>
+            </list>
+        </property>
+        <property name="eventListeners">
+            <list>
+                <ref bean="eventTestListener" />
+            </list>
+        </property>
+    </bean>
+    <bean id="eventTestListener" class="org.dozer.event.EventTestListener" />
+</beans>
+----

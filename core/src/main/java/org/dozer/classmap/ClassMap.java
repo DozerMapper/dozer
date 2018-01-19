@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,15 @@
  */
 package org.dozer.classmap;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Internal class that represents a class mapping definition. Holds all of the information about a single class mapping.

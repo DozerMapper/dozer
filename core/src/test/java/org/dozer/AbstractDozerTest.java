@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,13 @@
  */
 package org.dozer;
 
+import java.util.Random;
+
+import org.dozer.config.SettingsDefaults;
+import org.dozer.config.SettingsKeys;
 import org.dozer.util.DozerConstants;
 import org.junit.Assert;
 import org.junit.Before;
-
-import java.util.Random;
 
 /**
  * @author tierney.matt
@@ -31,6 +33,7 @@ public abstract class AbstractDozerTest extends Assert {
   public void setUp() throws Exception {
     System.setProperty("log4j.debug", "true");
     System.setProperty(DozerConstants.DEBUG_SYS_PROP, "true");
+    System.setProperty(SettingsKeys.CONFIG_FILE_SYS_PROP, SettingsDefaults.LEGACY_PROPERTIES_FILE);
   }
 
   protected String getRandomString() {

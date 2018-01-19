@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,14 @@
  */
 package org.dozer.functional_tests;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.dozer.Mapper;
 import org.dozer.vo.generics.Status;
 import org.dozer.vo.generics.User;
@@ -28,18 +36,12 @@ import org.dozer.vo.generics.deepindex.HeadOfHouseHold;
 import org.dozer.vo.generics.deepindex.Pet;
 import org.dozer.vo.generics.deepindex.SrcDeepObj;
 import org.dozer.vo.generics.deepindex.TestObject;
-import static org.junit.Assert.*;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author garsombke.franz
@@ -49,7 +51,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testGenericCollectionMapping() throws Exception {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
 
     // prepare beans
     User user1 = newInstance(User.class);
@@ -102,7 +104,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMappingWithIndexOnSrcField() {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
 
     AnotherTestObject anotherTestObject = newInstance(AnotherTestObject.class);
     anotherTestObject.setField3("another test object field 3 value");
@@ -122,7 +124,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMappingWithIndexOnDestField() {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
     DestDeepObj src = newInstance(DestDeepObj.class);
     src.setDest5("some string value for field");
 
@@ -132,7 +134,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapIndexed() throws Exception {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
     Pet[] myPets = new Pet[2];
     Family source = newInstance(Family.class, new Object[] {"john", "jane", "doe", new Integer(22000), new Integer(20000)});
     Pet firstPet = newInstance(Pet.class, new Object[] {"molly", 2});
@@ -161,7 +163,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapInvIndexed() throws Exception {
-    Mapper mapper = getMapper(new String[] { "genericCollectionMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
     HeadOfHouseHold source = newInstance(HeadOfHouseHold.class);
     source.setFirstName("Tom");
     source.setLastName("Roy");

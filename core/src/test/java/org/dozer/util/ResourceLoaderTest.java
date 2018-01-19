@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,14 @@
  */
 package org.dozer.util;
 
-import org.dozer.AbstractDozerTest;
-import org.dozer.MappingException;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.MappingException;
+import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -38,13 +38,7 @@ public class ResourceLoaderTest extends AbstractDozerTest {
 
   @Test
   public void testGetResourceWithWhitespace() {
-    URL url = loader.getResource(" contextMapping.xml ");
-    assertNotNull("URL should not be null", url);
-  }
-
-  @Test
-  public void testGetResourceWithNewlines() {
-    URL url = loader.getResource("\ncontextMapping.xml\n");
+    URL url = loader.getResource("mappings/contextMapping.xml ");
     assertNotNull("URL should not be null", url);
   }
 

@@ -1,0 +1,26 @@
+== Mapping Classes
+An example of mapping two classes is defined below. Note: Explicit xml
+mapping for 2 classes is not required if all the field mapping between
+src and dest object can be performed by matching on attribute name.
+Custom xml class mapping is only required when you need to specify any
+custom field mappings.
+
+[source,xml,prettyprint]
+----
+<mappings>
+    <mapping>
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <!-- Any custom field mapping xml would go here -->
+    </mapping>
+</mappings>
+----
+
+These mappings are bi-directional so you would never need to define an
+XML map for TestObjectPrime to TestObject. If these two classes had
+references to complex types that needed type transformation, you would
+also define them as mappings. Dozer recursively goes through an object
+and maps everything in it. Data type conversion is performed
+automatically. Dozer also supports no attribute mappings at all. If
+supplied two classes that are not mapped, it simply tries to map
+properties that are the same name.

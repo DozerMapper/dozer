@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,16 +19,16 @@ import java.util.SortedSet;
 
 /**
  * @author Peter Monks
- * 
  */
 public class NamesSortedSet {
-  private SortedSet names = null;
 
-  public SortedSet getNames() {
-    return names;
-  }
+    private SortedSet names;
 
-  public void setNames(SortedSet names) {
-    this.names = names;
-  }
+    public SortedSet getNames() {
+        return names;
+    }
+
+    public void setNames(SortedSet names) {
+        this.names = names;
+    }
 }

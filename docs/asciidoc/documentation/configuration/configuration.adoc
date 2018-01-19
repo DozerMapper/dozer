@@ -1,0 +1,80 @@
+== Configuration
+Dozer configuration properties can be customized via an optional Dozer
+properties file. By default, Dozer will look for a file named
+dozer.properties to load configuration properties. If a properties file
+is not found or specified, default values will be used.
+
+Dozer is distributed with an example dozer.properties file in /config
+that shows the various options. Just put the example file in your
+classpath and customize it.
+
+An alternative Dozer properties file can be specified via the
+dozer.configuration system property. ex)
+-Ddozer.configuration=someDozerConfigurationFile.properties
+
+[cols="5*", options="header"]
+.Dozer Configuration Properties
+|===
+|Property Name
+|Description
+|Valid Values
+|Default
+|
+
+|dozer.el.enabled
+|Specifies whether during Xml mappings parsing Dozer will recognize EL expressions.
+|true
+|false
+|false
+
+|dozer.cache.converter-by-dest-type-maxsize
+|Specifies the max size for one of Dozers internal caches.
+|0 - Long.MAX_VALUE
+|10000
+|
+
+|dozer.cache.super-type-maxsize
+|Specifies the max size for one of Dozers internal caches
+|0 - Long.MAX_VALUE
+|10000
+|
+
+|dozer.beans.proxy-resolver-bean
+|Specifies implementation of DozerProxyResolver to be used
+|Valid class name
+|Default implementation
+|
+
+|dozer.beans.class-loader-bean
+|Specifies implementation of DozerClassLoader to be used
+|Valid class name
+|Default implementation
+|
+|=======================================================================
+
+=== Debugging Initialization
+One time Dozer initialization information can be optionally sent to
+System.out to help with debugging.
+
+To enable this additional debugging info, set the dozer.debug system
+property.
+
+ex) -Ddozer.debug=true
+
+Types of information that will be sent to System.out are loading of
+configuration file, loading of custom xml mapping files, version info,
+classloader info
+
+[source,prettyprint]
+----
+dozer:  Trying to find Dozer configuration file: dozer.properties
+dozer:  Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties] for Dozer global property configuration
+dozer:  Reading Dozer properties from URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties]
+dozer:  Finished configuring Dozer global properties
+dozer:  Initializing Dozer.  Version: ${project.version}, Thread Name:main
+dozer:  Initializing a new instance of the dozer bean mapper.
+dozer:  Using the following xml files to load custom mappings for the bean mapper instance: [fieldAttributeMapping.xml]
+dozer:  Trying to find xml mapping file: fieldAttributeMapping.xml
+dozer:  Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml] to load custom xmlmappings
+dozer:  Successfully loaded custom xml mappings from URL: [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml]
+----

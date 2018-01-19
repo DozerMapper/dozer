@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -87,16 +87,18 @@ public final class TypeResolver {
     Type[] types = method.getGenericParameterTypes();
 
     // check for correct argument list length and type
-    if ((types == null) || (types.length < 1))
+    if ((types == null) || (types.length < 1)) {
       return null;
+    }
 
     // get the actual type argument (expect the type to be a TypeVariable)
     return resolveType(targetClass, types[0]);
   }
 
   private static Class<?> resolveType(final Class<?> targetClass, final Type type) {
-    if (type instanceof Class)
-      return (Class<?>) type;
+    if (type instanceof Class) {
+      return (Class<?>)type;
+    }
 
     if (!(type instanceof TypeVariable<?>)) {
       return null;
@@ -179,8 +181,9 @@ public final class TypeResolver {
                                                  final Map<TypeVariable<?>, Type> map) {
     // get the raw type of the parameterized class and validate its a class
     Type rawType = parameterizedType.getRawType();
-    if (!(rawType instanceof Class))
+    if (!(rawType instanceof Class)) {
       return;
+    }
 
     // get variables and types and store them into the map
     TypeVariable<?>[] variables = ((Class<?>) rawType).getTypeParameters();

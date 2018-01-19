@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,13 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.functional_tests.support.StringAppendCustomConverter;
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.AnotherTestObjectPrime;
@@ -38,14 +43,13 @@ import org.dozer.vo.TestObjectPrime;
 import org.dozer.vo.Van;
 import org.dozer.vo.map.CustomMap;
 import org.dozer.vo.map.MapToProperty;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author tierney.matt
@@ -55,7 +59,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testSimpleCustomConverter() throws Exception {
-    mapper = getMapper(new String[] { "simpleCustomConverter.xml" });
+    mapper = getMapper("mappings/simpleCustomConverter.xml");
     SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
 
@@ -75,7 +79,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   // Defect #1728385
   @Test
   public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
-    mapper = getMapper("simpleCustomConverter.xml");
+    mapper = getMapper("mappings/simpleCustomConverter.xml");
 
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     src.setField3(String.valueOf(System.currentTimeMillis()));
@@ -95,7 +99,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testSimpleCustomConverter_ImplicitMappingWithInheritance() throws Exception {
-    mapper = getMapper("simpleCustomConverter.xml");
+    mapper = getMapper("mappings/simpleCustomConverter.xml");
 
     Car car = newInstance(Car.class);
     Van van = mapper.map(car, Van.class);
@@ -117,7 +121,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testSimpleCustomConverter_NullSrcValue() throws Exception {
     // Test that custom converter gets invoked even if the src field value is NULL
-    mapper = getMapper("simpleCustomConverter.xml");
+    mapper = getMapper("mappings/simpleCustomConverter.xml");
     SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(null);
 
@@ -137,7 +141,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testArrayToStringCustomConverter() throws Exception {
     // Test that custom converter is used when src is an Array and dest is a String
-    mapper = getMapper(new String[] { "arrayToStringCustomConverter.xml" });
+    mapper = getMapper("mappings/arrayToStringCustomConverter.xml");
     SimpleObj simple = newInstance(SimpleObj.class);
     simple.setField1(String.valueOf(System.currentTimeMillis()));
 
@@ -158,7 +162,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testCustomConverterMapping() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("testDozerBeanMapping.xml");
     TestCustomConverterObject obj = newInstance(TestCustomConverterObject.class);
     CustomDoubleObjectIF doub = newInstance(CustomDoubleObject.class);
     doub.setTheDouble(15);
@@ -214,7 +218,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testCustomConverterWithPrimitive() throws Exception {
     // test primitive double
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("testDozerBeanMapping.xml");
     TestCustomConverterObjectPrime prime = newInstance(TestCustomConverterObjectPrime.class);
     prime.setPrimitiveDoubleAttribute(25.00);
     prime.setDoubleAttribute(new Double(30.00));
@@ -231,7 +235,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testCustomConverterHashMapMapping() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper("testDozerBeanMapping.xml");
     TestCustomConverterHashMapObject testCustomConverterHashMapObject = newInstance(TestCustomConverterHashMapObject.class);
     TestObject to = newInstance(TestObject.class);
     to.setOne("one");
@@ -248,7 +252,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testFieldCustomConverter() throws Exception {
-    mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
+    mapper = getMapper("mappings/fieldCustomConverter.xml");
     SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(String.valueOf(System.currentTimeMillis()));
 
@@ -268,7 +272,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testFieldCustomConverter_NullSrcValue() throws Exception {
     // Test that custom converter gets invoked even if the src field value is NULL
-    mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
+    mapper = getMapper("mappings/fieldCustomConverter.xml");
     SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(null);
 
@@ -288,7 +292,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testFieldCustomConverter_CustomMapType() throws Exception {
     // Test that custom field converter works for Custom Map Types
-    mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
+    mapper = getMapper("mappings/fieldCustomConverter.xml");
     CustomMap src = newInstance(CustomMap.class);
     src.putValue("fieldA", "someStringValue");
 
@@ -308,7 +312,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
   @Test
   public void testFieldCustomConverter_HashMapField() throws Exception {
     // Test that custom field converter works for Map type fields
-    mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
+    mapper = getMapper("mappings/fieldCustomConverter.xml");
     MapToProperty src = newInstance(MapToProperty.class);
     Map<String, String> hashMap = newInstance(HashMap.class);
     hashMap.put("fieldA", "someStringValue");
@@ -329,10 +333,11 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testFieldCustomConverter_WithCustomConverterId() throws Exception {
-    mapper = getMapper(new String[] { "fieldCustomConverter.xml" });
-    Map<String, CustomConverter> map = newInstance(HashMap.class);
-    map.put("CustomConverterWithId", new StringAppendCustomConverter());
-    ((DozerBeanMapper) mapper).setCustomConvertersWithId(map);
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/fieldCustomConverter.xml")
+            .withCustomConverterWithId("CustomConverterWithId", new StringAppendCustomConverter())
+            .build();
+
     AnotherTestObject src = newInstance(AnotherTestObject.class);
     src.setField3("field3");
 
@@ -344,7 +349,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testCustomConverter_MapNullFalse() throws Exception {
-    mapper = getMapper(new String[] { "custom-converter-map-null.xml" });
+    mapper = getMapper("mappings/custom-converter-map-null.xml");
     SimpleObj src = newInstance(SimpleObj.class);
     src.setField1(null);
 

@@ -1,0 +1,84 @@
+== API Mappings
+=== XML Mapping Flaws
+XML-based approach is stable and is used in many production projects.
+However, it imposes several limitations.
+
+* First, and most important, is that it can not be dynamically
+generated. All XML mappings should be present on Dozer start-up and can
+not be modified afterwards. There are tricky ways, when you can generate
+and put mappings to the file system by your own templating engine, but
+this approach is not supported by Dozer itself. By generating custom
+mappings you are able to automate repetitive chunks of low-level Dozer
+language.
+* Second problem is that you are forced to duplicate all of your Bean
+class names in Xml mappings. This leads to lots of typing and copy-paste
+programming. This can be partly compensated by use of Expression
+Language inside Xml, but it is not solving all of the problems.
+* Refactoring support is limited as IDE should keep track of class names
+in Xml files and change them when you rename or move the referenced
+class. Auto-completion support is also not available in all IDEs.
+
+=== API Mappings
+API mappings are intended to solve all of the mentioned problems. To
+preserve backwards compatibility API mappings can be combined with
+existing Xml mappings. In fact some parts of the configuration (e.g.
+global configuration block) are only possible to express in Xml format.
+
+To get a feeling of what are these mappings take a look at the following
+code example.
+
+[source,java,prettyprint]
+----
+import org.dozer.classmap.RelationshipType;
+import org.dozer.loader.api.BeanMappingBuilder;
+import org.dozer.loader.api.FieldsMappingOptions;
+import org.dozer.loader.api.TypeMappingOptions;
+
+import static org.dozer.loader.api.FieldsMappingOptions.collectionStrategy;
+import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
+import static org.dozer.loader.api.FieldsMappingOptions.customConverter;
+import static org.dozer.loader.api.FieldsMappingOptions.customConverterId;
+import static org.dozer.loader.api.FieldsMappingOptions.hintA;
+import static org.dozer.loader.api.FieldsMappingOptions.hintB;
+import static org.dozer.loader.api.FieldsMappingOptions.useMapId;
+import static org.dozer.loader.api.TypeMappingOptions.mapId;
+import static org.dozer.loader.api.TypeMappingOptions.mapNull;
+
+public class MyClass {
+
+    public void create() {
+        BeanMappingBuilder builder = new BeanMappingBuilder() {
+            protected void configure() {
+                mapping(Bean.class, Bean.class,
+                        TypeMappingOptions.oneWay(),
+                        mapId("A"),
+                        mapNull(true)
+                )
+                    .exclude("excluded")
+                    .fields("src", "dest",
+                            copyByReference(),
+                            collectionStrategy(true, RelationshipType.NON_CUMULATIVE),
+                            hintA(String.class),
+                            hintB(Integer.class),
+                            FieldsMappingOptions.oneWay(),
+                            useMapId("A"),
+                            customConverterId("id")
+                    )
+                    .fields("src", "dest",
+                            customConverter("org.dozer.CustomConverter")
+                    );
+            }
+        };
+    }
+}
+----
+
+Constructed builder object should be then passed to `DozerBeanMapperBuilder`.
+It is possible to add multiple Builder classes.
+
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingBuilder(builder)
+        .build();
+----

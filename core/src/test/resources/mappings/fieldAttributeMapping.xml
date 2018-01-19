@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <mapping>
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <field>
+            <a>fieldAccessible</a>
+            <b is-accessible="true">fieldAccessible</b>
+        </field>
+        <field>
+            <a>fieldAccessiblePrimInt</a>
+            <b is-accessible="true">fieldAccessiblePrimInt</b>
+        </field>
+        <field>
+            <a>fieldAccessibleComplexType</a>
+            <b is-accessible="true">fieldAccessibleComplexType</b>
+        </field>
+        <field>
+            <a>fieldAccessibleArrayToList</a>
+            <b is-accessible="true">fieldAccessibleArrayToList</b>
+        </field>
+        <field>
+            <a>overloadGetField</a>
+            <b set-method="setOverloadSetField(java.util.Date)">overloadSetField</b>
+        </field>
+        <field>
+            <a>createMethodType</a>
+            <b create-method="createMethod">createMethodType</b>
+        </field>
+        <field>
+            <a>createMethodType</a>
+            <b create-method="createMethod">createMethodType</b>
+        </field>
+        <field>
+            <a>arrayForLists</a><!-- changing an Integer [] to List and back again -->
+            <b>listForArray</b>
+            <b-hint>java.lang.String</b-hint>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a create-method="createMethod">org.dozer.vo.InsideTestObject</class-a>
+        <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
+        <field>
+            <a>label</a><!-- converting String to String by name only -->
+            <b>labelPrime</b>
+        </field>
+        <field>
+            <a>house.thingy.name</a>
+            <b>deepInterfaceString</b>
+            <a-hint>org.dozer.vo.Car</a-hint>
+        </field>
+    </mapping>
+
+    <!-- this is for defect [ 1477786 ] Duplicate Class Mapping Found -->
+    <mapping type="one-way">
+        <class-a>org.dozer.vo.Car</class-a>
+        <class-b>org.dozer.vo.Van</class-b>
+    </mapping>
+
+    <!-- this is for defect [ 1477786 ] Duplicate Class Mapping Found -->
+    <mapping type="one-way">
+        <class-a>org.dozer.vo.Van</class-a>
+        <class-b>org.dozer.vo.Car</class-b>
+    </mapping>
+
+</mappings>

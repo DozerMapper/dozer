@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,12 @@ import org.dozer.vo.runtimesubclass.SpecialUserGroupPrime;
 import org.dozer.vo.runtimesubclass.User;
 import org.dozer.vo.runtimesubclass.UserGroup;
 import org.dozer.vo.runtimesubclass.UserPrime;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin
@@ -32,7 +35,7 @@ public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("runtimeSubclass.xml");
+    mapper = getMapper("mappings/runtimeSubclass.xml");
   }
 
   @Test

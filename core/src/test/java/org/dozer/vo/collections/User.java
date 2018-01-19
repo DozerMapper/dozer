@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,16 +17,15 @@ package org.dozer.vo.collections;
 
 public interface User {
 
-  public String getFirstName();
+    String getFirstName();
 
-  public void setFirstName(String aFirstName);
+    void setFirstName(String aFirstName);
 
-  public String getLastName();
+    String getLastName();
 
-  public void setLastName(String aLastName);
+    void setLastName(String aLastName);
 
-  public UserGroup getUserGroup();
+    UserGroup getUserGroup();
 
-  public void setUserGroup(UserGroup aUserGroup);
-
+    void setUserGroup(UserGroup aUserGroup);
 }

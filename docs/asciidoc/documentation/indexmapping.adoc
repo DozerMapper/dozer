@@ -1,0 +1,35 @@
+== Indexed Property Mapping
+Fields that need to be looked up or written to by indexed property are
+supported.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.Individuals</class-a>
+    <class-b>org.dozer.vo.FlatIndividual</class-b>
+    <field>
+        <a>usernames[0]</a>
+        <b>username1</b>
+    </field>
+    <field>
+        <a>usernames[1]</a>
+        <b>username2</b>
+    </field>
+    <field>
+        <a>individual.username</a>
+        <b>username2</b>
+    </field>
+    <field>
+        <a>secondNames[1]</a>
+        <b>secondName1</b>
+    </field>
+    <field>
+        <a>secondNames[2]</a>
+        <b>secondName2</b>
+    </field>
+    <field>
+        <a>aliases.otherAliases[0]</a>
+        <b>primaryAlias</b>
+    </field>
+</mapping>
+----

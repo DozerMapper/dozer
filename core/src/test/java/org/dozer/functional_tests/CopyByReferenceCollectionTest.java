@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +15,13 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.vo.SimpleEnum;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.dozer.vo.SimpleEnum;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,7 +34,7 @@ public class CopyByReferenceCollectionTest extends AbstractFunctionalTest {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("copyByReferenceCollectionTest.xml");
+    mapper = getMapper("mappings/copyByReferenceCollectionTest.xml");
   }
 
   @Test

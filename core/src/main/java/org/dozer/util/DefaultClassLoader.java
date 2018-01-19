@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +15,9 @@
  */
 package org.dozer.util;
 
-import org.apache.commons.lang3.ClassUtils;
-
 import java.net.URL;
+
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  *
@@ -38,9 +38,13 @@ public class DefaultClassLoader implements DozerClassLoader {
   public Class<?> loadClass(String className)  {
     Class<?> result = null;
     try {
-    	result = ClassUtils.getClass(classLoader, className);
+        result = ClassUtils.getClass(classLoader, className);
     } catch (ClassNotFoundException e) {
-      MappingUtils.throwMappingException(e);
+      try {
+        result = ClassUtils.getClass(Thread.currentThread().getContextClassLoader(), className);
+      } catch (ClassNotFoundException cnfe) {
+        MappingUtils.throwMappingException(e);
+      }
     }
     return result;
   }

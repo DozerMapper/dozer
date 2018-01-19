@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +15,13 @@
  */
 package org.dozer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.vo.A;
 import org.dozer.vo.B;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Dmitry Spikhalskiy
@@ -40,7 +40,8 @@ public class MappingProcessorTest extends AbstractDozerTest {
 
   @Test
   public void testTwiceObjectToObjectConvert() {
-    DozerBeanMapper mapper = new DozerBeanMapper();
+    // todo mapping processor should be redesigned, see #377
+    DozerBeanMapper mapper = (DozerBeanMapper) DozerBeanMapperBuilder.buildDefault();
     Mapper mappingProcessor = mapper.getMappingProcessor();
 
     A src = new A();
@@ -127,7 +128,7 @@ public class MappingProcessorTest extends AbstractDozerTest {
     assertEquals(new Ordered(0), destinationList.get(3));
   }
 
-  private static class Ordered {
+  private static final class Ordered {
     private int id;
 
     private Ordered(int id) {
@@ -136,13 +137,19 @@ public class MappingProcessorTest extends AbstractDozerTest {
 
     @Override
     public boolean equals(Object o) {
-      if (this == o)
+      if (this == o) {
         return true;
-      if (o == null || getClass() != o.getClass())
+      }
+
+      if (o == null || getClass() != o.getClass()) {
         return false;
+      }
+
       Ordered ordered = (Ordered) o;
-      if (id != ordered.id)
+      if (id != ordered.id) {
         return false;
+      }
+
       return true;
     }
 

@@ -16,17 +16,15 @@
     limitations under the License.
 
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-    "http://www.springframework.org/dtd/spring-beans.dtd">
-
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-  <bean id="factoryWithMappingBuilder" class="org.dozer.spring.DozerBeanMapperFactoryBean">
-    <property name="mappingBuilders">
-      <list>
-        <bean class="org.dozer.spring.functional_tests.support.SampleBeanMappingBuilder" />
-      </list>
-    </property>
-  </bean>
+    <bean id="factoryWithMappingBuilder" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
+        <property name="mappingBuilders">
+            <list>
+                <bean class="com.github.dozermapper.spring.functional_tests.support.SampleBeanMappingBuilder"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>

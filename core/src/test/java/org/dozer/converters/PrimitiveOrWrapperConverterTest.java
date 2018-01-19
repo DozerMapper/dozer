@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,6 @@
  */
 package org.dozer.converters;
 
-import junit.framework.Assert;
-import org.dozer.AbstractDozerTest;
-import org.junit.Test;
-
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -33,6 +27,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.config.BeanContainer;
+import org.junit.Assert;
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 
 /**
@@ -40,7 +42,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  */
 public class PrimitiveOrWrapperConverterTest extends AbstractDozerTest {
 
-  private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter();
+  private PrimitiveOrWrapperConverter converter = new PrimitiveOrWrapperConverter(new BeanContainer());
 
   @Test
   public void testConvertPrimitiveOrWrapperEmptyString() throws Exception {

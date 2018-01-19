@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,21 +42,25 @@ public final class BridgedMethodFinder {
    * @return the original method or a more specific method if available
    */
   public static Method findMethod(final Method bridgeMethod, final Class< ? > targetClass) {
-    if (bridgeMethod == null || targetClass == null)
+    if (bridgeMethod == null || targetClass == null) {
       return bridgeMethod;
+    }
 
-    if (!bridgeMethod.isBridge())
+    if (!bridgeMethod.isBridge()) {
       return bridgeMethod;
+    }
 
     Method[] methods = bridgeMethod.getDeclaringClass().getDeclaredMethods();
     for (Method method : methods) {
       // don't care about methods that are bridge methods
-      if (method.isBridge())
+      if (method.isBridge()) {
         continue;
+      }
 
       // check if the method is more specific
-      if (isAssignable(method, bridgeMethod))
+      if (isAssignable(method, bridgeMethod)) {
         return method;
+      }
     }
     return bridgeMethod;
   }
@@ -72,14 +76,21 @@ public final class BridgedMethodFinder {
    *   of the candidate Method.
    */
   private static boolean isAssignable(final Method candidate, final Method method) {
-    if (!method.getName().equals(candidate.getName()))
+    if (!method.getName().equals(candidate.getName())) {
       return false;
-    if (method.getParameterTypes().length != candidate.getParameterTypes().length)
+    }
+
+    if (method.getParameterTypes().length != candidate.getParameterTypes().length) {
       return false;
-    if (!isAssignable(method.getReturnType(), candidate.getReturnType()))
+    }
+
+    if (!isAssignable(method.getReturnType(), candidate.getReturnType())) {
       return false;
-    if (!isAssignable(method.getParameterTypes(), candidate.getParameterTypes()))
+    }
+
+    if (!isAssignable(method.getParameterTypes(), candidate.getParameterTypes())) {
       return false;
+    }
 
     return true;
   }
@@ -89,17 +100,24 @@ public final class BridgedMethodFinder {
    * to the classes supplied as b's
    */
   private static boolean isAssignable(final Class< ? >[] as, final Class< ? >[] bs) {
-    if (as == null && bs == null)
+    if (as == null && bs == null) {
       return true;
-    if (as == null || bs == null)
+    }
+
+    if (as == null || bs == null) {
       return false;
-    if (as.length != bs.length)
+    }
+
+    if (as.length != bs.length) {
       return false;
+    }
 
     for (int i = 0; i < as.length; i++) {
-      if (!isAssignable(as[i], bs[i]))
+      if (!isAssignable(as[i], bs[i])) {
         return false;
+      }
     }
+
     return true;
   }
 
@@ -108,10 +126,13 @@ public final class BridgedMethodFinder {
    * from b
    */
   private static boolean isAssignable(final Class< ? > a, final Class< ? > b) {
-    if (a == null && b == null)
+    if (a == null && b == null) {
       return true;
-    if (a == null || b == null)
+    }
+
+    if (a == null || b == null) {
       return false;
+    }
 
     return a.isAssignableFrom(b);
   }

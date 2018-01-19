@@ -1,0 +1,64 @@
+== Custom Mappings Via Dozer XML Files
+This section will cover setting up custom mappings in xml file(s). If
+the two different types of data objects that you are mapping contain any
+fields that don't share a common property name, you will need to add a
+class mapping entry to your custom mapping xml file. These mappings xml
+files are used at runtime by the Dozer mapping engine.
+
+Dozer automatically performs any type conversion when copying the source
+field data to the destination field. The Dozer mapping engine is
+bi-directional, so if you wanted to map the destination object to the
+source object, you do not need to add another class mapping to the xml
+file.
+
+An example of a mapping file....
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+    <mapping>
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <field>
+            <a>one</a>
+            <b>onePrime</b>
+        </field>
+    </mapping>
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.TestObjectFoo</class-a>
+        <class-b>org.dozer.vo.TestObjectFooPrime</class-b>
+        <field>
+            <a>oneFoo</a>
+            <b>oneFooPrime</b>
+        </field>
+    </mapping>
+</mappings>
+----
+
+A mappings element has multiple mapping elements, each with class
+mapping declarations and field level mappings. The wildcard attribute is
+set to true by default. This means that it will automatically try to map
+every property in the two objects. When the attribute is set to false it
+will only map explicitly defined fields.
+
+*IMPORTANT:* Properties that are of the same name do not need to be
+specified in the mapping xml file. Dozer automatically maps all fields
+with the same property name from the source object into the destination
+object.
+
+=== How Custom Mapping Files Are Loaded
+Dozer will search the entire classpath looking for the specified file.
+The generally acceptable way of distributing your mappings is to bundle
+them inside your application archive.
+
+Alternatively, you can load files from outside the classpath by
+prepending "file:" to the resource name. Ex)
+"file:c:\somedozermapping.xml"
+
+=== Loading Files from Input Stream
+Since version 5.4.0 it is possible to load XML mapping files from
+provided InputStream object. Check DozerMapper class for the
+corresponding API calls.

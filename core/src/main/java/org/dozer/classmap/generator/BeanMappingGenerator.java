@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,26 +15,40 @@
  */
 package org.dozer.classmap.generator;
 
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.ClassMapBuilder;
-import org.dozer.classmap.Configuration;
-import org.dozer.util.CollectionUtils;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.Configuration;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+import org.dozer.util.CollectionUtils;
 
 /**
 * @author Dmitry Spikhalskiy
 */
 public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerator {
 
-  static final List<BeanFieldsDetector> pluggedFieldDetectors = new ArrayList<BeanFieldsDetector>();
+  final List<BeanFieldsDetector> pluggedFieldDetectors = new ArrayList<BeanFieldsDetector>();
 
-  static final List<BeanFieldsDetector> availableFieldDetectors = new ArrayList<BeanFieldsDetector>() {{
+  final List<BeanFieldsDetector> availableFieldDetectors = new ArrayList<BeanFieldsDetector>() {{
     add(new JavaBeanFieldsDetector());
   }};
+
+  private final BeanContainer beanContainer;
+  private final DestBeanCreator destBeanCreator;
+  private final PropertyDescriptorFactory propertyDescriptorFactory;
+
+  public BeanMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+    this.beanContainer = beanContainer;
+    this.destBeanCreator = destBeanCreator;
+    this.propertyDescriptorFactory = propertyDescriptorFactory;
+  }
 
   public boolean accepts(ClassMap classMap) {
     return true;
@@ -49,7 +63,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
     Set<String> commonFieldNames = CollectionUtils.intersection(srcFieldNames, destFieldNames);
 
     for (String fieldName : commonFieldNames) {
-      if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass)) {
+      if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass, beanContainer)) {
         continue;
       }
 
@@ -58,31 +72,31 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
         continue;
       }
 
-      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName);
+      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName, beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
     return false;
   }
 
-  private static BeanFieldsDetector getAcceptsFieldsDetector(Class<?> clazz) {
+  private BeanFieldsDetector getAcceptsFieldsDetector(Class<?> clazz) {
     BeanFieldsDetector detector = getAcceptsFieldDetector(clazz, pluggedFieldDetectors);
-    if (detector == null) detector = getAcceptsFieldDetector(clazz, availableFieldDetectors);
+    if (detector == null) {
+      detector = getAcceptsFieldDetector(clazz, availableFieldDetectors);
+    }
+
     return detector;
   }
 
-  private static BeanFieldsDetector getAcceptsFieldDetector(Class<?> clazz, List<BeanFieldsDetector> detectors) {
+  private BeanFieldsDetector getAcceptsFieldDetector(Class<?> clazz, List<BeanFieldsDetector> detectors) {
     for (BeanFieldsDetector detector : new CopyOnWriteArrayList<BeanFieldsDetector>(detectors)) {
-      if (detector.accepts(clazz)) return detector;
+      if (detector.accepts(clazz)) {
+        return detector;
+      }
     }
+
     return null;
   }
 
-  public static void addPluggedFieldDetector(BeanFieldsDetector protobufBeanFieldsDetector) {
-    pluggedFieldDetectors.add(protobufBeanFieldsDetector);
-  }
-
-  protected interface BeanFieldsDetector {
-    boolean accepts(Class<?> clazz);
-    Set<String> getReadableFieldNames(Class<?> clazz);
-    Set<String> getWritableFieldNames(Class<?> clazz);
+  public void addPluggedFieldDetectors(Collection<BeanFieldsDetector> beanFieldsDetectors) {
+    pluggedFieldDetectors.addAll(beanFieldsDetectors);
   }
 }

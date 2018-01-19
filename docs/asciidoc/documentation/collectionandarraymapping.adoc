@@ -1,0 +1,263 @@
+== Collection and Array Mapping
+Dozer automatically maps between collection types and automatically
+performs any type conversion. Each element in the source collection is
+mapped to an element in the dest object. Hints are used to specify what
+type of objects are created in the destination collection. The following
+collection mapping is automatically handled by Dozer: (These are all
+bi-directional)
+
+* List to List
+* List to Array
+* Array to Array
+* Set to Set
+* Set to Array
+* Set to List
+
+=== Using Hints for Collection Mapping
+Hints are not required if you are using JDK 1.5 Generics or Arrays
+because the types can be autodetected by Dozer. But if you are not using
+generics or Arrays, to convert a Collection/Array to a Collection/Array
+with different type objects you can specify a Hint to let Dozer know
+what type of objects you want created in the destination list. If a Hint
+is not specified for the destination field, then the destination
+Collection will be populated with objects that are the same type as the
+elements in the src Collection.
+
+[source,xml,prettyprint]
+----
+<!-- converting TheFirstSubClass List to TheFirstSubClassPrime List -->
+<field>
+    <a>hintList</a>
+    <b>hintList</b>
+    <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+</field>
+----
+
+Below is a summary of the mapping logic used when mapping Arrays, Sets,
+and Lists. This gives a breakdown of what happens when hints are or are
+not used.
+
+* List to List
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest list will contain the same data types
+in the source
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type
+
+* Array to List
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest list will contain the same data types
+in the source
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type
+
+* List to Array
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest array will contain data types defined
+by the array
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type (only if Object Array)
+
+* Array to Array
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest array will contain data types defined
+by the array
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type (only if Object Array)
+
+* Set to Set
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest list will contain the same data types
+in the source
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type
+
+* Array to Set
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest list will contain the same data types
+in the source
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type
+
+* Set to Array
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest array will contain data types defined
+by the array
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type (only if Object Array)
+
+* List to Set
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest list will contain the same data types
+in the source
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type
+
+* Set to List
+* ** Dest Hint req'd: NO
+** Dest Hint allowed: YES
+** If no dest hint specified: Dest list will contain the same data types
+in the source
+** If hint is speficied: Dest list will contain objects that match dest
+hint(s) type
+
+== Using JDK 1.5 Generics for Collection Mapping
+Hints are not required when JDK 1.5 Generics are used. To convert a
+Collection/Array to a Collection/Array with different type objects dozer
+can determine parameterized types at runtime.
+
+[source,java,prettyprint]
+----
+public class UserGroup {
+
+  private Set<User> users;
+
+  public Set<User> getUsers() {
+    return users;
+  }
+
+  public void setUsers(Set<User> aUsers) {
+    users = aUsers;
+  }
+
+}
+public class UserGroupPrime {
+
+  private List<UserPrime> users;
+
+  public List<UserPrime> getUsers() {
+    return users;
+  }
+
+  public void setUsers(List<UserPrime> aUsers) {
+    users = aUsers;
+  }
+
+}
+----
+
+=== Object Array to List (bi-directional)
+When converting an Object array to a List, by default the destination
+List will contain the same data type as the source Array.
+
+[source,xml,prettyprint]
+----
+<!-- changing an Integer [] to List and back again -->
+<field>
+    <a>arrayForLists</a>
+    <b>listForArray</b>
+</field>
+----
+
+Use a hint for data type conversion. Because a hint is specified, the
+destination List will contain String elements instead of Integers.
+
+[source,xml,prettyprint]
+----
+<!-- changing an Integer [] to List and back again -->
+<field>
+    <a>arrayForLists</a>
+    <b>listForArray</b>
+    <b-hint>java.lang.String</b-hint>
+</field>
+----
+
+=== Primitive Array to Primitive Array (bi-directional)
+When converting an Object array to an Array, by default the destination
+Array will contain the same data type as the source Array.
+
+[source,xml,prettyprint]
+----
+<!-- converting int[] to int [] by name only -->
+<field>
+    <a>anArray</a>
+    <b>theMappedArray</b>
+</field>
+----
+
+=== Cumulative vs. Non-Cumulative List Mapping (bi-directional)
+If you are mapping to a Class which has already been initialized, dozer
+will either 'add' or 'update' objects to your List. If your List or Set
+already has objects in it dozer checks the mapped List, Set, or Array
+and calls the contains() method to determine if it needs to 'add' or
+'update'. This is determined using the relationship-type attribute on
+the field tag. The default is 'cumulative'. relationship-type can be
+specifed at the field mapping, class mapping, or global configuration
+level.
+
+global configuration level....
+
+[source,xml,prettyprint]
+----
+<mappings>
+    <configuration>
+        <relationship-type>non-cumulative</relationship-type>
+    </configuration>
+</mappings>
+----
+
+class mapping level....
+
+[source,xml,prettyprint]
+----
+<mappings>
+    <mapping relationship-type="non-cumulative">
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <field>
+            <a>someList</a>
+            <b>someList</b>
+        </field>
+    </mapping>
+</mappings>
+----
+
+field mapping level....
+
+[source,xml,prettyprint]
+----
+<!-- objects will always be added to an existing List -->
+<field relationship-type="cumulative">
+    <a>hintList</a>
+    <b>hintList</b>
+    <a-hint>org.dozer.vo.TheFirstSubClass</a-hint>
+    <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+</field>
+
+<!-- objects will updated if already exist in List, added if they are not present -->
+<field relationship-type="non-cumulative">
+    <a>unequalNamedList</a>
+    <b>theMappedUnequallyNamedList</b>
+</field>
+----
+
+*Note:* if you do not define custom _equals()_ and _hashCode()_ methods
+non-cumulative option will not function properly, as Dozer will fail to
+determine object equality and will rely on JDK generated object Ids. In
+default case two instances of a class are always treated as different
+and update will not occure.
+
+=== Removing Orphans
+Orphans are elements which exist in a destination collection that did
+not exist within the source collection. Dozer will remove orphans by
+calling the 'remove' method on actual orphans of the underlying
+destination collection; it will not clear all. To determine elements
+which are orphans dozer uses the contains() method to check if the
+results contains orphans. The default setting value is false.
+
+[source,xml,prettyprint]
+----
+<!-- orphan objects will always be removed from an existing destination List -->
+<field remove-orphans="true">
+    <a>srcList</a>
+    <b>destList</b>
+</field>
+----

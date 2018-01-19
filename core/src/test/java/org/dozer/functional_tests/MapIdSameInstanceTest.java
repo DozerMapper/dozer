@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@ public class MapIdSameInstanceTest extends AbstractFunctionalTest {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        mapper = getMapper("mapidsameinstance.xml");
+        mapper = getMapper("mappings/mapidsameinstance.xml");
 
         one = new One();
         two = createTwo();

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,24 @@
  */
 package org.dozer.loader;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
 import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.classmap.generator.BeanMappingGenerator;
+import org.dozer.config.BeanContainer;
 import org.dozer.converters.CustomConverterDescription;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.Mockito.mock;
 
@@ -38,7 +43,11 @@ public class CustomMappingsLoaderTest extends AbstractDozerTest{
 
   @Before
   public void setUp() {
-    loader = new CustomMappingsLoader();
+    BeanContainer beanContainer = new BeanContainer();
+    DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+    PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
+    loader = new CustomMappingsLoader(new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory),
+            new ClassMapBuilder(beanContainer, destBeanCreator, new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory), propertyDescriptorFactory), beanContainer);
     data = new ArrayList<MappingFileData>();
   }
 

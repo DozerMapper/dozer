@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,16 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.Mapper;
 import org.dozer.MappingException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * @author dmitry.buzdin
@@ -51,12 +52,12 @@ public class RecursiveSelfMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testRecursiveSelfMapping() {
-    testMapping(c1, "selfreference_recursive.xml");
+    testMapping(c1, "mappings/selfreference_recursive.xml");
   }
 
   @Test
   public void testRecursiveSelfMapping_Iterate() {
-    testMapping(c1, "selfreference_recursive_iterate.xml");
+    testMapping(c1, "mappings/selfreference_recursive_iterate.xml");
   }
 
   private void testMapping(ContainerBean c1, String mappingFile) {

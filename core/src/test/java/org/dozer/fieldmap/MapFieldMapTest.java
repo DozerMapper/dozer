@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,39 +15,46 @@
  */
 package org.dozer.fieldmap;
 
-import static org.mockito.Mockito.mock;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.MappingDirection;
 import org.dozer.classmap.RelationshipType;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * @author dmitry.buzdin
  */
 public class MapFieldMapTest extends AbstractDozerTest {
 
+  private BeanContainer beanContainer = new BeanContainer();
+  private DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+  private PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
+
   @Test
   public void testConstructor() {
     FieldMap fieldMap = mock(FieldMap.class);
-    MapFieldMap source = new MapFieldMap(fieldMap);
+    MapFieldMap source = new MapFieldMap(fieldMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     source.setCopyByReference(true);
     source.setCustomConverter("converter");
     source.setCustomConverterId("coverterId");
     source.setCustomConverterParam("param");
     source.setDestField(new DozerField("name", "type"));
-    source.setDestHintContainer(new HintContainer());
-    source.setDestDeepIndexHintContainer(new HintContainer());
+    source.setDestHintContainer(new HintContainer(beanContainer));
+    source.setDestDeepIndexHintContainer(new HintContainer(beanContainer));
     source.setMapId("mapId");
     source.setRelationshipType(RelationshipType.NON_CUMULATIVE);
     source.setRemoveOrphans(true);
     source.setSrcField(new DozerField("name", "type"));
-    source.setSrcHintContainer(new HintContainer());
-    source.setSrcDeepIndexHintContainer(new HintContainer());
+    source.setSrcHintContainer(new HintContainer(beanContainer));
+    source.setSrcDeepIndexHintContainer(new HintContainer(beanContainer));
     source.setType(MappingDirection.ONE_WAY);
 
-    MapFieldMap result = new MapFieldMap(source);
+    MapFieldMap result = new MapFieldMap(source, beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     assertEquals(source.isCopyByReference(), result.isCopyByReference());
     assertEquals(source.getCustomConverter(), result.getCustomConverter());

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.SerializationUtils;
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.Apple;
 import org.dozer.vo.Car;
@@ -63,6 +61,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author garsombke.franz
  * @author sullins.ben
@@ -73,7 +76,7 @@ public class MapperTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("dozerBeanMapping.xml");
+    mapper = getMapper("testDozerBeanMapping.xml");
   }
 
   @Test
@@ -108,7 +111,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
   @Test
   public void testNoClassMappings() throws Exception {
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
     // Should attempt mapping even though it is not in the beanmapping.xml file
     NoCustomMappingsObjectPrime dest1 = mapper.map(testDataFactory.getInputTestNoClassMappingsNoCustomMappingsObject(),
         NoCustomMappingsObjectPrime.class);
@@ -573,21 +576,21 @@ public class MapperTest extends AbstractFunctionalTest {
     assertTrue(toDest.getSetToListWithValues().contains(orange4));
   }
 
-	// one way
-	@Test
-	public void testMapValuesToList() throws Exception {
-		Orange orange1 = newInstance(Orange.class);
-		orange1.setName("orange1");
-		Orange orange2 = newInstance(Orange.class);
-		orange2.setName("orange2");
-		Map<String, Orange> map = newInstance(HashMap.class);
-		map.put(orange1.getName(), orange1);
-		map.put(orange2.getName(), orange2);
-		TestObject to = newInstance(TestObject.class);
-		to.setCollectionToList(map.values());
-		TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
-		assertTrue(top.getListToCollection().contains(orange1));
-		assertTrue(top.getListToCollection().contains(orange2));
-	}
+    // one way
+    @Test
+    public void testMapValuesToList() throws Exception {
+        Orange orange1 = newInstance(Orange.class);
+        orange1.setName("orange1");
+        Orange orange2 = newInstance(Orange.class);
+        orange2.setName("orange2");
+        Map<String, Orange> map = newInstance(HashMap.class);
+        map.put(orange1.getName(), orange1);
+        map.put(orange2.getName(), orange2);
+        TestObject to = newInstance(TestObject.class);
+        to.setCollectionToList(map.values());
+        TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
+        assertTrue(top.getListToCollection().contains(orange1));
+        assertTrue(top.getListToCollection().contains(orange2));
+    }
 
 }

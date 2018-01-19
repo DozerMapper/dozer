@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,9 @@
  */
 package org.dozer.loader.api;
 
-import junit.framework.TestCase;
 import org.dozer.loader.DozerBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-
 
 import static org.dozer.loader.api.FieldsMappingOptions.hintA;
 import static org.mockito.Mockito.mock;

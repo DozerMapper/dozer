@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,14 @@
  */
 package org.dozer.converters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.cache.CacheKeyFactory;
 import org.dozer.cache.DozerCache;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author tierney.matt

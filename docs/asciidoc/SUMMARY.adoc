@@ -1,0 +1,66 @@
+= Summary
+== User Guide
+.. link:about/about.adoc[What is Dozer?]
+.. link:documentation/whymap.adoc[Why Map?]
+.. link:documentation/gettingstarted.adoc[Getting Started]
+... link:documentation/usage.adoc[Usage]
+.. link:documentation/mappings.adoc[Mappings via XML]
+... link:documentation/annotations.adoc[via Annotations]
+... link:documentation/apimappings.adoc[via API]
+.. link:documentation/configuration/configuration.adoc[Configuration]
+... link:documentation/advancedConfiguration.adoc[Advanced Configuration]
+... link:documentation/globalConfiguration.adoc[Global Configuration]
+
+== Dozer mapping concepts
+.. link:documentation/mappingclasses.adoc[Mapping Classes]
+.. link:documentation/simpleproperty.adoc[Basic Property Mapping]
+.. link:documentation/baseattributes.adoc[Inheritance Mapping]
+.. link:documentation/contextmapping.adoc[Context Based Mapping]
+.. link:documentation/oneway.adoc[One-Way Mapping]
+.. link:documentation/copybyreference.adoc[Copying By Object Reference]
+.. link:documentation/deepmapping.adoc[Deep Property Mapping]
+.. link:documentation/indexmapping.adoc[Indexed Property Mapping]
+.. link:documentation/exclude.adoc[Excluding Fields]
+.. link:documentation/advancedproperty.adoc[Assembler Pattern]
+.. link:documentation/immutable.adoc[Mapping immutable types]
+
+== How do i map a type of...?
+.. link:documentation/enum.adoc[Enums]
+.. link:documentation/stringtodatemapping.adoc[String to Date]
+.. link:documentation/collectionandarraymapping.adoc[Collections and Arrays]
+.. link:documentation/mapbackedproperty.adoc[Map Backed Property Mapping]
+.. link:documentation/proxyhandling.adoc[Proxy Objects]
+
+== What if i need to customise the mapping?
+.. link:documentation/customconverter.adoc[Custom Converters]
+.. link:documentation/custombeanfactories.adoc[Custom Bean Factories]
+.. link:documentation/customCreateMethod.adoc[Custom Create Methods]
+.. link:documentation/custommethods.adoc[Custom get() set() Methods]
+.. link:documentation/expressionlanguage.adoc[Expression Language]
+
+== Extra
+.. link:documentation/configuration/logging.adoc[Logging]
+.. link:documentation/events.adoc[Event Listening]
+.. link:documentation/metadata.adoc[Metadata Query Interface]
+
+== 3rd Party
+.. link:documentation/springintegration.adoc[Spring Integration]
+.. link:documentation/xmlbeans.adoc[JAXB and XMLBeans]
+
+== Other
+.. link:documentation/faq.adoc[FAQ]
+.. link:documentation/examples.adoc[Examples]
+
+== Migration
+.. link:migration/v5-to-v6.adoc[v5 to v6]
+.. link:migration/v6-to-v61.adoc[v6.0.0 to v6.1.0]
+
+== Schema
+.. schema/bean-mapping.xsd[Dozer Mapping XSD]
+.. dozer-user-guide.pdf[User's Guide PDF]
+
+== Eclipse Plugin
+.. link:documentation/eclipse-plugin/installation.adoc[Installation]
+.. link:documentation/eclipse-plugin/usage.adoc[Usage]
+... link:documentation/eclipse-plugin/usage-xml.adoc[via XML]
+... link:documentation/eclipse-plugin/usage-editor.adoc[via Editor]

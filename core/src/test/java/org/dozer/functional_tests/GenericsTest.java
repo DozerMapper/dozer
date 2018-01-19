@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- *
- */
 package org.dozer.functional_tests;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
-import org.dozer.vo.generics.parameterized.*;
+import org.dozer.vo.generics.parameterized.A;
+import org.dozer.vo.generics.parameterized.AA;
+import org.dozer.vo.generics.parameterized.B;
+import org.dozer.vo.generics.parameterized.C;
+import org.dozer.vo.generics.parameterized.GenericTestType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -32,7 +33,7 @@ public class GenericsTest extends AbstractFunctionalTest {
   @Test
   public void testSimpleGenerics() {
 
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     A a = new A();
     a.setId(15L);
@@ -50,7 +51,7 @@ public class GenericsTest extends AbstractFunctionalTest {
    */
   @Test
   public void testSimpleGenericsInheritance() {
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     B b = new B();
     b.setId(15);
@@ -69,7 +70,7 @@ public class GenericsTest extends AbstractFunctionalTest {
    */
   @Test
   public void testDeepGenericInheritanceTest() throws Exception {
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     B b = new B();
     b.setId(12345);
@@ -82,7 +83,7 @@ public class GenericsTest extends AbstractFunctionalTest {
    */
   @Test
   public void testGenericsWithSeveralTypes() {
-    Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
     GenericTestType testType = new GenericTestType();
     testType.setA(15L);

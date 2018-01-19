@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,7 @@ public class IsAccessibleTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    mapper = getMapper("nestedAccessible.xml");
+    mapper = getMapper("mappings/nestedAccessible.xml");
   }
 
   @Test

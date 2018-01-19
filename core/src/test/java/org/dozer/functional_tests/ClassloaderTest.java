@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,10 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.DozerBeanMapper;
-import static org.junit.Assert.assertNotNull;
+import org.dozer.DozerBeanMapperBuilder;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin
@@ -28,9 +27,9 @@ public class ClassloaderTest extends AbstractFunctionalTest {
 
   @Test
   public void testClassloader() {
-    ArrayList<String> files = new ArrayList<String>();
-    files.add("classloader.xml");
-    mapper = new DozerBeanMapper(files);
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("non-strict/classloader.xml")
+            .build();
     assertNotNull(mapper);
   }
 

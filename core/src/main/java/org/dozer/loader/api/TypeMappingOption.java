@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,5 @@ import org.dozer.loader.DozerBuilder;
  */
 public interface TypeMappingOption {
 
-  void apply(DozerBuilder.MappingBuilder fieldMappingBuilder);
-
+    void apply(DozerBuilder.MappingBuilder fieldMappingBuilder);
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,6 @@
  */
 package org.dozer.cache;
 
-import org.dozer.util.MappingUtils;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,66 +22,73 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.dozer.util.MappingUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Internal class that manages the Dozer caches. Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  */
 public final class DozerCacheManager implements CacheManager {
 
-  private final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
+    private final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
 
-  private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
+    private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
 
-  public Collection<Cache> getCaches() {
-    return new HashSet<Cache>(cachesMap.values());
-  }
+    public DozerCacheManager() {
 
-  public Cache getCache(String name) {
-    Cache cache = cachesMap.get(name);
-    if (cache == null) {
-      MappingUtils.throwMappingException("Unable to find cache with name: " + name);
     }
-    return cache;
-  }
 
-  public void addCache(String name, int maxElementsInMemory) {
-    addCache(new DozerCache(name, maxElementsInMemory));
-  }
-
-  public void addCache(Cache cache) {
-    synchronized (cachesMap) {
-      String name = cache.getName();
-      if (cacheExists(name)) {
-        MappingUtils.throwMappingException("Cache already exists with name: " + name);
-      }
-      cachesMap.put(name, cache);
+    public Collection<Cache> getCaches() {
+        return new HashSet<Cache>(cachesMap.values());
     }
-  }
 
-  public Collection<String> getCacheNames() {
-    Set<String> results = new HashSet<String>();
-    for (Entry<String, Cache> entry : cachesMap.entrySet()) {
-      results.add(entry.getKey());
+    public Cache getCache(String name) {
+        Cache cache = cachesMap.get(name);
+        if (cache == null) {
+            MappingUtils.throwMappingException("Unable to find cache with name: " + name);
+        }
+        return cache;
     }
-    return results;
-  }
 
-  /*
-   * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each cache
-   */
-  public void clearAllEntries() {
-    for (Cache cache : cachesMap.values()) {
-      cache.clear();
+    public void addCache(String name, int maxElementsInMemory) {
+        addCache(new DozerCache(name, maxElementsInMemory));
     }
-  }
 
-  public boolean cacheExists(String name) {
-    return cachesMap.containsKey(name);
-  }
+    public void addCache(Cache cache) {
+        synchronized (cachesMap) {
+            String name = cache.getName();
+            if (cacheExists(name)) {
+                MappingUtils.throwMappingException("Cache already exists with name: " + name);
+            }
+            cachesMap.put(name, cache);
+        }
+    }
 
-  public void logCaches() {
-    log.info(getCaches().toString());
-  }
-  
+    public Collection<String> getCacheNames() {
+        Set<String> results = new HashSet<String>();
+        for (Entry<String, Cache> entry : cachesMap.entrySet()) {
+            results.add(entry.getKey());
+        }
+        return results;
+    }
+
+    /*
+     * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each cache
+     */
+    public void clearAllEntries() {
+        for (Cache cache : cachesMap.values()) {
+            cache.clear();
+        }
+    }
+
+    public boolean cacheExists(String name) {
+        return cachesMap.containsKey(name);
+    }
+
+    public void logCaches() {
+        log.info(getCaches().toString());
+    }
 }

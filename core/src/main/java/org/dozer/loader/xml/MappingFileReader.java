@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,10 @@
  */
 package org.dozer.loader.xml;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import org.dozer.classmap.MappingFileData;
 import org.dozer.config.BeanContainer;
 import org.dozer.loader.MappingsSource;
@@ -22,10 +26,6 @@ import org.dozer.util.DozerClassLoader;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 /**
  * Internal class that reads and parses a single custom mapping xml file into raw ClassMap objects. Only intended for
@@ -39,13 +39,15 @@ public class MappingFileReader implements MappingsSource<URL> {
   private final Logger log = LoggerFactory.getLogger(MappingFileReader.class);
 
   private final MappingStreamReader streamReader;
+  private final BeanContainer beanContainer;
 
-  public MappingFileReader(XMLParserFactory parserFactory) {
-    streamReader = new MappingStreamReader(parserFactory);
+  public MappingFileReader(XMLParserFactory parserFactory, XMLParser xmlParser, BeanContainer beanContainer) {
+    this.streamReader = new MappingStreamReader(parserFactory, xmlParser);
+    this.beanContainer = beanContainer;
   }
 
   public MappingFileData read(String fileName) {
-    DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+    DozerClassLoader classLoader = beanContainer.getClassLoader();
     URL url = classLoader.loadResource(fileName);
     return read(url);
   }
@@ -57,9 +59,9 @@ public class MappingFileReader implements MappingsSource<URL> {
       stream = url.openStream();
       result = streamReader.read(stream);
     } catch (IOException e) {
-	      log.error("Error while loading dozer mapping file url: [" + url + "]", e);
-	      MappingUtils.throwMappingException(e);
-	} finally {
+          log.error("Error while loading dozer mapping file url: [" + url + "]", e);
+          MappingUtils.throwMappingException(e);
+    } finally {
       try {
         if (stream != null) {
           stream.close();

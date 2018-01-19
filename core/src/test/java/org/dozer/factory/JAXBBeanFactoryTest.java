@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,7 @@ package org.dozer.factory;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,34 +28,36 @@ import org.junit.Test;
 public class JAXBBeanFactoryTest extends AbstractDozerTest {
 
   private JAXBBeanFactory factory;
+  private BeanContainer beanContainer;
 
   @Before
   public void setUp() throws Exception {
     factory = new JAXBBeanFactory();
+    beanContainer = new BeanContainer();
   }
 
   @Test
   public void testCreateBeanForSimpleJaxbClass() {
-    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeType");
+    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeType", beanContainer);
     assertNotNull("Object can not be null", obj);
     assertEquals("org.dozer.vo.jaxb.employee.EmployeeType", obj.getClass().getName());
   }
 
   @Test(expected = MappingException.class)
   public void testCreateBeanClassNotFoundException() {
-    factory.createBean(null, null, "ve.ve.DE");
+    factory.createBean(null, null, "ve.ve.DE", beanContainer);
   }
 
   @Test
   public void testCreateBeanForInnerJaxbClass() {
-    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address");
+    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address", beanContainer);
     assertNotNull(obj);
     assertEquals("org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address", obj.getClass().getName());
   }
 
   @Test
   public void testCreateBeanForNestedInnerJaxbClass() {
-    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State");
+    Object obj = factory.createBean(null, null, "org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State", beanContainer);
     assertNotNull(obj);
     assertEquals("org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State", obj.getClass().getName());
   }

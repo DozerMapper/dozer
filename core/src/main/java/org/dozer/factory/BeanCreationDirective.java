@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,128 +15,137 @@
  */
 package org.dozer.factory;
 
-import java.text.DateFormat;
 /**
  * @author Dmitry Buzdin
  * @author Jose Barragan
  */
 public class BeanCreationDirective {
 
-	private Object   srcObject;
-	private Class<?> srcClass;
-	private Class<?> targetClass;
-	private Class<?> alternateClass;
-	private String   factoryName;
-	private String   factoryId;
-	private String   createMethod;
-	private Object   destObj;
-	private String   destFieldName;
+    private Object   srcObject;
+    private Class<?> srcClass;
+    private Class<?> targetClass;
+    private Class<?> alternateClass;
+    private String   factoryName;
+    private String   factoryId;
+    private String   createMethod;
+    private Boolean  skipConstructor;
+    private Object   destObj;
+    private String   destFieldName;
 
-	public BeanCreationDirective() {
-		super();
-	}
+    public BeanCreationDirective() {
+        super();
+    }
 
-	public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod) {
-		this(srcObject, srcClass, targetClass, alternateClass, factoryName, factoryId, createMethod, null, null);
-	}
+    public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod, Boolean skipConstructor) {
+        this(srcObject, srcClass, targetClass, alternateClass, factoryName, factoryId, createMethod, skipConstructor, null, null);
+    }
 
-	public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod, Object destObj, String destFieldName) {
-		this.srcObject = srcObject;
-		this.srcClass = srcClass;
-		this.targetClass = targetClass;
-		this.alternateClass = alternateClass;
-		this.factoryName = factoryName;
-		this.factoryId = factoryId;
-		this.createMethod = createMethod;
-		this.destObj = destObj;
-		this.destFieldName = destFieldName;
-	}
+    public BeanCreationDirective(Object srcObject, Class<?> srcClass, Class<?> targetClass, Class<?> alternateClass, String factoryName, String factoryId, String createMethod, Boolean skipConstructor, Object destObj, String destFieldName) {
+        this.srcObject = srcObject;
+        this.srcClass = srcClass;
+        this.targetClass = targetClass;
+        this.alternateClass = alternateClass;
+        this.factoryName = factoryName;
+        this.factoryId = factoryId;
+        this.createMethod = createMethod;
+        this.skipConstructor = skipConstructor != null ? skipConstructor : false;
+        this.destObj = destObj;
+        this.destFieldName = destFieldName;
+    }
 
-	public Object getSrcObject() {
-		return srcObject;
-	}
+    public Object getSrcObject() {
+        return srcObject;
+    }
 
-	public Class<?> getSrcClass() {
-		return srcClass;
-	}
+    public Class<?> getSrcClass() {
+        return srcClass;
+    }
 
-	public Class<?> getTargetClass() {
-		return targetClass;
-	}
+    public Class<?> getTargetClass() {
+        return targetClass;
+    }
 
-	public Class<?> getAlternateClass() {
-		return alternateClass;
-	}
+    public Class<?> getAlternateClass() {
+        return alternateClass;
+    }
 
-	public String getFactoryName() {
-		return factoryName;
-	}
+    public String getFactoryName() {
+        return factoryName;
+    }
 
-	public String getFactoryId() {
-		return factoryId;
-	}
+    public String getFactoryId() {
+        return factoryId;
+    }
 
-	public String getCreateMethod() {
-		return createMethod;
-	}
+    public String getCreateMethod() {
+        return createMethod;
+    }
 
-	public void setSrcObject(Object srcObject) {
-		this.srcObject = srcObject;
-	}
+    public void setSrcObject(Object srcObject) {
+        this.srcObject = srcObject;
+    }
 
-	public void setSrcClass(Class<?> srcClass) {
-		this.srcClass = srcClass;
-	}
+    public void setSrcClass(Class<?> srcClass) {
+        this.srcClass = srcClass;
+    }
 
-	public void setTargetClass(Class<?> targetClass) {
-		this.targetClass = targetClass;
-	}
+    public void setTargetClass(Class<?> targetClass) {
+        this.targetClass = targetClass;
+    }
 
-	public void setAlternateClass(Class<?> alternateClass) {
-		this.alternateClass = alternateClass;
-	}
+    public void setAlternateClass(Class<?> alternateClass) {
+        this.alternateClass = alternateClass;
+    }
 
-	public void setFactoryName(String factoryName) {
-		this.factoryName = factoryName;
-	}
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
+    }
 
-	public void setFactoryId(String factoryId) {
-		this.factoryId = factoryId;
-	}
+    public void setFactoryId(String factoryId) {
+        this.factoryId = factoryId;
+    }
 
-	public void setCreateMethod(String createMethod) {
-		this.createMethod = createMethod;
-	}
+    public void setCreateMethod(String createMethod) {
+        this.createMethod = createMethod;
+    }
 
-	public Class<?> getActualClass() {
-		if (targetClass != null) {
-			return targetClass;
-		} else {
-			return alternateClass;
-		}
-	}
+    public Boolean isSkipConstructor() {
+        return skipConstructor;
+    }
 
-	public Object getDestObj() {
-		return destObj;
-	}
+    public void setSkipConstructor(Boolean skipConstructor) {
+        this.skipConstructor = skipConstructor;
+    }
 
-	public void setDestObj(Object destObj) {
-		this.destObj = destObj;
-	}
+    public Class<?> getActualClass() {
+        if (targetClass != null) {
+            return targetClass;
+        } else {
+            return alternateClass;
+        }
+    }
 
-	public String getDestFieldName() {
-		return destFieldName;
-	}
+    public Object getDestObj() {
+        return destObj;
+    }
 
-	public void setDestFieldName(String destFieldName) {
-		this.destFieldName = destFieldName;
-	}
+    public void setDestObj(Object destObj) {
+        this.destObj = destObj;
+    }
 
-	public String getFieldName() {
-		if (destFieldName != null) {
-			return destFieldName;
-		} else {
-			return factoryName;
-		}
-	}
+    public String getDestFieldName() {
+        return destFieldName;
+    }
+
+    public void setDestFieldName(String destFieldName) {
+        this.destFieldName = destFieldName;
+    }
+
+    public String getFieldName() {
+        if (destFieldName != null) {
+            return destFieldName;
+        } else {
+            return factoryName;
+        }
+    }
 }

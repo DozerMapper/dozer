@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,5 @@ package org.dozer.vo.iface;
  */
 public interface SubscriberIF {
 
-  public String getSubscriberNumber();
-
+    String getSubscriberNumber();
 }

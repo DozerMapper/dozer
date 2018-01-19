@@ -1,0 +1,110 @@
+== Custom Bean Factories
+You can configure Dozer to use custom bean factories to create new
+instances of destination data objects during the mapping process. By
+default Dozer just creates a new instance of any destination objects
+using a default constructor. This is sufficient for most use cases, but
+if you need more flexibility you can specify your own bean factories to
+instantiate the data objects.
+
+Your custom bean factory must implement the `org.dozer.BeanFactory`
+interface. By default the Dozer mapping engine will use the destination
+object class name for the bean id when calling the factory.
+
+[source,java,prettyprint]
+----
+public interface BeanFactory {
+  public Object createBean(Object source, Class sourceClass, 
+      String targetBeanId, BeanContainer beanContainer);
+}
+----
+
+Next, in your Dozer mapping file(s) you just need to specify a
+`bean-factory` xml attribute for any mappings that you want to use a
+custom factory.
+
+In the following example, the `SampleCustomBeanFactory` will be used to
+create any new instances of the `InsideTestObjectPrime` java bean data
+object.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>com.example.vo.InsideTestObject</class-a>
+    <class-b bean-factory="com.example.factories.SomeCustomBeanFactory">
+        com.example.vo.InsideTestObjectPrime
+    </class-b>
+</mapping>
+----
+
+If your factory looks up beans based on a different id than class name,
+you can specify a `factory-bean-id` xml attribute. At runtime the
+specified `factory-bean-id` will be passed to the factory instead of class
+name.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>com.example.vo.InsideTestObject</class-a>
+    <class-b bean-factory="com.example.factories.SomeCustomBeanFactory" factory-bean-id="someBeanLookupId">
+        com.example.vo.InsideTestObjectPrime
+    </class-b>
+</mapping>
+----
+
+=== Specifying Default Factories
+Alternatively, bean factories can be specified in the default
+configuration section of any Dozer mapping file(s). The default factory
+would be used for any mappings in that file.
+
+[source,xml,prettyprint]
+----
+<configuration>
+    <stop-on-errors>true</stop-on-errors>
+    <wildcard>true</wildcard>
+    <bean-factory>com.example.factories.SomeDefaultBeanFactory
+  </bean-factory>
+</configuration>
+----
+
+Bean factories can also be specified at the mapping level. The specified
+factory would be used for `class-a` and `class-b`.
+
+[source,xml,prettyprint]
+----
+<mapping bean-factory="com.example.factories.SomeCustomBeanFactory">
+    <class-a>com.example.vo.TestObject</class-a>
+    <class-b>com.example.vo.TestObjectPrime</class-b>
+</mapping>
+----
+
+=== Spring bean factory injection
+Bean factories can be injected via Spring or similar inversion of
+control techniques.
+
+[source,xml,prettyprint]
+----
+<beans>
+    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>dozerBeanMapping.xml</value>
+            </list>
+        </property>
+        <property name="factories">
+            <map>
+                <!-- the key matches the name of the factory in the
+             dozerBeanMapping.xml file -->
+                <entry key="org.dozer.factories.SampleCustomBeanFactory">
+                    <ref bean="sampleCustomBeanFactory" />
+                </entry>
+                <!-- more factories can be supplied with additional
+             entry's -->
+            </map>
+        </property>
+    </bean>
+    <bean id="sampleCustomBeanFactory" class="org.dozer.factories.SampleCustomBeanFactory" />
+</beans>
+----
+
+By defining your factories as Spring beans you can then inject them into
+the `Mapper` instance.

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,30 +15,33 @@
  */
 package org.dozer.functional_tests;
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
-import org.dozer.DozerBeanMapper;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNotSame;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 /**
  * @author Dmitry Buzdin
  */
 public class ConstructorTest extends AbstractFunctionalTest {
 
-  private DozerBeanMapper beanMapper;
+  private Mapper beanMapper;
 
   @Before
   public void setUp() {
-    beanMapper = new DozerBeanMapper();
+    beanMapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   @Test

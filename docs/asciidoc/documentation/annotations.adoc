@@ -1,0 +1,92 @@
+== Annotation Mappings
+=== Why Annotations?
+One of the downsides of using Dozer for the long time was Xml. Since
+Dozer started during Xml-hype years more than five years ago that was
+pretty obvious choice back then. After that Java 5 brought us
+annotations and new industry accepted style of configuring behaviour are
+Domain-Specific Languages. DSL-like support is provided in form of
+mapping API, but since version 5.3.2 Dozer starts providing annotations
+support as well.
+
+The obvious reasons to use annotations is to avoid duplicating field and
+method names in your mapping code. The annotation can be put onto the
+mapped property itself thus reducing the amount of code. However there
+are cases when annotations should be avoided or even impossible to use.
+Some of them are the following:
+
+* You are mapping classes, which are not under your control, but
+provided in libraries;
+* The mappings are quite complex and require many configurations;
+
+In the first case you could be mapping JAXB generated entities or
+third-party DTOs and have no possibility to put annotations. In the
+second case there is a choice of putting lots of multi-line annotations
+or isolating the mapping code with certain duplication of entity names.
+Overannotated beans could be problematic to read and understand.
+
+=== Usage
+*WARNING:* Annotation support in Dozer is experimental and does not
+cover complex use cases yet. However it may be useful to implement that
+simplest mappings you have had to do in Xml or API before.
+
+The idea is very simple. You put @Mapping annotation either on getter of
+field directly. If Dozer finds that it adds a bi-directional mapping. It
+means that putting annotation once will create mappings for both
+conversion types. Type conversions (e.g. String-Long) will be chosen
+automatically. Global custom converters are resolved as well.
+Annotations work only if a conversion is subject to wildcard rule
+(active by default). The following example demonstrates annotations in
+action.
+
+[source,java,prettyprint]
+----
+public class SourceBean {
+
+    private Long id;
+
+    private String name;
+
+    @Mapping("binaryData")
+    private String data;
+
+    @Mapping("pk")
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+}              
+----
+
+[source,java,prettyprint]
+----
+public class TargetBean {
+
+    private String pk;
+
+    private String name;
+
+    private String binaryData;
+
+    public void setPk(String pk) {
+        this.pk = pk;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}              
+----
+
+Mapping the given beans with Dozer will result in all three fields being
+mapped. Property "name" will be mapped by naming convention. Property
+"id" will be transformed to "pk". Field "data" will be moved to
+"binaryData". Do not worry about _private_ modifier; it will be handled
+automatically.
+
+Currently Dozer offers only one annotation, but the next ones will be
+added in following releases. As for now you can mix and match all
+flavours of mapping types to achieve the desired effect: Xml, API and
+Annotations.

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,10 @@
  */
 package org.dozer.functional_tests;
 
+import java.io.Serializable;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.Serializable;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class SuperInterfaceMappingTest extends AbstractFunctionalTest {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("superInterfaceMapping.xml");
+    mapper = getMapper("mappings/superInterfaceMapping.xml");
   }
 
   @Test

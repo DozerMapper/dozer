@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,13 @@
  */
 package org.dozer.cache;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.dozer.stats.GlobalStatistics;
-import org.dozer.stats.StatisticType;
-import org.dozer.stats.StatisticsManager;
-
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Map backed Cache implementation.
@@ -34,94 +31,89 @@ import java.util.Set;
  */
 public class DozerCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
 
-  private final String name;
+    private final String name;
 
-  private final LRUMap cacheMap;
+    private final LRUMap cacheMap;
 
-  StatisticsManager statMgr = GlobalStatistics.getInstance().getStatsMgr();
-
-  public DozerCache(final String name, final int maximumSize) {
-    if (maximumSize < 1) {
-      throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
+    public DozerCache(final String name, final int maximumSize) {
+        if (maximumSize < 1) {
+            throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
+        }
+        this.name = name;
+        this.cacheMap = new LRUMap(maximumSize); // TODO This should be in Collections.synchronizedMap()
     }
-    this.name = name;
-    this.cacheMap = new LRUMap(maximumSize); // TODO This should be in Collections.synchronizedMap()
-  }
 
-  public void clear() {
-    cacheMap.clear();
-  }
-
-  public synchronized void put(KeyType key, ValueType value) {
-    if (key == null) {
-      throw new IllegalArgumentException("Cache entry key cannot be null");
+    public void clear() {
+        cacheMap.clear();
     }
-    CacheEntry<KeyType, ValueType> cacheEntry = new CacheEntry<KeyType, ValueType>(key, value);
-    cacheMap.put(cacheEntry.getKey(), cacheEntry);
-  }
 
-  public ValueType get(KeyType key) {
-    if (key == null) {
-      throw new IllegalArgumentException("Key cannot be null");
+    public synchronized void put(KeyType key, ValueType value) {
+        if (key == null) {
+            throw new IllegalArgumentException("Cache entry key cannot be null");
+        }
+        CacheEntry<KeyType, ValueType> cacheEntry = new CacheEntry<KeyType, ValueType>(key, value);
+        cacheMap.put(cacheEntry.getKey(), cacheEntry);
     }
-    CacheEntry<KeyType, ValueType> result = cacheMap.get(key);
-    if (result != null) {
-      statMgr.increment(StatisticType.CACHE_HIT_COUNT, name);
-      return result.getValue();
-    } else {
-      statMgr.increment(StatisticType.CACHE_MISS_COUNT, name);
-      return null;
+
+    public ValueType get(KeyType key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
+        CacheEntry<KeyType, ValueType> result = cacheMap.get(key);
+        if (result != null) {
+            return result.getValue();
+        } else {
+            return null;
+        }
     }
-  }
 
-  public void addEntries(Collection<CacheEntry<KeyType, ValueType>> entries) {
-    for (CacheEntry<KeyType, ValueType> entry : entries) {
-      cacheMap.put(entry.getKey(), entry);
+    public void addEntries(Collection<CacheEntry<KeyType, ValueType>> entries) {
+        for (CacheEntry<KeyType, ValueType> entry : entries) {
+            cacheMap.put(entry.getKey(), entry);
+        }
     }
-  }
 
-  public Collection<CacheEntry<KeyType, ValueType>> getEntries() {
-    return cacheMap.values();
-  }
+    public Collection<CacheEntry<KeyType, ValueType>> getEntries() {
+        return cacheMap.values();
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public long getSize() {
-    return cacheMap.size();
-  }
+    public long getSize() {
+        return cacheMap.size();
+    }
 
-  public long getMaxSize() {
-    return cacheMap.maximumSize;
-  }
+    public long getMaxSize() {
+        return cacheMap.maximumSize;
+    }
 
-  public boolean containsKey(KeyType key) {
-    return cacheMap.containsKey(key);
-  }
+    public boolean containsKey(KeyType key) {
+        return cacheMap.containsKey(key);
+    }
 
-  public Set<KeyType> keySet() {
-    return cacheMap.keySet();
-  }
-
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
-
-  class LRUMap extends LinkedHashMap<KeyType, CacheEntry<KeyType, ValueType>> {
-
-    private int maximumSize;
-
-    LRUMap(int maximumSize) {
-      this.maximumSize = maximumSize;
+    public Set<KeyType> keySet() {
+        return cacheMap.keySet();
     }
 
     @Override
-    protected boolean removeEldestEntry(Map.Entry<KeyType, CacheEntry<KeyType, ValueType>> eldest) {
-      return size() > maximumSize;
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-    
-  }
 
+    class LRUMap extends LinkedHashMap<KeyType, CacheEntry<KeyType, ValueType>> {
+
+        private int maximumSize;
+
+        LRUMap(int maximumSize) {
+            this.maximumSize = maximumSize;
+        }
+
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<KeyType, CacheEntry<KeyType, ValueType>> eldest) {
+            return size() > maximumSize;
+        }
+
+    }
 }

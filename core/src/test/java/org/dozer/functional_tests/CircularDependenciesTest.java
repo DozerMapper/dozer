@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +15,8 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.DozerBeanMapper;
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,11 +26,11 @@ import static org.junit.Assert.assertThat;
 
 public class CircularDependenciesTest extends AbstractFunctionalTest {
 
-  private DozerBeanMapper mapper;
+  private Mapper mapper;
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper();
+    mapper = DozerBeanMapperBuilder.buildDefault();
   }
 
   @Test

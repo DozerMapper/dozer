@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,10 +18,11 @@ package org.dozer.functional_tests;
 import org.dozer.vo.inheritance.twolevel.A;
 import org.dozer.vo.inheritance.twolevel.B;
 import org.dozer.vo.inheritance.twolevel.C;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin
@@ -31,7 +32,7 @@ public class InheritanceTwoLevelTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("inheritanceTwoLevel.xml");
+    mapper = getMapper("mappings/inheritanceTwoLevel.xml");
   }
 
   @Test

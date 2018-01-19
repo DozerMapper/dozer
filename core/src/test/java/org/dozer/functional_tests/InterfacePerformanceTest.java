@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,6 @@
  */
 package org.dozer.functional_tests;
 
-
 import org.dozer.vo.iface.ApplicationUser;
 import org.dozer.vo.iface.Subscriber;
 import org.dozer.vo.iface.UpdateMember;
@@ -24,35 +23,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class InterfacePerformanceTest extends AbstractFunctionalTest {
-  private static Logger log = LoggerFactory.getLogger(InterfacePerformanceTest.class);
+    private static Logger log = LoggerFactory.getLogger(InterfacePerformanceTest.class);
 
-  @Test
-  public void testInterface() throws Exception {
-    log.info("Starting");
-    mapper = getMapper("interfaceMapping.xml");
-    { // warm up to load the config
-      ApplicationUser source = new ApplicationUser();
-      UpdateMember target = new UpdateMember();
-      mapper.map(source, target);
-    }
-    for (int j = 1; j <= 16384; j += j) {
-      long start = System.currentTimeMillis();
-      for (int i = 0; i < j; i++) {
-        ApplicationUser source = new ApplicationUser();
-        UpdateMember target = new UpdateMember();
-        mapper.map(source, target);
-      }
-      long applicationUserTime = (System.currentTimeMillis() - start);
-      start = System.currentTimeMillis();
-      for (int i = 0; i < j; i++) {
-        Subscriber source = new Subscriber();
-        UpdateMember target = new UpdateMember();
-        mapper.map(source, target);
-      }
-      long subscriberTime = (System.currentTimeMillis() - start);
-      log.debug("Execution of " + j + " iterations times ApplicationUser = " + applicationUserTime + " Subscriber = "
-          + subscriberTime);
-    }
-  }
+    @Test
+    public void testInterface() throws Exception {
+        log.info("Starting");
+        mapper = getMapper("mappings/interfaceMapping.xml");
+        { // warm up to load the config
+            ApplicationUser source = new ApplicationUser();
+            UpdateMember target = new UpdateMember();
+            mapper.map(source, target);
+        }
 
+        for (int j = 1; j <= 16384; j += j) {
+            long start = System.currentTimeMillis();
+            for (int i = 0; i < j; i++) {
+                ApplicationUser source = new ApplicationUser();
+                UpdateMember target = new UpdateMember();
+                mapper.map(source, target);
+            }
+
+            long applicationUserTime = System.currentTimeMillis() - start;
+            start = System.currentTimeMillis();
+            for (int i = 0; i < j; i++) {
+                Subscriber source = new Subscriber();
+                UpdateMember target = new UpdateMember();
+                mapper.map(source, target);
+            }
+
+            long subscriberTime = System.currentTimeMillis() - start;
+            log.debug("Execution of "
+                      + j
+                      + " iterations times ApplicationUser = "
+                      + applicationUserTime + " Subscriber = "
+                      + subscriberTime);
+        }
+    }
 }

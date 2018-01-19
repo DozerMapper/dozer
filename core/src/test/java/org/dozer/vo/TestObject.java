@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,7 +65,7 @@ public class TestObject extends BaseTestObject {
   private Set setToObjectArray;
   private Set setToArrayWithValues;
   private Set setToList;
-	private Collection collectionToList;
+    private Collection collectionToList;
   private Set setToListWithValues;
   private String fieldAccessible;
   private int fieldAccessiblePrimInt;
@@ -563,12 +563,12 @@ public class TestObject extends BaseTestObject {
     getSetToArrayWithIterate().add(ato);
   }
 
-	public Collection getCollectionToList() {
-		return collectionToList;
-	}
+    public Collection getCollectionToList() {
+        return collectionToList;
+    }
 
-	public void setCollectionToList(Collection collectionToList) {
-		this.collectionToList = collectionToList;
-	}
+    public void setCollectionToList(Collection collectionToList) {
+        this.collectionToList = collectionToList;
+    }
 
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,23 @@
  */
 package org.dozer.loader;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.UUID;
+
 import org.dozer.CustomConverter;
-import org.dozer.classmap.*;
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.ClassMappings;
+import org.dozer.classmap.Configuration;
+import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
 import org.dozer.converters.CustomConverterContainer;
 import org.dozer.converters.CustomConverterDescription;
 import org.dozer.util.MappingUtils;
-
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * Internal class that loads and parses custom xml mapping files into ClassMap objects. The ClassMap objects returned
@@ -34,13 +43,21 @@ import java.util.Map.Entry;
  */
 public class CustomMappingsLoader {
 
-  private static final MappingsParser mappingsParser = MappingsParser.getInstance();
+  private final MappingsParser mappingsParser;
+  private final ClassMapBuilder classMapBuilder;
+  private final BeanContainer beanContainer;
+
+  public CustomMappingsLoader(MappingsParser mappingsParser, ClassMapBuilder classMapBuilder, BeanContainer beanContainer) {
+    this.mappingsParser = mappingsParser;
+    this.classMapBuilder = classMapBuilder;
+    this.beanContainer = beanContainer;
+  }
 
   public LoadMappingsResult load(List<MappingFileData> mappings) {
 
     Configuration globalConfiguration = findConfiguration(mappings);
 
-    ClassMappings customMappings = new ClassMappings();
+    ClassMappings customMappings = new ClassMappings(beanContainer);
     // Decorate the raw ClassMap objects and create ClassMap "prime" instances
     for (MappingFileData mappingFileData : mappings) {
       List<ClassMap> classMaps = mappingFileData.getClassMaps();
@@ -50,7 +67,7 @@ public class CustomMappingsLoader {
 
     // Add default mappings using matching property names if wildcard policy
     // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
-    ClassMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
+    classMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
 
     Set<CustomConverterDescription> customConverterDescriptions = new LinkedHashSet<CustomConverterDescription>();
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,17 @@
  */
 package org.dozer.converters;
 
-import org.dozer.AbstractDozerTest;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import org.dozer.AbstractDozerTest;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -110,12 +111,12 @@ public class DateConverterTest extends AbstractDozerTest {
     assertEquals(date, converter.convert(Date.class, xmlCalendar));
   }
 
-	@Test
-	public void testConvert_Format() throws Exception {
-		GregorianCalendar calendar = new GregorianCalendar(2001, 1, 1);
-		Object result = converter.convert(String.class, calendar);
-		String stringCalendar = (String) result;
-		assertEquals(stringCalendar, "01.02.2001");
-	}
+    @Test
+    public void testConvert_Format() throws Exception {
+        GregorianCalendar calendar = new GregorianCalendar(2001, 1, 1);
+        Object result = converter.convert(String.class, calendar);
+        String stringCalendar = (String) result;
+        assertEquals(stringCalendar, "01.02.2001");
+    }
 
 }

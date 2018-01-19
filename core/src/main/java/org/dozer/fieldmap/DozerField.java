@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -57,7 +57,7 @@ public class DozerField implements Cloneable {
 
   /**
    * Name of the field, which is the property name. Except if mapping a {@link java.util.Map}, the value is "this".
-   * @return
+   * @return name of field
    */
   public String getName() {
     return name;
@@ -89,7 +89,7 @@ public class DozerField implements Cloneable {
 
   /**
    * Key of the field, used if mapping a {@link java.util.Map} "field", otherwise null.
-   * @return
+   * @return key of field
    */
   public String getKey() {
     return key;

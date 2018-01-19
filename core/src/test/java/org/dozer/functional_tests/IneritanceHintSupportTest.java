@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +15,21 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.HashSet;
+
 import org.dozer.vo.inheritance.hints.Base;
 import org.dozer.vo.inheritance.hints.Base2;
 import org.dozer.vo.inheritance.hints.BaseA;
 import org.dozer.vo.inheritance.hints.BaseB;
 import org.dozer.vo.inheritance.hints.Source;
 import org.dozer.vo.inheritance.hints.Target;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin
@@ -35,7 +39,7 @@ public class IneritanceHintSupportTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("inheritanceHints.xml");
+    mapper = getMapper("mappings/inheritanceHints.xml");
   }
 
   @Test

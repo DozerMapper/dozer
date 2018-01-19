@@ -1,0 +1,4 @@
+== Examples
+There are some sample mapping files under
+\{dozer.home}/src/test/resources. These mapping files are used by the
+Dozer unit tests.

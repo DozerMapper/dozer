@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,15 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 
 
 /**
@@ -37,10 +37,13 @@ import java.lang.reflect.Type;
 public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implements DozerPropertyDescriptor {
 
   private final DozerPropertyDescriptor[] descriptorChain;
+  private final DestBeanCreator destBeanCreator;
 
   public FieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
-                                 HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
+                                 HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer,
+                                 DestBeanCreator destBeanCreator) {
     super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+    this.destBeanCreator = destBeanCreator;
 
     String[] tokens = fieldName.split(DozerConstants.DEEP_FIELD_DELIMITER_REGEXP);
     descriptorChain = new DozerPropertyDescriptor[tokens.length];
@@ -82,7 +85,7 @@ public class FieldPropertyDescriptor extends AbstractPropertyDescriptor implemen
       if (i != descriptorChain.length - 1) {
         Object currentValue = descriptor.getPropertyValue(intermediateResult);
         if (currentValue == null) {
-          currentValue = DestBeanCreator.create(descriptor.getPropertyType());
+          currentValue = destBeanCreator.create(descriptor.getPropertyType());
           descriptor.setPropertyValue(intermediateResult, currentValue, fieldMap);          
         }
         intermediateResult = currentValue;

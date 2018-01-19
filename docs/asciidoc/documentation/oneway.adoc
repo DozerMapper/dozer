@@ -1,0 +1,51 @@
+== One-Way Mapping
+You can set how a mapping definition behaves as far as direction goes.
+If you only want to map two classes to go one-way you can set this at
+the mapping level. The default is bi-directional. This can be set at the
+mapping level OR the field level. When one-way is specified, "a" is
+always the src object and "b" is always the destination object.
+
+[source,xml,prettyprint]
+----
+<mapping type="one-way">
+    <class-a>org.dozer.vo.TestObjectFoo</class-a>
+    <class-b>org.dozer.vo.TestObjectFooPrime</class-b>
+    <field>
+        <a>oneFoo</a>
+        <b>oneFooPrime</b>
+    </field>
+</mapping>
+----
+
+In the following example the one-way fields are only mapped when "a"
+object is mapped to "b" object. If "b" is mapped to "a", then the field
+is not mapped.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.TestObjectFoo2</class-a>
+    <class-b>org.dozer.vo.TestObjectFooPrime2</class-b>
+    <field type="one-way">
+        <a>oneFoo2</a>
+        <b>oneFooPrime2</b>
+    </field>
+    <field type="one-way">
+        <a>oneFoo3.prime</a>
+        <b>oneFooPrime3</b>
+    </field>
+</mapping>
+----
+
+=== Excluding Fields One-Way
+Dozer supports field excludes going one-way as shown in the example. In
+the example the field is only excluded when "a" is mapped to "b". If "b"
+is mapped to "a", then the field is not excluded.
+
+[source,xml,prettyprint]
+----
+<field-exclude type="one-way">
+    <a>fieldToExclude</a>
+    <b>fieldToExclude</b>
+</field-exclude>
+----

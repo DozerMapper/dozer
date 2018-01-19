@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +15,15 @@
  */
 package org.dozer.propertydescriptor;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+
 import org.apache.commons.beanutils.PropertyUtils;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
-
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 
 /**
  * 
@@ -37,8 +39,9 @@ public class JavaBeanPropertyDescriptor extends GetterSetterPropertyDescriptor {
   private boolean propertyDescriptorsRefreshed;
 
   public JavaBeanPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index,
-      HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer) {
-    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
+                                    HintContainer srcDeepIndexHintContainer, HintContainer destDeepIndexHintContainer,
+                                    BeanContainer beanContainer, DestBeanCreator destBeanCreator) {
+    super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer, beanContainer, destBeanCreator);
   }
 
   @Override

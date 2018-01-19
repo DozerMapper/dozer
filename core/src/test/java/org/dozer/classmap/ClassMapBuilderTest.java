@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,17 @@
  */
 package org.dozer.classmap;
 
+import java.util.List;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.generator.BeanMappingGenerator;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * @author Dmitry Buzdin
@@ -36,9 +39,12 @@ public class ClassMapBuilderTest extends AbstractDozerTest {
 
   @Before
   public void setUp() throws Exception {
-    collectionMappingGenerator = new ClassMapBuilder.CollectionMappingGenerator();
-    mapMappingGenerator = new ClassMapBuilder.MapMappingGenerator();
-    beanMappingGenerator = new BeanMappingGenerator();
+    BeanContainer beanContainer = new BeanContainer();
+    DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+    PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
+    collectionMappingGenerator = new ClassMapBuilder.CollectionMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    mapMappingGenerator = new ClassMapBuilder.MapMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
+    beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
 
     configuration = new Configuration();
   }

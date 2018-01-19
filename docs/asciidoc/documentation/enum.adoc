@@ -1,0 +1,51 @@
+== Enum Mapping
+To map an enums value to another enum is shown below.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>status</a>
+    <b>statusPrime</b>
+</field>
+----
+
+Based on the following code:
+
+[source,java,prettyprint]
+----
+enum Status {
+    PROCESSING, SUCCESS, ERROR
+}
+
+public class UserGroup {
+
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+}
+
+enum StatusPrime {
+    PROCESSING, SUCCESS, ERROR
+}
+
+public class UserGroupPrime {
+
+    private StatusPrime statusPrime;
+
+    public StatusPrime getStatusPrime() {
+        return statusPrime;
+    }
+
+    public void setStatusPrime(StatusPrime statusPrime) {
+        this.statusPrime = statusPrime;
+    }
+
+}
+----

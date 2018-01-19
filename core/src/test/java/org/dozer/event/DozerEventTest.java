@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +15,13 @@
  */
 package org.dozer.event;
 
-import static org.mockito.Mockito.mock;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMap;
 import org.dozer.fieldmap.FieldMap;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * @author dmitry.buzdin

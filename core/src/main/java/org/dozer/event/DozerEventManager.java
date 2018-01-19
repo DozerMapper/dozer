@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,10 @@
  */
 package org.dozer.event;
 
+import java.util.List;
+
 import org.dozer.DozerEventListener;
 import org.dozer.util.MappingUtils;
-
-import java.util.List;
 
 
 /**

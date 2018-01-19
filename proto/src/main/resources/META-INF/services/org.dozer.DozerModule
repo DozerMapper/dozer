@@ -1,1 +1,1 @@
-org.dozer.ProtobufSupportModule
+com.github.dozermapper.protobuf.ProtobufSupportModule

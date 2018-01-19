@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,28 +15,27 @@
  */
 package org.dozer.functional_tests.runner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.runner.Runner;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Dmitry Buzdin
  */
 public class Proxied extends Suite {
 
-  public Proxied(Class<?> klass) throws InitializationError {
-    super(klass, combinations(klass));
-  }
+    public Proxied(Class<?> klass) throws InitializationError {
+        super(klass, combinations(klass));
+    }
 
-  private static List<Runner> combinations(Class<?> klass) throws InitializationError {
-    ArrayList<Runner> runners = new ArrayList<Runner>();
-    runners.add(new ProxyRunner(klass, NoProxyDataObjectInstantiator.INSTANCE));
-    runners.add(new ProxyRunner(klass, ProxyDataObjectInstantiator.INSTANCE));
-    //runners.add(new ProxyRunner(klass, JavassistDataObjectInstantiator.INSTANCE));
-    return runners;
-  }
-
+    private static List<Runner> combinations(Class<?> klass) throws InitializationError {
+        ArrayList<Runner> runners = new ArrayList<Runner>();
+        runners.add(new ProxyRunner(klass, NoProxyDataObjectInstantiator.INSTANCE));
+        runners.add(new ProxyRunner(klass, ProxyDataObjectInstantiator.INSTANCE));
+        //runners.add(new ProxyRunner(klass, JavassistDataObjectInstantiator.INSTANCE));
+        return runners;
+    }
 }

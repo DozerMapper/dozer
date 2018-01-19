@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,16 +19,16 @@ import org.dozer.MappingException;
 
 /**
  * Only intended for internal use.
- * 
+ *
  * @author tierney.matt
  */
 public class ConversionException extends MappingException {
 
-  public ConversionException(String string, Throwable throwable) {
-    super(string, throwable);
-  }
+    public ConversionException(String string, Throwable throwable) {
+        super(string, throwable);
+    }
 
-  public ConversionException(Throwable throwable) {
-    super(throwable);
-  }
+    public ConversionException(Throwable throwable) {
+        super(throwable);
+    }
 }

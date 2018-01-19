@@ -16,29 +16,24 @@
     limitations under the License.
 
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-  "http://www.springframework.org/dtd/spring-beans.dtd">
-
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-lazy-init="false">
 
-  <bean id="mapperWithBeanFactory" class="org.dozer.DozerBeanMapper"
-    singleton="true">
-    <property name="mappingFiles">
-      <list>
-        <value>mappingSpring.xml</value>
-      </list>
-    </property>
-    <property name="factories">
-      <map>
-        <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
-        <entry key="org.dozer.spring.functional_tests.support.SampleCustomBeanFactory"
-               value-ref="customBeanFactory"/>
-        <!-- more factories can be supplied with additional entry's -->
-      </map>
-    </property>
-  </bean>
+    <bean id="mapperWithBeanFactory" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
+        <property name="mappingFiles">
+            <list>
+                <value>mappings/mappingSpring.xml</value>
+            </list>
+        </property>
+        <property name="factories">
+            <map>
+                <!-- the key matches the name of the factory in the dozerBeanMapping.xml file -->
+                <entry key="com.github.dozermapper.spring.functional_tests.support.SampleCustomBeanFactory" value-ref="customBeanFactory"/>
+                <!-- more factories can be supplied with additional entry's -->
+            </map>
+        </property>
+    </bean>
 
-  <bean id="customBeanFactory" class="org.dozer.spring.functional_tests.support.SampleCustomBeanFactory"
-    singleton="true" />
+    <bean id="customBeanFactory" class="com.github.dozermapper.spring.functional_tests.support.SampleCustomBeanFactory" scope="singleton"/>
 
 </beans>

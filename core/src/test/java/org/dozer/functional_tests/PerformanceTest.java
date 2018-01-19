@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,13 +45,14 @@ public class PerformanceTest extends AbstractFunctionalTest {
   private static Logger log = LoggerFactory.getLogger(PerformanceTest.class);
   private static Mapper mapper;
 
-  private int numIters = 1; // Set this attribute to 25000 to run performance regression
+  private int numItersProperty = Integer.parseInt(System.getProperty("numIters", "0"));
+  private int numIters = numItersProperty <= 0 ? 1 : numItersProperty; // Set this attribute to 25000 to run performance regression
 
   @Override
   @Before
   public void setUp() throws Exception {
     if (mapper == null) {
-      mapper = getMapper("dozerBeanMapping.xml");
+      mapper = getMapper("testDozerBeanMapping.xml");
     }
   }
 
@@ -221,7 +222,7 @@ public class PerformanceTest extends AbstractFunctionalTest {
     }
     timer.stop();
     log.info("Total time for additional " + numIters + " mappings: " + timer.getTime() + " milliseconds");
-    log.info("avg time for " + numIters + " mappings: " + (timer.getTime() / numIters) + " milliseconds");
+    log.info("avg time for " + numIters + " mappings: " + ((double)timer.getTime() / (double)numIters) + " milliseconds");
   }
 
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,12 @@
  */
 package org.dozer;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+
 import org.apache.commons.beanutils.PropertyUtils;
-import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.generics.deepindex.TestObjectPrime;
 import org.junit.After;
@@ -24,15 +28,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * @author Dmitry Buzdin
@@ -46,7 +45,8 @@ public class DozerBeanMapperTest extends Assert {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper();
+    // todo the test should be redesigned once DozerBeanMapper is immutable #434
+    mapper = (DozerBeanMapper) DozerBeanMapperBuilder.buildDefault();
     exceptions = new ArrayList<Throwable>();
     Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
       public void uncaughtException(Thread t, Throwable e) {
@@ -63,33 +63,11 @@ public class DozerBeanMapperTest extends Assert {
   }
 
   @Test
-  public void shouldInitializeOnce() throws Exception {
-    final CallTrackingMapper mapper = new CallTrackingMapper();
-    ExecutorService executorService = Executors.newFixedThreadPool(10);
-
-    final CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
-
-    HashSet<Callable<Object>> callables = new HashSet<Callable<Object>>();
-
-    for (int i = 0; i < THREAD_COUNT; i++) {
-      callables.add(new Callable<Object>() {
-        public Object call() throws Exception {
-          latch.countDown();
-          latch.await();
-          Mapper processor = mapper.getMappingProcessor();
-          assertNotNull(processor);
-          return null;
-        }
-      });
-    }
-    executorService.invokeAll(callables);
-    assertEquals(1, mapper.getCalls());
-    assertTrue(exceptions.isEmpty());
-  }
-
-  @Test
   public void shouldBeThreadSafe() throws Exception {
-    mapper.setMappingFiles(Arrays.asList("dozerBeanMapping.xml"));
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("testDozerBeanMapping.xml")
+            .build();
+
     final CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
 
     for (int i = 0; i < THREAD_COUNT; i++) {
@@ -97,8 +75,7 @@ public class DozerBeanMapperTest extends Assert {
         public void run() {
           try {
             mapper.map(new TestObject(), TestObjectPrime.class);
-          }
-          finally {
+          } finally {
             latch.countDown();
           }
         }
@@ -107,64 +84,6 @@ public class DozerBeanMapperTest extends Assert {
     }
     latch.await();
     assertTrue(exceptions.isEmpty());
-  }
-
-  class CallTrackingMapper extends DozerBeanMapper {
-    AtomicInteger calls = new AtomicInteger(0);
-
-    @Override
-    void loadCustomMappings() {
-      calls.incrementAndGet();
-    }
-
-    public int getCalls() {
-      return calls.get();
-    }
-  }
-
-  @Test
-  public void shouldNotBeConfigurableAfterInit() {
-    mapper.map("Hello", String.class);
-    try {
-      mapper.setCustomConverters(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setCustomConvertersWithId(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setCustomFieldMapper(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setEventListeners(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setFactories(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.setMappingFiles(null);
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.addMapping(mock(InputStream.class));
-      fail();
-    } catch (MappingException e) {
-    }
-    try {
-      mapper.addMapping(mock(BeanMappingBuilder.class));
-      fail();
-    } catch (MappingException e) {
-    }
   }
 
   @Test
@@ -194,11 +113,15 @@ public class DozerBeanMapperTest extends Assert {
   @Test
   public void shouldSetEventListeners() {
     DozerEventListener listener = mock(DozerEventListener.class);
-    mapper.setEventListeners(Arrays.asList(listener));
 
-    List<? extends DozerEventListener> listeners = mapper.getEventListeners();
+    Mapper beanMapper = DozerBeanMapperBuilder.create()
+            .withEventListener(listener)
+            .build();
+    beanMapper.map(new Object(), new Object());
 
-    assertEquals(1, listeners.size());
+    verify(listener).mappingStarted(any());
+    verify(listener).mappingFinished(any());
+    verifyNoMoreInteractions(listener);
   }
 
 }

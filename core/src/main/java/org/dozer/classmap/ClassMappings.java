@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,16 @@
  */
 package org.dozer.classmap;
 
-import org.apache.commons.lang3.StringUtils;
-import org.dozer.util.MappingUtils;
-
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import org.apache.commons.lang3.StringUtils;
+import org.dozer.config.BeanContainer;
+import org.dozer.util.MappingUtils;
 
 /**
  * Internal class that determines the appropriate class mapping to be used for
@@ -35,11 +37,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ClassMappings {
 
   // Cache key --> Mapping Structure
-  private Map<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
+  private ConcurrentMap<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
   private ClassMapKeyFactory keyFactory;
+  private final BeanContainer beanContainer;
 
-  public ClassMappings() {
-    keyFactory = new ClassMapKeyFactory();
+  public ClassMappings(BeanContainer beanContainer) {
+    this.beanContainer = beanContainer;
+    keyFactory = new ClassMapKeyFactory(beanContainer);
   }
 
   // Default mappings. May be ovewritten due to multiple threads generating same mapping
@@ -95,6 +99,12 @@ public class ClassMappings {
 
     if (mapping == null) {
       mapping = findInterfaceMapping(destClass, srcClass, mapId);
+      if (mapping != null) {
+        ClassMap previous = classMappings.putIfAbsent(keyFactory.createKey(srcClass, destClass, mapId), mapping);
+        if (previous != null) {
+          mapping = previous;
+        }
+      }
     }
 
     // one more try...
@@ -145,7 +155,7 @@ public class ClassMappings {
       // Destination could be an abstract type. Picking up the best concrete type to use.
       if ((destClass.isAssignableFrom(mappingDestClass) && isAbstract(destClass)) ||
               (isInterfaceImplementation(destClass, mappingDestClass))) {
-        if (MappingUtils.getRealClass(srcClass).equals(mappingSrcClass)) {
+        if (MappingUtils.getRealClass(srcClass, beanContainer).equals(mappingSrcClass)) {
           return map;
         }
       }

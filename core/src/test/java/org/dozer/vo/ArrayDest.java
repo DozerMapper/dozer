@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ public class ArrayDest {
 
   private List<String> destList = new ArrayList<String>(100);
 
-  private String[] array = null;
+  private String[] array;
   
   private int[] primitiveIntArray ;
 

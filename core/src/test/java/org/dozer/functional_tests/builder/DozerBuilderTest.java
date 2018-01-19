@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,31 +15,36 @@
  */
 package org.dozer.functional_tests.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.api.BeanMappingBuilder;
 import org.dozer.loader.api.FieldsMappingOptions;
 import org.dozer.loader.api.TypeMappingOptions;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.dozer.loader.api.FieldsMappingOptions.*;
-import static org.dozer.loader.api.TypeMappingOptions.*;
+import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
+import static org.dozer.loader.api.FieldsMappingOptions.customConverter;
+import static org.dozer.loader.api.FieldsMappingOptions.customConverterId;
+import static org.dozer.loader.api.FieldsMappingOptions.deepHintA;
+import static org.dozer.loader.api.FieldsMappingOptions.deepHintB;
+import static org.dozer.loader.api.FieldsMappingOptions.hintA;
+import static org.dozer.loader.api.FieldsMappingOptions.hintB;
+import static org.dozer.loader.api.FieldsMappingOptions.removeOrphans;
+import static org.dozer.loader.api.FieldsMappingOptions.useMapId;
+import static org.dozer.loader.api.TypeMappingOptions.mapEmptyString;
+import static org.dozer.loader.api.TypeMappingOptions.mapId;
+import static org.dozer.loader.api.TypeMappingOptions.mapNull;
+import static org.dozer.loader.api.TypeMappingOptions.stopOnErrors;
+import static org.dozer.loader.api.TypeMappingOptions.trimStrings;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class DozerBuilderTest {
-
-  private DozerBeanMapper mapper;
-
-  @Before
-  public void setUp() {
-    mapper = new DozerBeanMapper();
-  }
 
   @Test
   public void testApi() {
@@ -88,8 +93,10 @@ public class DozerBuilderTest {
       }
     };
 
-    mapper.addMapping(builder);
-         
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(builder)
+            .build();
+
     mapper.map(1, String.class);
   }
 
@@ -107,7 +114,9 @@ public class DozerBuilderTest {
       }
     };
 
-    mapper.addMapping(builder);
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(builder)
+            .build();
 
     IterateBean bean = new IterateBean();
     bean.getIntegers().add(new Integer("1"));
@@ -149,8 +158,8 @@ public class DozerBuilderTest {
 
   public static class IterateBean {
 
-    List<Integer> integers = new ArrayList<Integer>();
-    List<String> strings = new ArrayList<String>();
+    List<Integer> integers = new ArrayList<>();
+    List<String> strings = new ArrayList<>();
 
     public List<Integer> getIntegers() {
       return integers;

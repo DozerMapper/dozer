@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,9 @@
 package org.dozer.fieldmap;
 
 import org.dozer.classmap.ClassMap;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 /**
  * Only intended for internal use.
@@ -26,7 +29,7 @@ import org.dozer.classmap.ClassMap;
  * 
  */
 public class GenericFieldMap extends FieldMap {
-  public GenericFieldMap(ClassMap classMap) {
-    super(classMap);
+  public GenericFieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+    super(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
   }
 }

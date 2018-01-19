@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,21 +15,20 @@
  */
 package org.dozer.functional_tests;
 
-import static junit.framework.Assert.assertTrue;
-import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
-import org.dozer.DozerConverter;
-import org.dozer.Mapper;
-import org.dozer.MapperAware;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.DozerConverter;
+import org.dozer.Mapper;
+import org.dozer.MapperAware;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin
@@ -39,12 +38,12 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("customConverterMapperAware.xml");
+    mapper = getMapper("mappings/customConverterMapperAware.xml");
   }
 
   @Test
   public void test_convert_withInjectedMapper() {
-    List<BeanA> list = new ArrayList<BeanA>();
+    List<BeanA> list = new ArrayList<>();
     BeanA b1 = new BeanA("1");
     BeanA b2 = new BeanA("2");
     BeanA b3 = new BeanA("3");
@@ -67,15 +66,17 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
 
   @Test
   public void test_convert_withSubclassedConverterInstance() throws Exception {
-    DozerBeanMapper mapper = new DozerBeanMapper(Arrays.asList("customConverterMapperAware.xml"));
-    mapper.setCustomConverters(Arrays.<CustomConverter>asList(new Converter() {
-      @Override
-      public Map convertTo(List source, Map destination) {
-        return new HashMap() {{
-          put("foo", "bar");
-        }};
-      }
-    }));
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/customConverterMapperAware.xml")
+            .withCustomConverter(new Converter() {
+              @Override
+              public Map convertTo(List source, Map destination) {
+                return new HashMap() {{
+                  put("foo", "bar");
+                }};
+              }
+            })
+            .build();
     HashMap result = mapper.map(new ArrayList<String>(), HashMap.class);
     assertEquals("bar", result.get("foo"));
   }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,94 +27,94 @@ import org.dozer.fieldmap.FieldMap;
  * @author Florian Kunz
  */
 public final class DozerClassMappingMetadata implements ClassMappingMetadata {
-	
-	private final ClassMap classMap;
-	
-	public DozerClassMappingMetadata(ClassMap classMap) {
-		this.classMap = classMap;
-	}
-	
-	public String getSourceClassName() {
-		return classMap.getSrcClassName();
-	}
+    
+    private final ClassMap classMap;
+    
+    public DozerClassMappingMetadata(ClassMap classMap) {
+        this.classMap = classMap;
+    }
+    
+    public String getSourceClassName() {
+        return classMap.getSrcClassName();
+    }
 
-	public String getDestinationClassName() {
-		return classMap.getDestClassName();
-	}
+    public String getDestinationClassName() {
+        return classMap.getDestClassName();
+    }
 
-	public Class<?> getSourceClass() {
-		return classMap.getSrcClassToMap();
-	}
+    public Class<?> getSourceClass() {
+        return classMap.getSrcClassToMap();
+    }
 
-	public Class<?> getDestinationClass() {
-		return classMap.getDestClassToMap();
-	}
+    public Class<?> getDestinationClass() {
+        return classMap.getDestClassToMap();
+    }
 
-	public boolean isStopOnErrors() {
-		return classMap.isStopOnErrors();
-	}
+    public boolean isStopOnErrors() {
+        return classMap.isStopOnErrors();
+    }
 
-	public boolean isTrimStrings() {
-		return classMap.isTrimStrings();
-	}
+    public boolean isTrimStrings() {
+        return classMap.isTrimStrings();
+    }
 
-	public boolean isWildcard() {
-		return classMap.isWildcard();
-	}
+    public boolean isWildcard() {
+        return classMap.isWildcard();
+    }
 
-	public boolean isSourceMapNull() {
-		return classMap.isSrcMapNull();
-	}
+    public boolean isSourceMapNull() {
+        return classMap.isSrcMapNull();
+    }
 
-	public boolean isDestinationMapNull() {
-		return classMap.isDestMapNull();
-	}
+    public boolean isDestinationMapNull() {
+        return classMap.isDestMapNull();
+    }
 
-	public boolean isSourceMapEmptyString() {
-		return classMap.isSrcMapEmptyString();
-	}
+    public boolean isSourceMapEmptyString() {
+        return classMap.isSrcMapEmptyString();
+    }
 
-	public boolean isDestinationMapEmptyString() {
-		return classMap.isDestMapEmptyString();
-	}
+    public boolean isDestinationMapEmptyString() {
+        return classMap.isDestMapEmptyString();
+    }
 
-	public String getDateFormat() {
-		return classMap.getDateFormat();
-	}
+    public String getDateFormat() {
+        return classMap.getDateFormat();
+    }
 
-	public MappingDirection getMappingDirection() {
-		return classMap.getType();
-	}
+    public MappingDirection getMappingDirection() {
+        return classMap.getType();
+    }
 
-	public String getMapId() {
-		return classMap.getMapId();
-	}
+    public String getMapId() {
+        return classMap.getMapId();
+    }
 
-	public List<FieldMappingMetadata> getFieldMappings() {
-		List<FieldMappingMetadata> fieldMapCats = new ArrayList<FieldMappingMetadata>();
-		for(FieldMap fieldMap : classMap.getFieldMaps()) {
-			fieldMapCats.add(new DozerFieldMappingMetadata(fieldMap));
-		}
-		
-		return fieldMapCats;
-	}
+    public List<FieldMappingMetadata> getFieldMappings() {
+        List<FieldMappingMetadata> fieldMapCats = new ArrayList<FieldMappingMetadata>();
+        for(FieldMap fieldMap : classMap.getFieldMaps()) {
+            fieldMapCats.add(new DozerFieldMappingMetadata(fieldMap));
+        }
+        
+        return fieldMapCats;
+    }
 
-	public FieldMappingMetadata getFieldMappingBySource(String sourceFieldName) {
-		FieldMap fieldMap = classMap.getFieldMapUsingSrc(sourceFieldName);
-		if (fieldMap == null) {
-			throw new MetadataLookupException("Field mapping " + sourceFieldName + " not found for class " + classMap.getSrcClassName());
-		}
-		
-		return new DozerFieldMappingMetadata(fieldMap);
-	}
+    public FieldMappingMetadata getFieldMappingBySource(String sourceFieldName) {
+        FieldMap fieldMap = classMap.getFieldMapUsingSrc(sourceFieldName);
+        if (fieldMap == null) {
+            throw new MetadataLookupException("Field mapping " + sourceFieldName + " not found for class " + classMap.getSrcClassName());
+        }
+        
+        return new DozerFieldMappingMetadata(fieldMap);
+    }
 
-	public FieldMappingMetadata getFieldMappingByDestination(String destinationFieldName) {
-		FieldMap fieldMap = classMap.getFieldMapUsingDest(destinationFieldName);
-		if (fieldMap == null) {
-			throw new MetadataLookupException("Field mapping " + destinationFieldName + " not found for class " + classMap.getDestClassName());
-		}
-		
-		return new DozerFieldMappingMetadata(fieldMap);
-	}
+    public FieldMappingMetadata getFieldMappingByDestination(String destinationFieldName) {
+        FieldMap fieldMap = classMap.getFieldMapUsingDest(destinationFieldName);
+        if (fieldMap == null) {
+            throw new MetadataLookupException("Field mapping " + destinationFieldName + " not found for class " + classMap.getDestClassName());
+        }
+        
+        return new DozerFieldMappingMetadata(fieldMap);
+    }
 
 }

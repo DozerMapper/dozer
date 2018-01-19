@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,15 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.copybyreference.Reference;
 import org.dozer.vo.copybyreference.TestA;
 import org.dozer.vo.copybyreference.TestB;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
+import static org.junit.Assert.assertEquals;
 
 public class SubclassReferenceTest extends AbstractFunctionalTest {
   private Mapper mapper;
@@ -33,7 +32,9 @@ public class SubclassReferenceTest extends AbstractFunctionalTest {
 
   @Before
   public void setUp() {
-    mapper = new DozerBeanMapper(Arrays.asList(new String[] { getMappingFile() }));
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles(getMappingFile())
+            .build();
     testA = newInstance(TestA.class);
     testA.setOne("one");
     testA.setOneA("oneA");
@@ -41,7 +42,7 @@ public class SubclassReferenceTest extends AbstractFunctionalTest {
   }
 
   protected String getMappingFile() {
-    return "reference-mapping.xml";
+    return "mappings/reference-mapping.xml";
   }
 
   @Test

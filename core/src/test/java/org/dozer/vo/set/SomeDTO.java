@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,23 +19,23 @@ import org.dozer.vo.BaseTestObject;
 
 public class SomeDTO extends BaseTestObject {
 
-  private Integer field1;
+    private Integer field1;
 
-  private SomeOtherDTO[] field2;
+    private SomeOtherDTO[] field2;
 
-  public Integer getField1() {
-    return field1;
-  }
+    public Integer getField1() {
+        return field1;
+    }
 
-  public void setField1(Integer field1) {
-    this.field1 = field1;
-  }
+    public void setField1(Integer field1) {
+        this.field1 = field1;
+    }
 
-  public SomeOtherDTO[] getField2() {
-    return field2;
-  }
+    public SomeOtherDTO[] getField2() {
+        return field2;
+    }
 
-  public void setField2(SomeOtherDTO[] field2) {
-    this.field2 = field2;
-  }
+    public void setField2(SomeOtherDTO[] field2) {
+        this.field2 = field2;
+    }
 }

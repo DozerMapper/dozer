@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,7 @@ import org.apache.commons.beanutils.converters.ClassConverter;
 import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.lang3.ClassUtils;
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 
 /**
@@ -46,76 +47,82 @@ import org.dozer.util.MappingUtils;
  */
 public class PrimitiveOrWrapperConverter {
 
-	private static final Map<Class, Converter> CONVERTER_MAP = new HashMap<Class, Converter>();
+    private static final Map<Class, Converter> CONVERTER_MAP = new HashMap<Class, Converter>();
 
-	static {
-		CONVERTER_MAP.put(Integer.class, new IntegerConverter());
-		CONVERTER_MAP.put(Double.class, new DoubleConverter());
-		CONVERTER_MAP.put(Short.class, new ShortConverter());
-		CONVERTER_MAP.put(Character.class, new CharacterConverter());
-		CONVERTER_MAP.put(Long.class, new LongConverter());
-		CONVERTER_MAP.put(Boolean.class, new BooleanConverter());
-		CONVERTER_MAP.put(Byte.class, new ByteConverter());
-		CONVERTER_MAP.put(Float.class, new FloatConverter());
-		CONVERTER_MAP.put(BigDecimal.class, new BigDecimalConverter());
-		CONVERTER_MAP.put(BigInteger.class, new BigIntegerConverter());
-		CONVERTER_MAP.put(Class.class, new ClassConverter());
-	}
+    static {
+        CONVERTER_MAP.put(Integer.class, new IntegerConverter());
+        CONVERTER_MAP.put(Double.class, new DoubleConverter());
+        CONVERTER_MAP.put(Short.class, new ShortConverter());
+        CONVERTER_MAP.put(Character.class, new CharacterConverter());
+        CONVERTER_MAP.put(Long.class, new LongConverter());
+        CONVERTER_MAP.put(Boolean.class, new BooleanConverter());
+        CONVERTER_MAP.put(Byte.class, new ByteConverter());
+        CONVERTER_MAP.put(Float.class, new FloatConverter());
+        CONVERTER_MAP.put(BigDecimal.class, new BigDecimalConverter());
+        CONVERTER_MAP.put(BigInteger.class, new BigIntegerConverter());
+        CONVERTER_MAP.put(Class.class, new ClassConverter());
+    }
 
-	public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
-		 return convert(srcFieldValue, destFieldClass, dateFormatContainer, null, null);
-	}
+    private final BeanContainer beanContainer;
 
-	public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer, String destFieldName, Object destObj) {
-		if (srcFieldValue == null || destFieldClass == null || (srcFieldValue.equals("") && !destFieldClass.equals(String.class))) {
-			return null;
-		}
-		Converter converter = getPrimitiveOrWrapperConverter(destFieldClass, dateFormatContainer, destFieldName,  destObj);
-		try {
-			return converter.convert(destFieldClass, unwrapSrcFieldValue(srcFieldValue));
-		} catch (org.apache.commons.beanutils.ConversionException e) {
-			throw new org.dozer.converters.ConversionException(e);
-		}
-	}
+    public PrimitiveOrWrapperConverter(BeanContainer beanContainer) {
+        this.beanContainer = beanContainer;
+    }
 
-	private Object unwrapSrcFieldValue(Object srcFieldValue) {
-		if(JAXBElement.class.isAssignableFrom(srcFieldValue.getClass())){
-			return JAXBElement.class.cast(srcFieldValue).getValue();
-		}
-		return srcFieldValue;
-	}
+    public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer) {
+         return convert(srcFieldValue, destFieldClass, dateFormatContainer, null, null);
+    }
 
-	private Converter getPrimitiveOrWrapperConverter(Class destClass, DateFormatContainer dateFormatContainer, String destFieldName, Object destObj) {
-		if (String.class.equals(destClass)) {
-			return new StringConverter(dateFormatContainer);
-		}
+    public Object convert(Object srcFieldValue, Class destFieldClass, DateFormatContainer dateFormatContainer, String destFieldName, Object destObj) {
+        if (srcFieldValue == null || destFieldClass == null || (srcFieldValue.equals("") && !destFieldClass.equals(String.class))) {
+            return null;
+        }
+        Converter converter = getPrimitiveOrWrapperConverter(destFieldClass, dateFormatContainer, destFieldName,  destObj);
+        try {
+            return converter.convert(destFieldClass, unwrapSrcFieldValue(srcFieldValue));
+        } catch (org.apache.commons.beanutils.ConversionException e) {
+            throw new org.dozer.converters.ConversionException(e);
+        }
+    }
 
-		Converter result = CONVERTER_MAP.get(ClassUtils.primitiveToWrapper(destClass));
+    private Object unwrapSrcFieldValue(Object srcFieldValue) {
+        if(JAXBElement.class.isAssignableFrom(srcFieldValue.getClass())){
+            return JAXBElement.class.cast(srcFieldValue).getValue();
+        }
+        return srcFieldValue;
+    }
 
-		if (result == null) {
-			if (java.util.Date.class.isAssignableFrom(destClass)) {
-				result = new DateConverter(dateFormatContainer.getDateFormat());
-			} else if (Calendar.class.isAssignableFrom(destClass)) {
-				result = new CalendarConverter(dateFormatContainer.getDateFormat());
-			} else if (XMLGregorianCalendar.class.isAssignableFrom(destClass)) {
-				result = new XMLGregorianCalendarConverter(dateFormatContainer.getDateFormat());
-			} else if (MappingUtils.isEnumType(destClass)) {
-				result = new EnumConverter();
-			} else if (JAXBElement.class.isAssignableFrom(destClass) && destFieldName != null) {
-				result = new JAXBElementConverter(destObj.getClass().getCanonicalName(), destFieldName, dateFormatContainer.getDateFormat());
-			}
-		}
-		return result == null ? new StringConstructorConverter(dateFormatContainer) : result;
-	}
+    private Converter getPrimitiveOrWrapperConverter(Class destClass, DateFormatContainer dateFormatContainer, String destFieldName, Object destObj) {
+        if (String.class.equals(destClass)) {
+            return new StringConverter(dateFormatContainer);
+        }
 
-	public boolean accepts(Class<?> aClass) {
-		return aClass.isPrimitive()
-				       || Number.class.isAssignableFrom(aClass)
-				       || String.class.equals(aClass)
-				       || Character.class.equals(aClass)
-				       || Boolean.class.equals(aClass)
-				       || java.util.Date.class.isAssignableFrom(aClass)
-				       || java.util.Calendar.class.isAssignableFrom(aClass);
-	}
+        Converter result = CONVERTER_MAP.get(ClassUtils.primitiveToWrapper(destClass));
+
+        if (result == null) {
+            if (java.util.Date.class.isAssignableFrom(destClass)) {
+                result = new DateConverter(dateFormatContainer.getDateFormat());
+            } else if (Calendar.class.isAssignableFrom(destClass)) {
+                result = new CalendarConverter(dateFormatContainer.getDateFormat());
+            } else if (XMLGregorianCalendar.class.isAssignableFrom(destClass)) {
+                result = new XMLGregorianCalendarConverter(dateFormatContainer.getDateFormat());
+            } else if (MappingUtils.isEnumType(destClass)) {
+                result = new EnumConverter();
+            } else if (JAXBElement.class.isAssignableFrom(destClass) && destFieldName != null) {
+                result = new JAXBElementConverter(destObj.getClass().getCanonicalName(), destFieldName, dateFormatContainer.getDateFormat(), beanContainer);
+            }
+        }
+        return result == null ? new StringConstructorConverter(dateFormatContainer) : result;
+    }
+
+    public boolean accepts(Class<?> aClass) {
+        return aClass.isPrimitive()
+                       || Number.class.isAssignableFrom(aClass)
+                       || String.class.equals(aClass)
+                       || Character.class.equals(aClass)
+                       || Boolean.class.equals(aClass)
+                       || java.util.Date.class.isAssignableFrom(aClass)
+                       || java.util.Calendar.class.isAssignableFrom(aClass);
+    }
 
 }

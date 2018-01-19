@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,10 @@
  */
 package org.dozer;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Date;
+
+import org.junit.Test;
 
 public class MappingProcessorArrayTest extends AbstractDozerTest {
 
@@ -73,7 +73,7 @@ public class MappingProcessorArrayTest extends AbstractDozerTest {
       data[i] = i;
     }
     test.setData(data);
-    DozerBeanMapper dozer = new DozerBeanMapper();
+    Mapper dozer = DozerBeanMapperBuilder.buildDefault();
     PrimitiveArray result = dozer.map(test, PrimitiveArray.class);
 
     long start = System.currentTimeMillis();
@@ -93,7 +93,9 @@ public class MappingProcessorArrayTest extends AbstractDozerTest {
       data[i] = new MyDate(i);
     }
     test.setData(data);
-    DozerBeanMapper dozer = new DozerBeanMapper(Arrays.asList("mappingProcessorArrayTest.xml"));
+    Mapper dozer = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/mappingProcessorArrayTest.xml")
+            .build();
     FinalCopyByReferenceDest result = dozer.map(test, FinalCopyByReferenceDest.class);
 
     long start = System.currentTimeMillis();

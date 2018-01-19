@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,11 @@
  */
 package org.dozer.util;
 
-import org.dozer.config.BeanContainer;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+
+import org.dozer.config.BeanContainer;
 
 /**
  * Internal class used to perform various validations. Validates mapping requests, field mappings, URL's, etc. Only
@@ -52,15 +52,19 @@ public final class MappingValidator {
     }
   }
 
-  public static URL validateURL(String fileName) {
-    DozerClassLoader classLoader = BeanContainer.getInstance().getClassLoader();
+  public static URL validateURL(String fileName, BeanContainer beanContainer) {
+    DozerClassLoader classLoader = beanContainer.getClassLoader();
     if (fileName == null) {
       MappingUtils.throwMappingException("File name is null");
     }
     
     URL url = classLoader.loadResource(fileName);
     if (url == null) {
-      MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!");
+      DozerClassLoader tccl = beanContainer.getTCCL();
+      url = tccl.loadResource(fileName);
+      if (url == null) {
+        MappingUtils.throwMappingException("Unable to locate dozer mapping file [" + fileName + "] in the classpath!");
+      }
     }
 
     InputStream stream = null;

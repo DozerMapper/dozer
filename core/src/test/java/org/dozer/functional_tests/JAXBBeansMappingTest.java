@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,22 +15,22 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.util.MappingUtils;
-import org.dozer.vo.TestObject;
-import org.dozer.vo.jaxb.employee.EmployeeType;
-import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+
+import org.dozer.config.BeanContainer;
+import org.dozer.util.MappingUtils;
+import org.dozer.vo.TestObject;
+import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -42,12 +42,12 @@ public class JAXBBeansMappingTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("jaxbBeansMapping.xml");
+    mapper = getMapper("mappings/jaxbBeansMapping.xml");
   }
 
   @Test
   public void testTrivial() {
-    Class<?> type = MappingUtils.loadClass("org.dozer.vo.jaxb.employee.EmployeeType");
+    Class<?> type = MappingUtils.loadClass("org.dozer.vo.jaxb.employee.EmployeeType", new BeanContainer());
     assertNotNull(type);
   }
 
@@ -87,25 +87,6 @@ public class JAXBBeansMappingTest extends AbstractFunctionalTest {
       TestObject result = mapper.map(source, TestObject.class);
       assertNotNull(result);
       assertEquals(cal.getTimeInMillis(), result.getDate().getTime());
-  }
-
-  @Test
-  public void testJAXBListWithNoSetter() {
-    ListContainer source = new ListContainer();
-    source.getList().add(1);
-    source.getList().add(2);
-
-    source.getSubordinates().add(new StringContainer("John"));
-
-    EmployeeType result = mapper.map(source, EmployeeType.class);
-
-    assertNotNull(result);
-    assertEquals(2, result.getIds().size());
-    assertTrue(result.getIds().contains(1));
-    assertTrue(result.getIds().contains(2));
-    
-    assertEquals(1, result.getSubordinates().size());
-    assertEquals("John", result.getSubordinates().get(0).getFirstName());
   }
 
   public static class ListContainer {

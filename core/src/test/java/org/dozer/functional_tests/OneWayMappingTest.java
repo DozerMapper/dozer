@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,9 +19,10 @@ import org.dozer.Mapper;
 import org.dozer.vo.oneway.DestClass;
 import org.dozer.vo.oneway.Holder;
 import org.dozer.vo.oneway.SourceClass;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 /**
  * @author Dmitry Buzdin
@@ -30,7 +31,7 @@ public class OneWayMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testOneWay() {
-    Mapper mapper = getMapper("oneWayMapping.xml");
+    Mapper mapper = getMapper("mappings/oneWayMapping.xml");
 
     SourceClass source = newInstance(SourceClass.class, new Object[] {"A"});
 

@@ -1,0 +1,46 @@
+syntax = "proto3";
+option java_package = "com.github.dozermapper.protobuf.vo.proto";
+option java_outer_classname = "ProtoTestObjects";
+
+message SimpleProtoTestObject {
+    string one = 1;
+}
+
+message SimpleProtoTestObjectWithoutRequired {
+    string one = 1;
+}
+
+message ProtoTestObjectWithNestedProtoObject {
+    string one = 1;
+    SimpleProtoTestObject nestedObject = 2;
+}
+
+enum ProtoEnum {
+    VALUE0 = 0;
+    VALUE1 = 1;
+    VALUE2 = 2;
+}
+
+message ProtoObjectWithEnumField {
+    ProtoEnum enumField = 1;
+}
+
+message ProtobufWithSimpleCollection {
+    repeated SimpleProtoTestObject object = 1;
+}
+
+message ProtobufWithSimpleCollectionContainer {
+    ProtobufWithSimpleCollection object = 1;
+}
+
+message ProtobufWithEnumCollection {
+    repeated ProtoEnum object = 1;
+}
+
+message ProtobufMapExample {
+    map<string,string> value = 1;
+}
+
+message ProtobufFieldNaming {
+    string snake_case_field = 1;
+}

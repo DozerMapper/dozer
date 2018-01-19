@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,7 @@
  */
 package org.dozer.metadata;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,80 +26,117 @@ import java.util.List;
  */
 public interface MappingMetadata {
 
-	/**
-	 * Obtains a list of all available mapping definitions.
-	 * 
-	 * @return A list of {@code ClassMappingMetadata}
-	 */
-	List<ClassMappingMetadata> getClassMappings();
+    MappingMetadata EMPTY = new MappingMetadata() {
+        @Override
+        public List<ClassMappingMetadata> getClassMappings() {
+            return Collections.emptyList();
+        }
 
-	/**
-	 * 
-	 * This method retrieves class mapping metadata based on the source class name.
-	 * 
-	 * @param sourceClassName The fully qualified class name of the source class.
-	 * 
-	 * @return A list of mapping metadata which defines how to map a class with the name
-	 * {@code sourceClassName} to other classes.
-	 */
-	List<ClassMappingMetadata> getClassMappingsBySourceName(String sourceClassName);
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsBySourceName(String sourceClassName) {
+            return Collections.emptyList();
+        }
 
-	/**
-	 * 
-	 * This method retrieves class mapping metadata based on the destination class name.
-	 * 
-	 * @param destinationClassName The fully qualified class name of the destination class.
-	 * 
-	 * @return A list of mapping metadata which defines how to map to a class with the name
-	 * {@code destinationClassName}.
-	 */
-	List<ClassMappingMetadata> getClassMappingsByDestinationName(String destinationClassName);
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsByDestinationName(String destinationClassName) {
+            return Collections.emptyList();
+        }
 
-	/**
-	 * 
-	 * This method retrieves class mapping metadata based on the class names.
-	 * 
-	 * @param sourceClassName The fully qualified class name of the source class.
-	 * @param destinationClassName The fully qualified class name of the destination class.
-	 * 
-	 * @return A list of mapping metadata which defines how to map a class with the name
-	 * {@code sourceClassName} to a class with the name {@code destinationClassName}.
-	 */
-	ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName);
+        @Override
+        public ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName) {
+            return null;
+        }
 
-	/**
-	 * 
-	 * This method retrieves class mapping metadata based on the source class.
-	 * 
-	 * @param sourceClass The Class object which references the source class.
-	 * 
-	 * @return A list of mapping metadata which defines how to map the class {@code sourceClass} 
-	 * to other classes.
-	 */
-	List<ClassMappingMetadata> getClassMappingsBySource(Class<?> sourceClass);
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsBySource(Class<?> sourceClass) {
+            return Collections.emptyList();
+        }
 
-	/**
-	 * 
-	 * This method retrieves class mapping metadata based on the destination class.
-	 * 
-	 * @param destinationClass The Class object which references the destination class.
-	 * 
-	 * @return A list of mapping metadata which defines how to map to the class 
-	 * {@code destinationClass}.
-	 */
-	List<ClassMappingMetadata> getClassMappingsByDestination(Class<?> destinationClass);
+        @Override
+        public List<ClassMappingMetadata> getClassMappingsByDestination(Class<?> destinationClass) {
+            return Collections.emptyList();
+        }
 
-	/**
-	 * 
-	 * This method retrieves class mapping metadata based on two Class objects.
-	 * 
-	 * @param sourceClass The Class object that references the source class.
-	 * @param destinationClass The Class object that references the destination class.
-	 * 
-	 * @return The mapping metadata object which defines how to map the class {@code sourceClass} 
-	 * to the class {@code destinationClass}.
-	 * @throws MetadataLookupException If no class map could be found.
-	 */
-	ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass);
+        @Override
+        public ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass) {
+            return null;
+        }
+    };
+
+    /**
+     * Obtains a list of all available mapping definitions.
+     * 
+     * @return A list of {@code ClassMappingMetadata}
+     */
+    List<ClassMappingMetadata> getClassMappings();
+
+    /**
+     * 
+     * This method retrieves class mapping metadata based on the source class name.
+     * 
+     * @param sourceClassName The fully qualified class name of the source class.
+     * 
+     * @return A list of mapping metadata which defines how to map a class with the name
+     * {@code sourceClassName} to other classes.
+     */
+    List<ClassMappingMetadata> getClassMappingsBySourceName(String sourceClassName);
+
+    /**
+     * 
+     * This method retrieves class mapping metadata based on the destination class name.
+     * 
+     * @param destinationClassName The fully qualified class name of the destination class.
+     * 
+     * @return A list of mapping metadata which defines how to map to a class with the name
+     * {@code destinationClassName}.
+     */
+    List<ClassMappingMetadata> getClassMappingsByDestinationName(String destinationClassName);
+
+    /**
+     * 
+     * This method retrieves class mapping metadata based on the class names.
+     * 
+     * @param sourceClassName The fully qualified class name of the source class.
+     * @param destinationClassName The fully qualified class name of the destination class.
+     * 
+     * @return A list of mapping metadata which defines how to map a class with the name
+     * {@code sourceClassName} to a class with the name {@code destinationClassName}.
+     */
+    ClassMappingMetadata getClassMappingByName(String sourceClassName, String destinationClassName);
+
+    /**
+     * 
+     * This method retrieves class mapping metadata based on the source class.
+     * 
+     * @param sourceClass The Class object which references the source class.
+     * 
+     * @return A list of mapping metadata which defines how to map the class {@code sourceClass} 
+     * to other classes.
+     */
+    List<ClassMappingMetadata> getClassMappingsBySource(Class<?> sourceClass);
+
+    /**
+     * 
+     * This method retrieves class mapping metadata based on the destination class.
+     * 
+     * @param destinationClass The Class object which references the destination class.
+     * 
+     * @return A list of mapping metadata which defines how to map to the class 
+     * {@code destinationClass}.
+     */
+    List<ClassMappingMetadata> getClassMappingsByDestination(Class<?> destinationClass);
+
+    /**
+     * 
+     * This method retrieves class mapping metadata based on two Class objects.
+     * 
+     * @param sourceClass The Class object that references the source class.
+     * @param destinationClass The Class object that references the destination class.
+     * 
+     * @return The mapping metadata object which defines how to map the class {@code sourceClass} 
+     * to the class {@code destinationClass}.
+     * @throws MetadataLookupException If no class map could be found.
+     */
+    ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass);
 
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,33 +15,34 @@
  */
 package org.dozer.loader.xml;
 
+import org.xml.sax.InputSource;
+
 import org.dozer.AbstractDozerTest;
+import org.dozer.config.BeanContainer;
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.InputSource;
 
 /**
  * @author Dmitry Buzdin
  */
 public class DozerResolverTest extends AbstractDozerTest {
 
-  private DozerResolver dozerResolver;
+    private DozerResolver dozerResolver;
 
-  @Before
-  public void setUp() throws Exception {
-    dozerResolver = new DozerResolver();
-  }
+    @Before
+    public void setUp() throws Exception {
+        dozerResolver = new DozerResolver(new BeanContainer());
+    }
 
-  @Test
-  public void testResolveEntity_OK() {
-    InputSource inputSource = dozerResolver.resolveEntity(null, "http://nowhere.tosearch.url/beanmapping.xsd");
-    assertNotNull(inputSource);
-  }
+    @Test
+    public void testResolveEntity_OK() {
+        InputSource inputSource = dozerResolver.resolveEntity(null, "http://dozermapper.github.io/schema/bean-mapping.xsd");
+        assertNotNull(inputSource);
+    }
 
-  @Test
-  public void testResolveEntity_Direct() {
-    InputSource inputSource = dozerResolver.resolveEntity(null, "beanmapping.xsd");
-    assertNotNull(inputSource);
-  }
-
+    @Test
+    public void testResolveEntity_Direct() {
+        InputSource inputSource = dozerResolver.resolveEntity(null, "bean-mapping.xsd");
+        assertNotNull(inputSource);
+    }
 }

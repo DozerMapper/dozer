@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,12 +19,10 @@ package org.dozer.vo.map;
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
  */
 public interface CustomMapIF {
 
-  public Object getValue(Object key);
+    Object getValue(Object key);
 
-  public void putValue(Object key, Object value);
-
+    void putValue(Object key, Object value);
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,20 +22,19 @@ package org.dozer.cache;
  * @author tierney.matt
  * @author dmitry.buzdin
  */
-public interface Cache <KeyType, ValueType> {
+public interface Cache<KeyType, ValueType> {
 
-  void clear();
+    void clear();
 
-  void put(KeyType key, ValueType value);
+    void put(KeyType key, ValueType value);
 
-  ValueType get(KeyType key);
+    ValueType get(KeyType key);
 
-  String getName();
+    String getName();
 
-  long getSize();
+    long getSize();
 
-  long getMaxSize();
+    long getMaxSize();
 
-  boolean containsKey(KeyType key);
-
+    boolean containsKey(KeyType key);
 }

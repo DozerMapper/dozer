@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,11 @@
  */
 package org.dozer.loader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.junit.Test;
 
 /**
@@ -27,9 +27,12 @@ import org.junit.Test;
  */
 public class MappingsBuilderTest extends AbstractDozerTest{
 
+  private BeanContainer beanContainer = new BeanContainer();
+  private DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+
   @Test
   public void testBuild() {
-    DozerBuilder builder = new DozerBuilder();
+    DozerBuilder builder = new DozerBuilder(beanContainer, destBeanCreator, new PropertyDescriptorFactory());
     MappingFileData result = builder.build();
     assertNotNull(result);
   }

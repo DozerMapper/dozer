@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +15,26 @@
  */
 package org.dozer.util;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.StringTokenizer;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.dozer.fieldmap.HintContainer;
 import org.dozer.propertydescriptor.DeepHierarchyElement;
-
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.*;
-import java.util.*;
 
 /**
  * Internal class that provides a various reflection utilities(specific to Dozer requirements) used throughout the code
@@ -84,13 +93,15 @@ public final class ReflectionUtils {
     return result;
   }
 
-	/**
-	 * There are some nasty bugs for introspection with generics. This method addresses those nasty bugs and tries to find proper methods if available
-	 *  http://bugs.sun.com/view_bug.do?bug_id=6788525
-	 *  http://bugs.sun.com/view_bug.do?bug_id=6528714
-	 * @param descriptor
-	 * @return
-	 */
+  /**
+   * There are some nasty bugs for introspection with generics. This method addresses those nasty bugs and tries to find proper methods if available
+   *  http://bugs.sun.com/view_bug.do?bug_id=6788525
+   *  http://bugs.sun.com/view_bug.do?bug_id=6528714
+   *
+   * @param clazz type to work on
+   * @param descriptor property pair (get/set) information
+   * @return
+   */
     private static PropertyDescriptor fixGenericDescriptor(Class<?> clazz, PropertyDescriptor descriptor) {
       Method readMethod = descriptor.getReadMethod();
 
@@ -205,21 +216,31 @@ public final class ReflectionUtils {
   }
 
   /**
+   *
+   *
+   * @param clazz
+   * @param methodName
+   * @return
+   * @throws NoSuchMethodException
+   */
+
+  /**
    * Find a method with concrete string representation of it's parameters
+   *
    * @param clazz clazz to search
    * @param methodName name of method with representation of it's parameters
    * @return found method
-   * @throws NoSuchMethodException
+   * @throws NoSuchMethodException if no method found
    */
-  public static Method findAMethod(Class<?> clazz, String methodName) throws NoSuchMethodException {
+  public static Method findAMethod(Class<?> clazz, String methodName, BeanContainer beanContainer) throws NoSuchMethodException {
     StringTokenizer tokenizer = new StringTokenizer(methodName, "(");
     String m = tokenizer.nextToken();
     Method result;
     // If tokenizer has more elements, it mean that parameters may have been specified
     if (tokenizer.hasMoreElements()) {
       StringTokenizer tokens = new StringTokenizer(tokenizer.nextToken(), ")");
-      String params = (tokens.hasMoreTokens() ? tokens.nextToken() : null);
-      result = findMethodWithParam(clazz, m, params);
+      String params = tokens.hasMoreTokens() ? tokens.nextToken() : null;
+      result = findMethodWithParam(clazz, m, params, beanContainer);
     } else {
       result = findMethod(clazz, methodName);
     }
@@ -229,14 +250,14 @@ public final class ReflectionUtils {
     return result;
   }
 
-  private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params)
+  private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params, BeanContainer beanContainer)
       throws NoSuchMethodException {
     List<Class<?>> list = new ArrayList<Class<?>>();
     if (params != null) {
       StringTokenizer tokenizer = new StringTokenizer(params, ",");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken();
-        list.add(MappingUtils.loadClass(token));
+        list.add(MappingUtils.loadClass(token, beanContainer));
       }
     }
     return getMethod(parentDestClass, methodName, list.toArray(new Class[list.size()]));
@@ -414,30 +435,41 @@ public final class ReflectionUtils {
     if (type != null && ParameterizedType.class.isAssignableFrom(type.getClass())) {
       Type genericType = ((ParameterizedType) type).getActualTypeArguments()[0];
       if (genericType != null) {
-         if(! (genericType instanceof TypeVariable)) {
-            result = (Class<?>) genericType;
-         }
+        if (genericType instanceof Class) {
+          result = (Class<?>) genericType;
+        } else if (genericType instanceof ParameterizedType) {
+          Type rawType = ((ParameterizedType) genericType).getRawType();
+          result = (Class<?>) rawType;
+        }
       }
     }
     return result;
   }
 
  /**
-  * Finds non-standard setters {@link PropertyUtils#getPropertyDescriptors} does
-  * not find. The non-standard setters include
+  *
   * <p>
   *     <ul>
-  *         <li>Setters that return something instead of {@code void}</li>
-  *         <li>Setters that take a wrapper argument (e.g. Boolean) when the
-  *             field is of primitive type (e.g. boolean) - or the other way
-  *             around.</li>
+  *         <li>
   *     </ul>
   * <p>
   *
-  * @param clazz The class to find non-standard setters from
-  * @param fieldName The field to find a non-standard setter for
-  * @return The non-standard setter or {@code null}
+
   */
+
+  /**
+   * Finds non-standard setters {@link PropertyUtils#getPropertyDescriptors} does not find.
+   * The non-standard setters include:
+   *
+   * <ul>
+   * <li> Setters that return something instead of {@code void}</li>
+   * <li> Setters that take a wrapper argument (e.g. Boolean) when the field is of primitive type (e.g. boolean) - or the other way around.
+   * </ul>
+   *
+   * @param clazz The class to find non-standard setters from
+   * @param fieldName The field to find a non-standard setter for
+   * @return The non-standard setter or {@code null}
+   */
   public static Method getNonStandardSetter(Class<?> clazz, String fieldName) {
     Field field;
 

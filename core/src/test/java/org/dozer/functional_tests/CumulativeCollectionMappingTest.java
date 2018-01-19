@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,9 +21,10 @@ import org.dozer.vo.collections.UserGroup;
 import org.dozer.vo.collections.UserGroupImpl;
 import org.dozer.vo.collections.UserGroupPrime;
 import org.dozer.vo.collections.UserImpl;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
 
@@ -48,7 +49,7 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
     assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
     // get mapper
-    Mapper mapper = getMapper(new String[] { "mapping-interface.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/mapping-interface.xml"});
 
     // do mapping
     UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);
@@ -82,7 +83,7 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
     assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
     // get mapper
-    Mapper mapper = getMapper(new String[] { "mapping-concrete.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/mapping-concrete.xml"});
 
     // do mapping
     UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);

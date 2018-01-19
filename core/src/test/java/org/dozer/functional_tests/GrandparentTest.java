@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +17,11 @@ package org.dozer.functional_tests;
 
 import org.dozer.vo.excluded.TwoA;
 import org.dozer.vo.excluded.TwoB;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin
@@ -30,7 +31,7 @@ public class GrandparentTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("grandparent.xml");
+    mapper = getMapper("mappings/grandparent.xml");
   }
 
   @Test

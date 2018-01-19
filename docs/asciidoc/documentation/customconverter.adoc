@@ -1,0 +1,367 @@
+== Custom Converters
+Custom converters are used to perform custom mapping between two
+objects. In the Configuration block, you can add some XML to tell Dozer
+to use a custom converter for certain class A and class B types. When a
+custom converter is specified for a class A and class B combination,
+Dozer will invoke the custom converter to perform the data mapping
+instead of the standard mapping logic.
+
+Your custom converter must implement the `org.dozer.CustomConverter`
+interface in order for Dozer to accept it. Otherwise an exception will
+be thrown.
+
+Custom converters are shared across mapping files. This means that you
+can define them once in a mapping file and it will be applied to all
+class mappings in other mapping files that match the Class A - Class B
+pattern. In the example below, whenever Dozer comes across a mapping
+where the src/dest class match the custom converter definition, it will
+invoke the custom converter class instead of performing the typical
+mapping.
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+    <configuration>
+        <custom-converters>
+            <!-- these are always bi-directional -->
+            <converter type="org.dozer.converters.TestCustomConverter">
+                <class-a>org.dozer.vo.CustomDoubleObject</class-a>
+                <class-b>java.lang.Double</class-b>
+            </converter>
+            <!-- You are responsible for mapping everything between
+           ClassA and ClassB -->
+            <converter type="org.dozer.converters.TestCustomHashMapConverter">
+                <class-a>
+          org.dozer.vo.TestCustomConverterHashMapObject
+        </class-a>
+                <class-b>
+          org.dozer.vo.TestCustomConverterHashMapPrimeObject
+        </class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+</mappings>
+----
+
+Custom converters can also be specified at the individual field level.
+In the example below, Dozer will invoke the custom converter to perform
+the field mapping.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
+    <field custom-converter="org.dozer.converters.StringAppendCustomConverter">
+        <a>field1</a>
+        <b>field1Prime</b>
+    </field>
+</mapping>
+----
+
+Custom converter 'instances' can be reused at the individual field
+level. In the example below, Dozer will invoke the custom converter to
+perform the field mapping.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.SimpleObj</class-a>
+    <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
+    <field custom-converter-id="CustomConverterWithId">
+        <a>field1</a>
+        <b>field1Prime</b>
+    </field>
+</mapping>
+----
+
+`CustomConverter` instances can be provided during configuration of `Mapper` via
+`DozerBeanMapperBuilder#withCustomConverter(..)` method.
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="false">
+    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>dozerBeanMapping.xml</value>
+                <value>injectedCustomConverter.xml</value>
+            </list>
+        </property>
+        <property name="customConvertersWithId">
+            <map>
+                <entry key="CustomConverterWithId" ref="configurableConverterBeanInstance1" />
+                <entry key="CustomConverterWithId2" ref="configurableConverterBeanInstance2" />
+            </map>
+        </property>
+    </bean>
+</beans>
+----
+
+Sample custom converter implementation:
+
+*Note:* Custom Converters get invoked when the source value is `null`, so
+you need to explicitly handle `null` values in your custom converter
+implementation.
+
+[source,java,prettyprint]
+----
+import org.dozer.CustomConverter;
+import org.dozer.MappingException;
+
+public class TestCustomConverter implements CustomConverter {
+
+    @Override
+    public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
+        if (sourceFieldValue == null) {
+            return null;
+        }
+
+        CustomDoubleObject dest;
+        if (source instanceof Double) {
+            // check to see if the object already exists
+            if (destination == null) {
+                dest = new CustomDoubleObject();
+            } else {
+                dest = (CustomDoubleObject)destination;
+            }
+
+            dest.setTheDouble(((Double)source).doubleValue());
+
+            return dest;
+        } else if (source instanceof CustomDoubleObject) {
+            double sourceObj = ((CustomDoubleObject)source).getTheDouble();
+            return new Double(sourceObj);
+        } else {
+            throw new MappingException("Converter TestCustomConverter "
+                                       + "used incorrectly. Arguments passed in were:"
+                                       + destination
+                                       + " and "
+                                       + source);
+        }
+    }
+}
+----
+
+CustomConverters can also be injected into the `Mapper` if you
+need to do some manipulation with them before they are used in dozer.
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="false">
+    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>dozerBeanMapping.xml</value>
+                <value>injectedCustomConverter.xml</value>
+            </list>
+        </property>
+        <property name="customConverters">
+            <list>
+                <ref bean="customConverterTest" />
+            </list>
+        </property>
+    </bean>
+    <!-- custom converter -->
+    <bean id="customConverterTest" class="org.dozer.converters.InjectedCustomConverter">
+        <property name="injectedName">
+            <value>injectedName</value>
+        </property>
+    </bean>
+</beans>
+----
+
+=== Support for Array Types
+You can specify a custom converter for Array types. For example, if you
+want to use a custom converter for mapping between an array of objects
+and a String you would use the following mapping notation. Dozer
+generically uses `ClassLoader.loadClass()` when parsing the mapping files.
+For arrays, java expects the class name in the following format:
+`[Lorg.dozer.vo.SimpleObj`;
+
+[source,xml,prettyprint]
+----
+<converter type="org.dozer.converters.StringAppendCustomConverter">
+    <class-a>[Lorg.dozer.vo.SimpleObj;</class-a>
+    <class-b>java.lang.String</class-b>
+</converter>
+----
+
+=== Support for primitives
+You can specify a custom converter for primitive types. Just use the
+primitive wrapper class when defining the custom converter mapping. In
+the following example, Dozer will use the specified custom converter
+when mapping between SomeObject and the int primitive type. Note that
+Dozer will also use the custom converter when mapping between `SomeObject`
+and the `Integer` wrapper type.
+
+[source,xml,prettyprint]
+----
+<converter type="somePackage.SomeCustomConverter">
+    <class-a>somePackage.SomeObject</class-a>
+    <class-b>java.lang.Integer</class-b>
+</converter>
+----
+
+=== Configurable Custom Converters
+You can define a custom converter, which can be configured from mappings
+via configuration parameter. In this case you should implement
+`ConfigurableCustomConverter` interface instead of usual `CustomConverter`.
+Configurable converter has additional attribute provided in runtime -
+param. Parameter is provided using `custom-converter-param` attribute.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.BeanA</class-a>
+    <class-b>org.dozer.vo.BeanB</class-b>
+    <field custom-converter="org.dozer.converters.MathOperationConverter" custom-converter-param="+">
+        <a>amount</a>
+        <b>amount</b>
+    </field>
+</mapping>
+----
+
+Configurable custom converter should be used when you have similar
+behaviour in many cases, which can be parametrized, but the number of
+combinations is too high to do simple Custom Converter subclassing.
+
+[source,java,prettyprint]
+----
+import org.dozer.ConfigurableCustomConverter;
+import org.dozer.MappingException;
+
+public class MathOperationConverter implements ConfigurableCustomConverter {
+
+    private String parameter;
+
+    @Override
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
+    }
+
+    @Override
+    public Object convert(Object existingDestinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
+        Integer source = (Integer)sourceFieldValue;
+        Integer destination = (Integer)existingDestinationFieldValue;
+
+        if ("+".equals(parameter)) {
+            return destination.intValue + source.intValue();
+        }
+
+        if ("-".equals(parameter)) {
+            return destination.intValue - source.intValue();
+        }
+
+        throw new MappingException("Converter MathOperationConverter "
+                                   + "used incorrectly. Arguments passed in were:"
+                                   + destination
+                                   + ", "
+                                   + source
+                                   + " and "
+                                   + parameter);
+    }
+}
+----
+
+=== New Custom Converter API
+While providing great deal of flexibility Custom Converter API described
+above is written on fairly low level of abstraction. This results in
+converter, which code is difficult to understand and to reuse in other
+ways than plugging into Dozer mapping. However it is not uncommon
+situation when the same conversion logic should be called from a place
+other than bean mapping framework.
+version of Dozer gets shipped with new - cleaner API for defining
+custom converter, which gives you more obvious API while taking away
+certain part of control of the executions flow. The following example
+demonstrates simple, yet working converter using new API.
+
+[source,java,prettyprint]
+----
+import org.dozer.DozerConverter;
+
+public class NewDozerConverter extends DozerConverter<String, Boolean> {
+
+    public NewDozerConverter() {
+        super(String.class, Boolean.class);
+    }
+
+    @Override
+    public Boolean convertTo(String source, Boolean destination) {
+        if ("yes".equals(source)) {
+            return Boolean.TRUE;
+        } else if ("no".equals(source)) {
+            return Boolean.FALSE;
+        }
+        throw new IllegalStateException("Unknown value!");
+    }
+
+    @Override
+    public String convertFrom(Boolean source, String destination) {
+        if (Boolean.TRUE.equals(source)) {
+            return "yes";
+        } else if (Boolean.FALSE.equals(source)) {
+            return "no";
+        }
+        throw new IllegalStateException("Unknown value!");
+    }
+}
+----
+
+Note that Java 5 Generics are supported and you do not need to cast
+source object to desired type as previously.
+
+=== Data Structure Conversions
+There are cases where it is required to perform programmatic data
+structure conversion, say copy each odd element in a list as map key,
+but each even as map value. In this case it is needed to define
+transformation of the structure while relying on usual Dozer mapping
+support for individual values. For this purposes it is possible to use
+`MapperAware` interface, which injects current mapper instance inside
+custom converter.
+
+[source,java,prettyprint]
+----
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.dozer.DozerConverter;
+import org.dozer.Mapper;
+import org.dozer.MapperAware;
+
+public class Converter extends DozerConverter<List, Map> implements MapperAware {
+
+    private Mapper mapper;
+
+    public Converter() {
+        super(List.class, Map.class);
+    }
+
+    @Override
+    public void setMapper(Mapper mapper) {
+        this.mapper = mapper;
+    }
+
+    @Override
+    public Map convertTo(List source, Map destination) {
+        Map originalToMapped = new HashMap();
+        for (Source item : source) {
+            Target mappedItem = mapper.map(item, Target.class);
+
+            originalToMapped.put(item, mappedItem);
+        }
+        return originalToMapped;
+    }
+
+    @Override
+    public List convertFrom(Map source, List destination) {
+        throw new IllegalStateException("Not implemented");
+    }
+}
+----

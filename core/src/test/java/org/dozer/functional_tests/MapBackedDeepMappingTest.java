@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,15 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.HashMap;
+
 import org.dozer.vo.DeepObject;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Dmitry Buzdin
@@ -30,7 +33,7 @@ public class MapBackedDeepMappingTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("mapBackedDeepMapping.xml");
+    mapper = getMapper("mappings/mapBackedDeepMapping.xml");
   }
 
   @Test

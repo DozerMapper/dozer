@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,10 @@ package org.dozer.vo;
 
 /**
  * @author garsombke.franz
- * 
  */
 public interface MetalThingyIF {
-  public String getName();
-  public void setName(String name);
+    
+    String getName();
+
+    void setName(String name);
 }

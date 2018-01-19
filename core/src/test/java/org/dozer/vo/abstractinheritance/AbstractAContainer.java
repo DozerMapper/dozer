@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,17 @@ package org.dozer.vo.abstractinheritance;
 import org.dozer.vo.BaseTestObject;
 
 public class AbstractAContainer extends BaseTestObject {
-	
-	private AbstractA a;
+    
+    private AbstractA a;
 
-	public void setA(AbstractA a) {
-		this.a = a;
-	}
+    public void setA(AbstractA a) {
+        this.a = a;
+    }
 
-	public AbstractA getA() {
-		return a;
-	}
-	
-	
+    public AbstractA getA() {
+        return a;
+    }
+    
+    
 
 }

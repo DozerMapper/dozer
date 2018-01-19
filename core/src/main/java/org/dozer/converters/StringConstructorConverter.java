@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +15,9 @@
  */
 package org.dozer.converters;
 
-import org.apache.commons.beanutils.Converter;
-
 import java.lang.reflect.Constructor;
+
+import org.apache.commons.beanutils.Converter;
 
 /**
  * Internal class for converting String to Complex Data Types with a String constructor. Only intended for internal

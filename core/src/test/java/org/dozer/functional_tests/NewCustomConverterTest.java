@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,19 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.dozer.DozerConverter;
 import org.dozer.Mapper;
 import org.dozer.vo.SimpleObj;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin
@@ -36,7 +39,7 @@ public class NewCustomConverterTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("newCustomConverter.xml");
+    mapper = getMapper("mappings/newCustomConverter.xml");
   }
 
   @Test

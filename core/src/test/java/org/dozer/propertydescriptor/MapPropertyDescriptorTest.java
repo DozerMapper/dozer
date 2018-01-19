@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,8 @@ import java.util.Arrays;
 
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,10 +32,14 @@ import org.junit.Test;
 public class MapPropertyDescriptorTest extends AbstractDozerTest {
 
   private MapPropertyDescriptor descriptor;
+  private BeanContainer beanContainer;
+  private DestBeanCreator destBeanCreator;
 
   @Before
   public void setUp() throws Exception {
-    descriptor = new MapPropertyDescriptor(MapStructure.class, "", false, 0, "set", "get", "key", null, null);
+    beanContainer = new BeanContainer();
+    destBeanCreator = new DestBeanCreator(beanContainer);
+    descriptor = new MapPropertyDescriptor(MapStructure.class, "", false, 0, "set", "get", "key", null, null, beanContainer, destBeanCreator);
   }
 
   @Test
@@ -45,7 +51,7 @@ public class MapPropertyDescriptorTest extends AbstractDozerTest {
 
   @Test(expected=MappingException.class)
   public void testGetWriteMethod_NotFound() throws NoSuchMethodException {
-    descriptor = new MapPropertyDescriptor(MapStructure.class, "", false, 0, "missing_set", "get", "key", null, null);
+    descriptor = new MapPropertyDescriptor(MapStructure.class, "", false, 0, "missing_set", "get", "key", null, null, beanContainer, destBeanCreator);
       descriptor.getWriteMethod();
       fail();
   }

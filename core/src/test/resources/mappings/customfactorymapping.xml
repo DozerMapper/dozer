@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <wildcard>true</wildcard>
+        <bean-factory>org.dozer.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
+    </configuration>
+
+    <!-- mapping level factory should override top level factory.  mapping level factory will get applied to both classes-->
+    <mapping bean-factory="org.dozer.functional_tests.support.SampleCustomBeanFactory">
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <field>
+            <a>one</a>
+            <b>onePrime</b>
+        </field>
+        <field>
+            <a>three</a>
+            <b>threePrime</b>
+        </field>
+        <field-exclude>
+            <a>createdByFactoryName</a>
+            <b>createdByFactoryName</b>
+        </field-exclude>
+    </mapping>
+
+    <!-- class level factory should override top level and mapping level factory. -->
+    <mapping>
+        <class-a>org.dozer.vo.InsideTestObject</class-a>
+        <class-b bean-factory="org.dozer.functional_tests.support.SampleCustomBeanFactory2"
+                 factory-bean-id="someBeanId">org.dozer.vo.InsideTestObjectPrime
+        </class-b>
+        <field-exclude>
+            <a>createdByFactoryName</a>
+            <b>createdByFactoryName</b>
+        </field-exclude>
+    </mapping>
+
+    <mapping>
+        <class-a bean-factory="org.dozer.functional_tests.support.SampleCustomBeanFactory3">org.dozer.vo.MetalThingyIF</class-a>
+        <class-b>org.dozer.vo.Van</class-b>
+    </mapping>
+
+</mappings>

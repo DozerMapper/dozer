@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,11 +16,13 @@
 package org.dozer.fieldmap;
 
 import org.dozer.classmap.ClassMap;
+import org.dozer.config.BeanContainer;
 import org.dozer.factory.DestBeanCreator;
 import org.dozer.propertydescriptor.DozerPropertyDescriptor;
 import org.dozer.propertydescriptor.FieldPropertyDescriptor;
 import org.dozer.propertydescriptor.JavaBeanPropertyDescriptor;
 import org.dozer.propertydescriptor.MapPropertyDescriptor;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.DozerConstants;
 import org.dozer.util.MappingUtils;
 
@@ -36,13 +38,13 @@ import org.dozer.util.MappingUtils;
  */
 public class MapFieldMap extends FieldMap {
 
-  public MapFieldMap(ClassMap classMap) {
-    super(classMap);
+  public MapFieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+    super(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
   }
 
-  public MapFieldMap(FieldMap fieldMap) {
+  public MapFieldMap(FieldMap fieldMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
     //Create from existing field map
-    super(fieldMap.getClassMap());
+    super(fieldMap.getClassMap(), beanContainer, destBeanCreator, propertyDescriptorFactory);
     setCopyByReference(fieldMap.isCopyByReference());
     setCustomConverter(fieldMap.getCustomConverter());
     setCustomConverterId(fieldMap.getCustomConverterId());
@@ -103,7 +105,7 @@ public class MapFieldMap extends FieldMap {
         String key = getSrcFieldKey() != null ? getSrcFieldKey() : getDestFieldName();
 
         propDescriptor = new MapPropertyDescriptor(actualType, getSrcFieldName(), isSrcFieldIndexed(), getDestFieldIndex(),
-                setMethod, getMethod, key, getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+                setMethod, getMethod, key, getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), beanContainer, destBeanCreator);
       } else {
         propDescriptor = super.getSrcPropertyDescriptor(srcObj.getClass());
       }
@@ -123,10 +125,10 @@ public class MapFieldMap extends FieldMap {
     DozerPropertyDescriptor pd;
     if (isDestFieldAccessible()) {
       pd = new FieldPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
-          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), destBeanCreator);
     } else {
       pd = new JavaBeanPropertyDescriptor(destObj.getClass(), getDestFieldName(), isDestFieldIndexed(), getDestFieldIndex(),
-          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer());
+          getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), beanContainer, destBeanCreator);
     }
 
     Class<?> c = pd.getPropertyType();
@@ -145,14 +147,14 @@ public class MapFieldMap extends FieldMap {
       }
 
       //TODO: add support for custom factory/create method in conjunction with Map backed properties
-      targetObject = DestBeanCreator.create(c, destObj.getClass());
+      targetObject = destBeanCreator.create(c, destObj.getClass());
       pd.setPropertyValue(destObj, targetObject, this);
     }
 
     return new PrepareTargetObjectResult(targetObject, new MapPropertyDescriptor(c, getDestFieldName(), isDestFieldIndexed(),
         getDestFieldIndex(), MappingUtils.isSupportedMap(c) ? "put" : getDestFieldMapSetMethod(),
         MappingUtils.isSupportedMap(c) ? "get" : getDestFieldMapGetMethod(), getDestFieldKey() != null ? getDestFieldKey()
-            : getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer()));
+            : getSrcFieldName(), getSrcDeepIndexHintContainer(), getDestDeepIndexHintContainer(), beanContainer, destBeanCreator));
 
   }
 
@@ -161,19 +163,21 @@ public class MapFieldMap extends FieldMap {
     DozerPropertyDescriptor pd;
     if ((isDestObj && isDestFieldAccessible()) || (!isDestObj && isSrcFieldAccessible())) {
       pd = new FieldPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index, getSrcDeepIndexHintContainer(),
-          getDestDeepIndexHintContainer());
+          getDestDeepIndexHintContainer(), destBeanCreator);
     } else {
       pd = new JavaBeanPropertyDescriptor(targetObj.getClass(), fieldName, isIndexed, index, getSrcDeepIndexHintContainer(),
-          getDestDeepIndexHintContainer());
+          getDestDeepIndexHintContainer(), beanContainer, destBeanCreator);
     }
 
     return pd.getPropertyType();
   }
 
   private static class PrepareTargetObjectResult {
+
     private Object targetObject;
     private MapPropertyDescriptor propDescriptor;
-    public PrepareTargetObjectResult(Object targetObject, MapPropertyDescriptor propDescriptor) {
+
+    PrepareTargetObjectResult(Object targetObject, MapPropertyDescriptor propDescriptor) {
       this.targetObject = targetObject;
       this.propDescriptor = propDescriptor;
     }

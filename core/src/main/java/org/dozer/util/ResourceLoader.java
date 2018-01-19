@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,10 @@
  */
 package org.dozer.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Internal class that loads resources from the classpath. Also supports loading

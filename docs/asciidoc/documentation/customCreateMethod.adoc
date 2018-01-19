@@ -1,0 +1,41 @@
+== Custom Create Methods
+You can configure Dozer to use custom static create methods to create
+new instances of destination data objects during the mapping process.
+This can either be set at the field level or class level.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a create-method="someCreateMethod">
+    org.dozer.vo.InsideTestObject
+  </class-a>
+    <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
+    <field>
+        <a>label</a>
+        <b>labelPrime</b>
+    </field>
+</mapping>
+----
+
+Specifying a custom create method at the Field level....
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <field>
+        <a>createMethodType</a>
+        <b create-method="someCreateMethod">createMethodType</b>
+    </field>
+</mapping>
+----
+
+It is also possible to reference different class with static factory
+method. This is done by providing fully qualified type name and method
+name separated by dot.
+
+[source,xml,prettyprint]
+----
+<b create-method="org.dozer.factory.Factory.create">field</b>
+----

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,23 +15,24 @@
  */
 package org.dozer.factory;
 
+import java.lang.reflect.Method;
+
 import org.dozer.BeanFactory;
+import org.dozer.config.BeanContainer;
 import org.dozer.util.MappingUtils;
 import org.dozer.util.ReflectionUtils;
 
-import java.lang.reflect.Method;
-
 
 /**
- * Public custom bean factory that can be used by applition code when mapping XMLBean data objects
- * 
+ * Public custom bean factory that can be used by application code when mapping XMLBean data objects
+ *
  * @author garsombke.franz
  */
 public class XMLBeanFactory implements BeanFactory {
-  private static final Class<?>[] emptyArglist = new Class[0];
+  private static final Class<?>[] emptyArgList = new Class[0];
   /**
    * Creat a bean implementation of a xml bean interface.
-   * 
+   *
    * @param srcObj
    *          The source object
    * @param srcObjClass
@@ -40,9 +41,9 @@ public class XMLBeanFactory implements BeanFactory {
    *          the name of the destination interface class
    * @return A implementation of the destination interface
    */
-  public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId) {
+  public Object createBean(Object srcObj, Class<?> srcObjClass, String beanId, BeanContainer beanContainer) {
     Object result;
-    Class<?> destClass = MappingUtils.loadClass(beanId);
+    Class<?> destClass = MappingUtils.loadClass(beanId, beanContainer);
     Class<?>[] innerClasses = destClass.getClasses();
     Class<?> factory = null;
     for (Class<?> innerClass : innerClasses) {
@@ -55,11 +56,11 @@ public class XMLBeanFactory implements BeanFactory {
     }
     Method newInstanceMethod = null;
     try {
-      newInstanceMethod = ReflectionUtils.getMethod(factory, "newInstance", emptyArglist);
+      newInstanceMethod = ReflectionUtils.getMethod(factory, "newInstance", emptyArgList);
     } catch (NoSuchMethodException e) {
       MappingUtils.throwMappingException(e);
     }
-    result = ReflectionUtils.invoke(newInstanceMethod, null, emptyArglist);
+    result = ReflectionUtils.invoke(newInstanceMethod, null, emptyArgList);
     return result;
   }
 }

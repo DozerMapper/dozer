@@ -1,0 +1,29 @@
+== Mapping Concepts
+=== Assembler Pattern
+Dozer can be used as an
+http://www.martinfowler.com/eaaCatalog/dataTransferObject.html[Assembler]
+. Martin Fowler has a great explanation of why and when you would use an
+http://www.martinfowler.com/eaaCatalog/dataTransferObject.html[Assembler]
+. Basically, it is a way to take multiple fine grain objects and create
+one coarse grain object used for data transfer. As long as you have
+mappings defined for each of your fine grained objects to your coarse
+grain object you can call the mapper multiple times to achieve the
+desired assembler pattern.
+
+[source,java,prettyprint]
+----
+mapper.map(sourceA, ClassB.class);
+----
+
+Let's say that ClassA, ClassB, and ClassC all map to ClassD. First
+create these individual mappings in the mapping file. Next, call the
+mapper once for each mapping. Note that this would also work in a
+bi-directinonal manner.
+
+[source,java,prettyprint]
+----
+ClassD d = new ClassD();
+mapper.map(sourceA, d);
+mapper.map(sourceB, d);
+mapper.map(sourceC, d);
+----

@@ -1,0 +1,568 @@
+:dozer-version: 6.2.0-SNAPSHOT
+
+== Frequently Asked Questions
+=== Common
+* link:#dataobject-support[What types of data objects are supported?]
+* link:#datatype-conversions[Will Dozer automatically perform data type
+conversions?]
+* link:#auto-property-name[Does Dozer automatically map fields with
+matching property names?]
+* link:#is-recursive[Is Dozer recursive?]
+* link:#are-getset-invoked[Will the getter and setter methods be invoked
+when fields are mapped?]
+* link:#are-collections-supported[Are Collections and Arrays supported?]
+* link:#are-maps-supported[Are Map type objects(i.e HashMap) supported?]
+* link:#is-inheritance-supported[Are abstract classes, inheritance, and
+interface mapping supported?]
+* link:#is-spring-supported[Can Dozer be configured via Spring?]
+* link:#what-type-custom-mapping[Which types of data mappings do I need
+a custom xml mapping definition for?]
+* link:#matching-prop-names[If my src and dest object have all matching
+attribute names, do I need to specify any xml mapping definitions at
+all?]
+* link:#is-bidirectional[For mappings that require an xml mapping
+definition, is the mapping definition bi-directional, or do I need 2 xml
+definitions if I need to map the two objects both ways?]
+* link:#how-xml-loaded[How are the custom xml mapping files loaded?]
+* link:#how-to-load-file[Can I load a mapping file that is not in the
+classpath?]
+* link:#dozer-debug[How can I tell if Dozer is initializing correctly
+and loading my xml mapping files?]
+* link:#dozer-perf[How does Dozer perform?]
+* link:#jdk-support[Which JDK versions are supported?]
+* link:#maven-repo[Is Dozer in the maven repository?]
+* link:#good-environment[Is Dozer good for the environment?]
+
+=== Advanced
+* link:#custom-converters[Can I implement custom mapping logic between 2
+data types and have Dozer invoke this custom logic when it's performing
+mappings?]
+* link:#deep-mapping[Can I map one field into another field that is
+nested n layers deep in the destination object?]
+* link:#mult-fields-to-single-field[How do I map multiple fields to a
+single field?]
+* link:#infinite-loop[If I am mapping data objects that have
+bi-directional relationships, will it result in an infinite loop and
+eventual stack overflow error?]
+* link:#index-mapping[How do I map an object contained in a collection
+to a field?]
+* link:#complex-to-map[How do I map a Complex object to a HashMap and
+vice versa?]
+* link:#is-accessible[How do I map fields that don't have corresponding
+getter/setter methods?]
+* link:#private-constructors[Some of my data objects don't have public
+constructors. Does Dozer support this use case?]
+* link:#enum-support[Does Dozer support JDK 1.5 enums?]
+* link:#xmlbeans-jaxb[Does Dozer support XMLBeans and JAXB generated
+data objects?]
+* link:#eclipse-plugin[Is there an Eclipse plugin or visual editor for
+Dozer?]
+* link:#collection-hints[When mapping collections, how do I tell Dozer
+what type of data objects I want in the destination collection?]
+* link:#bypass-null[How can I tell Dozer to bypass mapping null or empty
+string values?]
+
+=== Tips, Tricks, and Suggestions
+* link:#encapsulation[Should I encapsulate logic that copies data
+between objects?]
+* link:#dozer-unit-tests[Should I write unit tests for data mapping
+logic that I use Dozer to perform?]
+* link:#config-as-singleton[Should the Dozer mapper be configured as a
+Singleton?]
+* link:#component-mappings[Is it better to have 1 large xml mapping file
+or to have multiple smaller mapping files?]
+* link:#debugging-dozer[What are the best ways to debug Dozer?]
+* link:#global-config[What is the best way to setup the global
+configuration?]
+* link:#submitting-support-request[What is the best way to submit a bug,
+feature request, or patch?]
+
+=== Answers
+[[dataobject-support]]
+=== What types of data objects are supported?
+Dozer uses reflection to access data object properties, so it is
+designed to work with data objects that have corresponding getter and
+setter methods for its fields. For example, a data object that has a
+field named "message" should have getMessage and setMessage methods.
+Data objects that don't follow this pattern are also supported, but will
+most likely require a custom mapping definition. For these unorthodox
+data objects, you can tell Dozer to directly access fields(including
+private) and/or explicitly specify which get/set methods to use.
+
+[[datatype-conversions]]
+=== Will Dozer automatically perform data type conversions?
+Yes. Most scenarios are supported out of the box. These include
+primitives, Java Wrapper Objects, Number subclasses, Dates, Calendar,
+Collections, Arrays, Maps, and Complex types
+
+[[auto-property-name]]
+=== Does Dozer automatically map fields with matching property names?
+Yes. All fields with matching property names are implicitly mapped. It
+would be atypical usage, but you could suppress this behavior by setting
+wilcard="false".
+
+[[is-recursive]]
+=== Is Dozer recursive?
+Yes. Dozer recursively maps the entire object graph for all fields.
+
+[[are-getset-invoked]]
+=== Will the getter and setter methods be invoked when fields are mapped?
+Yes. You can bypass this default behavior by explicitly specifying
+is-accessible="true" for any of your mappings. If is-accessible is
+specified, the field(including private fields) is accessed directly and
+the getter/setter methods are bypassed. It is not recommended that you
+set is-accessible="true", unless you are dealing with an unorthodox data
+object that does not contain any getter or setter methods.
+
+[[are-collections-supported]]
+=== Are Collections and Arrays supported?
+Yes. Dozer automatically maps between collection types and automatically
+performs any type conversion.
+
+[[are-maps-supported]]
+=== Are Map type objects(i.e HashMap) supported?
+Yes. All Java Map data types are supported in addition to any Custom map
+data types.
+
+[[is-inheritance-supported]]
+=== Are abstract classes, inheritance, and interface mapping supported?
+Yes.
+
+[[is-spring-supported]]
+=== Can Dozer be configured via Spring?
+Yes. Refer to link:springintegration.adoc[Spring Integration] section of
+the documentation.
+
+[[what-type-custom-mapping]]
+=== Which types of data mappings do I need a custom xml mapping definition for?
+Only fields that can't be implicitly mapped by matching on field name,
+need a custom xml mapping definition. Ideally, the vast majority of your
+field mappings can be performed automatically and only the few
+exceptional cases will need an explicit field mapping in the xml mapping
+file.
+
+[[matching-prop-names]]
+=== If my src and dest object have all matching attribute names, do I need to specify any xml mapping definitions at all?
+Nope. Just invoke the mapper. You don't need any explicit xml mapping
+entries for this combination of source and destination object.
+
+[[is-bidirectional]]
+=== For mappings that require an xml mapping definition, is the mapping definition bi-directional, or do I need 2 xml definitions if I need to map the two objects both ways?
+All mapping definitions are bi-directional, so you only need one mapping
+definition. You can map a --> b and b--> a using this single mapping
+definition.
+
+[[how-xml-loaded]]
+=== How are the custom xml mapping files loaded?
+Dozer will search the entire classpath looking for the specified
+file(s).
+
+[[how-to-load-file]]
+=== Can I load a mapping file that is not in the classpath?
+Yes, you can load files from outside the classpath by prepending "file:"
+to the resource name. Ex) "file:c:\somedozermapping.xml"
+
+[[dozer-debug]]
+=== How can I tell if Dozer is initializing correctly and loading my xml mapping files?
+Set the -Ddozer.debug system property. If this is set, Dozer
+initialization information is also sent to System.out. If you are
+familiar with log4j, this is similar to the -Dlog4j.debug system
+property
+
+[[dozer-perf]]
+=== How does Dozer perform?
+We believe Dozer performs very well and performance is a high priority
+for us. We have spent a significant amount of time profiling the code
+and optimizing bottlenecks.
+
+Performance is going to depend on the complexity of the use case and the
+number of fields mapped. In our performance tests for "average" mapping
+scenarios, the class mapping times vary from 1/8 of a millisecond to 2
+milliseconds. This roughly equates to 50 - 450 field mappings per
+millisecond. However, the number of variables in any decent benchmark
+makes it almost impossible to transfer these results into reasonable
+conclusions about the performance of your own application. Your
+application is different and you will have unique use cases.
+
+Dozer has been successfully implemented on large, very high
+transactional enterprise systems, without any resulting performance
+issues. But we always recommend that you run performance tests on your
+application to determine the actual performance costs within your
+system. You can decide for yourself whether those costs are acceptable
+in the context of the entire system.
+
+[[jdk-support]]
+=== Which JDK versions are supported?
+JDK 1.8 and above.
+
+[[maven-repo]]
+=== Is Dozer in the maven repository?
+Yes and we will continue to do our best to get future releases of Dozer
+uploaded into the repository.
+
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>{dozer-version}</version>
+</dependency>
+----
+
+[[good-environment]]
+=== Is Dozer good for the environment?
+Yes, dozer does not burn any fossil fuels and is within the EPA's
+recommended emissions.
+
+[[custom-converters]]
+=== Can I implement custom mapping logic between 2 data types and have Dozer invoke this custom logic when it's performing mappings?
+Yes. A very useful feature provided by Dozer is the concept of custom
+converters. Custom converters are used to perform custom mapping between
+two objects. In the Configuration block, you can add some XML to tell
+Dozer to use a custom converter for certain class A and class B types.
+When a custom converter is specified for a class A and class B
+combination, Dozer will invoke the custom converter to perform the data
+mapping instead of the standard mapping logic.
+
+[source,xml,prettyprint]
+----
+<custom-converters>
+    <converter type="org.dozer.converters.SomeCustomConverter">
+        <class-a>org.dozer.vo.SomeCustomDoubleObject</class-a>
+        <class-b>java.lang.Double</class-b>
+    </converter>
+</custom-converters>
+----
+
+[[deep-mapping]]
+=== Can I map one field into another field that is nested n layers deep in the destination object?
+Yes. Dozer supports dot notation for nested fields. As with other dozer
+field mappings, these are bi-directional.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>someNestedObj.someOtherNestedObj.someField</a>
+    <b>someOtherField</b>
+</field>
+----
+
+[[mult-fields-to-single-field]]
+=== How do I map multiple fields to a single field?
+Dozer doesn't currently support this. And because of the complexities
+around implementing it, this feature is not currently on the road map. A
+possible solution would be to wrap the multiple fields in a custom
+complex type and then define a custom converter for mapping between the
+complex type and the single field. This way, you could handle the custom
+logic required to map the three fields into the single one within the
+custom converter.
+
+[[infinite-loop]]
+=== If I am mapping data objects that contain bi-directional relationships, will it result in an infinite loop and eventual stack overflow error?
+No. Dozer has built in logic that prevents infinite loops for
+bi-directional data object relationships
+
+[[index-mapping]]
+=== How do I map an object contained in a collection to a field?
+You would use indexed based mapping.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>usernames[0]</a>
+    <b>username1</b>
+</field>
+----
+
+[[complex-to-map]]
+=== How do I map a Complex object to a HashMap and vice versa?
+You can map entire complex objects directly to a java.util.Map and vice
+versa. When doing this you need to explicitly define a unique map-id for
+the mapping. This is used when determining which map to use at run-time.
+Every attribute on the complex type will be mapped to the java.util.Map.
+You DO NOT need to explicitly define these mappings. If the attribute
+name is not the same as the map key just set the key attribute for a
+custom field mapping.
+
+[source,xml,prettyprint]
+----
+<mapping map-id="myTestMapping">
+    <class-a>org.dozer.vo.map.SomeComplexType</class-a>
+    <class-b>java.util.Map</class-b>
+    <field>
+        <a>stringProperty2</a>
+        <b key="myStringProperty">this</b>
+    </field>
+</mapping>
+----
+
+[[is-accessible]]
+=== How do I map fields that don't have corresponding getter/setter methods?
+You can tell Dozer to directly access fields(including private fields)
+by specifying is-accessible="true"
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>fieldA</a>
+    <b is-accessible="true">fieldB</b>
+</field>
+----
+
+[[private-constructors]]
+=== Some of my data objects don't have public constructors. Does Dozer support this use case?
+Yes. When creating a new instance of the destination object if a public
+no-arg constructor is not found, Dozer will auto detect a private
+constructor and use that. If the data object does not have a private
+constructor, you can specify a custom BeanFactory for creating new
+instances of the destination object.
+
+[[enum-support]]
+=== Does Dozer support JDK 1.5 enums?
+Yes. Enum to Enum mapping is automatically handled.
+
+[[xmlbeans-jaxb]]
+=== Does Dozer support XMLBeans and JAXB generated data objects?
+Dozer supports mapping POJOs to XMLBeans objects. Use the XMLBeanFactory
+for any XMLBeans you want created. This factory will also be used for
+mapping any fields that need to be instantiated in a deep mapping that
+are not regular POJOs but are XMLBeans.
+
+Dozer has support for mapping POJOs to JAXB objects. Use the
+JAXBBeanFactory for any JAXB objects you want created.
+
+[[eclipse-plugin]]
+=== Is there an Eclipse plugin or visual editor for Dozer?
+No, but we think it would be a great addition. It would be very powerful
+to be able to graphically map 2 objects and have the custom xml
+definitions auto generated, along with being able to visually view a
+mapping definition. If anyone has expertise in creating eclipse plugins
+and is interested on working on this feature, please let us know!
+
+[[collection-hints]]
+=== When mapping collections, how do I tell Dozer what type of data objects I want in the destination collection?
+Hints are supported to handle this use case. Hints are not required if
+you are using JDK 1.5 Generics because the types can be auto detected by
+Dozer. But if you are not using generics, to convert a Collection/Array
+to a Collection/Array with different type objects you can specify a Hint
+to let Dozer know what type of objects you want created in the
+destination list. If a Hint is not specified for the destination field,
+then the destination Collection will be populated with objects that are
+the same type as the elements in the src Collection.
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>someList</a>
+    <b>otherList</b>
+    <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+</field>
+----
+
+[[bypass-null]]
+=== How can I tell Dozer to bypass mapping null or empty string values?
+You can bypass the mapping of null values by specifying
+map-null="false". If this is specified, the dest field mapping is
+bypassed at runtime and the destination value setter method will not be
+called if the src value is null. This can be specified at the mapping or
+class level.
+
+You can bypass the mapping of empty String values by specifying
+map-empty-string="false". If this is specified, the dest field mapping
+is bypassed at runtime and the destination value setter method will not
+be called if the src value is an empty String. This can be specified at
+the mapping or class level
+
+[[encapsulation]]
+=== Should I encapsulate logic that copies data between objects?
+It is our opinion that you should. Regardless of whether you use Dozer
+to perform data mapping between objects, we believe this is a good
+design pattern that promotes reuse, encapsulates the underlying
+implementation, and makes the code unit testable in isolation. These
+"Assembler" interfaces encapsulate the logic that is responsible for
+taking a src object and mapping the data into a dest object. Using
+assembler type of classes gives you the flexibility of being able to
+modify the underlying mapping implementation without impacting clients
+or the contract. One other important benefit of using Assemblers is that
+it makes writing unit tests specific for the mapping a lot easier and
+more focused. If you ever need to determine if a particular bug is due
+to mapping of objects, it is simple to write an Assembler unit test that
+reproduces the use case. If you encapsulate your data mapping logic, you
+could use Dozer for most of mappings and if you have a real corner case,
+you have the flexibility to hand code mappings for any objects or
+fields. For example, you could run your mapping through Dozer to map 99%
+of your fields and then have a manual mapping for some odd ball field.
+This would happen all within the Assembler without the client having any
+knowledge of the underlying implementation.
+
+It seems to work best if these assembler type of classes are "dumb" and
+are only responsible for simply copying data from the source object into
+the destination object. Any complex postprocessing business logic that
+needs to be performed on the destination object can be done at a higher
+level in classses that have more responsibility.
+
+The following is a simple example of an assembler type class that uses
+Dozer for its underlying implementation.
+
+[source,java,prettyprint]
+----
+public class SomeAssemblerImpl implements SomeAssembler { 
+  
+  private Mapper dozerMapper;
+ 
+  public DestObject assembleDestObject(SrcObject src) { 
+    return dozerMapper.map(src, DestObject.class); 
+  } 
+ 
+}
+----
+
+[[dozer-unit-tests]]
+=== Should I write unit tests for data mapping logic that I use Dozer to perform?
+Absolutely. And of course, we strongly recommend writing the unit
+test(s) first. Even if you don't use Dozer to perform the data mapping
+between two objects, this logic still needs isolated unit tests. Data
+mapping logic(especially hand coded) is error prone and having a unit
+test is invaluable. Typically mapping between two objects is required in
+multiple areas of a system, so a focused unit test of the central
+mapping logic enables you to test the data mapping logic in isolation.
+The great thing about encapsulating data mapping logic and having unit
+tests for the logic is that you can easily switch out the underlying
+implementation.
+
+For existing systems that are wanting to migrate to Dozer, we recommend
+first encapsulating any existing hand coded data mapping into an
+assembler type of class and write unit tests for it. Then switch out the
+hand coded mapping logic with Dozer and the unit tests will be your
+safety net. The migration to Dozer can be incremental and this is
+probably the best strategy for exisiting systems.
+
+Regardless of whether or not you use Dozer, unit testing data mapping
+logic is tedious and a necessary evil, but there is a trick that may
+help. If you have an assembler that supports mapping 2 objects
+bi-directionally, in your unit test you can do something similar to the
+following example. This also assumes you have done a good job of
+implementing the equals() method for your data objects. The idea is that
+if you map a source object to a destination object and then back again,
+the original src object should equal the object returned from the last
+mapping if fields were mapped correctly. In the test case, you should
+populate all the possible fields in the original source object to ensure
+that all of the fields are accounted for in the mapping logic.
+
+[source,javaprettyprint]
+----
+public void testAssembleSomeObject() throws Exception {      
+  SrcObject src = new SrcObject();
+  src.setSomeField("somevalue");
+  src.setSomeOtherField("make sure you set all the src fields "
+    + "with values so that you fully test the data mappings");
+    
+  DestObject dest = assembler.assembleDestObject(src);
+  SrcObject mappedSrc = assermbler.assembleSrcObject(dest);
+  
+  assertEquals("fields not mapped correctly", src, mappedSrc);
+}
+----
+
+It is also good practice to verify that your assembler handles null
+values properly. In the following test case none of the source fields
+are populated. If the assembler doesn't properly handle null values, an
+exception will be thrown when the assembler is invoked.
+
+[source,java,prettyprint]
+----
+public void testAssembleSomeObject_NullValues() throws Exception {      
+  SrcObject src = new SrcObject();
+    
+  DestObject dest = assembler.assembleDestObject(src);
+  SrcObject mappedSrc = assermbler.assembleSrcObject(dest);
+  
+  assertEquals("fields not mapped correctly", src, mappedSrc);
+}
+----
+
+[[config-as-singleton]]
+=== Should the Dozer mapper be configured as a Singleton?
+Yes. `Mapper` instances should be reused as much as possible. For every
+instance of the `Mapper`, the mapping files are loaded and
+parsed. You should configure the `Mapper` once for your configuration
+and reuse this instance throughout your application. The
+`Mapper` implementations are thread safe.
+
+[[component-mappings]]
+=== Is it better to have 1 large xml mapping file or to have multiple smaller mapping files?
+We recommend componentizing your mapping files instead of having 1 large
+mapping file.
+
+[[debugging-dozer]]
+=== What are the best ways to debug Dozer?
+You can specify the -Ddozer.debug system property to view the one time
+initialization information. You will see output similar to the
+following....
+
+[source,prettyprint]
+----
+dozer: Trying to find Dozer configuration file: dozer.properties
+dozer: Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties] for Dozerglobal property configuration
+dozer: Reading Dozer properties from URL[file:/local/subversion_projects/dozer/trunk/target/test-classes/dozer.properties]
+dozer: Finished configuring Dozer global properties
+dozer: Initializing Dozer. Version: ${project.version}, Thread Name:main
+dozer: Initializing a new instance of the dozer bean mapper.
+dozer: Using the following xml files to load custom mappings for the bean mapper instance:[fieldAttributeMapping.xml]
+dozer: Trying to find xml mapping file: fieldAttributeMapping.xml
+dozer: Using URL [file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml]to load custom xml mappings
+dozer: Successfully loaded custom xml mappings from URL:[file:/local/subversion_projects/dozer/trunk/target/test-classes/fieldAttributeMapping.xml]
+----
+
+To debug individual field mappings between classes, set the logging
+level "org.dozer.MappingProcessor=DEBUG". For example, if you are using
+log4j you would add the following entry to your log4j configuration file
+"log4j.category.org.dozer.MappingProcessor=DEBUG". This will show you
+every field mapping that Dozer performs along with the actual source and
+destination values. You will see output similar to the following....
+
+[source,prettyprint]
+----
+MAPPED: SimpleObj.field1 --> SimpleObjPrime.field1 VALUES: 
+one --> one MAPID: someMapId
+MAPPED: SimpleObj.field2 --> SimpleObjPrime.field2 VALUES: 
+2 --> 2 MAPID: someMapId
+MAPPED: SimpleObj.field3 --> SimpleObjPrime.field3 VALUES: 
+3 --> 3 MAPID: someMapId
+MAPPED: SimpleObj.field4 --> SimpleObjPrime.field4 VALUES: 
+44.44 --> 44.44 MAPID: someMapId
+MAPPED: SimpleObj.field6 --> SimpleObjPrime.field6 VALUES: 
+66 --> 66 MAPID: someMapId
+----
+
+[[global-config]]
+=== What is the best way to setup the global configuration?
+We recommend having a separate mapping xml file for global
+configuration. You could name it something similar to
+dozer-global-configuration.xml. Sample global configuration file......
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>MM/dd/yyyy HH:mm</date-format>
+        <wildcard>false</wildcard>
+        <custom-converters>
+            <converter type="org.dozer.converters.TestCustomConverter">
+                <class-a>org.dozer.vo.CustomDoubleObject</class-a>
+                <class-b>java.lang.Double</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+</mappings>
+----
+
+[[submitting-support-request]]
+=== What is the best way to submit a bug, feature request, or patch?
+We value your suggestions and appreciate everyone that takes the time to
+submit a support request. Please submit all requests via
+link:https://github.com/DozerMapper/dozer[Dozer's GitHub project page]

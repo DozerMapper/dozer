@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,13 @@ import java.util.Set;
  */
 public interface UserGroup {
 
-  public String getName();
+    String getName();
 
-  public void setName(String aName);
+    void setName(String aName);
 
-  public Set<User> getUsers();
+    Set<User> getUsers();
 
-  public void setUsers(Set<User> aUsers);
+    void setUsers(Set<User> aUsers);
 
-  public void addUser(User aUser);
-
+    void addUser(User aUser);
 }

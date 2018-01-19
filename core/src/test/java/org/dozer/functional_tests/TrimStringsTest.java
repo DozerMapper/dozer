@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,16 +21,17 @@ import org.dozer.vo.SimpleObj;
 import org.dozer.vo.SimpleObjPrime;
 import org.dozer.vo.TestObject;
 import org.dozer.vo.TestObjectPrime;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class TrimStringsTest extends AbstractFunctionalTest {
 
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper(new String[] { "trimStringsMapping.xml" });
+    mapper = getMapper(new String[] {"mappings/trimStringsMapping.xml"});
   }
 
   @Test

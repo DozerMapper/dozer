@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,11 @@
  */
 package org.dozer;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author dmitry.buzdin

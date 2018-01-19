@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,15 @@
  */
 package org.dozer.functional_tests;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.dozer.vo.ArrayDest;
 import org.dozer.vo.ArraySource;
+import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Collections and arrays test
@@ -36,7 +35,7 @@ public class CollectionTest extends AbstractFunctionalTest {
 
   @Override
   public void setUp() throws Exception {
-    mapper = getMapper("arrayMapping.xml");
+    mapper = getMapper("mappings/arrayMapping.xml");
   }
 
   /**

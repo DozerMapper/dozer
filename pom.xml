@@ -16,497 +16,499 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>net.sf.dozer</groupId>
-  <artifactId>dozer-parent</artifactId>
-  <packaging>pom</packaging>
-  <version>6.0.0-SNAPSHOT</version>
-  <url>http://dozer.sourceforge.net</url>
-  <name>Dozer Parent Project</name>
-  <description>Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to
-    another
-  </description>
-  <inceptionYear>2005</inceptionYear>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>6.2.0-SNAPSHOT</version>
+    <name>Dozer :: Parent</name>
+    <description>Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
 
-  <modules>
-    <module>core</module>
-    <module>spring</module>
-    <module>proto</module>
-    <module>osgi</module>
-    <module>osgi-test</module>
-  </modules>
+    <organization>
+        <name>dozer</name>
+        <url>https://github.com/DozerMapper/dozer</url>
+    </organization>
 
-  <prerequisites>
-    <maven>3.3.1</maven>
-  </prerequisites>
+    <inceptionYear>2005</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <slf4j.version>1.7.5</slf4j.version>
-  </properties>
+    <scm>
+        <connection>scm:git:https//github.com/DozerMapper/dozer</connection>
+        <developerConnection>scm:git:git@github.com:DozerMapper/dozer.git</developerConnection>
+        <url>https://github.com/DozerMapper/Dozer</url>
+        <tag>HEAD</tag>
+    </scm>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.11</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-all</artifactId>
-        <version>1.10.8</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-<!--
-  <repositories>
-    <repository>
-      <id>snapshots.sonatype.org</id>
-      <name>Sonatype Snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
-    <repository>
-      <id>releases.sonatype.org</id>
-      <name>Sonatype Releases</name>
-      <url>https://oss.sonatype.org/content/repositories/releases/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-  </repositories>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/DozerMapper/dozer/issues</url>
+    </issueManagement>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>snapshots.sonatype.org</id>
-      <name>Sonatype Snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </pluginRepository>
-    <pluginRepository>
-      <id>releases.sonatype.org</id>
-      <name>Sonatype Releases</name>
-      <url>https://oss.sonatype.org/content/repositories/releases/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
--->
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.6.1</version>
-          <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-            <encoding>${project.build.sourceEncoding}</encoding>
-            <compilerArgs>
-              <compilerArg>-Xlint:all</compilerArg>
-              <compilerArg>-Xlint:-processing</compilerArg>
-              <compilerArg>-Xdoclint:all</compilerArg>
-              <!--<compilerArg>-Werror</compilerArg>-->
-            </compilerArgs>
-          </configuration>
-        </plugin>
-        <plugin>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>2.5.3</version>
-          <configuration>
-            <useReleaseProfile>false</useReleaseProfile>
-            <releaseProfiles>release</releaseProfiles>
-            <autoVersionSubmodules>true</autoVersionSubmodules>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-idea-plugin</artifactId>
-          <version>2.2.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-eclipse-plugin</artifactId>
-          <version>2.10</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.4</version>
-          <configuration>
-            <additionalparam>${javadoc.doclint.none}</additionalparam>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>versions-maven-plugin</artifactId>
-          <version>2.3</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-scm-plugin</artifactId>
-          <version>1.9.5</version>
-          <configuration>
-            <tag>${project.artifactId}-${project.version}</tag>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-        <plugin>
-          <groupId>com.mycila</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>3.0</version>
-          <configuration>
-            <header>LICENSE.md</header>
-            <excludes>
-              <exclude>LICENSE.md</exclude>
-              <exclude>README.md</exclude>
-            </excludes>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.19.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>cobertura-maven-plugin</artifactId>
-          <version>2.7</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>3.0.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-pdf-plugin</artifactId>
-          <version>1.3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>2.9</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-report-plugin</artifactId>
-          <version>2.19.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.4</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>jaxb2-maven-plugin</artifactId>
-          <version>2.3.1</version> <!-- 1.6 -->
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>xmlbeans-maven-plugin</artifactId>
-          <version>2.3.3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.6</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+    <ciManagement>
+        <system>travis-ci</system>
+        <url>https://travis-ci.org/DozerMapper/dozer</url>
+    </ciManagement>
 
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <skipAssembly>true</skipAssembly>
-        </configuration>
-      </plugin>
-    </plugins>
-    <extensions>
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ssh</artifactId>
-        <version>2.2</version>
-      </extension>
-    </extensions>
-  </build>
+    <mailingLists>
+        <mailingList>
+            <name>google-groups</name>
+            <subscribe>https://groups.google.com/forum/?fromgroups=#!forum/dozer-mapper</subscribe>
+        </mailingList>
+    </mailingLists>
 
-  <profiles>
-    <profile>
-      <id>release-sign-artifacts</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
+    <modules>
+        <module>building-tools</module>
+        <module>bom-dependencies</module>
+        <module>plugins-parent</module>
+        <module>schema</module>
+        <module>core</module>
+        <module>spring</module>
+        <module>dozer-spring-boot-auto-configuration</module>
+        <module>proto</module>
+        <module>tests</module>
+    </modules>
+
+    <properties>
+        <!-- Project settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.java.version>1.8</project.java.version>
+
+        <!-- License -->
+        <license.failIfMissing>true</license.failIfMissing>
+        <license.failIfUnknown>true</license.failIfUnknown>
+
+        <!-- Top level versions; alphabetical order -->
+        <maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <license-maven-plugin.version>3.0</license-maven-plugin.version>
+        <directory-maven-plugin.version>0.2</directory-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+        <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
+
+        <building-tools.version>6.2.0-SNAPSHOT</building-tools.version>
+    </properties>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <pluginManagement>
+            <plugins>
+                <!-- Alphabetical order -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.commonjava.maven.plugins</groupId>
+                    <artifactId>directory-maven-plugin</artifactId>
+                    <version>${directory-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.mycila</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${license-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
+            <!-- Alphabetical order -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.3.1</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>1.8</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.commonjava.maven.plugins</groupId>
+                <artifactId>directory-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>directory-of</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <property>dozer.basedir</property>
+                            <project>
+                                <groupId>com.github.dozermapper</groupId>
+                                <artifactId>dozer-parent</artifactId>
+                            </project>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <header>${dozer.basedir}/building-tools/src/main/resources/LICENSE-HEADER.txt</header>
+                    <excludes>
+                        <exclude>docs/**</exclude>
+                        <exclude>.travis/**</exclude>
+                        <exclude>.mvn/**</exclude>
+                        <exclude>mvnw</exclude>
+                        <exclude>mvnw.cmd</exclude>
+                        <exclude>LICENSE-HEADER.txt</exclude>
+                        <exclude>LICENSE.md</exclude>
+                        <exclude>**/*.md</exclude>
+                        <exclude>**/*.adoc</exclude>
+                        <exclude>**/*.jpeg</exclude>
+                        <exclude>**/*.proto</exclude>
+                        <exclude>**/spring.schemas</exclude>
+                        <exclude>**/spring.handlers</exclude>
+                        <exclude>**/mockito-extensions/**</exclude>
+                        <exclude>**/gen-src/**</exclude>
+                        <exclude>**/spring.factories</exclude>
+                    </excludes>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin-git</artifactId>
+                        <version>${license-maven-plugin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
-  </profiles>
+    </build>
 
-  <organization>
-    <name>dozer</name>
-    <url>http://dozer.sourceforge.net</url>
-  </organization>
+    <profiles>
+        <profile>
+            <id>release-ossrh</id>
+            <build>
+                <plugins>
+                    <!-- Alphabetical order -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
-  <licenses>
-    <license>
-      <name>Apache 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-      <distribution>repo</distribution>
-      <comments>A business-friendly Open Source license</comments>
-    </license>
-  </licenses>
+    <developers>
+        <developer>
+            <name>Franz Garsombke</name>
+            <id>fgarsombke</id>
+            <email>fgarsombke@yahoo.com</email>
+            <roles>
+                <role>Project Lead/Co-Founder</role>
+            </roles>
+            <timezone>-7</timezone>
+        </developer>
+        <developer>
+            <name>Matt Tierney</name>
+            <id>mhtierney</id>
+            <email>mhtierney@comcast.net</email>
+            <timezone>-7</timezone>
+            <roles>
+                <role>Project Lead/Co-Founder</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Dmitry Buzdin</name>
+            <id>buzdin</id>
+            <email>buzdin@gmail.com</email>
+            <timezone>+2</timezone>
+            <roles>
+                <role>Project Lead</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Alan Stewart</name>
+            <id>alankstewart</id>
+            <email>alankstewart@gmail.com</email>
+            <timezone>+10</timezone>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
-  <developers>
-    <developer>
-      <name>Franz Garsombke</name>
-      <id>fgarsombke</id>
-      <email>fgarsombke@yahoo.com</email>
-      <roles>
-        <role>Project Lead/Co-Founder</role>
-      </roles>
-      <timezone>-7</timezone>
-    </developer>
-    <developer>
-      <name>Matt Tierney</name>
-      <id>mhtierney</id>
-      <email>mhtierney@comcast.net</email>
-      <timezone>-7</timezone>
-      <roles>
-        <role>Project Lead/Co-Founder</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Dmitry Buzdin</name>
-      <id>buzdin</id>
-      <email>buzdin@gmail.com</email>
-      <timezone>+2</timezone>
-      <roles>
-        <role>Project Lead</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Alan Stewart</name>
-      <id>alankstewart</id>
-      <email>alankstewart@gmail.com</email>
-      <timezone>+10</timezone>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-  </developers>
+    <!-- List of contributors is in alphabetical order -->
+    <contributors>
+        <contributor>
+            <name>Alan Stewart</name>
+        </contributor>
+        <contributor>
+            <name>Ben Sullins</name>
+        </contributor>
+        <contributor>
+            <name>Bruno Guedes</name>
+        </contributor>
+        <contributor>
+            <name>Chia-Chou Hung</name>
+        </contributor>
+        <contributor>
+            <name>Christoph Goldner</name>
+        </contributor>
+        <contributor>
+            <name>David Baker</name>
+        </contributor>
+        <contributor>
+            <name>Dmitry Spikhalskiy</name>
+        </contributor>
+        <contributor>
+            <name>Ed Bras</name>
+        </contributor>
+        <contributor>
+            <name>Florian Kammermann</name>
+        </contributor>
+        <contributor>
+            <name>Gerard Toonstra</name>
+        </contributor>
+        <contributor>
+            <name>Hee Tatt Ooi</name>
+        </contributor>
+        <contributor>
+            <name>James Bassett</name>
+        </contributor>
+        <contributor>
+            <name>Joachim Korittky</name>
+        </contributor>
+        <contributor>
+            <name>Kiersztyn Wojtek</name>
+        </contributor>
+        <contributor>
+            <name>Knut-Erik Johnsen</name>
+        </contributor>
+        <contributor>
+            <name>Lenkwe Makhubela</name>
+        </contributor>
+        <contributor>
+            <name>Luke Robinson</name>
+        </contributor>
+        <contributor>
+            <name>Mariusz Pala</name>
+        </contributor>
+        <contributor>
+            <name>Markus Thielen</name>
+        </contributor>
+        <contributor>
+            <name>Matt Benson</name>
+        </contributor>
+        <contributor>
+            <name>Mickael Morier</name>
+        </contributor>
+        <contributor>
+            <name>Nhat Vo</name>
+        </contributor>
+        <contributor>
+            <name>Ozzie Gurkan</name>
+        </contributor>
+        <contributor>
+            <name>Peciuch Dominic</name>
+        </contributor>
+        <contributor>
+            <name>Peter Monks</name>
+        </contributor>
+        <contributor>
+            <name>Piotr Dytkowski</name>
+        </contributor>
+        <contributor>
+            <name>Rob Volden</name>
+        </contributor>
+        <contributor>
+            <name>Rohan Hart</name>
+        </contributor>
+        <contributor>
+            <name>Sachin Katakdound</name>
+        </contributor>
+        <contributor>
+            <name>Soren Chittka</name>
+        </contributor>
+        <contributor>
+            <name>Tim Nee</name>
+        </contributor>
+        <contributor>
+            <name>Tom Rigole</name>
+        </contributor>
+        <contributor>
+            <name>Vadim Shaigorodskiy</name>
+        </contributor>
+        <contributor>
+            <name>Vincent Jassogne</name>
+        </contributor>
+        <contributor>
+            <name>Wing Tung Leung</name>
+        </contributor>
+    </contributors>
 
-  <!-- List of contributors is in alphabetical order -->
-  <contributors>
-    <contributor>
-      <name>Alan Stewart</name>
-    </contributor>
-    <contributor>
-      <name>Ben Sullins</name>
-    </contributor>
-    <contributor>
-      <name>Bruno Guedes</name>
-    </contributor>
-    <contributor>
-      <name>Chia-Chou Hung</name>
-    </contributor>
-    <contributor>
-      <name>Christoph Goldner</name>
-    </contributor>
-    <contributor>
-      <name>David Baker</name>
-    </contributor>
-    <contributor>
-      <name>Dmitry Spikhalskiy</name>
-    </contributor>
-    <contributor>
-      <name>Ed Bras</name>
-    </contributor>
-    <contributor>
-      <name>Florian Kammermann</name>
-    </contributor>
-    <contributor>
-      <name>Gerard Toonstra</name>
-    </contributor>
-    <contributor>
-      <name>Hee Tatt Ooi</name>
-    </contributor>
-    <contributor>
-      <name>James Bassett</name>
-    </contributor>
-    <contributor>
-      <name>Joachim Korittky</name>
-    </contributor>
-    <contributor>
-      <name>Kiersztyn Wojtek</name>
-    </contributor>
-    <contributor>
-      <name>Knut-Erik Johnsen</name>
-    </contributor>
-    <contributor>
-      <name>Lenkwe Makhubela</name>
-    </contributor>
-    <contributor>
-      <name>Luke Robinson</name>
-    </contributor>
-    <contributor>
-      <name>Mariusz Pala</name>
-    </contributor>
-    <contributor>
-      <name>Markus Thielen</name>
-    </contributor>
-    <contributor>
-      <name>Matt Benson</name>
-    </contributor>
-    <contributor>
-      <name>Mickael Morier</name>
-    </contributor>
-    <contributor>
-      <name>Nhat Vo</name>
-    </contributor>
-    <contributor>
-      <name>Ozzie Gurkan</name>
-    </contributor>
-    <contributor>
-      <name>Peciuch Dominic</name>
-    </contributor>
-    <contributor>
-      <name>Peter Monks</name>
-    </contributor>
-    <contributor>
-      <name>Rob Volden</name>
-    </contributor>
-    <contributor>
-      <name>Rohan Hart</name>
-    </contributor>
-    <contributor>
-      <name>Sachin Katakdound</name>
-    </contributor>
-    <contributor>
-      <name>Soren Chittka</name>
-    </contributor>
-    <contributor>
-      <name>Tim Nee</name>
-    </contributor>
-    <contributor>
-      <name>Tom Rigole</name>
-    </contributor>
-    <contributor>
-      <name>Vadim Shaigorodskiy</name>
-    </contributor>
-    <contributor>
-      <name>Vincent Jassogne</name>
-    </contributor>
-    <contributor>
-      <name>Wing Tung Leung</name>
-    </contributor>
-  </contributors>
+    <distributionManagement>
+        <site>
+            <id>dozer.sf.net</id>
+            <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
+        </site>
+        <repository>
+            <id>bintray</id>
+            <name>Bintray</name>
+            <url>https://api.bintray.com/maven/buzdin/dozer-mapper/dozer</url>
+        </repository>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/DozerMapper/dozer/issues</url>
-  </issueManagement>
+    <repositories>
+        <repository>
+            <id>snapshots.sonatype.org</id>
+            <name>Sonatype Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>releases.sonatype.org</id>
+            <name>Sonatype Releases</name>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
-  <distributionManagement>
-    <site>
-      <id>dozer.sf.net</id>
-      <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
-    </site>
-    <repository>
-      <id>bintray</id>
-      <name>Bintray</name>
-      <url>https://api.bintray.com/maven/buzdin/dozer-mapper/dozer</url>
-    </repository>
-    <snapshotRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <name>Sonatype Snapshots</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <uniqueVersion>false</uniqueVersion>
-    </snapshotRepository>
-  </distributionManagement>
-
-  <scm>
-    <connection>scm:git:https//github.com/DozerMapper/dozer</connection>
-    <developerConnection>scm:git:git@github.com:DozerMapper/dozer.git</developerConnection>
-    <url>https://github.com/DozerMapper/Dozer</url>
-    <tag>HEAD</tag>
-  </scm>
-
-  <ciManagement>
-    <system>travis-ci</system>
-    <url>https://travis-ci.org/DozerMapper/dozer</url>
-  </ciManagement>
-
-  <mailingLists>
-    <mailingList>
-      <name>google-groups</name>
-      <subscribe>https://groups.google.com/forum/?fromgroups=#!forum/dozer-mapper</subscribe>
-    </mailingList>
-  </mailingLists>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>snapshots.sonatype.org</id>
+            <name>Sonatype Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>releases.sonatype.org</id>
+            <name>Sonatype Releases</name>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

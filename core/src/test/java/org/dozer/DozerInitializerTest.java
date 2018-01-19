@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,68 +15,92 @@
  */
 package org.dozer;
 
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
+import org.dozer.builder.DestBeanBuilderCreator;
+import org.dozer.classmap.generator.BeanMappingGenerator;
 import org.dozer.config.BeanContainer;
-import org.dozer.config.GlobalSettings;
-import org.dozer.util.DozerConstants;
+import org.dozer.config.Settings;
+import org.dozer.config.SettingsDefaults;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class DozerInitializerTest extends AbstractDozerTest {
 
-  private DozerInitializer instance;
+    private Settings settings;
 
-  @Before
-  public void setUp() throws Exception {
-    instance = DozerInitializer.getInstance();
-    instance.destroy();
-  }
+    private DozerInitializer instance;
+    private BeanContainer beanContainer;
+    private DestBeanBuilderCreator destBeanBuilderCreator;
+    private BeanMappingGenerator beanMappingGenerator;
+    private PropertyDescriptorFactory propertyDescriptorFactory;
+    private DestBeanCreator destBeanCreator;
 
-  @Test
-  public void testIsInitialized() {
-    assertFalse(instance.isInitialized());
-    instance.init();
-    assertTrue(instance.isInitialized());
-    instance.destroy();
-    assertFalse(instance.isInitialized());
-  }
+    @Before
+    public void setUp() throws Exception {
+        beanContainer = new BeanContainer();
+        settings = new Settings();
+        destBeanBuilderCreator = new DestBeanBuilderCreator();
+        propertyDescriptorFactory = new PropertyDescriptorFactory();
+        destBeanCreator = new DestBeanCreator(beanContainer);
+        beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
+        instance = new DozerInitializer();
+        instance.destroy(settings);
+    }
 
-  @Test
-  public void testDoubleCalls() {
-    instance.destroy();
-    assertFalse(instance.isInitialized());
-    instance.init();
-    instance.init();
-    assertTrue(instance.isInitialized());
-    instance.destroy();
-    instance.destroy();
-    assertFalse(instance.isInitialized());
-  }
+    @After
+    public void tearDown() throws Exception {
+        instance.destroy(settings);
+    }
 
-  @Test(expected=MappingException.class)
-  public void testBeanisMissing() {
-    GlobalSettings settings = mock(GlobalSettings.class);
-    when(settings.getClassLoaderName()).thenReturn(DozerConstants.DEFAULT_CLASS_LOADER_BEAN);
-    when(settings.getProxyResolverName()).thenReturn("no.such.class.Found");
+    @Test
+    public void testIsInitialized() {
+        assertFalse(instance.isInitialized());
 
-    instance.initialize(settings, getClass().getClassLoader());
-    fail();
-  }
+        instance.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        assertTrue(instance.isInitialized());
 
-  @Test(expected=MappingException.class)
-  public void testBeanIsNotAssignable() {
-    GlobalSettings settings = mock(GlobalSettings.class);
-    when(settings.getClassLoaderName()).thenReturn("java.lang.String");
-    when(settings.getProxyResolverName()).thenReturn(DozerConstants.DEFAULT_PROXY_RESOLVER_BEAN);
+        instance.destroy(settings);
+        assertFalse(instance.isInitialized());
+    }
 
-    instance.initialize(settings, getClass().getClassLoader());
-    fail();
-  }
+    @Test
+    public void testDoubleCalls() {
+        instance.destroy(settings);
+        assertFalse(instance.isInitialized());
 
-  @After
-  public void tearDown() throws Exception {
-    instance.destroy();
-  }
+        instance.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        instance.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        assertTrue(instance.isInitialized());
+
+        instance.destroy(settings);
+        instance.destroy(settings);
+        assertFalse(instance.isInitialized());
+    }
+
+    @Test(expected = MappingException.class)
+    public void testBeanIsMissing() {
+        Settings settings = mock(Settings.class);
+        when(settings.getClassLoaderBeanName()).thenReturn(SettingsDefaults.CLASS_LOADER_BEAN);
+        when(settings.getProxyResolverBeanName()).thenReturn("no.such.class.Found");
+
+        instance.initialize(settings, getClass().getClassLoader(), beanContainer, destBeanBuilderCreator,
+                beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        fail();
+    }
+
+    @Test(expected = MappingException.class)
+    public void testBeanIsNotAssignable() {
+        Settings settings = mock(Settings.class);
+        when(settings.getClassLoaderBeanName()).thenReturn("java.lang.String");
+        when(settings.getProxyResolverBeanName()).thenReturn(SettingsDefaults.PROXY_RESOLVER_BEAN);
+
+        instance.initialize(settings, getClass().getClassLoader(), beanContainer, destBeanBuilderCreator,
+                beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        fail();
+    }
 }

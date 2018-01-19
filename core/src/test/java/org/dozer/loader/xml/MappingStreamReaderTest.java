@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,15 @@
  */
 package org.dozer.loader.xml;
 
-import org.dozer.classmap.MappingFileData;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -34,21 +37,18 @@ public class MappingStreamReaderTest {
 
   @Before
   public void setUp() throws Exception {
-    streamReader = new MappingStreamReader(XMLParserFactory.getInstance());
+    BeanContainer beanContainer = new BeanContainer();
+    DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+    PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
+    streamReader = new MappingStreamReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory));
   }
 
   @Test
   public void loadFromStreamTest() throws IOException {
-    InputStream xmlStream = getClass().getClassLoader().getResourceAsStream("dozerBeanMapping.xml");
+    InputStream xmlStream = getClass().getClassLoader().getResourceAsStream("testDozerBeanMapping.xml");
     MappingFileData data = streamReader.read(xmlStream);
     xmlStream.close();
 
     assertThat(data, notNullValue());
   }
-
-  @Test(expected=IllegalArgumentException.class)
-  public void nullLoadFromStreamsTest() throws IOException{
-    streamReader.read(null);
-  }
-
 }

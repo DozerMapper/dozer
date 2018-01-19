@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,7 +61,7 @@ public class DoubleObject implements Serializable {
 
   @Override
   public int hashCode() {
-    final long temp = value != +0.0d ? Double.doubleToLongBits(value) : 0l;
+    final long temp = value != +0.0d ? Double.doubleToLongBits(value) : 0L;
     return (int) (temp ^ (temp >>> 32));
   }
 

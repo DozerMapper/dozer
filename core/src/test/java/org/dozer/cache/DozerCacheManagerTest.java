@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,18 +17,23 @@ package org.dozer.cache;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
-import org.dozer.cache.Cache;
-import org.dozer.cache.DozerCache;
-import org.dozer.cache.DozerCacheManager;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 /**
  * @author tierney.matt
  */
 public class DozerCacheManagerTest extends AbstractDozerTest {
+
+  @Rule
+  public MockitoRule mockitoRule = MockitoJUnit.rule();
+
   private DozerCacheManager cacheMgr;
 
   @Override

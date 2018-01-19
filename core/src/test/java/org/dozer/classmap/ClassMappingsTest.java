@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,13 @@
  */
 package org.dozer.classmap;
 
+import java.util.Map;
+
 import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Map;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -34,7 +35,7 @@ public class ClassMappingsTest extends AbstractDozerTest{
 
   @Before
   public void setUp() {
-    classMappings = new ClassMappings();
+    classMappings = new ClassMappings(new BeanContainer());
   }
 
   @Test

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,7 @@ public class TestReferenceFooPrime extends BaseTestObject {
   @Override
   public boolean equals(Object obj) {
     TestReferenceFooPrime fooPrime = (TestReferenceFooPrime) obj;
-    if (fooPrime.getA().equals(this.a)) {
-      return true;
-    } else {
-      return false;
-    }
+    return fooPrime.getA().equals(this.a);
   }
 
   @Override

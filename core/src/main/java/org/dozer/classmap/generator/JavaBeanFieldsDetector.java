@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,16 @@
  */
 package org.dozer.classmap.generator;
 
-import org.dozer.util.ReflectionUtils;
-
 import java.beans.PropertyDescriptor;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.dozer.util.ReflectionUtils;
+
 /**
  * @author Dmitry Spikhalskiy
  */
-public class JavaBeanFieldsDetector implements BeanMappingGenerator.BeanFieldsDetector {
+public class JavaBeanFieldsDetector implements BeanFieldsDetector {
   public boolean accepts(Class<?> clazz) {
     return true;
   }

@@ -1,0 +1,69 @@
+== Querying mapping metadata
+This section will cover the mapping metadata interface. It provides easy
+to use read-only access to all important properties or aspects of the
+currently active mapping definitions.
+
+The following sections will give some code examples how to use the
+mapping query interfaces. The most important interface in the whole
+process is `org.dozer.metadata.MappingMetadata`. An instance can be
+acquired by calling the `getMappingMetadata()` method of the
+`Mapper` instance.
+
+Consider the following mapping file:
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+    <mapping>
+        <class-a>org.dozer.vo.ClassA</class-a>
+        <class-b>org.dozer.vo.ClassB</class-b>
+        <field>
+            <a>fieldA</a>
+            <b>fieldB</b>
+        </field>
+    </mapping>
+</mappings>
+----
+
+To begin querying the mapping definitions the following code is needed:
+
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingFiles(listOfFiles)
+        .build();
+MappingMetadata mapMetadata = mapper.getMappingMetadata();
+----
+
+Now that a reference to MappingMetadata is obtained we can start
+querying for a certain class mapping definition:
+
+[source,java,prettyprint]
+----
+try {
+  ClassMappingMetadata classMappingMetadata = 
+      mapMetadata.getClassMapping(ClassA.class, ClassB.class);
+} catch (MetadataLookupException e) {
+  // couldn't find it
+}
+----
+
+When holding a reference to a ClassMappingMetadata interface, queries
+for individual field mappings can be executed:
+
+[source,java,prettyprint]
+----
+try {
+  FieldMappingMetadata fieldMetadata = classMetadata.getFieldMappingBySource("fieldA");
+  // Destination: fieldB
+  System.out.println("Destination: " + fieldMetadata.getDestinationName());
+} catch (MetadataLookupException e) {
+  // couldn't find it
+}
+----
+
+For extensive documentation on the different interfaces please refer to
+the JavaDoc.

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,9 @@ import org.dozer.Mapping;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -32,7 +34,7 @@ public class ClassLevelIsAccessibleTest extends AbstractFunctionalTest {
     @Override
     @Before
     public void setUp() throws Exception {
-        mapper = getMapper("classLevelIsAccessible.xml");
+        mapper = getMapper("mappings/classLevelIsAccessible.xml");
     }
 
     @Test

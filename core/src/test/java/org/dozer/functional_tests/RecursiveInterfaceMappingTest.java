@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,9 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.DozerBeanMapper;
+import java.util.Iterator;
+
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.interfacerecursion.User;
 import org.dozer.vo.interfacerecursion.UserGroup;
@@ -23,12 +25,12 @@ import org.dozer.vo.interfacerecursion.UserGroupImpl;
 import org.dozer.vo.interfacerecursion.UserGroupPrime;
 import org.dozer.vo.interfacerecursion.UserImpl;
 import org.dozer.vo.interfacerecursion.UserPrime;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author Christoph Goldner
@@ -63,9 +65,9 @@ public class RecursiveInterfaceMappingTest extends AbstractFunctionalTest {
     }
 
     // get mapper
-    List<String> mappingFiles = new ArrayList<String>();
-    mappingFiles.add("interface-recursion-mappings.xml");
-    Mapper mapper = new DozerBeanMapper(mappingFiles);
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/interface-recursion-mappings.xml")
+            .build();
 
     // do mapping
     UserGroupPrime userGroupPrime = null;

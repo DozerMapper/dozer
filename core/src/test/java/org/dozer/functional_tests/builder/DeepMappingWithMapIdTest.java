@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.MappingProcessor;
 import org.dozer.classmap.RelationshipType;
 import org.dozer.loader.api.BeanMappingBuilder;
@@ -59,10 +60,11 @@ public class DeepMappingWithMapIdTest {
         //Double check to make sure that the field is null, otherwise our test would be invalid.
         Assert.assertNull(srcChild1.getLastName());
         Assert.assertEquals(new Integer(1), srcChild1.getId());
-        
-        DozerBeanMapper mapper = new DozerBeanMapper();
-        mapper.addMapping(getParentMapping(ParentWithChildList.class));
-        mapper.addMapping(getChildMapping());
+
+        Mapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingBuilder(getParentMapping(ParentWithChildList.class))
+                .withMappingBuilder(getChildMapping())
+                .build();
         mapper.map(src, dest, MAP_ID_PATENT);
          
         checkResults(src, dest);
@@ -83,9 +85,10 @@ public class DeepMappingWithMapIdTest {
         Assert.assertEquals(new Integer(1), srcChild1.getId());
                 
         //Perform the mapping
-        DozerBeanMapper mapper = new DozerBeanMapper();
-        mapper.addMapping(getParentMapping(ParentWithChildSet.class));
-        mapper.addMapping(getChildMapping());
+        Mapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingBuilder(getParentMapping(ParentWithChildSet.class))
+                .withMappingBuilder(getChildMapping())
+                .build();
         mapper.map(src, dest, MAP_ID_PATENT);
                 
         checkResults(src, dest);        
@@ -160,7 +163,7 @@ public class DeepMappingWithMapIdTest {
         /**
          * The list of children which we are expecting to be mapped with the BeanMappingBuilder defined by getChildMapping(), which should not map nulls in the child;
          */
-        List<Child> children = new ArrayList<Child>();
+        List<Child> children = new ArrayList<>();
         
         public ParentWithChildList(Child child1, Child child2) {
             super();
@@ -203,11 +206,11 @@ public class DeepMappingWithMapIdTest {
         }
     }
 
-    public static interface Parent<T extends Collection<Child>> {
-        
-        public T getChildren();
+    public interface Parent<T extends Collection<Child>> {
 
-        public void setChildren(T children);
+        T getChildren();
+
+        void setChildren(T children);
     }
     
     public static class Child implements Comparable<Child>{

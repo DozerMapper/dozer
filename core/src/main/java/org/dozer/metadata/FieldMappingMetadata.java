@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,63 +23,63 @@ import org.dozer.classmap.MappingDirection;
  */
 public interface FieldMappingMetadata {
 
-	/**
-	 * @return The name of the source field.
-	 */
-	String getSourceName();
-	
-	/**
-	 * @return The name of the destination field.
-	 */
-	String getDestinationName();
-	
-	/** 
-	 * @return The name of the getter of the source field.
-	 */
-	String getSourceFieldGetMethod();
-	
-	/** 
-	 * @return The name of the setter of the source field.
-	 */
-	String getSourceFieldSetMethod();
-	
-	/** 
-	 * @return The name of the getter of the destination field.
-	 */
-	String getDestinationFieldGetMethod();
-	
-	/** 
-	 * @return The name of the setter of the destination field.
-	 */
-	String getDestinationFieldSetMethod();
-	
-	/**
-	 * @return true if nested objects are copied by reference. false if a deep copy 
-	 * is performed.
-	 */
-	boolean isCopyByReference();
-	
-	boolean isSourceFieldAccessible();
-	
-	boolean isDestinationFieldAccessible();
-	
-	/**
-	 * Can be used to check whether a mapping in unidirectional or bidirectional.
-	 *  
-	 * @return An instance of {@link org.dozer.classmap.MappingDirection}.
-	 */
-	MappingDirection getMappingDirection();
-	
-	/**
-	 * @return The date format used for conversions as a string.
-	 */
-	String getDateFormat();
-	
-	/** 
-	 * The name of the custom converter class, or an empty string if no custom converter is used.
-	 *
-	 * @return The name of the custom converter class as a string.
-	 */
-	String getCustomConverter();
-	
+    /**
+     * @return The name of the source field.
+     */
+    String getSourceName();
+    
+    /**
+     * @return The name of the destination field.
+     */
+    String getDestinationName();
+    
+    /** 
+     * @return The name of the getter of the source field.
+     */
+    String getSourceFieldGetMethod();
+    
+    /** 
+     * @return The name of the setter of the source field.
+     */
+    String getSourceFieldSetMethod();
+    
+    /** 
+     * @return The name of the getter of the destination field.
+     */
+    String getDestinationFieldGetMethod();
+    
+    /** 
+     * @return The name of the setter of the destination field.
+     */
+    String getDestinationFieldSetMethod();
+    
+    /**
+     * @return true if nested objects are copied by reference. false if a deep copy 
+     * is performed.
+     */
+    boolean isCopyByReference();
+    
+    boolean isSourceFieldAccessible();
+    
+    boolean isDestinationFieldAccessible();
+    
+    /**
+     * Can be used to check whether a mapping in unidirectional or bidirectional.
+     *  
+     * @return An instance of {@link org.dozer.classmap.MappingDirection}.
+     */
+    MappingDirection getMappingDirection();
+    
+    /**
+     * @return The date format used for conversions as a string.
+     */
+    String getDateFormat();
+    
+    /** 
+     * The name of the custom converter class, or an empty string if no custom converter is used.
+     *
+     * @return The name of the custom converter class as a string.
+     */
+    String getCustomConverter();
+    
 }

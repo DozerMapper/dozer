@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ package org.dozer.util;
 /**
  *
  * Default implementation. Supports only simple proxy cases of Cglib and Javassist.
- * For more complicated scenarious consider using framework specific ProxyResolver.
+ * For more complicated scenarios consider using framework specific ProxyResolver.
  *
  * @author dmitry.buzdin
  */
@@ -32,7 +32,8 @@ public class DefaultProxyResolver implements DozerProxyResolver {
     String className = clazz.getName();
     return className.contains(DozerConstants.CGLIB_ID)
         || className.startsWith(DozerConstants.JAVASSIST_PACKAGE)
-        || className.contains(DozerConstants.JAVASSIST_SYMBOL);
+        || className.contains(DozerConstants.JAVASSIST_SYMBOL)
+        || className.contains(DozerConstants.JAVASSIST_SYMBOL_2);
   }
 
   @Override

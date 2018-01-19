@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,7 @@ package org.dozer.vo.inheritance;
 
 public interface ChildChildIF extends ChildIF {
 
-  public String getChildChildField();
-  public void setChildChildField(String childChildField);
+    String getChildChildField();
 
+    void setChildChildField(String childChildField);
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,10 @@
  */
 package org.dozer.functional_tests.mapperaware;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerConverter;
 import org.dozer.Mapper;
 import org.dozer.MapperAware;
@@ -37,20 +31,15 @@ import org.junit.Test;
  */
 public class CachingCustomConverterTest extends Assert {
 
-  DozerBeanMapper mapper;
+  Mapper mapper;
 
   @Before
   public void setup() {
-    mapper = new DozerBeanMapper();
-    List<String> mappingFileUrls = new ArrayList<String>();
-    mappingFileUrls.add("mapper-aware.xml");
-
-    Map<String, CustomConverter> customConvertersWithId = new HashMap<String, CustomConverter>();
-    customConvertersWithId.put("associationConverter", new AssociatedEntityConverter());
-    customConvertersWithId.put("collectionConverter", new CollectionConverter());
-
-    mapper.setCustomConvertersWithId(customConvertersWithId);
-    mapper.setMappingFiles(mappingFileUrls);
+    mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("mappings/mapper-aware.xml")
+            .withCustomConverterWithId("associationConverter", new AssociatedEntityConverter())
+            .withCustomConverterWithId("collectionConverter", new CollectionConverter())
+            .build();
   }
 
   @Test
@@ -59,7 +48,7 @@ public class CachingCustomConverterTest extends Assert {
     BidirectionalOne one = new BidirectionalOne();
     BidirectionalMany source = new BidirectionalMany();
     source.setOne(one);
-    Set<BidirectionalMany> many = new HashSet<BidirectionalMany>();
+    Set<BidirectionalMany> many = new HashSet<>();
 
     many.add(source);
     one.setMany(many);
@@ -81,7 +70,7 @@ public class CachingCustomConverterTest extends Assert {
 
     private Mapper mapper;
 
-    public AssociatedEntityConverter() {
+    AssociatedEntityConverter() {
       super(BidirectionalOneConvert.class, BidirectionalOne.class);
     }
 
@@ -105,7 +94,7 @@ public class CachingCustomConverterTest extends Assert {
 
     private Mapper mapper;
 
-    public CollectionConverter() {
+    CollectionConverter() {
       super(Set.class, Set.class);
     }
 
@@ -114,10 +103,10 @@ public class CachingCustomConverterTest extends Assert {
     }
 
     public Set convertTo(Set source, Set destination) {
-      return convert(source, destination);
+      return convert(source);
     }
 
-    private Set convert(Set source, Set destination) {
+    private Set convert(Set source) {
       Set result = new HashSet();
       for (Object object : source) {
         if (object instanceof BidirectionalManyConvert) {
@@ -132,7 +121,7 @@ public class CachingCustomConverterTest extends Assert {
 
     @Override
     public Set convertFrom(Set source, Set destination) {
-      return convert(source, destination);
+      return convert(source);
     }
 
   }

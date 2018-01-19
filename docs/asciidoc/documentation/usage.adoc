@@ -1,0 +1,70 @@
+== Usage
+=== Dozer Bean Mapper
+Before we go over setting up custom xml bean mappings, let us look at a simple example of using Dozer.
+The Dozer mapping implementation has a method called map which takes a source object and either
+a destination object or destination object class type.
+After mapping the two objects it then returns the destination object with all of its mapped fields.
+
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+----
+
+Or...
+
+[source,java,prettyprint]
+----
+DestinationObject destObject = new DestinationObject();
+mapper.map(sourceObject, destObject);
+----
+
+Dozer operates in two general modes: implicit and explicit.
+
+_Implicit_ mode is activated by default and tries to resolve mappings for you.
+It uses simple assumptions that if two objects are passed for mapping then bean properties with
+the same names should be mapped. If there are additional mappings needed,
+which can not be derived by the naming you should add those either via
+link:mappings.adoc[XML], link:annotations.adoc[annotations] or link:apimappings.adoc[API].
+
+_Explicit_ mode assumes that no mappings should be performed or "guessed" until you have specified those specifically.
+The amount of coding is higher in explicit mode, but sometimes you would like to have  full control on
+what is going on during the mappings process and this approach is also used in many of the productive applications.
+Implicit/Explicit mapping switch is called _"wildcard"_ in Dozer.
+
+=== Injecting Custom Mapping Files
+The Dozer mapping xml file(s) define any custom mappings that can't be automatically performed by the Dozer mapping engine.
+Any custom Dozer mapping files need to be injected into the `Mapper` implementation
+via `DozerBeanMapperBuilder#withMappingFiles(..)` method.
+
+Preferably, you will be using an IOC framework such as Spring for these Dozer injection requirements.
+Alternatively, the injection of mapping files can be done programmatically.
+Below is a programmatic approach to creating a bean mapper.
+Note that this is *NOT the recommended way to retrieve the bean mapper*.
+Each new instance needs to be initialized and this consumes time as well as resources.
+If you are using the mapper this way just wrap it using the singleton pattern.
+
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.create()
+        .withMappingFiles("dozerBeanMapping.xml", "someOtherDozerBeanMappings.xml")
+        .build();
+
+DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+----
+
+=== Spring Integration
+The following is an example how the Mapper bean would be configured via Spring.
+
+[source,xml,prettyprint]
+----
+<bean id="mapper" class="org.dozer.DozerBeanMapper">
+    <property name="mappingFiles">
+        <list>
+            <value>dozer-global-configuration.xml</value>
+            <value>dozer-bean-mappings.xml</value>
+            <value>more-dozer-bean-mappings.xml</value>
+        </list>
+    </property>
+</bean>
+----

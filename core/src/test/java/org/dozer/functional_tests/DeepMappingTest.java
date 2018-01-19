@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,8 +27,12 @@ import org.dozer.vo.deep.Person;
 import org.dozer.vo.deep.SrcDeepObj;
 import org.dozer.vo.deep2.Dest;
 import org.dozer.vo.deep2.Src;
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author tierney.matt
@@ -38,7 +42,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapping() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     SrcDeepObj src = testDataFactory.getSrcDeepObj();
     DestDeepObj dest = mapper.map(src, DestDeepObj.class);
     SrcDeepObj src2 = mapper.map(dest, SrcDeepObj.class);
@@ -50,7 +54,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepPropertyOneWay() throws Exception {
-    mapper = getMapper(new String[] { "dozerBeanMapping.xml" });
+    mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
     House house = newInstance(House.class);
     Person owner = newInstance(Person.class);
     owner.setYourName("myName");
@@ -64,7 +68,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepInterfaceWithHint() throws Exception {
-    Mapper mapper = getMapper(new String[] { "fieldAttributeMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/fieldAttributeMapping.xml"});
     InsideTestObject ito = newInstance(InsideTestObject.class);
     House house = newInstance(House.class);
     MetalThingyIF thingy = newInstance(Car.class);
@@ -84,7 +88,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
    */
   @Test
   public void testDeepMapping_UsingCustomGetSetMethods() {
-    mapper = super.getMapper(new String[] { "deepMappingUsingCustomGetSet.xml" });
+    mapper = super.getMapper(new String[] {"mappings/deepMappingUsingCustomGetSet.xml"});
 
     Src src = newInstance(Src.class);
     src.setSrcField("srcFieldValue");

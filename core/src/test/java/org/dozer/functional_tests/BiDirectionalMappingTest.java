@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,17 @@
  */
 package org.dozer.functional_tests;
 
-import org.dozer.DozerBeanMapperSingletonWrapper;
+import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 import org.dozer.vo.LoopObjectChild;
 import org.dozer.vo.LoopObjectParent;
 import org.dozer.vo.LoopObjectParentPrime;
 import org.dozer.vo.bidirectional.A;
 import org.dozer.vo.bidirectional.B;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
 
 /**
  * @author tierney.matt
@@ -46,7 +47,7 @@ public class BiDirectionalMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testBidirectionalWithCustomMapping() throws Exception {
-    Mapper mapper = getMapper(new String[] { "infiniteLoopMapping.xml" });
+    Mapper mapper = getMapper(new String[] {"mappings/infiniteLoopMapping.xml"});
     LoopObjectParent loopObjectParent = newInstance(LoopObjectParent.class);
     LoopObjectChild loopObjectChild = newInstance(LoopObjectChild.class);
     loopObjectChild.setParent(loopObjectParent);
@@ -74,7 +75,9 @@ public class BiDirectionalMappingTest extends AbstractFunctionalTest {
       a.getCs()[i] = c;
     }
 
-    Mapper mapper = DozerBeanMapperSingletonWrapper.getInstance();
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingFiles("testDozerBeanMapping.xml")
+            .build();
     mapper.map(a, b);
 
     // Check if C object nr i holds value i after the mapping

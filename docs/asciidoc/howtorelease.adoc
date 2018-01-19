@@ -1,0 +1,16 @@
+== How to Release
+The following steps should be followed to perform a release:
+- Build release notes [1]
+- mvn versions:set -DnewVersion=X.X.X
+- mvn versions:commit
+- Update link:core/src/main/java/org/dozer/util/DozerConstants.java[DozerConstants.java]
+- Update pom.xml - <building-tools.version/>
+- Update dozer-version in docs for link:docs/asciidoc/documentation/gettingstarted.adoc[Getting Started]
+- Finally, raise a PR. If the PR is built successfully and merged, TravisCI should automatically publish to Maven Central
+
+[1] https://github.com/ariatemplates/git-release-notes/blob/master/README.md
+
+=== Post Release
+- Validate release on link:https://repo.maven.apache.org/maven2/com/github/dozermapper/dozer-core/[Sonatype]
+- Create release in link:https://github.com/DozerMapper/dozer/releases[GitHub]
+- Finally, do the release steps, but now for a SNAPSHOT

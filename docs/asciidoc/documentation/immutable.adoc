@@ -1,0 +1,18 @@
+== Mapping immutable types
+You can create objects when constructor is not available, or when
+there is no no-args constructor in the class. Feature is designed
+for mapping immutable types. To use it, at the mapping level add
+an option to skip the constructor, then at the field level choose
+to inject the value directly to the field, skipping the setter.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.AnyExternalModelClass</class-a>
+    <class-b skip-constructor="true">org.dozer.vo.ImmutableModelClass</class-b>
+    <field>
+        <a>externalModelField</a>
+        <b is-accessible="true">ourFinalField</b>
+    </field>
+</mapping>
+----

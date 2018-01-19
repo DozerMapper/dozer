@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,67 +44,67 @@ import org.apache.commons.beanutils.Converter;
  */
 public class DateConverter implements Converter {
 
-	private DateFormat dateFormat;
+    private DateFormat dateFormat;
 
-	public DateConverter(DateFormat dateFormat) {
-		this.dateFormat = dateFormat;
-	}
+    public DateConverter(DateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 
-	public Object convert(Class destClass, Object srcObj) {
-		final Class srcFieldClass = srcObj.getClass();
+    public Object convert(Class destClass, Object srcObj) {
+        final Class srcFieldClass = srcObj.getClass();
 
-		long time;
-		int nanos = 0;
-		if (Calendar.class.isAssignableFrom(srcFieldClass)) {
-			Calendar inVal = (Calendar) srcObj;
-			time = inVal.getTime().getTime();
-		} else if (Timestamp.class.isAssignableFrom(srcFieldClass)) {
-			Timestamp timestamp = (Timestamp) srcObj;
-			time = timestamp.getTime();
-			nanos = timestamp.getNanos();
-		} else if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
-			time = ((java.util.Date) srcObj).getTime();
-		} else if (XMLGregorianCalendar.class.isAssignableFrom(srcFieldClass)) {
-			time = ((XMLGregorianCalendar) srcObj).toGregorianCalendar().getTimeInMillis();
-		} else if (dateFormat != null && String.class.isAssignableFrom(srcObj.getClass())) {
-			try {
-				if ("".equals(srcObj)) {
-					return null;
-				}
-				time = dateFormat.parse((String) srcObj).getTime();
-			} catch (ParseException e) {
-				throw new ConversionException("Unable to parse source object using specified date format", e);
-			}
-			// Default conversion
-		} else {
-			try {
-				time = Long.parseLong(srcObj.toString());
-			} catch (NumberFormatException e) {
-				throw new ConversionException("Unable to determine time in millis of source object", e);
-			}
-		}
+        long time;
+        int nanos = 0;
+        if (Calendar.class.isAssignableFrom(srcFieldClass)) {
+            Calendar inVal = (Calendar) srcObj;
+            time = inVal.getTime().getTime();
+        } else if (Timestamp.class.isAssignableFrom(srcFieldClass)) {
+            Timestamp timestamp = (Timestamp) srcObj;
+            time = timestamp.getTime();
+            nanos = timestamp.getNanos();
+        } else if (java.util.Date.class.isAssignableFrom(srcFieldClass)) {
+            time = ((java.util.Date) srcObj).getTime();
+        } else if (XMLGregorianCalendar.class.isAssignableFrom(srcFieldClass)) {
+            time = ((XMLGregorianCalendar) srcObj).toGregorianCalendar().getTimeInMillis();
+        } else if (dateFormat != null && String.class.isAssignableFrom(srcObj.getClass())) {
+            try {
+                if ("".equals(srcObj)) {
+                    return null;
+                }
+                time = dateFormat.parse((String) srcObj).getTime();
+            } catch (ParseException e) {
+                throw new ConversionException("Unable to parse source object using specified date format", e);
+            }
+            // Default conversion
+        } else {
+            try {
+                time = Long.parseLong(srcObj.toString());
+            } catch (NumberFormatException e) {
+                throw new ConversionException("Unable to determine time in millis of source object", e);
+            }
+        }
 
-		try {
-			if (Calendar.class.isAssignableFrom(destClass)) {
-				Constructor constructor = destClass.getConstructor();
-				Calendar result = (Calendar) constructor.newInstance();
-				result.setTimeInMillis(time);
-				return result;
-			}
+        try {
+            if (Calendar.class.isAssignableFrom(destClass)) {
+                Constructor constructor = destClass.getConstructor();
+                Calendar result = (Calendar) constructor.newInstance();
+                result.setTimeInMillis(time);
+                return result;
+            }
 
-			if (dateFormat != null && String.class.isAssignableFrom(destClass)) {
-				return dateFormat.format(new java.util.Date(time));
-			}
+            if (dateFormat != null && String.class.isAssignableFrom(destClass)) {
+                return dateFormat.format(new java.util.Date(time));
+            }
 
-			Constructor constructor = destClass.getConstructor(Long.TYPE);
-			Object result = constructor.newInstance(time);
-			if (nanos != 0 && (Timestamp.class.isAssignableFrom(destClass))) {
-				((Timestamp) result).setNanos(nanos);
-			}
-			return result;
-		} catch (Exception e) {
-			throw new ConversionException(e);
-		}
-	}
+            Constructor constructor = destClass.getConstructor(Long.TYPE);
+            Object result = constructor.newInstance(time);
+            if (nanos != 0 && (Timestamp.class.isAssignableFrom(destClass))) {
+                ((Timestamp) result).setNanos(nanos);
+            }
+            return result;
+        } catch (Exception e) {
+            throw new ConversionException(e);
+        }
+    }
 
 }

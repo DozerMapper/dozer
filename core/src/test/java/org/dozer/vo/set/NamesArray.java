@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,16 +17,16 @@ package org.dozer.vo.set;
 
 /**
  * @author Peter Monks
- * 
  */
 public class NamesArray {
-  private String[] names = null;
 
-  public String[] getNames() {
-    return names;
-  }
+    private String[] names;
 
-  public void setNames(String[] names) {
-    this.names = names;
-  }
+    public String[] getNames() {
+        return names;
+    }
+
+    public void setNames(String[] names) {
+        this.names = names;
+    }
 }

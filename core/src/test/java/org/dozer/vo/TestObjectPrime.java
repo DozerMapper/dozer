@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,7 +65,7 @@ public class TestObjectPrime extends BaseTestObject {
   private Object[] objectArrayToSet;
   private Apple[] setToArrayWithValues;
   private List listToSet;
-	private List listToCollection;
+    private List listToCollection;
   private List setToListWithValues;
   public static String fieldAccessible;
   public int fieldAccessiblePrimInt;
@@ -408,12 +408,12 @@ public class TestObjectPrime extends BaseTestObject {
     throw new RuntimeException("Checking Allowed Exceptions");
   }
 
-	public List getListToCollection() {
-		return listToCollection;
-	}
+    public List getListToCollection() {
+        return listToCollection;
+    }
 
-	public void setListToCollection(List listToCollection) {
-		this.listToCollection = listToCollection;
-	}
+    public void setListToCollection(List listToCollection) {
+        this.listToCollection = listToCollection;
+    }
 
 }

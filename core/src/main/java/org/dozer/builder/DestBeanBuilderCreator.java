@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,36 +15,40 @@
  */
 package org.dozer.builder;
 
-import org.dozer.BeanBuilder;
-import org.dozer.factory.BeanCreationDirective;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.dozer.BeanBuilder;
+import org.dozer.factory.BeanCreationDirective;
 
 /**
  * @author Dmitry Spikhalskiy
  */
-public class DestBeanBuilderCreator {
+public final class DestBeanBuilderCreator {
 
-  //elements of this collections should have very specific isApplicable method to avoid application to class,
-  //which should be processed by another builder
-  static final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
+    /**
+     * Elements of this collections should have very specific isApplicable method to avoid application to class,
+     * which should be processed by another builder
+     */
+    private final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
 
-  private DestBeanBuilderCreator() {
-  }
+    public DestBeanBuilderCreator() {
 
-  public static BeanBuilder create(BeanCreationDirective directive) {
-    for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
-      if (strategy.isApplicable(directive)) {
-        return strategy.create(directive);
-      }
     }
 
-    return null;
-  }
+    public BeanBuilder create(BeanCreationDirective directive) {
+        for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
+            if (strategy.isApplicable(directive)) {
+                return strategy.create(directive);
+            }
+        }
 
-  public static void addPluggedStrategy(BeanBuilderCreationStrategy beanBuilderCreationStrategy) {
-    pluggedStrategies.add(beanBuilderCreationStrategy);
-  }
+        return null;
+    }
+
+    public void addPluggedStrategies(Collection<BeanBuilderCreationStrategy> beanBuilderCreationStrategies) {
+        pluggedStrategies.addAll(beanBuilderCreationStrategies);
+    }
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,16 @@
  */
 package org.dozer.loader.xml;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.dozer.AbstractDozerTest;
-import org.junit.Before;
-import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import org.dozer.AbstractDozerTest;
+import org.dozer.el.NoopELEngine;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Dmitry Buzdin
@@ -35,7 +37,7 @@ public class SimpleElementReaderTest extends AbstractDozerTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    reader = new SimpleElementReader();
+    reader = new ExpressionElementReader(new NoopELEngine());
   }
 
   @Test

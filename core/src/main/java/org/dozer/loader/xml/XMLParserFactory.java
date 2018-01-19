@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +15,19 @@
  */
 package org.dozer.loader.xml;
 
-import org.dozer.MappingException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import org.dozer.MappingException;
+import org.dozer.config.BeanContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  *
@@ -37,13 +39,10 @@ public final class XMLParserFactory {
 
   private static final String SCHEMA_FEATURE = "http://apache.org/xml/features/validation/schema";
 
-  private static final XMLParserFactory instance = new XMLParserFactory();
+  private final BeanContainer beanContainer;
 
-  public static XMLParserFactory getInstance() {
-    return instance;
-  }
-
-  private XMLParserFactory() {
+  public XMLParserFactory(BeanContainer beanContainer) {
+    this.beanContainer = beanContainer;
   }
 
   public DocumentBuilder createParser() {
@@ -84,7 +83,7 @@ public final class XMLParserFactory {
   private DocumentBuilder createDocumentBuilder(DocumentBuilderFactory factory) throws ParserConfigurationException {
     DocumentBuilder docBuilder = factory.newDocumentBuilder();
     docBuilder.setErrorHandler(new DozerDefaultHandler());
-    docBuilder.setEntityResolver(new DozerResolver());
+    docBuilder.setEntityResolver(new DozerResolver(beanContainer));
     return docBuilder;
   }
 
@@ -114,10 +113,14 @@ public final class XMLParserFactory {
     }
 
     private String getMessage(String level, SAXParseException e) {
-      return ("Parsing " + level + "\n" + "Line:    " + e.getLineNumber() + "\n" + "URI:     " + e.getSystemId() + "\n"
-              + "Message: " + e.getMessage());
+      return "Parsing "
+             + level
+             + "\n" + "Line:    "
+             + e.getLineNumber()
+             + "\n" + "URI:     "
+             + e.getSystemId() + "\n"
+              + "Message: "
+             + e.getMessage();
     }
   }
-
-
 }

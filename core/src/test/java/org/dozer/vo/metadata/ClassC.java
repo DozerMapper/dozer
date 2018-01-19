@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,25 +19,25 @@ package org.dozer.vo.metadata;
  * @author  florian.kunz
  */
 public class ClassC {
-	
-	private String customFieldC;
+    
+    private String customFieldC;
 
-	/**
-	 * customFieldC getter
-	 * @return the customFieldC
-	 */
-	public String getCustomFieldC() {
-		return customFieldC;
-	}
+    /**
+     * customFieldC getter
+     * @return the customFieldC
+     */
+    public String getCustomFieldC() {
+        return customFieldC;
+    }
 
-	/**
-	 * customFieldC setter
-	 * @param customFieldC the customFieldC to set
-	 */
-	public void setCustomFieldC(String customFieldC) {
-		this.customFieldC = customFieldC;
-	}
-	
-	
+    /**
+     * customFieldC setter
+     * @param customFieldC the customFieldC to set
+     */
+    public void setCustomFieldC(String customFieldC) {
+        this.customFieldC = customFieldC;
+    }
+    
+    
 
 }

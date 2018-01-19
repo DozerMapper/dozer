@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,22 +15,35 @@
  */
 package org.dozer.classmap.generator;
 
-import org.dozer.classmap.ClassMap;
-import org.dozer.classmap.ClassMapBuilder;
-import org.dozer.classmap.Configuration;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.util.CollectionUtils;
-
 import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.dozer.classmap.ClassMap;
+import org.dozer.classmap.ClassMapBuilder;
+import org.dozer.classmap.Configuration;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
+import org.dozer.fieldmap.FieldMap;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+import org.dozer.util.CollectionUtils;
 
 /**
  * Provides default field mappings when either the source class, destination class or both
  * classes have been declared field accessible e.g. with {@code is-accessible="true"}.
  */
 public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMappingGenerator {
+
+    private final BeanContainer beanContainer;
+    private final DestBeanCreator destBeanCreator;
+    private final PropertyDescriptorFactory propertyDescriptorFactory;
+
+    public ClassLevelFieldMappingGenerator(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+        this.beanContainer = beanContainer;
+        this.destBeanCreator = destBeanCreator;
+        this.propertyDescriptorFactory = propertyDescriptorFactory;
+    }
 
     /** {@inheritDoc} */
     @Override
@@ -41,7 +54,7 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
     /** {@inheritDoc} */
     @Override
     public boolean apply(ClassMap classMap, Configuration configuration) {
-        BeanMappingGenerator.BeanFieldsDetector beanFieldsDetector = new JavaBeanFieldsDetector();
+        BeanFieldsDetector beanFieldsDetector = new JavaBeanFieldsDetector();
 
         Set<String> destFieldNames = getDeclaredFieldNames(classMap.getDestClassToMap());
         Set<String> destWritablePropertyNames = beanFieldsDetector.getWritableFieldNames(classMap.getDestClassToMap());
@@ -72,7 +85,7 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
         }
 
         GeneratorUtils.addGenericMapping(mappingType, classMap, configuration,
-                mutualFieldName, mutualFieldName);
+                mutualFieldName, mutualFieldName, beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
 
     private Set<String> getDeclaredFieldNames(Class<?> srcType) {

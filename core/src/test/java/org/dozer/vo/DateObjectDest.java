@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,6 @@
 package org.dozer.vo;
 
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.Date;
 
 /**
  * XMLGregorianCalendar test object

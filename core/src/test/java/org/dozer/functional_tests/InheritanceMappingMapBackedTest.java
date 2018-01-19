@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,12 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Map;
+
 import org.dozer.vo.inheritance.A;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import java.util.Map;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Peter Oxenham
@@ -38,7 +39,7 @@ public class InheritanceMappingMapBackedTest extends AbstractFunctionalTest {
      *    because the super classes and the interface classes were searched separately.   
      */
     
-    mapper = getMapper("inheritanceMappingMapBacked.xml");
+    mapper = getMapper("mappings/inheritanceMappingMapBacked.xml");
 
     A src = createA();
     Map dest = mapper.map(src, Map.class);

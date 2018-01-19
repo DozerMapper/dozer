@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,29 +15,48 @@
  */
 package org.dozer.osgi;
 
-import org.dozer.DozerInitializer;
-import org.dozer.config.BeanContainer;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Dmitry Buzdin
- */
 public final class Activator implements BundleActivator {
 
-  private final Logger log = LoggerFactory.getLogger(Activator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
 
-  public void start(BundleContext bundleContext) throws Exception {
-    log.info("Starting Dozer OSGi bundle");
-    OSGiClassLoader classLoader = new OSGiClassLoader(bundleContext);
-    BeanContainer.getInstance().setClassLoader(classLoader);
-    DozerInitializer.getInstance().init(Activator.class.getClassLoader());
-  }
+    private static BundleContext context;
+    private static Bundle bundle;
 
-  public void stop(BundleContext bundleContext) throws Exception {
-    log.info("Dozer OSGi bundle stopped");
-  }
+    public static BundleContext getContext() {
+        return context;
+    }
 
+    private static void setContext(BundleContext context) {
+        Activator.context = context;
+    }
+
+    public static Bundle getBundle() {
+        return bundle;
+    }
+
+    private static void setBundle(Bundle bundle) {
+        Activator.bundle = bundle;
+    }
+
+    @Override
+    public void start(BundleContext context) throws Exception {
+        LOG.info("Starting Dozer OSGi bundle");
+
+        setContext(context);
+        setBundle(context.getBundle());
+    }
+
+    @Override
+    public void stop(BundleContext bundleContext) throws Exception {
+        setContext(null);
+        setBundle(null);
+
+        LOG.info("Dozer OSGi bundle stopped");
+    }
 }

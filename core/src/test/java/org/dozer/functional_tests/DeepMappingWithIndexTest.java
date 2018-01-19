@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,10 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Vector;
+
 import org.dozer.vo.AnotherTestObject;
 import org.dozer.vo.SimpleObj;
 import org.dozer.vo.TestObject;
@@ -23,20 +27,24 @@ import org.dozer.vo.deep.DestDeepObj;
 import org.dozer.vo.deep.SrcDeepObj;
 import org.dozer.vo.deep.SrcNestedDeepObj;
 import org.dozer.vo.deep.SrcNestedDeepObj2;
-import org.dozer.vo.deepindex.*;
+import org.dozer.vo.deepindex.A;
+import org.dozer.vo.deepindex.B;
+import org.dozer.vo.deepindex.Family;
+import org.dozer.vo.deepindex.HeadOfHouseHold;
+import org.dozer.vo.deepindex.HeadOfHouseHolds;
+import org.dozer.vo.deepindex.HeadOfHouseHoldsContainer;
+import org.dozer.vo.deepindex.PersonalDetails;
+import org.dozer.vo.deepindex.Pet;
 import org.dozer.vo.deepindex.customconverter.First;
 import org.dozer.vo.deepindex.customconverter.Last;
 import org.dozer.vo.deepindex.isaccessible.FlatPerson;
 import org.dozer.vo.deepindex.isaccessible.Person;
 import org.dozer.vo.deepindex.isaccessible.Phone;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Vector;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author tierney.matt
@@ -47,7 +55,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFields.xml"});
   }
 
   @Test
@@ -166,7 +174,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapIndexedIsAccessible() throws Exception {
-    mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexAndIsAccessible.xml"});
 
     Person source = newInstance(Person.class);
     Vector<Phone> phonesList = new Vector<Phone>();
@@ -182,7 +190,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
 
   @Test
   public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
-    mapper = getMapper(new String[] { "deepMappingWithIndexAndIsAccessible.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexAndIsAccessible.xml"});
 
     FlatPerson source = newInstance(FlatPerson.class);
     source.setPhoneNumber("911");
@@ -208,7 +216,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
    */
   @Test
   public void testDeepIndexMappingWithCustomConverter() {
-    mapper = getMapper(new String[] { "deepMappingWithIndexedFieldsByCustomConverter.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFieldsByCustomConverter.xml"});
     First first = new First();
     Last last = mapper.map(first, Last.class);
     assertNotNull("nested third object should not be null", last.getThird());
@@ -219,7 +227,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
   // bug #1803172
   @Test
   public void testDeepIndexMapping_CollectionNeedsResizing() {
-    mapper = getMapper(new String[] { "deepMappingWithIndexedFields.xml" });
+    mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFields.xml"});
     A src = new A();
     src.setId1(new Integer(10));
     src.setId2(new Integer(20));

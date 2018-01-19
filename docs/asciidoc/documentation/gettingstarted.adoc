@@ -1,0 +1,91 @@
+:dozer-version: 6.2.0-SNAPSHOT
+
+== Getting Started
+=== Downloading the Distribution
+If you are using link:https://maven.apache.org/[Apache Maven], simply copy-paste this dependency to your project.
+
+[source,xml,prettyprint,subs="verbatim,attributes"]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>{dozer-version}</version>
+</dependency>
+----
+
+=== 1st Mapping
+For your first mapping, lets assume that the two data objects share all common attribute names.
+
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+----
+
+After performing the Dozer mapping, the result will be a new instance of the destination object that
+contains values for all fields that have the same field name as the source object.
+If any of the mapped attributes are of different data types, the Dozer mapping engine will automatically
+perform data type conversion.
+At this point you have completed your first Dozer mapping.
+Later sections will go over how to specify custom mappings via custom xml files.
+
+*IMPORTANT:* For real-world applications it is _NOT_ recommended to create a new instance of the Mapper
+each time you map objects but reuse created instance instead.
+
+=== Specifying Custom Mappings via XML
+If the two different types of data objects that you are mapping contain any fields that don't share a common property name,
+you will need to add a class mapping entry to your custom mapping xml file.
+These mappings xml files are used at runtime by the Dozer mapping engine.
+
+Dozer automatically performs any type conversion when copying the source field data to the destination field.
+The Dozer mapping engine is bi-directional, so if you wanted to map the destination object to the source object,
+you do not need to add another class mapping to the xml file.
+
+*IMPORTANT:* Fields that are of the same name do not need to be specified in the mapping xml file.
+Dozer automatically maps all fields with the same property name from the source object into the destination object.
+
+i.e.:
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>yourpackage.yourSourceClassName</class-a>
+    <class-b>yourpackage.yourDestinationClassName</class-b>
+    <field>
+        <a>yourSourceFieldName</a>
+        <b>yourDestinationFieldName</b>
+    </field>
+</mapping>
+----
+
+The complete Dozer mapping xml file would look like the following.
+The link:./mappings.adoc[Custom Mappings] section contains more information on mapping options that
+are available to you for more complex use cases.
+
+[source,xml,prettyprint]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>MM/dd/yyyy HH:mm</date-format>
+        <wildcard>true</wildcard>
+    </configuration>
+    <mapping>
+        <class-a>yourpackage.yourSourceClassName</class-a>
+        <class-b>yourpackage.yourDestinationClassName</class-b>
+        <field>
+            <A>yourSourceFieldName</A>
+            <B>yourDestinationFieldName</B>
+        </field>
+    </mapping>
+</mappings>
+----
+
+=== Dozer and Dependency Injection Frameworks
+Dozer is not dependant of any existing Dependency Injection framework (link:https://en.wikipedia.org/wiki/Dependency_injection[DI]).
+However the general aim is to support the most typical use cases with ready-to-use wrappers.
+Check link:springintegration.adoc[Spring Integration] manual for option of initializing Dozer
+in context of Spring DI framework.

@@ -1,0 +1,52 @@
+== Basic Property Mapping
+=== Implicit Property Mapping (bi-directional)
+Matching field names are automatically handled by Dozer.
+
+*Properties that are of the same name do not need to be specified in the
+mapping xml file.*
+
+=== Simple Mappings (bi-directional)
+We will start off simple. If you have two properties with different
+names they can be mapped as such:
+
+[source,xml,prettyprint]
+----
+<field>
+    <a>one</a>
+    <b>onePrime</b>
+</field>
+----
+
+=== Data type conversion
+Data type coversion is performed automatically by the Dozer mapping
+engine. Currently, Dozer supports the following types of conversions:
+(these are all bi-directional)
+
+* Primitive to Primitive Wrapper
+* Primitive to Custom Wrapper
+* Primitive Wrapper to Primitive Wrapper
+* Primitive to Primitive
+* Complex Type to Complex Type
+* String to Primitive
+* String to Primitive Wrapper
+* String to Complex Type if the Complex Type contains a String
+constructor
+* String to Map
+* Collection to Collection
+* Collection to Array
+* Map to Complex Type
+* Map to Custom Map Type
+* Enum to Enum
+* Each of these can be mapped to one another: java.util.Date,
+java.sql.Date, java.sql.Time, java.sql.Timestamp, java.util.Calendar,
+java.util.GregorianCalendar
+* String to any of the supported Date/Calendar Objects.
+* Objects containing a toString() method that produces a long
+representing time in (ms) to any supported Date/Calendar object.
+
+=== Recursive Mapping (bi-directional)
+Dozer supports full Class level mapping recursion. If you have any
+complex types defined as field level mappings in your object, Dozer will
+search the mappings file for a Class level mapping between the two
+Classes that you have mapped. If you do not have any mappings, it will
+only map fields that are of the same name between the complex types.

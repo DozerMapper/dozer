@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,10 +27,14 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.MappingException;
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.dozer.loader.MappingsParser;
 import org.dozer.loader.xml.MappingFileReader;
+import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.vo.enumtest.DestType;
 import org.dozer.vo.enumtest.DestTypeWithOverride;
 import org.dozer.vo.enumtest.SrcType;
@@ -53,6 +57,10 @@ import org.junit.Test;
  */
 public class MappingUtilsTest extends AbstractDozerTest {
 
+  private BeanContainer beanContainer = new BeanContainer();
+  private DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
+  private PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
+
   @Test
   public void testIsBlankOrNull() throws Exception {
     assertTrue(MappingUtils.isBlankOrNull(null));
@@ -62,9 +70,9 @@ public class MappingUtilsTest extends AbstractDozerTest {
 
   @Test
   public void testOverridenFields() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
-    MappingFileData mappingFileData = fileReader.read("overridemapping.xml");
-    MappingsParser mappingsParser = MappingsParser.getInstance();
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory), beanContainer);
+    MappingFileData mappingFileData = fileReader.read("mappings/overridemapping.xml");
+    MappingsParser mappingsParser = new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
     mappingsParser.processMappings(mappingFileData.getClassMaps(), mappingFileData.getConfiguration());
     // validate class mappings
     for (ClassMap classMap : mappingFileData.getClassMaps()) {
@@ -113,14 +121,14 @@ public class MappingUtilsTest extends AbstractDozerTest {
   @Test
   public void testGetRealClass() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(ArrayList.class);
-    assertEquals(ArrayList.class, MappingUtils.getRealClass(proxyObj.getClass()));
-    assertEquals(ArrayList.class, MappingUtils.getRealClass(ArrayList.class));
+    assertEquals(ArrayList.class, MappingUtils.getRealClass(proxyObj.getClass(), beanContainer));
+    assertEquals(ArrayList.class, MappingUtils.getRealClass(ArrayList.class, beanContainer));
   }
 
   @Test
   public void testGetRealClass_CGLIBTarget() {
     Object proxyObj = ProxyDataObjectInstantiator.INSTANCE.newInstance(new Class[] {List.class}, new ArrayList());
-    assertSame(proxyObj.getClass(), MappingUtils.getRealClass(proxyObj.getClass()));
+    assertSame(proxyObj.getClass(), MappingUtils.getRealClass(proxyObj.getClass(), beanContainer));
   }
 
   @Test
@@ -205,9 +213,9 @@ public class MappingUtilsTest extends AbstractDozerTest {
 
   @Test
   public void testLoadClass() {
-    assertNotNull(MappingUtils.loadClass("java.lang.String"));
-    assertNotNull(MappingUtils.loadClass("java.lang.String[]"));
-    assertNotNull(MappingUtils.loadClass("[Ljava.lang.String;"));
+    assertNotNull(MappingUtils.loadClass("java.lang.String", beanContainer));
+    assertNotNull(MappingUtils.loadClass("java.lang.String[]", beanContainer));
+    assertNotNull(MappingUtils.loadClass("[Ljava.lang.String;", beanContainer));
   }
 
   @Test
@@ -225,7 +233,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
   }
 
   public void testGetDeepInterfaces(Class<?> classToTest, Class<?>... expectedInterfaces) {
-    List<Class<?>> result = MappingUtils.getInterfaceHierarchy(classToTest);
+    List<Class<?>> result = MappingUtils.getInterfaceHierarchy(classToTest, beanContainer);
     List<Class<?>> expected = Arrays.asList(expectedInterfaces);
 
     assertEquals(expected, result);
@@ -242,7 +250,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
   }
 
   public void testGetSuperClasses(Class<?> classToTest, Class<?>... expectedClasses) {
-    List<Class<?>> result = MappingUtils.getSuperClassesAndInterfaces(classToTest);
+    List<Class<?>> result = MappingUtils.getSuperClassesAndInterfaces(classToTest, beanContainer);
     List<Class<?>> expected = Arrays.asList(expectedClasses);
 
     assertEquals(expected, result);

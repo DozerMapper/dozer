@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dmitry.buzdin
@@ -28,7 +29,7 @@ public class TopLevelMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testListToListMapping_Explicit() {
-    mapper = getMapper("topLevelMapping.xml");
+    mapper = getMapper("mappings/topLevelMapping.xml");
     MyList source = new MyList();
     source.add("100");
 
@@ -66,7 +67,7 @@ public class TopLevelMappingTest extends AbstractFunctionalTest {
 
   @Test
   public void testListToListMapping_ExplicitItems() {
-    mapper = getMapper("topLevelMapping.xml");
+    mapper = getMapper("mappings/topLevelMapping.xml");
     MyList source = new MyList();
     ItemA itemA = new ItemA();
     itemA.setA("test");

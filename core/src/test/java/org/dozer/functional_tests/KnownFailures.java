@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import junit.framework.Assert;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.dozer.vo.CustomGetDest;
 import org.dozer.vo.CustomGetSource;
 import org.dozer.vo.MessageHeaderDTO;
@@ -26,14 +31,9 @@ import org.dozer.vo.inheritance.Outer;
 import org.dozer.vo.inheritance.Target;
 import org.dozer.vo.map.House;
 import org.dozer.vo.map.Room;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -58,7 +58,7 @@ public class KnownFailures extends AbstractFunctionalTest {
    */
   @Test
   public void testListOfCustomObjectsToStringArray() {
-    mapper = getMapper(new String[] { "knownFailures.xml" });
+    mapper = getMapper(new String[] {"mappings/knownFailures.xml"});
     MessageHeaderVO vo = new MessageHeaderVO();
     List<MessageIdVO> ids = new ArrayList<MessageIdVO>();
     ids.add(new MessageIdVO("1"));
@@ -71,7 +71,7 @@ public class KnownFailures extends AbstractFunctionalTest {
 
   @Test
   public void testObjectField() throws Exception {
-    mapper = getMapper("knownFailures.xml");
+    mapper = getMapper("mappings/knownFailures.xml");
     Outer o = new Outer();
     Target t = mapper.map(o, Target.class);
 
@@ -83,7 +83,7 @@ public class KnownFailures extends AbstractFunctionalTest {
    */
   @Test
   public void testMapWithList() {
-    mapper = getMapper("knownFailures.xml");
+    mapper = getMapper("mappings/knownFailures.xml");
     Room room = new Room();
     room.setRoomName("some room name");
     House house = new House();
@@ -102,7 +102,7 @@ public class KnownFailures extends AbstractFunctionalTest {
    */
   @Test
   public void testIndexedGetFailure() {
-    mapper = getMapper("knownFailures.xml");
+    mapper = getMapper("mappings/knownFailures.xml");
 
     CustomGetSource customGetSource = new CustomGetSource();
     customGetSource.setValue("some value");

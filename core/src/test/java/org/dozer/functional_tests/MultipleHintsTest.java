@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,12 @@
  */
 package org.dozer.functional_tests;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -34,7 +34,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    mapper = getMapper("multipleHintsMapping.xml");
+    mapper = getMapper("mappings/multipleHintsMapping.xml");
   }
 
   @Test
@@ -96,7 +96,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
 
   }
 
-  public static abstract class A {
+  public abstract static class A {
 
     public static class B extends A {
     }
@@ -106,7 +106,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
 
   }
 
-  public static abstract class SrcA {
+  public abstract static class SrcA {
 
     public static class SrcB extends SrcA {
     }

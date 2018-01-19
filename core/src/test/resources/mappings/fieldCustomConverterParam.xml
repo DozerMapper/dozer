@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <configuration>
+        <custom-converters>
+            <converter type="org.dozer.functional_tests.support.CustomConverterParamConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>java.lang.String</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.SimpleObj</class-a>
+        <class-b>org.dozer.vo.AnotherTestObject</class-b>
+        <field custom-converter="org.dozer.functional_tests.support.CustomConverterParamConverter" custom-converter-param="CustomConverterParamTest">
+            <a>field1</a>
+            <b>field3</b>
+        </field>
+    </mapping>
+
+    <mapping map-id="1">
+        <class-a>org.dozer.vo.Individual</class-a>
+        <class-b>org.dozer.vo.Fruit</class-b>
+        <field>
+            <a>username</a>
+            <b>name</b>
+        </field>
+    </mapping>
+
+    <mapping map-id="2">
+        <class-a>org.dozer.vo.Individual</class-a>
+        <class-b>org.dozer.vo.Fruit</class-b>
+        <field custom-converter-param="PARAM">
+            <a>username</a>
+            <b>name</b>
+        </field>
+    </mapping>
+
+</mappings>

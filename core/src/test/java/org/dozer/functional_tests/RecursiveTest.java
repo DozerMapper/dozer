@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +19,11 @@ import org.dozer.vo.recursive.ClassAA;
 import org.dozer.vo.recursive.ClassAAPrime;
 import org.dozer.vo.recursive.ClassB;
 import org.dozer.vo.recursive.ClassBPrime;
-import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test the dozer behaviour when confronted with structures similar to ours. As of now (dozer 3.0) the behaviour is not
@@ -52,7 +55,7 @@ public class RecursiveTest extends AbstractFunctionalTest {
    */
   @Test
   public void testConvertWithSubClass() {
-    mapper = getMapper("recursivemappings.xml", "recursivemappings2.xml");
+    mapper = getMapper("mappings/recursivemappings.xml", "mappings/recursivemappings2.xml");
     ClassAA testAA = createTestClassAA();
     // the == is on purpose, we test that the referenced parent of the first item of the subs is the parent instance
     // itself

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * 
- */
 package org.dozer.vo.interfacerecursion;
 
 /**
  * @author poxenham
  *
  */
-public class BaseImpl implements Base
-{
+public class BaseImpl implements Base {
 
 }

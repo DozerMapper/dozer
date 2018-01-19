@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,15 +16,18 @@
 package org.dozer.cache;
 
 import org.dozer.AbstractDozerTest;
-import org.dozer.cache.Cache;
-import org.dozer.cache.CacheKeyFactory;
-import org.dozer.cache.DozerCache;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 /**
  * @author tierney.matt
  */
 public class DozerCacheTest extends AbstractDozerTest {
+
+  @Rule
+  public MockitoRule mockitoRule = MockitoJUnit.rule();
 
   @Test
   public void testPutGetFromCache() throws Exception {

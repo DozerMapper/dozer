@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,28 +16,28 @@
 package org.dozer.loader.xml;
 
 import org.w3c.dom.Element;
+import org.dozer.el.ELEngine;
 
 /**
  * @author Dmitry Buzdin
  */
 public class ExpressionElementReader extends SimpleElementReader {
 
-  private ELEngine elEngine;
+    private ELEngine elEngine;
 
-  public ExpressionElementReader(ELEngine elEngine) {
-    this.elEngine = elEngine;
-  }
+    public ExpressionElementReader(ELEngine elEngine) {
+        this.elEngine = elEngine;
+    }
 
-  @Override
-  public String getAttribute(Element element, String attribute) {
-    String expression = super.getAttribute(element, attribute);
-    return elEngine.resolve(expression);
-  }
+    @Override
+    public String getAttribute(Element element, String attribute) {
+        String expression = super.getAttribute(element, attribute);
+        return elEngine.resolve(expression);
+    }
 
-  @Override
-  public String getNodeValue(Element element) {
-    String expression = super.getNodeValue(element);
-    return elEngine.resolve(expression);
-  }
-
+    @Override
+    public String getNodeValue(Element element) {
+        String expression = super.getNodeValue(element);
+        return elEngine.resolve(expression);
+    }
 }

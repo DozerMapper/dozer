@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ public class ArraySource {
 
   private List<String> list = new ArrayList<String>();
 
-  private String value = null;
+  private String value;
   
   private List<Integer> listOfIntegers = new ArrayList<Integer>();
 

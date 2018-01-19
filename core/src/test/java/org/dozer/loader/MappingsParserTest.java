@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +19,12 @@ import org.dozer.AbstractDozerTest;
 import org.dozer.classmap.ClassMappings;
 import org.dozer.classmap.Configuration;
 import org.dozer.classmap.MappingFileData;
+import org.dozer.config.BeanContainer;
+import org.dozer.factory.DestBeanCreator;
 import org.dozer.loader.xml.MappingFileReader;
+import org.dozer.loader.xml.XMLParser;
 import org.dozer.loader.xml.XMLParserFactory;
+import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,17 +34,23 @@ import org.junit.Test;
 public class MappingsParserTest extends AbstractDozerTest {
 
   private MappingsParser parser;
+  private BeanContainer beanContainer;
+  private DestBeanCreator destBeanCreator;
+  private PropertyDescriptorFactory propertyDescriptorFactory;
 
   @Override
   @Before
   public void setUp() throws Exception {
-    parser = MappingsParser.getInstance();
+    beanContainer = new BeanContainer();
+    destBeanCreator = new DestBeanCreator(beanContainer);
+    propertyDescriptorFactory = new PropertyDescriptorFactory();
+    parser = new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
   }
 
   @Test(expected=IllegalArgumentException.class)
   public void testDuplicateMapIds() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
-    MappingFileData mappingFileData = fileReader.read("duplicateMapIdsMapping.xml");
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory), beanContainer);
+    MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapIdsMapping.xml");
 
     parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
     fail("should have thrown exception");
@@ -48,8 +58,8 @@ public class MappingsParserTest extends AbstractDozerTest {
 
   @Test(expected=IllegalArgumentException.class)
   public void testDetectDuplicateMapping() throws Exception {
-    MappingFileReader fileReader = new MappingFileReader(XMLParserFactory.getInstance());
-    MappingFileData mappingFileData = fileReader.read("duplicateMapping.xml");
+    MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory), beanContainer);
+    MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapping.xml");
     parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
     fail("should have thrown exception");
   }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,11 @@
  */
 package org.dozer.osgi;
 
+import java.net.URL;
+
 import org.dozer.MappingException;
 import org.dozer.util.DozerClassLoader;
 import org.osgi.framework.BundleContext;
-
-import java.net.URL;
 
 /**
  * @author Dmitry Buzdin

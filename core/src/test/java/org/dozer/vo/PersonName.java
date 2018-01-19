@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,15 @@
  */
 package org.dozer.vo;
 
-public class PersonName
-{
-	private String familyName;
+public class PersonName {
 
-	public String getFamilyName()
-	{
-		return familyName;
-	}
+    private String familyName;
 
-	public void setFamilyName(String familyName)
-	{
-		this.familyName = familyName;
-	}
-	
-	
+    public String getFamilyName() {
+        return familyName;
+    }
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
 }

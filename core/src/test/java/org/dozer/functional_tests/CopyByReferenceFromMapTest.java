@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,13 @@
  */
 package org.dozer.functional_tests;
 
+import java.util.HashMap;
+
 import org.dozer.vo.ValueObject;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Dmitry Buzdin
@@ -30,7 +31,7 @@ public class CopyByReferenceFromMapTest extends AbstractFunctionalTest {
   @Override
   @Before
   public void setUp() throws Exception {
-    mapper = getMapper("mapMapping7.xml");
+    mapper = getMapper("mappings/mapMapping7.xml");
   }
 
   @Test

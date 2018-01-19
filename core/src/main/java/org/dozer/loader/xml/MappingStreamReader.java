@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,17 @@
  */
 package org.dozer.loader.xml;
 
+import java.io.InputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+
+import org.w3c.dom.Document;
+
 import org.dozer.classmap.MappingFileData;
 import org.dozer.loader.MappingsSource;
 import org.dozer.util.MappingUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-
-import javax.xml.parsers.DocumentBuilder;
-import java.io.InputStream;
 
 /**
  * Internal class that reads and parses a single custom mapping XML stream into
@@ -33,28 +35,28 @@ import java.io.InputStream;
  */
 public class MappingStreamReader implements MappingsSource<InputStream> {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(MappingStreamReader.class);
+    private static final Logger log = LoggerFactory
+            .getLogger(MappingStreamReader.class);
 
-	private final DocumentBuilder documentBuilder;
+    private final DocumentBuilder documentBuilder;
   private final MappingsSource<Document> parser;
 
-	public MappingStreamReader(XMLParserFactory parserFactory) {
-    this.documentBuilder = parserFactory.createParser();
-    this.parser = new XMLParser();
-	}
+    public MappingStreamReader(XMLParserFactory parserFactory, XMLParser xmlParser) {
+        this.documentBuilder = parserFactory.createParser();
+        this.parser = xmlParser;
+    }
 
-	public MappingFileData read(InputStream xmlStream) {
-		MappingFileData result = null;
-		try {
-			Document document = documentBuilder.parse(xmlStream);
-			result = parser.read(document);
-		} catch (Throwable e) {
-			log.error("Error while loading dozer mapping InputStream: ["
-					+ xmlStream + "]", e);
-			MappingUtils.throwMappingException(e);
-		}
-		return result;
-	}
+    public MappingFileData read(InputStream xmlStream) {
+        MappingFileData result = null;
+        try {
+            Document document = documentBuilder.parse(xmlStream);
+            result = parser.read(document);
+        } catch (Throwable e) {
+            log.error("Error while loading dozer mapping InputStream: ["
+                    + xmlStream + "]", e);
+            MappingUtils.throwMappingException(e);
+        }
+        return result;
+    }
 
 }

@@ -1,0 +1,8 @@
+= JMH Results Log
+== 06/08/2017
+- https://github.com/DozerMapper/dozer/blob/6.1.0/jmh-tests/src/main/java/com/github/dozermapper/jmh/DozerBeanMapperBenchmark.java
+
+Result "com.github.dozermapper.jmh.DozerBeanMapperBenchmark.mapSimpleSameTypes":
+  884.477 ±(99.9%) 133.947 ops/s [Average]
+  (min, avg, max) = (745.090, 884.477, 1039.030), stdev = 88.598
+  CI (99.9%): [750.530, 1018.424] (assumes normal distribution)

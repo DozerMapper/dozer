@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,4 +32,5 @@ public @interface Mapping {
 
   String value() default "";
 
+  boolean optional() default false;
 }

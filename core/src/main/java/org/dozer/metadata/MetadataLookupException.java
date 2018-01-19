@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,8 +26,8 @@ import org.dozer.MappingException;
  */
 public class MetadataLookupException extends MappingException {
 
-	public MetadataLookupException(String description) {
-		super(description);
-	}
+    public MetadataLookupException(String description) {
+        super(description);
+    }
   
 }

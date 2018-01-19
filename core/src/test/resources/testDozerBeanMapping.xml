@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2017 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>MM/dd/yyyy HH:mm</date-format><!-- default dateformat will apply to all class maps unless the class mapping explicitly overrides it -->
+        <wildcard>true</wildcard><!-- default wildcard policy that will apply to all class maps unless the class mapping explicitly overrides it -->
+        <custom-converters><!-- these are always considered bi-directional -->
+            <converter type="org.dozer.functional_tests.support.TestCustomConverter">
+                <class-a>org.dozer.vo.CustomDoubleObjectIF</class-a>
+                <class-b>java.lang.Double</class-b>
+            </converter>
+            <!-- this is a top level custom mapping. You are responsible for mapping everything between class-a and class-b -->
+            <converter type="org.dozer.functional_tests.support.TestCustomHashMapConverter">
+                <!-- keep the carriage returns...this tests parsing the xml -->
+                <class-a>org.dozer.vo.TestCustomConverterHashMapObject</class-a>
+                <class-b>org.dozer.vo.TestCustomConverterHashMapPrimeObject</class-b>
+            </converter>
+            <!-- testing converters with hints -->
+            <converter type="org.dozer.functional_tests.support.HintedOnlyConverter">
+                <class-a>org.dozer.vo.HintedOnly</class-a>
+                <class-b>java.lang.String</class-b>
+            </converter>
+        </custom-converters>
+        <copy-by-references>
+            <copy-by-reference>org.dozer.vo.NoExtendBaseObjectGlobalCopyByReference</copy-by-reference>
+        </copy-by-references>
+    </configuration>
+
+    <mapping wildcard="true" date-format="MM-dd-yyyy HH:mm:ss"><!-- Override top level date format default.  Defaults to wildcard = true. this means that any properties the same name between classes it will implicitly copy -->
+        <class-a>org.dozer.vo.TestObject</class-a>
+        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <field-exclude>
+            <a>excludeMe</a>
+            <b>excludeMe</b>
+        </field-exclude>
+        <field-exclude type="one-way">
+            <a>excludeMeOneWay</a>
+            <b>excludeMeOneWay</b>
+        </field-exclude>
+        <field>
+            <a>carMetalThingy</a>
+            <b>vanMetalThingy</b>
+            <a-hint>org.dozer.vo.Car</a-hint>
+            <b-hint>org.dozer.vo.Van</b-hint>
+        </field>
+        <field>
+            <a>anotherLongValue</a>
+            <b>theLongValue</b>
+        </field>
+        <field>
+            <a>primArray</a>
+            <b>primitiveArray</b>
+        </field>
+        <field>
+            <a>one</a><!-- converting String to String by name only -->
+            <b>onePrime</b>
+        </field>
+        <field>
+            <a>two</a><!-- converting Integer to Integer by name only -->
+            <b>twoPrime</b>
+        </field>
+        <field>
+            <a>three</a><!-- converting by name and type InsideTestObject to InsideTestObjectPrime (actually this object is in the second <mapping> below -->
+            <b>threePrime</b>
+        </field>
+        <field>
+            <a date-format="MM/dd/yyyy HH:mm:ss:SS">dateStr</a><!-- converting from String to Date using date-format.  Override class mapping date format-->
+            <b>dateFromStr</b>
+        </field>
+        <field>
+            <a>theMappedPrimitive</a><!-- converting int to int by name only -->
+            <b>anotherPrimitive</b>
+        </field>
+        <field>
+            <a>anArray</a><!-- converting int[] to int [] by name only -->
+            <b>theMappedArray</b>
+        </field>
+        <field relationship-type="non-cumulative">
+            <a>unequalNamedList</a><!-- converting String List to String List by name only -->
+            <b>theMappedUnequallyNamedList</b>
+        </field>
+        <field>
+            <a>arrayForLists</a><!-- changing an Integer [] to List and back again -->
+            <b>listForArray</b>
+            <b-hint>java.lang.Integer</b-hint>
+        </field>
+        <field relationship-type="cumulative">
+            <a>hintList</a><!-- converting TheFirstSubClass List to TheFirstSubClassPrime List -->
+            <b>hintList</b>
+            <a-hint>org.dozer.vo.TheFirstSubClass</a-hint>
+            <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+        </field>
+        <field copy-by-reference="true">
+            <a>copyByReference</a>
+            <b>copyByReferencePrime</b>
+        </field>
+        <field copy-by-reference="true">
+            <a>copyByReferenceDeep</a>
+            <b>insideTestObject.copyByReference</b>
+        </field>
+        <field>
+            <a>globalCopyByReference</a>
+            <b>globalCopyByReferencePrime</b>
+        </field>
+        <field>
+            <a>setToArray</a>
+            <b>arrayToSet</b>
+        </field>
+        <field>
+            <a>setToObjectArray</a>
+            <b>objectArrayToSet</b>
+            <b-hint>org.dozer.vo.Apple</b-hint>
+        </field>
+        <field>
+            <a>setToList</a>
+            <b>listToSet</b>
+        </field>
+        <field>
+            <a>collectionToList</a>
+            <b>listToCollection</b>
+        </field>
+        <field relationship-type="non-cumulative">
+            <a>setToListWithValues</a>
+            <b>setToListWithValues</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.SuperSuperSuperClass</class-a>
+        <class-b>org.dozer.vo.SuperSuperSuperClassPrime</class-b>
+        <field>
+            <a>hydrate</a>
+            <b>dehydrate</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.SuperSuperClass</class-a>
+        <class-b>org.dozer.vo.SuperSuperClassPrime</class-b>
+        <field>
+            <a>superSuperAttribute</a>
+            <b>superSuperAttr</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.SuperClass</class-a>
+        <class-b>org.dozer.vo.SuperClassPrime</class-b>
+        <field>
+            <a>superAttribute</a>
+            <b>superAttr</b>
+        </field>
+        <field>
+            <a>superList</a>
+            <b>superArray</b>
+        </field>
+        <field type="one-way">
+            <a>superFieldToExclude</a>
+            <b>superFieldToExcludePrime</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.SubClass</class-a>
+        <class-b>org.dozer.vo.SubClassPrime</class-b>
+        <field>
+            <a>attribute</a>
+            <b>attributePrime</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.InsideTestObject</class-a>
+        <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
+        <field>
+            <a>label</a><!-- converting String to String by name only -->
+            <b>labelPrime</b>
+        </field>
+        <field>
+            <a>toWrapper</a><!-- converting a primitive (int) to a custom primitive wrapper -->
+            <b>anotherWrapper</b>
+        </field>
+    </mapping>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.FurtherTestObject</class-a>
+        <class-b>org.dozer.vo.FurtherTestObjectPrime</class-b>
+        <field>
+            <a>one</a><!-- normally, you don't have to map equally name attributes, but wildcards="false" -->
+            <b>one</b>
+        </field>
+        <field-exclude>
+            <a>address</a>
+            <b>address</b>
+        </field-exclude>
+    </mapping>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.WeirdGetter</class-a>
+        <class-b>org.dozer.vo.WeirdGetterPrime</class-b>
+        <field>
+            <a set-method="placeValue" get-method="buildValue">value</a>
+            <b>value</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.WeirdGetter2</class-a>
+        <class-b>org.dozer.vo.WeirdGetterPrime2</class-b>
+        <field>
+            <a>value</a>
+            <b set-method="placeValue" get-method="buildValue">value</b>
+        </field>
+    </mapping>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.DehydrateTestObject</class-a>
+        <class-b>org.dozer.vo.HydrateTestObject</class-b>
+        <!-- Iterate Method Mapping -->
+        <field>
+            <a>appleComputers</a>
+            <b set-method="addComputer" type="iterate">computers</b>
+            <b-hint>org.dozer.vo.AppleComputer</b-hint>
+        </field>
+        <!-- Iterate Method Mapping -->
+        <field>
+            <a set-method="addCar" get-method="myIterateCars" type="iterate">iterateCars</a>
+            <b set-method="addIterateCar" type="iterate">iterateCars</b>
+            <a-hint>org.dozer.vo.Car</a-hint>
+            <b-hint>org.dozer.vo.Car</b-hint>
+        </field>
+        <!-- Iterate Method Mapping -->
+        <field>
+            <a set-method="addMoreCar" type="iterate">iterateMoreCars</a>
+            <b>carArray</b>
+            <a-hint>org.dozer.vo.Car</a-hint>
+            <b-hint>org.dozer.vo.Car</b-hint>
+        </field>
+    </mapping>
+
+    <mapping wildcard="false">
+        <class-a>org.dozer.vo.Vehicle</class-a><!-- incompatible mapping test -->
+        <class-b>org.dozer.vo.TestObject</class-b>
+        <field>
+            <a>name</a><!-- obviously can not map a string to a complex type unless complex type has a String constructor -->
+            <b>noMappingsObj</b>
+        </field>
+    </mapping>
+
+    <mapping stop-on-errors="true">
+        <class-a>org.dozer.vo.MethodFieldTestObject</class-a>
+        <class-b>org.dozer.vo.MethodFieldTestObject2</class-b>
+        <field type="one-way"><!-- we can not map a ArrayList to a String, hence the one-way mapping -->
+            <a>integerStr</a>
+            <b set-method="addIntegerToList">integerList</b>
+        </field>
+        <field type="one-way">
+            <a>priceItemStr</a>
+            <b set-method="addToTotalPrice">totalPrice</b>
+        </field>
+        <field type="one-way">
+            <a>fieldOne</a>
+            <b>fieldOne</b>
+        </field>
+    </mapping>
+
+    <mapping stop-on-errors="true">
+        <class-a>org.dozer.vo.deep.House</class-a>
+        <class-b>org.dozer.vo.deep.HomeDescription</class-b>
+        <field>
+            <a>owner.name</a>
+            <b>description.ownerName</b>
+        </field>
+        <field>
+            <a>owner.prim</a>
+            <b>prim</b>
+        </field>
+        <field>
+            <a>address.street</a>
+            <b>description.street</b>
+        </field>
+        <field>
+            <a>address.city.name</a>
+            <b>description.city</b>
+        </field>
+        <field>
+            <a>rooms</a>
+            <b>description.rooms</b>
+        </field>
+        <field type="one-way">
+            <a>owner.yourName</a>
+            <b>description.myName</b>
+        </field>
+        <field relationship-type="non-cumulative">
+            <a>rooms</a>
+            <b>description.someOwners</b>
+            <a-hint>org.dozer.vo.deep.Room</a-hint>
+            <b-hint>org.dozer.vo.deep.Person</b-hint>
+        </field>
+        <field>
+            <a>customSetGetMethod</a>
+            <b set-method="setCustom" type="iterate">description.customSetGetMethod</b>
+            <b-hint>org.dozer.vo.Van</b-hint>
+        </field>
+    </mapping>
+
+    <mapping stop-on-errors="true" type="bi-directional">
+        <class-a>org.dozer.vo.deep.SrcDeepObj</class-a>
+        <class-b>org.dozer.vo.deep.DestDeepObj</class-b>
+        <field>
+            <a>srcNestedObj.src1</a>
+            <b>dest1</b>
+        </field>
+        <field>
+            <a>srcNestedObj.src2</a>
+            <b>dest2</b>
+        </field>
+        <field>
+            <a>srcNestedObj.src3</a>
+            <b>dest3</b>
+        </field>
+        <field>
+            <a>srcNestedObj.src4</a>
+            <b>dest4</b>
+        </field>
+        <field>
+            <a>srcNestedObj.hintList</a>
+            <b>hintList</b>
+            <a-hint>java.lang.String</a-hint>
+            <b-hint>java.lang.Integer</b-hint>
+        </field>
+        <field>
+            <a>srcNestedObj.hintList2</a>
+            <b>hintList2</b>
+            <a-hint>org.dozer.vo.TheFirstSubClass</a-hint>
+            <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+        </field>
+        <field>
+            <a>srcNestedObj.srcNestedObj2.src5</a>
+            <b>dest5</b>
+        </field>
+        <field>
+            <a>srcNestedObj.src6</a>
+            <b>dest6</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.TestCustomConverterObject</class-a>
+        <class-b>org.dozer.vo.TestCustomConverterObjectPrime</class-b>
+        <field>
+            <a>names</a>
+            <b>names</b>
+            <a-hint>org.dozer.vo.CustomDoubleObject</a-hint>
+            <b-hint>java.lang.Double</b-hint>
+        </field>
+        <field>
+            <a>attribute</a>
+            <b>doubleAttribute</b>
+        </field>
+    </mapping>
+
+    <!-- one way test case -->
+    <mapping type="one-way" stop-on-errors="true">
+        <class-a>org.dozer.vo.OneWayObject</class-a>
+        <class-b>org.dozer.vo.OneWayObjectPrime</class-b>
+        <field>
+            <a>oneWayField</a>
+            <b>oneWayPrimeField</b>
+        </field>
+        <field>
+            <a>setOnly</a>
+            <b>setOnlyField</b>
+        </field>
+        <!-- we don't support nested fields with type="one-way". The reason is that I do not make a bi-directional map
+          since this is a one-way mapping. They will have to create a one way mapping the other way if they want to exclude fields
+          in the other direction
+          <field type="one-way">
+          <a>oneWay</a>
+          <b>oneWay</b>
+          </field>
+        -->
+        <!-- testing method mapping on a generic map. can only be one-way -->
+        <field>
+            <a>stringToList</a>
+            <b set-method="addValue">stringList</b>
+        </field>
+        <!-- testing method mapping on a deep map. can only be one-way -->
+        <field>
+            <a>nested.src1</a>
+            <b set-method="addValue">stringList</b>
+        </field>
+    </mapping>
+
+    <!-- testing map by reference -->
+    <mapping>
+        <class-a>org.dozer.vo.TestReferenceObject</class-a>
+        <class-b>org.dozer.vo.TestReferencePrimeObject</class-b>
+        <field relationship-type="non-cumulative">
+            <a>listA</a>
+            <b>listAPrime</b>
+            <a-hint>org.dozer.vo.TestReferenceFoo</a-hint>
+            <b-hint>org.dozer.vo.TestReferenceFooPrime</b-hint>
+        </field>
+        <field relationship-type="cumulative">
+            <a>arrayToArrayCumulative</a>
+            <b>arrayToArrayCumulative</b>
+            <a-hint>org.dozer.vo.TestReferenceFoo</a-hint>
+            <b-hint>org.dozer.vo.TestReferenceFooPrime</b-hint>
+        </field>
+        <field relationship-type="non-cumulative">
+            <a>arrayToArrayNoncumulative</a>
+            <b>arrayToArrayNoncumulative</b>
+            <a-hint>org.dozer.vo.TestReferenceFoo</a-hint>
+            <b-hint>org.dozer.vo.TestReferenceFooPrime</b-hint>
+        </field>
+        <!-- example of NOT using hints for Array to Array -->
+        <field>
+            <a>cars</a>
+            <b>vans</b>
+        </field>
+        <!-- example of NOT using hints for List to Array -->
+        <field>
+            <a>vehicles</a>
+            <b>moreVans</b>
+        </field>
+    </mapping>
+
+    <!-- inheritance test 1-->
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.BaseClass</class-a>
+        <class-b>org.dozer.vo.inheritance.BaseSubClassCombined</class-b>
+        <field>
+            <a>baseAttribute</a>
+            <b>baseAttribute2</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.SubClass</class-a>
+        <class-b>org.dozer.vo.inheritance.BaseSubClassCombined</class-b>
+        <field>
+            <a>subAttribute</a>
+            <b>subAttribute2</b>
+        </field>
+    </mapping>
+
+    <!-- inheritance test 2-->
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.AnotherSubClass</class-a>
+        <class-b>org.dozer.vo.inheritance.AnotherSubClassPrime</class-b>
+        <field>
+            <a>subAttribute</a>
+            <b>subAttribute2</b>
+        </field>
+        <field>
+            <a>subList</a>
+            <b>theListOfSubClassPrime</b>
+            <a-hint>org.dozer.vo.inheritance.SClass,
+                org.dozer.vo.inheritance.S2Class
+            </a-hint>
+            <b-hint>org.dozer.vo.inheritance.SClassPrime,
+                org.dozer.vo.inheritance.S2ClassPrime
+            </b-hint>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.AnotherBaseClass</class-a>
+        <class-b>org.dozer.vo.inheritance.AnotherBaseClassPrime</class-b>
+        <field>
+            <a>baseAttribute</a>
+            <b>baseAttribute2</b>
+        </field>
+        <field>
+            <a>listToArray</a>
+            <b>arrayToList</b>
+            <a-hint>org.dozer.vo.inheritance.SClass,
+                org.dozer.vo.inheritance.S2Class
+            </a-hint>
+            <b-hint>org.dozer.vo.inheritance.SClassPrime,
+                org.dozer.vo.inheritance.S2ClassPrime
+            </b-hint>
+        </field>
+
+    </mapping>
+
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.BaseSubClass</class-a>
+        <class-b>org.dozer.vo.inheritance.BaseSubClassPrime</class-b>
+        <field>
+            <a>baseSubAttribute</a>
+            <b>baseSubAttribute2</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.SClass</class-a>
+        <class-b>org.dozer.vo.inheritance.SClassPrime</class-b>
+        <field>
+            <a>subAttribute</a>
+            <b>subAttribute2</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.S2Class</class-a>
+        <class-b>org.dozer.vo.inheritance.S2ClassPrime</class-b>
+        <field>
+            <a>sub2Attribute</a>
+            <b>sub2Attribute2</b>
+        </field>
+    </mapping>
+
+    <!-- inheritance test abstract class-->
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.SuperSpecificObject</class-a>
+        <class-b>org.dozer.vo.inheritance.Specific1</class-b>
+        <field>
+            <a>superAttr1</a>
+            <b>superAttr2</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.SuperSpecificObject</class-a>
+        <class-b>org.dozer.vo.inheritance.Specific3</class-b>
+        <field>
+            <a>superAttr1</a>
+            <b>superAttr3</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.inheritance.WrapperSpecific</class-a>
+        <class-b>org.dozer.vo.inheritance.WrapperSpecificPrime</class-b>
+        <field>
+            <a>specificObject</a>
+            <b>specificObjectPrime</b>
+            <b-hint>org.dozer.vo.inheritance.Specific3</b-hint>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.CustomConverterWrapper</class-a>
+        <class-b>org.dozer.vo.CustomConverterWrapperPrime</class-b>
+        <field>
+            <a set-method="addHint" type="iterate">needsHint</a>
+            <b>needsHint</b>
+            <a-hint>org.dozer.vo.HintedOnly</a-hint>
+            <b-hint>java.lang.String</b-hint>
+        </field>
+    </mapping>
+
+    <!-- Testing NULL data -->
+    <mapping>
+        <class-a>org.dozer.vo.AnotherTestObject</class-a>
+        <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+        <field>
+            <a>field1</a>
+            <b>to.thePrimitive</b>
+        </field>
+    </mapping>
+
+    <!-- test 'self' mapping -->
+    <mapping>
+        <class-a>org.dozer.vo.self.SimpleAccount</class-a>
+        <class-b>org.dozer.vo.self.Account</class-b>
+        <field>
+            <a>this</a>
+            <b>address</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.self.SimpleAccount</class-a>
+        <class-b>org.dozer.vo.self.Address</class-b>
+        <field>
+            <a>streetName</a>
+            <b>street</b>
+        </field>
+    </mapping>
+
+    <!-- testing mapping properties to a Map -->
+    <mapping>
+        <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+        <class-b>org.dozer.vo.map.MapToProperty</class-b>
+        <field>
+            <a>stringProperty</a>
+            <b>hashMap</b>
+        </field>
+        <field>
+            <a set-method="addStringProperty2">stringProperty2</a>
+            <b key="myStringProperty">hashMap</b>
+        </field>
+        <field>
+            <a>nullStringProperty</a>
+            <b>hashMap</b>
+        </field>
+        <field>
+            <a>stringProperty3</a>
+            <b map-get-method="getValue" map-set-method="putValue" key="myCustomProperty">customMap</b>
+        </field>
+        <field>
+            <a>stringProperty4</a>
+            <b map-get-method="getValue" map-set-method="putValue" key="myCustomNullProperty">nullCustomMap</b>
+            <b-hint>org.dozer.vo.map.CustomMap</b-hint>
+        </field>
+        <field>
+            <a>stringProperty5</a>
+            <b map-get-method="getValue" map-set-method="putValue">customMap</b>
+        </field>
+        <field>
+            <a>stringProperty6</a>
+            <b>nullHashMap</b>
+            <b-hint>java.util.HashMap</b-hint>
+        </field>
+        <field>
+            <a>stringProperty5</a>
+            <b map-get-method="getValue" map-set-method="putValue">customMapWithDiffSetMethod</b>
+        </field>
+        <field>
+            <a>reverseMap</a>
+            <b>reverseMapString</b>
+        </field>
+        <field>
+            <a>reverseMap</a>
+            <b>reverseMapInteger</b>
+        </field>
+    </mapping>
+
+    <!-- testing mapping properties to a Class Level Map -->
+    <mapping map-id="myTestMapping">
+        <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+        <class-b>java.util.HashMap</class-b>
+        <field>
+            <a>stringProperty2</a>
+            <b key="myStringProperty">this</b>
+        </field>
+        <!-- Add deep property functionality
+          <field>
+          <a>testObject.one</a>
+          <B key="testDeepProperty">this</b>
+          </field>
+        -->
+        <field-exclude>
+            <a>excludeMe</a>
+            <b>this</b>
+        </field-exclude>
+    </mapping>
+
+    <mapping map-id="myCustomTestMapping">
+        <class-a>org.dozer.vo.map.PropertyToMap</class-a>
+        <class-b map-set-method="putValue" map-get-method="getValue">org.dozer.vo.map.CustomMap</class-b>
+        <field>
+            <a set-method="addStringProperty2">stringProperty2</a>
+            <b key="myStringProperty">this</b>
+        </field>
+        <field-exclude>
+            <a>excludeMe</a>
+            <b>this</b>
+        </field-exclude>
+    </mapping>
+
+    <!-- testing mapping properties to a Custom Class Level Map -->
+    <mapping map-id="myCustomTestMappingUsingInterface">
+        <class-a map-set-method="putValue" map-get-method="getValue">org.dozer.vo.map.CustomMapIF</class-a>
+        <class-b>org.dozer.vo.map.PropertyToMap</class-b>
+        <field>
+            <a key="myStringProperty">this</a>
+            <b set-method="addStringProperty2">stringProperty2</b>
+        </field>
+        <field-exclude>
+            <a>this</a>
+            <b>excludeMe</b>
+        </field-exclude>
+    </mapping>
+
+    <!-- testing mapping properties to a Class Level Map -->
+    <mapping map-id="myReverseTestMapping">
+        <class-a>java.util.Map</class-a>
+        <class-b>org.dozer.vo.map.PropertyToMap</class-b>
+        <field>
+            <a key="myStringProperty">this</a>
+            <b set-method="addStringProperty2">stringProperty2</b>
+        </field>
+        <field-exclude>
+            <a>this</a>
+            <b>excludeMe</b>
+        </field-exclude>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.map.MapTestObject</class-a>
+        <class-b>org.dozer.vo.map.MapTestObjectPrime</class-b>
+        <field map-id="myTestMapping">
+            <a>propertyToMap</a>
+            <b>propertyToMapMap</b>
+        </field>
+        <field map-id="myReverseTestMapping">
+            <a>propertyToMapMapReverse</a>
+            <b>propertyToMapReverse</b>
+        </field>
+        <field map-id="myTestMapping">
+            <a>propertyToMapToNullMap</a>
+            <b>nullPropertyToMapMap</b>
+            <b-hint>java.util.HashMap</b-hint>
+        </field>
+        <field map-id="myCustomTestMapping">
+            <a>propertyToCustomMap</a>
+            <b>propertyToCustomMapMap</b>
+        </field>
+        <field map-id="myCustomTestMappingUsingInterface">
+            <a>propertyToCustomMapMapWithInterface</a>
+            <b>propertyToCustomMapWithInterface</b>
+            <a-hint>org.dozer.vo.map.CustomMap</a-hint>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.dozer.vo.SimpleObj</class-a>
+        <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
+        <field>
+            <a>field1</a>
+            <b>field1Prime</b>
+        </field>
+        <field>
+            <a>field2</a>
+            <b>field2Prime</b>
+        </field>
+        <field>
+            <a>field3</a>
+            <b>field3Prime</b>
+        </field>
+        <field>
+            <a>field4</a>
+            <b>field4Prime</b>
+        </field>
+        <field>
+            <a>field5</a>
+            <b>field5Prime</b>
+        </field>
+        <field>
+            <a>field6</a>
+            <b>field6Prime</b>
+        </field>
+    </mapping>
+
+</mappings>

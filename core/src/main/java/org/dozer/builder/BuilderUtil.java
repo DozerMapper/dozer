@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,17 @@ import org.dozer.BeanBuilder;
 /**
  * @author Dmitry Spikhalskiy
  */
-public class BuilderUtil {
-  public static Class<?> unwrapDestClassFromBuilder(Object dest) {
-    if (dest instanceof BeanBuilder) return ((BeanBuilder) dest).beanClass();
-    return dest.getClass();
-  }
+public final class BuilderUtil {
+
+    private BuilderUtil() {
+
+    }
+
+    public static Class<?> unwrapDestClassFromBuilder(Object dest) {
+        if (dest instanceof BeanBuilder) {
+            return ((BeanBuilder)dest).beanClass();
+        }
+
+        return dest.getClass();
+    }
 }

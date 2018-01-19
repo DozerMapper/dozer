@@ -1,0 +1,173 @@
+== Global and Map Level Configuration
+The configuration block is used to set the global defalut settings.
+Also, any Custom Converters are defined in this section. The
+configuration block is entirely "optional".
+
+Dozer supports the ability to have multiple mapping files. Each of these
+mapping files can have their own configuration block. A mapping will
+inherit its configuration from the mapping file that it is stored in.
+*Implicit mappings will inherit the default values for configuration.*
+
+The following is the sample configuration block from the example
+mappings file:
+
+[source,xml,prettyprint]
+----
+<configuration>
+    <date-format>MM/dd/yyyy HH:mm</date-format>
+    <stop-on-errors>true</stop-on-errors>
+    <wildcard>true</wildcard>
+    <custom-converters>
+        <!-- these are always bi-directional -->
+        <converter type="org.dozer.converters.TestCustomConverter">
+            <class-a>org.dozer.vo.TestCustomConverterObject</class-a>
+            <class-b>another.type.to.Associate</class-b>
+        </converter>
+    </custom-converters>
+</configuration>
+----
+
+=== Overriding Wildcards
+Each individual mapping section can set its own wildcard policy even if
+there is a global wildcard policy defined using the configuration block.
+For example, the following mapping does not allow wildcards:
+
+[source,xml,prettyprint]
+----
+<mapping wildcard="false">
+    <class-a>org.dozer.vo.SpringBean</class-a>
+    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <field>
+        <a>anAttributeToMap</a>
+        <b>anAttributeToMapPrime</b>
+    </field>
+</mapping>
+----
+
+=== Overriding Date Format
+The same is true for date format values. Each individual mapping section
+can set its own date format rules. For example:
+
+[source,xml,prettyprint]
+----
+<!-- Override top level date format default  -->
+<mapping date-format="MM-dd-yyyy HH:mm:ss">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <field>
+        <a>one</a>
+        <b>onePrime</b>
+    </field>
+</mapping>
+----
+
+=== Overriding Error Handling
+You can override the error handling policy for a particular mapping. For
+example:
+
+[source,xml,prettyprint]
+----
+<!-- Override top level defaults -->
+<mapping stop-on-errors="false" date-format="MM-dd-yyyy HH:mm:ss">
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <field>
+        <a>one</a>
+        <b>onePrime</b>
+    </field>
+</mapping>
+----
+
+=== Exclude Mapping Null Values
+You can bypass the mapping of null values. If this is specified, the
+dest field mapping is bypassed at runtime and the destination value
+setter method will not be called if the src value is null. This can be
+specified at the mapping or class level. For example:
+
+[source,xml,prettyprint]
+----
+<mapping map-null="false">
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----
+
+OR...
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b map-null="false">org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----
+
+=== Exclude Mapping Empty Strings
+You can bypass the mapping of empty String values. If this is specified,
+the dest field mapping is bypassed at runtime and the destination value
+setter method will not be called if the src value is an empty String.
+This can be specified at the mapping or class level. For example:
+
+[source,xml,prettyprint]
+----
+<mapping map-empty-string="false">
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----
+
+OR...
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-b map-empty-string="false">org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <field>
+        <a>field4</a>
+        <b>to.one</b>
+    </field>
+</mapping>
+----
+
+=== One-Way and Bi-Directional Mapping
+You can set how a mapping definition behaves as far as direction goes.
+If you only want to map two classes to go one-way you can set this at
+the mapping level. The default is bi-directional. This can be set at the
+mapping level OR the field level.
+
+[source,xml,prettyprint]
+----
+<mapping type="one-way">
+    <class-a>org.dozer.vo.TestObjectFoo</class-a>
+    <class-b>org.dozer.vo.TestObjectFooPrime</class-b>
+    <field>
+        <a>oneFoo</a>
+        <b>oneFooPrime</b>
+    </field>
+</mapping>
+<mapping>
+    <class-a>org.dozer.vo.TestObjectFoo2</class-a>
+    <class-b>org.dozer.vo.TestObjectFooPrime2</class-b>
+    <field type="one-way">
+        <a>oneFoo2</a>
+        <b>oneFooPrime2</b>
+    </field>
+    <field type="one-way">
+        <a>oneFoo3.prime</a>
+        <b>oneFooPrime3</b>
+    </field>
+</mapping>
+----

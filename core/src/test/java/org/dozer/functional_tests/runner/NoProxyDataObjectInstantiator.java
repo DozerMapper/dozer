@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,36 +18,36 @@ package org.dozer.functional_tests.runner;
 import org.apache.commons.beanutils.ConstructorUtils;
 import org.dozer.functional_tests.DataObjectInstantiator;
 
-public class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
+public final class NoProxyDataObjectInstantiator implements DataObjectInstantiator {
 
-  public static final NoProxyDataObjectInstantiator INSTANCE = new NoProxyDataObjectInstantiator();
+    public static final NoProxyDataObjectInstantiator INSTANCE = new NoProxyDataObjectInstantiator();
 
-  private NoProxyDataObjectInstantiator() {
-  }
+    private NoProxyDataObjectInstantiator() {
 
-  @Override
-  public String getName() {
-    return "no-proxy";
-  }
-
-  public <T> T newInstance(Class<T> classToInstantiate) {
-    try {
-      return classToInstantiate.newInstance();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
     }
-  }
-  
-  public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
-    try {
-      return (T) ConstructorUtils.invokeConstructor(classToInstantiate, args);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+
+    @Override
+    public String getName() {
+        return "no-proxy";
     }
-  }
 
-  public Object newInstance(Class<?>[] interfacesToProxy, Object target) {
-    return target;
-  }
+    public <T> T newInstance(Class<T> classToInstantiate) {
+        try {
+            return classToInstantiate.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
+        try {
+            return (T)ConstructorUtils.invokeConstructor(classToInstantiate, args);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Object newInstance(Class<?>[] interfacesToProxy, Object target) {
+        return target;
+    }
 }

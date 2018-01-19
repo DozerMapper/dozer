@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,16 @@ import java.util.List;
 import org.dozer.vo.BaseTestObject;
 
 public class AbstractACollectionContainer extends BaseTestObject {
-	
-	List<AbstractA> as;
+    
+    List<AbstractA> as;
 
-	public List<AbstractA> getAs() {
-		return as;
-	}
+    public List<AbstractA> getAs() {
+        return as;
+    }
 
-	public void setAs(List<AbstractA> as) {
-		this.as = as;
-	}
+    public void setAs(List<AbstractA> as) {
+        this.as = as;
+    }
 
-	
+    
 }

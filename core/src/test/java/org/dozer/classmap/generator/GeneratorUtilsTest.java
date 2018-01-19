@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,11 +15,14 @@
  */
 package org.dozer.classmap.generator;
 
+
+
+import org.dozer.config.BeanContainer;
 import org.dozer.functional_tests.runner.ProxyDataObjectInstantiator;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Dmitry Spikhalskiy
@@ -29,12 +32,13 @@ public class GeneratorUtilsTest {
   @Test
   public void ignoreTechnicalFields() throws Exception {
     Object proxy = ProxyDataObjectInstantiator.INSTANCE.newInstance(Object.class);
+    BeanContainer beanContainer = new BeanContainer();
 
-    assertTrue(GeneratorUtils.shouldIgnoreField("callback", proxy.getClass(), Object.class));
-    assertFalse(GeneratorUtils.shouldIgnoreField("callback", Object.class, Object.class));
-    assertTrue(GeneratorUtils.shouldIgnoreField("callbacks", proxy.getClass(), Object.class));
-    assertFalse(GeneratorUtils.shouldIgnoreField("callbacks", Object.class, Object.class));
-    assertTrue(GeneratorUtils.shouldIgnoreField("class", Object.class, Object.class));
-    assertFalse(GeneratorUtils.shouldIgnoreField("a", proxy.getClass(), Object.class));
+    assertTrue(GeneratorUtils.shouldIgnoreField("callback", proxy.getClass(), Object.class, beanContainer));
+    assertFalse(GeneratorUtils.shouldIgnoreField("callback", Object.class, Object.class, beanContainer));
+    assertTrue(GeneratorUtils.shouldIgnoreField("callbacks", proxy.getClass(), Object.class, beanContainer));
+    assertFalse(GeneratorUtils.shouldIgnoreField("callbacks", Object.class, Object.class, beanContainer));
+    assertTrue(GeneratorUtils.shouldIgnoreField("class", Object.class, Object.class, beanContainer));
+    assertFalse(GeneratorUtils.shouldIgnoreField("a", proxy.getClass(), Object.class, beanContainer));
   }
 }

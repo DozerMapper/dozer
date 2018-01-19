@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,52 +15,39 @@
  */
 package org.dozer.functional_tests;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.dozer.DozerBeanMapper;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 import org.dozer.MappingException;
 import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.vo.map.SimpleObjPrime;
-import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author dmitry.buzdin
  */
 public class ExceptionHandlingFunctionalTest extends AbstractFunctionalTest {
 
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    mapper = getMapper("missingSetter.xml");
-  }
-
   @Test(expected = MappingException.class)
   public void test_UnableToDetermineType() {
+    Mapper mapper = getMapper("mappings/missingSetter.xml");
     mapper.map("", NoNothing.class);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void shouldFailOnDuplicateMapping() {
-    DozerBeanMapper mapper = new DozerBeanMapper();
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(String.class, NoNothing.class);
-      }
-    });
-
-    mapper.addMapping(new BeanMappingBuilder() {
-      @Override
-      protected void configure() {
-        mapping(String.class, NoNothing.class);
-      }
-    });
+    Mapper mapper = DozerBeanMapperBuilder.create()
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(String.class, NoNothing.class);
+              }
+            })
+            .withMappingBuilder(new BeanMappingBuilder() {
+              @Override
+              protected void configure() {
+                mapping(String.class, NoNothing.class);
+              }
+            })
+            .build();
     
     mapper.map("A", NoNothing.class);
   }
