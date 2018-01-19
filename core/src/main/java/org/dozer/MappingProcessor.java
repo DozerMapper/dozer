@@ -132,7 +132,11 @@ public class MappingProcessor implements Mapper {
   /* Mapper Interface Implementation */
 
   public <T> T map(final Object srcObj, final Class<T> destClass) {
-    return map(srcObj, destClass, (String) null);
+    return map(srcObj, destClass, (String) null, null);
+  }
+
+  public <T> T map(final Object srcObj, final Class<T> destClass, MapperInterceptor interceptor) {
+    return map(srcObj, destClass, (String) null, interceptor);
   }
 
   public <T> T map(final Object srcObj, final Class<T> destClass, final String mapId) {
@@ -140,23 +144,27 @@ public class MappingProcessor implements Mapper {
     return mapGeneral(srcObj, destClass, null, mapId, null);
   }
 
-  public void map(final Object srcObj, final Object destObj) {
-    map(srcObj, destObj, (String) null);
+  public <T> T map(final Object srcObj, final Class<T> destClass, final String mapId, MapperInterceptor interceptor) {
+    MappingValidator.validateMappingRequest(srcObj, destClass);
+    return mapGeneral(srcObj, destClass, null, mapId, interceptor);
   }
 
-  public <T> T map(final Object srcObj, final Class<T> destClass, MapperInterceptor interceptor) {
-    MappingValidator.validateMappingRequest(srcObj, destClass);
-    return mapGeneral(srcObj, destClass, null, null, interceptor);
+  public void map(final Object srcObj, final Object destObj) {
+    map(srcObj, destObj, (String) null, null);
   }
 
   public void map(final Object srcObj, final Object destObj, MapperInterceptor interceptor) {
-    MappingValidator.validateMappingRequest(srcObj, destObj);
-    mapGeneral(srcObj, null, destObj, null, interceptor);
+    map(srcObj, destObj, (String) null, interceptor);
   }
 
   public void map(final Object srcObj, final Object destObj, final String mapId) {
     MappingValidator.validateMappingRequest(srcObj, destObj);
     mapGeneral(srcObj, null, destObj, mapId, null);
+  }
+
+  public void map(final Object srcObj, final Object destObj, final String mapId, MapperInterceptor interceptor) {
+    MappingValidator.validateMappingRequest(srcObj, destObj);
+    mapGeneral(srcObj, null, destObj, mapId, interceptor);
   }
   /* End of Mapper Interface Implementation */
 
@@ -172,7 +180,7 @@ public class MappingProcessor implements Mapper {
    * @return new or updated destination object
    */
   private <T> T mapGeneral(Object srcObj, final Class<T> destClass, final T destObj, final String mapId, MapperInterceptor interceptor) {
-    srcObj = MappingUtils.deProxy(srcObj);
+    srcObj = MappingUtils.deProxy(srcObj, beanContainer);
 
     Class<T> destType;
     T result;
