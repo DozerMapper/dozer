@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2017 Dozer Project
+ * Copyright 2005-2018 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,5 +81,13 @@ public interface FieldMappingMetadata {
      * @return The name of the custom converter class as a string.
      */
     String getCustomConverter();
+
+    /**
+     * Returns the map id of this mapping definition used for contextual mapping selection.
+     *
+     * @return The identifier as a string.
+     */
+    String getMapId();
+
     
 }
