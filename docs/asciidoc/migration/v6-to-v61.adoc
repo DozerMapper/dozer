@@ -15,7 +15,7 @@ See link:https://github.com/DozerMapper/dozer/releases/tag/6.1.0[for release not
 ----
 <mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping https://dozermapper.github.io/schema/bean-mapping.xsd">
 ----
 
 === 2. Dozer-Spring XSD changed.
@@ -38,7 +38,7 @@ See link:https://github.com/DozerMapper/dozer/releases/tag/6.1.0[for release not
         xmlns:dozer="http://dozermapper.github.io/schema/dozer-spring"
         xsi:schemaLocation="
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-           http://dozermapper.github.io/schema/dozer-spring http://dozermapper.github.io/schema/dozer-spring.xsd">
+           http://dozermapper.github.io/schema/dozer-spring https://dozermapper.github.io/schema/dozer-spring.xsd">
 ----
 
 === 3. DozerBeanMapper usage is deprecated
