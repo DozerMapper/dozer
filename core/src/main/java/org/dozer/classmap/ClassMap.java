@@ -47,6 +47,7 @@ public class ClassMap {
   private boolean mapNull = DozerConstants.DEFAULT_MAP_NULL_POLICY;
   private boolean mapEmptyString = DozerConstants.DEFAULT_MAP_EMPTY_STRING_POLICY;
   private Boolean wildcard;
+  private Boolean wildcardCaseInsensitive;
   private Boolean stopOnErrors;
   private Boolean trimStrings;
   private CustomConverterContainer customConverters;
@@ -161,6 +162,14 @@ public class ClassMap {
 
   public void setWildcard(Boolean wildcardPolicy) {
     this.wildcard = wildcardPolicy;
+  }
+
+  public boolean isWildcardCaseInsensitive() {
+    return wildcardCaseInsensitive != null ? wildcardCaseInsensitive.booleanValue() : globalConfiguration.getWildcardCaseInsensitive().booleanValue();
+  }
+
+  public void setWildcardCaseInsensitive(Boolean wildcardCaseInsensitive) {
+    this.wildcardCaseInsensitive = wildcardCaseInsensitive;
   }
 
   public MappingDirection getType() {

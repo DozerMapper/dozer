@@ -44,9 +44,34 @@ For example, the following mapping does not allow wildcards:
 </mapping>
 ----
 
+Per default, wildcard mappings are case sensitive. To change this, you
+can enable the wildcard case insensitive policy, either globally or
+at the mapping level:
+
+[source,xml,prettyprint]
+----
+<mapping wildcard-case-insensitive="true">
+    <class-a>org.dozer.vo.SpringBean</class-a>
+    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+</mapping>
+----
+
+[source,java,prettyprint]
+----
+public class SpringBean {
+    String camelCase;
+   /** ... */
+}
+
+public class SpringBeanPrime {
+    String camelcase;
+    /** ... */
+}
+----
+
 === Overriding Date Format
-The same is true for date format values. Each individual mapping section
-can set its own date format rules. For example:
+Date formatting rules can also be specified in individual mapping sections.
+For example:
 
 [source,xml,prettyprint]
 ----

@@ -33,6 +33,7 @@ import org.dozer.util.DozerConstants;
 public class Configuration {
 
   private Boolean wildcard;
+  private Boolean wildcardCaseInsensitive;
   private Boolean stopOnErrors;
   private Boolean trimStrings;
   private Boolean mapNull;
@@ -67,6 +68,14 @@ public class Configuration {
 
   public void setWildcard(Boolean globalWildcardPolicy) {
     wildcard = globalWildcardPolicy;
+  }
+
+  public Boolean getWildcardCaseInsensitive() {
+      return wildcardCaseInsensitive != null ? wildcardCaseInsensitive : Boolean.valueOf(DozerConstants.DEFAULT_WILDCARD_CASE_INSENSITIVE_POLICY);
+  }
+
+  public void setWildcardCaseInsensitive(Boolean wildcardCaseInsensitive) {
+      this.wildcardCaseInsensitive = wildcardCaseInsensitive;
   }
 
   public Boolean getStopOnErrors() {

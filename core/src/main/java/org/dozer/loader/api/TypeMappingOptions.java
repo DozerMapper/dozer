@@ -125,4 +125,12 @@ public final class TypeMappingOptions {
             }
         };
     }
+
+    public static TypeMappingOption wildcardCaseInsensitive(final boolean value) {
+        return new TypeMappingOption() {
+            public void apply(DozerBuilder.MappingBuilder fieldMappingBuilder) {
+                fieldMappingBuilder.wildcardCaseInsensitive(value);
+            }
+        };
+    }
 }

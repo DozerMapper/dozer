@@ -43,11 +43,10 @@ import static org.dozer.util.DozerConstants.BASE_CLASS;
 
 /**
  * Internal class that provides various mapping utilities used throughout the code base. Only intended for internal use.
- * 
+ *
  * @author garsombke.franz
  * @author sullins.ben
  * @author tierney.matt
- * 
  */
 public final class MappingUtils {
 
@@ -114,7 +113,7 @@ public final class MappingUtils {
   }
 
   public static Class<?> findCustomConverter(Cache converterByDestTypeCache, CustomConverterContainer customConverterContainer,
-      Class<?> srcClass, Class<?> destClass) {
+                                             Class<?> srcClass, Class<?> destClass) {
     if (customConverterContainer == null) {
       return null;
     }
@@ -123,7 +122,7 @@ public final class MappingUtils {
   }
 
   public static Class<?> determineCustomConverter(FieldMap fieldMap, Cache converterByDestTypeCache,
-      CustomConverterContainer customConverterContainer, Class<?> srcClass, Class<?> destClass) {
+                                                  CustomConverterContainer customConverterContainer, Class<?> srcClass, Class<?> destClass) {
     if (customConverterContainer == null) {
       return null;
     }
@@ -135,7 +134,7 @@ public final class MappingUtils {
       if (destClass.isArray()) {
         destClass = destClass.getComponentType();
       } else if (destClass.isAssignableFrom(Collection.class) && fieldMap.getDestHintContainer() != null
-          && !fieldMap.getDestHintContainer().hasMoreThanOneHint()) {
+              && !fieldMap.getDestHintContainer().hasMoreThanOneHint()) {
         // use hint when trying to find a custom converter
         destClass = fieldMap.getDestHintContainer().getHint();
       }
@@ -165,15 +164,16 @@ public final class MappingUtils {
   public static void reverseFields(ClassMap source, ClassMap destination, BeanContainer beanContainer) {
     // reverse the fields
     destination.setSrcClass(new DozerClass(source.getDestClassName(), source.getDestClassToMap(), source.getDestClassBeanFactory(),
-        source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
+            source.getDestClassBeanFactoryId(), source.getDestClassMapGetMethod(), source.getDestClassMapSetMethod(),
             source.getDestClass().getCreateMethod(),
             source.isDestMapNull(), source.isDestMapEmptyString(), source.getDestClass().isAccessible(), source.getDestClass().isSkipConstructor(), beanContainer));
     destination.setDestClass(new DozerClass(source.getSrcClassName(), source.getSrcClassToMap(), source.getSrcClassBeanFactory(),
-        source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
+            source.getSrcClassBeanFactoryId(), source.getSrcClassMapGetMethod(), source.getSrcClassMapSetMethod(),
             source.getSrcClass().getCreateMethod(),
             source.isSrcMapNull(), source.isSrcMapEmptyString(), source.getSrcClass().isAccessible(), source.getSrcClass().isSkipConstructor(), beanContainer));
     destination.setType(source.getType());
     destination.setWildcard(source.isWildcard());
+    destination.setWildcardCaseInsensitive(source.isWildcardCaseInsensitive());
     destination.setTrimStrings(source.isTrimStrings());
     destination.setDateFormat(source.getDateFormat());
     destination.setRelationshipType(source.getRelationshipType());
@@ -207,7 +207,7 @@ public final class MappingUtils {
   }
 
   public static void applyGlobalCopyByReference(Configuration globalConfig, FieldMap fieldMap, ClassMap classMap) {
-    CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();    
+    CopyByReferenceContainer copyByReferenceContainer = globalConfig.getCopyByReferences();
     String destFieldTypeName = null;
     Class<?> clazz = fieldMap.getDestFieldType(classMap.getDestClassToMap());
     if (clazz != null) {
@@ -239,7 +239,7 @@ public final class MappingUtils {
   }
 
   public static Object prepareIndexedCollection(Class<?> collectionType, Object existingCollection, Object collectionEntry,
-      int index) {
+                                                int index) {
     Object result = null;
     if (collectionType.isArray()) {
       result = prepareIndexedArray(collectionType, existingCollection, collectionEntry, index);
@@ -273,7 +273,7 @@ public final class MappingUtils {
 
   @SuppressWarnings("unchecked")
   private static Collection<?> prepareIndexedCollectionType(Class<?> collectionType, Object existingCollection,
-      Object collectionEntry, int index) {
+                                                            Object collectionEntry, int index) {
     Collection result = null;
     //Instantiation of the new Collection: can be interface or implementation class
     if (collectionType.isInterface()) {
@@ -316,6 +316,7 @@ public final class MappingUtils {
 
   /**
    * Used to test if {@code srcFieldClass} is enum.
+   *
    * @param srcFieldClass the source field to be tested.
    * @return {@code true} if and only if current running JRE is 1.5 or above, and
    * {@code srcFieldClass} is enum; otherwise return {@code false}.
@@ -331,9 +332,10 @@ public final class MappingUtils {
 
   /**
    * Used to test if both {@code srcFieldClass} and {@code destFieldType} are enum.
+   *
    * @param srcFieldClass the source field to be tested.
    * @param destFieldType the destination field to be tested.
-   * @return {@code true} if and only if current running JRE is 1.5 or above, and both 
+   * @return {@code true} if and only if current running JRE is 1.5 or above, and both
    * {@code srcFieldClass} and {@code destFieldType} are enum; otherwise return {@code false}.
    */
   public static boolean isEnumType(Class<?> srcFieldClass, Class<?> destFieldType) {
@@ -353,7 +355,7 @@ public final class MappingUtils {
 
     // Now add all interfaces of the passed in class and all it's super classes
 
-    // Linked hash set so duplicated are not added but insertion order is kept 
+    // Linked hash set so duplicated are not added but insertion order is kept
     LinkedHashSet<Class<?>> interfaces = new LinkedHashSet<Class<?>>();
 
     interfaces.addAll(getInterfaceHierarchy(realClass, beanContainer));
@@ -392,9 +394,9 @@ public final class MappingUtils {
     return result;
 
   }
-  
+
   private static boolean isBaseClass(Class<?> clazz) {
     return clazz == null || BASE_CLASS.equals(clazz.getName());
   }
-  
+
 }

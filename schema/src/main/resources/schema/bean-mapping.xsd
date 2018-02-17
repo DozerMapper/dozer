@@ -51,6 +51,10 @@
         
         wildcard Indicates whether Dozer automatically map fields that have the same name.
         This will typically be set to "true". The default value is "true"
+
+        wildcard-case-insensitive Indicates whether Dozer should ignore the case of field names when applying wildcard
+        mapping.
+        The default value is "false"
         
         trim-strings Indicates whether Dozer automatically trims String values prior to setting the destination value.
         The default value is "false"
@@ -73,6 +77,7 @@
         <element ref='t:stop-on-errors' minOccurs='0'/>
         <element ref='t:date-format' minOccurs='0'/>
         <element ref='t:wildcard' minOccurs='0'/>
+        <element ref='t:wildcard-case-insensitive' minOccurs='0'/>
         <element ref='t:trim-strings' minOccurs='0'/>
         <element ref='t:map-null' minOccurs='0'/>
         <element ref='t:map-empty-string' minOccurs='0'/>
@@ -105,6 +110,10 @@
         The default value is "true"
         
         wildcard Indicates whether Dozer automatically map fields that have the same name. The default value is "true"
+
+        wildcard-case-insensitive Indicates whether Dozer should ignore the case of field names when applying wildcard
+        mapping.
+        The default value is "false"
         
         trim-strings Indicates whether Dozer automatically trims String values prior to setting the destination value.
         The default value is "false"
@@ -141,6 +150,7 @@
       <attribute name="date-format" type="string"/>
       <attribute name="stop-on-errors" type="boolean"/>
       <attribute name="wildcard" type="boolean"/>
+      <attribute name="wildcard-case-insensitive" type="boolean"/>
       <attribute name="trim-strings" type="boolean"/>
       <attribute name="map-null" type="boolean"/>
       <attribute name="map-empty-string" type="boolean"/>
@@ -388,6 +398,7 @@
   <element name='map-null' type="boolean"/>
   <element name='map-empty-string' type="boolean"/>
   <element name='wildcard' type="boolean"/>
+  <element name='wildcard-case-insensitive' type="boolean"/>
   <element name='trim-strings' type="boolean"/>
   <element name='bean-factory' type="string"/>
   <element name='relationship-type' type="t:relationship"/>

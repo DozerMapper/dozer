@@ -329,6 +329,11 @@ public final class ClassMapBuilder {
         }
 
         @Override
+        public OptionValue wildCardCaseInsensitive() {
+          return reconcile("wildCardCaseInsensitive", srcOpts.wildCardCaseInsensitive(), dstOpts.wildCardCaseInsensitive());
+        }
+
+        @Override
         public OptionValue stopOnErrors() {
           return reconcile("stopOnErrors", srcOpts.stopOnErrors(), dstOpts.stopOnErrors());
         }
@@ -354,6 +359,7 @@ public final class ClassMapBuilder {
     private static void applyClassMappingOptions(ClassMap classMap, MappingOptions mappingOptions) {
       if (mappingOptions != null) {
         classMap.setWildcard(mappingOptions.wildCard().toBoolean());
+        classMap.setWildcardCaseInsensitive(mappingOptions.wildCardCaseInsensitive().toBoolean());
         classMap.setStopOnErrors(mappingOptions.stopOnErrors().toBoolean());
 
         Boolean mapNull = mappingOptions.mapNull().toBoolean();
