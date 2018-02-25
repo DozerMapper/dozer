@@ -511,7 +511,21 @@ public class MappingProcessor implements Mapper {
 
   private <T extends Enum<T>> T mapEnum(Enum<T> srcFieldValue, Class<T> destFieldType) {
     String name = srcFieldValue.name();
-    return Enum.valueOf(destFieldType, name);
+    return Enum.valueOf(getSerializableEnumClass(destFieldType), name);
+  }
+  
+  private <T extends Enum<T>> Class<T> getSerializableEnumClass(Class<T> enumClass) {
+    if (checkIfOverriddenEnum(enumClass)) {
+      /* This cast is case because of the check performed by the checkIfOverridenEnum function. */
+      @SuppressWarnings("unchecked")
+      Class<T> castedSuperclass = (Class<T>) enumClass.getSuperclass();
+      return castedSuperclass;
+    }
+    return enumClass;
+  }
+
+  private <T extends Enum<T>> boolean checkIfOverriddenEnum(Class<T> enumClass) {
+    return !Enum.class.equals(enumClass.getSuperclass());
   }
 
   private Object mapCustomObject(FieldMap fieldMap, Object destObj, Class<?> destFieldType, String destFieldName, Object srcFieldValue) {
