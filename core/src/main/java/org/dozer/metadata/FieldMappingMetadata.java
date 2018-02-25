@@ -81,5 +81,13 @@ public interface FieldMappingMetadata {
      * @return The name of the custom converter class as a string.
      */
     String getCustomConverter();
+
+    /**
+     * Returns the map id of this mapping definition used for contextual mapping selection.
+     *
+     * @return The identifier as a string.
+     */
+    String getMapId();
+
     
 }

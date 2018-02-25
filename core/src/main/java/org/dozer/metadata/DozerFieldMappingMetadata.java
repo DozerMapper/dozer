@@ -78,4 +78,8 @@ public final class DozerFieldMappingMetadata implements FieldMappingMetadata {
         return fieldMap.getCustomConverter();
     }
 
+    @Override
+    public String getMapId() {
+        return fieldMap.getMapId();
+    }
 }
