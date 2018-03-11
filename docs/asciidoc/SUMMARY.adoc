@@ -8,8 +8,8 @@
 ... link:documentation/annotations.adoc[via Annotations]
 ... link:documentation/apimappings.adoc[via API]
 .. link:documentation/configuration/configuration.adoc[Configuration]
-... link:documentation/advancedConfiguration.adoc[Advanced Configuration]
-... link:documentation/globalConfiguration.adoc[Global Configuration]
+... link:documentation/xmlConfiguration.adoc[Configuration via XML]
+... link:documentation/apiConfiguration.adoc[Configuration via API]
 
 == Dozer mapping concepts
 .. link:documentation/mappingclasses.adoc[Mapping Classes]
