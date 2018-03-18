@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2018 Dozer Project
+ * Copyright 2005-2017 Dozer Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.junit.Before;
 import org.junit.Test;
+
 
 import static org.junit.Assert.assertTrue;
 
