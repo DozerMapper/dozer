@@ -41,3 +41,11 @@ The property for 'dozer.el.enabled' has been deprecated. Instead, you should use
             .withELEngine(elEngine)
             .build();
 ----
+
+=== 5. Artifacts renamed
+
+`dozer-spring` maven artifact renamed to `dozer-spring4` +
+`dozer-proto` maven artifact renamed to `dozer-proto3` +
+
+=== 6. Extended spring boot support
+`dozer-spring-boot-starter` and `dozer-spring-boot-autoconfigure` artifacts added to support spring boot auto configuration features.

@@ -28,6 +28,14 @@ Dozer is built against Java JDK 1.8 ONLY.
 === 3. dozer-osgi dropped
 You no longer need to use the below, if you are running in an OSGi environment:
 
+=== 4. Artifacts renamed
+
+`dozer-spring` maven artifact renamed to `dozer-spring4` +
+`dozer-proto` maven artifact renamed to `dozer-proto3` +
+
+=== 5. Extended spring boot support
+`dozer-spring-boot-starter` and `dozer-spring-boot-autoconfigure` artifacts added to support spring boot auto configuration features.
+
 [source,xml,prettyprint]
 ----
 <dependency>
