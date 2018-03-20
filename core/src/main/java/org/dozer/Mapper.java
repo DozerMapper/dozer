@@ -37,6 +37,18 @@ public interface Mapper {
     <T> T map(Object source, Class<T> destinationClass) throws MappingException;
 
     /**
+     * Constructs new instance of destinationClass and performs mapping between from source
+     *
+     * @param source object to convert from
+     * @param destinationClass type to convert to
+     * @param interceptor
+     * @param <T> type to convert to
+     * @return mapped object
+     * @throws MappingException mapping failure
+     */
+    <T> T map(Object source, Class<T> destinationClass, MapperInterceptor interceptor) throws MappingException;
+
+    /**
      * Performs mapping between source and destination objects
      *
      * @param source object to convert from
@@ -44,6 +56,16 @@ public interface Mapper {
      * @throws MappingException mapping failure
      */
     void map(Object source, Object destination) throws MappingException;
+
+    /**
+     * Performs mapping between source and destination objects
+     *
+     * @param source object to convert from
+     * @param destination object to convert to
+     * @param interceptor
+     * @throws MappingException mapping failure
+     */
+    void map(Object source, Object destination, MapperInterceptor interceptor) throws MappingException;
 
     /**
      * Constructs new instance of destinationClass and performs mapping between from source
@@ -58,6 +80,19 @@ public interface Mapper {
     <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException;
 
     /**
+     * Constructs new instance of destinationClass and performs mapping between from source
+     *
+     * @param source object to convert from
+     * @param destinationClass type to convert to
+     * @param mapId id in configuration for mapping
+     * @param interceptor
+     * @param <T> type to convert to
+     * @return mapped object
+     * @throws MappingException mapping failure
+     */
+    <T> T map(Object source, Class<T> destinationClass, String mapId, MapperInterceptor interceptor) throws MappingException;
+
+    /**
      * Performs mapping between source and destination objects
      *
      * @param source object to convert from
@@ -66,6 +101,17 @@ public interface Mapper {
      * @throws MappingException mapping failure
      */
     void map(Object source, Object destination, String mapId) throws MappingException;
+
+    /**
+     * Performs mapping between source and destination objects
+     *
+     * @param source object to convert from
+     * @param destination object to convert to
+     * @param mapId id in configuration for mapping
+     * @param interceptor
+     * @throws MappingException mapping failure
+     */
+    void map(Object source, Object destination, String mapId, MapperInterceptor interceptor) throws MappingException;
 
     /**
      * The {@link org.dozer.metadata.MappingMetadata} interface can be used to query information about the current

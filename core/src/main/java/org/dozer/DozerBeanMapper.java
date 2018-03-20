@@ -130,8 +130,22 @@ public class DozerBeanMapper implements Mapper {
   /**
    * {@inheritDoc}
    */
+  public void map(Object source, Object destination, String mapId, MapperInterceptor interceptor) throws MappingException {
+    getMappingProcessor().map(source, destination, mapId, interceptor);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException {
     return getMappingProcessor().map(source, destinationClass, mapId);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  public <T> T map(Object source, Class<T> destinationClass, String mapId, MapperInterceptor interceptor) throws MappingException {
+    return getMappingProcessor().map(source, destinationClass, mapId, interceptor);
   }
 
   /**
@@ -139,6 +153,13 @@ public class DozerBeanMapper implements Mapper {
    */
   public <T> T map(Object source, Class<T> destinationClass) throws MappingException {
     return getMappingProcessor().map(source, destinationClass);
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  public <T> T map(Object source, Class<T> destinationClass, MapperInterceptor interceptor) throws MappingException {
+    return getMappingProcessor().map(source, destinationClass, interceptor);
   }
 
   /**
@@ -148,6 +169,13 @@ public class DozerBeanMapper implements Mapper {
     getMappingProcessor().map(source, destination);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public void map(Object source, Object destination, MapperInterceptor interceptor) throws MappingException {
+    getMappingProcessor().map(source, destination, interceptor);
+  }
+  
   private void init() {
     // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
     // are not shared across the VM.
