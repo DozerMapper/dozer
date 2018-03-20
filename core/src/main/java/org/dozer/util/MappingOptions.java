@@ -37,6 +37,14 @@ public @interface MappingOptions {
     OptionValue wildCard() default OptionValue.INHERITED;
 
     /**
+     * The wildcard case sensitivity policy for the class mapping.
+     * If this policy is ON, wildcard fields will be matched ignoring the case.
+     *
+     * @return option is on or off
+     */
+    OptionValue wildCardCaseInsensitive() default OptionValue.INHERITED;
+
+    /**
      * The error handling policy for the class mapping
      *
      * @return option is on or off

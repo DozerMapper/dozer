@@ -1,0 +1,28 @@
+== Configuration via API
+If you are using the link:apimappings.adoc[MapperBuilder] to
+define your mappings, you can declare mapping, class, and field
+configuration settings programmatically:
+
+[source,java,prettyprint]
+----
+Mapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingBuilder(new BeanMappingBuilder() {
+                    @Override
+                    protected void configure() {
+                        mapping(type(A.class).mapEmptyString(true),
+                                type(B.class),
+                                TypeMappingOptions.wildcardCaseInsensitive(true)
+                        ).fields(
+                                field("fieldOfA").getMethod("getTheField"),
+                                field("fieldOfB"),
+                                FieldsMappingOptions.oneWay()
+                        );
+                    }
+                })
+                .build();
+----
+
+*Global configuration is currently not supported by the API.*
+
+Please see <<xmlConfiguration.adoc#label-config-options,Configuration via XML>>
+for a list of the available configuration settings.

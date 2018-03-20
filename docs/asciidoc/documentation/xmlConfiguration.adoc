@@ -1,0 +1,232 @@
+== Configuration via XML
+The majority of Dozer's behaviour can be configured from within XML mapping
+files. Settings can appear inside five different scopes which affect the
+elements they are applied to: Global, per class mapping, at individual class
+level, per field mapping, and at individual field level.
+
+=== Configuration Scopes
+
+==== Global Scope
+The configuration block is used to set the global default settings.
+Also, any Custom Converters are defined in this section. The
+configuration block is entirely "optional".
+
+Dozer supports the ability to have multiple mapping files. Each of these
+mapping files can have their own configuration block. A mapping will
+inherit its configuration from the mapping file that it is stored in.
+*Implicit mappings will inherit the default values for configuration.*
+
+The following is the sample configuration block from the example
+mappings file:
+
+[source,xml,prettyprint]
+----
+<configuration>
+    <date-format>MM/dd/yyyy HH:mm</date-format>
+    <stop-on-errors>true</stop-on-errors>
+    <wildcard>true</wildcard>
+    <custom-converters>
+        <!-- these are always bi-directional -->
+        <converter type="org.dozer.converters.TestCustomConverter">
+            <class-a>org.dozer.vo.TestCustomConverterObject</class-a>
+            <class-b>another.type.to.Associate</class-b>
+        </converter>
+    </custom-converters>
+</configuration>
+----
+
+All global settings appear as separate XML tags containing their value.
+
+==== Per Class Mapping
+Global settings (or their defaults) can be overridden at the individual
+mapping level. Here, configuration values are set using name="value"
+attributes. They will affect all mapping operations between the two
+classes.
+
+[source,xml,prettyprint]
+----
+<mapping wildcard="false" date-format="MM/dd/yyyy HH:mm">
+    <class-a>org.dozer.vo.SpringBean</class-a>
+    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <field>
+        <a>anAttributeToMap</a>
+        <b>anAttributeToMapPrime</b>
+    </field>
+</mapping>
+----
+
+==== At Individual Class Level
+Sometimes, you may want to apply a setting only to one of the two classes.
+This can be achieved by placing the attribute inside the `class-a` or `class-b`
+tag:
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a is-accessible="true">org.dozer.vo.SpringBean</class-a>
+    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <field>
+        <a>anAttributeToMap</a>
+        <b>anAttributeToMapPrime</b>
+    </field>
+</mapping>
+----
+
+==== Per Field Mapping
+Likewise, you can change the mapping behaviour for specific field pairs:
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.SpringBean</class-a>
+    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <field remove-orphans="false">
+        <a>anAttributeToMap</a>
+        <b>anAttributeToMapPrime</b>
+    </field>
+</mapping>
+----
+
+==== At Individual Field Level
+Finally, some settings can be applied to a single field:
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.SpringBean</class-a>
+    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <field>
+        <a get-method="getTheAttribute">anAttributeToMap</a>
+        <b>anAttributeToMapPrime</b>
+    </field>
+</mapping>
+----
+
+=== Available Configuration Settings
+[[label-config-options]]The following table lists the available configuration options and
+mapping directives, in which scopes they can appear, and the section
+of the manual containing more information:
+
+|===
+|Name                      |Global |Class Mapping |Single Class|Field Mapping |Single Field |Manual Section
+
+|allowed-exceptions        |X      |              |            |              |             |see below
+|custom-converter          |       |              |            |X             |             |link:customconverter.adoc[Custom Converters]
+|custom-converter-id       |       |              |            |X             |             |link:customconverter.adoc[Custom Converters]
+|custom-converter-param    |       |              |            |X             |             |link:customconverter.adoc[Custom Converters]
+|copy-by-reference         |       |              |            |X             |             |link:copybyreference.adoc[Copy By Reference]
+|copy-by-references        |X      |              |            |              |             |link:copybyreference.adoc[Copy By Reference]
+|create-method             |       |              |X           |              |X            |link:customCreateMethod.adoc[Custom Create Method]
+|bean-factory              |X      |X             |X           |              |             |link:custombeanfactories.adoc[Custom Bean Factories]
+|date-format               |X      |X             |            |              |X            |link:stringtodatemapping.adoc[String to Date Mapping]
+|factory-bean-id           |       |              |X           |              |             |link:custombeanfactories.adoc[Custom Bean Factories]
+|get-method                |       |              |            |              |X            |link:custommethods.adoc[Custom Methods]
+|is-accessible             |       |              |X           |              |X            |link:immutable.adoc[Mapping immutable types]
+|key                       |       |              |            |              |X            |link:mapbackedproperty.adoc[Map Mapping]
+|map-empty-string          |X      |X             |X           |              |             |link:exclude.adoc[Excluding Fields]
+|map-id                    |       |X             |            |              |             |link:contextmapping.adoc[Context Based Mapping]
+|map-null                  |X      |X             |X           |              |             |link:exclude.adoc[Excluding Fields]
+|map-set-method            |       |              |X           |              |X            |link:mapbackedproperty.adoc[Map Mapping]
+|map-get-method            |       |              |X           |              |X            |link:mapbackedproperty.adoc[Map Mapping]
+|relationship-type         |X      |X             |            |X             |             |link:collectionandarraymapping.adoc[Collection Mapping]
+|remove-orphans            |       |              |            |X             |             |link:collectionandarraymapping.adoc[Collection Mapping]
+|set-method                |       |              |            |              |X            |link:custommethods.adoc[Custom Methods]
+|skip-constructor          |       |              |X           |              |             |link:immutable.adoc[Mapping immutable types]
+|stop-on-errors            |X      |              |            |              |             |see below
+|trim-strings              |X      |X             |            |              |             |see below
+|type                      |       |X             |            |X             |             |link:oneway.adoc[One-Way Mapping]
+|variables                 |X      |              |            |              |             |link:expressionlanguage.adoc[Expression Language]
+|wildcard                  |X      |X             |            |              |             |see below
+|wildcard-case-insensitive |X      |X             |            |              |             |see below
+|===
+
+==== Error handling (stop-on-errors, allowed-exceptions)
+By default, if Dozer encounters an error while performing a field mapping, an
+exception is thrown and the mapping aborted. While this is the recommended
+behaviour, Dozer can be instructed to ignore the error and simply continue
+with the next field, via the `stop-on-errors` policy.
+
+You can also specify exceptions that should cause Dozer to stop and rethrow
+them, even if `stop-on-errors` is set to false, using the `allowed-exceptions`
+element:
+
+[source,xml,prettyprint]
+----
+<configuration>
+    <stop-on-errors>false</stop-on-errors>
+    <allowed-exceptions>
+        <exception>org.example.UnrecoverableError</exception>
+        <exception>org.example.BadException</exception>
+    </allowed-exceptions>
+</configuration>
+----
+
+==== Trimming Strings (trim-strings)
+As the name suggests, `trim-strings` applies Java's String.trim()
+to the source value before calling the target beans's setter.
+
+==== Wildcard mapping (wildcard, wildcard-case-insensitive)
+Per default, Dozer maps all fields between source and target bean
+that share the same name ("wildcard mapping").
+Listing fields in mapping definitions does not override this behaviour,
+except for the given fields. For example, given the following classes
+
+[source,java,prettyprint]
+----
+class Person {
+    private String firstName;
+    private String lastName;
+}
+
+class Contact {
+    private String firstName;
+    private String surname;
+}
+----
+
+and the mapping definition
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.Person</class-a>
+    <class-b>org.dozer.vo.Contact</class-b>
+    <field>
+        <a>lastName</a>
+        <b>surname</b>
+    </field>
+</mapping>
+----
+
+a mapping from a `Person` object onto a `Contact` will
+map `lastName` to `surname` and `firstName` to `firstName`,
+even though the latter pair is not mentioned in the mapping
+definition.
+
+You can disable wildcard mapping globally
+or at the class mapping level by setting `wildcard` to false. If you
+do, you have to explicitly specify each pair of fields that should be
+mapped:
+
+[source,xml,prettyprint]
+----
+<mapping wildcard="false">
+    <class-a>org.dozer.vo.Person</class-a>
+    <class-b>org.dozer.vo.Contact</class-b>
+    <field>
+        <a>lastName</a>
+        <b>surname</b>
+    </field>
+    <field>
+        <a>firstName</a>
+        <b>firstName</b>
+        </field>
+</mapping>
+----
+
+Up to Dozer version 5.4.0, wildcard mappings were case insensitive.
+Current versions of Dozer only automatically map fields with the exact
+same name. You can enable the old case insensitive behaviour by setting
+the `wildcard-case-insensitive` policy to true. Then, for example
+a source field named `camelCase` will be mapped to target field `camelcase`
+(and vice versa).

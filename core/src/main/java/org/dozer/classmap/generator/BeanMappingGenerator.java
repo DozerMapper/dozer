@@ -17,9 +17,13 @@ package org.dozer.classmap.generator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
@@ -60,21 +64,53 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
 
     Set<String> destFieldNames = getAcceptsFieldsDetector(destClass).getWritableFieldNames(destClass);
     Set<String> srcFieldNames = getAcceptsFieldsDetector(srcClass).getReadableFieldNames(srcClass);
-    Set<String> commonFieldNames = CollectionUtils.intersection(srcFieldNames, destFieldNames);
+    Set<WildcardFieldMapping> wildcardFieldMappings = (classMap.isWildcardCaseInsensitive()) ?
+            getMatchingFieldsCaseInsensitive(srcFieldNames, destFieldNames) : getMatchingFields(srcFieldNames, destFieldNames);
 
-    for (String fieldName : commonFieldNames) {
-      if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass, beanContainer)) {
+    for (WildcardFieldMapping wildcardFieldMapping : wildcardFieldMappings) {
+      if (GeneratorUtils.shouldIgnoreField(wildcardFieldMapping.getSrcFieldName(), srcClass, destClass, beanContainer)
+              || GeneratorUtils.shouldIgnoreField(wildcardFieldMapping.getDestFieldName(), srcClass, destClass, beanContainer)) {
         continue;
       }
 
       // If field has already been accounted for, then skip
-      if (classMap.getFieldMapUsingDest(fieldName) != null || classMap.getFieldMapUsingSrc(fieldName) != null) {
+      if (classMap.getFieldMapUsingDest(wildcardFieldMapping.getDestFieldName()) != null ||
+              classMap.getFieldMapUsingSrc(wildcardFieldMapping.getSrcFieldName()) != null) {
         continue;
       }
 
-      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration, fieldName, fieldName, beanContainer, destBeanCreator, propertyDescriptorFactory);
+      GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+              wildcardFieldMapping.getSrcFieldName(), wildcardFieldMapping.getDestFieldName(),
+              beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
     return false;
+  }
+
+  private Set<WildcardFieldMapping> getMatchingFields(Set<String> srcFieldNames, Set<String> destFieldNames) {
+    return CollectionUtils.intersection(srcFieldNames, destFieldNames).stream().map(matchingFieldName ->
+            new WildcardFieldMapping(matchingFieldName, matchingFieldName)).collect(Collectors.toSet());
+  }
+
+  private Set<WildcardFieldMapping> getMatchingFieldsCaseInsensitive(Set<String> srcFieldNames, Set<String> destFieldNames) {
+    Map<String, String> srcFieldNamesLookup = new HashMap<>(srcFieldNames.size(), 1);
+    Map<String, String> destFieldNamesLookup = new HashMap<>(destFieldNames.size(), 1);
+
+    for (String srcFieldName : srcFieldNames) {
+      srcFieldNamesLookup.put(srcFieldName.toLowerCase(), srcFieldName);
+    }
+    for (String destFieldName : destFieldNames) {
+      destFieldNamesLookup.put(destFieldName.toLowerCase(), destFieldName);
+    }
+
+    Set<WildcardFieldMapping> wildcardFields = new HashSet<>();
+
+    for (Map.Entry<String, String> lowercaseToActualFieldName : srcFieldNamesLookup.entrySet()) {
+      if (destFieldNamesLookup.containsKey(lowercaseToActualFieldName.getKey())) {
+        wildcardFields.add(new WildcardFieldMapping(lowercaseToActualFieldName.getValue(), destFieldNamesLookup.get(lowercaseToActualFieldName.getKey())));
+      }
+    }
+
+    return wildcardFields;
   }
 
   private BeanFieldsDetector getAcceptsFieldsDetector(Class<?> clazz) {

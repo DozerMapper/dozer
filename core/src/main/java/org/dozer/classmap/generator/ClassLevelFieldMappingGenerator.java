@@ -15,11 +15,6 @@
  */
 package org.dozer.classmap.generator;
 
-import java.lang.reflect.Field;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.dozer.classmap.ClassMap;
 import org.dozer.classmap.ClassMapBuilder;
 import org.dozer.classmap.Configuration;
@@ -28,6 +23,14 @@ import org.dozer.factory.DestBeanCreator;
 import org.dozer.fieldmap.FieldMap;
 import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 import org.dozer.util.CollectionUtils;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Provides default field mappings when either the source class, destination class or both
@@ -45,13 +48,17 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
         this.propertyDescriptorFactory = propertyDescriptorFactory;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean accepts(ClassMap classMap) {
         return srcClassIsAccessible(classMap) || destClassIsAccessible(classMap);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean apply(ClassMap classMap, Configuration configuration) {
         BeanFieldsDetector beanFieldsDetector = new JavaBeanFieldsDetector();
@@ -61,31 +68,32 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
         Set<String> srcFieldNames = getDeclaredFieldNames(classMap.getSrcClassToMap());
         Set<String> srcReadablePropertyNames = beanFieldsDetector.getReadableFieldNames(classMap.getSrcClassToMap());
 
-        Set<String> matchingUnmappedFields = getMatchingUnmappedFieldNames(
+        Set<WildcardFieldMapping> matchingUnmappedFields = (classMap.isWildcardCaseInsensitive()) ? getMatchingUnmappedFieldNamesCaseInsensitive(
+                classMap.getFieldMaps(), srcFieldNames, destFieldNames) : getMatchingUnmappedFieldNames(
                 classMap.getFieldMaps(), srcFieldNames, destFieldNames);
 
-        for (String mutualFieldName : matchingUnmappedFields) {
-            mapFieldAppropriately(classMap, configuration, mutualFieldName, destWritablePropertyNames, srcReadablePropertyNames);
+        for (WildcardFieldMapping matchingFields : matchingUnmappedFields) {
+            mapFieldAppropriately(classMap, configuration, matchingFields, destWritablePropertyNames, srcReadablePropertyNames);
         }
 
         return false;
     }
 
     private void mapFieldAppropriately(ClassMap classMap, Configuration configuration,
-                                       String mutualFieldName, Set<String> destWritablePropertyNames,
+                                       WildcardFieldMapping matchingFields, Set<String> destWritablePropertyNames,
                                        Set<String> srcReadablePropertyNames) {
         MappingType mappingType;
 
-        if (!destClassIsAccessible(classMap) && destWritablePropertyNames.contains(mutualFieldName)) {
+        if (!destClassIsAccessible(classMap) && destWritablePropertyNames.contains(matchingFields.getSrcFieldName())) {
             mappingType = MappingType.FIELD_TO_SETTER;
-        } else if (!srcClassIsAccessible(classMap) && srcReadablePropertyNames.contains(mutualFieldName)) {
+        } else if (!srcClassIsAccessible(classMap) && srcReadablePropertyNames.contains(matchingFields.getDestFieldName())) {
             mappingType = MappingType.GETTER_TO_FIELD;
         } else {
             mappingType = MappingType.FIELD_TO_FIELD;
         }
 
         GeneratorUtils.addGenericMapping(mappingType, classMap, configuration,
-                mutualFieldName, mutualFieldName, beanContainer, destBeanCreator, propertyDescriptorFactory);
+                matchingFields.getSrcFieldName(), matchingFields.getDestFieldName(), beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
 
     private Set<String> getDeclaredFieldNames(Class<?> srcType) {
@@ -97,14 +105,14 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
             }
 
             srcType = srcType.getSuperclass();
-        } while(srcType != null);
+        } while (srcType != null);
 
         return declaredFieldNames;
     }
 
-    private Set<String> getMatchingUnmappedFieldNames(List<FieldMap> fieldMaps,
-                                                      Set<String> srcFieldNames,
-                                                      Set<String> destFieldNames) {
+    private Set<WildcardFieldMapping> getMatchingUnmappedFieldNames(List<FieldMap> fieldMaps,
+                                                                    Set<String> srcFieldNames,
+                                                                    Set<String> destFieldNames) {
 
         for (FieldMap fieldMap : fieldMaps) {
             // Remove all already mapped
@@ -112,7 +120,38 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
             destFieldNames.remove(fieldMap.getDestFieldName());
         }
 
-        return new HashSet<String>(CollectionUtils.intersection(srcFieldNames, destFieldNames));
+        return CollectionUtils.intersection(srcFieldNames, destFieldNames).stream().map(mutualFieldName ->
+                new WildcardFieldMapping(mutualFieldName, mutualFieldName)).collect(Collectors.toSet());
+    }
+
+    private Set<WildcardFieldMapping> getMatchingUnmappedFieldNamesCaseInsensitive(List<FieldMap> fieldMaps,
+                                                                                   Set<String> srcFieldNames,
+                                                                                   Set<String> destFieldNames) {
+        Map<String, String> srcFieldNamesLookup = new HashMap<>(srcFieldNames.size(), 1);
+        Map<String, String> destFieldNamesLookup = new HashMap<>(destFieldNames.size(), 1);
+
+        for (String srcFieldName : srcFieldNames) {
+            srcFieldNamesLookup.put(srcFieldName.toLowerCase(), srcFieldName);
+        }
+        for (String destFieldName : destFieldNames) {
+            destFieldNamesLookup.put(destFieldName.toLowerCase(), destFieldName);
+        }
+
+        for (FieldMap fieldMap : fieldMaps) {
+            // Remove all already mapped
+            srcFieldNamesLookup.remove(fieldMap.getSrcFieldName().toLowerCase());
+            destFieldNamesLookup.remove(fieldMap.getDestFieldName().toLowerCase());
+        }
+
+        Set<WildcardFieldMapping> wildcardFields = new HashSet<>();
+
+        for (Map.Entry<String, String> lowercaseToActualFieldName : srcFieldNamesLookup.entrySet()) {
+            if (destFieldNamesLookup.containsKey(lowercaseToActualFieldName.getKey())) {
+                wildcardFields.add(new WildcardFieldMapping(lowercaseToActualFieldName.getValue(), destFieldNamesLookup.get(lowercaseToActualFieldName.getKey())));
+            }
+        }
+
+        return wildcardFields;
     }
 
     private boolean destClassIsAccessible(ClassMap classMap) {
@@ -122,4 +161,5 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
     private boolean srcClassIsAccessible(ClassMap classMap) {
         return classMap.getSrcClass() != null && classMap.getSrcClass().isAccessible();
     }
+
 }

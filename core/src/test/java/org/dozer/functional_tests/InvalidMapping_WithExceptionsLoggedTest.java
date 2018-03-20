@@ -18,11 +18,14 @@ package org.dozer.functional_tests;
 
 import org.dozer.MappingException;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Locale;
 
 import static org.junit.Assert.fail;
 
@@ -44,6 +47,14 @@ public class InvalidMapping_WithExceptionsLoggedTest extends AbstractFunctionalT
     public ExpectedException testNoClassAEE = ExpectedException.none();
 
     private final Logger LOG = LoggerFactory.getLogger(InvalidMapping_WithExceptionsLoggedTest.class);
+
+    /**
+     * Messages of SAXExceptions are localized, so we have to set the language to English as expected by the tests.
+     */
+    @Before
+    public void setDefaultLocale() {
+        Locale.setDefault(Locale.US);
+    }
 
     @Test
     public void testWrongClassName() {

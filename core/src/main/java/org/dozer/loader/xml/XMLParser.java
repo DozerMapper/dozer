@@ -49,6 +49,7 @@ public class XMLParser implements MappingsSource<Document> {
 
   // Common Elements/Attributes
   private static final String WILDCARD = "wildcard";
+  private static final String WILDCARD_CASE_INSENSITIVE = "wildcard-case-insensitive";
   private static final String TRIM_STRINGS = "trim-strings";
   private static final String BEAN_FACTORY = "bean-factory";
   private static final String DATE_FORMAT = "date-format";
@@ -172,6 +173,9 @@ public class XMLParser implements MappingsSource<Document> {
     }
     if (StringUtils.isNotEmpty(getAttribute(ele, WILDCARD))) {
       definitionBuilder.wildcard(Boolean.valueOf(getAttribute(ele, WILDCARD)));
+    }
+    if (StringUtils.isNotEmpty(getAttribute(ele, WILDCARD_CASE_INSENSITIVE))) {
+      definitionBuilder.wildcardCaseInsensitive(Boolean.valueOf(getAttribute(ele, WILDCARD_CASE_INSENSITIVE)));
     }
     if (StringUtils.isNotEmpty(getAttribute(ele, TRIM_STRINGS))) {
       definitionBuilder.trimStrings(Boolean.valueOf(getAttribute(ele, TRIM_STRINGS)));
@@ -419,6 +423,8 @@ public class XMLParser implements MappingsSource<Document> {
           configBuilder.dateFormat(nodeValue);
         } else if (WILDCARD.equals(element.getNodeName())) {
           configBuilder.wildcard(Boolean.valueOf(nodeValue));
+        } else if (WILDCARD_CASE_INSENSITIVE.equals(element.getNodeName())) {
+          configBuilder.wildcardCaseInsensitive(Boolean.valueOf(nodeValue));
         } else if (TRIM_STRINGS.equals(element.getNodeName())) {
           configBuilder.trimStrings(Boolean.valueOf(nodeValue));
         } else if (MAP_NULL.equals(element.getNodeName())) {

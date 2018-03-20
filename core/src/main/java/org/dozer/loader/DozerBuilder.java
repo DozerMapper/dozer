@@ -135,6 +135,11 @@ public class DozerBuilder {
       return this;
     }
 
+    public MappingBuilder wildcardCaseInsensitive(Boolean value) {
+      classMap.setWildcardCaseInsensitive(value);
+      return this;
+    }
+
     public MappingBuilder trimStrings(Boolean value) {
       classMap.setTrimStrings(value);
       return this;
@@ -540,6 +545,10 @@ public class DozerBuilder {
 
     public void wildcard(Boolean value) {
       configuration.setWildcard(value);
+    }
+
+    public void wildcardCaseInsensitive(Boolean value) {
+      configuration.setWildcardCaseInsensitive(value);
     }
 
     public void trimStrings(Boolean value) {
