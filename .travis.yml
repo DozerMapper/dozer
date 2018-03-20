@@ -9,6 +9,10 @@ env:
 language: java
 jdk:
 - oraclejdk8
+- oraclejdk9
+matrix:
+  allow_failures:
+  - jdk: oraclejdk9
 before_install:
 - bash .travis/deploy-codesigning.sh
 install:
