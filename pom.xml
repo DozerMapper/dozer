@@ -78,9 +78,7 @@
         <module>plugins-parent</module>
         <module>schema</module>
         <module>core</module>
-        <module>spring</module>
-        <module>dozer-spring-boot-auto-configuration</module>
-        <module>proto</module>
+        <module>dozer-integrations</module>
         <module>tests</module>
     </modules>
 
@@ -205,8 +203,8 @@
                         <exclude>.mvn/**</exclude>
                         <exclude>mvnw</exclude>
                         <exclude>mvnw.cmd</exclude>
-                        <exclude>LICENSE-HEADER.txt</exclude>
-                        <exclude>LICENSE.md</exclude>
+                        <exclude>**/LICENSE-HEADER.txt</exclude>
+                        <exclude>**/LICENSE.md</exclude>
                         <exclude>**/*.md</exclude>
                         <exclude>**/*.adoc</exclude>
                         <exclude>**/*.jpeg</exclude>

@@ -21,13 +21,11 @@ import com.github.dozermapper.osgitests.karaf.BundleOptions;
 import com.github.dozermapper.osgitests.karaf.KarafOptions;
 import com.github.dozermapper.osgitests.support.OsgiTestSupport;
 import com.github.dozermapper.protobuf.ProtobufSupportModule;
-
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerModule;
 import org.dozer.Mapper;
 import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
@@ -39,15 +37,14 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
+
 import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
 import static org.ops4j.pax.exam.CoreOptions.systemPackages;
-import static org.ops4j.pax.exam.CoreOptions.url;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
@@ -72,7 +69,7 @@ public class DozerProtoOsgiContainerTest extends OsgiTestSupport {
                 localBundle("com.google.guava.link"),
                 localBundle("com.google.protobuf.link"),
                 // Proto
-                localBundle("com.github.dozermapper.dozer-proto.link"),
+                localBundle("com.github.dozermapper.dozer-proto3.link"),
                 junitBundles(),
                 systemPackages("sun.misc")
         );
@@ -92,7 +89,7 @@ public class DozerProtoOsgiContainerTest extends OsgiTestSupport {
         assertNotNull(core);
         assertEquals(Bundle.ACTIVE, core.getState());
 
-        Bundle proto = getBundle(bundleContext, "com.github.dozermapper.dozer-proto");
+        Bundle proto = getBundle(bundleContext, "com.github.dozermapper.dozer-proto3");
         assertNotNull(proto);
         assertEquals(Bundle.ACTIVE, proto.getState());
 
