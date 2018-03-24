@@ -49,7 +49,7 @@
         <osgi.SPI-Consumer>*</osgi.SPI-Consumer>
         
         <!-- NOTE: Needs to be removed in future -->
-        <findbugs.skip>true</findbugs.skip>
+        <spotbugs.skip>true</spotbugs.skip>
 
         <!-- ISSUE: https://youtrack.jetbrains.com/issue/IDEA-153410 -->
         <maven-resources/>
