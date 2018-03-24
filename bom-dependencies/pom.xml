@@ -50,6 +50,7 @@
         <jaxb-impl.version>2.2.4</jaxb-impl.version>
         <jmh.version>1.19</jmh.version>
         <junit.version>4.12</junit.version>
+        <junit-params.version>1.1.1</junit-params.version>
         <mockito-core.version>2.9.0</mockito-core.version>
         <aries.spifly.verison>1.0.8</aries.spifly.verison>
         <pax-exam.version>4.11.0</pax-exam.version>
@@ -278,6 +279,11 @@
                 <groupId>org.objenesis</groupId>
                 <artifactId>objenesis</artifactId>
                 <version>${objenesis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.pragmatists</groupId>
+                <artifactId>JUnitParams</artifactId>
+                <version>${junit-params.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

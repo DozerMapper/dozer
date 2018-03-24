@@ -24,21 +24,6 @@ import org.junit.Test;
  * @author tierney.matt
  */
 public class ConverterTest extends AbstractDozerTest {
-  /*
-   * See PrimitiveOrWrapperConverterTest for more thorough data conversion unit tests
-   */
-  @Test
-  public void testAccessors() throws Exception {
-    DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-
-    CalendarConverter cc = new CalendarConverter(dateFormat);
-    assertEquals(dateFormat, cc.getDateFormat());
-
-    StringConverter sc = new StringConverter(null);
-    DateFormatContainer dfc = new DateFormatContainer(null);
-    sc.setDateFormatContainer(dfc);
-    assertEquals(dfc, sc.getDateFormatContainer());
-  }
 
   @Test(expected = ConversionException.class)
   public void testInvalidDateInput() throws Exception {
@@ -48,9 +33,8 @@ public class ConverterTest extends AbstractDozerTest {
 
   @Test(expected = ConversionException.class)
   public void testInvalidDateInput_String() throws Exception {
-    DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
     // no long constructor
-    dc = new DateConverter(null);
+    DateConverter dc = new DateConverter(null);
     dc.convert(String.class, "123");
   }
 

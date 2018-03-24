@@ -15,28 +15,49 @@
  */
 package org.dozer.converters;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.dozer.AbstractDozerTest;
 import org.junit.Test;
 
-public class StringConverterTest extends AbstractDozerTest{
+public class StringConverterTest extends AbstractDozerTest {
 
-  @Test
-  public void testDateToString_NoDateFormatSpecified() {
-    Date src = new Date();
-    StringConverter converter = new StringConverter(new DateFormatContainer(null));
-    String result = (String) converter.convert(String.class, src);
-    assertEquals("incorrect value returned from converter", src.toString(), result);
-  }
+    @Test
+    public void testDateToString_NoDateFormatSpecified() {
+        Date src = new Date();
+        StringConverter converter = new StringConverter(new DateFormatContainer(null));
+        String result = (String) converter.convert(String.class, src);
+        assertEquals("incorrect value returned from converter", src.toString(), result);
+    }
 
-  @Test
-  public void testCalendarToString_NoDateFormatSpecified() {
-    Calendar src = Calendar.getInstance();
-    StringConverter converter = new StringConverter(new DateFormatContainer(null));
-    String result = (String) converter.convert(String.class, src);
-    assertEquals("incorrect value returned from converter", src.toString(), result);
-  }
+    @Test
+    public void testCalendarToString_NoDateFormatSpecified() {
+        Calendar src = Calendar.getInstance();
+        StringConverter converter = new StringConverter(new DateFormatContainer(null));
+        String result = (String) converter.convert(String.class, src);
+        assertEquals("incorrect value returned from converter", src.toString(), result);
+    }
+
+    @Test
+    public void testLocalDateTimeToStringNoFormat() {
+        LocalDateTime src = LocalDateTime.now();
+        StringConverter converter = new StringConverter(new DateFormatContainer(null));
+        String result = (String) converter.convert(String.class, src);
+        assertEquals("incorrect value returned from converter", src.toString(), result);
+    }
+
+    @Test
+    public void testLocalDateTimeToStringWithFormat() {
+        LocalDateTime src = LocalDateTime.now();
+        String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+        String formattedSrc = DateTimeFormatter.ofPattern(pattern).format(src);
+
+        StringConverter converter = new StringConverter(new DateFormatContainer(pattern));
+        String result = (String) converter.convert(String.class, src);
+        assertEquals("incorrect value returned from converter", formattedSrc, result);
+    }
 
 }

@@ -16,42 +16,52 @@
 package org.dozer.converters;
 
 
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.apache.commons.beanutils.Converter;
 
 /**
  * Internal class for converting Supported Data Types to String. Uses date formatter for Date and Calendar source
- * objects. Calls toString() on the source object for all other types. Only intended for internal use.
- * 
+ * objects. Calls toString() on the source object for all other types. c
+ *
  * @author tierney.matt
  */
 public class StringConverter implements Converter {
-  private DateFormatContainer dateFormatContainer;
 
-  public StringConverter(DateFormatContainer dateFormatContainer) {
-    this.dateFormatContainer = dateFormatContainer;
-  }
+    private DateFormatContainer dateFormatContainer;
 
-  public Object convert(Class destClass, Object srcObj) {
-    String result;
-    Class srcClass = srcObj.getClass();
-    if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(srcClass)
-        && dateFormatContainer.getDateFormat() != null) {
-      result = dateFormatContainer.getDateFormat().format((java.util.Date) srcObj);
-    } else if (dateFormatContainer != null && java.util.Calendar.class.isAssignableFrom(srcClass)
-        && dateFormatContainer.getDateFormat() != null) {
-      result = dateFormatContainer.getDateFormat().format(((java.util.Calendar) srcObj).getTime());
-    } else {
-      result = srcObj.toString();
+    public StringConverter(DateFormatContainer dateFormatContainer) {
+        this.dateFormatContainer = dateFormatContainer;
     }
 
-    return result;
-  }
+    public Object convert(Class destClass, Object srcObj) {
+        Class srcClass = srcObj.getClass();
+        if (hasDateFormat()) {
+            if (Date.class.isAssignableFrom(srcClass)) {
+                return dateFormatContainer.getDateFormat().format((Date) srcObj);
+            }
+            if (Calendar.class.isAssignableFrom(srcClass)) {
+                return dateFormatContainer.getDateFormat().format(((Calendar) srcObj).getTime());
+            } else if (TemporalAccessor.class.isAssignableFrom(srcClass)) {
+                return dateFormatContainer.getDateTimeFormatter().format(((TemporalAccessor) srcObj));
+            } else {
+                return srcObj.toString();
+            }
+        } else {
+            return srcObj.toString();
+        }
+    }
 
-  public DateFormatContainer getDateFormatContainer() {
-    return dateFormatContainer;
-  }
+    /**
+     * Whether date format is provided or not
+     *
+     * @return true - date format provided. Otherwise false.
+     */
+    private boolean hasDateFormat() {
+        return dateFormatContainer != null && dateFormatContainer.getDateFormat() != null;
+    }
 
-  public void setDateFormatContainer(DateFormatContainer dateFormat) {
-    this.dateFormatContainer = dateFormat;
-  }
+
 }
