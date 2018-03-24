@@ -97,7 +97,7 @@
         <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <license-maven-plugin.version>3.0</license-maven-plugin.version>
-        <directory-maven-plugin.version>0.2</directory-maven-plugin.version>
+        <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
 
