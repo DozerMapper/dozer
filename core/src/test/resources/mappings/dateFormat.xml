@@ -39,7 +39,7 @@
         <field>
             <a>recalledDate</a>
             <b>recDate</b>
-            <b-hint>com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl</b-hint>
+            <b-hint>javax.xml.datatype.XMLGregorianCalendar</b-hint>
         </field>
     </mapping>
 
