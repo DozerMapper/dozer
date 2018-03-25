@@ -34,7 +34,7 @@
 
     <properties>
         <!-- Dependency versions; alphabetical order -->
-        <cglib-nodep.version>3.2.5</cglib-nodep.version>
+        <cglib-nodep.version>3.2.6</cglib-nodep.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <commons-io.version>2.5</commons-io.version>
