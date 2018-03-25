@@ -17,11 +17,13 @@ package org.dozer.functional_tests;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
@@ -61,9 +63,13 @@ public class ConstructorTest extends AbstractFunctionalTest {
   }
 
   @Test
-  public void xmlCalendar() {
+  public void xmlCalendar() throws DatatypeConfigurationException {
     Container source = new Container();
-    XMLGregorianCalendarImpl calendar = new XMLGregorianCalendarImpl();
+
+    GregorianCalendar c = new GregorianCalendar();
+    c.setTime(Date.from(Instant.EPOCH));
+    XMLGregorianCalendar calendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+
     source.setCalendar(calendar);
     Container target = new Container();
 
