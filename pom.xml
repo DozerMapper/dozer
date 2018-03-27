@@ -203,16 +203,16 @@
                         <exclude>mvnw</exclude>
                         <exclude>mvnw.cmd</exclude>
                         <exclude>**/LICENSE-HEADER.txt</exclude>
-                        <exclude>**/LICENSE.md</exclude>
+                        <exclude>**/LICENSE</exclude>
                         <exclude>**/*.md</exclude>
                         <exclude>**/*.adoc</exclude>
                         <exclude>**/*.jpeg</exclude>
                         <exclude>**/*.proto</exclude>
-                        <exclude>**/spring.schemas</exclude>
-                        <exclude>**/spring.handlers</exclude>
+                        <exclude>**/*.schemas</exclude>
+                        <exclude>**/*.handlers</exclude>
+                        <exclude>**/*.factories</exclude>
                         <exclude>**/mockito-extensions/**</exclude>
                         <exclude>**/gen-src/**</exclude>
-                        <exclude>**/spring.factories</exclude>
                     </excludes>
                     <mapping>
                         <java>SLASHSTAR_STYLE</java>
@@ -226,13 +226,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.mycila</groupId>
-                        <artifactId>license-maven-plugin-git</artifactId>
-                        <version>${license-maven-plugin.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
