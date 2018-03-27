@@ -179,6 +179,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   /**
+   * @return unmodifiable list of converters
    * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
    */
   @Deprecated
@@ -187,6 +188,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   /**
+   * @return unmodifiable list of converters
    * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
    */
   @Deprecated
@@ -195,6 +197,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   /**
+   * @return unmodifiable list of listeners
    * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
    */
   @Deprecated
@@ -203,6 +206,7 @@ public class DozerBeanMapper implements Mapper {
   }
 
   /**
+   * @return a custom field mapper
    * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
    */
   @Deprecated

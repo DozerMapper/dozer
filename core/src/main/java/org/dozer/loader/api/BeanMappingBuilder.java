@@ -37,6 +37,10 @@ public abstract class BeanMappingBuilder {
 
   /**
    * For internal use
+   *
+   * @param beanContainer bean container instance
+   * @param destBeanCreator bean creator instance
+   * @param propertyDescriptorFactory property descriptor instance
    * @return mappings created with given builder
    */
   public MappingFileData build(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {

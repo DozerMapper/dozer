@@ -15,9 +15,12 @@
  */
 package com.github.dozermapper.osgitests;
 
+import javax.inject.Inject;
+
 import com.github.dozermapper.osgitests.karaf.BundleOptions;
 import com.github.dozermapper.osgitests.support.OsgiTestSupport;
 import com.github.dozermapper.osgitestsmodel.Person;
+
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.DozerModule;
 import org.dozer.Mapper;
@@ -29,12 +32,11 @@ import org.ops4j.pax.exam.Option;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
-import javax.inject.Inject;
-import java.io.InputStream;
-
-import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
-import static org.junit.Assert.*;
-import static org.ops4j.pax.exam.CoreOptions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.ops4j.pax.exam.CoreOptions.junitBundles;
+import static org.ops4j.pax.exam.CoreOptions.options;
 
 public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport {
 
@@ -73,9 +75,11 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport
 
         for (Bundle current : bundleContext.getBundles()) {
             //Ignore any Karaf bundles
-            if (!current.getSymbolicName().startsWith("org.apache.karaf")) {
-                assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
+            if (current.getSymbolicName().startsWith("org.apache.karaf")) {
+                continue;
             }
+
+            assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
         }
     }
 

@@ -100,7 +100,7 @@ public final class ReflectionUtils {
    *
    * @param clazz type to work on
    * @param descriptor property pair (get/set) information
-   * @return
+   * @return descriptor
    */
     private static PropertyDescriptor fixGenericDescriptor(Class<?> clazz, PropertyDescriptor descriptor) {
       Method readMethod = descriptor.getReadMethod();
@@ -216,19 +216,11 @@ public final class ReflectionUtils {
   }
 
   /**
-   *
-   *
-   * @param clazz
-   * @param methodName
-   * @return
-   * @throws NoSuchMethodException
-   */
-
-  /**
    * Find a method with concrete string representation of it's parameters
    *
    * @param clazz clazz to search
    * @param methodName name of method with representation of it's parameters
+   * @param beanContainer beanContainer instance
    * @return found method
    * @throws NoSuchMethodException if no method found
    */

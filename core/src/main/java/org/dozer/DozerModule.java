@@ -33,6 +33,9 @@ public interface DozerModule {
   /**
    * This is a temporal solution to resolve dependencies to Dozer internals.
    * @deprecated requires completere design of Dozer Modules
+   * @param beanContainer factory
+   * @param destBeanCreator factory
+   * @param propertyDescriptorFactory factory
    */
   @Deprecated
   void init(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory);

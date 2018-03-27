@@ -22,9 +22,6 @@ import java.net.URL;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
-import com.github.dozermapper.schema.DefaultSchemaResolver;
-import com.github.dozermapper.schema.SchemaResolver;
-
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
 import org.dozer.util.DozerClassLoader;
@@ -94,23 +91,19 @@ public class DozerResolver implements EntityResolver {
     private InputSource resolveFromClassPath(String publicId, String systemId) throws IOException {
         InputSource source = null;
         if (systemId != null && systemId.indexOf(DozerConstants.XSD_NAME) > systemId.lastIndexOf("/")) {
-            String fileName = systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME));
+            String fileName = String.join("/", "schema", systemId.substring(systemId.indexOf(DozerConstants.XSD_NAME)));
 
             log.debug("Trying to locate [{}] in classpath", fileName);
 
             //Attempt to find via user defined class loader
             DozerClassLoader classLoader = beanContainer.getClassLoader();
             URL url = classLoader.loadResource(fileName);
-            if (url == null) {
-                //Attempt to find via dozer-schema jar
-                SchemaResolver schemaResolver = new DefaultSchemaResolver();
-                url = schemaResolver.get(fileName);
-                if (url == null) {
-                    throw new IOException("Could not resolve bean-mapping XML Schema [" + systemId + "]: not found in classpath; " + fileName);
-                }
-            }
 
             try {
+                if (url == null) {
+                    throw new IOException("URL is null. Failed to find '" + fileName + "' via DozerClassLoader.loadResource");
+                }
+
                 source = new InputSource(url.openStream());
                 source.setPublicId(publicId);
                 source.setSystemId(systemId);
@@ -135,7 +128,7 @@ public class DozerResolver implements EntityResolver {
         log.debug("Trying to download [{}]", systemId);
 
         URL obj = new URL(systemId);
-        HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+        HttpURLConnection conn = (HttpURLConnection)obj.openConnection();
 
         int status = conn.getResponseCode();
         if ((status != HttpURLConnection.HTTP_OK) &&
@@ -146,7 +139,7 @@ public class DozerResolver implements EntityResolver {
             log.debug("Received status of {}, attempting to follow Location header", status);
 
             String newUrl = conn.getHeaderField("Location");
-            conn = (HttpURLConnection) new URL(newUrl).openConnection();
+            conn = (HttpURLConnection)new URL(newUrl).openConnection();
         }
 
         return new InputSource(conn.getInputStream());

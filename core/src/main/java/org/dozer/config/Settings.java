@@ -23,16 +23,19 @@ public class Settings {
     private Integer superTypesCacheMaxSize = SettingsDefaults.SUPER_TYPE_CHECK_CACHE_MAX_SIZE;
     private String classLoaderBeanName = SettingsDefaults.CLASS_LOADER_BEAN;
     private String proxyResolverBeanName = SettingsDefaults.PROXY_RESOLVER_BEAN;
+    private Boolean useJaxbMappingEngine = SettingsDefaults.USE_JAXB_MAPPING_ENGINE;
 
     public Settings() {
 
     }
 
-    public Settings(Integer converterByDestTypeCacheMaxSize, Integer superTypesCacheMaxSize, String classLoaderBeanName, String proxyResolverBeanName) {
+    public Settings(Integer converterByDestTypeCacheMaxSize, Integer superTypesCacheMaxSize, String classLoaderBeanName, String proxyResolverBeanName,
+                    Boolean useJaxbMappingEngine) {
         this.converterByDestTypeCacheMaxSize = converterByDestTypeCacheMaxSize;
         this.superTypesCacheMaxSize = superTypesCacheMaxSize;
         this.classLoaderBeanName = classLoaderBeanName;
         this.proxyResolverBeanName = proxyResolverBeanName;
+        this.useJaxbMappingEngine = useJaxbMappingEngine;
     }
 
     public Integer getConverterByDestTypeCacheMaxSize() {
@@ -51,6 +54,10 @@ public class Settings {
         return proxyResolverBeanName;
     }
 
+    public Boolean getUseJaxbMappingEngine() {
+        return useJaxbMappingEngine;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -58,6 +65,7 @@ public class Settings {
                 .append("superTypesCacheMaxSize", superTypesCacheMaxSize)
                 .append("classLoaderBeanName", classLoaderBeanName)
                 .append("proxyResolverBeanName", proxyResolverBeanName)
+                .append("useJaxbMappingEngine", useJaxbMappingEngine)
                 .toString();
     }
 }

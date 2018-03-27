@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2018 Dozer Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://dozermapper.github.io/schema/bean-mapping" elementFormDefault="qualified" targetNamespace="http://dozermapper.github.io/schema/bean-mapping" version="1.0">
+
+  <xs:element name="allowed-exceptions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="exception" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="stop-on-errors" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="date-format" type="xs:string"/>
+        <xs:element minOccurs="0" name="wildcard" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="trim-strings" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="map-null" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="map-empty-string" type="xs:boolean"/>
+        <xs:element minOccurs="0" name="bean-factory" type="xs:string"/>
+        <xs:element minOccurs="0" name="relationship-type" type="tns:relationship"/>
+        <xs:element minOccurs="0" ref="tns:custom-converters"/>
+        <xs:element minOccurs="0" ref="tns:copy-by-references"/>
+        <xs:element minOccurs="0" ref="tns:allowed-exceptions"/>
+        <xs:element minOccurs="0" ref="tns:variables"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="copy-by-references">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="copy-by-reference" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="custom-converters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="converter" type="tns:converter-type"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="a" type="tns:fieldDefinition"/>
+        <xs:element name="b" type="tns:fieldDefinition"/>
+        <xs:element minOccurs="0" name="a-hint" type="xs:string"/>
+        <xs:element minOccurs="0" name="b-hint" type="xs:string"/>
+        <xs:element minOccurs="0" name="a-deep-index-hint" type="xs:string"/>
+        <xs:element minOccurs="0" name="b-deep-index-hint" type="xs:string"/>
+      </xs:sequence>
+      <xs:attribute name="relationship-type" type="tns:relationship"/>
+      <xs:attribute name="remove-orphans" type="xs:boolean"/>
+      <xs:attribute name="type" type="tns:type"/>
+      <xs:attribute name="map-id" type="xs:string"/>
+      <xs:attribute name="copy-by-reference" type="xs:boolean"/>
+      <xs:attribute name="custom-converter" type="xs:string"/>
+      <xs:attribute name="custom-converter-id" type="xs:string"/>
+      <xs:attribute name="custom-converter-param" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="field-exclude">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="a" type="tns:fieldDefinition"/>
+        <xs:element name="b" type="tns:fieldDefinition"/>
+      </xs:sequence>
+      <xs:attribute name="type" type="tns:type"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="mapping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="class-a" type="tns:class"/>
+        <xs:element name="class-b" type="tns:class"/>
+        <xs:choice maxOccurs="unbounded" minOccurs="0">
+          <xs:element ref="tns:field"/>
+          <xs:element ref="tns:field-exclude"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="date-format" type="xs:string"/>
+      <xs:attribute name="stop-on-errors" type="xs:boolean"/>
+      <xs:attribute name="wildcard" type="xs:boolean"/>
+      <xs:attribute name="trim-strings" type="xs:boolean"/>
+      <xs:attribute name="map-null" type="xs:boolean"/>
+      <xs:attribute name="map-empty-string" type="xs:boolean"/>
+      <xs:attribute name="bean-factory" type="xs:string"/>
+      <xs:attribute name="type" type="tns:type"/>
+      <xs:attribute name="relationship-type" type="tns:relationship"/>
+      <xs:attribute name="map-id" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="mappings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="tns:configuration"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:mapping"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="variables">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="variable" type="tns:variable"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="class">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Specifies one of the classes in the mapping definition. All Mapping definitions are bi-directional by default.
+Global configuration and Mapping element values are inherited
+<p>
+Required Attributes:
+<p>
+Optional Attributes:
+<p>
+bean-factory The factory class to create data objects. This typically will not be specified.
+By default Dozer constructs new instances of data objects by invoking the no-arg constructor
+<p>
+factory-bean-id The id passed to the specified bean factory
+<p>
+map-set-method For Map backed objects, this indicates which setter method should be used to retrieve field
+values. This should only be used of Map backed objects.
+<p>
+map-get-method For Map backed objects, this indicates which getter method should be used to retrieve field values.
+This should only be used of Map backed objects.
+<p>
+create-method Which method to invoke to create a new instance of the class. This is typically not specified.
+By default, the no arg constructor(public or private) is used
+<p>
+map-null Indicates whether null values are mapped. The default value is "true"
+<p>
+map-empty-string Indicates whether empty string values are mapped. The default value is "true"
+<p>
+is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is
+"false". If set to "true", the getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method.]]></xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="bean-factory" type="xs:string"/>
+        <xs:attribute name="factory-bean-id" type="xs:string"/>
+        <xs:attribute name="map-set-method" type="xs:string"/>
+        <xs:attribute name="map-get-method" type="xs:string"/>
+        <xs:attribute name="create-method" type="xs:string"/>
+        <xs:attribute name="map-null" type="xs:boolean"/>
+        <xs:attribute name="map-empty-string" type="xs:boolean"/>
+        <xs:attribute name="is-accessible" type="xs:boolean"/>
+        <xs:attribute name="skip-constructor" type="xs:boolean"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="converter-type">
+    <xs:sequence>
+      <xs:element name="class-a" type="tns:class"/>
+      <xs:element name="class-b" type="tns:class"/>
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="variable">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="fieldDefinition">
+    <xs:annotation>
+      <xs:documentation><![CDATA[Specifies one of the fields in the field mapping definition. Global configuration, mapping, class, and field
+element values are inherited
+<p>
+Required Attributes:
+<p>
+Optional Attributes:
+<p>
+date-format The string format of Date fields. This is used for field mapping between Strings and Dates
+<p>
+set-method Indicates which set method to invoke when setting the destination value. Typically this will not be specified.
+By default, the beans attribute setter is used.
+<p>
+get-method Indicates which get method to invoke on the src object to get the field value Typically this will not be specified.
+By default, the beans attribute getter is used.
+<p>
+is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is
+"false". If set to "true", the
+getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method
+skip-constructor Indicates whether Dozer bypasses constructors and instantiates an object with a no-arg constructor.]]></xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="date-format" type="xs:string"/>
+        <xs:attribute name="type" type="tns:field-type"/>
+        <xs:attribute name="set-method" type="xs:string"/>
+        <xs:attribute name="get-method" type="xs:string"/>
+        <xs:attribute name="key" type="xs:string"/>
+        <xs:attribute name="map-set-method" type="xs:string"/>
+        <xs:attribute name="map-get-method" type="xs:string"/>
+        <xs:attribute name="is-accessible" type="xs:boolean"/>
+        <xs:attribute name="create-method" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="relationship">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="non-cumulative"/>
+      <xs:enumeration value="cumulative"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="field-type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="iterate"/>
+      <xs:enumeration value="generic"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="one-way"/>
+      <xs:enumeration value="bi-directional"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

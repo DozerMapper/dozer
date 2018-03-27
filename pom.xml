@@ -76,7 +76,6 @@
         <module>building-tools</module>
         <module>bom-dependencies</module>
         <module>plugins-parent</module>
-        <module>schema</module>
         <module>core</module>
         <module>dozer-integrations</module>
         <module>tests</module>
@@ -204,19 +203,20 @@
                         <exclude>mvnw</exclude>
                         <exclude>mvnw.cmd</exclude>
                         <exclude>**/LICENSE-HEADER.txt</exclude>
-                        <exclude>**/LICENSE.md</exclude>
+                        <exclude>**/LICENSE</exclude>
                         <exclude>**/*.md</exclude>
                         <exclude>**/*.adoc</exclude>
                         <exclude>**/*.jpeg</exclude>
                         <exclude>**/*.proto</exclude>
-                        <exclude>**/spring.schemas</exclude>
-                        <exclude>**/spring.handlers</exclude>
+                        <exclude>**/*.schemas</exclude>
+                        <exclude>**/*.handlers</exclude>
+                        <exclude>**/*.factories</exclude>
                         <exclude>**/mockito-extensions/**</exclude>
                         <exclude>**/gen-src/**</exclude>
-                        <exclude>**/spring.factories</exclude>
                     </excludes>
                     <mapping>
                         <java>SLASHSTAR_STYLE</java>
+                        <index>SCRIPT_STYLE</index>
                     </mapping>
                 </configuration>
                 <executions>
@@ -226,13 +226,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.mycila</groupId>
-                        <artifactId>license-maven-plugin-git</artifactId>
-                        <version>${license-maven-plugin.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -43,16 +43,17 @@
         <guava.version>22.0</guava.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <hibernate-core.version>5.2.10.Final</hibernate-core.version>
-        <jackson-dataformat.version>2.8.8</jackson-dataformat.version>
+        <jackson-dataformat.version>2.9.0</jackson-dataformat.version>
         <javax.inject.version>1</javax.inject.version>
         <javassist.version>3.21.0-GA</javassist.version>
-        <jaxb-api.version>2.2.11</jaxb-api.version>
-        <jaxb-impl.version>2.2.4</jaxb-impl.version>
+        <jaxb-api.version>2.9.0</jaxb-api.version>
+        <jaxb-impl.version>2.2.11_1</jaxb-impl.version>
         <jmh.version>1.19</jmh.version>
         <junit.version>4.12</junit.version>
         <mockito-core.version>2.16.0</mockito-core.version>
         <aries.spifly.verison>1.0.8</aries.spifly.verison>
         <pax-exam.version>4.11.0</pax-exam.version>
+        <lombok.version>1.16.18</lombok.version>
         <protobuf-java.version>3.3.0</protobuf-java.version>
         <osgi.version>6.0.0</osgi.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -124,12 +125,22 @@
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
-                <artifactId>jackson-dataformat-xml</artifactId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
                 <version>${jackson-dataformat.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.dataformat</groupId>
-                <artifactId>jackson-dataformat-yaml</artifactId>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson-dataformat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-dataformat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
                 <version>${jackson-dataformat.version}</version>
             </dependency>
             <dependency>
@@ -141,16 +152,6 @@
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
                 <version>${javassist.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxb-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-impl</artifactId>
-                <version>${jaxb-impl.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -181,6 +182,16 @@
                 <groupId>org.apache.aries.spifly</groupId>
                 <artifactId>org.apache.aries.spifly.dynamic.bundle</artifactId>
                 <version>${aries.spifly.verison}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicemix.bundles</groupId>
+                <artifactId>org.apache.servicemix.bundles.jaxb-impl</artifactId>
+                <version>${jaxb-impl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicemix.specs</groupId>
+                <artifactId>org.apache.servicemix.specs.jaxb-api-2.2</artifactId>
+                <version>${jaxb-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.servicemix.bundles</groupId>
@@ -226,6 +237,11 @@
                 <groupId>org.ops4j.pax.exam</groupId>
                 <artifactId>pax-exam-link-mvn</artifactId>
               <version>${pax-exam.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>

@@ -80,6 +80,8 @@ import org.dozer.vo.set.SomeDTO;
 import org.dozer.vo.set.SomeOtherDTO;
 import org.dozer.vo.set.SomeVO;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -94,6 +96,8 @@ import static org.junit.Assert.fail;
  * @author garsombke.franz
  */
 public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
+
+  private static final Logger LOG = LoggerFactory.getLogger(GranularDozerBeanMapperTest.class);
 
   @Test
   public void testFieldAccessible() throws Exception {
@@ -127,8 +131,12 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
     Mapper mapper = getMapper("mappings/fieldAttributeMapping.xml");
     TestObject to = newInstance(TestObject.class);
     Date date = new Date();
-    to.setOverloadGetField(new Date());
+    to.setOverloadGetField(date);
     TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
+
+    LOG.error("time1 {}", date.getTime());
+    LOG.error("time2 {}", top.getOverloadSetField().getTime());
+
     assertEquals(date, top.getOverloadSetField());
 
     // Map Back
