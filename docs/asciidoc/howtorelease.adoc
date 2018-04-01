@@ -6,6 +6,7 @@ The following steps should be followed to perform a release:
 - Update link:core/src/main/java/org/dozer/util/DozerConstants.java[DozerConstants.java]
 - Update pom.xml - <building-tools.version/>
 - Update dozer-version in docs for link:docs/asciidoc/documentation/gettingstarted.adoc[Getting Started]
+- Update dozer-version in docs for link:docs/asciidoc/documentation/faq.adoc[FAQ]
 - Finally, raise a PR. If the PR is built successfully and merged, TravisCI should automatically publish to Maven Central
 
 [1] https://github.com/ariatemplates/git-release-notes/blob/master/README.md
