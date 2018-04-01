@@ -2,5 +2,5 @@
 **STILL WORK IN PROGRESS - NOT RELEASED**
 See link:https://github.com/DozerMapper/dozer/releases/tag/6.3.0[for release notes].
 
-=== 1. ...
-...
+=== 1. Karaf2 support dropped
+As karaf2 is now deprecated upstream, and is not supported with Java9, support is dropped.
