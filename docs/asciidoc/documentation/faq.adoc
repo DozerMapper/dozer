@@ -1,4 +1,4 @@
-:dozer-version: 6.2.0
+:dozer-version: 6.3.0-SNAPSHOT
 
 == Frequently Asked Questions
 === Common
