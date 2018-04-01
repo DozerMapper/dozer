@@ -33,10 +33,6 @@ public final class KarafOptions {
         return karafContainerConfigOptions("4.1.2");
     }
 
-    public static Option karaf2ContainerConfigOptions() {
-        return karafContainerConfigOptions("2.4.4");
-    }
-
     private static Option karafContainerConfigOptions(String version) {
         return composite(
                 karafDistributionConfiguration()
