@@ -71,8 +71,6 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport
         assertNotNull(core);
         assertEquals(Bundle.ACTIVE, core.getState());
 
-        assertNull(bundleContext.getServiceReference(DozerModule.class));
-
         for (Bundle current : bundleContext.getBundles()) {
             //Ignore any Karaf bundles
             if (current.getSymbolicName().startsWith("org.apache.karaf")) {
