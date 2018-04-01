@@ -246,9 +246,33 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>target/jaxb-sources</source>
                                 <source>target/xmlbeans-sources</source>
                             </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-xjc-plugin</artifactId>
+                <configuration>
+                    <extensions>
+                        <extension>org.apache.cxf.xjcplugins:cxf-xjc-dv:${cxf-xjc-plugin.version}</extension>
+                    </extensions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>xsdtojava-tests</goal>
+                        </goals>
+                        <configuration>
+                            <xsdOptions>
+                                <xsdOption>
+                                    <xsd>src/test/xsd/jaxb/Employee.xsd</xsd>
+                                </xsdOption>
+                            </xsdOptions>
                         </configuration>
                     </execution>
                 </executions>
@@ -274,20 +298,6 @@
                                     <toFile>bean-mapping.xsd</toFile>
                                 </transformSchema>
                             </transformSchemas>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>xjc</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <schemaDirectory>
-                                ${project.basedir}/src/test/xsd/jaxb
-                            </schemaDirectory>
-                            <packageName>org.dozer.vo.jaxb.employee</packageName>
-                            <outputDirectory>target/jaxb-sources</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
