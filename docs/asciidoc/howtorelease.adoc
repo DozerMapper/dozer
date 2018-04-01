@@ -10,8 +10,10 @@ The following steps should be followed to perform a release:
 - Finally, raise a PR. If the PR is built successfully and merged, TravisCI should automatically publish to Maven Central
 
 [1] https://github.com/ariatemplates/git-release-notes/blob/master/README.md
+git-release-notes {last version tag}.. markdown > release.notes
 
 === Post Release
 - Validate release on link:https://repo.maven.apache.org/maven2/com/github/dozermapper/dozer-core/[Sonatype]
 - Create release in link:https://github.com/DozerMapper/dozer/releases[GitHub]
+- Run docs release via release.sh
 - Finally, do the release steps, but now for a SNAPSHOT

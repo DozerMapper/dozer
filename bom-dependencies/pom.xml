@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-parent</artifactId>
-        <version>6.2.0</version>
+        <version>6.3.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
@@ -236,7 +236,7 @@
             <dependency>
                 <groupId>org.ops4j.pax.exam</groupId>
                 <artifactId>pax-exam-link-mvn</artifactId>
-              <version>${pax-exam.version}</version>
+                <version>${pax-exam.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

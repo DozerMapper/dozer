@@ -33,7 +33,7 @@ public final class DozerConstants {
 
   private DozerConstants() {}
 
-  public static final String CURRENT_VERSION = "6.2.0";
+  public static final String CURRENT_VERSION = "6.3.0-SNAPSHOT";
 
   public static final boolean DEFAULT_WILDCARD_POLICY = true;
   public static final boolean DEFAULT_WILDCARD_CASE_INSENSITIVE_POLICY = false;
