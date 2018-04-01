@@ -17,7 +17,7 @@ package org.dozer.util;
 
 /**
  *
- * No Proxy behavior strategy. In cases when there are no proxied objects (XmlBeans for example) this mode
+ * No Proxy behavior strategy. In cases when there are no proxied objects this mode
  * should be configured in dozer.properties for maximum performance. Configured per Dozer Mapper instance.
  *
  * @author Dmitry Buzdin

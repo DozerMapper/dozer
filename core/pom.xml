@@ -131,14 +131,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- XML Beans -->
-        <dependency>
-            <groupId>org.apache.xmlbeans</groupId>
-            <artifactId>xmlbeans</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
         <!-- Databases -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -198,7 +190,6 @@
                     <excludes>
                         <exclude>**/org/dozer/vo/**</exclude>
                         <exclude>**/net/pmonks/**</exclude>
-                        <exclude>**/schemaorg_apache_xmlbeans/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -239,23 +230,6 @@
 
             <!-- Testing Plugins; alphabetical order -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-test-sources</id>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>target/xmlbeans-sources</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-xjc-plugin</artifactId>
                 <configuration>
@@ -279,22 +253,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>xmlbeans-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>xmlbeans-test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <schemaDirectory>src/test/xsd/xmlbeans</schemaDirectory>
-                    <sourceGenerationDirectory>target/xmlbeans-sources</sourceGenerationDirectory>
-                </configuration>
             </plugin>
         </plugins>
     </build>

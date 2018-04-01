@@ -4,3 +4,6 @@ See link:https://github.com/DozerMapper/dozer/releases/tag/6.3.0[for release not
 
 === 1. Karaf2 support dropped
 As karaf2 is now deprecated upstream, and is not supported with Java9, support is dropped.
+
+=== 2. Apache XMLBeans support dropped
+As xmlbeans is now deprecated upstream, and is not supported with Java9, support is dropped.

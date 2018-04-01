@@ -53,8 +53,7 @@ getter/setter methods?]
 * link:#private-constructors[Some of my data objects don't have public
 constructors. Does Dozer support this use case?]
 * link:#enum-support[Does Dozer support JDK 1.5 enums?]
-* link:#xmlbeans-jaxb[Does Dozer support XMLBeans and JAXB generated
-data objects?]
+* link:#jaxb[Does Dozer support JAXB generated data objects?]
 * link:#eclipse-plugin[Is there an Eclipse plugin or visual editor for
 Dozer?]
 * link:#collection-hints[When mapping collections, how do I tell Dozer
@@ -321,13 +320,8 @@ instances of the destination object.
 === Does Dozer support JDK 1.5 enums?
 Yes. Enum to Enum mapping is automatically handled.
 
-[[xmlbeans-jaxb]]
-=== Does Dozer support XMLBeans and JAXB generated data objects?
-Dozer supports mapping POJOs to XMLBeans objects. Use the XMLBeanFactory
-for any XMLBeans you want created. This factory will also be used for
-mapping any fields that need to be instantiated in a deep mapping that
-are not regular POJOs but are XMLBeans.
-
+[[jaxb]]
+=== Does Dozer support JAXB generated data objects?
 Dozer has support for mapping POJOs to JAXB objects. Use the
 JAXBBeanFactory for any JAXB objects you want created.
 

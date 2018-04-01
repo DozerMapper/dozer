@@ -50,8 +50,8 @@ sending only objects compiled to JavaScript and marked as Serializable.
 Dozer helps to convert Rich Domain Model to Presentation Model, which
 satisfies GWT serialization requirements.
 
-Dozer integrates nicely with frameworks such as Apache XmlBeans and JAXB
-implementations. With help of provided factory classes, conversion
+Dozer integrates nicely with frameworks use JAXB implementations.
+With help of provided factory classes, conversion
 between domain model and Xml objects is defined in the same way as plain
 object to object mappings.
 
