@@ -45,7 +45,7 @@
 
 == 3rd Party
 .. link:documentation/springintegration.adoc[Spring Integration]
-.. link:documentation/xmlbeans.adoc[JAXB and XMLBeans]
+.. link:documentation/jaxb.adoc[JAXB]
 
 == Other
 .. link:documentation/faq.adoc[FAQ]

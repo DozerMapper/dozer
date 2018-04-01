@@ -23,20 +23,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.impl.UniqueDocumentImpl;
 import org.dozer.AbstractDozerTest;
 import org.dozer.BeanFactory;
 import org.dozer.MappingException;
 import org.dozer.config.BeanContainer;
-import org.dozer.vo.jaxb.employee.EmployeeWithInnerClass;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 /**
  * @author Dmitry Buzdin
@@ -52,7 +46,6 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
     private ConstructionStrategies.ByInterface byInterface;
     private ConstructionStrategies.ByConstructor byConstructor;
     private ConstructionStrategies.ByNoArgObjectConstructor byNoArgObjectConstructor;
-    private ConstructionStrategies.XMLBeansBased xmlBeansBased;
     private ConstructionStrategies.JAXBBeansBased jaxbBeansBased;
 
     private XMLBeanFactory xmlBeanFactory;
@@ -73,7 +66,6 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
         byInterface = new ConstructionStrategies.ByInterface();
         byConstructor = new ConstructionStrategies.ByConstructor();
         byNoArgObjectConstructor = new ConstructionStrategies.ByNoArgObjectConstructor();
-        xmlBeansBased = new ConstructionStrategies.XMLBeansBased(xmlBeanFactory, beanContainer);
         jaxbBeansBased = new ConstructionStrategies.JAXBBeansBased(jaxbBeanFactory, beanContainer);
 
         directive = new BeanCreationDirective();
@@ -217,30 +209,6 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
       SelfFactory result = (SelfFactory) byNoArgObjectConstructor.create(directive);
       assertEquals(null, result.getName());
   }
-
-    @Test
-    public void shouldInstantiateByXmlBeansFactory() {
-        directive.setSrcObject("");
-        directive.setSrcClass(String.class);
-        directive.setFactoryId("id");
-        directive.setTargetClass(UniqueDocumentImpl.class);
-
-        xmlBeansBased.create(directive);
-
-        verify(xmlBeanFactory, times(1)).createBean(eq(""), eq(String.class), eq("id"), any());
-    }
-
-    @Test
-    public void shouldInstantiateByJaxbBeansFactory() {
-        directive.setSrcObject("dummy");
-        directive.setSrcClass(String.class);
-        directive.setFactoryName("parentName");
-        directive.setTargetClass(EmployeeWithInnerClass.class);
-
-        jaxbBeansBased.create(directive);
-
-        verify(jaxbBeanFactory, times(1)).createBean(eq("dummy"), eq(String.class), eq(String.class.getCanonicalName()), any());
-    }
 
     public static final class SelfFactory {
         private String name;

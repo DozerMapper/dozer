@@ -55,13 +55,12 @@
         <pax-exam.version>4.11.0</pax-exam.version>
         <lombok.version>1.16.20</lombok.version>
         <protobuf-java.version>3.3.0</protobuf-java.version>
+        <objenesis.version>2.6</objenesis.version>
         <osgi.version>6.0.0</osgi.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
         <spring.version>4.3.10.RELEASE</spring.version>
         <woodstox-core-asl.version>4.4.1</woodstox-core-asl.version>
-        <xmlbeans.version>2.6.0</xmlbeans.version>
-        <objenesis.version>2.6</objenesis.version>
     </properties>
 
     <dependencyManagement>
@@ -254,6 +253,11 @@
                 <version>${lombok.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>${objenesis.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf-java.version}</version>
@@ -289,21 +293,11 @@
                 <version>${woodstox-core-asl.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.xmlbeans</groupId>
-                <artifactId>xmlbeans</artifactId>
-                <version>${xmlbeans.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.objenesis</groupId>
-                <artifactId>objenesis</artifactId>
-                <version>${objenesis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

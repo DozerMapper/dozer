@@ -1,0 +1,27 @@
+== 3rd Party Object Factories
+Dozer supports mapping of plain Java objects to frameworks that require
+instantiation of objects via certain convention of calling factory
+methods. To reproduce the expected behavior custom bean factories should
+be used.
+
+=== Mapping JAXB Objects
+Dozer has support for mapping POJOs to JAXB objects. Use the
+JAXBBeanFactory for any JAXB objects you want create.
+
+[source,xml,prettyprint]
+----
+<mapping>
+    <class-a>org.dozer.vo.TestObject</class-a>
+    <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">
+    org.dozer.vo.jaxb.employee.Employee
+  </class-b>
+    <field>
+        <a>name</a>
+        <b>firstName</b>
+    </field>
+    <field>
+        <a>street</a>
+        <b>address.street</b>
+    </field>
+</mapping>
+----
