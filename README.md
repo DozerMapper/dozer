@@ -16,7 +16,8 @@ We are always looking for more help. The below is the current active list:
 - @garethahealy
 - ??
 
-### Spring4
+### Spring4 / Springboot
+- @vadeg
 - @garethahealy
 - ??
 
