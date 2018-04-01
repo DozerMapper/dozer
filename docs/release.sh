@@ -14,3 +14,4 @@ mv user-guide.pdf .././../../DozerMapper-github-io/user-guide.pdf
 
 cp -R ././../core/target/classes/dtd/ .././../../DozerMapper-github-io/dtd
 cp -R ././../core/target/classes/schema/ .././../../DozerMapper-github-io/schema
+cp -R ././../dozer-integrations/dozer-spring-support/dozer-spring4/target/classes/schema/ .././../../DozerMapper-github-io/schema

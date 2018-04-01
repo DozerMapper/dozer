@@ -54,10 +54,13 @@
 == Migration
 .. link:migration/v5-to-v6.adoc[v5 to v6]
 .. link:migration/v6-to-v61.adoc[v6.0.0 to v6.1.0]
+.. link:migration/v61-to-v62.adoc[v6.1.0 to v6.2.0]
+.. link:migration/v62-to-v63.adoc[v6.2.0 to v6.3.0]
 
 == Schema
-.. schema/bean-mapping.xsd[Dozer Mapping XSD]
-.. dozer-user-guide.pdf[User's Guide PDF]
+.. link:https://dozermapper.github.io/schema/bean-mapping.xsd[Mapping XSD]
+.. link:https://dozermapper.github.io/schema/dozer-spring.xsd[Spring4 XSD]
+.. link:https://dozermapper.github.io/schema/dozer-user-guide.pdf[User's Guide PDF]
 
 == Eclipse Plugin
 .. link:documentation/eclipse-plugin/installation.adoc[Installation]
