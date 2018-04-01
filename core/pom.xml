@@ -279,31 +279,6 @@
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>schemagen</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>schemagen</goal>
-                        </goals>
-                        <configuration>
-                            <workDirectory>${project.build.directory}/generated-resources/schemagen</workDirectory>
-                            <includes>
-                                org/dozer/builder/model/jaxb/**
-                            </includes>
-                            <transformSchemas>
-                                <transformSchema>
-                                    <uri>http://dozermapper.github.io/schema/bean-mapping</uri>
-                                    <toFile>bean-mapping.xsd</toFile>
-                                </transformSchema>
-                            </transformSchemas>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xmlbeans-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -321,4 +296,105 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>jdk8-build</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jaxb2-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>schemagen</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>schemagen</goal>
+                                </goals>
+                                <configuration>
+                                    <workDirectory>${project.build.directory}/generated-resources/schemagen</workDirectory>
+                                    <includes>
+                                        org/dozer/builder/model/jaxb/**
+                                    </includes>
+                                    <transformSchemas>
+                                        <transformSchema>
+                                            <uri>http://dozermapper.github.io/schema/bean-mapping</uri>
+                                            <toFile>bean-mapping.xsd</toFile>
+                                        </transformSchema>
+                                    </transformSchemas>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jdk9-build</id>
+            <activation>
+                <jdk>9</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>jaxb2-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>schemagen</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>schemagen</goal>
+                                </goals>
+                                <configuration>
+                                    <workDirectory>${project.build.directory}/generated-resources/schemagen</workDirectory>
+                                    <includes>
+                                        org/dozer/builder/model/jaxb/**
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.glassfish.jaxb</groupId>
+                                <artifactId>jaxb-jxc-jdk9</artifactId>
+                                <version>2.3.0</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>javax.activation</groupId>
+                                <artifactId>javax.activation-api</artifactId>
+                                <version>1.2.0</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-schema</id>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <target>
+                                        <echo>Copying XSD schema to be included in JAR</echo>
+                                        <replace file="${project.build.directory}/generated-resources/schemagen/schema1.xsd"
+                                                 token="xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;"
+                                                 value="xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;"/>
+                                        <move file="${project.build.directory}/generated-resources/schemagen/schema1.xsd"
+                                              tofile="${project.build.directory}/generated-resources/schemagen/bean-mapping.xsd"/>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
