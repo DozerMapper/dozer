@@ -19,11 +19,9 @@ import javax.inject.Inject;
 
 import com.github.dozermapper.osgitests.karaf.BundleOptions;
 import com.github.dozermapper.osgitests.karaf.KarafOptions;
-import com.github.dozermapper.osgitests.support.OsgiTestSupport;
+
 import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.DozerModule;
 import org.dozer.Mapper;
-import org.dozer.osgi.Activator;
 import org.dozer.osgi.OSGiClassLoader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,17 +33,15 @@ import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
-
 import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
-public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
+public class DozerSpringOsgiContainerTest extends DozerCoreOsgiContainerTest {
 
     @Inject
     private BundleContext bundleContext;
@@ -68,34 +64,19 @@ public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
         );
     }
 
+    @Override
     protected Option containerConfigOptions() {
         return KarafOptions.karaf4ContainerConfigOptions();
     }
 
     @Test
+    @Override
     public void canGetBundleFromDozerCore() {
-        assertNotNull(bundleContext);
-        assertNotNull(Activator.getContext());
-        assertNotNull(Activator.getBundle());
-
-        Bundle core = getBundle(bundleContext, "com.github.dozermapper.dozer-core");
-        assertNotNull(core);
-        assertEquals(Bundle.ACTIVE, core.getState());
+        super.canGetBundleFromDozerCore();
 
         Bundle spring = getBundle(bundleContext, "com.github.dozermapper.dozer-spring4");
         assertNotNull(spring);
         assertEquals(Bundle.ACTIVE, spring.getState());
-
-        assertNull(bundleContext.getServiceReference(DozerModule.class));
-
-        for (Bundle current : bundleContext.getBundles()) {
-            //Ignore any Karaf bundles
-            if (current.getSymbolicName().startsWith("org.apache.karaf")) {
-                continue;
-            }
-
-            assertEquals(current.getSymbolicName(), Bundle.ACTIVE, current.getState());
-        }
     }
 
     @Test
@@ -106,5 +87,6 @@ public class DozerSpringOsgiContainerTest extends OsgiTestSupport {
                 .build();
 
         assertNotNull(mapper);
+        assertNotNull(mapper.getMappingMetadata());
     }
 }

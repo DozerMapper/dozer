@@ -36,6 +36,9 @@ public abstract class DozerCoreOsgiContainerTest extends AbstractDozerCoreOsgiCo
                 .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
                 .build();
 
+        assertNotNull(mapper);
+        assertNotNull(mapper.getMappingMetadata());
+
         Person answer = mapper.map(new Person("bob"), Person.class);
 
         assertNotNull(answer);
