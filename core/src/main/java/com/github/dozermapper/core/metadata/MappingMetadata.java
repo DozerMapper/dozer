@@ -124,5 +124,4 @@ public interface MappingMetadata {
      * @throws MetadataLookupException If no class map could be found.
      */
     ClassMappingMetadata getClassMapping(Class<?> sourceClass, Class<?> destinationClass);
-
 }

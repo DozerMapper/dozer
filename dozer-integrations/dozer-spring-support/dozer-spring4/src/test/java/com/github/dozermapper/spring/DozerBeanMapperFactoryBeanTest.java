@@ -22,9 +22,9 @@ import java.util.List;
 
 import com.github.dozermapper.core.BeanFactory;
 import com.github.dozermapper.core.CustomConverter;
-import com.github.dozermapper.core.DozerBeanMapper;
 import com.github.dozermapper.core.DozerEventListener;
 import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.MapperModelContext;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +32,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -67,8 +68,13 @@ public class DozerBeanMapperFactoryBeanTest {
         assertEquals(Mapper.class, factory.getObjectType());
         assertTrue(factory.isSingleton());
 
-        DozerBeanMapper mapper = (DozerBeanMapper)factory.getObject();
-        List<?> files = mapper.getMappingFiles();
+        Mapper mapper = factory.getObject();
+        assertNotNull(mapper);
+
+        MapperModelContext mapperModelContext = mapper.getMapperModelContext();
+        assertNotNull(mapperModelContext);
+
+        List<?> files = mapperModelContext.getMappingFiles();
 
         assertEquals(1, files.size());
         assertEquals("file:" + url.getFile(), files.iterator().next());
@@ -96,10 +102,15 @@ public class DozerBeanMapperFactoryBeanTest {
 
         factory.afterPropertiesSet();
 
-        DozerBeanMapper mapper = (DozerBeanMapper)factory.getObject();
-        assertEquals(1, mapper.getCustomConverters().size());
-        assertEquals(1, mapper.getCustomConverters().size());
-        assertEquals(1, mapper.getCustomConvertersWithId().size());
-        assertEquals(1, mapper.getEventListeners().size());
+        Mapper mapper = factory.getObject();
+        assertNotNull(mapper);
+
+        MapperModelContext mapperModelContext = mapper.getMapperModelContext();
+        assertNotNull(mapperModelContext);
+
+        assertEquals(1, mapperModelContext.getCustomConverters().size());
+        assertEquals(1, mapperModelContext.getCustomConverters().size());
+        assertEquals(1, mapperModelContext.getCustomConvertersWithId().size());
+        assertEquals(1, mapperModelContext.getEventListeners().size());
     }
 }
