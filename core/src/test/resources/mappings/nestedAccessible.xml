@@ -22,7 +22,7 @@
 
     <mapping>
         <class-a>java.lang.String</class-a>
-        <class-b>org.dozer.functional_tests.IsAccessibleTest$Node</class-b>
+        <class-b>com.github.dozermapper.core.functional_tests.IsAccessibleTest$Node</class-b>
         <field>
             <a>this</a>
             <b is-accessible="true">child.child.value</b>
@@ -31,7 +31,7 @@
 
     <mapping map-id="class-level">
         <class-a>java.lang.String</class-a>
-        <class-b is-accessible="true">org.dozer.functional_tests.IsAccessibleTest$Node</class-b>
+        <class-b is-accessible="true">com.github.dozermapper.core.functional_tests.IsAccessibleTest$Node</class-b>
         <field>
             <a>this</a>
             <b>value</b>
@@ -43,8 +43,8 @@
     </mapping>
 
     <mapping map-id="third" type="one-way">
-        <class-a is-accessible="true">org.dozer.functional_tests.IsAccessibleTest$Node</class-a>
-        <class-b is-accessible="true">org.dozer.functional_tests.IsAccessibleTest$Node</class-b>
+        <class-a is-accessible="true">com.github.dozermapper.core.functional_tests.IsAccessibleTest$Node</class-a>
+        <class-b is-accessible="true">com.github.dozermapper.core.functional_tests.IsAccessibleTest$Node</class-b>
         <field>
             <a is-accessible="false">publicValue</a>
             <b>value</b>

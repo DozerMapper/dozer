@@ -23,8 +23,8 @@
 
     <!-- we never want to overwrite object identity -->
     <mapping>
-        <class-a>org.dozer.functional_tests.model.AbstractEntity</class-a>
-        <class-b>org.dozer.functional_tests.model.AbstractDto</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.model.AbstractEntity</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.model.AbstractDto</class-b>
         <field type="one-way">
             <a>id</a>
             <b>id</b>
@@ -33,8 +33,8 @@
 
     <!-- normal mapping with different attribute names-->
     <mapping>
-        <class-a>org.dozer.functional_tests.model.MyEntity</class-a>
-        <class-b>org.dozer.functional_tests.model.MyDto</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.model.MyEntity</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.model.MyDto</class-b>
         <field>
             <a>name</a>
             <b>otherName</b>
@@ -43,8 +43,8 @@
 
     <!-- for subclasses we would like to e.g. exclude atttributes from superclass - which doesn't work -->
     <mapping>
-        <class-a>org.dozer.functional_tests.model.MySubEntity</class-a>
-        <class-b>org.dozer.functional_tests.model.MySubDto</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.model.MySubEntity</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.model.MySubDto</class-b>
         <field-exclude>
             <a>excludeMe</a>
             <b>excludeMe</b>
@@ -56,8 +56,8 @@
 
     <!-- we want to map the entity to a minimal dto but not back -->
     <mapping type="one-way">
-        <class-a>org.dozer.functional_tests.model.MyEntity</class-a>
-        <class-b>org.dozer.functional_tests.model.MyMinimalDto</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.model.MyEntity</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.model.MyMinimalDto</class-b>
     </mapping>
 
 </mappings>

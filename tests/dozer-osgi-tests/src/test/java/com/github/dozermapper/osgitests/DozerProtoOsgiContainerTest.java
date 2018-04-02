@@ -17,14 +17,14 @@ package com.github.dozermapper.osgitests;
 
 import javax.inject.Inject;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.DozerModule;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.osgi.OSGiClassLoader;
 import com.github.dozermapper.osgitests.karaf.BundleOptions;
 import com.github.dozermapper.osgitests.karaf.KarafOptions;
 import com.github.dozermapper.protobuf.ProtobufSupportModule;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.DozerModule;
-import org.dozer.Mapper;
-import org.dozer.osgi.OSGiClassLoader;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;

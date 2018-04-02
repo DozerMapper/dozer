@@ -20,11 +20,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import org.dozer.BeanFactory;
-import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
-import org.dozer.DozerEventListener;
-import org.dozer.Mapper;
+import com.github.dozermapper.core.BeanFactory;
+import com.github.dozermapper.core.CustomConverter;
+import com.github.dozermapper.core.DozerBeanMapper;
+import com.github.dozermapper.core.DozerEventListener;
+import com.github.dozermapper.core.Mapper;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -36,7 +37,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class DozerBeanMapperFactoryBeanTest {
-    
+
     private DozerBeanMapperFactoryBean factory;
     private Resource mockResource;
     private ApplicationContext mockContext;

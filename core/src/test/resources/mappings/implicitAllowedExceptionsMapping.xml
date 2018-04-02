@@ -23,7 +23,7 @@
     <configuration>
         <stop-on-errors>false</stop-on-errors>
         <allowed-exceptions>
-            <exception>org.dozer.vo.allowedexceptions.TestException</exception>
+            <exception>com.github.dozermapper.core.vo.allowedexceptions.TestException</exception>
         </allowed-exceptions>
     </configuration>
 

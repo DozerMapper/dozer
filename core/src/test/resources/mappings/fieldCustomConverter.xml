@@ -21,35 +21,35 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.SimpleObj</class-a>
-        <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
-        <field custom-converter="org.dozer.functional_tests.support.StringAppendCustomConverter">
+        <class-a>com.github.dozermapper.core.vo.SimpleObj</class-a>
+        <class-b>com.github.dozermapper.core.vo.SimpleObjPrime2</class-b>
+        <field custom-converter="com.github.dozermapper.core.functional_tests.support.StringAppendCustomConverter">
             <a>field1</a>
             <b>field1Prime</b>
         </field>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.map.CustomMap</class-a>
-        <class-b>org.dozer.vo.SimpleObj</class-b>
-        <field custom-converter="org.dozer.functional_tests.support.StringAppendCustomConverter">
+        <class-a>com.github.dozermapper.core.vo.map.CustomMap</class-a>
+        <class-b>com.github.dozermapper.core.vo.SimpleObj</class-b>
+        <field custom-converter="com.github.dozermapper.core.functional_tests.support.StringAppendCustomConverter">
             <a map-get-method="getValue" key="fieldA">this</a>
             <b>field1</b>
         </field>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.map.MapToProperty</class-a>
-        <class-b>org.dozer.vo.SimpleObj</class-b>
-        <field custom-converter="org.dozer.functional_tests.support.StringAppendCustomConverter">
+        <class-a>com.github.dozermapper.core.vo.map.MapToProperty</class-a>
+        <class-b>com.github.dozermapper.core.vo.SimpleObj</class-b>
+        <field custom-converter="com.github.dozermapper.core.functional_tests.support.StringAppendCustomConverter">
             <a key="fieldA">hashMap</a>
             <b>field1</b>
         </field>
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.SimpleObj</class-a>
-        <class-b>org.dozer.vo.AnotherTestObject</class-b>
+        <class-a>com.github.dozermapper.core.vo.SimpleObj</class-a>
+        <class-b>com.github.dozermapper.core.vo.AnotherTestObject</class-b>
         <field custom-converter-id="CustomConverterWithId">
             <a>field1</a>
             <b>field3</b>

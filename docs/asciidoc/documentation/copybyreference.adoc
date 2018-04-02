@@ -24,7 +24,7 @@ want to be copied by reference in the configuration block.
 <configuration>
     <copy-by-references>
         <copy-by-reference>
-       org.dozer.vo.NoExtendBaseObjectGlobalCopyByReference
+       com.github.dozermapper.core.vo.NoExtendBaseObjectGlobalCopyByReference
      </copy-by-reference>
     </copy-by-references>
 </configuration>
@@ -38,10 +38,10 @@ is applied via mask, which can inlcude multiple wildcard (*) characters.
 <configuration>
     <copy-by-references>
         <copy-by-reference>
-       org.dozer.vo.*
+       com.github.dozermapper.core.vo.*
      </copy-by-reference>
         <copy-by-reference>
-       org.dozer.*.vo.*DTO
+       com.github.dozermapper.core.*.vo.*DTO
      </copy-by-reference>
     </copy-by-references>
 </configuration>
@@ -58,16 +58,16 @@ mapped as the source object.
 [source,xml,prettyprint]
 ----
 <mapping>
-    <classa>org.dozer.vo.self.SimpleAccount</classa>
-    <classb>org.dozer.vo.self.Account</classb>
+    <classa>com.github.dozermapper.core.vo.self.SimpleAccount</classa>
+    <classb>com.github.dozermapper.core.vo.self.Account</classb>
     <field>
         <a>this</a>
         <b>address</b>
     </field>
 </mapping>
 <mapping>
-    <classa>org.dozer.vo.self.SimpleAccount</classa>
-    <classb>org.dozer.vo.self.Address</classb>
+    <classa>com.github.dozermapper.core.vo.self.SimpleAccount</classa>
+    <classb>com.github.dozermapper.core.vo.self.Address</classb>
     <field>
         <a>streetName</a>
         <b>street</b>

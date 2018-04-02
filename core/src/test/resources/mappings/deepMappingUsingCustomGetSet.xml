@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.deep2.Src</class-a>
-        <class-b>org.dozer.vo.deep2.Dest</class-b>
+        <class-a>com.github.dozermapper.core.vo.deep2.Src</class-a>
+        <class-b>com.github.dozermapper.core.vo.deep2.Dest</class-b>
         <field>
             <a>srcField</a>
             <b set-method="setField" get-method="getField">destField.nestedDestField.nestedNestedDestField</b>

@@ -27,22 +27,22 @@
     </configuration>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.cc.X</class-a>
-        <class-b>org.dozer.vo.inheritance.cc.A</class-b>
-        <field custom-converter="org.dozer.vo.inheritance.cc.InheritanceBugConverter">
+        <class-a>com.github.dozermapper.core.vo.inheritance.cc.X</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.cc.A</class-b>
+        <field custom-converter="com.github.dozermapper.core.vo.inheritance.cc.InheritanceBugConverter">
             <a>test</a>
             <b>test</b>
         </field>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.cc.Y</class-a>
-        <class-b>org.dozer.vo.inheritance.cc.B</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.cc.Y</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.cc.B</class-b>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.cc.Z</class-a>
-        <class-b>org.dozer.vo.inheritance.cc.C</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.cc.Z</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.cc.C</class-b>
     </mapping>
 
 </mappings>

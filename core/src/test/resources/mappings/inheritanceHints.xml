@@ -21,30 +21,30 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.hints.Source</class-a>
-        <class-b>org.dozer.vo.inheritance.hints.Target</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.hints.Source</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.hints.Target</class-b>
         <field>
             <a>set</a>
             <b>set</b>
             <a-hint>
-                org.dozer.vo.inheritance.hints.BaseA,
-                org.dozer.vo.inheritance.hints.BaseB
+                com.github.dozermapper.core.vo.inheritance.hints.BaseA,
+                com.github.dozermapper.core.vo.inheritance.hints.BaseB
             </a-hint>
             <b-hint>
-                org.dozer.vo.inheritance.hints.BaseA2,
-                org.dozer.vo.inheritance.hints.BaseB2
+                com.github.dozermapper.core.vo.inheritance.hints.BaseA2,
+                com.github.dozermapper.core.vo.inheritance.hints.BaseB2
             </b-hint>
         </field>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.hints.BaseA</class-a>
-        <class-b>org.dozer.vo.inheritance.hints.BaseA2</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.hints.BaseA</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.hints.BaseA2</class-b>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.hints.BaseB</class-a>
-        <class-b>org.dozer.vo.inheritance.hints.BaseB2</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.hints.BaseB</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.hints.BaseB2</class-b>
     </mapping>
 
 </mappings>

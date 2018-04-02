@@ -22,14 +22,14 @@
 
     <!-- Mapping between interface UserGroup and concrete class UserGroupPrime -->
     <mapping>
-        <class-a>org.dozer.vo.collections.UserGroup</class-a>
-        <class-b>org.dozer.vo.collections.UserGroupPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.collections.UserGroup</class-a>
+        <class-b>com.github.dozermapper.core.vo.collections.UserGroupPrime</class-b>
     </mapping>
 
     <!-- Mapping between interface User and concrete class UserPrime -->
     <mapping>
-        <class-a>org.dozer.vo.collections.User</class-a>
-        <class-b>org.dozer.vo.collections.UserPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.collections.User</class-a>
+        <class-b>com.github.dozermapper.core.vo.collections.UserPrime</class-b>
     </mapping>
 
 </mappings>

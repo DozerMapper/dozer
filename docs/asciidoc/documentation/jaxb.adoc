@@ -11,9 +11,9 @@ JAXBBeanFactory for any JAXB objects you want create.
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.TestObject</class-a>
-    <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">
-    org.dozer.vo.jaxb.employee.Employee
+    <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+    <class-b bean-factory="com.github.dozermapper.core.factory.JAXBBeanFactory">
+    com.github.dozermapper.core.vo.jaxb.employee.Employee
   </class-b>
     <field>
         <a>name</a>

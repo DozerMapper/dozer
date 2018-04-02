@@ -22,7 +22,7 @@
 
     <mapping>
         <class-a>java.util.Date</class-a>
-        <class-b>org.dozer.vo.DateContainer</class-b>
+        <class-b>com.github.dozermapper.core.vo.DateContainer</class-b>
         <field>
             <a>this</a>
             <b date-format="yyyy-MM-dd HH:mm:ss">date</b>
@@ -34,8 +34,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.DateObjectSource</class-a>
-        <class-b>org.dozer.vo.DateObjectDest</class-b>
+        <class-a>com.github.dozermapper.core.vo.DateObjectSource</class-a>
+        <class-b>com.github.dozermapper.core.vo.DateObjectDest</class-b>
         <field>
             <a>recalledDate</a>
             <b>recDate</b>

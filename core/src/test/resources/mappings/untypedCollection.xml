@@ -27,7 +27,7 @@
     </configuration>
 
     <mapping map-null="false">
-        <class-a>org.dozer.functional_tests.UntypedCollectionTest$Foo</class-a>
+        <class-a>com.github.dozermapper.core.functional_tests.UntypedCollectionTest$Foo</class-a>
         <class-b>java.util.Map</class-b>
         <field>
             <a>name</a>
@@ -36,12 +36,12 @@
         <field>
             <a>bars[0].id</a>
             <b key="bars[0]_id">this</b>
-            <a-deep-index-hint>org.dozer.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
+            <a-deep-index-hint>com.github.dozermapper.core.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
         </field>
         <field>
             <a>bars[1].id</a>
             <b key="bars[1]_id">this</b>
-            <a-deep-index-hint>org.dozer.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
+            <a-deep-index-hint>com.github.dozermapper.core.functional_tests.UntypedCollectionTest$Bar</a-deep-index-hint>
         </field>
     </mapping>
 

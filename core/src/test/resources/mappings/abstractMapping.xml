@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.abstractinheritance.AbstractA</class-a>
-        <class-b>org.dozer.vo.abstractinheritance.AbstractB</class-b>
+        <class-a>com.github.dozermapper.core.vo.abstractinheritance.AbstractA</class-a>
+        <class-b>com.github.dozermapper.core.vo.abstractinheritance.AbstractB</class-b>
         <field>
             <a>abstractAField</a>
             <b>abstractBField</b>
@@ -34,8 +34,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.abstractinheritance.AbstractAContainer</class-a>
-        <class-b>org.dozer.vo.abstractinheritance.AbstractBContainer</class-b>
+        <class-a>com.github.dozermapper.core.vo.abstractinheritance.AbstractAContainer</class-a>
+        <class-b>com.github.dozermapper.core.vo.abstractinheritance.AbstractBContainer</class-b>
         <field>
             <a>a</a>
             <b>b</b>
@@ -43,8 +43,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.abstractinheritance.AbstractACollectionContainer</class-a>
-        <class-b>org.dozer.vo.abstractinheritance.AbstractBCollectionContainer</class-b>
+        <class-a>com.github.dozermapper.core.vo.abstractinheritance.AbstractACollectionContainer</class-a>
+        <class-b>com.github.dozermapper.core.vo.abstractinheritance.AbstractBCollectionContainer</class-b>
         <field>
             <a>as</a>
             <b>bs</b>
@@ -52,8 +52,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.abstractinheritance.A</class-a>
-        <class-b>org.dozer.vo.abstractinheritance.B</class-b>
+        <class-a>com.github.dozermapper.core.vo.abstractinheritance.A</class-a>
+        <class-b>com.github.dozermapper.core.vo.abstractinheritance.B</class-b>
         <field>
             <a>fieldA</a>
             <b>fieldB</b>

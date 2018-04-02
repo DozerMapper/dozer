@@ -35,7 +35,7 @@
         <osgi.Bundle-Activator/>
         <osgi.Export-Package>com.github.dozermapper.protobuf.*</osgi.Export-Package>
         <osgi.Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</osgi.Require-Capability>
-        <osgi.Provide-Capability>osgi.serviceloader; osgi.serviceloader=org.dozer.DozerModule</osgi.Provide-Capability>
+        <osgi.Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.github.dozermapper.core.DozerModule</osgi.Provide-Capability>
         <osgi.SPI-Provider>com.github.dozermapper.protobuf.ProtobufSupportModule</osgi.SPI-Provider>
     </properties>
 

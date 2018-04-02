@@ -17,18 +17,18 @@ package com.github.dozermapper.spring.functional_tests;
 
 import java.util.List;
 
+import com.github.dozermapper.core.CustomConverter;
+import com.github.dozermapper.core.DozerBeanMapper;
+import com.github.dozermapper.core.DozerEventListener;
+import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.spring.functional_tests.support.EventTestListener;
 import com.github.dozermapper.spring.functional_tests.support.InjectedCustomConverter;
 import com.github.dozermapper.spring.vo.Destination;
 import com.github.dozermapper.spring.vo.Source;
-import org.dozer.CustomConverter;
-import org.dozer.DozerBeanMapper;
-import org.dozer.DozerEventListener;
-import org.dozer.Mapper;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

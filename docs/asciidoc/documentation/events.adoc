@@ -31,7 +31,7 @@ using Spring to inject an event listener:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans default-lazy-init="false">
-    <bean id="EventMapper" class="org.dozer.DozerBeanMapper">
+    <bean id="EventMapper" class="com.github.dozermapper.core.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
                 <value>dozerBeanMapping.xml</value>
@@ -43,6 +43,6 @@ using Spring to inject an event listener:
             </list>
         </property>
     </bean>
-    <bean id="eventTestListener" class="org.dozer.event.EventTestListener" />
+    <bean id="eventTestListener" class="com.github.dozermapper.core.event.EventTestListener" />
 </beans>
 ----

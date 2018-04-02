@@ -24,7 +24,7 @@
         <stop-on-errors>true</stop-on-errors>
         <date-format>MM/dd/yyyy HH:mm</date-format>
         <wildcard>false</wildcard>
-        <bean-factory>org.dozer.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
+        <bean-factory>com.github.dozermapper.core.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
     </configuration>
 
 </mappings>

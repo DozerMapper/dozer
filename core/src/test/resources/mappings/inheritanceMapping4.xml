@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.mapid.AContainer</class-a>
-        <class-b>org.dozer.vo.mapid.BContainer</class-b>
+        <class-a>com.github.dozermapper.core.vo.mapid.AContainer</class-a>
+        <class-b>com.github.dozermapper.core.vo.mapid.BContainer</class-b>
         <field map-id="MapSuperAToSuperB">
             <a>AProperty</a>
             <b>BProperty</b>
@@ -30,8 +30,8 @@
     </mapping>
 
     <mapping map-id="MapSuperAToSuperB" wildcard="false">
-        <class-a>org.dozer.vo.inheritance.SuperA</class-a>
-        <class-b>org.dozer.vo.inheritance.SuperB</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.SuperA</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.SuperB</class-b>
         <field>
             <a>superAField</a>
             <b>superBField</b>

@@ -17,6 +17,7 @@ package com.github.dozermapper.protobuf.functional_tests;
 
 import java.util.Arrays;
 
+import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.protobuf.vo.proto.LiteTestObject;
 import com.github.dozermapper.protobuf.vo.proto.LiteTestObjectContainer;
 import com.github.dozermapper.protobuf.vo.proto.ObjectWithCollection;
@@ -24,10 +25,9 @@ import com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtoTestObject
 import com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollection;
 import com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtobufWithSimpleCollectionContainer;
 import com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.SimpleProtoTestObject;
-import org.dozer.Mapper;
+
 import org.junit.Before;
 import org.junit.Test;
-
 
 import static org.junit.Assert.assertEquals;
 

@@ -18,16 +18,16 @@ package com.github.dozermapper.protobuf;
 import java.util.Collection;
 import java.util.Collections;
 
+import com.github.dozermapper.core.DozerModule;
+import com.github.dozermapper.core.builder.BeanBuilderCreationStrategy;
+import com.github.dozermapper.core.classmap.generator.BeanFieldsDetector;
+import com.github.dozermapper.core.config.BeanContainer;
+import com.github.dozermapper.core.factory.DestBeanCreator;
+import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorCreationStrategy;
+import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
 import com.github.dozermapper.protobuf.builder.ByProtobufBuilder;
 import com.github.dozermapper.protobuf.classmap.generator.ProtobufBeanFieldsDetector;
 import com.github.dozermapper.protobuf.propertydescriptor.ProtoFieldPropertyDescriptorCreationStrategy;
-import org.dozer.DozerModule;
-import org.dozer.builder.BeanBuilderCreationStrategy;
-import org.dozer.classmap.generator.BeanFieldsDetector;
-import org.dozer.config.BeanContainer;
-import org.dozer.factory.DestBeanCreator;
-import org.dozer.propertydescriptor.PropertyDescriptorCreationStrategy;
-import org.dozer.propertydescriptor.PropertyDescriptorFactory;
 
 /**
  * {@link DozerModule} which adds support for Protobuf.

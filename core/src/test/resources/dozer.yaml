@@ -20,8 +20,8 @@ dozer:
     converter-by-dest-type-maxsize: 5000
     super-type-maxsize: 5000
 # beans:
-#   class-loader-bean: "org.dozer.util.DefaultClassLoader"
-#   proxy-resolver-bean: "org.dozer.util.DefaultProxyResolver"
+#   class-loader-bean: "com.github.dozermapper.core.util.DefaultClassLoader"
+#   proxy-resolver-bean: "com.github.dozermapper.core.util.DefaultProxyResolver"
 
 
 

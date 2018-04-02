@@ -22,7 +22,7 @@
 
     <configuration>
         <custom-converters>
-            <converter type="org.dozer.functional_tests.support.ThrowExceptionCustomConverter">
+            <converter type="com.github.dozermapper.core.functional_tests.support.ThrowExceptionCustomConverter">
                 <class-a>java.lang.String</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
@@ -30,8 +30,8 @@
     </configuration>
 
     <mapping wildcard="false" map-null="false">
-        <class-a>org.dozer.vo.SimpleObj</class-a>
-        <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
+        <class-a>com.github.dozermapper.core.vo.SimpleObj</class-a>
+        <class-b>com.github.dozermapper.core.vo.SimpleObjPrime2</class-b>
         <field>
             <a>field1</a>
             <b>field1Prime</b>

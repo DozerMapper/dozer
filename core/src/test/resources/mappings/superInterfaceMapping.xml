@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="true" map-null="false">
-        <class-a>org.dozer.functional_tests.SuperInterfaceMappingTest$Member</class-a>
-        <class-b>org.dozer.functional_tests.SuperInterfaceMappingTest$MemberDto</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.SuperInterfaceMappingTest$Member</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.SuperInterfaceMappingTest$MemberDto</class-b>
         <field type="one-way">
             <a>name</a>
             <b is-accessible="true">name</b>
@@ -30,8 +30,8 @@
     </mapping>
 
     <mapping wildcard="true" map-null="false">
-        <class-a>org.dozer.functional_tests.SuperInterfaceMappingTest$Taxer</class-a>
-        <class-b>org.dozer.functional_tests.SuperInterfaceMappingTest$TaxerDto</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.SuperInterfaceMappingTest$Taxer</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.SuperInterfaceMappingTest$TaxerDto</class-b>
         <field type="one-way">
             <a>socialNr</a>
             <b is-accessible="true">socialNr</b>

@@ -21,19 +21,19 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="true">
-        <class-a>org.dozer.vo.direction.ContentItemGroupBase</class-a>
-        <class-b>org.dozer.vo.direction.ContentItemGroupDTO</class-b>
+        <class-a>com.github.dozermapper.core.vo.direction.ContentItemGroupBase</class-a>
+        <class-b>com.github.dozermapper.core.vo.direction.ContentItemGroupDTO</class-b>
         <field>
             <a>childGroups</a>
             <b>childGroups</b>
-            <a-hint>org.dozer.vo.direction.ContentItemGroupDefault</a-hint>
-            <b-hint>org.dozer.vo.direction.ContentItemGroupDTO</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.direction.ContentItemGroupDefault</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.direction.ContentItemGroupDTO</b-hint>
         </field>
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.direction.EntityBase</class-a>
-        <class-b>org.dozer.vo.direction.EntityDTO</class-b>
+        <class-a>com.github.dozermapper.core.vo.direction.EntityBase</class-a>
+        <class-b>com.github.dozermapper.core.vo.direction.EntityDTO</class-b>
         <field>
             <a is-accessible="true">id</a>
             <b is-accessible="true">id</b>

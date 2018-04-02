@@ -21,22 +21,22 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.index.Mccoy</class-a>
-        <class-b>org.dozer.vo.index.MccoyPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.index.Mccoy</class-a>
+        <class-b>com.github.dozermapper.core.vo.index.MccoyPrime</class-b>
         <field>
             <a>stringProperty</a>
             <b map-get-method="getValue" map-set-method="putValue" key="">fieldValueObjects[0]</b>
-            <b-hint>org.dozer.vo.FieldValue</b-hint>
+            <b-hint>com.github.dozermapper.core.vo.FieldValue</b-hint>
         </field>
     </mapping>
 
     <mapping map-id="usingDestHint">
-        <class-a>org.dozer.vo.index.Mccoy</class-a>
-        <class-b>org.dozer.vo.index.MccoyPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.index.Mccoy</class-a>
+        <class-b>com.github.dozermapper.core.vo.index.MccoyPrime</class-b>
         <field>
             <a>stringProperty</a>
             <b>fieldValueObjects[0]</b>
-            <b-hint>org.dozer.vo.FieldValue</b-hint>
+            <b-hint>com.github.dozermapper.core.vo.FieldValue</b-hint>
         </field>
     </mapping>
 

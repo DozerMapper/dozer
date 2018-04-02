@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.SuperA</class-a>
-        <class-b>org.dozer.vo.inheritance.SuperB</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.SuperA</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.SuperB</class-b>
         <field>
             <a>superAField</a>
             <b>superBField</b>
@@ -34,8 +34,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.A</class-a>
-        <class-b>org.dozer.vo.inheritance.B</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.A</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.B</class-b>
         <field>
             <a>fieldA</a>
             <b>fieldB</b>
@@ -43,8 +43,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.iface.Person</class-a>
-        <class-b>org.dozer.vo.inheritance.iface.PersonDTO</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.iface.Person</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.iface.PersonDTO</class-b>
         <field>
             <a>id</a>
             <b>personId</b>
@@ -52,8 +52,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.iface.Person</class-a>
-        <class-b>org.dozer.vo.inheritance.iface.PersonWithAddressDTO</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.iface.Person</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.iface.PersonWithAddressDTO</class-b>
         <field>
             <a>id</a>
             <b>personId</b>
@@ -61,19 +61,19 @@
     </mapping>
 
     <mapping wildcard="true" map-null="false">
-        <class-a>org.dozer.vo.inheritance.Main</class-a>
-        <class-b>org.dozer.vo.inheritance.MainDto</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.Main</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.MainDto</class-b>
         <field>
             <a>sub</a>
             <b>sub</b>
-            <a-hint>org.dozer.vo.inheritance.Sub</a-hint>
-            <b-hint>org.dozer.vo.inheritance.SubDto</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.inheritance.Sub</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.inheritance.SubDto</b-hint>
         </field>
     </mapping>
 
     <mapping wildcard="true" map-null="false">
-        <class-a>org.dozer.vo.inheritance.SubMarker</class-a>
-        <class-b>org.dozer.vo.inheritance.SubMarkerDto</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.SubMarker</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.SubMarkerDto</class-b>
         <field type="one-way">
             <a>marker</a>
             <b>marker</b>
@@ -81,8 +81,8 @@
     </mapping>
 
     <mapping wildcard="true" map-null="false">
-        <class-a>org.dozer.vo.inheritance.Sub</class-a>
-        <class-b>org.dozer.vo.inheritance.SubDto</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.Sub</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.SubDto</class-b>
     </mapping>
 
 </mappings>

@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.deep.SrcDeepObj</class-a>
-        <class-b>org.dozer.vo.deep.DestDeepObj</class-b>
+        <class-a>com.github.dozermapper.core.vo.deep.SrcDeepObj</class-a>
+        <class-b>com.github.dozermapper.core.vo.deep.DestDeepObj</class-b>
         <field>
             <a>srcNestedObj.srcNestedObj2.simpleObjects[0].field1</a>
             <b>dest2</b>
@@ -31,36 +31,36 @@
             <a>someList[1].equalNamedList[0].field3</a>
             <b>dest5</b>
             <a-deep-index-hint>
-                org.dozer.vo.TestObject, org.dozer.vo.AnotherTestObject
+                com.github.dozermapper.core.vo.TestObject, com.github.dozermapper.core.vo.AnotherTestObject
             </a-deep-index-hint>
         </field>
         <field>
             <a>someList[1].equalNamedList[0].field4</a>
             <b>hintList[0].twoPrime</b>
             <a-deep-index-hint>
-                org.dozer.vo.TestObject, org.dozer.vo.AnotherTestObject
+                com.github.dozermapper.core.vo.TestObject, com.github.dozermapper.core.vo.AnotherTestObject
             </a-deep-index-hint>
-            <b-deep-index-hint>org.dozer.vo.TestObjectPrime</b-deep-index-hint>
+            <b-deep-index-hint>com.github.dozermapper.core.vo.TestObjectPrime</b-deep-index-hint>
         </field>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.deepindex.HeadOfHouseHold</class-a>
-        <class-b>org.dozer.vo.deepindex.Family</class-b>
+        <class-a>com.github.dozermapper.core.vo.deepindex.HeadOfHouseHold</class-a>
+        <class-b>com.github.dozermapper.core.vo.deepindex.Family</class-b>
         <field>
             <a>firstName</a>
             <b>familyMembers[0].firstName</b>
-            <b-deep-index-hint>org.dozer.vo.deepindex.PersonalDetails</b-deep-index-hint>
+            <b-deep-index-hint>com.github.dozermapper.core.vo.deepindex.PersonalDetails</b-deep-index-hint>
         </field>
         <field>
             <a>lastName</a>
             <b>familyMembers[0].lastName</b>
-            <b-deep-index-hint>org.dozer.vo.deepindex.PersonalDetails</b-deep-index-hint>
+            <b-deep-index-hint>com.github.dozermapper.core.vo.deepindex.PersonalDetails</b-deep-index-hint>
         </field>
         <field>
             <a>salary</a>
             <b>familyMembers[0].salary</b>
-            <b-deep-index-hint>org.dozer.vo.deepindex.PersonalDetails</b-deep-index-hint>
+            <b-deep-index-hint>com.github.dozermapper.core.vo.deepindex.PersonalDetails</b-deep-index-hint>
         </field>
         <field>
             <a>petName</a>
@@ -77,23 +77,23 @@
     </mapping>
 
     <mapping wildcard="true">
-        <class-a>org.dozer.vo.deepindex.HeadOfHouseHold</class-a>
-        <class-b>org.dozer.vo.deepindex.PersonalDetails</class-b>
+        <class-a>com.github.dozermapper.core.vo.deepindex.HeadOfHouseHold</class-a>
+        <class-b>com.github.dozermapper.core.vo.deepindex.PersonalDetails</class-b>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.deepindex.HeadOfHouseHoldsContainer</class-a>
-        <class-b>org.dozer.vo.deepindex.Family</class-b>
+        <class-a>com.github.dozermapper.core.vo.deepindex.HeadOfHouseHoldsContainer</class-a>
+        <class-b>com.github.dozermapper.core.vo.deepindex.Family</class-b>
         <field>
             <a>headOfHouseHolds.headOfHouseHoldsList[0]</a>
             <b>familyMembers[0]</b>
-            <b-hint>org.dozer.vo.deepindex.PersonalDetails</b-hint>
+            <b-hint>com.github.dozermapper.core.vo.deepindex.PersonalDetails</b-hint>
         </field>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.deepindex.A</class-a>
-        <class-b>org.dozer.vo.deepindex.B</class-b>
+        <class-a>com.github.dozermapper.core.vo.deepindex.A</class-a>
+        <class-b>com.github.dozermapper.core.vo.deepindex.B</class-b>
         <field>
             <a>id1</a>
             <b>foo[0].id</b>

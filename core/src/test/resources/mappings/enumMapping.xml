@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.enumtest.MyBean</class-a>
-        <class-b>org.dozer.vo.enumtest.MyBeanPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.enumtest.MyBean</class-a>
+        <class-b>com.github.dozermapper.core.vo.enumtest.MyBeanPrime</class-b>
         <field>
             <a>srcType</a>
             <b>destType</b>
@@ -34,8 +34,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.enumtest.MyBean</class-a>
-        <class-b>org.dozer.vo.enumtest.MyBeanPrimeString</class-b>
+        <class-a>com.github.dozermapper.core.vo.enumtest.MyBean</class-a>
+        <class-b>com.github.dozermapper.core.vo.enumtest.MyBeanPrimeString</class-b>
         <field>
             <a>srcType</a>
             <b>destType</b>
@@ -47,8 +47,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.enumtest.MyBean</class-a>
-        <class-b>org.dozer.vo.enumtest.MyBeanPrimeByte</class-b>
+        <class-a>com.github.dozermapper.core.vo.enumtest.MyBean</class-a>
+        <class-b>com.github.dozermapper.core.vo.enumtest.MyBeanPrimeByte</class-b>
         <field>
             <a>srcType</a>
             <b>first</b>
@@ -60,8 +60,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.enumtest.MyBean</class-a>
-        <class-b>org.dozer.vo.enumtest.MyBeanPrimeShort</class-b>
+        <class-a>com.github.dozermapper.core.vo.enumtest.MyBean</class-a>
+        <class-b>com.github.dozermapper.core.vo.enumtest.MyBeanPrimeShort</class-b>
         <field>
             <a>srcType</a>
             <b>first</b>
@@ -73,8 +73,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.enumtest.MyBean</class-a>
-        <class-b>org.dozer.vo.enumtest.MyBeanPrimeInteger</class-b>
+        <class-a>com.github.dozermapper.core.vo.enumtest.MyBean</class-a>
+        <class-b>com.github.dozermapper.core.vo.enumtest.MyBeanPrimeInteger</class-b>
         <field>
             <a>srcType</a>
             <b>first</b>
@@ -86,8 +86,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.enumtest.MyBean</class-a>
-        <class-b>org.dozer.vo.enumtest.MyBeanPrimeLong</class-b>
+        <class-a>com.github.dozermapper.core.vo.enumtest.MyBean</class-a>
+        <class-b>com.github.dozermapper.core.vo.enumtest.MyBeanPrimeLong</class-b>
         <field>
             <a>srcType</a>
             <b>first</b>

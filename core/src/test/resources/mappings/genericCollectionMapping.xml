@@ -21,15 +21,15 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.generics.UserGroup</class-a>
-        <class-b>org.dozer.vo.generics.UserGroupPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.generics.UserGroup</class-a>
+        <class-b>com.github.dozermapper.core.vo.generics.UserGroupPrime</class-b>
         <field>
             <a>users</a>
             <b>users</b>
             <!-- testing generics so we do not need to use hints below. we dont even have to have a and b mappings since
               the attributes are both named users.
-              <a-hint>org.dozer.functional_tests.generics.User</a-hint>
-              <b-hint>org.dozer.functional_tests.generics.UserGroupPrime</b-hint>
+              <a-hint>com.github.dozermapper.core.functional_tests.generics.User</a-hint>
+              <b-hint>com.github.dozermapper.core.functional_tests.generics.UserGroupPrime</b-hint>
             -->
         </field>
         <field>
@@ -40,8 +40,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.generics.deepindex.SrcDeepObj</class-a>
-        <class-b>org.dozer.vo.generics.deepindex.DestDeepObj</class-b>
+        <class-a>com.github.dozermapper.core.vo.generics.deepindex.SrcDeepObj</class-a>
+        <class-b>com.github.dozermapper.core.vo.generics.deepindex.DestDeepObj</class-b>
         <field>
             <a>someList[1].equalNamedList[0].field3</a>
             <b>dest5</b>
@@ -53,8 +53,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.generics.deepindex.HeadOfHouseHold</class-a>
-        <class-b>org.dozer.vo.generics.deepindex.Family</class-b>
+        <class-a>com.github.dozermapper.core.vo.generics.deepindex.HeadOfHouseHold</class-a>
+        <class-b>com.github.dozermapper.core.vo.generics.deepindex.Family</class-b>
         <field>
             <a>firstName</a>
             <b>familyMembers[0].firstName</b>

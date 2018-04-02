@@ -25,8 +25,8 @@
     </configuration>
 
     <mapping>
-        <class-a>org.dozer.vo.AnotherTestObject</class-a>
-        <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.AnotherTestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.AnotherTestObjectPrime</class-b>
         <field>
             <a>field4</a>
             <b>to.one</b>
@@ -34,8 +34,8 @@
     </mapping>
 
     <mapping trim-strings="false">
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
         <field>
             <a>one</a>
             <b>onePrime</b>

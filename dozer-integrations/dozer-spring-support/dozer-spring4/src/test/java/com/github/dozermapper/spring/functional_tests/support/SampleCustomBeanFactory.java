@@ -15,8 +15,8 @@
  */
 package com.github.dozermapper.spring.functional_tests.support;
 
-import org.dozer.BeanFactory;
-import org.dozer.config.BeanContainer;
+import com.github.dozermapper.core.BeanFactory;
+import com.github.dozermapper.core.config.BeanContainer;
 
 public class SampleCustomBeanFactory implements BeanFactory {
 

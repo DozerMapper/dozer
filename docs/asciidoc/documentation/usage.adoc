@@ -58,7 +58,7 @@ The following is an example how the Mapper bean would be configured via Spring.
 
 [source,xml,prettyprint]
 ----
-<bean id="mapper" class="org.dozer.DozerBeanMapper">
+<bean id="mapper" class="com.github.dozermapper.core.DozerBeanMapper">
     <property name="mappingFiles">
         <list>
             <value>dozer-global-configuration.xml</value>

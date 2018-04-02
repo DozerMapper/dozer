@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.EmployeeWithInnerClass</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b bean-factory="com.github.dozermapper.core.factory.JAXBBeanFactory">com.github.dozermapper.core.vo.jaxb.employee.EmployeeWithInnerClass</class-b>
         <field>
             <a>one</a>
             <b>firstName</b>
@@ -38,8 +38,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.EmployeeWithInnerClass$Address$State</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b bean-factory="com.github.dozermapper.core.factory.JAXBBeanFactory">com.github.dozermapper.core.vo.jaxb.employee.EmployeeWithInnerClass$Address$State</class-b>
         <field>
             <a>one</a>
             <b>name</b>
@@ -47,8 +47,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.EmployeeType</class-a>
-        <class-b>org.dozer.functional_tests.JAXBBeansMappingTest$ListContainer</class-b>
+        <class-a bean-factory="com.github.dozermapper.core.factory.JAXBBeanFactory">com.github.dozermapper.core.vo.jaxb.employee.EmployeeType</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.JAXBBeansMappingTest$ListContainer</class-b>
         <field>
             <a>ids</a>
             <b>list</b>
@@ -56,13 +56,13 @@
         <field>
             <a>subordinates</a>
             <b>subordinates</b>
-            <a-hint>org.dozer.vo.jaxb.employee.EmployeeType</a-hint>
+            <a-hint>com.github.dozermapper.core.vo.jaxb.employee.EmployeeType</a-hint>
         </field>
     </mapping>
 
     <mapping wildcard="false">
-        <class-a bean-factory="org.dozer.factory.JAXBBeanFactory">org.dozer.vo.jaxb.employee.EmployeeType</class-a>
-        <class-b>org.dozer.functional_tests.JAXBBeansMappingTest$StringContainer</class-b>
+        <class-a bean-factory="com.github.dozermapper.core.factory.JAXBBeanFactory">com.github.dozermapper.core.vo.jaxb.employee.EmployeeType</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.JAXBBeansMappingTest$StringContainer</class-b>
         <field>
             <a>firstName</a>
             <b>value</b>

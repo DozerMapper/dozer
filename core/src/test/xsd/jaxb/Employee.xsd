@@ -16,48 +16,48 @@
     limitations under the License.
 
 -->
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://jaxb.vo.dozer.org/Employee"
-        xmlns:tns="http://jaxb.vo.dozer.org/Employee">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://jaxb.vo.core.dozermapper.github.com/Employee"
+        xmlns:tns="http://jaxb.vo.core.dozermapper.github.com/Employee">
 
-  <complexType name="EmployeeType">
-    <sequence>
-      <element name="Id" type="integer" minOccurs="1" maxOccurs="1" nillable="false" />
-      <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"/>
-      <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1" nillable="true"/>
-      <element name="LastName" type="string" minOccurs="1" maxOccurs="1"/>
-      <element name="Ids" type="tns:ListOfIds"/>
-      <element name="Subordinates" type="tns:EmployeeType" minOccurs="0" maxOccurs="unbounded"/>  
-    </sequence>
-  </complexType>
-
-  <element name="Employee" type="tns:EmployeeType"/>
-  <element name="EmployeeWithInnerClass">
-    <complexType>
-      <sequence>
-        <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"/>
-        <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"/>
-        <element name="LastName" type="string" minOccurs="1" maxOccurs="1"/>
-        <element name="ParentName" type="string" minOccurs="0" nillable="true"/>
-        <element name="Address">
-          <complexType>
-            <sequence>
-              <element name="Street" type="string"/>
-              <element name="State">
-                <complexType>
-                  <sequence>
-                    <element name="Name"/>
-                  </sequence>
-                </complexType>
-              </element>
-            </sequence>
-          </complexType>
-        </element>
-      </sequence>
+    <complexType name="EmployeeType">
+        <sequence>
+            <element name="Id" type="integer" minOccurs="1" maxOccurs="1" nillable="false"/>
+            <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"/>
+            <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1" nillable="true"/>
+            <element name="LastName" type="string" minOccurs="1" maxOccurs="1"/>
+            <element name="Ids" type="tns:ListOfIds"/>
+            <element name="Subordinates" type="tns:EmployeeType" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
     </complexType>
-  </element>
 
-  <simpleType name="ListOfIds">
-    <list itemType="int"/>
-  </simpleType>
+    <element name="Employee" type="tns:EmployeeType"/>
+    <element name="EmployeeWithInnerClass">
+        <complexType>
+            <sequence>
+                <element name="FirstName" type="string" minOccurs="1" maxOccurs="1"/>
+                <element name="BirthDate" type="date" minOccurs="0" maxOccurs="1"/>
+                <element name="LastName" type="string" minOccurs="1" maxOccurs="1"/>
+                <element name="ParentName" type="string" minOccurs="0" nillable="true"/>
+                <element name="Address">
+                    <complexType>
+                        <sequence>
+                            <element name="Street" type="string"/>
+                            <element name="State">
+                                <complexType>
+                                    <sequence>
+                                        <element name="Name"/>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+
+    <simpleType name="ListOfIds">
+        <list itemType="int"/>
+    </simpleType>
 
 </schema>

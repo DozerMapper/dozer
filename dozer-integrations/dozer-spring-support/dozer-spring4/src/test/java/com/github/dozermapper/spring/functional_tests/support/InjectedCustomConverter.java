@@ -15,9 +15,9 @@
  */
 package com.github.dozermapper.spring.functional_tests.support;
 
+import com.github.dozermapper.core.DozerConverter;
 import com.github.dozermapper.spring.vo.Destination;
 import com.github.dozermapper.spring.vo.Source;
-import org.dozer.DozerConverter;
 
 public class InjectedCustomConverter extends DozerConverter<Source, Destination> {
 

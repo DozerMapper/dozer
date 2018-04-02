@@ -25,13 +25,13 @@
     </configuration>
 
     <mapping>
-        <class-a>org.dozer.functional_tests.RecursiveSelfMappingTest$ContainerBean</class-a>
-        <class-b>org.dozer.functional_tests.RecursiveSelfMappingTest$ContainerBean2</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.RecursiveSelfMappingTest$ContainerBean</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.RecursiveSelfMappingTest$ContainerBean2</class-b>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.functional_tests.RecursiveSelfMappingTest$SelfReferencingBean</class-a>
-        <class-b>org.dozer.functional_tests.RecursiveSelfMappingTest$SelfReferencingBean</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.RecursiveSelfMappingTest$SelfReferencingBean</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.RecursiveSelfMappingTest$SelfReferencingBean</class-b>
         <field>
             <a>this</a>
             <b>detailBean</b>

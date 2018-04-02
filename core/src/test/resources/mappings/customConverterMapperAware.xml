@@ -22,7 +22,7 @@
 
     <configuration>
         <custom-converters>
-            <converter type="org.dozer.functional_tests.CustomConverterMapperAwareTest$Converter">
+            <converter type="com.github.dozermapper.core.functional_tests.CustomConverterMapperAwareTest$Converter">
                 <class-a>java.util.Map</class-a>
                 <class-b>java.util.List</class-b>
             </converter>
@@ -30,9 +30,9 @@
     </configuration>
 
     <mapping>
-        <class-a>org.dozer.functional_tests.CustomConverterMapperAwareTest$Container</class-a>
-        <class-b>org.dozer.functional_tests.CustomConverterMapperAwareTest$Container</class-b>
-        <field custom-converter="org.dozer.functional_tests.CustomConverterMapperAwareTest$ConverterRecursion">
+        <class-a>com.github.dozermapper.core.functional_tests.CustomConverterMapperAwareTest$Container</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.CustomConverterMapperAwareTest$Container</class-b>
+        <field custom-converter="com.github.dozermapper.core.functional_tests.CustomConverterMapperAwareTest$ConverterRecursion">
             <a>beanA</a>
             <b>beanA</b>
         </field>

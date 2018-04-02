@@ -22,8 +22,8 @@
 
     <!-- Maps One<->One, applying different mappings to the Two instances. -->
     <mapping wildcard="false" map-id="one">
-        <class-a>org.dozer.vo.mapidsameinstance.One</class-a>
-        <class-b>org.dozer.vo.mapidsameinstance.One</class-b>
+        <class-a>com.github.dozermapper.core.vo.mapidsameinstance.One</class-a>
+        <class-b>com.github.dozermapper.core.vo.mapidsameinstance.One</class-b>
         <!-- Only map field 'a' from this Two -->
         <field map-id="mapsFieldA">
             <a>two</a>
@@ -38,8 +38,8 @@
 
     <!-- Only maps field 'a' from Two<->Two -->
     <mapping wildcard="false" map-id="mapsFieldA">
-        <class-a>org.dozer.vo.mapidsameinstance.Two</class-a>
-        <class-b>org.dozer.vo.mapidsameinstance.Two</class-b>
+        <class-a>com.github.dozermapper.core.vo.mapidsameinstance.Two</class-a>
+        <class-b>com.github.dozermapper.core.vo.mapidsameinstance.Two</class-b>
         <field>
             <a>a</a>
             <b>a</b>
@@ -48,8 +48,8 @@
 
     <!-- Only maps field 'b' from Two<->Two -->
     <mapping wildcard="false" map-id="mapsFieldB">
-        <class-a>org.dozer.vo.mapidsameinstance.Two</class-a>
-        <class-b>org.dozer.vo.mapidsameinstance.Two</class-b>
+        <class-a>com.github.dozermapper.core.vo.mapidsameinstance.Two</class-a>
+        <class-b>com.github.dozermapper.core.vo.mapidsameinstance.Two</class-b>
         <field>
             <a>b</a>
             <b>b</b>

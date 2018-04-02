@@ -15,12 +15,12 @@
  */
 package com.github.dozermapper.osgitests;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.el.ELExpressionFactory;
+import com.github.dozermapper.core.osgi.OSGiClassLoader;
 import com.github.dozermapper.osgitestsmodel.Person;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.Mapper;
-import org.dozer.el.ELExpressionFactory;
-import org.dozer.osgi.OSGiClassLoader;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

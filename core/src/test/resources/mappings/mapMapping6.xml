@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.map.MapToMap</class-a>
-        <class-b>org.dozer.vo.map.MapToMapPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.map.MapToMap</class-a>
+        <class-b>com.github.dozermapper.core.vo.map.MapToMapPrime</class-b>
         <field>
             <a>standardMap</a>
             <b>standardMap</b>

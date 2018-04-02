@@ -27,8 +27,8 @@ mappings file:
     <wildcard>true</wildcard>
     <custom-converters>
         <!-- these are always bi-directional -->
-        <converter type="org.dozer.converters.TestCustomConverter">
-            <class-a>org.dozer.vo.TestCustomConverterObject</class-a>
+        <converter type="com.github.dozermapper.core.converters.TestCustomConverter">
+            <class-a>com.github.dozermapper.core.vo.TestCustomConverterObject</class-a>
             <class-b>another.type.to.Associate</class-b>
         </converter>
     </custom-converters>
@@ -46,8 +46,8 @@ classes.
 [source,xml,prettyprint]
 ----
 <mapping wildcard="false" date-format="MM/dd/yyyy HH:mm">
-    <class-a>org.dozer.vo.SpringBean</class-a>
-    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.SpringBean</class-a>
+    <class-b>com.github.dozermapper.core.vo.SpringBeanPrime</class-b>
     <field>
         <a>anAttributeToMap</a>
         <b>anAttributeToMapPrime</b>
@@ -63,8 +63,8 @@ tag:
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a is-accessible="true">org.dozer.vo.SpringBean</class-a>
-    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <class-a is-accessible="true">com.github.dozermapper.core.vo.SpringBean</class-a>
+    <class-b>com.github.dozermapper.core.vo.SpringBeanPrime</class-b>
     <field>
         <a>anAttributeToMap</a>
         <b>anAttributeToMapPrime</b>
@@ -78,8 +78,8 @@ Likewise, you can change the mapping behaviour for specific field pairs:
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.SpringBean</class-a>
-    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.SpringBean</class-a>
+    <class-b>com.github.dozermapper.core.vo.SpringBeanPrime</class-b>
     <field remove-orphans="false">
         <a>anAttributeToMap</a>
         <b>anAttributeToMapPrime</b>
@@ -93,8 +93,8 @@ Finally, some settings can be applied to a single field:
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.SpringBean</class-a>
-    <class-b>org.dozer.vo.SpringBeanPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.SpringBean</class-a>
+    <class-b>com.github.dozermapper.core.vo.SpringBeanPrime</class-b>
     <field>
         <a get-method="getTheAttribute">anAttributeToMap</a>
         <b>anAttributeToMapPrime</b>
@@ -189,8 +189,8 @@ and the mapping definition
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.Person</class-a>
-    <class-b>org.dozer.vo.Contact</class-b>
+    <class-a>com.github.dozermapper.core.vo.Person</class-a>
+    <class-b>com.github.dozermapper.core.vo.Contact</class-b>
     <field>
         <a>lastName</a>
         <b>surname</b>
@@ -211,8 +211,8 @@ mapped:
 [source,xml,prettyprint]
 ----
 <mapping wildcard="false">
-    <class-a>org.dozer.vo.Person</class-a>
-    <class-b>org.dozer.vo.Contact</class-b>
+    <class-a>com.github.dozermapper.core.vo.Person</class-a>
+    <class-b>com.github.dozermapper.core.vo.Contact</class-b>
     <field>
         <a>lastName</a>
         <b>surname</b>

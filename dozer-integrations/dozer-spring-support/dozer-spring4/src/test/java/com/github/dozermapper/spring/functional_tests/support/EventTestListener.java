@@ -17,8 +17,9 @@ package com.github.dozermapper.spring.functional_tests.support;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.dozer.DozerEventListener;
-import org.dozer.event.DozerEvent;
+import com.github.dozermapper.core.DozerEventListener;
+import com.github.dozermapper.core.event.DozerEvent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

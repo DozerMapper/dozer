@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
         <field>
             <a>fieldAccessible</a>
             <b is-accessible="true">fieldAccessible</b>
@@ -59,8 +59,8 @@
     </mapping>
 
     <mapping>
-        <class-a create-method="createMethod">org.dozer.vo.InsideTestObject</class-a>
-        <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
+        <class-a create-method="createMethod">com.github.dozermapper.core.vo.InsideTestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.InsideTestObjectPrime</class-b>
         <field>
             <a>label</a><!-- converting String to String by name only -->
             <b>labelPrime</b>
@@ -68,20 +68,20 @@
         <field>
             <a>house.thingy.name</a>
             <b>deepInterfaceString</b>
-            <a-hint>org.dozer.vo.Car</a-hint>
+            <a-hint>com.github.dozermapper.core.vo.Car</a-hint>
         </field>
     </mapping>
 
     <!-- this is for defect [ 1477786 ] Duplicate Class Mapping Found -->
     <mapping type="one-way">
-        <class-a>org.dozer.vo.Car</class-a>
-        <class-b>org.dozer.vo.Van</class-b>
+        <class-a>com.github.dozermapper.core.vo.Car</class-a>
+        <class-b>com.github.dozermapper.core.vo.Van</class-b>
     </mapping>
 
     <!-- this is for defect [ 1477786 ] Duplicate Class Mapping Found -->
     <mapping type="one-way">
-        <class-a>org.dozer.vo.Van</class-a>
-        <class-b>org.dozer.vo.Car</class-b>
+        <class-a>com.github.dozermapper.core.vo.Van</class-a>
+        <class-b>com.github.dozermapper.core.vo.Car</class-b>
     </mapping>
 
 </mappings>

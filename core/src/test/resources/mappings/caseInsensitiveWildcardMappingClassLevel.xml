@@ -20,7 +20,7 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
     <mapping wildcard-case-insensitive="true">
-        <class-a>org.dozer.functional_tests.CaseInsensitiveWildcardMappingTest.A</class-a>
-        <class-b>org.dozer.functional_tests.CaseInsensitiveWildcardMappingTest.B</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.CaseInsensitiveWildcardMappingTest.A</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.CaseInsensitiveWildcardMappingTest.B</class-b>
     </mapping>
 </mappings>

@@ -17,6 +17,10 @@ package com.github.dozermapper.protobuf.functional_tests;
 
 import java.util.Arrays;
 
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.MappingException;
+import com.github.dozermapper.core.config.BeanContainer;
+import com.github.dozermapper.core.util.MappingUtils;
 import com.github.dozermapper.protobuf.vo.proto.LiteTestObject;
 import com.github.dozermapper.protobuf.vo.proto.MapExample;
 import com.github.dozermapper.protobuf.vo.proto.ObjectWithCollection;
@@ -34,15 +38,11 @@ import com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.SimpleProtoTest
 import com.github.dozermapper.protobuf.vo.proto.SimpleEnum;
 import com.github.dozermapper.protobuf.vo.proto.TestObject;
 import com.github.dozermapper.protobuf.vo.proto.TestObjectContainer;
-import org.dozer.Mapper;
-import org.dozer.MappingException;
-import org.dozer.config.BeanContainer;
-import org.dozer.util.MappingUtils;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

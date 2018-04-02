@@ -21,15 +21,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.github.dozermapper.core.config.BeanContainer;
+import com.github.dozermapper.core.util.MappingUtils;
 import com.google.common.base.CaseFormat;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.DescriptorProtos;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 import com.google.protobuf.ProtocolMessageEnum;
+
 import org.apache.commons.lang3.StringUtils;
-import org.dozer.config.BeanContainer;
-import org.dozer.util.MappingUtils;
 
 /**
  * Protobuf utility methods
@@ -217,7 +218,7 @@ public final class ProtoUtils {
 
     private static String[] getFullyQualifiedClassName(DescriptorProtos.FileOptions options, String name) {
         if (options.getJavaMultipleFiles()) {
-            return new String[]{options.getJavaPackage(), name};
+            return new String[] {options.getJavaPackage(), name};
         }
 
         return new String[] {options.getJavaPackage(), options.getJavaOuterClassname(), name};

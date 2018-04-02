@@ -23,13 +23,13 @@
     <configuration>
         <stop-on-errors>true</stop-on-errors>
         <wildcard>true</wildcard>
-        <bean-factory>org.dozer.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
+        <bean-factory>com.github.dozermapper.core.functional_tests.support.SampleDefaultBeanFactory</bean-factory>
     </configuration>
 
     <!-- mapping level factory should override top level factory.  mapping level factory will get applied to both classes-->
-    <mapping bean-factory="org.dozer.functional_tests.support.SampleCustomBeanFactory">
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <mapping bean-factory="com.github.dozermapper.core.functional_tests.support.SampleCustomBeanFactory">
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
         <field>
             <a>one</a>
             <b>onePrime</b>
@@ -46,9 +46,9 @@
 
     <!-- class level factory should override top level and mapping level factory. -->
     <mapping>
-        <class-a>org.dozer.vo.InsideTestObject</class-a>
-        <class-b bean-factory="org.dozer.functional_tests.support.SampleCustomBeanFactory2"
-                 factory-bean-id="someBeanId">org.dozer.vo.InsideTestObjectPrime
+        <class-a>com.github.dozermapper.core.vo.InsideTestObject</class-a>
+        <class-b bean-factory="com.github.dozermapper.core.functional_tests.support.SampleCustomBeanFactory2"
+                 factory-bean-id="someBeanId">com.github.dozermapper.core.vo.InsideTestObjectPrime
         </class-b>
         <field-exclude>
             <a>createdByFactoryName</a>
@@ -57,8 +57,8 @@
     </mapping>
 
     <mapping>
-        <class-a bean-factory="org.dozer.functional_tests.support.SampleCustomBeanFactory3">org.dozer.vo.MetalThingyIF</class-a>
-        <class-b>org.dozer.vo.Van</class-b>
+        <class-a bean-factory="com.github.dozermapper.core.functional_tests.support.SampleCustomBeanFactory3">com.github.dozermapper.core.vo.MetalThingyIF</class-a>
+        <class-b>com.github.dozermapper.core.vo.Van</class-b>
     </mapping>
 
 </mappings>

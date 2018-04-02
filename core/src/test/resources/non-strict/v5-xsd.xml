@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.SuperSuperClass</class-a>
-        <class-b>org.dozer.vo.SuperSuperClassPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.SuperSuperClass</class-a>
+        <class-b>com.github.dozermapper.core.vo.SuperSuperClassPrime</class-b>
         <field>
             <a>superSuperAttribute</a>
             <b>superSuperAttr</b>

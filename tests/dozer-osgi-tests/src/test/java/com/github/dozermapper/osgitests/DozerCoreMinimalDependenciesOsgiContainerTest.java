@@ -15,7 +15,8 @@
  */
 package com.github.dozermapper.osgitests;
 
-import org.dozer.el.ELExpressionFactory;
+import com.github.dozermapper.core.el.ELExpressionFactory;
+
 import org.junit.Test;
 import org.ops4j.pax.exam.Option;
 

@@ -15,7 +15,8 @@
  */
 package com.github.dozermapper.spring.functional_tests.support;
 
-import org.dozer.Mapper;
+import com.github.dozermapper.core.Mapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ReferencingBean {

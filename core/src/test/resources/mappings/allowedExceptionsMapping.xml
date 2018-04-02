@@ -23,13 +23,13 @@
     <configuration>
         <stop-on-errors>false</stop-on-errors>
         <allowed-exceptions>
-            <exception>org.dozer.vo.allowedexceptions.TestException</exception>
+            <exception>com.github.dozermapper.core.vo.allowedexceptions.TestException</exception>
         </allowed-exceptions>
     </configuration>
 
     <mapping>
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
         <field>
             <a>throwAllowedExceptionOnMap</a>
             <b>throwAllowedExceptionOnMapPrime</b>

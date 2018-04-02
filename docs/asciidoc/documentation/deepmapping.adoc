@@ -10,8 +10,8 @@ relationship-type can also be used.
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.deep.SrcDeepObj</class-a>
-    <class-b>org.dozer.vo.deep.DestDeepObj</class-b>
+    <class-a>com.github.dozermapper.core.vo.deep.SrcDeepObj</class-a>
+    <class-b>com.github.dozermapper.core.vo.deep.DestDeepObj</class-b>
     <field>
         <a>srcNestedObj.src1</a>
         <b>dest1</b>
@@ -34,8 +34,8 @@ relationship-type can also be used.
     <field>
         <a>srcNestedObj.hintList2</a>
         <b>hintList2</b>
-        <a-hint>org.dozer.vo.TheFirstSubClass</a-hint>
-        <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+        <a-hint>com.github.dozermapper.core.vo.TheFirstSubClass</a-hint>
+        <b-hint>com.github.dozermapper.core.vo.TheFirstSubClassPrime</b-hint>
     </field>
     <field copy-by-reference="true">
         <a>srcNestedObj.hintList3</a>
@@ -70,7 +70,7 @@ The following is an example of using hints.....
     <a>someField</a>
     <b>someList[1].someOtherList[0].someOtherField</b>
     <b-deep-index-hint>
-        org.dozer.vo.TestObject, org.dozer.vo.AnotherTestObject
+        com.github.dozermapper.core.vo.TestObject, com.github.dozermapper.core.vo.AnotherTestObject
     </b-deep-index-hint>
 </field>
 ----

@@ -21,18 +21,18 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.excluded.ZeroA</class-a>
-        <class-b>org.dozer.vo.excluded.ZeroB</class-b>
+        <class-a>com.github.dozermapper.core.vo.excluded.ZeroA</class-a>
+        <class-b>com.github.dozermapper.core.vo.excluded.ZeroB</class-b>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.excluded.OneA</class-a>
-        <class-b>org.dozer.vo.excluded.OneB</class-b>
+        <class-a>com.github.dozermapper.core.vo.excluded.OneA</class-a>
+        <class-b>com.github.dozermapper.core.vo.excluded.OneB</class-b>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.excluded.TwoA</class-a>
-        <class-b>org.dozer.vo.excluded.TwoB</class-b>
+        <class-a>com.github.dozermapper.core.vo.excluded.TwoA</class-a>
+        <class-b>com.github.dozermapper.core.vo.excluded.TwoB</class-b>
         <field>
             <a>id</a>
             <b>id</b>

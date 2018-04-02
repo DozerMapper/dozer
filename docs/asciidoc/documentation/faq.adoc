@@ -226,8 +226,8 @@ mapping instead of the standard mapping logic.
 [source,xml,prettyprint]
 ----
 <custom-converters>
-    <converter type="org.dozer.converters.SomeCustomConverter">
-        <class-a>org.dozer.vo.SomeCustomDoubleObject</class-a>
+    <converter type="com.github.dozermapper.core.converters.SomeCustomConverter">
+        <class-a>com.github.dozermapper.core.vo.SomeCustomDoubleObject</class-a>
         <class-b>java.lang.Double</class-b>
     </converter>
 </custom-converters>
@@ -286,7 +286,7 @@ custom field mapping.
 [source,xml,prettyprint]
 ----
 <mapping map-id="myTestMapping">
-    <class-a>org.dozer.vo.map.SomeComplexType</class-a>
+    <class-a>com.github.dozermapper.core.vo.map.SomeComplexType</class-a>
     <class-b>java.util.Map</class-b>
     <field>
         <a>stringProperty2</a>
@@ -349,7 +349,7 @@ the same type as the elements in the src Collection.
 <field>
     <a>someList</a>
     <b>otherList</b>
-    <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+    <b-hint>com.github.dozermapper.core.vo.TheFirstSubClassPrime</b-hint>
 </field>
 ----
 
@@ -509,9 +509,9 @@ dozer: Successfully loaded custom xml mappings from URL:[file:/local/subversion_
 ----
 
 To debug individual field mappings between classes, set the logging
-level "org.dozer.MappingProcessor=DEBUG". For example, if you are using
+level "com.github.dozermapper.core.MappingProcessor=DEBUG". For example, if you are using
 log4j you would add the following entry to your log4j configuration file
-"log4j.category.org.dozer.MappingProcessor=DEBUG". This will show you
+"log4j.category.com.github.dozermapper.core.MappingProcessor=DEBUG". This will show you
 every field mapping that Dozer performs along with the actual source and
 destination values. You will see output similar to the following....
 
@@ -546,8 +546,8 @@ dozer-global-configuration.xml. Sample global configuration file......
         <date-format>MM/dd/yyyy HH:mm</date-format>
         <wildcard>false</wildcard>
         <custom-converters>
-            <converter type="org.dozer.converters.TestCustomConverter">
-                <class-a>org.dozer.vo.CustomDoubleObject</class-a>
+            <converter type="com.github.dozermapper.core.converters.TestCustomConverter">
+                <class-a>com.github.dozermapper.core.vo.CustomDoubleObject</class-a>
                 <class-b>java.lang.Double</class-b>
             </converter>
         </custom-converters>

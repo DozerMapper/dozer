@@ -16,12 +16,12 @@ You can define global variables for the mapper in *variables* configuration bloc
 <configuration>
    <wildcard>true</wildcard>
    <variables>
-      <variable name="type_name">org.dozer.sample.MyType</variable>
+      <variable name="type_name">com.github.dozermapper.core.sample.MyType</variable>
    </variables>
 </configuration>
 <mapping>
    <class-a>${type_name}</class-a>
-   <class-b>org.dozer.sample.OtherType</class-b>
+   <class-b>com.github.dozermapper.core.sample.OtherType</class-b>
 </mapping>
 ----
 

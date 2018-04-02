@@ -22,7 +22,7 @@
 
     <configuration>
         <custom-converters>
-            <converter type="org.dozer.functional_tests.support.MyDozerConverter">
+            <converter type="com.github.dozermapper.core.functional_tests.support.MyDozerConverter">
                 <class-a>java.lang.String</class-a>
                 <class-b>java.lang.Boolean</class-b>
             </converter>
@@ -30,9 +30,9 @@
     </configuration>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.SimpleObj</class-a>
-        <class-b>org.dozer.vo.SimpleObj</class-b>
-        <field custom-converter="org.dozer.functional_tests.support.MyDozerConverter" custom-converter-param="*">
+        <class-a>com.github.dozermapper.core.vo.SimpleObj</class-a>
+        <class-b>com.github.dozermapper.core.vo.SimpleObj</class-b>
+        <field custom-converter="com.github.dozermapper.core.functional_tests.support.MyDozerConverter" custom-converter-param="*">
             <a>field1</a>
             <b>field7</b>
         </field>
@@ -40,8 +40,8 @@
 
     <mapping type="one-way">
         <class-a>java.util.Collection</class-a>
-        <class-b>org.dozer.functional_tests.NewCustomConverterTest$IntContainer</class-b>
-        <field custom-converter="org.dozer.functional_tests.NewCustomConverterTest$IntConverter">
+        <class-b>com.github.dozermapper.core.functional_tests.NewCustomConverterTest$IntContainer</class-b>
+        <field custom-converter="com.github.dozermapper.core.functional_tests.NewCustomConverterTest$IntConverter">
             <a>this</a>
             <b>value</b>
         </field>
