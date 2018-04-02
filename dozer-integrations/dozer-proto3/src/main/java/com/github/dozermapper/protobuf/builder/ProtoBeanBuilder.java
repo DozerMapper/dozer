@@ -15,8 +15,8 @@
  */
 package com.github.dozermapper.protobuf.builder;
 
+import com.github.dozermapper.core.BeanBuilder;
 import com.google.protobuf.Message;
-import org.dozer.BeanBuilder;
 
 /**
  * {@link BeanBuilder} that instantiates {@link Message}

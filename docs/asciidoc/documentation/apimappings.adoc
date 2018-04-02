@@ -29,20 +29,20 @@ code example.
 
 [source,java,prettyprint]
 ----
-import org.dozer.classmap.RelationshipType;
-import org.dozer.loader.api.BeanMappingBuilder;
-import org.dozer.loader.api.FieldsMappingOptions;
-import org.dozer.loader.api.TypeMappingOptions;
+import com.github.dozermapper.core.classmap.RelationshipType;
+import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
+import com.github.dozermapper.core.loader.api.FieldsMappingOptions;
+import com.github.dozermapper.core.loader.api.TypeMappingOptions;
 
-import static org.dozer.loader.api.FieldsMappingOptions.collectionStrategy;
-import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
-import static org.dozer.loader.api.FieldsMappingOptions.customConverter;
-import static org.dozer.loader.api.FieldsMappingOptions.customConverterId;
-import static org.dozer.loader.api.FieldsMappingOptions.hintA;
-import static org.dozer.loader.api.FieldsMappingOptions.hintB;
-import static org.dozer.loader.api.FieldsMappingOptions.useMapId;
-import static org.dozer.loader.api.TypeMappingOptions.mapId;
-import static org.dozer.loader.api.TypeMappingOptions.mapNull;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.collectionStrategy;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.copyByReference;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.customConverter;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.customConverterId;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.hintA;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.hintB;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.useMapId;
+import static com.github.dozermapper.core.loader.api.TypeMappingOptions.mapId;
+import static com.github.dozermapper.core.loader.api.TypeMappingOptions.mapNull;
 
 public class MyClass {
 
@@ -65,7 +65,7 @@ public class MyClass {
                             customConverterId("id")
                     )
                     .fields("src", "dest",
-                            customConverter("org.dozer.CustomConverter")
+                            customConverter("com.github.dozermapper.core.CustomConverter")
                     );
             }
         };

@@ -15,11 +15,11 @@
  */
 package com.github.dozermapper.protobuf.builder;
 
+import com.github.dozermapper.core.BeanBuilder;
+import com.github.dozermapper.core.builder.BeanBuilderCreationStrategy;
+import com.github.dozermapper.core.factory.BeanCreationDirective;
 import com.github.dozermapper.protobuf.util.ProtoUtils;
 import com.google.protobuf.Message;
-import org.dozer.BeanBuilder;
-import org.dozer.builder.BeanBuilderCreationStrategy;
-import org.dozer.factory.BeanCreationDirective;
 
 /**
  * {@link BeanBuilderCreationStrategy} that is applicable to {@link Message}

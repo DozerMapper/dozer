@@ -21,13 +21,13 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a is-accessible="true">org.dozer.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
-        <class-b is-accessible="true">org.dozer.functional_tests.ClassLevelIsAccessibleTest$Second</class-b>
+        <class-a is-accessible="true">com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
+        <class-b is-accessible="true">com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$Second</class-b>
     </mapping>
 
     <mapping>
-        <class-a is-accessible="true">org.dozer.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
-        <class-b is-accessible="true">org.dozer.functional_tests.ClassLevelIsAccessibleTest$CustomFieldMapped</class-b>
+        <class-a is-accessible="true">com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
+        <class-b is-accessible="true">com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$CustomFieldMapped</class-b>
         <field>
             <a>someField</a>
             <b>otherField</b>
@@ -35,13 +35,13 @@
     </mapping>
 
     <mapping>
-        <class-a is-accessible="true">org.dozer.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
-        <class-b>org.dozer.functional_tests.ClassLevelIsAccessibleTest$BeanClass</class-b>
+        <class-a is-accessible="true">com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
+        <class-b>com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$BeanClass</class-b>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
-        <class-b is-accessible="true">org.dozer.functional_tests.ClassLevelIsAccessibleTest$AnnotationMapped</class-b>
+        <class-a>com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$First</class-a>
+        <class-b is-accessible="true">com.github.dozermapper.core.functional_tests.ClassLevelIsAccessibleTest$AnnotationMapped</class-b>
     </mapping>
 
 </mappings>

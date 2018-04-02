@@ -8,8 +8,8 @@ always the src object and "b" is always the destination object.
 [source,xml,prettyprint]
 ----
 <mapping type="one-way">
-    <class-a>org.dozer.vo.TestObjectFoo</class-a>
-    <class-b>org.dozer.vo.TestObjectFooPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.TestObjectFoo</class-a>
+    <class-b>com.github.dozermapper.core.vo.TestObjectFooPrime</class-b>
     <field>
         <a>oneFoo</a>
         <b>oneFooPrime</b>
@@ -24,8 +24,8 @@ is not mapped.
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.TestObjectFoo2</class-a>
-    <class-b>org.dozer.vo.TestObjectFooPrime2</class-b>
+    <class-a>com.github.dozermapper.core.vo.TestObjectFoo2</class-a>
+    <class-b>com.github.dozermapper.core.vo.TestObjectFooPrime2</class-b>
     <field type="one-way">
         <a>oneFoo2</a>
         <b>oneFooPrime2</b>

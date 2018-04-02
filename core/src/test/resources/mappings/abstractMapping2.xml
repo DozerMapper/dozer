@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.abstractinheritance.A</class-a>
-        <class-b>org.dozer.vo.abstractinheritance.B</class-b>
+        <class-a>com.github.dozermapper.core.vo.abstractinheritance.A</class-a>
+        <class-b>com.github.dozermapper.core.vo.abstractinheritance.B</class-b>
         <field>
             <a>fieldA</a>
             <b>fieldB</b>

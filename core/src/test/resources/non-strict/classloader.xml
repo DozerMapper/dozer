@@ -22,8 +22,8 @@
 
     <configuration>
         <custom-converters>
-            <converter type="org.dozer.functional_tests.support.StringAppendCustomConverter">
-                <class-a>[Lorg.dozer.vo.map.SimpleObj;</class-a>
+            <converter type="com.github.dozermapper.core.functional_tests.support.StringAppendCustomConverter">
+                <class-a>[Lcom.github.dozermapper.core.vo.map.SimpleObj;</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
         </custom-converters>

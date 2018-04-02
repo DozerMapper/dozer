@@ -24,8 +24,8 @@ same name) should be done. The default value is true. For example:
 [source,xml,prettyprint]
 ----
 <mapping wildcard="false">
-    <class-a>org.dozer.vo.AnotherTestObject</class-a>
-    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.AnotherTestObject</class-a>
+    <class-b>com.github.dozermapper.core.vo.AnotherTestObjectPrime</class-b>
     <field>
         <a>field1</a>
         <b>field1</b>
@@ -46,8 +46,8 @@ specified at the mapping or class level. For example:
 [source,xml,prettyprint]
 ----
 <mapping map-null="false">
-    <class-a>org.dozer.vo.AnotherTestObject</class-a>
-    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.AnotherTestObject</class-a>
+    <class-b>com.github.dozermapper.core.vo.AnotherTestObjectPrime</class-b>
     <field>
         <a>field4</a>
         <b>to.one</b>
@@ -60,8 +60,8 @@ OR...
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.AnotherTestObject</class-a>
-    <class-b map-null="false">org.dozer.vo.AnotherTestObjectPrime
+    <class-a>com.github.dozermapper.core.vo.AnotherTestObject</class-a>
+    <class-b map-null="false">com.github.dozermapper.core.vo.AnotherTestObjectPrime
   </class-b>
     <field>
         <a>field4</a>
@@ -79,8 +79,8 @@ This can be specified at the mapping or class level. For example:
 [source,xml,prettyprint]
 ----
 <mapping map-empty-string="false">
-    <class-a>org.dozer.vo.AnotherTestObject</class-a>
-    <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.AnotherTestObject</class-a>
+    <class-b>com.github.dozermapper.core.vo.AnotherTestObjectPrime</class-b>
     <field>
         <a>field4</a>
         <b>to.one</b>
@@ -93,9 +93,9 @@ OR...
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.AnotherTestObject</class-a>
+    <class-a>com.github.dozermapper.core.vo.AnotherTestObject</class-a>
     <class-b map-empty-string="false">
-      org.dozer.vo.AnotherTestObjectPrime
+      com.github.dozermapper.core.vo.AnotherTestObjectPrime
   </class-b>
     <field>
         <a>field4</a>

@@ -15,17 +15,17 @@
  */
 package com.github.dozermapper.spring.functional_tests.support;
 
+import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
 import com.github.dozermapper.spring.vo.Destination;
 import com.github.dozermapper.spring.vo.Source;
-import org.dozer.loader.api.BeanMappingBuilder;
 
-import static org.dozer.loader.api.FieldsMappingOptions.copyByReference;
+import static com.github.dozermapper.core.loader.api.FieldsMappingOptions.copyByReference;
 
 public class SampleBeanMappingBuilder extends BeanMappingBuilder {
 
     @Override
     protected void configure() {
         mapping(Source.class, Destination.class)
-            .fields("name", "value", copyByReference());
+                .fields("name", "value", copyByReference());
     }
 }

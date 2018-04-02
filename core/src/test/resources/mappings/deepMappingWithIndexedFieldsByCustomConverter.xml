@@ -21,9 +21,9 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.deepindex.customconverter.First</class-a>
-        <class-b>org.dozer.vo.deepindex.customconverter.Last</class-b>
-        <field custom-converter="org.dozer.vo.deepindex.customconverter.Conv">
+        <class-a>com.github.dozermapper.core.vo.deepindex.customconverter.First</class-a>
+        <class-b>com.github.dozermapper.core.vo.deepindex.customconverter.Last</class-b>
+        <field custom-converter="com.github.dozermapper.core.vo.deepindex.customconverter.Conv">
             <!-- <a>second.thirdArray[7]</a> -->
             <!-- <a>secondArray[0].third</a> -->
             <a>secondArray[0].thirdArray[7]</a>

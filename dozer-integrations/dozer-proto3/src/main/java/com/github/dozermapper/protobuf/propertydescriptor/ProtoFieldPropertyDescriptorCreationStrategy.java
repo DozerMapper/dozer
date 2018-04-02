@@ -15,16 +15,16 @@
  */
 package com.github.dozermapper.protobuf.propertydescriptor;
 
+import com.github.dozermapper.core.config.BeanContainer;
+import com.github.dozermapper.core.factory.DestBeanCreator;
+import com.github.dozermapper.core.fieldmap.HintContainer;
+import com.github.dozermapper.core.propertydescriptor.DozerPropertyDescriptor;
+import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorCreationStrategy;
+import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
+import com.github.dozermapper.core.util.MappingUtils;
 import com.github.dozermapper.protobuf.util.ProtoUtils;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
-import org.dozer.config.BeanContainer;
-import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.propertydescriptor.DozerPropertyDescriptor;
-import org.dozer.propertydescriptor.PropertyDescriptorCreationStrategy;
-import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.util.MappingUtils;
 
 /**
  * {@link PropertyDescriptorCreationStrategy} which is used to build {@link ProtoFieldPropertyDescriptor}

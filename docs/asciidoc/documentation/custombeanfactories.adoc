@@ -6,7 +6,7 @@ using a default constructor. This is sufficient for most use cases, but
 if you need more flexibility you can specify your own bean factories to
 instantiate the data objects.
 
-Your custom bean factory must implement the `org.dozer.BeanFactory`
+Your custom bean factory must implement the `com.github.dozermapper.core.BeanFactory`
 interface. By default the Dozer mapping engine will use the destination
 object class name for the bean id when calling the factory.
 
@@ -84,7 +84,7 @@ control techniques.
 [source,xml,prettyprint]
 ----
 <beans>
-    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+    <bean id="com.github.dozermapper.core.Mapper" class="com.github.dozermapper.core.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
                 <value>dozerBeanMapping.xml</value>
@@ -94,7 +94,7 @@ control techniques.
             <map>
                 <!-- the key matches the name of the factory in the
              dozerBeanMapping.xml file -->
-                <entry key="org.dozer.factories.SampleCustomBeanFactory">
+                <entry key="com.github.dozermapper.core.factories.SampleCustomBeanFactory">
                     <ref bean="sampleCustomBeanFactory" />
                 </entry>
                 <!-- more factories can be supplied with additional
@@ -102,7 +102,7 @@ control techniques.
             </map>
         </property>
     </bean>
-    <bean id="sampleCustomBeanFactory" class="org.dozer.factories.SampleCustomBeanFactory" />
+    <bean id="sampleCustomBeanFactory" class="com.github.dozermapper.core.factories.SampleCustomBeanFactory" />
 </beans>
 ----
 

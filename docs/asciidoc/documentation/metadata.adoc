@@ -5,7 +5,7 @@ currently active mapping definitions.
 
 The following sections will give some code examples how to use the
 mapping query interfaces. The most important interface in the whole
-process is `org.dozer.metadata.MappingMetadata`. An instance can be
+process is `com.github.dozermapper.core.metadata.MappingMetadata`. An instance can be
 acquired by calling the `getMappingMetadata()` method of the
 `Mapper` instance.
 
@@ -18,8 +18,8 @@ Consider the following mapping file:
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
     <mapping>
-        <class-a>org.dozer.vo.ClassA</class-a>
-        <class-b>org.dozer.vo.ClassB</class-b>
+        <class-a>com.github.dozermapper.core.vo.ClassA</class-a>
+        <class-b>com.github.dozermapper.core.vo.ClassB</class-b>
         <field>
             <a>fieldA</a>
             <b>fieldB</b>

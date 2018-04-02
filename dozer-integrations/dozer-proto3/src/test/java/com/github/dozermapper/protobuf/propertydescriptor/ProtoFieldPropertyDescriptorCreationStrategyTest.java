@@ -15,13 +15,13 @@
  */
 package com.github.dozermapper.protobuf.propertydescriptor;
 
+import com.github.dozermapper.core.config.BeanContainer;
+import com.github.dozermapper.core.factory.DestBeanCreator;
+import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
 import com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects;
-import org.dozer.config.BeanContainer;
-import org.dozer.factory.DestBeanCreator;
-import org.dozer.propertydescriptor.PropertyDescriptorFactory;
+
 import org.junit.Before;
 import org.junit.Test;
-
 
 import static org.junit.Assert.assertTrue;
 
@@ -38,8 +38,7 @@ public class ProtoFieldPropertyDescriptorCreationStrategyTest {
 
     @Test
     public void isApplicableTrueIfMessageAndDeepMapping() {
-        assertTrue(strategy.isApplicable(
-            /*any proto message class*/ProtoTestObjects.SimpleProtoTestObject.class,
-            "deep.mapping"));
+        /*any proto message class*/
+        assertTrue(strategy.isApplicable(ProtoTestObjects.SimpleProtoTestObject.class,"deep.mapping"));
     }
 }

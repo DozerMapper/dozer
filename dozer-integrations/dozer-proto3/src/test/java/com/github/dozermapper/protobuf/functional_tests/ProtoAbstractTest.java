@@ -15,9 +15,9 @@
  */
 package com.github.dozermapper.protobuf.functional_tests;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.Mapper;
-import org.dozer.util.DozerConstants;
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.util.DozerConstants;
 
 public abstract class ProtoAbstractTest {
 

@@ -6,8 +6,8 @@ at the field level.
 [source,xml,prettyprint]
 ----
 <mapping map-id="caseA">
-    <class-a>org.dozer.vo.context.ContextMapping</class-a>
-    <class-b>org.dozer.vo.context.ContextMappingPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.context.ContextMapping</class-a>
+    <class-b>com.github.dozermapper.core.vo.context.ContextMappingPrime</class-b>
     <field-exclude>
         <a>loanNo</a>
         <b>loanNo</b>
@@ -15,17 +15,17 @@ at the field level.
     <field map-id="caseC">
         <a>contextList</a>
         <b>contextList</b>
-        <b-hint>org.dozer.vo.context.ContextMappingNestedPrime
+        <b-hint>com.github.dozermapper.core.vo.context.ContextMappingNestedPrime
      </b-hint>
     </field>
 </mapping>
 <mapping map-id="caseB">
-    <class-a>org.dozer.vo.context.ContextMapping</class-a>
-    <class-b>org.dozer.vo.context.ContextMappingPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.context.ContextMapping</class-a>
+    <class-b>com.github.dozermapper.core.vo.context.ContextMappingPrime</class-b>
 </mapping>
 <mapping map-id="caseC">
-    <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
-    <class-b>org.dozer.vo.context.ContextMappingNestedPrime
+    <class-a>com.github.dozermapper.core.vo.context.ContextMappingNested</class-a>
+    <class-b>com.github.dozermapper.core.vo.context.ContextMappingNestedPrime
   </class-b>
     <field-exclude>
         <a>loanNo</a>
@@ -33,8 +33,8 @@ at the field level.
     </field-exclude>
 </mapping>
 <mapping map-id="caseD">
-    <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
-    <class-b>org.dozer.vo.context.ContextMappingNestedPrime
+    <class-a>com.github.dozermapper.core.vo.context.ContextMappingNested</class-a>
+    <class-b>com.github.dozermapper.core.vo.context.ContextMappingNestedPrime
   </class-b>
 </mapping>
 ----

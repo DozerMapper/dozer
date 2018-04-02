@@ -18,7 +18,7 @@ Proxy implementation is set-up by modifying
 link:configuration/configuration.adoc[configuration file]. Currently,
 besides of default behavior, Hibernate and No-Proxy modes are supported.
 For the full list of the implementations, see the list of
-org.dozer.util.DozerProxyResolver interface implementations. The list
+com.github.dozermapper.core.util.DozerProxyResolver interface implementations. The list
 could be retrieved from JavaDocs.
 
 In case you do not map proxied objects - use NoProxy resolver, which
@@ -26,5 +26,5 @@ imposes minimum performance overhead.
 
 === Custom Scenarios
 For custom scenarios it is possible to provide your own implementation
-of org.dozer.util.DozerProxyResolver interface. It is configured in the
+of com.github.dozermapper.core.util.DozerProxyResolver interface. It is configured in the
 same way as the standard classes.

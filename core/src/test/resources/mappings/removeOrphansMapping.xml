@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping map-id="testRemoveOrphansOnList">
-        <class-a>org.dozer.vo.perf.MyClassA</class-a>
-        <class-b>org.dozer.vo.perf.MyClassB</class-b>
+        <class-a>com.github.dozermapper.core.vo.perf.MyClassA</class-a>
+        <class-b>com.github.dozermapper.core.vo.perf.MyClassB</class-b>
         <field remove-orphans="true" relationship-type="non-cumulative">
             <a>AStringList</a>
             <b>AStringList</b>
@@ -30,13 +30,13 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.orphan.Parent</class-a>
-        <class-b>org.dozer.vo.orphan.ParentPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.orphan.Parent</class-a>
+        <class-b>com.github.dozermapper.core.vo.orphan.ParentPrime</class-b>
         <field relationship-type="non-cumulative" remove-orphans="true">
             <a>childrenSet</a>
             <b>childrenSet</b>
-            <a-hint>org.dozer.vo.orphan.Child</a-hint>
-            <b-hint>org.dozer.vo.orphan.ChildPrime</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.orphan.Child</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.orphan.ChildPrime</b-hint>
         </field>
         <field relationship-type="non-cumulative" remove-orphans="true">
             <a>childrenList</a>
@@ -45,8 +45,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.orphan.Child</class-a>
-        <class-b>org.dozer.vo.orphan.ChildPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.orphan.Child</class-a>
+        <class-b>com.github.dozermapper.core.vo.orphan.ChildPrime</class-b>
     </mapping>
 
 </mappings>

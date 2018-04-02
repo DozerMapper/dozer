@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping map-id="caseA">
-        <class-a>org.dozer.vo.context.ContextMapping</class-a>
-        <class-b>org.dozer.vo.context.ContextMappingPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.context.ContextMapping</class-a>
+        <class-b>com.github.dozermapper.core.vo.context.ContextMappingPrime</class-b>
         <field-exclude>
             <a>loanNo</a>
             <b>loanNo</b>
@@ -30,19 +30,19 @@
         <field map-id="caseC">
             <a>contextList</a>
             <b>contextList</b>
-            <a-hint>org.dozer.vo.context.ContextMappingNested</a-hint>
-            <b-hint>org.dozer.vo.context.ContextMappingNestedPrime</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.context.ContextMappingNested</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.context.ContextMappingNestedPrime</b-hint>
         </field>
     </mapping>
 
     <mapping map-id="caseB">
-        <class-a>org.dozer.vo.context.ContextMapping</class-a>
-        <class-b>org.dozer.vo.context.ContextMappingPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.context.ContextMapping</class-a>
+        <class-b>com.github.dozermapper.core.vo.context.ContextMappingPrime</class-b>
     </mapping>
 
     <mapping map-id="caseC">
-        <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
-        <class-b>org.dozer.vo.context.ContextMappingNestedPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.context.ContextMappingNested</class-a>
+        <class-b>com.github.dozermapper.core.vo.context.ContextMappingNestedPrime</class-b>
         <field-exclude>
             <a>loanNo</a>
             <b>loanNo</b>
@@ -50,8 +50,8 @@
     </mapping>
 
     <mapping map-id="caseD">
-        <class-a>org.dozer.vo.context.ContextMappingNested</class-a>
-        <class-b>org.dozer.vo.context.ContextMappingNestedPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.context.ContextMappingNested</class-a>
+        <class-b>com.github.dozermapper.core.vo.context.ContextMappingNestedPrime</class-b>
     </mapping>
 
 </mappings>

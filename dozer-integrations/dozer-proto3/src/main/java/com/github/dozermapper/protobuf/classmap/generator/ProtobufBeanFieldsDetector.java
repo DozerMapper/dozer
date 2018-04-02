@@ -18,10 +18,10 @@ package com.github.dozermapper.protobuf.classmap.generator;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.github.dozermapper.core.classmap.generator.BeanFieldsDetector;
 import com.github.dozermapper.protobuf.util.ProtoUtils;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
-import org.dozer.classmap.generator.BeanFieldsDetector;
 
 /**
  * {@link BeanFieldsDetector} that accepts {@link Message}

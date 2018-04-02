@@ -22,13 +22,13 @@
 
     <configuration>
         <copy-by-references>
-            <copy-by-reference>org.dozer.vo.copybyreference.ReferencedObject</copy-by-reference>
+            <copy-by-reference>com.github.dozermapper.core.vo.copybyreference.ReferencedObject</copy-by-reference>
         </copy-by-references>
     </configuration>
 
     <mapping map-id="one-way">
-        <class-a>org.dozer.vo.copybyreference.ReferenceHolderA</class-a>
-        <class-b>org.dozer.vo.copybyreference.ReferenceHolderB</class-b>
+        <class-a>com.github.dozermapper.core.vo.copybyreference.ReferenceHolderA</class-a>
+        <class-b>com.github.dozermapper.core.vo.copybyreference.ReferenceHolderB</class-b>
         <field type="one-way">
             <a>referencedObject</a>
             <b>referencedObject</b>
@@ -36,8 +36,8 @@
     </mapping>
 
     <mapping map-id="bi-directional">
-        <class-a>org.dozer.vo.copybyreference.ReferenceHolderA</class-a>
-        <class-b>org.dozer.vo.copybyreference.ReferenceHolderB</class-b>
+        <class-a>com.github.dozermapper.core.vo.copybyreference.ReferenceHolderA</class-a>
+        <class-b>com.github.dozermapper.core.vo.copybyreference.ReferenceHolderB</class-b>
         <field>
             <a>referencedObject</a>
             <b>referencedObject</b>

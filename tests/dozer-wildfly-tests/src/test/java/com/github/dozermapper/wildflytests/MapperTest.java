@@ -17,10 +17,10 @@ package com.github.dozermapper.wildflytests;
 
 import java.io.File;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.osgitestsmodel.Person;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.Mapper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;

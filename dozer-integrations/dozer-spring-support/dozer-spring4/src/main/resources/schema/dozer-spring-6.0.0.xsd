@@ -22,13 +22,13 @@
            targetNamespace="http://dozer.sourceforge.net/schema/dozer-spring"
            elementFormDefault="qualified">
 
-  <xs:import namespace="http://www.springframework.org/schema/beans"/>
+    <xs:import namespace="http://www.springframework.org/schema/beans"/>
 
-  <xs:element name="mapper">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="beans:identifiedType"/>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
+    <xs:element name="mapper">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="beans:identifiedType"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

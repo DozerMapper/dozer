@@ -21,18 +21,18 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.MessageHeaderVO</class-a>
-        <class-b>org.dozer.vo.MessageHeaderDTO</class-b>
+        <class-a>com.github.dozermapper.core.vo.MessageHeaderVO</class-a>
+        <class-b>com.github.dozermapper.core.vo.MessageHeaderDTO</class-b>
         <field>
             <a>msgIds</a>
             <b>idList.msgIdsArray</b>
-            <a-hint>org.dozer.vo.MessageIdVO</a-hint>
+            <a-hint>com.github.dozermapper.core.vo.MessageIdVO</a-hint>
             <b-hint>java.lang.String</b-hint>
         </field>
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.MessageIdVO</class-a>
+        <class-a>com.github.dozermapper.core.vo.MessageIdVO</class-a>
         <class-b>java.lang.String</class-b>
         <field>
             <a>id</a>
@@ -41,8 +41,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.Outer</class-a>
-        <class-b>org.dozer.vo.inheritance.Target</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.Outer</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.Target</class-b>
         <field>
             <a>inner.string</a>
             <b>string</b>
@@ -50,8 +50,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.CustomGetSource</class-a>
-        <class-b>org.dozer.vo.CustomGetDest</class-b>
+        <class-a>com.github.dozermapper.core.vo.CustomGetSource</class-a>
+        <class-b>com.github.dozermapper.core.vo.CustomGetDest</class-b>
         <field>
             <a get-method="getValue(int)">value</a>
             <b>value</b>

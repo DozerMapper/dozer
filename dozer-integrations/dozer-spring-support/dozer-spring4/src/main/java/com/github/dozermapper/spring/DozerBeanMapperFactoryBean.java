@@ -22,13 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dozer.BeanFactory;
-import org.dozer.CustomConverter;
-import org.dozer.CustomFieldMapper;
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.DozerEventListener;
-import org.dozer.Mapper;
-import org.dozer.loader.api.BeanMappingBuilder;
+import com.github.dozermapper.core.BeanFactory;
+import com.github.dozermapper.core.CustomConverter;
+import com.github.dozermapper.core.CustomFieldMapper;
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.DozerEventListener;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -69,7 +70,7 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
      * Could be used for loading all mapping files by wildcard definition for example
      * <pre>
      * {@code
-     *  <bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+     *  <bean class="com.github.dozermapper.core.spring.DozerBeanMapperFactoryBean">
      *      <property name="mappingFiles" value="classpath*:/*.dozer.xml"/>
      *  <\/bean>
      * }

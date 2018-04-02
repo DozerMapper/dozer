@@ -33,21 +33,21 @@
     <name>Dozer :: Core</name>
 
     <properties>
-        <osgi.Bundle-Activator>org.dozer.osgi.Activator</osgi.Bundle-Activator>
+        <osgi.Bundle-Activator>com.github.dozermapper.core.osgi.Activator</osgi.Bundle-Activator>
         <!--
         <osgi.additional.Import-Package>
             org.hibernate.proxy;version="[4.2,6)";resolution:=optional,
             javassist.util.proxy;version="[3.13,4)";resolution:=optional
         </osgi.additional.Import-Package>
         -->
-        <osgi.Export-Package>org.dozer.*</osgi.Export-Package>
+        <osgi.Export-Package>com.github.dozermapper.core.*</osgi.Export-Package>
         <!-- ServiceLoader Capability -->
         <osgi.Require-Capability>
-            osgi.serviceloader; filter:="(osgi.serviceloader=org.dozer.DozerModule)";cardinality:=multiple;resolution:=optional,
+            osgi.serviceloader; filter:="(osgi.serviceloader=com.github.dozermapper.core.DozerModule)";cardinality:=multiple;resolution:=optional,
             osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
         </osgi.Require-Capability>
         <osgi.SPI-Consumer>*</osgi.SPI-Consumer>
-        
+
         <!-- NOTE: Needs to be removed in future -->
         <spotbugs.skip>true</spotbugs.skip>
 
@@ -188,7 +188,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>**/org/dozer/vo/**</exclude>
+                        <exclude>**/com/github/dozermapper/core/vo/**</exclude>
                         <exclude>**/net/pmonks/**</exclude>
                     </excludes>
                 </configuration>
@@ -278,7 +278,7 @@
                                 <configuration>
                                     <workDirectory>${project.build.directory}/generated-resources/schemagen</workDirectory>
                                     <includes>
-                                        org/dozer/builder/model/jaxb/**
+                                        com/github/dozermapper/core/builder/model/jaxb/**
                                     </includes>
                                     <transformSchemas>
                                         <transformSchema>
@@ -313,7 +313,7 @@
                                 <configuration>
                                     <workDirectory>${project.build.directory}/generated-resources/schemagen</workDirectory>
                                     <includes>
-                                        org/dozer/builder/model/jaxb/**
+                                        com/github/dozermapper/core/builder/model/jaxb/**
                                     </includes>
                                 </configuration>
                             </execution>

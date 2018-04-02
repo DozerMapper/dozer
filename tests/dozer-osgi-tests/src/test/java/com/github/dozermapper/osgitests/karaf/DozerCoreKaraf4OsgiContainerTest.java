@@ -16,6 +16,7 @@
 package com.github.dozermapper.osgitests.karaf;
 
 import com.github.dozermapper.osgitests.DozerCoreOsgiContainerTest;
+
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;

@@ -22,7 +22,7 @@
 
     <configuration>
         <copy-by-references>
-            <copy-by-reference>org.dozer.vo.SimpleEnum</copy-by-reference>
+            <copy-by-reference>com.github.dozermapper.core.vo.SimpleEnum</copy-by-reference>
         </copy-by-references>
     </configuration>
 

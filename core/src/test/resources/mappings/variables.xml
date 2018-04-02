@@ -23,11 +23,11 @@
     <configuration>
         <wildcard>true</wildcard>
         <variables>
-            <variable name="container">org.dozer.functional_tests.VariablesTest$Container</variable>
-            <variable name="child">org.dozer.functional_tests.VariablesTest$Child</variable>
-            <variable name="childClone">org.dozer.functional_tests.VariablesTest$ChildClone</variable>
-            <variable name="parent">org.dozer.functional_tests.VariablesTest$Parent</variable>
-            <variable name="parentClone">org.dozer.functional_tests.VariablesTest$ParentClone</variable>
+            <variable name="container">com.github.dozermapper.core.functional_tests.VariablesTest$Container</variable>
+            <variable name="child">com.github.dozermapper.core.functional_tests.VariablesTest$Child</variable>
+            <variable name="childClone">com.github.dozermapper.core.functional_tests.VariablesTest$ChildClone</variable>
+            <variable name="parent">com.github.dozermapper.core.functional_tests.VariablesTest$Parent</variable>
+            <variable name="parentClone">com.github.dozermapper.core.functional_tests.VariablesTest$ParentClone</variable>
         </variables>
     </configuration>
 

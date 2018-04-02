@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.inheritance.twolevel.C</class-a>
-        <class-b>org.dozer.vo.inheritance.twolevel.A</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.twolevel.C</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.twolevel.A</class-b>
         <field>
             <a>a</a>
             <b>a</b>
@@ -30,8 +30,8 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.inheritance.twolevel.C</class-a>
-        <class-b>org.dozer.vo.inheritance.twolevel.B</class-b>
+        <class-a>com.github.dozermapper.core.vo.inheritance.twolevel.C</class-a>
+        <class-b>com.github.dozermapper.core.vo.inheritance.twolevel.B</class-b>
         <field>
             <a>b</a>
             <b>b</b>

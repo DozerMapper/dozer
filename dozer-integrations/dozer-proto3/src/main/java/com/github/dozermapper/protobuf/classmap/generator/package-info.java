@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 /**
- * {@link org.dozer.classmap.generator.BeanFieldsDetector} extensions for Protbuf
+ * {@link com.github.dozermapper.core.classmap.generator.BeanFieldsDetector} extensions for Protbuf
  */
 package com.github.dozermapper.protobuf.classmap.generator;

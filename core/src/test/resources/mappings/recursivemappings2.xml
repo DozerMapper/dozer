@@ -20,19 +20,19 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="true">
-        <class-a>org.dozer.vo.recursive.ClassB</class-a>
-        <class-b>org.dozer.vo.recursive.ClassBPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.recursive.ClassB</class-a>
+        <class-b>com.github.dozermapper.core.vo.recursive.ClassBPrime</class-b>
         <field>
             <a>parent</a>
             <b>parent</b>
-            <a-hint>org.dozer.vo.recursive.ClassA</a-hint>
-            <b-hint>org.dozer.vo.recursive.ClassAPrime</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.recursive.ClassA</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.recursive.ClassAPrime</b-hint>
         </field>
     </mapping>
 
     <mapping wildcard="false" map-id="minimal">
-        <class-a>org.dozer.vo.recursive.ClassB</class-a>
-        <class-b>org.dozer.vo.recursive.ClassBPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.recursive.ClassB</class-a>
+        <class-b>com.github.dozermapper.core.vo.recursive.ClassBPrime</class-b>
         <field>
             <a>rue</a>
             <b>rue</b>
@@ -40,8 +40,8 @@
         <field>
             <a>parent</a>
             <b>parent</b>
-            <a-hint>org.dozer.vo.recursive.ClassA</a-hint>
-            <b-hint>org.dozer.vo.recursive.ClassAPrime</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.recursive.ClassA</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.recursive.ClassAPrime</b-hint>
         </field>
     </mapping>
 

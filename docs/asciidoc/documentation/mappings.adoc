@@ -20,16 +20,16 @@ An example of a mapping file....
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
     <mapping>
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
         <field>
             <a>one</a>
             <b>onePrime</b>
         </field>
     </mapping>
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.TestObjectFoo</class-a>
-        <class-b>org.dozer.vo.TestObjectFooPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObjectFoo</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectFooPrime</class-b>
         <field>
             <a>oneFoo</a>
             <b>oneFooPrime</b>

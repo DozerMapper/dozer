@@ -17,8 +17,8 @@ is overridden at the field level.
 [source,xml,prettyprint]
 ----
 <mapping date-format="MM-dd-yyyy HH:mm:ss">
-    <class-a>org.dozer.vo.TestObject</class-a>
-    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+    <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
     <field>
         <a>dateString</a>
         <b>dateObject</b>
@@ -37,16 +37,16 @@ unless it is overridden at a lower level
         <date-format>MM/dd/yyyy HH:mm</date-format>
     </configuration>
     <mapping wildcard="true">
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
         <field>
             <a>dateString</a>
             <b>dateObject</b>
         </field>
     </mapping>
     <mapping>
-        <class-a>org.dozer.vo.SomeObject</class-a>
-        <class-b>org.dozer.vo.SomeOtherObject</class-b>
+        <class-a>com.github.dozermapper.core.vo.SomeObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.SomeOtherObject</class-b>
         <field>
             <a>srcField</a>
             <b>destField</b>

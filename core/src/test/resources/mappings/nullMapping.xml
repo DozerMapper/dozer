@@ -22,7 +22,7 @@
 
     <mapping map-id="null" wildcard="false">
         <class-a>java.util.HashMap</class-a>
-        <class-b>org.dozer.vo.A</class-b>
+        <class-b>com.github.dozermapper.core.vo.A</class-b>
         <field>
             <a key="key">this</a>
             <b>b</b>
@@ -31,7 +31,7 @@
 
     <mapping map-id="not-null" map-null="false" wildcard="false">
         <class-a>java.util.HashMap</class-a>
-        <class-b>org.dozer.vo.A</class-b>
+        <class-b>com.github.dozermapper.core.vo.A</class-b>
         <field>
             <a key="key">this</a>
             <b>b</b>
@@ -39,8 +39,8 @@
     </mapping>
 
     <mapping map-id="null-set" wildcard="false">
-        <class-a>org.dozer.vo.set.NamesArray</class-a>
-        <class-b>org.dozer.vo.set.NamesSet</class-b>
+        <class-a>com.github.dozermapper.core.vo.set.NamesArray</class-a>
+        <class-b>com.github.dozermapper.core.vo.set.NamesSet</class-b>
         <field>
             <a>names</a>
             <b>names</b>
@@ -49,8 +49,8 @@
     </mapping>
 
     <mapping map-id="null-list" wildcard="false">
-        <class-a>org.dozer.vo.set.NamesArray</class-a>
-        <class-b>org.dozer.vo.set.NamesList</class-b>
+        <class-a>com.github.dozermapper.core.vo.set.NamesArray</class-a>
+        <class-b>com.github.dozermapper.core.vo.set.NamesList</class-b>
         <field>
             <a>names</a>
             <b>names</b>

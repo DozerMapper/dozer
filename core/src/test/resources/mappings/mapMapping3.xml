@@ -21,13 +21,13 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.map.SimpleObj</class-a>
-        <class-b>org.dozer.vo.map.SimpleObjPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.map.SimpleObj</class-a>
+        <class-b>com.github.dozermapper.core.vo.map.SimpleObjPrime</class-b>
     </mapping>
 
     <mapping>
         <class-a>java.util.HashMap</class-a>
-        <class-b>org.dozer.vo.map.NestedObjPrime</class-b>
+        <class-b>com.github.dozermapper.core.vo.map.NestedObjPrime</class-b>
         <field-exclude>
             <a>field1</a>
             <b>field1</b>
@@ -35,8 +35,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.map.CustomMap</class-a>
-        <class-b>org.dozer.vo.SimpleObj</class-b>
+        <class-a>com.github.dozermapper.core.vo.map.CustomMap</class-a>
+        <class-b>com.github.dozermapper.core.vo.SimpleObj</class-b>
         <field>
             <a map-get-method="getValue" map-set-method="putValue" key="fieldA" date-format="MM/dd/yyyy">this</a>
             <b>field5</b>

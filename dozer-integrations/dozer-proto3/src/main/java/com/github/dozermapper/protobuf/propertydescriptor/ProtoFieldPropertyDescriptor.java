@@ -19,25 +19,26 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import com.github.dozermapper.core.BeanBuilder;
+import com.github.dozermapper.core.MappingException;
+import com.github.dozermapper.core.config.BeanContainer;
+import com.github.dozermapper.core.factory.DestBeanCreator;
+import com.github.dozermapper.core.fieldmap.FieldMap;
+import com.github.dozermapper.core.fieldmap.HintContainer;
+import com.github.dozermapper.core.propertydescriptor.AbstractPropertyDescriptor;
+import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
+import com.github.dozermapper.core.util.DeepHierarchyUtils;
+import com.github.dozermapper.core.util.MappingUtils;
 import com.github.dozermapper.protobuf.builder.ProtoBeanBuilder;
 import com.github.dozermapper.protobuf.util.ProtoUtils;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
-import org.dozer.BeanBuilder;
-import org.dozer.MappingException;
-import org.dozer.config.BeanContainer;
-import org.dozer.factory.DestBeanCreator;
-import org.dozer.fieldmap.FieldMap;
-import org.dozer.fieldmap.HintContainer;
-import org.dozer.propertydescriptor.AbstractPropertyDescriptor;
-import org.dozer.propertydescriptor.PropertyDescriptorFactory;
-import org.dozer.util.DeepHierarchyUtils;
-import org.dozer.util.MappingUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * {@link org.dozer.propertydescriptor.DozerPropertyDescriptor} which resolves Protobuf fields
+ * {@link com.github.dozermapper.core.propertydescriptor.DozerPropertyDescriptor} which resolves Protobuf fields
  */
 public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
 
@@ -52,7 +53,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
     private Descriptors.FieldDescriptor fieldDescriptor;
 
     /**
-     * {@link org.dozer.propertydescriptor.DozerPropertyDescriptor} which resolves Protobuf fields
+     * {@link com.github.dozermapper.core.propertydescriptor.DozerPropertyDescriptor} which resolves Protobuf fields
      *
      * @param clazz                      clazz to work on
      * @param fieldName                  field name to resolve

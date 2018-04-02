@@ -21,13 +21,13 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.set.SomeDTO</class-a>
-        <class-b>org.dozer.vo.set.SomeVO</class-b>
+        <class-a>com.github.dozermapper.core.vo.set.SomeDTO</class-a>
+        <class-b>com.github.dozermapper.core.vo.set.SomeVO</class-b>
         <field>
             <a>Field2</a>
             <b>Field2</b>
-            <a-hint>org.dozer.vo.set.SomeOtherDTO</a-hint>
-            <b-hint>org.dozer.vo.set.SomeOtherVO</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.set.SomeOtherDTO</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.set.SomeOtherVO</b-hint>
         </field>
     </mapping>
 

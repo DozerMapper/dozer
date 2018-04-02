@@ -15,10 +15,10 @@
  */
 package com.github.dozermapper.jmh;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.jmh.model.Person;
 
-import org.dozer.DozerBeanMapperBuilder;
-import org.dozer.Mapper;
 import org.openjdk.jmh.annotations.Benchmark;
 
 public class DozerBeanMapperBenchmark {

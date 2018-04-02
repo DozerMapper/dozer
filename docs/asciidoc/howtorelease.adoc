@@ -3,7 +3,7 @@ The following steps should be followed to perform a release:
 - Build release notes [1]
 - mvn versions:set -DnewVersion=X.X.X
 - mvn versions:commit
-- Update link:core/src/main/java/org/dozer/util/DozerConstants.java[DozerConstants.java]
+- Update link:core/src/main/java/com/github/dozermapper/core/util/DozerConstants.java[DozerConstants.java]
 - Update pom.xml - <building-tools.version/>
 - Update dozer-version in docs for link:docs/asciidoc/documentation/gettingstarted.adoc[Getting Started]
 - Update dozer-version in docs for link:docs/asciidoc/documentation/faq.adoc[FAQ]

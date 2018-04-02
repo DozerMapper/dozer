@@ -22,13 +22,13 @@
 
     <configuration>
         <copy-by-references>
-            <copy-by-reference>org.dozer.*.Reference</copy-by-reference>
+            <copy-by-reference>com.github.dozermapper.core.*.Reference</copy-by-reference>
         </copy-by-references>
     </configuration>
 
     <mapping>
-        <class-a>org.dozer.vo.copybyreference.TestA</class-a>
-        <class-b>org.dozer.vo.copybyreference.TestB</class-b>
+        <class-a>com.github.dozermapper.core.vo.copybyreference.TestA</class-a>
+        <class-b>com.github.dozermapper.core.vo.copybyreference.TestB</class-b>
         <field>
             <a>oneA</a>
             <b>oneB</b>

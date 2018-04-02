@@ -7,9 +7,9 @@ This can either be set at the field level or class level.
 ----
 <mapping>
     <class-a create-method="someCreateMethod">
-    org.dozer.vo.InsideTestObject
+    com.github.dozermapper.core.vo.InsideTestObject
   </class-a>
-    <class-b>org.dozer.vo.InsideTestObjectPrime</class-b>
+    <class-b>com.github.dozermapper.core.vo.InsideTestObjectPrime</class-b>
     <field>
         <a>label</a>
         <b>labelPrime</b>
@@ -22,8 +22,8 @@ Specifying a custom create method at the Field level....
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.TestObject</class-a>
-    <class-b>org.dozer.vo.TestObjectPrime</class-b>
+    <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+    <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
     <field>
         <a>createMethodType</a>
         <b create-method="someCreateMethod">createMethodType</b>
@@ -37,5 +37,5 @@ name separated by dot.
 
 [source,xml,prettyprint]
 ----
-<b create-method="org.dozer.factory.Factory.create">field</b>
+<b create-method="com.github.dozermapper.core.factory.Factory.create">field</b>
 ----

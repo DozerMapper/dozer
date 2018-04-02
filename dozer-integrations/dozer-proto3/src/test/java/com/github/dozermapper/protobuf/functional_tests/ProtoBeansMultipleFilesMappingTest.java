@@ -15,16 +15,16 @@
  */
 package com.github.dozermapper.protobuf.functional_tests;
 
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.protobuf.vo.proto.NestedObject;
 import com.github.dozermapper.protobuf.vo.proto.TestObject;
 import com.github.dozermapper.protobuf.vo.protomultiple.SimpleProtoTestObject;
-import org.dozer.Mapper;
-import org.dozer.config.BeanContainer;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

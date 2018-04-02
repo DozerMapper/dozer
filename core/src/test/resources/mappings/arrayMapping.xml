@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping wildcard="false" map-id="array">
-        <class-a>org.dozer.vo.ArraySource</class-a>
-        <class-b>org.dozer.vo.ArrayDest</class-b>
+        <class-a>com.github.dozermapper.core.vo.ArraySource</class-a>
+        <class-b>com.github.dozermapper.core.vo.ArrayDest</class-b>
         <field relationship-type="non-cumulative">
             <a>preInitializedArray</a>
             <b>preInitializedArray</b>
@@ -30,8 +30,8 @@
     </mapping>
 
     <mapping wildcard="false" map-id="single">
-        <class-a>org.dozer.vo.ArraySource</class-a>
-        <class-b>org.dozer.vo.ArrayDest</class-b>
+        <class-a>com.github.dozermapper.core.vo.ArraySource</class-a>
+        <class-b>com.github.dozermapper.core.vo.ArrayDest</class-b>
         <field relationship-type="non-cumulative">
             <a>value</a>
             <b>array[0]</b>
@@ -39,8 +39,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.ArraySource</class-a>
-        <class-b>org.dozer.vo.ArrayDest</class-b>
+        <class-a>com.github.dozermapper.core.vo.ArraySource</class-a>
+        <class-b>com.github.dozermapper.core.vo.ArrayDest</class-b>
         <field>
             <a>listOfIntegers</a>
             <b>primitiveIntArray</b>

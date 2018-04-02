@@ -21,13 +21,13 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping>
-        <class-a>org.dozer.vo.cumulative.Library</class-a>
-        <class-b>org.dozer.vo.cumulative.LibraryPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.cumulative.Library</class-a>
+        <class-b>com.github.dozermapper.core.vo.cumulative.LibraryPrime</class-b>
         <field remove-orphans="true" relationship-type="non-cumulative">
             <a>books</a>
             <b>books</b>
-            <a-hint>org.dozer.vo.cumulative.Book</a-hint>
-            <b-hint>org.dozer.vo.cumulative.BookPrime</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.cumulative.Book</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.cumulative.BookPrime</b-hint>
         </field>
     </mapping>
 

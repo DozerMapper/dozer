@@ -22,13 +22,13 @@
 
     <configuration>
         <copy-by-references>
-            <copy-by-reference>org.dozer.vo.B</copy-by-reference>
+            <copy-by-reference>com.github.dozermapper.core.vo.B</copy-by-reference>
         </copy-by-references>
     </configuration>
 
     <mapping>
         <class-a>java.util.Map</class-a>
-        <class-b>org.dozer.vo.ValueObject</class-b>
+        <class-b>com.github.dozermapper.core.vo.ValueObject</class-b>
         <field>
             <a key="1">this</a>
             <b>value</b>

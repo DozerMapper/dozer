@@ -10,16 +10,16 @@ you could load mapping Xml files by classpath mask for example.
 
 [source,xml,prettyprint]
 ----
-<bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
+<bean class="com.github.dozermapper.core.spring.DozerBeanMapperFactoryBean">
     <property name="mappingFiles" value="classpath*:/*mapping.xml" />
     <property name="customConverters">
         <list>
-            <bean class="org.dozer.converters.CustomConverter" />
+            <bean class="com.github.dozermapper.core.converters.CustomConverter" />
         </list>
     </property>
     <property name="eventListeners">
         <list>
-            <bean class="org.dozer.listeners.EventListener" />
+            <bean class="com.github.dozermapper.core.listeners.EventListener" />
         </list>
     </property>
     <property name="factories">
@@ -46,7 +46,7 @@ bean.
 
 [source,xml,prettyprint]
 ----
-<bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+<bean id="com.github.dozermapper.core.Mapper" class="com.github.dozermapper.core.DozerBeanMapper">
     <property name="mappingFiles">
         <list>
             <value>dozer-global-configuration.xml</value>

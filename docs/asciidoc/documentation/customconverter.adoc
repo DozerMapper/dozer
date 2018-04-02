@@ -6,7 +6,7 @@ custom converter is specified for a class A and class B combination,
 Dozer will invoke the custom converter to perform the data mapping
 instead of the standard mapping logic.
 
-Your custom converter must implement the `org.dozer.CustomConverter`
+Your custom converter must implement the `com.github.dozermapper.core.CustomConverter`
 interface in order for Dozer to accept it. Otherwise an exception will
 be thrown.
 
@@ -27,18 +27,18 @@ mapping.
     <configuration>
         <custom-converters>
             <!-- these are always bi-directional -->
-            <converter type="org.dozer.converters.TestCustomConverter">
-                <class-a>org.dozer.vo.CustomDoubleObject</class-a>
+            <converter type="com.github.dozermapper.core.converters.TestCustomConverter">
+                <class-a>com.github.dozermapper.core.vo.CustomDoubleObject</class-a>
                 <class-b>java.lang.Double</class-b>
             </converter>
             <!-- You are responsible for mapping everything between
            ClassA and ClassB -->
-            <converter type="org.dozer.converters.TestCustomHashMapConverter">
+            <converter type="com.github.dozermapper.core.converters.TestCustomHashMapConverter">
                 <class-a>
-          org.dozer.vo.TestCustomConverterHashMapObject
+          com.github.dozermapper.core.vo.TestCustomConverterHashMapObject
         </class-a>
                 <class-b>
-          org.dozer.vo.TestCustomConverterHashMapPrimeObject
+          com.github.dozermapper.core.vo.TestCustomConverterHashMapPrimeObject
         </class-b>
             </converter>
         </custom-converters>
@@ -53,9 +53,9 @@ the field mapping.
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.SimpleObj</class-a>
-    <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
-    <field custom-converter="org.dozer.converters.StringAppendCustomConverter">
+    <class-a>com.github.dozermapper.core.vo.SimpleObj</class-a>
+    <class-b>com.github.dozermapper.core.vo.SimpleObjPrime2</class-b>
+    <field custom-converter="com.github.dozermapper.core.converters.StringAppendCustomConverter">
         <a>field1</a>
         <b>field1Prime</b>
     </field>
@@ -69,8 +69,8 @@ perform the field mapping.
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.SimpleObj</class-a>
-    <class-b>org.dozer.vo.SimpleObjPrime2</class-b>
+    <class-a>com.github.dozermapper.core.vo.SimpleObj</class-a>
+    <class-b>com.github.dozermapper.core.vo.SimpleObjPrime2</class-b>
     <field custom-converter-id="CustomConverterWithId">
         <a>field1</a>
         <b>field1Prime</b>
@@ -85,7 +85,7 @@ perform the field mapping.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans default-lazy-init="false">
-    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+    <bean id="com.github.dozermapper.core.Mapper" class="com.github.dozermapper.core.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
                 <value>dozerBeanMapping.xml</value>
@@ -110,8 +110,8 @@ implementation.
 
 [source,java,prettyprint]
 ----
-import org.dozer.CustomConverter;
-import org.dozer.MappingException;
+import com.github.dozermapper.core.CustomConverter;
+import com.github.dozermapper.core.MappingException;
 
 public class TestCustomConverter implements CustomConverter {
 
@@ -154,7 +154,7 @@ need to do some manipulation with them before they are used in dozer.
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <beans default-lazy-init="false">
-    <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
+    <bean id="com.github.dozermapper.core.Mapper" class="com.github.dozermapper.core.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
                 <value>dozerBeanMapping.xml</value>
@@ -168,7 +168,7 @@ need to do some manipulation with them before they are used in dozer.
         </property>
     </bean>
     <!-- custom converter -->
-    <bean id="customConverterTest" class="org.dozer.converters.InjectedCustomConverter">
+    <bean id="customConverterTest" class="com.github.dozermapper.core.converters.InjectedCustomConverter">
         <property name="injectedName">
             <value>injectedName</value>
         </property>
@@ -182,12 +182,12 @@ want to use a custom converter for mapping between an array of objects
 and a String you would use the following mapping notation. Dozer
 generically uses `ClassLoader.loadClass()` when parsing the mapping files.
 For arrays, java expects the class name in the following format:
-`[Lorg.dozer.vo.SimpleObj`;
+`[Lcom.github.dozermapper.core.vo.SimpleObj`;
 
 [source,xml,prettyprint]
 ----
-<converter type="org.dozer.converters.StringAppendCustomConverter">
-    <class-a>[Lorg.dozer.vo.SimpleObj;</class-a>
+<converter type="com.github.dozermapper.core.converters.StringAppendCustomConverter">
+    <class-a>[Lcom.github.dozermapper.core.vo.SimpleObj;</class-a>
     <class-b>java.lang.String</class-b>
 </converter>
 ----
@@ -218,9 +218,9 @@ param. Parameter is provided using `custom-converter-param` attribute.
 [source,xml,prettyprint]
 ----
 <mapping>
-    <class-a>org.dozer.vo.BeanA</class-a>
-    <class-b>org.dozer.vo.BeanB</class-b>
-    <field custom-converter="org.dozer.converters.MathOperationConverter" custom-converter-param="+">
+    <class-a>com.github.dozermapper.core.vo.BeanA</class-a>
+    <class-b>com.github.dozermapper.core.vo.BeanB</class-b>
+    <field custom-converter="com.github.dozermapper.core.converters.MathOperationConverter" custom-converter-param="+">
         <a>amount</a>
         <b>amount</b>
     </field>
@@ -233,8 +233,8 @@ combinations is too high to do simple Custom Converter subclassing.
 
 [source,java,prettyprint]
 ----
-import org.dozer.ConfigurableCustomConverter;
-import org.dozer.MappingException;
+import com.github.dozermapper.core.ConfigurableCustomConverter;
+import com.github.dozermapper.core.MappingException;
 
 public class MathOperationConverter implements ConfigurableCustomConverter {
 
@@ -283,7 +283,7 @@ demonstrates simple, yet working converter using new API.
 
 [source,java,prettyprint]
 ----
-import org.dozer.DozerConverter;
+import com.github.dozermapper.core.DozerConverter;
 
 public class NewDozerConverter extends DozerConverter<String, Boolean> {
 
@@ -331,9 +331,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.dozer.DozerConverter;
-import org.dozer.Mapper;
-import org.dozer.MapperAware;
+import com.github.dozermapper.core.DozerConverter;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.MapperAware;
 
 public class Converter extends DozerConverter<List, Map> implements MapperAware {
 

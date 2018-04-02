@@ -27,7 +27,7 @@
     </configuration>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.SuperA</class-a>
+        <class-a>com.github.dozermapper.core.vo.inheritance.SuperA</class-a>
         <class-b>java.util.Map</class-b>
         <field>
             <a>superAField</a>
@@ -40,7 +40,7 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.inheritance.A</class-a>
+        <class-a>com.github.dozermapper.core.vo.inheritance.A</class-a>
         <class-b>java.util.Map</class-b>
         <field>
             <a>fieldA</a>

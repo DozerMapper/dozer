@@ -66,7 +66,7 @@ List, or Iterator.
 <field>
     <a>appleComputers</a>
     <b set-method="addComputer" type="iterate">computers</b>
-    <b-hint>org.dozer.vo.AppleComputer</b-hint>
+    <b-hint>com.github.dozermapper.core.vo.AppleComputer</b-hint>
 </field>
 ----
 
@@ -77,7 +77,7 @@ Below is an example with iterate methods on both fields.
 <field>
     <a set-method="addCar" get-method="myIterateCars" type="iterate">iterateCars</a>
     <b set-method="addIterateCar" type="iterate">iterateCars</b>
-    <a-hint>org.dozer.vo.Car</a-hint>
-    <b-hint>org.dozer.vo.Car</b-hint>
+    <a-hint>com.github.dozermapper.core.vo.Car</a-hint>
+    <b-hint>com.github.dozermapper.core.vo.Car</b-hint>
 </field>
 ----

@@ -22,16 +22,16 @@
 
     <configuration>
         <custom-converters>
-            <converter type="org.dozer.vo.CToStringConverter">
-                <class-a>org.dozer.vo.C</class-a>
+            <converter type="com.github.dozermapper.core.vo.CToStringConverter">
+                <class-a>com.github.dozermapper.core.vo.C</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
         </custom-converters>
     </configuration>
 
     <mapping wildcard="true">
-        <class-a>org.dozer.vo.Individuals</class-a>
-        <class-b>org.dozer.vo.FlatIndividual</class-b>
+        <class-a>com.github.dozermapper.core.vo.Individuals</class-a>
+        <class-b>com.github.dozermapper.core.vo.FlatIndividual</class-b>
         <field>
             <a>usernames[0]</a>
             <b>username1</b>
@@ -67,12 +67,12 @@
     </mapping>
 
     <mapping wildcard="false">
-        <class-a>org.dozer.vo.A</class-a>
-        <class-b>org.dozer.vo.D</class-b>
+        <class-a>com.github.dozermapper.core.vo.A</class-a>
+        <class-b>com.github.dozermapper.core.vo.D</class-b>
         <field>
             <a>b.cs[0]</a>
             <b>value</b>
-            <a-hint>org.dozer.vo.C</a-hint>
+            <a-hint>com.github.dozermapper.core.vo.C</a-hint>
             <b-hint>java.lang.String</b-hint>
         </field>
     </mapping>

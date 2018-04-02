@@ -38,7 +38,7 @@ message ProtobufWithEnumCollection {
 }
 
 message ProtobufMapExample {
-    map<string,string> value = 1;
+    map<string, string> value = 1;
 }
 
 message ProtobufFieldNaming {

@@ -21,8 +21,8 @@
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
     <mapping map-null="false" map-empty-string="false">
-        <class-a>org.dozer.vo.AnotherTestObject</class-a>
-        <class-b>org.dozer.vo.AnotherTestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.AnotherTestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.AnotherTestObjectPrime</class-b>
         <field>
             <a>field4</a>
             <b>to.one</b>
@@ -30,8 +30,8 @@
     </mapping>
 
     <mapping>
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b map-null="false" map-empty-string="false">org.dozer.vo.TestObjectPrime2</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b map-null="false" map-empty-string="false">com.github.dozermapper.core.vo.TestObjectPrime2</class-b>
     </mapping>
 
 </mappings>

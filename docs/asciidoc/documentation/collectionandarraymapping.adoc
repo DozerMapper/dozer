@@ -29,7 +29,7 @@ elements in the src Collection.
 <field>
     <a>hintList</a>
     <b>hintList</b>
-    <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+    <b-hint>com.github.dozermapper.core.vo.TheFirstSubClassPrime</b-hint>
 </field>
 ----
 
@@ -210,8 +210,8 @@ class mapping level....
 ----
 <mappings>
     <mapping relationship-type="non-cumulative">
-        <class-a>org.dozer.vo.TestObject</class-a>
-        <class-b>org.dozer.vo.TestObjectPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.TestObject</class-a>
+        <class-b>com.github.dozermapper.core.vo.TestObjectPrime</class-b>
         <field>
             <a>someList</a>
             <b>someList</b>
@@ -228,8 +228,8 @@ field mapping level....
 <field relationship-type="cumulative">
     <a>hintList</a>
     <b>hintList</b>
-    <a-hint>org.dozer.vo.TheFirstSubClass</a-hint>
-    <b-hint>org.dozer.vo.TheFirstSubClassPrime</b-hint>
+    <a-hint>com.github.dozermapper.core.vo.TheFirstSubClass</a-hint>
+    <b-hint>com.github.dozermapper.core.vo.TheFirstSubClassPrime</b-hint>
 </field>
 
 <!-- objects will updated if already exist in List, added if they are not present -->

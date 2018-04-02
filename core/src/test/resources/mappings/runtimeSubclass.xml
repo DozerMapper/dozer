@@ -22,26 +22,26 @@
 
     <!-- Mapping between User and UserPrime -->
     <mapping>
-        <class-a>org.dozer.vo.runtimesubclass.User</class-a>
-        <class-b>org.dozer.vo.runtimesubclass.UserPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.runtimesubclass.User</class-a>
+        <class-b>com.github.dozermapper.core.vo.runtimesubclass.UserPrime</class-b>
         <field>
             <a>userGroup</a>
             <b>userGroup</b>
-            <a-hint>org.dozer.vo.runtimesubclass.UserGroup,org.dozer.vo.runtimesubclass.SpecialUserGroup</a-hint>
-            <b-hint>org.dozer.vo.runtimesubclass.UserGroupPrime,org.dozer.vo.runtimesubclass.SpecialUserGroupPrime</b-hint>
+            <a-hint>com.github.dozermapper.core.vo.runtimesubclass.UserGroup,com.github.dozermapper.core.vo.runtimesubclass.SpecialUserGroup</a-hint>
+            <b-hint>com.github.dozermapper.core.vo.runtimesubclass.UserGroupPrime,com.github.dozermapper.core.vo.runtimesubclass.SpecialUserGroupPrime</b-hint>
         </field>
     </mapping>
 
     <!-- Mapping between basic UserGroup and UserGroupPrime -->
     <mapping>
-        <class-a>org.dozer.vo.runtimesubclass.UserGroup</class-a>
-        <class-b>org.dozer.vo.runtimesubclass.UserGroupPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.runtimesubclass.UserGroup</class-a>
+        <class-b>com.github.dozermapper.core.vo.runtimesubclass.UserGroupPrime</class-b>
     </mapping>
 
     <!-- Mapping between specialized SpecialUserGroup and SpecialUserGroupPrime -->
     <mapping>
-        <class-a>org.dozer.vo.runtimesubclass.SpecialUserGroup</class-a>
-        <class-b>org.dozer.vo.runtimesubclass.SpecialUserGroupPrime</class-b>
+        <class-a>com.github.dozermapper.core.vo.runtimesubclass.SpecialUserGroup</class-a>
+        <class-b>com.github.dozermapper.core.vo.runtimesubclass.SpecialUserGroupPrime</class-b>
     </mapping>
 
 </mappings>
