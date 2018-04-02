@@ -24,23 +24,23 @@ import static org.junit.Assert.assertEquals;
 public class CacheEntryTest extends AbstractDozerTest {
 
     @Test
-    public void testConstructor() throws Exception {
+    public void canConstructor() {
         String key = getRandomString();
         String value = getRandomString();
-        CacheEntry<String, String> cacheEntry = new CacheEntry<String, String>(key, value);
+        CacheEntry<String, String> cacheEntry = new CacheEntry<>(key, value);
 
-        assertEquals("invalid key", key, cacheEntry.getKey());
-        assertEquals("invalid value", value, cacheEntry.getValue());
+        assertEquals(key, cacheEntry.getKey());
+        assertEquals(value, cacheEntry.getValue());
     }
 
     @Test
-    public void testHashCodeAndEquals() throws Exception {
+    public void hashCodeAndEqualsAreSame() {
         String key = getRandomString();
         String value = getRandomString();
-        CacheEntry<String, String> cacheEntry = new CacheEntry<String, String>(key, value);
-        CacheEntry<String, String> cacheEntry2 = new CacheEntry<String, String>(key, value);
+        CacheEntry<String, String> cacheEntry = new CacheEntry<>(key, value);
+        CacheEntry<String, String> cacheEntry2 = new CacheEntry<>(key, value);
 
-        assertEquals("cache entries hash code should have been equal", cacheEntry.hashCode(), cacheEntry2.hashCode());
-        assertEquals("cache entries should have been equal", cacheEntry, cacheEntry2);
+        assertEquals(cacheEntry.hashCode(), cacheEntry2.hashCode());
+        assertEquals(cacheEntry, cacheEntry2);
     }
 }

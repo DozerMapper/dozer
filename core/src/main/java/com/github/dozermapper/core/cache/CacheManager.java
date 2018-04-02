@@ -17,8 +17,10 @@ package com.github.dozermapper.core.cache;
 
 import java.util.Collection;
 
+import com.github.dozermapper.core.MappingException;
+
 /**
- * Internal interface for managing caches. Only intended for internal use.
+ * Cache manager which is used as the top level interaction when dealing with cached objects
  */
 public interface CacheManager {
 
@@ -28,23 +30,43 @@ public interface CacheManager {
     void clearAllEntries();
 
     /**
-     * Returns a Set of all Cache names
+     * Returns a collection of all cache names
      *
-     * @return Set of String objects representing Cache names.
+     * @return Collection of all cache names
      */
     Collection<String> getCacheNames();
 
+    /**
+     * Returns a collection of all caches
+     *
+     * @return collection of all caches
+     */
     Collection<Cache> getCaches();
 
     /**
-     * Get Cache object by name.
+     * Get cache object by name.
      *
      * @param cacheName unique cache name
-     * @return Cache object or will throw MappingException in case Cache is not registered.
+     * @return Cache object found
+     * @throws MappingException exception is thrown if no cache found
      */
-    Cache getCache(String cacheName);
+    Cache getCache(String cacheName) throws MappingException;
 
-    void addCache(String cacheName, int maximumSize);
+    /**
+     * Puts cache object into store
+     *
+     * @param cacheName   cache name to store
+     * @param maximumSize maximum number of objects to store in cache
+     * @return Cache object created
+     * @throws MappingException exception is thrown if cache already exists
+     */
+    Cache putCache(String cacheName, int maximumSize) throws MappingException;
 
+    /**
+     * Checks if cache name exists
+     *
+     * @param cacheName cache name to find
+     * @return true if found, false if doesn't exist
+     */
     boolean cacheExists(String cacheName);
 }

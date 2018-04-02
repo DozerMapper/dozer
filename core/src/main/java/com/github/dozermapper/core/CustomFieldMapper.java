@@ -23,7 +23,6 @@ import com.github.dozermapper.core.fieldmap.FieldMap;
  * because it is invoked for ALL field mappings. For custom mappings of particular fields, using a CustomConverter is a
  * much better choice.
  * <p>
- * <p>
  * If a custom field mapper is specified, Dozer will invoke this class when performing all field mappings. If false is
  * returned from the call to mapField(), then the field will be subsequently mapped by Dozer as normal.
  */

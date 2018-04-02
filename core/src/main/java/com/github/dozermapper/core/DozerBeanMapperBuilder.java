@@ -29,6 +29,9 @@ import java.util.stream.Collectors;
 import com.github.dozermapper.core.builder.BeanMappingsBuilder;
 import com.github.dozermapper.core.builder.DestBeanBuilderCreator;
 import com.github.dozermapper.core.builder.xml.BeanMappingXMLBuilder;
+import com.github.dozermapper.core.cache.CacheManager;
+import com.github.dozermapper.core.cache.DefaultCacheManager;
+import com.github.dozermapper.core.cache.DozerCacheType;
 import com.github.dozermapper.core.classmap.ClassMapBuilder;
 import com.github.dozermapper.core.classmap.ClassMappings;
 import com.github.dozermapper.core.classmap.Configuration;
@@ -91,6 +94,7 @@ public final class DozerBeanMapperBuilder {
     private ElementReader elementReader;
     private ClassMappings customMappings;
     private Configuration globalConfiguration;
+    private CacheManager cacheManager;
 
     private DozerBeanMapperBuilder() {
     }
@@ -508,6 +512,20 @@ public final class DozerBeanMapperBuilder {
     }
 
     /**
+     * Registers a {@link CacheManager} for the mapper.
+     * Which can be used to control the caching behaviour
+     * <p>
+     * By default, {@link DefaultCacheManager} are registered
+     *
+     * @param cacheManager cacheManager to use
+     * @return modified builder to be further configured.
+     */
+    public DozerBeanMapperBuilder withCacheManager(CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
+        return this;
+    }
+
+    /**
      * Creates an instance of {@link Mapper}. Mapper is configured according to the current builder state.
      * <p>
      * Subsequent calls of this method will return new instances.
@@ -519,6 +537,7 @@ public final class DozerBeanMapperBuilder {
 
         DozerClassLoader classLoader = getClassLoader();
         Settings settings = getSettings(classLoader);
+        CacheManager cacheManager = getCacheManager(settings);
         ELEngine elEngine = getELEngine();
         ElementReader elementReader = getElementReader(elEngine);
 
@@ -567,7 +586,8 @@ public final class DozerBeanMapperBuilder {
                                    customFieldMapper,
                                    customConvertersWithId,
                                    customMappings,
-                                   globalConfiguration);
+                                   globalConfiguration,
+                                   cacheManager);
     }
 
     private List<MappingFileData> createMappingsWithBuilders(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
@@ -687,5 +707,19 @@ public final class DozerBeanMapperBuilder {
         }
 
         return mappingFileDataList;
+    }
+
+    private CacheManager getCacheManager(Settings settings) {
+        if (cacheManager == null) {
+            // Initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
+            // are not shared across the VM.
+            CacheManager cacheManager = new DefaultCacheManager();
+            cacheManager.putCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), settings.getConverterByDestTypeCacheMaxSize());
+            cacheManager.putCache(DozerCacheType.SUPER_TYPE_CHECK.name(), settings.getSuperTypesCacheMaxSize());
+
+            return cacheManager;
+        } else {
+            return cacheManager;
+        }
     }
 }

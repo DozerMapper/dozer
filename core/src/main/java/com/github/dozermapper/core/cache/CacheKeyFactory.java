@@ -19,26 +19,38 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Internal class that is responsible for producing cache keys. Only intended for internal use.
+ * Helper class which produces cache keys.
  */
 public final class CacheKeyFactory {
 
     private CacheKeyFactory() {
-
     }
 
+    /**
+     * Create a key based on destination and source class types
+     * @param destClass destination class being mapped
+     * @param srcClass source class being mapped
+     * @return created key
+     */
     public static Object createKey(Class<?> destClass, Class<?> srcClass) {
         return new CacheKey(srcClass, destClass);
     }
 
+    /**
+     * Create a key based on destination and source class types
+     * @param destClass destination class being mapped
+     * @param srcClass source class being mapped
+     * @param mapId map id being used by mapping
+     * @return created key
+     */
     public static Object createKey(Class<?> destClass, Class<?> srcClass, String mapId) {
         return new CacheKey(srcClass, destClass, mapId);
     }
 
     private static final class CacheKey {
 
-        private Class<?> srcClass;
-        private Class<?> destClass;
+        private final Class<?> srcClass;
+        private final Class<?> destClass;
         private String mapId;
 
         private CacheKey(Class<?> srcClass, Class<?> destClass, String mapId) {

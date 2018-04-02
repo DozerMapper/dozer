@@ -29,72 +29,75 @@ import org.mockito.junit.MockitoRule;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-public class DozerCacheManagerTest extends AbstractDozerTest {
+public class DefaultCacheManagerTest extends AbstractDozerTest {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    private DozerCacheManager cacheMgr;
+    private CacheManager cacheMgr;
 
     @Override
     @Before
-    public void setUp() throws Exception {
-        cacheMgr = new DozerCacheManager();
+    public void setUp() {
+        cacheMgr = new DefaultCacheManager();
     }
 
     @Test
-    public void testCreateNew() throws Exception {
-        DozerCacheManager cacheMgr2 = new DozerCacheManager();
+    public void canCreateNew() {
+        CacheManager cacheMgr2 = new DefaultCacheManager();
 
-        assertFalse("cache mgrs should not be equal", cacheMgr.equals(cacheMgr2));
-        assertNotSame("cache mgrs should not be same instance", cacheMgr, cacheMgr2);
+        assertNotEquals(cacheMgr, cacheMgr2);
+        assertNotSame(cacheMgr, cacheMgr2);
     }
 
     @Test
-    public void testAddGetExistsCache() throws Exception {
+    public void canAddGetExistsCache() {
         String cacheName = getRandomString();
-        cacheMgr.addCache(cacheName, 1);
+        cacheMgr.putCache(cacheName, 1);
 
         boolean cacheExists = cacheMgr.cacheExists(cacheName);
         assertTrue("cache should exist", cacheExists);
 
         Cache cache = cacheMgr.getCache(cacheName);
+
         assertNotNull("cache should not be null", cache);
         assertEquals("cache should be empty", cache.getSize(), 0);
         assertEquals("invalid cache name", cacheName, cache.getName());
     }
 
     @Test(expected = MappingException.class)
-    public void testGetUnknownCache() throws Exception {
+    public void canGetUnknownCache() {
         String cacheName = getRandomString();
         boolean cacheExists = cacheMgr.cacheExists(cacheName);
+
         assertFalse("cache should not exist", cacheExists);
         cacheMgr.getCache(cacheName);
     }
 
     @Test(expected = MappingException.class)
-    public void testAddDuplicateCachesSingleton() throws Exception {
+    public void testAddDuplicateCachesSingleton() {
         String cacheName = getRandomString();
-        cacheMgr.addCache(cacheName, 1);
-        // try adding it again
-        cacheMgr.addCache(cacheName, 1);
+
+        cacheMgr.putCache(cacheName, 1);
+        cacheMgr.putCache(cacheName, 1);
     }
 
     @Test
-    public void testAddDuplicateCachesNonSingleton() throws Exception {
+    public void testAddDuplicateCachesNonSingleton() {
         // You should be able to add caches with the same name to non singleton instances
         // of the cache manager because they each have their own copies of caches to manage.
         // The caches are uniquely identified by the cache managers by using the instance id.
-        DozerCacheManager cacheMgr2 = new DozerCacheManager();
+        DefaultCacheManager cacheMgr2 = new DefaultCacheManager();
 
         // add cache to each cache mgr instance
         String cacheName = getRandomString();
-        cacheMgr.addCache(cacheName, 1);
-        cacheMgr2.addCache(cacheName, 1);
+        cacheMgr.putCache(cacheName, 1);
+        cacheMgr2.putCache(cacheName, 1);
 
         assertTrue("cache should exist in cache mgr1", cacheMgr.cacheExists(cacheName));
         assertTrue("cache should also exist in cache mgr2", cacheMgr2.cacheExists(cacheName));
@@ -111,10 +114,10 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     public void testGetStatisticTypes() {
         String name = getRandomString();
         String name2 = name + "-2";
-        cacheMgr.addCache(name, 100);
-        cacheMgr.addCache(name2, 100);
+        cacheMgr.putCache(name, 100);
+        cacheMgr.putCache(name2, 100);
 
-        Set<String> expected = new HashSet<String>();
+        Set<String> expected = new HashSet<>();
         expected.add(name);
         expected.add(name2);
 
@@ -124,24 +127,21 @@ public class DozerCacheManagerTest extends AbstractDozerTest {
     @Test
     public void testClearAllCacheEntries() {
         String name = getRandomString();
-        Cache<String, String> cache = new DozerCache<String, String>(name, 5);
+        Cache<String, String> cache = cacheMgr.putCache(name, 5);
         cache.put(getRandomString(), "value");
-        cacheMgr.addCache(cache);
 
-        assertEquals("invalid initial cache entry size", 1, ((DozerCache)cacheMgr.getCache(name)).getEntries().size());
+        assertEquals("invalid initial cache entry size", 1, cacheMgr.getCache(name).getSize());
         cacheMgr.clearAllEntries();
-        assertEquals("invalid cache entry size after clearAll", 0, ((DozerCache)cacheMgr.getCache(name)).getEntries().size());
+        assertEquals("invalid cache entry size after clearAll", 0, cacheMgr.getCache(name).getSize());
     }
 
     @Test
     public void testGetCaches() {
         String name = getRandomString();
-        Cache<String, String> cache = new DozerCache<String, String>(name, 5);
-        Cache<String, String> cache2 = new DozerCache<String, String>(name + "2", 5);
-        cacheMgr.addCache(cache);
-        cacheMgr.addCache(cache2);
+        Cache<String, String> cache = cacheMgr.putCache(name, 5);
+        Cache<String, String> cache2 =  cacheMgr.putCache(name + "2", 5);
 
-        Set<Cache> expected = new HashSet<Cache>();
+        Set<Cache> expected = new HashSet<>();
         expected.add(cache);
         expected.add(cache2);
 

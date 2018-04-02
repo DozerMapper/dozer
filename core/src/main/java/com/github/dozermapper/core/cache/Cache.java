@@ -16,22 +16,64 @@
 package com.github.dozermapper.core.cache;
 
 /**
- * Internal interface to a single cache. Holds all of the cache entries for the cache. Only
- * intended for internal use.
+ * Cache which stores a single {@link com.github.dozermapper.core.cache.DozerCacheType} type
+ *
+ * @param <KeyType>   type of key being stored
+ * @param <ValueType> java of value being stored
  */
 public interface Cache<KeyType, ValueType> {
 
+    /**
+     * Removes all of the mappings from this map. The map will be empty after this call returns.
+     */
     void clear();
 
+    /**
+     * Associates the specified value with the specified key in this map.
+     * If the map previously contained a mapping for the key, the old
+     * value is replaced.
+     *
+     * @param key   key with which the specified value is to be associated
+     * @param value value to be associated with the specified key
+     */
     void put(KeyType key, ValueType value);
 
+    /**
+     * Returns the value to which the specified key is mapped,
+     * or {@code null} if this map contains no mapping for the key.
+     *
+     * @param key key with which the specified value is to be associated
+     * @return value to be associated with the specified key
+     */
     ValueType get(KeyType key);
 
+    /**
+     * Returns the name of the overall cache store
+     *
+     * @return name of the overall cache store
+     */
     String getName();
 
+    /**
+     * Returns the number of key-value mappings in this map.
+     *
+     * @return the number of key-value mappings in this map
+     */
     long getSize();
 
-    long getMaxSize();
+    /**
+     * Returns the maximum number of entries which the cache can hold
+     *
+     * @return maximum number of entries which the cache can hold
+     */
+    int getMaxSize();
 
+    /**
+     * Returns <tt>true</tt> if this map contains a mapping for the
+     * specified key.
+     *
+     * @param key The key whose presence in this map is to be tested
+     * @return <tt>true</tt> if this map contains a mapping for the specified key.
+     */
     boolean containsKey(KeyType key);
 }

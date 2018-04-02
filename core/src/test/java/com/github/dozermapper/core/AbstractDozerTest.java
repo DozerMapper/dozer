@@ -24,6 +24,7 @@ import com.github.dozermapper.core.util.DozerConstants;
 import org.junit.Before;
 
 public abstract class AbstractDozerTest {
+
     private static Random rand = new Random(System.currentTimeMillis());
 
     @Before
@@ -36,5 +37,4 @@ public abstract class AbstractDozerTest {
     protected String getRandomString() {
         return String.valueOf(rand.nextInt());
     }
-
 }
