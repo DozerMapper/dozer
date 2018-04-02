@@ -25,13 +25,10 @@ import com.github.dozermapper.core.config.BeanContainer;
  * This is sufficient for most use cases, but if you need more flexibility you can specify your own bean factories to
  * instantiate the data objects.
  * <p>
- * <p>
  * Your custom bean factory must implement the com.github.dozermapper.core.BeanFactory interface.
- * <p>
  * <p>
  * Note: By default the Dozer mapping engine will use the destination object class name for the bean id when invoking
  * the factory.
- * <p>
  * <p>
  * <a
  * href="https://dozermapper.github.io/gitbook/documentation/custombeanfactories.html">

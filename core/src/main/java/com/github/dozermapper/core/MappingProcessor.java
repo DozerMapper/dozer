@@ -145,7 +145,7 @@ public class MappingProcessor implements Mapper {
 
     /**
      * Only required due to type coupling of MappingProcessor and Mapper - needs re-think
-     * @return
+     * @return nothing
      */
     @Override
     public MapperModelContext getMapperModelContext() {

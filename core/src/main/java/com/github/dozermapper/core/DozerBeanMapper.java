@@ -23,8 +23,6 @@ import java.util.Map;
 
 import com.github.dozermapper.core.builder.DestBeanBuilderCreator;
 import com.github.dozermapper.core.cache.CacheManager;
-import com.github.dozermapper.core.cache.DozerCacheManager;
-import com.github.dozermapper.core.cache.DozerCacheType;
 import com.github.dozermapper.core.classmap.ClassMappings;
 import com.github.dozermapper.core.classmap.Configuration;
 import com.github.dozermapper.core.classmap.MappingFileData;
@@ -93,9 +91,9 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
                     CustomFieldMapper customFieldMapper,
                     Map<String, CustomConverter> customConvertersWithId,
                     ClassMappings customMappings,
-                    Configuration globalConfiguration) {
+                    Configuration globalConfiguration,
+                    CacheManager cacheManager) {
         this.settings = settings;
-        this.cacheManager = new DozerCacheManager();
         this.dozerInitializer = dozerInitializer;
         this.beanContainer = beanContainer;
         this.destBeanCreator = destBeanCreator;
@@ -111,8 +109,7 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
         this.eventManager = new DozerEventManager(eventListeners);
         this.customMappings = customMappings;
         this.globalConfiguration = globalConfiguration;
-
-        init();
+        this.cacheManager = cacheManager;
     }
 
     /**
@@ -145,13 +142,6 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
     @Override
     public void map(Object source, Object destination) throws MappingException {
         getMappingProcessor().map(source, destination);
-    }
-
-    private void init() {
-        // initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
-        // are not shared across the VM.
-        cacheManager.addCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), settings.getConverterByDestTypeCacheMaxSize());
-        cacheManager.addCache(DozerCacheType.SUPER_TYPE_CHECK.name(), settings.getSuperTypesCacheMaxSize());
     }
 
     public void destroy() {

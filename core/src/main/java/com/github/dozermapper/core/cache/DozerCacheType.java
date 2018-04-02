@@ -15,9 +15,23 @@
  */
 package com.github.dozermapper.core.cache;
 
+/**
+ * Different types of cache which are supported
+ */
 public enum DozerCacheType {
 
+    /**
+     * Cache for converters by destination type
+     */
     CONVERTER_BY_DEST_TYPE,
+
+    /**
+     * Cache for super types
+     */
     SUPER_TYPE_CHECK,
+
+    /**
+     * Cache for class mappings
+     */
     CLASS_MAPPINGS
 }

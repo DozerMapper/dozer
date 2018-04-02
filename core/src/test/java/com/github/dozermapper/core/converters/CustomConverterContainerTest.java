@@ -20,7 +20,7 @@ import java.util.List;
 
 import com.github.dozermapper.core.AbstractDozerTest;
 import com.github.dozermapper.core.cache.CacheKeyFactory;
-import com.github.dozermapper.core.cache.DozerCache;
+import com.github.dozermapper.core.cache.DefaultCache;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,13 +33,13 @@ import static org.junit.Assert.assertTrue;
 public class CustomConverterContainerTest extends AbstractDozerTest {
 
     private CustomConverterContainer ccc;
-    private DozerCache cache;
+    private DefaultCache cache;
     private List<CustomConverterDescription> converters;
 
     @Before
     public void setUp() throws Exception {
         ccc = new CustomConverterContainer();
-        cache = new DozerCache("NAME", 10);
+        cache = new DefaultCache("NAME", 10);
         converters = new ArrayList<CustomConverterDescription>();
         ccc.setConverters(converters);
     }

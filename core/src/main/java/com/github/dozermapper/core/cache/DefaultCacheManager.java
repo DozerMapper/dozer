@@ -22,72 +22,93 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.util.MappingUtils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Internal class that manages the Dozer caches. Only intended for internal use.
+ * {@inheritDoc}
  */
-public final class DozerCacheManager implements CacheManager {
+public final class DefaultCacheManager implements CacheManager {
 
-    private final Logger log = LoggerFactory.getLogger(DozerCacheManager.class);
+    private final Map<String, Cache> cachesMap = new HashMap<>();
 
-    private final Map<String, Cache> cachesMap = new HashMap<String, Cache>();
-
-    public DozerCacheManager() {
-
+    /**
+     * {@inheritDoc}
+     */
+    public DefaultCacheManager() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Collection<Cache> getCaches() {
-        return new HashSet<Cache>(cachesMap.values());
+        return new HashSet<>(cachesMap.values());
     }
 
-    public Cache getCache(String name) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Cache getCache(String name) throws MappingException {
         Cache cache = cachesMap.get(name);
         if (cache == null) {
             MappingUtils.throwMappingException("Unable to find cache with name: " + name);
         }
+
         return cache;
     }
 
-    public void addCache(String name, int maxElementsInMemory) {
-        addCache(new DozerCache(name, maxElementsInMemory));
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Cache putCache(String name, int maxElementsInMemory) {
+        return putCache(new DefaultCache(name, maxElementsInMemory));
     }
 
-    public void addCache(Cache cache) {
+    private Cache putCache(Cache cache) throws MappingException {
         synchronized (cachesMap) {
             String name = cache.getName();
             if (cacheExists(name)) {
                 MappingUtils.throwMappingException("Cache already exists with name: " + name);
             }
+
             cachesMap.put(name, cache);
+            return cache;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Collection<String> getCacheNames() {
-        Set<String> results = new HashSet<String>();
+        Set<String> results = new HashSet<>();
         for (Entry<String, Cache> entry : cachesMap.entrySet()) {
             results.add(entry.getKey());
         }
+
         return results;
     }
 
-    /*
-     * Dont clear keys in caches map because these are only added 1 time at startup. Only clear cache entries for each cache
+    /**
+     * {@inheritDoc}
      */
+    @Override
     public void clearAllEntries() {
+        //NOTE: Don't clear keys in caches map because these are only added 1 time at startup by default.
+        //      Only clear cache entries for each cache.
         for (Cache cache : cachesMap.values()) {
             cache.clear();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean cacheExists(String name) {
         return cachesMap.containsKey(name);
-    }
-
-    public void logCaches() {
-        log.info(getCaches().toString());
     }
 }

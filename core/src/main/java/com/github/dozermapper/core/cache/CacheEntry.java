@@ -19,23 +19,38 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Internal class that represents one entry in the cache. Holds the cache value, unique key for lookup, and creation
- * time. Only intended for internal use.
+ * A single entry in the cache which holds the cache value and unique key for lookup.
  */
 public class CacheEntry<KeyType, ValueType> {
 
     private final KeyType key;
     private final ValueType value;
 
+    /**
+     * A single entry in the cache which holds the cache value and unique key for lookup.
+     *
+     * @param key   key with which the specified value is to be associated
+     * @param value value to be associated with the specified key
+     */
     public CacheEntry(KeyType key, ValueType value) {
         this.key = key;
         this.value = value;
     }
 
+    /**
+     * Returns the key stored
+     *
+     * @return key stored
+     */
     public KeyType getKey() {
         return key;
     }
 
+    /**
+     * Returns the value stored
+     *
+     * @return value stored
+     */
     public ValueType getValue() {
         return value;
     }

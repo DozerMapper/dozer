@@ -20,51 +20,50 @@ import com.github.dozermapper.core.AbstractDozerTest;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 public class CacheKeyFactoryTest extends AbstractDozerTest {
 
     @Test
-    public void testCreateKey() throws Exception {
+    public void canCreateKey() {
         Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class);
         Object cacheKey2 = CacheKeyFactory.createKey(String.class, Long.class);
 
-        assertEquals("cache keys should have been equal", cacheKey, cacheKey2);
-        assertEquals("cache key hash codes should have been equal", cacheKey.hashCode(), cacheKey2.hashCode());
+        assertEquals(cacheKey, cacheKey2);
+        assertEquals(cacheKey.hashCode(), cacheKey2.hashCode());
     }
 
     @Test
-    public void testCreateKey_Reverse() throws Exception {
+    public void canCreateKeyInReverse() {
         Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class);
         Object cacheKey2 = CacheKeyFactory.createKey(Long.class, String.class);
 
-        assertFalse(cacheKey.equals(cacheKey2));
-        assertFalse(cacheKey2.equals(cacheKey));
-        assertFalse(cacheKey.hashCode() == cacheKey2.hashCode());
+        assertNotEquals(cacheKey, cacheKey2);
+        assertNotEquals(cacheKey2, cacheKey);
+        assertNotEquals(cacheKey.hashCode(), cacheKey2.hashCode());
     }
 
     @Test
-    public void testCreateKey_AllParameters() throws Exception {
+    public void canCreateKeyForAllParameters() {
         Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class, "A");
         Object cacheKey2 = CacheKeyFactory.createKey(String.class, Long.class, "B");
 
-        assertFalse(cacheKey.equals(cacheKey2));
-        assertFalse(cacheKey2.equals(cacheKey));
-        assertFalse(cacheKey.hashCode() == cacheKey2.hashCode());
+        assertNotEquals(cacheKey, cacheKey2);
+        assertNotEquals(cacheKey2, cacheKey);
+        assertNotEquals(cacheKey.hashCode(), cacheKey2.hashCode());
     }
 
     @Test
-    public void testCreateKey_handlesNullGracefullyInEquals() throws Exception {
+    public void canCreateKeyAndHandlesNullGracefullyInEquals() {
         Object nullCacheKey = null;
         Object normalCacheKey = CacheKeyFactory.createKey(String.class, Long.class);
 
-        assertFalse("Null isn't handled properly!", normalCacheKey.equals(nullCacheKey));
+        assertNotEquals(normalCacheKey, nullCacheKey);
     }
 
     @Test
-    public void testCreateKey_equivalenceOfSelf() throws Exception {
+    public void canCreateKeyEquivalenceOfSelf() {
         Object cacheKey = CacheKeyFactory.createKey(String.class, Long.class);
-        assertTrue("Key isn't equivalent to self!", cacheKey.equals(cacheKey));
+        assertEquals(cacheKey, cacheKey);
     }
 }

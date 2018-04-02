@@ -15,83 +15,106 @@
  */
 package com.github.dozermapper.core.cache;
 
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Map backed Cache implementation.
+ * Default cache manager implementation backed by {@link LRUMap}
+ *
+ * @param <KeyType>   type of key being stored
+ * @param <ValueType> java of value being stored
  */
-public class DozerCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
+public class DefaultCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
 
     private final String name;
-
     private final LRUMap cacheMap;
 
-    public DozerCache(final String name, final int maximumSize) {
+    /**
+     * Default cache manager implementation backed by {@link LRUMap}
+     *
+     * @param name        unique cache name
+     * @param maximumSize maximum cache size
+     */
+    public DefaultCache(final String name, final int maximumSize) {
         if (maximumSize < 1) {
             throw new IllegalArgumentException("Dozer cache max size must be greater than 0");
         }
+
         this.name = name;
-        this.cacheMap = new LRUMap(maximumSize); // TODO This should be in Collections.synchronizedMap()
+        this.cacheMap = new LRUMap(maximumSize); //Should be: Collections.synchronizedMap
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void clear() {
         cacheMap.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public synchronized void put(KeyType key, ValueType value) {
         if (key == null) {
             throw new IllegalArgumentException("Cache entry key cannot be null");
         }
-        CacheEntry<KeyType, ValueType> cacheEntry = new CacheEntry<KeyType, ValueType>(key, value);
+
+        CacheEntry<KeyType, ValueType> cacheEntry = new CacheEntry<>(key, value);
         cacheMap.put(cacheEntry.getKey(), cacheEntry);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public ValueType get(KeyType key) {
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null");
         }
+
         CacheEntry<KeyType, ValueType> result = cacheMap.get(key);
-        if (result != null) {
-            return result.getValue();
-        } else {
+        if (result == null) {
             return null;
+        } else {
+            return result.getValue();
         }
     }
 
-    public void addEntries(Collection<CacheEntry<KeyType, ValueType>> entries) {
-        for (CacheEntry<KeyType, ValueType> entry : entries) {
-            cacheMap.put(entry.getKey(), entry);
-        }
-    }
-
-    public Collection<CacheEntry<KeyType, ValueType>> getEntries() {
-        return cacheMap.values();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public long getSize() {
         return cacheMap.size();
     }
 
-    public long getMaxSize() {
-        return cacheMap.maximumSize;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMaxSize() {
+        return cacheMap.getMaximumSize();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean containsKey(KeyType key) {
         return cacheMap.containsKey(key);
-    }
-
-    public Set<KeyType> keySet() {
-        return cacheMap.keySet();
     }
 
     @Override
@@ -99,9 +122,13 @@ public class DozerCache<KeyType, ValueType> implements Cache<KeyType, ValueType>
         return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
-    class LRUMap extends LinkedHashMap<KeyType, CacheEntry<KeyType, ValueType>> {
+    /**
+     * NOTE: Look if its worth while in replacing with:
+     * https://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/map/LRUMap.html
+     */
+    private class LRUMap extends LinkedHashMap<KeyType, CacheEntry<KeyType, ValueType>> {
 
-        private int maximumSize;
+        private final int maximumSize;
 
         LRUMap(int maximumSize) {
             this.maximumSize = maximumSize;
@@ -112,5 +139,8 @@ public class DozerCache<KeyType, ValueType> implements Cache<KeyType, ValueType>
             return size() > maximumSize;
         }
 
+        private int getMaximumSize() {
+            return maximumSize;
+        }
     }
 }
