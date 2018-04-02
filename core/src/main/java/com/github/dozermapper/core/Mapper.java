@@ -76,5 +76,10 @@ public interface Mapper {
         return MappingMetadata.EMPTY;
     }
 
-    ;
+    /**
+     * Returns {@link MapperModelContext} which allows readonly access to the Mapper model
+     *
+     * @return an instance of {@link MapperModelContext}
+     */
+    MapperModelContext getMapperModelContext();
 }

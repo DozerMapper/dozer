@@ -47,7 +47,7 @@ import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
  * It is technically possible to have multiple DozerBeanMapper instances initialized, but it will hinder internal
  * performance optimizations such as caching.
  */
-public class DozerBeanMapper implements Mapper {
+public class DozerBeanMapper implements Mapper, MapperModelContext {
 
     private final Settings settings;
     private final DozerInitializer dozerInitializer;
@@ -118,6 +118,7 @@ public class DozerBeanMapper implements Mapper {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void map(Object source, Object destination, String mapId) throws MappingException {
         getMappingProcessor().map(source, destination, mapId);
     }
@@ -125,6 +126,7 @@ public class DozerBeanMapper implements Mapper {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> T map(Object source, Class<T> destinationClass, String mapId) throws MappingException {
         return getMappingProcessor().map(source, destinationClass, mapId);
     }
@@ -132,6 +134,7 @@ public class DozerBeanMapper implements Mapper {
     /**
      * {@inheritDoc}
      */
+    @Override
     public <T> T map(Object source, Class<T> destinationClass) throws MappingException {
         return getMappingProcessor().map(source, destinationClass);
     }
@@ -139,6 +142,7 @@ public class DozerBeanMapper implements Mapper {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void map(Object source, Object destination) throws MappingException {
         getMappingProcessor().map(source, destination);
     }
@@ -163,54 +167,58 @@ public class DozerBeanMapper implements Mapper {
     }
 
     /**
-     * Returns list of provided mapping file URLs
-     *
-     * @return unmodifiable list of mapping files
-     * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
+     * {@inheritDoc}
      */
-    @Deprecated
+    @Override
+    public MappingMetadata getMappingMetadata() {
+        return new DozerMappingMetadata(customMappings);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MapperModelContext getMapperModelContext() {
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<String> getMappingFiles() {
         return Collections.unmodifiableList(mappingFiles);
     }
 
     /**
-     * @return unmodifiable list of converters
-     * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
+     * {@inheritDoc}
      */
-    @Deprecated
+    @Override
     public List<CustomConverter> getCustomConverters() {
         return Collections.unmodifiableList(customConverters);
     }
 
     /**
-     * @return unmodifiable list of converters
-     * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
+     * {@inheritDoc}
      */
-    @Deprecated
+    @Override
     public Map<String, CustomConverter> getCustomConvertersWithId() {
         return Collections.unmodifiableMap(customConvertersWithId);
     }
 
     /**
-     * @return unmodifiable list of listeners
-     * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
+     * {@inheritDoc}
      */
-    @Deprecated
+    @Override
     public List<? extends DozerEventListener> getEventListeners() {
         return Collections.unmodifiableList(eventListeners);
     }
 
     /**
-     * @return a custom field mapper
-     * @deprecated will be removed in 6.2. Please do not use {@link DozerBeanMapper} directly, only via {@link Mapper} interface.
+     * {@inheritDoc}
      */
-    @Deprecated
+    @Override
     public CustomFieldMapper getCustomFieldMapper() {
         return customFieldMapper;
-    }
-
-    @Override
-    public MappingMetadata getMappingMetadata() {
-        return new DozerMappingMetadata(customMappings);
     }
 }

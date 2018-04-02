@@ -38,14 +38,14 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class DozerBeanMapperTest {
 
-    private DozerBeanMapper mapper;
+    private Mapper mapper;
     private static final int THREAD_COUNT = 10;
     private List<Throwable> exceptions;
 
     @Before
     public void setUp() {
         // todo the test should be redesigned once DozerBeanMapper is immutable #434
-        mapper = (DozerBeanMapper)DozerBeanMapperBuilder.buildDefault();
+        mapper = DozerBeanMapperBuilder.buildDefault();
         exceptions = new ArrayList<Throwable>();
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             public void uncaughtException(Thread t, Throwable e) {
@@ -95,8 +95,9 @@ public class DozerBeanMapperTest {
         assertImmutable("eventListeners", mapper);
     }
 
-    private void assertImmutable(String name, DozerBeanMapper mapper) throws Exception {
-        Object property = PropertyUtils.getProperty(mapper, name);
+    private void assertImmutable(String name, Mapper mapper) throws Exception {
+        MapperModelContext mapperModelContext = mapper.getMapperModelContext();
+        Object property = PropertyUtils.getProperty(mapperModelContext, name);
         assertNotNull(property);
         try {
             if (property instanceof List) {

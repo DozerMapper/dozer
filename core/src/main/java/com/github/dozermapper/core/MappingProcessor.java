@@ -142,6 +142,16 @@ public class MappingProcessor implements Mapper {
         MappingValidator.validateMappingRequest(srcObj, destObj);
         mapGeneral(srcObj, null, destObj, mapId);
     }
+
+    /**
+     * Only required due to type coupling of MappingProcessor and Mapper - needs re-think
+     * @return
+     */
+    @Override
+    public MapperModelContext getMapperModelContext() {
+        throw new IllegalArgumentException("Can only be called on instance returned by DozerBeanMapperBuilder");
+    }
+
     /* End of Mapper Interface Implementation */
 
     /**

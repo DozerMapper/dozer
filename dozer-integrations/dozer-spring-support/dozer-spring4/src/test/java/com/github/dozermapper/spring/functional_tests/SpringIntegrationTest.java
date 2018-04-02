@@ -16,11 +16,13 @@
 package com.github.dozermapper.spring.functional_tests;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.dozermapper.core.CustomConverter;
 import com.github.dozermapper.core.DozerBeanMapper;
 import com.github.dozermapper.core.DozerEventListener;
 import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.MapperModelContext;
 import com.github.dozermapper.spring.functional_tests.support.EventTestListener;
 import com.github.dozermapper.spring.functional_tests.support.InjectedCustomConverter;
 import com.github.dozermapper.spring.vo.Destination;
@@ -63,12 +65,15 @@ public class SpringIntegrationTest {
 
     @Test
     public void testInjectConverter() throws Exception {
-        DozerBeanMapper mapper = (DozerBeanMapper)context.getBean("mapperWithConverter", Mapper.class);
+        Mapper mapper = context.getBean("mapperWithConverter", Mapper.class);
 
         assertNotNull(mapper);
         assertNotNull(mapper.getMappingMetadata());
 
-        List<CustomConverter> customConverters = mapper.getCustomConverters();
+        MapperModelContext mapperModelContext = mapper.getMapperModelContext();
+        assertNotNull(mapperModelContext);
+
+        List<CustomConverter> customConverters = mapperModelContext.getCustomConverters();
         assertEquals(1, customConverters.size());
 
         InjectedCustomConverter converter = context.getBean(InjectedCustomConverter.class);
@@ -79,15 +84,19 @@ public class SpringIntegrationTest {
 
     @Test
     public void testEventListeners() throws Exception {
-        DozerBeanMapper eventMapper = (DozerBeanMapper)context.getBean("mapperWithEventListener", Mapper.class);
+        Mapper eventMapper = context.getBean("mapperWithEventListener", Mapper.class);
         EventTestListener listener = context.getBean(EventTestListener.class);
 
         assertNotNull(eventMapper);
         assertNotNull(listener);
-        assertNotNull(eventMapper.getEventListeners());
-        assertEquals(1, eventMapper.getEventListeners().size());
 
-        DozerEventListener eventListener = eventMapper.getEventListeners().get(0);
+        MapperModelContext mapperModelContext = eventMapper.getMapperModelContext();
+        assertNotNull(mapperModelContext);
+
+        assertNotNull(mapperModelContext.getEventListeners());
+        assertEquals(1, mapperModelContext.getEventListeners().size());
+
+        DozerEventListener eventListener = mapperModelContext.getEventListeners().get(0);
         assertTrue(eventListener instanceof EventTestListener);
 
         assertEquals(0, listener.getInvocationCount());
