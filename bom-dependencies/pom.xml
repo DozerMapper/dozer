@@ -49,7 +49,7 @@
         <jaxb-api-spec.version>2.2.0</jaxb-api-spec.version>
         <jaxb-api.version>2.2.11</jaxb-api.version>
         <jmh.version>1.19</jmh.version>
-        <junit.version>4.12</junit.version>
+        <junit5-vintage.version>5.1.0</junit5-vintage.version>
         <mockito-core.version>2.16.0</mockito-core.version>
         <aries.spifly.verison>1.0.8</aries.spifly.verison>
         <pax-exam.version>4.11.0</pax-exam.version>
@@ -178,9 +178,10 @@
                 <version>${jmh.version}</version>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+                <version>${junit5-vintage.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
