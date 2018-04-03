@@ -7,3 +7,15 @@ As karaf2 is now deprecated upstream, and is not supported with Java9, support i
 
 === 2. Apache XMLBeans support dropped
 As xmlbeans is now deprecated upstream, and is not supported with Java9, support is dropped.
+
+=== 3. UberJAR now provided
+**Maven GAV**
+[source,xml,prettyprint]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>6.3.0</version>
+    <classifier>jar-with-dependencies</classifier>
+</dependency>
+----
