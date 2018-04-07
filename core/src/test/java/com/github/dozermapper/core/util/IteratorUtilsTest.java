@@ -30,7 +30,7 @@ public class IteratorUtilsTest extends AbstractDozerTest {
 
     @Test
     public void testToList() {
-        Set<String> set = new LinkedHashSet<String>();
+        Set<String> set = new LinkedHashSet<>();
         set.add("A");
         set.add("B");
 

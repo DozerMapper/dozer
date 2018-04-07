@@ -55,7 +55,7 @@ import static org.junit.Assert.fail;
 public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
     @Test
-    public void testSimpleCustomConverter() throws Exception {
+    public void testSimpleCustomConverter() {
         mapper = getMapper("mappings/simpleCustomConverter.xml");
         SimpleObj src = newInstance(SimpleObj.class);
         src.setField1(String.valueOf(System.currentTimeMillis()));
@@ -75,7 +75,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
     // Defect #1728385
     @Test
-    public void testSimpleCustomConverter_ImplicitMapping() throws Exception {
+    public void testSimpleCustomConverter_ImplicitMapping() {
         mapper = getMapper("mappings/simpleCustomConverter.xml");
 
         AnotherTestObject src = newInstance(AnotherTestObject.class);
@@ -95,7 +95,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSimpleCustomConverter_ImplicitMappingWithInheritance() throws Exception {
+    public void testSimpleCustomConverter_ImplicitMappingWithInheritance() {
         mapper = getMapper("mappings/simpleCustomConverter.xml");
 
         Car car = newInstance(Car.class);
@@ -116,7 +116,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSimpleCustomConverter_NullSrcValue() throws Exception {
+    public void testSimpleCustomConverter_NullSrcValue() {
         // Test that custom converter gets invoked even if the src field value is NULL
         mapper = getMapper("mappings/simpleCustomConverter.xml");
         SimpleObj src = newInstance(SimpleObj.class);
@@ -136,7 +136,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testArrayToStringCustomConverter() throws Exception {
+    public void testArrayToStringCustomConverter() {
         // Test that custom converter is used when src is an Array and dest is a String
         mapper = getMapper("mappings/arrayToStringCustomConverter.xml");
         SimpleObj simple = newInstance(SimpleObj.class);
@@ -158,7 +158,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testCustomConverterMapping() throws Exception {
+    public void testCustomConverterMapping() {
         mapper = getMapper("testDozerBeanMapping.xml");
         TestCustomConverterObject obj = newInstance(TestCustomConverterObject.class);
         CustomDoubleObjectIF doub = newInstance(CustomDoubleObject.class);
@@ -213,7 +213,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testCustomConverterWithPrimitive() throws Exception {
+    public void testCustomConverterWithPrimitive() {
         // test primitive double
         mapper = getMapper("testDozerBeanMapping.xml");
         TestCustomConverterObjectPrime prime = newInstance(TestCustomConverterObjectPrime.class);
@@ -231,7 +231,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testCustomConverterHashMapMapping() throws Exception {
+    public void testCustomConverterHashMapMapping() {
         mapper = getMapper("testDozerBeanMapping.xml");
         TestCustomConverterHashMapObject testCustomConverterHashMapObject = newInstance(TestCustomConverterHashMapObject.class);
         TestObject to = newInstance(TestObject.class);
@@ -248,7 +248,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testFieldCustomConverter() throws Exception {
+    public void testFieldCustomConverter() {
         mapper = getMapper("mappings/fieldCustomConverter.xml");
         SimpleObj src = newInstance(SimpleObj.class);
         src.setField1(String.valueOf(System.currentTimeMillis()));
@@ -267,7 +267,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testFieldCustomConverter_NullSrcValue() throws Exception {
+    public void testFieldCustomConverter_NullSrcValue() {
         // Test that custom converter gets invoked even if the src field value is NULL
         mapper = getMapper("mappings/fieldCustomConverter.xml");
         SimpleObj src = newInstance(SimpleObj.class);
@@ -287,7 +287,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testFieldCustomConverter_CustomMapType() throws Exception {
+    public void testFieldCustomConverter_CustomMapType() {
         // Test that custom field converter works for Custom Map Types
         mapper = getMapper("mappings/fieldCustomConverter.xml");
         CustomMap src = newInstance(CustomMap.class);
@@ -307,7 +307,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testFieldCustomConverter_HashMapField() throws Exception {
+    public void testFieldCustomConverter_HashMapField() {
         // Test that custom field converter works for Map type fields
         mapper = getMapper("mappings/fieldCustomConverter.xml");
         MapToProperty src = newInstance(MapToProperty.class);
@@ -329,7 +329,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testFieldCustomConverter_WithCustomConverterId() throws Exception {
+    public void testFieldCustomConverter_WithCustomConverterId() {
         mapper = DozerBeanMapperBuilder.create()
                 .withMappingFiles("mappings/fieldCustomConverter.xml")
                 .withCustomConverterWithId("CustomConverterWithId", new StringAppendCustomConverter())
@@ -345,7 +345,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testCustomConverter_MapNullFalse() throws Exception {
+    public void testCustomConverter_MapNullFalse() {
         mapper = getMapper("mappings/custom-converter-map-null.xml");
         SimpleObj src = newInstance(SimpleObj.class);
         src.setField1(null);

@@ -16,5 +16,5 @@
 package com.github.dozermapper.core.vo.generics;
 
 public enum StatusPrime {
-    PROCESSING, SUCCESS, ERROR;
+    PROCESSING, SUCCESS, ERROR
 }

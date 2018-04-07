@@ -29,14 +29,14 @@ public final class DestBeanBuilderCreator {
      * Elements of this collections should have very specific isApplicable method to avoid application to class,
      * which should be processed by another builder
      */
-    private final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<BeanBuilderCreationStrategy>();
+    private final List<BeanBuilderCreationStrategy> pluggedStrategies = new ArrayList<>();
 
     public DestBeanBuilderCreator() {
 
     }
 
     public BeanBuilder create(BeanCreationDirective directive) {
-        for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<BeanBuilderCreationStrategy>(pluggedStrategies)) {
+        for (BeanBuilderCreationStrategy strategy : new CopyOnWriteArrayList<>(pluggedStrategies)) {
             if (strategy.isApplicable(directive)) {
                 return strategy.create(directive);
             }

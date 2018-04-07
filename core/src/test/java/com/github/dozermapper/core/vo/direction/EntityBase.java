@@ -15,6 +15,8 @@
  */
 package com.github.dozermapper.core.vo.direction;
 
+import java.util.Objects;
+
 public abstract class EntityBase implements Entity {
 
     private String id;
@@ -32,7 +34,21 @@ public abstract class EntityBase implements Entity {
         if (this.id == null) {
             throw new IllegalStateException("Id not mapped yet: BOEM.");
         }
+
         return this.id.hashCode();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityBase that = (EntityBase)o;
+        return Objects.equals(id, that.id);
+    }
 }

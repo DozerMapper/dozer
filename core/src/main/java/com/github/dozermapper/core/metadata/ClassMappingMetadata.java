@@ -56,36 +56,50 @@ public interface ClassMappingMetadata {
     Class<?> getDestinationClass();
 
     /**
+     * Whether to stop if an exception occurs while mapping
+     *
      * @return true if the mapping will be stopped upon errors.
      */
     boolean isStopOnErrors();
 
     /**
+     * Whether strings should be trimmed
+     *
      * @return true if strings are trimmed during mapping.
      */
     boolean isTrimStrings();
 
     /**
+     * Whether wildcard policy is enabled
+     *
      * @return The wildcard policy. True means that fields with the same name are automatically mapped.
      */
     boolean isWildcard();
 
     /**
+     * Whether source should map null
+     *
      * @return true if null values are mapped from the source class.
      */
     boolean isSourceMapNull();
 
     /**
+     * Whether destination should map null
+     *
      * @return true if null values are mapped from the destination class.
      */
     boolean isDestinationMapNull();
 
     /**
+     * Whether source should map empty strings
+     *
      * @return true if empty are mapped from the source class.
      */
     boolean isSourceMapEmptyString();
 
     /**
+     * Whether destination should map empty strings
+     *
      * @return true if empty are mapped from the destination class.
      */
     boolean isDestinationMapEmptyString();

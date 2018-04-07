@@ -82,15 +82,6 @@ public final class ProtoUtils {
     }
 
     /**
-     * Returns the first FieldDescriptor matching the specified field name, either with an exact match,
-     * or after applying a transformation to camel-case.  Returns null if there is no match.
-     *
-     * @param clazz     clazz to look up
-     * @param fieldName field to look up
-     * @return field descriptor or null if none found
-     */
-
-    /**
      * Gets a {@link Descriptors.FieldDescriptor} associated with the clazz, which matches the fieldName,
      * either with an exact match, or after applying a transformation to camel-case.
      * <p>

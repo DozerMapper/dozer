@@ -76,14 +76,14 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testNoSourceValueIterateFieldMap() throws Exception {
+    public void testNoSourceValueIterateFieldMap() {
         DehydrateTestObject inputDto = newInstance(DehydrateTestObject.class);
         HydrateTestObject hto = mapper.map(inputDto, HydrateTestObject.class);
         assertEquals(testDataFactory.getExpectedTestNoSourceValueIterateFieldMapHydrateTestObject(), hto);
     }
 
     @Test
-    public void testCustomGetterSetterMap() throws Exception {
+    public void testCustomGetterSetterMap() {
         WeirdGetter inputDto = newInstance(WeirdGetter.class);
         inputDto.placeValue("theValue");
         inputDto.setWildValue("wild");
@@ -106,7 +106,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testNoClassMappings() throws Exception {
+    public void testNoClassMappings() {
         Mapper mapper = DozerBeanMapperBuilder.buildDefault();
         // Should attempt mapping even though it is not in the beanmapping.xml file
         NoCustomMappingsObjectPrime dest1 = mapper.map(testDataFactory.getInputTestNoClassMappingsNoCustomMappingsObject(),
@@ -128,7 +128,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapField() throws Exception {
+    public void testMapField() {
         NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory.getInputTestMapFieldWithMapNoCustomMappingsObject(),
                                                       NoCustomMappingsObjectPrime.class);
 
@@ -150,7 +150,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSetField() throws Exception {
+    public void testSetField() {
         // basic set --> set
         NoCustomMappingsObjectPrime dest = mapper.map(testDataFactory.getInputTestSetFieldWithSetNoCustomMappingsObject(),
                                                       NoCustomMappingsObjectPrime.class);
@@ -178,7 +178,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testListField() throws Exception {
+    public void testListField() {
         // test empty list --> empty list
         TestObjectPrime dest = mapper.map(testDataFactory.getInputTestListFieldEmptyListTestObject(), TestObjectPrime.class);
         TestObject source = mapper.map(dest, TestObject.class);
@@ -193,7 +193,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testListUsingDestHint() throws Exception {
+    public void testListUsingDestHint() {
         TestObjectPrime dest = mapper.map(testDataFactory.getInputTestListUsingDestHintTestObject(), TestObjectPrime.class);
         TestObject source = mapper.map(dest, TestObject.class);
         TestObjectPrime dest2 = mapper.map(source, TestObjectPrime.class);
@@ -201,7 +201,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testExcludeFields() throws Exception {
+    public void testExcludeFields() {
         // Map
         TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
         assertEquals("excludeMe", prime.getExcludeMe());
@@ -213,7 +213,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testGeneralMapping() throws Exception {
+    public void testGeneralMapping() {
         // Map
         TestObject to = testDataFactory.getInputGeneralMappingTestObject();
         TestObjectPrime prime = mapper.map(to, TestObjectPrime.class);
@@ -224,7 +224,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMappingNoDestSpecified() throws Exception {
+    public void testMappingNoDestSpecified() {
         // Map
         House src = testDataFactory.getHouse();
         HomeDescription dest = mapper.map(src, HomeDescription.class);
@@ -245,7 +245,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testGeneralMappingPassByReference() throws Exception {
+    public void testGeneralMappingPassByReference() {
         // Map
         TestObject to = testDataFactory.getInputGeneralMappingTestObject();
         TestObject toClone = SerializationUtils.clone(to);
@@ -283,7 +283,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testLongToLongMapping() throws Exception {
+    public void testLongToLongMapping() {
         // Map
         TestObject source = testDataFactory.getInputGeneralMappingTestObject();
         source.setAnotherLongValue(42);
@@ -293,7 +293,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testNoWildcards() throws Exception {
+    public void testNoWildcards() {
         // Map
         FurtherTestObjectPrime prime = mapper.map(testDataFactory.getInputTestNoWildcardsFurtherTestObject(),
                                                   FurtherTestObjectPrime.class);
@@ -303,7 +303,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testHydrateAndMore() throws Exception {
+    public void testHydrateAndMore() {
         HydrateTestObject dest = mapper.map(testDataFactory.getInputTestHydrateAndMoreDehydrateTestObject(), HydrateTestObject.class);
         // validate results
         assertEquals(testDataFactory.getExpectedTestHydrateAndMoreHydrateTestObject(), dest);
@@ -314,7 +314,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepProperties() throws Exception {
+    public void testDeepProperties() {
         House src = testDataFactory.getHouse();
         HomeDescription dest = mapper.map(src, HomeDescription.class);
         House src2 = mapper.map(dest, House.class);
@@ -347,7 +347,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testOneWayMapping() throws Exception {
+    public void testOneWayMapping() {
         // Map
         OneWayObject owo = newInstance(OneWayObject.class);
         OneWayObjectPrime owop = newInstance(OneWayObjectPrime.class);
@@ -356,7 +356,7 @@ public class MapperTest extends AbstractFunctionalTest {
         owo.setNested(nested);
         owop.setOneWayPrimeField("oneWayField");
         owop.setSetOnlyField("setOnly");
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("stringToList");
         list.add("src1");
         owop.setStringList(list);
@@ -373,7 +373,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
     @Ignore("Failing after 4.3 release")
     @Test
-    public void testMapByReference() throws Exception {
+    public void testMapByReference() {
         // Map
         TestReferenceObject tro = newInstance(TestReferenceObject.class);
         TestReferenceFoo foo1 = newInstance(TestReferenceFoo.class);
@@ -446,7 +446,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testHintedOnlyConverter() throws Exception {
+    public void testHintedOnlyConverter() {
         String hintStr = "where's my hint?";
 
         CustomConverterWrapper source = newInstance(CustomConverterWrapper.class);
@@ -466,7 +466,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSelfMapping() throws Exception {
+    public void testSelfMapping() {
         SimpleAccount simpleAccount = newInstance(SimpleAccount.class);
         simpleAccount.setName("name");
         simpleAccount.setPostcode(1234);
@@ -485,7 +485,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSetToArray() throws Exception {
+    public void testSetToArray() {
         Orange orange1 = newInstance(Orange.class);
         orange1.setName("orange1");
         Orange orange2 = newInstance(Orange.class);
@@ -506,7 +506,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
         TestObjectPrime top = mapper.map(to, TestObjectPrime.class);
 
-        Set<String> fruitNames = new HashSet<String>();
+        Set<String> fruitNames = new HashSet<>();
         fruitNames.add(top.getArrayToSet()[0].getName());
         fruitNames.add(top.getArrayToSet()[1].getName());
         assertTrue(fruitNames.remove("orange1"));
@@ -539,7 +539,7 @@ public class MapperTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSetToList() throws Exception {
+    public void testSetToList() {
         Orange orange1 = newInstance(Orange.class);
         orange1.setName("orange1");
         Orange orange2 = newInstance(Orange.class);
@@ -574,7 +574,7 @@ public class MapperTest extends AbstractFunctionalTest {
 
     // one way
     @Test
-    public void testMapValuesToList() throws Exception {
+    public void testMapValuesToList() {
         Orange orange1 = newInstance(Orange.class);
         orange1.setName("orange1");
         Orange orange2 = newInstance(Orange.class);

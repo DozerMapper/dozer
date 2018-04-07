@@ -54,7 +54,7 @@ public final class ProxyDataObjectInstantiator implements DataObjectInstantiator
     }
 
     public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
-        List<Class<?>> argTypes = new ArrayList<Class<?>>();
+        List<Class<?>> argTypes = new ArrayList<>();
         for (Object arg : args) {
             argTypes.add(MappingUtils.getRealClass(arg.getClass(), new BeanContainer()));
         }
@@ -70,7 +70,7 @@ public final class ProxyDataObjectInstantiator implements DataObjectInstantiator
         Enhancer enhancer = new Enhancer();
         enhancer.setInterfaces(interfacesToProxy);
         enhancer.setCallback(new Dispatcher() {
-            public Object loadObject() throws Exception {
+            public Object loadObject() {
                 return target;
             }
         });

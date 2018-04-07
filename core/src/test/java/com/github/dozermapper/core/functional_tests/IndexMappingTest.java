@@ -48,11 +48,11 @@ public class IndexMappingTest extends AbstractFunctionalTest {
     @Override
     @Before
     public void setUp() {
-        mapper = getMapper(new String[] {"mappings/IndividualMapping.xml"});
+        mapper = getMapper("mappings/IndividualMapping.xml");
     }
 
     @Test
-    public void testMap1() throws Exception {
+    public void testMap1() {
         List<String> userNames = newInstance(ArrayList.class);
         userNames.add("username1");
         userNames.add("username2");
@@ -199,7 +199,7 @@ public class IndexMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testStringToIndexedSet_UsingMapSetMethod() {
-        mapper = getMapper(new String[] {"mappings/indexMapping.xml"});
+        mapper = getMapper("mappings/indexMapping.xml");
         Mccoy src = newInstance(Mccoy.class);
         src.setStringProperty(String.valueOf(System.currentTimeMillis()));
 

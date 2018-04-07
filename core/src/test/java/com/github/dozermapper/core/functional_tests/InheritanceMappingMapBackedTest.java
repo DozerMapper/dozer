@@ -27,7 +27,7 @@ public class InheritanceMappingMapBackedTest extends AbstractFunctionalTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testInheritedToMappedBacked() throws Exception {
+    public void testInheritedToMappedBacked() {
 
         /*
          *  Test two things.

@@ -20,5 +20,5 @@ package com.github.dozermapper.core.vo.enumtest;
  */
 public enum SrcType {
 
-    FOO, BAR;
+    FOO, BAR
 }

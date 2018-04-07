@@ -142,7 +142,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDozerMultiTypeMapContainingCollections() throws Exception {
+    public void testDozerMultiTypeMapContainingCollections() {
         Mapper dozerBeanMapper = DozerBeanMapperBuilder.buildDefault();
 
         // Setting up test data, multiple types in a single Map

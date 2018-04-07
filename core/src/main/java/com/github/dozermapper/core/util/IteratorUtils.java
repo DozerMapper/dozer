@@ -26,7 +26,7 @@ public final class IteratorUtils {
     }
 
     public static <T> List<T> toList(Iterator<T> iterator) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         while (iterator.hasNext()) {
             list.add(iterator.next());
         }

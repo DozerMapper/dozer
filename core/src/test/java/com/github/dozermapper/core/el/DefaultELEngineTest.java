@@ -55,7 +55,7 @@ public class DefaultELEngineTest extends AbstractDozerTest {
 
     @Test
     public void testMap() {
-        HashMap<String, Number> hashMap = new HashMap<String, Number>();
+        HashMap<String, Number> hashMap = new HashMap<>();
         hashMap.put("a", 1);
 
         elEngine.setVariable("A", hashMap, Map.class);
@@ -65,7 +65,7 @@ public class DefaultELEngineTest extends AbstractDozerTest {
 
     @Test
     public void testList() {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         list.add("1");
         list.add("2");
 

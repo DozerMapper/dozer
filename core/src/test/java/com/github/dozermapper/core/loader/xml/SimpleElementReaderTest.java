@@ -15,13 +15,14 @@
  */
 package com.github.dozermapper.core.loader.xml;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 import com.github.dozermapper.core.AbstractDozerTest;
 import com.github.dozermapper.core.el.NoopELEngine;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;

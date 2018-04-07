@@ -37,7 +37,7 @@ public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSpecialMapping() throws Exception {
+    public void testSpecialMapping() {
         // SpecialUserGroup(!)
         SpecialUserGroup userGroup = newInstance(SpecialUserGroup.class);
         userGroup.setName("special user group");
@@ -56,7 +56,7 @@ public class RuntimeSubclassMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testNormalMapping() throws Exception {
+    public void testNormalMapping() {
         // normal UserGroup
         UserGroup userGroup = newInstance(UserGroup.class);
         userGroup.setName("user group");

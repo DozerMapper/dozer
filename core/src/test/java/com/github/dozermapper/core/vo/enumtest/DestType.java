@@ -20,6 +20,6 @@ package com.github.dozermapper.core.vo.enumtest;
  */
 public enum DestType {
 
-    FOO;
+    FOO
 
 }

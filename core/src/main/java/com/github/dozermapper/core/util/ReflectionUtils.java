@@ -169,14 +169,15 @@ public final class ReflectionUtils {
 
                     if (genericType == null && deepIndexHintContainer == null) {
                         MappingUtils
-                                .throwMappingException(
-                                        "Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). Exception occurred determining deep field hierarchy for Class --> "
-                                        + parentClass.getName()
-                                        + ", Field --> "
-                                        + field
-                                        + ".  Unable to determine property descriptor for Class --> "
-                                        + latestClass.getName() + ", Field Name: " + aFieldName);
+                                .throwMappingException("Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). "
+                                                       + "Exception occurred determining deep field hierarchy for Class --> "
+                                                       + parentClass.getName()
+                                                       + ", Field --> "
+                                                       + field
+                                                       + ".  Unable to determine property descriptor for Class --> "
+                                                       + latestClass.getName() + ", Field Name: " + aFieldName);
                     }
+
                     if (genericType != null) {
                         latestClass = genericType;
                     } else {
@@ -243,7 +244,7 @@ public final class ReflectionUtils {
 
     private static Method findMethodWithParam(Class<?> parentDestClass, String methodName, String params, BeanContainer beanContainer)
             throws NoSuchMethodException {
-        List<Class<?>> list = new ArrayList<Class<?>>();
+        List<Class<?>> list = new ArrayList<>();
         if (params != null) {
             StringTokenizer tokenizer = new StringTokenizer(params, ",");
             while (tokenizer.hasMoreTokens()) {
@@ -266,7 +267,7 @@ public final class ReflectionUtils {
     }
 
     static PropertyDescriptor[] getInterfacePropertyDescriptors(Class<?> interfaceClass) {
-        List<PropertyDescriptor> propDescriptors = new ArrayList<PropertyDescriptor>();
+        List<PropertyDescriptor> propDescriptors = new ArrayList<>();
         // Add prop descriptors for interface passed in
         propDescriptors.addAll(Arrays.asList(PropertyUtils.getPropertyDescriptors(interfaceClass)));
 
@@ -342,7 +343,6 @@ public final class ReflectionUtils {
             method.setAccessible(true);
             result = method.invoke(obj, args);
         } catch (IllegalArgumentException e) {
-
             if (e.getMessage().equals(IAE_MESSAGE)) {
                 MappingUtils.throwMappingException(prepareExceptionMessage(method, args), e);
             }
@@ -438,17 +438,6 @@ public final class ReflectionUtils {
     }
 
     /**
-     *
-     * <p>
-     *     <ul>
-     *         <li>
-     *     </ul>
-     * <p>
-     *
-
-     */
-
-    /**
      * Finds non-standard setters {@link PropertyUtils#getPropertyDescriptors} does not find.
      * The non-standard setters include:
      * <p>
@@ -482,28 +471,27 @@ public final class ReflectionUtils {
     }
 
     private static boolean isNonVoidSetter(Method method, String setterMethodName) {
-        return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1 &&
-               method.getReturnType() != Void.TYPE;
+        return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1
+               && method.getReturnType() != Void.TYPE;
     }
 
     private static boolean isAutoboxingSetter(Method method, String setterMethodName, Field field) {
-        return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1 &&
-               canBeAutoboxed(method.getParameterTypes()[0], field.getType());
+        return method.getName().equals(setterMethodName) && method.getParameterTypes().length == 1
+               && canBeAutoboxed(method.getParameterTypes()[0], field.getType());
     }
 
     /**
+     * Checks if classA or classB can be auto boxed by the JVM
+     *
      * @return {@code true}, if both classes are either primitive or wrapper classes and
      * autoboxing is possible between {@code classA} and {@code classB}
      */
     private static boolean canBeAutoboxed(Class<?> classA, Class<?> classB) {
-        return ClassUtils.isPrimitiveOrWrapper(classA) &&
-               ClassUtils.isPrimitiveOrWrapper(classB) &&
-               // Same types
-               (classB.equals(classA) ||
-                // Matching primitive-wrapper pair, e.g. double - Double
-                ClassUtils.primitiveToWrapper(classB).equals(classA) ||
-                // Matching wrapper-primitive pair, e.g. Long - long
-                ClassUtils.primitiveToWrapper(classA).equals(classB));
+        return ClassUtils.isPrimitiveOrWrapper(classA)
+               && ClassUtils.isPrimitiveOrWrapper(classB)
+               && (classB.equals(classA) // Same types
+               || ClassUtils.primitiveToWrapper(classB).equals(classA) // Matching primitive-wrapper pair, e.g. double - Double
+               || ClassUtils.primitiveToWrapper(classA).equals(classB)); // Matching wrapper-primitive pair, e.g. Long - long
     }
 
 }

@@ -30,6 +30,13 @@
     <artifactId>dozer-spring-support</artifactId>
     <packaging>pom</packaging>
     <name>Dozer :: Integrations :: Spring Support</name>
+
+    <modules>
+        <module>dozer-spring4</module>
+        <module>dozer-spring-boot-autoconfigure</module>
+        <module>dozer-spring-boot-starter</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -39,12 +46,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <modules>
-        <module>dozer-spring4</module>
-        <module>dozer-spring-boot-autoconfigure</module>
-        <module>dozer-spring-boot-starter</module>
-    </modules>
-
 
 </project>

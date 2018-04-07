@@ -44,7 +44,7 @@ public class DozerBeanMapperFactoryBeanTest {
     private ApplicationContext mockContext;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         factory = new DozerBeanMapperFactoryBean();
         mockResource = mock(Resource.class);
         mockContext = mock(ApplicationContext.class);
@@ -87,13 +87,13 @@ public class DozerBeanMapperFactoryBeanTest {
 
     @Test
     public void shouldInjectBeans() throws Exception {
-        HashMap<String, CustomConverter> converterHashMap = new HashMap<String, CustomConverter>();
+        HashMap<String, CustomConverter> converterHashMap = new HashMap<>();
         converterHashMap.put("a", mock(CustomConverter.class));
 
-        HashMap<String, BeanFactory> beanFactoryMap = new HashMap<String, BeanFactory>();
+        HashMap<String, BeanFactory> beanFactoryMap = new HashMap<>();
         beanFactoryMap.put("a", mock(BeanFactory.class));
 
-        HashMap<String, DozerEventListener> eventListenerMap = new HashMap<String, DozerEventListener>();
+        HashMap<String, DozerEventListener> eventListenerMap = new HashMap<>();
         eventListenerMap.put("a", mock(DozerEventListener.class));
 
         when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);

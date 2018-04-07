@@ -43,7 +43,7 @@ public class IneritanceHintSupportTest extends AbstractFunctionalTest {
     @Test
     public void test_simple() {
         Source source = new Source();
-        HashSet<Base> set = new HashSet<Base>();
+        HashSet<Base> set = new HashSet<>();
         set.add(new BaseA());
         set.add(new BaseB());
         source.setSet(set);

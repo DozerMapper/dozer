@@ -19,15 +19,16 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
+
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.config.BeanContainer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * Factory class for providing valid XML parsers. Dozer uses DOM approach for XML processing.
@@ -56,9 +57,8 @@ public final class XMLParserFactory {
      * overridden in subclasses, adding further initialization of the factory.
      *
      * @return the JAXP DocumentBuilderFactory
-     * @throws javax.xml.parsers.ParserConfigurationException if thrown by JAXP methods
      */
-    private DocumentBuilderFactory createDocumentBuilderFactory() throws ParserConfigurationException {
+    private DocumentBuilderFactory createDocumentBuilderFactory() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(true);
         factory.setNamespaceAware(true);
@@ -87,7 +87,7 @@ public final class XMLParserFactory {
         private final Logger log = LoggerFactory.getLogger(DozerDefaultHandler.class);
 
         @Override
-        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        public void startElement(String uri, String localName, String qName, Attributes attributes) {
             log.debug("tag: {}", qName);
         }
 

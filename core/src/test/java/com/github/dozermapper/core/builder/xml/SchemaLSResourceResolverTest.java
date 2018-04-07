@@ -15,6 +15,9 @@
  */
 package com.github.dozermapper.core.builder.xml;
 
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
+
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.config.BeanContainer;
 
@@ -22,8 +25,6 @@ import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -38,11 +39,11 @@ public class SchemaLSResourceResolverTest {
     private String nullSystemIdMessage = "System ID is empty. Expected: https://dozermapper.github.io/schema/bean-mapping.xsd"
                                          + "'. Please see migration guide @ https://dozermapper.github.io/gitbook";
 
-    private String v5Message = "Dozer >= v6.0.0 uses a new XSD location. " +
-                               "Your current config needs to be upgraded. " +
-                               "Found v5 XSD: 'http://dozer.sourceforge.net/schema/beanmapping.xsd'. " +
-                               "Expected v6 XSD: 'https://dozermapper.github.io/schema/bean-mapping.xsd'. " +
-                               "Please see migration guide @ https://dozermapper.github.io/gitbook";
+    private String v5Message = "Dozer >= v6.0.0 uses a new XSD location. "
+                               + "Your current config needs to be upgraded. "
+                               + "Found v5 XSD: 'http://dozer.sourceforge.net/schema/beanmapping.xsd'. "
+                               + "Expected v6 XSD: 'https://dozermapper.github.io/schema/bean-mapping.xsd'. "
+                               + "Please see migration guide @ https://dozermapper.github.io/gitbook";
 
     @Test
     public void handlesNullSystemId() {

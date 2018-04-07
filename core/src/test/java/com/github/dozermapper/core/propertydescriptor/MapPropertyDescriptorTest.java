@@ -44,21 +44,21 @@ public class MapPropertyDescriptorTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testGetWriteMethod() throws NoSuchMethodException {
+    public void testGetWriteMethod() {
         Method method = descriptor.getWriteMethod();
         assertEquals(2, method.getParameterTypes().length);
         assertTrue(Arrays.equals(new Class[] {String.class, Object.class}, method.getParameterTypes()));
     }
 
     @Test(expected = MappingException.class)
-    public void testGetWriteMethod_NotFound() throws NoSuchMethodException {
+    public void testGetWriteMethod_NotFound() {
         descriptor = new MapPropertyDescriptor(MapStructure.class, "", false, 0, "missing_set", "get", "key", null, null, beanContainer, destBeanCreator);
         descriptor.getWriteMethod();
         fail();
     }
 
     @Test
-    public void testGetReadMethod() throws NoSuchMethodException {
+    public void testGetReadMethod() {
         Method method = descriptor.getReadMethod();
         assertEquals(1, method.getParameterTypes().length);
         assertTrue(Arrays.equals(new Class[] {String.class}, method.getParameterTypes()));

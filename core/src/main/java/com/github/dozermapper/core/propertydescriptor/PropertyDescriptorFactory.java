@@ -35,7 +35,7 @@ import org.apache.commons.lang3.StringUtils;
 public final class PropertyDescriptorFactory {
 
     private final List<PropertyDescriptorCreationStrategy> pluggedDescriptorCreationStrategies =
-            new ArrayList<PropertyDescriptorCreationStrategy>();
+            new ArrayList<>();
 
     public PropertyDescriptorFactory() {
 
@@ -88,7 +88,7 @@ public final class PropertyDescriptorFactory {
         }
 
         for (PropertyDescriptorCreationStrategy propertyDescriptorBuilder :
-                new CopyOnWriteArrayList<PropertyDescriptorCreationStrategy>(pluggedDescriptorCreationStrategies)) {
+                new CopyOnWriteArrayList<>(pluggedDescriptorCreationStrategies)) {
             if (propertyDescriptorBuilder.isApplicable(clazz, name)) {
                 desc = propertyDescriptorBuilder.buildFor(
                         clazz, name, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);

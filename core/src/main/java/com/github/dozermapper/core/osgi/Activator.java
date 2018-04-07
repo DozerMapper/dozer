@@ -45,7 +45,7 @@ public final class Activator implements BundleActivator {
     }
 
     @Override
-    public void start(BundleContext context) throws Exception {
+    public void start(BundleContext context) {
         LOG.info("Starting Dozer OSGi bundle");
 
         setContext(context);
@@ -53,7 +53,7 @@ public final class Activator implements BundleActivator {
     }
 
     @Override
-    public void stop(BundleContext bundleContext) throws Exception {
+    public void stop(BundleContext bundleContext) {
         setContext(null);
         setBundle(null);
 

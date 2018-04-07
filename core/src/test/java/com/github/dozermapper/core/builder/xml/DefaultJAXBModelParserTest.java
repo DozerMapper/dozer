@@ -20,7 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import javax.xml.bind.JAXBException;
+import org.xml.sax.SAXException;
 
 import com.github.dozermapper.core.builder.model.jaxb.MappingsDefinition;
 import com.github.dozermapper.core.config.BeanContainer;
@@ -29,7 +29,6 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -38,14 +37,14 @@ public class DefaultJAXBModelParserTest {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultJAXBModelParserTest.class);
 
     @Test
-    public void canConstruct() throws JAXBException {
+    public void canConstruct() {
         JAXBModelParser factory = new DefaultJAXBModelParser(new BeanContainer());
 
         assertNotNull(factory);
     }
 
     @Test
-    public void testCurrentMappingXML() throws JAXBException, IOException, SAXException {
+    public void testCurrentMappingXML() throws IOException, SAXException {
         JAXBModelParser<MappingsDefinition> factory = new DefaultJAXBModelParser<>(new BeanContainer());
 
         File folder = new File(new File(".").getCanonicalPath() + "/src/test/resources/mappings");

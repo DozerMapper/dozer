@@ -72,7 +72,7 @@ public class NewCustomConverterTest extends AbstractFunctionalTest {
 
     @Test
     public void test_Autoboxing() {
-        HashSet<String> strings = new HashSet<String>();
+        HashSet<String> strings = new HashSet<>();
         strings.add("A");
         strings.add("B");
         IntContainer result = mapper.map(strings, IntContainer.class);

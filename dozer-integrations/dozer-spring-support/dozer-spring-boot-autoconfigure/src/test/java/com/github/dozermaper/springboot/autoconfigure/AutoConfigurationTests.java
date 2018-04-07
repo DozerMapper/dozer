@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
 public class AutoConfigurationTests {
 
     @Test
-    public void testDefaultMapperCreated() throws Exception {
+    public void testDefaultMapperCreated() {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class);
         Mapper mapper = context.getBean(Mapper.class);
         assertNotNull(mapper);
@@ -49,7 +49,7 @@ public class AutoConfigurationTests {
     }
 
     @Test
-    public void overrideDefaultMapper() throws Exception {
+    public void overrideDefaultMapper() {
         ConfigurableApplicationContext context = SpringApplication.run(ConfigWithCustomMapper.class);
         Map<String, Mapper> beansMap = context.getBeansOfType(Mapper.class);
         assertEquals(1, beansMap.keySet().size());
@@ -58,14 +58,14 @@ public class AutoConfigurationTests {
     }
 
     @Test
-    public void autoConfigurationDisabled() throws Exception {
+    public void autoConfigurationDisabled() {
         ConfigurableApplicationContext context = SpringApplication.run(DisabledAutoDozerConfiguration.class);
         Map<String, Mapper> beansMap = context.getBeansOfType(Mapper.class);
         assertEquals(0, beansMap.keySet().size());
     }
 
     @Test
-    public void testWithMappingFilesConfiguration() throws Exception {
+    public void testWithMappingFilesConfiguration() {
         ConfigurableApplicationContext context = SpringApplication
                 .run(Application.class, "--dozer.mappingFiles=classpath:/sample_mapping/sample_mapping.xml");
         Mapper mapper = context.getBean(Mapper.class);

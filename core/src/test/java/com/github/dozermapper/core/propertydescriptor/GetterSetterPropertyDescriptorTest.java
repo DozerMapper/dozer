@@ -111,7 +111,7 @@ public class GetterSetterPropertyDescriptorTest extends AbstractDozerTest {
         javaBeanPropertyDescriptor.getWriteMethod();
     }
 
-    private void setRefreshAlreadyAttempted() throws Exception {
+    private void setRefreshAlreadyAttempted() {
         Whitebox.setInternalState(javaBeanPropertyDescriptor, "propertyDescriptorsRefreshed", true);
     }
 

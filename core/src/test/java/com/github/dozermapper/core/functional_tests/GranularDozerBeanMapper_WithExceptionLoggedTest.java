@@ -43,14 +43,14 @@ public class GranularDozerBeanMapper_WithExceptionLoggedTest extends AbstractFun
     private final Logger LOG = LoggerFactory.getLogger(GranularDozerBeanMapper_WithExceptionLoggedTest.class);
 
     @Test(expected = MappingException.class)
-    public void testNoDefaultConstructor() throws Exception {
+    public void testNoDefaultConstructor() {
         mapper.map("test", NoDefaultConstructor.class);
 
         fail("should have thrown exception");
     }
 
     @Test
-    public void testAllowedExceptions_Implicit() throws Exception {
+    public void testAllowedExceptions_Implicit() {
         LOG.error("WithExceptionsLoggedTest; 'TestException: Checking Allowed Exceptions'");
 
         testAllowedExceptions_ImplicitEE.expectMessage("Checking Allowed Exceptions");
@@ -67,7 +67,7 @@ public class GranularDozerBeanMapper_WithExceptionLoggedTest extends AbstractFun
     }
 
     @Test
-    public void testAllowedExceptionsThrowException() throws Exception {
+    public void testAllowedExceptionsThrowException() {
         LOG.error("WithExceptionsLoggedTest; 'TestException: Checking Allowed Exceptions'");
 
         testAllowedExceptions_ImplicitEE.expectMessage("Checking Allowed Exceptions");

@@ -45,7 +45,7 @@ public class Family {
         second.setLastName(lastName);
         second.setSalary(secondSal);
 
-        familyMembers = new ArrayList<PersonalDetails>();
+        familyMembers = new ArrayList<>();
         familyMembers.add(first);
         familyMembers.add(second);
     }

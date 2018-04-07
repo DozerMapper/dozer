@@ -116,7 +116,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
     public void testMapMapWithList_Simple() {
         MapToMap source = newInstance(MapToMap.class);
         HashMap<String, List> map = newInstance(HashMap.class);
-        ArrayList<Boolean> list = new ArrayList<Boolean>();
+        ArrayList<Boolean> list = new ArrayList<>();
         list.add(Boolean.TRUE);
         map.put("A", list);
         source.setStandardMap(map);
@@ -152,7 +152,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
     public static class DTO {
 
-        private Map<String, List<Integer>> values = new HashMap<String, List<Integer>>();
+        private Map<String, List<Integer>> values = new HashMap<>();
 
         public Map<String, List<Integer>> getValues() {
             return values;
@@ -166,7 +166,7 @@ public class MapMappingTest extends AbstractFunctionalTest {
 
     public static class Simpler {
 
-        private Map<String, Integer> values = new HashMap<String, Integer>();
+        private Map<String, Integer> values = new HashMap<>();
 
         public Map<String, Integer> getValues() {
             return values;

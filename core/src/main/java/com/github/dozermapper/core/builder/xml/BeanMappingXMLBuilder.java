@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.xml.sax.SAXException;
+
 import com.github.dozermapper.core.builder.BeanMappingsBuilder;
 import com.github.dozermapper.core.builder.model.elengine.ELMappingsDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.MappingsDefinition;
@@ -39,7 +41,6 @@ import com.github.dozermapper.core.util.MappingValidator;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXException;
 
 /**
  * Builds a mapping definition based on a XML file

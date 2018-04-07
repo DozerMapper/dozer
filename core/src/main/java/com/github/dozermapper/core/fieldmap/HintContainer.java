@@ -57,7 +57,7 @@ public class HintContainer {
 
     public List<Class<?>> getHints() {
         if (hints == null) {
-            List<Class<?>> list = new ArrayList<Class<?>>();
+            List<Class<?>> list = new ArrayList<>();
             StringTokenizer st = new StringTokenizer(this.hintName, ",");
             while (st.hasMoreElements()) {
                 String theHintName = st.nextToken().trim();

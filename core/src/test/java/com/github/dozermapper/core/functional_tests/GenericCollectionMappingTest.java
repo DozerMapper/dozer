@@ -49,7 +49,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testGenericCollectionMapping() throws Exception {
-        Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
+        Mapper mapper = getMapper("mappings/genericCollectionMapping.xml");
 
         // prepare beans
         User user1 = newInstance(User.class);
@@ -102,7 +102,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testDeepMappingWithIndexOnSrcField() {
-        Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
+        Mapper mapper = getMapper("mappings/genericCollectionMapping.xml");
 
         AnotherTestObject anotherTestObject = newInstance(AnotherTestObject.class);
         anotherTestObject.setField3("another test object field 3 value");
@@ -110,10 +110,10 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
         TestObject testObject1 = newInstance(TestObject.class);
         TestObject testObject2 = newInstance(TestObject.class);
-        testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[] {anotherTestObject}));
+        testObject2.setEqualNamedList(Arrays.asList(anotherTestObject));
 
         SrcDeepObj src = newInstance(SrcDeepObj.class);
-        src.setSomeList(Arrays.asList(new TestObject[] {testObject1, testObject2}));
+        src.setSomeList(Arrays.asList(testObject1, testObject2));
 
         DestDeepObj dest = mapper.map(src, DestDeepObj.class);
         assertEquals("another test object field 3 value", dest.getDest5());
@@ -122,7 +122,7 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testDeepMappingWithIndexOnDestField() {
-        Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
+        Mapper mapper = getMapper("mappings/genericCollectionMapping.xml");
         DestDeepObj src = newInstance(DestDeepObj.class);
         src.setDest5("some string value for field");
 
@@ -131,8 +131,8 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepMapIndexed() throws Exception {
-        Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
+    public void testDeepMapIndexed() {
+        Mapper mapper = getMapper("mappings/genericCollectionMapping.xml");
         Pet[] myPets = new Pet[2];
         Family source = newInstance(Family.class, new Object[] {"john", "jane", "doe", new Integer(22000), new Integer(20000)});
         Pet firstPet = newInstance(Pet.class, new Object[] {"molly", 2});
@@ -160,8 +160,8 @@ public class GenericCollectionMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepMapInvIndexed() throws Exception {
-        Mapper mapper = getMapper(new String[] {"mappings/genericCollectionMapping.xml"});
+    public void testDeepMapInvIndexed() {
+        Mapper mapper = getMapper("mappings/genericCollectionMapping.xml");
         HeadOfHouseHold source = newInstance(HeadOfHouseHold.class);
         source.setFirstName("Tom");
         source.setLastName("Roy");

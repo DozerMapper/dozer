@@ -51,7 +51,7 @@ public class ClassMapTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testAddFieldMappings() throws Exception {
+    public void testAddFieldMappings() {
         ClassMap cm = new ClassMap(null);
         GenericFieldMap fm = new GenericFieldMap(cm, beanContainer, destBeanCreator, propertyDescriptorFactory);
 
@@ -63,10 +63,10 @@ public class ClassMapTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testSetFieldMappings() throws Exception {
+    public void testSetFieldMappings() {
         ClassMap cm = new ClassMap(null);
         GenericFieldMap fm = new GenericFieldMap(cm, beanContainer, destBeanCreator, propertyDescriptorFactory);
-        List<FieldMap> fmList = new ArrayList<FieldMap>();
+        List<FieldMap> fmList = new ArrayList<>();
         fmList.add(fm);
 
         cm.setFieldMaps(fmList);

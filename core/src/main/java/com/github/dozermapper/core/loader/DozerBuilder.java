@@ -55,7 +55,7 @@ import org.apache.commons.lang3.StringUtils;
 public class DozerBuilder {
 
     MappingFileData data = new MappingFileData();
-    private final List<MappingBuilder> mappingBuilders = new ArrayList<MappingBuilder>();
+    private final List<MappingBuilder> mappingBuilders = new ArrayList<>();
     private final BeanContainer beanContainer;
     private final DestBeanCreator destBeanCreator;
     private final PropertyDescriptorFactory propertyDescriptorFactory;
@@ -91,7 +91,7 @@ public class DozerBuilder {
     public static class MappingBuilder {
 
         private ClassMap classMap;
-        private final List<FieldBuider> fieldBuilders = new ArrayList<FieldBuider>();
+        private final List<FieldBuider> fieldBuilders = new ArrayList<>();
         private final BeanContainer beanContainer;
         private final DestBeanCreator destBeanCreator;
         private final PropertyDescriptorFactory propertyDescriptorFactory;

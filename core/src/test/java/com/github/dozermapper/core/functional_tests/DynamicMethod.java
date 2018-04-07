@@ -23,9 +23,9 @@ import static org.junit.Assert.assertThat;
 public class DynamicMethod extends AbstractFunctionalTest {
 
     /**
-     * @see <a href="https://github.com/DozerMapper/dozer/issues/153">
      * Caused by: java.lang.IllegalAccessException - with modifiers "public" #153
-     * </a>
+     *
+     * @see <a href="https://github.com/DozerMapper/dozer/issues/153"/>
      */
     @Test
     public void testCanMapAnonymousClass() {

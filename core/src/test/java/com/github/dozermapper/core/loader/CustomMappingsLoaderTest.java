@@ -53,7 +53,7 @@ public class CustomMappingsLoaderTest extends AbstractDozerTest {
         loader = new CustomMappingsLoader(new MappingsParser(beanContainer, destBeanCreator, propertyDescriptorFactory),
                                           new ClassMapBuilder(beanContainer, destBeanCreator, new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory),
                                                               propertyDescriptorFactory), beanContainer);
-        data = new ArrayList<MappingFileData>();
+        data = new ArrayList<>();
     }
 
     @Test(expected = MappingException.class)
@@ -88,8 +88,8 @@ public class CustomMappingsLoaderTest extends AbstractDozerTest {
                 configuration.getCustomConverters().getConverters();
         assertEquals("User-specified converter should be in list of converters.",
                      1, customConverters.size());
-        assertFalse("User-specified converter should override default by reference " +
-                    "converter for UUID to UUID mapping.",
+        assertFalse("User-specified converter should override default by reference "
+                    + "converter for UUID to UUID mapping.",
                     customConverters.get(0).getType().equals(CustomMappingsLoader.ByReferenceConverter.class));
     }
 

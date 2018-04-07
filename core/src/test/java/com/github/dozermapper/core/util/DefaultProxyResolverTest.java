@@ -36,14 +36,14 @@ public class DefaultProxyResolverTest {
     }
 
     @Test
-    public void testUnenhanceObject() throws Exception {
+    public void testUnenhanceObject() {
         Object obj = new Object();
         Object result = resolver.unenhanceObject(obj);
         assertSame(obj, result);
     }
 
     @Test
-    public void testGetRealClass() throws Exception {
+    public void testGetRealClass() {
         Object proxy = ProxyDataObjectInstantiator.INSTANCE.newInstance(Calendar.class);
         assertFalse(proxy.getClass().equals(Calendar.class));
 

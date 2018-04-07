@@ -28,14 +28,14 @@ public class MappedFieldsTracker {
 
     // Hash Code is ignored as it can serve application specific needs
     // <srcObject, <hashCodeOfDestination, mappedDestinationMapIdField>>
-    private final Map<Object, Map<Integer, MapIdField>> mappedFields = new IdentityHashMap<Object, Map<Integer, MapIdField>>();
+    private final Map<Object, Map<Integer, MapIdField>> mappedFields = new IdentityHashMap<>();
 
     public void put(Object src, Object dest, String mapId) {
         int destId = System.identityHashCode(dest);
 
         Map<Integer, MapIdField> mappedTo = mappedFields.get(src);
         if (mappedTo == null) {
-            mappedTo = new HashMap<Integer, MapIdField>();
+            mappedTo = new HashMap<>();
             mappedFields.put(src, mappedTo);
         }
 

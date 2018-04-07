@@ -30,7 +30,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class CustomConverterContainer {
 
-    private List<CustomConverterDescription> converters = new ArrayList<CustomConverterDescription>();
+    private List<CustomConverterDescription> converters = new ArrayList<>();
 
     public List<CustomConverterDescription> getConverters() {
         return converters;

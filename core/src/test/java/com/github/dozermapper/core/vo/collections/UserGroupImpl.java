@@ -22,7 +22,7 @@ public class UserGroupImpl implements UserGroup {
 
     private String name;
 
-    private Set<User> users = new HashSet<User>();
+    private Set<User> users = new HashSet<>();
 
     public String getName() {
         return name;

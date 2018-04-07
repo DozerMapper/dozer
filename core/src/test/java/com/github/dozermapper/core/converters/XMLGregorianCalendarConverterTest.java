@@ -43,7 +43,7 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testConvert_Date() throws Exception {
+    public void testConvert_Date() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(YEAR, MONTH, DAY);
         Date date = calendar.getTime();
@@ -57,7 +57,7 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testConvert_Calendar() throws Exception {
+    public void testConvert_Calendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(YEAR, MONTH, DAY);
 
@@ -70,7 +70,7 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testConvert_String() throws Exception {
+    public void testConvert_String() {
         Object result = converter.convert(XMLGregorianCalendar.class, "04.07.1983");
         XMLGregorianCalendar xmlCalendar = (XMLGregorianCalendar)result;
 
@@ -93,7 +93,7 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testConvert_EmptyString() throws Exception {
+    public void testConvert_EmptyString() {
         Object result = converter.convert(XMLGregorianCalendar.class, "");
         assertNull(result);
     }

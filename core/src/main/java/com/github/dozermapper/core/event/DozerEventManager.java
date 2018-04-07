@@ -39,21 +39,21 @@ public final class DozerEventManager implements EventManager {
         DozerEventType eventType = event.getType();
         for (DozerEventListener listener : eventListeners) {
             switch (eventType) {
-            case MAPPING_STARTED:
-                listener.mappingStarted(event);
-                break;
-            case MAPPING_PRE_WRITING_DEST_VALUE:
-                listener.preWritingDestinationValue(event);
-                break;
-            case MAPPING_POST_WRITING_DEST_VALUE:
-                listener.postWritingDestinationValue(event);
-                break;
-            case MAPPING_FINISHED:
-                listener.mappingFinished(event);
-                break;
-            default:
-                MappingUtils.throwMappingException("Unsupported event type: " + eventType);
-                break;
+                case MAPPING_STARTED:
+                    listener.mappingStarted(event);
+                    break;
+                case MAPPING_PRE_WRITING_DEST_VALUE:
+                    listener.preWritingDestinationValue(event);
+                    break;
+                case MAPPING_POST_WRITING_DEST_VALUE:
+                    listener.postWritingDestinationValue(event);
+                    break;
+                case MAPPING_FINISHED:
+                    listener.mappingFinished(event);
+                    break;
+                default:
+                    MappingUtils.throwMappingException("Unsupported event type: " + eventType);
+                    break;
             }
         }
     }

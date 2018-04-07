@@ -90,7 +90,7 @@ public final class DozerClassMappingMetadata implements ClassMappingMetadata {
     }
 
     public List<FieldMappingMetadata> getFieldMappings() {
-        List<FieldMappingMetadata> fieldMapCats = new ArrayList<FieldMappingMetadata>();
+        List<FieldMappingMetadata> fieldMapCats = new ArrayList<>();
         for (FieldMap fieldMap : classMap.getFieldMaps()) {
             fieldMapCats.add(new DozerFieldMappingMetadata(fieldMap));
         }

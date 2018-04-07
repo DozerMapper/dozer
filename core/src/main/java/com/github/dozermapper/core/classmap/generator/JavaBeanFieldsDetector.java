@@ -27,7 +27,7 @@ public class JavaBeanFieldsDetector implements BeanFieldsDetector {
     }
 
     public Set<String> getReadableFieldNames(Class<?> clazz) {
-        Set<String> srcFieldNames = new HashSet<String>();
+        Set<String> srcFieldNames = new HashSet<>();
         PropertyDescriptor[] srcProperties = ReflectionUtils.getPropertyDescriptors(clazz);
         for (PropertyDescriptor srcPropertyDescriptor : srcProperties) {
             String fieldName = srcPropertyDescriptor.getName();
@@ -42,7 +42,7 @@ public class JavaBeanFieldsDetector implements BeanFieldsDetector {
     }
 
     public Set<String> getWritableFieldNames(Class<?> clazz) {
-        Set<String> destFieldNames = new HashSet<String>();
+        Set<String> destFieldNames = new HashSet<>();
         PropertyDescriptor[] destProperties = ReflectionUtils.getPropertyDescriptors(clazz);
         for (PropertyDescriptor destPropertyDescriptor : destProperties) {
             String fieldName = destPropertyDescriptor.getName();

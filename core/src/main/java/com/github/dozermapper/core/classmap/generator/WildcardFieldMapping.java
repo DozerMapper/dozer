@@ -20,7 +20,7 @@ import java.util.Objects;
 /**
  * Internal class representing an wildcard mapping between a source field and a destination field.
  */
-class WildcardFieldMapping {
+public class WildcardFieldMapping {
     private String srcFieldName;
     private String destFieldName;
 
@@ -39,13 +39,17 @@ class WildcardFieldMapping {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
+
         WildcardFieldMapping that = (WildcardFieldMapping)o;
-        return Objects.equals(srcFieldName, that.srcFieldName) &&
-               Objects.equals(destFieldName, that.destFieldName);
+        return Objects.equals(srcFieldName, that.srcFieldName)
+               && Objects.equals(destFieldName, that.destFieldName);
     }
 
     @Override

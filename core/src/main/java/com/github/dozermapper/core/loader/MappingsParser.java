@@ -72,7 +72,7 @@ public final class MappingsParser {
         FieldMap fieldMapPrime;
         // need to create bi-directional mappings now.
         ClassMap classMapPrime;
-        Set<String> mapIds = new HashSet<String>();
+        Set<String> mapIds = new HashSet<>();
         for (ClassMap classMap : classMaps) {
             classMap.setGlobalConfiguration(globalConfiguration);
 

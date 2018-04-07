@@ -36,7 +36,7 @@ public class ProtoBeansDeepMappingTest extends ProtoAbstractTest {
     private Mapper mapper;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mapper = getMapper("mappings/protoSrcDeepBeansMapping.xml");
     }
 

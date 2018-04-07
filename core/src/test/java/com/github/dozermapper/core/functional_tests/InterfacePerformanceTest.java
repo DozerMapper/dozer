@@ -27,7 +27,7 @@ public class InterfacePerformanceTest extends AbstractFunctionalTest {
     private static Logger log = LoggerFactory.getLogger(InterfacePerformanceTest.class);
 
     @Test
-    public void testInterface() throws Exception {
+    public void testInterface() {
         log.info("Starting");
         mapper = getMapper("mappings/interfaceMapping.xml");
         { // warm up to load the config

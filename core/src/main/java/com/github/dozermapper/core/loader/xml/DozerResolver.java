@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.util.DozerClassLoader;
@@ -26,8 +29,6 @@ import com.github.dozermapper.core.util.DozerConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
 
 /**
  * Internal EntityResolver implementation to load Xml Schema from the dozer classpath resp. JAR file.
@@ -129,8 +130,8 @@ public class DozerResolver implements EntityResolver {
         HttpURLConnection conn = (HttpURLConnection)obj.openConnection();
 
         int status = conn.getResponseCode();
-        if ((status != HttpURLConnection.HTTP_OK) &&
-            (status == HttpURLConnection.HTTP_MOVED_TEMP
+        if ((status != HttpURLConnection.HTTP_OK)
+            && (status == HttpURLConnection.HTTP_MOVED_TEMP
              || status == HttpURLConnection.HTTP_MOVED_PERM
              || status == HttpURLConnection.HTTP_SEE_OTHER)) {
 

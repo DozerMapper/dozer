@@ -173,7 +173,7 @@ public class MappingDefinition {
 
     public FieldDefinition withField() {
         if (getFields() == null) {
-            setFields(new ArrayList<FieldDefinition>());
+            setFields(new ArrayList<>());
         }
 
         FieldDefinition field = new FieldDefinition(this, null);
@@ -184,7 +184,7 @@ public class MappingDefinition {
 
     public FieldExcludeDefinition withFieldExclude() {
         if (getFieldExcludes() == null) {
-            setFieldExcludes(new ArrayList<FieldExcludeDefinition>());
+            setFieldExcludes(new ArrayList<>());
         }
 
         FieldExcludeDefinition fieldExclude = new FieldExcludeDefinition(this);

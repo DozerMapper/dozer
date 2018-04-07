@@ -88,11 +88,7 @@ public final class BridgedMethodFinder {
             return false;
         }
 
-        if (!isAssignable(method.getParameterTypes(), candidate.getParameterTypes())) {
-            return false;
-        }
-
-        return true;
+        return isAssignable(method.getParameterTypes(), candidate.getParameterTypes());
     }
 
     /**

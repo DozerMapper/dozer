@@ -35,7 +35,7 @@ public class UntypedCollectionTest extends AbstractFunctionalTest {
 
     @Test
     public void testMapperDeepIndexForUntypedList() {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put("name", "fooname");
         map.put("bars[0]_id", "1234");
         map.put("bars[1]_id", "2345");
@@ -46,7 +46,7 @@ public class UntypedCollectionTest extends AbstractFunctionalTest {
         assertThat(((Bar)f.getBars().get(0)).getId(), equalTo("1234"));
         assertThat(((Bar)f.getBars().get(1)).getId(), equalTo("2345"));
 
-        Map<String, String> m2 = new HashMap<String, String>();
+        Map<String, String> m2 = new HashMap<>();
         mapper.map(f, m2);
 
         assertThat(m2.get("name"), equalTo("fooname"));

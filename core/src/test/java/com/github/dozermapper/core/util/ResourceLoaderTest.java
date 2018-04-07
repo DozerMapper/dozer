@@ -33,7 +33,7 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     private ResourceLoader loader = new ResourceLoader(getClass().getClassLoader());
 
     @Test
-    public void testResourceNotFound() throws Exception {
+    public void testResourceNotFound() {
         assertNull("file URL should not have been found", loader.getResource(String.valueOf(System.currentTimeMillis())));
     }
 
@@ -60,7 +60,7 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     }
 
     @Test(expected = MappingException.class)
-    public void testGetResouce_MalformedUrl() throws Exception {
+    public void testGetResouce_MalformedUrl() {
         loader.getResource("foo:bar");
     }
 
@@ -72,7 +72,7 @@ public class ResourceLoaderTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testGetResource_FileOutsideOfClasspath_InvalidFormat() throws Exception {
+    public void testGetResource_FileOutsideOfClasspath_InvalidFormat() {
         // when using a file outside of classpath the file name must be prepended with "file:"
         URL url = loader.getResource(String.valueOf(System.currentTimeMillis()));
         assertNull("URL should be null", url);

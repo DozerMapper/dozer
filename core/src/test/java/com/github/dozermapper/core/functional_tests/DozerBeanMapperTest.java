@@ -56,19 +56,19 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
 
     @Test(expected = MappingException.class)
-    public void testNoSourceObject() throws Exception {
+    public void testNoSourceObject() {
         mapper.map(null, TestObjectPrime.class);
         fail("should have thrown exception");
     }
 
     @Test(expected = MappingException.class)
-    public void testNoDestinationClass() throws Exception {
+    public void testNoDestinationClass() {
         mapper.map(new TestObjectPrime(), null);
         fail("should have thrown exception");
     }
 
     @Test(expected = MappingException.class)
-    public void testNullDestObj() throws Exception {
+    public void testNullDestObj() {
         mapper.map(new TestObject(), null);
         fail("should have thrown mapping exception");
     }
@@ -80,12 +80,12 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testGeneralMapping() throws Exception {
+    public void testGeneralMapping() {
         assertCommon(mapper);
     }
 
     @Test
-    public void testNoMappingFilesSpecified() throws Exception {
+    public void testNoMappingFilesSpecified() {
         // Mapper can be used without specifying any mapping files. Fields that have the same name will be mapped
         // automatically.
         Mapper mapper = DozerBeanMapperBuilder.buildDefault();
@@ -94,7 +94,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testDetectDuplicateMapping() throws Exception {
+    public void testDetectDuplicateMapping() {
         Mapper myMapper = DozerBeanMapperBuilder.create()
                 .withMappingFiles("mappings/duplicateMapping.xml")
                 .build();
@@ -104,7 +104,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testCustomBeanFactory() throws Exception {
+    public void testCustomBeanFactory() {
         // -----------------------------------------------------------
         // Test that java beans get created with explicitly specified
         // custom bean factory
@@ -139,7 +139,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testGlobalNullAndEmptyString() throws Exception {
+    public void testGlobalNullAndEmptyString() {
         Mapper mapperMapNull = DozerBeanMapperBuilder.buildDefault();
         Mapper mapperNotMapNull = DozerBeanMapperBuilder.create()
                 .withMappingFiles("mappings/customGlobalConfigWithNullAndEmptyStringTest.xml")
@@ -155,7 +155,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
         assertNull(dest.getName());
     }
 
-    private void assertCommon(Mapper mapper) throws Exception {
+    private void assertCommon(Mapper mapper) {
         TestObjectPrime prime = mapper.map(testDataFactory.getInputGeneralMappingTestObject(), TestObjectPrime.class);
         TestObject source = mapper.map(prime, TestObject.class);
         TestObjectPrime prime2 = mapper.map(source, TestObjectPrime.class);

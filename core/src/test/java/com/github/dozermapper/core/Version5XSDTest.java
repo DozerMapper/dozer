@@ -25,11 +25,11 @@ public class Version5XSDTest {
     @Rule
     public ExpectedException testOldXSDNaming = ExpectedException.none();
 
-    private String message = "Dozer >= v6.0.0 uses a new XSD location. " +
-                             "Your current config needs to be upgraded. " +
-                             "Found v5 XSD: 'http://dozer.sourceforge.net/schema/beanmapping.xsd'. " +
-                             "Expected v6 XSD: 'https://dozermapper.github.io/schema/bean-mapping.xsd'. " +
-                             "Please see migration guide @ https://dozermapper.github.io/gitbook";
+    private String message = "Dozer >= v6.0.0 uses a new XSD location. "
+                             + "Your current config needs to be upgraded. "
+                             + "Found v5 XSD: 'http://dozer.sourceforge.net/schema/beanmapping.xsd'. "
+                             + "Expected v6 XSD: 'https://dozermapper.github.io/schema/bean-mapping.xsd'. "
+                             + "Please see migration guide @ https://dozermapper.github.io/gitbook";
 
     @Test
     public void testOldXSDNaming() {

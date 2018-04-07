@@ -26,7 +26,7 @@ import com.github.dozermapper.core.util.ReflectionUtils;
 
 public class DozerBeanContainer implements BeanRegistry {
 
-    private Map<Class<?>, Object[]> beans = new ConcurrentHashMap<Class<?>, Object[]>();
+    private Map<Class<?>, Object[]> beans = new ConcurrentHashMap<>();
 
     public void register(Class<?> type) {
         beans.put(type, new Object[1]);
@@ -45,7 +45,7 @@ public class DozerBeanContainer implements BeanRegistry {
     }
 
     public <T> Collection<T> getBeans(Class<T> type) {
-        HashSet<T> result = new HashSet<T>();
+        HashSet<T> result = new HashSet<>();
         for (Map.Entry<Class<?>, Object[]> entry : beans.entrySet()) {
             if (type.isAssignableFrom(entry.getKey())) {
                 Object[] value = entry.getValue();

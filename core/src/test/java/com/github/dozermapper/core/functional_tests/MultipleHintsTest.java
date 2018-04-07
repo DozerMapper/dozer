@@ -64,7 +64,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
 
     public static class SourceClass {
 
-        List<SrcA> listOfSrcA = new ArrayList<SrcA>();
+        List<SrcA> listOfSrcA = new ArrayList<>();
 
         public void setListOfSrcA(List<SrcA> listOfSrcA) {
             this.listOfSrcA = listOfSrcA;
@@ -78,7 +78,7 @@ public class MultipleHintsTest extends AbstractFunctionalTest {
 
     public static class DestinationClass {
 
-        private List<A> listOfA = new ArrayList<A>();
+        private List<A> listOfA = new ArrayList<>();
 
         public List<A> getListOfA() {
             return Collections.unmodifiableList(listOfA);

@@ -23,8 +23,8 @@ public abstract class BaseSampleBeanFactory implements BeanFactory {
 
     protected static void setCreatedByFactoryName(Object target, String name) {
         try {
-            Method method = target.getClass().getMethod("setCreatedByFactoryName", new Class[] {String.class});
-            method.invoke(target, new Object[] {name});
+            Method method = target.getClass().getMethod("setCreatedByFactoryName", String.class);
+            method.invoke(target, name);
         } catch (Exception e) {
             // this object is only used for unit testing so do a catch all for ease of use
         }

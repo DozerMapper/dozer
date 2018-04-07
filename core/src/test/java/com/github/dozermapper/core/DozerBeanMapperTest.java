@@ -28,8 +28,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -46,7 +46,7 @@ public class DozerBeanMapperTest {
     public void setUp() {
         // todo the test should be redesigned once DozerBeanMapper is immutable #434
         mapper = DozerBeanMapperBuilder.buildDefault();
-        exceptions = new ArrayList<Throwable>();
+        exceptions = new ArrayList<>();
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             public void uncaughtException(Thread t, Throwable e) {
                 exceptions.add(e);

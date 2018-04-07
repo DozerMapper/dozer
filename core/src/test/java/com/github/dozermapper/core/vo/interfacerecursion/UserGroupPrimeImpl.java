@@ -22,7 +22,7 @@ public class UserGroupPrimeImpl implements UserGroupPrime {
 
     private String name;
 
-    private List<UserPrime> users = new ArrayList<UserPrime>();
+    private List<UserPrime> users = new ArrayList<>();
 
     public String getName() {
         return name;

@@ -342,7 +342,7 @@ public final class MappingUtils {
     }
 
     public static List<Class<?>> getSuperClassesAndInterfaces(Class<?> srcClass, BeanContainer beanContainer) {
-        List<Class<?>> superClasses = new ArrayList<Class<?>>();
+        List<Class<?>> superClasses = new ArrayList<>();
         Class<?> realClass = getRealClass(srcClass, beanContainer);
 
         // Add all super classes first
@@ -355,7 +355,7 @@ public final class MappingUtils {
         // Now add all interfaces of the passed in class and all it's super classes
 
         // Linked hash set so duplicated are not added but insertion order is kept
-        LinkedHashSet<Class<?>> interfaces = new LinkedHashSet<Class<?>>();
+        LinkedHashSet<Class<?>> interfaces = new LinkedHashSet<>();
 
         interfaces.addAll(getInterfaceHierarchy(realClass, beanContainer));
         for (Class<?> clazz : superClasses) {
@@ -368,10 +368,10 @@ public final class MappingUtils {
 
     @SuppressWarnings("unchecked")
     public static List<Class<?>> getInterfaceHierarchy(Class<?> srcClass, BeanContainer beanContainer) {
-        final List<Class<?>> result = new LinkedList<Class<?>>();
+        final List<Class<?>> result = new LinkedList<>();
         Class<?> realClass = getRealClass(srcClass, beanContainer);
 
-        final LinkedList<Class> interfacesToProcess = new LinkedList<Class>();
+        final LinkedList<Class> interfacesToProcess = new LinkedList<>();
 
         Class[] interfaces = realClass.getInterfaces();
 

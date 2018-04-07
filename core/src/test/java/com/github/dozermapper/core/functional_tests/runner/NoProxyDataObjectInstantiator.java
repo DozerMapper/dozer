@@ -42,7 +42,7 @@ public final class NoProxyDataObjectInstantiator implements DataObjectInstantiat
 
     public <T> T newInstance(Class<T> classToInstantiate, Object[] args) {
         try {
-            return (T)ConstructorUtils.invokeConstructor(classToInstantiate, args);
+            return ConstructorUtils.invokeConstructor(classToInstantiate, args);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

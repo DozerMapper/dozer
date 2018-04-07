@@ -28,7 +28,7 @@ public class MapIdField {
     private Map<String, Object> mappedObjects;
 
     public MapIdField() {
-        mappedObjects = new HashMap<String, Object>();
+        mappedObjects = new HashMap<>();
     }
 
     public void put(String mapId, Object value) {

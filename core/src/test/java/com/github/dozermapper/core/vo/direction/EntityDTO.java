@@ -15,6 +15,8 @@
  */
 package com.github.dozermapper.core.vo.direction;
 
+import java.util.Objects;
+
 public class EntityDTO {
 
     private String id;
@@ -35,4 +37,17 @@ public class EntityDTO {
         return this.id.hashCode();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EntityDTO entityDTO = (EntityDTO)o;
+        return Objects.equals(id, entityDTO.id);
+    }
 }

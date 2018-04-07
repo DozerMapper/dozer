@@ -38,7 +38,7 @@ public class CopyByReferenceCollectionTest extends AbstractFunctionalTest {
     @Test
     public void testCollectionToSet() {
         // Property within Set
-        Set<SimpleEnum> tempSet = new HashSet<SimpleEnum>();
+        Set<SimpleEnum> tempSet = new HashSet<>();
         tempSet.add(SimpleEnum.TWO);
         tempSet.add(SimpleEnum.ONE);
         ObjectWithCollection1 obj1 = new ObjectWithCollection1();
@@ -81,7 +81,7 @@ public class CopyByReferenceCollectionTest extends AbstractFunctionalTest {
     @Test
     public void testListToList() {
         ObjectWithCollection1 obj1 = new ObjectWithCollection1();
-        List<SimpleEnum> listToArrayTest = new ArrayList<SimpleEnum>();
+        List<SimpleEnum> listToArrayTest = new ArrayList<>();
         listToArrayTest.add(SimpleEnum.ONE);
         obj1.setTestListToArray(listToArrayTest);
 
@@ -98,7 +98,7 @@ public class CopyByReferenceCollectionTest extends AbstractFunctionalTest {
 
         private SimpleEnum[] testArrayToList;
 
-        private List<SimpleEnum> testListToArray = new ArrayList<SimpleEnum>();
+        private List<SimpleEnum> testListToArray = new ArrayList<>();
 
         public Set<SimpleEnum> getTestSetToSet() {
             return testSetToSet;

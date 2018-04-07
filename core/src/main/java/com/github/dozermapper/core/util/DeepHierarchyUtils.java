@@ -94,8 +94,9 @@ public final class DeepHierarchyUtils {
                                                                                                      collectionIndex > -1, collectionIndex, theFieldName, null,
                                                                                                      false, null, null, null,
                                                                                                      null, beanContainer,
-                                                                                                     destBeanCreator); //we can pass null as a hint container - if genericType return null - we will use hintContainer in the underlying if
-
+                                                                                                     destBeanCreator); //we can pass null as a hint container -
+                                                                                                                        // if genericType return null - we will use hintContainer
+                                                                                                                        // in the underlying if
             if (propDescriptor == null) {
                 MappingUtils.throwMappingException("Exception occurred determining deep field hierarchy for Class --> "
                                                    + parentClass.getName() + ", Field --> " + field + ".  Unable to determine property descriptor for Class --> "
@@ -112,7 +113,8 @@ public final class DeepHierarchyUtils {
                     if (genericType == null && deepIndexHintContainer == null) {
                         MappingUtils
                                 .throwMappingException(
-                                        "Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). Exception occurred determining deep field hierarchy for Class --> "
+                                        "Hint(s) or Generics not specified.  Hint(s) or Generics must be specified for deep mapping with indexed field(s). "
+                                        + "Exception occurred determining deep field hierarchy for Class --> "
                                         + parentClass.getName()
                                         + ", Field --> "
                                         + field

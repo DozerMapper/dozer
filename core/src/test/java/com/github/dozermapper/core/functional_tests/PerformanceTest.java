@@ -162,35 +162,35 @@ public class PerformanceTest extends AbstractFunctionalTest {
      */
 
     @Test(timeout = 35000)
-    public void testMapping1() throws Exception {
+    public void testMapping1() {
         // TestObject --> TestObjectPrime
         TestObject src = testDataFactory.getInputGeneralMappingTestObject();
         runGeneric("testMapping1", src, TestObjectPrime.class);
     }
 
     @Test(timeout = 3600)
-    public void testMapping2() throws Exception {
+    public void testMapping2() {
         // SimpleObject --> SimpleObjectPrime
         SimpleObj src = testDataFactory.getSimpleObj();
         runGeneric("testMapping2", src, SimpleObjPrime.class);
     }
 
     @Test(timeout = 3700)
-    public void testMapping3() throws Exception {
+    public void testMapping3() {
         // SimpleObject --> SimpleObjectPrime2
         SimpleObj src = testDataFactory.getSimpleObj();
         runGeneric("testMapping3", src, SimpleObjPrime2.class);
     }
 
     @Test(timeout = 12000)
-    public void testMapping4() throws Exception {
+    public void testMapping4() {
         // AnotherSubClass --> AnotherSubClassPrime (Inheritance)
         AnotherSubClass src = testDataFactory.getAnotherSubClass();
         runGeneric("testMapping4", src, AnotherSubClassPrime.class);
     }
 
     @Test(timeout = 13000)
-    public void testMapping5() throws Exception {
+    public void testMapping5() {
         // SrcDeepObj --> DestDeepObj (Field Deep)
         SrcDeepObj src = testDataFactory.getSrcDeepObj();
         runGeneric("testMapping5", src, DestDeepObj.class);
@@ -198,13 +198,13 @@ public class PerformanceTest extends AbstractFunctionalTest {
 
     // 1-2007: Test Case submitted by Dave B.
     @Test(timeout = 35000)
-    public void testMapping6() throws Exception {
+    public void testMapping6() {
         // MyClassA --> MyClassB. Src object contains List with 500 String elements.
         MyClassA src = testDataFactory.getRandomMyClassA();
         runGeneric("testMapping6", src, MyClassB.class);
     }
 
-    private void runGeneric(String testName, Object src, Class<?> destClass) throws Exception {
+    private void runGeneric(String testName, Object src, Class<?> destClass) {
         // warm up the mapper
         mapper.map(src, destClass);
 

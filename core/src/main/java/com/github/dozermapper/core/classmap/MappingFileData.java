@@ -23,7 +23,7 @@ import java.util.List;
  * Only intended for internal use.
  */
 public class MappingFileData {
-    private List<ClassMap> classMaps = new ArrayList<ClassMap>();
+    private List<ClassMap> classMaps = new ArrayList<>();
     private Configuration configuration;
 
     public List<ClassMap> getClassMaps() {

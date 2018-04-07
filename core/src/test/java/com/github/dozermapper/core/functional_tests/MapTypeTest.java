@@ -56,9 +56,9 @@ import static org.junit.Assert.assertTrue;
 public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
-    public void testMapToVo() throws Exception {
+    public void testMapToVo() {
         // Test simple Map --> Vo with custom mappings defined.
-        mapper = getMapper(new String[] {"mappings/mapMapping2.xml"});
+        mapper = getMapper("mappings/mapMapping2.xml");
 
         NestedObj nestedObj = newInstance(NestedObj.class);
         nestedObj.setField1("nestedfield1value");
@@ -72,8 +72,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToVoSimple() throws Exception {
-        mapper = getMapper(new String[] {});
+    public void testMapToVoSimple() {
+        mapper = getMapper();
 
         NestedObj nestedObj = newInstance(NestedObj.class);
         nestedObj.setField1("nestedfield1value");
@@ -85,13 +85,13 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToVoWithRenameField() throws Exception {
+    public void testMapToVoWithRenameField() {
         // Test simple Map --> Vo with custom mappings defined.
-        mapper = getMapper(new String[] {"mappings/mapMapping2.xml"});
+        mapper = getMapper("mappings/mapMapping2.xml");
 
         NestedObj nestedObj = newInstance(NestedObj.class);
         nestedObj.setField1("nestedfield1value");
-        Map<String, Object> src = new HashMap<String, Object>();
+        Map<String, Object> src = new HashMap<>();
         src.put("first", "mapnestedfield1value");
         src.put("nested", nestedObj);
 
@@ -101,13 +101,13 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToVoWithRenameFieldReverse() throws Exception {
+    public void testMapToVoWithRenameFieldReverse() {
         // Test simple Map --> Vo with custom mappings defined.
-        mapper = getMapper(new String[] {"mappings/mapMapping2.xml"});
+        mapper = getMapper("mappings/mapMapping2.xml");
 
         NestedObj nestedObj = newInstance(NestedObj.class);
         nestedObj.setField1("nestedfield1value");
-        Map<String, Object> src = new HashMap<String, Object>();
+        Map<String, Object> src = new HashMap<>();
         src.put("first", "mapnestedfield1value");
         src.put("nested", nestedObj);
 
@@ -117,9 +117,9 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToVo_CustomMappings() throws Exception {
+    public void testMapToVo_CustomMappings() {
         // Test simple Map --> Vo with custom mappings defined.
-        mapper = getMapper(new String[] {"mappings/mapMapping2.xml"});
+        mapper = getMapper("mappings/mapMapping2.xml");
         Map<String, String> src = newInstance(HashMap.class);
         src.put("field1", "field1value");
         src.put("field2", "field2value");
@@ -132,7 +132,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     @Test
     public void testMapToVoUsingMapId() {
         // Simple map --> vo using a map-id
-        mapper = super.getMapper(new String[] {"mappings/mapMapping.xml"});
+        mapper = super.getMapper("mappings/mapMapping.xml");
         Map<String, String> src = newInstance(HashMap.class);
         src.put("field1", "field1value");
         src.put("field2", "field2value");
@@ -145,7 +145,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     @Test
     public void testMapToVoUsingMapId_FieldExclude() {
         // Simple map --> vo using a map-id
-        mapper = super.getMapper(new String[] {"mappings/mapMapping.xml"});
+        mapper = super.getMapper("mappings/mapMapping.xml");
         Map<String, String> src = newInstance(HashMap.class);
         src.put("field1", "field1value");
         src.put("field2", "field2value");
@@ -180,7 +180,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToVo_NoCustomMappings() throws Exception {
+    public void testMapToVo_NoCustomMappings() {
         // Test simple Map --> Vo without any custom mappings defined.
         NestedObj nestedObj = newInstance(NestedObj.class);
         nestedObj.setField1("nestedfield1value");
@@ -194,7 +194,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testVoToMap_NoCustomMappings() throws Exception {
+    public void testVoToMap_NoCustomMappings() {
         // Test simple Vo --> Map without any custom mappings defined.
         SimpleObjPrime src = newInstance(SimpleObjPrime.class);
         src.setField1("someValueField1");
@@ -221,8 +221,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToMap() throws Exception {
-        Mapper mapper = getMapper(new String[] {"mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml"});
+    public void testMapToMap() {
+        Mapper mapper = getMapper("mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml");
         TestObject to = newInstance(TestObject.class);
         to.setOne("one");
         TestObject to2 = newInstance(TestObject.class);
@@ -246,8 +246,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToMapExistingDestination() throws Exception {
-        Mapper mapper = getMapper(new String[] {"mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml"});
+    public void testMapToMapExistingDestination() {
+        Mapper mapper = getMapper("mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml");
         TestObject to = newInstance(TestObject.class);
         to.setOne("one");
         TestObject to2 = newInstance(TestObject.class);
@@ -272,8 +272,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testPropertyClassLevelMap() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testPropertyClassLevelMap() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");
         ptm.addStringProperty2("stringProperty2Value");
@@ -293,8 +293,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testPropertyClassLevelMap2() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testPropertyClassLevelMap2() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");
         ptm.addStringProperty2("stringProperty2Value");
@@ -305,9 +305,9 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testPropertyClassLevelMapBack() throws Exception {
+    public void testPropertyClassLevelMapBack() {
         // Map Back
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+        mapper = getMapper("testDozerBeanMapping.xml");
         Map<String, Object> map = newInstance(HashMap.class);
         map.put("stringProperty", "stringPropertyValue");
         map.put("integerProperty", new Integer("567"));
@@ -325,8 +325,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testPropertyToMap() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testPropertyToMap() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");
         ptm.addStringProperty2("stringProperty2Value");
@@ -355,8 +355,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testPropertyToCustomMap() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testPropertyToCustomMap() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty3("stringProperty3Value");
         ptm.setStringProperty4("stringProperty4Value");
@@ -375,8 +375,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testPropertyToClassLevelMap() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testPropertyToClassLevelMap() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         MapTestObject mto = newInstance(MapTestObject.class);
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         Map<String, String> map = newInstance(HashMap.class);
@@ -424,8 +424,8 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testPropertyToCustomClassLevelMap() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testPropertyToCustomClassLevelMap() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         MapTestObject mto = newInstance(MapTestObject.class);
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");
@@ -449,19 +449,19 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapGetSetMethod_ClassLevel() throws Exception {
+    public void testMapGetSetMethod_ClassLevel() {
         runMapGetSetMethodTest("useCase1");
     }
 
     @Test
-    public void testMapGetSetMethod_FieldLevel() throws Exception {
+    public void testMapGetSetMethod_FieldLevel() {
         runMapGetSetMethodTest("useCase2");
     }
 
     @Test
     public void testDateFormat_CustomMapType() throws Exception {
         // Test that date format works for mapping between String and Custom Map Type
-        mapper = getMapper(new String[] {"mappings/mapMapping3.xml"});
+        mapper = getMapper("mappings/mapMapping3.xml");
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         String dateStr = "10/15/2005";
         CustomMap src = newInstance(CustomMap.class);
@@ -475,9 +475,9 @@ public class MapTypeTest extends AbstractFunctionalTest {
         assertEquals("remapped src field contains wrong date string", dateStr, remappedSrc.getValue("fieldA"));
     }
 
-    private void runMapGetSetMethodTest(String mapId) throws Exception {
+    private void runMapGetSetMethodTest(String mapId) {
         // Test that custom field converter works for Custom Map Types
-        mapper = getMapper(new String[] {"mappings/mapGetSetMethodMapping.xml"});
+        mapper = getMapper("mappings/mapGetSetMethodMapping.xml");
         CustomMap src = newInstance(CustomMap.class);
         src.putValue("fieldA", "someStringValue");
         src.putValue("field2", "someOtherStringValue");
@@ -502,7 +502,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapType_NestedMapToVo_NoCustomMappings() throws Exception {
+    public void testMapType_NestedMapToVo_NoCustomMappings() {
         // Simple test checking that Maps get mapped to a VO without any custom mappings or map-id.
         // Should behave like Vo --> Vo, matching on common attr(key) names.
         Map<String, String> nested2 = newInstance(HashMap.class);
@@ -558,7 +558,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToVoUsingMapInterface() throws Exception {
+    public void testMapToVoUsingMapInterface() {
         // Test simple Map --> Vo with custom mappings defined.
         mapper = getMapper("mappings/mapMapping5.xml");
 
@@ -572,7 +572,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     @Ignore("Known bug")
-    public void testEmptyMapToVo() throws Exception {
+    public void testEmptyMapToVo() {
         mapper = getMapper("mappings/mapMapping5.xml");
 
         Map<String, String> src = newInstance(HashMap.class);
@@ -586,7 +586,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMapToVoOverwritesExistingValue() throws Exception {
+    public void testMapToVoOverwritesExistingValue() {
         mapper = getMapper("mappings/mapMapping5.xml");
 
         Map<String, String> src = newInstance(HashMap.class);

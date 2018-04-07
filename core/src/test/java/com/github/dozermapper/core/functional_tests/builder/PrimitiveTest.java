@@ -57,13 +57,14 @@ public class PrimitiveTest {
                     @Override
                     protected void configure() {
                         mapping(type(Source.class),
-                                type(Destination.class)
-                                , TypeMappingOptions.oneWay()
+                                type(Destination.class),
+                                TypeMappingOptions.oneWay()
                         );
 
                         mapping(type(Destination.class),
-                                type(Source.class)
-                                , TypeMappingOptions.oneWay(), TypeMappingOptions.wildcard(false)
+                                type(Source.class),
+                                TypeMappingOptions.oneWay(),
+                                TypeMappingOptions.wildcard(false)
                         );
 
                     }

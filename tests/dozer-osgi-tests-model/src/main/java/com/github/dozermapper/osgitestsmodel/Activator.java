@@ -40,12 +40,12 @@ public class Activator implements BundleActivator {
         Activator.bundle = bundle;
     }
 
-    public void start(BundleContext context) throws Exception {
+    public void start(BundleContext context) {
         setBundleContext(context);
         setBundle(context.getBundle());
     }
 
-    public void stop(BundleContext context) throws Exception {
+    public void stop(BundleContext context) {
         setBundleContext(null);
         setBundle(null);
     }

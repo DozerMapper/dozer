@@ -65,13 +65,8 @@ public class GenericsTest extends AbstractFunctionalTest {
 
     }
 
-    /**
-     * Test mapping for deepn generic inheritance
-     *
-     * @throws Exception
-     */
     @Test
-    public void testDeepGenericInheritanceTest() throws Exception {
+    public void testDeepGenericInheritanceTest() {
         Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
         B b = new B();

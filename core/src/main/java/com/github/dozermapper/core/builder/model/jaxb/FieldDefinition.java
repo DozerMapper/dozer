@@ -280,7 +280,7 @@ public class FieldDefinition {
         }
 
         if (copyByReference != null) {
-            fieldMap.setCopyByReference(copyByReference == null ? null : copyByReference);
+            fieldMap.setCopyByReference(copyByReference);
         }
 
         fieldMap.setMapId(mapId);
