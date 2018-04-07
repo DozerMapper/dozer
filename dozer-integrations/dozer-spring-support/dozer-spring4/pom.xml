@@ -35,9 +35,6 @@
     <properties>
         <osgi.Bundle-Activator/>
         <osgi.Export-Package>com.github.dozermapper.spring.*</osgi.Export-Package>
-
-        <!-- NOTE: Needs to be removed in future -->
-        <findbugs.skip>true</findbugs.skip>
     </properties>
 
     <dependencies>

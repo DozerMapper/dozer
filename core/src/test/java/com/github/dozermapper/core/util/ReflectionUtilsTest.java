@@ -49,24 +49,24 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     private BeanContainer beanContainer = new BeanContainer();
 
     @Test(expected = MappingException.class)
-    public void testGetMethod_NotFound() throws Exception {
+    public void testGetMethod_NotFound() {
         SimpleObj src = new SimpleObj();
         ReflectionUtils.getMethod(src, String.valueOf(System.currentTimeMillis()));
     }
 
     @Test(expected = MappingException.class)
-    public void testGetDeepFieldHierarchy_NonDeepField() throws Exception {
+    public void testGetDeepFieldHierarchy_NonDeepField() {
         ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class, "test", null);
     }
 
     @Test(expected = MappingException.class)
-    public void testGetDeepFieldHierarchy_NotExists() throws Exception {
+    public void testGetDeepFieldHierarchy_NotExists() {
         ReflectionUtils.getDeepFieldHierarchy(SimpleObj.class,
                                               String.valueOf(System.currentTimeMillis()) + "." + String.valueOf(System.currentTimeMillis()), null);
     }
 
     @Test
-    public void testGetPropertyDescriptors_InterfaceInheritance() throws Exception {
+    public void testGetPropertyDescriptors_InterfaceInheritance() {
         // Should walk the inheritance hierarchy all the way up to the super interface and find all properties along the way
         PropertyDescriptor[] pds = ReflectionUtils.getPropertyDescriptors(ChildChildIF.class);
         assertNotNull("prop descriptors should not be null", pds);
@@ -74,7 +74,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testFindPropertyDescriptor_InterfaceInheritance() throws Exception {
+    public void testFindPropertyDescriptor_InterfaceInheritance() {
         // Should walk the inheritance hierarchy all the way up to the super interface and find the property along the way
         String fieldName = "parentField";
 
@@ -180,7 +180,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     }
 
     @Test
-    public void shouldHandleBeanWithGenericInterface() throws Exception {
+    public void shouldHandleBeanWithGenericInterface() {
         PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(Y.class, "x", null);
         assertEquals("com.github.dozermapper.core.util.ReflectionUtilsTest$ClassInheritsClassX", propertyDescriptor.getReadMethod().getReturnType().getName());
     }

@@ -165,7 +165,7 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
      * {@inheritDoc}
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Map<String, CustomConverter> contextCustomConvertersWithId = applicationContext.getBeansOfType(CustomConverter.class);
         Map<String, BeanMappingBuilder> contextBeanMappingBuilders = applicationContext.getBeansOfType(BeanMappingBuilder.class);
         Map<String, DozerEventListener> contextEventListeners = applicationContext.getBeansOfType(DozerEventListener.class);
@@ -196,7 +196,7 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
      * {@inheritDoc}
      */
     @Override
-    public Mapper getObject() throws Exception {
+    public Mapper getObject() {
         return this.mapper;
     }
 

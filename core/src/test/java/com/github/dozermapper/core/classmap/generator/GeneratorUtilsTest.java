@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 public class GeneratorUtilsTest {
 
     @Test
-    public void ignoreTechnicalFields() throws Exception {
+    public void ignoreTechnicalFields() {
         Object proxy = ProxyDataObjectInstantiator.INSTANCE.newInstance(Object.class);
         BeanContainer beanContainer = new BeanContainer();
 

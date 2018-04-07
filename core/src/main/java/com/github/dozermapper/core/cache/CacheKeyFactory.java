@@ -83,11 +83,7 @@ public final class CacheKeyFactory {
                 return false;
             }
 
-            if (mapId != null ? !mapId.equals(cacheKey.mapId) : cacheKey.mapId != null) {
-                return false;
-            }
-
-            return true;
+            return mapId != null ? mapId.equals(cacheKey.mapId) : cacheKey.mapId == null;
         }
 
         @Override

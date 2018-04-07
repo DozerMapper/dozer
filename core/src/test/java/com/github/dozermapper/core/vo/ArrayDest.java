@@ -24,7 +24,7 @@ public class ArrayDest {
 
     private String[] preInitializedArray = new String[preInitializedArraySize];
 
-    private List<String> destList = new ArrayList<String>(100);
+    private List<String> destList = new ArrayList<>(100);
 
     private String[] array;
 

@@ -29,6 +29,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 
 /**
+ * Fixes issue 45
+ *
  * @see <a href="https://github.com/DozerMapper/dozer/issues/45">issue</a>
  */
 public class SecondUsingMapInternalTest {
@@ -42,9 +44,6 @@ public class SecondUsingMapInternalTest {
                 .build();
     }
 
-    /**
-     * @see <a href="https://github.com/DozerMapper/dozer/issues/45">issue</a>
-     */
     @Test
     public void twiceInnerMapperAwareConverterMapping() {
         MapperAwareSimpleSrc src = new MapperAwareSimpleSrc();

@@ -72,9 +72,9 @@ public final class CollectionUtils {
     public static <T extends Set<?>> Set<?> createNewSet(Class<T> destType) {
         Set<Object> result;
         if (SortedSet.class.isAssignableFrom(destType)) {
-            result = new TreeSet<Object>();
+            result = new TreeSet<>();
         } else {
-            result = new HashSet<Object>();
+            result = new HashSet<>();
         }
         return result;
     }
@@ -101,13 +101,13 @@ public final class CollectionUtils {
         if (destEntryType.isPrimitive()) {
             return outArray;
         } else {
-            return (T[])outArray;
+            return outArray;
         }
     }
 
     public static List<Object> convertPrimitiveArrayToList(Object primitiveArray) {
         int length = Array.getLength(primitiveArray);
-        List<Object> result = new ArrayList<Object>(length);
+        List<Object> result = new ArrayList<>(length);
 
         // wrap and copy elements
         for (int i = 0; i < length; i++) {
@@ -117,7 +117,7 @@ public final class CollectionUtils {
     }
 
     public static <E> Set<E> intersection(final Set<E> set1, final Set<?> set2) {
-        Set<E> intersection = new HashSet<E>(set1);
+        Set<E> intersection = new HashSet<>(set1);
         intersection.retainAll(set2);
         return intersection;
     }

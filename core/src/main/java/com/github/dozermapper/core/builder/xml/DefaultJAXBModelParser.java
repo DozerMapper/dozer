@@ -28,10 +28,10 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import com.github.dozermapper.core.config.BeanContainer;
-
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
+
+import com.github.dozermapper.core.config.BeanContainer;
 
 /**
  * Parses XML content to a jaxb model using {@link JAXBContext}
@@ -89,7 +89,7 @@ public class DefaultJAXBModelParser<T> implements JAXBModelParser<T> {
      * {@inheritDoc}
      */
     @Override
-    public T readXML(String xmlContent, Class<T> type) throws IOException, SAXException {
+    public T readXML(String xmlContent, Class<T> type) throws SAXException {
         JAXBElement<T> answer;
 
         try (StringReader stringReader = new StringReader(xmlContent)) {

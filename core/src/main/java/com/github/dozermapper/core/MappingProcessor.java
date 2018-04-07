@@ -261,7 +261,7 @@ public class MappingProcessor implements Mapper {
             result = javax.xml.bind.JAXBElement.class.cast(destObj).getValue();
         }
 
-        map(classMap, srcObj, result, bypassSuperMappings, new ArrayList<String>(), mapId);
+        map(classMap, srcObj, result, bypassSuperMappings, new ArrayList<>(), mapId);
     }
 
     private void map(ClassMap classMap, Object srcObj, Object destObj, boolean bypassSuperMappings, List<String> mappedParentFields, String mapId) {
@@ -293,7 +293,7 @@ public class MappingProcessor implements Mapper {
 
         // Now check for super class mappings.  Process super class mappings first.
         if (!bypassSuperMappings) {
-            Collection<ClassMap> superMappings = new ArrayList<ClassMap>();
+            Collection<ClassMap> superMappings = new ArrayList<>();
 
             Collection<ClassMap> superClasses = checkForSuperTypeMapping(srcClass, destClass);
             //List<ClassMap> interfaceMappings = classMappings.findInterfaceMappings(srcClass, destClass);
@@ -794,9 +794,9 @@ public class MappingProcessor implements Mapper {
 
     private Set<?> addToSet(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj) {
         // create a list here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
-        Set<Object> mappedElements = new HashSet<Object>();
+        Set<Object> mappedElements = new HashSet<>();
 
-        LinkedHashSet<Object> result = new LinkedHashSet<Object>();
+        LinkedHashSet<Object> result = new LinkedHashSet<>();
         // don't want to create the set if it already exists.
         Object field = fieldMap.getDestValue(destObj);
         if (field != null) {
@@ -822,7 +822,7 @@ public class MappingProcessor implements Mapper {
 
             if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
                 && result.contains(destValue)) {
-                List<Object> resultAsList = new ArrayList<Object>(result);
+                List<Object> resultAsList = new ArrayList<>(result);
                 int index = resultAsList.indexOf(destValue);
                 // perform an update if complex type - can't map strings
                 Object obj = resultAsList.get(index);
@@ -860,7 +860,7 @@ public class MappingProcessor implements Mapper {
     private List<?> addOrUpdateToList(Object srcObj, FieldMap fieldMap, Collection<?> srcCollectionValue, Object destObj,
                                       Class<?> destEntryType) {
         // create a Set here so we can keep track of which elements we have mapped, and remove all others if removeOrphans = true
-        List<Object> mappedElements = new ArrayList<Object>();
+        List<Object> mappedElements = new ArrayList<>();
         List result;
         // don't want to create the list if it already exists.
         // these maps are special cases which do not fall under what we are looking for
@@ -925,7 +925,7 @@ public class MappingProcessor implements Mapper {
     }
 
     static void removeOrphans(Collection<?> mappedElements, List<Object> result) {
-        for (Iterator<?> iterator = result.iterator(); iterator.hasNext(); ) {
+        for (Iterator<?> iterator = result.iterator(); iterator.hasNext();) {
             Object object = iterator.next();
             if (!mappedElements.contains(object)) {
                 iterator.remove();
@@ -940,14 +940,14 @@ public class MappingProcessor implements Mapper {
 
     static List<?> prepareDestinationList(Collection<?> srcCollectionValue, Object field) {
         if (field == null) {
-            return new ArrayList<Object>(srcCollectionValue.size());
+            return new ArrayList<>(srcCollectionValue.size());
         } else {
             if (CollectionUtils.isList(field.getClass())) {
                 return (List<?>)field;
             } else if (CollectionUtils.isArray(field.getClass())) {
-                return new ArrayList<Object>(Arrays.asList((Object[])field));
+                return new ArrayList<>(Arrays.asList((Object[])field));
             } else { // assume it is neither - safest way is to create new List
-                return new ArrayList<Object>(srcCollectionValue.size());
+                return new ArrayList<>(srcCollectionValue.size());
             }
         }
     }
@@ -1084,7 +1084,7 @@ public class MappingProcessor implements Mapper {
 
         // If no existing cache entry is found, determine super type mappings.
         // Recursively walk the inheritance hierarchy.
-        List<ClassMap> superClasses = new ArrayList<ClassMap>();
+        List<ClassMap> superClasses = new ArrayList<>();
         // Need to call getRealSuperclass because proxied data objects will not return correct
         // superclass when using basic reflection
 

@@ -38,8 +38,8 @@ public class JAXBBeansMapping_WithExceptionLoggedTest extends AbstractFunctional
 
     @Test
     public void testJAXBListWithNoSetter() {
-        LOG.error(
-                "WithExceptionsLoggedTest; 'NoSuchMethodException: Unable to determine write method for Field: 'ids' in Class: class com.github.dozermapper.core.vo.jaxb.employee.EmployeeType'");
+        LOG.error("WithExceptionsLoggedTest; 'NoSuchMethodException: Unable to determine write method for Field: 'ids' in "
+                  + "Class: class com.github.dozermapper.core.vo.jaxb.employee.EmployeeType'");
 
         JAXBBeansMappingTest.ListContainer source = new JAXBBeansMappingTest.ListContainer();
         source.getList().add(1);

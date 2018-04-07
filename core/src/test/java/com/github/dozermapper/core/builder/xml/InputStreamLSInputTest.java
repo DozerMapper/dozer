@@ -17,8 +17,9 @@ package com.github.dozermapper.core.builder.xml;
 
 import java.io.StringReader;
 
-import org.junit.Test;
 import org.w3c.dom.ls.LSInput;
+
+import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 

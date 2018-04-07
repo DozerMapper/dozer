@@ -64,7 +64,7 @@ public class YAMLSettingsResolver implements SettingsResolver {
     }
 
     private Map<String, Map> processFile() {
-        Map<String, Map> answer = new HashMap<String, Map>();
+        Map<String, Map> answer = new HashMap<>();
 
         String extension = FilenameUtils.getExtension(configFile);
         if (!(extension.equalsIgnoreCase("yaml") || extension.equalsIgnoreCase("yml"))) {

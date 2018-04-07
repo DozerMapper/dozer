@@ -37,11 +37,8 @@ public final class GeneratorUtils {
         if (CLASS.equals(fieldName)) {
             return true;
         }
-        if ((CALLBACK.equals(fieldName) || CALLBACKS.equals(fieldName))
-            && (MappingUtils.isProxy(srcType, beanContainer) || MappingUtils.isProxy(destType, beanContainer))) {
-            return true;
-        }
-        return false;
+        return (CALLBACK.equals(fieldName) || CALLBACKS.equals(fieldName))
+               && (MappingUtils.isProxy(srcType, beanContainer) || MappingUtils.isProxy(destType, beanContainer));
     }
 
     public static void addGenericMapping(MappingType mappingType, ClassMap classMap,
@@ -54,16 +51,16 @@ public final class GeneratorUtils {
         fieldMap.setDestField(destField);
 
         switch (mappingType) {
-        case FIELD_TO_FIELD:
-            srcField.setAccessible(true);
-            destField.setAccessible(true);
-            break;
-        case FIELD_TO_SETTER:
-            srcField.setAccessible(true);
-            break;
-        case GETTER_TO_SETTER:
-        default:
-            break;
+            case FIELD_TO_FIELD:
+                srcField.setAccessible(true);
+                destField.setAccessible(true);
+                break;
+            case FIELD_TO_SETTER:
+                srcField.setAccessible(true);
+                break;
+            case GETTER_TO_SETTER:
+            default:
+                break;
         }
 
         // add CopyByReferences per defect #1728159

@@ -63,15 +63,16 @@ public class CustomConverterMapperAwareTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void test_convert_withSubclassedConverterInstance() throws Exception {
+    public void test_convert_withSubclassedConverterInstance() {
         Mapper mapper = DozerBeanMapperBuilder.create()
                 .withMappingFiles("mappings/customConverterMapperAware.xml")
                 .withCustomConverter(new Converter() {
                     @Override
                     public Map convertTo(List source, Map destination) {
                         return new HashMap() {{
-                            put("foo", "bar");
-                        }};
+                                put("foo", "bar");
+                            }
+                        };
                     }
                 })
                 .build();

@@ -72,7 +72,8 @@ public class InvalidMapping_WithExceptionsLoggedTest extends AbstractFunctionalT
     @Test
     public void testNoFieldB() {
         LOG.error(
-                "WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.b: The content of element 'field' is not complete. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":b}' is expected'");
+                "WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.b: The content of element 'field' is not complete. "
+                + "One of '{\"http://dozermapper.github.io/schema/bean-mapping\":b}' is expected'");
 
         testNoFieldBEE.expectMessage(Matchers.containsString(
                 "cvc-complex-type.2.4.b: The content of element 'field' is not complete. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":b}' is expected"));
@@ -99,8 +100,8 @@ public class InvalidMapping_WithExceptionsLoggedTest extends AbstractFunctionalT
 
     @Test
     public void testFieldDoesNotExist() {
-        LOG.error(
-                "WithExceptionsLoggedTest; 'MappingException: No read or write method found for field (fielddoesnotexist) in class (class com.github.dozermapper.core.vo.TestObjectPrime)'");
+        LOG.error("WithExceptionsLoggedTest; 'MappingException: No read or write method found for field (fielddoesnotexist) "
+                  + "in class (class com.github.dozermapper.core.vo.TestObjectPrime)'");
 
         testFieldDoesNotExistEE.expectMessage("No read or write method found for field (fielddoesnotexist) in class (class com.github.dozermapper.core.vo.TestObjectPrime)");
         testFieldDoesNotExistEE.expect(MappingException.class);
@@ -113,11 +114,12 @@ public class InvalidMapping_WithExceptionsLoggedTest extends AbstractFunctionalT
 
     @Test
     public void testNoClassA() {
-        LOG.error(
-                "WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":class-a}' is expected.'");
+        LOG.error("WithExceptionsLoggedTest; 'MappingException: cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. "
+                  + "One of '{\"http://dozermapper.github.io/schema/bean-mapping\":class-a}' is expected.'");
 
         //NOTE: Java8 and Java9 return different error messages...
-        //testNoClassAEE.expectMessage(Matchers.containsString("cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. One of '{\"http://dozermapper.github.io/schema/bean-mapping\":class-a}' is expected."));
+        //testNoClassAEE.expectMessage(Matchers.containsString("cvc-complex-type.2.4.a: Invalid content was found starting with element 'class-b'. "
+        //                                                     + "One of '{\"http://dozermapper.github.io/schema/bean-mapping\":class-a}' is expected."));
         testNoClassAEE.expect(MappingException.class);
 
         mapper = getMapper("non-strict/invalidmapping5.xml");

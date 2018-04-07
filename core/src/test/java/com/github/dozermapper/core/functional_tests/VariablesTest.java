@@ -37,13 +37,13 @@ public class VariablesTest extends AbstractFunctionalTest {
 
     @Test
     public void testTest() {
-        Container<Child> source = new Container<Child>();
-        Container<ChildClone> destination = new Container<ChildClone>();
+        Container<Child> source = new Container<>();
+        Container<ChildClone> destination = new Container<>();
 
         Parent parent = newInstance(Parent.class);
         parent.setId("PARENT");
 
-        HashSet<Child> children = new HashSet<Child>();
+        HashSet<Child> children = new HashSet<>();
 
         Child child = newInstance(Child.class);
         child.setId("CHILD");

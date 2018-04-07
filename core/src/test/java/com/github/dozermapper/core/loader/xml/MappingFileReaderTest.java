@@ -26,7 +26,7 @@ public class MappingFileReaderTest {
     }
 
     @Test
-    public void testRead() throws Exception {
+    public void testRead() {
 
     }
 

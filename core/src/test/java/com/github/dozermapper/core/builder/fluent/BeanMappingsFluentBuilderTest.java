@@ -84,7 +84,7 @@ public class BeanMappingsFluentBuilderTest {
                 .withMapEmptyString(true)
                 .withDateFormat("MM/dd/yyyy HH:mm")
                 .withRelationshipType(Relationship.CUMULATIVE)
-            .end();
+                .end();
             // @formatter:on
 
             // @formatter:off
@@ -189,7 +189,7 @@ public class BeanMappingsFluentBuilderTest {
                         .withGetMethod("get")
                     .endField()
                 .end()
-            .end();
+                .end();
             // @formatter:on
         }
     }

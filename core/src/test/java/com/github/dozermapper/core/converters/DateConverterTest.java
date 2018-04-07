@@ -112,7 +112,7 @@ public class DateConverterTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testConvert_Format() throws Exception {
+    public void testConvert_Format() {
         GregorianCalendar calendar = new GregorianCalendar(2001, 1, 1);
         Object result = converter.convert(String.class, calendar);
         String stringCalendar = (String)result;

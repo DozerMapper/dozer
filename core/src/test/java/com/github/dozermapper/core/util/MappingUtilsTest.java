@@ -66,14 +66,14 @@ public class MappingUtilsTest extends AbstractDozerTest {
     private PropertyDescriptorFactory propertyDescriptorFactory = new PropertyDescriptorFactory();
 
     @Test
-    public void testIsBlankOrNull() throws Exception {
+    public void testIsBlankOrNull() {
         assertTrue(MappingUtils.isBlankOrNull(null));
         assertTrue(MappingUtils.isBlankOrNull(""));
         assertTrue(MappingUtils.isBlankOrNull(" "));
     }
 
     @Test
-    public void testOverridenFields() throws Exception {
+    public void testOverridenFields() {
         MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory),
                                                              beanContainer);
         MappingFileData mappingFileData = fileReader.read("mappings/overridemapping.xml");
@@ -94,7 +94,7 @@ public class MappingUtilsTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testGetClassWithoutPackage() throws Exception {
+    public void testGetClassWithoutPackage() {
         String result = MappingUtils.getClassNameWithoutPackage(String.class);
         assertNotNull("result should not be null", result);
         assertEquals("invalid result value", "String", result);
@@ -169,27 +169,27 @@ public class MappingUtilsTest extends AbstractDozerTest {
     @Test
     public void testPrepareIndexedCollection_List() {
         List<?> result = (List<?>)MappingUtils.prepareIndexedCollection(List.class, null, "some entry", 0);
-        assertEquals(Arrays.asList(new String[] {"some entry"}), result);
+        assertEquals(Arrays.asList("some entry"), result);
 
         result = (List<?>)MappingUtils.prepareIndexedCollection(List.class, null, "some entry", 3);
-        assertEquals(Arrays.asList(new String[] {null, null, null, "some entry"}), result);
+        assertEquals(Arrays.asList(null, null, null, "some entry"), result);
 
-        result = (List<?>)MappingUtils.prepareIndexedCollection(List.class, Arrays.asList(new String[] {"a", "b", "c"}),
+        result = (List<?>)MappingUtils.prepareIndexedCollection(List.class, Arrays.asList("a", "b", "c"),
                                                                 "some entry", 5);
-        assertEquals(Arrays.asList(new String[] {"a", "b", "c", null, null, "some entry"}), result);
+        assertEquals(Arrays.asList("a", "b", "c", null, null, "some entry"), result);
     }
 
     @Test
     public void testPrepareIndexedCollection_Vector() {
         Vector<?> result = (Vector<?>)MappingUtils.prepareIndexedCollection(Vector.class, null, "some entry", 0);
-        assertEquals(new Vector<String>(Arrays.asList(new String[] {"some entry"})), result);
+        assertEquals(new Vector<>(Arrays.asList("some entry")), result);
 
         result = (Vector<?>)MappingUtils.prepareIndexedCollection(Vector.class, null, "some entry", 3);
-        assertEquals(new Vector<String>(Arrays.asList(new String[] {null, null, null, "some entry"})), result);
+        assertEquals(new Vector<>(Arrays.asList(null, null, null, "some entry")), result);
 
-        result = (Vector<?>)MappingUtils.prepareIndexedCollection(Vector.class, new Vector<String>(Arrays.asList(new String[] {"a",
-                                                                                                                               "b", "c"})), "some entry", 5);
-        assertEquals(new Vector<String>(Arrays.asList(new String[] {"a", "b", "c", null, null, "some entry"})), result);
+        result = (Vector<?>)MappingUtils.prepareIndexedCollection(Vector.class, new Vector<>(Arrays.asList("a",
+                                                                                                           "b", "c")), "some entry", 5);
+        assertEquals(new Vector<>(Arrays.asList("a", "b", "c", null, null, "some entry")), result);
     }
 
     @Test

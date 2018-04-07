@@ -136,7 +136,7 @@ public class ConstructionStrategiesTest extends AbstractDozerTest {
 
     @Test
     public void shouldTakeFactoryFromCache() {
-        HashMap<String, BeanFactory> factories = new HashMap<String, BeanFactory>();
+        HashMap<String, BeanFactory> factories = new HashMap<>();
         factories.put(MyBeanFactory.class.getName(), new MyBeanFactory());
         byFactory.setStoredFactories(factories);
         directive.setFactoryName(MyBeanFactory.class.getName());

@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
 public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
 
     @Test
-    public void testMappingInterface() throws Exception {
+    public void testMappingInterface() {
 
         // prepare 2 Users in 1 UserGroup
         User user1 = newInstance(UserImpl.class);
@@ -50,7 +50,7 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
         assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
         // get mapper
-        Mapper mapper = getMapper(new String[] {"mappings/mapping-interface.xml"});
+        Mapper mapper = getMapper("mappings/mapping-interface.xml");
 
         // do mapping
         UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);
@@ -64,7 +64,7 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testMappingConcrete() throws Exception {
+    public void testMappingConcrete() {
 
         // prepare 2 Users in 1 UserGroup
         UserImpl user1 = newInstance(UserImpl.class);
@@ -84,7 +84,7 @@ public class CumulativeCollectionMappingTest extends AbstractFunctionalTest {
         assertEquals("Two users in source usergroup expected.", 2, userGroup.getUsers().size());
 
         // get mapper
-        Mapper mapper = getMapper(new String[] {"mappings/mapping-concrete.xml"});
+        Mapper mapper = getMapper("mappings/mapping-concrete.xml");
 
         // do mapping
         UserGroupPrime userGroupPrime = mapper.map(userGroup, UserGroupPrime.class);

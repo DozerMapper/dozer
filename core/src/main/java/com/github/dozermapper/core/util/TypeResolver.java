@@ -36,7 +36,7 @@ public final class TypeResolver {
      * container for the already resolved type mappings
      */
     private static Map<Class<?>, Map<TypeVariable<?>, Type>> typeMaps =
-            new ConcurrentHashMap<Class<?>, Map<TypeVariable<?>, Type>>();
+            new ConcurrentHashMap<>();
 
     /**
      * utility class constructor
@@ -128,7 +128,7 @@ public final class TypeResolver {
         }
 
         // build a new TypeVariable -> Type map
-        Map<TypeVariable<?>, Type> map = new HashMap<TypeVariable<?>, Type>();
+        Map<TypeVariable<?>, Type> map = new HashMap<>();
         Class<?> clazz = targetClass;
 
         while (!Object.class.equals(clazz)) {

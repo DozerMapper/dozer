@@ -17,7 +17,7 @@ package com.github.dozermapper.core.vo.deepindex.customconverter;
 
 public class First {
 
-    private Second secondArray[];
+    private Second[] secondArray;
     private Second second;
 
     public Second getSecond() {
@@ -38,7 +38,7 @@ public class First {
         return secondArray;
     }
 
-    public void setSecondArray(Second secondArray[]) {
+    public void setSecondArray(Second[] secondArray) {
         this.secondArray = secondArray;
     }
 }

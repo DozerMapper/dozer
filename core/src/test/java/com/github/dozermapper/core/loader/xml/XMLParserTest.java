@@ -18,6 +18,8 @@ package com.github.dozermapper.core.loader.xml;
 import java.net.URL;
 import java.util.List;
 
+import org.w3c.dom.Document;
+
 import com.github.dozermapper.core.AbstractDozerTest;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.MappingFileData;
@@ -30,7 +32,6 @@ import com.github.dozermapper.core.util.ResourceLoader;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

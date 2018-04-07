@@ -35,11 +35,12 @@ import com.github.dozermapper.core.util.CollectionUtils;
 
 public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerator {
 
-    final List<BeanFieldsDetector> pluggedFieldDetectors = new ArrayList<BeanFieldsDetector>();
+    final List<BeanFieldsDetector> pluggedFieldDetectors = new ArrayList<>();
 
     final List<BeanFieldsDetector> availableFieldDetectors = new ArrayList<BeanFieldsDetector>() {{
-        add(new JavaBeanFieldsDetector());
-    }};
+            add(new JavaBeanFieldsDetector());
+        }
+    };
 
     private final BeanContainer beanContainer;
     private final DestBeanCreator destBeanCreator;
@@ -121,7 +122,7 @@ public class BeanMappingGenerator implements ClassMapBuilder.ClassMappingGenerat
     }
 
     private BeanFieldsDetector getAcceptsFieldDetector(Class<?> clazz, List<BeanFieldsDetector> detectors) {
-        for (BeanFieldsDetector detector : new CopyOnWriteArrayList<BeanFieldsDetector>(detectors)) {
+        for (BeanFieldsDetector detector : new CopyOnWriteArrayList<>(detectors)) {
             if (detector.accepts(clazz)) {
                 return detector;
             }

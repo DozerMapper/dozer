@@ -133,7 +133,7 @@ public class RecursiveSelfMappingTest extends AbstractFunctionalTest {
     }
 
     public static class ContainerBean {
-        private List<SelfReferencingBean> beans = new ArrayList<SelfReferencingBean>();
+        private List<SelfReferencingBean> beans = new ArrayList<>();
 
         public List<SelfReferencingBean> getBeans() {
             return beans;

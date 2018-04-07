@@ -24,11 +24,11 @@ public class ArraySource {
 
     private String[] preInitializedArray = new String[preInitializedArraySize];
 
-    private List<String> list = new ArrayList<String>();
+    private List<String> list = new ArrayList<>();
 
     private String value;
 
-    private List<Integer> listOfIntegers = new ArrayList<Integer>();
+    private List<Integer> listOfIntegers = new ArrayList<>();
 
     public String[] getPreInitializedArray() {
         return preInitializedArray;

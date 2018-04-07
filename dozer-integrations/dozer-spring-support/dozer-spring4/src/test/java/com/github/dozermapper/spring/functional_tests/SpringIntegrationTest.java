@@ -16,10 +16,8 @@
 package com.github.dozermapper.spring.functional_tests;
 
 import java.util.List;
-import java.util.Map;
 
 import com.github.dozermapper.core.CustomConverter;
-import com.github.dozermapper.core.DozerBeanMapper;
 import com.github.dozermapper.core.DozerEventListener;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.MapperModelContext;
@@ -41,7 +39,7 @@ public class SpringIntegrationTest {
     private ClassPathXmlApplicationContext context;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         context = new ClassPathXmlApplicationContext("applicationContext.xml");
     }
 
@@ -54,7 +52,7 @@ public class SpringIntegrationTest {
     }
 
     @Test
-    public void testSpringNoMappingFilesSpecified() throws Exception {
+    public void testSpringNoMappingFilesSpecified() {
         // Mapper can be used without specifying any mapping files.
         // Fields that have the same name will be mapped automatically.
         Mapper implicitMapper = context.getBean("implicitMapper", Mapper.class);
@@ -64,7 +62,7 @@ public class SpringIntegrationTest {
     }
 
     @Test
-    public void testInjectConverter() throws Exception {
+    public void testInjectConverter() {
         Mapper mapper = context.getBean("mapperWithConverter", Mapper.class);
 
         assertNotNull(mapper);
@@ -83,7 +81,7 @@ public class SpringIntegrationTest {
     }
 
     @Test
-    public void testEventListeners() throws Exception {
+    public void testEventListeners() {
         Mapper eventMapper = context.getBean("mapperWithEventListener", Mapper.class);
         EventTestListener listener = context.getBean(EventTestListener.class);
 
@@ -107,7 +105,7 @@ public class SpringIntegrationTest {
     }
 
     @Test
-    public void testBeanMappingBuilder() throws Exception {
+    public void testBeanMappingBuilder() {
         Mapper mapper = context.getBean("factoryWithMappingBuilder", Mapper.class);
 
         Source source = new Source();

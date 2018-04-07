@@ -66,7 +66,7 @@ public class CustomMappingsLoader {
         // is true. The addDefaultFieldMappings will check the wildcard policy of each classmap
         classMapBuilder.addDefaultFieldMappings(customMappings, globalConfiguration);
 
-        Set<CustomConverterDescription> customConverterDescriptions = new LinkedHashSet<CustomConverterDescription>();
+        Set<CustomConverterDescription> customConverterDescriptions = new LinkedHashSet<>();
 
         // build up custom converter description objects
         if (globalConfiguration.getCustomConverters() != null && globalConfiguration.getCustomConverters().getConverters() != null) {
@@ -79,10 +79,10 @@ public class CustomMappingsLoader {
         for (Entry<String, ClassMap> entry : customMappings.getAll().entrySet()) {
             ClassMap classMap = entry.getValue();
             if (classMap.getCustomConverters() != null) {
-                classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
+                classMap.getCustomConverters().setConverters(new ArrayList<>(customConverterDescriptions));
             } else {
                 classMap.setCustomConverters(new CustomConverterContainer());
-                classMap.getCustomConverters().setConverters(new ArrayList<CustomConverterDescription>(customConverterDescriptions));
+                classMap.getCustomConverters().setConverters(new ArrayList<>(customConverterDescriptions));
             }
         }
 
@@ -115,8 +115,8 @@ public class CustomMappingsLoader {
     }
 
     private void addDefaultCustomConverters(Configuration globalConfiguration) {
-        if (globalConfiguration.getCustomConverters() != null &&
-            globalConfiguration.getCustomConverters().findConverter(UUID.class, UUID.class) == null) {
+        if (globalConfiguration.getCustomConverters() != null
+            && globalConfiguration.getCustomConverters().findConverter(UUID.class, UUID.class) == null) {
             CustomConverterDescription defaultUUIDConverter = new CustomConverterDescription();
             defaultUUIDConverter.setClassA(UUID.class);
             defaultUUIDConverter.setClassB(UUID.class);

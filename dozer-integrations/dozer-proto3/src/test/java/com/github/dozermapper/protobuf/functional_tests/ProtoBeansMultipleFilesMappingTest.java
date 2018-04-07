@@ -38,7 +38,7 @@ public class ProtoBeansMultipleFilesMappingTest extends ProtoAbstractTest {
     private BeanContainer beanContainer;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         beanContainer = new BeanContainer();
         mapper = getMapper("mappings/protoBeansMapping.xml");
     }

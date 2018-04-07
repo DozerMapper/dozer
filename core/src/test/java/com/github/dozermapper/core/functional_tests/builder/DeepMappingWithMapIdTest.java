@@ -91,17 +91,10 @@ public class DeepMappingWithMapIdTest {
         checkResults(src, dest);
     }
 
-    /**
-     * Get the parent mapping for to use for the test
-     *
-     * @param clazz
-     * @return
-     */
     private BeanMappingBuilder getParentMapping(final Class<?> clazz) {
         return new BeanMappingBuilder() {
             protected void configure() {
-                mapping(
-                        clazz,
+                mapping(clazz,
                         clazz,
                         TypeMappingOptions.mapId(MAP_ID_PATENT)
                 ).fields(

@@ -469,7 +469,8 @@ public final class ClassMapBuilder {
                     }
                 }
                 srcType = srcType.getSuperclass();
-            } while (srcType != null);
+            }
+            while (srcType != null);
 
             Class<?> destType = classMap.getDestClassToMap();
             do {
@@ -485,7 +486,8 @@ public final class ClassMapBuilder {
                     }
                 }
                 destType = destType.getSuperclass();
-            } while (destType != null);
+            }
+            while (destType != null);
 
             return false;
         }

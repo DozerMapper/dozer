@@ -50,7 +50,7 @@ public class MappingsParserTest extends AbstractDozerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testDuplicateMapIds() throws Exception {
+    public void testDuplicateMapIds() {
         MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory),
                                                              beanContainer);
         MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapIdsMapping.xml");
@@ -60,7 +60,7 @@ public class MappingsParserTest extends AbstractDozerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testDetectDuplicateMapping() throws Exception {
+    public void testDetectDuplicateMapping() {
         MappingFileReader fileReader = new MappingFileReader(new XMLParserFactory(beanContainer), new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory),
                                                              beanContainer);
         MappingFileData mappingFileData = fileReader.read("mappings/duplicateMapping.xml");
@@ -69,7 +69,7 @@ public class MappingsParserTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testEmptyMappings() throws Exception {
+    public void testEmptyMappings() {
         MappingFileData mappingFileData = new MappingFileData();
         ClassMappings result = parser.processMappings(mappingFileData.getClassMaps(), new Configuration());
         assertNotNull("result should not be null", result);

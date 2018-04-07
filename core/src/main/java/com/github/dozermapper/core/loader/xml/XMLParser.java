@@ -15,6 +15,11 @@
  */
 package com.github.dozermapper.core.loader.xml;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import com.github.dozermapper.core.classmap.MappingDirection;
 import com.github.dozermapper.core.classmap.MappingFileData;
 import com.github.dozermapper.core.classmap.RelationshipType;
@@ -29,10 +34,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Internal class that parses a raw custom xml mapping file into ClassMap objects.

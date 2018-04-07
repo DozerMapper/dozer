@@ -35,8 +35,8 @@ public class ClassMap {
     private Configuration globalConfiguration;
     private DozerClass srcClass;
     private DozerClass destClass;
-    private List<FieldMap> fieldMaps = new ArrayList<FieldMap>();
-    private List<Class<RuntimeException>> allowedExceptions = new ArrayList<Class<RuntimeException>>();
+    private List<FieldMap> fieldMaps = new ArrayList<>();
+    private List<Class<RuntimeException>> allowedExceptions = new ArrayList<>();
     private MappingDirection type;
     private String dateFormat;
     private String beanFactory;

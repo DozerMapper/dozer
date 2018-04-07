@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class GetterSetterPropertyDescriptorWithGenericSuperClassTest extends AbstractDozerTest {
     @Test
-    public void testGetReadMethod() throws Exception {
+    public void testGetReadMethod() {
         DozerField dozerField = new DozerField("nestedList", "generic");
 
         BeanContainer beanContainer = new BeanContainer();

@@ -15,8 +15,6 @@
  */
 package com.github.dozermapper.core.loader.xml;
 
-import java.io.IOException;
-
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.factory.DestBeanCreator;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
@@ -44,7 +42,7 @@ public class MappingStreamReader_WithExceptionsLoggedTest {
     }
 
     @Test
-    public void nullLoadFromStreamsTest() throws IOException {
+    public void nullLoadFromStreamsTest() {
         LOG.error("WithExceptionsLoggedTest; 'IllegalArgumentException: InputStream cannot be null'");
 
         nullLoadFromStreamsTest.expectMessage("InputStream cannot be null");

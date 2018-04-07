@@ -62,10 +62,10 @@ public class FieldMapTest extends AbstractDozerTest {
         fieldMap.setDestField(dozerField);
 
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        List<Callable<Object>> callables = new ArrayList<Callable<Object>>();
+        List<Callable<Object>> callables = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             callables.add(new Callable<Object>() {
-                public Object call() throws Exception {
+                public Object call() {
                     return fieldMap.getSrcPropertyDescriptor(String.class);
                 }
             });

@@ -173,7 +173,7 @@ public final class ConstructionStrategies {
 
         private final Logger log = LoggerFactory.getLogger(ByFactory.class);
 
-        private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<String, BeanFactory>();
+        private final ConcurrentMap<String, BeanFactory> factoryCache = new ConcurrentHashMap<>();
         private final BeanContainer beanContainer;
 
         ByFactory(BeanContainer beanContainer) {

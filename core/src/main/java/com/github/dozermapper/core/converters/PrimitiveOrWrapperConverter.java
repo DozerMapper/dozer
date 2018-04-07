@@ -42,7 +42,7 @@ import org.apache.commons.lang3.ClassUtils;
  */
 public class PrimitiveOrWrapperConverter {
 
-    private static final Map<Class, Converter> CONVERTER_MAP = new HashMap<Class, Converter>();
+    private static final Map<Class, Converter> CONVERTER_MAP = new HashMap<>();
 
     static {
         CONVERTER_MAP.put(Integer.class, new IntegerConverter());

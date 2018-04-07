@@ -36,8 +36,8 @@ public class MappingProcessorTest extends AbstractDozerTest {
 
     @Before
     public void setUp() {
-        sourceList = new ArrayList<Object>();
-        destinationList = new ArrayList<Object>();
+        sourceList = new ArrayList<>();
+        destinationList = new ArrayList<>();
     }
 
     @Test
@@ -71,7 +71,7 @@ public class MappingProcessorTest extends AbstractDozerTest {
     public void testPrepareDetinationList_Null() {
         List<?> result = MappingProcessor.prepareDestinationList(sourceList, null);
         assertNotNull(result);
-        assertEquals(new ArrayList<Object>(), result);
+        assertEquals(new ArrayList<>(), result);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class MappingProcessorTest extends AbstractDozerTest {
     public void testPrepareDetinationList_StrangeCase() {
         List<?> result = MappingProcessor.prepareDestinationList(sourceList, "Hullo");
         assertNotNull(result);
-        assertEquals(new ArrayList<Object>(), result);
+        assertEquals(new ArrayList<>(), result);
     }
 
     @Test
@@ -148,11 +148,7 @@ public class MappingProcessorTest extends AbstractDozerTest {
             }
 
             Ordered ordered = (Ordered)o;
-            if (id != ordered.id) {
-                return false;
-            }
-
-            return true;
+            return id == ordered.id;
         }
 
         @Override

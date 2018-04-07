@@ -88,8 +88,8 @@ public class JAXBBeansMappingTest extends AbstractFunctionalTest {
     }
 
     public static class ListContainer {
-        private List<Integer> list = new ArrayList<Integer>();
-        private List<StringContainer> subordinates = new ArrayList<StringContainer>();
+        private List<Integer> list = new ArrayList<>();
+        private List<StringContainer> subordinates = new ArrayList<>();
 
         public List<Integer> getList() {
             return list;

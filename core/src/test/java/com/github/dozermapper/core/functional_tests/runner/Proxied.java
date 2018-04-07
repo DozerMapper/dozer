@@ -29,7 +29,7 @@ public class Proxied extends Suite {
     }
 
     private static List<Runner> combinations(Class<?> klass) throws InitializationError {
-        ArrayList<Runner> runners = new ArrayList<Runner>();
+        ArrayList<Runner> runners = new ArrayList<>();
         runners.add(new ProxyRunner(klass, NoProxyDataObjectInstantiator.INSTANCE));
         runners.add(new ProxyRunner(klass, ProxyDataObjectInstantiator.INSTANCE));
         //runners.add(new ProxyRunner(klass, JavassistDataObjectInstantiator.INSTANCE));

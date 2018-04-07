@@ -28,7 +28,7 @@ public class ConverterTest extends AbstractDozerTest {
      * See PrimitiveOrWrapperConverterTest for more thorough data conversion unit tests
      */
     @Test
-    public void testAccessors() throws Exception {
+    public void testAccessors() {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
 
         CalendarConverter cc = new CalendarConverter(dateFormat);
@@ -41,13 +41,13 @@ public class ConverterTest extends AbstractDozerTest {
     }
 
     @Test(expected = ConversionException.class)
-    public void testInvalidDateInput() throws Exception {
+    public void testInvalidDateInput() {
         DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
         dc.convert(java.util.Date.class, "jfdlajf");
     }
 
     @Test(expected = ConversionException.class)
-    public void testInvalidDateInput_String() throws Exception {
+    public void testInvalidDateInput_String() {
         DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
         // no long constructor
         dc = new DateConverter(null);
@@ -55,7 +55,7 @@ public class ConverterTest extends AbstractDozerTest {
     }
 
     @Test(expected = ConversionException.class)
-    public void testInvalidCalendarInput() throws Exception {
+    public void testInvalidCalendarInput() {
         CalendarConverter dc = new CalendarConverter(DateFormat.getDateInstance(DateFormat.LONG));
         dc.convert(java.util.GregorianCalendar.class, "jfdlajf");
     }

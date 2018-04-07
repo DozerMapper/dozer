@@ -37,7 +37,7 @@ public class TestCustomHashMapConverter implements CustomConverter {
             } else {
                 dest = (TestCustomConverterHashMapPrimeObject)destination;
             }
-            HashMap<Object, BaseTestObject> map = new HashMap<Object, BaseTestObject>();
+            HashMap<Object, BaseTestObject> map = new HashMap<>();
             map.put("object1", testCustomConverterHashMapObject.getTestObject());
             map.put("object2", testCustomConverterHashMapObject.getTestObjectPrime());
             dest.setTestObjects(map);

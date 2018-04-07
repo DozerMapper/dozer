@@ -50,7 +50,7 @@ public class ClassMapBuilderTest extends AbstractDozerTest {
     }
 
     @Test
-    public void shouldPrepareMappingsForCollection() throws Exception {
+    public void shouldPrepareMappingsForCollection() {
         ClassMap classMap = new ClassMap(null);
 
         collectionMappingGenerator.apply(classMap, configuration);

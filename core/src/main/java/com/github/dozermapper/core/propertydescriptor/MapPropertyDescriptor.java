@@ -56,14 +56,14 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
 
     @Override
-    public Method getWriteMethod() throws NoSuchMethodException {
+    public Method getWriteMethod() {
         if (MappingUtils.isBlankOrNull(setMethodName)) {
             throw new MappingException("Custom Map set method not specified for field mapping to class: " + clazz
                                        + ".  Perhaps the map-set-method wasn't specified in the dozer mapping file?");
         }
         if (writeMethod == null || writeMethod.get() == null) {
             Method method = findMapMethod(clazz, setMethodName, 2);
-            writeMethod = new SoftReference<Method>(method);
+            writeMethod = new SoftReference<>(method);
         }
         return writeMethod.get();
     }
@@ -99,20 +99,20 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
     }
 
     @Override
-    protected Method getReadMethod() throws NoSuchMethodException {
+    protected Method getReadMethod() {
         if (MappingUtils.isBlankOrNull(getMethodName)) {
             throw new MappingException("Custom Map get method not specified for field mapping to class: " + clazz
                                        + ".  Perhaps the map-get-method wasn't specified in the dozer mapping file?");
         }
         if (readMethod == null || readMethod.get() == null) {
             Method method = findMapMethod(clazz, getMethodName, 1);
-            readMethod = new SoftReference<Method>(method);
+            readMethod = new SoftReference<>(method);
         }
         return readMethod.get();
     }
 
     @Override
-    protected String getSetMethodName() throws NoSuchMethodException {
+    protected String getSetMethodName() {
         return setMethodName;
     }
 
@@ -126,11 +126,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
         if (key == null) {
             throw new MappingException("key must be specified");
         }
-        try {
-            ReflectionUtils.invoke(getWriteMethod(), target, new Object[] {key, value});
-        } catch (NoSuchMethodException e) {
-            MappingUtils.throwMappingException(e);
-        }
+
+        ReflectionUtils.invoke(getWriteMethod(), target, new Object[] {key, value});
     }
 
     @Override
@@ -138,13 +135,8 @@ public class MapPropertyDescriptor extends GetterSetterPropertyDescriptor {
         if (key == null) {
             throw new MappingException("key must be specified");
         }
-        Object result = null;
-        try {
-            result = ReflectionUtils.invoke(getReadMethod(), target, new Object[] {key});
-        } catch (NoSuchMethodException e) {
-            MappingUtils.throwMappingException(e);
-        }
+
+        Object result = ReflectionUtils.invoke(getReadMethod(), target, new Object[] {key});
         return result;
     }
-
 }

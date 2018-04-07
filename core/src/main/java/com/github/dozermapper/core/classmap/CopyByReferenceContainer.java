@@ -26,7 +26,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class CopyByReferenceContainer {
 
-    private List<CopyByReference> copyByReferences = new ArrayList<CopyByReference>();
+    private List<CopyByReference> copyByReferences = new ArrayList<>();
 
     public void add(CopyByReference copyByReference) {
         copyByReferences.add(copyByReference);

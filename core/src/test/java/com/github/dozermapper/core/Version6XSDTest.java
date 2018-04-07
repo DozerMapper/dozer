@@ -20,7 +20,7 @@ import org.junit.Test;
 public class Version6XSDTest {
 
     @Test
-    public void testWithHttpsProtocol() throws Exception {
+    public void testWithHttpsProtocol() {
         Mapper mapper = DozerBeanMapperBuilder.create()
                 .withMappingFiles("mappings/withHttpsXsdLocation.xml")
                 .build();

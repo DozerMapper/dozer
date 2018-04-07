@@ -19,8 +19,9 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.io.input.ReaderInputStream;
 import org.w3c.dom.ls.LSInput;
+
+import org.apache.commons.io.input.ReaderInputStream;
 
 /**
  * Stream holder for resolved schema.xsd

@@ -52,7 +52,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     @Override
     @Before
     public void setUp() throws Exception {
-        mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFields.xml"});
+        mapper = getMapper("mappings/deepMappingWithIndexedFields.xml");
     }
 
     @Test
@@ -72,10 +72,10 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
 
         TestObject testObject1 = newInstance(TestObject.class);
         TestObject testObject2 = newInstance(TestObject.class);
-        testObject2.setEqualNamedList(Arrays.asList(new AnotherTestObject[] {anotherTestObject}));
+        testObject2.setEqualNamedList(Arrays.asList(anotherTestObject));
 
         SrcDeepObj src = newInstance(SrcDeepObj.class);
-        src.setSomeList(Arrays.asList(new TestObject[] {testObject1, testObject2}));
+        src.setSomeList(Arrays.asList(testObject1, testObject2));
         src.setSrcNestedObj(srcNestedObj);
 
         DestDeepObj dest = mapper.map(src, DestDeepObj.class);
@@ -97,7 +97,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepMapIndexed() throws Exception {
+    public void testDeepMapIndexed() {
         Pet[] myPets = new Pet[2];
         Family source = new Family("john", "jane", "doe", new Integer(22000), new Integer(20000));
         Pet firstPet = new Pet("molly", 2, null);
@@ -125,7 +125,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepMapInvIndexed() throws Exception {
+    public void testDeepMapInvIndexed() {
         HeadOfHouseHold source = newInstance(HeadOfHouseHold.class);
         source.setFirstName("Tom");
         source.setLastName("Roy");
@@ -146,7 +146,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepMappingWithIndexOnTheEnd() throws Exception {
+    public void testDeepMappingWithIndexOnTheEnd() {
         HeadOfHouseHold sourceHouseHold = newInstance(HeadOfHouseHold.class);
         sourceHouseHold.setFirstName("Tom");
         sourceHouseHold.setLastName("Roy");
@@ -170,11 +170,11 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepMapIndexedIsAccessible() throws Exception {
-        mapper = getMapper(new String[] {"mappings/deepMappingWithIndexAndIsAccessible.xml"});
+    public void testDeepMapIndexedIsAccessible() {
+        mapper = getMapper("mappings/deepMappingWithIndexAndIsAccessible.xml");
 
         Person source = newInstance(Person.class);
-        Vector<Phone> phonesList = new Vector<Phone>();
+        Vector<Phone> phonesList = new Vector<>();
         Phone phone = new Phone();
         phone.setNumber("911");
         phonesList.add(phone);
@@ -186,8 +186,8 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testDeepMapIndexedIsAccessibleInversed() throws Exception {
-        mapper = getMapper(new String[] {"mappings/deepMappingWithIndexAndIsAccessible.xml"});
+    public void testDeepMapIndexedIsAccessibleInversed() {
+        mapper = getMapper("mappings/deepMappingWithIndexAndIsAccessible.xml");
 
         FlatPerson source = newInstance(FlatPerson.class);
         source.setPhoneNumber("911");
@@ -213,7 +213,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
      */
     @Test
     public void testDeepIndexMappingWithCustomConverter() {
-        mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFieldsByCustomConverter.xml"});
+        mapper = getMapper("mappings/deepMappingWithIndexedFieldsByCustomConverter.xml");
         First first = new First();
         Last last = mapper.map(first, Last.class);
         assertNotNull("nested third object should not be null", last.getThird());
@@ -224,7 +224,7 @@ public class DeepMappingWithIndexTest extends AbstractFunctionalTest {
     // bug #1803172
     @Test
     public void testDeepIndexMapping_CollectionNeedsResizing() {
-        mapper = getMapper(new String[] {"mappings/deepMappingWithIndexedFields.xml"});
+        mapper = getMapper("mappings/deepMappingWithIndexedFields.xml");
         A src = new A();
         src.setId1(new Integer(10));
         src.setId2(new Integer(20));

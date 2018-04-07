@@ -69,7 +69,7 @@ public class CollectionTest extends AbstractFunctionalTest {
     @Test
     public void testCollectionToPrimitiveArray() {
         ArraySource sourceBean = new ArraySource();
-        List<Integer> srcList = new ArrayList<Integer>();
+        List<Integer> srcList = new ArrayList<>();
         srcList.add(new Integer(2));
         srcList.add(new Integer(3));
         srcList.add(new Integer(8));

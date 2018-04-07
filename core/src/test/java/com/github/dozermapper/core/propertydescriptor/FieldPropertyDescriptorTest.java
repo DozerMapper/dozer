@@ -154,7 +154,7 @@ public class FieldPropertyDescriptorTest extends AbstractDozerTest {
         private int hidden = 42;
         String value;
         Container container = this;
-        List<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
 
     }
 }

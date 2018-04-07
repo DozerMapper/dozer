@@ -33,12 +33,12 @@ public class DozerEventManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        listeners = new ArrayList<DozerEventListener>();
+        listeners = new ArrayList<>();
         manager = new DozerEventManager(listeners);
     }
 
     @Test
-    public void testFireEvent_NoListeners() throws Exception {
+    public void testFireEvent_NoListeners() {
         DozerEventListener listener = mock(DozerEventListener.class);
         listeners.add(listener);
 

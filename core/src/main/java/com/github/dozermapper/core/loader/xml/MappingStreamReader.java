@@ -19,13 +19,14 @@ import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import org.w3c.dom.Document;
+
 import com.github.dozermapper.core.classmap.MappingFileData;
 import com.github.dozermapper.core.loader.MappingsSource;
 import com.github.dozermapper.core.util.MappingUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 /**
  * Internal class that reads and parses a single custom mapping XML stream into

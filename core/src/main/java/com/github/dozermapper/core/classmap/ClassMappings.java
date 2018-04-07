@@ -35,7 +35,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ClassMappings {
 
     // Cache key --> Mapping Structure
-    private ConcurrentMap<String, ClassMap> classMappings = new ConcurrentHashMap<String, ClassMap>();
+    private ConcurrentMap<String, ClassMap> classMappings = new ConcurrentHashMap<>();
     private ClassMapKeyFactory keyFactory;
     private final BeanContainer beanContainer;
 
@@ -75,7 +75,7 @@ public class ClassMappings {
     }
 
     public Map<String, ClassMap> getAll() {
-        return new HashMap<String, ClassMap>(classMappings);
+        return new HashMap<>(classMappings);
     }
 
     public long size() {
@@ -151,8 +151,8 @@ public class ClassMappings {
             }
 
             // Destination could be an abstract type. Picking up the best concrete type to use.
-            if ((destClass.isAssignableFrom(mappingDestClass) && isAbstract(destClass)) ||
-                (isInterfaceImplementation(destClass, mappingDestClass))) {
+            if ((destClass.isAssignableFrom(mappingDestClass) && isAbstract(destClass))
+                || (isInterfaceImplementation(destClass, mappingDestClass))) {
                 if (MappingUtils.getRealClass(srcClass, beanContainer).equals(mappingSrcClass)) {
                     return map;
                 }

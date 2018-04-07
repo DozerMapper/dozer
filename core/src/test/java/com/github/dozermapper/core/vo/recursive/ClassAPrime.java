@@ -31,9 +31,11 @@ public class ClassAPrime {
         if (value == null) {
             return;
         }
+
         if (this.getSubs() == null) {
-            this.setSubs(new TreeSet<ClassBPrime>());
+            this.setSubs(new TreeSet<>());
         }
+
         this.getSubs().add(value);
         if (value.getParent() != this) {
             value.setParent(this);
@@ -100,20 +102,20 @@ public class ClassAPrime {
         if (this == obj) {
             return true;
         }
+
         if (obj == null) {
             return false;
         }
+
         if (this.getClass() != obj.getClass()) {
             return false;
         }
+
         final ClassAPrime other = (ClassAPrime)obj;
         if (this.nom == null) {
-            if (other.nom != null) {
-                return false;
-            }
-        } else if (!this.nom.equals(other.nom)) {
-            return false;
+            return other.nom == null;
+        } else {
+            return this.nom.equals(other.nom);
         }
-        return true;
     }
 }

@@ -22,8 +22,6 @@ public class WeirdGetter extends BaseTestObject {
     public WeirdGetter() {
     }
 
-    ;
-
     public String buildValue() {
         return value;
     }

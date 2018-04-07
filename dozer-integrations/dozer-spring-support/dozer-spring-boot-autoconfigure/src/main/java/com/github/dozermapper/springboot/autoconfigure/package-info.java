@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 /**
- * Spring boot auto configuration classes.
+ * Extension classes to integrate Dozer with Springboot as a first-class-citizen
  */
 package com.github.dozermapper.springboot.autoconfigure;

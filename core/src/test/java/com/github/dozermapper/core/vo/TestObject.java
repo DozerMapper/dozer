@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TestObject extends BaseTestObject {
+
     private String one;
     private Integer two;
     private InsideTestObject three;
@@ -89,198 +90,114 @@ public class TestObject extends BaseTestObject {
         anotherLongValue = longValue;
     }
 
-    /**
-     * @return Returns the date.
-     */
     public Date getDate() {
         return date;
     }
 
-    /**
-     * @param date The date to set.
-     */
     public void setDate(Date date) {
         this.date = date;
     }
 
-    /**
-     * @return Returns the insideTestObject.
-     */
     public InsideTestObject getInsideTestObject() {
         return insideTestObject;
     }
 
-    /**
-     * @param insideTestObject The insideTestObject to set.
-     */
     public void setInsideTestObject(InsideTestObject insideTestObject) {
         this.insideTestObject = insideTestObject;
     }
 
-    /**
-     * @return Returns the aPrimitive.
-     */
     public int getThePrimitive() {
         return thePrimitive;
     }
 
-    /**
-     * @param primitive The aPrimitive to set.
-     */
     public void setThePrimitive(int primitive) {
         thePrimitive = primitive;
     }
 
-    /**
-     * @return Returns the equalNamedList.
-     */
     public java.util.List getEqualNamedList() {
         return equalNamedList;
     }
 
-    /**
-     * @param equalNamedList The equalNamedList to set.
-     */
     public void setEqualNamedList(java.util.List equalNamedList) {
         this.equalNamedList = equalNamedList;
     }
 
-    /**
-     * @return Returns the one.
-     */
     public String getOne() {
         return one;
     }
 
-    /**
-     * @param one The one to set.
-     */
     public void setOne(String one) {
         this.one = one;
     }
 
-    /**
-     * @return Returns the three.
-     */
     public InsideTestObject getThree() {
         return three;
     }
 
-    /**
-     * @param three The three to set.
-     */
     public void setThree(InsideTestObject three) {
         this.three = three;
     }
 
-    /**
-     * @return Returns the two.
-     */
     public Integer getTwo() {
         return two;
     }
 
-    /**
-     * @param two The two to set.
-     */
     public void setTwo(Integer two) {
         this.two = two;
     }
 
-    /**
-     * @return Returns the unequalNamedList.
-     */
     public java.util.List getUnequalNamedList() {
         return unequalNamedList;
     }
 
-    /**
-     * @param unequalNamedList The unequalNamedList to set.
-     */
     public void setUnequalNamedList(java.util.List unequalNamedList) {
         this.unequalNamedList = unequalNamedList;
     }
 
-    /**
-     * @return Returns the theMappedPrimitive.
-     */
     public int getTheMappedPrimitive() {
         return theMappedPrimitive;
     }
 
-    /**
-     * @param mappedPrimitive The theMappedPrimitive to set.
-     */
     public void setTheMappedPrimitive(int mappedPrimitive) {
         theMappedPrimitive = mappedPrimitive;
     }
 
-    /**
-     * @return Returns the anArray.
-     */
     public int[] getAnArray() {
         return anArray;
     }
 
-    /**
-     * @param anArray The anArray to set.
-     */
     public void setAnArray(int[] anArray) {
         this.anArray = anArray;
     }
 
-    /**
-     * @return Returns the arrayForLists.
-     */
     public Integer[] getArrayForLists() {
         return arrayForLists;
     }
 
-    /**
-     * @param arrayForLists The arrayForLists to set.
-     */
     public void setArrayForLists(Integer[] arrayForLists) {
         this.arrayForLists = arrayForLists;
     }
 
-    /**
-     * @return Returns the bigDecimalToInt.
-     */
     public BigDecimal getBigDecimalToInt() {
         return bigDecimalToInt;
     }
 
-    /**
-     * @param bigDecimalToInt The bigDecimalToInt to set.
-     */
     public void setBigDecimalToInt(BigDecimal bigDecimalToInt) {
         this.bigDecimalToInt = bigDecimalToInt;
     }
 
-    /**
-     * @return Returns the intToBigDecimal.
-     */
     public int getIntToBigDecimal() {
         return intToBigDecimal;
     }
 
-    /**
-     * @param intToBigDecimal The intToBigDecimal to set.
-     */
     public void setIntToBigDecimal(int intToBigDecimal) {
         this.intToBigDecimal = intToBigDecimal;
     }
 
-    /**
-     * @return Returns the calendar.
-     */
     public GregorianCalendar getCalendar() {
         return calendar;
     }
 
-    /**
-     * @param calendar The calendar to set.
-     */
     public void setCalendar(GregorianCalendar calendar) {
         this.calendar = calendar;
     }
@@ -301,16 +218,10 @@ public class TestObject extends BaseTestObject {
         this.hintList = hintList;
     }
 
-    /**
-     * @return Returns the timeStamp.
-     */
     public Timestamp getTimeStamp() {
         return timeStamp;
     }
 
-    /**
-     * @param timeStamp The timeStamp to set.
-     */
     public void setTimeStamp(Timestamp timeStamp) {
         this.timeStamp = timeStamp;
     }
@@ -323,16 +234,10 @@ public class TestObject extends BaseTestObject {
         this.dateStr = dateStr;
     }
 
-    /**
-     * @return Returns the doubleObject.
-     */
     public DoubleObject getDoubleObject() {
         return doubleObject;
     }
 
-    /**
-     * @param doubleObject The doubleObject to set.
-     */
     public void setDoubleObject(DoubleObject doubleObject) {
         this.doubleObject = doubleObject;
     }
@@ -548,5 +453,4 @@ public class TestObject extends BaseTestObject {
     public void setCollectionToList(Collection collectionToList) {
         this.collectionToList = collectionToList;
     }
-
 }

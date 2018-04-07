@@ -29,44 +29,26 @@ public class InsideTestObjectPrime extends BaseTestObject {
         super();
     }
 
-    /**
-     * @return Returns the wrapper.
-     */
     public MyPrimitiveWrapper getWrapper() {
         return wrapper;
     }
 
-    /**
-     * @param wrapper The wrapper to set.
-     */
     public void setWrapper(MyPrimitiveWrapper wrapper) {
         this.wrapper = wrapper;
     }
 
-    /**
-     * @return Returns the labelPrime.
-     */
     public String getLabelPrime() {
         return labelPrime;
     }
 
-    /**
-     * @param labelPrime The labelPrime to set.
-     */
     public void setLabelPrime(String labelPrime) {
         this.labelPrime = labelPrime;
     }
 
-    /**
-     * @return Returns the anotherWrapper.
-     */
     public MyPrimitiveWrapper getAnotherWrapper() {
         return anotherWrapper;
     }
 
-    /**
-     * @param anotherWrapper The anotherWrapper to set.
-     */
     public void setAnotherWrapper(MyPrimitiveWrapper anotherWrapper) {
         this.anotherWrapper = anotherWrapper;
     }

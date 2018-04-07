@@ -97,7 +97,7 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
     }
 
     private Set<String> getDeclaredFieldNames(Class<?> srcType) {
-        Set<String> declaredFieldNames = new HashSet<String>();
+        Set<String> declaredFieldNames = new HashSet<>();
 
         do {
             for (Field field : srcType.getDeclaredFields()) {
@@ -105,7 +105,8 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
             }
 
             srcType = srcType.getSuperclass();
-        } while (srcType != null);
+        }
+        while (srcType != null);
 
         return declaredFieldNames;
     }

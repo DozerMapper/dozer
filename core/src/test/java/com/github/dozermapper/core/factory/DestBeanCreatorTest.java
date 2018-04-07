@@ -36,7 +36,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
     private DestBeanCreator destBeanCreator = new DestBeanCreator(new BeanContainer());
 
     @Test
-    public void testCreatDestBeanNoFactory() throws Exception {
+    public void testCreatDestBeanNoFactory() {
         TestObject bean = (TestObject)destBeanCreator.create(new BeanCreationDirective(null, null, TestObject.class, null, null, null, null, null));
 
         assertNotNull(bean);
@@ -44,7 +44,7 @@ public class DestBeanCreatorTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testCreatBeanFromFactory() throws Exception {
+    public void testCreatBeanFromFactory() {
         String factoryName = "com.github.dozermapper.core.functional_tests.support.SampleCustomBeanFactory";
         TestObject bean = (TestObject)destBeanCreator.create(
                 new BeanCreationDirective(new TestObjectPrime(), TestObjectPrime.class, TestObject.class, null, factoryName, null, null, null));

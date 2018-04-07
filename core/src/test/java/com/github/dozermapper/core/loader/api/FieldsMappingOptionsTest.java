@@ -25,7 +25,7 @@ import static org.mockito.Mockito.verify;
 public class FieldsMappingOptionsTest {
 
     @Test
-    public void testHintAandB() throws Exception {
+    public void testHintAandB() {
         DozerBuilder.FieldMappingBuilder mappingBuilder = mock(DozerBuilder.FieldMappingBuilder.class);
         FieldsMappingOption option = FieldsMappingOptions.hintA(String.class, Integer.class);
 

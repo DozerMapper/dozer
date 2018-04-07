@@ -33,7 +33,7 @@ public final class DozerMappingMetadata implements MappingMetadata {
     }
 
     public List<ClassMappingMetadata> getClassMappings() {
-        List<ClassMappingMetadata> classMapMetadata = new ArrayList<ClassMappingMetadata>();
+        List<ClassMappingMetadata> classMapMetadata = new ArrayList<>();
 
         for (ClassMap classMap : classMappings.getAll().values()) {
             classMapMetadata.add(new DozerClassMappingMetadata(classMap));
@@ -90,7 +90,7 @@ public final class DozerMappingMetadata implements MappingMetadata {
     }
 
     private List<ClassMappingMetadata> buildMappingListBySourceName(String sourceClassName) {
-        List<ClassMappingMetadata> classMapMetadata = new ArrayList<ClassMappingMetadata>();
+        List<ClassMappingMetadata> classMapMetadata = new ArrayList<>();
         for (ClassMap classMap : classMappings.getAll().values()) {
             if (classMap.getSrcClassName().equals(sourceClassName)) {
                 classMapMetadata.add(new DozerClassMappingMetadata(classMap));
@@ -100,7 +100,7 @@ public final class DozerMappingMetadata implements MappingMetadata {
     }
 
     private List<ClassMappingMetadata> buildMappingListByDestinationName(String destinationClassName) {
-        List<ClassMappingMetadata> classMapMetadata = new ArrayList<ClassMappingMetadata>();
+        List<ClassMappingMetadata> classMapMetadata = new ArrayList<>();
         for (ClassMap classMap : classMappings.getAll().values()) {
             if (classMap.getDestClassName().equals(destinationClassName)) {
                 classMapMetadata.add(new DozerClassMappingMetadata(classMap));

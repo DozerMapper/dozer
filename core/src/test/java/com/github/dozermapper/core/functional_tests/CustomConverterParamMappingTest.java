@@ -38,7 +38,7 @@ public class CustomConverterParamMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSimpleCustomConverter() throws Exception {
+    public void testSimpleCustomConverter() {
         SimpleObj src = newInstance(SimpleObj.class);
         src.setField1(String.valueOf(System.currentTimeMillis()));
 

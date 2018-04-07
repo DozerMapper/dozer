@@ -64,9 +64,9 @@ import static org.junit.Assert.assertTrue;
 public class InheritanceMappingTest extends AbstractFunctionalTest {
 
     @Test
-    public void testCustomMappingForSuperClasses() throws Exception {
+    public void testCustomMappingForSuperClasses() {
         // Test that the explicit super custom mapping definition is used when mapping sub classes
-        mapper = getMapper(new String[] {"mappings/inheritanceMapping.xml"});
+        mapper = getMapper("mappings/inheritanceMapping.xml");
 
         A src = getA();
         B dest = mapper.map(src, B.class);
@@ -84,7 +84,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testNoCustomMappingForSuperClasses() throws Exception {
+    public void testNoCustomMappingForSuperClasses() {
         // Test that wildcard fields in super classes are mapped when there is no explicit super custom mapping definition
         mapper = DozerBeanMapperBuilder.buildDefault();
 
@@ -104,10 +104,10 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testNoCustomMappingForSuperClasses_SubclassAttrsAppliedToSuperClasses() throws Exception {
+    public void testNoCustomMappingForSuperClasses_SubclassAttrsAppliedToSuperClasses() {
         // Test that when there isnt an explicit super custom mapping definition the subclass mapping def attrs are
         // applied to the super class mapping. In this use case, wildcard="false" for the A --> B mapping definition
-        mapper = getMapper(new String[] {"mappings/inheritanceMapping2.xml"});
+        mapper = getMapper("mappings/inheritanceMapping2.xml");
 
         A src = getA();
         B dest = mapper.map(src, B.class);
@@ -123,11 +123,11 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testNoCustomMappingForSubclasses_CustomMappingForSuperClasses() throws Exception {
+    public void testNoCustomMappingForSubclasses_CustomMappingForSuperClasses() {
         // Tests that custom mappings for super classes are used when there are no custom mappings
         // for subclasses. Also tests that a default class map is properly created and used for the subclass
         // field mappings
-        mapper = getMapper(new String[] {"mappings/inheritanceMapping3.xml"});
+        mapper = getMapper("mappings/inheritanceMapping3.xml");
 
         A src = getA();
         B dest = mapper.map(src, B.class);
@@ -144,8 +144,8 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testGeneralInheritance() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testGeneralInheritance() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         // first test mapping of sub and base class to a single class
         com.github.dozermapper.core.vo.inheritance.SubClass sub = newInstance(com.github.dozermapper.core.vo.inheritance.SubClass.class);
 
@@ -159,8 +159,8 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testGeneralInheritance2() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testGeneralInheritance2() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         // test base to base and sub to sub mapping with an intermediate on the destination
         AnotherSubClass asub = newInstance(AnotherSubClass.class);
         asub.setBaseAttribute("base");
@@ -235,8 +235,8 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testInheritanceWithAbstractClassOrInterfaceAsDestination() throws Exception {
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+    public void testInheritanceWithAbstractClassOrInterfaceAsDestination() {
+        mapper = getMapper("testDozerBeanMapping.xml");
         SpecificObject so = newInstance(SpecificObject.class);
         so.setSuperAttr1("superAttr1");
 
@@ -265,7 +265,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testComplexSuperClassMapping() throws Exception {
+    public void testComplexSuperClassMapping() {
         mapper = getMapper("testDozerBeanMapping.xml");
         SubClass obj = testDataFactory.getSubClass();
         SubClassPrime objPrime = mapper.map(obj, SubClassPrime.class);
@@ -321,9 +321,9 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testSuperClassMapping() throws Exception {
+    public void testSuperClassMapping() {
         // source object does not extend a base custom data object, but destination object extends a custom data object.
-        mapper = getMapper(new String[] {"testDozerBeanMapping.xml"});
+        mapper = getMapper("testDozerBeanMapping.xml");
         NoSuperClass src = newInstance(NoSuperClass.class);
         src.setAttribute("somefieldvalue");
         src.setSuperAttribute("someotherfieldvalue");
@@ -346,7 +346,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
         request.setAge("2");
         request.setColor("blue");
 
-        Mapper mapper = getMapper(new String[] {"mappings/kmmapping.xml"});
+        Mapper mapper = getMapper("mappings/kmmapping.xml");
 
         Super afterMapping = mapper.map(request, Super.class);
 
@@ -372,7 +372,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
         property.setMapMe(nestedProperty);
         request.setProperty(property);
 
-        Mapper mapper = getMapper(new String[] {"mappings/kmmapping.xml"});
+        Mapper mapper = getMapper("mappings/kmmapping.xml");
 
         SomeVo afterMapping = mapper.map(request, SomeVo.class);
 
@@ -388,7 +388,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testInterfaceInheritance_GetterSetterAtDifferentLevels() {
-        mapper = getMapper(new String[] {"mappings/inheritanceMapping.xml"});
+        mapper = getMapper("mappings/inheritanceMapping.xml");
 
         Long id = new Long(100L);
         String name = "John";

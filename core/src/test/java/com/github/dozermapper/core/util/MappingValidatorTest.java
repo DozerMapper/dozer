@@ -28,22 +28,22 @@ public class MappingValidatorTest extends AbstractDozerTest {
     private BeanContainer beanContainer = new BeanContainer();
 
     @Test(expected = MappingException.class)
-    public void testValidateMappingRequest_NullSrcObj() throws Exception {
+    public void testValidateMappingRequest_NullSrcObj() {
         MappingValidator.validateMappingRequest(null);
     }
 
     @Test(expected = MappingException.class)
-    public void testValidateMappingRequest_NullDestObj() throws Exception {
+    public void testValidateMappingRequest_NullDestObj() {
         MappingValidator.validateMappingRequest(new Object(), null);
     }
 
     @Test(expected = MappingException.class)
-    public void testValidateMappingRequest_BothNullObj() throws Exception {
+    public void testValidateMappingRequest_BothNullObj() {
         MappingValidator.validateMappingRequest(null, null);
     }
 
     @Test
-    public void testValidateMappingRequest_OK() throws Exception {
+    public void testValidateMappingRequest_OK() {
         try {
             MappingValidator.validateMappingRequest(new Object(), new Object());
             MappingValidator.validateMappingRequest(new Object(), String.class);
@@ -53,12 +53,12 @@ public class MappingValidatorTest extends AbstractDozerTest {
     }
 
     @Test(expected = MappingException.class)
-    public void testValidtateMappingURL_InvalidFileName() throws Exception {
+    public void testValidtateMappingURL_InvalidFileName() {
         MappingValidator.validateURL("hello", beanContainer);
     }
 
     @Test(expected = MappingException.class)
-    public void testValidtateMappingURL_NullFileName() throws Exception {
+    public void testValidtateMappingURL_NullFileName() {
         MappingValidator.validateURL(null, beanContainer);
     }
 

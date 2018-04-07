@@ -31,7 +31,7 @@ import com.github.dozermapper.core.util.MappingUtils;
 public class DefaultSettingsProcessor implements SettingsProcessor {
 
     private final DozerClassLoader classLoader;
-    private List<SettingsResolver> resolvers = new ArrayList<SettingsResolver>();
+    private List<SettingsResolver> resolvers = new ArrayList<>();
 
     public DefaultSettingsProcessor(DozerClassLoader classLoader) {
         this.classLoader = classLoader;

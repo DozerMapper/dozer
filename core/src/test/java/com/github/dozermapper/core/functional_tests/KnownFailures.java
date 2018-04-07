@@ -57,9 +57,9 @@ public class KnownFailures extends AbstractFunctionalTest {
      */
     @Test
     public void testListOfCustomObjectsToStringArray() {
-        mapper = getMapper(new String[] {"mappings/knownFailures.xml"});
+        mapper = getMapper("mappings/knownFailures.xml");
         MessageHeaderVO vo = new MessageHeaderVO();
-        List<MessageIdVO> ids = new ArrayList<MessageIdVO>();
+        List<MessageIdVO> ids = new ArrayList<>();
         ids.add(new MessageIdVO("1"));
         ids.add(new MessageIdVO("2"));
         vo.setMsgIds(ids);
@@ -69,7 +69,7 @@ public class KnownFailures extends AbstractFunctionalTest {
     }
 
     @Test
-    public void testObjectField() throws Exception {
+    public void testObjectField() {
         mapper = getMapper("mappings/knownFailures.xml");
         Outer o = new Outer();
         Target t = mapper.map(o, Target.class);

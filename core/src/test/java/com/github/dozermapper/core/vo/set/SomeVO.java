@@ -56,14 +56,10 @@ public class SomeVO extends BaseTestObject {
 
         final SomeVO other = (SomeVO)obj;
         if (field2 == null) {
-            if (other.field2 != null) {
-                return false;
-            }
-        } else if (!field2.equals(other.field2)) {
-            return false;
+            return other.field2 == null;
+        } else {
+            return field2.equals(other.field2);
         }
-
-        return true;
     }
 
     @Override

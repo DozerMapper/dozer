@@ -40,12 +40,12 @@ public class CustomConverterContainerTest extends AbstractDozerTest {
     public void setUp() throws Exception {
         ccc = new CustomConverterContainer();
         cache = new DefaultCache("NAME", 10);
-        converters = new ArrayList<CustomConverterDescription>();
+        converters = new ArrayList<>();
         ccc.setConverters(converters);
     }
 
     @Test
-    public void testSetConverters() throws Exception {
+    public void testSetConverters() {
         CustomConverterDescription description = new CustomConverterDescription();
         converters.add(description);
         ccc.setConverters(converters);

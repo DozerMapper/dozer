@@ -24,15 +24,6 @@ import com.github.dozermapper.core.CustomConverter;
  */
 public class InheritanceBugConverter implements CustomConverter {
 
-    /**
-     * The convert-method
-     *
-     * @param destination
-     * @param source
-     * @param destClass
-     * @param sourceClass
-     * @return
-     */
     public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
         return "customConverter";
     }

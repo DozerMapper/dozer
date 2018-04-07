@@ -46,11 +46,7 @@ public class DoubleObject implements Serializable {
 
         final DoubleObject doubleObject = (DoubleObject)o;
 
-        if (value != doubleObject.value) {
-            return false;
-        }
-
-        return true;
+        return !(value != doubleObject.value);
     }
 
     @Override

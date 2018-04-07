@@ -36,7 +36,7 @@ import static org.junit.Assert.fail;
 public class RecursiveInterfaceMappingTest extends AbstractFunctionalTest {
 
     @Test
-    public void testRecursiveInterfaceMapping() throws Exception {
+    public void testRecursiveInterfaceMapping() {
 
         // prepare 2 Users in 1 UserGroup
         User user1 = newInstance(UserImpl.class);

@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class BidirectionalOne {
 
-    private Set<BidirectionalMany> many = new HashSet<BidirectionalMany>();
+    private Set<BidirectionalMany> many = new HashSet<>();
 
     public Set<BidirectionalMany> getMany() {
         return many;

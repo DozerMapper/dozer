@@ -35,7 +35,7 @@ public class CopyByReferenceContainerTest extends AbstractDozerTest {
     }
 
     @Test
-    public void testContains() throws Exception {
+    public void testContains() {
         container.add(new CopyByReference("java.util.*"));
 
         assertFalse(container.contains(String.class.getName()));

@@ -22,6 +22,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
+
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.osgi.Activator;
@@ -33,8 +36,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
 
 /**
  * Resolves the schema specified in the mapping.xml.
@@ -171,8 +172,8 @@ public class SchemaLSResourceResolver implements LSResourceResolver {
         HttpURLConnection conn = (HttpURLConnection)obj.openConnection();
 
         int status = conn.getResponseCode();
-        if ((status != HttpURLConnection.HTTP_OK) &&
-            (status == HttpURLConnection.HTTP_MOVED_TEMP
+        if ((status != HttpURLConnection.HTTP_OK)
+            && (status == HttpURLConnection.HTTP_MOVED_TEMP
              || status == HttpURLConnection.HTTP_MOVED_PERM
              || status == HttpURLConnection.HTTP_SEE_OTHER)) {
 

@@ -26,44 +26,26 @@ public class InsideTestObject extends BaseTestObject {
     private House house;
     private String testCreateMethod;
 
-    /**
-     * @return Returns the toWrapper.
-     */
     public int getToWrapper() {
         return toWrapper;
     }
 
-    /**
-     * @param toWrapper The toWrapper to set.
-     */
     public void setToWrapper(int toWrapper) {
         this.toWrapper = toWrapper;
     }
 
-    /**
-     * @return Returns the wrapper.
-     */
     public Integer getWrapper() {
         return wrapper;
     }
 
-    /**
-     * @param wrapper The wrapper to set.
-     */
     public void setWrapper(Integer wrapper) {
         this.wrapper = wrapper;
     }
 
-    /**
-     * @return Returns the label.
-     */
     public String getLabel() {
         return label;
     }
 
-    /**
-     * @param label The label to set.
-     */
     public void setLabel(String label) {
         this.label = label;
     }
@@ -97,5 +79,4 @@ public class InsideTestObject extends BaseTestObject {
     public void setHouse(House house) {
         this.house = house;
     }
-
 }

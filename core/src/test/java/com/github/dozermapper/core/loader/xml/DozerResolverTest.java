@@ -15,12 +15,13 @@
  */
 package com.github.dozermapper.core.loader.xml;
 
+import org.xml.sax.InputSource;
+
 import com.github.dozermapper.core.AbstractDozerTest;
 import com.github.dozermapper.core.config.BeanContainer;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.InputSource;
 
 import static org.junit.Assert.assertNotNull;
 

@@ -49,7 +49,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
         if (writeMethod == null || writeMethod.get() == null) {
             if (customSetMethod != null && !MappingUtils.isDeepMapping(fieldName)) {
                 Method method = ReflectionUtils.findAMethod(clazz, customSetMethod, beanContainer);
-                writeMethod = new SoftReference<Method>(method);
+                writeMethod = new SoftReference<>(method);
             } else {
                 return super.getWriteMethod();
             }
@@ -62,7 +62,7 @@ public class CustomGetSetPropertyDescriptor extends JavaBeanPropertyDescriptor {
         if (readMethod == null || readMethod.get() == null) {
             if (customGetMethod != null) {
                 Method method = ReflectionUtils.findAMethod(clazz, customGetMethod, beanContainer);
-                readMethod = new SoftReference<Method>(method);
+                readMethod = new SoftReference<>(method);
             } else {
                 return super.getReadMethod();
             }

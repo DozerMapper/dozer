@@ -13,5 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/**
+ * JAXB model that describes the mapping definitions
+ */
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://dozermapper.github.io/schema/bean-mapping", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.github.dozermapper.core.builder.model.jaxb;

@@ -17,12 +17,9 @@ package com.github.dozermapper.core.vo.generics.parameterized;
 
 import java.io.Serializable;
 
-public interface Dto<I extends Serializable>
-
-        extends Serializable {
+public interface Dto<I extends Serializable> extends Serializable {
 
     I getId();
 
-    void setId(final I id);
-
+    void setId(I id);
 }

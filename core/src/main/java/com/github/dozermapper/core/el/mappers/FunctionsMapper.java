@@ -26,7 +26,7 @@ import javax.el.FunctionMapper;
  */
 public class FunctionsMapper extends FunctionMapper {
 
-    private final Map<String, Method> map = new HashMap<String, Method>();
+    private final Map<String, Method> map = new HashMap<>();
 
     /**
      * Resolves functions set via {@link #mapFunction(String, String, Method)}

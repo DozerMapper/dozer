@@ -67,8 +67,8 @@ public abstract class FieldMap implements Cloneable {
     private RelationshipType relationshipType;
     private boolean removeOrphans;
 
-    private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> srcPropertyDescriptorMap = new ConcurrentHashMap<Class<?>, DozerPropertyDescriptor>(); // For Caching Purposes
-    private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> destPropertyDescriptorMap = new ConcurrentHashMap<Class<?>, DozerPropertyDescriptor>();
+    private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> srcPropertyDescriptorMap = new ConcurrentHashMap<>(); // For Caching Purposes
+    private final ConcurrentMap<Class<?>, DozerPropertyDescriptor> destPropertyDescriptorMap = new ConcurrentHashMap<>();
 
     public FieldMap(ClassMap classMap, BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
         this.classMap = classMap;
@@ -403,8 +403,8 @@ public abstract class FieldMap implements Cloneable {
 
     protected DozerPropertyDescriptor getDestPropertyDescriptor(Class<?> runtimeDestClass) {
         if (BeanBuilder.class.isAssignableFrom(runtimeDestClass)) {
-            MappingUtils.throwMappingException(
-                    "getDestPropertyDescriptor received builder instead of concrete class - it's a bug, please post stack trace at https://github.com/DozerMapper/dozer or directly to dmitry@spikhalskiy.com ");
+            MappingUtils.throwMappingException("getDestPropertyDescriptor received builder instead of concrete class - "
+                                               + "it's a bug, please post stack trace at https://github.com/DozerMapper/dozer or directly to dmitry@spikhalskiy.com ");
             return null;
         }
 

@@ -24,8 +24,9 @@ public final class InstantiatorHolder {
     }
 
     private static final ThreadLocal<DataObjectInstantiator> value = new ThreadLocal<DataObjectInstantiator>() {{
-        set(NoProxyDataObjectInstantiator.INSTANCE);
-    }};
+            set(NoProxyDataObjectInstantiator.INSTANCE);
+        }
+    };
 
     public static void set(DataObjectInstantiator instance) {
         value.set(instance);

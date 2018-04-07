@@ -57,7 +57,7 @@ public class DozerInitializerTest extends AbstractDozerTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         instance.destroy(settings);
     }
 

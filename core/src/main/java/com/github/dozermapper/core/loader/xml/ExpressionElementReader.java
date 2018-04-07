@@ -15,9 +15,9 @@
  */
 package com.github.dozermapper.core.loader.xml;
 
-import com.github.dozermapper.core.el.ELEngine;
-
 import org.w3c.dom.Element;
+
+import com.github.dozermapper.core.el.ELEngine;
 
 public class ExpressionElementReader extends SimpleElementReader {
 

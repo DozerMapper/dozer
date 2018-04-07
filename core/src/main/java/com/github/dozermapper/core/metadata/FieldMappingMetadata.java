@@ -23,36 +23,50 @@ import com.github.dozermapper.core.classmap.MappingDirection;
 public interface FieldMappingMetadata {
 
     /**
+     * Gets the source field name
+     *
      * @return The name of the source field.
      */
     String getSourceName();
 
     /**
+     * Gets the destination field name
+     *
      * @return The name of the destination field.
      */
     String getDestinationName();
 
     /**
+     * Gets the source field get method
+     *
      * @return The name of the getter of the source field.
      */
     String getSourceFieldGetMethod();
 
     /**
+     * Gets the source field set method
+     *
      * @return The name of the setter of the source field.
      */
     String getSourceFieldSetMethod();
 
     /**
+     * Gets the destination field get method
+     *
      * @return The name of the getter of the destination field.
      */
     String getDestinationFieldGetMethod();
 
     /**
+     * Gets the destination field set method
+     *
      * @return The name of the setter of the destination field.
      */
     String getDestinationFieldSetMethod();
 
     /**
+     * Gets whether mapping should copy by reference
+     *
      * @return true if nested objects are copied by reference. false if a deep copy
      * is performed.
      */
@@ -70,6 +84,8 @@ public interface FieldMappingMetadata {
     MappingDirection getMappingDirection();
 
     /**
+     * Gets date format used when mapping
+     *
      * @return The date format used for conversions as a string.
      */
     String getDateFormat();
