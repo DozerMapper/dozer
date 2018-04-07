@@ -19,3 +19,11 @@ As xmlbeans is now deprecated upstream, and is not supported with Java9, support
     <classifier>jar-with-dependencies</classifier>
 </dependency>
 ----
+
+=== 4. dozer.xml.use-jaxb-mapping-engine enabled by default
+JAXB is used by default, if this causes issues, it can be disabled via:
+
+[source,prettyprint]
+----
+    -Ddozer.xml.use-jaxb-mapping-engine=false
+----

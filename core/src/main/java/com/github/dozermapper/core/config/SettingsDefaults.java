@@ -27,5 +27,5 @@ public final class SettingsDefaults {
     public static final Integer SUPER_TYPE_CHECK_CACHE_MAX_SIZE = 10000;
     public static final String CLASS_LOADER_BEAN = "com.github.dozermapper.core.util.DefaultClassLoader";
     public static final String PROXY_RESOLVER_BEAN = "com.github.dozermapper.core.util.DefaultProxyResolver";
-    public static final Boolean USE_JAXB_MAPPING_ENGINE = false;
+    public static final Boolean USE_JAXB_MAPPING_ENGINE = true;
 }
