@@ -32,8 +32,10 @@
     <name>Dozer :: Tests :: Wildfly Tests</name>
 
     <properties>
-        <arquillian-bom.version>1.1.13.Final</arquillian-bom.version>
+        <arquillian-bom.version>1.4.0.Final</arquillian-bom.version>
+        <wildfly-arquillian-container-embedded.version>2.1.0.Final</wildfly-arquillian-container-embedded.version>
         <shrinkwrap.version>2.2.6</shrinkwrap.version>
+        <wildfly-dist.version>10.1.0.Final</wildfly-dist.version>
     </properties>
 
     <dependencyManagement>
@@ -70,7 +72,7 @@
         <dependency>
             <groupId>org.wildfly.arquillian</groupId>
             <artifactId>wildfly-arquillian-container-embedded</artifactId>
-            <version>2.1.0.Final</version>
+            <version>${wildfly-arquillian-container-embedded.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
@@ -99,7 +101,7 @@
                                 <artifactItem>
                                     <groupId>org.wildfly</groupId>
                                     <artifactId>wildfly-dist</artifactId>
-                                    <version>10.1.0.Final</version>
+                                    <version>${wildfly-dist.version}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>target</outputDirectory>
