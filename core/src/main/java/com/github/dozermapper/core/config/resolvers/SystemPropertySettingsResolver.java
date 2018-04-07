@@ -20,11 +20,20 @@ package com.github.dozermapper.core.config.resolvers;
  */
 public class SystemPropertySettingsResolver implements SettingsResolver {
 
+    /**
+     * No-op
+     */
     @Override
     public void init() {
         //noop
     }
 
+    /**
+     * Gets value from system via {@link System#getProperty}
+     * @param key key to retrieve
+     * @param defaultValue value to default to if none found
+     * @return value found or default if none
+     */
     @Override
     public Object get(String key, Object defaultValue) {
         return System.getProperty(key, defaultValue == null ? null : String.valueOf(defaultValue));

@@ -20,7 +20,16 @@ package com.github.dozermapper.core.config.resolvers;
  */
 public interface SettingsResolver {
 
+    /**
+     * Initializes backing store and retrieves values into memory
+     */
     void init();
 
+    /**
+     * Gets value from in memory store
+     * @param key key to retrieve
+     * @param defaultValue value to default to if none found
+     * @return value found or default if none
+     */
     Object get(String key, Object defaultValue);
 }
