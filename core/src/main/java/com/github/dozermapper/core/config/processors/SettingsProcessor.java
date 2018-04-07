@@ -17,7 +17,15 @@ package com.github.dozermapper.core.config.processors;
 
 import com.github.dozermapper.core.config.Settings;
 
+/**
+ * Processes values retrieved by resolvers, to create {@link Settings}
+ */
 public interface SettingsProcessor {
 
+    /**
+     * Process resolvers to create {@link Settings}
+     *
+     * @return Configured {@link Settings}
+     */
     Settings process();
 }

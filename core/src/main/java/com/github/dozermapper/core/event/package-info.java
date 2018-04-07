@@ -13,27 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.core.classmap.generator;
-
 /**
- * Defines the mapping style to use between the source and target objects.
+ * Event management fired internally by the mapper which can be listened to and acted upon
  */
-public enum MappingType {
-
-    /**
-     * Map from source field to target field
-     */
-    FIELD_TO_FIELD,
-    /**
-     * Map from source field to target setter
-     */
-    FIELD_TO_SETTER,
-    /**
-     * Map from source getter to target field
-     */
-    GETTER_TO_FIELD,
-    /**
-     * Map from source getter to target setter
-     */
-    GETTER_TO_SETTER
-}
+package com.github.dozermapper.core.event;

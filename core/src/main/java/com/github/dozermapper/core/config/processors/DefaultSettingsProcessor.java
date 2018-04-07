@@ -28,6 +28,10 @@ import com.github.dozermapper.core.config.resolvers.SystemPropertySettingsResolv
 import com.github.dozermapper.core.util.DozerClassLoader;
 import com.github.dozermapper.core.util.MappingUtils;
 
+/**
+ * Processes default resolvers, which are currently:
+ * {@link LegacyPropertiesSettingsResolver}, {@link SystemPropertySettingsResolver} and {@link SystemEnvironmentSettingsResolver}
+ */
 public class DefaultSettingsProcessor implements SettingsProcessor {
 
     private final DozerClassLoader classLoader;
@@ -37,6 +41,9 @@ public class DefaultSettingsProcessor implements SettingsProcessor {
         this.classLoader = classLoader;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Settings process() {
         createSettingsResolvers();

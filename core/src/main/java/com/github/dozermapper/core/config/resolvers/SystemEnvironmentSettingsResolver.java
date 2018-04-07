@@ -24,11 +24,20 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class SystemEnvironmentSettingsResolver implements SettingsResolver {
 
+    /**
+     * No-op
+     */
     @Override
     public void init() {
         //noop
     }
 
+    /**
+     * Gets value from environment via {@link System#getenv}
+     * @param key key to retrieve
+     * @param defaultValue value to default to if none found
+     * @return value found or default if none
+     */
     @Override
     public Object get(String key, Object defaultValue) {
         Object value = System.getenv(getEnvironmentSafeKey(key));

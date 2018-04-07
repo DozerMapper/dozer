@@ -42,6 +42,9 @@ public class LegacyPropertiesSettingsResolver implements SettingsResolver {
         this.configFile = configFile;
     }
 
+    /**
+     * Loads dozer.properties from classpath
+     */
     @Override
     public void init() {
         properties = processFile();
@@ -73,6 +76,9 @@ public class LegacyPropertiesSettingsResolver implements SettingsResolver {
         return properties;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object get(String key, Object defaultValue) {
         return properties.getOrDefault(key, defaultValue);

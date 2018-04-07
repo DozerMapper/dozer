@@ -56,6 +56,9 @@ public class YAMLSettingsResolver implements SettingsResolver {
         this.configFile = configFile;
     }
 
+    /**
+     * Loads dozer.yaml from classpath
+     */
     @Override
     public void init() {
         Map<String, Map> settings = processFile();
@@ -117,6 +120,9 @@ public class YAMLSettingsResolver implements SettingsResolver {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object get(String key, Object defaultValue) {
         return properties.getOrDefault(key, defaultValue);
