@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -63,7 +65,7 @@ public class SchemaLSResourceResolver implements LSResourceResolver {
         InputStream source = null;
         try {
             source = resolveFromClassPath(systemId);
-        } catch (IOException exClasspath) {
+        } catch (URISyntaxException | IOException exClasspath) {
             LOG.error("{}", exClasspath.getMessage());
             LOG.debug("Exception: {}", exClasspath);
 
@@ -105,18 +107,29 @@ public class SchemaLSResourceResolver implements LSResourceResolver {
     }
 
     /**
-     * 1. Checks if DozerClassloader (i.e.: maybe the user is using a local XSD for some reason)
-     * 2. Trys classloader for dozer-schema.jar
-     * 3. Trys bundle context for dozer-schema.jar
+     * Attempt to resolve systemId resource from classpath by checking:
+     *
+     * 1. Try {@link SchemaLSResourceResolver#getClass()#getClassLoader()}
+     * 2. Try {@link BeanContainer#getClassLoader()}
+     * 3. Try {@link Activator#getBundle()}
      *
      * @param systemId systemId used by XSD
      * @return stream to XSD
      * @throws IOException if fails to find XSD
      */
-    private InputStream resolveFromClassPath(String systemId) throws IOException {
+    private InputStream resolveFromClassPath(String systemId) throws IOException, URISyntaxException {
         InputStream source;
 
-        String xsdPath = systemId.substring(systemId.indexOf("/", "http://".length()) + 1);
+        String xsdPath;
+        URI uri = new URI(systemId);
+        if (uri.getScheme().equalsIgnoreCase("file")) {
+            xsdPath = uri.toString();
+        } else {
+            xsdPath = uri.getPath();
+            if (xsdPath.charAt(0) == '/') {
+                xsdPath = xsdPath.substring(1);
+            }
+        }
 
         ClassLoader localClassLoader = getClass().getClassLoader();
 
@@ -139,7 +152,7 @@ public class SchemaLSResourceResolver implements LSResourceResolver {
             if (bundle != null) {
                 LOG.debug("Trying to locate [{}] via Bundle [{}]", xsdPath, bundle.getClass().getSimpleName());
 
-                url = bundle.getResource("schema/" + xsdPath);
+                url = bundle.getResource(xsdPath);
             }
         }
 
