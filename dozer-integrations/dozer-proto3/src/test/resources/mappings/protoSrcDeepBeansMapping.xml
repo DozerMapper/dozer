@@ -20,6 +20,10 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+    </configuration>
+
     <mapping wildcard="false">
         <class-a>com.github.dozermapper.protobuf.vo.proto.ProtoTestObjects.ProtoTestObjectWithNestedProtoObject</class-a>
         <class-b>com.github.dozermapper.protobuf.vo.proto.LiteTestObject</class-b>

@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 /**
  * {@link com.github.dozermapper.core.propertydescriptor.DozerPropertyDescriptor} which resolves Protobuf fields
  */
-public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
+class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProtoFieldPropertyDescriptor.class);
 
@@ -65,7 +65,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
      * @param destBeanCreator            {@link DestBeanCreator} instance
      * @param propertyDescriptorFactory  {@link PropertyDescriptorFactory} instance
      */
-    public ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer,
+    ProtoFieldPropertyDescriptor(Class<?> clazz, String fieldName, boolean isIndexed, int index, HintContainer srcDeepIndexHintContainer,
                                         HintContainer destDeepIndexHintContainer, BeanContainer beanContainer, DestBeanCreator destBeanCreator,
                                         PropertyDescriptorFactory propertyDescriptorFactory) {
         super(clazz, fieldName, isIndexed, index, srcDeepIndexHintContainer, destDeepIndexHintContainer);
@@ -120,17 +120,19 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
                 result = MappingUtils.getIndexedValue(result, index);
             }
         }
+
         return result;
     }
 
     private Object getSimplePropertyValue(Object bean) {
-        //proto builder can't contains already created object and even if contain - it's fields can't be changed
+        // Proto builder can't contains already created object and even if contain - it's fields can't be changed
         if (bean instanceof BeanBuilder) {
             return null;
         }
 
         if (!(bean instanceof Message)) {
-            MappingUtils.throwMappingException("Try to pass non proto object to ProtoFieldPropertyDescriptor");
+            throw new MappingException("Expected a Message instance, but got "
+                                       + bean.getClass().getCanonicalName());
         }
 
         Object value = ProtoUtils.getFieldValue(bean, fieldName);
@@ -144,7 +146,8 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
     @Override
     public void setPropertyValue(Object bean, Object value, FieldMap fieldMap) {
         if (!(bean instanceof ProtoBeanBuilder)) {
-            MappingUtils.throwMappingException("should be a ProtoBeanBuilder instance");
+            throw new MappingException("Expected a ProtoBeanBuilder instance, but got "
+                                       + bean.getClass().getCanonicalName());
         }
 
         ProtoBeanBuilder builder = (ProtoBeanBuilder)bean;
@@ -152,7 +155,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
         value = ProtoUtils.wrapEnums(value);
         if (value != null) {
             if (getFieldDescriptor().isMapField()) {
-                //capitalize the first letter of the string;
+                // Capitalize the first letter of the string;
                 String propertyName = Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
                 String methodName = String.format("putAll%s", propertyName);
 
@@ -206,7 +209,7 @@ public class ProtoFieldPropertyDescriptor extends AbstractPropertyDescriptor {
         if (this.fieldDescriptor == null && Message.class.isAssignableFrom(clazz)) {
             this.fieldDescriptor = ProtoUtils.getFieldDescriptor((Class<? extends Message>)clazz, fieldName);
             if (this.fieldDescriptor == null && !MappingUtils.isDeepMapping(fieldName)) {
-                MappingUtils.throwMappingException("No field descriptor for field with name: " + fieldName);
+                throw new MappingException("No field descriptor for field with name: " + fieldName);
             }
         }
 
