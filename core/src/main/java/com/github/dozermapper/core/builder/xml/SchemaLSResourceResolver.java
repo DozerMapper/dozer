@@ -120,10 +120,15 @@ public class SchemaLSResourceResolver implements LSResourceResolver {
     private InputStream resolveFromClassPath(String systemId) throws IOException, URISyntaxException {
         InputStream source;
 
+        String xsdPath;
         URI uri = new URI(systemId);
-        String xsdPath = uri.getPath();
-        if (xsdPath.charAt(0) == '/') {
-            xsdPath = xsdPath.substring(1);
+        if (uri.getScheme().equalsIgnoreCase("file")) {
+            xsdPath = uri.toString();
+        } else {
+            xsdPath = uri.getPath();
+            if (xsdPath.charAt(0) == '/') {
+                xsdPath = xsdPath.substring(1);
+            }
         }
 
         ClassLoader localClassLoader = getClass().getClassLoader();

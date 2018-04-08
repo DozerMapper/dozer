@@ -15,6 +15,8 @@
  */
 package com.github.dozermapper.core.builder.xml;
 
+import java.net.URL;
+
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -67,10 +69,10 @@ public class SchemaLSResourceResolverTest {
 
     @Test
     public void canResolveViaClasspath() {
-        String systemId = "http://dozermapper.github.io/schema/bean-mapping.xsd";
+        URL systemId = getClass().getClassLoader().getResource("schema/bean-mapping.xsd");
 
         LSResourceResolver resolver = new SchemaLSResourceResolver(new BeanContainer());
-        LSInput answer = resolver.resolveResource(null, null, null, systemId, null);
+        LSInput answer = resolver.resolveResource(null, null, null, systemId.toString(), null);
 
         assertNotNull(answer);
         assertNotNull(answer.getByteStream());
