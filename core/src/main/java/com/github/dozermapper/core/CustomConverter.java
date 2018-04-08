@@ -22,7 +22,6 @@ package com.github.dozermapper.core;
  * class B types. When a custom converter is specified for a class A and class B combination, Dozer will invoke the
  * custom converter to perform the data mapping instead of the standard mapping logic.
  * <p>
- * <p>
  * <a
  * href="https://dozermapper.github.io/gitbook/documentation/customconverter.html">
  * https://dozermapper.github.io/gitbook/documentation/customconverter.html</a>

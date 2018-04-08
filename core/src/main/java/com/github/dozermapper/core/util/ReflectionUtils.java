@@ -440,7 +440,6 @@ public final class ReflectionUtils {
     /**
      * Finds non-standard setters {@link PropertyUtils#getPropertyDescriptors} does not find.
      * The non-standard setters include:
-     * <p>
      * <ul>
      * <li> Setters that return something instead of {@code void}</li>
      * <li> Setters that take a wrapper argument (e.g. Boolean) when the field is of primitive type (e.g. boolean) - or the other way around.
