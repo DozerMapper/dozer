@@ -15,57 +15,57 @@
  */
 package com.github.dozermapper.protobuf.functional_tests;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
-import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.protobuf.vo.proto.NestedObject;
 import com.github.dozermapper.protobuf.vo.proto.TestObject;
 import com.github.dozermapper.protobuf.vo.protomultiple.SimpleProtoTestObject;
 
-import org.junit.Before;
-import org.junit.Rule;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ProtoBeansMultipleFilesMappingTest extends ProtoAbstractTest {
+public class ProtoBeansMultipleFilesMappingTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    private static Mapper mapper;
 
-    private Mapper mapper;
-    private BeanContainer beanContainer;
-
-    @Before
-    public void setUp() {
-        beanContainer = new BeanContainer();
-        mapper = getMapper("mappings/protoBeansMapping.xml");
+    @BeforeClass
+    public static void setUp() {
+        mapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/protoBeansMapping.xml")
+                .build();
     }
 
     @Test
-    public void testSimpleToProto() {
-        NestedObject source = new NestedObject();
+    public void canSimpleToProto() {
         TestObject testObject = new TestObject();
         testObject.setOne("ABC");
-        source.setNested(testObject);
 
-        SimpleProtoTestObject protoResult = mapper.map(source, SimpleProtoTestObject.class);
+        NestedObject nestedObject = new NestedObject();
+        nestedObject.setNested(testObject);
 
-        assertNotNull(protoResult);
-        assertEquals("ABC", protoResult.getNested().getOne());
+        SimpleProtoTestObject result = mapper.map(nestedObject, SimpleProtoTestObject.class);
+
+        assertNotNull(result);
+        assertNotNull(result.getNested());
+        assertNotNull(result.getNested().getOne());
+        assertEquals(nestedObject.getNested().getOne(), result.getNested().getOne());
     }
 
     @Test
-    public void testSimpleFromProto() {
-        SimpleProtoTestObject.Builder builder = SimpleProtoTestObject.newBuilder();
-        builder.getNestedBuilder().setOne("ABC");
+    public void canSimpleFromProto() {
+        SimpleProtoTestObject.Builder simpleProtoTestObjectBuilder = SimpleProtoTestObject.newBuilder();
+        simpleProtoTestObjectBuilder.getNestedBuilder().setOne("ABC");
 
-        SimpleProtoTestObject source = builder.build();
+        SimpleProtoTestObject simpleProtoTestObject = simpleProtoTestObjectBuilder.build();
 
-        NestedObject pojoResult = mapper.map(source, NestedObject.class);
+        NestedObject result = mapper.map(simpleProtoTestObject, NestedObject.class);
 
-        assertNotNull(pojoResult);
-        assertEquals("ABC", pojoResult.getNested().getOne());
+        assertNotNull(result);
+        assertNotNull(result.getNested());
+        assertNotNull(result.getNested().getOne());
+        assertEquals(simpleProtoTestObject.getNested().getOne(), result.getNested().getOne());
     }
 }

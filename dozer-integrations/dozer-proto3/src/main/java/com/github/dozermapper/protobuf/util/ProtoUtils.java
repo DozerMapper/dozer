@@ -15,12 +15,14 @@
  */
 package com.github.dozermapper.protobuf.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.util.MappingUtils;
 import com.google.common.base.CaseFormat;
@@ -48,12 +50,12 @@ public final class ProtoUtils {
      */
     public static Message.Builder getBuilder(Class<? extends Message> clazz) {
         final Message.Builder protoBuilder;
+
         try {
             Method newBuilderMethod = clazz.getMethod("newBuilder");
             protoBuilder = (Message.Builder)newBuilderMethod.invoke(null);
-        } catch (Exception e) {
-            MappingUtils.throwMappingException(e);
-            return null;
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new MappingException("Failed to create Message.Builder for " + clazz.getCanonicalName(), e);
         }
 
         return protoBuilder;
@@ -77,7 +79,7 @@ public final class ProtoUtils {
      * @param protoBuilder {@link Message.Builder} instance
      * @return list of {@link Descriptors.FieldDescriptor} associated with the {@link Message.Builder}
      */
-    public static List<Descriptors.FieldDescriptor> getFieldDescriptors(Message.Builder protoBuilder) {
+    private static List<Descriptors.FieldDescriptor> getFieldDescriptors(Message.Builder protoBuilder) {
         return protoBuilder.getDescriptorForType().getFields();
     }
 
@@ -123,27 +125,31 @@ public final class ProtoUtils {
      * @return field value from the {@link Message} for the specified field name, or null if none found
      */
     public static Object getFieldValue(Object message, String fieldName) {
+        Object answer = null;
+
         Map<Descriptors.FieldDescriptor, Object> fieldsMap = ((Message)message).getAllFields();
         for (Map.Entry<Descriptors.FieldDescriptor, Object> field : fieldsMap.entrySet()) {
             if (sameField(fieldName, field.getKey().getName())) {
                 if (field.getKey().isMapField()) {
-                    //capitalize the first letter of the string;
+                    // Capitalize the first letter of the string;
                     String propertyName = Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
                     String methodName = String.format("get%sMap", propertyName);
 
                     try {
                         Method mapGetter = message.getClass().getMethod(methodName);
-                        return mapGetter.invoke(message);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Could not introspect map field with method " + methodName, e);
+                        answer = mapGetter.invoke(message);
+                        break;
+                    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                        throw new MappingException("Could not introspect map field with method " + methodName, e);
                     }
+                } else {
+                    answer = field.getValue();
+                    break;
                 }
-
-                return field.getValue();
             }
         }
 
-        return null;
+        return answer;
     }
 
     /**
@@ -203,7 +209,7 @@ public final class ProtoUtils {
                 return MappingUtils.loadClass(StringUtils.join(
                         getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'), beanContainer);
             default:
-                throw new RuntimeException();
+                throw new MappingException("Unable to find " + descriptor.getJavaType());
         }
     }
 
@@ -234,12 +240,13 @@ public final class ProtoUtils {
             return ((ProtocolMessageEnum)value).getValueDescriptor();
         }
 
-        //there is no other collections using in proto, only list
+        // There is no other collections using in proto, only list
         if (value instanceof List) {
             List modifiedList = new ArrayList(((List)value).size());
             for (Object element : (List)value) {
                 modifiedList.add(wrapEnums(element));
             }
+
             return modifiedList;
         }
 

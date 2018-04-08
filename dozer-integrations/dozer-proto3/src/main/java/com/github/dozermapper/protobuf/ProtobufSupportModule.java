@@ -41,6 +41,8 @@ public class ProtobufSupportModule implements DozerModule {
 
     /**
      * {@inheritDoc}
+     *
+     * @deprecated DozerModule needs rethink, as exposes internals
      */
     @Deprecated
     @Override
@@ -51,7 +53,7 @@ public class ProtobufSupportModule implements DozerModule {
     }
 
     /**
-     * {@inheritDoc}
+     * No-op
      */
     @Override
     public void init() {
