@@ -62,6 +62,7 @@ public class DozerBeanMapperFactoryBeanTest {
         factory.setFactories(Collections.emptyMap());
         factory.setMappingFiles(new Resource[] {mockResource});
         factory.setMappingBuilders(Collections.emptyList());
+        factory.setCustomFieldMapper(null);
 
         factory.afterPropertiesSet();
 
@@ -81,12 +82,12 @@ public class DozerBeanMapperFactoryBeanTest {
     }
 
     @Test
-    public void testEmpty() throws Exception {
+    public void testEmpty() {
         factory.afterPropertiesSet();
     }
 
     @Test
-    public void shouldInjectBeans() throws Exception {
+    public void shouldInjectBeans() {
         HashMap<String, CustomConverter> converterHashMap = new HashMap<>();
         converterHashMap.put("a", mock(CustomConverter.class));
 

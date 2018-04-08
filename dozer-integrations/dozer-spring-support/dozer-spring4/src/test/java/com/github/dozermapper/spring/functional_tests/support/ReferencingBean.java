@@ -18,7 +18,9 @@ package com.github.dozermapper.spring.functional_tests.support;
 import com.github.dozermapper.core.Mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReferencingBean {
 
     @Autowired
