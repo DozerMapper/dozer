@@ -44,7 +44,6 @@ import org.apache.commons.beanutils.Converter;
  * </ul>
  * <p>
  * Only intended for internal use.
- * <p>
  */
 public class XMLGregorianCalendarConverter implements Converter {
 
