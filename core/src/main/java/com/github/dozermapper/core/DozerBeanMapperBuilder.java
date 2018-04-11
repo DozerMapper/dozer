@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceConfigurationError;
+import java.util.ServiceLoader;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -39,6 +41,7 @@ import com.github.dozermapper.core.classmap.MappingFileData;
 import com.github.dozermapper.core.classmap.generator.BeanMappingGenerator;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.config.Settings;
+import com.github.dozermapper.core.config.SettingsDefaults;
 import com.github.dozermapper.core.config.processors.DefaultSettingsProcessor;
 import com.github.dozermapper.core.config.processors.SettingsProcessor;
 import com.github.dozermapper.core.el.DefaultELEngine;
@@ -63,9 +66,13 @@ import com.github.dozermapper.core.osgi.Activator;
 import com.github.dozermapper.core.osgi.OSGiClassLoader;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
 import com.github.dozermapper.core.util.DefaultClassLoader;
+import com.github.dozermapper.core.util.DefaultProxyResolver;
 import com.github.dozermapper.core.util.DozerClassLoader;
 import com.github.dozermapper.core.util.DozerConstants;
+import com.github.dozermapper.core.util.DozerProxyResolver;
+import com.github.dozermapper.core.util.MappingUtils;
 import com.github.dozermapper.core.util.MappingValidator;
+import com.github.dozermapper.core.util.ReflectionUtils;
 import com.github.dozermapper.core.util.RuntimeUtils;
 
 import org.slf4j.Logger;
@@ -81,7 +88,7 @@ public final class DozerBeanMapperBuilder {
     private static final Logger LOG = LoggerFactory.getLogger(DozerBeanMapperBuilder.class);
 
     private List<String> mappingFiles = new ArrayList<>(1);
-    private DozerClassLoader classLoader;
+    private DozerClassLoader fluentDefinedClassLoader;
     private List<CustomConverter> customConverters = new ArrayList<>(0);
     private List<Supplier<InputStream>> xmlMappingSuppliers = new ArrayList<>(0);
     private List<BeanMappingBuilder> mappingBuilders = new ArrayList<>(0);
@@ -173,7 +180,7 @@ public final class DozerBeanMapperBuilder {
      * @return modified builder to be further configured.
      */
     public DozerBeanMapperBuilder withClassLoader(DozerClassLoader classLoader) {
-        this.classLoader = classLoader;
+        this.fluentDefinedClassLoader = classLoader;
         return this;
     }
 
@@ -188,7 +195,7 @@ public final class DozerBeanMapperBuilder {
      * @return modified builder to be further configured.
      */
     public DozerBeanMapperBuilder withClassLoader(ClassLoader classLoader) {
-        this.classLoader = new DefaultClassLoader(classLoader);
+        this.fluentDefinedClassLoader = new DefaultClassLoader(classLoader);
         return this;
     }
 
@@ -534,10 +541,17 @@ public final class DozerBeanMapperBuilder {
      * @return new instance of {@link Mapper}.
      */
     public Mapper build() {
-        LOG.info("Initializing a new instance of dozer bean mapper.");
+        LOG.info("Initializing Dozer. Version: {}, Thread Name: {}",
+                 DozerConstants.CURRENT_VERSION, Thread.currentThread().getName());
 
-        DozerClassLoader classLoader = getClassLoader();
-        Settings settings = getSettings(classLoader);
+        DozerClassLoader defaultClassLoader = getClassLoader();
+        Settings settings = getSettings(defaultClassLoader);
+        DozerClassLoader settingsClassLoader = getClassLoaderFromSettings(settings, defaultClassLoader);
+
+        DozerClassLoader classLoader = settingsClassLoader == null ? defaultClassLoader : settingsClassLoader;
+
+        DozerProxyResolver proxyResolver = getProxyResolver(settings, classLoader);
+
         CacheManager cacheManager = getCacheManager(settings);
         ELEngine elEngine = getELEngine();
         ElementReader elementReader = getElementReader(elEngine);
@@ -546,6 +560,7 @@ public final class DozerBeanMapperBuilder {
         beanContainer.setElEngine(elEngine);
         beanContainer.setElementReader(elementReader);
         beanContainer.setClassLoader(classLoader);
+        beanContainer.setProxyResolver(proxyResolver);
 
         DestBeanCreator destBeanCreator = new DestBeanCreator(beanContainer);
         destBeanCreator.setStoredFactories(beanFactories);
@@ -554,16 +569,15 @@ public final class DozerBeanMapperBuilder {
         BeanMappingGenerator beanMappingGenerator = new BeanMappingGenerator(beanContainer, destBeanCreator, propertyDescriptorFactory);
         DestBeanBuilderCreator destBeanBuilderCreator = new DestBeanBuilderCreator();
 
-        XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
-        XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
-
-        DozerInitializer dozerInitializer = new DozerInitializer();
-        dozerInitializer.init(settings, beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
+        loadDozerModules(beanContainer, destBeanBuilderCreator, beanMappingGenerator, propertyDescriptorFactory, destBeanCreator);
 
         List<MappingFileData> mappingsFileData = new ArrayList<>();
         if (settings.getUseJaxbMappingEngine()) {
             mappingsFileData.addAll(buildXmlMappings(beanContainer, destBeanCreator, propertyDescriptorFactory, elEngine));
         } else {
+            XMLParser xmlParser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);
+            XMLParserFactory xmlParserFactory = new XMLParserFactory(beanContainer);
+
             mappingsFileData.addAll(readXmlMappings(xmlParserFactory, xmlParser));
             mappingsFileData.addAll(loadFromFiles(mappingFiles, xmlParserFactory, xmlParser, beanContainer));
         }
@@ -574,8 +588,6 @@ public final class DozerBeanMapperBuilder {
         loadCustomMappings(mappingsFileData, beanContainer, propertyDescriptorFactory, beanMappingGenerator, destBeanCreator);
 
         return new DozerBeanMapper(mappingFiles,
-                                   settings,
-                                   dozerInitializer,
                                    beanContainer,
                                    destBeanCreator,
                                    destBeanBuilderCreator,
@@ -627,15 +639,26 @@ public final class DozerBeanMapperBuilder {
     }
 
     private DozerClassLoader getClassLoader() {
-        if (classLoader == null) {
+        if (fluentDefinedClassLoader == null) {
             if (RuntimeUtils.isOSGi()) {
                 return new OSGiClassLoader(Activator.getBundle().getBundleContext());
             } else {
                 return new DefaultClassLoader(DozerBeanMapperBuilder.class.getClassLoader());
             }
         } else {
-            return classLoader;
+            return fluentDefinedClassLoader;
         }
+    }
+
+    private DozerClassLoader getClassLoaderFromSettings(Settings settings, DozerClassLoader defaultClassLoader) {
+        DozerClassLoader answer = null;
+
+        String classLoaderName = settings.getClassLoaderBeanName();
+        if (!SettingsDefaults.CLASS_LOADER_BEAN.equalsIgnoreCase(classLoaderName)) {
+            answer = ReflectionUtils.newInstance(loadBeanType(classLoaderName, defaultClassLoader, DozerClassLoader.class));
+        }
+
+        return answer;
     }
 
     private Settings getSettings(DozerClassLoader classLoader) {
@@ -644,6 +667,42 @@ public final class DozerBeanMapperBuilder {
             return settingsProcessor.process();
         } else {
             return settingsProcessor.process();
+        }
+    }
+
+    private DozerProxyResolver getProxyResolver(Settings settings, DozerClassLoader dozerClassLoader) {
+        DozerProxyResolver answer;
+
+        String proxyResolverName = settings.getProxyResolverBeanName();
+        if (SettingsDefaults.PROXY_RESOLVER_BEAN.equalsIgnoreCase(proxyResolverName)) {
+            answer = new DefaultProxyResolver();
+        } else {
+            answer = ReflectionUtils.newInstance(loadBeanType(proxyResolverName, dozerClassLoader, DozerProxyResolver.class));
+        }
+
+        return answer;
+    }
+
+    private <T> Class<? extends T> loadBeanType(String classLoaderName, DozerClassLoader classLoader, Class<T> iface) {
+        Class<?> beanType = classLoader.loadClass(classLoaderName);
+        if (beanType != null && !iface.isAssignableFrom(beanType)) {
+            MappingUtils.throwMappingException("Incompatible types: " + iface.getName() + " and " + classLoaderName);
+        }
+
+        return (Class<? extends T>)beanType;
+    }
+
+    private CacheManager getCacheManager(Settings settings) {
+        if (cacheManager == null) {
+            // Initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
+            // are not shared across the VM.
+            CacheManager cacheManager = new DefaultCacheManager();
+            cacheManager.putCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), settings.getConverterByDestTypeCacheMaxSize());
+            cacheManager.putCache(DozerCacheType.SUPER_TYPE_CHECK.name(), settings.getSuperTypesCacheMaxSize());
+
+            return cacheManager;
+        } else {
+            return cacheManager;
         }
     }
 
@@ -710,17 +769,21 @@ public final class DozerBeanMapperBuilder {
         return mappingFileDataList;
     }
 
-    private CacheManager getCacheManager(Settings settings) {
-        if (cacheManager == null) {
-            // Initialize any bean mapper caches. These caches are only visible to the bean mapper instance and
-            // are not shared across the VM.
-            CacheManager cacheManager = new DefaultCacheManager();
-            cacheManager.putCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name(), settings.getConverterByDestTypeCacheMaxSize());
-            cacheManager.putCache(DozerCacheType.SUPER_TYPE_CHECK.name(), settings.getSuperTypesCacheMaxSize());
+    private void loadDozerModules(BeanContainer beanContainer,
+                    DestBeanBuilderCreator destBeanBuilderCreator, BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory,
+                    DestBeanCreator destBeanCreator) {
+        try {
+            ServiceLoader<DozerModule> services = ServiceLoader.load(DozerModule.class);
+            for (DozerModule module : services) {
+                module.init();
+                module.init(beanContainer, destBeanCreator, propertyDescriptorFactory);
 
-            return cacheManager;
-        } else {
-            return cacheManager;
+                destBeanBuilderCreator.addPluggedStrategies(module.getBeanBuilderCreationStrategies());
+                beanMappingGenerator.addPluggedFieldDetectors(module.getBeanFieldsDetectors());
+                propertyDescriptorFactory.addPluggedPropertyDescriptorCreationStrategies(module.getPropertyDescriptorCreationStrategies());
+            }
+        } catch (ServiceConfigurationError ex) {
+            LOG.error("{}", ex.getMessage());
         }
     }
 }
