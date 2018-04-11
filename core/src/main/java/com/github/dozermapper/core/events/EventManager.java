@@ -13,12 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.core.event;
+package com.github.dozermapper.core.events;
 
-public enum DozerEventType {
+/**
+ * Event manager is used by the {@link com.github.dozermapper.core.Mapper}
+ * to trigger {@link EventListener} it is handling, at different phases in the mapping process.
+ */
+public interface EventManager {
 
-    MAPPING_STARTED,
-    MAPPING_PRE_WRITING_DEST_VALUE,
-    MAPPING_POST_WRITING_DEST_VALUE,
-    MAPPING_FINISHED
+    /**
+     * Event to trigger
+     *
+     * @param event event details
+     */
+    void on(Event event);
 }

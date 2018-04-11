@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.github.dozermapper.core.BeanFactory;
 import com.github.dozermapper.core.CustomConverter;
-import com.github.dozermapper.core.DozerEventListener;
+import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.MapperModelContext;
 
@@ -94,12 +94,12 @@ public class DozerBeanMapperFactoryBeanTest {
         HashMap<String, BeanFactory> beanFactoryMap = new HashMap<>();
         beanFactoryMap.put("a", mock(BeanFactory.class));
 
-        HashMap<String, DozerEventListener> eventListenerMap = new HashMap<>();
-        eventListenerMap.put("a", mock(DozerEventListener.class));
+        HashMap<String, EventListener> eventListenerMap = new HashMap<>();
+        eventListenerMap.put("a", mock(EventListener.class));
 
         when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);
         when(mockContext.getBeansOfType(BeanFactory.class)).thenReturn(beanFactoryMap);
-        when(mockContext.getBeansOfType(DozerEventListener.class)).thenReturn(eventListenerMap);
+        when(mockContext.getBeansOfType(EventListener.class)).thenReturn(eventListenerMap);
 
         factory.afterPropertiesSet();
 

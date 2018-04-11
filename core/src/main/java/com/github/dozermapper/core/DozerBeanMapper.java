@@ -29,7 +29,9 @@ import com.github.dozermapper.core.classmap.MappingFileData;
 import com.github.dozermapper.core.classmap.generator.BeanMappingGenerator;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.config.Settings;
-import com.github.dozermapper.core.event.DozerEventManager;
+import com.github.dozermapper.core.events.DefaultEventManager;
+import com.github.dozermapper.core.events.EventListener;
+import com.github.dozermapper.core.events.EventManager;
 import com.github.dozermapper.core.factory.DestBeanCreator;
 import com.github.dozermapper.core.metadata.DozerMappingMetadata;
 import com.github.dozermapper.core.metadata.MappingMetadata;
@@ -65,7 +67,7 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
     private final List<String> mappingFiles;
     private final List<CustomConverter> customConverters;
     private final List<MappingFileData> mappingsFileData;
-    private final List<DozerEventListener> eventListeners;
+    private final List<EventListener> eventListeners;
     private final Map<String, CustomConverter> customConvertersWithId;
     private CustomFieldMapper customFieldMapper;
 
@@ -75,7 +77,7 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
 
     // There are no global caches. Caches are per bean mapper instance
     private final CacheManager cacheManager;
-    private DozerEventManager eventManager;
+    private EventManager eventManager;
 
     DozerBeanMapper(List<String> mappingFiles,
                     Settings settings,
@@ -87,7 +89,7 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
                     PropertyDescriptorFactory propertyDescriptorFactory,
                     List<CustomConverter> customConverters,
                     List<MappingFileData> mappingsFileData,
-                    List<DozerEventListener> eventListeners,
+                    List<EventListener> eventListeners,
                     CustomFieldMapper customFieldMapper,
                     Map<String, CustomConverter> customConvertersWithId,
                     ClassMappings customMappings,
@@ -106,7 +108,7 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
         this.mappingFiles = new ArrayList<>(mappingFiles);
         this.customFieldMapper = customFieldMapper;
         this.customConvertersWithId = new HashMap<>(customConvertersWithId);
-        this.eventManager = new DozerEventManager(eventListeners);
+        this.eventManager = new DefaultEventManager(eventListeners);
         this.customMappings = customMappings;
         this.globalConfiguration = globalConfiguration;
         this.cacheManager = cacheManager;
@@ -200,7 +202,7 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
      * {@inheritDoc}
      */
     @Override
-    public List<? extends DozerEventListener> getEventListeners() {
+    public List<? extends EventListener> getEventListeners() {
         return Collections.unmodifiableList(eventListeners);
     }
 

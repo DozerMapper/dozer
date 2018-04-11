@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
+import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.vo.TestObject;
 import com.github.dozermapper.core.vo.generics.deepindex.TestObjectPrime;
 
@@ -112,15 +113,15 @@ public class DozerBeanMapperTest {
 
     @Test
     public void shouldSetEventListeners() {
-        DozerEventListener listener = mock(DozerEventListener.class);
+        EventListener listener = mock(EventListener.class);
 
         Mapper beanMapper = DozerBeanMapperBuilder.create()
                 .withEventListener(listener)
                 .build();
         beanMapper.map(new Object(), new Object());
 
-        verify(listener).mappingStarted(any());
-        verify(listener).mappingFinished(any());
+        verify(listener).onMappingStarted(any());
+        verify(listener).onMappingFinished(any());
         verifyNoMoreInteractions(listener);
     }
 }

@@ -26,8 +26,8 @@ import com.github.dozermapper.core.BeanFactory;
 import com.github.dozermapper.core.CustomConverter;
 import com.github.dozermapper.core.CustomFieldMapper;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
-import com.github.dozermapper.core.DozerEventListener;
 import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
 
 import org.springframework.beans.BeansException;
@@ -48,7 +48,7 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     private List<String> mappingFileUrls = new ArrayList<>(1);
     private List<CustomConverter> customConverters = new ArrayList<>(0);
     private List<BeanMappingBuilder> mappingBuilders = new ArrayList<>(0);
-    private List<DozerEventListener> eventListeners = new ArrayList<>(0);
+    private List<EventListener> eventListeners = new ArrayList<>(0);
     private Map<String, BeanFactory> beanFactories = new HashMap<>(0);
     private Map<String, CustomConverter> customConvertersWithId = new HashMap<>(0);
 
@@ -111,13 +111,13 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     }
 
     /**
-     * Registers a {@link DozerEventListener} for the mapper.
+     * Registers a {@link EventListener} for the mapper.
      * <p>
      * By default, no listeners are registered.
      *
      * @param eventListeners listeners to be registered for the mapper.
      */
-    public void setEventListeners(List<DozerEventListener> eventListeners) {
+    public void setEventListeners(List<EventListener> eventListeners) {
         this.eventListeners.addAll(eventListeners);
     }
 
@@ -168,7 +168,7 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     public void afterPropertiesSet() {
         Map<String, CustomConverter> contextCustomConvertersWithId = applicationContext.getBeansOfType(CustomConverter.class);
         Map<String, BeanMappingBuilder> contextBeanMappingBuilders = applicationContext.getBeansOfType(BeanMappingBuilder.class);
-        Map<String, DozerEventListener> contextEventListeners = applicationContext.getBeansOfType(DozerEventListener.class);
+        Map<String, EventListener> contextEventListeners = applicationContext.getBeansOfType(EventListener.class);
         Map<String, BeanFactory> contextBeanFactorys = applicationContext.getBeansOfType(BeanFactory.class);
 
         customConverters.addAll(contextCustomConvertersWithId.values());

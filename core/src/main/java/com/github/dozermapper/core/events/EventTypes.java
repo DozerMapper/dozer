@@ -13,13 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.core.event;
+package com.github.dozermapper.core.events;
+
+import com.github.dozermapper.core.Mapper;
 
 /**
- * Internal event manager interface. Only intended for internal use.
+ * Event types which can be triggered
  */
-public interface EventManager {
+public enum EventTypes {
 
-    void fireEvent(DozerEvent event);
+    /**
+     * {@link Mapper} has started processing
+     */
+    MAPPING_STARTED,
 
+    /**
+     * {@link Mapper} is about to write the destination value
+     */
+    MAPPING_PRE_WRITING_DEST_VALUE,
+
+    /**
+     * {@link Mapper} has written the destination value
+     */
+    MAPPING_POST_WRITING_DEST_VALUE,
+
+    /**
+     * {@link Mapper} has finished processing
+     */
+    MAPPING_FINISHED
 }

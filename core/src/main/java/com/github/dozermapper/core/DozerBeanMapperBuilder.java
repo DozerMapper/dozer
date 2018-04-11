@@ -46,6 +46,7 @@ import com.github.dozermapper.core.el.ELEngine;
 import com.github.dozermapper.core.el.ELExpressionFactory;
 import com.github.dozermapper.core.el.NoopELEngine;
 import com.github.dozermapper.core.el.TcclELEngine;
+import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.factory.DestBeanCreator;
 import com.github.dozermapper.core.loader.CustomMappingsLoader;
 import com.github.dozermapper.core.loader.LoadMappingsResult;
@@ -85,7 +86,7 @@ public final class DozerBeanMapperBuilder {
     private List<Supplier<InputStream>> xmlMappingSuppliers = new ArrayList<>(0);
     private List<BeanMappingBuilder> mappingBuilders = new ArrayList<>(0);
     private List<BeanMappingsBuilder> beanMappingsBuilders = new ArrayList<>(0);
-    private List<DozerEventListener> eventListeners = new ArrayList<>(0);
+    private List<EventListener> eventListeners = new ArrayList<>(0);
     private CustomFieldMapper customFieldMapper;
     private Map<String, CustomConverter> customConvertersWithId = new HashMap<>(0);
     private Map<String, BeanFactory> beanFactories = new HashMap<>(0);
@@ -350,38 +351,38 @@ public final class DozerBeanMapperBuilder {
     }
 
     /**
-     * Registers a {@link DozerEventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
+     * Registers a {@link EventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
      * <p>
      * By default, no listeners are registered.
      *
      * @param eventListener listener to be registered for the mapper.
      * @return modified builder to be further configured.
      */
-    public DozerBeanMapperBuilder withEventListener(DozerEventListener eventListener) {
+    public DozerBeanMapperBuilder withEventListener(EventListener eventListener) {
         return withEventListeners(eventListener);
     }
 
     /**
-     * Registers a {@link DozerEventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
+     * Registers a {@link EventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
      * <p>
      * By default, no listeners are registered.
      *
      * @param eventListeners listeners to be registered for the mapper.
      * @return modified builder to be further configured.
      */
-    public DozerBeanMapperBuilder withEventListeners(DozerEventListener... eventListeners) {
+    public DozerBeanMapperBuilder withEventListeners(EventListener... eventListeners) {
         return withEventListeners(Arrays.asList(eventListeners));
     }
 
     /**
-     * Registers a {@link DozerEventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
+     * Registers a {@link EventListener} for the mapper. Multiple calls of this method will register listeners in the order of calling.
      * <p>
      * By default, no listeners are registered.
      *
      * @param eventListeners listeners to be registered for the mapper.
      * @return modified builder to be further configured.
      */
-    public DozerBeanMapperBuilder withEventListeners(List<DozerEventListener> eventListeners) {
+    public DozerBeanMapperBuilder withEventListeners(List<EventListener> eventListeners) {
         if (eventListeners != null) {
             this.eventListeners.addAll(eventListeners);
         }

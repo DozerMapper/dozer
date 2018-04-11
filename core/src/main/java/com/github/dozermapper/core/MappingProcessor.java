@@ -47,10 +47,9 @@ import com.github.dozermapper.core.classmap.generator.BeanMappingGenerator;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.converters.DateFormatContainer;
 import com.github.dozermapper.core.converters.PrimitiveOrWrapperConverter;
-import com.github.dozermapper.core.event.DozerEvent;
-import com.github.dozermapper.core.event.DozerEventManager;
-import com.github.dozermapper.core.event.DozerEventType;
-import com.github.dozermapper.core.event.EventManager;
+import com.github.dozermapper.core.events.DefaultEvent;
+import com.github.dozermapper.core.events.EventManager;
+import com.github.dozermapper.core.events.EventTypes;
 import com.github.dozermapper.core.factory.BeanCreationDirective;
 import com.github.dozermapper.core.factory.DestBeanCreator;
 import com.github.dozermapper.core.fieldmap.CustomGetSetMethodFieldMap;
@@ -88,7 +87,7 @@ public class MappingProcessor implements Mapper {
     private final Configuration globalConfiguration;
     private final List<CustomConverter> customConverterObjects;
     private final Map<String, CustomConverter> customConverterObjectsWithId;
-    private final EventManager eventMgr;
+    private final EventManager eventManager;
     private final CustomFieldMapper customFieldMapper;
 
     private final MappedFieldsTracker mappedFields = new MappedFieldsTracker();
@@ -104,14 +103,14 @@ public class MappingProcessor implements Mapper {
 
     protected MappingProcessor(ClassMappings classMappings, Configuration globalConfiguration, CacheManager cacheMgr,
                                List<CustomConverter> customConverterObjects,
-                               DozerEventManager eventManager, CustomFieldMapper customFieldMapper,
+                               EventManager eventManager, CustomFieldMapper customFieldMapper,
                                Map<String, CustomConverter> customConverterObjectsWithId, BeanContainer beanContainer,
                                DestBeanCreator destBeanCreator, DestBeanBuilderCreator destBeanBuilderCreator,
                                BeanMappingGenerator beanMappingGenerator, PropertyDescriptorFactory propertyDescriptorFactory) {
         this.classMappings = classMappings;
         this.globalConfiguration = globalConfiguration;
         this.customConverterObjects = customConverterObjects;
-        this.eventMgr = eventManager;
+        this.eventManager = eventManager;
         this.customFieldMapper = customFieldMapper;
         this.converterByDestTypeCache = cacheMgr.getCache(DozerCacheType.CONVERTER_BY_DEST_TYPE.name());
         this.superTypeCache = cacheMgr.getCache(DozerCacheType.SUPER_TYPE_CHECK.name());
@@ -181,7 +180,8 @@ public class MappingProcessor implements Mapper {
         try {
             classMap = getClassMap(srcObj.getClass(), destType, mapId);
 
-            eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_STARTED, classMap, null, srcObj, result, null));
+
+            eventManager.on(new DefaultEvent(EventTypes.MAPPING_STARTED, classMap, null, srcObj, result, null));
 
             // TODO Check if any proxy issues are here
             // Check to see if custom converter has been specified for this mapping
@@ -211,7 +211,7 @@ public class MappingProcessor implements Mapper {
         } catch (Throwable e) {
             MappingUtils.throwMappingException(e);
         }
-        eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_FINISHED, classMap, null, srcObj, result, null));
+        eventManager.on(new DefaultEvent(EventTypes.MAPPING_FINISHED, classMap, null, srcObj, result, null));
 
         return result;
     }
@@ -995,13 +995,13 @@ public class MappingProcessor implements Mapper {
         }
 
         if (!bypass) {
-            eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
-                                              destObj, destFieldValue));
+            eventManager.on(new DefaultEvent(EventTypes.MAPPING_PRE_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
+                                             destObj, destFieldValue));
 
             fieldMap.writeDestValue(destObj, destFieldValue);
 
-            eventMgr.fireEvent(new DozerEvent(DozerEventType.MAPPING_POST_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
-                                              destObj, destFieldValue));
+            eventManager.on(new DefaultEvent(EventTypes.MAPPING_POST_WRITING_DEST_VALUE, fieldMap.getClassMap(), fieldMap, srcObj,
+                                             destObj, destFieldValue));
         }
     }
 
