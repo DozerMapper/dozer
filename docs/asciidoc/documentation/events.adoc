@@ -1,24 +1,28 @@
 == Event Listening
-By implementing the `DozerEventListener` interface dozer allows you to
-listen to 4 different events:
+By implementing the `EventListener` interface dozer allows you to listen to
+4 different events:
 
 * `mappingStarted`
 * `mappingFinished`
 * `preWritingDestinationValue`
 * `postWritingDestinationValue`
 
-A `DozerEvent` object is passed into these callback methods which stores
+An `Event` object is passed into these callback methods which stores
 information about the `ClassMap`, `FieldMap`, source object, destination
 object, and destination value. This will allow you to extend Dozer and
 manipulate mapped objects at run-time. The interface is shown below:
 
 [source,java,prettyprint]
 ----
-public interface DozerEventListener {
-  public void mappingStarted(DozerEvent event);
-  public void preWritingDestinationValue(DozerEvent event);
-  public void postWritingDestinationValue(DozerEvent event);
-  public void mappingFinished(DozerEvent event);
+public interface EventListener {
+
+    publicvoid onMappingStarted(Event event);
+
+    public void onPreWritingDestinationValue(Event event);
+
+    public void onPostWritingDestinationValue(Event event);
+
+    public void onMappingFinished(Event event);
 }
 ----
 

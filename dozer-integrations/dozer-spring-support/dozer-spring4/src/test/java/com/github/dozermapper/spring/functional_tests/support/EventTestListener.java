@@ -17,37 +17,41 @@ package com.github.dozermapper.spring.functional_tests.support;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.github.dozermapper.core.DozerEventListener;
-import com.github.dozermapper.core.event.DozerEvent;
+import com.github.dozermapper.core.events.Event;
+import com.github.dozermapper.core.events.EventListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EventTestListener implements DozerEventListener {
+public class EventTestListener implements EventListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(EventTestListener.class);
 
     private final AtomicInteger invocationCount = new AtomicInteger();
 
-    public void mappingStarted(DozerEvent event) {
+    @Override
+    public void onMappingStarted(Event event) {
         LOG.debug("mappingStarted Called with:" + event.getClassMap().getDestClassToMap());
 
         invocationCount.incrementAndGet();
     }
 
-    public void preWritingDestinationValue(DozerEvent event) {
+    @Override
+    public void onPreWritingDestinationValue(Event event) {
         LOG.debug("preWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
 
         invocationCount.incrementAndGet();
     }
 
-    public void postWritingDestinationValue(DozerEvent event) {
+    @Override
+    public void onPostWritingDestinationValue(Event event) {
         LOG.debug("postWritingDestinationValue Called with:" + event.getClassMap().getDestClassToMap());
 
         invocationCount.incrementAndGet();
     }
 
-    public void mappingFinished(DozerEvent event) {
+    @Override
+    public void onMappingFinished(Event event) {
         LOG.debug("mappingFinished Called with:" + event.getClassMap().getDestClassToMap());
 
         invocationCount.incrementAndGet();

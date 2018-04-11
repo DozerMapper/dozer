@@ -19,7 +19,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Helper class which produces cache keys.
+ * Factory which produces cache keys.
  */
 public final class CacheKeyFactory {
 

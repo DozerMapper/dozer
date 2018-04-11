@@ -16,4 +16,4 @@
 /**
  * Event management fired internally by the mapper which can be listened to and acted upon
  */
-package com.github.dozermapper.core.event;
+package com.github.dozermapper.core.events;

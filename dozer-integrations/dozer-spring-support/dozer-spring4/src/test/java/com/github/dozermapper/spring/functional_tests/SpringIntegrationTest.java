@@ -18,7 +18,7 @@ package com.github.dozermapper.spring.functional_tests;
 import java.util.List;
 
 import com.github.dozermapper.core.CustomConverter;
-import com.github.dozermapper.core.DozerEventListener;
+import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.MapperModelContext;
 import com.github.dozermapper.spring.functional_tests.support.EventTestListener;
@@ -94,7 +94,7 @@ public class SpringIntegrationTest {
         assertNotNull(mapperModelContext.getEventListeners());
         assertEquals(1, mapperModelContext.getEventListeners().size());
 
-        DozerEventListener eventListener = mapperModelContext.getEventListeners().get(0);
+        EventListener eventListener = mapperModelContext.getEventListeners().get(0);
         assertTrue(eventListener instanceof EventTestListener);
 
         assertEquals(0, listener.getInvocationCount());

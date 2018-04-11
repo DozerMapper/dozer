@@ -27,3 +27,29 @@ JAXB is used by default, if this causes issues, it can be disabled via:
 ----
     -Ddozer.xml.use-jaxb-mapping-engine=false
 ----
+
+=== 5. Updated dozer-core package name
+**From:**
+[source,java,prettyprint]
+----
+org.dozer
+----
+
+**To:**
+[source,java,prettyprint]
+----
+com.github.dozermapper.core
+----
+
+=== 6. Updated DozerEventListener package/class name
+**From:**
+[source,java,prettyprint]
+----
+org.dozer.DozerEventListener
+----
+
+**To:**
+[source,java,prettyprint]
+----
+com.github.dozermapper.core.events.EventListener
+----

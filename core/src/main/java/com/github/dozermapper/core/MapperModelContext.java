@@ -18,6 +18,8 @@ package com.github.dozermapper.core;
 import java.util.List;
 import java.util.Map;
 
+import com.github.dozermapper.core.events.EventListener;
+
 public interface MapperModelContext {
 
     /**
@@ -42,11 +44,11 @@ public interface MapperModelContext {
     Map<String, CustomConverter> getCustomConvertersWithId();
 
     /**
-     * Returns a list of registered {@link DozerEventListener}
+     * Returns a list of registered {@link EventListener}
      *
      * @return unmodifiable list of listeners
      */
-    List<? extends DozerEventListener> getEventListeners();
+    List<? extends EventListener> getEventListeners();
 
     /**
      * Returns a list of registered {@link CustomFieldMapper}

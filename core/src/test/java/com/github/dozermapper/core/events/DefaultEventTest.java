@@ -13,35 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.dozermapper.core.event;
+package com.github.dozermapper.core.events;
 
-import com.github.dozermapper.core.AbstractDozerTest;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.fieldmap.FieldMap;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 
-public class DozerEventTest extends AbstractDozerTest {
-
-    private DozerEvent dozerEvent;
-
-    @Before
-    public void setUp() throws Exception {
-        dozerEvent = new DozerEvent(DozerEventType.MAPPING_FINISHED,
-                                    mock(ClassMap.class),
-                                    mock(FieldMap.class),
-                                    mock(Object.class),
-                                    mock(Object.class),
-                                    mock(Object.class));
-    }
+public class DefaultEventTest {
 
     @Test
-    public void testToString() {
-        String result = dozerEvent.toString();
-        assertNotNull(result);
+    public void canConstruct() {
+        Event mockedEvent = new DefaultEvent(EventTypes.MAPPING_STARTED, mock(ClassMap.class),
+                                       mock(FieldMap.class), mock(Object.class), mock(Object.class),
+                                       mock(Object.class));
+
+        assertNotNull(mockedEvent.getType());
+        assertNotNull(mockedEvent.getClassMap());
+        assertNotNull(mockedEvent.getFieldMap());
+        assertNotNull(mockedEvent.getSourceObject());
+        assertNotNull(mockedEvent.getDestinationObject());
+        assertNotNull(mockedEvent.getDestinationValue());
+        assertNotNull(mockedEvent.toString());
     }
 }
