@@ -28,7 +28,6 @@ import com.github.dozermapper.core.classmap.Configuration;
 import com.github.dozermapper.core.classmap.MappingFileData;
 import com.github.dozermapper.core.classmap.generator.BeanMappingGenerator;
 import com.github.dozermapper.core.config.BeanContainer;
-import com.github.dozermapper.core.config.Settings;
 import com.github.dozermapper.core.events.DefaultEventManager;
 import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.events.EventManager;
@@ -49,8 +48,6 @@ import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
  */
 public class DozerBeanMapper implements Mapper, MapperModelContext {
 
-    private final Settings settings;
-    private final DozerInitializer dozerInitializer;
     private final BeanContainer beanContainer;
 
     private final DestBeanCreator destBeanCreator;
@@ -66,7 +63,6 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
      */
     private final List<String> mappingFiles;
     private final List<CustomConverter> customConverters;
-    private final List<MappingFileData> mappingsFileData;
     private final List<EventListener> eventListeners;
     private final Map<String, CustomConverter> customConvertersWithId;
     private CustomFieldMapper customFieldMapper;
@@ -80,8 +76,6 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
     private EventManager eventManager;
 
     DozerBeanMapper(List<String> mappingFiles,
-                    Settings settings,
-                    DozerInitializer dozerInitializer,
                     BeanContainer beanContainer,
                     DestBeanCreator destBeanCreator,
                     DestBeanBuilderCreator destBeanBuilderCreator,
@@ -95,15 +89,12 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
                     ClassMappings customMappings,
                     Configuration globalConfiguration,
                     CacheManager cacheManager) {
-        this.settings = settings;
-        this.dozerInitializer = dozerInitializer;
         this.beanContainer = beanContainer;
         this.destBeanCreator = destBeanCreator;
         this.destBeanBuilderCreator = destBeanBuilderCreator;
         this.beanMappingGenerator = beanMappingGenerator;
         this.propertyDescriptorFactory = propertyDescriptorFactory;
         this.customConverters = new ArrayList<>(customConverters);
-        this.mappingsFileData = new ArrayList<>(mappingsFileData);
         this.eventListeners = new ArrayList<>(eventListeners);
         this.mappingFiles = new ArrayList<>(mappingFiles);
         this.customFieldMapper = customFieldMapper;
@@ -144,10 +135,6 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
     @Override
     public void map(Object source, Object destination) throws MappingException {
         getMappingProcessor().map(source, destination);
-    }
-
-    public void destroy() {
-        dozerInitializer.destroy(settings);
     }
 
     protected Mapper getMappingProcessor() {
