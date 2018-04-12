@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>dozer-proto3</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>Dozer :: Integrations :: Protobuf 3</name>
 
     <properties>

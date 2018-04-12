@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>dozer-spring4</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>Dozer :: Integrations :: Spring Support :: Spring 4</name>
 
     <properties>

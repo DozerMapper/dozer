@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>dozer-core</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>Dozer :: Core</name>
 
     <properties>
