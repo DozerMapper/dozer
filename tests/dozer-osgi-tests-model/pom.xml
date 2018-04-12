@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>dozer-osgi-tests-model</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
     <name>Dozer :: Tests :: OSGi Bundle Tests Model</name>
 
     <properties>
