@@ -485,7 +485,7 @@ public final class DozerBeanMapperBuilder {
      * @return modified builder to be further configured.
      */
     public DozerBeanMapperBuilder withSettingsProcessor(SettingsProcessor processor) {
-        this.settingsProcessor = settingsProcessor;
+        this.settingsProcessor = processor;
         return this;
     }
 
