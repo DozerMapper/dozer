@@ -17,6 +17,8 @@ package com.github.dozermapper.core.functional_tests;
 
 import java.util.Map;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.vo.enumtest.MyBean;
 import com.github.dozermapper.core.vo.enumtest.MyBeanPrime;
@@ -28,11 +30,12 @@ import com.github.dozermapper.core.vo.enumtest.MyBeanPrimeString;
 import com.github.dozermapper.core.vo.enumtest.SrcType;
 import com.github.dozermapper.core.vo.enumtest.SrcTypeWithOverride;
 
+import org.hamcrest.core.IsInstanceOf;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -59,293 +62,288 @@ import static org.junit.Assert.assertEquals;
  */
 public class EnumMappingTest extends AbstractFunctionalTest {
 
-    @Rule
-    public ExpectedException testExpectedException = ExpectedException.none();
+    private static Mapper enumMapping;
+    private static Mapper enumMappingOverriedEnumToBasedEnum;
 
-    /**
-     * Test on a mapping from Overridden Enum to Based Enum.
-     */
+    @Rule
+    public ExpectedException canByteMapsToEnumOutOfOrdinalRangeExpectedException = ExpectedException.none();
+
+    @Rule
+    public ExpectedException canShortMapsToEnumOutOfOrdinalRangeExpectedException = ExpectedException.none();
+
+    @Rule
+    public ExpectedException canIntegerMapsToEnumOutOfOrdinalRangeExpectedException = ExpectedException.none();
+
+    @Rule
+    public ExpectedException canLongMapsToEnumOutOfOrdinalRangeExpectedException = ExpectedException.none();
+
+    @Rule
+    public ExpectedException canStringMapsToEnumNonexistEnumValueExpectedException = ExpectedException.none();
+
+    @BeforeClass
+    public static void setup() {
+        enumMapping = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/enumMapping.xml")
+                .build();
+
+        enumMappingOverriedEnumToBasedEnum = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/enumMappingOverriedEnumToBasedEnum.xml")
+                .build();
+    }
+
     @Test
-    public void testOverriddenEnumMapsToBasedEnum() {
-        mapper = getMapper("mappings/enumMappingOverriedEnumToBasedEnum.xml");
+    public void canOverriddenEnumMapsToBasedEnum() {
         MyBean src = newInstance(MyBean.class);
         src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
-        MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
+
+        MyBeanPrime dest = enumMappingOverriedEnumToBasedEnum.map(src, MyBeanPrime.class);
         assertEquals(src.getSrcTypeWithOverride().toString(), dest.getDestType().toString());
     }
 
-    /**
-     * Test on a mapping from Based Enum to Overridden Enum.
-     */
     @Test
-    public void testBasedEnumMapsToOverriddenEnum() {
-        mapper = getMapper("mappings/enumMappingOverriedEnumToBasedEnum.xml");
+    public void canBasedEnumMapsToOverriddenEnum() {
         MyBean src = newInstance(MyBean.class);
         src.setSrcType(SrcType.FOO);
-        MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
+
+        MyBeanPrime dest = enumMappingOverriedEnumToBasedEnum.map(src, MyBeanPrime.class);
+
         assertEquals(src.getSrcType().toString(), dest.getDestTypeWithOverride().toString());
     }
 
-    /**
-     * Test on a mapping from Based Enum to Based Enum.
-     */
     @Test
-    public void testBasedEnumMapsToBasedEnum() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canBasedEnumMapsToBasedEnum() {
         MyBean src = newInstance(MyBean.class);
         src.setSrcType(SrcType.FOO);
-        MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
+
+        MyBeanPrime dest = enumMapping.map(src, MyBeanPrime.class);
         assertEquals(src.getSrcType().toString(), dest.getDestType().toString());
     }
 
-    /**
-     * Test on a mapping from Overridden Enum to Overridden Enum.
-     */
     @Test
-    public void testOverriddenEnumMapsToOverriddenEnum() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canOverriddenEnumMapsToOverriddenEnum() {
         MyBean src = newInstance(MyBean.class);
         src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
-        MyBeanPrime dest = mapper.map(src, MyBeanPrime.class);
+
+        MyBeanPrime dest = enumMapping.map(src, MyBeanPrime.class);
+
         assertEquals(src.getSrcTypeWithOverride().toString(), dest.getDestTypeWithOverride().toString());
     }
 
-    /**
-     * Test on a mapping from Enum to itself. This test is used to reproduce bug#1806780.
-     */
     @Test
-    public void testEnumMapsToItself() {
+    public void canEnumMapsToItself() {
         MyBean src = newInstance(MyBean.class);
         src.setSrcType(SrcType.FOO);
-        MyBean dest = mapper.map(src, MyBean.class);
+
+        MyBean dest = enumMapping.map(src, MyBean.class);
+
         assertEquals(src.getSrcType(), dest.getSrcType());
         assertEquals(src.getSrcTypeWithOverride(), dest.getSrcTypeWithOverride());
     }
 
-    /**
-     * Test on a mapping from enum to {@link String}.
-     */
     @Test
-    public void testEnumMapsToString() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canEnumMapsToString() {
         MyBean src = new MyBean();
         src.setSrcType(SrcType.FOO);
-        MyBeanPrimeString dest = mapper.map(src, MyBeanPrimeString.class);
+
+        MyBeanPrimeString dest = enumMapping.map(src, MyBeanPrimeString.class);
         assertEquals("FOO", dest.getDestType());
     }
 
-    /**
-     * Test on a mapping from {@link String} to enum.
-     */
     @Test
-    public void testStringMapsToEnum() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canStringMapsToEnum() {
         MyBeanPrimeString src = new MyBeanPrimeString();
         src.setDestType("FOO");
         src.setDestTypeWithOverride("BAR");
-        MyBean dest = mapper.map(src, MyBean.class);
+
+        MyBean dest = enumMapping.map(src, MyBean.class);
+
         assertEquals(SrcType.FOO, dest.getSrcType());
         assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
     }
 
-    /**
-     * Test on a mapping from byte types to enum.
-     */
     @Test
-    public void testByteMapsToEnum() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canByteMapsToEnum() {
         MyBeanPrimeByte src = new MyBeanPrimeByte();
         src.setFirst((byte)0);
         src.setSecond((byte)1);
-        MyBean dest = mapper.map(src, MyBean.class);
+
+        MyBean dest = enumMapping.map(src, MyBean.class);
+
         assertEquals(SrcType.FOO, dest.getSrcType());
         assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
     }
 
-    /**
-     * Test on a mapping from short types to enum.
-     */
     @Test
-    public void testShortMapsToEnum() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canShortMapsToEnum() {
         MyBeanPrimeShort src = new MyBeanPrimeShort();
         src.setFirst((short)0);
         src.setSecond((short)1);
-        MyBean dest = mapper.map(src, MyBean.class);
+
+        MyBean dest = enumMapping.map(src, MyBean.class);
+
         assertEquals(SrcType.FOO, dest.getSrcType());
         assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
     }
 
-    /**
-     * Test on a mapping from integer types to enum.
-     */
     @Test
-    public void testIntegerMapsToEnum() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canIntegerMapsToEnum() {
         MyBeanPrimeInteger src = new MyBeanPrimeInteger();
         src.setFirst(0);
         src.setSecond(1);
-        MyBean dest = mapper.map(src, MyBean.class);
+
+        MyBean dest = enumMapping.map(src, MyBean.class);
+
         assertEquals(SrcType.FOO, dest.getSrcType());
         assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
     }
 
-    /**
-     * Test on a mapping from long types to enum.
-     */
     @Test
-    public void testLongMapsToEnum() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canLongMapsToEnum() {
         MyBeanPrimeLong src = new MyBeanPrimeLong();
         src.setFirst(0L);
         src.setSecond(1L);
-        MyBean dest = mapper.map(src, MyBean.class);
+
+        MyBean dest = enumMapping.map(src, MyBean.class);
+
         assertEquals(SrcType.FOO, dest.getSrcType());
         assertEquals(SrcTypeWithOverride.BAR, dest.getSrcTypeWithOverride());
     }
 
-    /**
-     * Test on a mapping from enum types to byte.
-     */
     @Test
-    public void testEnumMapsToByte() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canEnumMapsToByte() {
         MyBean src = new MyBean();
         src.setSrcType(SrcType.FOO);
         src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
-        MyBeanPrimeByte dest = mapper.map(src, MyBeanPrimeByte.class);
+
+        MyBeanPrimeByte dest = enumMapping.map(src, MyBeanPrimeByte.class);
+
         assertEquals(0, dest.getFirst());
         assertEquals(Byte.valueOf((byte)1), dest.getSecond());
     }
 
-    /**
-     * Test on a mapping from enum types to short.
-     */
     @Test
-    public void testEnumMapsToShort() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canEnumMapsToShort() {
         MyBean src = new MyBean();
         src.setSrcType(SrcType.FOO);
         src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
-        MyBeanPrimeShort dest = mapper.map(src, MyBeanPrimeShort.class);
+
+        MyBeanPrimeShort dest = enumMapping.map(src, MyBeanPrimeShort.class);
+
         assertEquals(0, dest.getFirst());
         assertEquals(Short.valueOf((short)1), dest.getSecond());
     }
 
-    /**
-     * Test on a mapping from enum types to integer.
-     */
     @Test
-    public void testEnumMapsToInteger() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canEnumMapsToInteger() {
         MyBean src = new MyBean();
         src.setSrcType(SrcType.FOO);
         src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
-        MyBeanPrimeInteger dest = mapper.map(src, MyBeanPrimeInteger.class);
+
+        MyBeanPrimeInteger dest = enumMapping.map(src, MyBeanPrimeInteger.class);
+
         assertEquals(0, dest.getFirst());
         assertEquals(Integer.valueOf(1), dest.getSecond());
     }
 
-    /**
-     * Test on a mapping from enum types to long.
-     */
     @Test
-    public void testEnumMapsToLong() {
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canEnumMapsToLong() {
         MyBean src = new MyBean();
         src.setSrcType(SrcType.FOO);
         src.setSrcTypeWithOverride(SrcTypeWithOverride.BAR);
-        MyBeanPrimeLong dest = mapper.map(src, MyBeanPrimeLong.class);
+
+        MyBeanPrimeLong dest = enumMapping.map(src, MyBeanPrimeLong.class);
+
         assertEquals(0, dest.getFirst());
         assertEquals(Long.valueOf(1L), dest.getSecond());
     }
 
     @Test
     @SuppressWarnings("unchecked")
-    public void testBasedEnumMapsToMap() {
-        mapper = getMapper();
+    public void canBasedEnumMapsToMap() {
         MyBean src = newInstance(MyBean.class);
         src.setSrcType(SrcType.FOO);
-        Map<String, ?> mappedBean = mapper.map(src, Map.class);
+
+        Map<String, ?> mappedBean = enumMapping.map(src, Map.class);
+
         assertEquals(SrcType.FOO, mappedBean.get("srcType"));
     }
 
     @Test
     @SuppressWarnings("unchecked")
-    public void testOverriddenEnumMapsToMap() {
-        mapper = getMapper();
+    public void canOverriddenEnumMapsToMap() {
         MyBean src = newInstance(MyBean.class);
         src.setSrcTypeWithOverride(SrcTypeWithOverride.FOO);
-        Map<String, ?> mappedBean = mapper.map(src, Map.class);
+
+        Map<String, ?> mappedBean = enumMapping.map(src, Map.class);
+
         assertEquals(SrcTypeWithOverride.FOO, mappedBean.get("srcTypeWithOverride"));
     }
 
-    /**
-     * Test on a mapping from byte types to enum.
-     */
     @Test
-    public void testByteMapsToEnumOutOfOrdinalRange() {
-        testExpectedException.expect(MappingException.class);
-        testExpectedException.expectMessage(startsWith("Cannot convert"));
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canByteMapsToEnumOutOfOrdinalRange() {
+        canByteMapsToEnumOutOfOrdinalRangeExpectedException.expect(MappingException.class);
+        canByteMapsToEnumOutOfOrdinalRangeExpectedException.expectMessage("Cannot convert [3] to enum of type "
+                                                                          + "class com.github.dozermapper.core.vo.enumtest.SrcTypeWithOverride");
+        canByteMapsToEnumOutOfOrdinalRangeExpectedException.expectCause(IsInstanceOf.instanceOf(IndexOutOfBoundsException.class));
+
         MyBeanPrimeByte src = new MyBeanPrimeByte();
         src.setFirst((byte)0);
         src.setSecond((byte)3);
-        mapper.map(src, MyBean.class);
+
+        enumMapping.map(src, MyBean.class);
     }
 
-    /**
-     * Test on a mapping from short types to enum.
-     */
     @Test
-    public void testShortMapsToEnumOutOfOrdinalRange() {
-        testExpectedException.expect(MappingException.class);
-        testExpectedException.expectMessage(startsWith("Cannot convert"));
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canShortMapsToEnumOutOfOrdinalRange() {
+        canShortMapsToEnumOutOfOrdinalRangeExpectedException.expect(MappingException.class);
+        canShortMapsToEnumOutOfOrdinalRangeExpectedException.expectMessage("Cannot convert [3] to enum of type "
+                                                                           + "class com.github.dozermapper.core.vo.enumtest.SrcTypeWithOverride");
+        canShortMapsToEnumOutOfOrdinalRangeExpectedException.expectCause(IsInstanceOf.instanceOf(IndexOutOfBoundsException.class));
+
         MyBeanPrimeShort src = new MyBeanPrimeShort();
         src.setFirst((short)0);
         src.setSecond((short)3);
-        mapper.map(src, MyBean.class);
+
+        enumMapping.map(src, MyBean.class);
     }
 
-    /**
-     * Test on a mapping from integer types to enum.
-     */
     @Test
-    public void testIntegerMapsToEnumOutOfOrdinalRange() {
-        testExpectedException.expect(MappingException.class);
-        testExpectedException.expectMessage(startsWith("Cannot convert"));
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canIntegerMapsToEnumOutOfOrdinalRange() {
+        canIntegerMapsToEnumOutOfOrdinalRangeExpectedException.expect(MappingException.class);
+        canIntegerMapsToEnumOutOfOrdinalRangeExpectedException.expectMessage("Cannot convert [3] to enum of type "
+                                                                             + "class com.github.dozermapper.core.vo.enumtest.SrcTypeWithOverride");
+        canIntegerMapsToEnumOutOfOrdinalRangeExpectedException.expectCause(IsInstanceOf.instanceOf(IndexOutOfBoundsException.class));
+
         MyBeanPrimeInteger src = new MyBeanPrimeInteger();
         src.setFirst(0);
         src.setSecond(3);
-        mapper.map(src, MyBean.class);
+
+        enumMapping.map(src, MyBean.class);
     }
 
-    /**
-     * Test on a mapping from long types to enum.
-     */
     @Test
-    public void testLongMapsToEnumOutOfOrdinalRange() {
-        testExpectedException.expect(MappingException.class);
-        testExpectedException.expectMessage(startsWith("Cannot convert"));
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canLongMapsToEnumOutOfOrdinalRange() {
+        canLongMapsToEnumOutOfOrdinalRangeExpectedException.expect(MappingException.class);
+        canLongMapsToEnumOutOfOrdinalRangeExpectedException.expectMessage("Cannot convert [3] to enum of type "
+                                                                          + "class com.github.dozermapper.core.vo.enumtest.SrcTypeWithOverride");
+        canLongMapsToEnumOutOfOrdinalRangeExpectedException.expectCause(IsInstanceOf.instanceOf(IndexOutOfBoundsException.class));
+
         MyBeanPrimeLong src = new MyBeanPrimeLong();
         src.setFirst(0L);
         src.setSecond(3L);
-        mapper.map(src, MyBean.class);
+
+        enumMapping.map(src, MyBean.class);
     }
 
-    /**
-     * Test on a mapping from {@link String} to enum with non-existing enum value.
-     */
     @Test
-    public void testStringMapsToEnumNonexistEnumValue() {
-        testExpectedException.expect(MappingException.class);
-        testExpectedException.expectMessage(startsWith("Cannot convert"));
-        mapper = getMapper("mappings/enumMapping.xml");
+    public void canStringMapsToEnumNonexistEnumValue() {
+        canStringMapsToEnumNonexistEnumValueExpectedException.expect(MappingException.class);
+        canStringMapsToEnumNonexistEnumValueExpectedException.expectMessage("Cannot convert [BAZ] to enum of type class com.github.dozermapper.core.vo.enumtest.SrcType");
+        canStringMapsToEnumNonexistEnumValueExpectedException.expectCause(IsInstanceOf.instanceOf(IllegalArgumentException.class));
+
         MyBeanPrimeString src = new MyBeanPrimeString();
         src.setDestType("BAZ");
-        mapper.map(src, MyBean.class);
+
+        enumMapping.map(src, MyBean.class);
     }
 }
