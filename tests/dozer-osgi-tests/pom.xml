@@ -32,7 +32,7 @@
     <name>Dozer :: Tests :: OSGi Bundle Tests</name>
 
     <properties>
-        <org.ops4j.pax.logging.DefaultServiceLog.level>DEBUG</org.ops4j.pax.logging.DefaultServiceLog.level>
+        <karaf4-version>4.2.0</karaf4-version>
     </properties>
 
     <dependencies>
@@ -176,6 +176,33 @@
             <artifactId>javax.inject</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Karaf4 distribution zip -->
+        <dependency>
+            <groupId>org.apache.karaf</groupId>
+            <artifactId>apache-karaf</artifactId>
+            <version>${karaf4-version}</version>
+            <type>zip</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.karaf.shell</groupId>
+                    <artifactId>org.apache.karaf.shell.dev</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse</groupId>
+                    <artifactId>osgi</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.karaf</groupId>
+                    <artifactId>org.apache.karaf.client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>org.apache.felix.framework</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -209,6 +236,15 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <karafVersion>${karaf4-version}</karafVersion>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

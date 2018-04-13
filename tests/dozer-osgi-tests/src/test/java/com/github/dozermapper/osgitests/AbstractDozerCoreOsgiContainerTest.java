@@ -25,11 +25,18 @@ import com.github.dozermapper.osgitests.karaf.BundleOptions;
 import com.github.dozermapper.osgitests.support.OsgiTestSupport;
 import com.github.dozermapper.osgitestsmodel.Person;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.ProbeBuilder;
+import org.ops4j.pax.exam.TestProbeBuilder;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,8 +45,27 @@ import static org.ops4j.pax.exam.CoreOptions.options;
 
 public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport {
 
+    protected static final Logger LOG = LoggerFactory.getLogger(AbstractDozerCoreOsgiContainerTest.class);
+
     @Inject
-    private BundleContext bundleContext;
+    protected BundleContext bundleContext;
+
+    @ProbeBuilder
+    public TestProbeBuilder probeConfiguration(TestProbeBuilder probe) {
+        // makes sure the generated Test-Bundle contains this import!
+        probe.setHeader(Constants.DYNAMICIMPORT_PACKAGE, "*");
+        return probe;
+    }
+
+    @Before
+    public void setUp() {
+        LOG.info("setUp() using BundleContext: {}", bundleContext);
+    }
+
+    @After
+    public void tearDown() {
+        LOG.info("tearDown()");
+    }
 
     @Configuration
     public Option[] config() {
@@ -71,7 +97,8 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends OsgiTestSupport
 
         for (Bundle current : bundleContext.getBundles()) {
             //Ignore any Karaf bundles
-            if (current.getSymbolicName().startsWith("org.apache.karaf")) {
+            if (current.getSymbolicName().startsWith("org.apache.karaf")
+                || current.getSymbolicName().startsWith("org.jline")) {
                 continue;
             }
 
