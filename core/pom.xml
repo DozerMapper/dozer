@@ -271,6 +271,14 @@
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <!-- Remove once latest cxf-xjc released: https://issues.apache.org/jira/browse/CXFXJC-24 -->
+                    <dependency>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                        <version>1.1.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -85,7 +85,6 @@
         <!-- Project settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.java.version>1.8</project.java.version>
 
         <!-- License -->
         <license.failIfMissing>true</license.failIfMissing>
@@ -198,26 +197,26 @@
                 <configuration>
                     <header>${dozer.basedir}/building-tools/src/main/resources/LICENSE-HEADER.txt</header>
                     <excludes>
-                        <exclude>docs/**</exclude>
-                        <exclude>.travis/**</exclude>
                         <exclude>.mvn/**</exclude>
                         <exclude>mvnw</exclude>
                         <exclude>mvnw.cmd</exclude>
                         <exclude>**/LICENSE-HEADER.txt</exclude>
                         <exclude>**/LICENSE</exclude>
+                        <exclude>**/*.asc</exclude>
+                        <exclude>**/*.asc.enc</exclude>
                         <exclude>**/*.md</exclude>
                         <exclude>**/*.adoc</exclude>
                         <exclude>**/*.jpeg</exclude>
-                        <exclude>**/*.proto</exclude>
-                        <exclude>**/*.schemas</exclude>
-                        <exclude>**/*.handlers</exclude>
-                        <exclude>**/*.factories</exclude>
                         <exclude>**/mockito-extensions/**</exclude>
-                        <exclude>**/gen-src/**</exclude>
                     </excludes>
                     <mapping>
-                        <java>SLASHSTAR_STYLE</java>
+                        <cfg>SCRIPT_STYLE</cfg>
                         <index>SCRIPT_STYLE</index>
+                        <factories>SCRIPT_STYLE</factories>
+                        <handlers>SCRIPT_STYLE</handlers>
+                        <java>SLASHSTAR_STYLE</java>
+                        <proto>SLASHSTAR_STYLE</proto>
+                        <schemas>SCRIPT_STYLE</schemas>
                     </mapping>
                 </configuration>
                 <executions>
@@ -232,6 +231,28 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>jdk8-build</id>
+            <activation>
+                <property>
+                    <name>!env.JAVAC_VERSION</name>
+                </property>
+            </activation>
+            <properties>
+                <project.java.version>1.8</project.java.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>above-jdk8-build</id>
+            <activation>
+                <property>
+                    <name>env.JAVAC_VERSION</name>
+                </property>
+            </activation>
+            <properties>
+                <project.java.version>${env.JAVAC_VERSION}</project.java.version>
+            </properties>
+        </profile>
         <profile>
             <id>release-ossrh</id>
             <build>

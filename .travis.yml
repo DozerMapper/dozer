@@ -7,10 +7,12 @@ env:
   - secure: ipsjLktGbYJhOu6aEuikws80SRfKxQ17I4Vyn92DRh6T/itITBzf8npH5hvPC/A1kUct3ZcxibkMFmC9DZ5qJrMeR2jSYRY2UW3GDAeNBal1flQAItGwcTuDVrxowS5d1QhCT0I/oMZNCScRkgLorZARCd62vGqD8xQCvMXlqis=
   - secure: NESSqQhlo74FQix3wQNU1Gatk1igv3w4o0EIfQq5aXEEGoaLdDnF2hGdivkEINYzM3pEU6cpy5+N+njcONGKS9NnBEe8tA2Ngk1cKW+I/rScwS4jCBbA7FpdOagecWB3kb62uL8qS7Iu50v6HrKPjakioFwm9gAu2TE8WLgx0Pg=
 language: java
-jdk:
-- oraclejdk8
-- oraclejdk9
 matrix:
+  include:
+  - jdk: oraclejdk8
+    env: JAVAC_VERSION=1.8
+  - jdk: oraclejdk9
+    env: JAVAC_VERSION=9
   allow_failures:
   - jdk: oraclejdk9
 before_install:
