@@ -18,11 +18,16 @@ package com.github.dozermapper.osgitests.karaf;
 import java.io.File;
 
 import org.ops4j.pax.exam.Option;
+import org.ops4j.pax.exam.karaf.options.LogLevelOption;
 
 import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.maven;
-import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.doNotModifyLogConfiguration;
+import static org.ops4j.pax.exam.CoreOptions.vmOption;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.configureConsole;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.editConfigurationFilePut;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.karafDistributionConfiguration;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.keepRuntimeFolder;
+import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.logLevel;
 
 public final class KarafOptions {
 
@@ -30,7 +35,7 @@ public final class KarafOptions {
     private static final String FRAMEWORK_ARTIFACT_ID = "apache-karaf";
 
     public static Option karaf4ContainerConfigOptions() {
-        return karafContainerConfigOptions("4.1.2");
+        return karafContainerConfigOptions(System.getProperty("karafVersion"));
     }
 
     private static Option karafContainerConfigOptions(String version) {
@@ -41,12 +46,24 @@ public final class KarafOptions {
                                         .artifactId(FRAMEWORK_ARTIFACT_ID)
                                         .version(version)
                                         .type("zip")
+                                        .versionAsInProject()
                         )
                         .karafVersion(version)
                         .name("Apache Karaf " + version)
                         .unpackDirectory(new File("target/paxexam/unpack"))
                         .useDeployFolder(false),
-                doNotModifyLogConfiguration()
+                logLevel(LogLevelOption.LogLevel.INFO),
+
+                // Keep the folder so we can look inside when something fails
+                keepRuntimeFolder(),
+
+                // Disable the SSH port
+                configureConsole().ignoreRemoteShell(),
+
+                vmOption("-Dfile.encoding=UTF-8"),
+
+                // Disable the Karaf shutdown port
+                editConfigurationFilePut("etc/custom.properties", "karaf.shutdown.port", "-1")
         );
     }
 }
