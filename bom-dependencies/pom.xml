@@ -50,7 +50,7 @@
         <jaxb-api.version>2.2.11</jaxb-api.version>
         <jmh.version>1.19</jmh.version>
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
-        <mockito-core.version>2.16.0</mockito-core.version>
+        <mockito-core.version>2.18.0</mockito-core.version>
         <aries.spifly.verison>1.0.8</aries.spifly.verison>
         <pax-exam.version>4.11.0</pax-exam.version>
         <lombok.version>1.16.20</lombok.version>
