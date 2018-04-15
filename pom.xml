@@ -202,6 +202,7 @@
                         <exclude>mvnw.cmd</exclude>
                         <exclude>**/LICENSE-HEADER.txt</exclude>
                         <exclude>**/LICENSE</exclude>
+                        <exclude>**/*.asc</exclude>
                         <exclude>**/*.asc.enc</exclude>
                         <exclude>**/*.md</exclude>
                         <exclude>**/*.adoc</exclude>
