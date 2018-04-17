@@ -16,7 +16,6 @@
 # limitations under the License.
 #
 
-
 if [[ "${TRAVIS_BRANCH}" = "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]];
 then
   echo "About to deploy..."
