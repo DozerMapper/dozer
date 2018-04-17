@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # Copyright 2005-2018 Dozer Project
 #
@@ -14,7 +16,6 @@
 # limitations under the License.
 #
 
-#!/usr/bin/env bash
 
 if [[ "${TRAVIS_BRANCH}" = "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]];
 then

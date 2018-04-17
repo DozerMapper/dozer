@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # Copyright 2005-2018 Dozer Project
 #
@@ -13,8 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-#!/usr/bin/env bash
 
 echo "Deploying code signing key..."
 
