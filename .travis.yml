@@ -10,15 +10,15 @@ language: java
 jdk:
 - oraclejdk8
 - oraclejdk9
-env:
-- JAVAC_VERSION=1.8
-- JAVAC_VERSION=9
+#env:
+#- JAVAC_VERSION=1.8
+#- JAVAC_VERSION=9
 matrix:
-  exclude:
-  - jdk: oraclejdk8
-    env: JAVAC_VERSION=9
-  - jdk: oraclejdk9
-    env: JAVAC_VERSION=1.8
+#  exclude:
+#  - jdk: oraclejdk8
+#    env: JAVAC_VERSION=9
+#  - jdk: oraclejdk9
+#    env: JAVAC_VERSION=1.8
   allow_failures:
   - jdk: oraclejdk9
 before_install:
