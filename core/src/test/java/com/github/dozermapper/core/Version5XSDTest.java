@@ -32,7 +32,7 @@ public class Version5XSDTest {
                              + "Please see migration guide @ https://dozermapper.github.io/gitbook";
 
     @Test
-    public void testOldXSDNaming() {
+    public void doesOldXsdNamingThrowException() {
         testOldXSDNaming.expectMessage(Matchers.containsString(message));
         testOldXSDNaming.expect(MappingException.class);
 
