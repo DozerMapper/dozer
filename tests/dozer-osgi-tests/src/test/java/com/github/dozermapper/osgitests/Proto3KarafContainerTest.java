@@ -15,13 +15,12 @@
  */
 package com.github.dozermapper.osgitests;
 
-import javax.inject.Inject;
-
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.DozerModule;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.osgi.OSGiClassLoader;
-import com.github.dozermapper.osgitests.karaf.BundleOptions;
-import com.github.dozermapper.osgitests.karaf.KarafOptions;
+import com.github.dozermapper.osgitests.support.BundleOptions;
+import com.github.dozermapper.protobuf.ProtobufSupportModule;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,42 +30,44 @@ import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerClass;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 
-import static com.github.dozermapper.osgitests.support.OptionsSupport.localBundle;
+import static com.github.dozermapper.osgitests.support.BundleOptions.localBundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.options;
+import static org.ops4j.pax.exam.CoreOptions.systemPackages;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
-public class DozerSpringOsgiContainerTest extends DozerCoreOsgiContainerTest {
-
-    @Inject
-    private BundleContext bundleContext;
+public class Proto3KarafContainerTest extends CoreKarafContainerTest {
 
     @Configuration
     public Option[] config() {
         return options(
                 // Framework
-                containerConfigOptions(),
+                karaf4ContainerConfigOptions(),
+
+                // ServiceLoader
+                localBundle("org.apache.aries.spifly.dynamic.bundle.link"),
+                localBundle("org.apache.aries.util.link"),
+                localBundle("org.objectweb.asm.all.debug.link"),
+
                 // Bundles
                 BundleOptions.optionalBundles(),
                 BundleOptions.coreBundles(),
-                // Spring
-                localBundle("org.apache.servicemix.bundles.spring-beans.link"),
-                localBundle("org.apache.servicemix.bundles.spring-context.link"),
-                localBundle("org.apache.servicemix.bundles.spring-core.link"),
-                // Spring4
-                localBundle("com.github.dozermapper.dozer-spring4.link"),
-                junitBundles()
-        );
-    }
 
-    @Override
-    protected Option containerConfigOptions() {
-        return KarafOptions.karaf4ContainerConfigOptions();
+                // Proto3
+                localBundle("com.google.guava.link"),
+                localBundle("com.google.protobuf.link"),
+
+                // Proto
+                localBundle("com.github.dozermapper.dozer-proto3.link"),
+                junitBundles(),
+                systemPackages("sun.misc")
+        );
     }
 
     @Test
@@ -74,13 +75,13 @@ public class DozerSpringOsgiContainerTest extends DozerCoreOsgiContainerTest {
     public void canGetBundleFromDozerCore() {
         super.canGetBundleFromDozerCore();
 
-        Bundle spring = getBundle(bundleContext, "com.github.dozermapper.dozer-spring4");
-        assertNotNull(spring);
-        assertEquals(Bundle.ACTIVE, spring.getState());
+        Bundle proto = getBundle(bundleContext, "com.github.dozermapper.dozer-proto3");
+        assertNotNull(proto);
+        assertEquals(Bundle.ACTIVE, proto.getState());
     }
 
     @Test
-    public void canConstructDozerBeanMapper() {
+    public void canResolveProtobufSupportModule() {
         Mapper mapper = DozerBeanMapperBuilder.create()
                 .withXmlMapping(() -> getLocalResource("mappings/mapping.xml"))
                 .withClassLoader(new OSGiClassLoader(com.github.dozermapper.osgitestsmodel.Activator.getBundleContext()))
@@ -88,5 +89,12 @@ public class DozerSpringOsgiContainerTest extends DozerCoreOsgiContainerTest {
 
         assertNotNull(mapper);
         assertNotNull(mapper.getMappingMetadata());
+
+        ServiceReference<DozerModule> dozerModuleServiceReference = bundleContext.getServiceReference(DozerModule.class);
+        assertNotNull(dozerModuleServiceReference);
+
+        DozerModule dozerModule = bundleContext.getService(dozerModuleServiceReference);
+        assertNotNull(dozerModule);
+        assertTrue(dozerModule instanceof ProtobufSupportModule);
     }
 }

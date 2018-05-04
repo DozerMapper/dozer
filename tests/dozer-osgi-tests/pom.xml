@@ -119,11 +119,27 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Provided dependencies; Karaf features, i.e.: hibernate -->
+        <dependency>
+            <groupId>org.apache.karaf.features</groupId>
+            <artifactId>enterprise</artifactId>
+            <version>${karaf4-version}</version>
+            <classifier>features</classifier>
+            <type>xml</type>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Core OSGi -->
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.framework</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.utils</artifactId>
+            <version>1.10.4</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- ServiceLoader OSGi -->
