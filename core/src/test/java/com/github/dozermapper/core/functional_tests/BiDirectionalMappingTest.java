@@ -71,7 +71,7 @@ public class BiDirectionalMappingTest extends AbstractFunctionalTest {
         }
 
         Mapper mapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("testDozerBeanMapping.xml")
+                .withMappingFiles("mappings/testDozerBeanMapping.xml")
                 .build();
         mapper.map(a, b);
 

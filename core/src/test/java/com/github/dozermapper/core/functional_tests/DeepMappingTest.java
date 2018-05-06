@@ -39,7 +39,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testDeepMapping() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         SrcDeepObj src = testDataFactory.getSrcDeepObj();
         DestDeepObj dest = mapper.map(src, DestDeepObj.class);
         SrcDeepObj src2 = mapper.map(dest, SrcDeepObj.class);
@@ -51,7 +51,7 @@ public class DeepMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testDeepPropertyOneWay() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         House house = newInstance(House.class);
         Person owner = newInstance(Person.class);
         owner.setYourName("myName");

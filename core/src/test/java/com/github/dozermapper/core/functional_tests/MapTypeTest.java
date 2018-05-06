@@ -222,7 +222,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testMapToMap() {
-        Mapper mapper = getMapper("mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml");
+        Mapper mapper = getMapper("mappings/mapInterfaceMapping.xml", "mappings/testDozerBeanMapping.xml");
         TestObject to = newInstance(TestObject.class);
         to.setOne("one");
         TestObject to2 = newInstance(TestObject.class);
@@ -247,7 +247,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testMapToMapExistingDestination() {
-        Mapper mapper = getMapper("mappings/mapInterfaceMapping.xml", "testDozerBeanMapping.xml");
+        Mapper mapper = getMapper("mappings/mapInterfaceMapping.xml", "mappings/testDozerBeanMapping.xml");
         TestObject to = newInstance(TestObject.class);
         to.setOne("one");
         TestObject to2 = newInstance(TestObject.class);
@@ -273,7 +273,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testPropertyClassLevelMap() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");
         ptm.addStringProperty2("stringProperty2Value");
@@ -294,7 +294,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testPropertyClassLevelMap2() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");
         ptm.addStringProperty2("stringProperty2Value");
@@ -307,7 +307,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
     @Test
     public void testPropertyClassLevelMapBack() {
         // Map Back
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         Map<String, Object> map = newInstance(HashMap.class);
         map.put("stringProperty", "stringPropertyValue");
         map.put("integerProperty", new Integer("567"));
@@ -326,7 +326,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testPropertyToMap() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");
         ptm.addStringProperty2("stringProperty2Value");
@@ -356,7 +356,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testPropertyToCustomMap() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty3("stringProperty3Value");
         ptm.setStringProperty4("stringProperty4Value");
@@ -376,7 +376,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testPropertyToClassLevelMap() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         MapTestObject mto = newInstance(MapTestObject.class);
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         Map<String, String> map = newInstance(HashMap.class);
@@ -425,7 +425,7 @@ public class MapTypeTest extends AbstractFunctionalTest {
 
     @Test
     public void testPropertyToCustomClassLevelMap() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         MapTestObject mto = newInstance(MapTestObject.class);
         PropertyToMap ptm = newInstance(PropertyToMap.class);
         ptm.setStringProperty("stringPropertyValue");

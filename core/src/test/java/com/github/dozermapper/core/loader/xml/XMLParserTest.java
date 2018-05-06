@@ -54,7 +54,7 @@ public class XMLParserTest extends AbstractDozerTest {
 
     @Test
     public void testParse() throws Exception {
-        URL url = loader.getResource("testDozerBeanMapping.xml");
+        URL url = loader.getResource("mappings/testDozerBeanMapping.xml");
 
         Document document = new XMLParserFactory(beanContainer).createParser().parse(url.openStream());
         parser = new XMLParser(beanContainer, destBeanCreator, propertyDescriptorFactory);

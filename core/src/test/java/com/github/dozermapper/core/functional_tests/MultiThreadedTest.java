@@ -28,7 +28,7 @@ public class MultiThreadedTest extends AbstractFunctionalTest {
     @Override
     @Before
     public void setUp() throws Exception {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
     }
 
     /*
