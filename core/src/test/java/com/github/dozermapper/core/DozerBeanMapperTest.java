@@ -65,7 +65,7 @@ public class DozerBeanMapperTest {
     @Test
     public void shouldBeThreadSafe() throws Exception {
         Mapper mapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("testDozerBeanMapping.xml")
+                .withMappingFiles("mappings/testDozerBeanMapping.xml")
                 .build();
 
         final CountDownLatch latch = new CountDownLatch(THREAD_COUNT);

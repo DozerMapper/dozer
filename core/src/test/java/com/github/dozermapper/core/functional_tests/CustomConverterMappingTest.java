@@ -159,7 +159,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testCustomConverterMapping() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         TestCustomConverterObject obj = newInstance(TestCustomConverterObject.class);
         CustomDoubleObjectIF doub = newInstance(CustomDoubleObject.class);
         doub.setTheDouble(15);
@@ -215,7 +215,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
     @Test
     public void testCustomConverterWithPrimitive() {
         // test primitive double
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         TestCustomConverterObjectPrime prime = newInstance(TestCustomConverterObjectPrime.class);
         prime.setPrimitiveDoubleAttribute(25.00);
         prime.setDoubleAttribute(new Double(30.00));
@@ -232,7 +232,7 @@ public class CustomConverterMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testCustomConverterHashMapMapping() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         TestCustomConverterHashMapObject testCustomConverterHashMapObject = newInstance(TestCustomConverterHashMapObject.class);
         TestObject to = newInstance(TestObject.class);
         to.setOne("one");

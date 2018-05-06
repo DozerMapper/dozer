@@ -47,7 +47,7 @@ public class PerformanceTest extends AbstractFunctionalTest {
     @Before
     public void setUp() throws Exception {
         if (mapper == null) {
-            mapper = getMapper("testDozerBeanMapping.xml");
+            mapper = getMapper("mappings/testDozerBeanMapping.xml");
         }
     }
 

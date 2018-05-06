@@ -145,7 +145,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testGeneralInheritance() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         // first test mapping of sub and base class to a single class
         com.github.dozermapper.core.vo.inheritance.SubClass sub = newInstance(com.github.dozermapper.core.vo.inheritance.SubClass.class);
 
@@ -160,7 +160,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testGeneralInheritance2() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         // test base to base and sub to sub mapping with an intermediate on the destination
         AnotherSubClass asub = newInstance(AnotherSubClass.class);
         asub.setBaseAttribute("base");
@@ -236,7 +236,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testInheritanceWithAbstractClassOrInterfaceAsDestination() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         SpecificObject so = newInstance(SpecificObject.class);
         so.setSuperAttr1("superAttr1");
 
@@ -266,7 +266,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
 
     @Test
     public void testComplexSuperClassMapping() {
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         SubClass obj = testDataFactory.getSubClass();
         SubClassPrime objPrime = mapper.map(obj, SubClassPrime.class);
         SubClass obj2 = mapper.map(objPrime, SubClass.class);
@@ -323,7 +323,7 @@ public class InheritanceMappingTest extends AbstractFunctionalTest {
     @Test
     public void testSuperClassMapping() {
         // source object does not extend a base custom data object, but destination object extends a custom data object.
-        mapper = getMapper("testDozerBeanMapping.xml");
+        mapper = getMapper("mappings/testDozerBeanMapping.xml");
         NoSuperClass src = newInstance(NoSuperClass.class);
         src.setAttribute("somefieldvalue");
         src.setSuperAttribute("someotherfieldvalue");

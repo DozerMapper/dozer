@@ -51,7 +51,7 @@ public class DozerBeanMapperTest extends AbstractDozerTest {
     @Before
     public void setUp() throws Exception {
         mapper = DozerBeanMapperBuilder.create()
-                .withMappingFiles("testDozerBeanMapping.xml")
+                .withMappingFiles("mappings/testDozerBeanMapping.xml")
                 .build();
     }
 
