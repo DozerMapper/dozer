@@ -265,7 +265,7 @@
                         <configuration>
                             <xsdOptions>
                                 <xsdOption>
-                                    <xsd>src/test/xsd/jaxb/Employee.xsd</xsd>
+                                    <xsd>src/test/resources/jaxb/Employee.xsd</xsd>
                                 </xsdOption>
                             </xsdOptions>
                         </configuration>
