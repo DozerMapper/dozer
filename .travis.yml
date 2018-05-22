@@ -21,7 +21,7 @@ install:
 - mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
 - java -version && javac -version && ./mvnw -version -B
 before_script:
-- ./mvnw dependency:resolve-plugins -B
+- ./mvnw dependency:go-offline -B
 script:
 - ./mvnw clean install -B
 after_success:
