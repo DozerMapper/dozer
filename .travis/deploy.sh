@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-if [[ "${TRAVIS_BRANCH}" = "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]] && [[ "${JAVAC_VERSION}" = "1.8" ]];
+if [[ "${TRAVIS_BRANCH}" = "master" ]] && [[ "${TRAVIS_PULL_REQUEST}" = "false" ]] && [[ "${SHOULD_DEPLOY}" = "true" ]];
 then
   echo "About to deploy..."
   ./mvnw deploy -B -Prelease-ossrh -DskipTests --settings .travis/deploy-settings.xml

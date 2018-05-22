@@ -10,9 +10,9 @@ language: java
 matrix:
   include:
   - jdk: oraclejdk8
-    env: JAVAC_VERSION=1.8
+    env: SHOULD_DEPLOY=true
   - jdk: oraclejdk9
-    env: JAVAC_VERSION=9
+    env: SHOULD_DEPLOY=false
   allow_failures:
   - jdk: oraclejdk9
 before_install:
