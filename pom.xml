@@ -85,6 +85,7 @@
         <!-- Project settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.java.version>${java.specification.version}</project.java.version>
 
         <!-- License -->
         <license.failIfMissing>true</license.failIfMissing>
@@ -231,28 +232,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>jdk8-build</id>
-            <activation>
-                <property>
-                    <name>!env.JAVAC_VERSION</name>
-                </property>
-            </activation>
-            <properties>
-                <project.java.version>1.8</project.java.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>above-jdk8-build</id>
-            <activation>
-                <property>
-                    <name>env.JAVAC_VERSION</name>
-                </property>
-            </activation>
-            <properties>
-                <project.java.version>${env.JAVAC_VERSION}</project.java.version>
-            </properties>
-        </profile>
         <profile>
             <id>release-ossrh</id>
             <build>
