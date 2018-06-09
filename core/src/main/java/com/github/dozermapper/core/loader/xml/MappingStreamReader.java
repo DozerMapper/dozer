@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
  * Internal class that reads and parses a single custom mapping XML stream into
  * raw ClassMap objects. Only intended for internal use.
  */
+@Deprecated
 public class MappingStreamReader implements MappingsSource<InputStream> {
 
     private static final Logger log = LoggerFactory

@@ -18,6 +18,7 @@ package com.github.dozermapper.core.loader.xml;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+@Deprecated
 public abstract class SimpleElementReader implements ElementReader {
 
     public String getAttribute(Element element, String attribute) {

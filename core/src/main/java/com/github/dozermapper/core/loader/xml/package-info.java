@@ -16,4 +16,5 @@
 /**
  * Mapping via XML
  */
+@Deprecated
 package com.github.dozermapper.core.loader.xml;
