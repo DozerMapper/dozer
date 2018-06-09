@@ -27,6 +27,9 @@ import com.github.dozermapper.core.el.ELEngine;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELConfigurationDefinition extends ConfigurationDefinition {
 
     private final ELEngine elEngine;

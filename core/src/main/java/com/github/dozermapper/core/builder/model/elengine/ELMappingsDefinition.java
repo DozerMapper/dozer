@@ -23,6 +23,9 @@ import com.github.dozermapper.core.builder.model.jaxb.MappingDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.MappingsDefinition;
 import com.github.dozermapper.core.el.ELEngine;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELMappingsDefinition extends MappingsDefinition {
 
     private final ELEngine elEngine;

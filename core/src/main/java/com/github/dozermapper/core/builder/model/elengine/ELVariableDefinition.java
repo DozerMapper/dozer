@@ -21,6 +21,9 @@ import com.github.dozermapper.core.el.ELEngine;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELVariableDefinition extends VariableDefinition {
 
     private final ELEngine elEngine;

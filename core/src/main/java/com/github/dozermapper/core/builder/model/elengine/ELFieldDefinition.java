@@ -16,7 +16,6 @@
 package com.github.dozermapper.core.builder.model.elengine;
 
 import com.github.dozermapper.core.builder.model.jaxb.FieldDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.FieldExcludeDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.MappingDefinition;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.config.BeanContainer;
@@ -27,12 +26,15 @@ import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELFieldDefinition extends FieldDefinition {
 
     private final ELEngine elEngine;
 
     public ELFieldDefinition(ELEngine elEngine, FieldDefinition copy) {
-        this(elEngine, null, null);
+        this(elEngine, (MappingDefinition)null);
 
         if (copy != null) {
             this.a = copy.getA();
@@ -52,8 +54,8 @@ public class ELFieldDefinition extends FieldDefinition {
         }
     }
 
-    public ELFieldDefinition(ELEngine elEngine, MappingDefinition parent, FieldExcludeDefinition fieldExcludeParent) {
-        super(parent, fieldExcludeParent);
+    public ELFieldDefinition(ELEngine elEngine, MappingDefinition parent) {
+        super(parent);
 
         this.elEngine = elEngine;
     }

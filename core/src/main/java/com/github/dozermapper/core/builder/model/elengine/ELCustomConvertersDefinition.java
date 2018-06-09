@@ -23,6 +23,9 @@ import com.github.dozermapper.core.builder.model.jaxb.ConverterTypeDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.CustomConvertersDefinition;
 import com.github.dozermapper.core.el.ELEngine;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELCustomConvertersDefinition extends CustomConvertersDefinition {
 
     private final ELEngine elEngine;

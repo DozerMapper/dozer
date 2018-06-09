@@ -83,7 +83,7 @@ public class BeanMappingsFluentBuilderTest {
                 .withWildcardCaseInsensitive(false)
                 .withMapEmptyString(true)
                 .withDateFormat("MM/dd/yyyy HH:mm")
-                .withRelationshipType(Relationship.CUMULATIVE)
+                .withRelationshipType(Relationship.fromValue("cumulative"))
                 .end();
             // @formatter:on
 
@@ -97,7 +97,7 @@ public class BeanMappingsFluentBuilderTest {
                 .withMapEmptyString(true)
                 .withDateFormat("MM/dd/yyyy HH:mm")
                 .withMapId("A")
-                .withType(Type.ONE_WAY)
+                .withType(Type.fromValue("one-way"))
                 .withBeanFactory(JAXBBeanFactory.class.getName())
                 .withRelationshipType(Relationship.CUMULATIVE)
                 .withClassA()
@@ -133,7 +133,7 @@ public class BeanMappingsFluentBuilderTest {
                         .withMapSetMethod("put")
                         .withDateFormat("MM/dd/yyyy HH:mm")
                         .withKey("id")
-                        .withType(FieldType.GENERIC)
+                        .withType(FieldType.fromValue("generic"))
                         .withSetMethod("set")
                         .withGetMethod("get")
                     .end()
@@ -149,6 +149,7 @@ public class BeanMappingsFluentBuilderTest {
                         .withSetMethod("set")
                         .withGetMethod("get")
                     .end()
+                    .withType(Type.ONE_WAY)
                 .end()
                 .withField()
                     .withCopyByReference(true)

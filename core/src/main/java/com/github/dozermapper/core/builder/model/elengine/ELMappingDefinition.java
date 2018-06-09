@@ -30,6 +30,9 @@ import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELMappingDefinition extends MappingDefinition {
 
     private final ELEngine elEngine;
@@ -76,7 +79,7 @@ public class ELMappingDefinition extends MappingDefinition {
             setFields(new ArrayList<>());
         }
 
-        ELFieldDefinition field = new ELFieldDefinition(elEngine, this, null);
+        ELFieldDefinition field = new ELFieldDefinition(elEngine, this);
         getFields().add(field);
 
         return field;
