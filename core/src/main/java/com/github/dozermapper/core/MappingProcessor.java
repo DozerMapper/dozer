@@ -623,6 +623,9 @@ public class MappingProcessor implements Mapper {
         } else if (CollectionUtils.isList(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
             // List to Array
             result = mapListToArray(srcObj, (List<?>)srcCollectionValue, fieldMap, destObj);
+        } else if (CollectionUtils.isSet(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
+            // Set to Set
+            result = addToSet(srcObj, fieldMap, (Collection<?>)srcCollectionValue, destObj);
         } else if (CollectionUtils.isSet(srcFieldType) && CollectionUtils.isArray(destCollectionType)) {
             // Set to Array
             result = mapSetToArray(srcObj, (Set<?>)srcCollectionValue, fieldMap, destObj);
