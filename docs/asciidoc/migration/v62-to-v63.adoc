@@ -28,6 +28,17 @@ JAXB is used by default, if this causes issues, it can be disabled via:
     -Ddozer.xml.use-jaxb-mapping-engine=false
 ----
 
+And the following is deprecated:
+[source,prettyprint]
+----
+    com.github.dozermapper.core.loader.xml
+----
+
+In favour of:
+----
+    com.github.dozermapper.core.builder.xml
+----
+
 === 5. Updated dozer-core package name
 **From:**
 [source,java,prettyprint]

@@ -17,6 +17,7 @@ package com.github.dozermapper.core.loader.xml;
 
 import org.w3c.dom.Element;
 
+@Deprecated
 public interface ElementReader {
 
     String getAttribute(Element element, String attribute);

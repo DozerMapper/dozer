@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Factory class for providing valid XML parsers. Dozer uses DOM approach for XML processing.
  */
+@Deprecated
 public final class XMLParserFactory {
 
     private static final String SCHEMA_FEATURE = "http://apache.org/xml/features/validation/schema";

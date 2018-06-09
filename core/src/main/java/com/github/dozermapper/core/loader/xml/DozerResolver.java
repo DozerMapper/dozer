@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
  * Fetches "bean-mapping.xsd" from the classpath resource "/bean-mapping.xsd", no matter if specified as some
  * local URL or as "http://dozermapper.github.io/schema/bean-mapping.xsd".
  */
+@Deprecated
 public class DozerResolver implements EntityResolver {
 
     private final Logger log = LoggerFactory.getLogger(DozerResolver.class);

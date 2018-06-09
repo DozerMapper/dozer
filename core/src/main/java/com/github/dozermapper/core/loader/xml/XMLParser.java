@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Only intended for internal use.
  */
+@Deprecated
 public class XMLParser implements MappingsSource<Document> {
 
     private final Logger log = LoggerFactory.getLogger(XMLParser.class);

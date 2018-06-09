@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 
 import com.github.dozermapper.core.el.ELEngine;
 
+@Deprecated
 public class ExpressionElementReader extends SimpleElementReader {
 
     private ELEngine elEngine;
