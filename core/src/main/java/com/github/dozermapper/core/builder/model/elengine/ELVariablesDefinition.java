@@ -23,6 +23,9 @@ import com.github.dozermapper.core.builder.model.jaxb.VariableDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.VariablesDefinition;
 import com.github.dozermapper.core.el.ELEngine;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELVariablesDefinition extends VariablesDefinition {
 
     private final ELEngine elEngine;

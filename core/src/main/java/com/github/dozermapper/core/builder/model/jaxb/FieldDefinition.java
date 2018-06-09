@@ -133,12 +133,12 @@ public class FieldDefinition {
     protected String customConverterParam;
 
     public FieldDefinition() {
-        this(null, null);
+        this(null);
     }
 
-    public FieldDefinition(MappingDefinition parentMappingDefinition, FieldExcludeDefinition parentFieldExclude) {
+    public FieldDefinition(MappingDefinition parentMappingDefinition) {
         this.parentMappingDefinition = parentMappingDefinition;
-        this.parentFieldExclude = parentFieldExclude;
+        this.parentFieldExclude = null;
 
     }
 
@@ -228,10 +228,6 @@ public class FieldDefinition {
         setCustomConverterParam(customConverterParam);
 
         return this;
-    }
-
-    public FieldExcludeDefinition endFieldExclude() {
-        return parentFieldExclude;
     }
 
     public MappingDefinition end() {

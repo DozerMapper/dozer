@@ -176,7 +176,7 @@ public class MappingDefinition {
             setFields(new ArrayList<>());
         }
 
-        FieldDefinition field = new FieldDefinition(this, null);
+        FieldDefinition field = new FieldDefinition(this);
         getFields().add(field);
 
         return field;

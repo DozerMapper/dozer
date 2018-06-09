@@ -23,6 +23,9 @@ import com.github.dozermapper.core.builder.model.jaxb.ConfigurationDefinition;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.el.ELEngine;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELAllowedExceptionsDefinition extends AllowedExceptionsDefinition {
 
     private final ELEngine elEngine;

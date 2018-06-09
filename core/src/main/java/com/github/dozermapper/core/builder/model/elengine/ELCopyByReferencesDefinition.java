@@ -23,6 +23,9 @@ import com.github.dozermapper.core.builder.model.jaxb.CopyByReferencesDefinition
 import com.github.dozermapper.core.classmap.CopyByReference;
 import com.github.dozermapper.core.el.ELEngine;
 
+/**
+ * {@inheritDoc}
+ */
 public class ELCopyByReferencesDefinition extends CopyByReferencesDefinition {
 
     private final ELEngine elEngine;
