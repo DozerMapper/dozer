@@ -117,7 +117,8 @@ public class PrimitiveOrWrapperConverter {
                || Character.class.equals(aClass)
                || Boolean.class.equals(aClass)
                || java.util.Date.class.isAssignableFrom(aClass)
-               || java.util.Calendar.class.isAssignableFrom(aClass);
+               || java.util.Calendar.class.isAssignableFrom(aClass)
+               || aClass.isEnum();
     }
 
 }

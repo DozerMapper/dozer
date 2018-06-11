@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.core.functional_tests;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
@@ -89,6 +90,15 @@ public class EnumMappingTest extends AbstractFunctionalTest {
         enumMappingOverriedEnumToBasedEnum = DozerBeanMapperBuilder.create()
                 .withMappingFiles("mappings/enumMappingOverriedEnumToBasedEnum.xml")
                 .build();
+    }
+
+    @Test
+    public void canStringInMapMapsToEnum() {
+        Map src = newInstance(HashMap.class);
+        src.put("destType", "FOO");
+
+        MyBeanPrime dest = enumMappingOverriedEnumToBasedEnum.map(src, MyBeanPrime.class);
+        assertEquals("FOO", dest.getDestType().toString());
     }
 
     @Test

@@ -60,8 +60,8 @@ public class EnumMapping_WithExceptionsLoggedTest extends AbstractFunctionalTest
     public void testEnumMapsToNonexistEnumValue() {
         LOG.error("WithExceptionsLoggedTest; 'IllegalArgumentException: No enum constant com.github.dozermapper.core.vo.enumtest.DestType.BAR'");
 
-        testEnumMapsToNonexistEnumValueEE.expectMessage("No enum constant com.github.dozermapper.core.vo.enumtest.DestType.BAR");
-        testEnumMapsToNonexistEnumValueEE.expect(IllegalArgumentException.class);
+        testEnumMapsToNonexistEnumValueEE.expectMessage("Cannot convert [BAR] to enum of type class com.github.dozermapper.core.vo.enumtest.DestType");
+        testEnumMapsToNonexistEnumValueEE.expect(MappingException.class);
 
         mapper = getMapper("mappings/enumMapping.xml");
 
