@@ -112,13 +112,13 @@ public class PrimitiveOrWrapperConverter {
 
     public boolean accepts(Class<?> aClass) {
         return aClass.isPrimitive()
-                || aClass.isEnum()
                 || Number.class.isAssignableFrom(aClass)
                 || String.class.equals(aClass)
                 || Character.class.equals(aClass)
                 || Boolean.class.equals(aClass)
                 || java.util.Date.class.isAssignableFrom(aClass)
-                || java.util.Calendar.class.isAssignableFrom(aClass);
+                || java.util.Calendar.class.isAssignableFrom(aClass)
+                || aClass.isEnum();
     }
 
 }
