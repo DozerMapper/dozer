@@ -53,7 +53,7 @@
         <mockito-core.version>2.18.0</mockito-core.version>
         <aries.spifly.verison>1.0.8</aries.spifly.verison>
         <pax-exam.version>4.11.0</pax-exam.version>
-        <lombok.version>1.16.20</lombok.version>
+        <lombok.version>1.18.0</lombok.version>
         <protobuf-java.version>3.3.0</protobuf-java.version>
         <objenesis.version>2.6</objenesis.version>
         <osgi.version>6.0.0</osgi.version>
