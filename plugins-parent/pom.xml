@@ -56,7 +56,7 @@
         <jaxb2-maven-plugin.version>1.6</jaxb2-maven-plugin.version>
 
         <!-- GitHub Plugins versions; alphabetical order -->
-        <spotbugs-maven-plugin.version>3.1.3</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>3.1.3.1</spotbugs-maven-plugin.version>
 
         <!-- OSGi Plugins versions; alphabetical order -->
         <maven-bundle-plugin.version>3.5.0</maven-bundle-plugin.version>
