@@ -13,8 +13,14 @@ matrix:
     env: SHOULD_DEPLOY=true
   - jdk: oraclejdk9
     env: SHOULD_DEPLOY=false
+  - jdk: oraclejdk10
+    env: SHOULD_DEPLOY=false
+  - jdk: oraclejdk11
+    env: SHOULD_DEPLOY=false
   allow_failures:
   - jdk: oraclejdk9
+  - jdk: oraclejdk10
+  - jdk: oraclejdk11
 before_install:
 - bash .travis/deploy-codesigning.sh
 install:
