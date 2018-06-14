@@ -197,6 +197,12 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
         assertEquals("java.util.Map", clazz.getCanonicalName());
     }
 
+    @Test
+    public void shouldDetermineReadMethodForSyntheticOnlyMethod() throws Exception {
+        PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(ListHolderWrapperImpl.class, "list", null);
+        assertNotNull(propertyDescriptor.getReadMethod());
+    }
+
     public class Y implements HasX<ClassInheritsClassX> {
         private ClassInheritsClassX x;
 
@@ -254,6 +260,33 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
 
     private interface TestIF2 {
         Integer getB();
+    }
+
+    public class ListHolderWrapperImpl<T> extends AbstractListHolder<T> implements ListHolderWrapper<T> {
+        public ListHolderWrapperImpl(List<T> content) {
+            super(content);
+        }
+    }
+
+    abstract class AbstractListHolder<T> implements ListHolder<T> {
+        private List<T> list;
+
+        AbstractListHolder(List<T> list) {
+            this.list = list;
+        }
+
+        @Override
+        public List<T> getList() {
+            return list;
+        }
+    }
+
+    interface ListHolder<T> {
+        List<T> getList();
+    }
+
+    interface ListHolderWrapper<T> extends ListHolder<T> {
+
     }
 
 }

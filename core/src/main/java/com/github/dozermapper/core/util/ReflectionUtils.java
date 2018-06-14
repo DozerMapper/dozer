@@ -109,8 +109,8 @@ public final class ReflectionUtils {
             String baseName = Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
             String setMethodName = "set" + baseName;
             String getMethodName = "get" + baseName;
-            Method getMethod = findNonSyntheticMethod(getMethodName, clazz);
-            Method setMethod = findNonSyntheticMethod(setMethodName, clazz);
+            Method getMethod = findPreferablyNonSyntheticMethod(getMethodName, clazz);
+            Method setMethod = findPreferablyNonSyntheticMethod(setMethodName, clazz);
             try {
                 return new PropertyDescriptor(propertyName, getMethod, setMethod);
             } catch (IntrospectionException e) {
@@ -120,14 +120,19 @@ public final class ReflectionUtils {
         return descriptor;
     }
 
-    private static Method findNonSyntheticMethod(String methodName, Class<?> clazz) {
+    private static Method findPreferablyNonSyntheticMethod(String methodName, Class<?> clazz) {
         Method[] methods = clazz.getMethods();
+        Method syntheticMethod = null;
         for (Method method : methods) {
-            if (method.getName().equals(methodName) && !method.isBridge() && !method.isSynthetic()) {
-                return method;
+            if (method.getName().equals(methodName)) {
+                if (!method.isBridge() && !method.isSynthetic()) {
+                    return method;
+                } else {
+                    syntheticMethod = method;
+                }
             }
         }
-        return null;
+        return syntheticMethod;
     }
 
     public static DeepHierarchyElement[] getDeepFieldHierarchy(Class<?> parentClass, String field,
