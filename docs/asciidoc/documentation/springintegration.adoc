@@ -1,16 +1,49 @@
 == Spring Framework Integration
-Add the DozerBeanMapperFactoryBean to your Spring configuration file.
-The mappingFiles property is where you should specify any custom dozer
+
+We provide the `dozer-spring4` for integrating spring application.
+If you are using link:https://maven.apache.org/[Apache Maven], simply copy-paste this dependency to your project.
+
+.pom.xml
+[source,xml,prettyprint,subs="verbatim,attributes"]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-core</artifactId>
+    <version>{dozer-version}</version>
+</dependency>
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-spring4</artifactId>
+    <version>{dozer-version}</version>
+</dependency>
+----
+
+=== Configuration
+
+Add the `DozerBeanMapperFactoryBean` to your Spring configuration file.
+The `mappingFiles` property is where you should specify any custom dozer
 mapping files that you have created. This list can be empty if you don't
 have any custom mappings. It is also possible to set custom event
 listeners and bean factories.
+
+[IMPORTANT]
+====
+You should define the Dozer mapper bean is defined as
+*singleton="true"*. You should configure the Mapper instance(s) this way
+so that you do not have to reload and reinitialize the mapping files for
+each individual mapping during the lifecycle of your app. Reinitializing
+the mapping files for each mapping would be inefficient and unnecessary.
+The `DozerBeanMapper` class is thread safe.
+====
+
+==== XML based configuration
 
 Note that this Factory Bean supports Spring Resources, which means that
 you could load mapping Xml files by classpath mask for example.
 
 [source,xml,prettyprint]
 ----
-<bean class="com.github.dozermapper.core.spring.DozerBeanMapperFactoryBean">
+<bean id="dozerMapper" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
     <property name="mappingFiles" value="classpath*:/*mapping.xml" />
     <property name="customConverters">
         <list>
@@ -30,37 +63,80 @@ you could load mapping Xml files by classpath mask for example.
 </bean>
 ----
 
-*IMPORTANT:* You shoud define the Dozer mapper bean is defined as
-*singleton="true"*. You should configure the Mapper instance(s) this way
-so that you do not have to reload and reinitialize the mapping files for
-each individual mapping during the lifecycle of your app. Reinitializing
-the mapping files for each mapping would be inefficent and unnecessary.
-The DozerBeanMapper class is thread safe.
-
-If you want to avoid clashing of mapping definitions for different
-functionality it is possible to define own DozerBeanMapper instance for
-each such use case.
-
-A simpler way of registering mapper instance is without wrapping factory
-bean.
+Alternatively, you can define the `DozerBeanMapper` using the `dozer` name space as follow:
 
 [source,xml,prettyprint]
 ----
-<bean id="com.github.dozermapper.core.Mapper" class="com.github.dozermapper.core.DozerBeanMapper">
-    <property name="mappingFiles">
-        <list>
-            <value>dozer-global-configuration.xml</value>
-            <value>dozer-bean-mappings.xml</value>
-            <value>more-dozer-bean-mappings.xml</value>
-        </list>
-    </property>
-</bean>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dozer="http://dozermapper.github.io/schema/dozer-spring"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://dozermapper.github.io/schema/dozer-spring
+         https://dozermapper.github.io/schema/dozer-spring.xsd
+       ">
+
+    <dozer:mapper id="dozerMapper"/>
+
+</beans>
 ----
 
-Using Spring to retrieve the Dozer Mapper......
+==== Java based configuration
+
+When using Java configuration, bean definition is as follows:
 
 [source,java,prettyprint]
 ----
-Mapper mapper = yourSpringBeanFactory.getBean("mapperBeanName");
-DestinationObject destObject = mapper.map(sourceObject, DestinationObject.class);
+@Configuration
+public class DozerConfig {
+    @Bean
+    public DozerBeanMapperFactoryBean dozerMapper(
+        ResourcePatternResolver resourcePatternResolver) throws IOException {
+        DozerBeanMapperFactoryBean factoryBean = new DozerBeanMapperFactoryBean();
+        factoryBean.setMappingFiles(
+            resourcePatternResolver.getResources("classpath*:/*mapping.xml"));
+        // ...
+        return factoryBean;
+    }
+}
 ----
+
+=== How to use in your application
+
+Using Spring to retrieve the Dozer Mapper......
+
+===== Look-up based usage
+
+You can use the Dozer Mapper that looked up from the Spring `ApplicationContext`(`BeanFactory`).
+
+[source,java,prettyprint]
+----
+Mapper dozerMapper = applicationContext.getBean("dozerMapper", Mapper.class);
+DestinationObject destObject = dozerMapper.map(sourceObject, DestinationObject.class);
+----
+
+===== Injection based usage
+
+Alternatively, you can use the Dozer Mapper that injected to your component by Spring DI container.
+
+[source,java,prettyprint]
+----
+@Component
+public class YourComponent {
+    private final Mapper dozerMapper;
+    public YourComponent(Mapper dozerMapper) {
+        this.dozerMapper = dozerMapper;
+    }
+    public void anyMethod() {
+        // ...
+        DestinationObject destObject =
+            dozerMapper.map(sourceObject, DestinationObject.class);
+        // ...
+    }
+}
+----
+
+=== How to use in Spring Boot Application
+
+Please see link:springBootIntegration.adoc[Spring Boot Integration] section.
