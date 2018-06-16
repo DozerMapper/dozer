@@ -15,3 +15,4 @@
 #
 
 http\://dozermapper.github.io/schema/dozer-spring.xsd=schema/dozer-spring.xsd
+https\://dozermapper.github.io/schema/dozer-spring.xsd=schema/dozer-spring.xsd

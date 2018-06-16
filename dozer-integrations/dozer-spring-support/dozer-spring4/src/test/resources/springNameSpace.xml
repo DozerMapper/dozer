@@ -27,5 +27,7 @@
 
     <bean class="com.github.dozermapper.spring.functional_tests.support.ReferencingBean"/>
 
+    <dozer:mapper id="beanMapperWithMappingFiles" mapping-files="classpath*:/mappings/*.xml"/>
+
 </beans>
 

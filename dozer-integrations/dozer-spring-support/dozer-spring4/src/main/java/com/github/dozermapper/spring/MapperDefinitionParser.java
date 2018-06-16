@@ -21,6 +21,7 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractBeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
+import org.springframework.util.StringUtils;
 
 /**
  * {@link AbstractBeanDefinitionParser} which uses {@link BeanDefinitionBuilder#rootBeanDefinition(Class)}
@@ -31,6 +32,10 @@ public class MapperDefinitionParser extends AbstractBeanDefinitionParser {
     @Override
     protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(DozerBeanMapperFactoryBean.class);
+        String mappingFiles = element.getAttribute("mapping-files");
+        if (StringUtils.hasLength(mappingFiles)) {
+            builder.addPropertyValue("mappingFiles", mappingFiles);
+        }
         return builder.getBeanDefinition();
     }
 }
