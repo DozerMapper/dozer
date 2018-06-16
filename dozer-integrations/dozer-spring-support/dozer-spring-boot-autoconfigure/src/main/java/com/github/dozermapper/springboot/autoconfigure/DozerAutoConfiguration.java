@@ -20,7 +20,6 @@ import java.io.IOException;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.spring.DozerBeanMapperFactoryBean;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -43,7 +42,6 @@ public class DozerAutoConfiguration {
      *
      * @param configurationProperties properties
      */
-    @Autowired
     public DozerAutoConfiguration(DozerConfigurationProperties configurationProperties) {
         this.configurationProperties = configurationProperties;
     }
