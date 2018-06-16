@@ -45,6 +45,7 @@
 
 == 3rd Party
 .. link:documentation/springintegration.adoc[Spring Integration]
+.. link:documentation/springBootIntegration.adoc[Spring Boot Integration]
 .. link:documentation/jaxb.adoc[JAXB]
 
 == Other

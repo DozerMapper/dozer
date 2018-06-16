@@ -1,0 +1,34 @@
+== Spring Boot Integration
+
+We provide the `dozer-spring-boot-starter` for integrating spring boot application since 6.2.0.
+If you are using link:https://maven.apache.org/[Apache Maven], simply copy-paste this dependency to your project.
+
+[NOTE]
+====
+For details for Spring Framewrok Integration, please see link:springintegration.adoc[here].
+====
+
+.pom.xml
+[source,xml,prettyprint,subs="verbatim,attributes"]
+----
+<dependency>
+    <groupId>com.github.dozermapper</groupId>
+    <artifactId>dozer-spring-boot-starter</artifactId>
+    <version>{dozer-version}</version>
+</dependency>
+----
+
+You can specify any custom dozer mapping files in your application properties or yml.
+
+.application.properties
+[source,properties,prettyprint]
+----
+dozer.mapping-files=classpath*:/*mapping.xml
+----
+
+.application.yml
+[source,yml,prettyprint]
+----
+dozer:
+  mapping-files: classpath*:/*mapping.xml
+----
