@@ -61,7 +61,7 @@
 == Schema
 .. link:https://dozermapper.github.io/schema/bean-mapping.xsd[Mapping XSD]
 .. link:https://dozermapper.github.io/schema/dozer-spring.xsd[Spring4 XSD]
-.. link:https://dozermapper.github.io/schema/dozer-user-guide.pdf[User's Guide PDF]
+.. link:https://dozermapper.github.io/user-guide.pdf[User's Guide PDF]
 
 == Eclipse Plugin
 .. link:documentation/eclipse-plugin/installation.adoc[Installation]
