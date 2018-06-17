@@ -16,8 +16,11 @@
     limitations under the License.
 
 -->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-<beans default-lazy-init="false">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="false">
 
     <bean id="mapperWithBeanFactory" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
         <property name="mappingFiles">
