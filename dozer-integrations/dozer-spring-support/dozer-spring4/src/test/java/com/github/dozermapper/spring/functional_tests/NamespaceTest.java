@@ -52,7 +52,7 @@ public class NamespaceTest {
     }
 
     @Test
-    public void shoulduseMappingFiles() {
+    public void shouldApplyMappingFiles() {
         DozerBeanMapper beanMapper = context.getBean("beanMapperWithMappingFiles", DozerBeanMapper.class);
         assertTrue(beanMapper.getMappingFiles().stream().anyMatch(file -> file.contains("/mappings/")));
     }
