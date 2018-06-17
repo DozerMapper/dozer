@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.spring.functional_tests;
 
+import com.github.dozermapper.core.DozerBeanMapper;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.spring.functional_tests.support.ReferencingBean;
 
@@ -25,8 +26,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/springNameSpace.xml")
@@ -46,6 +48,13 @@ public class NamespaceTest {
         Mapper mapper = referencingBean.getMapper();
 
         assertNotNull(mapper);
-        assertEquals(beanMapper, mapper);
+        assertSame(beanMapper, mapper);
     }
+
+    @Test
+    public void shouldApplyMappingFiles() {
+        DozerBeanMapper beanMapper = context.getBean("beanMapperWithMappingFiles", DozerBeanMapper.class);
+        assertTrue(beanMapper.getMappingFiles().stream().anyMatch(file -> file.contains("/mappings/")));
+    }
+
 }

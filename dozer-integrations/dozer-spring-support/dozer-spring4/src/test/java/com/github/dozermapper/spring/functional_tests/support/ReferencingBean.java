@@ -24,9 +24,9 @@ import org.springframework.stereotype.Component;
 public class ReferencingBean {
 
     @Autowired
-    Mapper mapper;
+    Mapper beanMapper;
 
     public Mapper getMapper() {
-        return mapper;
+        return beanMapper;
     }
 }

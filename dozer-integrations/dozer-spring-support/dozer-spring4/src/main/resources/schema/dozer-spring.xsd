@@ -27,7 +27,18 @@
     <xs:element name="mapper">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="beans:identifiedType"/>
+                <xs:extension base="beans:identifiedType">
+                    <xs:attribute name="mapping-files" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>
+                            <![CDATA[
+                            Spring resources definition for providing mapping file location.
+                            Could be used for loading all mapping files by wildcard definition(e.g. classpath*:/*.dozer.xml).
+                            ]]>
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
