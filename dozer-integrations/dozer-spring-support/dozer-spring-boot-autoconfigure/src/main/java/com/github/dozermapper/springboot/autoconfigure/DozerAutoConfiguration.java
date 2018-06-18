@@ -32,18 +32,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnClass({DozerBeanMapperFactoryBean.class, Mapper.class})
 @ConditionalOnMissingBean(Mapper.class)
-@EnableConfigurationProperties(DozerConfigurationProperties.class)
+@EnableConfigurationProperties(DozerProperties.class)
 public class DozerAutoConfiguration {
 
-    private final DozerConfigurationProperties configurationProperties;
+    private final DozerProperties properties;
 
     /**
      * Constructor for creating auto configuration.
      *
-     * @param configurationProperties properties
+     * @param properties properties
      */
-    public DozerAutoConfiguration(DozerConfigurationProperties configurationProperties) {
-        this.configurationProperties = configurationProperties;
+    public DozerAutoConfiguration(DozerProperties properties) {
+        this.properties = properties;
     }
 
     /**
@@ -55,7 +55,7 @@ public class DozerAutoConfiguration {
     @Bean
     public DozerBeanMapperFactoryBean dozerMapper() throws IOException {
         DozerBeanMapperFactoryBean factoryBean = new DozerBeanMapperFactoryBean();
-        factoryBean.setMappingFiles(configurationProperties.getMappingFiles());
+        factoryBean.setMappingFiles(properties.getMappingFiles());
         return factoryBean;
     }
 }

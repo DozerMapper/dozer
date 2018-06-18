@@ -36,7 +36,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class AutoConfigurationTests {
+/**
+ * Tests for {@link DozerAutoConfiguration}.
+ */
+public class DozerAutoConfigurationTests {
 
     @Test
     public void testDefaultMapperCreated() {
