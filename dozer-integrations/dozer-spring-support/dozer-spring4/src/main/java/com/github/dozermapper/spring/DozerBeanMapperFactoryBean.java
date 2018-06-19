@@ -30,27 +30,23 @@ import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
 
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.core.io.Resource;
 
 /**
  * {@link FactoryBean} that can be used to create an instance of {@link Mapper}
  */
-public class DozerBeanMapperFactoryBean implements ApplicationContextAware, InitializingBean, FactoryBean<Mapper> {
-
-    private ApplicationContext applicationContext;
+public class DozerBeanMapperFactoryBean extends ApplicationObjectSupport implements InitializingBean, FactoryBean<Mapper> {
 
     private CustomFieldMapper customFieldMapper;
-    private List<String> mappingFileUrls = new ArrayList<>(1);
-    private List<CustomConverter> customConverters = new ArrayList<>(0);
-    private List<BeanMappingBuilder> mappingBuilders = new ArrayList<>(0);
-    private List<EventListener> eventListeners = new ArrayList<>(0);
-    private Map<String, BeanFactory> beanFactories = new HashMap<>(0);
-    private Map<String, CustomConverter> customConvertersWithId = new HashMap<>(0);
+    private final List<String> mappingFileUrls = new ArrayList<>(1);
+    private final List<CustomConverter> customConverters = new ArrayList<>(0);
+    private final List<BeanMappingBuilder> mappingBuilders = new ArrayList<>(0);
+    private final List<EventListener> eventListeners = new ArrayList<>(0);
+    private final Map<String, BeanFactory> beanFactories = new HashMap<>(0);
+    private final Map<String, CustomConverter> customConvertersWithId = new HashMap<>(0);
 
     private Mapper mapper;
 
@@ -146,18 +142,6 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
     }
 
     // ===
-    // Methods for: ApplicationContextAware
-    // ===
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
-
-    // ===
     // Methods for: InitializingBean
     // ===
 
@@ -166,14 +150,14 @@ public class DozerBeanMapperFactoryBean implements ApplicationContextAware, Init
      */
     @Override
     public void afterPropertiesSet() {
-        Map<String, CustomConverter> contextCustomConvertersWithId = applicationContext.getBeansOfType(CustomConverter.class);
-        Map<String, BeanMappingBuilder> contextBeanMappingBuilders = applicationContext.getBeansOfType(BeanMappingBuilder.class);
-        Map<String, EventListener> contextEventListeners = applicationContext.getBeansOfType(EventListener.class);
-        Map<String, BeanFactory> contextBeanFactorys = applicationContext.getBeansOfType(BeanFactory.class);
+        Map<String, CustomConverter> contextCustomConvertersWithId = getApplicationContext().getBeansOfType(CustomConverter.class);
+        Map<String, BeanMappingBuilder> contextBeanMappingBuilders = getApplicationContext().getBeansOfType(BeanMappingBuilder.class);
+        Map<String, EventListener> contextEventListeners = getApplicationContext().getBeansOfType(EventListener.class);
+        Map<String, BeanFactory> contextBeanFactories = getApplicationContext().getBeansOfType(BeanFactory.class);
 
         customConverters.addAll(contextCustomConvertersWithId.values());
         mappingBuilders.addAll(contextBeanMappingBuilders.values());
-        beanFactories.putAll(contextBeanFactorys);
+        beanFactories.putAll(contextBeanFactories);
         eventListeners.addAll(contextEventListeners.values());
         customConvertersWithId.putAll(contextCustomConvertersWithId);
 
