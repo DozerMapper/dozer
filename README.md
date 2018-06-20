@@ -56,17 +56,18 @@ If you are using Maven, simply copy-paste this dependency to your project.
   <class-a>yourpackage.SourceClassName</class-a>
   <class-b>yourpackage.DestinationClassName</class-b>
     <field>
-      <A>yourSourceFieldName</A>
-      <B>yourDestinationFieldName</B>
+      <a>yourSourceFieldName</a>
+      <b>yourDestinationFieldName</b>
     </field>
 </mapping>
 ```
 
 ```Java
-SourceClassName sourceObject = ...
+SourceClassName sourceObject = new SourceClassName();
+sourceObject.setYourSourceFieldName("Dozer");
 
 Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 DestinationObject destObject = mapper.map(sourceObject, DestinationClassName.class);
 
-assertTrue(destObject.getYourDestinationFieldName().equals(sourceObject.getYourSourceFieldName));
+assertTrue(destObject.getYourDestinationFieldName().equals(sourceObject.getYourSourceFieldName()));
 ```
