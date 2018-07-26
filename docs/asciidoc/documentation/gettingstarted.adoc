@@ -1,4 +1,4 @@
-:dozer-version: 6.3.0
+:dozer-version: 6.4.0-SNAPSHOT
 
 == Getting Started
 === Downloading the Distribution
