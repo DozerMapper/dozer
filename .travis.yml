@@ -18,7 +18,6 @@ matrix:
   - jdk: oraclejdk11
     env: SHOULD_DEPLOY=false
   allow_failures:
-  - jdk: oraclejdk9
   - jdk: oraclejdk10
   - jdk: oraclejdk11
 before_install:
