@@ -34,6 +34,8 @@
     <name>Dozer :: Tests :: JMH Tests</name>
 
     <properties>
+        <osgi.Export-Package>com.github.dozermapper.jmh.*</osgi.Export-Package>
+
         <uberjar.name>benchmarks</uberjar.name>
     </properties>
 
