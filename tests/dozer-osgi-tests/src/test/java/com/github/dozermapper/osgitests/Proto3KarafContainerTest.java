@@ -53,7 +53,7 @@ public class Proto3KarafContainerTest extends CoreKarafContainerTest {
                 // ServiceLoader
                 localBundle("org.apache.aries.spifly.dynamic.bundle.link"),
                 localBundle("org.apache.aries.util.link"),
-                localBundle("org.objectweb.asm.all.debug.link"),
+                localBundle("org.objectweb.asm.all.link"),
 
                 // Bundles
                 BundleOptions.optionalBundles(),
