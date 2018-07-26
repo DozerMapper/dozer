@@ -52,7 +52,7 @@
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
         <mockito-core.version>2.18.0</mockito-core.version>
         <aries.spifly.verison>1.0.8</aries.spifly.verison>
-        <pax-exam.version>4.11.0</pax-exam.version>
+        <pax-exam.version>4.12.0</pax-exam.version>
         <lombok.version>1.18.0</lombok.version>
         <protobuf-java.version>3.3.0</protobuf-java.version>
         <objenesis.version>2.6</objenesis.version>
@@ -222,11 +222,6 @@
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>${osgi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ops4j.pax.exam</groupId>
-                <artifactId>pax-exam-container-native</artifactId>
-                <version>${pax-exam.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.ops4j.pax.exam</groupId>

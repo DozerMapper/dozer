@@ -17,9 +17,7 @@ package com.github.dozermapper.osgitests.support;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -30,7 +28,9 @@ import org.junit.Before;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.ProbeBuilder;
 import org.ops4j.pax.exam.TestProbeBuilder;
+import org.ops4j.pax.exam.karaf.container.internal.JavaVersionUtil;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption;
+import org.ops4j.pax.exam.options.extra.VMOption;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
@@ -81,17 +81,16 @@ public abstract class PaxExamTestSupport {
     protected Option karafContainerConfigOptions(String version) {
         return composite(
                 karafDistributionConfiguration()
-                        .frameworkUrl(
-                                maven().groupId(FRAMEWORK_GROUP_ID)
-                                        .artifactId(FRAMEWORK_ARTIFACT_ID)
-                                        .version(version)
-                                        .type("zip")
-                                        .versionAsInProject()
-                        )
-                        .karafVersion(version)
-                        .name("Apache Karaf " + version)
-                        .unpackDirectory(new File("target/paxexam/unpack"))
-                        .useDeployFolder(false),
+                    .frameworkUrl(maven().groupId(FRAMEWORK_GROUP_ID)
+                                          .artifactId(FRAMEWORK_ARTIFACT_ID)
+                                          .version(version)
+                                          .type("zip")
+                                          .versionAsInProject())
+                    .karafVersion(version)
+                    .name("Apache Karaf " + version)
+                    .unpackDirectory(new File("target/paxexam/unpack"))
+                    .useDeployFolder(false),
+
                 logLevel(LogLevelOption.LogLevel.INFO),
 
                 // Keep the folder so we can look inside when something fails
@@ -107,11 +106,45 @@ public abstract class PaxExamTestSupport {
                 editConfigurationFilePut("etc/custom.properties", "karaf.shutdown.port", "-1"),
 
                 // Make sure everything is UTF8
-                vmOption("-Dfile.encoding=UTF-8")
+                vmOption("-Dfile.encoding=UTF-8"),
+
+                // Get any Java >= 9 options
+                getJavaModuleOptions()
 
                 // Suspend startup until debugger attached
                 //vmOption("-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005")
         );
+    }
+
+    private Option getJavaModuleOptions() {
+        if (JavaVersionUtil.getMajorVersion() >= 9) {
+            return composite(
+                    vmOption("--add-opens"),
+                    vmOption("java.base/java.security=ALL-UNNAMED"),
+                    vmOption("--add-opens"),
+                    vmOption("java.base/java.net=ALL-UNNAMED"),
+                    vmOption("--add-opens"),
+                    vmOption("java.base/java.lang=ALL-UNNAMED"),
+                    vmOption("--add-opens"),
+                    vmOption("java.base/java.util=ALL-UNNAMED"),
+                    vmOption("--add-opens"),
+                    vmOption("java.naming/javax.naming.spi=ALL-UNNAMED"),
+                    vmOption("--add-opens"),
+                    vmOption("java.rmi/sun.rmi.transport.tcp=ALL-UNNAMED"),
+
+                    vmOption("--add-exports=java.base/sun.net.www.protocol.http=ALL-UNNAMED"),
+                    vmOption("--add-exports=java.base/sun.net.www.protocol.https=ALL-UNNAMED"),
+                    vmOption("--add-exports=java.xml.bind/com.sun.xml.internal.bind.v2.runtime=ALL-UNNAMED"),
+                    vmOption("--add-exports=jdk.xml.dom/org.w3c.dom.html=ALL-UNNAMED"),
+                    vmOption("--add-exports=jdk.naming.rmi/com.sun.jndi.url.rmi=ALL-UNNAMED"),
+                    vmOption("--add-exports=java.xml.ws/com.sun.xml.internal.messaging.saaj.soap.impl=ALL-UNNAMED"),
+
+                    vmOption("--add-modules"),
+                    vmOption("java.xml.ws.annotation,java.corba,java.transaction,java.xml.bind,java.xml.ws,jdk.xml.bind")
+            );
+        } else {
+            return composite();
+        }
     }
 
     private File getConfigFile(String path) {
