@@ -78,8 +78,8 @@ public final class BundleOptions {
                                  .versionAsInProject(), "hibernate"),
 
                 wrappedBundle(mavenBundle().groupId("org.apache.felix")
-                                      .artifactId("org.apache.felix.utils")
-                                      .versionAsInProject())
+                                            .artifactId("org.apache.felix.utils")
+                                            .versionAsInProject())
         );
     }
 
