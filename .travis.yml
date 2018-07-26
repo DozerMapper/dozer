@@ -26,7 +26,7 @@ install:
 - mvn -N io.takari:maven:wrapper -Dmaven=3.5.0
 - java -version && javac -version && ./mvnw -version -B
 before_script:
-- ./mvnw dependency:go-offline -B
+- ./mvnw com.offbytwo.maven.plugins:maven-dependency-plugin:3.1.1.MDEP568:go-offline -DexcludeGroupIds=com.github.dozermapper -B
 script:
 - ./mvnw clean install -B
 after_success:
