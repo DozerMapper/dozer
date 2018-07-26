@@ -32,6 +32,8 @@
     <name>Dozer :: Tests :: Wildfly Tests</name>
 
     <properties>
+        <osgi.Export-Package>com.github.dozermapper.wildflytests.*</osgi.Export-Package>
+
         <arquillian-bom.version>1.4.0.Final</arquillian-bom.version>
         <wildfly-arquillian-container-embedded.version>2.1.0.Final</wildfly-arquillian-container-embedded.version>
         <shrinkwrap.version>2.2.6</shrinkwrap.version>
