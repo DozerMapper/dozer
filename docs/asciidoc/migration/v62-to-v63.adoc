@@ -1,5 +1,4 @@
 == Migration from v6.2.0 to v6.3.0
-**STILL WORK IN PROGRESS - NOT RELEASED**
 See link:https://github.com/DozerMapper/dozer/releases/tag/6.3.0[for release notes].
 
 === 1. Karaf2 support dropped

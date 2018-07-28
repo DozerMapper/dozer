@@ -1,0 +1,6 @@
+== Migration from v6.3.0 to v6.4.0
+**STILL WORK IN PROGRESS - NOT RELEASED**
+See link:https://github.com/DozerMapper/dozer/releases/tag/6.4.0[for release notes].
+
+=== 1. ...
+...

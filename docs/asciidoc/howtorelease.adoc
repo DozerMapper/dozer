@@ -9,6 +9,7 @@ The following steps should be followed to perform a release:
 - Update dozer-version in docs for link:documentation/gettingstarted.adoc[Getting Started]
 - Update dozer-version in docs for link:documentation/faq.adoc[FAQ]
 - Update GAV version for link:../../README.md[README]
+- Update link:migration/[migration] doc
 - Finally, raise a PR. If the PR is built successfully and merged, TravisCI should automatically publish to Maven Central
 
 [1] https://github.com/ariatemplates/git-release-notes/blob/master/README.md
