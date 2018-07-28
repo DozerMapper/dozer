@@ -17,6 +17,12 @@ package com.github.dozermapper.core.converters;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +111,12 @@ public class PrimitiveOrWrapperConverter {
                 result = new EnumConverter();
             } else if (JAXBElement.class.isAssignableFrom(destClass) && destFieldName != null) {
                 result = new JAXBElementConverter(destObj.getClass().getCanonicalName(), destFieldName, dateFormatContainer.getDateFormat(), beanContainer);
+            } else if (isLocalTime(destClass)) {
+                result = new LocalDateTimeConverter(dateFormatContainer.getDateTimeFormatter());
+            } else if (isOffsetTime(destClass)) {
+                result = new OffsetDateTimeConverter(dateFormatContainer.getDateTimeFormatter());
+            } else if (ZonedDateTime.class.isAssignableFrom(destClass)) {
+                result = new ZonedDateTimeConverter(dateFormatContainer.getDateTimeFormatter());
             }
         }
         return result == null ? new StringConstructorConverter(dateFormatContainer) : result;
@@ -118,7 +130,23 @@ public class PrimitiveOrWrapperConverter {
                || Boolean.class.equals(aClass)
                || java.util.Date.class.isAssignableFrom(aClass)
                || java.util.Calendar.class.isAssignableFrom(aClass)
-               || aClass.isEnum();
+               || aClass.isEnum()
+               || LocalDateTime.class.isAssignableFrom(aClass)
+               || LocalDate.class.isAssignableFrom(aClass)
+               || LocalTime.class.isAssignableFrom(aClass)
+               || OffsetDateTime.class.isAssignableFrom(aClass)
+               || OffsetTime.class.isAssignableFrom(aClass)
+               || ZonedDateTime.class.isAssignableFrom(aClass);
     }
 
+    private static boolean isLocalTime(Class clazz) {
+        return LocalDateTime.class.isAssignableFrom(clazz) ||
+               LocalDate.class.isAssignableFrom(clazz) ||
+               LocalTime.class.isAssignableFrom(clazz);
+    }
+
+    private static boolean isOffsetTime(Class clazz) {
+        return OffsetDateTime.class.isAssignableFrom(clazz) ||
+               OffsetTime.class.isAssignableFrom(clazz);
+    }
 }

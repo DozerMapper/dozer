@@ -15,6 +15,10 @@
  */
 package com.github.dozermapper.core.converters;
 
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.apache.commons.beanutils.Converter;
 
 /**
@@ -22,6 +26,7 @@ import org.apache.commons.beanutils.Converter;
  * objects. Calls toString() on the source object for all other types. Only intended for internal use.
  */
 public class StringConverter implements Converter {
+
     private DateFormatContainer dateFormatContainer;
 
     public StringConverter(DateFormatContainer dateFormatContainer) {
@@ -29,26 +34,29 @@ public class StringConverter implements Converter {
     }
 
     public Object convert(Class destClass, Object srcObj) {
-        String result;
         Class srcClass = srcObj.getClass();
-        if (dateFormatContainer != null && java.util.Date.class.isAssignableFrom(srcClass)
-            && dateFormatContainer.getDateFormat() != null) {
-            result = dateFormatContainer.getDateFormat().format((java.util.Date)srcObj);
-        } else if (dateFormatContainer != null && java.util.Calendar.class.isAssignableFrom(srcClass)
-                   && dateFormatContainer.getDateFormat() != null) {
-            result = dateFormatContainer.getDateFormat().format(((java.util.Calendar)srcObj).getTime());
+        if (hasDateFormat()) {
+            if (Date.class.isAssignableFrom(srcClass)) {
+                return dateFormatContainer.getDateFormat().format((Date)srcObj);
+            }
+            if (Calendar.class.isAssignableFrom(srcClass)) {
+                return dateFormatContainer.getDateFormat().format(((Calendar)srcObj).getTime());
+            } else if (TemporalAccessor.class.isAssignableFrom(srcClass)) {
+                return dateFormatContainer.getDateTimeFormatter().format((TemporalAccessor)srcObj);
+            } else {
+                return srcObj.toString();
+            }
         } else {
-            result = srcObj.toString();
+            return srcObj.toString();
         }
-
-        return result;
     }
 
-    public DateFormatContainer getDateFormatContainer() {
-        return dateFormatContainer;
-    }
-
-    public void setDateFormatContainer(DateFormatContainer dateFormat) {
-        this.dateFormatContainer = dateFormat;
+    /**
+     * Whether date format is provided or not
+     *
+     * @return true - date format provided. Otherwise false.
+     */
+    private boolean hasDateFormat() {
+        return dateFormatContainer != null && dateFormatContainer.getDateFormat() != null;
     }
 }
