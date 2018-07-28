@@ -1,12 +1,14 @@
 == How to Release
 The following steps should be followed to perform a release:
+
 - Build release notes [1]
 - mvn versions:set -DnewVersion=X.X.X
 - mvn versions:commit
-- Update link:core/src/main/java/com/github/dozermapper/core/util/DozerConstants.java[DozerConstants.java]
+- Update link:../../core/src/main/java/com/github/dozermapper/core/util/DozerConstants.java[DozerConstants.java]
 - Update pom.xml - <building-tools.version/>
-- Update dozer-version in docs for link:docs/asciidoc/documentation/gettingstarted.adoc[Getting Started]
-- Update dozer-version in docs for link:docs/asciidoc/documentation/faq.adoc[FAQ]
+- Update dozer-version in docs for link:documentation/gettingstarted.adoc[Getting Started]
+- Update dozer-version in docs for link:documentation/faq.adoc[FAQ]
+- Update GAV version for link:../../README.md[README]
 - Finally, raise a PR. If the PR is built successfully and merged, TravisCI should automatically publish to Maven Central
 
 [1] https://github.com/ariatemplates/git-release-notes/blob/master/README.md
@@ -16,4 +18,6 @@ git-release-notes {last version tag}.. markdown > release.notes
 - Validate release on link:https://repo.maven.apache.org/maven2/com/github/dozermapper/dozer-core/[Sonatype]
 - Create release in link:https://github.com/DozerMapper/dozer/releases[GitHub]
 - Run docs release via release.sh
+- Raise PR for link:https://issues.apache.org/jira/projects/CAMEL/[Apache Camel] upgrade
+- Raise PR for link:https://github.com/spring-io/initializr[Spring Boot] upgrade
 - Finally, do the release steps, but now for a SNAPSHOT
