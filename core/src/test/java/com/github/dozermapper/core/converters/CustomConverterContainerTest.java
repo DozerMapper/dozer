@@ -101,6 +101,7 @@ public class CustomConverterContainerTest extends AbstractDozerTest {
     public void testGetCustomConverter_IsEmpty() {
         converters.clear();
         Class result = ccc.getCustomConverter(Integer.class, Double.class, cache);
+
         assertEquals(null, result);
     }
 
@@ -115,5 +116,4 @@ public class CustomConverterContainerTest extends AbstractDozerTest {
 
         assertEquals(1, cache.getSize());
     }
-
 }

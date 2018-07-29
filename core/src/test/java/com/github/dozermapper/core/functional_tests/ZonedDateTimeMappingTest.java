@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.core.functional_tests;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -24,54 +25,89 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.dozermapper.core.Mapper;
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(JUnitParamsRunner.class)
 public class ZonedDateTimeMappingTest extends AbstractFunctionalTest {
 
     private Mapper mapper;
-
-    private ZonedDateTime sample = ZonedDateTime.of(
-            LocalDateTime.of(2017, 11, 2, 10, 0),
-            ZoneId.systemDefault()
-    );
-
+    private ZonedDateTime sample = ZonedDateTime.of(LocalDateTime.of(2017, 11, 2, 10, 0), ZoneId.systemDefault());
 
     @Before
     public void setUp() throws Exception {
         mapper = getMapper("mappings/jsr330Mapping.xml");
     }
 
-
     @Test
-    @Parameters(method = "testData")
-    public void testMapping(Object source) {
+    public void canConvertString() {
+        String source = DateTimeFormatter.ISO_ZONED_DATE_TIME.format(sample);
+
         Map<String, Object> sourceMap = new HashMap<>();
         sourceMap.put("key", source);
+
         ZonedDateTimeVO dest = mapper.map(sourceMap, ZonedDateTimeVO.class);
+
         assertNotNull(dest);
+
         ZonedDateTime result = dest.getResult();
-        assertTrue(
-                String.format("Values are not equals. Expected: %s. Actual: %s", sample, result),
-                sample.isEqual(result)
-        );
+
+        assertNotNull(result);
+        assertTrue(String.format("Values are not equals. Expected: %s. Actual: %s", sample, result), sample.isEqual(result));
     }
 
-    private Object testData() {
-        return new Object[][]{
-                {DateTimeFormatter.ISO_ZONED_DATE_TIME.format(sample)},
-                {sample.toInstant()},
-                {sample.toInstant().toEpochMilli()},
-                {new Date(sample.toInstant().toEpochMilli())}
-        };
+    @Test
+    public void canConvertInstant() {
+        Instant source = sample.toInstant();
+
+        Map<String, Object> sourceMap = new HashMap<>();
+        sourceMap.put("key", source);
+
+        ZonedDateTimeVO dest = mapper.map(sourceMap, ZonedDateTimeVO.class);
+
+        assertNotNull(dest);
+
+        ZonedDateTime result = dest.getResult();
+
+        assertNotNull(result);
+        assertTrue(String.format("Values are not equals. Expected: %s. Actual: %s", sample, result), sample.isEqual(result));
+    }
+
+    @Test
+    public void canConvertLong() {
+        Long source = sample.toInstant().toEpochMilli();
+
+        Map<String, Object> sourceMap = new HashMap<>();
+        sourceMap.put("key", source);
+
+        ZonedDateTimeVO dest = mapper.map(sourceMap, ZonedDateTimeVO.class);
+
+        assertNotNull(dest);
+
+        ZonedDateTime result = dest.getResult();
+
+        assertNotNull(result);
+        assertTrue(String.format("Values are not equals. Expected: %s. Actual: %s", sample, result), sample.isEqual(result));
+    }
+
+    @Test
+    public void canConvertDate() {
+        Date source = new Date(sample.toInstant().toEpochMilli());
+
+        Map<String, Object> sourceMap = new HashMap<>();
+        sourceMap.put("key", source);
+
+        ZonedDateTimeVO dest = mapper.map(sourceMap, ZonedDateTimeVO.class);
+
+        assertNotNull(dest);
+
+        ZonedDateTime result = dest.getResult();
+
+        assertNotNull(result);
+        assertTrue(String.format("Values are not equals. Expected: %s. Actual: %s", sample, result), sample.isEqual(result));
     }
 
     public static class ZonedDateTimeVO {
@@ -86,5 +122,4 @@ public class ZonedDateTimeMappingTest extends AbstractFunctionalTest {
             this.result = result;
         }
     }
-
 }

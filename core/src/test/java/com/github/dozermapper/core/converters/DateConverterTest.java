@@ -49,6 +49,7 @@ public class DateConverterTest extends AbstractDozerTest {
         Timestamp timestamp = new java.sql.Timestamp(1L);
         timestamp.setNanos(12345);
         Timestamp result = (Timestamp)converter.convert(Timestamp.class, timestamp);
+
         assertEquals(timestamp, result);
     }
 
@@ -56,6 +57,7 @@ public class DateConverterTest extends AbstractDozerTest {
     public void testSqlDateConversion() {
         Date date = new Date(1L);
         Date result = (Date)converter.convert(Date.class, date);
+
         assertEquals(date, result);
     }
 
@@ -63,6 +65,7 @@ public class DateConverterTest extends AbstractDozerTest {
     public void testUtilDateConversion() {
         java.util.Date date = new java.util.Date(1L);
         java.util.Date result = (java.util.Date)converter.convert(java.util.Date.class, date);
+
         assertEquals(date, result);
     }
 
@@ -70,6 +73,7 @@ public class DateConverterTest extends AbstractDozerTest {
     public void testCalendarConversion() {
         GregorianCalendar calendar = new GregorianCalendar(1, 2, 3);
         GregorianCalendar result = (GregorianCalendar)converter.convert(GregorianCalendar.class, calendar);
+
         assertEquals(calendar, result);
     }
 
@@ -77,6 +81,7 @@ public class DateConverterTest extends AbstractDozerTest {
     public void testTimeConversion() {
         Time time = new Time(1L);
         Time result = (Time)converter.convert(Time.class, time);
+
         assertEquals(result, time);
     }
 
@@ -89,6 +94,7 @@ public class DateConverterTest extends AbstractDozerTest {
     public void testGoodString() {
         GregorianCalendar calendar = new GregorianCalendar(2001, 1, 1);
         java.util.Date expected = calendar.getTime();
+
         assertEquals(expected, converter.convert(java.util.Date.class, "01.02.2001"));
     }
 
@@ -106,6 +112,7 @@ public class DateConverterTest extends AbstractDozerTest {
         XMLGregorianCalendar xmlCalendar = mock(XMLGregorianCalendar.class);
         GregorianCalendar expected = new GregorianCalendar();
         when(xmlCalendar.toGregorianCalendar()).thenReturn(expected);
+
         Date date = new Date(expected.getTimeInMillis());
 
         assertEquals(date, converter.convert(Date.class, xmlCalendar));
@@ -114,8 +121,11 @@ public class DateConverterTest extends AbstractDozerTest {
     @Test
     public void testConvert_Format() {
         GregorianCalendar calendar = new GregorianCalendar(2001, 1, 1);
+
         Object result = converter.convert(String.class, calendar);
+
         String stringCalendar = (String)result;
+
         assertEquals(stringCalendar, "01.02.2001");
     }
 
