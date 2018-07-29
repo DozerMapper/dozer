@@ -156,10 +156,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- ASM required by SPIFLY for Java >=9 -->
         <dependency>
             <groupId>org.ow2.asm</groupId>
-            <artifactId>asm-all</artifactId>
-            <version>6.0_BETA</version>
+            <artifactId>asm</artifactId>
+            <version>6.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-commons</artifactId>
+            <version>6.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-tree</artifactId>
+            <version>6.2</version>
             <scope>test</scope>
         </dependency>
 
