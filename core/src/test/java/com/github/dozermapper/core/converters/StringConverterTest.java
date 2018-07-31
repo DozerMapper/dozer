@@ -15,6 +15,8 @@
  */
 package com.github.dozermapper.core.converters;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -31,6 +33,7 @@ public class StringConverterTest extends AbstractDozerTest {
         Date src = new Date();
         StringConverter converter = new StringConverter(new DateFormatContainer(null));
         String result = (String)converter.convert(String.class, src);
+
         assertEquals("incorrect value returned from converter", src.toString(), result);
     }
 
@@ -39,7 +42,28 @@ public class StringConverterTest extends AbstractDozerTest {
         Calendar src = Calendar.getInstance();
         StringConverter converter = new StringConverter(new DateFormatContainer(null));
         String result = (String)converter.convert(String.class, src);
+
         assertEquals("incorrect value returned from converter", src.toString(), result);
     }
 
+    @Test
+    public void testLocalDateTimeToStringNoFormat() {
+        LocalDateTime src = LocalDateTime.now();
+        StringConverter converter = new StringConverter(new DateFormatContainer(null));
+        String result = (String)converter.convert(String.class, src);
+
+        assertEquals("incorrect value returned from converter", src.toString(), result);
+    }
+
+    @Test
+    public void testLocalDateTimeToStringWithFormat() {
+        LocalDateTime src = LocalDateTime.now();
+        String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+        String formattedSrc = DateTimeFormatter.ofPattern(pattern).format(src);
+
+        StringConverter converter = new StringConverter(new DateFormatContainer(pattern));
+        String result = (String)converter.convert(String.class, src);
+
+        assertEquals("incorrect value returned from converter", formattedSrc, result);
+    }
 }

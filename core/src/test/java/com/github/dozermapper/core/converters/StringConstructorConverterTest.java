@@ -36,6 +36,7 @@ public class StringConstructorConverterTest extends AbstractDozerTest {
     @Test
     public void testNoConstructor() {
         Object result = converter.convert(ArrayList.class, "A");
+
         assertEquals("A", result);
     }
 }

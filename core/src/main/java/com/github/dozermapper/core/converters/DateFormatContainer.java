@@ -17,6 +17,7 @@ package com.github.dozermapper.core.converters;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
@@ -24,8 +25,10 @@ import java.util.Locale;
  * for internal use.
  */
 public class DateFormatContainer {
+
     private String dfStr;
     private DateFormat dateFormat;
+    private DateTimeFormatter dateTimeFormatter;
 
     public DateFormatContainer(String dfStr) {
         this.dfStr = dfStr;
@@ -38,6 +41,28 @@ public class DateFormatContainer {
         return dateFormat;
     }
 
+    /**
+     * Date and time formatter for Java 8 Date &amp; Time objects.
+     *
+     * @return formatter
+     */
+    public DateTimeFormatter getDateTimeFormatter() {
+        if (dateTimeFormatter == null) {
+            if (dfStr != null) {
+                dateTimeFormatter = DateTimeFormatter.ofPattern(dfStr);
+            }
+        }
+        return dateTimeFormatter;
+    }
+
+    /**
+     * TODO replace method call with reflection in tests.
+     *
+     * @param dateFormat dateFormat
+     * @deprecated This method will break internal state of the instance by setting formatter which is not using
+     * format provided using constructor. It will be removed in future releases.
+     */
+    @Deprecated
     public void setDateFormat(DateFormat dateFormat) {
         this.dateFormat = dateFormat;
     }

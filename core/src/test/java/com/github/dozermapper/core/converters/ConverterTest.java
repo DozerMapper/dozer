@@ -21,41 +21,23 @@ import com.github.dozermapper.core.AbstractDozerTest;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 public class ConverterTest extends AbstractDozerTest {
-    /*
-     * See PrimitiveOrWrapperConverterTest for more thorough data conversion unit tests
-     */
-    @Test
-    public void testAccessors() {
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
-
-        CalendarConverter cc = new CalendarConverter(dateFormat);
-        assertEquals(dateFormat, cc.getDateFormat());
-
-        StringConverter sc = new StringConverter(null);
-        DateFormatContainer dfc = new DateFormatContainer(null);
-        sc.setDateFormatContainer(dfc);
-        assertEquals(dfc, sc.getDateFormatContainer());
-    }
 
     @Test(expected = ConversionException.class)
-    public void testInvalidDateInput() {
+    public void testInvalidDateInput() throws Exception {
         DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
         dc.convert(java.util.Date.class, "jfdlajf");
     }
 
     @Test(expected = ConversionException.class)
-    public void testInvalidDateInput_String() {
-        DateConverter dc = new DateConverter(DateFormat.getDateInstance(DateFormat.LONG));
+    public void testInvalidDateInput_String() throws Exception {
         // no long constructor
-        dc = new DateConverter(null);
+        DateConverter dc = new DateConverter(null);
         dc.convert(String.class, "123");
     }
 
     @Test(expected = ConversionException.class)
-    public void testInvalidCalendarInput() {
+    public void testInvalidCalendarInput() throws Exception {
         CalendarConverter dc = new CalendarConverter(DateFormat.getDateInstance(DateFormat.LONG));
         dc.convert(java.util.GregorianCalendar.class, "jfdlajf");
     }

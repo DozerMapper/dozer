@@ -95,6 +95,7 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest {
     @Test
     public void testConvert_EmptyString() {
         Object result = converter.convert(XMLGregorianCalendar.class, "");
+
         assertNull(result);
     }
 
@@ -104,6 +105,7 @@ public class XMLGregorianCalendarConverterTest extends AbstractDozerTest {
         XMLGregorianCalendar calendar = instance.newXMLGregorianCalendar(new GregorianCalendar(YEAR, MONTH, DAY));
         Object result = converter.convert(String.class, calendar);
         String stringCalendar = (String)result;
+
         assertEquals(stringCalendar, "04.09.1983");
     }
 }
