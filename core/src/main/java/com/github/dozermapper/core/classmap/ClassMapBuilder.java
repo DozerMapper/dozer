@@ -408,7 +408,8 @@ public final class ClassMapBuilder {
                     if (mapping != null) {
                         String propertyName = property.getName();
                         String pairName = mapping.value().trim();
-                        if (requireMapping(mapping, classMap.getDestClassToMap(), propertyName, pairName)) {
+                        if (requireMapping(mapping, classMap.getDestClassToMap(), propertyName, pairName)
+                                && classMap.getFieldMapUsingSrc(propertyName) == null) {
                             GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
                                                              propertyName, pairName.isEmpty() ? propertyName : pairName, beanContainer, destBeanCreator, propertyDescriptorFactory);
                         }
