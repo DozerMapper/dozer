@@ -1,6 +1,8 @@
 == Migration from v6.3.0 to v6.4.0
-**STILL WORK IN PROGRESS - NOT RELEASED**
 See link:https://github.com/DozerMapper/dozer/releases/tag/6.4.0[for release notes].
 
-=== 1. ...
-...
+=== 1. Java 9 and 10 support
+Java9/10 are now tested against. However, no Java9/10 compiled JARs have been released.
+
+=== 2. Java 8 datetime converters
+Support for Java8 datetime packages.
