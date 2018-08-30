@@ -72,7 +72,7 @@
         <osgi.Bundle-Activator/>
         <osgi.defaults.Import-Package>
             !${osgi.Export-Package},
-            com.github.dozermapper.*;${osgi.Import-Package.version}
+            com.github.dozermapper.*;${osgi.Import-Package.version},
             org.osgi.framework;version="[1.7,2)";resolution:=optional
         </osgi.defaults.Import-Package>
         <osgi.additional.Import-Package/>
