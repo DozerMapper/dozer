@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -207,51 +208,33 @@ public final class ProtoUtils {
                 return getEnumClassByEnumDescriptor(descriptor.getEnumType(), beanContainer);
             case MESSAGE:
                 return MappingUtils.loadClass(StringUtils.join(
-                        getFullyQualifiedClassName(descriptor.getMessageType()), '.'), beanContainer);
+                        getFullyQualifiedClassName(descriptor.getMessageType().getContainingType(),
+                                descriptor.getMessageType().getFile().getOptions(),
+                                descriptor.getMessageType().getName()), '.'), beanContainer);
             default:
                 throw new MappingException("Unable to find " + descriptor.getJavaType());
         }
     }
 
-    private static String[] getFullyQualifiedClassName(final Descriptors.Descriptor msgDescr) {
-        final FileOptions fileOpts = msgDescr.getFile().getOptions();
+    private static String[] getFullyQualifiedClassName(Descriptors.Descriptor container, final FileOptions fileOpts, String name) {
 
         if (fileOpts.getJavaMultipleFiles()) {
-            ArrayList<String> fqnSegments = new ArrayList<>(16);
-            fqnSegments.add(fileOpts.getJavaPackage());
-            Descriptors.Descriptor parentDescriptor = msgDescr.getContainingType();
-            while (parentDescriptor != null) {
-                fqnSegments.add(parentDescriptor.getName());
-                parentDescriptor = parentDescriptor.getContainingType();
+            LinkedList<String> fqnSegments = new LinkedList<>();
+            fqnSegments.push(name);
+            while (container != null) {
+                fqnSegments.push(container.getName());
+                container = container.getContainingType();
             }
-            fqnSegments.add(msgDescr.getName());
+            fqnSegments.push(fileOpts.getJavaPackage());
             return fqnSegments.toArray(new String[] {});
         }
 
-        return new String[] {fileOpts.getJavaPackage(), fileOpts.getJavaOuterClassname(), msgDescr.getName()};
-    }
-
-    private static String[] getFullyQualifiedEnumClassName(final Descriptors.EnumDescriptor enumDescr) {
-        final FileOptions fileOpts = enumDescr.getFile().getOptions();
-
-        if (fileOpts.getJavaMultipleFiles()) {
-            ArrayList<String> fqnSegments = new ArrayList<>(16);
-            fqnSegments.add(fileOpts.getJavaPackage());
-            Descriptors.Descriptor parentDescriptor = enumDescr.getContainingType();
-            while (parentDescriptor != null) {
-                fqnSegments.add(parentDescriptor.getName());
-                parentDescriptor = parentDescriptor.getContainingType();
-            }
-            fqnSegments.add(enumDescr.getName());
-            return fqnSegments.toArray(new String[] {});
-        }
-
-        return new String[] {fileOpts.getJavaPackage(), fileOpts.getJavaOuterClassname(), enumDescr.getName()};
+        return new String[] {fileOpts.getJavaPackage(), fileOpts.getJavaOuterClassname(), name};
     }
 
     @SuppressWarnings("unchecked")
     private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor, BeanContainer beanContainer) {
-        String name = StringUtils.join(getFullyQualifiedEnumClassName(descriptor), '.');
+        String name = StringUtils.join(getFullyQualifiedClassName(descriptor.getContainingType(), descriptor.getFile().getOptions(), descriptor.getName()), '.');
         return (Class<? extends Enum>)MappingUtils.loadClass(name, beanContainer);
     }
 
