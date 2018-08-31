@@ -25,3 +25,18 @@ message TestObject {
 message SimpleProtoTestObject {
     TestObject nested = 1;
 }
+
+message ContainerObject {
+
+    enum ContainedEnum {
+		VALUE1 = 0;
+		VALUE2 = 1;
+    }
+	
+    message ContainedObject {
+        string c1 = 1;
+    }
+
+    ContainedObject obj1 = 1;
+    ContainedEnum enum1 = 2;
+}

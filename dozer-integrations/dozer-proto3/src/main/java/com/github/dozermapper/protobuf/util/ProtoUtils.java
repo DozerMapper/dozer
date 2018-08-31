@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.util.MappingUtils;
 import com.google.common.base.CaseFormat;
 import com.google.protobuf.ByteString;
-import com.google.protobuf.DescriptorProtos;
+import com.google.protobuf.DescriptorProtos.FileOptions;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 import com.google.protobuf.ProtocolMessageEnum;
@@ -207,23 +208,33 @@ public final class ProtoUtils {
                 return getEnumClassByEnumDescriptor(descriptor.getEnumType(), beanContainer);
             case MESSAGE:
                 return MappingUtils.loadClass(StringUtils.join(
-                        getFullyQualifiedClassName(descriptor.getMessageType().getFile().getOptions(), descriptor.getMessageType().getName()), '.'), beanContainer);
+                        getFullyQualifiedClassName(descriptor.getMessageType().getContainingType(),
+                                descriptor.getMessageType().getFile().getOptions(),
+                                descriptor.getMessageType().getName()), '.'), beanContainer);
             default:
                 throw new MappingException("Unable to find " + descriptor.getJavaType());
         }
     }
 
-    private static String[] getFullyQualifiedClassName(DescriptorProtos.FileOptions options, String name) {
-        if (options.getJavaMultipleFiles()) {
-            return new String[] {options.getJavaPackage(), name};
+    private static String[] getFullyQualifiedClassName(Descriptors.Descriptor container, final FileOptions fileOpts, String name) {
+
+        if (fileOpts.getJavaMultipleFiles()) {
+            LinkedList<String> fqnSegments = new LinkedList<>();
+            fqnSegments.push(name);
+            while (container != null) {
+                fqnSegments.push(container.getName());
+                container = container.getContainingType();
+            }
+            fqnSegments.push(fileOpts.getJavaPackage());
+            return fqnSegments.toArray(new String[] {});
         }
 
-        return new String[] {options.getJavaPackage(), options.getJavaOuterClassname(), name};
+        return new String[] {fileOpts.getJavaPackage(), fileOpts.getJavaOuterClassname(), name};
     }
 
     @SuppressWarnings("unchecked")
     private static Class<? extends Enum> getEnumClassByEnumDescriptor(Descriptors.EnumDescriptor descriptor, BeanContainer beanContainer) {
-        String name = StringUtils.join(getFullyQualifiedClassName(descriptor.getFile().getOptions(), descriptor.getName()), '.');
+        String name = StringUtils.join(getFullyQualifiedClassName(descriptor.getContainingType(), descriptor.getFile().getOptions(), descriptor.getName()), '.');
         return (Class<? extends Enum>)MappingUtils.loadClass(name, beanContainer);
     }
 

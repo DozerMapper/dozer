@@ -87,4 +87,26 @@
         </field>
     </mapping>
 
+    <mapping wildcard="false">
+        <class-a>com.github.dozermapper.protobuf.vo.proto.TestContainerObject.TestContainedObject</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.protomultiple.ContainerObject.ContainedObject</class-b>
+        <field>
+            <a>c1</a>
+            <b>c1</b>
+        </field>
+    </mapping>
+
+    <mapping wildcard="false">
+        <class-a>com.github.dozermapper.protobuf.vo.proto.TestContainerObject</class-a>
+        <class-b>com.github.dozermapper.protobuf.vo.protomultiple.ContainerObject</class-b>
+        <field>
+            <a>obj1</a>
+            <b>obj1</b>
+        </field>
+        <field>
+            <a>enum1</a>
+            <b>enum1</b>
+        </field>
+    </mapping>
+
 </mappings>
