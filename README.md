@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/DozerMapper/dozer.svg?branch=master)](https://travis-ci.org/DozerMapper/dozer)
 [![Release Version](https://img.shields.io/maven-central/v/com.github.dozermapper/dozer-core.svg?maxAge=2592000)](https://mvnrepository.com/artifact/com.github.dozermapper/dozer-core)
 [![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
+[![Code Quality: Java](https://img.shields.io/lgtm/grade/java/g/DozerMapper/dozer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/DozerMapper/dozer/context:java)
+[![Total Alerts](https://img.shields.io/lgtm/alerts/g/DozerMapper/dozer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/DozerMapper/dozer/alerts)
 
 # Dozer
 ## Active Contributors
