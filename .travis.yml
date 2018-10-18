@@ -9,16 +9,18 @@ env:
 language: java
 matrix:
   include:
-  - jdk: oraclejdk8
+  - jdk: openjdk8
     env: SHOULD_DEPLOY=true
-  - jdk: oraclejdk9
+  - jdk: oraclejdk8
     env: SHOULD_DEPLOY=false
-  - jdk: oraclejdk10
+  - jdk: openjdk9
     env: SHOULD_DEPLOY=false
-  - jdk: oraclejdk11
+  - jdk: openjdk10
+    env: SHOULD_DEPLOY=false
+  - jdk: openjdk11
     env: SHOULD_DEPLOY=false
   allow_failures:
-  - jdk: oraclejdk11
+  - jdk: openjdk11
 before_install:
 - bash .travis/deploy-codesigning.sh
 install:
