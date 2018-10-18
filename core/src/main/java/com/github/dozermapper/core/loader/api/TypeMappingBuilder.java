@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.core.loader.api;
 
+import com.github.dozermapper.core.classmap.MappingDirection;
 import com.github.dozermapper.core.loader.DozerBuilder;
 
 public final class TypeMappingBuilder {
@@ -54,13 +55,24 @@ public final class TypeMappingBuilder {
     }
 
     public TypeMappingBuilder exclude(String field) {
-        return exclude(new FieldDefinition(field));
+        return exclude(new FieldDefinition(field), MappingDirection.BI_DIRECTIONAL);
+    }
+
+    public TypeMappingBuilder exclude(String field, MappingDirection direction) {
+        return exclude(new FieldDefinition(field), direction);
     }
 
     public TypeMappingBuilder exclude(FieldDefinition field) {
+        return exclude(field, MappingDirection.BI_DIRECTIONAL);
+    }
+
+    public TypeMappingBuilder exclude(FieldDefinition field, MappingDirection direction) {
         DozerBuilder.FieldExclusionBuilder builder = beanMappingBuilder.fieldExclude();
+
         builder.a(field.resolve(), null);
         builder.b(field.resolve(), null);
+        builder.type(direction);
+
         return this;
     }
 
