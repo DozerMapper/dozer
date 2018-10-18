@@ -15,12 +15,11 @@
  */
 package com.github.dozermapper.wildflytests;
 
-import java.io.File;
-
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.classmap.MappingDirection;
+import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
 import com.github.dozermapper.osgitestsmodel.Person;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -29,6 +28,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -69,5 +70,63 @@ public class MapperTest {
         assertNotNull(answer);
         assertNotNull(answer.getName());
         assertEquals("bob", answer.getName());
+    }
+
+    @Test
+    public void testOneWayExcludeViaApi() {
+        Mapper mapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/mapping.xml")
+                .withMappingBuilder(new PersonMappingProfile())
+                .build();
+
+        PersonDTO dto = mapper.map(new Person("bob", "000-000-01"), PersonDTO.class);
+
+        assertEquals(dto.getName(), null);
+
+        assertEquals(dto.getId(), null);
+
+        Person entity = mapper.map(new PersonDTO("bob", "000-000-01"), Person.class);
+
+        assertEquals(entity.getName(), null);
+
+        assertEquals(entity.getId(), "000-000-01");
+    }
+
+    public static class PersonDTO {
+        private String name;
+        private String id;
+
+        PersonDTO() {
+        }
+
+        PersonDTO(String name, String id) {
+            this.name = name;
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+    }
+
+    class PersonMappingProfile extends BeanMappingBuilder {
+        @Override
+        protected void configure() {
+            mapping(Person.class, PersonDTO.class)
+                    .exclude("name")
+                    .exclude("id", MappingDirection.ONE_WAY);
+        }
     }
 }

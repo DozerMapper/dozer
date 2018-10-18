@@ -18,6 +18,13 @@ package com.github.dozermapper.osgitestsmodel;
 public class Person {
 
     private String name;
+    private String id;
+
+    public Person(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
+
 
     public Person(String name) {
         this.name = name;
@@ -33,5 +40,13 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
