@@ -436,15 +436,6 @@
     </contributors>
 
     <distributionManagement>
-        <site>
-            <id>dozer.sf.net</id>
-            <url>scp://shell.sourceforge.net//home/project-web/dozer/htdocs</url>
-        </site>
-        <repository>
-            <id>bintray</id>
-            <name>Bintray</name>
-            <url>https://api.bintray.com/maven/buzdin/dozer-mapper/dozer</url>
-        </repository>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
             <name>Sonatype Snapshots</name>
