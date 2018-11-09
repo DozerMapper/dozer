@@ -324,9 +324,9 @@
             </build>
         </profile>
         <profile>
-            <id>above-jdk8-build</id>
+            <id>jdk9-and-above-build</id>
             <activation>
-                <jdk>[9,12)</jdk>
+                <jdk>[9,)</jdk>
             </activation>
             <build>
                 <plugins>
