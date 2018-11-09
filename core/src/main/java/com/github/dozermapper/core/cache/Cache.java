@@ -69,11 +69,11 @@ public interface Cache<KeyType, ValueType> {
     int getMaxSize();
 
     /**
-     * Returns <tt>true</tt> if this map contains a mapping for the
+     * Returns true if this map contains a mapping for the
      * specified key.
      *
      * @param key The key whose presence in this map is to be tested
-     * @return <tt>true</tt> if this map contains a mapping for the specified key.
+     * @return true if this map contains a mapping for the specified key.
      */
     boolean containsKey(KeyType key);
 }
