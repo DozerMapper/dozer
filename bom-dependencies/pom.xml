@@ -40,14 +40,13 @@
         <commons-io.version>2.5</commons-io.version>
         <javax.el.version>3.0.0</javax.el.version>
         <felix.version>5.6.8</felix.version>
+        <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
         <guava.version>22.0</guava.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <hibernate-core.version>5.2.10.Final</hibernate-core.version>
         <jackson-dataformat.version>2.9.0</jackson-dataformat.version>
         <javax.inject.version>1</javax.inject.version>
         <javassist.version>3.21.0-GA</javassist.version>
-        <jaxb-api-spec.version>2.2.0</jaxb-api-spec.version>
-        <jaxb-api.version>2.2.11</jaxb-api.version>
         <jmh.version>1.19</jmh.version>
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
         <mockito-core.version>2.18.0</mockito-core.version>
@@ -113,6 +112,11 @@
                 <version>${felix.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${jaxb-runtime.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-all</artifactId>
                 <version>${hamcrest-all.version}</version>
@@ -153,16 +157,6 @@
                 <version>${javassist.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxb-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-impl</artifactId>
-                <version>${jaxb-api.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
@@ -192,16 +186,6 @@
                 <groupId>org.apache.aries.spifly</groupId>
                 <artifactId>org.apache.aries.spifly.dynamic.bundle</artifactId>
                 <version>${aries.spifly.verison}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.servicemix.bundles</groupId>
-                <artifactId>org.apache.servicemix.bundles.jaxb-impl</artifactId>
-                <version>${jaxb-api.version}_1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.servicemix.specs</groupId>
-                <artifactId>org.apache.servicemix.specs.jaxb-api-2.2</artifactId>
-                <version>${jaxb-api-spec.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.servicemix.bundles</groupId>
