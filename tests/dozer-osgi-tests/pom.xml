@@ -34,7 +34,7 @@
     <properties>
         <osgi.Export-Package>com.github.dozermapper.osgitests.*</osgi.Export-Package>
 
-        <karaf4-version>4.2.0</karaf4-version>
+        <karaf4-version>4.2.1</karaf4-version>
     </properties>
 
     <dependencies>
