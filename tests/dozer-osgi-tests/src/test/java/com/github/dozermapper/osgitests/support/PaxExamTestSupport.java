@@ -117,7 +117,7 @@ public abstract class PaxExamTestSupport {
     }
 
     private Option getJavaModuleOptions() {
-        if (JavaVersionUtil.getMajorVersion() >= 9) {
+        if (JavaVersionUtil.getMajorVersion() >= 9 && JavaVersionUtil.getMajorVersion() <= 10) {
             return composite(
                     vmOption("--add-opens"),
                     vmOption("java.base/java.security=ALL-UNNAMED"),
