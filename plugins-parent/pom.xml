@@ -59,7 +59,7 @@
         <spotbugs-maven-plugin.version>3.1.8</spotbugs-maven-plugin.version>
 
         <!-- OSGi Plugins versions; alphabetical order -->
-        <maven-bundle-plugin.version>3.5.1</maven-bundle-plugin.version>
+        <maven-bundle-plugin.version>4.1.0</maven-bundle-plugin.version>
         <depends-maven-plugin.version>1.4.0</depends-maven-plugin.version>
 
         <!-- Protobuf Plugins versions; alphabetical order -->
@@ -312,13 +312,6 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>false</extensions>
-                <dependencies>
-                    <dependency>
-                        <groupId>biz.aQute.bnd</groupId>
-                        <artifactId>biz.aQute.bndlib</artifactId>
-                        <version>4.0.0</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <instructions>
                         <Bundle-Activator>${osgi.Bundle-Activator}</Bundle-Activator>
