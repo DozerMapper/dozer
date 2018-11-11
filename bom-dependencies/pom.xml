@@ -46,7 +46,7 @@
         <hibernate-core.version>5.2.10.Final</hibernate-core.version>
         <jackson-dataformat.version>2.9.0</jackson-dataformat.version>
         <javax.inject.version>1</javax.inject.version>
-        <javassist.version>3.21.0-GA</javassist.version>
+        <javassist.version>3.24.0-GA</javassist.version>
         <jmh.version>1.19</jmh.version>
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
         <mockito-core.version>2.18.0</mockito-core.version>
