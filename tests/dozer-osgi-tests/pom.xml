@@ -63,18 +63,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JAXB -->
-        <dependency>
-            <groupId>org.apache.servicemix.bundles</groupId>
-            <artifactId>org.apache.servicemix.bundles.jaxb-impl</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.servicemix.specs</groupId>
-            <artifactId>org.apache.servicemix.specs.jaxb-api-2.2</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Provided dependencies; YAML -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
