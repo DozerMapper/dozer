@@ -48,7 +48,7 @@
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
 
         <!-- Apache Plugins; alphabetical order -->
-        <cxf-xjc-plugin.version>3.2.1</cxf-xjc-plugin.version>
+        <cxf-xjc-plugin.version>3.2.3</cxf-xjc-plugin.version>
 
         <!-- Codehaus Plugins versions; alphabetical order -->
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
