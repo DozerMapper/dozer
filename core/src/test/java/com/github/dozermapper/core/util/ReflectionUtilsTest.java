@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.core.util;
 
+import com.github.dozermapper.core.vo.deep.House;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -200,6 +201,17 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     @Test
     public void shouldDetermineReadMethodForSyntheticOnlyMethod() throws Exception {
         PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(ListHolderWrapperImpl.class, "list", null);
+        assertNotNull(propertyDescriptor.getReadMethod());
+    }
+
+    @Test
+    public void testDeepFieldWithLineBreaksTabsSpaces() {
+        ReflectionUtils.findPropertyDescriptor(House.class, "\n\r\t owner.name", null);
+    }
+
+    @Test
+    public void testSimpleFieldWithLineBreaksTabsSpaces() {
+        PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(SimpleObj.class, "\n\r\t field1", null);
         assertNotNull(propertyDescriptor.getReadMethod());
     }
 
