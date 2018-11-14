@@ -15,7 +15,6 @@
  */
 package com.github.dozermapper.core.util;
 
-import com.github.dozermapper.core.vo.deep.House;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -32,6 +31,7 @@ import com.github.dozermapper.core.vo.B;
 import com.github.dozermapper.core.vo.NoReadMethod;
 import com.github.dozermapper.core.vo.NoVoidSetters;
 import com.github.dozermapper.core.vo.SimpleObj;
+import com.github.dozermapper.core.vo.deep.House;
 import com.github.dozermapper.core.vo.inheritance.ChildChildIF;
 
 import org.junit.Assert;
