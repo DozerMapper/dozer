@@ -51,8 +51,10 @@ public final class ReflectionUtils {
     public static PropertyDescriptor findPropertyDescriptor(Class<?> objectClass, String fieldName,
                                                             HintContainer deepIndexHintContainer) {
         PropertyDescriptor result = null;
-        if (MappingUtils.isDeepMapping(fieldName)) {
-            DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
+        String trimmedFieldName = getTrimmedText(fieldName);
+        if (MappingUtils.isDeepMapping(trimmedFieldName)) {
+            DeepHierarchyElement[] hierarchy =
+                    getDeepFieldHierarchy(objectClass, trimmedFieldName, deepIndexHintContainer);
             result = hierarchy[hierarchy.length - 1].getPropDescriptor();
         } else {
             PropertyDescriptor[] descriptors = getPropertyDescriptors(objectClass);
@@ -77,11 +79,11 @@ public final class ReflectionUtils {
 
                     String propertyName = descriptors[i].getName();
                     Method readMethod = descriptors[i].getReadMethod();
-                    if (fieldName.equals(propertyName)) {
+                    if (trimmedFieldName.equals(propertyName)) {
                         return fixGenericDescriptor(objectClass, descriptors[i]);
                     }
 
-                    if (fieldName.equalsIgnoreCase(propertyName)) {
+                    if (trimmedFieldName.equalsIgnoreCase(propertyName)) {
                         result = descriptors[i];
                     }
                 }
@@ -496,6 +498,10 @@ public final class ReflectionUtils {
                && (classB.equals(classA) // Same types
                || ClassUtils.primitiveToWrapper(classB).equals(classA) // Matching primitive-wrapper pair, e.g. double - Double
                || ClassUtils.primitiveToWrapper(classA).equals(classB)); // Matching wrapper-primitive pair, e.g. Long - long
+    }
+
+    private static String getTrimmedText(String text) {
+        return text != null ? text.trim() : null;
     }
 
 }
