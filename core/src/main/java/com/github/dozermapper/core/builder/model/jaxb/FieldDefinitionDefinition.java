@@ -215,7 +215,8 @@ public class FieldDefinitionDefinition {
             fieldType = type;
         }
 
-        DozerField field = new DozerField(fieldName, fieldType);
+        String trimmedFieldName = fieldName.trim();
+        DozerField field = new DozerField(trimmedFieldName, fieldType);
         if (isIndexed(name)) {
             field.setIndexed(true);
             field.setIndex(getIndexOfIndexedField(name));

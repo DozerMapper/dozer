@@ -21,6 +21,11 @@ import java.util.Map;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
+import com.github.dozermapper.core.vo.SimpleObj;
+import com.github.dozermapper.core.vo.SimpleObjPrime;
+import com.github.dozermapper.core.vo.deep2.Dest;
+import com.github.dozermapper.core.vo.deep2.NestedDest;
+import com.github.dozermapper.core.vo.deep2.NestedNestedDest;
 
 import org.junit.Test;
 
@@ -73,6 +78,28 @@ public class SimpleTest {
 
         Map result = beanMapper.map(source, HashMap.class);
         assertEquals("A", result.get("key"));
+    }
+
+    @Test
+    public void shouldPerformMapWithLineBreaksInField() {
+        Mapper beanMapper = DozerBeanMapperBuilder.create()
+                .withMappingFiles("mappings/fieldWithLineBreaks.xml")
+                .build();
+        SimpleObj simpleObj = new SimpleObj();
+        simpleObj.setField1("Field1 Value");
+
+        Dest dest = new Dest();
+        NestedDest nestedDest = new NestedDest();
+        NestedNestedDest nestedNestedDest = new NestedNestedDest();
+        nestedNestedDest.setNestedNestedDestField("Nested Field Value");
+        nestedDest.setNestedDestField(nestedNestedDest);
+        dest.setDestField(nestedDest);
+
+        SimpleObjPrime simpleObjPrime = beanMapper.map(simpleObj, SimpleObjPrime.class);
+        assertEquals("Field1 Value", simpleObjPrime.getField1());
+
+        NestedNestedDest result = beanMapper.map(dest, NestedNestedDest.class);
+        assertEquals("Nested Field Value", result.getNestedNestedDestField());
     }
 
     public static class Source {

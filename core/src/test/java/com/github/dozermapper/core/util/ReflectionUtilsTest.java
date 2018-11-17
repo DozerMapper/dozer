@@ -31,7 +31,6 @@ import com.github.dozermapper.core.vo.B;
 import com.github.dozermapper.core.vo.NoReadMethod;
 import com.github.dozermapper.core.vo.NoVoidSetters;
 import com.github.dozermapper.core.vo.SimpleObj;
-import com.github.dozermapper.core.vo.deep.House;
 import com.github.dozermapper.core.vo.inheritance.ChildChildIF;
 
 import org.junit.Assert;
@@ -201,17 +200,6 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
     @Test
     public void shouldDetermineReadMethodForSyntheticOnlyMethod() throws Exception {
         PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(ListHolderWrapperImpl.class, "list", null);
-        assertNotNull(propertyDescriptor.getReadMethod());
-    }
-
-    @Test
-    public void testDeepFieldWithLineBreaksTabsSpaces() {
-        ReflectionUtils.findPropertyDescriptor(House.class, "\n\r\t owner.name", null);
-    }
-
-    @Test
-    public void testSimpleFieldWithLineBreaksTabsSpaces() {
-        PropertyDescriptor propertyDescriptor = ReflectionUtils.findPropertyDescriptor(SimpleObj.class, "\n\r\t field1", null);
         assertNotNull(propertyDescriptor.getReadMethod());
     }
 

@@ -51,10 +51,9 @@ public final class ReflectionUtils {
     public static PropertyDescriptor findPropertyDescriptor(Class<?> objectClass, String fieldName,
                                                             HintContainer deepIndexHintContainer) {
         PropertyDescriptor result = null;
-        String trimmedFieldName = getTrimmedText(fieldName);
-        if (MappingUtils.isDeepMapping(trimmedFieldName)) {
+        if (MappingUtils.isDeepMapping(fieldName)) {
             DeepHierarchyElement[] hierarchy =
-                    getDeepFieldHierarchy(objectClass, trimmedFieldName, deepIndexHintContainer);
+                    getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
             result = hierarchy[hierarchy.length - 1].getPropDescriptor();
         } else {
             PropertyDescriptor[] descriptors = getPropertyDescriptors(objectClass);
@@ -79,11 +78,11 @@ public final class ReflectionUtils {
 
                     String propertyName = descriptors[i].getName();
                     Method readMethod = descriptors[i].getReadMethod();
-                    if (trimmedFieldName.equals(propertyName)) {
+                    if (fieldName.equals(propertyName)) {
                         return fixGenericDescriptor(objectClass, descriptors[i]);
                     }
 
-                    if (trimmedFieldName.equalsIgnoreCase(propertyName)) {
+                    if (fieldName.equalsIgnoreCase(propertyName)) {
                         result = descriptors[i];
                     }
                 }
