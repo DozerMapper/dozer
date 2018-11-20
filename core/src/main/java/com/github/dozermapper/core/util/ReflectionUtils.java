@@ -52,8 +52,7 @@ public final class ReflectionUtils {
                                                             HintContainer deepIndexHintContainer) {
         PropertyDescriptor result = null;
         if (MappingUtils.isDeepMapping(fieldName)) {
-            DeepHierarchyElement[] hierarchy =
-                    getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
+            DeepHierarchyElement[] hierarchy = getDeepFieldHierarchy(objectClass, fieldName, deepIndexHintContainer);
             result = hierarchy[hierarchy.length - 1].getPropDescriptor();
         } else {
             PropertyDescriptor[] descriptors = getPropertyDescriptors(objectClass);
@@ -497,10 +496,6 @@ public final class ReflectionUtils {
                && (classB.equals(classA) // Same types
                || ClassUtils.primitiveToWrapper(classB).equals(classA) // Matching primitive-wrapper pair, e.g. double - Double
                || ClassUtils.primitiveToWrapper(classA).equals(classB)); // Matching wrapper-primitive pair, e.g. Long - long
-    }
-
-    private static String getTrimmedText(String text) {
-        return text != null ? text.trim() : null;
     }
 
 }
