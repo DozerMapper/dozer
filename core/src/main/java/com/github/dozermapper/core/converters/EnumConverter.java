@@ -39,7 +39,9 @@ public class EnumConverter implements Converter {
             } else if ((srcObj.getClass().equals(Integer.class)) || (srcObj.getClass().equals(Integer.TYPE))) {
                 return EnumUtils.getEnumList(destClass).get((Integer)srcObj);
             } else if ((srcObj.getClass().equals(Long.class)) || (srcObj.getClass().equals(Long.TYPE))) {
-                return EnumUtils.getEnumList(destClass).get(((Long)srcObj).intValue());
+                return EnumUtils.getEnumList(destClass).get(((Long) srcObj).intValue());
+            } else if (Enum.class.isAssignableFrom(srcObj.getClass())) {
+                return Enum.valueOf(destClass, ((Enum)srcObj).name());
             } else {
                 return Enum.valueOf(destClass, srcObj.toString());
             }
