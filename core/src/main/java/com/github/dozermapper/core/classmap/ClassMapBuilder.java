@@ -24,8 +24,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.github.dozermapper.core.Excluding;
 import com.github.dozermapper.core.Mapping;
 import com.github.dozermapper.core.OptionValue;
+import com.github.dozermapper.core.builder.model.jaxb.Type;
 import com.github.dozermapper.core.classmap.generator.BeanMappingGenerator;
 import com.github.dozermapper.core.classmap.generator.ClassLevelFieldMappingGenerator;
 import com.github.dozermapper.core.classmap.generator.GeneratorUtils;
@@ -404,9 +406,15 @@ public final class ClassMapBuilder {
             for (PropertyDescriptor property : srcProperties) {
                 Method readMethod = property.getReadMethod();
                 if (readMethod != null) {
+                    String propertyName = property.getName();
+                    Excluding excluding = readMethod.getAnnotation(Excluding.class);
+                    if (excluding != null) {
+                        GeneratorUtils.addMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                                propertyName, propertyName,
+                                beanContainer, destBeanCreator, propertyDescriptorFactory, excluding);
+                    }
                     Mapping mapping = readMethod.getAnnotation(Mapping.class);
                     if (mapping != null) {
-                        String propertyName = property.getName();
                         String pairName = mapping.value().trim();
                         if (requireMapping(mapping, classMap.getDestClassToMap(), propertyName, pairName)
                                 && classMap.getFieldMapUsingSrc(propertyName) == null) {
@@ -423,9 +431,15 @@ public final class ClassMapBuilder {
             for (PropertyDescriptor property : destProperties) {
                 Method readMethod = property.getReadMethod();
                 if (readMethod != null) {
+                    String propertyName = property.getName();
+                    Excluding excluding = readMethod.getAnnotation(Excluding.class);
+                    if (excluding != null && excluding.type() == Type.BI_DIRECTIONAL) {
+                        GeneratorUtils.addMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                                propertyName, propertyName,
+                                beanContainer, destBeanCreator, propertyDescriptorFactory, excluding);
+                    }
                     Mapping mapping = readMethod.getAnnotation(Mapping.class);
                     if (mapping != null) {
-                        String propertyName = property.getName();
                         String pairName = mapping.value().trim();
                         if (requireMapping(mapping, classMap.getSrcClassToMap(), propertyName, pairName)) {
                             GeneratorUtils.addGenericMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
@@ -459,8 +473,14 @@ public final class ClassMapBuilder {
             Class<?> srcType = classMap.getSrcClassToMap();
             do {
                 for (Field field : srcType.getDeclaredFields()) {
-                    Mapping mapping = field.getAnnotation(Mapping.class);
                     String fieldName = field.getName();
+                    Excluding excluding = field.getAnnotation(Excluding.class);
+                    if (excluding != null) {
+                        GeneratorUtils.addMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                                fieldName, fieldName,
+                                beanContainer, destBeanCreator, propertyDescriptorFactory, excluding);
+                    }
+                    Mapping mapping = field.getAnnotation(Mapping.class);
                     if (mapping != null) {
                         String pairName = mapping.value().trim();
                         if (requireMapping(mapping, classMap.getDestClassToMap(), fieldName, pairName)) {
@@ -476,8 +496,14 @@ public final class ClassMapBuilder {
             Class<?> destType = classMap.getDestClassToMap();
             do {
                 for (Field field : destType.getDeclaredFields()) {
-                    Mapping mapping = field.getAnnotation(Mapping.class);
                     String fieldName = field.getName();
+                    Excluding excluding = field.getAnnotation(Excluding.class);
+                    if (excluding != null && excluding.type() == Type.BI_DIRECTIONAL) {
+                        GeneratorUtils.addMapping(MappingType.GETTER_TO_SETTER, classMap, configuration,
+                                fieldName, fieldName,
+                                beanContainer, destBeanCreator, propertyDescriptorFactory, excluding);
+                    }
+                    Mapping mapping = field.getAnnotation(Mapping.class);
                     if (mapping != null) {
                         String pairName = mapping.value().trim();
                         if (requireMapping(mapping, classMap.getSrcClassToMap(), fieldName, pairName)) {

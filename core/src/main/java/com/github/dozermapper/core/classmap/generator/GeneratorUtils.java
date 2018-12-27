@@ -15,11 +15,16 @@
  */
 package com.github.dozermapper.core.classmap.generator;
 
+import java.lang.annotation.Annotation;
+
+import com.github.dozermapper.core.Excluding;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.Configuration;
+import com.github.dozermapper.core.classmap.MappingDirection;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.factory.DestBeanCreator;
 import com.github.dozermapper.core.fieldmap.DozerField;
+import com.github.dozermapper.core.fieldmap.ExcludeFieldMap;
 import com.github.dozermapper.core.fieldmap.FieldMap;
 import com.github.dozermapper.core.fieldmap.GenericFieldMap;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
@@ -42,9 +47,20 @@ public final class GeneratorUtils {
     }
 
     public static void addGenericMapping(MappingType mappingType, ClassMap classMap,
-                                         Configuration configuration, String srcName, String destName, BeanContainer beanContainer,
-                                         DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
-        FieldMap fieldMap = new GenericFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
+            Configuration configuration, String srcName, String destName, BeanContainer beanContainer,
+            DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+        addMapping(mappingType, classMap, configuration, srcName, destName, beanContainer, destBeanCreator, propertyDescriptorFactory, null);
+    }
+
+    public static void addMapping(MappingType mappingType, ClassMap classMap,
+            Configuration configuration, String srcName, String destName, BeanContainer beanContainer,
+            DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory, Annotation annotation) {
+        FieldMap fieldMap;
+        if (annotation != null) {
+            fieldMap = getAnnotationFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory, annotation);
+        } else {
+            fieldMap = new GenericFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
+        }
         DozerField srcField = new DozerField(srcName, null);
         DozerField destField = new DozerField(destName, null);
         fieldMap.setSrcField(srcField);
@@ -66,5 +82,18 @@ public final class GeneratorUtils {
         // add CopyByReferences per defect #1728159
         MappingUtils.applyGlobalCopyByReference(configuration, fieldMap, classMap);
         classMap.addFieldMapping(fieldMap);
+    }
+
+    private static FieldMap getAnnotationFieldMap(ClassMap classMap,
+            BeanContainer beanContainer, DestBeanCreator destBeanCreator,
+            PropertyDescriptorFactory propertyDescriptorFactory, Annotation annotation) {
+        if (annotation instanceof Excluding) {
+            Excluding excluding = (Excluding) annotation;
+            FieldMap fieldMap = new ExcludeFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
+            MappingDirection md = MappingDirection.valueOf(excluding.type().value());
+            fieldMap.setType(md);
+            return fieldMap;
+        }
+        throw new UnsupportedOperationException("This annotation type is not supported");
     }
 }
