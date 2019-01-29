@@ -161,15 +161,19 @@ public class DozerBeanMapperFactoryBean extends ApplicationObjectSupport impleme
         eventListeners.addAll(contextEventListeners.values());
         customConvertersWithId.putAll(contextCustomConvertersWithId);
 
-        this.mapper = DozerBeanMapperBuilder.create()
+        DozerBeanMapperBuilder builder = DozerBeanMapperBuilder.create()
                 .withMappingFiles(mappingFileUrls)
                 .withCustomFieldMapper(customFieldMapper)
                 .withCustomConverters(customConverters)
                 .withMappingBuilders(mappingBuilders)
                 .withEventListeners(eventListeners)
                 .withBeanFactorys(beanFactories)
-                .withCustomConvertersWithIds(customConvertersWithId)
-                .build();
+                .withCustomConvertersWithIds(customConvertersWithId);
+
+        getApplicationContext().getBeansOfType(DozerBeanMapperBuilderCustomizer.class).values()
+                .forEach(customizer -> customizer.customize(builder));
+
+        this.mapper = builder.build();
     }
 
     // ===
