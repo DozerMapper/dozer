@@ -17,6 +17,7 @@ package com.github.dozermapper.core.converters;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -117,6 +118,8 @@ public class PrimitiveOrWrapperConverter {
                 result = new OffsetDateTimeConverter(dateFormatContainer.getDateTimeFormatter());
             } else if (ZonedDateTime.class.isAssignableFrom(destClass)) {
                 result = new ZonedDateTimeConverter(dateFormatContainer.getDateTimeFormatter());
+            } else if (Instant.class.isAssignableFrom(destClass)) {
+                result = new InstantConverter();
             }
         }
         return result == null ? new StringConstructorConverter(dateFormatContainer) : result;
@@ -136,7 +139,8 @@ public class PrimitiveOrWrapperConverter {
                || LocalTime.class.isAssignableFrom(aClass)
                || OffsetDateTime.class.isAssignableFrom(aClass)
                || OffsetTime.class.isAssignableFrom(aClass)
-               || ZonedDateTime.class.isAssignableFrom(aClass);
+               || ZonedDateTime.class.isAssignableFrom(aClass)
+               || Instant.class.isAssignableFrom(aClass);
     }
 
     private static boolean isLocalTime(Class clazz) {
