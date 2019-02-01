@@ -1,5 +1,6 @@
+#!/usr/bin/env bash
 #
-# Copyright 2005-2018 Dozer Project
+# Copyright 2005-2019 Dozer Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +15,6 @@
 # limitations under the License.
 #
 
-#!/usr/bin/env bash
 
 echo "Removing old files in DozerMapper-github-io"
 rm -rf .././../../DozerMapper-github-io/gitbook/
