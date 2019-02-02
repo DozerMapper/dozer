@@ -102,6 +102,78 @@ public class DozerConfig {
 }
 ----
 
+==== Using the DozerBeanMapperBuilderCustomizer
+
+Since 6.5.0, We add the `DozerBeanMapperBuilderCustomizer` interface that it customize a builder instance for creating a mapper.
+If you want to customize fully a mapper that create by `DozerBeanMapperFactoryBean` (using the XML namespace or autoconfigure for Spring Boot), it can be used.
+The `DozerBeanMapperFactoryBean` will detect automatically it from the Spring DI container as global customizers.
+Also, you can specify it to an any `DozerBeanMapperFactoryBean` using `builderCustomizers` property as individual customizers.
+
+In this section, we explain only how to use on Java based configuration.
+If you are using XML based configuration, please replace it with XML code by referring to the other explanations.
+
+.How to implements the DozerBeanMapperBuilderCustomizer
+[source,java,prettyprint]
+----
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.spring.DozerBeanMapperBuilderCustomizer;
+
+public class GlobalBeanMapperBuilderCustomizer
+                implements DozerBeanMapperBuilderCustomizer {
+    @Override
+    public void customize(DozerBeanMapperBuilder builder) {
+        // customize a builder instance ...
+    }
+}
+----
+
+.How to register glbal customizers
+[source,java,prettyprint]
+----
+@Configuration
+public class DozerConfig {
+    @Bean
+    public DozerBeanMapperBuilderCustomizer globalBeanMapperBuilderCustomizer()
+        return new GlobalBeanMapperBuilderCustomizer();
+    }
+}
+----
+
+.How to set individual customizers
+[source,java,prettyprint]
+----
+@Configuration
+public class DozerConfig {
+    @Bean
+    public DozerBeanMapperFactoryBean dozerMapper() {
+        DozerBeanMapperFactoryBean factoryBean = new DozerBeanMapperFactoryBean();
+        factoryBean.setBuilderCustomizers(
+            Collections.singletonList(new IndividualBeanMapperBuilderCustomizer()));
+        // ...
+        return factoryBean;
+    }
+}
+----
+
+[TIP]
+====
+You can create and register a customizer using lambda expression supported by Java 8 without implementation class as follow:
+
+.How to create and register a customizer using lambda expression
+[source,java,prettyprint]
+----
+@Configuration
+public class DozerConfig {
+    @Bean
+    public DozerBeanMapperBuilderCustomizer globalBeanMapperBuilderCustomizer()
+        return builder -> {
+            // customize a builder instance ...
+        };
+    }
+}
+----
+====
+
 === How to use in your application
 
 Using Spring to retrieve the Dozer Mapper......
