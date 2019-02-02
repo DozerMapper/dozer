@@ -16,6 +16,7 @@
 package com.github.dozermapper.spring;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,7 @@ public class DozerBeanMapperFactoryBeanTest {
         factory.setMappingFiles(new Resource[] {mockResource});
         factory.setMappingBuilders(Collections.emptyList());
         factory.setCustomFieldMapper(null);
+        factory.setBuilderCustomizers(Collections.emptyList());
 
         factory.afterPropertiesSet();
 
@@ -110,6 +112,8 @@ public class DozerBeanMapperFactoryBeanTest {
         when(mockContext.getBeansOfType(EventListener.class)).thenReturn(eventListenerMap);
         when(mockContext.getBeansOfType(DozerBeanMapperBuilderCustomizer.class)).thenReturn(customizerMap);
 
+        factory.setBuilderCustomizers(Arrays.asList(customizer, customizer));
+
         factory.afterPropertiesSet();
 
         Mapper mapper = factory.getObject();
@@ -123,6 +127,6 @@ public class DozerBeanMapperFactoryBeanTest {
         assertEquals(1, mapperModelContext.getCustomConvertersWithId().size());
         assertEquals(1, mapperModelContext.getEventListeners().size());
 
-        verify(customizer, times(2)).customize(any());
+        verify(customizer, times(4)).customize(any());
     }
 }
