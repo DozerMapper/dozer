@@ -106,10 +106,10 @@ public class TypeDefinition {
         this.isAccessible = value;
         return this;
     }
-    
+
     public TypeDefinition skipConstructor(boolean value) {
-    	this.skipConstructor = value;
-    	return this;
+        this.skipConstructor = value;
+        return this;
     }
 
     public String getName() {
