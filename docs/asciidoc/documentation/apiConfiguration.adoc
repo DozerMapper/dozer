@@ -10,7 +10,7 @@ Mapper mapper = DozerBeanMapperBuilder.create()
                     @Override
                     protected void configure() {
                         mapping(type(A.class).mapEmptyString(true),
-                                type(B.class),
+                                type(B.class).skipConstructor(true),
                                 TypeMappingOptions.wildcardCaseInsensitive(true)
                         ).fields(
                                 field("fieldOfA").getMethod("getTheField"),
