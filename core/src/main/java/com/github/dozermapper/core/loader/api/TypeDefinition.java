@@ -29,6 +29,7 @@ public class TypeDefinition {
     private String mapSetMethod;
     private Boolean mapNull;
     private Boolean isAccessible;
+    private Boolean skipConstructor;
 
     public TypeDefinition(Class<?> type) {
         this.name = type.getName();
@@ -50,6 +51,7 @@ public class TypeDefinition {
         typeBuilder.mapSetMethod(this.mapSetMethod);
 
         typeBuilder.isAccessible(this.isAccessible);
+        typeBuilder.skipConstructor(this.skipConstructor);
     }
 
     public TypeDefinition mapMethods(String getMethod, String setMethod) {
@@ -102,6 +104,11 @@ public class TypeDefinition {
 
     public TypeDefinition accessible(boolean value) {
         this.isAccessible = value;
+        return this;
+    }
+
+    public TypeDefinition skipConstructor(boolean value) {
+        this.skipConstructor = value;
         return this;
     }
 
