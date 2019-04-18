@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.spring.functional_tests;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.github.dozermapper.core.CustomConverter;
@@ -23,6 +24,7 @@ import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.MapperModelContext;
 import com.github.dozermapper.spring.functional_tests.support.EventTestListener;
 import com.github.dozermapper.spring.functional_tests.support.InjectedCustomConverter;
+import com.github.dozermapper.spring.functional_tests.support.MyBeanMapperBuilderCustomizer;
 import com.github.dozermapper.spring.vo.Destination;
 import com.github.dozermapper.spring.vo.Source;
 
@@ -31,6 +33,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -116,6 +119,29 @@ public class SpringIntegrationTest {
 
         assertEquals("John", destination.getValue());
         assertEquals(2L, destination.getId());
+    }
+
+    @Test
+    public void testBuilderCustomizer() {
+        MyBeanMapperBuilderCustomizer.clear();
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("builder-customizer.xml")) {
+            Mapper mapper = context.getBean("beanMapper", Mapper.class);
+            assertNotNull(mapper);
+            assertFalse(context.containsBean("beanMapperWithBuilderCustomizer"));
+            assertEquals(Arrays.asList("globalBuilderCustomizer1", "globalBuilderCustomizer2"),
+                    MyBeanMapperBuilderCustomizer.getHistories());
+        }
+        MyBeanMapperBuilderCustomizer.clear();
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext()) {
+            context.getEnvironment().setActiveProfiles("withBuilderCustomizer");
+            context.setConfigLocation("builder-customizer.xml");
+            context.refresh();
+            Mapper mapper = context.getBean("beanMapperWithBuilderCustomizer", Mapper.class);
+            assertNotNull(mapper);
+            assertFalse(context.containsBean("beanMapper"));
+            assertEquals(Arrays.asList("builderCustomizer1", "builderCustomizer2", "globalBuilderCustomizer1", "globalBuilderCustomizer2"),
+                    MyBeanMapperBuilderCustomizer.getHistories());
+        }
     }
 
     private void assertBasicMapping(Mapper mapper) {

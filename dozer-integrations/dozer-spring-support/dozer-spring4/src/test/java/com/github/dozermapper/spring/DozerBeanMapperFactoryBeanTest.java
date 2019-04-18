@@ -16,15 +16,16 @@
 package com.github.dozermapper.spring;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import com.github.dozermapper.core.BeanFactory;
 import com.github.dozermapper.core.CustomConverter;
-import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.MapperModelContext;
+import com.github.dozermapper.core.events.EventListener;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +35,10 @@ import org.springframework.core.io.Resource;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class DozerBeanMapperFactoryBeanTest {
@@ -63,6 +67,7 @@ public class DozerBeanMapperFactoryBeanTest {
         factory.setMappingFiles(new Resource[] {mockResource});
         factory.setMappingBuilders(Collections.emptyList());
         factory.setCustomFieldMapper(null);
+        factory.setBuilderCustomizers(Collections.emptyList());
 
         factory.afterPropertiesSet();
 
@@ -97,9 +102,17 @@ public class DozerBeanMapperFactoryBeanTest {
         HashMap<String, EventListener> eventListenerMap = new HashMap<>();
         eventListenerMap.put("a", mock(EventListener.class));
 
+        DozerBeanMapperBuilderCustomizer customizer = mock(DozerBeanMapperBuilderCustomizer.class);
+        HashMap<String, DozerBeanMapperBuilderCustomizer> customizerMap = new HashMap<>();
+        customizerMap.put("a", customizer);
+        customizerMap.put("b", customizer);
+
         when(mockContext.getBeansOfType(CustomConverter.class)).thenReturn(converterHashMap);
         when(mockContext.getBeansOfType(BeanFactory.class)).thenReturn(beanFactoryMap);
         when(mockContext.getBeansOfType(EventListener.class)).thenReturn(eventListenerMap);
+        when(mockContext.getBeansOfType(DozerBeanMapperBuilderCustomizer.class)).thenReturn(customizerMap);
+
+        factory.setBuilderCustomizers(Arrays.asList(customizer, customizer));
 
         factory.afterPropertiesSet();
 
@@ -113,5 +126,7 @@ public class DozerBeanMapperFactoryBeanTest {
         assertEquals(1, mapperModelContext.getCustomConverters().size());
         assertEquals(1, mapperModelContext.getCustomConvertersWithId().size());
         assertEquals(1, mapperModelContext.getEventListeners().size());
+
+        verify(customizer, times(4)).customize(any());
     }
 }

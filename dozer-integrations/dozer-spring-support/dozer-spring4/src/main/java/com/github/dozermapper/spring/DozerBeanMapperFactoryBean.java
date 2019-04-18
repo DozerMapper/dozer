@@ -47,6 +47,7 @@ public class DozerBeanMapperFactoryBean extends ApplicationObjectSupport impleme
     private final List<EventListener> eventListeners = new ArrayList<>(0);
     private final Map<String, BeanFactory> beanFactories = new HashMap<>(0);
     private final Map<String, CustomConverter> customConvertersWithId = new HashMap<>(0);
+    private final List<DozerBeanMapperBuilderCustomizer> builderCustomizers = new ArrayList<>(0);
 
     private Mapper mapper;
 
@@ -141,6 +142,18 @@ public class DozerBeanMapperFactoryBean extends ApplicationObjectSupport impleme
         this.customConvertersWithId.putAll(customConvertersWithId);
     }
 
+    /**
+     * Registers a {@link DozerBeanMapperBuilderCustomizer} for customizing the {@link DozerBeanMapperBuilder}.
+     * <p>
+     * By default, no builder customizers are registered.
+     *
+     * @param builderCustomizers customizers to be configured for the mapper builder.
+     * @since 6.5.0
+     */
+    public void setBuilderCustomizers(List<DozerBeanMapperBuilderCustomizer> builderCustomizers) {
+        this.builderCustomizers.addAll(builderCustomizers);
+    }
+
     // ===
     // Methods for: InitializingBean
     // ===
@@ -154,22 +167,27 @@ public class DozerBeanMapperFactoryBean extends ApplicationObjectSupport impleme
         Map<String, BeanMappingBuilder> contextBeanMappingBuilders = getApplicationContext().getBeansOfType(BeanMappingBuilder.class);
         Map<String, EventListener> contextEventListeners = getApplicationContext().getBeansOfType(EventListener.class);
         Map<String, BeanFactory> contextBeanFactories = getApplicationContext().getBeansOfType(BeanFactory.class);
+        Map<String, DozerBeanMapperBuilderCustomizer> contextBuilderCustomizers = getApplicationContext().getBeansOfType(DozerBeanMapperBuilderCustomizer.class);
 
         customConverters.addAll(contextCustomConvertersWithId.values());
         mappingBuilders.addAll(contextBeanMappingBuilders.values());
         beanFactories.putAll(contextBeanFactories);
         eventListeners.addAll(contextEventListeners.values());
         customConvertersWithId.putAll(contextCustomConvertersWithId);
+        builderCustomizers.addAll(contextBuilderCustomizers.values());
 
-        this.mapper = DozerBeanMapperBuilder.create()
+        DozerBeanMapperBuilder builder = DozerBeanMapperBuilder.create()
                 .withMappingFiles(mappingFileUrls)
                 .withCustomFieldMapper(customFieldMapper)
                 .withCustomConverters(customConverters)
                 .withMappingBuilders(mappingBuilders)
                 .withEventListeners(eventListeners)
                 .withBeanFactorys(beanFactories)
-                .withCustomConvertersWithIds(customConvertersWithId)
-                .build();
+                .withCustomConvertersWithIds(customConvertersWithId);
+
+        builderCustomizers.forEach(customizer -> customizer.customize(builder));
+
+        this.mapper = builder.build();
     }
 
     // ===
