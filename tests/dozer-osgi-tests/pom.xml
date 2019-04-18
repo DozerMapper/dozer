@@ -34,7 +34,7 @@
     <properties>
         <osgi.Export-Package>com.github.dozermapper.osgitests.*</osgi.Export-Package>
 
-        <karaf4-version>4.2.1</karaf4-version>
+        <karaf4-version>4.2.2</karaf4-version>
     </properties>
 
     <dependencies>
@@ -128,7 +128,7 @@
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.utils</artifactId>
-            <version>1.10.4</version>
+            <version>1.11.2</version>
             <scope>test</scope>
         </dependency>
 
