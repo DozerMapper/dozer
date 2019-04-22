@@ -16,6 +16,7 @@
 package com.github.dozermapper.core.converters;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -66,4 +67,19 @@ public class StringConverterTest extends AbstractDozerTest {
 
         assertEquals("incorrect value returned from converter", formattedSrc, result);
     }
+
+    // See https://github.com/DozerMapper/dozer/issues/747
+    @Test
+    public void testZonedDateTimeToStringWithFormat() {
+        ZonedDateTime src = ZonedDateTime.now();
+        String pattern = "uuuu/MM/dd HH:mm:ss.SSSZZZZZ'['VV']'";
+        String formattedSrc = DateTimeFormatter.ofPattern(pattern).format(src);
+
+        StringConverter converter = new StringConverter(new DateFormatContainer(pattern));
+        String result = (String)converter.convert(String.class, src);
+
+        assertEquals("incorrect value returned from converter", formattedSrc, result);
+    }
+
+
 }

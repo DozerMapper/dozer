@@ -57,6 +57,6 @@ public class StringConverter implements Converter {
      * @return true - date format provided. Otherwise false.
      */
     private boolean hasDateFormat() {
-        return dateFormatContainer != null && dateFormatContainer.getDateFormat() != null;
+        return dateFormatContainer != null && dateFormatContainer.isPresent();
     }
 }

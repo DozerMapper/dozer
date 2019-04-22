@@ -34,6 +34,16 @@ public class DateFormatContainer {
         this.dfStr = dfStr;
     }
 
+    /**
+     * Whether a date format is present.
+     *
+     * @return If present, return {@code true}
+     * @since 6.5.0
+     */
+    public boolean isPresent() {
+        return dfStr != null || dateFormat != null;
+    }
+
     public DateFormat getDateFormat() {
         if (dateFormat == null) {
             dateFormat = determineDateFormat();
