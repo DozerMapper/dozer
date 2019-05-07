@@ -65,7 +65,6 @@ import com.github.dozermapper.core.util.LogMsgFactory;
 import com.github.dozermapper.core.util.MappingUtils;
 import com.github.dozermapper.core.util.MappingValidator;
 import com.github.dozermapper.core.util.ReflectionUtils;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1017,34 +1016,23 @@ public class MappingProcessor implements Mapper {
             ((MapperAware)converterInstance).setMapper(this);
         }
 
-        // TODO Remove code duplication
         Object result;
         if (converterInstance instanceof ConfigurableCustomConverter) {
-            ConfigurableCustomConverter theConverter = (ConfigurableCustomConverter)converterInstance;
+            ConfigurableCustomConverter theConverter = (ConfigurableCustomConverter) converterInstance;
 
             // Converter could be not configured for this particular case
             if (fieldMap != null) {
                 String param = fieldMap.getCustomConverterParam();
                 theConverter.setParameter(param);
             }
-
-            // if this is a top level mapping the destObj is the highest level
-            // mapping...not a recursive mapping
-            if (topLevel) {
-                result = theConverter.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
-            } else {
-                Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
-                result = theConverter.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
-            }
+        }
+        // if this is a top level mapping the destObj is the highest level
+        // mapping...not a recursive mapping
+        if (topLevel) {
+            result = converterInstance.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
         } else {
-            // if this is a top level mapping the destObj is the highest level
-            // mapping...not a recursive mapping
-            if (topLevel) {
-                result = converterInstance.convert(existingDestFieldValue, srcFieldValue, destFieldClass, srcFieldClass);
-            } else {
-                Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
-                result = converterInstance.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
-            }
+            Object existingValue = getExistingValue(fieldMap, existingDestFieldValue, destFieldClass);
+            result = converterInstance.convert(existingValue, srcFieldValue, destFieldClass, srcFieldClass);
         }
 
         return result;

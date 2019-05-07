@@ -22,7 +22,7 @@ package com.github.dozermapper.core;
  * class B types. When a custom converter is specified for a class A and class B combination, Dozer will invoke the
  * custom converter to perform the data mapping instead of the standard mapping logic.
  * <p>
- * This interface also gives you the opportunity to send a configuration parameter to it
+ * This interface also gives you the opportunity to send a configuration parameter to it.
  * <p>
  * <a
  * href="https://dozermapper.github.io/gitbook/documentation/customconverter.html">
@@ -31,7 +31,10 @@ package com.github.dozermapper.core;
 public interface ConfigurableCustomConverter extends CustomConverter {
 
     /**
-     * Setter for converter static parameter. Method is guaranteed to be called before the first execution.
+     * Setter for converter static parameter. Method is guaranteed to be called before each mapping call.
+     * <p>
+     * Dozer may reuse custom converter instances across different threads. The implementing class is responsible for
+     * storing the parameter in a thread-safe manner, for example using a {@link ThreadLocal}.
      *
      * @param parameter - converter instance, which is injected via custom-converter-param attribute
      */
