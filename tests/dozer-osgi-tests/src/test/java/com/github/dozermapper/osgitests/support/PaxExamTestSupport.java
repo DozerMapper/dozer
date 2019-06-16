@@ -117,8 +117,16 @@ public abstract class PaxExamTestSupport {
     }
 
     private Option getJavaModuleOptions() {
-        if (JavaVersionUtil.getMajorVersion() >= 9 && JavaVersionUtil.getMajorVersion() <= 10) {
+        if (JavaVersionUtil.getMajorVersion() >= 9) {
             return composite(
+                    vmOption("--add-reads=java.xml=java.logging"),
+                    vmOption("--add-exports=java.base/org.apache.karaf.specs.locator=java.xml,ALL-UNNAMED"),
+
+                    vmOption("--patch-module"),
+                    vmOption("java.base=lib/endorsed/org.apache.karaf.specs.locator-" + System.getProperty("karaf.version") + ".jar"),
+                    vmOption("--patch-module"),
+                    vmOption("java.xml=lib/endorsed/org.apache.karaf.specs.java.xml-" + System.getProperty("karaf.version") + ".jar"),
+
                     vmOption("--add-opens"),
                     vmOption("java.base/java.security=ALL-UNNAMED"),
                     vmOption("--add-opens"),
@@ -134,13 +142,10 @@ public abstract class PaxExamTestSupport {
 
                     vmOption("--add-exports=java.base/sun.net.www.protocol.http=ALL-UNNAMED"),
                     vmOption("--add-exports=java.base/sun.net.www.protocol.https=ALL-UNNAMED"),
-                    vmOption("--add-exports=java.xml.bind/com.sun.xml.internal.bind.v2.runtime=ALL-UNNAMED"),
-                    vmOption("--add-exports=jdk.xml.dom/org.w3c.dom.html=ALL-UNNAMED"),
+                    vmOption("--add-exports=java.base/sun.net.www.protocol.jar=ALL-UNNAMED"),
                     vmOption("--add-exports=jdk.naming.rmi/com.sun.jndi.url.rmi=ALL-UNNAMED"),
-                    vmOption("--add-exports=java.xml.ws/com.sun.xml.internal.messaging.saaj.soap.impl=ALL-UNNAMED"),
-
-                    vmOption("--add-modules"),
-                    vmOption("java.xml.ws.annotation,java.corba,java.transaction,java.xml.bind,java.xml.ws,jdk.xml.bind")
+                    vmOption("-classpath"),
+                    vmOption("lib/jdk9plus/*" + File.pathSeparator + "lib/boot/*")
             );
         } else {
             return composite();

@@ -54,7 +54,8 @@ public abstract class AbstractDozerCoreOsgiContainerTest extends PaxExamTestSupp
 
             //Ignore any Karaf bundles
             if (current.getSymbolicName().startsWith("org.apache.karaf")
-                || current.getSymbolicName().startsWith("org.jline")) {
+                    || current.getSymbolicName().startsWith("org.apache.aries.blueprint.core.compatibility")
+                    || current.getSymbolicName().startsWith("org.jline")) {
                 continue;
             }
 
