@@ -30,7 +30,7 @@
     <groupId>com.github.dozermapper</groupId>
     <artifactId>dozer-parent</artifactId>
     <packaging>pom</packaging>
-    <version>6.5.0-SNAPSHOT</version>
+    <version>6.5.0</version>
     <name>Dozer :: Parent</name>
     <description>Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
 
@@ -100,7 +100,7 @@
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
 
-        <building-tools.version>6.5.0-SNAPSHOT</building-tools.version>
+        <building-tools.version>6.5.0</building-tools.version>
     </properties>
 
     <build>
