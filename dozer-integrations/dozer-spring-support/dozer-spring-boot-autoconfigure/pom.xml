@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-spring-support</artifactId>
-        <version>6.5.0</version>
+        <version>6.6.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>dozer-spring-boot-autoconfigure</artifactId>
