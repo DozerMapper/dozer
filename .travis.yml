@@ -12,10 +12,6 @@ matrix:
     env: SHOULD_DEPLOY=true
   - jdk: oraclejdk8
     env: SHOULD_DEPLOY=false
-  - jdk: openjdk9
-    env: SHOULD_DEPLOY=false
-  - jdk: openjdk10
-    env: SHOULD_DEPLOY=false
   - jdk: openjdk11
     env: SHOULD_DEPLOY=false
   - jdk: openjdk12
@@ -23,7 +19,6 @@ matrix:
   - jdk: openjdk-ea
     env: SHOULD_DEPLOY=false
   allow_failures:
-  - jdk: openjdk11
   - jdk: openjdk12
   - jdk: openjdk-ea
 before_install:
