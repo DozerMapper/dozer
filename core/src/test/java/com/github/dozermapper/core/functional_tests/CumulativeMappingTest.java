@@ -46,25 +46,32 @@ public class CumulativeMappingTest extends AbstractFunctionalTest {
     @Test
     public void testMapping() {
         Library libSrc = newInstance(Library.class);
-        Author author = newInstance(Author.class, new Object[] {"The Best One", new Long(505L)});
-        Book book = newInstance(Book.class, new Object[] {new Long(141L), author});
+        Author author = newInstance(Author.class, new Object[] {505L, "The Best One"});
+        Book book = newInstance(Book.class, new Object[] {141L, author});
         libSrc.setBooks(Collections.singletonList(book));
 
         LibraryPrime libDest = newInstance(LibraryPrime.class);
-        AuthorPrime authorPrime = newInstance(AuthorPrime.class, new Object[] {new Long(505L), "The Ultimate One", new Long(5100L)});
-        BookPrime bookDest = newInstance(BookPrime.class, new Object[] {new Long(141L), authorPrime});
+        AuthorPrime authorPrime = newInstance(AuthorPrime.class, new Object[] {505L, "The Ultimate One", 5100L});
+        BookPrime bookDest = newInstance(BookPrime.class, new Object[] {141L, authorPrime});
         List<BookPrime> bookDests = newInstance(ArrayList.class);
         bookDests.add(bookDest);
         libDest.setBooks(bookDests);
 
         mapper.map(libSrc, libDest);
 
+        // verify book collection
+        assertEquals(bookDests, libDest.getBooks()); // reuse existing collection in destination object
         assertEquals(1, libDest.getBooks().size());
-        BookPrime bookPrime = (BookPrime)libDest.getBooks().get(0);
-        assertEquals(new Long(141L), bookPrime.getId());
-        assertEquals("The Best One", bookPrime.getAuthor().getName());
 
-        //    assertEquals(new Long(5100L), book.getAuthor().getSalary()); TODO Enable this for non-cumulative recursion bug
+        // verify book
+        BookPrime bookPrime = libDest.getBooks().get(0);
+        assertEquals(bookDest, bookPrime); // reuse existing item in collection on destination object
+        assertEquals(Long.valueOf(141L), bookPrime.getId());
+
+        // verify author
+        assertEquals(authorPrime, bookPrime.getAuthor());
+        assertEquals("The Best One", bookPrime.getAuthor().getName());
+        assertEquals(Long.valueOf(5100L), bookPrime.getAuthor().getSalary());
     }
 
 }

@@ -19,16 +19,13 @@ import java.util.List;
 
 public class LibraryPrime {
 
-    List books;
+    private List<BookPrime> books;
 
-    public LibraryPrime() {
-    }
-
-    public List getBooks() {
+    public List<BookPrime> getBooks() {
         return books;
     }
 
-    public void setBooks(List books) {
+    public void setBooks(List<BookPrime> books) {
         this.books = books;
     }
 
