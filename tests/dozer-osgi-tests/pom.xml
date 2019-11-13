@@ -89,6 +89,12 @@
             <artifactId>woodstox-core-asl</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.24</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Provided dependencies; javassist -->
         <dependency>
