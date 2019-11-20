@@ -19,13 +19,13 @@ import java.util.List;
 
 public class Library {
 
-    List books;
+    private List<Book> books;
 
-    public List getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 

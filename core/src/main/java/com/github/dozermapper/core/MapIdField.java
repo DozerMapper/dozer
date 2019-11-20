@@ -35,6 +35,10 @@ public class MapIdField {
         mappedObjects.put(mapId, value);
     }
 
+    public void remove(String mapId) {
+        mappedObjects.remove(mapId);
+    }
+
     public Object get(String mapId) {
         return mappedObjects.get(mapId);
     }

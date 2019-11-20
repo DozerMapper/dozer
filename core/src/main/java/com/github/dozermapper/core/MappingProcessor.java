@@ -811,6 +811,7 @@ public class MappingProcessor implements Mapper {
                 destEntryType = determineCollectionItemType(fieldMap, destObj, srcValue, prevDestEntryType);
             }
 
+            Integer tx = mappedFields.startTransaction();
             CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
             if (srcValue != null && copyByReferences.contains(srcValue.getClass())) {
                 destValue = srcValue;
@@ -821,6 +822,7 @@ public class MappingProcessor implements Mapper {
 
             if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
                 && result.contains(destValue)) {
+                mappedFields.rollbackTransaction(tx); // rollback side effects of dry-run
                 List<Object> resultAsList = new ArrayList<>(result);
                 int index = resultAsList.indexOf(destValue);
                 // perform an update if complex type - can't map strings
@@ -831,6 +833,7 @@ public class MappingProcessor implements Mapper {
                     mappedElements.add(obj);
                 }
             } else {
+                mappedFields.commitTransaction(tx);
                 if (destValue != null || fieldMap.isDestMapNull()) {
                     result.add(destValue);
                 }
@@ -874,6 +877,7 @@ public class MappingProcessor implements Mapper {
                 destEntryType = determineCollectionItemType(fieldMap, destObj, srcValue, prevDestEntryType);
             }
 
+            Integer tx = mappedFields.startTransaction();
             CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
             if (srcValue != null && copyByReferences.contains(srcValue.getClass())) {
                 destValue = srcValue;
@@ -884,6 +888,7 @@ public class MappingProcessor implements Mapper {
 
             if (RelationshipType.NON_CUMULATIVE.equals(fieldMap.getRelationshipType())
                 && result.contains(destValue)) {
+                mappedFields.rollbackTransaction(tx); // rollback side effects of dry-run
                 int index = result.indexOf(destValue);
                 // perform an update if complex type - can't map strings
                 Object obj = result.get(index);
@@ -893,6 +898,7 @@ public class MappingProcessor implements Mapper {
                     mappedElements.add(obj);
                 }
             } else {
+                mappedFields.commitTransaction(tx);
                 // respect null mappings
                 if (destValue != null || fieldMap.isDestMapNull()) {
                     result.add(destValue);

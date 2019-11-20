@@ -52,4 +52,11 @@ public class MapIdFieldTest {
         assertFalse(mapIdField.containsMapId(null));
     }
 
+    @Test
+    public void testRemove() {
+        mapIdField.put("aMapId", "aMapIdValue");
+        mapIdField.remove("aMapId");
+        assertFalse(mapIdField.containsMapId("aMapId"));
+    }
+
 }

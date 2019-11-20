@@ -23,7 +23,7 @@ public class Author {
     public Author() {
     }
 
-    public Author(String name, Long id) {
+    public Author(Long id, String name) {
         super();
         this.name = name;
         this.id = id;
