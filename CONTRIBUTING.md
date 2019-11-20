@@ -27,3 +27,13 @@ Build the project:
 If you intend to work on the code and provide patches and other work you want to submit, then you can fork the project on github and work on your own fork.
 The custom work you do should be done on branches you create, which can then be committed and pushed upstream, and then submitted as PRs (pull requests).
 You can find many resources online how to work on github projects and how to submit work to these projects.
+
+### Configure code style
+
+Dozer project is using specific code style. Please steps below to import code style for your preferred IDE. 
+
+#### IntelliJ IDEA
+
+1. Install [CheckStyle-IDEA](https://github.com/jshiell/checkstyle-idea) plugin.
+2. In `Editor -> Code Style` choose scheme where to import code style.
+3. Choose action `Import Scheme -> CheckStyle Configuration` and choose file `building-tools/src/main/resouces/strict-checkstyle.xml` to import.
