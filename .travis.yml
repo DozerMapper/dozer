@@ -14,12 +14,12 @@ matrix:
     env: SHOULD_DEPLOY=false
   - jdk: openjdk11
     env: SHOULD_DEPLOY=false
-  - jdk: openjdk12
+  - jdk: openjdk13
     env: SHOULD_DEPLOY=false
   - jdk: openjdk-ea
     env: SHOULD_DEPLOY=false
   allow_failures:
-  - jdk: openjdk12
+  - jdk: openjdk13
   - jdk: openjdk-ea
 before_install:
 - bash .travis/deploy-codesigning.sh
