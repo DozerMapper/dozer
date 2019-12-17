@@ -409,19 +409,24 @@ public final class ConstructionStrategies {
 
     private static class XmlGregorian implements BeanCreationStrategy {
 
+        // Instantiating a DatatypeFactory with DatatypeFactory.newInstance() is expensive, so this should be cached.
+        // Regrettably the spec does not require implementations to be thread safe, so we are defensively using
+        // thread local caching here.
+        private static final ThreadLocal<DatatypeFactory> datatypeFactoryHolder = ThreadLocal.withInitial(() -> {
+            try {
+                return DatatypeFactory.newInstance();
+            } catch (DatatypeConfigurationException e) {
+                throw new MappingException(e);
+            }
+        });
+
         public boolean isApplicable(BeanCreationDirective directive) {
             Class<?> actualClass = directive.getActualClass();
             return XMLGregorianCalendar.class.isAssignableFrom(actualClass);
         }
 
         public Object create(BeanCreationDirective directive) {
-            DatatypeFactory dataTypeFactory;
-            try {
-                dataTypeFactory = DatatypeFactory.newInstance();
-            } catch (DatatypeConfigurationException e) {
-                throw new MappingException(e);
-            }
-            return dataTypeFactory.newXMLGregorianCalendar();
+            return datatypeFactoryHolder.get().newXMLGregorianCalendar();
         }
 
     }
