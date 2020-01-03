@@ -38,7 +38,7 @@ public final class BundleOptions {
     public static Option coreBundles() {
         return composite(
                 // Commons
-                localBundle("org.apache.commons.beanutils.link"),
+                localBundle("org.apache.commons.commons-beanutils.link"),
                 localBundle("org.apache.commons.collections.link"),
                 localBundle("org.apache.commons.lang3.link"),
                 localBundle("org.apache.commons.io.link"),

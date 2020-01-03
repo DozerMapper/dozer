@@ -101,7 +101,7 @@ public class ReflectionUtilsTest extends AbstractDozerTest {
         assertEquals(1, descriptors.length);
 
         descriptors = ReflectionUtils.getInterfacePropertyDescriptors(TestClass.class);
-        assertEquals(4, descriptors.length);
+        assertEquals(3, descriptors.length);
     }
 
     @Test
