@@ -228,8 +228,7 @@ public final class ProtoUtils {
             fqnSegments.push(fileOpts.getJavaPackage());
             return fqnSegments.toArray(new String[] {});
         }
-
-        return new String[] {fileOpts.getJavaPackage(), fileOpts.getJavaOuterClassname(), name};
+        return Stream.of(fileOpts.getJavaPackage(), fileOpts.getJavaOuterClassname(), name).filter(n -> !n.isEmpty()).toArray();
     }
 
     @SuppressWarnings("unchecked")
