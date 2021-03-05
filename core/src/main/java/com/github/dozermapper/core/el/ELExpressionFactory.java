@@ -57,7 +57,7 @@ public final class ELExpressionFactory {
 
                 LOG.info("javax.el support is {}", isJavaxEL);
             } catch (IllegalStateException ex) {
-                LOG.warn("javax.el is not supported; {}", ex.getMessage());
+                LOG.info("javax.el is not supported; {}", ex.getMessage());
 
                 isJavaxEL = false;
             }
