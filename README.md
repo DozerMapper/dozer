@@ -5,23 +5,12 @@
 [![Total Alerts](https://img.shields.io/lgtm/alerts/g/DozerMapper/dozer.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/DozerMapper/dozer/alerts)
 
 # Dozer
-## Active Contributors
-We are always looking for more help. The below is the current active list:
-
-### Core
-- @garethahealy
-- @orange-buffalo
-- ??
-
-### Protobuf
-- @jbq
-- @garethahealy
-- ??
-
-### Spring4 / Springboot
-- @vadeg
-- @garethahealy
-- ??
+## Project Activity
+The project is currently not active and will more than likely be deprecated in the future. If you are looking to use Dozer
+on a greenfield project, we would discourage that. If you have been using Dozer for a while, we would suggest you start to think about migrating
+onto another library, such as:
+- [mapstruct](https://github.com/mapstruct/mapstruct)
+- [modelmapper](https://github.com/modelmapper/modelmapper)
 
 ## Why Map?
 A mapping framework is useful in a layered architecture where you are creating layers of abstraction by encapsulating changes to particular data objects vs. propagating these objects to other layers (i.e. external service data objects, domain objects, data transfer objects, internal service data objects).
