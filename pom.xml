@@ -30,7 +30,7 @@
     <groupId>com.github.dozermapper</groupId>
     <artifactId>dozer-parent</artifactId>
     <packaging>pom</packaging>
-    <version>6.5.2</version>
+    <version>6.5.3-SNAPSHOT</version>
     <name>Dozer :: Parent</name>
     <description>Dozer is a powerful Java Bean to Java Bean mapper that recursively copies data from one object to another</description>
 

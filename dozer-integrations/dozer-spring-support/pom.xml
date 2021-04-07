@@ -22,7 +22,7 @@
     <parent>
         <artifactId>dozer-integrations</artifactId>
         <groupId>com.github.dozermapper</groupId>
-        <version>6.5.2</version>
+        <version>6.5.3-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>

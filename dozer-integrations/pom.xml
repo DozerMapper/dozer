@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-plugins-parent</artifactId>
-        <version>6.5.2</version>
+        <version>6.5.3-SNAPSHOT</version>
         <relativePath>../plugins-parent</relativePath>
     </parent>
 
