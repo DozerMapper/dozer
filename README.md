@@ -37,7 +37,7 @@ If you are using Maven, simply copy-paste this dependency to your project.
 <dependency>
     <groupId>com.github.dozermapper</groupId>
     <artifactId>dozer-core</artifactId>
-    <version>6.5.0</version>
+    <version>6.5.2</version>
 </dependency>
 ```
 
