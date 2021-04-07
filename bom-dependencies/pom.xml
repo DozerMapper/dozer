@@ -58,7 +58,7 @@
         <osgi.version>6.0.0</osgi.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
-        <spring.version>4.3.10.RELEASE</spring.version>
+        <spring.version>5.2.7.RELEASE</spring.version>
         <woodstox-core-asl.version>4.4.1</woodstox-core-asl.version>
     </properties>
 
@@ -190,17 +190,17 @@
             <dependency>
                 <groupId>org.apache.servicemix.bundles</groupId>
                 <artifactId>org.apache.servicemix.bundles.spring-core</artifactId>
-                <version>${spring.version}_1</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.servicemix.bundles</groupId>
                 <artifactId>org.apache.servicemix.bundles.spring-context</artifactId>
-                <version>${spring.version}_1</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.servicemix.bundles</groupId>
                 <artifactId>org.apache.servicemix.bundles.spring-beans</artifactId>
-                <version>${spring.version}_1</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.osgi</groupId>
