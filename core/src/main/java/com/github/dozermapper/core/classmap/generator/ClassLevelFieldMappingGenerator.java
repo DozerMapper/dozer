@@ -101,7 +101,9 @@ public class ClassLevelFieldMappingGenerator implements ClassMapBuilder.ClassMap
 
         do {
             for (Field field : srcType.getDeclaredFields()) {
-                declaredFieldNames.add(field.getName());
+                if (!field.isSynthetic()) {
+                    declaredFieldNames.add(field.getName());
+                }
             }
 
             srcType = srcType.getSuperclass();
