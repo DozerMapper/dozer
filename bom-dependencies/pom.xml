@@ -37,7 +37,7 @@
         <cglib-nodep.version>3.2.9</cglib-nodep.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-lang3.version>3.7</commons-lang3.version>
-        <commons-io.version>2.5</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <javax.el.version>3.0.0</javax.el.version>
         <felix.version>5.6.8</felix.version>
         <jaxb-runtime.version>2.4.0-b180830.0438</jaxb-runtime.version>
