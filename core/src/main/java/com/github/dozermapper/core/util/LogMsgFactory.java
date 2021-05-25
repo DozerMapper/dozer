@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class LogMsgFactory {
 
-    private final Logger log = LoggerFactory.getLogger(LogMsgFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(LogMsgFactory.class);
 
     public String createFieldMappingErrorMsg(Object srcObj, FieldMap fieldMapping, Object srcFieldValue, Object destObj) {
         String srcClassName = null;
