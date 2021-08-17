@@ -7,6 +7,7 @@ env:
   - secure: NESSqQhlo74FQix3wQNU1Gatk1igv3w4o0EIfQq5aXEEGoaLdDnF2hGdivkEINYzM3pEU6cpy5+N+njcONGKS9NnBEe8tA2Ngk1cKW+I/rScwS4jCBbA7FpdOagecWB3kb62uL8qS7Iu50v6HrKPjakioFwm9gAu2TE8WLgx0Pg=
 language: java
 matrix:
+  fast_finish: true
   include:
   - jdk: openjdk8
     env: SHOULD_DEPLOY=true
