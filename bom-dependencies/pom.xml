@@ -53,7 +53,7 @@
         <aries.spifly.verison>1.2</aries.spifly.verison>
         <pax-exam.version>4.13.1</pax-exam.version>
         <lombok.version>1.18.0</lombok.version>
-        <protobuf-java.version>3.3.0</protobuf-java.version>
+        <protobuf-java.version>3.16.1</protobuf-java.version>
         <objenesis.version>2.6</objenesis.version>
         <osgi.version>6.0.0</osgi.version>
         <slf4j.version>1.7.25</slf4j.version>
