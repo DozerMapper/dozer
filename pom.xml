@@ -100,7 +100,7 @@
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
 
-        <building-tools.version>6.5.2</building-tools.version>
+        <building-tools.version>6.5.3-SNAPSHOT</building-tools.version>
     </properties>
 
     <build>
