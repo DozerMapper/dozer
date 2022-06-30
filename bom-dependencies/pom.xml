@@ -49,7 +49,7 @@
         <javassist.version>3.24.0-GA</javassist.version>
         <jmh.version>1.19</jmh.version>
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
-        <mockito-core.version>2.18.0</mockito-core.version>
+        <mockito-core.version>4.6.1</mockito-core.version>
         <aries.spifly.verison>1.2</aries.spifly.verison>
         <pax-exam.version>4.13.1</pax-exam.version>
         <lombok.version>1.18.24</lombok.version>
