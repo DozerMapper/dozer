@@ -12,6 +12,8 @@ onto another library, such as:
 - [mapstruct](https://github.com/mapstruct/mapstruct)
 - [modelmapper](https://github.com/modelmapper/modelmapper)
 
+For those moving to mapstruct, the community has created a [Intellij plugin](https://plugins.jetbrains.com/plugin/20853-dostruct) that can help with the migration.
+
 ## Why Map?
 A mapping framework is useful in a layered architecture where you are creating layers of abstraction by encapsulating changes to particular data objects vs. propagating these objects to other layers (i.e. external service data objects, domain objects, data transfer objects, internal service data objects).
 
