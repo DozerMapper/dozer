@@ -16,6 +16,7 @@
 package com.github.dozermapper.core.builder.model.jaxb;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -27,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.Configuration;
+import com.github.dozermapper.core.classmap.MappingFileData;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.factory.DestBeanCreator;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
@@ -90,5 +92,18 @@ public class MappingsDefinition {
         }
 
         return answer;
+    }
+
+    public List<MappingFileData> buildFromData(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
+        Configuration configuration = null;
+        if (getConfiguration() != null) {
+            configuration = getConfiguration().build(beanContainer);
+        }
+
+        MappingFileData data = new MappingFileData();
+        data.setConfiguration(configuration);
+        data.getClassMaps().addAll(build(configuration, beanContainer, destBeanCreator, propertyDescriptorFactory));
+
+        return Arrays.asList(data);
     }
 }

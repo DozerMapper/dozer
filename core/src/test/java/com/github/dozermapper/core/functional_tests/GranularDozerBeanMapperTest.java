@@ -32,6 +32,7 @@ import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.functional_tests.support.SampleDefaultBeanFactory;
 import com.github.dozermapper.core.functional_tests.support.TestCustomFieldMapper;
+import com.github.dozermapper.core.util.ArrayUtils;
 import com.github.dozermapper.core.util.CollectionUtils;
 import com.github.dozermapper.core.vo.AnotherTestObject;
 import com.github.dozermapper.core.vo.AnotherTestObjectPrime;
@@ -484,7 +485,7 @@ public class GranularDozerBeanMapperTest extends AbstractFunctionalTest {
         assertNotNull("dest list field should not be null", dest.getField1());
         assertEquals("invalid dest field size", i.length, dest.getField1().size());
 
-        List<?> srcObjectList = CollectionUtils.convertPrimitiveArrayToList(i);
+        List<?> srcObjectList = ArrayUtils.convertPrimitiveArrayToList(i);
         assertEquals("invalid dest field value", srcObjectList, dest.getField1());
     }
 

@@ -148,7 +148,6 @@ public class DozerBeanMapper implements Mapper, MapperModelContext {
     /**
      * {@inheritDoc}
      */
-    @Override
     public MappingMetadata getMappingMetadata() {
         return new DozerMappingMetadata(customMappings);
     }
