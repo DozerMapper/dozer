@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'java' ]
+        java_version: [ "11" ]
 
     steps:
     - name: Checkout repository
@@ -28,7 +28,7 @@ jobs:
     - uses: actions/setup-java@v3
       with:
         distribution: "temurin"
-        java-version: "8"
+        java-version: ${{matrix.java_version}}
 
     - uses: actions/cache@v3
       with:
@@ -40,18 +40,15 @@ jobs:
     - name: Build project with Maven
       run: mvn -B clean install
 
-    # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
-        languages: ${{ matrix.language }}
+        languages: java
 
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, Go, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
-        category: "/language:${{matrix.language}}"
+        category: "/language:java"

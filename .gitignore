@@ -22,3 +22,5 @@ release.properties
 # OS X #
 ########
 .DS_Store
+
+depoy-ossrh.sh

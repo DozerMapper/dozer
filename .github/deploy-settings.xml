@@ -22,6 +22,11 @@
             <username>${env.SONATYPE_USERNAME}</username>
             <password>${env.SONATYPE_PASSWORD}</password>
         </server>
+        <server>
+            <id>github</id>
+            <username>github</username>
+            <password>${env.GITHUB_TOKEN}</password>
+        </server>
     </servers>
     <profiles>
         <profile>
@@ -31,7 +36,7 @@
             </activation>
             <properties>
                 <gpg.executable>gpg</gpg.executable>
-                <gpg.keyname>${env.GPG_KEY_NAME}</gpg.keyname>
+                <gpg.keyname>DozerMapper</gpg.keyname>
                 <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
             </properties>
         </profile>
