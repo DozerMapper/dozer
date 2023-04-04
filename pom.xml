@@ -209,6 +209,7 @@
                         <exclude>**/*.adoc</exclude>
                         <exclude>**/*.jpeg</exclude>
                         <exclude>**/mockito-extensions/**</exclude>
+                        <exclude>.github/**</exclude>
                     </excludes>
                     <mapping>
                         <cfg>SCRIPT_STYLE</cfg>
