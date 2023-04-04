@@ -193,50 +193,62 @@ public final class ClassMapBuilder {
             }
 
             for (PropertyDescriptor property : properties) {
-                String fieldName = property.getName();
-
-                if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass, beanContainer)) {
-                    continue;
+                if (shouldMapProperty(classMap, srcClass, destClass, destinationIsMap, property)) {
+                    mapProperty(classMap, property);
                 }
-
-                // already mapped
-                if (destinationIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
-                    continue;
-                }
-
-                // already mapped
-                if (!destinationIsMap && classMap.getFieldMapUsingDest(fieldName, true) != null) {
-                    continue;
-                }
-
-                FieldMap fieldMap = new MapFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
-                DozerField srcField = new DozerField(MappingUtils.isSupportedMap(srcClass) ? DozerConstants.SELF_KEYWORD : fieldName, null);
-                srcField.setKey(fieldName);
-
-                if (StringUtils.isNotEmpty(classMap.getSrcClassMapGetMethod())
-                    || StringUtils.isNotEmpty(classMap.getSrcClassMapSetMethod())) {
-                    srcField.setMapGetMethod(classMap.getSrcClassMapGetMethod());
-                    srcField.setMapSetMethod(classMap.getSrcClassMapSetMethod());
-                    srcField.setName(DozerConstants.SELF_KEYWORD);
-                }
-
-                DozerField destField = new DozerField(MappingUtils.isSupportedMap(destClass) ? DozerConstants.SELF_KEYWORD : fieldName,
-                                                      null);
-                srcField.setKey(fieldName);
-
-                if (StringUtils.isNotEmpty(classMap.getDestClassMapGetMethod())
-                    || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
-                    destField.setMapGetMethod(classMap.getDestClassMapGetMethod());
-                    destField.setMapSetMethod(classMap.getDestClassMapSetMethod());
-                    destField.setName(DozerConstants.SELF_KEYWORD);
-                }
-
-                fieldMap.setSrcField(srcField);
-                fieldMap.setDestField(destField);
-
-                classMap.addFieldMapping(fieldMap);
             }
+
             return true;
+        }
+
+        private boolean shouldMapProperty(ClassMap classMap, Class<?> srcClass, Class<?> destClass, boolean destinationIsMap, PropertyDescriptor property) {
+            String fieldName = property.getName();
+
+            if (GeneratorUtils.shouldIgnoreField(fieldName, srcClass, destClass, beanContainer)) {
+                return false;
+            }
+
+            if (destinationIsMap && classMap.getFieldMapUsingSrc(fieldName) != null) {
+                return false;
+            }
+
+            if (!destinationIsMap && classMap.getFieldMapUsingDest(fieldName, true) != null) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public boolean hasSrcClassMapMethods(ClassMap classMap) {
+            return (StringUtils.isNotEmpty(classMap.getSrcClassMapGetMethod()) || StringUtils.isNotEmpty(classMap.getSrcClassMapSetMethod()));
+        }
+
+        private void mapProperty(ClassMap classMap, PropertyDescriptor property) {
+            String fieldName = property.getName();
+            FieldMap fieldMap = new MapFieldMap(classMap, beanContainer, destBeanCreator, propertyDescriptorFactory);
+            DozerField srcField = new DozerField(MappingUtils.isSupportedMap(classMap.getSrcClassToMap()) ? DozerConstants.SELF_KEYWORD : fieldName, null);
+            srcField.setKey(fieldName);
+
+            if (hasSrcClassMapMethods(classMap)) {
+                srcField.setMapGetMethod(classMap.getSrcClassMapGetMethod());
+                srcField.setMapSetMethod(classMap.getSrcClassMapSetMethod());
+                srcField.setName(DozerConstants.SELF_KEYWORD);
+            }
+
+            DozerField destField = new DozerField(MappingUtils.isSupportedMap(classMap.getDestClassToMap()) ? DozerConstants.SELF_KEYWORD : fieldName, null);
+            srcField.setKey(fieldName);
+
+            if (StringUtils.isNotEmpty(classMap.getDestClassMapGetMethod())
+                || StringUtils.isNotEmpty(classMap.getDestClassMapSetMethod())) {
+                destField.setMapGetMethod(classMap.getDestClassMapGetMethod());
+                destField.setMapSetMethod(classMap.getDestClassMapSetMethod());
+                destField.setName(DozerConstants.SELF_KEYWORD);
+            }
+
+            fieldMap.setSrcField(srcField);
+            fieldMap.setDestField(destField);
+
+            classMap.addFieldMapping(fieldMap);
         }
     }
 
@@ -456,39 +468,39 @@ public final class ClassMapBuilder {
         }
 
         public boolean apply(ClassMap classMap, Configuration configuration) {
-            Class<?> srcType = classMap.getSrcClassToMap();
+            Class<?> sourceClass = classMap.getSrcClassToMap();
             do {
-                for (Field field : srcType.getDeclaredFields()) {
-                    Mapping mapping = field.getAnnotation(Mapping.class);
+                for (Field field : sourceClass.getDeclaredFields()) {
+                    Mapping sourceMapping = field.getAnnotation(Mapping.class);
                     String fieldName = field.getName();
-                    if (mapping != null) {
-                        String pairName = mapping.value().trim();
-                        if (requireMapping(mapping, classMap.getDestClassToMap(), fieldName, pairName)) {
+                    if (sourceMapping != null) {
+                        String pairName = sourceMapping.value().trim();
+                        if (requireMapping(sourceMapping, classMap.getDestClassToMap(), fieldName, pairName)) {
                             GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
                                                              fieldName, pairName.isEmpty() ? fieldName : pairName, beanContainer, destBeanCreator, propertyDescriptorFactory);
                         }
                     }
                 }
-                srcType = srcType.getSuperclass();
+                sourceClass = sourceClass.getSuperclass();
             }
-            while (srcType != null);
+            while (sourceClass != null);
 
-            Class<?> destType = classMap.getDestClassToMap();
+            Class<?> destinationClass = classMap.getDestClassToMap();
             do {
-                for (Field field : destType.getDeclaredFields()) {
-                    Mapping mapping = field.getAnnotation(Mapping.class);
+                for (Field field : destinationClass.getDeclaredFields()) {
+                    Mapping destinationMapping = field.getAnnotation(Mapping.class);
                     String fieldName = field.getName();
-                    if (mapping != null) {
-                        String pairName = mapping.value().trim();
-                        if (requireMapping(mapping, classMap.getSrcClassToMap(), fieldName, pairName)) {
+                    if (destinationMapping != null) {
+                        String pairName = destinationMapping.value().trim();
+                        if (requireMapping(destinationMapping, classMap.getSrcClassToMap(), fieldName, pairName)) {
                             GeneratorUtils.addGenericMapping(MappingType.FIELD_TO_FIELD, classMap, configuration,
                                                              pairName.isEmpty() ? fieldName : pairName, fieldName, beanContainer, destBeanCreator, propertyDescriptorFactory);
                         }
                     }
                 }
-                destType = destType.getSuperclass();
+                destinationClass = destinationClass.getSuperclass();
             }
-            while (destType != null);
+            while (destinationClass != null);
 
             return false;
         }
