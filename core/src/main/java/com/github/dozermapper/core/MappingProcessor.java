@@ -58,13 +58,7 @@ import com.github.dozermapper.core.fieldmap.FieldMap;
 import com.github.dozermapper.core.fieldmap.HintContainer;
 import com.github.dozermapper.core.fieldmap.MapFieldMap;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
-import com.github.dozermapper.core.util.CollectionUtils;
-import com.github.dozermapper.core.util.DozerConstants;
-import com.github.dozermapper.core.util.IteratorUtils;
-import com.github.dozermapper.core.util.LogMsgFactory;
-import com.github.dozermapper.core.util.MappingUtils;
-import com.github.dozermapper.core.util.MappingValidator;
-import com.github.dozermapper.core.util.ReflectionUtils;
+import com.github.dozermapper.core.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -614,18 +608,18 @@ public class MappingProcessor implements Mapper {
             }
         }
         // Array to Array
-        if (CollectionUtils.isArray(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
+        if (ArrayUtils.isArray(srcFieldType) && (ArrayUtils.isArray(destCollectionType))) {
             result = mapArrayToArray(srcObj, srcCollectionValue, fieldMap, destObj);
-        } else if (CollectionUtils.isArray(srcFieldType) && (CollectionUtils.isList(destCollectionType))) {
+        } else if (ArrayUtils.isArray(srcFieldType) && (CollectionUtils.isList(destCollectionType))) {
             // Array to List
             result = mapArrayToList(srcObj, srcCollectionValue, fieldMap, destObj);
-        } else if (CollectionUtils.isList(srcFieldType) && (CollectionUtils.isArray(destCollectionType))) {
+        } else if (CollectionUtils.isList(srcFieldType) && (ArrayUtils.isArray(destCollectionType))) {
             // List to Array
             result = mapListToArray(srcObj, (List<?>)srcCollectionValue, fieldMap, destObj);
-        } else if (CollectionUtils.isSet(srcFieldType) && CollectionUtils.isArray(destCollectionType)) {
+        } else if (CollectionUtils.isSet(srcFieldType) && ArrayUtils.isArray(destCollectionType)) {
             // Set to Array
             result = mapSetToArray(srcObj, (Set<?>)srcCollectionValue, fieldMap, destObj);
-        } else if (CollectionUtils.isArray(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
+        } else if (ArrayUtils.isArray(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
             // Array to Set
             result = addToSet(srcObj, fieldMap, Arrays.asList((Object[])srcCollectionValue), destObj);
         } else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
@@ -680,7 +674,7 @@ public class MappingProcessor implements Mapper {
         int size = Array.getLength(srcCollectionValue);
 
         CopyByReferenceContainer copyByReferences = globalConfiguration.getCopyByReferences();
-        boolean isPrimitiveArray = CollectionUtils.isPrimitiveArray(srcCollectionValue.getClass());
+        boolean isPrimitiveArray = ArrayUtils.isPrimitiveArray(srcCollectionValue.getClass());
         boolean isFinal = Modifier.isFinal(srcEntryType.getModifiers());
         boolean isCopyByReference = copyByReferences.contains(srcEntryType);
 
@@ -696,7 +690,7 @@ public class MappingProcessor implements Mapper {
             } else {
                 returnList = addOrUpdateToList(srcObj, fieldMap, list, destObj, null);
             }
-            return CollectionUtils.convertListToArray(returnList, destEntryType);
+            return ArrayUtils.convertListToArray(returnList, destEntryType);
         }
     }
 
@@ -784,7 +778,7 @@ public class MappingProcessor implements Mapper {
         } else {
             list = addOrUpdateToList(srcObj, fieldMap, srcCollectionValue, destObj);
         }
-        return CollectionUtils.convertListToArray(list, destEntryType);
+        return ArrayUtils.convertListToArray(list, destEntryType);
     }
 
     private List<?> mapListToList(Object srcObj, Collection<?> srcCollectionValue, FieldMap fieldMap, Object destObj) {
@@ -949,7 +943,7 @@ public class MappingProcessor implements Mapper {
         } else {
             if (CollectionUtils.isList(field.getClass())) {
                 return (List<?>)field;
-            } else if (CollectionUtils.isArray(field.getClass())) {
+            } else if (ArrayUtils.isArray(field.getClass())) {
                 return new ArrayList<>(Arrays.asList((Object[])field));
             } else { // assume it is neither - safest way is to create new List
                 return new ArrayList<>(srcCollectionValue.size());
@@ -973,8 +967,8 @@ public class MappingProcessor implements Mapper {
             destEntryType = srcCollectionValue.getClass().getComponentType();
         }
         List<?> srcValueList;
-        if (CollectionUtils.isPrimitiveArray(srcCollectionValue.getClass())) {
-            srcValueList = CollectionUtils.convertPrimitiveArrayToList(srcCollectionValue);
+        if (ArrayUtils.isPrimitiveArray(srcCollectionValue.getClass())) {
+            srcValueList = ArrayUtils.convertPrimitiveArrayToList(srcCollectionValue);
         } else {
             srcValueList = Arrays.asList((Object[])srcCollectionValue);
         }
@@ -1134,9 +1128,9 @@ public class MappingProcessor implements Mapper {
         // in the list
         // by checking the destFieldType
         if (result != null) {
-            if (CollectionUtils.isList(result.getClass()) || CollectionUtils.isArray(result.getClass())
+            if (CollectionUtils.isList(result.getClass()) || ArrayUtils.isArray(result.getClass())
                 || CollectionUtils.isSet(result.getClass()) || MappingUtils.isSupportedMap(result.getClass())) {
-                if (!CollectionUtils.isList(destFieldType) && !CollectionUtils.isArray(destFieldType)
+                if (!CollectionUtils.isList(destFieldType) && !ArrayUtils.isArray(destFieldType)
                     && !CollectionUtils.isSet(destFieldType) && !MappingUtils.isSupportedMap(destFieldType)) {
                     // this means the getXX field is a List but we are actually trying to
                     // map one of its elements

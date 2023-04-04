@@ -15,8 +15,6 @@
  */
 package com.github.dozermapper.core.util;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -33,10 +31,6 @@ public final class CollectionUtils {
     private CollectionUtils() {
     }
 
-    public static boolean isArray(Class<?> aClass) {
-        return aClass.isArray();
-    }
-
     public static boolean isCollection(Class<?> aClass) {
         return Collection.class.isAssignableFrom(aClass);
     }
@@ -49,21 +43,17 @@ public final class CollectionUtils {
         return Set.class.isAssignableFrom(aClass);
     }
 
-    public static boolean isPrimitiveArray(Class<?> aClass) {
-        return aClass.isArray() && aClass.getComponentType().isPrimitive();
-    }
-
     public static int getLengthOfCollection(Object value) {
-        if (isArray(value.getClass())) {
-            return Array.getLength(value);
+        if (ArrayUtils.isArray(value.getClass())) {
+            return ArrayUtils.getLengthOfArray(value);
         } else {
             return ((Collection<?>)value).size();
         }
     }
 
     public static Object getValueFromCollection(Object collection, int index) {
-        if (isArray(collection.getClass())) {
-            return Array.get(collection, index);
+        if (ArrayUtils.isArray(collection.getClass())) {
+            return ArrayUtils.getValueFromArray(collection, index);
         } else {
             return ((Collection<?>)collection).toArray()[index];
         }
@@ -83,35 +73,6 @@ public final class CollectionUtils {
         Set<Object> result = (Set<Object>)createNewSet(destSetType);
         if (srcValue != null) {
             result.addAll(srcValue);
-        }
-        return result;
-    }
-
-    public static <T> Object convertListToArray(List<T> list, Class<T> destEntryType) {
-
-        Object outArray = Array.newInstance(destEntryType, list.size());
-        int count = 0;
-        int size = list.size();
-        for (int i = 0; i < size; i++) {
-            Object element = list.get(i);
-            Array.set(outArray, count, element);
-            count++;
-        }
-
-        if (destEntryType.isPrimitive()) {
-            return outArray;
-        } else {
-            return outArray;
-        }
-    }
-
-    public static List<Object> convertPrimitiveArrayToList(Object primitiveArray) {
-        int length = Array.getLength(primitiveArray);
-        List<Object> result = new ArrayList<>(length);
-
-        // wrap and copy elements
-        for (int i = 0; i < length; i++) {
-            result.add(Array.get(primitiveArray, i));
         }
         return result;
     }

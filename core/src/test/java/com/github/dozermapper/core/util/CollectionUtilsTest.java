@@ -60,7 +60,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     public void testIsArray() {
         Object[] values = new Object[] {new int[3], new InsideTestObject[2], new String[3]};
         for (int i = 0; i < values.length; i++) {
-            assertTrue(CollectionUtils.isArray(values[i].getClass()));
+            assertTrue(ArrayUtils.isArray(values[i].getClass()));
         }
     }
 
@@ -68,7 +68,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     public void testIsPrimitiveArray() {
         Object[] values = new Object[] {new int[3], new long[2], new boolean[3]};
         for (int i = 0; i < values.length; i++) {
-            assertTrue(CollectionUtils.isPrimitiveArray(values[i].getClass()));
+            assertTrue(ArrayUtils.isPrimitiveArray(values[i].getClass()));
         }
     }
 
@@ -76,7 +76,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     public void testIsPrimitiveArray_False() {
         Object[] values = new Object[] {new String[3], new Date[2], new SimpleObj[3]};
         for (int i = 0; i < values.length; i++) {
-            assertFalse(CollectionUtils.isPrimitiveArray(values[i].getClass()));
+            assertFalse(ArrayUtils.isPrimitiveArray(values[i].getClass()));
         }
     }
 
@@ -121,7 +121,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     @Test
     public void testConvertPrimitiveArrayToList() {
         int[] srcArray = new int[] {5, 10, 15};
-        List<?> result = CollectionUtils.convertPrimitiveArrayToList(srcArray);
+        List<?> result = ArrayUtils.convertPrimitiveArrayToList(srcArray);
         assertEquals("invalid result size", srcArray.length, result.size());
 
         for (int i = 0; i < srcArray.length; i++) {
@@ -134,7 +134,7 @@ public class CollectionUtilsTest extends AbstractDozerTest {
     @Test
     public void testConvertListToArray() {
         List<String> src = Arrays.asList("a", "b");
-        String[] result = (String[])CollectionUtils.convertListToArray(src, String.class);
+        String[] result = (String[])ArrayUtils.convertListToArray(src, String.class);
         assertTrue("wrong result value", Arrays.equals(new String[] {"a", "b"}, result));
     }
 

@@ -60,7 +60,7 @@ public final class MappingUtils {
     }
 
     public static boolean isSupportedCollection(Class<?> aClass) {
-        return CollectionUtils.isCollection(aClass) || CollectionUtils.isArray(aClass);
+        return CollectionUtils.isCollection(aClass) || ArrayUtils.isArray(aClass);
     }
 
     public static boolean isSupportedMap(Class<?> aClass) {

@@ -61,15 +61,6 @@ public abstract class BeanMappingsFluentBuilder implements BeanMappingsBuilder {
      */
     @Override
     public List<MappingFileData> build(BeanContainer beanContainer, DestBeanCreator destBeanCreator, PropertyDescriptorFactory propertyDescriptorFactory) {
-        Configuration configuration = null;
-        if (mappingsDefinition.getConfiguration() != null) {
-            configuration = mappingsDefinition.getConfiguration().build(beanContainer);
-        }
-
-        MappingFileData data = new MappingFileData();
-        data.setConfiguration(configuration);
-        data.getClassMaps().addAll(mappingsDefinition.build(configuration, beanContainer, destBeanCreator, propertyDescriptorFactory));
-
-        return Arrays.asList(data);
+        return mappingsDefinition.buildFromData(beanContainer, destBeanCreator, propertyDescriptorFactory);
     }
 }

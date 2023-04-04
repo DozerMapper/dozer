@@ -15,6 +15,7 @@
  */
 package com.github.dozermapper.core;
 
+import com.github.dozermapper.core.classmap.ClassMappings;
 import com.github.dozermapper.core.metadata.MappingMetadata;
 
 /**
@@ -63,18 +64,6 @@ public interface Mapper {
      * @throws MappingException mapping failure
      */
     void map(Object source, Object destination, String mapId) throws MappingException;
-
-    /**
-     * The {@link com.github.dozermapper.core.metadata.MappingMetadata} interface can be used to query information about the current
-     * mapping definitions. It provides read only access to all important classes and field
-     * mapping properties. When first called, initializes all mappings if map() has not yet been called.
-     *
-     * @return An instance of {@link com.github.dozermapper.core.metadata.MappingMetadata} which serves starting point
-     * for querying mapping information.
-     */
-    default MappingMetadata getMappingMetadata() {
-        return MappingMetadata.EMPTY;
-    }
 
     /**
      * Returns {@link MapperModelContext} which allows readonly access to the Mapper model
