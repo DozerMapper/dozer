@@ -15,10 +15,10 @@
  */
 package com.github.dozermapper.core.el.contexts;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.el.FunctionMapper;
-import javax.el.VariableMapper;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.FunctionMapper;
+import jakarta.el.VariableMapper;
 
 import com.github.dozermapper.core.el.mappers.FunctionsMapper;
 import com.github.dozermapper.core.el.mappers.VariablesMapper;

@@ -15,12 +15,12 @@
  */
 package com.github.dozermapper.core.builder.model.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlValue;
 
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.fieldmap.DozerField;
@@ -55,7 +55,7 @@ import org.apache.commons.lang3.StringUtils;
  * skip-constructor Indicates whether Dozer bypasses constructors and instantiates an object with a no-arg constructor.
  */
 @Getter
-@Setter(AccessLevel.PROTECTED)
+@Setter(AccessLevel.PUBLIC)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -235,5 +235,93 @@ public class FieldDefinitionDefinition {
 
     private int getIndexOfIndexedField(String fieldName) {
         return Integer.parseInt(fieldName.replaceAll(".*\\[", "").replaceAll("\\]", ""));
+    }
+
+    public FieldExcludeDefinition getFieldExcludeParent() {
+        return fieldExcludeParent;
+    }
+
+    public FieldDefinition getFieldParent() {
+        return fieldParent;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    protected void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    protected void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public FieldType getType() {
+        return type;
+    }
+
+    protected void setType(FieldType type) {
+        this.type = type;
+    }
+
+    public String getSetMethod() {
+        return setMethod;
+    }
+
+    protected void setSetMethod(String setMethod) {
+        this.setMethod = setMethod;
+    }
+
+    public String getGetMethod() {
+        return getMethod;
+    }
+
+    protected void setGetMethod(String getMethod) {
+        this.getMethod = getMethod;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    protected void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getMapSetMethod() {
+        return mapSetMethod;
+    }
+
+    protected void setMapSetMethod(String mapSetMethod) {
+        this.mapSetMethod = mapSetMethod;
+    }
+
+    public String getMapGetMethod() {
+        return mapGetMethod;
+    }
+
+    protected void setMapGetMethod(String mapGetMethod) {
+        this.mapGetMethod = mapGetMethod;
+    }
+
+    public Boolean getIsAccessible() {
+        return isAccessible;
+    }
+
+    protected void setIsAccessible(Boolean accessible) {
+        isAccessible = accessible;
+    }
+
+    public String getCreateMethod() {
+        return createMethod;
+    }
+
+    protected void setCreateMethod(String createMethod) {
+        this.createMethod = createMethod;
     }
 }

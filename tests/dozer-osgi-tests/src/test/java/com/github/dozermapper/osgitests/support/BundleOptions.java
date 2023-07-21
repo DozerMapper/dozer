@@ -67,7 +67,7 @@ public final class BundleOptions {
                 localBundle("javassist.link"),
 
                 // Optional; EL
-                localBundle("javax.el-api.link"),
+                localBundle("jakarta.el-api.link"),
                 localBundle("com.sun.el.javax.el.link"),
 
                 // Optional; Hibernate

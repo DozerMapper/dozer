@@ -262,6 +262,10 @@
                                 </goals>
                             </execution>
                         </executions>
+                      <configuration>
+                        <source>8</source>
+                        <detectJavaApiLink>false</detectJavaApiLink>
+                    </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>

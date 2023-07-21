@@ -18,14 +18,14 @@ package com.github.dozermapper.core.builder.model.jaxb;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.Configuration;
@@ -329,5 +329,137 @@ public class MappingDefinition {
         }
 
         return answer;
+    }
+
+    public MappingsDefinition getParent() {
+        return parent;
+    }
+
+    public ClassDefinition getClassA() {
+        return classA;
+    }
+
+    protected void setClassA(ClassDefinition classA) {
+        this.classA = classA;
+    }
+
+    public ClassDefinition getClassB() {
+        return classB;
+    }
+
+    protected void setClassB(ClassDefinition classB) {
+        this.classB = classB;
+    }
+
+    public List<Object> getFieldOrFieldExclude() {
+        return fieldOrFieldExclude;
+    }
+
+    protected void setFieldOrFieldExclude(List<Object> fieldOrFieldExclude) {
+        this.fieldOrFieldExclude = fieldOrFieldExclude;
+    }
+
+    public List<FieldDefinition> getFields() {
+        return fields;
+    }
+
+    protected void setFields(List<FieldDefinition> fields) {
+        this.fields = fields;
+    }
+
+    public List<FieldExcludeDefinition> getFieldExcludes() {
+        return fieldExcludes;
+    }
+
+    protected void setFieldExcludes(List<FieldExcludeDefinition> fieldExcludes) {
+        this.fieldExcludes = fieldExcludes;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    protected void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public Boolean getStopOnErrors() {
+        return stopOnErrors;
+    }
+
+    protected void setStopOnErrors(Boolean stopOnErrors) {
+        this.stopOnErrors = stopOnErrors;
+    }
+
+    public Boolean getWildcard() {
+        return wildcard;
+    }
+
+    protected void setWildcard(Boolean wildcard) {
+        this.wildcard = wildcard;
+    }
+
+    public Boolean getWildcardCaseInsensitive() {
+        return wildcardCaseInsensitive;
+    }
+
+    protected void setWildcardCaseInsensitive(Boolean wildcardCaseInsensitive) {
+        this.wildcardCaseInsensitive = wildcardCaseInsensitive;
+    }
+
+    public Boolean getTrimStrings() {
+        return trimStrings;
+    }
+
+    protected void setTrimStrings(Boolean trimStrings) {
+        this.trimStrings = trimStrings;
+    }
+
+    public Boolean getMapNull() {
+        return mapNull;
+    }
+
+    protected void setMapNull(Boolean mapNull) {
+        this.mapNull = mapNull;
+    }
+
+    public Boolean getMapEmptyString() {
+        return mapEmptyString;
+    }
+
+    protected void setMapEmptyString(Boolean mapEmptyString) {
+        this.mapEmptyString = mapEmptyString;
+    }
+
+    public String getBeanFactory() {
+        return beanFactory;
+    }
+
+    protected void setBeanFactory(String beanFactory) {
+        this.beanFactory = beanFactory;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    protected void setType(Type type) {
+        this.type = type;
+    }
+
+    public Relationship getRelationshipType() {
+        return relationshipType;
+    }
+
+    protected void setRelationshipType(Relationship relationshipType) {
+        this.relationshipType = relationshipType;
+    }
+
+    public String getMapId() {
+        return mapId;
+    }
+
+    protected void setMapId(String mapId) {
+        this.mapId = mapId;
     }
 }

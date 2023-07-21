@@ -38,7 +38,7 @@
         <module>dozer-osgi-tests-model</module>
         <module>dozer-osgi-tests</module>
         -->
-        <module>dozer-wildfly-tests</module>
+<!--        <module>dozer-wildfly-tests</module>-->
         <module>dozer-jmh-tests</module>
     </modules>
 

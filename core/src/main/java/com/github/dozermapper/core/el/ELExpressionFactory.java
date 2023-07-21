@@ -15,7 +15,7 @@
  */
 package com.github.dozermapper.core.el;
 
-import javax.el.ExpressionFactory;
+import jakarta.el.ExpressionFactory;
 
 import com.github.dozermapper.core.util.MappingUtils;
 
@@ -81,7 +81,7 @@ public final class ELExpressionFactory {
     }
 
     private static void resolveClassForName() throws IllegalStateException {
-        String expressionFactoryProperty = System.getProperty("javax.el.ExpressionFactory");
+        String expressionFactoryProperty = System.getProperty("jakarta.el.ExpressionFactory");
         String expressionFactoryClass = MappingUtils.isBlankOrNull(expressionFactoryProperty)
                 ? "com.sun.el.ExpressionFactoryImpl"
                 : expressionFactoryProperty;

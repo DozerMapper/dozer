@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.el.FunctionMapper;
+import jakarta.el.FunctionMapper;
 
 /**
  * Maps between EL function names and methods.
