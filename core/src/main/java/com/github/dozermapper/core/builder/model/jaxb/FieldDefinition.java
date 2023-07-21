@@ -15,14 +15,6 @@
  */
 package com.github.dozermapper.core.builder.model.jaxb;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlTransient;
-import jakarta.xml.bind.annotation.XmlType;
-
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.MappingDirection;
@@ -36,12 +28,15 @@ import com.github.dozermapper.core.fieldmap.GenericFieldMap;
 import com.github.dozermapper.core.fieldmap.HintContainer;
 import com.github.dozermapper.core.fieldmap.MapFieldMap;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
-import lombok.AccessLevel;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -75,8 +70,8 @@ import org.apache.commons.lang3.StringUtils;
  * custom-converter Indicates that a specific custom converter should be used for mapping this field. Typically
  * this will not be specified.
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
+//@Getter
+//@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -15,26 +15,21 @@
  */
 package com.github.dozermapper.core.builder.model.jaxb;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.github.dozermapper.core.config.BeanContainer;
+import com.github.dozermapper.core.util.MappingUtils;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
-
-import com.github.dozermapper.core.config.BeanContainer;
-import com.github.dozermapper.core.util.MappingUtils;
-import lombok.AccessLevel;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter(AccessLevel.PROTECTED)
+//@Getter
+//@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
