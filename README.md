@@ -11,6 +11,8 @@ Supports:
 * Java 11
 * JAXB 4
 
+To build `mvn clean install`
+
 **Spring Boot starter/autoconfiguration have not yet migrated to support Spring Boot 3** 
 
 ## Project Activity
