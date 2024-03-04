@@ -67,8 +67,7 @@ public final class BundleOptions {
                 localBundle("javassist.link"),
 
                 // Optional; EL
-                localBundle("jakarta.el-api.link"),
-                localBundle("com.sun.el.javax.el.link"),
+                localBundle("org.glassfish.jakarta.el.link"),
 
                 // Optional; Hibernate
                 features(maven().groupId("org.apache.karaf.features")

@@ -103,7 +103,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Provided dependencies; javax.el -->
+        <!-- Provided dependencies; jakarta.el -->
         <dependency>
           <groupId>org.glassfish</groupId>
           <artifactId>jakarta.el</artifactId>

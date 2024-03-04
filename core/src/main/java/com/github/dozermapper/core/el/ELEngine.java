@@ -18,7 +18,7 @@ package com.github.dozermapper.core.el;
 import java.lang.reflect.Method;
 
 /**
- * javax.el engine to resolve variables and functions
+ * jakarta.el engine to resolve variables and functions
  * See: <a href="https://dozermapper.github.io/gitbook/documentation/expressionlanguage.html">expression language</a>
  */
 public interface ELEngine {

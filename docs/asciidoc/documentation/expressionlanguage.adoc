@@ -1,12 +1,12 @@
 == Expression Language
 === Usage
-Dozer provides optional support for standard java expression language (javax.el).
+Dozer provides optional support for standard java expression language (jakarta.el).
 
 Current support for expressions is start-up time only.
 Expressions are *not* resolved during each mapping, but rather during mapping loading time.
 Each attribute or node value can contain a valid EL expression ${}.
 
-Dozer supports any EL implementation written against javax.el standard API.
+Dozer supports any EL implementation written against jakarta.el standard API.
 Functionality is tested with 'glassfish' internally, but other EL providers should work as well.
 
 You can define global variables for the mapper in *variables* configuration block.
@@ -32,14 +32,9 @@ To enable it, you must add the below dependencies to your classpath:
 [source,xml,prettyprint]
 ----
 <dependency>
-    <groupId>javax.el</groupId>
-    <artifactId>javax.el-api</artifactId>
-    <version>3.0.0</version>
-</dependency>
-<dependency>
-    <groupId>org.glassfish</groupId>
-    <artifactId>javax.el</artifactId>
-    <version>3.0.0</version>
+  <groupId>org.glassfish</groupId>
+  <artifactId>jakarta.el</artifactId>
+  <version>4.0.0</version>
 </dependency>
 ----
 
