@@ -15,17 +15,22 @@
  */
 package com.github.dozermapper.core.builder.model.jaxb;
 
-import com.github.dozermapper.core.MappingException;
-import com.github.dozermapper.core.fieldmap.DozerField;
-import com.github.dozermapper.core.util.MappingUtils;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
+
+import com.github.dozermapper.core.MappingException;
+import com.github.dozermapper.core.fieldmap.DozerField;
+import com.github.dozermapper.core.util.MappingUtils;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -49,8 +54,8 @@ import org.apache.commons.lang3.StringUtils;
  * getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method
  * skip-constructor Indicates whether Dozer bypasses constructors and instantiates an object with a no-arg constructor.
  */
-//@Getter
-//@Setter(AccessLevel.PUBLIC)
+@Getter
+@Setter(AccessLevel.PUBLIC)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
