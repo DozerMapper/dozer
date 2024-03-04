@@ -4,17 +4,6 @@
 
 # Dozer
 
-## Fork info 
-The project was migrated to jakarta to unblock migration to Spring Boot 3
-
-Supports:
-* Java 11
-* JAXB 4
-
-To build `mvn clean install`
-
-**Spring Boot starter/autoconfiguration have not yet migrated to support Spring Boot 3** 
-
 ## Project Activity
 The project is currently not active and will more than likely be deprecated in the future. If you are looking to use Dozer
 on a greenfield project, we would discourage that. If you have been using Dozer for a while, we would suggest you start to think about migrating
