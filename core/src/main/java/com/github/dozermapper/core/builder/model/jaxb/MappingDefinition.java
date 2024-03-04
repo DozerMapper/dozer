@@ -17,7 +17,6 @@ package com.github.dozermapper.core.builder.model.jaxb;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -26,7 +25,6 @@ import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
-
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.Configuration;
 import com.github.dozermapper.core.classmap.MappingDirection;
@@ -35,10 +33,7 @@ import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.factory.DestBeanCreator;
 import com.github.dozermapper.core.fieldmap.FieldMap;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -84,8 +79,6 @@ import lombok.ToString;
  * <p>
  * non-cumulative indicates the element will be added or an existing entry will be updated.
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)

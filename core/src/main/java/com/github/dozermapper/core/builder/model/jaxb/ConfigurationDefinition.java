@@ -16,23 +16,18 @@
 package com.github.dozermapper.core.builder.model.jaxb;
 
 import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
-
 import com.github.dozermapper.core.classmap.Configuration;
 import com.github.dozermapper.core.classmap.CopyByReference;
 import com.github.dozermapper.core.classmap.RelationshipType;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.util.DozerConstants;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -69,8 +64,6 @@ import lombok.ToString;
  * <p>
  * copy-by-references Indicates which class types should always be copied by reference
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)

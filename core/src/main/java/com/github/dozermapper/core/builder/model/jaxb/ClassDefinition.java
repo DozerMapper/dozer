@@ -21,13 +21,9 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
-
 import com.github.dozermapper.core.classmap.DozerClass;
 import com.github.dozermapper.core.config.BeanContainer;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -59,8 +55,6 @@ import lombok.ToString;
  * is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is
  * "false". If set to "true", the getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method.
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -21,20 +21,13 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
-
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.converters.CustomConverterDescription;
 import com.github.dozermapper.core.util.MappingUtils;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
