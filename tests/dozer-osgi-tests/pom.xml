@@ -105,8 +105,8 @@
 
         <!-- Provided dependencies; jakarta.el -->
         <dependency>
-          <groupId>org.glassfish</groupId>
-          <artifactId>jakarta.el</artifactId>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -179,8 +179,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>jakarta.inject</groupId>
-          <artifactId>jakarta.inject-api</artifactId>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
             <scope>test</scope>
         </dependency>
 
