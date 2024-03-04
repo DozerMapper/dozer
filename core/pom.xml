@@ -43,7 +43,8 @@
         <osgi.Export-Package>com.github.dozermapper.core.*</osgi.Export-Package>
         <!-- ServiceLoader Capability -->
         <osgi.Require-Capability>
-            osgi.serviceloader; filter:="(osgi.serviceloader=com.github.dozermapper.core.DozerModule)";cardinality:=multiple;resolution:=optional,
+            osgi.serviceloader;
+            filter:="(osgi.serviceloader=com.github.dozermapper.core.DozerModule)";cardinality:=multiple;resolution:=optional,
             osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
         </osgi.Require-Capability>
         <osgi.SPI-Consumer>*</osgi.SPI-Consumer>
@@ -55,58 +56,58 @@
         <maven-resources/>
     </properties>
 
-  <dependencies>
-    	<!-- Commons -->
-      <dependency>
-        <groupId>commons-beanutils</groupId>
-        <artifactId>commons-beanutils</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.javassist</groupId>
-        <artifactId>javassist</artifactId>
-        <scope>provided</scope>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <scope>provided</scope>
-      </dependency>
-     <!--JAXB-API-->
-      <dependency>
-        <groupId>jakarta.xml.bind</groupId>
-        <artifactId>jakarta.xml.bind-api</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-runtime</artifactId>
-        <scope>runtime</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-xjc</artifactId>
-      </dependency>
+    <dependencies>
+        <!-- Commons -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--JAXB-API-->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+        </dependency>
         <!-- EL -->
-      <dependency>
-        <groupId>org.glassfish</groupId>
-        <artifactId>jakarta.el</artifactId>
-        <scope>provided</scope>
-        <optional>true</optional>
-      </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
         <!-- YAML -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -306,11 +307,12 @@
                                     <goal>schemagen</goal>
                                 </goals>
                                 <configuration>
-                                    <workDirectory>${project.build.directory}/generated-resources/schemagen</workDirectory>
+                                    <workDirectory>${project.build.directory}/generated-resources/schemagen
+                                    </workDirectory>
                                     <sources>
-                                      <source>
-                                        src/main/java/com/github/dozermapper/core/builder/model/jaxb
-                                      </source>
+                                        <source>
+                                            src/main/java/com/github/dozermapper/core/builder/model/jaxb
+                                        </source>
                                     </sources>
                                 </configuration>
                             </execution>
@@ -333,9 +335,10 @@
                                 <configuration>
                                     <target>
                                         <echo>Copying XSD schema to be included in JAR</echo>
-                                        <replace file="${project.build.directory}/generated-resources/schemagen/schema1.xsd"
-                                                 token="xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;"
-                                                 value="xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;"/>
+                                        <replace
+                                                file="${project.build.directory}/generated-resources/schemagen/schema1.xsd"
+                                                token="xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;"
+                                                value="xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;"/>
                                         <move file="${project.build.directory}/generated-resources/schemagen/schema1.xsd"
                                               tofile="${project.build.directory}/generated-resources/schemagen/bean-mapping.xsd"/>
                                     </target>
