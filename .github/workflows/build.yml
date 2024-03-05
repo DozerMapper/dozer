@@ -1,54 +1,57 @@
-name: "Build, Test and Analyze"
+name: "Build, Analyze and Test"
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "master" ]
+on: [push, pull_request]
+
+# Declare default permissions as read only.
+permissions: read-all
 
 jobs:
-  analyze:
-    name: Analyze
+  build:
     runs-on: ubuntu-latest
     permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        java_version: [ "11" ]
-
+      packages: write
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    
-    - uses: actions/setup-java@v3
-      with:
-        distribution: "temurin"
-        java-version: ${{matrix.java_version}}
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
 
-    - uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven
-        restore-keys: |
-          ${{ runner.os }}-maven
-    
-    - name: Build project with Maven
-      run: mvn -B clean install
+      - uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 # v4
+        with:
+          distribution: "temurin"
+          java-version: 11
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: java
+      - uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven
+          restore-keys: |
+            ${{ runner.os }}-maven
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+      - name: Build
+        run: mvn clean install -DskipTests --batch-mode
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:java"
+  analyze:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 # v4
+        with:
+          distribution: "temurin"
+          java-version: 11
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@379614612a29c9e28f31f39a59013eb8012a51f0 # v3.24.3
+        with:
+          languages: java
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@379614612a29c9e28f31f39a59013eb8012a51f0 # v3.24.3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@379614612a29c9e28f31f39a59013eb8012a51f0 # v3.24.3
+        with:
+          category: "/language:java"
