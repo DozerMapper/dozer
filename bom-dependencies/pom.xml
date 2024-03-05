@@ -46,7 +46,7 @@
         <jackson-dataformat.version>2.10.1</jackson-dataformat.version>
         <jakarta.inject.version>2.0.1.MR</jakarta.inject.version>
         <javassist.version>3.24.0-GA</javassist.version>
-        <junit5-vintage.version>5.1.0</junit5-vintage.version>
+        <junit5-vintage.version>5.10.2</junit5-vintage.version>
         <mockito-core.version>4.11.0</mockito-core.version>
         <lombok.version>1.18.30</lombok.version>
         <objenesis.version>3.2</objenesis.version>
