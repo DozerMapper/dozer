@@ -52,7 +52,7 @@
 
         <!-- Codehaus Plugins versions; alphabetical order -->
         <build-helper-maven-plugin.version>3.5.0</build-helper-maven-plugin.version>
-        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <exec-maven-plugin.version>3.2.0</exec-maven-plugin.version>
         <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
 
         <!-- GitHub Plugins versions; alphabetical order -->
