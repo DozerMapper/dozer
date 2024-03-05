@@ -56,7 +56,7 @@
         <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
 
         <!-- GitHub Plugins versions; alphabetical order -->
-        <spotbugs-maven-plugin.version>3.1.8</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
 
         <!-- Protobuf Plugins versions; alphabetical order -->
         <protoc-jar-maven-plugin.version>3.11.4</protoc-jar-maven-plugin.version>
