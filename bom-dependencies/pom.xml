@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-parent</artifactId>
-        <version>6.5.3-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
@@ -50,8 +50,6 @@
         <jmh.version>1.19</jmh.version>
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
         <mockito-core.version>4.6.1</mockito-core.version>
-        <aries.spifly.verison>1.2</aries.spifly.verison>
-        <pax-exam.version>4.13.1</pax-exam.version>
         <lombok.version>1.18.24</lombok.version>
         <protobuf-java.version>3.3.0</protobuf-java.version>
         <objenesis.version>3.2</objenesis.version>
@@ -180,49 +178,9 @@
                 <version>${mockito-core.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.aries.spifly</groupId>
-                <artifactId>org.apache.aries.spifly.dynamic.bundle</artifactId>
-                <version>${aries.spifly.verison}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.servicemix.bundles</groupId>
-                <artifactId>org.apache.servicemix.bundles.spring-core</artifactId>
-                <version>${spring.version}_1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.servicemix.bundles</groupId>
-                <artifactId>org.apache.servicemix.bundles.spring-context</artifactId>
-                <version>${spring.version}_1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.servicemix.bundles</groupId>
-                <artifactId>org.apache.servicemix.bundles.spring-beans</artifactId>
-                <version>${spring.version}_1</version>
-            </dependency>
-            <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>${osgi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ops4j.pax.exam</groupId>
-                <artifactId>pax-exam-container-karaf</artifactId>
-                <version>${pax-exam.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ops4j.pax.exam</groupId>
-                <artifactId>pax-exam-junit4</artifactId>
-                <version>${pax-exam.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ops4j.pax.exam</groupId>
-                <artifactId>pax-exam-link-assembly</artifactId>
-                <version>${pax-exam.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.ops4j.pax.exam</groupId>
-                <artifactId>pax-exam-link-mvn</artifactId>
-                <version>${pax-exam.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

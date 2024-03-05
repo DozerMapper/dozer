@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-parent</artifactId>
-        <version>6.5.3-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
@@ -58,34 +58,9 @@
         <!-- GitHub Plugins versions; alphabetical order -->
         <spotbugs-maven-plugin.version>3.1.8</spotbugs-maven-plugin.version>
 
-        <!-- OSGi Plugins versions; alphabetical order -->
-        <maven-bundle-plugin.version>4.1.0</maven-bundle-plugin.version>
-        <depends-maven-plugin.version>1.4.0</depends-maven-plugin.version>
-
         <!-- Protobuf Plugins versions; alphabetical order -->
         <protoc-jar-maven-plugin.version>3.3.0.1</protoc-jar-maven-plugin.version>
         <protoc.version>3.3.0</protoc.version>
-
-        <!-- OSGI properties for bundle plugin -->
-        <osgi.Import-Package.version>version="[$(version;==;${osgi.version.clean}),$(version;=+;${osgi.version.clean}))"</osgi.Import-Package.version>
-        <osgi.Import-Package.default.version>[$(version;==;$(@)),$(version;+;$(@)))</osgi.Import-Package.default.version>
-        <osgi.Bundle-Activator/>
-        <osgi.defaults.Import-Package>
-            !${osgi.Export-Package},
-            com.github.dozermapper.*;${osgi.Import-Package.version},
-            org.osgi.framework;version="[1.7,2)";resolution:=optional
-        </osgi.defaults.Import-Package>
-        <osgi.additional.Import-Package/>
-        <osgi.Import-Package>
-            ${osgi.defaults.Import-Package},
-            ${osgi.additional.Import-Package},
-            *
-        </osgi.Import-Package>
-        <osgi.Export-Package/>
-        <osgi.Require-Capability/>
-        <osgi.Provide-Capability/>
-        <osgi.SPI-Consumer/>
-        <osgi.SPI-Provider/>
     </properties>
 
     <dependencyManagement>
@@ -228,18 +203,6 @@
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>${spotbugs-maven-plugin.version}</version>
-                </plugin>
-
-                <!-- OSGi Plugins; alphabetical order -->
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>${maven-bundle-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.servicemix.tooling</groupId>
-                    <artifactId>depends-maven-plugin</artifactId>
-                    <version>${depends-maven-plugin.version}</version>
                 </plugin>
 
                 <!-- Protobuf Plugins; alphabetical order -->
