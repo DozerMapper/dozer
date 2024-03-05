@@ -19,6 +19,8 @@ jobs:
           java-version: 11
 
       - name: Publish package
-        run: mvn -B -Prelease-github deploy -DskipTests --settings .github/deploy-settings.xml
+        run: |
+          mvn clean install -DskipTests --batch-mode
+          mvn --batch-mode -Prelease-github deploy -Ddeploying=true -DskipTests --settings .github/deploy-settings.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

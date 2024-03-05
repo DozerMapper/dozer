@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-plugins-parent</artifactId>
-        <version>7.0.0-SNAPSHOT</version>
+        <version>7.0.0</version>
         <relativePath>../plugins-parent</relativePath>
     </parent>
 
@@ -289,8 +289,8 @@
                                 <id>copy-schema</id>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <target>
-                                        <echo>Copying XSD schema to be included in JAR</echo>
+                                    <target unless="deploying">
+                                        <echo message="Copying XSD schema to be included in JAR"/>
                                         <replace
                                                 file="${project.build.directory}/generated-resources/schemagen/schema1.xsd"
                                                 token="xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;"

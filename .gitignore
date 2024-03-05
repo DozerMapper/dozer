@@ -23,4 +23,4 @@ release.properties
 ########
 .DS_Store
 
-depoy-ossrh.sh
+deploy-ossrh.sh
