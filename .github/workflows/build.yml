@@ -27,6 +27,9 @@ jobs:
             ${{ runner.os }}-maven
 
       - name: Build
+        run: mvn clean install -DskipTests --batch-mode
+
+      - name: Test
         run: mvn clean install --batch-mode
 
   analyze:
