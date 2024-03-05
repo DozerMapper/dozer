@@ -49,7 +49,7 @@
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
         <mockito-core.version>4.6.1</mockito-core.version>
         <lombok.version>1.18.30</lombok.version>
-        <objenesis.version>3.2</objenesis.version>
+        <objenesis.version>3.3</objenesis.version>
         <osgi.version>6.0.0</osgi.version>
         <slf4j.version>1.7.25</slf4j.version>
         <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
