@@ -61,16 +61,9 @@
     </issueManagement>
 
     <ciManagement>
-        <system>travis-ci</system>
-        <url>https://travis-ci.org/DozerMapper/dozer</url>
+        <system>github-actions</system>
+        <url>https://github.com/DozerMapper/dozer/actions</url>
     </ciManagement>
-
-    <mailingLists>
-        <mailingList>
-            <name>google-groups</name>
-            <subscribe>https://groups.google.com/forum/?fromgroups=#!forum/dozer-mapper</subscribe>
-        </mailingList>
-    </mailingLists>
 
     <modules>
         <module>building-tools</module>
@@ -161,10 +154,10 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.3.1</version>
+                                    <version>3.9.6</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>1.8</version>
+                                    <version>${project.java.version}</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
