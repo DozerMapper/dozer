@@ -16,5 +16,5 @@
 /**
  * JAXB model that describes the mapping definitions
  */
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://dozermapper.github.io/schema/bean-mapping", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://dozermapper.github.io/schema/bean-mapping", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.github.dozermapper.core.builder.model.jaxb;

@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 
 /**
  * ELEngine implementation that has no implementation logic.
- * Use when javax.el dependency is not on the class path.
+ * Use when jakarta.el dependency is not on the class path.
  */
 public class NoopELEngine implements ELEngine {
 

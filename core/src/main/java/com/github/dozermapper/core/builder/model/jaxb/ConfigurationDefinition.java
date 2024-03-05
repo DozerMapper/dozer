@@ -16,23 +16,18 @@
 package com.github.dozermapper.core.builder.model.jaxb;
 
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import com.github.dozermapper.core.classmap.Configuration;
 import com.github.dozermapper.core.classmap.CopyByReference;
 import com.github.dozermapper.core.classmap.RelationshipType;
 import com.github.dozermapper.core.config.BeanContainer;
 import com.github.dozermapper.core.util.DozerConstants;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -69,8 +64,6 @@ import lombok.ToString;
  * <p>
  * copy-by-references Indicates which class types should always be copied by reference
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -250,5 +243,113 @@ public class ConfigurationDefinition {
         }
 
         return config;
+    }
+
+    public MappingsDefinition getParent() {
+        return parent;
+    }
+
+    public Boolean getStopOnErrors() {
+        return stopOnErrors;
+    }
+
+    protected void setStopOnErrors(Boolean stopOnErrors) {
+        this.stopOnErrors = stopOnErrors;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    protected void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public Boolean getWildcard() {
+        return wildcard;
+    }
+
+    protected void setWildcard(Boolean wildcard) {
+        this.wildcard = wildcard;
+    }
+
+    public Boolean getWildcardCaseInsensitive() {
+        return wildcardCaseInsensitive;
+    }
+
+    protected void setWildcardCaseInsensitive(Boolean wildcardCaseInsensitive) {
+        this.wildcardCaseInsensitive = wildcardCaseInsensitive;
+    }
+
+    public Boolean getTrimStrings() {
+        return trimStrings;
+    }
+
+    protected void setTrimStrings(Boolean trimStrings) {
+        this.trimStrings = trimStrings;
+    }
+
+    public Boolean getMapNull() {
+        return mapNull;
+    }
+
+    protected void setMapNull(Boolean mapNull) {
+        this.mapNull = mapNull;
+    }
+
+    public Boolean getMapEmptyString() {
+        return mapEmptyString;
+    }
+
+    protected void setMapEmptyString(Boolean mapEmptyString) {
+        this.mapEmptyString = mapEmptyString;
+    }
+
+    public String getBeanFactory() {
+        return beanFactory;
+    }
+
+    protected void setBeanFactory(String beanFactory) {
+        this.beanFactory = beanFactory;
+    }
+
+    public Relationship getRelationshipType() {
+        return relationshipType;
+    }
+
+    protected void setRelationshipType(Relationship relationshipType) {
+        this.relationshipType = relationshipType;
+    }
+
+    public CustomConvertersDefinition getCustomConverters() {
+        return customConverters;
+    }
+
+    protected void setCustomConverters(CustomConvertersDefinition customConverters) {
+        this.customConverters = customConverters;
+    }
+
+    public CopyByReferencesDefinition getCopyByReferences() {
+        return copyByReferences;
+    }
+
+    protected void setCopyByReferences(CopyByReferencesDefinition copyByReferences) {
+        this.copyByReferences = copyByReferences;
+    }
+
+    public AllowedExceptionsDefinition getAllowedExceptions() {
+        return allowedExceptions;
+    }
+
+    protected void setAllowedExceptions(AllowedExceptionsDefinition allowedExceptions) {
+        this.allowedExceptions = allowedExceptions;
+    }
+
+    public VariablesDefinition getVariables() {
+        return variables;
+    }
+
+    protected void setVariables(VariablesDefinition variables) {
+        this.variables = variables;
     }
 }

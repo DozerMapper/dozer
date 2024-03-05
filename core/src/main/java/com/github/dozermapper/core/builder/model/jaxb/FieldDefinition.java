@@ -15,14 +15,13 @@
  */
 package com.github.dozermapper.core.builder.model.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import com.github.dozermapper.core.MappingException;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.MappingDirection;
@@ -36,12 +35,8 @@ import com.github.dozermapper.core.fieldmap.GenericFieldMap;
 import com.github.dozermapper.core.fieldmap.HintContainer;
 import com.github.dozermapper.core.fieldmap.MapFieldMap;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -75,8 +70,6 @@ import org.apache.commons.lang3.StringUtils;
  * custom-converter Indicates that a specific custom converter should be used for mapping this field. Typically
  * this will not be specified.
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -312,5 +305,125 @@ public class FieldDefinition {
         }
 
         return hintContainer;
+    }
+
+    public MappingDefinition getParentMappingDefinition() {
+        return parentMappingDefinition;
+    }
+
+    public FieldExcludeDefinition getParentFieldExclude() {
+        return parentFieldExclude;
+    }
+
+    public FieldDefinitionDefinition getA() {
+        return a;
+    }
+
+    protected void setA(FieldDefinitionDefinition a) {
+        this.a = a;
+    }
+
+    public FieldDefinitionDefinition getB() {
+        return b;
+    }
+
+    protected void setB(FieldDefinitionDefinition b) {
+        this.b = b;
+    }
+
+    public String getAHint() {
+        return aHint;
+    }
+
+    protected void setAHint(String aHint) {
+        this.aHint = aHint;
+    }
+
+    public String getBHint() {
+        return bHint;
+    }
+
+    protected void setBHint(String bHint) {
+        this.bHint = bHint;
+    }
+
+    public String getADeepIndexHint() {
+        return aDeepIndexHint;
+    }
+
+    protected void setADeepIndexHint(String aDeepIndexHint) {
+        this.aDeepIndexHint = aDeepIndexHint;
+    }
+
+    public String getBDeepIndexHint() {
+        return bDeepIndexHint;
+    }
+
+    protected void setBDeepIndexHint(String bDeepIndexHint) {
+        this.bDeepIndexHint = bDeepIndexHint;
+    }
+
+    public Relationship getRelationshipType() {
+        return relationshipType;
+    }
+
+    protected void setRelationshipType(Relationship relationshipType) {
+        this.relationshipType = relationshipType;
+    }
+
+    public Boolean getRemoveOrphans() {
+        return removeOrphans;
+    }
+
+    protected void setRemoveOrphans(Boolean removeOrphans) {
+        this.removeOrphans = removeOrphans;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    protected void setType(Type type) {
+        this.type = type;
+    }
+
+    public String getMapId() {
+        return mapId;
+    }
+
+    protected void setMapId(String mapId) {
+        this.mapId = mapId;
+    }
+
+    public Boolean getCopyByReference() {
+        return copyByReference;
+    }
+
+    protected void setCopyByReference(Boolean copyByReference) {
+        this.copyByReference = copyByReference;
+    }
+
+    public String getCustomConverter() {
+        return customConverter;
+    }
+
+    protected void setCustomConverter(String customConverter) {
+        this.customConverter = customConverter;
+    }
+
+    public String getCustomConverterId() {
+        return customConverterId;
+    }
+
+    protected void setCustomConverterId(String customConverterId) {
+        this.customConverterId = customConverterId;
+    }
+
+    public String getCustomConverterParam() {
+        return customConverterParam;
+    }
+
+    protected void setCustomConverterParam(String customConverterParam) {
+        this.customConverterParam = customConverterParam;
     }
 }

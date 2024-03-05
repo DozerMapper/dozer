@@ -18,8 +18,8 @@ package com.github.dozermapper.core.el.mappers;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.el.ValueExpression;
-import javax.el.VariableMapper;
+import jakarta.el.ValueExpression;
+import jakarta.el.VariableMapper;
 
 /**
  * Maps between EL variables and the EL expressions

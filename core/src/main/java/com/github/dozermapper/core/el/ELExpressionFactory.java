@@ -15,7 +15,7 @@
  */
 package com.github.dozermapper.core.el;
 
-import javax.el.ExpressionFactory;
+import jakarta.el.ExpressionFactory;
 
 import com.github.dozermapper.core.util.MappingUtils;
 
@@ -36,28 +36,28 @@ public final class ELExpressionFactory {
     }
 
     /**
-     * Checks whether javax.el is on the classpath and a {@link ExpressionFactory} can be constructed
+     * Checks whether jakarta.el is on the classpath and a {@link ExpressionFactory} can be constructed
      *
-     * @return if javax.el can be used
+     * @return if jakarta.el can be used
      */
     public static Boolean isSupported() {
         return isSupported(ELExpressionFactory.class.getClassLoader());
     }
 
     /**
-     * Checks whether javax.el is on the classpath and a {@link ExpressionFactory} can be constructed
+     * Checks whether jakarta.el is on the classpath and a {@link ExpressionFactory} can be constructed
      *
      * @param classLoader class loader to resolve {@link ExpressionFactory}
-     * @return if javax.el can be used
+     * @return if jakarta.el can be used
      */
     public static Boolean isSupported(ClassLoader classLoader) {
         if (isJavaxEL == null) {
             try {
                 isJavaxEL = newInstance(classLoader) != null;
 
-                LOG.info("javax.el support is {}", isJavaxEL);
+                LOG.info("jakarta.el support is {}", isJavaxEL);
             } catch (IllegalStateException ex) {
-                LOG.info("javax.el is not supported; {}", ex.getMessage());
+                LOG.info("jakarta.el is not supported; {}", ex.getMessage());
 
                 isJavaxEL = false;
             }
@@ -72,7 +72,7 @@ public final class ELExpressionFactory {
      *
      * @param classLoader class loader to resolve {@link ExpressionFactory}
      * @return {@link ExpressionFactory} instance
-     * @throws IllegalStateException if javax.el is not on the class path or a {@link ExpressionFactory} instance could not be constructed
+     * @throws IllegalStateException if jakarta.el is not on the class path or a {@link ExpressionFactory} instance could not be constructed
      */
     public static ExpressionFactory newInstance(ClassLoader classLoader) throws IllegalStateException {
         resolveClassForName();
@@ -81,7 +81,7 @@ public final class ELExpressionFactory {
     }
 
     private static void resolveClassForName() throws IllegalStateException {
-        String expressionFactoryProperty = System.getProperty("javax.el.ExpressionFactory");
+        String expressionFactoryProperty = System.getProperty("jakarta.el.ExpressionFactory");
         String expressionFactoryClass = MappingUtils.isBlankOrNull(expressionFactoryProperty)
                 ? "com.sun.el.ExpressionFactoryImpl"
                 : expressionFactoryProperty;

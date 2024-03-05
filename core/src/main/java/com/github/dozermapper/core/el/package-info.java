@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 /**
- * Extensions for {@link javax.el}
+ * Extensions for {@link jakarta.el}
  */
 package com.github.dozermapper.core.el;
