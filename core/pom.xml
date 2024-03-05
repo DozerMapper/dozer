@@ -33,9 +33,6 @@
     <name>Dozer :: Core</name>
 
     <properties>
-        <!-- NOTE: Needs to be removed in future -->
-        <spotbugs.skip>true</spotbugs.skip>
-
         <!-- ISSUE: https://youtrack.jetbrains.com/issue/IDEA-153410 -->
         <maven-resources/>
     </properties>
@@ -204,40 +201,6 @@
                         <exclude>**/net/pmonks/**</exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-
-            <!-- Governance Plugins; alphabetical order -->
-            <!-- NOTE: Uses less strict config - should be removed in future -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <inherited>false</inherited>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.github.dozermapper</groupId>
-                        <artifactId>dozer-building-tools</artifactId>
-                        <version>${building-tools.version}</version>
-                        <scope>compile</scope>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <configuration combine.self="override">
-                            <configLocation>loose-checkstyle.xml</configLocation>
-                            <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-                            <consoleOutput>true</consoleOutput>
-                            <failOnViolation>true</failOnViolation>
-                            <failsOnError>true</failsOnError>
-                            <encoding>UTF-8</encoding>
-                            <sourceDirectory>${basedir}/src</sourceDirectory>
-                        </configuration>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- Testing Plugins; alphabetical order -->
