@@ -47,7 +47,7 @@
         <jakarta.inject.version>2.0.1.MR</jakarta.inject.version>
         <javassist.version>3.24.0-GA</javassist.version>
         <junit5-vintage.version>5.1.0</junit5-vintage.version>
-        <mockito-core.version>4.6.1</mockito-core.version>
+        <mockito-core.version>4.11.0</mockito-core.version>
         <lombok.version>1.18.30</lombok.version>
         <objenesis.version>3.2</objenesis.version>
         <osgi.version>6.0.0</osgi.version>
