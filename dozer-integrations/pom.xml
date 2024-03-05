@@ -32,9 +32,6 @@
     <name>Dozer :: Integrations</name>
     <modules>
         <module>dozer-spring-support</module>
-        <!--
-        <module>dozer-proto3</module>
-        -->
     </modules>
 
 

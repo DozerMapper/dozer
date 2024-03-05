@@ -4,3 +4,4 @@ See link:https://github.com/DozerMapper/dozer/releases/tag/7.0.0[for release not
 
 === 1. OSGI support dropped
 === 2. Java 8 support dropped
+=== 2. Proto support dropped

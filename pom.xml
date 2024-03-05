@@ -189,7 +189,7 @@
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
-                    <header>${dozer.basedir}/building-tools/src/main/resources/LICENSE-HEADER.txt</header>
+                    <header>building-tools/src/main/resources/LICENSE-HEADER.txt</header>
                     <excludes>
                         <exclude>.mvn/**</exclude>
                         <exclude>mvnw</exclude>
@@ -234,6 +234,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
