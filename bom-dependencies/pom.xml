@@ -36,7 +36,7 @@
         <!-- Dependency versions; alphabetical order -->
         <cglib-nodep.version>3.3.0</cglib-nodep.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
         <commons-io.version>2.15.1</commons-io.version>
         <jakarta.el.version>4.0.0</jakarta.el.version>
         <jaxb.version>4.0.4</jaxb.version>
