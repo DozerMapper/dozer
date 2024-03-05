@@ -20,9 +20,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.commons.beanutils.Converter;
 
 /**

@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 /**
- * Default {@link javax.el.ELContext} implementations
+ * Default {@link jakarta.el.ELContext} implementations
  */
 package com.github.dozermapper.core.el.contexts;

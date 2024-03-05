@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 /**
- * EL Mapper extensions for {@link javax.el.FunctionMapper} and {@link javax.el.VariableMapper}
+ * EL Mapper extensions for {@link jakarta.el.FunctionMapper} and {@link jakarta.el.VariableMapper}
  */
 package com.github.dozermapper.core.el.mappers;

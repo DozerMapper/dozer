@@ -15,14 +15,13 @@
  */
 package com.github.dozermapper.core.builder.model.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import com.github.dozermapper.core.classmap.ClassMap;
 import com.github.dozermapper.core.classmap.MappingDirection;
 import com.github.dozermapper.core.config.BeanContainer;
@@ -31,17 +30,12 @@ import com.github.dozermapper.core.fieldmap.DozerField;
 import com.github.dozermapper.core.fieldmap.ExcludeFieldMap;
 import com.github.dozermapper.core.fieldmap.FieldMap;
 import com.github.dozermapper.core.propertydescriptor.PropertyDescriptorFactory;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
  * Exclude a particular field from being mapped
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -107,5 +101,33 @@ public class FieldExcludeDefinition {
         }
 
         return fieldMap;
+    }
+
+    public MappingDefinition getParent() {
+        return parent;
+    }
+
+    public FieldDefinitionDefinition getA() {
+        return a;
+    }
+
+    protected void setA(FieldDefinitionDefinition a) {
+        this.a = a;
+    }
+
+    public FieldDefinitionDefinition getB() {
+        return b;
+    }
+
+    protected void setB(FieldDefinitionDefinition b) {
+        this.b = b;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    protected void setType(Type type) {
+        this.type = type;
     }
 }

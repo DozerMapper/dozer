@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -58,7 +58,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
         Object conversion = converter.convert(JAXBElement.class, "dummy");
 
         assertNotNull(conversion);
-        assertEquals("javax.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
+        assertEquals("jakarta.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
         assertEquals("java.lang.String", JAXBElement.class.cast(conversion).getDeclaredType().getCanonicalName());
         assertEquals("dummy", JAXBElement.class.cast(conversion).getValue());
     }
@@ -72,7 +72,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
         Object conversion = converter.convert(JAXBElement.class, calendar);
 
         assertNotNull(conversion);
-        assertEquals("javax.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
+        assertEquals("jakarta.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
         assertEquals("javax.xml.datatype.XMLGregorianCalendar", JAXBElement.class.cast(conversion).getDeclaredType().getCanonicalName());
         assertEquals(calendar.toString(), JAXBElement.class.cast(conversion).getValue().toString());
     }
@@ -85,7 +85,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
         Object conversion = converter.convert(JAXBElement.class, calendar);
 
         assertNotNull(conversion);
-        assertEquals("javax.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
+        assertEquals("jakarta.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
         assertEquals("javax.xml.datatype.XMLGregorianCalendar", JAXBElement.class.cast(conversion).getDeclaredType().getCanonicalName());
 
         DatatypeFactory instance = DatatypeFactory.newInstance();
@@ -102,7 +102,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
         Object conversion = converter.convert(JAXBElement.class, calendar);
 
         assertNotNull(conversion);
-        assertEquals("javax.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
+        assertEquals("jakarta.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
         assertEquals("javax.xml.datatype.XMLGregorianCalendar", JAXBElement.class.cast(conversion).getDeclaredType().getCanonicalName());
 
         DatatypeFactory instance = DatatypeFactory.newInstance();
@@ -119,7 +119,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
         Object conversion = converter.convert(JAXBElement.class, calendar);
 
         assertNotNull(conversion);
-        assertEquals("javax.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
+        assertEquals("jakarta.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
         assertEquals("java.lang.String", JAXBElement.class.cast(conversion).getDeclaredType().getCanonicalName());
         assertEquals("01.02.2001", JAXBElement.class.cast(conversion).getValue());
     }
@@ -132,7 +132,7 @@ public class JAXBElementConverterTest extends AbstractDozerTest {
         Object conversion = converter.convert(JAXBElement.class, calendar);
 
         assertNotNull(conversion);
-        assertEquals("javax.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
+        assertEquals("jakarta.xml.bind.JAXBElement", conversion.getClass().getCanonicalName());
         assertEquals("java.lang.String", JAXBElement.class.cast(conversion).getDeclaredType().getCanonicalName());
         assertEquals("01.02.2001", JAXBElement.class.cast(conversion).getValue());
     }

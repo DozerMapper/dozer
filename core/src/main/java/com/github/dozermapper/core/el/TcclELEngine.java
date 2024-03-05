@@ -15,8 +15,8 @@
  */
 package com.github.dozermapper.core.el;
 
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
 
 /**
  * ELEngine extension of {@link DefaultELEngine} which uses ContextClassLoader when resolving expressions.

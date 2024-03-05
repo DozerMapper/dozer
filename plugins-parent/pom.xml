@@ -53,7 +53,7 @@
         <!-- Codehaus Plugins versions; alphabetical order -->
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-        <jaxb2-maven-plugin.version>1.6</jaxb2-maven-plugin.version>
+        <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
 
         <!-- GitHub Plugins versions; alphabetical order -->
         <spotbugs-maven-plugin.version>3.1.8</spotbugs-maven-plugin.version>
@@ -260,7 +260,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <excludePackageNames>com.github.dozermapper.core.vo.jaxb.employee:com.github.dozermapper.protobuf.vo.proto</excludePackageNames>
+                    <excludePackageNames>
+                        com.github.dozermapper.core.vo.jaxb.employee:com.github.dozermapper.protobuf.vo.proto
+                    </excludePackageNames>
                     <failOnError>true</failOnError>
                     <additionalparam>-Xdoclint:all</additionalparam>
                 </configuration>
@@ -281,7 +283,9 @@
                         <manifestEntries>
                             <Bundle-SymbolicName>${project.groupId}.${project.artifactId}.source</Bundle-SymbolicName>
                             <Bundle-Version>${osgi.version.clean}</Bundle-Version>
-                            <Eclipse-SourceBundle>${project.groupId}.${project.artifactId};version="${osgi.version.clean}"</Eclipse-SourceBundle>
+                            <Eclipse-SourceBundle>
+                                ${project.groupId}.${project.artifactId};version="${osgi.version.clean}"
+                            </Eclipse-SourceBundle>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -438,74 +442,17 @@
 
     <profiles>
         <profile>
-            <id>jdk8-build</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- Core Java Plugins; alphabetical order -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <source>${project.java.version}</source>
-                            <target>${project.java.version}</target>
-                            <encoding>${project.build.sourceEncoding}</encoding>
-                            <compilerArgs>
-                                <compilerArg>-Xdiags:verbose</compilerArg>
-                                <compilerArg>-Xlint:all</compilerArg>
-                                <compilerArg>-Xlint:-processing</compilerArg>
-                                <!--<compilerArg>-Werror</compilerArg>-->
-                            </compilerArgs>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>between-jdk9-and-jdk10-build</id>
-            <activation>
-                <jdk>[9,11)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- Core Java Plugins; alphabetical order -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <source>${project.java.version}</source>
-                            <target>${project.java.version}</target>
-                            <encoding>${project.build.sourceEncoding}</encoding>
-                            <compilerArgs>
-                                <compilerArg>-Xdiags:verbose</compilerArg>
-                                <compilerArg>-Xlint:all</compilerArg>
-                                <compilerArg>-Xlint:-processing</compilerArg>
-                                <!--<compilerArg>-Werror</compilerArg>-->
-                            </compilerArgs>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>--add-modules java.xml.bind,java.activation
-                                --add-opens java.base/java.lang=ALL-UNNAMED
-                                --add-exports=java.xml.bind/com.sun.xml.internal.bind=ALL-UNNAMED
-                                --add-exports=java.xml.bind/com.sun.xml.internal.bind.v2=ALL-UNNAMED
-                                --add-exports=java.xml.bind/com.sun.xml.internal.bind.v2.runtime.reflect=ALL-UNNAMED
-                            </argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>jdk11-and-above-build</id>
             <activation>
                 <jdk>[11,)</jdk>
             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.glassfish.jaxb</groupId>
+                    <artifactId>jaxb-runtime</artifactId>
+                </dependency>
+            </dependencies>
+
             <build>
                 <plugins>
                     <!-- Core Java Plugins; alphabetical order -->

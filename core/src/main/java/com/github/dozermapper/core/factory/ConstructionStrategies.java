@@ -321,7 +321,7 @@ public final class ConstructionStrategies {
             this.jaxbBeanFactory = jaxbBeanFactory;
             this.beanContainer = beanContainer;
             try {
-                jaxbObjectType = Class.forName("javax.xml.bind.JAXBElement");
+                jaxbObjectType = Class.forName("jakarta.xml.bind.JAXBElement");
                 jaxbBeansAvailable = true;
             } catch (ClassNotFoundException e) {
                 jaxbBeansAvailable = false;

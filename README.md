@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/hexpm/l/plug.svg?maxAge=2592000)]()
 
 # Dozer
+
 ## Project Activity
 The project is currently not active and will more than likely be deprecated in the future. If you are looking to use Dozer
 on a greenfield project, we would discourage that. If you have been using Dozer for a while, we would suggest you start to think about migrating

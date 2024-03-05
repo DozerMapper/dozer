@@ -15,19 +15,15 @@
  */
 package com.github.dozermapper.core.builder.model.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlValue;
 import com.github.dozermapper.core.classmap.DozerClass;
 import com.github.dozermapper.core.config.BeanContainer;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -59,8 +55,6 @@ import lombok.ToString;
  * is-accessible Indicates whether Dozer bypasses getter/setter methods and accesses the field directly. This will typically be set to "false". The default value is
  * "false". If set to "true", the getter/setter methods will NOT be invoked. You would want to set this to "true" if the field is lacking a getter or setter method.
  */
-@Getter
-@Setter(AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -196,5 +190,93 @@ public class ClassDefinition {
         dozerClass.setSkipConstructor(skipConstructor);
 
         return dozerClass;
+    }
+
+    public MappingDefinition getParentMappingDefinition() {
+        return parentMappingDefinition;
+    }
+
+    public ConverterTypeDefinition getParentConverterTypeDefinition() {
+        return parentConverterTypeDefinition;
+    }
+
+    public String getClazz() {
+        return clazz;
+    }
+
+    protected void setClazz(String clazz) {
+        this.clazz = clazz;
+    }
+
+    public String getBeanFactory() {
+        return beanFactory;
+    }
+
+    protected void setBeanFactory(String beanFactory) {
+        this.beanFactory = beanFactory;
+    }
+
+    public String getFactoryBeanId() {
+        return factoryBeanId;
+    }
+
+    protected void setFactoryBeanId(String factoryBeanId) {
+        this.factoryBeanId = factoryBeanId;
+    }
+
+    public String getMapSetMethod() {
+        return mapSetMethod;
+    }
+
+    protected void setMapSetMethod(String mapSetMethod) {
+        this.mapSetMethod = mapSetMethod;
+    }
+
+    public String getMapGetMethod() {
+        return mapGetMethod;
+    }
+
+    protected void setMapGetMethod(String mapGetMethod) {
+        this.mapGetMethod = mapGetMethod;
+    }
+
+    public String getCreateMethod() {
+        return createMethod;
+    }
+
+    protected void setCreateMethod(String createMethod) {
+        this.createMethod = createMethod;
+    }
+
+    public Boolean getMapNull() {
+        return mapNull;
+    }
+
+    protected void setMapNull(Boolean mapNull) {
+        this.mapNull = mapNull;
+    }
+
+    public Boolean getMapEmptyString() {
+        return mapEmptyString;
+    }
+
+    protected void setMapEmptyString(Boolean mapEmptyString) {
+        this.mapEmptyString = mapEmptyString;
+    }
+
+    public Boolean getIsAccessible() {
+        return isAccessible;
+    }
+
+    protected void setIsAccessible(Boolean accessible) {
+        isAccessible = accessible;
+    }
+
+    public Boolean getSkipConstructor() {
+        return skipConstructor;
+    }
+
+    protected void setSkipConstructor(Boolean skipConstructor) {
+        this.skipConstructor = skipConstructor;
     }
 }

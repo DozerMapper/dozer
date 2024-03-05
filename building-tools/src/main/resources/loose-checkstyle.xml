@@ -69,7 +69,7 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="ImportOrder">
-            <property name="groups" value="java,javax,org.w3c,org.xml"/>
+            <property name="groups" value="java,jakarta,javax,org.w3c,org.xml"/>
             <property name="ordered" value="true"/>
         </module>
 
