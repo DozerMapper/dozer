@@ -1,0 +1,7 @@
+== Migration from v6.5.0 to v7
+
+See link:https://github.com/DozerMapper/dozer/releases/tag/7.0.0[for release notes].
+
+=== 1. OSGI support dropped
+=== 2. Java 8 support dropped
+=== 2. Proto support dropped

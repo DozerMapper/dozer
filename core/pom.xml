@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-plugins-parent</artifactId>
-        <version>6.5.3-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
         <relativePath>../plugins-parent</relativePath>
     </parent>
 
@@ -33,22 +33,6 @@
     <name>Dozer :: Core</name>
 
     <properties>
-        <osgi.Bundle-Activator>com.github.dozermapper.core.osgi.Activator</osgi.Bundle-Activator>
-        <!--
-        <osgi.additional.Import-Package>
-            org.hibernate.proxy;version="[4.2,6)";resolution:=optional,
-            javassist.util.proxy;version="[3.13,4)";resolution:=optional
-        </osgi.additional.Import-Package>
-        -->
-        <osgi.Export-Package>com.github.dozermapper.core.*</osgi.Export-Package>
-        <!-- ServiceLoader Capability -->
-        <osgi.Require-Capability>
-            osgi.serviceloader;
-            filter:="(osgi.serviceloader=com.github.dozermapper.core.DozerModule)";cardinality:=multiple;resolution:=optional,
-            osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
-        </osgi.Require-Capability>
-        <osgi.SPI-Consumer>*</osgi.SPI-Consumer>
-
         <!-- NOTE: Needs to be removed in future -->
         <spotbugs.skip>true</spotbugs.skip>
 
@@ -87,6 +71,7 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <!--JAXB-API-->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -101,6 +86,7 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-xjc</artifactId>
         </dependency>
+
         <!-- EL -->
         <dependency>
             <groupId>org.glassfish</groupId>
@@ -108,6 +94,7 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+
         <!-- YAML -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>

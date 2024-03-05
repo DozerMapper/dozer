@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-plugins-parent</artifactId>
-        <version>6.5.3-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
         <relativePath>../plugins-parent</relativePath>
     </parent>
 
@@ -32,7 +32,6 @@
     <name>Dozer :: Integrations</name>
     <modules>
         <module>dozer-spring-support</module>
-        <module>dozer-proto3</module>
     </modules>
 
 

@@ -24,7 +24,7 @@
     <parent>
         <groupId>com.github.dozermapper</groupId>
         <artifactId>dozer-parent</artifactId>
-        <version>6.5.3-SNAPSHOT</version>
+        <version>7.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
@@ -34,58 +34,33 @@
 
     <properties>
         <!-- Maven Plugins versions; alphabetical order -->
-        <alta-maven-plugin.version>0.6.1</alta-maven-plugin.version>
-        <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
-        <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
+        <alta-maven-plugin.version>0.8.0</alta-maven-plugin.version>
+        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-        <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
-        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
-        <maven-shade-plugin.version>3.0.0</maven-shade-plugin.version>
-        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+        <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+        <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-shade-plugin.version>3.5.2</maven-shade-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
 
         <!-- Apache Plugins; alphabetical order -->
-        <cxf-xjc-plugin.version>3.2.3</cxf-xjc-plugin.version>
+        <cxf-xjc-plugin.version>4.0.0</cxf-xjc-plugin.version>
 
         <!-- Codehaus Plugins versions; alphabetical order -->
-        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
-        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.5.0</build-helper-maven-plugin.version>
+        <exec-maven-plugin.version>3.2.0</exec-maven-plugin.version>
         <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
 
         <!-- GitHub Plugins versions; alphabetical order -->
-        <spotbugs-maven-plugin.version>3.1.8</spotbugs-maven-plugin.version>
-
-        <!-- OSGi Plugins versions; alphabetical order -->
-        <maven-bundle-plugin.version>4.1.0</maven-bundle-plugin.version>
-        <depends-maven-plugin.version>1.4.0</depends-maven-plugin.version>
+        <spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
 
         <!-- Protobuf Plugins versions; alphabetical order -->
-        <protoc-jar-maven-plugin.version>3.3.0.1</protoc-jar-maven-plugin.version>
+        <protoc-jar-maven-plugin.version>3.11.4</protoc-jar-maven-plugin.version>
         <protoc.version>3.3.0</protoc.version>
-
-        <!-- OSGI properties for bundle plugin -->
-        <osgi.Import-Package.version>version="[$(version;==;${osgi.version.clean}),$(version;=+;${osgi.version.clean}))"</osgi.Import-Package.version>
-        <osgi.Import-Package.default.version>[$(version;==;$(@)),$(version;+;$(@)))</osgi.Import-Package.default.version>
-        <osgi.Bundle-Activator/>
-        <osgi.defaults.Import-Package>
-            !${osgi.Export-Package},
-            com.github.dozermapper.*;${osgi.Import-Package.version},
-            org.osgi.framework;version="[1.7,2)";resolution:=optional
-        </osgi.defaults.Import-Package>
-        <osgi.additional.Import-Package/>
-        <osgi.Import-Package>
-            ${osgi.defaults.Import-Package},
-            ${osgi.additional.Import-Package},
-            *
-        </osgi.Import-Package>
-        <osgi.Export-Package/>
-        <osgi.Require-Capability/>
-        <osgi.Provide-Capability/>
-        <osgi.SPI-Consumer/>
-        <osgi.SPI-Provider/>
     </properties>
 
     <dependencyManagement>
@@ -230,18 +205,6 @@
                     <version>${spotbugs-maven-plugin.version}</version>
                 </plugin>
 
-                <!-- OSGi Plugins; alphabetical order -->
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>${maven-bundle-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.servicemix.tooling</groupId>
-                    <artifactId>depends-maven-plugin</artifactId>
-                    <version>${depends-maven-plugin.version}</version>
-                </plugin>
-
                 <!-- Protobuf Plugins; alphabetical order -->
                 <plugin>
                     <groupId>com.github.os72</groupId>
@@ -311,65 +274,6 @@
                 </configuration>
             </plugin>
 
-            <!-- OSGi Plugins; alphabetical order -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>false</extensions>
-                <configuration>
-                    <instructions>
-                        <Bundle-Activator>${osgi.Bundle-Activator}</Bundle-Activator>
-                        <Bundle-Name>${project.name}</Bundle-Name>
-                        <Bundle-DocURL>https://dozermapper.github.io/gitbook/</Bundle-DocURL>
-                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                        <DynamicImport-Package>*</DynamicImport-Package>
-                        <Export-Package>${osgi.Export-Package};version=${project.version}</Export-Package>
-                        <Import-Package>${osgi.Import-Package}</Import-Package>
-                        <Implementation-Title>${project.name}</Implementation-Title>
-                        <Implementation-Version>${project.version}</Implementation-Version>
-                        <Karaf-Info>${project.groupId}.${project.artifactId}=${project.version}</Karaf-Info>
-                        <Require-Capability>${osgi.Require-Capability}</Require-Capability>
-                        <Provide-Capability>${osgi.Provide-Capability}</Provide-Capability>
-                        <SPI-Consumer>${osgi.SPI-Consumer}</SPI-Consumer>
-                        <SPI-Provider>${osgi.SPI-Provider}</SPI-Provider>
-                        <_versionpolicy>${osgi.Import-Package.default.version}</_versionpolicy>
-                    </instructions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>versions</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>cleanVersions</goal>
-                        </goals>
-                        <configuration>
-                            <versions>
-                                <osgi.version.clean>${project.version}</osgi.version.clean>
-                            </versions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>bundle</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.servicemix.tooling</groupId>
-                <artifactId>depends-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-depends-file</id>
-                        <goals>
-                            <goal>generate-depends-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Governance Plugins; alphabetical order -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
@@ -415,7 +319,7 @@
                     <dependency>
                         <groupId>com.github.sevntu-checkstyle</groupId>
                         <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
-                        <version>1.24.2</version>
+                        <version>1.35.0</version>
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
