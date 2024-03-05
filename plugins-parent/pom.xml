@@ -59,7 +59,7 @@
         <spotbugs-maven-plugin.version>3.1.8</spotbugs-maven-plugin.version>
 
         <!-- Protobuf Plugins versions; alphabetical order -->
-        <protoc-jar-maven-plugin.version>3.3.0.1</protoc-jar-maven-plugin.version>
+        <protoc-jar-maven-plugin.version>3.11.4</protoc-jar-maven-plugin.version>
         <protoc.version>3.3.0</protoc.version>
     </properties>
 
