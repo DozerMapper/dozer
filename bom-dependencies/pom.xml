@@ -51,6 +51,7 @@
         <lombok.version>1.18.30</lombok.version>
         <objenesis.version>3.3</objenesis.version>
         <osgi.version>6.0.0</osgi.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
         <slf4j.version>2.0.12</slf4j.version>
         <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
         <spring.version>4.3.30.RELEASE</spring.version>
@@ -112,6 +113,11 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
