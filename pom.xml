@@ -71,7 +71,6 @@
         <module>plugins-parent</module>
         <module>core</module>
         <module>dozer-integrations</module>
-        <module>tests</module>
     </modules>
 
     <properties>
@@ -189,21 +188,25 @@
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
-                    <header>building-tools/src/main/resources/LICENSE-HEADER.txt</header>
-                    <excludes>
-                        <exclude>.mvn/**</exclude>
-                        <exclude>mvnw</exclude>
-                        <exclude>mvnw.cmd</exclude>
-                        <exclude>**/LICENSE-HEADER.txt</exclude>
-                        <exclude>**/LICENSE</exclude>
-                        <exclude>**/*.asc</exclude>
-                        <exclude>**/*.asc.enc</exclude>
-                        <exclude>**/*.md</exclude>
-                        <exclude>**/*.adoc</exclude>
-                        <exclude>**/*.jpeg</exclude>
-                        <exclude>**/mockito-extensions/**</exclude>
-                        <exclude>.github/**</exclude>
-                    </excludes>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>building-tools/src/main/resources/LICENSE-HEADER.txt</header>
+                            <excludes>
+                                <exclude>.mvn/**</exclude>
+                                <exclude>mvnw</exclude>
+                                <exclude>mvnw.cmd</exclude>
+                                <exclude>**/LICENSE-HEADER.txt</exclude>
+                                <exclude>**/LICENSE</exclude>
+                                <exclude>**/*.asc</exclude>
+                                <exclude>**/*.asc.enc</exclude>
+                                <exclude>**/*.md</exclude>
+                                <exclude>**/*.adoc</exclude>
+                                <exclude>**/*.jpeg</exclude>
+                                <exclude>**/mockito-extensions/**</exclude>
+                                <exclude>.github/**</exclude>
+                            </excludes>
+                        </licenseSet>
+                    </licenseSets>
                     <mapping>
                         <cfg>SCRIPT_STYLE</cfg>
                         <index>SCRIPT_STYLE</index>
@@ -301,154 +304,6 @@
             </distributionManagement>
         </profile>
     </profiles>
-
-    <developers>
-        <developer>
-            <name>Franz Garsombke</name>
-            <id>fgarsombke</id>
-            <email>fgarsombke@yahoo.com</email>
-            <roles>
-                <role>Project Lead/Co-Founder</role>
-            </roles>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <name>Matt Tierney</name>
-            <id>mhtierney</id>
-            <email>mhtierney@comcast.net</email>
-            <timezone>-7</timezone>
-            <roles>
-                <role>Project Lead/Co-Founder</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Dmitry Buzdin</name>
-            <id>buzdin</id>
-            <email>buzdin@gmail.com</email>
-            <timezone>+2</timezone>
-            <roles>
-                <role>Project Lead</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Alan Stewart</name>
-            <id>alankstewart</id>
-            <email>alankstewart@gmail.com</email>
-            <timezone>+10</timezone>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
-
-    <!-- List of contributors is in alphabetical order -->
-    <contributors>
-        <contributor>
-            <name>Alan Stewart</name>
-        </contributor>
-        <contributor>
-            <name>Ben Sullins</name>
-        </contributor>
-        <contributor>
-            <name>Bruno Guedes</name>
-        </contributor>
-        <contributor>
-            <name>Chia-Chou Hung</name>
-        </contributor>
-        <contributor>
-            <name>Christoph Goldner</name>
-        </contributor>
-        <contributor>
-            <name>David Baker</name>
-        </contributor>
-        <contributor>
-            <name>Dmitry Spikhalskiy</name>
-        </contributor>
-        <contributor>
-            <name>Ed Bras</name>
-        </contributor>
-        <contributor>
-            <name>Florian Kammermann</name>
-        </contributor>
-        <contributor>
-            <name>Gerard Toonstra</name>
-        </contributor>
-        <contributor>
-            <name>Hee Tatt Ooi</name>
-        </contributor>
-        <contributor>
-            <name>James Bassett</name>
-        </contributor>
-        <contributor>
-            <name>Joachim Korittky</name>
-        </contributor>
-        <contributor>
-            <name>Kiersztyn Wojtek</name>
-        </contributor>
-        <contributor>
-            <name>Knut-Erik Johnsen</name>
-        </contributor>
-        <contributor>
-            <name>Lenkwe Makhubela</name>
-        </contributor>
-        <contributor>
-            <name>Luke Robinson</name>
-        </contributor>
-        <contributor>
-            <name>Mariusz Pala</name>
-        </contributor>
-        <contributor>
-            <name>Markus Thielen</name>
-        </contributor>
-        <contributor>
-            <name>Matt Benson</name>
-        </contributor>
-        <contributor>
-            <name>Mickael Morier</name>
-        </contributor>
-        <contributor>
-            <name>Nhat Vo</name>
-        </contributor>
-        <contributor>
-            <name>Ozzie Gurkan</name>
-        </contributor>
-        <contributor>
-            <name>Peciuch Dominic</name>
-        </contributor>
-        <contributor>
-            <name>Peter Monks</name>
-        </contributor>
-        <contributor>
-            <name>Piotr Dytkowski</name>
-        </contributor>
-        <contributor>
-            <name>Rob Volden</name>
-        </contributor>
-        <contributor>
-            <name>Rohan Hart</name>
-        </contributor>
-        <contributor>
-            <name>Sachin Katakdound</name>
-        </contributor>
-        <contributor>
-            <name>Soren Chittka</name>
-        </contributor>
-        <contributor>
-            <name>Tim Nee</name>
-        </contributor>
-        <contributor>
-            <name>Tom Rigole</name>
-        </contributor>
-        <contributor>
-            <name>Vadim Shaigorodskiy</name>
-        </contributor>
-        <contributor>
-            <name>Vincent Jassogne</name>
-        </contributor>
-        <contributor>
-            <name>Wing Tung Leung</name>
-        </contributor>
-    </contributors>
 
     <distributionManagement>
         <snapshotRepository>

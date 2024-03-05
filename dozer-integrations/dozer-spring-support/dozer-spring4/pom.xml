@@ -32,11 +32,6 @@
     <packaging>jar</packaging>
     <name>Dozer :: Integrations :: Spring Support :: Spring 4</name>
 
-    <properties>
-        <osgi.Bundle-Activator/>
-        <osgi.Export-Package>com.github.dozermapper.spring.*</osgi.Export-Package>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.github.dozermapper</groupId>
