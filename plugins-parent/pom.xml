@@ -274,53 +274,6 @@
                 </configuration>
             </plugin>
 
-            <!-- OSGi Plugins; alphabetical order -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>false</extensions>
-                <configuration>
-                    <instructions>
-                        <Bundle-Activator>${osgi.Bundle-Activator}</Bundle-Activator>
-                        <Bundle-Name>${project.name}</Bundle-Name>
-                        <Bundle-DocURL>https://dozermapper.github.io/gitbook/</Bundle-DocURL>
-                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-                        <DynamicImport-Package>*</DynamicImport-Package>
-                        <Export-Package>${osgi.Export-Package};version=${project.version}</Export-Package>
-                        <Import-Package>${osgi.Import-Package}</Import-Package>
-                        <Implementation-Title>${project.name}</Implementation-Title>
-                        <Implementation-Version>${project.version}</Implementation-Version>
-                        <Karaf-Info>${project.groupId}.${project.artifactId}=${project.version}</Karaf-Info>
-                        <Require-Capability>${osgi.Require-Capability}</Require-Capability>
-                        <Provide-Capability>${osgi.Provide-Capability}</Provide-Capability>
-                        <SPI-Consumer>${osgi.SPI-Consumer}</SPI-Consumer>
-                        <SPI-Provider>${osgi.SPI-Provider}</SPI-Provider>
-                        <_versionpolicy>${osgi.Import-Package.default.version}</_versionpolicy>
-                    </instructions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>versions</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>cleanVersions</goal>
-                        </goals>
-                        <configuration>
-                            <versions>
-                                <osgi.version.clean>${project.version}</osgi.version.clean>
-                            </versions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>bundle</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Governance Plugins; alphabetical order -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
