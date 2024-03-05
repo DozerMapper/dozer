@@ -2,6 +2,10 @@ name: Publish package to GitHub Packages
 on:
   release:
     types: [created]
+
+# Declare default permissions as read only.
+permissions: read-all
+
 jobs:
   publish:
     runs-on: ubuntu-latest
