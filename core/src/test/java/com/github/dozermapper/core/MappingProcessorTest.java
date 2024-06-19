@@ -16,7 +16,11 @@
 package com.github.dozermapper.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.github.dozermapper.core.vo.A;
 import com.github.dozermapper.core.vo.B;
@@ -156,5 +160,40 @@ public class MappingProcessorTest extends AbstractDozerTest {
             return id;
         }
     }
+    public static class Source {
+        Map<String, Set<String>> map;
 
+        public Map<String, Set<String>> getMap() {
+            return map;
+        }
+
+        public void setMap(Map<String, Set<String>> map) {
+            this.map = map;
+        }
+    }
+
+    public static class Target {
+        Map<String, Set<String>> map;
+
+        public Map<String, Set<String>> getMap() {
+            return map;
+        }
+
+        public void setMap(Map<String, Set<String>> map) {
+            this.map = map;
+        }
+    }
+
+    @Test
+    public void testSourceToTargetMapping() {
+        final Mapper mapper = DozerBeanMapperBuilder.create().build();
+        Source source = new Source();
+        Map<String, Set<String>> sourceMap = new HashMap<>();
+        sourceMap.put("foo", new HashSet<>(List.of("bar")));
+        source.setMap(sourceMap);
+        Target target = mapper.map(source, Target.class);
+        assertNotNull(target.getMap());
+        assertEquals(source.getMap().size(), target.getMap().size());
+
+    }
 }
