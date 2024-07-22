@@ -630,10 +630,13 @@ public class MappingProcessor implements Mapper {
             result = addToSet(srcObj, fieldMap, Arrays.asList((Object[])srcCollectionValue), destObj);
         } else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isSet(destCollectionType)) {
             // Collection to Set
-            result = addToSet(srcObj, fieldMap, (Collection<?>)srcCollectionValue, destObj);
-        } else if (CollectionUtils.isCollection(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
+            result = addToSet(srcObj, fieldMap, (Collection<?>) srcCollectionValue, destObj);
+        } else if (CollectionUtils.isList(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
             // List to Map value
-            result = mapListToList(srcObj, (List<?>)srcCollectionValue, fieldMap, destObj);
+            result = mapListToList(srcObj, (List<?>) srcCollectionValue, fieldMap, destObj);
+        } else if (CollectionUtils.isSet(srcFieldType) && MappingUtils.isSupportedMap(destCollectionType)) {
+            // Set to Map value
+            result = mapListToList(srcObj, (Set<?>) srcCollectionValue, fieldMap, destObj);
         } else if (CollectionUtils.isCollection(srcFieldType) && CollectionUtils.isList(destCollectionType)) {
             // List to List
             // Set to List
